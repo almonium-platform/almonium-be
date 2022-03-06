@@ -1,21 +1,19 @@
 package com.example.linguatool.persistence.entity;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "account")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 public class UserEntity {
 
     @Id
@@ -32,16 +30,4 @@ public class UserEntity {
     @Column(name = "registered_datetime", nullable = false, updatable = false)
     private LocalDateTime registeredDatetime;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserEntity that = (UserEntity) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
