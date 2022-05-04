@@ -1,10 +1,12 @@
 package com.linguatool.config;
 
 import com.linguatool.dto.SocialProvider;
-import com.linguatool.model.Role;
-import com.linguatool.model.User;
+import com.linguatool.model.user.Role;
+import com.linguatool.model.user.User;
 import com.linguatool.repo.RoleRepository;
 import com.linguatool.repo.UserRepository;
+import com.linguatool.service.UserService;
+import com.linguatool.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
@@ -21,16 +24,16 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-	private boolean alreadySetup = false;
+    private boolean alreadySetup = false;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 	@Override
 	@Transactional
@@ -42,7 +45,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		Role userRole = createRoleIfNotFound(Role.ROLE_USER);
 		Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
 		Role modRole = createRoleIfNotFound(Role.ROLE_MODERATOR);
-		createUserIfNotFound("admin@javachinna.com", Set.of(userRole, adminRole, modRole));
+		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole, modRole));
 		alreadySetup = true;
 	}
 
@@ -53,7 +56,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			user = new User();
 			user.setDisplayName("Admin");
 			user.setEmail(email);
-			user.setPassword(passwordEncoder.encode("admin@"));
+			user.setPassword(passwordEncoder.encode("password"));
 			user.setRoles(roles);
 			user.setProvider(SocialProvider.LOCAL.getProviderType());
 			user.setEnabled(true);

@@ -1,0 +1,48 @@
+.form-input-autocomplete {
+  /*margin: auto;*/
+  /*width: 50%;*/
+  /*border: 3px solid green;*/
+  /*padding: 10px;*/
+}
+
+.input-autocomplete {
+  /*border: 3px solid green;*/
+  /*size: 10em;*/
+  /*width: 500px;*/
+  /*margin-bottom: -22px;*/
+  /*border-bottom: 1px solid black;*/
+}
+
+/*.mat-form-field {*/
+/*  width: 800px;*/
+/*}*/
+
+.search {
+  display: flex;
+  margin-top: 15em;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 50px;
+  text-align: center;
+  /*outline: none;*/
+
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: gray !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
+}

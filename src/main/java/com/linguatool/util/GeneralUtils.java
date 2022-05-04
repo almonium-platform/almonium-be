@@ -3,8 +3,8 @@ package com.linguatool.util;
 import com.linguatool.dto.LocalUser;
 import com.linguatool.dto.SocialProvider;
 import com.linguatool.dto.UserInfo;
-import com.linguatool.model.Role;
-import com.linguatool.model.User;
+import com.linguatool.model.user.Role;
+import com.linguatool.model.user.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;

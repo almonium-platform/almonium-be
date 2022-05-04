@@ -1,0 +1,30 @@
+
+<h5>Search</h5>
+
+<form autocomplete="off" action="/action_page.php">
+
+  <div class="autocomplete" style="width:600px;">
+    <input [(ngModel)]="searchText" id="myInput" name="search" ngModel placeholder="The word you don't know.."
+           type="text">
+  </div>
+  <input type="submit">
+  <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.png"
+                                                                   alt="Reverso" height="60"
+                                                                   width="60"></a>
+
+
+</form>
+<form>
+  <h1>INPUT</h1>
+  <div ng-controller="myCtrl as ctrl" layout="column" ng-cloak>
+    <mat-form-field style="width: 300px; display: block;">
+      <input type="text" placeholder="Netflix Webseries" matInput [formControl]="formControl" [matAutocomplete]="auto">
+      <mat-autocomplete md-selected-item-change autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let item of filteredOptions | async  | slice : 0 : 5" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</form>
+

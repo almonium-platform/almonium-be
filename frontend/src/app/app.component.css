@@ -1,0 +1,61 @@
+.custom-toolbar {
+  background-color: #f8f6f6;
+  /*box-sizing: border-box;*/
+}
+
+span {
+  margin: 0.5em;
+}
+
+.main-icon {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+a {
+  font-size: large;
+}
+
+.custom-toolbar:hover {
+  /*padding: 0 5px;*/
+  /*border-bottom: 2px solid black;*/
+  box-shadow: 0 0 0 2px #282626;
+}
+
+/*.nav-link:hover {*/
+/*  text-decoration: underline;*/
+/*  text-decoration-thickness: 2px;*/
+/*}*/
+.menu-item {
+  border: 1px solid transparent;
+}
+
+.menu-item:hover {
+  /*background-color: lightgray;*/
+  border-bottom: 1px solid #3d3939;
+  /*box-shadow: 0 0 0 2px #282626;*/
+}
+
+.account-menu-item {
+
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-button {
+  font-size: 20px;
+  /*width: unset;*/
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  /*height: 60px;*/
+  /*width: 60px;*/
+}
+
+.accountSpan {
+  display: flex;
+  flex-direction: column;
+  width: unset;
+}

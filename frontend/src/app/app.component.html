@@ -1,24 +1,63 @@
 <div id="app">
-	<nav class="navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand p-0" href="/">
-			<img src="/assets/img/logo.png" width="200" height="50" alt="JavaChinna">
-		</a>
-		<ul class="navbar-nav mr-auto" routerLinkActive="active">
-			<li class="nav-item"><a href="/home" class="nav-link" routerLink="home">Home </a></li>
-			<li class="nav-item" *ngIf="showAdminBoard"><a href="/admin" class="nav-link" routerLink="admin">Admin Board</a></li>
-			<li class="nav-item" *ngIf="showModeratorBoard"><a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a></li>
-			<li class="nav-item"><a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a></li>
-		</ul>
-		<ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-			<li class="nav-item"><a href="/register" class="nav-link" routerLink="register">Sign Up</a></li>
-			<li class="nav-item"><a href="/login" class="nav-link" routerLink="login">Login</a></li>
-		</ul>
-		<ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-			<li class="nav-item"><a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a></li>
-			<li class="nav-item"><a href class="nav-link" (click)="logout()">LogOut</a></li>
-		</ul>
-	</nav>
-	<div class="container-fluid bg-light">
-		<router-outlet></router-outlet>
-	</div>
+  <mat-toolbar class="custom-toolbar" color="accent">
+    <span class="main-icon">
+      <a mat-list-item routerLink="/">
+        <img src="../assets/img/icons/academy.svg" alt="Logo" height="49" width="49">
+      </a>
+    </span>
+    <span class="menu-item">
+      <a class="nav-link" href="/home" mat-button routerLink="home"> Home</a>
+    </span>
+    <span class="menu-item">
+      <a class="nav-link" href="/discover" mat-button routerLink="discover"> Discover</a>
+    </span>
+    <span class="example-spacer"></span>
+
+    <span class="accountSpan">
+      <button mat-button [matMenuTriggerFor]="accountMenu" *ngIf="isLoggedIn">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ currentUser.displayName }}</span>
+      </button>
+    </span>
+    <mat-menu #accountMenu="matMenu" yPosition="below" xPosition="after">
+      <button mat-menu-item routerLink="profile">Profile</button>
+      <button mat-menu-item routerLink="settings">Settings</button>
+      <button mat-menu-item class="nav-link" (click)="logout()">Log out</button>
+    </mat-menu>
+
+    <span class="accountSpan">
+      <button mat-icon-button routerLink="login" *ngIf="!isLoggedIn">
+        <mat-icon>login</mat-icon>
+      </button>
+          </span>
+    <span class="accountSpan">
+    <button mat-icon-button routerLink="register" *ngIf="!isLoggedIn">
+        <mat-icon>assignment</mat-icon>
+      </button>
+    </span>
+
+  </mat-toolbar>
+  <!--  <nav class="navbar navbar-expand navbar-dark bg-dark">-->
+  <!--		<a class="navbar-brand p-0" href="/">-->
+  <!--			<img src="/assets/img/logo.png" width="50" height="50" alt="JavaChinna">-->
+  <!--		</a>-->
+  <!--		<ul class="navbar-nav mr-auto" routerLinkActive="active">-->
+  <!--			<li class="nav-item"><a href="/home" class="nav-link" routerLink="home">Home </a></li>-->
+  <!--			<li class="nav-item"><a href="/discover" class="nav-link" routerLink="discover">Discover </a></li>-->
+  <!--			<li class="nav-item" *ngIf="showAdminBoard"><a href="/admin" class="nav-link" routerLink="admin">Admin Board</a></li>-->
+  <!--			<li class="nav-item" *ngIf="showModeratorBoard"><a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a></li>-->
+  <!--			<li class="nav-item"><a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a></li>-->
+  <!--		</ul>-->
+  <!--		<ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">-->
+  <!--			<li class="nav-item"><a href="/register" class="nav-link" routerLink="register">Sign Up</a></li>-->
+  <!--			<li class="nav-item"><a href="/login" class="nav-link" routerLink="login">Login</a></li>-->
+  <!--		</ul>-->
+  <!--		<ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">-->
+  <!--			<li class="nav-item"><a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a></li>-->
+  <!--			<li class="nav-item"><a href class="nav-link" (click)="logout()">LogOut</a></li>-->
+  <!--		</ul>-->
+  <!--	</nav>-->
+  <div class="container-fluid bg-light">
+    <router-outlet></router-outlet>
+  </div>
 </div>

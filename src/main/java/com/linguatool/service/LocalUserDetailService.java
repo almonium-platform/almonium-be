@@ -2,7 +2,7 @@ package com.linguatool.service;
 
 import com.linguatool.dto.LocalUser;
 import com.linguatool.exception.ResourceNotFoundException;
-import com.linguatool.model.User;
+import com.linguatool.model.user.User;
 import com.linguatool.util.GeneralUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
