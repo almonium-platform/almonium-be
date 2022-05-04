@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * The persistent class for the role database table.
- * 
+ *
  */
 @Entity
 @Getter
@@ -25,7 +25,7 @@ public class Role implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ROLE_ID")
+	@Column(name = "id")
 	private Long roleId;
 
 	private String name;

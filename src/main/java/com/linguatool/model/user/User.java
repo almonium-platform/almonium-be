@@ -1,6 +1,7 @@
 package com.linguatool.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,56 +9,60 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
-/**
- * The persistent class for the user database table.
- * 
- */
+
 @Entity
 @NoArgsConstructor
-@Getter
-@Table(name="account")
-@Setter
+@Data
+@Table(name = "account")
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 65981149772133526L;
+    private static final long serialVersionUID = 65981149772133526L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "PROVIDER_USER_ID")
-	private String providerUserId;
+    @Column(name = "PROVIDER_USER_ID")
+    private String providerUserId;
 
-	private String email;
+    private String email;
 
-	@Type(type = "numeric_boolean")
-//	@Column(name = "enabled", columnDefinition = "BIT", length = 1)
-	private boolean enabled;
+    @Type(type = "numeric_boolean")
+    private boolean enabled;
 
-	@Column(name = "DISPLAY_NAME")
-	private String displayName;
+    @Column(name = "DISPLAY_NAME")
+    private String displayName;
 
-	@Column(name = "created_date", nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date createdDate;
+    @Column(columnDefinition = "TIMESTAMP", name = "created_date", nullable = false, updatable = false)
+    protected LocalDateTime created;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date modifiedDate;
+    @Column(columnDefinition = "TIMESTAMP")
+    protected LocalDateTime modified;
 
-	private String password;
+    private String password;
 
-	private String provider;
+    private String provider;
 
-	// bi-directional many-to-many association to Role
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
-	private Set<Role> roles;
+    private boolean friendshipRequestsBlocked;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_role",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    private Set<Role> roles;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "requestee")
+    private Set<Friendship> friendshipsInitiated;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "requester")
+    private Set<Friendship> friendshipsRequested;
+
 }

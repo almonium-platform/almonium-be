@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -47,9 +48,9 @@ public class UserServiceImpl implements UserService {
 			throw new UserAlreadyExistAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exist");
 		}
 		User user = buildUser(signUpRequest);
-		Date now = Calendar.getInstance().getTime();
-		user.setCreatedDate(now);
-		user.setModifiedDate(now);
+		LocalDateTime now = LocalDateTime.now();
+		user.setCreated(now);
+		user.setModified(now);
 		user = userRepository.save(user);
 		userRepository.flush();
 		return user;
