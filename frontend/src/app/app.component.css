@@ -9,6 +9,7 @@ span {
 
 .main-icon {
   margin-left: 1em;
+  margin-top: .9em;
   margin-right: 1em;
 }
 
@@ -58,4 +59,101 @@ a {
   display: flex;
   flex-direction: column;
   width: unset;
+}
+
+::ng-deep .mat-select-content {
+  width: 10px;
+  /*background-color: red;*/
+  /*font-size: 2px;*/
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.text-sm {
+  font-size: .8em;
+  border-right: 0;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+::ng-deep mat-form-field {
+  /*border-right: 0;*/
+  /*padding-right: 0;*/
+  /*margin-right: 0;*/
+
+  /*width: 4em !important;*/
+}
+
+::ng-deep mat-option {
+  /*border-right: 0;*/
+  /*padding-right: 0;*/
+  /*margin-right: 0;*/
+
+  /*width: 2em !important;*/
+}
+
+/*::ng-deep.mat-form-field {*/
+/*  width: auto !important;*/
+/*}*/
+
+/*::ng-deep.mat-select-value {*/
+/*  max-width: 100%;*/
+/*  width: auto;*/
+/*}*/
+
+.mat-icon {
+  border-right: 0;
+  padding-right: 0;
+  margin-right: 0;
+
+  /*vertical-align: middle;*/
+}
+
+::ng-deep .mat-icon {
+  border-right: 0;
+  padding-right: 0;
+  margin-right: 0;
+
+  /*font-size: 48px;*/
+  /*width: 20px;*/
+  /*height: 20px;*/
+}
+
+.matoption {
+  border-right: 0;
+  padding-right: 0;
+  margin-right: 0;
+
+  font-size: 180px;
+  /*width: fit-content;*/
+}
+
+/*.mat-icon-button {*/
+/*  border: 2px black;*/
+/*}*/
+
+.thisbutton {
+  font-size: 1.1em;
+}
+
+.moomba {
+  padding: 0;
+  margin: 0;
+  border: 2px solid #282626 !important;
+}
+
+/*.mat-menu-item {*/
+/*}*/
+
+.inter {
+  display: flex;
+  justify-content: center;
+  padding-left: 0.09em;
+  /*border-bottom: 1.9em;*/
+}
+
+.local-lang-picker {
+  margin-right: 1em;
 }

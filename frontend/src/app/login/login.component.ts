@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Directive, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {UserService} from '../_services/user.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
 import {AppConstants} from '../common/app.constants';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,17 +14,27 @@ import {AppConstants} from '../common/app.constants';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {};
+  loginForm: any = {};
+  capsOn;
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  signUpForm: any = {};
+  isSignUpSuccessful = false;
+  isSignUpFailed = false;
   currentUser: any;
+  hide = true;
   googleURL = AppConstants.GOOGLE_AUTH_URL;
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
   githubURL = AppConstants.GITHUB_AUTH_URL;
   linkedinURL = AppConstants.LINKEDIN_AUTH_URL;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              public router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -47,13 +58,33 @@ export class LoginComponent implements OnInit {
       this.errorMessage = error;
       this.isLoginFailed = true;
     }
+    if (this.isLoggedIn) {
+      window.location.href = '/home';
+    }
   }
 
-  onSubmit(): void {
-    this.authService.login(this.form).subscribe(
+  onRegistrationSubmit(): void {
+    console.log("registration")
+    this.authService.register(this.signUpForm).subscribe(
+      data => {
+        console.log(data);
+        this.isSignUpSuccessful = true;
+        this.isSignUpFailed = false;
+        window.location.href = '/';
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    );
+  }
+
+  onLoginSubmit(): void {
+    this.authService.login(this.loginForm).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.login(data.user);
+        window.location.href = '/home';
       },
       err => {
         this.errorMessage = err.error.message;
@@ -68,6 +99,29 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn = true;
     this.currentUser = this.tokenStorage.getUser();
     window.location.reload();
+  }
+
+  get passwordInput() {
+    return this.loginForm.get('password');
+  }
+
+  navigateToGoogle(): void {
+    window.location.href = this.googleURL;
+  }
+}
+
+@Directive({selector: '[capsLock]'})
+export class TrackCapsDirective {
+  @Output('capsLock') capsLock = new EventEmitter<Boolean>();
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    this.capsLock.emit(event.getModifierState && event.getModifierState('CapsLock'));
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyUp(event: KeyboardEvent): void {
+    this.capsLock.emit(event.getModifierState && event.getModifierState('CapsLock'));
   }
 
 }

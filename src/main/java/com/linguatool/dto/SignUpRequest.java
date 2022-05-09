@@ -1,17 +1,12 @@
 package com.linguatool.dto;
 
-import com.linguatool.validator.PasswordMatches;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-/**
- * @author Chinna
- * @since 26/3/18
- */
+
 @Data
-@PasswordMatches
 public class SignUpRequest {
 
 	private Long userID;
@@ -19,22 +14,20 @@ public class SignUpRequest {
 	private String providerUserId;
 
 	@NotEmpty
-	private String displayName;
+	private String username;
 
 	@NotEmpty
 	private String email;
 
 	private SocialProvider socialProvider;
 
-	@Size(min = 6, message = "{Size.userDto.password}")
+	@Size(min = 8, message = "{Size.userDto.password}")
 	private String password;
 
-	@NotEmpty
-	private String matchingPassword;
 
-	public SignUpRequest(String providerUserId, String displayName, String email, String password, SocialProvider socialProvider) {
+	public SignUpRequest(String providerUserId, String username, String email, String password, SocialProvider socialProvider) {
 		this.providerUserId = providerUserId;
-		this.displayName = displayName;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.socialProvider = socialProvider;
@@ -46,7 +39,7 @@ public class SignUpRequest {
 
 	public static class Builder {
 		private String providerUserID;
-		private String displayName;
+		private String username;
 		private String email;
 		private String password;
 		private SocialProvider socialProvider;
@@ -56,8 +49,8 @@ public class SignUpRequest {
 			return this;
 		}
 
-		public Builder addDisplayName(final String displayName) {
-			this.displayName = displayName;
+		public Builder addusername(final String username) {
+			this.username = username;
 			return this;
 		}
 
@@ -77,7 +70,7 @@ public class SignUpRequest {
 		}
 
 		public SignUpRequest build() {
-			return new SignUpRequest(providerUserID, displayName, email, password, socialProvider);
+			return new SignUpRequest(providerUserID, username, email, password, socialProvider);
 		}
 	}
 }

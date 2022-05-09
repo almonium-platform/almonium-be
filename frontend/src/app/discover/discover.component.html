@@ -1,22 +1,24 @@
 <div class="search">
-  <form class="form-input-autocomplete">
-<!--    <mat-form-field [style.width.px]=800 color="accent">-->
-<!--      <input #input [(ngModel)]="searchText" [formControl]="formControl" [matAutocomplete]="auto"-->
-<!--             class="input-autocomplete"-->
-<!--             matInput type="text">-->
-<!--      {{ input.focus() }}-->
-<!--     paste here!!-->
-<!--      <mat-autocomplete-->
-<!--        #auto="matAutocomplete"-->
-<!--        autoActiveFirstOption>-->
-<!--        <mat-option *ngFor="let option of filteredOptions | async  | slice : 0 : 5" [value]="option">-->
-<!--          {{option}}-->
-<!--        </mat-option>-->
-
-<!--      </mat-autocomplete>-->
-<!--    </mat-form-field>-->
-    <!--    <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.png" alt="Reverso"-->
-    <!--                                                                     height="60" width="60"></a>-->
-  </form>
+    <form class="form-input-autocomplete">
+      <mat-form-field [style.width.px]=800 color="accent">
+        <input #input [(ngModel)]="searchText" [formControl]="formControl"
+               [matAutocomplete]="auto"
+               [appFocus]=true
+               class="input-autocomplete"
+               matInput type="text">
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          autoActiveFirstOption
+          (optionSelected)='optionSelectedHandler($event.option.value)'>
+          <mat-option *ngFor="let option of filteredOptions | async  | slice : 0 : 5" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
 </div>
 <!--(optionSelected)='optionSelectedHandler($event.option.value)'-->
+
+
+<!--<a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.png" alt="Reverso"-->
+<!--                                                                 height="60" width="60"></a>-->

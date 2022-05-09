@@ -29,6 +29,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private UserRepository userRepository;
 
+	@Autowired
+	private UserServiceImpl userService;
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -42,11 +45,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			return;
 		}
 		// Create initial roles
-		Role userRole = createRoleIfNotFound(Role.ROLE_USER);
-		Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
-		Role modRole = createRoleIfNotFound(Role.ROLE_MODERATOR);
-		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole, modRole));
-		alreadySetup = true;
+//		Role userRole = createRoleIfNotFound(Role.ROLE_USER);
+//		Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
+//		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
+//		createUserIfNotFound("admin2@mail.com", Set.of(userRole, adminRole));
+//		createUserIfNotFound("admin3@mail.com", Set.of(userRole, adminRole));
+//		userRepository.getById(2L);
+//		userRepository.getById(1L);
+//		userService.createFriendshipRequest(2L, 3L);
+		userService.confirmFriendshipRequest(3L, 2L);
+//		alreadySetup = true;
 	}
 
 	@Transactional
@@ -54,7 +62,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
 			user = new User();
-			user.setDisplayName("Admin");
+			user.setUsername("Admin");
 			user.setEmail(email);
 			user.setPassword(passwordEncoder.encode("password"));
 			user.setRoles(roles);

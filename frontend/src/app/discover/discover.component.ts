@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../_services/user.service';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
@@ -26,10 +26,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService, private dataService: DataService, private readonly http: HttpClient) {
   }
 
-  // private mat_filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase().split(' ').pop();
-  //   return this.wordlist.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  // }
+  private filterValues(value: string): string[] {
+    const filterValue = value.toLowerCase().split(' ').pop();
+    return this.wordlist.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
 
 
   getReversoLink(): string {
@@ -37,26 +37,43 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.dataService.getWordlist().then(r => {
-    //   this.wordlist = r;
-    // this.formControl.valueChanges.subscribe(() => {
-    //   this.oldValue = this.searchText;
-    // });
-    //
-    // this.filteredOptions = this.formControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(val => val.length >= 3 ? this.mat_filter(val) : [])
-    // );
-    // });
+    this.dataService.getWordlist().then(r => {
+      this.wordlist = r;
+    this.formControl.valueChanges.subscribe(() => {
+      this.oldValue = this.searchText;
+    });
+
+    this.filteredOptions = this.formControl.valueChanges.pipe(
+      startWith(''),
+      map(val => val.split(' ').pop().length >= 3 ? this.filterValues(val) : [])
+    );
+    });
   }
 
   ngOnDestroy(): void {
-
+    // this.filteredOptions.
   }
 
-  // optionSelectedHandler(value: any) {
-    // let before = this.oldValue.substr(0, this.oldValue.lastIndexOf(' ') + 1);
-    // this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
-  // }
+  optionSelectedHandler(value: any) {
+    let before = this.oldValue.substr(0, this.oldValue.lastIndexOf(' ') + 1);
+    this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
+  }
 
+}
+@Directive({
+  selector: 'input[appFocus]',
+})
+export class FocusOnShowDirective implements AfterViewInit {
+  @Input('appFocus')
+  private focused: boolean = false;
+
+  constructor(public element: ElementRef<HTMLElement>) {
+  }
+
+  ngAfterViewInit(): void {
+    // ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
+    if (this.focused) {
+      setTimeout(() => this.element.nativeElement.focus(), 0);
+    }
+  }
 }

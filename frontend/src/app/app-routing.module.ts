@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -16,7 +15,6 @@ const routes: Routes = [
   {path: 'discover', component: DiscoverComponent},
   {path: 'login', component: LoginComponent},
   {path: 'settings', component: SettingsComponent},
-  {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'user', component: BoardUserComponent},
   {path: 'mod', component: BoardModeratorComponent},

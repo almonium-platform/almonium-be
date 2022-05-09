@@ -1,80 +1,101 @@
-label {
+/*:host {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  margin: 100px 0;*/
+/*}*/
+
+/*.mat-form-field {*/
+/*  min-width: 300px;*/
+/*  margin-right: 10px;*/
+/*  margin-left: 10px;*/
+/*}*/
+
+/*mat-card-title,*/
+/*mat-card-content {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+
+/*mat-icon {*/
+/*  float: right;*/
+/*  opacity: 0.5;*/
+/*  margin-top: 14px;*/
+/*}*/
+/*.submit-button {*/
+/*  display: flex;*/
+/*  color: black;*/
+/*  justify-content: center;*/
+/*}*/
+/*::ng-deep .mat-card{*/
+/*  background-color: dimgray;*/
+/*  border-radius: 30px !important;*/
+/*}*/
+
+.login-page {
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   display: block;
-  margin-top: 10px;
+  /*background-color: #303F9F;*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
 }
 
-.card-container.card {
-  max-width: 400px !important;
-  padding: 40px 40px;
+mat-card {
+  width: 20%;
+  margin: 10% auto;
+  border-radius: 8px;
 }
 
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
+mat-form-field, mat-checkbox {
+  width: 80%;
   display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
+  margin: auto;
 }
 
-.content-divider.center {
-	text-align: center;
+mat-card-content {
+  margin-top: 20px;
 }
 
-.content-divider {
-	position: relative;
-	z-index: 1;
+.login-button {
+  display: block;
+  width: 80%;
+  margin: 20px auto;
 }
 
-.content-divider>span, .content-divider>a {
-	background-color: #fff;
-	color: #000;
-	display: inline-block;
-	padding: 2px 12px;
-	border-radius: 3px;
-	text-transform: uppercase;
-	font-weight: 500;
+.google-icon-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
-.content-divider>span:before, .content-divider>a:before {
-	content: "";
-	position: absolute;
-	top: 50%;
-	left: 0;
-	height: 1px;
-	background-color: #ddd;
-	width: 100%;
-	z-index: -1;
+.google-icon {
+  margin-right: 1em;
 }
 
-.social-login .btn-img {
-	width: 30px;
-	height: auto;
-	padding: 0.6rem 0;
-	margin-right: 15px;
+.google-button {
+  background-color: white;
+  color: black;
+  display: block;
+  width: 80%;
+  margin: 20px auto;
 }
-
-.btn-img-linkedin {
-	width: auto;
-	height: 50px;
-	padding: 0.6rem 0;
-	margin-right: 10px;
+.custom-success
+{
+  position: fixed!important; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 2%;
+  bottom: 3%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(208, 76, 76); /* Fallback color */
+  background-color: rgba(175, 41, 41, 0.5); /* Black w/ opacity */
+  color: #b43c3c;
 }
+.registration-result {
+  justify-content: center;
+  display: flex;
 
-.form-group .has-error {
-	color: red;
 }

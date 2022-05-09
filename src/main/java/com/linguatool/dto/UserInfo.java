@@ -6,6 +6,6 @@ import java.util.List;
 
 @Value
 public class UserInfo {
-	private String id, displayName, email;
+	private String id, username, email;
 	private List<String> roles;
 }

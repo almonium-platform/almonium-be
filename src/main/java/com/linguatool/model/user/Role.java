@@ -1,17 +1,17 @@
 package com.linguatool.model.user;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * The persistent class for the role database table.
- *
- */
+
 @Entity
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class Role implements Serializable {
 	public Role(String name) {
 		this.name = name;
 	}
-
+//
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,16 +58,14 @@ public class Role implements Serializable {
 			return false;
 		}
 		final Role role = (Role) obj;
-		if (!role.equals(role.name)) {
-			return false;
-		}
-		return true;
+		return role.equals(role.name);
 	}
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("Role [name=").append(name).append("]").append("[id=").append(roleId).append("]");
-		return builder.toString();
+		return "Role{" +
+			"roleId=" + roleId +
+			", name='" + name + '\'' +
+			'}';
 	}
 }

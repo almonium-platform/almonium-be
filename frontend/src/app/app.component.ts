@@ -16,9 +16,13 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   username: string;
   currentUser: any;
+  languages: string[];
+  language: string;
 
   constructor(private tokenStorageService: TokenStorageService) {
     this.currentUser = this.tokenStorageService.getUser();
+    this.languages = ['DE', 'RU', 'UA'];
+    this.language = 'de';
     // this.matIconRegistry.addSvgIcon(
     //   `avatar`,
     //   this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/img/icons/avatar.svg`)
@@ -36,16 +40,25 @@ export class AppComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
-      this.username = user.displayName;
+      this.username = user.username;
     }
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    window.location.href = '/login' +
+      '';
   }
 
   setRole(admin: string) {
+
+  }
+
+  changeLanguage(language: string) {
+    this.language = language.toLowerCase();
+  }
+
+  passLang(value: any) {
 
   }
 }
