@@ -83,19 +83,38 @@ mat-card-content {
   width: 80%;
   margin: 20px auto;
 }
-.custom-success
-{
-  position: fixed!important; /* Stay in place */
+
+.custom-success {
+  position: fixed !important; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 2%;
   bottom: 3%;
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(208, 76, 76); /* Fallback color */
+  background-color: rgb(240, 115, 121); /* Fallback color */
   background-color: rgba(175, 41, 41, 0.5); /* Black w/ opacity */
   color: #b43c3c;
 }
+
 .registration-result {
   justify-content: center;
   display: flex;
+  /*color: hotpink;*/
 
+}
+
+.custom-error {
+  display: flex;
+  justify-content: center;
+  color: rgb(240, 115, 121);
+}
+.forgot-link {
+  display: flex;
+  justify-content: left;
+  padding-left: 1.5em;
+  margin-left: 1em;
+  color: white;
+}
+a {
+  color: hotpink;
+  text-decoration: none;
 }

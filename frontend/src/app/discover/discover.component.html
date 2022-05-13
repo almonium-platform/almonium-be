@@ -1,5 +1,5 @@
 <div class="search">
-    <form class="form-input-autocomplete">
+    <form class="form-input-autocomplete" (ngSubmit)="search()">
       <mat-form-field [style.width.px]=800 color="accent">
         <input #input [(ngModel)]="searchText" [formControl]="formControl"
                [matAutocomplete]="auto"

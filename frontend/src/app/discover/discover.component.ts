@@ -59,6 +59,9 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
   }
 
+  search() {
+    console.log(this.searchText);
+  }
 }
 @Directive({
   selector: 'input[appFocus]',

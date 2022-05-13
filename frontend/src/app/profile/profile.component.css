@@ -1,0 +1,41 @@
+.circle {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle img {
+  border-radius: 50%;
+  width: 60px;
+
+  height: 60px;
+}
+.circle .initials {
+  color: #FFFFFF;
+  font-size: 20px;
+  line-height: 19px;
+  letter-spacing: 0.2625px;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: gray !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
+}
+
+.mat-focused .placeholder {
+  color: #00D318;
+}
+::ng-deep .mat-input-element::placeholder {
+  color: gray;
+}

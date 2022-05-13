@@ -4,16 +4,16 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class StatusConverter implements AttributeConverter<Status, String> {
+public class LanguageConverter implements AttributeConverter<Language, String> {
 
     @Override
-    public String convertToDatabaseColumn(Status nodeType) {
+    public String convertToDatabaseColumn(Language nodeType) {
         return nodeType.getCode();
     }
 
     @Override
-    public Status convertToEntityAttribute(String dbData) {
-        for (Status nodeType : Status.values()) {
+    public Language convertToEntityAttribute(String dbData) {
+        for (Language nodeType : Language.values()) {
             if (nodeType.getCode().equals(dbData)) {
                 return nodeType;
             }

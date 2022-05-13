@@ -29,8 +29,4 @@ export class AuthService {
       socialProvider: 'LOCAL'
     }, httpOptions);
   }
-
-  getFriends(user): Observable<any> {
-    return this.http.get(AppConstants.AUTH_API + 'friends');
-  }
 }

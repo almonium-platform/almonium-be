@@ -1,7 +1,7 @@
 package com.linguatool.security.oauth2.user;
 
 import com.linguatool.dto.SocialProvider;
-import com.linguatool.exception.OAuth2AuthenticationProcessingException;
+import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
 
 import java.util.Map;
 

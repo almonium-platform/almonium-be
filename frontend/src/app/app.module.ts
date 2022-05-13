@@ -30,6 +30,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table';
+import { AlertComponent } from './alert/alert.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     TrackCapsDirective,
     FocusOnShowDirective,
     DiscoverComponent,
-    SettingsComponent
+    SettingsComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatMenuModule,
     MatTooltipModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatRadioModule,
+    MatSidenavModule
   ],
   providers: [authInterceptorProviders,
     {provide: LOCALE_ID, useValue: 'en'}],

@@ -1,14 +1,18 @@
 package com.linguatool.service;
 
+import com.linguatool.dto.FriendshipCommandDto;
 import com.linguatool.dto.LocalUser;
 import com.linguatool.dto.SignUpRequest;
 import com.linguatool.dto.SocialProvider;
-import com.linguatool.exception.OAuth2AuthenticationProcessingException;
-import com.linguatool.exception.UserAlreadyExistAuthenticationException;
+import com.linguatool.exception.user.FriendshipNotAllowedException;
+import com.linguatool.exception.user.FriendshipNotFoundException;
+import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
+import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
 import com.linguatool.model.Friend;
+import com.linguatool.model.FriendInfo;
 import com.linguatool.model.user.Friendship;
 import com.linguatool.model.user.Role;
-import com.linguatool.model.user.Status;
+import com.linguatool.model.user.FriendshipStatus;
 import com.linguatool.model.user.User;
 import com.linguatool.repo.FriendshipRepository;
 import com.linguatool.repo.RoleRepository;
@@ -24,15 +28,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static com.linguatool.model.user.Status.PENDING;
+import static com.linguatool.model.user.FriendshipStatus.FRIENDS;
+import static com.linguatool.model.user.FriendshipStatus.PENDING;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,6 +65,8 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
         } else if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             throw new UserAlreadyExistAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exist");
+        } else if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            throw new UserAlreadyExistAuthenticationException("User with username " + signUpRequest.getUsername() + " already exist");
         }
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
@@ -69,17 +77,12 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
-    private User buildFriend(final Long userFrien) {
-        return null; //TODO
-    }
-
     private User buildUser(final SignUpRequest formDTO) {
         User user = new User();
         user.setUsername(formDTO.getUsername());
         user.setEmail(formDTO.getEmail());
         user.setPassword(passwordEncoder.encode(formDTO.getPassword()));
-        final HashSet<Role> roles = new HashSet<Role>();
+        final HashSet<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByName(Role.ROLE_USER));
         user.setRoles(roles);
         user.setProvider(formDTO.getSocialProvider().getProviderType());
@@ -93,15 +96,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<FriendInfo> findFriendByEmail(final String email) {
+        Optional<Friend> friendOptional = userRepository.findFriendByEmail(email);
+        return friendOptional.map(FriendInfo::new);
+    }
+
+
     @Override
     @Transactional
     public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
-        if (StringUtils.isEmpty(oAuth2UserInfo.getName())) {
+        if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
-        } else if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+        } else if (!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
+
         SignUpRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
         User user = findUserByEmail(oAuth2UserInfo.getEmail());
         if (user != null) {
@@ -123,8 +133,13 @@ public class UserServiceImpl implements UserService {
     }
 
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
-        return SignUpRequest.getBuilder().addProviderUserID(oAuth2UserInfo.getId()).addusername(oAuth2UserInfo.getName()).addEmail(oAuth2UserInfo.getEmail())
-            .addSocialProvider(GeneralUtils.toSocialProvider(registrationId)).addPassword("changeit").build();
+        return SignUpRequest.builder()
+            .providerUserId(oAuth2UserInfo.getId())
+            .username(oAuth2UserInfo.getName())
+            .email(oAuth2UserInfo.getEmail())
+            .socialProvider(GeneralUtils.toSocialProvider(registrationId))
+            .password("changeit")
+            .build();
     }
 
     @Override
@@ -132,87 +147,123 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    public Collection<Long> getUsersFriendsIds(long id) {
-        return friendshipRepository
-            .findAllUsersFriendships(id).stream()
-            .flatMap(r -> Stream.of(r.getRequester().getId(), r.getRequestee().getId()))
-            .filter(r -> r != id)
-            .collect(Collectors.toList());
-    }
+    public Collection<FriendInfo> getUsersFriends(long id) {
+        List<Object[]> pairList = friendshipRepository.getUsersFriendsIdsAndStatuses(id);
 
-    public Collection<Friend> getUsersFriends(long id) {
-
-        return this
-            .getUsersFriendsIds(id)
-            .stream()
-            .map(userRepository::findAllById)
-            .flatMap(Optional::stream)
-            .collect(Collectors.toList());
-    }
-
-    public void cancelFriendship(Long requesterId, Long requesteeId) {
-        friendshipRepository.deleteByUsersIds(requesterId, requesteeId);
+        List<FriendInfo> result = new ArrayList<>();
+        pairList.forEach(objects -> {
+            long userId = ((BigInteger) objects[0]).longValue();
+            FriendshipStatus friendshipStatus = (FriendshipStatus.fromString((String) objects[1]));
+            boolean isFriendRequester = (Boolean) objects[2];
+            Optional<Friend> friendOptional = userRepository.findAllById(userId);
+            friendOptional.ifPresent(friend -> result.add(new FriendInfo(friend, friendshipStatus, isFriendRequester)));
+        });
+        return result;
     }
 
     @SneakyThrows
-    public Friendship createFriendshipRequest(long actionInitiatorId, long actionRecipientId) {
-        User user1 = userRepository.getById(actionInitiatorId);
-        if (user1.isFriendshipRequestsBlocked()) {
-            return null;
-        }
+    @Transactional
+    public Friendship cancelFriendship(Long actionInitiatorId, Long actionAcceptorId) {
+        assert (!actionInitiatorId.equals(actionAcceptorId));
+        friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId).orElseThrow(()
+            -> new FriendshipNotFoundException(String.format("Friendship between %s and %s doesn't exist", actionInitiatorId, actionInitiatorId)));
 
-        Optional<Friendship> friendshipOptional = this.getFriendshipByUsersIds(actionInitiatorId, actionRecipientId);
+        friendshipRepository.deleteFriendshipByIds(actionInitiatorId, actionAcceptorId);
+        return null;
+    }
+
+    @SneakyThrows
+    public void unblockFriendship(Long requesterId, Long requesteeId) {
+        this.cancelFriendship(requesterId, requesteeId);
+    }
+
+    @SneakyThrows
+    public Friendship createFriendshipRequest(long actionInitiatorId, long actionAcceptorId) {
+        assert (actionInitiatorId != actionAcceptorId);
+        User recipient = userRepository.getById(actionAcceptorId);
+
+        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
         if (friendshipOptional.isPresent()) {
             Friendship existingFriendship = friendshipOptional.get();
 
-            if (Status.isBlocking(existingFriendship.getStatus())) {
-                return null;
+            if (Long.valueOf(actionAcceptorId).equals(existingFriendship.whoDeniesFriendship())) {
+                throw new FriendshipNotAllowedException("User limited your ability to send requests!");
             }
 
-            throw new Exception(String.format("Friendship between %s and %s already exists ",
-                actionInitiatorId, actionRecipientId));
+            throw new Exception(String.format("Friendship between %s and %s already exists, status: %s",
+                actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()));
+        }
+        if (recipient.isFriendshipRequestsBlocked()) {
+            throw new FriendshipNotAllowedException("User doesn't accept friendship requests!");
         }
 
         Friendship friendship = new Friendship();
         LocalDateTime now = LocalDateTime.now();
-        friendship.setStatus(PENDING);
+        friendship.setFriendshipStatus(PENDING);
         friendship.setCreated(now);
         friendship.setUpdated(now);
-        friendship.setRequesteeId(userRepository.getById(actionInitiatorId).getId());
-        friendship.setRequesterId(userRepository.getById(actionRecipientId).getId());
+        friendship.setRequesterId(userRepository.getById(actionInitiatorId).getId());
+        friendship.setRequesteeId(userRepository.getById(actionAcceptorId).getId());
         friendshipRepository.save(friendship);
         return friendship;
     }
 
 
     @SneakyThrows
-    public Friendship confirmFriendshipRequest(long actionInitiatorId, long actionRecipientId) {
-        Optional<Friendship> friendshipOptional = this.getFriendshipByUsersIds(actionInitiatorId, actionRecipientId);
-        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException(String.format("Friendship of %s and %s not found", actionInitiatorId, actionRecipientId)));
+    public Friendship approveFriendshipRequest(long actionInitiatorId, long actionAcceptorId) {
+        assert (actionInitiatorId != actionAcceptorId);
+
+        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
+        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException(String.format("Friendship of %s and %s not found", actionInitiatorId, actionAcceptorId)));
+
         Friendship friendship = friendshipOptional.get();
+        assert friendship.getFriendshipStatus().equals(PENDING);
 
         LocalDateTime now = LocalDateTime.now();
-        friendship.setStatus(Status.FRIENDS);
+        friendship.setFriendshipStatus(FriendshipStatus.FRIENDS);
         friendship.setUpdated(now);
         friendshipRepository.save(friendship);
         return friendship;
     }
 
-    public Optional<Friendship> getFriendshipByUsersIds(long id1, long id2) {
-        return friendshipRepository.getFriendshipByUsersIds(id1, id2);
-    }
-
     @SneakyThrows
-    public Friendship blockUser(long actionInitiatorId, long actionRecipientId) {
-        Optional<Friendship> friendshipOptional = this.getFriendshipByUsersIds(actionInitiatorId, actionRecipientId);
-        friendshipOptional.orElseThrow(() -> new Exception("hello"));
+    public Friendship blockUser(long actionInitiatorId, long actionAcceptorId) {
+        assert (actionInitiatorId != actionAcceptorId);
+
+        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
+        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException(""));
         Friendship friendship = friendshipOptional.get();
+
+        assert friendship.getFriendshipStatus().equals(FRIENDS) || friendship.getFriendshipStatus().equals(PENDING);
+
         LocalDateTime now = LocalDateTime.now();
         friendship.setUpdated(now);
-//        friendship.setStatus(friendship.getRequesterId().equals(actionInitiatorId)
-//            ? Status.FST_BLOCKED_SND
-//            : Status.SND_BLOCKED_FST
-//        );
+        friendship.setFriendshipStatus(friendship.getRequesterId().equals(actionInitiatorId)
+            ? FriendshipStatus.FST_BLOCKED_SND
+            : FriendshipStatus.SND_BLOCKED_FST
+        );
+        friendshipRepository.save(friendship);
         return friendship;
+    }
+
+    public void editFriendship(FriendshipCommandDto dto) {
+        switch (dto.getAction()) {
+            case REQUEST:
+                this.createFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
+                break;
+            case ACCEPT:
+                this.approveFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
+                break;
+            case BLOCK:
+                this.blockUser(dto.getIdInitiator(), dto.getIdAcceptor());
+                break;
+            case UNBLOCK:
+                this.unblockFriendship(dto.getIdInitiator(), dto.getIdAcceptor());
+            case CANCEL:
+            case REJECT:
+            case UNFRIEND:
+                this.cancelFriendship(dto.getIdInitiator(), dto.getIdAcceptor());
+                break;
+        }
     }
 }

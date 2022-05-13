@@ -1,12 +1,18 @@
 package com.linguatool.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignUpRequest {
 
 	private Long userID;
@@ -33,44 +39,4 @@ public class SignUpRequest {
 		this.socialProvider = socialProvider;
 	}
 
-	public static Builder getBuilder() {
-		return new Builder();
-	}
-
-	public static class Builder {
-		private String providerUserID;
-		private String username;
-		private String email;
-		private String password;
-		private SocialProvider socialProvider;
-
-		public Builder addProviderUserID(final String userID) {
-			this.providerUserID = userID;
-			return this;
-		}
-
-		public Builder addusername(final String username) {
-			this.username = username;
-			return this;
-		}
-
-		public Builder addEmail(final String email) {
-			this.email = email;
-			return this;
-		}
-
-		public Builder addPassword(final String password) {
-			this.password = password;
-			return this;
-		}
-
-		public Builder addSocialProvider(final SocialProvider socialProvider) {
-			this.socialProvider = socialProvider;
-			return this;
-		}
-
-		public SignUpRequest build() {
-			return new SignUpRequest(providerUserID, username, email, password, socialProvider);
-		}
-	}
 }

@@ -17,12 +17,16 @@ export class AppComponent implements OnInit {
   username: string;
   currentUser: any;
   languages: string[];
+  ui_langs: string[];
   language: string;
+  ui_lang: string;
 
   constructor(private tokenStorageService: TokenStorageService) {
     this.currentUser = this.tokenStorageService.getUser();
     this.languages = ['DE', 'RU', 'UA'];
-    this.language = 'de';
+    this.language = 'DE';
+    this.ui_langs = ['UK', 'RU', 'EN'];
+    this.ui_lang = 'EN';
     // this.matIconRegistry.addSvgIcon(
     //   `avatar`,
     //   this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/img/icons/avatar.svg`)
@@ -31,6 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -59,6 +64,6 @@ export class AppComponent implements OnInit {
   }
 
   passLang(value: any) {
-
+    console.log("HOHO" + value);
   }
 }

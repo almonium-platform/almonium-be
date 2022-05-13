@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.currentUser = this.tokenStorage.getUser();
     } else if (token) {
       this.tokenStorage.saveToken(token);
-      this.userService.getCurrentUser().subscribe(
+      this.userService.getMyFriends().subscribe(
         data => {
           this.login(data);
         },
@@ -70,7 +70,9 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.isSignUpSuccessful = true;
         this.isSignUpFailed = false;
-        window.location.href = '/';
+        this.loginForm.email = this.signUpForm.email;
+        this.loginForm.password = this.signUpForm.password;
+        this.onLoginSubmit();
       },
       err => {
         this.errorMessage = err.error.message;

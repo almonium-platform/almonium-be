@@ -5,7 +5,10 @@
       <mat-tab label="Sign in">
         <mat-card-content>
           <form name="loginForm" (ngSubmit)="inF.form.valid && onLoginSubmit()" #inF="ngForm">
-
+            <mat-error class="registration-result"
+                       *ngIf="inF.submitted && isLoginFailed">
+              {{errorMessage}}
+            </mat-error>
             <mat-form-field hideRequiredMarker>
               <input
                 #email="ngModel"
@@ -44,6 +47,9 @@
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
             <!--            <mat-checkbox>Remember Me!</mat-checkbox>-->
+            <div *ngIf="inF.submitted && isLoginFailed" class="forgot-link">
+              <a href="/home"> Forgot password?</a>
+            </div>
             <button
               mat-raised-button
               color="accent"
@@ -59,7 +65,7 @@
               <div class="google-icon-wrapper">
                 <img class="google-icon"
                      src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                Sing in with Google
+                Sign in with Google
               </div>
             </button>
           </form>
@@ -70,6 +76,9 @@
         <mat-card-content>
           <form name="signUpForm" (ngSubmit)="upF.form.valid && onRegistrationSubmit()" #upF="ngForm">
 
+<!--            <div class="custom-error" *ngIf="upF.submitted && isSignUpFailed">-->
+<!--              Signup failed!<br/>{{ errorMessage }}-->
+<!--            </div>-->
 
             <mat-form-field hideRequiredMarker>
               <input
@@ -104,7 +113,7 @@
                 ngModel
                 email
                 #email="ngModel">
-              <mat-error *ngIf="email.invalid">Email is required</mat-error>
+              <mat-error *ngIf="email.errors && email.errors.required">Valid email is required</mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field hideRequiredMarker (capsLock)="capsOn=$event">
@@ -133,7 +142,7 @@
 
             </mat-form-field>
             <mat-error class="registration-result"
-              *ngIf="upF.submitted && isSignUpFailed">
+                       *ngIf="upF.submitted && isSignUpFailed">
               {{errorMessage}}
             </mat-error>
             <button
@@ -154,8 +163,6 @@
                 Sign up with Google
               </div>
             </button>
-
-
           </form>
         </mat-card-content>
       </mat-tab>

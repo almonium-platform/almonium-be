@@ -2,7 +2,7 @@ package com.linguatool.service;
 
 import com.linguatool.dto.LocalUser;
 import com.linguatool.dto.SignUpRequest;
-import com.linguatool.exception.UserAlreadyExistAuthenticationException;
+import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
 import com.linguatool.model.user.User;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;

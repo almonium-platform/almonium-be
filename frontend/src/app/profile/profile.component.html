@@ -1,18 +1,145 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-  <div>
-    <h6 class="text-muted py-5">
-      <strong>{{ currentUser.username }}</strong> Profile
-    </h6>
-  </div>
-  <p>
-    <strong>Email:</strong> {{ currentUser.email }}
-  </p>
-  <strong>Roles:</strong>
-  <ul>
-    <li *ngFor="let role of currentUser.roles">{{ role }}</li>
-  </ul>
+<div>
+  <h1>
+    Profile details
+  </h1>
 </div>
-<ng-template #loggedOut> Please login.</ng-template>
+<div>
+  <h2>
+    <strong>
+      Username</strong>
+  </h2>
+</div>
+<div>
+  <h3>
+    {{currentUser.username}}
+  </h3>
+</div>
 
-<h1> Friends </h1>
-{{content}}
+<h1>Friends</h1>
+<div *ngIf="this.friendsMutual === undefined || this.friendsMutual.length === 0">
+  You have no friends :(
+</div>
+
+<div *ngIf="!!friendsMutual && friendsMutual.length > 0">
+  <h1> Friends </h1>
+  <div style="display: inline-block;" *ngFor="let friend of friendsMutual">
+    <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="friendsContextMenu"></span>
+    <div (contextmenu)="openContextMenu($event, matTrigger, spanTrigger, friend)">
+      <div class="circle" [ngStyle]="{'background-color':  this.avatarColors[friend.email] }">
+        <div class="initials">
+          {{ createInitials(friend.username) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!!friendsBlocked && friendsBlocked.length > 0">
+  <h1> Blocked </h1>
+  <div style="display: inline-block;" *ngFor="let friend of friendsBlocked">
+    <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="blockedContextMenu"></span>
+    <div (contextmenu)="openContextMenu($event, matTrigger, spanTrigger, friend)">
+      <div class="circle" [ngStyle]="{'background-color': this.avatarColors[friend.email] }">
+        <div class="initials">
+          {{ createInitials(friend.username) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!!friendsAsked && friendsAsked.length > 0">
+  <h1> Request sent </h1>
+  <div style="display: inline-block;" *ngFor="let friend of friendsAsked">
+    <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="outcomingContextMenu"></span>
+
+    <div (contextmenu)="openContextMenu($event, matTrigger, spanTrigger, friend)">
+      <div class="circle" [ngStyle]="{'background-color':  this.avatarColors[friend.email] }">
+        <div class="initials">
+          {{ createInitials(friend.username) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!!friendsAskedMe && friendsAskedMe.length > 0">
+  <h1> Request received </h1>
+
+  <div style="display: inline-block;" *ngFor="let friend of friendsAskedMe">
+    <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
+          [matMenuTriggerFor]="incomingContextMenu"></span>
+
+    <div (contextmenu)="openContextMenu($event, matTrigger, spanTrigger, friend)">
+      <div class="circle" [ngStyle]="{'background-color':  this.avatarColors[friend.email] }">
+        <div class="initials">
+          {{ createInitials(friend.username) }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="search">
+  Find someone!
+  <form class="example-form" (ngSubmit)="searchPeople()">
+    <mat-form-field  [style.width.px]=250>
+      <mat-label>Make friends with</mat-label>
+      <input [(ngModel)]="searchText" name="search" matInput>
+<!--      <mat-placeholder class="placeholder">Search for your friend</mat-placeholder>-->
+      <button matSuffix mat-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="this.notFound" class="mat-error">
+      User not found 😔
+    </div>
+    <div *ngIf="this.searchYourself" class="mat-error">
+      You can't friend yourself 😐
+    </div>
+    <div *ngIf="this.searchAlreadyFriend" class="mat-error">
+      You are already friends 😐
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!!searchFriend">
+  <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="strangersContextMenu"></span>
+  <div (contextmenu)="openContextMenu($event, matTrigger, spanTrigger, searchFriend)">
+    <div class="circle" [ngStyle]="{'background-color':  this.colors[0] }">
+      <div class="initials">
+        {{ createInitials(searchFriend.username) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #friendsContextMenu="matMenu">
+  <button mat-menu-item (click)="friendshipAction(action.UNFRIEND)">Unfriend</button>
+  <button mat-menu-item (click)="friendshipAction(action.BLOCK)">Block</button>
+</mat-menu>
+
+<mat-menu #incomingContextMenu="matMenu">
+  <button mat-menu-item (click)="friendshipAction(action.ACCEPT)">Accept</button>
+  <button mat-menu-item (click)="friendshipAction(action.REJECT)">Reject</button>
+  <button mat-menu-item (click)="friendshipAction(action.BLOCK)">Block</button>
+</mat-menu>
+
+<mat-menu #blockedContextMenu="matMenu">
+  <button mat-menu-item (click)="friendshipAction(action.UNBLOCK)">Unblock</button>
+</mat-menu>
+<mat-menu #strangersContextMenu="matMenu">
+  <button mat-menu-item (click)="friendshipAction(action.REQUEST)">Request</button>
+</mat-menu>
+
+<mat-menu #outcomingContextMenu="matMenu">
+  <button mat-menu-item (click)="friendshipAction(action.CANCEL)">Cancel</button>
+</mat-menu>

@@ -1,7 +1,7 @@
 package com.linguatool.controller;
 
 import com.linguatool.dto.*;
-import com.linguatool.exception.UserAlreadyExistAuthenticationException;
+import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
 import com.linguatool.security.jwt.TokenProvider;
 import com.linguatool.service.UserService;
 import com.linguatool.util.GeneralUtils;
@@ -49,7 +49,7 @@ public class AuthController {
             userService.registerNewUser(signUpRequest);
         } catch (UserAlreadyExistAuthenticationException e) {
             log.error("User already exists: {}", e.getMessage());
-            return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, "Email or username already in use!"), HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
     }
