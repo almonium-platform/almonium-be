@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {AppComponent} from '../app.component';
 import {DataService} from '../_services/data.service';
 import {map, startWith} from 'rxjs/operators';
+import {SearchService} from '../_services/search.service';
 
 
 @Component({
@@ -23,7 +24,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<string[]>;
 
-  constructor(private userService: UserService, private dataService: DataService, private readonly http: HttpClient) {
+  constructor(private userService: UserService,
+              private dataService: DataService,
+              private searchService: SearchService
+  ) {
   }
 
   private filterValues(value: string): string[] {
@@ -39,14 +43,14 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dataService.getWordlist().then(r => {
       this.wordlist = r;
-    this.formControl.valueChanges.subscribe(() => {
-      this.oldValue = this.searchText;
-    });
+      this.formControl.valueChanges.subscribe(() => {
+        this.oldValue = this.searchText;
+      });
 
-    this.filteredOptions = this.formControl.valueChanges.pipe(
-      startWith(''),
-      map(val => val.split(' ').pop().length >= 3 ? this.filterValues(val) : [])
-    );
+      this.filteredOptions = this.formControl.valueChanges.pipe(
+        startWith(''),
+        map(val => val.split(' ').pop().length >= 3 ? this.filterValues(val) : [])
+      );
     });
   }
 
@@ -61,8 +65,14 @@ export class DiscoverComponent implements OnInit, OnDestroy {
 
   search() {
     console.log(this.searchText);
+    this.searchService.search(this.searchText).subscribe(data => {
+      console.log(data + "FF");
+    }, error => {
+
+    });
   }
 }
+
 @Directive({
   selector: 'input[appFocus]',
 })

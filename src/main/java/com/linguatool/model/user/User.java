@@ -1,6 +1,7 @@
 package com.linguatool.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linguatool.model.dto.lang.CardEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -76,6 +77,9 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "requester")
     private Set<Friendship> friendshipsRequested;
+
+    @OneToMany(mappedBy = "owner")
+    private Set<CardEntity> cardEntity;
 
 
     @Override

@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   dto: FriendshipActionDto;
   selectedUserId: number;
   searchFriend: Friend;
+  panelOpenState = false;
 
   colors = [
     '#EB7181', // red

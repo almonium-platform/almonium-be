@@ -1,8 +1,12 @@
 package com.linguatool.controller;
 
-import com.linguatool.dto.*;
 import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
-import com.linguatool.security.jwt.TokenProvider;
+import com.linguatool.model.dto.ApiResponse;
+import com.linguatool.model.dto.JwtAuthenticationResponse;
+import com.linguatool.model.dto.LocalUser;
+import com.linguatool.model.dto.LoginRequest;
+import com.linguatool.model.dto.SignUpRequest;
+import com.linguatool.configuration.security.jwt.TokenProvider;
 import com.linguatool.service.UserService;
 import com.linguatool.util.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;

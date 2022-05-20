@@ -5,7 +5,7 @@
         <img src="../assets/img/icons/headicon.svg" alt="Logo" height="45" width="45">
       </a>
     </span>
-    <span class="menu-item">
+    <span class="menu-item" *ngIf="isLoggedIn">
       <a class="nav-link" href="/home" mat-button routerLink="home"> Home</a>
     </span>
     <span class="menu-item">
@@ -25,7 +25,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-menu #languageMenu="matMenu" yPosition="below" xPosition="before" class="languagemenu">
+    <mat-menu #languageMenu="matMenu" yPosition="below" xPosition="after" class="languagemenu">
       <button *ngFor="let language of languages" [value]="language" mat-menu-item
               (click)="changeLanguage(language)"
               class="thisbutton">

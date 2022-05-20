@@ -1,6 +1,6 @@
 package com.linguatool.exception.handler;
 
-import com.linguatool.dto.ApiResponse;
+import com.linguatool.model.dto.ApiResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

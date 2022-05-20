@@ -34,6 +34,7 @@ import {MatTableModule} from '@angular/material/table';
 import { AlertComponent } from './alert/alert.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -50,30 +51,31 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     SettingsComponent,
     AlertComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatTabsModule,
-    MatCheckboxModule,
-    MatTableModule,
-    MatRadioModule,
-    MatSidenavModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatListModule,
+        MatMenuModule,
+        MatTooltipModule,
+        MatTabsModule,
+        MatCheckboxModule,
+        MatTableModule,
+        MatRadioModule,
+        MatSidenavModule,
+        MatExpansionModule
+    ],
   providers: [authInterceptorProviders,
     {provide: LOCALE_ID, useValue: 'en'}],
   bootstrap: [AppComponent]

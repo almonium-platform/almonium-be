@@ -1,8 +1,8 @@
 package com.linguatool.controller;
 
-import com.linguatool.config.CurrentUser;
-import com.linguatool.dto.FriendshipCommandDto;
-import com.linguatool.dto.LocalUser;
+import com.linguatool.configuration.CurrentUser;
+import com.linguatool.model.dto.FriendshipCommandDto;
+import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.FriendInfo;
 import com.linguatool.service.UserServiceImpl;
 import com.linguatool.util.GeneralUtils;
