@@ -2,11 +2,11 @@ import {AfterViewInit, Component, Directive, ElementRef, Input, OnDestroy, OnIni
 import {UserService} from '../_services/user.service';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {AppComponent} from '../app.component';
 import {DataService} from '../_services/data.service';
 import {map, startWith} from 'rxjs/operators';
 import {SearchService} from '../_services/search.service';
+import {FDEntry} from '../models/fd.model';
+import {EntryInfo} from '../models/entry.model';
 
 
 @Component({
@@ -19,10 +19,14 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   @Input()
   searchText: string;
   oldValue: string;
+  searched: boolean;
   wordlist: string[] = ['aaaa', 'bbbb'];
   content: string;
+  fdEntries: FDEntry[];
   formControl = new FormControl();
   filteredOptions: Observable<string[]>;
+  entryInfo: EntryInfo;
+  creationInvoked: boolean;
 
   constructor(private userService: UserService,
               private dataService: DataService,
@@ -47,6 +51,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         this.oldValue = this.searchText;
       });
 
+
       this.filteredOptions = this.formControl.valueChanges.pipe(
         startWith(''),
         map(val => val.split(' ').pop().length >= 3 ? this.filterValues(val) : [])
@@ -58,6 +63,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     // this.filteredOptions.
   }
 
+  invokeCreation(): void {
+    this.creationInvoked = true;
+  }
+
   optionSelectedHandler(value: any) {
     let before = this.oldValue.substr(0, this.oldValue.lastIndexOf(' ') + 1);
     this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
@@ -65,11 +74,24 @@ export class DiscoverComponent implements OnInit, OnDestroy {
 
   search() {
     console.log(this.searchText);
-    this.searchService.search(this.searchText).subscribe(data => {
-      console.log(data + "FF");
-    }, error => {
+    this.searched = true;
+    let eInfo: EntryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
+    this.entryInfo = eInfo;
+    console.log('SETTED ' + this.entryInfo);
 
+    this.searchService.fdSearch(this.searchText).subscribe(data => {
+      this.fdEntries = data.body;
+      console.log(data.status);
+      console.log(data.body);
+      console.log(this.fdEntries[0].phonetics[0].audio);
+      this.searched = true;
+    }, error => {
+      console.log((error.status));
     });
+  }
+
+  urban() {
+    console.log('URBAN');
   }
 }
 

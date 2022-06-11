@@ -35,6 +35,8 @@ import { AlertComponent } from './alert/alert.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { CardCreationComponent } from './card-creation/card-creation.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FocusOnShowDirective,
     DiscoverComponent,
     SettingsComponent,
-    AlertComponent
+    AlertComponent,
+    CardCreationComponent
   ],
     imports: [
         BrowserModule,
@@ -74,7 +77,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatTableModule,
         MatRadioModule,
         MatSidenavModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSlideToggleModule
     ],
   providers: [authInterceptorProviders,
     {provide: LOCALE_ID, useValue: 'en'}],

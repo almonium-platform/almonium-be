@@ -1,8 +1,8 @@
 package com.linguatool.repository;
 
-import com.linguatool.model.user.Friendship;
+import com.linguatool.model.entity.user.Friendship;
 //import com.linguatool.model.user.FriendshipPK;
-import com.linguatool.model.user.FriendshipPK;
+import com.linguatool.model.entity.user.FriendshipPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

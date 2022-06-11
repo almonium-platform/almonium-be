@@ -1,12 +1,12 @@
 package com.linguatool.configuration;
 
 import com.linguatool.model.dto.SocialProvider;
-import com.linguatool.model.user.Role;
-import com.linguatool.model.user.User;
+import com.linguatool.model.entity.user.Role;
+import com.linguatool.model.entity.user.User;
 import com.linguatool.repository.FriendshipRepository;
 import com.linguatool.repository.RoleRepository;
 import com.linguatool.repository.UserRepository;
-import com.linguatool.service.UrbanService;
+import com.linguatool.service.ExternalService;
 import com.linguatool.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -35,7 +35,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private RoleRepository roleRepository;
 
     @Autowired
-    private UrbanService urbanService;
+    private ExternalService externalService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -53,8 +53,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         // Create initial roles
         Role userRole = createRoleIfNotFound(Role.ROLE_USER);
         Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
-        urbanService.create("lobotomy");
-//		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
+//        urbanService.create("lobotomy");
+		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin2@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin3@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin4@mail.com", Set.of(userRole, adminRole));

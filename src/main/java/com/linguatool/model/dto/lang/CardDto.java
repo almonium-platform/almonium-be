@@ -1,14 +1,16 @@
 package com.linguatool.model.dto.lang;
 
+import com.linguatool.model.entity.lang.Card;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CardDto extends CardEntity {
+public class CardDto extends Card {
 
-    CardEntity entity;
+    Card entity;
 
-    public CardDto(CardEntity entity) {
+    public CardDto(Card entity) {
         parseWordFamily();
         parseHardIndices();
     }

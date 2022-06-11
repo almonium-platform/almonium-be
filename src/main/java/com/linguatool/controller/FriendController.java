@@ -1,7 +1,7 @@
 package com.linguatool.controller;
 
 import com.linguatool.model.dto.FriendshipCommandDto;
-import com.linguatool.model.FriendInfo;
+import com.linguatool.model.dto.FriendInfo;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

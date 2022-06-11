@@ -1,6 +1,6 @@
 package com.linguatool.repository;
 
-import com.linguatool.model.user.Role;
+import com.linguatool.model.entity.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

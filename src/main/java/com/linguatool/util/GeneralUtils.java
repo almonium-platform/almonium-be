@@ -3,8 +3,8 @@ package com.linguatool.util;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.dto.UserInfo;
-import com.linguatool.model.user.Role;
-import com.linguatool.model.user.User;
+import com.linguatool.model.entity.user.Role;
+import com.linguatool.model.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

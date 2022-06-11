@@ -1,0 +1,80 @@
+<div>
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="cardCreationFromGroup">
+
+        <mat-form-field class="">
+          <input autocomplete="off" required matInput formControlName="entry" placeholder="Entry">
+        </mat-form-field>
+
+        <!--        <mat-form-field class="">-->
+        <!--          <input autocomplete="off" required matInput formControlName="primaryTranslation" placeholder="Translation">-->
+        <!--        </mat-form-field>-->
+
+        <mat-form-field class="">
+          <input autocomplete="off" matInput formControlName="notes" placeholder="notes">
+        </mat-form-field>
+        <mat-slide-toggle
+          (change)="displayMessage($event)"
+          class="example-margin"
+          checked="true"
+          color="primary"
+          formControlName="activeLearning"
+        >
+          {{this.learningTypeLabel}}
+        </mat-slide-toggle>
+
+        <ng-container formArrayName="examples">
+          <ng-container *ngFor="let exampleForm of this.examples.controls; let i = index">
+            <div class="" [formGroup]="exampleForm">
+              <mat-form-field appearance="fill">
+                <input matInput
+                       formControlName="example"
+                       placeholder="text">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <input matInput
+                       formControlName="translation"
+                       placeholder="translation">
+              </mat-form-field>
+              <mat-icon class="delete-btn" (click)="deleteExample(i)">
+                delete_forever
+              </mat-icon>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <ng-container formArrayName="translations">
+          <ng-container *ngFor="let translationForm of this.translations.controls; let i = index">
+            <div class="" [formGroup]="translationForm">
+              <mat-form-field appearance="fill">
+                <input matInput
+                       formControlName="translation"
+                       placeholder="text">
+              </mat-form-field>
+              <mat-icon class="delete-btn" (click)="deleteTranslation(i)" *ngIf="this.translations.controls.length > 1">
+                delete_forever
+              </mat-icon>
+            </div>
+          </ng-container>
+        </ng-container>
+        <button mat-stroked-button (click)="addTranslation()">
+          <mat-icon class="">add</mat-icon>
+        </button>
+
+        <button mat-mini-fab (click)="addExample()">
+          <mat-icon class="">add</mat-icon>
+        </button>
+
+        <button
+          color="primary"
+          mat-raised-button
+          (click)="submit()"
+        >
+          Create
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

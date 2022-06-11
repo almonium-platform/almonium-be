@@ -1,26 +1,37 @@
 package com.linguatool.service;
 
-import com.linguatool.model.dto.FriendshipCommandDto;
-import com.linguatool.model.dto.LocalUser;
-import com.linguatool.model.dto.SignUpRequest;
-import com.linguatool.model.dto.SocialProvider;
+import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
+import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
 import com.linguatool.exception.user.FriendshipNotAllowedException;
 import com.linguatool.exception.user.FriendshipNotFoundException;
 import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
 import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
-import com.linguatool.model.Friend;
-import com.linguatool.model.FriendInfo;
-import com.linguatool.model.user.Friendship;
-import com.linguatool.model.user.Role;
-import com.linguatool.model.user.FriendshipStatus;
-import com.linguatool.model.user.User;
+import com.linguatool.model.dto.Friend;
+import com.linguatool.model.dto.FriendInfo;
+import com.linguatool.model.dto.FriendshipCommandDto;
+import com.linguatool.model.dto.LocalUser;
+import com.linguatool.model.dto.SignUpRequest;
+import com.linguatool.model.dto.SocialProvider;
+import com.linguatool.model.dto.api.request.CardCreationDto;
+import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.lang.Example;
+import com.linguatool.model.entity.lang.Translation;
+import com.linguatool.model.entity.user.Friendship;
+import com.linguatool.model.entity.user.FriendshipStatus;
+import com.linguatool.model.entity.user.Role;
+import com.linguatool.model.entity.user.User;
+import com.linguatool.model.mapping.CardMapper;
+import com.linguatool.repository.CardRepository;
+import com.linguatool.repository.ExampleRepository;
 import com.linguatool.repository.FriendshipRepository;
 import com.linguatool.repository.RoleRepository;
+import com.linguatool.repository.TranslationRepository;
 import com.linguatool.repository.UserRepository;
-import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
-import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
 import com.linguatool.util.GeneralUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -37,26 +48,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.linguatool.model.user.FriendshipStatus.FRIENDS;
-import static com.linguatool.model.user.FriendshipStatus.PENDING;
+import static com.linguatool.model.entity.user.FriendshipStatus.FRIENDS;
+import static com.linguatool.model.entity.user.FriendshipStatus.PENDING;
+import static lombok.AccessLevel.PRIVATE;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    UserRepository userRepository;
+    RoleRepository roleRepository;
 
-    private final RoleRepository roleRepository;
+    FriendshipRepository friendshipRepository;
 
-    private final FriendshipRepository friendshipRepository;
+    PasswordEncoder passwordEncoder;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, FriendshipRepository friendshipRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.friendshipRepository = friendshipRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    CardMapper cardMapper;
+    ExampleRepository exampleRepository;
+    CardRepository cardRepository;
+    TranslationRepository translationRepository;
 
     @Override
     @Transactional(value = "transactionManager")
@@ -130,6 +142,23 @@ public class UserServiceImpl implements UserService {
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setUsername(oAuth2UserInfo.getName());
         return userRepository.save(existingUser);
+    }
+
+    @Transactional
+    public void createCard(User user, CardCreationDto dto) {
+        Card card = cardMapper.cardDtoToEntity(dto);
+        card.setCreated(LocalDateTime.now());
+        card.setModified(LocalDateTime.now());
+        List<Example> examples = card.getExamples();
+        examples.forEach(e -> e.setCard(card));
+        List<Translation> translations = card.getTranslations();
+        translations.forEach(t -> t.setCard(card));
+        user.addCard(card);
+        userRepository.save(user);
+        cardRepository.save(card);
+        exampleRepository.saveAll(examples);
+        translationRepository.saveAll(translations);
+        log.info("Created card {} for user {}", card, user);
     }
 
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {

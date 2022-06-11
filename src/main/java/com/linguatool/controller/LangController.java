@@ -1,10 +1,14 @@
 package com.linguatool.controller;
 
+import com.linguatool.configuration.CurrentUser;
 import com.linguatool.model.dto.FriendshipCommandDto;
-import com.linguatool.model.FriendInfo;
+import com.linguatool.model.dto.FriendInfo;
+import com.linguatool.model.dto.LocalUser;
+import com.linguatool.model.dto.api.request.CardCreationDto;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +39,8 @@ public class LangController {
     @CrossOrigin
     @GetMapping("/search/{text}")
 //    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getFriends(@PathVariable String text) {
+    public ResponseEntity<?> search(@PathVariable String text, @CurrentUser LocalUser userDetails) {
+        System.out.println(userDetails.getUser().getCards());
         return ResponseEntity.ok("GOOD " + text);
     }
 
@@ -43,5 +48,12 @@ public class LangController {
     @PreAuthorize("hasRole('USER')")
     public void editFriendship(@Valid @RequestBody FriendshipCommandDto dto) {
         userService.editFriendship(dto);
+    }
+
+    @PostMapping("/create")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
+        userService.createCard(userDetails.getUser(), dto);
+        return ResponseEntity.ok().build();
     }
 }

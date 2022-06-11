@@ -1,24 +1,49 @@
 <div class="search">
-    <form class="form-input-autocomplete" (ngSubmit)="search()">
-      <mat-form-field [style.width.px]=800 color="accent">
-        <input #input [(ngModel)]="searchText" [formControl]="formControl"
-               [matAutocomplete]="auto"
-               [appFocus]=true
-               class="input-autocomplete"
-               matInput type="text">
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          autoActiveFirstOption
-          (optionSelected)='optionSelectedHandler($event.option.value)'>
-          <mat-option *ngFor="let option of filteredOptions | async  | slice : 0 : 5" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
+  <form class="form-input-autocomplete" (ngSubmit)="search()">
+    <mat-form-field [style.width.px]=800 color="accent">
+      <input #input [(ngModel)]="searchText" [formControl]="formControl"
+             [matAutocomplete]="auto"
+             [appFocus]=true
+             class="input-autocomplete"
+             matInput type="text">
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)='optionSelectedHandler($event.option.value)'>
+        <mat-option *ngFor="let option of filteredOptions | async  | slice : 0 : 5" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </div>
 <!--(optionSelected)='optionSelectedHandler($event.option.value)'-->
 
 
-<!--<a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.png" alt="Reverso"-->
-<!--                                                                 height="60" width="60"></a>-->
+<div *ngIf="searched">
+  <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
+                                                                   alt="Reverso"
+                                                                   height="60" width="60"></a>
+  <a target="_blank" [href]="urban()" class="button"><img src="../../assets/img/services/urban.svg" alt="Reverso"
+                                                          height="70" width="70"></a>
+
+  <div *ngFor="let entry of fdEntries">
+    {{entry.phonetic}}
+    <div *ngFor="let meaning of entry.meanings">
+      {{meaning.partOfSpeech}}
+      <div *ngFor="let definition of meaning.definitions">
+        {{definition.definition}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<button *ngIf="this.searched"
+        color="primary"
+        mat-raised-button
+        (click)="invokeCreation()">
+  Create card
+</button>
+
+<div *ngIf="creationInvoked">
+  <app-card-creation [entryInfo]="this.entryInfo"></app-card-creation>
+</div>

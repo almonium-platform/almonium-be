@@ -1,6 +1,6 @@
 package com.linguatool.model.dto;
 
-import com.linguatool.model.user.FriendshipAction;
+import com.linguatool.model.entity.user.FriendshipAction;
 import lombok.Data;
 
 @Data
