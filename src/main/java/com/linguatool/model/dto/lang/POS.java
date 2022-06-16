@@ -57,4 +57,7 @@ public enum POS {
         return null;
     }
 
+    public boolean isAdjective() {
+        return this.equals(ADJECTIVE) || this.equals(ADJECTIVE_COMPARATIVE) || this.equals(ADJECTIVE_SUPERLATIVE);
+    }
 }

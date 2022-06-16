@@ -9,11 +9,13 @@ import {BoardModeratorComponent} from './board-moderator/board-moderator.compone
 import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {DiscoverComponent} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
+import {GamesComponent} from './games/games.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'discover', component: DiscoverComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'games', component: GamesComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'user', component: BoardUserComponent},

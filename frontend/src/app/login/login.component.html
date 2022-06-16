@@ -61,11 +61,22 @@
               color="primary"
               mat-raised-button
               class="google-button"
-              (click)="navigateToGoogle()">
+              (click)="navigateToProvider(googleURL)">
               <div class="google-icon-wrapper">
                 <img class="google-icon"
                      src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                 Sign in with Google
+              </div>
+            </button>
+            <button
+              color="primary"
+              mat-raised-button
+              class="google-button"
+              (click)="navigateToProvider(facebookURL)">
+              <div class="google-icon-wrapper">
+                <img class="fb-icon"
+                     src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"/>
+                Sign in with Facebook
               </div>
             </button>
           </form>
@@ -76,9 +87,9 @@
         <mat-card-content>
           <form name="signUpForm" (ngSubmit)="upF.form.valid && onRegistrationSubmit()" #upF="ngForm">
 
-<!--            <div class="custom-error" *ngIf="upF.submitted && isSignUpFailed">-->
-<!--              Signup failed!<br/>{{ errorMessage }}-->
-<!--            </div>-->
+            <!--            <div class="custom-error" *ngIf="upF.submitted && isSignUpFailed">-->
+            <!--              Signup failed!<br/>{{ errorMessage }}-->
+            <!--            </div>-->
 
             <mat-form-field hideRequiredMarker>
               <input
@@ -156,11 +167,22 @@
               color="primary"
               mat-raised-button
               class="google-button"
-              (click)="navigateToGoogle()">
+              (click)="navigateToProvider()">
               <div class="google-icon-wrapper">
                 <img class="google-icon"
                      src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                 Sign up with Google
+              </div>
+            </button>
+            <button
+              color="primary"
+              mat-raised-button
+              class="google-button"
+              (click)="navigateToProvider(facebookURL)">
+              <div class="google-icon-wrapper">
+                <img class="fb-icon"
+                     src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"/>
+                Sign in with Facebook
               </div>
             </button>
           </form>

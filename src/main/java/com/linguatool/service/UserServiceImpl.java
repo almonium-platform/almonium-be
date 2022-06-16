@@ -13,18 +13,22 @@ import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.SignUpRequest;
 import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.dto.api.request.CardCreationDto;
+import com.linguatool.model.dto.api.request.CardDto;
 import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.Example;
 import com.linguatool.model.entity.lang.Translation;
 import com.linguatool.model.entity.user.Friendship;
 import com.linguatool.model.entity.user.FriendshipStatus;
 import com.linguatool.model.entity.user.Role;
+import com.linguatool.model.entity.user.Tag;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.CardRepository;
 import com.linguatool.repository.ExampleRepository;
 import com.linguatool.repository.FriendshipRepository;
+import com.linguatool.repository.LanguageRepository;
 import com.linguatool.repository.RoleRepository;
+import com.linguatool.repository.TagRepository;
 import com.linguatool.repository.TranslationRepository;
 import com.linguatool.repository.UserRepository;
 import com.linguatool.util.GeneralUtils;
@@ -47,6 +51,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.linguatool.model.entity.user.FriendshipStatus.FRIENDS;
 import static com.linguatool.model.entity.user.FriendshipStatus.PENDING;
@@ -69,6 +75,8 @@ public class UserServiceImpl implements UserService {
     ExampleRepository exampleRepository;
     CardRepository cardRepository;
     TranslationRepository translationRepository;
+    TagRepository tagRepository;
+    LanguageRepository languageRepository;
 
     @Override
     @Transactional(value = "transactionManager")
@@ -83,6 +91,7 @@ public class UserServiceImpl implements UserService {
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
         user.setCreated(now);
+        user.setLearningLanguages(Set.of(languageRepository.getEnglish()));
         user.setModified(now);
         user = userRepository.save(user);
         userRepository.flush();
@@ -145,19 +154,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    public void deleteAccount(User user) {
+        userRepository.delete(user);
+    }
+
+    @Transactional
     public void createCard(User user, CardCreationDto dto) {
-        Card card = cardMapper.cardDtoToEntity(dto);
+        Card card = cardMapper.cardDtoToEntity(dto, languageRepository);
         card.setCreated(LocalDateTime.now());
         card.setModified(LocalDateTime.now());
+
         List<Example> examples = card.getExamples();
         examples.forEach(e -> e.setCard(card));
+
         List<Translation> translations = card.getTranslations();
         translations.forEach(t -> t.setCard(card));
+
+        Set<Tag> tags = card.getTags();
+        tags.forEach(t -> {
+            Optional<Tag> tagOptional = tagRepository.findByText(t.normalizeText());
+            if (tagOptional.isPresent()) {
+                Tag existingTag = tagOptional.get();
+                t.setId(existingTag.getId());
+                t.setCards(existingTag.getCards());
+            } else {
+                t.setCards(new HashSet<>());
+            }
+            t.getCards().add(card);
+            card.getTags().add(t);
+            user.getTags().add(t);
+        });
+
         user.addCard(card);
-        userRepository.save(user);
         cardRepository.save(card);
-        exampleRepository.saveAll(examples);
         translationRepository.saveAll(translations);
+        if (!examples.isEmpty()) {
+            exampleRepository.saveAll(examples);
+        }
+        if (!tags.isEmpty()) {
+            tagRepository.saveAll(tags);
+        }
+        userRepository.save(user);
         log.info("Created card {} for user {}", card, user);
     }
 
@@ -294,5 +331,10 @@ public class UserServiceImpl implements UserService {
                 this.cancelFriendship(dto.getIdInitiator(), dto.getIdAcceptor());
                 break;
         }
+    }
+
+    public List<CardDto> searchByEntry(String entry, User user) {
+        return cardRepository.findAllByEntryLikeAndOwner(entry, user)
+            .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
 }

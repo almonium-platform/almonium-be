@@ -15,17 +15,37 @@
       </mat-autocomplete>
     </mat-form-field>
   </form>
+  <button mat-icon-button class="random-btn" (click)="getRandomWord()">
+    <img src="../assets/img/icons/random.svg" alt="Random" height="37" width="37">
+  </button>
+
 </div>
 <!--(optionSelected)='optionSelectedHandler($event.option.value)'-->
 
 
 <div *ngIf="searched">
+
+  <button mat-icon-button class="audio-btn" (click)="getAudio()" *ngIf="!audioAvailable">
+    <img src="../assets/img/icons/speaker.svg" alt="speaker" height="40" width="40">
+  </button>
+  <div *ngIf="audioAvailable">
+    <audio controls>
+      <source [src]="audioLink"/>
+    </audio>
+  </div>
+
   <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
                                                                    alt="Reverso"
-                                                                   height="60" width="60"></a>
-  <a target="_blank" [href]="urban()" class="button"><img src="../../assets/img/services/urban.svg" alt="Reverso"
-                                                          height="70" width="70"></a>
+                                                                   height="60" width="60" style="padding: 10px"></a>
+  <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg" alt="Reverso"
+                                                                 height="80" width="80"></a>
+  <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/Merriam-Webster.svg"
+                                                           alt="Merriam-Webster"
+                                                           height="60" width="60" class="merriam-svg"></a>
+  <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.jpg" alt="Merriam-Webster"
+                                                    height="60" width="60" class="merriam-svg"></a>
 
+  {{this.cardSearchLabel}}
   <div *ngFor="let entry of fdEntries">
     {{entry.phonetic}}
     <div *ngFor="let meaning of entry.meanings">
@@ -42,6 +62,10 @@
         mat-raised-button
         (click)="invokeCreation()">
   Create card
+</button>
+<button mat-raised-button (click)="openDialog('0ms', '0ms')">
+  Create
+  <mat-icon>open_in_new</mat-icon>
 </button>
 
 <div *ngIf="creationInvoked">

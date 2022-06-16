@@ -138,6 +138,18 @@
     </form>
   </div>
 
+  <div>
+    <button
+      color="primary"
+      mat-raised-button
+      class="delete-button"
+      (click)="deleteAccount()">
+      <div class="google-icon-wrapper">
+        DELETE ACCOUNT
+      </div>
+    </button>
+
+  </div>
   <div *ngIf="!!searchFriend">
   <span style="position:fixed;" #spanTrigger class="context-menu-trigger" #matTrigger="matMenuTrigger"
         [matMenuTriggerFor]="strangersContextMenu"></span>

@@ -1,15 +1,23 @@
 package com.linguatool.configuration;
 
+import com.linguatool.client.DatamuseClient;
+import com.linguatool.client.WordnikClient;
+import com.linguatool.client.WordsClient;
 import com.linguatool.model.dto.SocialProvider;
+import com.linguatool.model.entity.lang.LanguageEntity;
+import com.linguatool.model.entity.user.Language;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.repository.FriendshipRepository;
+import com.linguatool.repository.LanguageRepository;
 import com.linguatool.repository.RoleRepository;
 import com.linguatool.repository.UserRepository;
 import com.linguatool.service.ExternalService;
 import com.linguatool.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import net.sf.extjwnl.data.Word;
+import org.apache.commons.codec.language.bm.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -18,6 +26,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -40,7 +50,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private LanguageRepository languageRepository;
+
+    @Autowired
     private FriendshipRepository friendshipRepository;
+    @Autowired
+    private WordnikClient client;
 
     @SneakyThrows
     @Override
@@ -53,8 +68,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         // Create initial roles
         Role userRole = createRoleIfNotFound(Role.ROLE_USER);
         Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
-//        urbanService.create("lobotomy");
-		createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
+
+//        LanguageEntity entity = new LanguageEntity();
+//        entity.setCode(Language.ENGLISH);
+//        languageRepository.save(entity);
+
+//        client.getAudioFile("deranged");
+//        datamuseClient.getHomophones("read");
+//            ("lobotomy");
+        persistLanguages();
+        createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin2@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin3@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin4@mail.com", Set.of(userRole, adminRole));
@@ -71,7 +94,20 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     @Transactional
+    void persistLanguages() {
+        Arrays.stream(Language.values()).sequential().forEach(t -> {
+            Optional<LanguageEntity> languageEntityOptional = languageRepository.findByCode(t);
+            if (languageEntityOptional.isEmpty()) {
+                LanguageEntity entity = new LanguageEntity();
+                entity.setCode(t);
+                languageRepository.save(entity);
+            }
+        });
+    }
+
+    @Transactional
     User createUserIfNotFound(final String email, Set<Role> roles) {
+
         User user = userRepository.findByEmail(email);
         if (user == null) {
             user = new User();
@@ -83,6 +119,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             user.setEnabled(true);
             LocalDateTime now = LocalDateTime.now();
             user.setCreated(now);
+            user.setLearningLanguages(Set.of(languageRepository.findByCode(Language.ENGLISH).get(), languageRepository.findByCode(Language.GERMAN).get()));
             user.setModified(now);
             user = userRepository.save(user);
         }

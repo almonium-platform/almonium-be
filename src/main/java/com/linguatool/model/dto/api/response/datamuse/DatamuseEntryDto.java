@@ -16,5 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class DatamuseEntryDto {
     String word;
     String score;
+    String numSyllables;
     String[] tags;
+    String[] defs;
 }

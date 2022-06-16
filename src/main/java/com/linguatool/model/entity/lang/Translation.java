@@ -29,6 +29,6 @@ public class Translation {
     String translation;
 
     @ManyToOne
-    @JoinColumn(name = "card_id", referencedColumnName = "id")
+    @JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
     Card card;
 }

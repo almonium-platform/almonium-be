@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CardDto extends Card {
+public class CardWrapper extends Card {
 
     Card entity;
 
-    public CardDto(Card entity) {
+    public CardWrapper(Card entity) {
         parseWordFamily();
         parseHardIndices();
     }

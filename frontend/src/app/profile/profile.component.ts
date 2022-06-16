@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.currentUser = this.token.getUser(
     );
-    this.placeholder = "Enter your friend's email"
+    this.placeholder = 'Enter your friend\'s email';
   }
 
   groupBy(arr, property) {
@@ -183,5 +183,13 @@ export class ProfileComponent implements OnInit {
           // this.content = JSON.parse(err.error).message;
         });
     }
+  }
+
+  deleteAccount() {
+    this.userService.deleteAccount().subscribe(() => {
+      window.location.href = '/';
+    }, error => {
+      console.log('DELETED');
+    });
   }
 }

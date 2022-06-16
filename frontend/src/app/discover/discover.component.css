@@ -22,9 +22,12 @@
   margin-top: 15em;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
-
+.random-btn {
+  margin-left: 30px;
+  margin-top: 70px;
+}
 mat-form-field.mat-form-field {
   font-size: 50px;
   text-align: center;
@@ -45,4 +48,7 @@ mat-form-field.mat-form-field {
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
   background-color: green !important;;
+}
+.merriam-svg {
+  padding: 10px;
 }

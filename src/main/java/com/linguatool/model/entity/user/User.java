@@ -2,13 +2,24 @@ package com.linguatool.model.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.lang.LanguageEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,6 +71,9 @@ public class User implements Serializable {
 
     private String provider;
 
+    private int dailyGoal = 5;
+    private double vocabularyLevel = 5.5;
+
     @Column(name = "ui_lang")
     private Language uiLanguage = Language.ENGLISH;
 
@@ -73,14 +87,31 @@ public class User implements Serializable {
     )
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "requestee")
+    @OneToMany(mappedBy = "requestee", fetch = FetchType.EAGER)
     private Set<Friendship> friendshipsInitiated;
 
-    @OneToMany(mappedBy = "requester")
+    @OneToMany(mappedBy = "requester", fetch = FetchType.EAGER)
     private Set<Friendship> friendshipsRequested;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Card> cards;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinTable(name = "user_tag",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "id")}
+    )
+    private Set<Tag> tags;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_lang",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
+    )
+    Set<LanguageEntity> learningLanguages;
 
     public void addCard(Card card) {
         if (card != null) {
@@ -105,16 +136,19 @@ public class User implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         User user = (User) o;
-        return enabled == user.enabled && friendshipRequestsBlocked == user.friendshipRequestsBlocked && Objects.equals(id, user.id) && Objects.equals(providerUserId, user.providerUserId) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(created, user.created) && Objects.equals(modified, user.modified) && Objects.equals(password, user.password) && Objects.equals(provider, user.provider) && Objects.equals(roles, user.roles) && Objects.equals(friendshipsInitiated, user.friendshipsInitiated) && Objects.equals(friendshipsRequested, user.friendshipsRequested);
+
+        return new EqualsBuilder().append(enabled, user.enabled).append(friendshipRequestsBlocked, user.friendshipRequestsBlocked).append(id, user.id).append(providerUserId, user.providerUserId).append(email, user.email).append(username, user.username).append(created, user.created).append(modified, user.modified).append(password, user.password).append(provider, user.provider).append(uiLanguage, user.uiLanguage).append(roles, user.roles).append(friendshipsInitiated, user.friendshipsInitiated).append(cards, user.cards).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, providerUserId, email, enabled, username, created, modified, password, provider, friendshipRequestsBlocked, roles, friendshipsInitiated, friendshipsRequested);
+        return new HashCodeBuilder(17, 37).append(id).append(providerUserId).append(email).append(enabled).append(username).append(created).append(modified).append(password).append(provider).append(uiLanguage).append(friendshipRequestsBlocked).append(roles).toHashCode();
     }
 
     @Override

@@ -5,6 +5,8 @@ import {TokenStorageService} from '../_services/token-storage.service';
 import {ActivatedRoute} from '@angular/router';
 import {AppConstants} from '../common/app.constants';
 import {Router} from '@angular/router';
+import {DataService} from '../_services/data.service';
+import {User} from '../models/user.model';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
               private userService: UserService,
+              private dataService: DataService,
               public router: Router
   ) {
   }
@@ -45,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.currentUser = this.tokenStorage.getUser();
     } else if (token) {
       this.tokenStorage.saveToken(token);
-      this.userService.getMyFriends().subscribe(
+      this.userService.getMe().subscribe(
         data => {
           this.login(data);
         },
@@ -64,7 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   onRegistrationSubmit(): void {
-    console.log("registration")
+    console.log('registration');
     this.authService.register(this.signUpForm).subscribe(
       data => {
         console.log(data);
@@ -86,7 +89,6 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.login(data.user);
-        window.location.href = '/home';
       },
       err => {
         this.errorMessage = err.error.message;
@@ -107,8 +109,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  navigateToGoogle(): void {
-    window.location.href = this.googleURL;
+  navigateToProvider(url: string): void {
+    window.location.href = url;
   }
 }
 

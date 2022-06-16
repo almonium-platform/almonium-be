@@ -72,10 +72,13 @@ mat-card-content {
   justify-content: center;
 }
 
-.google-icon {
+.google-icon, .fb-icon {
   margin-right: 1em;
 }
-
+.fb-icon{
+  margin-right: 1em;
+  width: 25px;
+}
 .google-button {
   background-color: white;
   color: black;
@@ -107,6 +110,7 @@ mat-card-content {
   justify-content: center;
   color: rgb(240, 115, 121);
 }
+
 .forgot-link {
   display: flex;
   justify-content: left;
@@ -114,6 +118,7 @@ mat-card-content {
   margin-left: 1em;
   color: white;
 }
+
 a {
   color: hotpink;
   text-decoration: none;

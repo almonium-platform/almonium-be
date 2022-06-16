@@ -11,11 +11,14 @@
     <span class="menu-item">
       <a class="nav-link" href="/discover" mat-button routerLink="discover"> Discover</a>
     </span>
-    <span class="example-spacer"></span>
+    <span class="menu-item">
+      <a class="nav-link" href="/games" mat-button routerLink="games">Games</a>
+    </span>
+    <span class="spacer"></span>
 
     <mat-form-field style="width: 3%" class="local-lang-picker">
-      <mat-select [(ngModel)]="ui_lang" #langSelect (change)="passLang(langSelect.value)"
-                  (selectionChange)="passLang($event.value)" class="text-sm">
+      <mat-select [(ngModel)]="ui_lang" #langSelect (change)="changeUiLanguage(langSelect.value)"
+                  (selectionChange)="changeUiLanguage($event.value)" class="text-sm">
         <mat-option
           *ngFor="let lang of ui_langs"
           [value]="lang"
@@ -27,7 +30,7 @@
 
     <mat-menu #languageMenu="matMenu" yPosition="below" xPosition="after" class="languagemenu">
       <button *ngFor="let language of languages" [value]="language" mat-menu-item
-              (click)="changeLanguage(language)"
+              (click)="changeLearningLanguage(language)"
               class="thisbutton">
         <mat-icon>language</mat-icon>
         <!--        <img src="../assets/img/lang/uk.png" alt="Logo" height="30" width="30">-->

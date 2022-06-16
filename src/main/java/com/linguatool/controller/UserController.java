@@ -9,6 +9,7 @@ import com.linguatool.util.GeneralUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,13 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCurrentUser(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(GeneralUtils.buildUserInfo(user));
+    }
+
+    @DeleteMapping("/user/delete")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> deleteAccount(@CurrentUser LocalUser localUser) {
+        userService.deleteAccount(localUser.getUser());
+        return ResponseEntity.ok("Successfully deleted");
     }
 
     @GetMapping("/all")

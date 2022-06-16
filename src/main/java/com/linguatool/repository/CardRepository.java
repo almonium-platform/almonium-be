@@ -12,4 +12,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findAllByOwner(User owner);
 
+    List<Card> findAllByEntryLikeAndOwner(String entry, User user);
+
 }
