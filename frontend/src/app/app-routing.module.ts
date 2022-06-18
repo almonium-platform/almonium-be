@@ -4,9 +4,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
-import {BoardUserComponent} from './board-user/board-user.component';
-import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
-import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {DiscoverComponent} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
 import {GamesComponent} from './games/games.component';
@@ -18,9 +15,6 @@ const routes: Routes = [
   {path: 'games', component: GamesComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'user', component: BoardUserComponent},
-  {path: 'mod', component: BoardModeratorComponent},
-  {path: 'admin', component: BoardAdminComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 

@@ -9,9 +9,6 @@ import {AppComponent} from './app.component';
 import {LoginComponent, TrackCapsDirective} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
-import {BoardAdminComponent} from './board-admin/board-admin.component';
-import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
-import {BoardUserComponent} from './board-user/board-user.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import {DiscoverComponent, FocusOnShowDirective, DialogAnimationsExampleDialog} from './discover/discover.component';
@@ -40,9 +37,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialog} from '@angular/material/dialog';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
-import { GamesComponent } from './games/games.component';
+import {GamesComponent} from './games/games.component';
 import {MatSliderModule} from '@angular/material/slider';
-import { AboutComponent } from './about/about.component';
+import {AboutComponent} from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +47,6 @@ import { AboutComponent } from './about/about.component';
     LoginComponent,
     HomeComponent,
     ProfileComponent,
-    BoardAdminComponent,
-    BoardModeratorComponent,
-    BoardUserComponent,
     TrackCapsDirective,
     FocusOnShowDirective,
     DiscoverComponent,
