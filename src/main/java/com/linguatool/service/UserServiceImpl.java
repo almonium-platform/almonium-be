@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             if (!user.getProvider().equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
                 throw new OAuth2AuthenticationProcessingException(
-                    "Looks like you're signed up with " + user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
+                        "Looks like you're signed up with " + user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
             }
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
@@ -200,12 +200,12 @@ public class UserServiceImpl implements UserService {
 
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
         return SignUpRequest.builder()
-            .providerUserId(oAuth2UserInfo.getId())
-            .username(oAuth2UserInfo.getName())
-            .email(oAuth2UserInfo.getEmail())
-            .socialProvider(GeneralUtils.toSocialProvider(registrationId))
-            .password("changeit")
-            .build();
+                .providerUserId(oAuth2UserInfo.getId())
+                .username(oAuth2UserInfo.getName())
+                .email(oAuth2UserInfo.getEmail())
+                .socialProvider(GeneralUtils.toSocialProvider(registrationId))
+                .password("changeit")
+                .build();
     }
 
     @Override
@@ -227,12 +227,16 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public List<CardDto> getUsersCards(User user) {
+        return cardRepository.findAllByOwner(user).stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+    }
+
     @SneakyThrows
     @Transactional
     public Friendship cancelFriendship(Long actionInitiatorId, Long actionAcceptorId) {
         assert (!actionInitiatorId.equals(actionAcceptorId));
         friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId).orElseThrow(()
-            -> new FriendshipNotFoundException(String.format("Friendship between %s and %s doesn't exist", actionInitiatorId, actionInitiatorId)));
+                -> new FriendshipNotFoundException(String.format("Friendship between %s and %s doesn't exist", actionInitiatorId, actionInitiatorId)));
 
         friendshipRepository.deleteFriendshipByIds(actionInitiatorId, actionAcceptorId);
         return null;
@@ -257,7 +261,7 @@ public class UserServiceImpl implements UserService {
             }
 
             throw new Exception(String.format("Friendship between %s and %s already exists, status: %s",
-                actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()));
+                    actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()));
         }
         if (recipient.isFriendshipRequestsBlocked()) {
             throw new FriendshipNotAllowedException("User doesn't accept friendship requests!");
@@ -305,8 +309,8 @@ public class UserServiceImpl implements UserService {
         LocalDateTime now = LocalDateTime.now();
         friendship.setUpdated(now);
         friendship.setFriendshipStatus(friendship.getRequesterId().equals(actionInitiatorId)
-            ? FriendshipStatus.FST_BLOCKED_SND
-            : FriendshipStatus.SND_BLOCKED_FST
+                ? FriendshipStatus.FST_BLOCKED_SND
+                : FriendshipStatus.SND_BLOCKED_FST
         );
         friendshipRepository.save(friendship);
         return friendship;
@@ -335,6 +339,6 @@ public class UserServiceImpl implements UserService {
 
     public List<CardDto> searchByEntry(String entry, User user) {
         return cardRepository.findAllByEntryLikeAndOwner(entry, user)
-            .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+                .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
 }

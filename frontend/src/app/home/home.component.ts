@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../_services/user.service';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {CardDto} from "../models/card.model";
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,8 @@ import {TokenStorageService} from '../_services/token-storage.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  ng;
-
-  content: string;
+  cards: CardDto[];
+  cardShow: boolean
 
   constructor(private userService: UserService, private tokenStorageService: TokenStorageService) {
   }
@@ -19,12 +19,13 @@ export class HomeComponent implements OnInit {
     if (!this.tokenStorageService.getToken()) {
       window.location.href = '/login';
     }
-    this.userService.getPublicContent().subscribe(
+    this.userService.getCards().subscribe(
       data => {
-        this.content = data;
+        console.log(data);
+        this.cardShow = true;
+        this.cards = data;
       },
       err => {
-        this.content = JSON.parse(err.error).message;
       }
     );
   }

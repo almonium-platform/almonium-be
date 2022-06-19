@@ -1,3 +1,5 @@
-<div>
-  <h6 class="text-muted py-5">{{ content }}</h6>
+<div *ngIf="cardShow">
+  <div *ngFor="let card of cards">
+    {{card.entry}}
+  </div>
 </div>

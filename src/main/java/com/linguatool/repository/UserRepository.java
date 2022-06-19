@@ -23,9 +23,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
 
     Optional<Friend> findAllById(long id);
-
-    @Query(value = "select  from account where id = ?1", nativeQuery = true)
-    default List<Card> getCardsById(long id) {
-        return null;
-    }
 }

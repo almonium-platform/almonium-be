@@ -38,6 +38,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   russianRegex: string;
   ukrainianRegex: string;
   audioLink: string;
+  ukrRusRegex: '[А-ЯҐЄІЇ]';
+  ukrRegex: '[А-ЩЬЮЯҐЄІЇа-щьюяґєії]';
 
   constructor(private userService: UserService,
               private dataService: DataService,
@@ -72,6 +74,17 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   clearScreen() {
     this.audioAvailable = false;
     this.searched = false;
+  }
+
+  getOxfordLink() {
+    return 'https://www.oxfordlearnersdictionaries.com/definition/english/' + this.searchText;
+  }
+
+  getMacmillianLink() {
+    return 'https://www.macmillandictionary.com/dictionary/american/' + this.searchText;
+  }
+  getCambridgeLink() {
+    return 'https://dictionary.cambridge.org/us/dictionary/english/' + this.searchText;
   }
 
   getReversoLink(): string {
@@ -119,6 +132,13 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
   }
 
+  prettify(text: string) {
+    return text
+      .replace(/\.$/g, '')
+      .replace(/\s\s+/g, ' ')
+      .trim();
+  }
+
   search() {
     console.log(this.searchText);
     this.searched = true;
@@ -126,7 +146,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.audioLink = '';
     this.searchText = this.searchText
       .replace(/[^A-Za\s-z\d'.,\-!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
-      .replace(/\s\s+/g, ' ').trim();
+      .replace(/\s\s+/g, ' ')
+      .trim();
     let eInfo: EntryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
     this.entryInfo = eInfo;
     console.log('this.entryInfo');
@@ -159,6 +180,8 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       this.audioLink = data[0];
     });
   }
+
+
 }
 
 @Directive({

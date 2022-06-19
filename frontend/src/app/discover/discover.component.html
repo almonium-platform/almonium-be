@@ -25,6 +25,33 @@
 
 <div *ngIf="searched">
 
+
+  <div class="engines">
+    <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
+                                                                     alt="Reverso"
+                                                                     height="60" width="60" class="small-icon"></a>
+
+    <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg" alt="Urban"
+                                                                   height="80" width="80"></a>
+
+    <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/merriam-webster.svg"
+                                                             alt="Merriam-Webster"
+                                                             height="70" width="70" style="padding: 5px"></a>
+
+    <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.svg" alt="Collins"
+                                                      height="60" width="60" class="small-icon"></a>
+
+    <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford-online.svg" alt="Oxford"
+                                                     height="60" width="60" class="small-icon"></a>
+
+    <a target="_blank" [href]="getMacmillianLink()"><img src="../../assets/img/services/macmillian.svg" alt="Macmillian"
+                                                         height="60" width="60" class="small-icon"></a>
+
+    <a target="_blank" [href]="getCambridgeLink()"><img src="../../assets/img/services/cambridge.svg" alt="Cambridge"
+                                                        height="60" width="60" class="small-icon"></a>
+  </div>
+
+
   <button mat-icon-button class="audio-btn" (click)="getAudio()" *ngIf="!audioAvailable">
     <img src="../assets/img/icons/speaker.svg" alt="speaker" height="40" width="40">
   </button>
@@ -34,16 +61,6 @@
     </audio>
   </div>
 
-  <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
-                                                                   alt="Reverso"
-                                                                   height="60" width="60" style="padding: 10px"></a>
-  <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg" alt="Reverso"
-                                                                 height="80" width="80"></a>
-  <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/Merriam-Webster.svg"
-                                                           alt="Merriam-Webster"
-                                                           height="60" width="60" class="merriam-svg"></a>
-  <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.jpg" alt="Merriam-Webster"
-                                                    height="60" width="60" class="merriam-svg"></a>
 
   {{this.cardSearchLabel}}
   <div *ngFor="let entry of fdEntries">

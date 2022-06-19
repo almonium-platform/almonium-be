@@ -11,7 +11,7 @@ import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
-import {DiscoverComponent, FocusOnShowDirective, DialogAnimationsExampleDialog} from './discover/discover.component';
+import {DialogAnimationsExampleDialog, DiscoverComponent, FocusOnShowDirective} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -34,7 +34,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {CardCreationComponent} from './card-creation/card-creation.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatDialog} from '@angular/material/dialog';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {GamesComponent} from './games/games.component';

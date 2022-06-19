@@ -46,7 +46,7 @@ export class DiscoveryService {
     return this.http.post(AppConstants.LANG_API + 'create', {
       entry: formGroup.controls.entry.value,
       language: language,
-      priority: 2,
+      priority: formGroup.controls.priority.value,
       examples: filteredExamples,
       translations: filteredTranslations,
       irregularPlural: formGroup.controls.irregularPlural.value,
