@@ -3,8 +3,6 @@ package com.linguatool.util;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.dto.UserInfo;
-import com.linguatool.model.entity.lang.LanguageEntity;
-import com.linguatool.model.entity.user.Language;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.Tag;
 import com.linguatool.model.entity.user.User;
@@ -48,7 +46,8 @@ public class GeneralUtils {
         List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         User user = localUser.getUser();
         List<String> tags = user.getTags().stream().map(Tag::getText).collect(Collectors.toList());
-        List<String> langs = user.getLearningLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
-        return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, langs);
+        List<String> targetLangs = user.getTargetLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
+        List<String> fluentLangs = user.getFluentLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
+        return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, targetLangs, fluentLangs);
     }
 }

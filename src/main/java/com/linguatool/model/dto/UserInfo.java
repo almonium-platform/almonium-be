@@ -7,5 +7,5 @@ import java.util.List;
 @Value
 public class UserInfo {
 	String id, username, email, ui_lang;
-	List<String> roles, tags, langs;
+	List<String> roles, tags, targetLangs, fluentLangs;
 }

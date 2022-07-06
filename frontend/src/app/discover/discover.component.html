@@ -52,6 +52,17 @@
   </div>
 
 
+  <div *ngFor="let lang of user.fluentLangs">
+    <span class="accountSpan">
+      <button class="moomba" mat-icon-button *ngIf="true" (click)="showTranslation(lang)">
+              <div class="inter">
+                <img src="../assets/img/lang/{{lang.toLowerCase()}}.png" alt="Logo" height="37"
+                     width="37">
+              </div>
+      </button>
+    </span>
+  </div>
+
   <button mat-icon-button class="audio-btn" (click)="getAudio()" *ngIf="!audioAvailable">
     <img src="../assets/img/icons/speaker.svg" alt="speaker" height="40" width="40">
   </button>
@@ -69,6 +80,22 @@
       {{meaning.partOfSpeech}}
       <div *ngFor="let definition of meaning.definitions">
         {{definition.definition}}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="translated">
+    TRANSLATED
+    <div *ngFor="let card of translationCards">
+      {{card.provider}}
+      <div *ngFor="let definition of card.definitions">
+        {{definition.pos}}
+        {{definition.transcription}}
+        <div *ngFor="let translation of definition.translations">
+          {{translation.frequency}}
+          {{translation.pos}}
+          {{translation.text}}
+        </div>
       </div>
     </div>
   </div>

@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {UserInfo} from 'os';
 import {User} from '../models/user.model';
 
 const TOKEN_KEY = 'auth-token';
@@ -30,8 +29,8 @@ export class TokenStorageService {
 
   public saveUser(user: User): void {
     window.sessionStorage.removeItem(USER_KEY);
-    this.saveCurLang(user.langs[0]);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    this.saveCurLang(user.targetLangs[0]);
   }
 
   public saveCurLang(lang: string) {

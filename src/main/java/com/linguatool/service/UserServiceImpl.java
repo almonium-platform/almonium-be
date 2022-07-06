@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
         user.setCreated(now);
-        user.setLearningLanguages(Set.of(languageRepository.getEnglish()));
+        user.setTargetLanguages(Set.of(languageRepository.getEnglish()));
         user.setModified(now);
         user = userRepository.save(user);
         userRepository.flush();

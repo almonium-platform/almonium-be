@@ -1,5 +1,6 @@
-package com.linguatool.model.dto.api.response.yandex;
+package com.linguatool.model.dto.lang.translation;
 
+import com.linguatool.model.dto.api.response.yandex.YandexTranslationDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +14,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class YandexDefDto {
+public class DefinitionDto {
     String text;
     String pos;
-    String ts;
-    YandexTranslationDto[] tr;
-
-
+    String transcription;
+    TranslationDto[] translations;
 }

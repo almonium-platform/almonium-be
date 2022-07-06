@@ -3,6 +3,7 @@ package com.linguatool.client;
 import com.linguatool.annotation.Client;
 import com.linguatool.model.dto.api.response.free_dictionary.FDEntry;
 import com.linguatool.model.dto.api.response.yandex.YandexDto;
+import com.linguatool.model.entity.user.Language;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.linguatool.util.GeneralUtils.queryBuilder;
@@ -22,22 +24,17 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
 public class YandexClient {
-    static String BASE_URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup/";
+    static String BASE_URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
     static String EN_RU = "en-ru";
     static String LANG = "lang";
     static String TEXT = "text";
     static String KEY = "key";
     static String KEY_VALUE = "dict.1.1.20220409T164704Z.6923d1452886ccd4.32658382f53afdcb90780649f12fdb5bf5b77590";
-    static String EN_UK = "en-uk";
     RestTemplate restTemplate;
 
 
-    private ResponseEntity<YandexDto> translateToUkr(String word) {
-        return request(word, EN_UK);
-    }
-
-    private ResponseEntity<YandexDto> translateToRus(String word) {
-        return request(word, EN_RU);
+    public ResponseEntity<YandexDto> translate(String word, Language from, Language to) {
+        return request(word, from.getCode().toLowerCase(Locale.ROOT) + "-" + to.getCode().toLowerCase(Locale.ROOT));
     }
 
     private ResponseEntity<YandexDto> request(String word, String langPair) {

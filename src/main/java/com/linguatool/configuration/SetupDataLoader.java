@@ -1,23 +1,16 @@
 package com.linguatool.configuration;
 
-import com.linguatool.client.DatamuseClient;
 import com.linguatool.client.WordnikClient;
-import com.linguatool.client.WordsClient;
 import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.entity.lang.LanguageEntity;
 import com.linguatool.model.entity.user.Language;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
-import com.linguatool.repository.FriendshipRepository;
-import com.linguatool.repository.LanguageRepository;
-import com.linguatool.repository.RoleRepository;
-import com.linguatool.repository.UserRepository;
+import com.linguatool.repository.*;
 import com.linguatool.service.ExternalService;
 import com.linguatool.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import net.sf.extjwnl.data.Word;
-import org.apache.commons.codec.language.bm.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -56,7 +49,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private FriendshipRepository friendshipRepository;
     @Autowired
     private WordnikClient client;
+    @Autowired
+    private TranslatorRepository translatorRepository;
 
+    @Autowired
+    private LangPairTranslatorRepository langPairTranslatorRepository;
     @SneakyThrows
     @Override
     @Transactional
@@ -78,6 +75,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 //            ("lobotomy");
         persistLanguages();
         createUserIfNotFound("admin@mail.com", Set.of(userRole, adminRole));
+//        Translator translator = new Translator();
+//        translator.setName("YANDEX");
+//        translatorRepository.save(translator);
+//        LangPairTranslator langPairTranslator = new LangPairTranslator();
+//        langPairTranslator.setLangFromId(languageRepository.getEnglish().getId());
+//        langPairTranslator.setLangToId(languageRepository.getUkrainian().getId());
+//        langPairTranslator.setTranslatorId(translatorRepository.getById(4L).getId());
+//        langPairTranslatorRepository.save(langPairTranslator);
+//        translator.setTranslator();
 //		createUserIfNotFound("admin2@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin3@mail.com", Set.of(userRole, adminRole));
 //		createUserIfNotFound("admin4@mail.com", Set.of(userRole, adminRole));
@@ -119,7 +125,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             user.setEnabled(true);
             LocalDateTime now = LocalDateTime.now();
             user.setCreated(now);
-            user.setLearningLanguages(Set.of(languageRepository.findByCode(Language.ENGLISH).get(), languageRepository.findByCode(Language.GERMAN).get()));
+            user.setTargetLanguages(Set.of(languageRepository.findByCode(Language.ENGLISH).get(), languageRepository.findByCode(Language.GERMAN).get()));
             user.setModified(now);
             user = userRepository.save(user);
         }

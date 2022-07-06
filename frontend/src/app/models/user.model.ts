@@ -8,11 +8,12 @@ export interface User {
   id: number,
   username: string;
   email: string;
-  ui_lang: string;
+  uiLang: string;
   roles: string[];
   tags: string[];
-  langs: string[];
+  targetLangs: string[];
   curLang: string;
+  fluentLangs: string[];
 }
 export interface FriendshipActionDto {
   idInitiator: number,

@@ -3,7 +3,6 @@ package com.linguatool.model.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.LanguageEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,12 +13,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +26,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -107,11 +101,21 @@ public class User implements Serializable {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_lang",
+    @JoinTable(name = "user_target_lang",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
     )
-    Set<LanguageEntity> learningLanguages;
+    Set<LanguageEntity> targetLanguages;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_fluent_lang",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
+    )
+    Set<LanguageEntity> fluentLanguages;
+
+
 
     public void addCard(Card card) {
         if (card != null) {

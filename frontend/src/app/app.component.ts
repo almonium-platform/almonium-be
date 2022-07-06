@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.ui_lang = user.ui_lang || 'EN';
-      this.languages = user.langs;
+      this.languages = user.targetLangs;
       this.language = this.tokenStorageService.getCurLang();
 
       this.roles = user.roles;

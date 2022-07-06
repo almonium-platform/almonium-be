@@ -16,4 +16,16 @@ public interface LanguageRepository extends JpaRepository<LanguageEntity, Long> 
         return this.findByCode(Language.ENGLISH).orElseThrow();
     }
 
+    default LanguageEntity getUkrainian() {
+        return this.findByCode(Language.UKRAINIAN).orElseThrow();
+    }
+
+    default LanguageEntity getRussian() {
+        return this.findByCode(Language.RUSSIAN).orElseThrow();
+    }
+
+    default LanguageEntity getGerman() {
+        return this.findByCode(Language.GERMAN).orElseThrow();
+    }
+
 }

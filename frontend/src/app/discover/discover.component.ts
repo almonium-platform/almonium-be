@@ -9,6 +9,9 @@ import {FDEntry} from '../models/fd.model';
 import {EntryInfo} from '../models/entry.model';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {TokenStorageService} from "../_services/token-storage.service";
+import {TranslationCard} from "../models/translation.model";
+import {User} from "../models/user.model";
 
 
 @Component({
@@ -17,36 +20,43 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
   styleUrls: ['./discover.component.css']
 })
 export class DiscoverComponent implements OnInit, OnDestroy {
+  searched: boolean;
+  translated: boolean;
+  audioAvailable: boolean;
+  creationInvoked: boolean;
 
   @Input()
   searchText: string;
   oldValue: string;
-  searched: boolean;
   wordlist: string[] = ['aaaa', 'bbbb'];
   content: string;
-  fdEntries: FDEntry[];
-  formControl = new FormControl();
-  filteredOptions: Observable<string[]>;
-  entryInfo: EntryInfo;
-  creationInvoked: boolean;
   cardSearchLabel: string;
-  audioAvailable: boolean;
   frenchRegex: string;
   germanRegex: string;
   spanishRegex: string;
   englishRegex: string;
   russianRegex: string;
   ukrainianRegex: string;
+
   audioLink: string;
+  user: User;
+  fdEntries: FDEntry[];
+  translationCards: TranslationCard[] = [];
+  formControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+  entryInfo: EntryInfo;
+
   ukrRusRegex: '[А-ЯҐЄІЇ]';
   ukrRegex: '[А-ЩЬЮЯҐЄІЇа-щьюяґєії]';
 
   constructor(private userService: UserService,
               private dataService: DataService,
+              private tokenStorageService: TokenStorageService,
               private discoveryService: DiscoveryService,
               public dialog: MatDialog
   ) {
     userService.getMe();
+    this.user = this.tokenStorageService.getUser();
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -83,6 +93,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   getMacmillianLink() {
     return 'https://www.macmillandictionary.com/dictionary/american/' + this.searchText;
   }
+
   getCambridgeLink() {
     return 'https://dictionary.cambridge.org/us/dictionary/english/' + this.searchText;
   }
@@ -142,8 +153,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   search() {
     console.log(this.searchText);
     this.searched = true;
+    this.translated = true;
     this.audioAvailable = false;
     this.audioLink = '';
+    this.fdEntries = [];
     this.searchText = this.searchText
       .replace(/[^A-Za\s-z\d'.,\-!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
       .replace(/\s\s+/g, ' ')
@@ -152,6 +165,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
     this.entryInfo = eInfo;
     console.log('this.entryInfo');
     console.log(this.entryInfo);
+
     this.discoveryService.searchInMyStack(this.searchText).subscribe(data => {
       if (data.length === 0) {
         this.cardSearchLabel = 'No cards like this in your stack so far';
@@ -182,6 +196,19 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
 
+  showTranslation(lang: string) {
+    this.discoveryService.translate(this.searchText, this.tokenStorageService.getCurLang(), lang).subscribe(data => {
+      this.translated = true;
+      this.translationCards[0] = data.body;
+      console.log(data.body);
+    }, error => {
+      if (error.status === 403) {
+        console.log("Limit exceeded")
+      } else {
+        console.log("ISE 500")
+      }
+    })
+  }
 }
 
 @Directive({

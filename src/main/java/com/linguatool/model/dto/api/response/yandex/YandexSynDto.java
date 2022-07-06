@@ -13,11 +13,11 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class YandexDefDto {
+public class YandexSynDto {
     String text;
     String pos;
-    String ts;
-    YandexTranslationDto[] tr;
+    String gen;
+    Integer fr;
 
 
 }

@@ -14,7 +14,5 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class YandexDto {
-    String head;
     YandexDefDto[] def;
-
 }

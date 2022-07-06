@@ -33,14 +33,12 @@
               (click)="changeLearningLanguage(language)"
               class="thisbutton">
         <mat-icon>language</mat-icon>
-        <!--        <img src="../assets/img/lang/uk.png" alt="Logo" height="30" width="30">-->
         {{language}}
       </button>
     </mat-menu>
 
     <span class="accountSpan">
       <button class="moomba" mat-icon-button [matMenuTriggerFor]="languageMenu" *ngIf="isLoggedIn">
-<!--        <mat-icon>language</mat-icon>-->
               <div class="inter">
                 <img src="../assets/img/lang/{{language.toLowerCase()}}.png" alt="Logo" height="37" width="37">
               </div>

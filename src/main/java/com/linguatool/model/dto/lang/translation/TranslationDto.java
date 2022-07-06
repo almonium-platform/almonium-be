@@ -1,4 +1,4 @@
-package com.linguatool.model.dto.api.response.yandex;
+package com.linguatool.model.dto.lang.translation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +13,8 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class YandexDefDto {
+public class TranslationDto {
     String text;
     String pos;
-    String ts;
-    YandexTranslationDto[] tr;
-
-
+    Integer frequency;
 }

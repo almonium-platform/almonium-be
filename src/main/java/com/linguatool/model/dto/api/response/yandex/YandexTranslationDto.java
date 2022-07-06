@@ -1,4 +1,4 @@
-    package com.linguatool.model.dto.api.response.yandex;
+package com.linguatool.model.dto.api.response.yandex;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +17,7 @@ public class YandexTranslationDto {
     String text;
     String pos;
     Integer fr;
-
+    String gen;
+    YandexSynDto[] syn;
+    YandexMeanDto[] mean;
 }
