@@ -188,6 +188,19 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   urban() {
   }
 
+  geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition)
+    } else {
+      // I believe it may also mean geolocation isn't supported
+      alert('Geolocation denied')
+    }
+  }
+
+  showPosition(position) {
+    alert(`${position.coords.longitude} - ${position.coords.latitude}`)
+  }
+
   getAudio() {
     this.discoveryService.getAudioFile(this.searchText).subscribe(data => {
       this.audioAvailable = true;

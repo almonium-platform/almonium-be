@@ -6,36 +6,23 @@ import com.linguatool.exception.user.FriendshipNotAllowedException;
 import com.linguatool.exception.user.FriendshipNotFoundException;
 import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
 import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
+import com.linguatool.model.dto.*;
 import com.linguatool.model.dto.Friend;
-import com.linguatool.model.dto.FriendInfo;
-import com.linguatool.model.dto.FriendshipCommandDto;
-import com.linguatool.model.dto.LocalUser;
-import com.linguatool.model.dto.SignUpRequest;
-import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.dto.api.request.CardCreationDto;
 import com.linguatool.model.dto.api.request.CardDto;
+import com.linguatool.model.dto.api.request.TagDto;
 import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.Example;
 import com.linguatool.model.entity.lang.Translation;
-import com.linguatool.model.entity.user.Friendship;
-import com.linguatool.model.entity.user.FriendshipStatus;
-import com.linguatool.model.entity.user.Role;
-import com.linguatool.model.entity.user.Tag;
-import com.linguatool.model.entity.user.User;
+import com.linguatool.model.entity.user.*;
 import com.linguatool.model.mapping.CardMapper;
-import com.linguatool.repository.CardRepository;
-import com.linguatool.repository.ExampleRepository;
-import com.linguatool.repository.FriendshipRepository;
-import com.linguatool.repository.LanguageRepository;
-import com.linguatool.repository.RoleRepository;
-import com.linguatool.repository.TagRepository;
-import com.linguatool.repository.TranslationRepository;
-import com.linguatool.repository.UserRepository;
+import com.linguatool.repository.*;
 import com.linguatool.util.GeneralUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -45,13 +32,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.linguatool.model.entity.user.FriendshipStatus.FRIENDS;
@@ -67,6 +48,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
 
+    CardTagRepository cardTagRepository;
     FriendshipRepository friendshipRepository;
 
     PasswordEncoder passwordEncoder;
@@ -148,6 +130,40 @@ public class UserServiceImpl implements UserService {
         return LocalUser.create(user, attributes, idToken, userInfo);
     }
 
+    @Transactional
+    public void renameTagForUser(User user, Tag tag, String proposedName) {
+        if (tag.getText().equals(Tag.normalizeText(proposedName))) {
+            return;
+        }
+        Set<CardTag> foundTaggedCards = cardTagRepository.getByUserAndTag(user, tag);
+
+        if (foundTaggedCards.isEmpty()) {
+            return;
+        }
+
+        Optional<Tag> tagOptional = tagRepository.findByText(proposedName);
+        Tag proposedTag;
+        if (tagOptional.isPresent()) {
+            proposedTag = tagOptional.get();
+        } else {
+            proposedTag = new Tag(proposedName);
+            tagRepository.save(proposedTag);
+        }
+        foundTaggedCards.forEach(cardTag -> {
+            cardTag.setTag(proposedTag);
+            cardTagRepository.save(cardTag);
+        });
+    }
+
+    public UserInfo buildUserInfo(LocalUser localUser) {
+        List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        User user = localUser.getUser();
+        List<String> tags = cardTagRepository.getUsersTags(user).stream().map(Tag::getText).collect(Collectors.toList());
+        List<String> targetLangs = user.getTargetLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
+        List<String> fluentLangs = user.getFluentLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
+        return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, targetLangs, fluentLangs);
+    }
+
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setUsername(oAuth2UserInfo.getName());
         return userRepository.save(existingUser);
@@ -163,37 +179,38 @@ public class UserServiceImpl implements UserService {
         Card card = cardMapper.cardDtoToEntity(dto, languageRepository);
         card.setCreated(LocalDateTime.now());
         card.setModified(LocalDateTime.now());
+        user.addCard(card);
 
         List<Example> examples = card.getExamples();
         examples.forEach(e -> e.setCard(card));
 
         List<Translation> translations = card.getTranslations();
         translations.forEach(t -> t.setCard(card));
+        List<CardTag> cardTags = new ArrayList<>();
+        TagDto[] tags = dto.getTags();
+        Arrays.stream(tags).forEach(t -> {
+            CardTag cardTag = new CardTag();
+            cardTag.setCard(card);
+            cardTag.setUser(card.getOwner());
 
-        Set<Tag> tags = card.getTags();
-        tags.forEach(t -> {
-            Optional<Tag> tagOptional = tagRepository.findByText(t.normalizeText());
+            Optional<Tag> tagOptional = tagRepository.findByTextNormalized(t.getText());
             if (tagOptional.isPresent()) {
-                Tag existingTag = tagOptional.get();
-                t.setId(existingTag.getId());
-                t.setCards(existingTag.getCards());
+                cardTag.setTag(tagOptional.get());
             } else {
-                t.setCards(new HashSet<>());
+                Tag tag = new Tag(t.getText());
+                tagRepository.save(tag);
+                cardTag.setTag(tag);
             }
-            t.getCards().add(card);
-            card.getTags().add(t);
-            user.getTags().add(t);
-        });
 
-        user.addCard(card);
+            cardTags.add(cardTag);
+        });
+//
         cardRepository.save(card);
+
         translationRepository.saveAll(translations);
-        if (!examples.isEmpty()) {
-            exampleRepository.saveAll(examples);
-        }
-        if (!tags.isEmpty()) {
-            tagRepository.saveAll(tags);
-        }
+        exampleRepository.saveAll(examples);
+        cardTagRepository.saveAll(cardTags);
+
         userRepository.save(user);
         log.info("Created card {} for user {}", card, user);
     }

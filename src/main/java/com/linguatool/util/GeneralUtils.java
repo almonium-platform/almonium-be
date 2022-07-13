@@ -42,12 +42,4 @@ public class GeneralUtils {
         return SocialProvider.LOCAL;
     }
 
-    public static UserInfo buildUserInfo(LocalUser localUser) {
-        List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        User user = localUser.getUser();
-        List<String> tags = user.getTags().stream().map(Tag::getText).collect(Collectors.toList());
-        List<String> targetLangs = user.getTargetLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
-        List<String> fluentLangs = user.getFluentLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
-        return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, targetLangs, fluentLangs);
-    }
 }

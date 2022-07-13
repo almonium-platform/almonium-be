@@ -3,10 +3,11 @@ package com.linguatool.model.entity.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Objects;
 
 
 @Entity
@@ -34,28 +35,6 @@ public class Role implements Serializable {
 		this.name = name;
 	}
 //
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Role role = (Role) obj;
-		return role.equals(role.name);
-	}
 
 	@Override
 	public String toString() {
@@ -63,5 +42,18 @@ public class Role implements Serializable {
 			"roleId=" + roleId +
 			", name='" + name + '\'' +
 			'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Role role = (Role) o;
+		return roleId != null && Objects.equals(roleId, role.roleId);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
 }

@@ -5,7 +5,6 @@ import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.api.request.CardCreationDto;
 import com.linguatool.model.dto.api.request.CardDto;
 import com.linguatool.model.dto.api.response.words.WordsReportDto;
-import com.linguatool.model.entity.user.Language;
 import com.linguatool.service.ExternalService;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +61,4 @@ public class LangController {
         return ResponseEntity.ok(userService.searchByEntry(text, localUser.getUser()));
     }
 
-    @PostMapping("/create")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
-        userService.createCard(userDetails.getUser(), dto);
-        return ResponseEntity.ok().build();
-    }
 }

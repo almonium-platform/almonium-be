@@ -8,21 +8,22 @@ import com.linguatool.model.dto.LoginRequest;
 import com.linguatool.model.dto.SignUpRequest;
 import com.linguatool.configuration.security.jwt.TokenProvider;
 import com.linguatool.service.UserService;
+import com.linguatool.service.UserServiceImpl;
 import com.linguatool.util.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -33,10 +34,17 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @Autowired
     TokenProvider tokenProvider;
+
+    @Autowired
+    Environment environment;
+    @GetMapping("/profile")
+    public ResponseEntity<List<String>> getCurrentActiveProfiles() {
+        return ResponseEntity.ok(Arrays.asList(environment.getActiveProfiles()));
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -44,7 +52,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication);
         LocalUser localUser = (LocalUser) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, GeneralUtils.buildUserInfo(localUser)));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userService.buildUserInfo(localUser)));
     }
 
     @PostMapping("/signup")

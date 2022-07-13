@@ -52,7 +52,7 @@ export class DiscoveryService {
   }
 
   createCard(formGroup: FormGroup, filteredExamples: any, filteredTranslations: any, language: string): Observable<any> {
-    return this.http.post(AppConstants.LANG_API + 'create', {
+    return this.http.post(AppConstants.CARD_API + 'create', {
       entry: formGroup.controls.entry.value,
       language: language,
       priority: formGroup.controls.priority.value,

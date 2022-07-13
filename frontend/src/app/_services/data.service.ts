@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {User} from '../models/user.model';
 import {UserService} from './user.service';
+import {Observable} from "rxjs";
+import {AppConstants} from "../common/app.constants";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +50,7 @@ export class DataService {
 
   }
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient) {
     this.requestWordlist().then(r => {
       this._wordlist = r;
     });
@@ -106,4 +109,9 @@ export class DataService {
   deleteUserInfo() {
     localStorage.removeItem(this.userInfoKey);
   }
+
+  getProfile(): Observable<any> {
+    return this.http.get(AppConstants.ALL_API + "profile");
+  }
+
 }

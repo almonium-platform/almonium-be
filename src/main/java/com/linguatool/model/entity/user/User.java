@@ -6,26 +6,15 @@ import com.linguatool.model.entity.lang.LanguageEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -75,46 +64,42 @@ public class User implements Serializable {
 
     @JsonIgnore
     @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "user_role",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "requestee", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Friendship> friendshipsInitiated;
 
     @OneToMany(mappedBy = "requester", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Friendship> friendshipsRequested;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Card> cards;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinTable(name = "user_tag",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "id")}
-    )
-    private Set<Tag> tags;
-
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_target_lang",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
     )
     Set<LanguageEntity> targetLanguages;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "user_fluent_lang",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
     )
     Set<LanguageEntity> fluentLanguages;
-
 
 
     public void addCard(Card card) {
@@ -134,40 +119,53 @@ public class User implements Serializable {
             card.setOwner(null);
         }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        User user = (User) o;
-
-        return new EqualsBuilder().append(enabled, user.enabled).append(friendshipRequestsBlocked, user.friendshipRequestsBlocked).append(id, user.id).append(providerUserId, user.providerUserId).append(email, user.email).append(username, user.username).append(created, user.created).append(modified, user.modified).append(password, user.password).append(provider, user.provider).append(uiLanguage, user.uiLanguage).append(roles, user.roles).append(friendshipsInitiated, user.friendshipsInitiated).append(cards, user.cards).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(id).append(providerUserId).append(email).append(enabled).append(username).append(created).append(modified).append(password).append(provider).append(uiLanguage).append(friendshipRequestsBlocked).append(roles).toHashCode();
-    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//
+//        User user = (User) o;
+//
+//        return new EqualsBuilder().append(enabled, user.enabled).append(friendshipRequestsBlocked, user.friendshipRequestsBlocked).append(id, user.id).append(providerUserId, user.providerUserId).append(email, user.email).append(username, user.username).append(created, user.created).append(modified, user.modified).append(password, user.password).append(provider, user.provider).append(uiLanguage, user.uiLanguage).append(roles, user.roles).append(friendshipsInitiated, user.friendshipsInitiated).append(cards, user.cards).isEquals();
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return new HashCodeBuilder(17, 37).append(id).append(providerUserId).append(email).append(enabled).append(username).append(created).append(modified).append(password).append(provider).append(uiLanguage).append(friendshipRequestsBlocked).append(roles).toHashCode();
+//    }
 
     @Override
     public String toString() {
         return "User{" +
-            "id=" + id +
-            ", providerUserId='" + providerUserId + '\'' +
-            ", email='" + email + '\'' +
-            ", enabled=" + enabled +
-            ", username='" + username + '\'' +
-            ", created=" + created +
-            ", modified=" + modified +
-            ", password='" + password + '\'' +
-            ", provider='" + provider + '\'' +
-            ", friendshipRequestsBlocked=" + friendshipRequestsBlocked +
-            '}';
+                "id=" + id +
+                ", providerUserId='" + providerUserId + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", username='" + username + '\'' +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", password='" + password + '\'' +
+                ", provider='" + provider + '\'' +
+                ", friendshipRequestsBlocked=" + friendshipRequestsBlocked +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

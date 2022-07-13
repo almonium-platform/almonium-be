@@ -1,6 +1,7 @@
 package com.linguatool.model.entity.lang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linguatool.model.entity.user.CardTag;
 import com.linguatool.model.entity.user.Language;
 import com.linguatool.model.entity.user.Tag;
 import com.linguatool.model.entity.user.User;
@@ -11,32 +12,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PreRemove;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 
 @Entity
-@Getter
 @Table(name = "card")
+@Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Card {
@@ -85,16 +77,12 @@ public class Card {
     LanguageEntity language;
 
     @OneToMany(mappedBy = "card")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     List<Example> examples;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "card_tag",
-        joinColumns = {@JoinColumn(name = "card_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "tag_id", referencedColumnName = "id")}
-    )
-    private Set<Tag> tags;
-
+    @OneToMany(mappedBy = "card")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Set<CardTag> tagCards;
 
     public void addExample(Example example) {
         if (example != null) {
@@ -113,6 +101,7 @@ public class Card {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "card")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     List<Translation> translations;
 
     private String notes;
@@ -138,4 +127,17 @@ public class Card {
 
     String hardIndices;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return id.equals(card.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
+

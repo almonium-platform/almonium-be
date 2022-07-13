@@ -5,6 +5,10 @@
         <img src="../assets/img/icons/headicon.svg" alt="Logo" height="45" width="45">
       </a>
     </span>
+    <span style="color: yellow; border-width: thick; background-color: darkred" *ngIf="this.showTestLabel">
+      <a mat-button>TEST ENV</a>
+    </span>
+
     <span class="menu-item" *ngIf="isLoggedIn">
       <a class="nav-link" href="/home" mat-button routerLink="home"> Home</a>
     </span>

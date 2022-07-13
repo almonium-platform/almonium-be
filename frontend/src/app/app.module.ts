@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {LoginComponent, TrackCapsDirective} from './login/login.component';
 import {HomeComponent} from './home/home.component';
-import {ProfileComponent} from './profile/profile.component';
+import {DeletionConfirmationDialog, ProfileComponent} from './profile/profile.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import {DialogAnimationsExampleDialog, DiscoverComponent, FocusOnShowDirective} from './discover/discover.component';
@@ -53,6 +53,7 @@ import {AboutComponent} from './about/about.component';
     AlertComponent,
     CardCreationComponent,
     DialogAnimationsExampleDialog,
+    DeletionConfirmationDialog,
     GamesComponent,
     AboutComponent
   ],

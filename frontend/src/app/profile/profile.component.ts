@@ -4,6 +4,7 @@ import {UserService} from '../_services/user.service';
 import {Friend, FriendshipActionDto, User} from '../models/user.model';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {FormControl, FormGroup} from '@angular/forms';
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 enum Action {
   REQUEST,
@@ -54,7 +55,8 @@ export class ProfileComponent implements OnInit {
   searchAlreadyFriend: boolean = false;
 
   constructor(private token: TokenStorageService,
-              private userService: UserService
+              private userService: UserService,
+              public dialog: MatDialog
   ) {
     this.currentUser = this.token.getUser(
     );
@@ -62,7 +64,7 @@ export class ProfileComponent implements OnInit {
   }
 
   groupBy(arr, property) {
-    return arr.reduce(function(memo, x) {
+    return arr.reduce(function (memo, x) {
       if (!memo[x[property]]) {
         memo[x[property]] = [];
       }
@@ -77,7 +79,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dto = <FriendshipActionDto> {};
+    this.dto = <FriendshipActionDto>{};
     this.isLoggedIn = !!this.token.getToken();
     if (!this.isLoggedIn) {
       window.location.href = '/login';
@@ -157,14 +159,6 @@ export class ProfileComponent implements OnInit {
     this.notFound = false;
     this.searchYourself = false;
     this.searchAlreadyFriend = false;
-    // this.userService.getUserBoard(this.searchText).subscribe(
-    //   data => {
-    //     console.log('OLD' + data);
-    //   },
-    //   err => {
-    //     this.content = JSON.parse(err.error).message;
-    //   }
-    // );
 
     if (this.friends.some(e => e.email === this.searchText)) {
       this.searchAlreadyFriend = true;
@@ -187,9 +181,32 @@ export class ProfileComponent implements OnInit {
 
   deleteAccount() {
     this.userService.deleteAccount().subscribe(() => {
-      window.location.href = '/';
+      this.token.signOut();
+      window.location.href = '/login';
     }, error => {
-      console.log('DELETED');
+      console.log(error);
     });
   }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DeletionConfirmationDialog, {
+//       width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteAccount();
+      }
+      dialogRef = null;
+    });
+  }
+}
+
+@Component({
+  selector: 'deletion-confirmation-dialog',
+  templateUrl: 'deletion-confirmation-dialog.html',
+})
+export class DeletionConfirmationDialog {
+  constructor(public dialogRef: MatDialogRef<DeletionConfirmationDialog>) {
+  }
+
 }

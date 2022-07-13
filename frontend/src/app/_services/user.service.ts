@@ -19,11 +19,11 @@ export class UserService {
   }
 
   getFriends(id: number): Observable<any> {
-    return this.http.get<Friend[]>(AppConstants.HOME_API + 'friends/' + id);
+    return this.http.get<Friend[]>(AppConstants.FRIEND_API + 'friends/' + id);
   }
 
   getCards(): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.HOME_API + 'cards');
+    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'all');
   }
 
   manageFriendship(dto: FriendshipActionDto): Observable<any> {
@@ -44,7 +44,7 @@ export class UserService {
   }
 
   deleteAccount(): Observable<any> {
-    return this.http.delete(AppConstants.API_URL + 'user/delete');
+    return this.http.delete(AppConstants.API_URL + 'user/delete', {responseType: "text"});
   }
 
 }

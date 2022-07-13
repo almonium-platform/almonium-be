@@ -1,18 +1,11 @@
 package com.linguatool.model.entity.user;
 
 import com.linguatool.model.entity.lang.Card;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.ColumnTransformer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Locale;
 import java.util.Set;
 
@@ -20,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Tag {
 
@@ -29,15 +23,17 @@ public class Tag {
     Long id;
 
     @Column(name = "text")
+    @ColumnTransformer(read = "LOWER(text)")
     String text;
 
-//    @ManyToMany(mappedBy = "tags")
-//    Set<User> users;
-//
-    @ManyToMany(mappedBy = "tags")
-    Set<Card> cards;
+    @OneToMany(mappedBy = "tag")
+    Set<CardTag> tagCards;
 
-    public String normalizeText() {
+    public Tag(String proposedName) {
+        this.text = normalizeText(proposedName);
+    }
+
+    public static String normalizeText(String text) {
         return text.replaceAll("\\s", "_").toLowerCase(Locale.ROOT).trim();
     }
 

@@ -4,7 +4,9 @@ export class AppConstants {
 
   public static API_URL = AppConstants.API_BASE_URL + 'api/';
   public static AUTH_API = AppConstants.API_URL + 'auth/';
+  public static ALL_API = AppConstants.API_URL + 'all/';
   public static HOME_API = AppConstants.API_URL + 'home/';
+  public static CARD_API = AppConstants.API_URL + 'cards/';
   public static FRIEND_API = AppConstants.API_URL + 'friend/';
   public static LANG_API = AppConstants.API_URL + 'lang/';
 

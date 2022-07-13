@@ -1,6 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
 import {DataService} from './_services/data.service';
+import {UserService} from "./_services/user.service";
+import {AuthService} from "./_services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,7 @@ export class AppComponent implements OnInit {
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
+  showTestLabel = false;
   showModeratorBoard = false;
   username: string;
   currentUser: any;
@@ -20,12 +23,23 @@ export class AppComponent implements OnInit {
   ui_lang: string = 'EN';
 
   constructor(private tokenStorageService: TokenStorageService,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private userService: UserService,
+              private authService: AuthService
+              ) {
     this.currentUser = this.tokenStorageService.getUser();
   }
 
   ngOnInit(): void {
-    console.log(this.tokenStorageService.getCurLang());
+    this.dataService.getProfile().subscribe(data => {
+      console.log("HERERE")
+      console.log(data);
+      if (data.includes('test')) {
+        this.showTestLabel = true;
+      }
+    },error => {
+      console.log("couldn't get profile")
+    });
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
@@ -40,6 +54,18 @@ export class AppComponent implements OnInit {
 
       this.username = user.username;
     }
+  }
+  connect() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition)
+    } else {
+      // I believe it may also mean geolocation isn't supported
+      alert('Geolocation denied')
+    }
+  }
+
+  showPosition(position) {
+    alert(`${position.coords.longitude} - ${position.coords.latitude}`)
   }
 
   logout(): void {

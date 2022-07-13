@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getCurrentUser(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(GeneralUtils.buildUserInfo(user));
+        return ResponseEntity.ok(userService.buildUserInfo(user));
     }
 
     @DeleteMapping("/user/delete")
