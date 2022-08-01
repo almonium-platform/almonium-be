@@ -7,7 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {LoginComponent, TrackCapsDirective} from './login/login.component';
-import {HomeComponent} from './home/home.component';
+import {CardView, HomeComponent} from './home/home.component';
 import {DeletionConfirmationDialog, ProfileComponent} from './profile/profile.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
@@ -39,12 +39,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {GamesComponent} from './games/games.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {AboutComponent} from './about/about.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
+    CardView,
     ProfileComponent,
     TrackCapsDirective,
     FocusOnShowDirective,
@@ -55,7 +57,8 @@ import {AboutComponent} from './about/about.component';
     DialogAnimationsExampleDialog,
     DeletionConfirmationDialog,
     GamesComponent,
-    AboutComponent
+    AboutComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

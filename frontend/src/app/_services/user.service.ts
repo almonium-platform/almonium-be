@@ -26,6 +26,10 @@ export class UserService {
     return this.http.get<CardDto[]>(AppConstants.CARD_API + 'all');
   }
 
+  getCard(id: number): Observable<any> {
+    return this.http.get<CardDto[]>(AppConstants.CARD_API + id);
+  }
+
   manageFriendship(dto: FriendshipActionDto): Observable<any> {
 
     return this.http.post(AppConstants.HOME_API + 'friendship', {

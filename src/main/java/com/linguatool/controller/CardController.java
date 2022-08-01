@@ -8,13 +8,11 @@ import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.CardRepository;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -38,7 +36,7 @@ public class CardController {
 
     @GetMapping("all")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<CardDto>> getCurrentUser(@CurrentUser LocalUser user) {
+    public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(userService.getUsersCards(user.getUser()));
     }
 

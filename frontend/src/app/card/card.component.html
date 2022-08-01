@@ -1,0 +1,198 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="cardCreationFromGroup" (keydown.enter)="$event.preventDefault()" class="creation">
+
+      <div class="translations">
+        <div class="entry">
+          <mat-form-field class="" hideRequiredMarker>
+            <input autocomplete="off" matInput formControlName="entry" placeholder="entry">
+          </mat-form-field>
+        </div>
+        <ng-container formArrayName="translations">
+          <ng-container *ngFor="let translationForm of this.translations.controls; let i = index">
+            <div class="" [formGroup]="translationForm">
+              <mat-form-field>
+                <input matInput
+                       formControlName="translation"
+                       (keydown.enter)="addTranslation()"
+                       (keydown.delete)="deleteTranslationConditional(i)"
+                       placeholder="translation">
+              </mat-form-field>
+              <button mat-icon-button (click)="deleteTranslation(i)" *ngIf="this.translations.controls.length > 1">
+                <mat-icon class="delete-btn">
+                  close
+                </mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div class="button-div">
+          <button (click)="addTranslation()"
+                  *ngIf="this.translations.controls.slice(-1)[0].value.translation"
+                  class="add-icon add-translation"
+                  mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="examples">
+        <ng-container formArrayName="examples">
+          <ng-container *ngFor="let exampleForm of this.examples.controls; let i = index">
+            <div class="blockWithButton">
+              <div class="exampleBlock" [formGroup]="exampleForm">
+                <div>
+                  <mat-form-field>
+                    <input matInput
+                           formControlName="example"
+                           (keydown.enter)="addExample()"
+                           (keydown.delete)="deleteExampleConditional(i)"
+                           placeholder="example">
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <input matInput
+                           formControlName="translation"
+                           (keydown.enter)="addExample()"
+                           (keydown.delete)="deleteExampleConditional(i)"
+                           placeholder="translation">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="delete-example-btn-div">
+                <button (click)="deleteExample(i)"
+                        *ngIf="this.examples.controls.length > 1"
+                        mat-icon-button>
+                  <mat-icon class="">close</mat-icon>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div class="button-div">
+          <button class="add-icon" mat-icon-button
+                  (click)="addExample()"
+
+                  *ngIf="this.examples.controls.slice(-1)[0].value.example">
+            <mat-icon class="">add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <mat-expansion-panel class="expansion-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Advanced
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion-panel-content">
+
+          <div class="notes">
+            <mat-form-field class="">
+              <input autocomplete="off" matInput formControlName="notes" placeholder="notes">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="example-chip-list">
+            <mat-label>tags</mat-label>
+            <mat-chip-list #chipList>
+              <mat-chip
+                *ngFor="let tag of tags"
+                (removed)="remove(tag)">
+                {{tag}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input
+                #tagInput
+                placeholder=""
+                formControlName="tags"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                {{tag}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <div class="active-learning-div toggle-div">
+            <mat-label class="toggle-label">Learning mode:</mat-label>
+            <span class="spacer"></span>
+            {{this.learningTypeLabel}}
+            <mat-slide-toggle
+              (change)="changeLearningType($event)"
+              class="toggle"
+              checked="true"
+              color="primary"
+              formControlName="activeLearning"
+            >
+            </mat-slide-toggle>
+          </div>
+          <div class="irregular-plural-div toggle-div">
+            <mat-label class="toggle-label">Plural form:</mat-label>
+            <span class="spacer"></span>
+            {{this.pluralTypeLabel}}
+            <mat-slide-toggle
+              (change)="changePluralType($event)"
+              class="toggle"
+              color="primary"
+              formControlName="irregularPlural"
+            >
+            </mat-slide-toggle>
+          </div>
+          <div class="irregular-spelling-div toggle-div">
+            <mat-label class="toggle-label">Spelling/pronunciation:</mat-label>
+            <span class="spacer"></span>
+            {{this.spellingTypeLabel}}
+            <mat-slide-toggle
+              (change)="changeSpellingType($event)"
+              class="toggle"
+              color="primary"
+              formControlName="irregularSpelling"
+            >
+            </mat-slide-toggle>
+          </div>
+          <div class="toggle-div">
+            <mat-label class="toggle-label">False friend:</mat-label>
+            <span class="spacer"></span>
+            <mat-slide-toggle
+              class="toggle"
+              color="primary"
+              formControlName="falseFriend"
+            >
+            </mat-slide-toggle>
+          </div>
+          <div class="toggle-div slider-toggle-div">
+            <div class="slider-label-div">
+              <mat-label class="slide-label">Priority:</mat-label>
+            </div>
+            <span class="spacer"></span>
+            <mat-slider
+              class="priority-slider"
+              max="3"
+              formControlName="priority"
+              min="1"
+              step="1"
+              thumbLabel="true"
+              [tickInterval]="1"
+            >
+            </mat-slider>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <button
+        color="primary"
+        class="create-button"
+        mat-raised-button
+        (click)="createCard()"
+      >
+        Create
+      </button>
+
+    </form>
+  </mat-card-content>
+</mat-card>

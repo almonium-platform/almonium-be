@@ -18,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class CardDto {
+    Long id;
     @NotBlank
     String entry;
     @NotEmpty

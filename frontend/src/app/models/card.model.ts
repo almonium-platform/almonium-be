@@ -1,4 +1,5 @@
 export interface CardDto {
+  id: number;
   entry: string;
   activeLearning: boolean;
   irregularSpelling: boolean;

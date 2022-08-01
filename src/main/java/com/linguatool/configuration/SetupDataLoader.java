@@ -2,7 +2,10 @@ package com.linguatool.configuration;
 
 import com.linguatool.client.WordnikClient;
 import com.linguatool.model.dto.SocialProvider;
+import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.lang.Example;
 import com.linguatool.model.entity.lang.LanguageEntity;
+import com.linguatool.model.entity.lang.Translation;
 import com.linguatool.model.entity.user.Language;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -49,13 +53,27 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private FriendshipRepository friendshipRepository;
+
     @Autowired
     private WordnikClient client;
+
     @Autowired
     private TranslatorRepository translatorRepository;
 
     @Autowired
     private LangPairTranslatorRepository langPairTranslatorRepository;
+
+    @Autowired
+    private CardRepository cardRepository;
+
+    @Autowired
+    private TranslationRepository translationRepository;
+
+    @Autowired
+    private ExampleRepository exampleRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @SneakyThrows
     @Override
@@ -77,6 +95,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createUserIfNotFound("admin6@mail.com", Set.of(userRole, adminRole));
         createUserIfNotFound("admin7@mail.com", Set.of(userRole, adminRole));
 
+        createTestCards();
+
         System.out.println("F");
 
 //        Translator translator = new Translator();
@@ -96,6 +116,38 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 //        userService.createFriendshipRequest(1, 6);
 //        userService.createFriendshipRequest(1, 7);
         alreadySetup = true;
+
+    }
+
+    @Transactional
+    void createTestCards() {
+        Card card = new Card();
+        card.setOwner(userRepository.findByEmail("admin@mail.com"));
+        card.setCreated(LocalDateTime.now());
+        card.setModified(LocalDateTime.now());
+        card.setActiveLearning(true);
+        card.setNotes("Notes");
+        card.setEntry("TEST ENTRY MAIN ONE");
+        card.setFrequency(4);
+
+        Example example = new Example();
+        example.setExample("example1");
+        example.setTranslation("translation1");
+        example.setCard(card);
+
+        Translation translation = new Translation();
+        translation.setTranslation("translated no1");
+        translation.setCard(card);
+
+        card.setTranslations(List.of(translation));
+        card.setExamples(List.of(example));
+        card.setLanguage(languageRepository.getEnglish());
+
+        cardRepository.save(card);
+
+        translationRepository.save(translation);
+        exampleRepository.save(example);
+
     }
 
     @Transactional
