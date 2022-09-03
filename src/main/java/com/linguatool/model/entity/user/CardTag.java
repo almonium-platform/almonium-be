@@ -1,10 +1,7 @@
 package com.linguatool.model.entity.user;
 
 import com.linguatool.model.entity.lang.Card;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -12,7 +9,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-//@IdClass(CardTagPK.class)
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "card_tag")
 @FieldDefaults(level = AccessLevel.PRIVATE)

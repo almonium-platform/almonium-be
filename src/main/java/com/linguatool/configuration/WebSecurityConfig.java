@@ -1,15 +1,11 @@
 package com.linguatool.configuration;
 
 import com.linguatool.configuration.security.jwt.TokenAuthenticationFilter;
-import com.linguatool.configuration.security.oauth2.CustomOAuth2UserService;
-import com.linguatool.configuration.security.oauth2.CustomOidcUserService;
-import com.linguatool.configuration.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.linguatool.configuration.security.oauth2.OAuth2AccessTokenResponseConverterWithDefaults;
-import com.linguatool.configuration.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.linguatool.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.linguatool.configuration.security.oauth2.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -29,10 +25,12 @@ import org.springframework.security.oauth2.core.http.converter.OAuth2AccessToken
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+//@Profile("!test")
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

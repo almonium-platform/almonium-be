@@ -51,20 +51,4 @@ export class DiscoveryService {
     return this.http.get(AppConstants.LANG_API + 'audio/' + word);
   }
 
-  createCard(formGroup: FormGroup, filteredExamples: any, filteredTranslations: any, language: string): Observable<any> {
-    return this.http.post(AppConstants.CARD_API + 'create', {
-      entry: formGroup.controls.entry.value,
-      language: language,
-      priority: formGroup.controls.priority.value,
-      examples: filteredExamples,
-      translations: filteredTranslations,
-      irregularPlural: formGroup.controls.irregularPlural.value,
-      falseFriend: formGroup.controls.falseFriend.value,
-      irregularSpelling: formGroup.controls.irregularSpelling.value,
-      notes: formGroup.controls.notes.value,
-      tags: Array.from(formGroup.controls.tags.value),
-      activeLearning: formGroup.controls.activeLearning.value,
-    }, httpOptions);
-
-  }
 }

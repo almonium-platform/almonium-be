@@ -6,17 +6,24 @@ export interface CardDto {
   irregularPlural: boolean;
   frequency: number;
   priority: number;
+  iteration: number;
   notes: string;
   ipa: string;
   language: string;
   wordFamily: string[];
+  userId: number;
   tags: TagDto[];
   translations: TranslationDto[];
   examples: ExampleDto[];
   created: string;
-  modified: string;
+  updated: string
   lastRepeat: string;
   learnt: boolean;
+}
+
+export interface Suggestion {
+  card: CardDto;
+  sender: number;
 }
 
 export interface Analysis {

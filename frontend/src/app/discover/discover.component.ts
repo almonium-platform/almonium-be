@@ -60,7 +60,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(DialogAnimationsExampleDialog, {
+    this.dialog.open(CardCreationDialog, {
       data: {
         entryInfo: this.entryInfo,
       }
@@ -246,15 +246,13 @@ export class FocusOnShowDirective implements AfterViewInit {
   selector: 'dialog-animations-example-dialog',
   templateUrl: 'dialog-animations-example-dialog.html',
 })
-export class DialogAnimationsExampleDialog {
+export class CardCreationDialog {
   entryInfo: EntryInfo;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogAnimationsExampleDialog>,
+    public dialogRef: MatDialogRef<CardCreationDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    console.log('data');
-    console.log(data.entryInfo);
     this.entryInfo = data.entryInfo;
   }
 }

@@ -2,9 +2,8 @@ package com.linguatool.controller;
 
 import com.linguatool.configuration.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
-import com.linguatool.model.dto.api.request.CardCreationDto;
-import com.linguatool.model.dto.api.request.CardDto;
-import com.linguatool.model.dto.api.response.words.WordsReportDto;
+import com.linguatool.model.dto.external_api.request.CardDto;
+import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.service.ExternalService;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

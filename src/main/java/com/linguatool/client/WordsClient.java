@@ -1,8 +1,7 @@
 package com.linguatool.client;
 
 import com.linguatool.annotation.Client;
-import com.linguatool.model.dto.api.response.wordnik.WordnikRandomWordDto;
-import com.linguatool.model.dto.api.response.words.WordsReportDto;
+import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

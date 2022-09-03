@@ -1,8 +1,7 @@
 package com.linguatool.client;
 
 import com.linguatool.annotation.Client;
-import com.linguatool.model.dto.api.response.datamuse.DatamuseEntryDto;
-import com.linguatool.model.dto.lang.POS;
+import com.linguatool.model.dto.external_api.response.datamuse.DatamuseEntryDto;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.List;

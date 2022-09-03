@@ -11,7 +11,7 @@ import {CardView, HomeComponent} from './home/home.component';
 import {DeletionConfirmationDialog, ProfileComponent} from './profile/profile.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
-import {DialogAnimationsExampleDialog, DiscoverComponent, FocusOnShowDirective} from './discover/discover.component';
+import {CardCreationDialog, DiscoverComponent, FocusOnShowDirective} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -32,14 +32,13 @@ import {AlertComponent} from './alert/alert.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {CardCreationComponent} from './card-creation/card-creation.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {GamesComponent} from './games/games.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {AboutComponent} from './about/about.component';
-import { CardComponent } from './card/card.component';
+import {CardComponent} from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -53,12 +52,11 @@ import { CardComponent } from './card/card.component';
     DiscoverComponent,
     SettingsComponent,
     AlertComponent,
-    CardCreationComponent,
-    DialogAnimationsExampleDialog,
+    CardCreationDialog,
+    CardComponent,
     DeletionConfirmationDialog,
     GamesComponent,
     AboutComponent,
-    CardComponent
   ],
   imports: [
     BrowserModule,

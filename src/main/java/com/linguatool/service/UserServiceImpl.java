@@ -1,17 +1,19 @@
 package com.linguatool.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
 import com.linguatool.exception.user.FriendshipNotAllowedException;
 import com.linguatool.exception.user.FriendshipNotFoundException;
 import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
 import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
-import com.linguatool.model.dto.*;
 import com.linguatool.model.dto.Friend;
-import com.linguatool.model.dto.api.request.CardCreationDto;
-import com.linguatool.model.dto.api.request.CardDto;
-import com.linguatool.model.dto.api.request.TagDto;
+import com.linguatool.model.dto.*;
+import com.linguatool.model.dto.external_api.request.CardCreationDto;
+import com.linguatool.model.dto.external_api.request.CardDto;
+import com.linguatool.model.dto.external_api.request.TagDto;
 import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.lang.CardSuggestion;
 import com.linguatool.model.entity.lang.Example;
 import com.linguatool.model.entity.lang.Translation;
 import com.linguatool.model.entity.user.*;
@@ -22,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -30,6 +34,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -46,19 +52,31 @@ import static lombok.AccessLevel.PRIVATE;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
+
     RoleRepository roleRepository;
 
     CardTagRepository cardTagRepository;
+
     FriendshipRepository friendshipRepository;
 
     PasswordEncoder passwordEncoder;
 
     CardMapper cardMapper;
+
     ExampleRepository exampleRepository;
+
     CardRepository cardRepository;
+
     TranslationRepository translationRepository;
+
     TagRepository tagRepository;
+
     LanguageRepository languageRepository;
+
+    CardSuggestionRepository cardSuggestionRepository;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Override
     @Transactional(value = "transactionManager")
@@ -158,7 +176,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo buildUserInfo(LocalUser localUser) {
         List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         User user = localUser.getUser();
-        List<String> tags = cardTagRepository.getUsersTags(user).stream().map(Tag::getText).collect(Collectors.toList());
+        List<String> tags = cardTagRepository.getUsersTags(user).stream().map(r -> tagRepository.getById(r).getText()).collect(Collectors.toList());
         List<String> targetLangs = user.getTargetLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
         List<String> fluentLangs = user.getFluentLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
         return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, targetLangs, fluentLangs);
@@ -178,7 +196,7 @@ public class UserServiceImpl implements UserService {
     public void createCard(User user, CardCreationDto dto) {
         Card card = cardMapper.cardDtoToEntity(dto, languageRepository);
         card.setCreated(LocalDateTime.now());
-        card.setModified(LocalDateTime.now());
+        card.setUpdated(LocalDateTime.now());
         user.addCard(card);
 
         List<Example> examples = card.getExamples();
@@ -215,6 +233,36 @@ public class UserServiceImpl implements UserService {
         log.info("Created card {} for user {}", card, user);
     }
 
+    @Transactional
+    public void cloneCard(Card entity, User user) {
+        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity), languageRepository);
+
+        user.addCard(card);
+
+        List<Example> examples = card.getExamples();
+        examples.forEach(e -> e.setCard(card));
+
+        List<Translation> translations = card.getTranslations();
+        List<CardTag> cardTags = new ArrayList<>();
+
+        translations.forEach(t -> t.setCard(card));
+        Set<CardTag> cardTagsExtracted = entity.getTagCards();
+        for (CardTag ct : cardTagsExtracted) {
+            cardTags.add(CardTag.builder()
+                    .id(new CardTagPK(card.getId(), ct.getId().getTagId()))
+                    .card(card)
+                    .user(user)
+                    .tag(ct.getTag())
+                    .build());
+        }
+        cardRepository.save(card);
+        translationRepository.saveAll(translations);
+        exampleRepository.saveAll(examples);
+        cardTagRepository.saveAll(cardTags);
+        userRepository.save(user);
+        log.info("Cloned card {} for user {}", card, user);
+    }
+
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
         return SignUpRequest.builder()
                 .providerUserId(oAuth2UserInfo.getId())
@@ -244,6 +292,18 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public List<CardDto> getSuggestedCards(User user) {
+        return cardSuggestionRepository.getByRecipient(user)
+                .stream()
+                .map(sug -> {
+                    CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
+                    dto.setUserId(sug.getSender().getId());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(value = "transactionManager")
     public List<CardDto> getUsersCards(User user) {
         return cardRepository.findAllByOwner(user).stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
@@ -313,6 +373,65 @@ public class UserServiceImpl implements UserService {
         return friendship;
     }
 
+    @Transactional
+    public void ddd(CardTag ct, Card card, User recipient) {
+        CardTag cardTag = CardTag.builder()
+                .id(new CardTagPK(card.getId(), ct.getTag().getId()))
+                .user(recipient)
+                .card(cardRepository.getById(20L))
+                .tag(ct.getTag())
+                .build();
+        cardTagRepository.save(cardTag);
+    }
+
+    @Transactional
+    public void lol(CardAcceptanceDto dto) {
+//        Card card = cardRepository.getById(85L);
+//        Card card = cardRepository.getById(dto.getCardId());
+//        System.out.println(card.getExamples());
+    }
+
+    @Autowired
+    ObjectMapper objectMapper;
+    @Autowired
+    private MappingJackson2HttpMessageConverter springMvcJacksonConverter;
+
+    @Autowired
+    ObjectMapper mapper;
+
+    @Transactional
+    public void rejectSuggestion(CardAcceptanceDto dto, User recipient) {
+        cardSuggestionRepository
+                .deleteBySenderAndRecipientAndCard(
+                        userRepository.getById(dto.getSenderId()),
+                        recipient,
+                        cardRepository.getById(dto.getCardId())
+                );
+    }
+
+    @Transactional
+    public void acceptSuggestion(CardAcceptanceDto dto, User recipient) {
+        User sender = userRepository.getById(dto.getSenderId());
+        Card card = cardRepository.getById(dto.getCardId());
+        cloneCard(card, recipient);
+        CardSuggestion cardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card);
+        cardSuggestionRepository.delete(cardSuggestion);
+    }
+
+
+    public boolean suggestCard(CardSuggestionDto dto, User sender) {
+        Card card = cardRepository.getById(dto.getCardId());
+        User recipient = userRepository.getById(dto.getRecipientId());
+        //TODO  notifications
+        //TODO check if has access
+        if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) == null) {
+            cardSuggestionRepository.save(new CardSuggestion(sender, recipient, card));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @SneakyThrows
     public Friendship blockUser(long actionInitiatorId, long actionAcceptorId) {
         assert (actionInitiatorId != actionAcceptorId);
@@ -357,5 +476,11 @@ public class UserServiceImpl implements UserService {
     public List<CardDto> searchByEntry(String entry, User user) {
         return cardRepository.findAllByEntryLikeAndOwner(entry, user)
                 .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+    }
+
+    public void updateCard(CardDto dto) {
+        Card entity = cardRepository.getById(dto.getId());
+        cardMapper.update(dto, entity, languageRepository);
+        cardRepository.save(entity);
     }
 }

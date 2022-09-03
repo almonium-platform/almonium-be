@@ -16,7 +16,7 @@ public interface CardTagRepository extends JpaRepository<CardTag, CardTagPK> {
     Set<CardTag> getByUserAndTag(User user, Tag tag);
 
     @Query(value = "select distinct tag_id from card_tag where user_id = ?1", nativeQuery = true)
-    Set<Tag> getUsersTags(User user);
+    Set<Long> getUsersTags(User user);
 
     void deleteByUserAndTag(User user, Tag tag);
 

@@ -50,6 +50,6 @@
 }
 
 ::ng-deep .mat-expansion-panel{
-  width: 20%;
+  /*width: 20%;*/
   border-radius: 8px;
 }

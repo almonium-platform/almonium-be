@@ -3,10 +3,9 @@ import {UserService} from '../_services/user.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {CardDto} from "../models/card.model";
 import {APP_BASE_HREF} from "@angular/common";
-import {Observable} from "rxjs";
-import {EntryInfo} from "../models/entry.model";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {DialogAnimationsExampleDialog} from "../discover/discover.component";
+import {CardService} from "../_services/card.service";
+
 
 @Component({
   selector: 'app-home',
@@ -15,34 +14,31 @@ import {DialogAnimationsExampleDialog} from "../discover/discover.component";
 })
 export class HomeComponent implements OnInit {
   cards: CardDto[];
+  suggestedCards: CardDto[];
   cardShow: boolean
   cardLink: string = APP_BASE_HREF + "";
 
   constructor(private userService: UserService,
+              private cardService: CardService,
               private tokenStorageService: TokenStorageService,
               public dialog: MatDialog
   ) {
   }
 
-  openDialog(id: any): void {
-    this.userService.getCard(id).subscribe(
-      data => {
-        this.dialog.open(DialogAnimationsExampleDialog, {
+  openDialog(card: CardDto, mode: string): void {
+        this.dialog.open(CardView, {
           data: {
-            entryInfo: data,
+            card: card,
+            mode: mode,
           }
         });
-      },
-      err => {
-      }
-    );
   }
 
   ngOnInit(): void {
     if (!this.tokenStorageService.getToken()) {
       window.location.href = '/login';
     }
-    this.userService.getCards().subscribe(
+    this.cardService.getCards().subscribe(
       data => {
         console.log(data);
         this.cardShow = true;
@@ -51,6 +47,16 @@ export class HomeComponent implements OnInit {
       err => {
       }
     );
+    this.cardService.getSuggestedCards().subscribe(
+      data => {
+        console.log(data);
+        this.cardShow = true;
+        this.suggestedCards = data;
+      },
+      err => {
+      }
+    );
+
   }
 
 }
@@ -61,12 +67,14 @@ export class HomeComponent implements OnInit {
 })
 export class CardView {
   card: CardDto;
+  mode: string;
 
   constructor(
     public dialogRef: MatDialogRef<CardView>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.card = data;
+    this.mode = data.mode;
+    this.card = data.card;
   }
 }
 

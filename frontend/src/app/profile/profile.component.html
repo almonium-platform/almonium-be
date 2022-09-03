@@ -140,15 +140,14 @@
 
   <div>
     <button
-      color="primary"
+      color="warn"
       mat-raised-button
       class="delete-button"
-      (click)="deleteAccount()">
+      (click)="openDialog()">
       <div class="google-icon-wrapper">
         DELETE ACCOUNT
       </div>
     </button>
-    <button mat-raised-button (click)="openDialog()">DE:ETE ACCOUNT</button>
 
   </div>
   <div *ngIf="!!searchFriend">

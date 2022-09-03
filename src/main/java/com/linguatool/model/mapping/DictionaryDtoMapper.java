@@ -1,8 +1,8 @@
 package com.linguatool.model.mapping;
 
-import com.linguatool.model.dto.api.response.yandex.YandexDefDto;
-import com.linguatool.model.dto.api.response.yandex.YandexDto;
-import com.linguatool.model.dto.api.response.yandex.YandexTranslationDto;
+import com.linguatool.model.dto.external_api.response.yandex.YandexDefDto;
+import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
+import com.linguatool.model.dto.external_api.response.yandex.YandexTranslationDto;
 import com.linguatool.model.dto.lang.translation.DefinitionDto;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
 import com.linguatool.model.dto.lang.translation.TranslationDto;

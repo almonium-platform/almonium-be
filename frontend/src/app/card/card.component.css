@@ -1,0 +1,99 @@
+.translations {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.example-block {
+  display: inline-block;
+}
+
+.add-icon {
+  justify-content: center;
+}
+
+.checkitout {
+  padding-right: 2px;
+  padding-bottom: 2px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toggle-div {
+  display: flex;
+  margin: 1em 0 1em 0;
+}
+
+.blockWithButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.create-button {
+  margin-top: 10px;
+}
+
+.delete-button {
+  margin-top: 10px;
+}
+
+.creation {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 0 3em;
+}
+
+.expansion-panel {
+  margin-top: 15px;
+  grid-column: span 2;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 20%)
+}
+
+.toggle {
+  margin-left: .5em
+}
+
+.button-div {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-example-btn-div {
+  display: flex;
+  align-items: center;
+}
+
+/*.expansion-panel-content {*/
+/*  display: grid;*/
+/*  grid-template-columns: auto auto;*/
+/*}*/
+.example-chip-list {
+  width: 100%;
+}
+
+.priority-slider {
+  min-width: 90px;
+  width: 90px;
+  padding: 0;
+}
+
+.slide-label {
+  align-items: center;
+}
+
+.slider-label-div {
+  margin-top: 15px;
+  display: flex;
+}
+
+.slider-toggle-div {
+  margin-bottom: 0;
+}

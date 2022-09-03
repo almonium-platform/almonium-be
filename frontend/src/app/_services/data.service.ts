@@ -60,10 +60,8 @@ export class DataService {
     return fetch('assets/txt/wordlist.txt')
       .then(response => response.text())
       .then(data => {
-        let result = data.toString().replace(/\r\n/g, '').split('\n');
+        let result = data.toString().replace(/\r/g, '').split('\n');
         this._wordlist = result;
-        console.log('REQUESTED WORDLIST');//storage limit hit
-        // localStorage.setItem(this.wordlistKey, JSON.stringify(result));
         return result;
       });
   }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AppConstants} from '../common/app.constants';
-import {Friend, FriendshipActionDto, User} from '../models/user.model';
+import {User} from '../models/user.model';
 import {CardDto} from "../models/card.model";
 
 const httpOptions = {
@@ -18,31 +18,6 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getFriends(id: number): Observable<any> {
-    return this.http.get<Friend[]>(AppConstants.FRIEND_API + 'friends/' + id);
-  }
-
-  getCards(): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'all');
-  }
-
-  getCard(id: number): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + id);
-  }
-
-  manageFriendship(dto: FriendshipActionDto): Observable<any> {
-
-    return this.http.post(AppConstants.HOME_API + 'friendship', {
-      idInitiator: dto.idInitiator,
-      idAcceptor: dto.idAcceptor,
-      action: dto.action
-    }, httpOptions);
-  }
-
-  searchFriends(emailText: string): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'search/' + emailText, {responseType: 'text'});
-  }
-
   getMe(): Observable<any> {
     return this.http.get<User>(AppConstants.API_URL + 'user/me');
   }
@@ -51,4 +26,7 @@ export class UserService {
     return this.http.delete(AppConstants.API_URL + 'user/delete', {responseType: "text"});
   }
 
+  getAccount(id: number) {
+    return this.http.get<User>(AppConstants.API_URL + 'user/' + id);
+  }
 }

@@ -2,23 +2,16 @@ package com.linguatool.model.entity.lang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguatool.model.entity.user.CardTag;
-import com.linguatool.model.entity.user.Language;
-import com.linguatool.model.entity.user.Tag;
 import com.linguatool.model.entity.user.User;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -29,9 +22,11 @@ import java.util.Set;
 @Table(name = "card")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Card {
+public class Card implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +40,14 @@ public class Card {
     LocalDateTime created;
 
     @Column(columnDefinition = "TIMESTAMP")
-    LocalDateTime modified;
+    LocalDateTime updated;
 
     @Column(columnDefinition = "TIMESTAMP")
     LocalDateTime lastRepeat;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     User owner;
@@ -106,22 +102,16 @@ public class Card {
 
     private String notes;
 
+
     private String source;
 
-    private int iterations = 0;
+    private int iteration = 0;
 
     private int priority = 2;
 
     private String ipa;
 
     private int frequency;
-
-//    @ManyToMany
-//    @JoinTable(name = "confused",
-//        joinColumns = {@JoinColumn(name = "fst_word_id", referencedColumnName = "id")},
-//        inverseJoinColumns = {@JoinColumn(name = "snd_word_id", referencedColumnName = "id")}
-//    )
-//    List<CardEntity> confusedWith;
 
     String wordFamily;
 

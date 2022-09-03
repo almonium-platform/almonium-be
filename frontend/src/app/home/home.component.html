@@ -1,9 +1,14 @@
 <div *ngIf="cardShow">
+  My cards
   <div *ngFor="let card of cards">
-    {{card.entry}}
-    <button mat-raised-button (click)="openDialog(card.id)">
-      Edit
-      <mat-icon>open_in_new</mat-icon>
+    <button mat-raised-button (click)="openDialog(card, 'edit')">
+      {{card.entry}}
+    </button>
+  </div>
+  Suggested cards
+  <div *ngFor="let card of suggestedCards">
+    <button mat-raised-button (click)="openDialog(card,'suggest')">
+      {{card.entry}}
     </button>
   </div>
 </div>

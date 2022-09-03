@@ -1,7 +1,7 @@
 package com.linguatool.client;
 
 import com.linguatool.annotation.Client;
-import com.linguatool.model.dto.api.response.urban.UrbanResponse;
+import com.linguatool.model.dto.external_api.response.urban.UrbanResponse;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

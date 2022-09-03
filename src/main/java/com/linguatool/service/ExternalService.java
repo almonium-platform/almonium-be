@@ -2,11 +2,11 @@ package com.linguatool.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linguatool.client.*;
-import com.linguatool.model.dto.api.request.AnalysisDto;
-import com.linguatool.model.dto.api.response.datamuse.DatamuseEntryDto;
-import com.linguatool.model.dto.api.response.wordnik.WordnikAudioDto;
-import com.linguatool.model.dto.api.response.words.WordsReportDto;
-import com.linguatool.model.dto.api.response.yandex.YandexDto;
+import com.linguatool.model.dto.external_api.request.AnalysisDto;
+import com.linguatool.model.dto.external_api.response.datamuse.DatamuseEntryDto;
+import com.linguatool.model.dto.external_api.response.wordnik.WordnikAudioDto;
+import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
+import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
 import com.linguatool.model.dto.lang.POS;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
 import com.linguatool.model.entity.user.Language;

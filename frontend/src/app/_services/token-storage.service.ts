@@ -28,13 +28,16 @@ export class TokenStorageService {
   }
 
   public saveUser(user: User): void {
+    console.log("SAVED USER ")
+    console.log(user)
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
     this.saveCurLang(user.targetLangs[0]);
   }
 
   public saveCurLang(lang: string) {
-    console.log("SAVED" + lang);
+    console.log("SAVED lang");
+    console.log(lang)
     window.sessionStorage.removeItem(CUR_LANG_KEY);
     window.sessionStorage.setItem(CUR_LANG_KEY, (lang));
 

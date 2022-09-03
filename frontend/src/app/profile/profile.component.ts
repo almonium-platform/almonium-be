@@ -5,6 +5,7 @@ import {Friend, FriendshipActionDto, User} from '../models/user.model';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {FriendshipService} from "../_services/friendship.service";
 
 enum Action {
   REQUEST,
@@ -56,6 +57,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private token: TokenStorageService,
               private userService: UserService,
+              private friendshipService: FriendshipService,
               public dialog: MatDialog
   ) {
     this.currentUser = this.token.getUser(
@@ -85,7 +87,7 @@ export class ProfileComponent implements OnInit {
       window.location.href = '/login';
     }
 
-    this.userService.getFriends(this.currentUser.id).subscribe(
+    this.friendshipService.getMyFriends().subscribe(
       data => {
         this.friends = data;
         let sortedFriends = this.groupBy(data, 'status');
@@ -145,7 +147,7 @@ export class ProfileComponent implements OnInit {
     this.dto.action = Action[action].toString();
     this.dto.idAcceptor = this.selectedUserId;
     this.dto.idInitiator = this.currentUser.id;
-    this.userService.manageFriendship(this.dto).subscribe(
+    this.friendshipService.manageFriendship(this.dto).subscribe(
       data => {
         console.log(data);
       },
@@ -165,7 +167,7 @@ export class ProfileComponent implements OnInit {
     } else if (this.searchText === this.currentUser.email) {
       this.searchYourself = true;
     } else {
-      this.userService.searchFriends(this.searchText).subscribe(data => {
+      this.friendshipService.searchFriends(this.searchText).subscribe(data => {
           this.searchFriend = JSON.parse(data);
           console.log(this.searchFriend);
           console.log(this.searchFriend.email);

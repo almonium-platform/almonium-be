@@ -1,6 +1,5 @@
 package com.linguatool.model.dto.lang.translation;
 
-import com.linguatool.model.dto.api.response.yandex.YandexTranslationDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
