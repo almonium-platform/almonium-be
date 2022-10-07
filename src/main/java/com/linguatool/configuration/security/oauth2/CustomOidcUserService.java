@@ -2,6 +2,7 @@ package com.linguatool.configuration.security.oauth2;
 
 import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
 import com.linguatool.service.UserService;
+import com.linguatool.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class CustomOidcUserService extends OidcUserService {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Override
 	public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {

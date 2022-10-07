@@ -28,14 +28,12 @@ public class LangController {
 
     @CrossOrigin
     @GetMapping("/search/{text}")
-    @PreAuthorize("hasRole('USER')")
+
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
-        System.out.println(localUser.getUser().getCards());
         return ResponseEntity.ok(userService.searchByEntry(text, localUser.getUser()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> translate(@PathVariable String langFrom,
                                        @PathVariable String langTo,
                                        @PathVariable String text) {
@@ -53,7 +51,6 @@ public class LangController {
     }
 
     @GetMapping("/report/{text}/")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<CardDto>> getReport(@PathVariable String text, @CurrentUser LocalUser localUser) {
 //        externalService.getReport();
         return ResponseEntity.ok(userService.searchByEntry(text, localUser.getUser()));

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Delete card</h1>
+<div mat-dialog-content>
+  This action cannot be undone.
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="dialogRef.close(false)">Cancel</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(true)">Yes, delete</button>
+</div>

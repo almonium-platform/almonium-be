@@ -27,16 +27,9 @@ public class SignUpRequest {
 
 	private SocialProvider socialProvider;
 
+	private String profilePicLink;
+
 	@Size(min = 8, message = "{Size.userDto.password}")
 	private String password;
-
-
-	public SignUpRequest(String providerUserId, String username, String email, String password, SocialProvider socialProvider) {
-		this.providerUserId = providerUserId;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.socialProvider = socialProvider;
-	}
 
 }

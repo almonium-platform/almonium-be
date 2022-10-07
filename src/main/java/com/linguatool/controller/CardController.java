@@ -4,6 +4,7 @@ import com.linguatool.configuration.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.CardCreationDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
+import com.linguatool.model.dto.external_api.request.CardUpdateDto;
 import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.CardRepository;
 import com.linguatool.service.UserServiceImpl;
@@ -33,15 +34,20 @@ public class CardController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("update")
-    public ResponseEntity<?> updateCard(@Valid @RequestBody CardDto dto) {
-        userService.updateCard(dto);
+    @PatchMapping("update")
+    public ResponseEntity<?> updateCard(@Valid @RequestBody CardUpdateDto dto, @CurrentUser LocalUser user) {
+        userService.updateCard(dto, user.getUser());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("all")
     public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(userService.getUsersCards(user.getUser()));
+    }
+
+    @GetMapping("all/{code}")
+    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser LocalUser user) {
+        return ResponseEntity.ok(userService.getUsersCardsOfLang(code, user.getUser()));
     }
 
     @GetMapping("suggested")
@@ -51,7 +57,12 @@ public class CardController {
 
     @GetMapping("{id}")
     public ResponseEntity<CardDto> getCard(@PathVariable Long id) {
-        return ResponseEntity.of((cardRepository.findById(id)).map(e -> cardMapper.cardEntityToDto(e)));
+        return ResponseEntity.ok(userService.getCardById(id));
+    }
+
+    @GetMapping("hash/{hash}")
+    public ResponseEntity<CardDto> getCardByHash(@PathVariable String hash) {
+        return ResponseEntity.ok(userService.getCardByHash(hash));
     }
 
     @DeleteMapping("{id}")

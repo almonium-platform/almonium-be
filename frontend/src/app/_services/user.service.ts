@@ -29,4 +29,18 @@ export class UserService {
   getAccount(id: number) {
     return this.http.get<User>(AppConstants.API_URL + 'user/' + id);
   }
+
+  checkUsername(username: string) {
+    return this.http.get<boolean>(AppConstants.API_URL + 'user/check/' + username);
+  }
+
+  changeUsername(username: string) {
+    return this.http.post(AppConstants.API_URL + 'user/change/' + username, {});
+  }
+
+  setTargetLangs(codes: string[]): Observable<any> {
+    return this.http.post(AppConstants.API_URL + 'user/target/', {
+      codes: codes,
+    }, httpOptions);
+  }
 }

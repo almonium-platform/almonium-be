@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 
 @Entity
@@ -32,6 +33,9 @@ public class Card implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
+
+    @Column(name = "generated_id", nullable = false, unique = true)
+    String generatedId;
 
     @Column
     String entry;
@@ -72,18 +76,34 @@ public class Card implements Serializable {
     @JoinColumn(name = "lang_id", referencedColumnName = "id")
     LanguageEntity language;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Example> examples;
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    Set<CardTag> tagCards;
+    Set<CardTag> cardTags;
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    List<CardSuggestion> suggestions;
 
     public void addExample(Example example) {
         if (example != null) {
             this.examples.add(example);
             example.setCard(this);
+        }
+    }
+
+
+    public void addCardTag(CardTag cardTag) {
+        if (cardTag != null) {
+            this.cardTags.add(cardTag);
+        }
+    }
+    public void removeCardTag(CardTag cardTag) {
+        if (cardTag != null) {
+            this.cardTags.remove(cardTag);
         }
     }
 
@@ -96,12 +116,12 @@ public class Card implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST) //check
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Translation> translations;
 
-    private String notes;
 
+    private String notes;
 
     private String source;
 
@@ -116,6 +136,24 @@ public class Card implements Serializable {
     String wordFamily;
 
     String hardIndices;
+
+    public void assignTranslations() {
+        for (Translation translation : translations) {
+            translation.setCard(this);
+        }
+    }
+
+    public static String generateId() {
+        System.out.println("GENERATED");
+        return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
+    }
+
+    @PrePersist
+    void setDefault() {
+        if (this.generatedId == null) {
+            this.generatedId = generateId();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

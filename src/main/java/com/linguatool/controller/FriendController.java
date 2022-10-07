@@ -41,13 +41,13 @@ public class FriendController {
     @PostMapping("accept/")
     public ResponseEntity<?> acceptCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
         userService.acceptSuggestion(dto, user.getUser());
-        return ResponseEntity.ok().body("ok");
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("reject/")
-    public ResponseEntity<?> rejectCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
-        userService.rejectSuggestion(dto, user.getUser());
-        return ResponseEntity.ok().body("ok");
+    @PostMapping("decline/")
+    public ResponseEntity<?> declineCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
+        userService.declineSuggestion(dto, user.getUser());
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("friendship")

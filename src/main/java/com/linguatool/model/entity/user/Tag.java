@@ -1,6 +1,5 @@
 package com.linguatool.model.entity.user;
 
-import com.linguatool.model.entity.lang.Card;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnTransformer;
@@ -27,7 +26,7 @@ public class Tag {
     String text;
 
     @OneToMany(mappedBy = "tag")
-    Set<CardTag> tagCards;
+    Set<CardTag> cardTags;
 
     public Tag(String proposedName) {
         this.text = normalizeText(proposedName);

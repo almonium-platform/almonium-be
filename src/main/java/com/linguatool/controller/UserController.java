@@ -1,47 +1,52 @@
 package com.linguatool.controller;
 
 import com.linguatool.configuration.CurrentUser;
-import com.linguatool.model.dto.FriendshipCommandDto;
 import com.linguatool.model.dto.LocalUser;
-import com.linguatool.model.dto.FriendInfo;
+import com.linguatool.model.dto.TargetLangDto;
+import com.linguatool.repository.UserRepository;
 import com.linguatool.service.UserServiceImpl;
-import com.linguatool.util.GeneralUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user/")
 public class UserController {
 
     final UserServiceImpl userService;
+    @Autowired
+    UserRepository userRepository;
 
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/user/me")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping("me")
     public ResponseEntity<?> getCurrentUser(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(userService.buildUserInfo(user));
     }
 
-    @DeleteMapping("/user/delete")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> deleteAccount(@CurrentUser LocalUser localUser) {
-        userService.deleteAccount(localUser.getUser());
-        return ResponseEntity.ok("Successfully deleted");
+    @GetMapping("check/{username}")
+    public ResponseEntity<Boolean> isUsernameAvailable(@PathVariable String username) {
+        return ResponseEntity.ok(!userRepository.existsByUsername(username));
+    }
+
+    @PostMapping("change/{username}")
+    public ResponseEntity<Boolean> changeUsername(@PathVariable String username, @CurrentUser LocalUser user) {
+        userService.changeUsername(username, user.getUser().getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("delete")
+    public ResponseEntity<?> deleteAccount(@CurrentUser LocalUser user) {
+        userService.deleteAccount(user.getUser());
+        return ResponseEntity.ok("{'text' : 'ok'}");
+    }
+
+    @PostMapping("target")
+    public ResponseEntity<?> addTargetLang(@RequestBody TargetLangDto dto, @CurrentUser LocalUser user) {
+        userService.setTargetLangs(dto, user.getUser());
+        return ResponseEntity.ok().build();
     }
 
 }

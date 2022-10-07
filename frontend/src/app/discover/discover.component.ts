@@ -7,11 +7,13 @@ import {map, startWith} from 'rxjs/operators';
 import {DiscoveryService} from '../_services/discovery.service';
 import {FDEntry} from '../models/fd.model';
 import {EntryInfo} from '../models/entry.model';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {TokenStorageService} from "../_services/token-storage.service";
 import {TranslationCard} from "../models/translation.model";
 import {User} from "../models/user.model";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {CardDialog, CardService} from "../_services/card.service";
+import {CardDto} from "../models/card.model";
 
 
 @Component({
@@ -41,6 +43,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   audioLink: string;
   user: User;
   fdEntries: FDEntry[];
+  foundCards: CardDto[];
   translationCards: TranslationCard[] = [];
   formControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -48,23 +51,40 @@ export class DiscoverComponent implements OnInit, OnDestroy {
 
   ukrRusRegex: '[А-ЯҐЄІЇ]';
   ukrRegex: '[А-ЩЬЮЯҐЄІЇа-щьюяґєії]';
+  engines: boolean;
 
   constructor(private userService: UserService,
               private dataService: DataService,
               private tokenStorageService: TokenStorageService,
               private discoveryService: DiscoveryService,
+              private cardService: CardService,
+              private router: Router,
               public dialog: MatDialog
   ) {
     userService.getMe();
     this.user = this.tokenStorageService.getUser();
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(CardCreationDialog, {
+  showEngines() {
+    this.engines = !this.engines;
+  }
+
+  openCreationDialog(): void {
+    var cardDto = <CardDto>{};
+    cardDto.entry = this.entryInfo.entry;
+    let dialogRef = this.dialog.open(CardDialog, {
       data: {
-        entryInfo: this.entryInfo,
-      }
+        card: cardDto,
+        mode: 'create',
+      },
+      panelClass: 'thin-dialog'
     });
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.router.navigate([''], {}).then(r => {
+    //     console.log("success")
+    //   });
+    // });
+    //
   }
 
   private filterValues(value: string): string[] {
@@ -115,8 +135,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let eInfo: EntryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
-    this.entryInfo = eInfo;
+    this.entryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
     this.dataService.requestWordlist().then(r => {
       this.wordlist = r;
       this.formControl.valueChanges.subscribe(() => {
@@ -150,6 +169,10 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       .trim();
   }
 
+  openDialogLocal(card: CardDto, mode: string): void {
+    this.cardService.openDialog(card, mode)
+  }
+
   search() {
     console.log(this.searchText);
     this.searched = true;
@@ -161,8 +184,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       .replace(/[^A-Za\s-z\d'.,\-!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
       .replace(/\s\s+/g, ' ')
       .trim();
-    let eInfo: EntryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
-    this.entryInfo = eInfo;
+    this.entryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
     console.log('this.entryInfo');
     console.log(this.entryInfo);
 
@@ -171,6 +193,7 @@ export class DiscoverComponent implements OnInit, OnDestroy {
         this.cardSearchLabel = 'No cards like this in your stack so far';
       } else {
         this.cardSearchLabel = 'We`ve found : ' + data.length;
+        this.foundCards = data;
       }
     }, error => {
       console.log((error.status));
@@ -222,6 +245,12 @@ export class DiscoverComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  getIt() {
+    if (this.searched) {
+      return '1em';
+    } else return '15em';
+  }
 }
 
 @Directive({
@@ -243,16 +272,52 @@ export class FocusOnShowDirective implements AfterViewInit {
 }
 
 @Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: 'dialog-animations-example-dialog.html',
+  selector: 'card-dialog',
+  templateUrl: 'card-dialog.html',
 })
 export class CardCreationDialog {
-  entryInfo: EntryInfo;
+  card: CardDto;
+  mode: string;
 
   constructor(
     public dialogRef: MatDialogRef<CardCreationDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.entryInfo = data.entryInfo;
+    this.card = data.card;
+    this.mode = data.mode;
+  }
+}
+
+
+@Component({
+  template: ''
+})
+export class DialogEntryComponent {
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private cardService: CardService,
+              private route: ActivatedRoute) {
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.cardService.getCardByHash(params['id']).subscribe(card => {
+        console.log(card)
+        const dialogRef = this.dialog.open(CardDialog, {
+          data: {
+            card: card,
+            mode: 'view'
+          },
+          panelClass: 'thin-dialog'
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigate(['../../'], {relativeTo: this.route}).then(r => {
+            console.log("success")
+          });
+        });
+      }, error => {
+      })
+    })
   }
 }

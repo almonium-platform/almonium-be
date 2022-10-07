@@ -3,11 +3,12 @@ import {TokenStorageService} from './_services/token-storage.service';
 import {DataService} from './_services/data.service';
 import {UserService} from "./_services/user.service";
 import {AuthService} from "./_services/auth.service";
+import {User} from "./models/user.model";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   private roles: string[];
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
   showTestLabel = false;
   showModeratorBoard = false;
   username: string;
-  currentUser: any;
+  color: string;
+  currentUser: User;
   languages: string[] = [];
   ui_langs: string[] = ['UK', 'RU', 'EN'];
   language: string = '';
@@ -24,37 +26,37 @@ export class AppComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService,
               private dataService: DataService,
-              private userService: UserService,
-              private authService: AuthService
-              ) {
+  ) {
     this.currentUser = this.tokenStorageService.getUser();
   }
 
-  ngOnInit(): void {
+  testEnvDisclaimer() {
     this.dataService.getProfile().subscribe(data => {
-      console.log("HERERE")
-      console.log(data);
       if (data.includes('test')) {
         this.showTestLabel = true;
       }
-    },error => {
+    }, error => {
       console.log("couldn't get profile")
     });
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+  }
+
+  ngOnInit(): void {
+    this.testEnvDisclaimer();
+    this.isLoggedIn = !!this.tokenStorageService.getUser();
+    console.log(this.tokenStorageService.getUser())
+
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.ui_lang = user.ui_lang || 'EN';
+      const user: User = this.tokenStorageService.getUser();
+      this.ui_lang = user.uiLang || 'EN';
       this.languages = user.targetLangs;
       this.language = this.tokenStorageService.getCurLang();
 
       this.roles = user.roles;
 
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
       this.username = user.username;
     }
   }
+
   connect() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition)
@@ -90,8 +92,16 @@ export class AppComponent implements OnInit {
       let currentIndex = this.languages.indexOf(this.language);
       const nextIndex = ++currentIndex % this.languages.length;
       this.language = this.languages[nextIndex];
+      this.color = this.langBtnColor();
       this.tokenStorageService.saveCurLang(this.language);
     }
   }
 
+  langBtnColor() {
+    console.log(this.language)
+    if (this.language.toLowerCase() === 'en')
+      return "#252552";
+    if (this.language.toLowerCase() === 'de')
+      return "#561015";
+  }
 }

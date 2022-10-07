@@ -22,11 +22,13 @@ public interface CardMapper {
     @Mapping(target = "id", expression = "java(null)")
     Card copyCardDtoToEntity(CardDto dto, LanguageRepository repo);
 
-    @Mapping(target = "language", expression = "java(languageMapping(dto.getLanguage(),repo))")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void update(CardDto dto, @MappingTarget Card card, LanguageRepository repo);
+    @Mapping(target = "language", expression = "java(updateLanguageMapping(dto.getLanguage(),card,repo))")
+    @Mapping(target = "translations", ignore = true)
+    @Mapping(target = "examples", ignore = true)
+    void update(CardUpdateDto dto, @MappingTarget Card card, LanguageRepository repo);
 
-    @Mapping(target = "tags", source = "tagCards")
+    @Mapping(target = "tags", source = "cardTags")
     CardDto cardEntityToDto(Card cardEntity);
 
     Translation translationDtoToEntity(TranslationDto dto);
@@ -45,6 +47,14 @@ public interface CardMapper {
             return languageEntityOptional.get();
         } else {
             throw new IllegalArgumentException("");
+        }
+    }
+
+    default LanguageEntity updateLanguageMapping(LanguageDto dto, Card card, LanguageRepository repo) {
+        if (dto == null && card != null) {
+            return card.getLanguage();
+        } else {
+            return languageMapping(dto, repo);
         }
     }
 

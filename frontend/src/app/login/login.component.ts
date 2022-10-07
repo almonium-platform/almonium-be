@@ -2,11 +2,9 @@ import {Component, Directive, EventEmitter, HostListener, OnInit, Output} from '
 import {AuthService} from '../_services/auth.service';
 import {UserService} from '../_services/user.service';
 import {TokenStorageService} from '../_services/token-storage.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppConstants} from '../common/app.constants';
-import {Router} from '@angular/router';
 import {DataService} from '../_services/data.service';
-import {User} from '../models/user.model';
 
 
 @Component({

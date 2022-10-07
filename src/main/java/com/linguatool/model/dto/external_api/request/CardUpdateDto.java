@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,25 +16,27 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class CardCreationDto {
-
-    @NotBlank
+public class CardUpdateDto {
+    @NotNull
+    Long id;
     String entry;
-    @NotEmpty
     TranslationDto[] translations;
     String notes;
     String source;
+    String ipa;
     TagDto[] tags;
     ExampleDto[] examples;
-    boolean activeLearning;
-    boolean irregularPlural;
-    boolean falseFriend;
-    boolean irregularSpelling;
-    boolean learnt;
-    @NotNull
-    LanguageDto language;
-    String created;
-    String updated;
-    String lastRepeat;
+    LocalDateTime created;
+    LocalDateTime lastRepeat;
+    Integer iteration;
+    Long userId;
     Integer priority;
+    int[] tr_del;
+    int[] ex_del;
+    LocalDateTime updated;
+    Boolean activeLearning;
+    Boolean falseFriend;
+    Boolean irregularPlural;
+    Boolean irregularSpelling;
+    LanguageDto language;
 }

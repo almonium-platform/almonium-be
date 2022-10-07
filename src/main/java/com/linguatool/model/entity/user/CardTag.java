@@ -3,6 +3,8 @@ package com.linguatool.model.entity.user;
 import com.linguatool.model.entity.lang.Card;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -31,6 +33,7 @@ public class CardTag {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     User user;
 
 }

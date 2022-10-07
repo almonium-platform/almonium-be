@@ -2,6 +2,7 @@ package com.linguatool.model.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.lang.CardSuggestion;
 import com.linguatool.model.entity.lang.LanguageEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,10 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 
 @Entity
@@ -35,13 +38,15 @@ public class User implements Serializable {
     @Column(name = "PROVIDER_USER_ID")
     private String providerUserId;
 
+    private String profilePicLink;
+
     @Column(unique = true)
     private String email;
 
     @Type(type = "numeric_boolean")
     private boolean enabled;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @Column(columnDefinition = "TIMESTAMP", name = "created_date", nullable = false, updatable = false)
@@ -82,6 +87,14 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Card> cards;
+
+    @OneToMany(mappedBy = "sender")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<CardSuggestion> suggestedByMe;
+
+    @OneToMany(mappedBy = "recipient")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<CardSuggestion> suggestedToMe;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
@@ -139,6 +152,13 @@ public class User implements Serializable {
 //    public int hashCode() {
 //        return new HashCodeBuilder(17, 37).append(id).append(providerUserId).append(email).append(enabled).append(username).append(created).append(modified).append(password).append(provider).append(uiLanguage).append(friendshipRequestsBlocked).append(roles).toHashCode();
 //    }
+
+    @PrePersist
+    void usernameGenerator() {
+        if (this.username == null) {
+            this.username = Card.generateId();
+        }
+    }
 
     @Override
     public String toString() {

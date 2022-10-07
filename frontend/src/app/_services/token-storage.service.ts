@@ -43,11 +43,11 @@ export class TokenStorageService {
 
   }
 
-  public getUser(): any {
+  public getUser(): User {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
-  public getCurLang(): any {
+  public getCurLang(): string {
     return (sessionStorage.getItem(CUR_LANG_KEY));
   }
 }

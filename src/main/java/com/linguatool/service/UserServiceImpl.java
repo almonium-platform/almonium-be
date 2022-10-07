@@ -1,6 +1,7 @@
 package com.linguatool.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Sets;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
 import com.linguatool.exception.user.FriendshipNotAllowedException;
@@ -11,11 +12,9 @@ import com.linguatool.model.dto.Friend;
 import com.linguatool.model.dto.*;
 import com.linguatool.model.dto.external_api.request.CardCreationDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
+import com.linguatool.model.dto.external_api.request.CardUpdateDto;
 import com.linguatool.model.dto.external_api.request.TagDto;
-import com.linguatool.model.entity.lang.Card;
-import com.linguatool.model.entity.lang.CardSuggestion;
-import com.linguatool.model.entity.lang.Example;
-import com.linguatool.model.entity.lang.Translation;
+import com.linguatool.model.entity.lang.*;
 import com.linguatool.model.entity.user.*;
 import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.*;
@@ -78,6 +77,17 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Transactional
+    public CardDto getCardById(Long id) {
+        return cardMapper.cardEntityToDto(cardRepository.getById(id));
+    }
+
+    @Transactional
+    public void changeUsername(String username, Long id) {
+        if (!userRepository.existsByUsername(username))
+            userRepository.changeUsername(username, id);
+    }
+
     @Override
     @Transactional(value = "transactionManager")
     public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
@@ -106,6 +116,7 @@ public class UserServiceImpl implements UserService {
         final HashSet<Role> roles = new HashSet<>();
         roles.add(roleRepository.findByName(Role.ROLE_USER));
         user.setRoles(roles);
+        user.setProfilePicLink(formDTO.getProfilePicLink());
         user.setProvider(formDTO.getSocialProvider().getProviderType());
         user.setEnabled(true);
         user.setProviderUserId(formDTO.getProviderUserId());
@@ -173,17 +184,27 @@ public class UserServiceImpl implements UserService {
         });
     }
 
+    @Transactional
     public UserInfo buildUserInfo(LocalUser localUser) {
         List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         User user = localUser.getUser();
         List<String> tags = cardTagRepository.getUsersTags(user).stream().map(r -> tagRepository.getById(r).getText()).collect(Collectors.toList());
         List<String> targetLangs = user.getTargetLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
         List<String> fluentLangs = user.getFluentLanguages().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
-        return new UserInfo(user.getId().toString(), user.getUsername(), user.getEmail(), user.getUiLanguage().getCode(), roles, tags, targetLangs, fluentLangs);
+        return new UserInfo(
+                user.getId().toString(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getUiLanguage().getCode(),
+                user.getProfilePicLink(),
+                roles,
+                tags,
+                targetLangs,
+                fluentLangs);
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setUsername(oAuth2UserInfo.getName());
+        existingUser.setProfilePicLink(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }
 
@@ -246,7 +267,7 @@ public class UserServiceImpl implements UserService {
         List<CardTag> cardTags = new ArrayList<>();
 
         translations.forEach(t -> t.setCard(card));
-        Set<CardTag> cardTagsExtracted = entity.getTagCards();
+        Set<CardTag> cardTagsExtracted = entity.getCardTags();
         for (CardTag ct : cardTagsExtracted) {
             cardTags.add(CardTag.builder()
                     .id(new CardTagPK(card.getId(), ct.getId().getTagId()))
@@ -266,8 +287,8 @@ public class UserServiceImpl implements UserService {
     private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
         return SignUpRequest.builder()
                 .providerUserId(oAuth2UserInfo.getId())
-                .username(oAuth2UserInfo.getName())
                 .email(oAuth2UserInfo.getEmail())
+                .profilePicLink(oAuth2UserInfo.getImageUrl())
                 .socialProvider(GeneralUtils.toSocialProvider(registrationId))
                 .password("changeit")
                 .build();
@@ -292,6 +313,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Transactional
     public List<CardDto> getSuggestedCards(User user) {
         return cardSuggestionRepository.getByRecipient(user)
                 .stream()
@@ -400,7 +422,7 @@ public class UserServiceImpl implements UserService {
     ObjectMapper mapper;
 
     @Transactional
-    public void rejectSuggestion(CardAcceptanceDto dto, User recipient) {
+    public void declineSuggestion(CardAcceptanceDto dto, User recipient) {
         cardSuggestionRepository
                 .deleteBySenderAndRecipientAndCard(
                         userRepository.getById(dto.getSenderId()),
@@ -433,6 +455,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @SneakyThrows
+    @Transactional
     public Friendship blockUser(long actionInitiatorId, long actionAcceptorId) {
         assert (actionInitiatorId != actionAcceptorId);
 
@@ -452,6 +475,7 @@ public class UserServiceImpl implements UserService {
         return friendship;
     }
 
+    @Transactional
     public void editFriendship(FriendshipCommandDto dto) {
         switch (dto.getAction()) {
             case REQUEST:
@@ -473,14 +497,114 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
     public List<CardDto> searchByEntry(String entry, User user) {
-        return cardRepository.findAllByEntryLikeAndOwner(entry, user)
+        return cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(user, '%' + entry.trim().toLowerCase() + '%')
                 .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
 
-    public void updateCard(CardDto dto) {
+    @Transactional
+    public void updateCard(CardUpdateDto dto, User user) {
         Card entity = cardRepository.getById(dto.getId());
         cardMapper.update(dto, entity, languageRepository);
+
+        Arrays.stream(dto.getTr_del()).forEach(i -> translationRepository.deleteById((long) i));
+        Arrays.stream(dto.getEx_del()).forEach(i -> exampleRepository.deleteById((long) i));
+
+        Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
+            Long id = translationDto.getId();
+            if (id != null) {
+                Translation translation = translationRepository.getById(id);
+                translation.setTranslation(translationDto.getTranslation());
+                translationRepository.save(translation);
+            } else {
+                translationRepository.save(Translation.builder()
+                        .card(entity)
+                        .translation(translationDto.getTranslation())
+                        .build());
+            }
+        });
+        Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
+            Long id = exampleDto.getId();
+            if (id != null) {
+                Example example = exampleRepository.getById(id);
+                example.setExample(exampleDto.getExample());
+                example.setTranslation(exampleDto.getTranslation());
+                exampleRepository.save(example);
+            } else {
+                exampleRepository.save(Example.builder()
+                        .card(entity)
+                        .example(exampleDto.getExample())
+                        .translation(exampleDto.getTranslation())
+                        .build());
+            }
+        });
+
+        HashSet<String> dtoTagSet = Arrays
+                .stream(dto.getTags())
+                .map(TagDto::getText)
+                .collect(Collectors.toCollection(HashSet::new));
+
+        HashSet<String> cardTagSet = entity.getCardTags()
+                .stream()
+                .map(cardTag -> cardTag.getTag().getText())
+                .collect(Collectors.toCollection(HashSet::new));
+
+        Set<String> added = Sets.difference(dtoTagSet, cardTagSet);
+        Set<String> deleted = Sets.difference(cardTagSet, dtoTagSet);
+
+        for (String tagText : deleted) {
+            CardTag cardTag = cardTagRepository.getByCardAndText(entity, tagText);
+            cardTagRepository.delete(cardTag);
+            entity.removeCardTag(cardTag);
+        }
+
+        for (String tagText : added) {
+            Optional<Tag> tagOptional = tagRepository.findByText(tagText);
+
+            Tag tag = tagOptional.orElseGet(() -> {
+                Tag createdTag = new Tag(tagText);
+                tagRepository.save(createdTag);
+                return createdTag;
+            });
+
+            CardTag cardTag = CardTag.builder()
+                    .user(user)
+                    .tag(tag)
+                    .card(entity)
+                    .id(new CardTagPK(entity.getId(), tag.getId()))
+                    .build();
+            cardTagRepository.save(cardTag);
+//            entity.addCardTag(cardTag);
+//            tag.addCardTag(cardTag);
+        }
+        entity.setUpdated(LocalDateTime.now());
         cardRepository.save(entity);
+    }
+
+    @Transactional
+    public CardDto getCardByHash(String hash) {
+        Card card = cardRepository.getByGeneratedId(hash).orElseThrow();
+        return cardMapper.cardEntityToDto(card);
+    }
+
+    @Transactional
+    public void setTargetLangs(TargetLangDto dto, User user) {
+        Set<LanguageEntity> languages = new HashSet<>();
+        Arrays.stream(dto.getCodes()).forEach(code -> {
+            languages.add(languageRepository.findByCode(Language.fromString(code)).orElseThrow());
+        });
+        user.setTargetLanguages(languages);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public List<CardDto> getUsersCardsOfLang(String code, User user) {
+        LanguageEntity language = languageRepository.findByCode(Language.fromString(code)).orElseThrow();
+        return cardRepository
+                .findAllByOwnerAndLanguage(user, language)
+                .stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
     }
 }

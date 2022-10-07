@@ -4,14 +4,16 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-
 import {AppComponent} from './app.component';
 import {LoginComponent, TrackCapsDirective} from './login/login.component';
-import {CardView, HomeComponent} from './home/home.component';
-import {DeletionConfirmationDialog, ProfileComponent} from './profile/profile.component';
-
+import {HomeComponent} from './home/home.component';
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
-import {CardCreationDialog, DiscoverComponent, FocusOnShowDirective} from './discover/discover.component';
+import {
+  CardCreationDialog,
+  DialogEntryComponent,
+  DiscoverComponent,
+  FocusOnShowDirective
+} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -38,14 +40,18 @@ import {MatChipsModule} from '@angular/material/chips';
 import {GamesComponent} from './games/games.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {AboutComponent} from './about/about.component';
-import {CardComponent} from './card/card.component';
+import {CardComponent, CardDeletionConfirmationDialog} from './card/card.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {AccountDeletionConfirmationDialog, ProfileComponent} from "./profile/profile.component";
+import {CardDialog} from "./_services/card.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CardView,
+    CardDialog,
     ProfileComponent,
     TrackCapsDirective,
     FocusOnShowDirective,
@@ -54,7 +60,9 @@ import {CardComponent} from './card/card.component';
     AlertComponent,
     CardCreationDialog,
     CardComponent,
-    DeletionConfirmationDialog,
+    DialogEntryComponent,
+    AccountDeletionConfirmationDialog,
+    CardDeletionConfirmationDialog,
     GamesComponent,
     AboutComponent,
   ],
@@ -62,6 +70,7 @@ import {CardComponent} from './card/card.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatSnackBarModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -85,7 +94,8 @@ import {CardComponent} from './card/card.component';
     MatExpansionModule,
     MatSlideToggleModule,
     MatChipsModule,
-    MatSliderModule
+    MatSliderModule,
+    ClipboardModule
   ],
   providers: [
     authInterceptorProviders,

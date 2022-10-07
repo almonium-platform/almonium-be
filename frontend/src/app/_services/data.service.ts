@@ -4,6 +4,7 @@ import {UserService} from './user.service';
 import {Observable} from "rxjs";
 import {AppConstants} from "../common/app.constants";
 import {HttpClient} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -50,11 +51,15 @@ export class DataService {
 
   }
 
-  constructor(private userService: UserService, private http: HttpClient) {
+  constructor(private userService: UserService,
+              private http: HttpClient,
+              private snack: MatSnackBar
+  ) {
     this.requestWordlist().then(r => {
       this._wordlist = r;
     });
   }
+
 
   async requestWordlist(): Promise<string[]> {
     return fetch('assets/txt/wordlist.txt')
@@ -110,6 +115,16 @@ export class DataService {
 
   getProfile(): Observable<any> {
     return this.http.get(AppConstants.ALL_API + "profile");
+  }
+
+  showToast(msg: string): void {
+    this.snack.open(msg, '', {
+      duration: 1500,
+      horizontalPosition: "center",
+      verticalPosition: "bottom",
+      direction: "rtl",
+      panelClass: 'simple-snack-bar'
+    });
   }
 
 }

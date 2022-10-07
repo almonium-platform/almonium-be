@@ -30,7 +30,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-//@Profile("!test")
+@Profile("!test")
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -74,7 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(new RestAuthenticationEntryPoint())
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/error", "/api/all/**", "/api/auth/**", "/oauth2/**").permitAll()
+//            .antMatchers("/", "/error", "/api/all/**", "/api/auth/**", "/oauth2/**").permitAll()
+            .antMatchers("/**").permitAll()
             .anyRequest()
             .authenticated()
             .and()

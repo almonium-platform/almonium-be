@@ -1,11 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {UserService} from '../_services/user.service';
 import {Friend, FriendshipActionDto, User} from '../models/user.model';
 import {MatMenuTrigger} from '@angular/material/menu';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {FriendshipService} from "../_services/friendship.service";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {Observable} from "rxjs";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {map, startWith} from "rxjs/operators";
+import {DataService} from "../_services/data.service";
 
 enum Action {
   REQUEST,
@@ -39,6 +45,12 @@ export class ProfileComponent implements OnInit {
   selectedUserId: number;
   searchFriend: Friend;
   panelOpenState = false;
+  filteredTags: Observable<string[]>;
+  tags: Set<string> = new Set();
+  allTags: string[] = ['EN', 'DE', 'ES', 'FR', 'OTHER'];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+
 
   colors = [
     '#EB7181', // red
@@ -49,20 +61,71 @@ export class ProfileComponent implements OnInit {
     '#814033', // blue
   ];
   private isLoggedIn: boolean;
-  searchText: string;
+  friendSearchText: string;
+  usernameSearchText: string;
   notFound: boolean;
   placeholder: any;
   searchYourself: boolean = false;
   searchAlreadyFriend: boolean = false;
+  currentUsername: boolean;
+  availableUsername: boolean;
+  unavailableUsername: boolean;
+  public cardFormGroup: FormGroup = new FormGroup({
+    tags: new FormControl(''),
+  });
+  public usernameFormGroup: FormGroup = new FormGroup({
+    username: new FormControl('', Validators.compose(
+      [Validators.pattern('^[a-zA-Z0-9_\-]+$'), Validators.required])),
+  });
 
   constructor(private token: TokenStorageService,
               private userService: UserService,
+              private dataService: DataService,
               private friendshipService: FriendshipService,
               public dialog: MatDialog
   ) {
-    this.currentUser = this.token.getUser(
-    );
+    this.currentUser = this.token.getUser();
+
+    // this.tags = this.currentUser.targetLangs;
+
     this.placeholder = 'Enter your friend\'s email';
+    this.filteredTags = this.cardFormGroup.controls.tags.valueChanges.pipe(
+      startWith(''),
+      map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
+    );
+    this.cardFormGroup.patchValue({
+      tags: ['EN', 'DE']
+    })
+
+    this.tags = new Set<string>(this.currentUser.targetLangs);
+    // this.cardFormGroup.controls.tags.patchValue(this.allTags);
+
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toString().toLowerCase();
+    return this.allTags.filter(fruit => fruit.toLowerCase().includes(filterValue));
+  }
+
+  remove(fruit: string): void {
+    this.tags.delete(fruit);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.add(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.cardFormGroup.controls.tags.setValue(null);
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    if (value && this.allTags.includes(value)) {
+      this.tags.add(value);
+    }
+
+    event.input.value = '';
+    this.cardFormGroup.controls.tags.setValue(null);
   }
 
   groupBy(arr, property) {
@@ -80,7 +143,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.currentUser.username)
     this.dto = <FriendshipActionDto>{};
     this.isLoggedIn = !!this.token.getToken();
     if (!this.isLoggedIn) {
@@ -162,12 +225,12 @@ export class ProfileComponent implements OnInit {
     this.searchYourself = false;
     this.searchAlreadyFriend = false;
 
-    if (this.friends.some(e => e.email === this.searchText)) {
+    if (this.friends.some(e => e.email === this.friendSearchText)) {
       this.searchAlreadyFriend = true;
-    } else if (this.searchText === this.currentUser.email) {
+    } else if (this.friendSearchText === this.currentUser.email) {
       this.searchYourself = true;
     } else {
-      this.friendshipService.searchFriends(this.searchText).subscribe(data => {
+      this.friendshipService.searchFriends(this.friendSearchText).subscribe(data => {
           this.searchFriend = JSON.parse(data);
           console.log(this.searchFriend);
           console.log(this.searchFriend.email);
@@ -191,7 +254,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DeletionConfirmationDialog, {
+    let dialogRef = this.dialog.open(AccountDeletionConfirmationDialog, {
 //       width: '250px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -201,14 +264,47 @@ export class ProfileComponent implements OnInit {
       dialogRef = null;
     });
   }
+
+  saveChanges() {
+    this.userService.setTargetLangs(Array.from(this.tags)).subscribe(data => {
+      this.dataService.showToast("Changes saved");
+    }, error => {
+    })
+  }
+
+  checkUsername() {
+    this.availableUsername = false;
+    this.unavailableUsername = false;
+    this.currentUsername = false;
+
+    if (this.usernameSearchText == this.currentUser.username) {
+      this.currentUsername = true;
+      return;
+    }
+    this.userService.checkUsername(this.usernameSearchText).subscribe(data => {
+      console.log(data)
+      if (data === true) {
+        this.availableUsername = true;
+      } else {
+        this.unavailableUsername = true;
+      }
+    })
+  }
+
+  changeUsername() {
+    this.userService.changeUsername(this.usernameSearchText).subscribe(data => {
+      this.dataService.showToast("Username changed")
+    }, error => {
+    })
+  }
 }
 
 @Component({
-  selector: 'deletion-confirmation-dialog',
-  templateUrl: 'deletion-confirmation-dialog.html',
+  selector: 'account-deletion-confirmation-dialog',
+  templateUrl: 'account-deletion-confirmation-dialog.html',
 })
-export class DeletionConfirmationDialog {
-  constructor(public dialogRef: MatDialogRef<DeletionConfirmationDialog>) {
+export class AccountDeletionConfirmationDialog {
+  constructor(public dialogRef: MatDialogRef<AccountDeletionConfirmationDialog>) {
   }
 
 }

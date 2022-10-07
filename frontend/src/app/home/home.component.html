@@ -1,14 +1,16 @@
-<div *ngIf="cardShow">
+<mat-label class="my-label" *ngIf="!!this.cards && this.cards.length > 0">
   My cards
-  <div *ngFor="let card of cards">
-    <button mat-raised-button (click)="openDialog(card, 'edit')">
-      {{card.entry}}
-    </button>
-  </div>
-  Suggested cards
-  <div *ngFor="let card of suggestedCards">
-    <button mat-raised-button (click)="openDialog(card,'suggest')">
-      {{card.entry}}
-    </button>
-  </div>
+</mat-label>
+<div *ngFor="let card of cards">
+  <button mat-raised-button (click)="openDialogLocal(card, 'edit')">
+    {{card.entry}}
+  </button>
+</div>
+<mat-label class="my-label" *ngIf="!!this.suggestedCards && this.suggestedCards.length > 0">
+  Suggested card
+</mat-label>
+<div *ngFor="let card of suggestedCards">
+  <button mat-raised-button (click)="openDialogLocal(card,'suggest')">
+    {{card.entry}}
+  </button>
 </div>

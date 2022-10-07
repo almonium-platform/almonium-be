@@ -61,6 +61,22 @@ a {
   width: unset;
 }
 
+.lang-span {
+  display: flex;
+  flex-direction: column;
+  width: unset;
+}
+
+.lang-btn {
+  border: medium dashed;
+  padding: 0 10px;
+  border-radius: 10px;
+  color: #252552;
+  color: #561015;
+  line-height: 30px;
+  min-width: unset;
+}
+
 ::ng-deep .mat-select-content {
   width: 10px;
   /*background-color: red;*/
@@ -140,8 +156,14 @@ mat-form-field {
 
 .moomba {
   padding: 0;
-  margin: 0;
+  margin-top: 4px;
   border: 2px solid #282626 !important;
+}
+
+.imgg {
+  border: 2px solid #000;
+  border-radius: 32px;
+  height: 37px;
 }
 
 /*.mat-menu-item {*/
@@ -156,4 +178,32 @@ mat-form-field {
 
 .local-lang-picker {
   margin-right: 1em;
+}
+
+
+:root {
+  --border-size: 2px;
+  --box-width: 36em;
+  --box-height: 8em;
+  --dash-size: 1em;
+}
+
+.box,
+.box::after {
+  height: var(--box-height);
+  width: var(--box-width);
+  border: solid;
+  margin: 0;
+}
+
+.box {
+  border-image: repeating-linear-gradient(to right, red 0, red var(--dash-size), transparent var(--dash-size), transparent calc(var(--dash-size) * 2), blue calc(var(--dash-size) * 2), blue calc(var(--dash-size) * 3), transparent calc(var(--dash-size) * 3), transparent calc(var(--dash-size) * 4));
+  border-image-slice: 16;
+  border-image-width: var(--border-size) 0;
+}
+
+.box::after {
+  border-image: repeating-linear-gradient(to bottom, blue 0, blue var(--dash-size), transparent var(--dash-size), transparent calc(var(--dash-size) * 2), red calc(var(--dash-size) * 2), red calc(var(--dash-size) * 3), transparent calc(var(--dash-size) * 3), transparent calc(var(--dash-size) * 4));
+  border-image-slice: 16;
+  border-image-width: 0 var(--border-size);
 }

@@ -115,12 +115,52 @@
     </mat-expansion-panel>
   </div>
 
+  <div>
+    <form [formGroup]="cardFormGroup" (keydown.enter)="$event.preventDefault()">
+      <mat-form-field class="example-chip-list">
+        <mat-label>Target languages</mat-label>
+        <mat-chip-list #chipList>
+          <mat-chip #chip (focus)="chip.blur()"
+                    *ngFor="let tag of tags"
+                    (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="this.tags.size > 1">cancel</mat-icon>
+          </mat-chip>
+          <input
+            #tagInput
+            placeholder=""
+            formControlName="tags"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{tag}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="create-btn-div">
+        <button
+          color="primary"
+          class="create-btn"
+          mat-raised-button
+          (click)="saveChanges()"
+          [disabled]="!cardFormGroup.valid"
+        >
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
   <div class="search">
     Find someone!
     <form class="example-form" (ngSubmit)="searchPeople()">
       <mat-form-field [style.width.px]=250>
         <mat-label>Make friends with</mat-label>
-        <input [(ngModel)]="searchText" name="search" matInput>
+        <input [(ngModel)]="friendSearchText" name="search" matInput>
         <!--      <mat-placeholder class="placeholder">Search for your friend</mat-placeholder>-->
         <button matSuffix mat-button>
           <mat-icon>search</mat-icon>
@@ -136,6 +176,49 @@
         You are already friends 😐
       </div>
     </form>
+  </div>
+
+  <div class="username">
+    Change username
+    <form
+      [formGroup]="usernameFormGroup"
+      (ngSubmit)="uF.form.valid && checkUsername()"
+      class="example-form"
+      #uF="ngForm"
+    >
+      <mat-form-field [style.width.px]=250>
+        <mat-label>Change username</mat-label>
+        <input formControlName="username"
+               [(ngModel)]="usernameSearchText"
+               pattern="^[a-zA-Z0-9_\-]+$"
+               name="username" matInput>
+        <!--      <mat-placeholder class="placeholder">Search for your friend</mat-placeholder>-->
+        <button matSuffix mat-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-error *ngIf="uF.form.controls.username.invalid">Username is invalid</mat-error>
+      </mat-form-field>
+    </form>
+    <mat-error *ngIf="this.unavailableUsername" class="my-error">
+      ⚠️That username is already taken 😔
+    </mat-error>
+    <mat-error *ngIf="this.currentUsername" class="my-error">
+      ⚠️This is your current username 😐
+    </mat-error>
+    <div *ngIf="this.availableUsername">
+      Available username
+    </div>
+
+    <div class="create-btn-div" *ngIf="this.availableUsername">
+      <button
+        color="primary"
+        class="create-btn"
+        mat-raised-button
+        (click)="changeUsername()"
+      >
+        Change username
+      </button>
+    </div>
   </div>
 
   <div>

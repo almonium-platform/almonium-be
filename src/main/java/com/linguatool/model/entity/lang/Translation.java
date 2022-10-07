@@ -1,10 +1,7 @@
 package com.linguatool.model.entity.lang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Column;
@@ -18,7 +15,9 @@ import java.io.Serializable;
 
 @Entity
 @Getter
+@Builder
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class Translation implements Serializable {

@@ -25,9 +25,46 @@
   flex-direction: row;
 }
 
+.expansion-panel-content {
+  /*width: 3em;*/
+}
+
+.panel-header {
+  color: black;
+  font-style: italic;
+  height: 25px;
+}
+
+.engines-div {
+  display: flex;
+  justify-content: center;
+}
+
+.expansion-panel {
+  width: fit-content;
+  background-color: white;
+  box-shadow: none;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0px;
+  margin-left: 0px;
+  align-content: center;
+  flex-direction: row;
+}
+
+/*::ng-deep.mat-expansion-panel-header-description,*/
+/*::ng-deep.mat-expansion-indicator::after {*/
+/*  color: #000000;*/
+/*}*/
+
 .random-btn {
-  margin-left: 30px;
+  margin-right: 30px;
   margin-top: 70px;
+}
+
+.create-btn {
+  margin-left: 30px;
+  margin-top: 65px;
 }
 
 mat-form-field.mat-form-field {
@@ -64,4 +101,13 @@ mat-form-field.mat-form-field {
 
 .merriam-svg .collins-svg {
   padding: 10px;
+}
+
+::ng-deep .center-aligned-header > .mat-content {
+  justify-content: center;
+}
+
+::ng-deep .mat-content > mat-panel-title,
+.mat-content > mat-panel-description {
+  flex: 0 0 auto;
 }

@@ -1,4 +1,14 @@
-<div class="search">
+<div class="search" [ngStyle]="{'margin-top': getIt()}">
+  <ng-container *ngIf="!searched">
+    <button mat-icon-button class="random-btn" (click)="getRandomWord()">
+      <img src="../assets/img/icons/random.svg" alt="Random" height="40" width="40">
+    </button>
+  </ng-container>
+  <ng-container *ngIf="searched">
+    <button mat-icon-button class="random-btn" (click)="showEngines()">
+      <img src="../assets/img/icons/book-engine.svg" alt="Random" height="50" width="50">
+    </button>
+  </ng-container>
   <form class="form-input-autocomplete" (ngSubmit)="search()">
     <mat-form-field [style.width.px]=800 color="accent">
       <input #input [(ngModel)]="searchText" [formControl]="formControl"
@@ -15,42 +25,63 @@
       </mat-autocomplete>
     </mat-form-field>
   </form>
-  <button mat-icon-button class="random-btn" (click)="getRandomWord()">
-    <img src="../assets/img/icons/random.svg" alt="Random" height="37" width="37">
+  <button mat-icon-button class="create-btn" (click)="openCreationDialog()">
+    <img src="../assets/img/icons/create.svg" alt="Create" height="50" width="50">
   </button>
 
 </div>
 <!--(optionSelected)='optionSelectedHandler($event.option.value)'-->
 
+<!--<mat-expansion-panel [disabled]="true"-->
+<!--                     #mep="matExpansionPanel">-->
+<!--  <mat-expansion-panel-header>-->
+<!--    <button (click)="mep.expanded = !mep.expanded">Toggle</button>-->
+<!--  </mat-expansion-panel-header>-->
 
-<div *ngIf="searched">
+<!--  <p>Text</p>-->
 
+<!--</mat-expansion-panel>-->
 
-  <div class="engines">
-    <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
-                                                                     alt="Reverso"
-                                                                     height="60" width="60" class="small-icon"></a>
+<ng-container *ngIf="searched">
+  <div class="engines-div">
+    <mat-expansion-panel hideToggle class="expansion-panel" [expanded]="this.engines">
+      <!--      <mat-expansion-panel-header class="panel-header center-aligned-header">-->
+      <!--        engines-->
+      <!--      </mat-expansion-panel-header>-->
+      <div class="expansion-panel-content">
+        <div class="engines">
+          <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
+                                                                           alt="Reverso"
+                                                                           height="60" width="60"
+                                                                           class="small-icon"></a>
 
-    <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg" alt="Urban"
-                                                                   height="80" width="80"></a>
+          <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg"
+                                                                         alt="Urban"
+                                                                         height="80" width="80"></a>
 
-    <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/merriam-webster.svg"
-                                                             alt="Merriam-Webster"
-                                                             height="70" width="70" style="padding: 5px"></a>
+          <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/merriam-webster.svg"
+                                                                   alt="Merriam-Webster"
+                                                                   height="70" width="70" style="padding: 5px"></a>
 
-    <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.svg" alt="Collins"
-                                                      height="60" width="60" class="small-icon"></a>
+          <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.svg" alt="Collins"
+                                                            height="60" width="60" class="small-icon"></a>
 
-    <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford-online.svg" alt="Oxford"
-                                                     height="60" width="60" class="small-icon"></a>
+          <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford-online.svg"
+                                                           alt="Oxford"
+                                                           height="60" width="60" class="small-icon"></a>
 
-    <a target="_blank" [href]="getMacmillianLink()"><img src="../../assets/img/services/macmillian.svg" alt="Macmillian"
-                                                         height="60" width="60" class="small-icon"></a>
+          <a target="_blank" [href]="getMacmillianLink()"><img src="../../assets/img/services/macmillian.svg"
+                                                               alt="Macmillian"
+                                                               height="60" width="60" class="small-icon"></a>
 
-    <a target="_blank" [href]="getCambridgeLink()"><img src="../../assets/img/services/cambridge.svg" alt="Cambridge"
-                                                        height="60" width="60" class="small-icon"></a>
+          <a target="_blank" [href]="getCambridgeLink()"><img src="../../assets/img/services/cambridge.svg"
+                                                              alt="Cambridge"
+                                                              height="60" width="60" class="small-icon"></a>
+        </div>
+
+      </div>
+    </mat-expansion-panel>
   </div>
-
 
   <div *ngFor="let lang of user.fluentLangs">
     <span class="accountSpan">
@@ -74,6 +105,12 @@
 
 
   {{this.cardSearchLabel}}
+  <div *ngFor="let card of this.foundCards">
+    <button mat-raised-button (click)="openDialogLocal(card, 'edit')">
+      {{card.entry}}
+    </button>
+
+  </div>
   <div *ngFor="let entry of fdEntries">
     {{entry.phonetic}}
     <div *ngFor="let meaning of entry.meanings">
@@ -99,20 +136,5 @@
       </div>
     </div>
   </div>
-</div>
-
-<!--<button *ngIf="this.searched"-->
-<!--        color="primary"-->
-<!--        mat-raised-button-->
-<!--        (click)="invokeCreation()">-->
-<!--  Create card-->
-<!--</button>-->
-<button mat-raised-button (click)="openDialog('0ms', '0ms')">
-  Create
-  <mat-icon>open_in_new</mat-icon>
-</button>
-
-<button mat-raised-button (click)="geolocate()">
-  Geolocate
-  <mat-icon>open_in_new</mat-icon>
-</button>
+</ng-container>
+<router-outlet></router-outlet>

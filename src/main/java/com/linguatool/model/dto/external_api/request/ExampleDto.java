@@ -16,6 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class ExampleDto {
+    Long id;
     @NotBlank
     String example;
     String translation;

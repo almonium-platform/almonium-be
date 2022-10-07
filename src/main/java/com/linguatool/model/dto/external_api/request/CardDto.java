@@ -26,6 +26,7 @@ public class CardDto {
     @NotEmpty
     TranslationDto[] translations;
     String notes;
+    String source;
     String ipa;
     TagDto[] tags;
     ExampleDto[] examples;
@@ -33,10 +34,12 @@ public class CardDto {
     LocalDateTime lastRepeat;
     int iteration;
     Long userId;
+    int priority;
     LocalDateTime updated;
     boolean activeLearning;
     boolean irregularPlural;
     boolean irregularSpelling;
+    boolean falseFriend;
     @NotNull
     LanguageDto language;
 }

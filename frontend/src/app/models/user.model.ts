@@ -13,6 +13,7 @@ export interface User {
   tags: string[];
   targetLangs: string[];
   curLang: string;
+  profilePicLink: string;
   fluentLangs: string[];
 }
 export interface FriendshipActionDto {

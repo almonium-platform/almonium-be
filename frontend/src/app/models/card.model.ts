@@ -4,10 +4,12 @@ export interface CardDto {
   activeLearning: boolean;
   irregularSpelling: boolean;
   irregularPlural: boolean;
+  falseFriend: boolean;
   frequency: number;
   priority: number;
   iteration: number;
   notes: string;
+  source: string;
   ipa: string;
   language: string;
   wordFamily: string[];
@@ -32,14 +34,17 @@ export interface Analysis {
 }
 
 export interface ExampleDto {
+  id: number;
   example: string;
   translation: string;
 }
 
 export interface TranslationDto {
+  id: number;
   translation: string;
 }
 
 export interface TagDto {
-  tag: string;
+  id: number;
+  text: string;
 }

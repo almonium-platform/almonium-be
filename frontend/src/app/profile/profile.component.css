@@ -53,3 +53,8 @@
   /*width: 20%;*/
   border-radius: 8px;
 }
+.my-error{
+  font-size: 75%;
+  width: 100%;
+  overflow: hidden;
+}
