@@ -107,15 +107,15 @@ export class DiscoverComponent implements OnInit, OnDestroy {
   }
 
   getOxfordLink() {
-    return 'https://www.oxfordlearnersdictionaries.com/definition/english/' + this.searchText;
+    return 'https://www.oxfordlearnersdictionaries.com/definition/english/' + this.searchText.replace(' ', '-');
   }
 
   getMacmillianLink() {
-    return 'https://www.macmillandictionary.com/dictionary/american/' + this.searchText;
+    return 'https://www.macmillandictionary.com/dictionary/american/' + this.searchText.replace(' ', '-');
   }
 
   getCambridgeLink() {
-    return 'https://dictionary.cambridge.org/us/dictionary/english/' + this.searchText;
+    return 'https://dictionary.cambridge.org/us/dictionary/english/' + this.searchText.replace(' ', '-');
   }
 
   getReversoLink(): string {

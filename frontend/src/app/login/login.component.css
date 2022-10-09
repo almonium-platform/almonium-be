@@ -67,19 +67,25 @@ mat-card-content {
   margin: 20px auto;
 }
 
-.google-icon-wrapper {
+.provider-icon-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: left;
+}
+
+.provider-text {
+  margin: auto;
 }
 
 .google-icon, .fb-icon {
-  margin-right: 1em;
+  /*margin-right: 1em;*/
 }
-.fb-icon{
-  margin-right: 1em;
+
+.fb-icon {
+  /*margin-right: 1em;*/
   width: 25px;
 }
-.google-button {
+
+.provider-btn {
   background-color: white;
   color: black;
   display: block;

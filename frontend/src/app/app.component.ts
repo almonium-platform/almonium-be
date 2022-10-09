@@ -78,6 +78,7 @@ export class AppComponent implements OnInit {
 
   changeLearningLanguage(language: string) {
     this.language = language.toLowerCase();
+    this.color = this.langBtnColor();
     this.tokenStorageService.saveCurLang(this.language);
   }
 

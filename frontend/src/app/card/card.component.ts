@@ -170,6 +170,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.mode)
     console.log(this.card)
+    this.mode = 'view';
     this.changes = [];
     this.changes['examples'] = new Map();
     this.changes['translations'] = new Map();

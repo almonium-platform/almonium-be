@@ -197,7 +197,7 @@
                   *ngFor="let tag of tags"
                   (removed)="remove(tag)">
                   {{tag}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
+                  <mat-icon matChipRemove *ngIf="!this.viewOnly">cancel</mat-icon>
                 </mat-chip>
                 <input
                   #tagInput
@@ -227,7 +227,7 @@
                 formControlName="priority"
                 min="1"
                 step="1"
-                [attr.disabled]="viewOnly()"
+                [disabled]="viewOnly()"
                 thumbLabel="true"
                 [tickInterval]="1"
               >
@@ -243,7 +243,7 @@
                 class="toggle"
                 checked="true"
                 color="primary"
-                [attr.disabled]="viewOnly()"
+                [disabled]="viewOnly()"
                 formControlName="activeLearning"
               >
               </mat-slide-toggle>
@@ -256,7 +256,7 @@
                 (change)="changePluralType($event)"
                 class="toggle"
                 color="primary"
-                [attr.disabled]="viewOnly()"
+                [disabled]="viewOnly()"
                 formControlName="irregularPlural"
               >
               </mat-slide-toggle>
@@ -268,7 +268,7 @@
               <mat-slide-toggle
                 (change)="changeSpellingType($event)"
                 class="toggle"
-                [attr.disabled]="viewOnly()"
+                [disabled]="viewOnly()"
                 color="primary"
                 formControlName="irregularSpelling"
               >
@@ -281,7 +281,7 @@
               <mat-slide-toggle
                 (change)="changeFalseFriendType($event)"
                 class="toggle"
-                [attr.disabled]="viewOnly()"
+                [disabled]="viewOnly()"
                 color="primary"
                 formControlName="falseFriend"
               >
@@ -316,7 +316,7 @@
               class="create-btn"
               mat-raised-button
               (click)="createCard()"
-              [attr.disabled]="!cardFormGroup.valid"
+              [disabled]="!cardFormGroup.valid"
             >
               Create
             </button>
