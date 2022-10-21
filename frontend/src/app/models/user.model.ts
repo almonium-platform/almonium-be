@@ -14,6 +14,7 @@ export interface User {
   targetLangs: string[];
   curLang: string;
   profilePicLink: string;
+  background: string;
   fluentLangs: string[];
 }
 export interface FriendshipActionDto {

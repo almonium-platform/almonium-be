@@ -197,6 +197,7 @@ public class UserServiceImpl implements UserService {
                 user.getEmail(),
                 user.getUiLanguage().getCode(),
                 user.getProfilePicLink(),
+                user.getBackground(),
                 roles,
                 tags,
                 targetLangs,
@@ -589,12 +590,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void setTargetLangs(TargetLangDto dto, User user) {
+    public void setTargetLangs(LangCodeDto dto, User user) {
         Set<LanguageEntity> languages = new HashSet<>();
-        Arrays.stream(dto.getCodes()).forEach(code -> {
-            languages.add(languageRepository.findByCode(Language.fromString(code)).orElseThrow());
-        });
+        Arrays.stream(dto.getCodes()).forEach(
+                code -> languages.add(
+                        languageRepository.findByCode(Language.fromString(code)).orElseThrow()));
         user.setTargetLanguages(languages);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void setFluentLangs(LangCodeDto dto, User user) {
+        Set<LanguageEntity> languages = new HashSet<>();
+        Arrays.stream(dto.getCodes()).forEach(
+                code -> languages.add(
+                        languageRepository.findByCode(Language.fromString(code)).orElseThrow()));
+        user.setFluentLanguages(languages);
         userRepository.save(user);
     }
 

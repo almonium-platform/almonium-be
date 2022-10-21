@@ -1,8 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
 import {DataService} from './_services/data.service';
-import {UserService} from "./_services/user.service";
-import {AuthService} from "./_services/auth.service";
 import {User} from "./models/user.model";
 
 @Component({
@@ -13,12 +11,11 @@ import {User} from "./models/user.model";
 export class AppComponent implements OnInit {
   private roles: string[];
   isLoggedIn = false;
-  showAdminBoard = false;
   showTestLabel = false;
-  showModeratorBoard = false;
   username: string;
   color: string;
-  currentUser: User;
+  backgroundImgUrl: string = `url('../assets/img/background/4.svg')`;
+  user: User;
   languages: string[] = [];
   ui_langs: string[] = ['UK', 'RU', 'EN'];
   language: string = '';
@@ -27,7 +24,6 @@ export class AppComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService,
               private dataService: DataService,
   ) {
-    this.currentUser = this.tokenStorageService.getUser();
   }
 
   testEnvDisclaimer() {
@@ -43,18 +39,22 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.testEnvDisclaimer();
     this.isLoggedIn = !!this.tokenStorageService.getUser();
-    console.log(this.tokenStorageService.getUser())
 
     if (this.isLoggedIn) {
-      const user: User = this.tokenStorageService.getUser();
-      this.ui_lang = user.uiLang || 'EN';
-      this.languages = user.targetLangs;
+      this.user = this.tokenStorageService.getUser();
+      this.backgroundImgUrl = `url('../assets/img/background/${this.user.background}.svg')`
+      this.ui_lang = this.user.uiLang || 'EN';
+      this.languages = this.user.targetLangs;
       this.language = this.tokenStorageService.getCurLang();
-
-      this.roles = user.roles;
-
-      this.username = user.username;
+      this.color = this.langBtnColor();
+      this.roles = this.user.roles;
+      this.username = this.user.username;
+      console.log(this.backgroundImgUrl)
     }
+  }
+
+  getBackgroundImg() {
+    return this.tokenStorageService.getBackground();
   }
 
   connect() {

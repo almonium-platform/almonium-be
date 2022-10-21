@@ -1,5 +1,6 @@
 package com.linguatool.model.dto.external_api.request;
 
+import com.linguatool.model.dto.lang.translation.TranslationCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +27,5 @@ public class AnalysisDto {
     Boolean isProper;
     Boolean isForeignWord;
     Boolean isPlural;
+    TranslationCardDto translationCards;
 }

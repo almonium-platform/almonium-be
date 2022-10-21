@@ -1,4 +1,4 @@
-<div class="search" [ngStyle]="{'margin-top': getIt()}">
+<div class="friend-search" [ngStyle]="{'margin-top': positionSearch()}">
   <ng-container *ngIf="!searched">
     <button mat-icon-button class="random-btn" (click)="getRandomWord()">
       <img src="../assets/img/icons/random.svg" alt="Random" height="40" width="40">
@@ -11,11 +11,20 @@
   </ng-container>
   <form class="form-input-autocomplete" (ngSubmit)="search()">
     <mat-form-field [style.width.px]=800 color="accent">
-      <input #input [(ngModel)]="searchText" [formControl]="formControl"
-             [matAutocomplete]="auto"
-             [appFocus]=true
-             class="input-autocomplete"
-             matInput type="text">
+      <textarea matInput
+                (keydown.enter)="search(); $event.preventDefault()"
+                id="text-area"
+                [formControl]="formControl"
+                [(ngModel)]="searchText"
+                #textarea
+                [appFocus]="true"
+                cdkTextareaAutosize
+                [matAutocomplete]="auto"
+                class="input-autocomplete"
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5">
+      </textarea>
       <mat-autocomplete
         #auto="matAutocomplete"
         (optionSelected)='optionSelectedHandler($event.option.value)'>
@@ -30,19 +39,9 @@
   </button>
 
 </div>
-<!--(optionSelected)='optionSelectedHandler($event.option.value)'-->
 
-<!--<mat-expansion-panel [disabled]="true"-->
-<!--                     #mep="matExpansionPanel">-->
-<!--  <mat-expansion-panel-header>-->
-<!--    <button (click)="mep.expanded = !mep.expanded">Toggle</button>-->
-<!--  </mat-expansion-panel-header>-->
+<ng-container *ngIf="this.searched">
 
-<!--  <p>Text</p>-->
-
-<!--</mat-expansion-panel>-->
-
-<ng-container *ngIf="searched">
   <div class="engines-div">
     <mat-expansion-panel hideToggle class="expansion-panel" [expanded]="this.engines">
       <!--      <mat-expansion-panel-header class="panel-header center-aligned-header">-->
@@ -50,20 +49,24 @@
       <!--      </mat-expansion-panel-header>-->
       <div class="expansion-panel-content">
         <div class="engines">
-          <a target="_blank" [href]="getReversoLink()" class="button"><img src="../../assets/img/services/reverso.svg"
-                                                                           alt="Reverso"
-                                                                           height="60" width="60"
-                                                                           class="small-icon"></a>
+          <a target="_blank" [href]="getReversoLink()" class="button"><img
+            src="../../assets/img/services/reverso.svg"
+            alt="Reverso"
+            height="60" width="60"
+            class="small-icon"></a>
 
-          <a target="_blank" [href]="getUrbanLink()" class="button"><img src="../../assets/img/services/urban.svg"
-                                                                         alt="Urban"
-                                                                         height="80" width="80"></a>
+          <a target="_blank" [href]="getUrbanLink()" class="button"><img
+            src="../../assets/img/services/urban.svg"
+            alt="Urban"
+            height="80" width="80"></a>
 
-          <a target="_blank" [href]="getMerriamWebsterLink()"><img src="../../assets/img/services/merriam-webster.svg"
-                                                                   alt="Merriam-Webster"
-                                                                   height="70" width="70" style="padding: 5px"></a>
+          <a target="_blank" [href]="getMerriamWebsterLink()"><img
+            src="../../assets/img/services/merriam-webster.svg"
+            alt="Merriam-Webster"
+            height="70" width="70" style="padding: 5px"></a>
 
-          <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.svg" alt="Collins"
+          <a target="_blank" [href]="getCollinsLink()"><img src="../../assets/img/services/collins.svg"
+                                                            alt="Collins"
                                                             height="60" width="60" class="small-icon"></a>
 
           <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford-online.svg"
@@ -83,28 +86,60 @@
     </mat-expansion-panel>
   </div>
 
-  <div *ngFor="let lang of user.fluentLangs">
-    <span class="accountSpan">
-      <button class="moomba" mat-icon-button *ngIf="true" (click)="showTranslation(lang)">
-              <div class="inter">
-                <img src="../assets/img/lang/{{lang.toLowerCase()}}.png" alt="Logo" height="37"
-                     width="37">
-              </div>
-      </button>
-    </span>
-  </div>
+  <ng-container *ngIf="this.parallelMode">
+    <div class="cards">
+      <div class="mlt-card">
+        <div class="original-card-header">
+          <div>
+            original
+          </div>
+          <mat-icon *ngIf="!ttsReceived" class="volumeIcon" (click)="getTTS()">volume_up</mat-icon>
+        </div>
+        <div class="content">
+          {{this.savedChunk}}
+        </div>
+        <div class="audio-ribbon">
+          <div #audioPlayer
+               class="essential_audio ribbon"
+               data-autoplay>
+          </div>
+        </div>
+      </div>
 
-  <button mat-icon-button class="audio-btn" (click)="getAudio()" *ngIf="!audioAvailable">
-    <img src="../assets/img/icons/speaker.svg" alt="speaker" height="40" width="40">
+
+      <div class="mlt-card">
+        <div class="translated-card-header">
+          translated to
+          <select #langSelect (change)="translateTo(langSelect.value)">
+            <option
+              *ngFor="let lang of this.getFluentLanguages()"
+              [value]="lang">
+              {{ lang.toLowerCase() }}
+            </option>
+          </select>
+        </div>
+        <div class="content">
+          {{this.machineTranslationDto.text}}
+        </div>
+        <div class="img-div">
+          <img class="provider-img" src="../assets/img/services/google-colored.png" alt="translated by Google">
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <button mat-icon-button class="audio-btn" (click)="getAudio()" *ngIf="!this.parallelMode">
+    <mat-icon class="icon-display">volume_up</mat-icon>
   </button>
-  <div *ngIf="audioAvailable">
-    <audio controls>
-      <source [src]="audioLink"/>
-    </audio>
-  </div>
-
 
   {{this.cardSearchLabel}}
+  <ng-container *ngIf="!!this.report">
+    REPORT
+    Frequency: {{this.report.frequency}}
+    Lemmas: {{this.report.lemmas}}
+    POS-tags: {{this.report.posTags}}
+  </ng-container>
   <div *ngFor="let card of this.foundCards">
     <button mat-raised-button (click)="openDialogLocal(card, 'edit')">
       {{card.entry}}
@@ -121,20 +156,19 @@
     </div>
   </div>
 
-  <div *ngIf="translated">
-    TRANSLATED
-    <div *ngFor="let card of translationCards">
-      {{card.provider}}
-      <div *ngFor="let definition of card.definitions">
-        {{definition.pos}}
-        {{definition.transcription}}
-        <div *ngFor="let translation of definition.translations">
-          {{translation.frequency}}
-          {{translation.pos}}
-          {{translation.text}}
-        </div>
-      </div>
-    </div>
+  <div *ngIf="parallelMode">
+    <!--    <div *ngFor="let card of translationCards ? [].concat(translationCards) : []">-->
+    <!--      {{card.provider}}-->
+    <!--      <div *ngFor="let definition of card.definitions">-->
+    <!--        {{definition.pos}}-->
+    <!--        {{definition.transcription}}-->
+    <!--        <div *ngFor="let translation of definition.translations">-->
+    <!--          {{translation.frequency}}-->
+    <!--          {{translation.pos}}-->
+    <!--          {{translation.text}}-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </ng-container>
 <router-outlet></router-outlet>

@@ -57,6 +57,8 @@ public class User implements Serializable {
 
     private String password;
 
+    private String background;
+
     private String provider;
 
     private int dailyGoal = 5;

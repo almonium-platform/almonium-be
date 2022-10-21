@@ -12,6 +12,7 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {map, startWith} from "rxjs/operators";
 import {DataService} from "../_services/data.service";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 enum Action {
   REQUEST,
@@ -30,8 +31,7 @@ enum Action {
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser: any;
-  user: User;
+  currentUser: User;
   content: any;
   friends: Friend[];
   friendsBlocked: Friend[] = [];
@@ -45,11 +45,14 @@ export class ProfileComponent implements OnInit {
   selectedUserId: number;
   searchFriend: Friend;
   panelOpenState = false;
-  filteredTags: Observable<string[]>;
-  tags: Set<string> = new Set();
+  filteredTargetTags: Observable<string[]>;
+  filteredFluentTags: Observable<string[]>;
+  targetLangTags: string[];
+  fluentLangTags: string[];
   allTags: string[] = ['EN', 'DE', 'ES', 'FR', 'OTHER'];
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInputTarget') tagInputTarget: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInputFluent') tagInputFluent: ElementRef<HTMLInputElement>;
 
 
   colors = [
@@ -62,7 +65,6 @@ export class ProfileComponent implements OnInit {
   ];
   private isLoggedIn: boolean;
   friendSearchText: string;
-  usernameSearchText: string;
   notFound: boolean;
   placeholder: any;
   searchYourself: boolean = false;
@@ -70,8 +72,9 @@ export class ProfileComponent implements OnInit {
   currentUsername: boolean;
   availableUsername: boolean;
   unavailableUsername: boolean;
-  public cardFormGroup: FormGroup = new FormGroup({
-    tags: new FormControl(''),
+  public langFormGroup: FormGroup = new FormGroup({
+    targetTags: new FormControl(''),
+    fluentTags: new FormControl(''),
   });
   public usernameFormGroup: FormGroup = new FormGroup({
     username: new FormControl('', Validators.compose(
@@ -84,22 +87,6 @@ export class ProfileComponent implements OnInit {
               private friendshipService: FriendshipService,
               public dialog: MatDialog
   ) {
-    this.currentUser = this.token.getUser();
-
-    // this.tags = this.currentUser.targetLangs;
-
-    this.placeholder = 'Enter your friend\'s email';
-    this.filteredTags = this.cardFormGroup.controls.tags.valueChanges.pipe(
-      startWith(''),
-      map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
-    );
-    this.cardFormGroup.patchValue({
-      tags: ['EN', 'DE']
-    })
-
-    this.tags = new Set<string>(this.currentUser.targetLangs);
-    // this.cardFormGroup.controls.tags.patchValue(this.allTags);
-
   }
 
   private _filter(value: string): string[] {
@@ -107,25 +94,27 @@ export class ProfileComponent implements OnInit {
     return this.allTags.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 
-  remove(fruit: string): void {
-    this.tags.delete(fruit);
+  selectedTarget(event: MatAutocompleteSelectedEvent): void {
+    this.targetLangTags.push(event.option.viewValue);
+    this.tagInputTarget.nativeElement.value = '';
+    // this.langFormGroup.controls.tags.setValue(null);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.add(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.cardFormGroup.controls.tags.setValue(null);
+  selectedFluent(event: MatAutocompleteSelectedEvent): void {
+    this.fluentLangTags.push(event.option.viewValue);
+    this.tagInputFluent.nativeElement.value = '';
+    // this.langFormGroup.controls.tags.setValue(null);
   }
 
-  add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent, langTags: string[]): void {
     const value = (event.value || '').trim();
 
     if (value && this.allTags.includes(value)) {
-      this.tags.add(value);
+      langTags.push(value)
     }
 
     event.input.value = '';
-    this.cardFormGroup.controls.tags.setValue(null);
+    // this.langFormGroup.controls.tags.setValue(null);
   }
 
   groupBy(arr, property) {
@@ -143,7 +132,32 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUser();
+
+    this.placeholder = 'Enter your friend\'s email';
+
+    this.filteredTargetTags = this.langFormGroup.controls.targetTags.valueChanges.pipe(
+      startWith(''),
+      map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
+    );
+
+    this.filteredFluentTags = this.langFormGroup.controls.fluentTags.valueChanges.pipe(
+      startWith(''),
+      map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
+    );
+
+    console.log(this.currentUser)
+    this.langFormGroup.patchValue({
+      fluentTags: this.currentUser.fluentLangs,
+      targetTags: this.currentUser.targetLangs,
+    })
+
+    this.targetLangTags = this.currentUser.targetLangs;
+    this.fluentLangTags = this.currentUser.fluentLangs;
+
+    this.usernameFormGroup.controls.username.patchValue(this.currentUser.username)
     console.log(this.currentUser.username)
+
     this.dto = <FriendshipActionDto>{};
     this.isLoggedIn = !!this.token.getToken();
     if (!this.isLoggedIn) {
@@ -172,7 +186,6 @@ export class ProfileComponent implements OnInit {
         console.log(this.friendsBlocked);
       },
       err => {
-        this.user = JSON.parse(err.error).message;
       }
     );
   }
@@ -265,23 +278,31 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  saveChanges() {
-    this.userService.setTargetLangs(Array.from(this.tags)).subscribe(data => {
+  saveTargetLangs() {
+    this.userService.setTargetLangs(Array.from(this.targetLangTags)).subscribe(data => {
       this.dataService.showToast("Changes saved");
     }, error => {
     })
   }
+
+  saveFluentLangs() {
+    this.userService.setFluentLangs(Array.from(this.fluentLangTags)).subscribe(data => {
+      this.dataService.showToast("Changes saved");
+    }, error => {
+    })
+  }
+
 
   checkUsername() {
     this.availableUsername = false;
     this.unavailableUsername = false;
     this.currentUsername = false;
 
-    if (this.usernameSearchText == this.currentUser.username) {
+    if (this.usernameFormGroup.controls.username.value == this.currentUser.username) {
       this.currentUsername = true;
       return;
     }
-    this.userService.checkUsername(this.usernameSearchText).subscribe(data => {
+    this.userService.checkUsername(this.usernameFormGroup.controls.username.value).subscribe(data => {
       console.log(data)
       if (data === true) {
         this.availableUsername = true;
@@ -292,11 +313,16 @@ export class ProfileComponent implements OnInit {
   }
 
   changeUsername() {
-    this.userService.changeUsername(this.usernameSearchText).subscribe(data => {
+    this.userService.changeUsername(this.usernameFormGroup.controls.username.value).subscribe(data => {
       this.dataService.showToast("Username changed")
     }, error => {
     })
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.fluentLangTags, event.previousIndex, event.currentIndex);
+  }
+
 }
 
 @Component({

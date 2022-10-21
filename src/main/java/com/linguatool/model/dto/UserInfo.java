@@ -6,6 +6,6 @@ import java.util.List;
 
 @Value
 public class UserInfo {
-	String id, username, email, uiLang, profilePicLink;
+	String id, username, email, uiLang, profilePicLink, background;
 	List<String> roles, tags, targetLangs, fluentLangs;
 }

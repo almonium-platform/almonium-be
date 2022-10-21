@@ -1,6 +1,5 @@
 package com.linguatool.model.entity.lang;
 
-import com.linguatool.model.entity.user.FriendshipPK;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,6 +9,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @Table(
         uniqueConstraints =

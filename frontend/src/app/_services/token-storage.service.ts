@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {User} from '../models/user.model';
+import {Router} from "@angular/router";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -11,7 +12,7 @@ const CUR_LANG_KEY = 'cur-lang';
 export class TokenStorageService {
 
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   signOut(): void {
@@ -49,5 +50,17 @@ export class TokenStorageService {
 
   public getCurLang(): string {
     return (sessionStorage.getItem(CUR_LANG_KEY));
+  }
+
+  getBackground() {
+    let user = this.getUser();
+    let back = '4';
+    if (!!user) {
+      back = user.background;
+    }
+    if (this.router.url === '/profile')
+      return '';
+    else
+      return `url('../assets/img/background/${back}.svg')`;
   }
 }

@@ -1,6 +1,7 @@
 package com.linguatool.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.ByteString;
 import com.linguatool.client.*;
 import com.linguatool.model.dto.external_api.request.AnalysisDto;
 import com.linguatool.model.dto.external_api.response.datamuse.DatamuseEntryDto;
@@ -8,8 +9,11 @@ import com.linguatool.model.dto.external_api.response.wordnik.WordnikAudioDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
 import com.linguatool.model.dto.lang.POS;
+import com.linguatool.model.dto.lang.translation.MLTranslationCard;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
+import com.linguatool.model.entity.lang.LanguageEntity;
 import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.user.User;
 import com.linguatool.model.mapping.DictionaryDtoMapper;
 import com.linguatool.repository.LangPairTranslatorRepository;
 import com.linguatool.repository.LanguageRepository;
@@ -19,10 +23,13 @@ import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,6 +54,8 @@ public class ExternalService {
 
     FDClient fdClient;
     CoreNLPService coreNLPService;
+
+    GoogleTranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
     LanguageRepository languageRepository;
     TranslatorRepository translatorRepository;
@@ -55,46 +64,60 @@ public class ExternalService {
     public ResponseEntity<?> limitExceeded(String provider) {
         return ResponseEntity.status(403).body(provider);
     }
+//    public TranslationCardDto translate(String entry, String sourceLang, String targetLang) {
+//        return this.translate(entry, Language.fromString(sourceLang), Language.fromString(targetLang));
+//    }
+
+    public MLTranslationCard bulkTranslate(String text, Language targetLang) {
+
+        //todo deepL
+        return MLTranslationCard.builder()
+                .provider(translatorRepository.getGoogle().getName())
+                .text(googleService.bulkTranslateText(text, targetLang.getCode()))
+                .build();
+    }
 
     @SneakyThrows
-    public ResponseEntity<?> translate(String langFrom, String langTo, String entry) {
-        Language sourceLang = Language.fromString(langFrom);
-        Language destinationLang = Language.fromString(langTo);
+    public TranslationCardDto translate(String entry, Language sourceLang, Language targetLang) {
 
-        if (sourceLang == null || destinationLang == null) {
-            return ResponseEntity.badRequest().build();
+        if (sourceLang == null || targetLang == null) {
+            return null;
         }
 
         List<Long> translatorsIds = langPairTranslatorRepository.getByLangFromAndLangTo(
                 languageRepository.findByCode(sourceLang).orElseThrow().getId(),
-                languageRepository.findByCode(destinationLang).orElseThrow().getId());
+                languageRepository.findByCode(targetLang).orElseThrow().getId());
 
         if (translatorsIds.size() == 0) {
-            return ResponseEntity.notFound().build();
+            return null;
         } else if (translatorsIds.size() == 1) {
             if (translatorsIds.get(0).equals(translatorRepository.getYandex().getId())) {
-                ResponseEntity<YandexDto> responseEntity = yandexClient.translate(entry, sourceLang, destinationLang);
+                ResponseEntity<YandexDto> responseEntity = yandexClient.translate(entry, sourceLang, targetLang);
 
                 if (responseEntity.getStatusCode().is2xxSuccessful()) {
                     TranslationCardDto card = dictionaryDtoMapper.yandexToGeneral(responseEntity.getBody());
                     card.setProvider(translatorRepository.getYandex().getName());
-                    return ResponseEntity.ok(card);
+                    return card;
                 }
                 if (responseEntity.getStatusCode() == HttpStatus.FORBIDDEN) {
-                    return limitExceeded(translatorRepository.getYandex().getName());
+//                    return limitExceeded(translatorRepository.getYandex().getName());
+                    log.error("LIMIT EXCEEDED");
+                    return null;
                 } else if (responseEntity.getStatusCode() == HttpStatus.NOT_IMPLEMENTED) {
                     log.error("Language pair not supported: probably, langPairTranslator table is out of date");
                     throw new Exception("Unexpectedly not supported lang pair in this provider");
                 } else if (responseEntity.getStatusCode().is4xxClientError()) {
                     log.error(responseEntity.getBody().toString());
-                    return ResponseEntity.internalServerError().body(responseEntity.getBody());
+//                    return ResponseEntity.internalServerError().body(responseEntity.getBody());
+                    return null;
                 } else {
                     return null;
                 }
 
             } else {
                 log.error("Cannot recognize translator");
-                return ResponseEntity.internalServerError().build();
+//                return ResponseEntity.internalServerError().build();
+                return null;
             }
         } else {
             // TODO if multiple => which engines?
@@ -126,7 +149,7 @@ public class ExternalService {
 
     public double getFrequency(String entry) {
         ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.getWordReport(entry);
-        String fTag = response.getBody().get(0).getTags()[2];
+        String fTag = Arrays.stream(response.getBody().get(0).getTags()).filter(tag -> tag.startsWith("f")).findFirst().get();
         return Double.parseDouble(fTag.split(":")[1]);
     }
 
@@ -145,14 +168,30 @@ public class ExternalService {
                 .getBody()).stream().map(DatamuseEntryDto::getWord).map(String::new).toArray(String[]::new);
     }
 
-    public void singleWordAnalysis(AnalysisDto dto, String entry, List<POS> posTags, List<String> lemmas) {
-
-        if (posTags.get(0).isAdjective()) {
-            dto.setNouns(getNounsForAdjective(entry));
+    private void singleWordAnalysis(AnalysisDto analysisDto,
+                                    String entry,
+                                    List<POS> posTags,
+                                    List<String> lemmas,
+                                    Language from,
+                                    Language to
+    ) {
+        if (posTags.get(0).equals(POS.ADJECTIVE_COMPARATIVE)) {
+            getBaseAdjectiveForComparative(entry);
+        } else if (posTags.get(0).equals(POS.ADJECTIVE_SUPERLATIVE)) {
+            getBaseAdjectiveForSuperlative(entry);
+        } else if (posTags.get(0).equals(POS.PROPER_NOUN_SINGULAR) || posTags.get(0).equals(POS.PROPER_NOUN_PLURAL)) {
+            analysisDto.setIsProper(true);
+        } else if (posTags.get(0).equals(POS.FOREIGN_WORD)) {
+            analysisDto.setIsForeignWord(true);
+        } else if (posTags.get(0).equals(POS.NOUN_PLURAL)) {
+            analysisDto.setIsPlural(true);
+        } else if (posTags.get(0).isAdjective()) {
+            analysisDto.setNouns(getNounsForAdjective(entry));
         } else if (posTags.get(0).equals(POS.NOUN)) {
-            dto.setNouns(getAdjectivesForNoun(entry));
+            analysisDto.setAdjectives(getAdjectivesForNoun(entry));
         }
-        dto.setHomophones(getHomophones(entry));
+        analysisDto.setTranslationCards(this.translate(entry, from, to));
+        analysisDto.setHomophones(getHomophones(entry));
 //        dto.setFamily(getWordFamily(entry));
     }
 
@@ -165,6 +204,36 @@ public class ExternalService {
         return dto.getSyllables().getList();
     }
 
+    public AnalysisDto getReport(String entry, String languageCode, User user) {
+        AnalysisDto analysisDto = new AnalysisDto();
+        List<String> lemmas = coreNLPService.lemmatize(entry);
+        analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
+
+        Language sourceLang = Language.fromString(languageCode);
+        Language fluentLanguage = user.getFluentLanguages().iterator().next().getCode();
+
+        List<POS> posTags = coreNLPService.posTagging(entry);
+        analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
+        if (lemmas.size() != posTags.size()) {
+            log.error("Lemmas don't correspond with POS tags");
+        }
+        if (lemmas.size() == 1) {
+            log.info("one lemma analysis");
+            analysisDto.setFrequency(getFrequency(entry));
+            singleWordAnalysis(analysisDto, entry, posTags, lemmas, sourceLang, fluentLanguage);
+        } else if (lemmas.size() == 2) {
+            if (posTags.get(0).equals(POS.TO) && posTags.get(1).equals(POS.VERB)) {
+                entry = lemmas.get(1);
+                singleWordAnalysis(analysisDto, entry, posTags, lemmas, sourceLang, fluentLanguage);
+            }
+        }
+        return analysisDto;
+    }
+
+    public WordsReportDto getRandom() {
+        return wordsClient.getRandomWord().getBody();
+    }
+
     public String getBaseAdjectiveForComparative(String adj) {
         throw new NotImplementedException("not yet");
     }
@@ -173,39 +242,7 @@ public class ExternalService {
         throw new NotImplementedException("not yet");
     }
 
-    public void getReport(String entry) {
-        double freq = getFrequency(entry);
-        AnalysisDto analysisDto = new AnalysisDto();
-        List<String> lemmas = coreNLPService.lemmatize(entry);
-        analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
-
-        List<POS> posTags = coreNLPService.posTagging(entry);
-        analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
-        if (lemmas.size() != posTags.size()) {
-            log.error("Lemmas don't correspond with POS tags");
-        }
-        if (lemmas.size() == 1) {
-            if (posTags.get(0).equals(POS.ADJECTIVE_COMPARATIVE)) {
-                getBaseAdjectiveForComparative(entry);
-            } else if (posTags.get(0).equals(POS.ADJECTIVE_SUPERLATIVE)) {
-                getBaseAdjectiveForSuperlative(entry);
-            } else if (posTags.get(0).equals(POS.PROPER_NOUN_SINGULAR) || posTags.get(0).equals(POS.PROPER_NOUN_PLURAL)) {
-                analysisDto.setIsProper(true);
-            } else if (posTags.get(0).equals(POS.FOREIGN_WORD)) {
-                analysisDto.setIsForeignWord(true);
-            } else if (posTags.get(0).equals(POS.NOUN_PLURAL)) {
-                analysisDto.setIsPlural(true);
-            }
-            singleWordAnalysis(analysisDto, entry, posTags, lemmas);
-        } else if (lemmas.size() == 2) {
-            if (posTags.get(0).equals(POS.TO) && posTags.get(1).equals(POS.VERB)) {
-                entry = lemmas.get(1);
-                singleWordAnalysis(analysisDto, entry, posTags, lemmas);
-            }
-        }
-    }
-
-    public WordsReportDto getRandom() {
-        return wordsClient.getRandomWord().getBody();
+    public ByteString textToSpeech(String code, String text) {
+        return googleService.textToSpeech(code, text);
     }
 }

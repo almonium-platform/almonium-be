@@ -1,4 +1,4 @@
-package com.linguatool.model.dto.external_api.response.yandex;
+package com.linguatool.model.dto.lang.translation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class YandexDefDto {
+public class MLTranslationCard {
+    String provider;
     String text;
-    String pos;
-    String ts;
-    YandexTranslationDto[] tr;
 }

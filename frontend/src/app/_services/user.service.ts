@@ -43,4 +43,9 @@ export class UserService {
       codes: codes,
     }, httpOptions);
   }
+  setFluentLangs(codes: string[]): Observable<any> {
+    return this.http.post(AppConstants.API_URL + 'user/fluent/', {
+      codes: codes,
+    }, httpOptions);
+  }
 }

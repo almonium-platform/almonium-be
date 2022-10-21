@@ -46,6 +46,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import {AccountDeletionConfirmationDialog, ProfileComponent} from "./profile/profile.component";
 import {CardDialog} from "./_services/card.service";
 import {TileComponent} from './tile/tile.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {TileComponent} from './tile/tile.component';
     MatSlideToggleModule,
     MatChipsModule,
     MatSliderModule,
-    ClipboardModule
+    ClipboardModule,
+    DragDropModule
   ],
   providers: [
     authInterceptorProviders,

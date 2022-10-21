@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TargetLangDto {
+public class LangCodeDto {
 
     @NotEmpty
     String[] codes;

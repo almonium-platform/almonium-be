@@ -1,7 +1,5 @@
 package com.linguatool.model.entity.user;
 
-import javax.persistence.Embeddable;
-
 public enum Language {
     ENGLISH("EN"),
     GERMAN("DE"),

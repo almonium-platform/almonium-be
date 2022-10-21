@@ -1,3 +1,5 @@
+import {TranslationCard} from "./translation.model";
+
 export interface CardDto {
   id: number;
   entry: string;
@@ -28,9 +30,11 @@ export interface Suggestion {
   sender: number;
 }
 
-export interface Analysis {
+export interface ReportDto {
   lemmas: string[];
+  posTags: string[];
   frequency: number;
+  translationCards: TranslationCard;
 }
 
 export interface ExampleDto {
