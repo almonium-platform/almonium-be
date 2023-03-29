@@ -31,12 +31,8 @@ public class GoogleTranslationService {
 
     @SneakyThrows
     public GoogleTranslationService() {
-//        try {
         translationClient = TranslationServiceClient.create();
         textToSpeechClient = TextToSpeechClient.create();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @SneakyThrows

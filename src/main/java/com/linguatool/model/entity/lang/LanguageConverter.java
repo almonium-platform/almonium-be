@@ -1,4 +1,4 @@
-package com.linguatool.model.entity.user;
+package com.linguatool.model.entity.lang;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

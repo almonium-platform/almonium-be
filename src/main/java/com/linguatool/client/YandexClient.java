@@ -2,7 +2,7 @@ package com.linguatool.client;
 
 import com.linguatool.annotation.Client;
 import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
-import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.lang.Language;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +22,13 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
 public class YandexClient {
-    static String BASE_URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
-    static String EN_RU = "en-ru";
-    static String LANG = "lang";
-    static String TEXT = "text";
-    static String KEY = "key";
-    static String KEY_VALUE = "dict.1.1.20220409T164704Z.6923d1452886ccd4.32658382f53afdcb90780649f12fdb5bf5b77590";
-    RestTemplate restTemplate;
+    private static final String BASE_URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
+    private static final String EN_RU = "en-ru";
+    private static final String LANG = "lang";
+    private static final String TEXT = "text";
+    private static final String KEY = "key";
+    private static final String KEY_VALUE = "dict.1.1.20220409T164704Z.6923d1452886ccd4.32658382f53afdcb90780649f12fdb5bf5b77590";
+    private RestTemplate restTemplate;
 
 
     public ResponseEntity<YandexDto> translate(String word, Language from, Language to) {

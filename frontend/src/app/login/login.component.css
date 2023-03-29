@@ -77,12 +77,7 @@ mat-card-content {
 }
 
 .google-icon, .fb-icon {
-  /*margin-right: 1em;*/
-}
-
-.fb-icon {
-  /*margin-right: 1em;*/
-  width: 25px;
+  width: 24px;
 }
 
 .provider-btn {

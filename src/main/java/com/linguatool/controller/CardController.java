@@ -1,6 +1,6 @@
 package com.linguatool.controller;
 
-import com.linguatool.configuration.CurrentUser;
+import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.CardCreationDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
@@ -8,7 +8,6 @@ import com.linguatool.model.dto.external_api.request.CardUpdateDto;
 import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.CardRepository;
 import com.linguatool.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +18,15 @@ import java.util.List;
 @RequestMapping("api/cards")
 public class CardController {
 
-    @Autowired
-    UserServiceImpl userService;
+    private final UserServiceImpl userService;
+    private final CardRepository cardRepository;
+    private final CardMapper cardMapper;
 
-    @Autowired
-    CardRepository cardRepository;
-
-    @Autowired
-    CardMapper cardMapper;
+    public CardController(UserServiceImpl userService, CardRepository cardRepository, CardMapper cardMapper) {
+        this.userService = userService;
+        this.cardRepository = cardRepository;
+        this.cardMapper = cardMapper;
+    }
 
     @PostMapping("create")
     public ResponseEntity<?> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {

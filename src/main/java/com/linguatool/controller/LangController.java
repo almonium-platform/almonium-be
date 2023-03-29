@@ -1,14 +1,13 @@
 package com.linguatool.controller;
 
-import com.linguatool.configuration.CurrentUser;
+import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.AnalysisDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
-import com.linguatool.model.entity.user.Language;
-import com.linguatool.service.ExternalService;
+import com.linguatool.model.entity.lang.Language;
+import com.linguatool.service.LanguageProcessor;
 import com.linguatool.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -23,13 +22,12 @@ import java.util.List;
 @RequestMapping("/api/lang")
 public class LangController {
 
-    final UserServiceImpl userService;
+    private final UserServiceImpl userService;
+    private final LanguageProcessor languageProcessor;
 
-    @Autowired
-    ExternalService externalService;
-
-    public LangController(UserServiceImpl userService) {
+    public LangController(UserServiceImpl userService, LanguageProcessor languageProcessor) {
         this.userService = userService;
+        this.languageProcessor = languageProcessor;
     }
 
     @CrossOrigin
@@ -43,23 +41,23 @@ public class LangController {
     public ResponseEntity<?> translate(@PathVariable String langFrom,
                                        @PathVariable String langTo,
                                        @PathVariable String text) {
-        return ResponseEntity.ok(externalService.translate(text, Language.fromString(langFrom), Language.fromString(langTo)));
+        return ResponseEntity.ok(languageProcessor.translate(text, Language.fromString(langFrom), Language.fromString(langTo)));
     }
 
     @PostMapping("/bulk-translate/{langTo}")
     public ResponseEntity<?> bulkTranslate(@PathVariable String langTo,
                                            @RequestBody String text) {
-        return ResponseEntity.ok(externalService.bulkTranslate(text, Language.fromString(langTo)));
+        return ResponseEntity.ok(languageProcessor.bulkTranslate(text, Language.fromString(langTo)));
     }
 
     @GetMapping("/random")
     public ResponseEntity<WordsReportDto> random() {
-        return ResponseEntity.ok(externalService.getRandom());
+        return ResponseEntity.ok(languageProcessor.getRandom());
     }
 
     @GetMapping("/audio/{word}")
     public ResponseEntity<?> audio(@PathVariable String word) {
-        return ResponseEntity.ok(externalService.getAudioLink(word));
+        return ResponseEntity.ok(languageProcessor.getAudioLink(word));
     }
 
     @GetMapping("/audio/{lang}/{text}/file.mp3")
@@ -70,7 +68,7 @@ public class LangController {
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
 
-        byte[] bytes = externalService.textToSpeech(lang, text).toByteArray();
+        byte[] bytes = languageProcessor.textToSpeech(lang, text).toByteArray();
         ByteArrayResource resource = new ByteArrayResource(bytes);
 
         return ResponseEntity.ok()
@@ -95,7 +93,7 @@ public class LangController {
         header.add("Pragma", "no-cache");
         header.add("Expires", "0");
 
-        byte[] bytes = externalService.textToSpeech("en", "How come you didn't wake up early?").toByteArray();
+        byte[] bytes = languageProcessor.textToSpeech("en", "How come you didn't wake up early?").toByteArray();
         ByteArrayResource resource = new ByteArrayResource(bytes);
 
         return ResponseEntity.ok()
@@ -109,7 +107,7 @@ public class LangController {
     public ResponseEntity<AnalysisDto> getReport(@PathVariable String text,
                                                  @PathVariable String lang,
                                                  @CurrentUser LocalUser user) {
-        return ResponseEntity.ok(externalService.getReport(text, lang, user.getUser()));
+        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user.getUser()));
     }
 
 }

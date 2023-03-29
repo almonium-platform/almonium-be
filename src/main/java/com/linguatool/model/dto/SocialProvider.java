@@ -3,16 +3,18 @@ package com.linguatool.model.dto;
 
 public enum SocialProvider {
 
-	FACEBOOK("facebook"), TWITTER("twitter"), LINKEDIN("linkedin"), GOOGLE("google"), GITHUB("github"), LOCAL("local");
+    FACEBOOK("facebook"),
+    GOOGLE("google"),
+    LOCAL("local");
 
-	private String providerType;
+    private final String providerType;
 
-	public String getProviderType() {
-		return providerType;
-	}
+    public String getProviderType() {
+        return providerType;
+    }
 
-	SocialProvider(final String providerType) {
-		this.providerType = providerType;
-	}
+    SocialProvider(final String providerType) {
+        this.providerType = providerType;
+    }
 
 }

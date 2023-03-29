@@ -1,17 +1,10 @@
 package com.linguatool.controller;
 
-import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
-import com.linguatool.model.dto.ApiResponse;
-import com.linguatool.model.dto.JwtAuthenticationResponse;
-import com.linguatool.model.dto.LocalUser;
-import com.linguatool.model.dto.LoginRequest;
-import com.linguatool.model.dto.SignUpRequest;
 import com.linguatool.configuration.security.jwt.TokenProvider;
-import com.linguatool.service.UserService;
+import com.linguatool.exception.auth.UserAlreadyExistsAuthenticationException;
+import com.linguatool.model.dto.*;
 import com.linguatool.service.UserServiceImpl;
-import com.linguatool.util.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +23,18 @@ import java.util.List;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserServiceImpl userService;
+    private final TokenProvider tokenProvider;
+    private final Environment environment;
 
-    @Autowired
-    UserServiceImpl userService;
+    public AuthController(AuthenticationManager authenticationManager, UserServiceImpl userService, TokenProvider tokenProvider, Environment environment) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.tokenProvider = tokenProvider;
+        this.environment = environment;
+    }
 
-    @Autowired
-    TokenProvider tokenProvider;
-
-    @Autowired
-    Environment environment;
     @GetMapping("/profile")
     public ResponseEntity<List<String>> getCurrentActiveProfiles() {
         return ResponseEntity.ok(Arrays.asList(environment.getActiveProfiles()));
@@ -59,7 +53,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         try {
             userService.registerNewUser(signUpRequest);
-        } catch (UserAlreadyExistAuthenticationException e) {
+        } catch (UserAlreadyExistsAuthenticationException e) {
             log.error("User already exists: {}", e.getMessage());
             return new ResponseEntity<>(new ApiResponse(false, "Email or username already in use!"), HttpStatus.BAD_REQUEST);
         }

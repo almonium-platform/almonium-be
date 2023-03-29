@@ -1,7 +1,7 @@
 package com.linguatool.configuration.security.oauth2;
 
 import com.linguatool.model.dto.SocialProvider;
-import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
+import com.linguatool.exception.auth.OAuth2AuthenticationProcessingException;
 import com.linguatool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -37,9 +37,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		try {
 			Map<String, Object> attributes = new HashMap<>(oAuth2User.getAttributes());
 			String provider = oAuth2UserRequest.getClientRegistration().getRegistrationId();
-			if (provider.equals(SocialProvider.LINKEDIN.getProviderType())) {
-				populateEmailAddressFromLinkedIn(oAuth2UserRequest, attributes);
-			}
 			return userService.processUserRegistration(provider, attributes, null, null);
 		} catch (AuthenticationException ex) {
 			throw ex;

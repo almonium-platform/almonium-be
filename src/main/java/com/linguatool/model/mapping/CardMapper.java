@@ -5,8 +5,8 @@ import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.Example;
 import com.linguatool.model.entity.lang.LanguageEntity;
 import com.linguatool.model.entity.lang.Translation;
-import com.linguatool.model.entity.user.CardTag;
-import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.lang.CardTag;
+import com.linguatool.model.entity.lang.Language;
 import com.linguatool.repository.LanguageRepository;
 import org.mapstruct.*;
 

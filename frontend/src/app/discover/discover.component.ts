@@ -5,7 +5,6 @@ import {
   ElementRef,
   Inject,
   Input,
-  NgZone,
   OnDestroy,
   OnInit,
   ViewChild
@@ -19,14 +18,13 @@ import {DiscoveryService} from '../_services/discovery.service';
 import {FDEntry} from '../models/fd.model';
 import {EntryInfo} from '../models/entry.model';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {TokenStorageService} from "../_services/token-storage.service";
-import {MachineTranslationDto, TranslationCard} from "../models/translation.model";
-import {User} from "../models/user.model";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {CardDialog, CardService} from "../_services/card.service";
-import {CardDto, ReportDto} from "../models/card.model";
-import {HttpClient} from "@angular/common/http";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {TokenStorageService} from '../_services/token-storage.service';
+import {MachineTranslationDto, TranslationCard} from '../models/translation.model';
+import {User} from '../models/user.model';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {CardDialog, CardService} from '../_services/card.service';
+import {CardDto, ReportDto} from '../models/card.model';
+import {SafeUrl} from '@angular/platform-browser';
 
 declare var Essential_Audio;
 
@@ -87,7 +85,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    Essential_Audio.init()
+    Essential_Audio.init();
   }
 
 
@@ -95,14 +93,14 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.user.fluentLangs.filter(e => e !== this.tokenStorageService.getCurLang().toUpperCase());
   }
 
-  showEngines() {
+  showEngines(): void {
     this.engines = !this.engines;
   }
 
   openCreationDialog(): void {
-    var cardDto = <CardDto>{};
+    const cardDto = {} as CardDto;
     cardDto.entry = this.entryInfo.entry;
-    let dialogRef = this.dialog.open(CardDialog, {
+    const dialogRef = this.dialog.open(CardDialog, {
       data: {
         card: cardDto,
         mode: 'create',
@@ -123,7 +121,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  getRandomWord() {
+  getRandomWord(): void {
     this.discoveryService.random().subscribe((data) => {
       this.clearScreen();
       this.searchText = data.word;
@@ -131,7 +129,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  clearScreen() {
+  clearScreen(): void {
     this.audioAvailable = false;
     this.searched = false;
   }
@@ -167,8 +165,8 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
 
     this.formControl.valueChanges.subscribe(() => {
-      console.log(document.getElementById("text-area").clientHeight)
-      if (document.getElementById("text-area").clientHeight > 60) {
+      console.log(document.getElementById('text-area').clientHeight);
+      if (document.getElementById('text-area').clientHeight > 60) {
         console.log('resized');
         this.chunkInserted = true;
       }
@@ -197,7 +195,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   optionSelectedHandler(value: any) {
-    let before = this.oldValue.substr(0, this.oldValue.lastIndexOf(' ') + 1);
+    const before = this.oldValue.substr(0, this.oldValue.lastIndexOf(' ') + 1);
     this.searchText = (before + ' ' + value).replace(/\s+/g, ' ').trim();
   }
 
@@ -209,10 +207,10 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openDialogLocal(card: CardDto, mode: string): void {
-    this.cardService.openDialog(card, mode)
+    this.cardService.openDialog(card, mode);
   }
 
-  search() {
+  search(): void {
     this.searched = true;
     this.audioAvailable = false;
     this.audioLink = '';
@@ -222,22 +220,22 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     this.audioLinkUnsafe = '';
     this.fdEntries = [];
     this.searchText = this.searchText
-      .replace(/[^A-Za\s-z\d'.,\-!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
+      .replace(/[^A-Za\s-z\d'.,!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
       .replace(/\s\s+/g, ' ')
       .trim();
     this.entryInfo = {entry: this.searchText, frequency: 0.5, type: 'noun'};
     if (this.searchText.split(' ').length > 5) {
-      console.log('big chunk')
-      //todo fluent priority
+      console.log('big chunk');
+      // todo fluent priority
       this.discoveryService.bulkTranslate(this.searchText, this.user.fluentLangs[0])
         .subscribe((data) => {
-          console.log(data)
+          console.log(data);
           this.parallelMode = true;
           this.machineTranslationDto = data;
           Essential_Audio.init();
-        })
+        });
       this.savedChunk = this.searchText;
-      this.searchText = "";
+      this.searchText = '';
     } else {
       this.discoveryService.searchInMyStack(this.searchText).subscribe(data => {
         if (data.length === 0) {
@@ -259,8 +257,8 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
       this.discoveryService.getReport(this.searchText, this.tokenStorageService.getCurLang())
         .subscribe(data => {
           this.report = data;
-          console.log(this.report)
-          console.log(data)
+          console.log(this.report);
+          console.log(data);
           // this.translated = true;
           this.translationCards = this.report.translationCards;
         }, error => {
@@ -274,23 +272,23 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
 
   geolocate() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showPosition)
+      navigator.geolocation.getCurrentPosition(this.showPosition);
     } else {
       // I believe it may also mean geolocation isn't supported
-      alert('Geolocation denied')
+      alert('Geolocation denied');
     }
   }
 
   showPosition(position) {
-    alert(`${position.coords.longitude} - ${position.coords.latitude}`)
+    alert(`${position.coords.longitude} - ${position.coords.latitude}`);
   }
 
   getTTS() {
     this.ttsReceived = true;
-    let url = 'http://localhost:9998/api/lang/audio/'
+    const url = 'http://localhost:9998/api/lang/audio/'
       + this.tokenStorageService.getCurLang() + '/'
       + encodeURIComponent(this.savedChunk) + '/file.mp3';
-    console.log(url)
+    console.log(url);
     this.audioPlayer.nativeElement.setAttribute(
       'data-url', url);
     Essential_Audio.init();
@@ -317,24 +315,26 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(data.body);
     }, error => {
       if (error.status === 403) {
-        console.log("Limit exceeded")
+        console.log('Limit exceeded');
       } else {
-        console.log("ISE 500")
+        console.log('ISE 500');
       }
-    })
+    });
   }
 
   positionSearch() {
     if (this.searched || this.chunkInserted) {
       return '1em';
-    } else return '15em';
+    } else {
+      return '15em';
+    }
   }
 
   translateTo(value: string) {
     this.discoveryService.bulkTranslate(this.machineTranslationDto.text, value.toLowerCase())
       .subscribe((data) => {
         this.machineTranslationDto = data;
-      })
+      });
   }
 
 }
@@ -345,7 +345,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
 export class FocusOnShowDirective
   implements AfterViewInit {
   @Input('appFocus')
-  private focused: boolean = false;
+  private focused = false;
 
   constructor(public element: ElementRef<HTMLElement>) {
   }
@@ -389,22 +389,22 @@ export class DialogEntryComponent {
 
   openDialog(): void {
     this.route.params.subscribe((params: Params) => {
-      this.cardService.getCardByHash(params['id']).subscribe(card => {
-        console.log(card)
+      this.cardService.getCardByHash(params.id).subscribe(card => {
+        console.log(card);
         const dialogRef = this.dialog.open(CardDialog, {
           data: {
-            card: card,
+            card,
             mode: 'view'
           },
           panelClass: 'thin-dialog'
         });
         dialogRef.afterClosed().subscribe(() => {
           this.router.navigate(['../../'], {relativeTo: this.route}).then(r => {
-            console.log("success")
+            console.log('success');
           });
         });
       }, error => {
-      })
-    })
+      });
+    });
   }
 }

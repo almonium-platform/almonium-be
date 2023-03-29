@@ -44,9 +44,6 @@
 
   <div class="engines-div">
     <mat-expansion-panel hideToggle class="expansion-panel" [expanded]="this.engines">
-      <!--      <mat-expansion-panel-header class="panel-header center-aligned-header">-->
-      <!--        engines-->
-      <!--      </mat-expansion-panel-header>-->
       <div class="expansion-panel-content">
         <div class="engines">
           <a target="_blank" [href]="getReversoLink()" class="button"><img
@@ -69,7 +66,7 @@
                                                             alt="Collins"
                                                             height="60" width="60" class="small-icon"></a>
 
-          <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford-online.svg"
+          <a target="_blank" [href]="getOxfordLink()"><img src="../../assets/img/services/oxford.svg"
                                                            alt="Oxford"
                                                            height="60" width="60" class="small-icon"></a>
 
@@ -137,6 +134,7 @@
   <ng-container *ngIf="!!this.report">
     REPORT
     Frequency: {{this.report.frequency}}
+    CEFR: {{this.report.cefr}}
     Lemmas: {{this.report.lemmas}}
     POS-tags: {{this.report.posTags}}
   </ng-container>

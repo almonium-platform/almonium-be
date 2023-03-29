@@ -8,11 +8,11 @@ import com.linguatool.model.dto.external_api.response.datamuse.DatamuseEntryDto;
 import com.linguatool.model.dto.external_api.response.wordnik.WordnikAudioDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
+import com.linguatool.model.dto.lang.CEFR;
 import com.linguatool.model.dto.lang.POS;
 import com.linguatool.model.dto.lang.translation.MLTranslationCard;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
-import com.linguatool.model.entity.lang.LanguageEntity;
-import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.lang.Language;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.model.mapping.DictionaryDtoMapper;
 import com.linguatool.repository.LangPairTranslatorRepository;
@@ -23,12 +23,10 @@ import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -40,21 +38,17 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class ExternalService {
+public class LanguageProcessor {
 
     UrbanClient urbanClient;
     DatamuseClient datamuseClient;
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
-
     OxfordClient oxfordClient;
-
     ObjectMapper objectMapper;
-
     FDClient fdClient;
     CoreNLPService coreNLPService;
-
     GoogleTranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
     LanguageRepository languageRepository;
@@ -219,7 +213,9 @@ public class ExternalService {
         }
         if (lemmas.size() == 1) {
             log.info("one lemma analysis");
-            analysisDto.setFrequency(getFrequency(entry));
+            double freq = getFrequency(entry);
+            analysisDto.setFrequency(freq);
+            analysisDto.setCefr(calculateCefrFromFrequency(freq));
             singleWordAnalysis(analysisDto, entry, posTags, lemmas, sourceLang, fluentLanguage);
         } else if (lemmas.size() == 2) {
             if (posTags.get(0).equals(POS.TO) && posTags.get(1).equals(POS.VERB)) {
@@ -228,6 +224,10 @@ public class ExternalService {
             }
         }
         return analysisDto;
+    }
+
+    private CEFR calculateCefrFromFrequency(double freq) {
+        return CEFR.values()[7 - (int) Math.ceil(Math.log10(freq))];
     }
 
     public WordsReportDto getRandom() {

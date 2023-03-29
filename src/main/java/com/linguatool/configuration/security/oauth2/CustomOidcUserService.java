@@ -1,7 +1,6 @@
 package com.linguatool.configuration.security.oauth2;
 
-import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
-import com.linguatool.service.UserService;
+import com.linguatool.exception.auth.OAuth2AuthenticationProcessingException;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;

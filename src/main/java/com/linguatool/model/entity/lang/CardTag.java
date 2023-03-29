@@ -1,6 +1,6 @@
-package com.linguatool.model.entity.user;
+package com.linguatool.model.entity.lang;
 
-import com.linguatool.model.entity.lang.Card;
+import com.linguatool.model.entity.user.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;

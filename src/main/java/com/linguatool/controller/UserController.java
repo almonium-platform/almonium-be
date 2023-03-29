@@ -1,11 +1,10 @@
 package com.linguatool.controller;
 
-import com.linguatool.configuration.CurrentUser;
-import com.linguatool.model.dto.LocalUser;
+import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LangCodeDto;
+import com.linguatool.model.dto.LocalUser;
 import com.linguatool.repository.UserRepository;
 import com.linguatool.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user/")
 public class UserController {
 
-    final UserServiceImpl userService;
-    @Autowired
-    UserRepository userRepository;
+    private final UserServiceImpl userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserServiceImpl userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("me")
@@ -48,10 +47,10 @@ public class UserController {
         userService.setTargetLangs(dto, user.getUser());
         return ResponseEntity.ok().build();
     }
+
     @PostMapping("fluent")
     public ResponseEntity<?> setFluentLangs(@RequestBody LangCodeDto dto, @CurrentUser LocalUser user) {
         userService.setFluentLangs(dto, user.getUser());
         return ResponseEntity.ok().build();
     }
-
 }

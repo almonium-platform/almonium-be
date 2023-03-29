@@ -23,15 +23,13 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CoreNLPService {
-    StanfordCoreNLP pipeline;
+
+    private StanfordCoreNLP pipeline;
 
     public CoreNLPService() {
-        Properties props;
-        props = new Properties();
+        Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
-
         this.pipeline = new StanfordCoreNLP(props);
-
     }
 
     public List<POS> posTagging(String documentText) {

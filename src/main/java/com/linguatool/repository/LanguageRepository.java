@@ -1,7 +1,7 @@
 package com.linguatool.repository;
 
 import com.linguatool.model.entity.lang.LanguageEntity;
-import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.lang.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

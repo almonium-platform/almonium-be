@@ -6,11 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -79,35 +75,13 @@ public class DatamuseClient {
         return request(noun, ADJ_FOR_N);
     }
 
-
-    private ResponseEntity<List<DatamuseEntryDto>> request(String word, String parameter) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-
-        String urlTemplate = queryBuilder(
-            BASE_URL + ENDPOINT,
-            List.of(parameter)
-        );
-
-        Map<String, String> params = new HashMap<>();
-        params.put(parameter, word);
-
-        return restTemplate.exchange(
-            urlTemplate,
-            HttpMethod.GET,
-            new HttpEntity<>(headers),
-            new ParameterizedTypeReference<>() {
-            }, params);
-    }
-
-
     public ResponseEntity<List<DatamuseEntryDto>> getWordReport(String entry) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(
-            BASE_URL + ENDPOINT,
-            List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX)
+                BASE_URL + ENDPOINT,
+                List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX)
         );
 
         Map<String, String> params = new HashMap<>();
@@ -118,10 +92,30 @@ public class DatamuseClient {
         params.put(IPA, String.valueOf(1));
 
         return restTemplate.exchange(
-            urlTemplate,
-            HttpMethod.GET,
-            new HttpEntity<>(headers),
-            new ParameterizedTypeReference<>() {
-            }, params);
+                urlTemplate,
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                new ParameterizedTypeReference<>() {
+                }, params);
+    }
+
+    private ResponseEntity<List<DatamuseEntryDto>> request(String word, String parameter) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+
+        String urlTemplate = queryBuilder(
+                BASE_URL + ENDPOINT,
+                List.of(parameter)
+        );
+
+        Map<String, String> params = new HashMap<>();
+        params.put(parameter, word);
+
+        return restTemplate.exchange(
+                urlTemplate,
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                new ParameterizedTypeReference<>() {
+                }, params);
     }
 }

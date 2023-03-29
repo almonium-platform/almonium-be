@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("api/all")
 public class ProfileController {
 
-    final Environment environment;
+    private final Environment environment;
 
     public ProfileController(Environment environment) {
         this.environment = environment;

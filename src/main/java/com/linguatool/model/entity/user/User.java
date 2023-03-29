@@ -3,6 +3,7 @@ package com.linguatool.model.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.CardSuggestion;
+import com.linguatool.model.entity.lang.Language;
 import com.linguatool.model.entity.lang.LanguageEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 
 @Entity

@@ -1,6 +1,5 @@
 package com.linguatool.model.entity.lang;
 
-import com.linguatool.model.entity.user.Language;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

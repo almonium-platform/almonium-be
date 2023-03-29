@@ -15,7 +15,6 @@ import java.util.Map;
 @Getter
 public class LocalUser extends User implements OAuth2User, OidcUser {
 
-
 	private static final long serialVersionUID = -2845160792248762779L;
 	private final OidcIdToken idToken;
 	private final OidcUserInfo userInfo;

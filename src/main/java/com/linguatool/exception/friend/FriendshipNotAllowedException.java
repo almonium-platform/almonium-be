@@ -1,4 +1,4 @@
-package com.linguatool.exception.user;
+package com.linguatool.exception.friend;
 
 public class FriendshipNotAllowedException extends Throwable {
     public FriendshipNotAllowedException(String s) {

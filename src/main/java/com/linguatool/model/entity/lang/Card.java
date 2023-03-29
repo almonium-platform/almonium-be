@@ -1,7 +1,6 @@
 package com.linguatool.model.entity.lang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linguatool.model.entity.user.CardTag;
 import com.linguatool.model.entity.user.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package com.linguatool.configuration;
+package com.linguatool.annotation;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

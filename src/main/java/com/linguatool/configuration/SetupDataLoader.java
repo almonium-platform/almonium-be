@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linguatool.client.WordnikClient;
 import com.linguatool.model.dto.SocialProvider;
 import com.linguatool.model.entity.lang.*;
-import com.linguatool.model.entity.user.Language;
+import com.linguatool.model.entity.lang.Language;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.repository.*;
-import com.linguatool.service.ExternalService;
+import com.linguatool.service.LanguageProcessor;
 import com.linguatool.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -44,7 +44,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private RoleRepository roleRepository;
 
     @Autowired
-    private ExternalService externalService;
+    private LanguageProcessor languageProcessor;
     @Autowired
     private PasswordEncoder passwordEncoder;
 

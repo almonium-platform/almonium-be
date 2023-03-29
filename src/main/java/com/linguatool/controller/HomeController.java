@@ -1,6 +1,6 @@
 package com.linguatool.controller;
 
-import com.linguatool.configuration.CurrentUser;
+import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.service.UserServiceImpl;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/home")
 public class HomeController {
 
-    final UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     public HomeController(UserServiceImpl userService) {
         this.userService = userService;

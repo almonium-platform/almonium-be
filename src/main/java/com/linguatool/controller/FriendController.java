@@ -1,6 +1,6 @@
 package com.linguatool.controller;
 
-import com.linguatool.configuration.CurrentUser;
+import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.*;
 import com.linguatool.service.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/api/friend/")
 public class FriendController {
 
-    final UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     public FriendController(UserServiceImpl userService) {
         this.userService = userService;

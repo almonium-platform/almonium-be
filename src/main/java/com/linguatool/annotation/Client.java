@@ -11,13 +11,13 @@ import java.lang.annotation.Target;
 
 
 /**
- * Indicates that an annotated class is a "Client", as in <a href="https://github.com/OpenFeign/feign">Feign</a>.
+ * Indicates that an annotated class is a "Client"
  * This layer should be integration tested with MockRestServer or similar technology.
  *
  * <p>This annotation serves as a specialization of {@link Component @Component},
  * allowing for implementation classes to be autodetected through classpath scanning.
  *
- * @author Anatolii Papenko
+ * @author Oleh Kuzan
  * @see Component
  */
 @Documented

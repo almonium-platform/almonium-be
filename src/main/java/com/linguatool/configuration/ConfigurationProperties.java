@@ -1,27 +1,19 @@
-package com.linguatool.configuration.properties;
+package com.linguatool.configuration;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Configuration
-//@FieldDefaults(level = PRIVATE)
-//@ConfigurationProperties(prefix = "gateway")
-public class UrbanConfigurationProperties {
-
+public class ConfigurationProperties {
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
 
-    // Second Method: Using RestTemplateBuilder
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
 }

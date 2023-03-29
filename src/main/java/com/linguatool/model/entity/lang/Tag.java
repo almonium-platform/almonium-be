@@ -1,5 +1,6 @@
-package com.linguatool.model.entity.user;
+package com.linguatool.model.entity.lang;
 
+import com.linguatool.model.entity.lang.CardTag;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnTransformer;

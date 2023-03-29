@@ -1,4 +1,4 @@
-package com.linguatool.exception.user;
+package com.linguatool.exception.auth;
 
 import org.springframework.security.core.AuthenticationException;
 

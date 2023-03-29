@@ -1,4 +1,4 @@
-import {TranslationCard} from "./translation.model";
+import {TranslationCard} from './translation.model';
 
 export interface CardDto {
   id: number;
@@ -20,7 +20,7 @@ export interface CardDto {
   translations: TranslationDto[];
   examples: ExampleDto[];
   created: string;
-  updated: string
+  updated: string;
   lastRepeat: string;
   learnt: boolean;
 }
@@ -34,6 +34,7 @@ export interface ReportDto {
   lemmas: string[];
   posTags: string[];
   frequency: number;
+  cefr: string;
   translationCards: TranslationCard;
 }
 

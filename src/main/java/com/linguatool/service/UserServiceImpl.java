@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
-import com.linguatool.exception.user.FriendshipNotAllowedException;
-import com.linguatool.exception.user.FriendshipNotFoundException;
-import com.linguatool.exception.user.OAuth2AuthenticationProcessingException;
-import com.linguatool.exception.user.UserAlreadyExistAuthenticationException;
+import com.linguatool.exception.friend.FriendshipNotAllowedException;
+import com.linguatool.exception.friend.FriendshipNotFoundException;
+import com.linguatool.exception.auth.OAuth2AuthenticationProcessingException;
+import com.linguatool.exception.auth.UserAlreadyExistsAuthenticationException;
 import com.linguatool.model.dto.Friend;
 import com.linguatool.model.dto.*;
 import com.linguatool.model.dto.external_api.request.CardCreationDto;
@@ -33,8 +33,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -49,33 +47,18 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
-
     UserRepository userRepository;
-
     RoleRepository roleRepository;
-
     CardTagRepository cardTagRepository;
-
     FriendshipRepository friendshipRepository;
-
     PasswordEncoder passwordEncoder;
-
     CardMapper cardMapper;
-
     ExampleRepository exampleRepository;
-
     CardRepository cardRepository;
-
     TranslationRepository translationRepository;
-
     TagRepository tagRepository;
-
     LanguageRepository languageRepository;
-
     CardSuggestionRepository cardSuggestionRepository;
-
-    @PersistenceContext
-    EntityManager entityManager;
 
     @Transactional
     public CardDto getCardById(Long id) {
@@ -90,13 +73,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(value = "transactionManager")
-    public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
+    public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistsAuthenticationException {
         if (signUpRequest.getUserID() != null && userRepository.existsById(signUpRequest.getUserID())) {
-            throw new UserAlreadyExistAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
+            throw new UserAlreadyExistsAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
         } else if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            throw new UserAlreadyExistAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exist");
+            throw new UserAlreadyExistsAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exist");
         } else if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            throw new UserAlreadyExistAuthenticationException("User with username " + signUpRequest.getUsername() + " already exist");
+            throw new UserAlreadyExistsAuthenticationException("User with username " + signUpRequest.getUsername() + " already exist");
         }
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
@@ -336,7 +319,7 @@ public class UserServiceImpl implements UserService {
     public Friendship cancelFriendship(Long actionInitiatorId, Long actionAcceptorId) {
         assert (!actionInitiatorId.equals(actionAcceptorId));
         friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId).orElseThrow(()
-                -> new FriendshipNotFoundException(String.format("Friendship between %s and %s doesn't exist", actionInitiatorId, actionInitiatorId)));
+                -> new FriendshipNotFoundException());
 
         friendshipRepository.deleteFriendshipByIds(actionInitiatorId, actionAcceptorId);
         return null;
@@ -384,7 +367,7 @@ public class UserServiceImpl implements UserService {
         assert (actionInitiatorId != actionAcceptorId);
 
         Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
-        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException(String.format("Friendship of %s and %s not found", actionInitiatorId, actionAcceptorId)));
+        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException());
 
         Friendship friendship = friendshipOptional.get();
         assert friendship.getFriendshipStatus().equals(PENDING);
@@ -461,7 +444,7 @@ public class UserServiceImpl implements UserService {
         assert (actionInitiatorId != actionAcceptorId);
 
         Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
-        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException(""));
+        friendshipOptional.orElseThrow(() -> new FriendshipNotFoundException());
         Friendship friendship = friendshipOptional.get();
 
         assert friendship.getFriendshipStatus().equals(FRIENDS) || friendship.getFriendshipStatus().equals(PENDING);

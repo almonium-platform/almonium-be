@@ -1,5 +1,6 @@
 package com.linguatool.model.dto.external_api.request;
 
+import com.linguatool.model.dto.lang.CEFR;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class AnalysisDto {
     Double frequency;
+    CEFR cefr;
     String[] lemmas;
     String[] posTags;
     String[] adjectives;

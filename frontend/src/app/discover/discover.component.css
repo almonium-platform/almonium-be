@@ -115,7 +115,7 @@
 
 .expansion-panel {
   width: fit-content;
-  background-color: white;
+  background-color: transparent;
   box-shadow: none;
   justify-content: center;
   align-items: center;

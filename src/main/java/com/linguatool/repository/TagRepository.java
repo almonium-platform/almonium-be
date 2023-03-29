@@ -1,6 +1,6 @@
 package com.linguatool.repository;
 
-import com.linguatool.model.entity.user.Tag;
+import com.linguatool.model.entity.lang.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
