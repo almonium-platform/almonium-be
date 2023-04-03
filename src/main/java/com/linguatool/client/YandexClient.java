@@ -4,54 +4,42 @@ import com.linguatool.annotation.Client;
 import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
 import com.linguatool.model.entity.lang.Language;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.linguatool.util.GeneralUtils.queryBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
 @Client
+@NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE)
 @Slf4j
-public class YandexClient {
-    private static final String BASE_URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
-    private static final String EN_RU = "en-ru";
-    private static final String LANG = "lang";
-    private static final String TEXT = "text";
-    private static final String KEY = "key";
-    private static final String KEY_VALUE = "dict.1.1.20220409T164704Z.6923d1452886ccd4.32658382f53afdcb90780649f12fdb5bf5b77590";
-    private RestTemplate restTemplate;
-
+public class YandexClient extends AbstractClient {
+    static final String URL = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
+    static final String LANG = "lang";
+    static final String TEXT = "text";
+    static final String KEY = "key";
+    @Value("${external.api.key.yandex}")
+    String KEY_VALUE;
 
     public ResponseEntity<YandexDto> translate(String word, Language from, Language to) {
-        return request(word, from.getCode().toLowerCase(Locale.ROOT) + "-" + to.getCode().toLowerCase(Locale.ROOT));
+        String langPair = String.format("%s-%s",
+                from.getCode().toLowerCase(Locale.ROOT),
+                to.getCode().toLowerCase(Locale.ROOT));
+
+        return super.request(
+                URL,
+                Map.of(
+                        KEY, KEY_VALUE,
+                        TEXT, word,
+                        LANG, langPair
+                ),
+                YandexDto.class);
     }
-
-    private ResponseEntity<YandexDto> request(String word, String langPair) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-
-        String urlTemplate = queryBuilder(BASE_URL, List.of(KEY, LANG, TEXT));
-
-        Map<String, String> params = new HashMap<>();
-        params.put(KEY, KEY_VALUE);
-        params.put(TEXT, word);
-        params.put(LANG, langPair);
-
-        return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                YandexDto.class,
-                params);
-    }
-
 }

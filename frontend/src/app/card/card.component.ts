@@ -614,7 +614,7 @@ export class CardComponent implements OnInit {
   }
 
   getLink(): string {
-    return "undefined link";
+    return window.location.origin + '/discover/dialog/' + this.card.hash;
   }
 
   openDeletionDialog(): void {

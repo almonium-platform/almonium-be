@@ -1,8 +1,9 @@
 package com.linguatool.model.dto.lang;
 
 public enum POS {
+    HYPHEN("HYPH"),
     COORDINATING_CONJUNCTION("CC"),
-    CARDINAL_NUMBER("CN"),
+    CARDINAL_NUMBER("CD"),
     DETERMINER("DT"),
     EXISTENTIAL_THERE("EX"),
     FOREIGN_WORD("FW"),

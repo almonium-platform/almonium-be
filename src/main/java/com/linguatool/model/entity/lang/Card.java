@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
+
+import static com.linguatool.util.GeneralUtils.generateId;
 
 
 @Entity
@@ -34,7 +35,7 @@ public class Card implements Serializable {
     Long id;
 
     @Column(name = "generated_id", nullable = false, unique = true)
-    String generatedId;
+    String hash;
 
     @Column
     String entry;
@@ -94,12 +95,12 @@ public class Card implements Serializable {
         }
     }
 
-
     public void addCardTag(CardTag cardTag) {
         if (cardTag != null) {
             this.cardTags.add(cardTag);
         }
     }
+
     public void removeCardTag(CardTag cardTag) {
         if (cardTag != null) {
             this.cardTags.remove(cardTag);
@@ -118,7 +119,6 @@ public class Card implements Serializable {
     @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST) //check
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Translation> translations;
-
 
     private String notes;
 
@@ -142,15 +142,10 @@ public class Card implements Serializable {
         }
     }
 
-    public static String generateId() {
-        System.out.println("GENERATED");
-        return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
-    }
-
     @PrePersist
     void setDefault() {
-        if (this.generatedId == null) {
-            this.generatedId = generateId();
+        if (this.hash == null) {
+            this.hash = generateId();
         }
     }
 
@@ -159,12 +154,12 @@ public class Card implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return id.equals(card.id);
+        return irregularSpelling == card.irregularSpelling && activeLearning == card.activeLearning && falseFriend == card.falseFriend && irregularPlural == card.irregularPlural && learnt == card.learnt && iteration == card.iteration && priority == card.priority && frequency == card.frequency && id.equals(card.id) && hash.equals(card.hash) && entry.equals(card.entry) && Objects.equals(created, card.created) && Objects.equals(updated, card.updated) && Objects.equals(lastRepeat, card.lastRepeat) && owner.equals(card.owner) && language.equals(card.language) && Objects.equals(examples, card.examples) && Objects.equals(cardTags, card.cardTags) && Objects.equals(suggestions, card.suggestions) && translations.equals(card.translations) && Objects.equals(notes, card.notes) && Objects.equals(source, card.source) && Objects.equals(ipa, card.ipa) && Objects.equals(wordFamily, card.wordFamily) && Objects.equals(hardIndices, card.hardIndices);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, hash, entry, created, updated, lastRepeat, owner, irregularSpelling, activeLearning, falseFriend, irregularPlural, learnt, language, examples, cardTags, suggestions, translations, notes, source, iteration, priority, ipa, frequency, wordFamily, hardIndices);
     }
 }
 

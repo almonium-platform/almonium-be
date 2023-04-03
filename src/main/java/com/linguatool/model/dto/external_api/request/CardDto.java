@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -21,6 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 public class CardDto {
     Long id;
+    String hash;
     @NotBlank
     String entry;
     @NotEmpty

@@ -7,12 +7,12 @@ import {ProfileComponent} from './profile/profile.component';
 import {DialogEntryComponent, DiscoverComponent} from './discover/discover.component';
 import {SettingsComponent} from './settings/settings.component';
 import {GamesComponent} from './games/games.component';
-import {LogoutGuard} from "./_helpers/logout.guard";
-import {CardComponent} from "./card/card.component";
+import {LogoutGuard} from './_helpers/logout.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'discover', component: DiscoverComponent,
+  {
+    path: 'discover', component: DiscoverComponent,
     children: [
       {
         path: 'dialog/:id',

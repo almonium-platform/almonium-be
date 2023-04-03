@@ -133,7 +133,7 @@
   {{this.cardSearchLabel}}
   <ng-container *ngIf="!!this.report">
     REPORT
-    Frequency: {{this.report.frequency}}
+    Frequency: <span class="frequency-box">{{this.report.frequency | number:'1.1-1'}}</span>
     CEFR: {{this.report.cefr}}
     Lemmas: {{this.report.lemmas}}
     POS-tags: {{this.report.posTags}}
