@@ -2,6 +2,7 @@ import {TranslationCard} from './translation.model';
 
 export interface CardDto {
   id: number;
+  hash: string;
   entry: string;
   activeLearning: boolean;
   irregularSpelling: boolean;

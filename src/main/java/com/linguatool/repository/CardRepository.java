@@ -18,5 +18,5 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findAllByOwnerAndEntryLikeIgnoreCase(User user, String entry);
 
-    Optional<Card> getByGeneratedId(String id);
+    Optional<Card> getByHash(String id);
 }

@@ -568,7 +568,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public CardDto getCardByHash(String hash) {
-        Card card = cardRepository.getByGeneratedId(hash).orElseThrow();
+        Card card = cardRepository.getByHash(hash).orElseThrow();
         return cardMapper.cardEntityToDto(card);
     }
 

@@ -8,10 +8,24 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 
 public class GeneralUtils {
+
+    public static String generateId() {
+        return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
+    }
+
     public static String queryBuilder(String httpUrl, List<String> params) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(httpUrl);
+        for (String param : params) {
+            builder.queryParam(param, "{" + param + "}");
+        }
+        return builder.encode().toUriString();
+    }
+
+    public static String queryBuilder(String httpUrl, Set<String> params) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(httpUrl);
         for (String param : params) {
             builder.queryParam(param, "{" + param + "}");

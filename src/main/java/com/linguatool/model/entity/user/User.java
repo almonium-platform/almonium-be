@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
+
+import static com.linguatool.util.GeneralUtils.generateId;
 
 
 @Entity
@@ -158,7 +161,7 @@ public class User implements Serializable {
     @PrePersist
     void usernameGenerator() {
         if (this.username == null) {
-            this.username = Card.generateId();
+            this.username = generateId();
         }
     }
 

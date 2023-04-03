@@ -5,10 +5,10 @@ import com.google.protobuf.ByteString;
 import com.linguatool.client.*;
 import com.linguatool.model.dto.external_api.request.AnalysisDto;
 import com.linguatool.model.dto.external_api.response.datamuse.DatamuseEntryDto;
+import com.linguatool.model.dto.external_api.response.google.GoogleDto;
 import com.linguatool.model.dto.external_api.response.wordnik.WordnikAudioDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.model.dto.external_api.response.yandex.YandexDto;
-import com.linguatool.model.dto.lang.CEFR;
 import com.linguatool.model.dto.lang.POS;
 import com.linguatool.model.dto.lang.translation.MLTranslationCard;
 import com.linguatool.model.dto.lang.translation.TranslationCardDto;
@@ -42,6 +42,7 @@ public class LanguageProcessor {
 
     UrbanClient urbanClient;
     DatamuseClient datamuseClient;
+    GoogleClient googleClient;
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
@@ -54,6 +55,11 @@ public class LanguageProcessor {
     LanguageRepository languageRepository;
     TranslatorRepository translatorRepository;
     DictionaryDtoMapper dictionaryDtoMapper;
+
+    static double SCALE = 1.153315895823627;
+    static double OFFSET = 10;
+
+    static double LOW_BOUND = 1e-9;
 
     public ResponseEntity<?> limitExceeded(String provider) {
         return ResponseEntity.status(403).body(provider);
@@ -141,10 +147,16 @@ public class LanguageProcessor {
                 .stream().map(WordnikAudioDto::getFileUrl).collect(Collectors.toList());
     }
 
-    public double getFrequency(String entry) {
+    @Deprecated
+    public double getFrequencyDatamuse(String entry) {
         ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.getWordReport(entry);
         String fTag = Arrays.stream(response.getBody().get(0).getTags()).filter(tag -> tag.startsWith("f")).findFirst().get();
         return Double.parseDouble(fTag.split(":")[1]);
+    }
+
+    public Double getFrequency(String entry, Language language) {
+        List<GoogleDto> list = googleClient.get(entry, language).getBody();
+        return (list.size() > 1) ? Double.parseDouble(list.get(0).getTimeseries()[0]) : null;
     }
 
     public String[] getNounsForAdjective(String entry) {
@@ -208,26 +220,25 @@ public class LanguageProcessor {
 
         List<POS> posTags = coreNLPService.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
+        Double freq = getFrequency(entry, sourceLang);
+        if (freq != null) {
+            analysisDto.setFrequency(calculateRelativeFrequency(freq));
+        }
+
         if (lemmas.size() != posTags.size()) {
             log.error("Lemmas don't correspond with POS tags");
         }
         if (lemmas.size() == 1) {
             log.info("one lemma analysis");
-            double freq = getFrequency(entry);
-            analysisDto.setFrequency(freq);
-            analysisDto.setCefr(calculateCefrFromFrequency(freq));
             singleWordAnalysis(analysisDto, entry, posTags, lemmas, sourceLang, fluentLanguage);
         } else if (lemmas.size() == 2) {
+            // TO VERB case
             if (posTags.get(0).equals(POS.TO) && posTags.get(1).equals(POS.VERB)) {
                 entry = lemmas.get(1);
                 singleWordAnalysis(analysisDto, entry, posTags, lemmas, sourceLang, fluentLanguage);
             }
         }
         return analysisDto;
-    }
-
-    private CEFR calculateCefrFromFrequency(double freq) {
-        return CEFR.values()[7 - (int) Math.ceil(Math.log10(freq))];
     }
 
     public WordsReportDto getRandom() {
@@ -244,5 +255,11 @@ public class LanguageProcessor {
 
     public ByteString textToSpeech(String code, String text) {
         return googleService.textToSpeech(code, text);
+    }
+
+    private static double calculateRelativeFrequency(double frequency) {
+        if (frequency == 0) return 0;
+        if (frequency < LOW_BOUND) return 1;
+        return SCALE * (Math.log10(frequency) + OFFSET);
     }
 }

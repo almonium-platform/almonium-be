@@ -20,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
-public class DatamuseClient {
+public class DatamuseClient extends AbstractClient {
     static String BASE_URL = "https://api.datamuse.com";
     static String ENDPOINT = "/words";
     static String HOMOPHONES = "rel_hom";
@@ -77,7 +77,7 @@ public class DatamuseClient {
 
     public ResponseEntity<List<DatamuseEntryDto>> getWordReport(String entry) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(
                 BASE_URL + ENDPOINT,
@@ -101,7 +101,7 @@ public class DatamuseClient {
 
     private ResponseEntity<List<DatamuseEntryDto>> request(String word, String parameter) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(
                 BASE_URL + ENDPOINT,
