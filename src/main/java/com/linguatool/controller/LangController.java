@@ -32,7 +32,6 @@ public class LangController {
 
     @CrossOrigin
     @GetMapping("/stack-search/{text}")
-
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
         return ResponseEntity.ok(userService.searchByEntry(text, localUser.getUser()));
     }

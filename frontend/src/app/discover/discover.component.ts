@@ -10,10 +10,10 @@ import {
   ViewChild
 } from '@angular/core';
 import {UserService} from '../_services/user.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {DataService} from '../_services/data.service';
-import {map, startWith} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap} from 'rxjs/operators';
 import {DiscoveryService} from '../_services/discovery.service';
 import {FDEntry} from '../models/fd.model';
 import {EntryInfo} from '../models/entry.model';
@@ -25,13 +25,15 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CardDialog, CardService} from '../_services/card.service';
 import {CardDto, ReportDto} from '../models/card.model';
 import {SafeUrl} from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {HttpClient} from "@angular/common/http";
 
 declare var Essential_Audio;
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
-  styleUrls: ['./discover.component.css']
+  styleUrls: ['./discover.component.css', 'spinner.css']
 })
 export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   searched: boolean;
@@ -72,6 +74,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   machineTranslationDto: MachineTranslationDto;
 
   @ViewChild('audioPlayer') audioPlayer: ElementRef;
+  loading: boolean;
 
   constructor(
     private userService: UserService,
@@ -80,6 +83,8 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     private discoveryService: DiscoveryService,
     private cardService: CardService,
     public dialog: MatDialog,
+    private spinner: NgxSpinnerService,
+    private http: HttpClient
   ) {
     this.user = this.tokenStorageService.getUser();
   }
@@ -115,9 +120,17 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     //
   }
 
-  private filterValues(value: string): string[] {
+  filterValues(value: string): Promise<string[]> {
     const filterValue = value.toLowerCase().split(' ').pop();
-    return this.wordlist.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    const url = `https://api.datamuse.com/sug?k=demo&s=${filterValue}`;
+
+    return this.http.get<any[]>(url).toPromise().then(res => {
+      const suggestions = res.map(entry => entry.word);
+      return suggestions;
+    }).catch(err => {
+      console.error('Failed to fetch suggestions from API', err);
+      return [];
+    });
   }
 
 
@@ -181,8 +194,23 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.filteredOptions = this.formControl.valueChanges.pipe(
         startWith(''),
-        map(val => val.split(' ').pop().length >= 3 ? this.filterValues(val) : [])
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(value => {
+          if (value && value.length >= 3) {
+            const apiUrl = `https://api.datamuse.com/sug?k=demo&s=${value}`;
+            return this.http.get(apiUrl).pipe(
+              map((data: any[]) => {
+                return data.map(item => item.word);
+              }),
+              catchError(() => of([]))
+            );
+          } else {
+            return of([]);
+          }
+        })
       );
+
     });
   }
 
@@ -211,6 +239,8 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   search(): void {
+    this.loading = true;
+    this.spinner.show();
     this.searched = true;
     this.audioAvailable = false;
     this.audioLink = '';
@@ -218,6 +248,7 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
     this.ttsReceived = false;
     this.chunkInserted = false;
     this.audioLinkUnsafe = '';
+    this.report = null;
     this.fdEntries = [];
     this.searchText = this.searchText
       .replace(/[^A-Za\s-z\d'.,!?–äöüßàâçéèêëîïôûùÿñæœ]/gi, '')
@@ -261,6 +292,8 @@ export class DiscoverComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log(data);
           // this.translated = true;
           this.translationCards = this.report.translationCards;
+          this.loading = false;
+          this.spinner.hide();
         }, error => {
           console.log((error.status));
         });

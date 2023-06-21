@@ -212,10 +212,10 @@ export class CardComponent implements OnInit {
     console.log(this.mode);
     console.log(this.card);
     this.changes = [];
-    this.changes.examples = new Map();
-    this.changes.translations = new Map();
-    this.changes.tr_del = [];
-    this.changes.ex_del = [];
+    this.changes['examples'] = new Map();
+    this.changes['translations'] = new Map();
+    this.changes['tr_del'] = [];
+    this.changes['ex_del'] = [];
 
     // EXAMPLES CHANGES
     this.cardFormGroup.controls.examples.valueChanges.pipe(
@@ -237,10 +237,10 @@ export class CardComponent implements OnInit {
             ) {
               console.log('DELTING, it\'s like original');
               delete oldState[key];
-              this.changes.examples.delete(key, newState[key]);
+              this.changes['examples'].delete(key, newState[key]);
             } else {
               console.log('adding new example');
-              this.changes.examples.set(key, newState[key]);
+              this.changes['examples'].set(key, newState[key]);
               changes[key] = newState[key];
             }
             console.log(this.changes);
@@ -269,10 +269,10 @@ export class CardComponent implements OnInit {
             ) {
               delete oldState[key];
               console.log('DELTING, it\'s like original');
-              this.changes.translations.delete(key, newState[key]);
+              this.changes['translations'].delete(key, newState[key]);
             } else {
               console.log('adding new translation');
-              this.changes.translations.set(key, newState[key]);
+              this.changes['translations'].set(key, newState[key]);
               changes[key] = newState[key];
             }
             console.log(this.changes);
@@ -283,7 +283,6 @@ export class CardComponent implements OnInit {
       filter(changes => Object.keys(changes).length !== 0 && !this.cardFormGroup.invalid)
     ).subscribe(
       value => {
-        console.log(this.changes.translations);
         console.log(this.changes);
       }
     );
@@ -410,15 +409,15 @@ export class CardComponent implements OnInit {
 
   updateCard(): void {
     console.log('updated');
-    this.changes.translations = Array.from(this.changes.translations.values());
-    this.changes.examples = Array.from(this.changes.examples.values());
+    this.changes['translations'] = Array.from(this.changes['translations'].values());
+    this.changes['examples'] = Array.from(this.changes['examples'].values());
     console.log(this.changes);
     console.log(JSON.stringify(Object.assign({}, this.changes)));
 
-    this.changes.id = this.card.id;
-    this.changes.tags = Array.from(this.tags);
+    this.changes['id'] = this.card.id;
+    this.changes['tags'] = Array.from(this.tags);
     if (this.tokenStorageService.getCurLang() !== this.card.language) {
-      this.changes.lang = this.tokenStorageService.getCurLang();
+      this.changes['lang'] = this.tokenStorageService.getCurLang();
     }
 
     this.cardService.updateCard(
@@ -477,12 +476,12 @@ export class CardComponent implements OnInit {
     console.log(this.examples.at(index).value);
     if (this.examples.at(index).value.id !== '') {
       console.log('deleting existing example');
-      this.changes.ex_del.push(this.examples.at(index).value.id);
+      this.changes['ex_del'].push(this.examples.at(index).value.id);
       this.formIntact = false;
     } else {
       console.log('deleting new, no action');
     }
-    this.changes.examples.delete('' + index);
+    this.changes['examples'].delete('' + index);
     this.examples.removeAt(index);
     console.log(this.changes);
   }
@@ -492,12 +491,12 @@ export class CardComponent implements OnInit {
     console.log(this.changes);
     console.log(this.translations.at(index).value);
     if (this.translations.at(index).value.id !== '') {
-      this.changes.tr_del.push(this.translations.at(index).value.id);
+      this.changes['tr_del'].push(this.translations.at(index).value.id);
       this.formIntact = false;
     } else {
       console.log('deleting new, no action');
     }
-    this.changes.translations.delete('' + index);
+    this.changes['translations'].delete('' + index);
     this.translations.removeAt(index);
   }
 
