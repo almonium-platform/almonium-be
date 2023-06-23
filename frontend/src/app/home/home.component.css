@@ -5,3 +5,7 @@
 .my-label {
   font-size: 20px;
 }
+.custom-mat-option {
+  max-width: 100px;
+  white-space: nowrap;
+}

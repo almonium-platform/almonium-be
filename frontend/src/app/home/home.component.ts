@@ -4,6 +4,7 @@ import {TokenStorageService} from '../_services/token-storage.service';
 import {CardDto} from "../models/card.model";
 import {MatDialog} from "@angular/material/dialog";
 import {CardService} from "../_services/card.service";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,14 @@ import {CardService} from "../_services/card.service";
 export class HomeComponent implements OnInit {
   cards: CardDto[];
   suggestedCards: CardDto[];
+  filteredCards: CardDto[]; // Add this property
+  filterBy: string;
+  learning: number;
 
 
   constructor(private userService: UserService,
               private cardService: CardService,
-              private tokenStorageService: TokenStorageService,
+              public tokenStorageService: TokenStorageService,
               public dialog: MatDialog
   ) {
   }
@@ -26,10 +30,16 @@ export class HomeComponent implements OnInit {
     this.cardService.openDialog(card, mode, this)
   }
 
+  getUser(): User {
+    return this.tokenStorageService.getUser();
+  }
+
   getCards(): void {
     this.cardService.getCardsOfLang(this.tokenStorageService.getCurLang()).subscribe(
       data => {
         this.cards = data;
+        this.learning = this.count();
+        this.filteredCards = this.cards;
       },
       err => {
       }
@@ -43,6 +53,18 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  sortCards(): void {
+    if (this.filterBy === 'created') {
+      this.filteredCards = this.filteredCards.sort((a, b) =>
+        new Date(a.created).getTime() - new Date(b.created).getTime()
+      );
+    }
+  }
+
+  count(): number {
+    return this.cards.filter(card => card.lastRepeat !== null).length;
+  }
+
   ngOnInit(): void {
     if (!this.tokenStorageService.getToken()) {
       window.location.href = '/login';
@@ -50,5 +72,30 @@ export class HomeComponent implements OnInit {
     this.getCards();
   }
 
+  calculatePercentage(value: number, total: number): number {
+    if (total === 0) {
+      return 0;
+    }
+
+    return Math.round((value / total) * 100);
+  }
+
+  getHighestFrequency(): number {
+    return this.cards && this.cards.length > 0
+      ? Math.max(...this.cards.map(card => card.frequency))
+      : 0;
+  }
+
+  getLowestFrequency(): number {
+    return this.cards && this.cards.length > 0
+      ? Math.min(...this.cards.map(card => card.frequency))
+      : 0;
+  }
+
+  getAverageFrequency(): number {
+    return this.cards && this.cards.length > 0
+      ? Math.round(this.cards.reduce((sum, card) => sum + card.frequency, 0) / this.cards.length)
+      : 0;
+  }
 }
 

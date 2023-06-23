@@ -1,16 +1,38 @@
-<mat-label class="my-label" *ngIf="!!this.cards && this.cards.length > 0">
-  My cards
+<mat-label class="my-label">Statistics</mat-label>
+<br>
+<mat-label class="my-label">Total cards: {{cards.length}}</mat-label>
+<br>
+<mat-label class="my-label">
+  In learning: {{ this.learning }} ({{ calculatePercentage(this.learning, cards.length) }}%)
 </mat-label>
-<div *ngFor="let card of cards">
+<br>
+<mat-label class="my-label">HI Frequency: {{ getHighestFrequency() }}</mat-label>
+<br>
+<mat-label class="my-label">LO Frequency: {{ getLowestFrequency() }}</mat-label>
+<br>
+<mat-label class="my-label">AVG Frequency: {{ getAverageFrequency() }}</mat-label>
+<br>
+<mat-label class="my-label">Login streak: {{ getUser().streak}}</mat-label>
+<br>
+<!--<mat-label class="my-label">Login streak: {{ getUser().}}</mat-label>-->
+<br>
+
+<mat-label class="my-label">Filter by:</mat-label>
+<mat-select class="custom-mat-option" [(ngModel)]="filterBy" (ngModelChange)="sortCards()">
+  <mat-option class="custom-mat-option" value="created">Created</mat-option>
+</mat-select>
+<br>
+<br>
+<mat-label class="my-label" *ngIf="!!filteredCards && filteredCards.length > 0">My cards</mat-label>
+<div *ngFor="let card of filteredCards">
   <button mat-raised-button (click)="openDialogLocal(card, 'edit')">
-    {{card.entry}}
+    {{ card.entry }}
   </button>
 </div>
-<mat-label class="my-label" *ngIf="!!this.suggestedCards && this.suggestedCards.length > 0">
-  Suggested card
-</mat-label>
+
+<mat-label class="my-label" *ngIf="!!this.suggestedCards && this.suggestedCards.length > 0">Suggested card</mat-label>
 <div *ngFor="let card of suggestedCards">
   <button mat-raised-button (click)="openDialogLocal(card,'suggest')">
-    {{card.entry}}
+    {{ card.entry }}
   </button>
 </div>

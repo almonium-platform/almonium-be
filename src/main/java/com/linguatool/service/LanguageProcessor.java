@@ -56,10 +56,9 @@ public class LanguageProcessor {
     TranslatorRepository translatorRepository;
     DictionaryDtoMapper dictionaryDtoMapper;
 
-    static double SCALE = 1.153315895823627;
-    static double OFFSET = 10;
-
-    static double LOW_BOUND = 1e-9;
+    private static final double SCALE = 1.153315895823627;
+    private static final double OFFSET = 10;
+    private static final double LOW_BOUND = 1e-9;
 
     public ResponseEntity<?> limitExceeded(String provider) {
         return ResponseEntity.status(403).body(provider);

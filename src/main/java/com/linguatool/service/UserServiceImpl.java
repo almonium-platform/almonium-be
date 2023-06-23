@@ -34,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -181,6 +182,7 @@ public class UserServiceImpl implements UserService {
                 user.getUiLanguage().getCode(),
                 user.getProfilePicLink(),
                 user.getBackground(),
+                user.getStreak(),
                 roles,
                 tags,
                 targetLangs,
@@ -600,5 +602,17 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    public void updateLoginStreak(User user) {
+        LocalDate lastLoginDate = user.getLastLogin().toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+
+        user.setStreak(lastLoginDate
+                .plusDays(1)
+                .isEqual(currentDate)
+                ? user.getStreak() + 1 : 1);
+
+        user.setLastLogin(LocalDateTime.now());
     }
 }

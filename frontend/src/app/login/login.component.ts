@@ -26,14 +26,11 @@ export class LoginComponent implements OnInit {
   hide = true;
   googleURL = AppConstants.GOOGLE_AUTH_URL;
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
-  githubURL = AppConstants.GITHUB_AUTH_URL;
-  linkedinURL = AppConstants.LINKEDIN_AUTH_URL;
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private route: ActivatedRoute,
               private userService: UserService,
-              private dataService: DataService,
               public router: Router
   ) {
   }
@@ -125,5 +122,4 @@ export class TrackCapsDirective {
   onKeyUp(event: KeyboardEvent): void {
     this.capsLock.emit(event.getModifierState && event.getModifierState('CapsLock'));
   }
-
 }

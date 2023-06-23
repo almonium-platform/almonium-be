@@ -20,12 +20,11 @@ public enum Language {
     private final String code;
 
     public static Language fromString(String text) {
-        for (Language b : Language.values()) {
-            if (b.code.equalsIgnoreCase(text)) {
-                return b;
+        for (Language language : Language.values()) {
+            if (language.code.equalsIgnoreCase(text)) {
+                return language;
             }
         }
         return null;
     }
-
 }

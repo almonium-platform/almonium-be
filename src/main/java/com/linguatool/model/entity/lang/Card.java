@@ -49,6 +49,9 @@ public class Card implements Serializable {
     @Column(columnDefinition = "TIMESTAMP")
     LocalDateTime lastRepeat;
 
+    @Column(columnDefinition = "TIMESTAMP")
+    LocalDateTime firstRepeat;
+
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore

@@ -18,7 +18,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getMe(): Observable<any> {
+  getMe(): Observable<User> {
     return this.http.get<User>(AppConstants.API_URL + 'user/me');
   }
 

@@ -58,6 +58,12 @@ public class User implements Serializable {
     @Column(columnDefinition = "TIMESTAMP")
     protected LocalDateTime modified;
 
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime lastLogin;
+
+    @Column
+    private int streak = 1;
+
     private String password;
 
     private String background;
