@@ -33,6 +33,11 @@ public class Tag {
         this.text = normalizeText(proposedName);
     }
 
+    public Tag(Long tagId, String name) {
+        text = normalizeText(name);
+        id = tagId;
+    }
+
     public static String normalizeText(String text) {
         return text.replaceAll("\\s", "_").toLowerCase(Locale.ROOT).trim();
     }

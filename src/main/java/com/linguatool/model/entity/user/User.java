@@ -5,10 +5,7 @@ import com.linguatool.model.entity.lang.Card;
 import com.linguatool.model.entity.lang.CardSuggestion;
 import com.linguatool.model.entity.lang.Language;
 import com.linguatool.model.entity.lang.LanguageEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.Hibernate;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
@@ -19,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 import static com.linguatool.util.GeneralUtils.generateId;
 
@@ -28,9 +24,10 @@ import static com.linguatool.util.GeneralUtils.generateId;
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@Builder
 @Table(name = "account")
 public class User implements Serializable {
-
     private static final long serialVersionUID = 65981149772133526L;
 
     @Id
@@ -114,7 +111,7 @@ public class User implements Serializable {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
     )
-    Set<LanguageEntity> targetLanguages;
+    private Set<LanguageEntity> targetLanguages;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
@@ -123,7 +120,7 @@ public class User implements Serializable {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
     )
-    Set<LanguageEntity> fluentLanguages;
+    private Set<LanguageEntity> fluentLanguages;
 
 
     public void addCard(Card card) {
@@ -143,32 +140,25 @@ public class User implements Serializable {
             card.setOwner(null);
         }
     }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//
-//        if (o == null || getClass() != o.getClass()) {
-//            return false;
-//        }
-//
-//        User user = (User) o;
-//
-//        return new EqualsBuilder().append(enabled, user.enabled).append(friendshipRequestsBlocked, user.friendshipRequestsBlocked).append(id, user.id).append(providerUserId, user.providerUserId).append(email, user.email).append(username, user.username).append(created, user.created).append(modified, user.modified).append(password, user.password).append(provider, user.provider).append(uiLanguage, user.uiLanguage).append(roles, user.roles).append(friendshipsInitiated, user.friendshipsInitiated).append(cards, user.cards).isEquals();
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return new HashCodeBuilder(17, 37).append(id).append(providerUserId).append(email).append(enabled).append(username).append(created).append(modified).append(password).append(provider).append(uiLanguage).append(friendshipRequestsBlocked).append(roles).toHashCode();
-//    }
 
     @PrePersist
     void usernameGenerator() {
         if (this.username == null) {
             this.username = generateId();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return enabled == user.enabled && streak == user.streak && dailyGoal == user.dailyGoal && Double.compare(user.vocabularyLevel, vocabularyLevel) == 0 && friendshipRequestsBlocked == user.friendshipRequestsBlocked && Objects.equals(id, user.id) && Objects.equals(providerUserId, user.providerUserId) && Objects.equals(profilePicLink, user.profilePicLink) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(created, user.created) && Objects.equals(modified, user.modified) && Objects.equals(lastLogin, user.lastLogin) && Objects.equals(password, user.password) && Objects.equals(background, user.background) && Objects.equals(provider, user.provider) && uiLanguage == user.uiLanguage && Objects.equals(roles, user.roles) && Objects.equals(friendshipsInitiated, user.friendshipsInitiated) && Objects.equals(friendshipsRequested, user.friendshipsRequested) && Objects.equals(cards, user.cards) && Objects.equals(suggestedByMe, user.suggestedByMe) && Objects.equals(suggestedToMe, user.suggestedToMe) && Objects.equals(targetLanguages, user.targetLanguages) && Objects.equals(fluentLanguages, user.fluentLanguages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, providerUserId, profilePicLink, email, enabled, username, created, modified, lastLogin, streak, password, background, provider, dailyGoal, vocabularyLevel, uiLanguage, friendshipRequestsBlocked, roles, friendshipsInitiated, friendshipsRequested, cards, suggestedByMe, suggestedToMe, targetLanguages, fluentLanguages);
     }
 
     @Override
@@ -185,18 +175,5 @@ public class User implements Serializable {
                 ", provider='" + provider + '\'' +
                 ", friendshipRequestsBlocked=" + friendshipRequestsBlocked +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

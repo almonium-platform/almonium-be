@@ -6,8 +6,8 @@ import com.linguatool.model.dto.external_api.request.AnalysisDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.model.entity.lang.Language;
+import com.linguatool.service.CardService;
 import com.linguatool.service.LanguageProcessor;
-import com.linguatool.service.UserServiceImpl;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,19 +21,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/lang")
 public class LangController {
-
-    private final UserServiceImpl userService;
+    private final CardService cardService;
     private final LanguageProcessor languageProcessor;
 
-    public LangController(UserServiceImpl userService, LanguageProcessor languageProcessor) {
-        this.userService = userService;
+    public LangController(CardService cardService, LanguageProcessor languageProcessor) {
+        this.cardService = cardService;
         this.languageProcessor = languageProcessor;
     }
 
     @CrossOrigin
     @GetMapping("/stack-search/{text}")
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
-        return ResponseEntity.ok(userService.searchByEntry(text, localUser.getUser()));
+        return ResponseEntity.ok(cardService.searchByEntry(text, localUser.getUser()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
@@ -108,5 +107,4 @@ public class LangController {
                                                  @CurrentUser LocalUser user) {
         return ResponseEntity.ok(languageProcessor.getReport(text, lang, user.getUser()));
     }
-
 }

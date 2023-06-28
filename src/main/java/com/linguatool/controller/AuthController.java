@@ -3,7 +3,7 @@ package com.linguatool.controller;
 import com.linguatool.configuration.security.jwt.TokenProvider;
 import com.linguatool.exception.auth.UserAlreadyExistsAuthenticationException;
 import com.linguatool.model.dto.*;
-import com.linguatool.service.UserServiceImpl;
+import com.linguatool.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -22,13 +22,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
     private final AuthenticationManager authenticationManager;
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final TokenProvider tokenProvider;
     private final Environment environment;
 
-    public AuthController(AuthenticationManager authenticationManager, UserServiceImpl userService, TokenProvider tokenProvider, Environment environment) {
+    public AuthController(AuthenticationManager authenticationManager, UserService userService, TokenProvider tokenProvider, Environment environment) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.tokenProvider = tokenProvider;

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "language")
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LanguageEntity {
 
