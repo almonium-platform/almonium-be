@@ -4,7 +4,6 @@ import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.service.CardService;
-import com.linguatool.service.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

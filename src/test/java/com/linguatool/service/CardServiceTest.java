@@ -43,12 +43,12 @@ class CardServiceTest {
     CardMapper cardMapper;
 
     @InjectMocks
-    CardService cardService;
+    CardServiceImpl cardServiceImpl;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        cardService = new CardService(cardRepository, cardTagRepository, tagRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
+        cardServiceImpl = new CardServiceImpl(cardRepository, cardTagRepository, tagRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
     }
 
     @Test
@@ -68,7 +68,7 @@ class CardServiceTest {
         when(cardMapper.cardEntityToDto(card2)).thenReturn(new CardDto());
 
         // Act
-        List<CardDto> result = cardService.searchByEntry(entry, user);
+        List<CardDto> result = cardServiceImpl.searchByEntry(entry, user);
 
         // Assert
         assertThat(result).isNotNull();
@@ -89,7 +89,7 @@ class CardServiceTest {
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
 
         // Act
-        CardDto result = cardService.getCardById(id);
+        CardDto result = cardServiceImpl.getCardById(id);
 
         // Assert
         assertThat(result).isEqualTo(expectedDto);
@@ -107,7 +107,7 @@ class CardServiceTest {
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
 
         // Act
-        CardDto result = cardService.getCardByHash(hash);
+        CardDto result = cardServiceImpl.getCardByHash(hash);
 
         // Assert
         assertThat(result).isEqualTo(expectedDto);
@@ -131,7 +131,7 @@ class CardServiceTest {
         when(cardMapper.cardEntityToDto(card2)).thenReturn(dto2);
 
         // Act
-        List<CardDto> result = cardService.getUsersCards(user);
+        List<CardDto> result = cardServiceImpl.getUsersCards(user);
 
         // Assert
         assertThat(result).isEqualTo(expectedDtos);
@@ -146,7 +146,7 @@ class CardServiceTest {
         when(cardRepository.getByHash(hash)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(NoSuchElementException.class, () -> cardService.getCardByHash(hash));
+        assertThrows(NoSuchElementException.class, () -> cardServiceImpl.getCardByHash(hash));
     }
 
     @Test
@@ -180,7 +180,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify deletion of examples
@@ -220,7 +220,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify deletion of translations
@@ -272,7 +272,7 @@ class CardServiceTest {
         }
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify update of translations
@@ -327,7 +327,7 @@ class CardServiceTest {
         }
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify update of examples
@@ -368,7 +368,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify creation of new translations
@@ -408,7 +408,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify creation of new examples
@@ -440,7 +440,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify that the updated timestamp was set
@@ -467,7 +467,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify that the updated card was saved
@@ -505,7 +505,7 @@ class CardServiceTest {
         when(cardTagRepository.getByCardAndText(eq(card), eq("tag4"))).thenReturn(tag4);
 
         // Act
-        cardService.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, user);
 
         // Assert
         // Verify deletion of old tags
@@ -530,7 +530,7 @@ class CardServiceTest {
     void givenUserAndNonExistentLanguageCode_whenGetUsersCardsOfLang_thenThrowException() {
         when(languageRepository.findByCode(eq(Language.GERMAN))).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class,
-                () -> cardService.getUsersCardsOfLang(Language.GERMAN.getCode(), new User()));
+                () -> cardServiceImpl.getUsersCardsOfLang(Language.GERMAN.getCode(), new User()));
 
     }
 
@@ -572,7 +572,7 @@ class CardServiceTest {
         }
 
         // Invoke the method
-        List<CardDto> result = cardService.getUsersCardsOfLang(Language.GERMAN.getCode(), user);
+        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.GERMAN.getCode(), user);
 
         // Assertions
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);
