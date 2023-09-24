@@ -32,16 +32,18 @@ import static lombok.AccessLevel.PRIVATE;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class FriendshipService {
+public class FriendshipService implements com.linguatool.service.FriendshipService {
 
     FriendshipRepository friendshipRepository;
     UserRepository userRepository;
 
+    @Override
     public Optional<FriendInfo> findFriendByEmail(final String email) {
         Optional<Friend> friendOptional = userRepository.findFriendByEmail(email);
         return friendOptional.map(FriendInfo::new);
     }
 
+    @Override
     public Collection<FriendInfo> getUsersFriends(long id) {
         List<Object[]> pairList = friendshipRepository.getUsersFriendsIdsAndStatuses(id);
 
@@ -56,6 +58,7 @@ public class FriendshipService {
         return result;
     }
 
+    @Override
     @Transactional
     public void editFriendship(FriendshipCommandDto dto) {
         switch (dto.getAction()) {
@@ -78,6 +81,7 @@ public class FriendshipService {
         }
     }
 
+    @Override
     @SneakyThrows
     @Transactional
     public Friendship blockUser(long actionInitiatorId, long actionAcceptorId) {
@@ -99,6 +103,7 @@ public class FriendshipService {
         return friendship;
     }
 
+    @Override
     @SneakyThrows
     @Transactional
     public Friendship cancelFriendship(Long actionInitiatorId, Long actionAcceptorId) {
