@@ -102,7 +102,7 @@ class CardSuggestionServiceTest {
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(cardSuggestion);
 
         // Create a spy of your service
-        CardSuggestionServiceImpl cardServiceSpy = spy(CardSuggestionServiceImpl.class);
+        CardSuggestionServiceImpl cardServiceSpy = spy(cardSuggestionService);
 
         // Mock the cloneCard method to do nothing
         doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(User.class));
