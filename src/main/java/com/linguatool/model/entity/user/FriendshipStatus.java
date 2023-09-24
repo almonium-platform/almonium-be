@@ -1,7 +1,11 @@
 package com.linguatool.model.entity.user;
 
 public enum FriendshipStatus {
-    FRIENDS("F"), FST_BLOCKED_SND("1B2"), SND_BLOCKED_FST("2B1"), PENDING("P"), REJECTED("R");
+    FRIENDS("F"),
+    FST_BLOCKED_SND("1B2"),
+    SND_BLOCKED_FST("2B1"),
+    PENDING("P"),
+    REJECTED("R");
 
     FriendshipStatus(String code) {
         this.code = code;

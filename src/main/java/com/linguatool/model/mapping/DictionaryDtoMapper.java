@@ -11,8 +11,7 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface DictionaryDtoMapper {
-
-    @Mapping(target = "definitions", source = "def")
+    @Mapping(source = "def", target = "definitions")
     TranslationCardDto yandexToGeneral(YandexDto dto);
 
     @Mapping(source = "ts", target = "transcription")
