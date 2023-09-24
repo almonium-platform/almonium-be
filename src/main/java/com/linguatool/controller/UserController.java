@@ -4,7 +4,7 @@ import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.LangCodeDto;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.repository.UserRepository;
-import com.linguatool.service.UserServiceImpl;
+import com.linguatool.service.impl.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

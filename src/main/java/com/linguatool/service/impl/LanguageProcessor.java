@@ -1,4 +1,4 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;

@@ -1,4 +1,4 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.linguatool.exception.friend.FriendshipNotAllowedException;
 import com.linguatool.exception.friend.FriendshipNotFoundException;

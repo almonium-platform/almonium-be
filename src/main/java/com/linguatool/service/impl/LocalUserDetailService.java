@@ -1,8 +1,9 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.linguatool.exception.ResourceNotFoundException;
 import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.entity.user.User;
+import com.linguatool.service.UserService;
 import com.linguatool.util.GeneralUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

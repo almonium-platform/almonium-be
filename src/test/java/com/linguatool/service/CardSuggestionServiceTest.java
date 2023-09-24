@@ -10,6 +10,7 @@ import com.linguatool.model.entity.lang.Translation;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.model.mapping.CardMapper;
 import com.linguatool.repository.*;
+import com.linguatool.service.impl.CardSuggestionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,12 +41,12 @@ class CardSuggestionServiceTest {
     CardMapper cardMapper;
 
     @InjectMocks
-    CardSuggestionService cardSuggestionService;
+    CardSuggestionServiceImpl cardSuggestionService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        cardSuggestionService = new CardSuggestionService(cardRepository, cardSuggestionRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
+        cardSuggestionService = new CardSuggestionServiceImpl(cardRepository, cardSuggestionRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
     }
 
     @Test
@@ -101,7 +102,7 @@ class CardSuggestionServiceTest {
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(cardSuggestion);
 
         // Create a spy of your service
-        CardSuggestionService cardServiceSpy = spy(cardSuggestionService);
+        CardSuggestionServiceImpl cardServiceSpy = spy(CardSuggestionServiceImpl.class);
 
         // Mock the cloneCard method to do nothing
         doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(User.class));

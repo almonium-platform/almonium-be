@@ -3,7 +3,7 @@ package com.linguatool.controller;
 import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.*;
 import com.linguatool.service.CardSuggestionService;
-import com.linguatool.service.FriendshipService;
+import com.linguatool.service.impl.FriendshipService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

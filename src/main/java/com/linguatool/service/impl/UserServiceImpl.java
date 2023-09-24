@@ -1,4 +1,4 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfo;
 import com.linguatool.configuration.security.oauth2.user.OAuth2UserInfoFactory;
@@ -12,6 +12,7 @@ import com.linguatool.model.entity.lang.Tag;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.repository.*;
+import com.linguatool.service.UserService;
 import com.linguatool.util.GeneralUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

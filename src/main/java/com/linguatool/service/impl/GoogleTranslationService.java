@@ -1,4 +1,4 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.google.cloud.texttospeech.v1.*;
 import com.google.cloud.translate.v3.*;

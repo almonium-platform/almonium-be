@@ -1,4 +1,4 @@
-package com.linguatool.service;
+package com.linguatool.service.impl;
 
 import com.linguatool.model.dto.lang.POS;
 import edu.stanford.nlp.ling.CoreAnnotations;

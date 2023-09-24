@@ -8,6 +8,7 @@ import com.linguatool.model.entity.lang.Tag;
 import com.linguatool.model.entity.user.Role;
 import com.linguatool.model.entity.user.User;
 import com.linguatool.repository.*;
+import com.linguatool.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

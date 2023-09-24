@@ -7,7 +7,7 @@ import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.model.dto.external_api.response.words.WordsReportDto;
 import com.linguatool.model.entity.lang.Language;
 import com.linguatool.service.CardService;
-import com.linguatool.service.LanguageProcessor;
+import com.linguatool.service.impl.LanguageProcessor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
