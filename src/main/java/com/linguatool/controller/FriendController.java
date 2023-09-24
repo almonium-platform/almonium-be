@@ -2,7 +2,7 @@ package com.linguatool.controller;
 
 import com.linguatool.annotation.CurrentUser;
 import com.linguatool.model.dto.*;
-import com.linguatool.service.CardService;
+import com.linguatool.service.CardSuggestionService;
 import com.linguatool.service.FriendshipService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +14,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/friend/")
 public class FriendController {
-    private final CardService cardService;
+    private final CardSuggestionService cardSuggestionService;
     private final FriendshipService friendshipService;
 
-    public FriendController(CardService cardService, FriendshipService friendshipService) {
-        this.cardService = cardService;
+    public FriendController(CardSuggestionService cardSuggestionService, FriendshipService friendshipService) {
+        this.cardSuggestionService = cardSuggestionService;
         this.friendshipService = friendshipService;
     }
 
@@ -35,20 +35,20 @@ public class FriendController {
 
     @PostMapping("suggest/")
     public ResponseEntity<?> suggestCard(@RequestBody CardSuggestionDto dto, @CurrentUser LocalUser user) {
-        boolean result = cardService.suggestCard(dto, user.getUser());
+        boolean result = cardSuggestionService.suggestCard(dto, user.getUser());
         if (result) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().body("You've already sent that card!");
     }
 
     @PostMapping("accept/")
     public ResponseEntity<?> acceptCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
-        cardService.acceptSuggestion(dto, user.getUser());
+        cardSuggestionService.acceptSuggestion(dto, user.getUser());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("decline/")
     public ResponseEntity<?> declineCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
-        cardService.declineSuggestion(dto, user.getUser());
+        cardSuggestionService.declineSuggestion(dto, user.getUser());
         return ResponseEntity.ok().build();
     }
 

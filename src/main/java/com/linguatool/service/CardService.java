@@ -29,7 +29,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardService {
     CardRepository cardRepository;
-    CardSuggestionRepository cardSuggestionRepository;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
     ExampleRepository exampleRepository;
@@ -93,70 +92,6 @@ public class CardService {
 
         userRepository.save(user);
         log.info("Created card {} for user {}", card, user);
-    }
-
-    @Transactional
-    public void cloneCard(Card entity, User user) {
-        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity), languageRepository);
-
-        user.addCard(card);
-
-        List<Example> examples = card.getExamples();
-        examples.forEach(e -> e.setCard(card));
-
-        List<Translation> translations = card.getTranslations();
-
-        cardRepository.save(card);
-        translationRepository.saveAll(translations);
-        exampleRepository.saveAll(examples);
-        userRepository.save(user);
-        log.info("Cloned card {} for user {}", card, user);
-    }
-
-    @Transactional
-    public List<CardDto> getSuggestedCards(User user) {
-        return cardSuggestionRepository.getByRecipient(user)
-                .stream()
-                .map(sug -> {
-                    CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
-                    dto.setUserId(sug.getSender().getId());
-                    return dto;
-                })
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void declineSuggestion(CardAcceptanceDto dto, User recipient) {
-        //TODO Test, changed repo name - entity to just ID
-        cardSuggestionRepository
-                .deleteBySenderIdAndRecipientIdAndCardId(
-                        dto.getSenderId(),
-                        recipient.getId(),
-                        dto.getCardId()
-                );
-    }
-
-    @Transactional
-    public void acceptSuggestion(CardAcceptanceDto dto, User recipient) {
-        User sender = userRepository.getById(dto.getSenderId());
-        Card card = cardRepository.getById(dto.getCardId());
-        cloneCard(card, recipient);
-        CardSuggestion cardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card);
-        cardSuggestionRepository.delete(cardSuggestion);
-    }
-
-
-    public boolean suggestCard(CardSuggestionDto dto, User sender) {
-        Card card = cardRepository.getById(dto.getCardId());
-        User recipient = userRepository.getById(dto.getRecipientId());
-        //TODO  notifications
-        //TODO check if has access
-        if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) == null) {
-            cardSuggestionRepository.save(new CardSuggestion(sender, recipient, card));
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Transactional

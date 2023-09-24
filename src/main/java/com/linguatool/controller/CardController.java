@@ -7,6 +7,7 @@ import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.model.dto.external_api.request.CardUpdateDto;
 import com.linguatool.repository.CardRepository;
 import com.linguatool.service.CardService;
+import com.linguatool.service.CardSuggestionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,12 @@ import java.util.List;
 public class CardController {
     private final CardRepository cardRepository;
     private final CardService cardService;
+    private final CardSuggestionService cardSuggestionService;
 
-    public CardController(CardRepository cardRepository, CardService cardService) {
+    public CardController(CardRepository cardRepository, CardService cardService, CardSuggestionService cardSuggestionService) {
         this.cardRepository = cardRepository;
         this.cardService = cardService;
+        this.cardSuggestionService = cardSuggestionService;
     }
 
     @PostMapping("create")
@@ -48,7 +51,7 @@ public class CardController {
 
     @GetMapping("suggested")
     public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(cardService.getSuggestedCards(user.getUser()));
+        return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(user.getUser()));
     }
 
     @GetMapping("{id}")
