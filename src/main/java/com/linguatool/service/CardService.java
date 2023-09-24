@@ -22,4 +22,5 @@ public interface CardService {
     void updateCard(CardUpdateDto dto, User user);
 
     List<CardDto> getUsersCardsOfLang(String code, User user);
+    void deleteById(Long id);
 }

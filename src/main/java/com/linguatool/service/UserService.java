@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import java.util.Map;
 import java.util.Optional;
 
-
 public interface UserService {
     User registerNewUser(SignUpRequest signUpRequest) throws UserAlreadyExistsAuthenticationException;
 
@@ -36,4 +35,6 @@ public interface UserService {
     void updateLoginStreak(User user);
 
     void changeUsername(String username, Long id);
+
+    boolean existsByUsername(String username);
 }

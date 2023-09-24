@@ -5,7 +5,6 @@ import com.linguatool.model.dto.LocalUser;
 import com.linguatool.model.dto.external_api.request.CardCreationDto;
 import com.linguatool.model.dto.external_api.request.CardDto;
 import com.linguatool.model.dto.external_api.request.CardUpdateDto;
-import com.linguatool.repository.CardRepository;
 import com.linguatool.service.CardService;
 import com.linguatool.service.CardSuggestionService;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("api/cards")
 public class CardController {
-    private final CardRepository cardRepository;
     private final CardService cardService;
     private final CardSuggestionService cardSuggestionService;
 
-    public CardController(CardRepository cardRepository, CardService cardService, CardSuggestionService cardSuggestionService) {
-        this.cardRepository = cardRepository;
+    public CardController(CardService cardService, CardSuggestionService cardSuggestionService) {
         this.cardService = cardService;
         this.cardSuggestionService = cardSuggestionService;
     }
@@ -66,7 +63,7 @@ public class CardController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<CardDto> deleteCard(@PathVariable Long id) {
-        cardRepository.deleteById(id);
+        cardService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

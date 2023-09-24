@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserServiceImpl userService;
-    private final UserRepository userRepository;
 
-    public UserController(UserServiceImpl userService, UserRepository userRepository) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("me")
@@ -27,7 +25,7 @@ public class UserController {
 
     @GetMapping("check/{username}")
     public ResponseEntity<Boolean> isUsernameAvailable(@PathVariable String username) {
-        return ResponseEntity.ok(!userRepository.existsByUsername(username));
+        return ResponseEntity.ok(!userService.existsByUsername(username));
     }
 
     @PostMapping("change/{username}")

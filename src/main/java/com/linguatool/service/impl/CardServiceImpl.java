@@ -194,4 +194,9 @@ public class CardServiceImpl implements CardService {
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteById(Long id) {
+        cardRepository.deleteById(id);
+    }
 }
