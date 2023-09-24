@@ -12,7 +12,6 @@ import java.util.List;
 public interface CardSuggestionRepository extends JpaRepository<CardSuggestion, Long> {
 
     CardSuggestion getBySenderAndRecipientAndCard(User sender, User recipient, Card card);
-    void deleteBySenderAndRecipientAndCard(User sender, User recipient, Card card);
-
+    void deleteBySenderIdAndRecipientIdAndCardId(Long senderId, Long recipientId, Long cardId);
     List<CardSuggestion> getByRecipient(User recipient);
 }

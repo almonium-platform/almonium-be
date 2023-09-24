@@ -14,7 +14,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import static com.linguatool.util.GeneralUtils.generateId;
@@ -26,6 +25,7 @@ import static com.linguatool.util.GeneralUtils.generateId;
 @Setter
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of = {"id"})
 @Table(name = "account")
 public class User implements Serializable {
     private static final long serialVersionUID = 65981149772133526L;
@@ -148,18 +148,6 @@ public class User implements Serializable {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return enabled == user.enabled && streak == user.streak && dailyGoal == user.dailyGoal && Double.compare(user.vocabularyLevel, vocabularyLevel) == 0 && friendshipRequestsBlocked == user.friendshipRequestsBlocked && Objects.equals(id, user.id) && Objects.equals(providerUserId, user.providerUserId) && Objects.equals(profilePicLink, user.profilePicLink) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(created, user.created) && Objects.equals(modified, user.modified) && Objects.equals(lastLogin, user.lastLogin) && Objects.equals(password, user.password) && Objects.equals(background, user.background) && Objects.equals(provider, user.provider) && uiLanguage == user.uiLanguage && Objects.equals(roles, user.roles) && Objects.equals(friendshipsInitiated, user.friendshipsInitiated) && Objects.equals(friendshipsRequested, user.friendshipsRequested) && Objects.equals(cards, user.cards) && Objects.equals(suggestedByMe, user.suggestedByMe) && Objects.equals(suggestedToMe, user.suggestedToMe) && Objects.equals(targetLanguages, user.targetLanguages) && Objects.equals(fluentLanguages, user.fluentLanguages);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, providerUserId, profilePicLink, email, enabled, username, created, modified, lastLogin, streak, password, background, provider, dailyGoal, vocabularyLevel, uiLanguage, friendshipRequestsBlocked, roles, friendshipsInitiated, friendshipsRequested, cards, suggestedByMe, suggestedToMe, targetLanguages, fluentLanguages);
-    }
 
     @Override
     public String toString() {

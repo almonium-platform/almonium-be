@@ -124,7 +124,8 @@ class UserServiceImplTest {
 
         when(userRepository.existsById(signUpRequest.getUserID())).thenReturn(true);
 
-        assertThrows(UserAlreadyExistsAuthenticationException.class, () -> userService.registerNewUser(signUpRequest));
+        assertThrows(UserAlreadyExistsAuthenticationException.class,
+                () -> userService.registerNewUser(signUpRequest));
 
         verify(userRepository).existsById(signUpRequest.getUserID());
         verifyNoMoreInteractions(userRepository);
@@ -138,9 +139,8 @@ class UserServiceImplTest {
 
         when(userRepository.existsByEmail(signUpRequest.getEmail())).thenReturn(true);
 
-        assertThrows(UserAlreadyExistsAuthenticationException.class, () -> {
-            userService.registerNewUser(signUpRequest);
-        });
+        assertThrows(UserAlreadyExistsAuthenticationException.class,
+                () -> userService.registerNewUser(signUpRequest));
 
         verify(userRepository).existsByEmail(signUpRequest.getEmail());
         verify(userRepository, never()).existsById(anyLong());
@@ -212,7 +212,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should return empty optional for non existing user")
-    public void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional () {
+    public void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
         Long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 

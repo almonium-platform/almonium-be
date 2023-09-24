@@ -19,8 +19,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <version.lombok>1.18.18</version.lombok>
-        <version.mapstruct>1.5.2.Final</version.mapstruct>
+        <version.lombok>1.18.28</version.lombok>
+        <version.mapstruct>1.5.5.Final</version.mapstruct>
         <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
         <aws-secretsmanager-jdbc.version>1.0.8</aws-secretsmanager-jdbc.version>
     </properties>

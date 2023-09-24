@@ -28,7 +28,6 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardService {
-    CardMapper cardMapper;
     CardRepository cardRepository;
     CardSuggestionRepository cardSuggestionRepository;
     CardTagRepository cardTagRepository;
@@ -37,6 +36,7 @@ public class CardService {
     TranslationRepository translationRepository;
     UserRepository userRepository;
     LanguageRepository languageRepository;
+    CardMapper cardMapper;
 
     @Transactional
     public CardDto getCardById(Long id) {
@@ -47,18 +47,6 @@ public class CardService {
     public CardDto getCardByHash(String hash) {
         Card card = cardRepository.getByHash(hash).orElseThrow();
         return cardMapper.cardEntityToDto(card);
-    }
-
-    @Transactional
-    public List<CardDto> getSuggestedCards(User user) {
-        return cardSuggestionRepository.getByRecipient(user)
-                .stream()
-                .map(sug -> {
-                    CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
-                    dto.setUserId(sug.getSender().getId());
-                    return dto;
-                })
-                .collect(Collectors.toList());
     }
 
     @Transactional(value = "transactionManager")
@@ -74,10 +62,10 @@ public class CardService {
         user.addCard(card);
 
         List<Example> examples = card.getExamples();
-        examples.forEach(e -> e.setCard(card));
+        examples.forEach(example -> example.setCard(card));
 
         List<Translation> translations = card.getTranslations();
-        translations.forEach(t -> t.setCard(card));
+        translations.forEach(translation -> translation.setCard(card));
         List<CardTag> cardTags = new ArrayList<>();
         TagDto[] tags = dto.getTags();
         Arrays.stream(tags).forEach(t -> {
@@ -117,33 +105,34 @@ public class CardService {
         examples.forEach(e -> e.setCard(card));
 
         List<Translation> translations = card.getTranslations();
-        List<CardTag> cardTags = new ArrayList<>();
 
-        translations.forEach(t -> t.setCard(card));
-        Set<CardTag> cardTagsExtracted = entity.getCardTags();
-        for (CardTag ct : cardTagsExtracted) {
-            cardTags.add(CardTag.builder()
-                    .id(new CardTagPK(card.getId(), ct.getId().getTagId()))
-                    .card(card)
-                    .user(user)
-                    .tag(ct.getTag())
-                    .build());
-        }
         cardRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
-        cardTagRepository.saveAll(cardTags);
         userRepository.save(user);
         log.info("Cloned card {} for user {}", card, user);
     }
 
     @Transactional
+    public List<CardDto> getSuggestedCards(User user) {
+        return cardSuggestionRepository.getByRecipient(user)
+                .stream()
+                .map(sug -> {
+                    CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
+                    dto.setUserId(sug.getSender().getId());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public void declineSuggestion(CardAcceptanceDto dto, User recipient) {
+        //TODO Test, changed repo name - entity to just ID
         cardSuggestionRepository
-                .deleteBySenderAndRecipientAndCard(
-                        userRepository.getById(dto.getSenderId()),
-                        recipient,
-                        cardRepository.getById(dto.getCardId())
+                .deleteBySenderIdAndRecipientIdAndCardId(
+                        dto.getSenderId(),
+                        recipient.getId(),
+                        dto.getCardId()
                 );
     }
 
@@ -257,7 +246,8 @@ public class CardService {
 
     @Transactional
     public List<CardDto> getUsersCardsOfLang(String code, User user) {
-        LanguageEntity language = languageRepository.findByCode(Language.fromString(code)).orElseThrow();
+        LanguageEntity language = languageRepository.findByCode(Language.fromString(code))
+                .orElseThrow(() -> new NoSuchElementException("Can't find language for code: " + code));
         return cardRepository
                 .findAllByOwnerAndLanguage(user, language)
                 .stream()
