@@ -7,6 +7,7 @@ import com.linguarium.friendship.exception.FriendshipNotFoundException;
 import com.linguarium.friendship.model.*;
 import com.linguarium.friendship.repository.FriendshipRepository;
 import com.linguarium.user.model.Profile;
+import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
