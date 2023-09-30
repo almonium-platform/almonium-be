@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-translator-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: translator
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)

@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-example-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: example
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: example
+                  type: TEXT
+              - column:
+                  name: translation
+                  type: TEXT
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_example_card
+                    references: card(id)

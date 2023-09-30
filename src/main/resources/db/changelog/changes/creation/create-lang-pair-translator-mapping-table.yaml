@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-lang-pair-translator-mapping-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: lang_pair_translator_mapping
+            columns:
+              - column:
+                  name: source_lang_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_lang_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translator_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priority
+                  type: INT

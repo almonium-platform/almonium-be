@@ -2,7 +2,7 @@ import {TranslationCard} from './translation.model';
 
 export interface CardDto {
   id: number;
-  hash: string;
+  public_id: string;
   entry: string;
   activeLearning: boolean;
   irregularSpelling: boolean;
@@ -12,17 +12,13 @@ export interface CardDto {
   priority: number;
   iteration: number;
   notes: string;
-  source: string;
-  ipa: string;
   language: string;
-  wordFamily: string[];
   userId: number;
   tags: TagDto[];
   translations: TranslationDto[];
   examples: ExampleDto[];
   created: string;
   updated: string;
-  lastRepeat: string;
   learnt: boolean;
 }
 

@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-card-tag-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: card_tag
+            columns:
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: learner_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false

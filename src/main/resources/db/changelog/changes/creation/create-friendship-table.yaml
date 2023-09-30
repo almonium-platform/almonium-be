@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-friendship-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: friendship
+            columns:
+              - column:
+                  name: requester_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: requestee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+              - column:
+                  name: status
+                  type: VARCHAR(50)

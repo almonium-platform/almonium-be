@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-profile-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: profile
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: fk_profile_user
+                    references: user_core(id)
+              - column:
+                  name: background
+                  type: varchar(255)
+              - column:
+                  name: profile_pic_link
+                  type: varchar(255)
+              - column:
+                  name: daily_goal
+                  type: int
+              - column:
+                  name: friendship_requests_blocked
+                  type: boolean
+              - column:
+                  name: last_login
+                  type: timestamp
+              - column:
+                  name: streak
+                  type: int
+              - column:
+                  name: ui_lang
+                  type: varchar(255)

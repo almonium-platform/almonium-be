@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-user-table-for-test
+      author: okuzan
+      context: test
+      changes:
+        - insert:
+            tableName: user_core
+            columns:
+              - column: {name: id, value: "1"}
+              - column: {name: email, value: "kuzanoleg@gmail.com"}
+              - column: {name: username, value: "wanderbild"}
+              - column: {name: provider_user_id, value: ""}
+              - column: {name: registered, value: "2022-06-15 22:56:44.548837"}
+              - column: {name: password, value: "$2a$10$7QuTKthggcJ.f5EC4rlLS.9LcxeDZHWMHUobv856Dxg.NOB.b8LYO"}
+              - column: {name: provider, value: "google"}
+              - column: {name: provider_user_id, value: "109806446915937605600"}
+              - column: {name: ui_lang, value: "EN"}
+              - column: {name: profile_pic_link, value: "https://lh3.googleusercontent.com/a/AAcHTtcJFhK99TV8BXuw77suI9UEpYMjoa2xUMDwjhqi1w=s96-c"}
+
+              # Add more columns if needed
+        # Add more rows if needed
+
+  - changeSet:
+      id: fill-card-table-for-test
+      author: okuzan
+      context: test
+      changes:
+        - insert:
+            tableName: card
+            columns:
+              - column: {name: id, value: 1}
+              - column: {name: entry, value: "Freudian slip"}
+              # Add more columns if needed
+        # Add more rows if needed

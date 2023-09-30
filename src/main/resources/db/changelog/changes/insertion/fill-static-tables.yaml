@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-language-table
+      author: okuzan
+      changes:
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "1"}
+              - column: {name: code, value: "EN"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "2"}
+              - column: {name: code, value: "DE"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "3"}
+              - column: {name: code, value: "FR"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "4"}
+              - column: {name: code, value: "ES"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "5"}
+              - column: {name: code, value: "UK"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "6"}
+              - column: {name: code, value: "RU"}
+        - insert:
+            tableName: language
+            columns:
+              - column: {name: id, value: "7"}
+              - column: {name: code, value: "PL"}
+
+  - changeSet:
+      id: fill-translator-table
+      author: okuzan
+      changes:
+        - insert:
+            tableName: translator
+            columns:
+              - column: {name: id, value: "1"}
+              - column: {name: name, value: "GOOGLE"}
+        - insert:
+            tableName: translator
+            columns:
+              - column: {name: id, value: "2"}
+              - column: {name: name, value: "DEEPL"}
+        - insert:
+            tableName: translator
+            columns:
+              - column: {name: id, value: "3"}
+              - column: {name: name, value: "YANDEX"}

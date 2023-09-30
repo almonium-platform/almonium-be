@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-friend-info-view
+      author: okuzan
+      changes:
+        - sql:
+            sql: |
+              CREATE VIEW friend_info_view AS
+              SELECT requester_id AS user_id, status, false AS is_friend_requester FROM friendship
+              UNION ALL
+              SELECT requestee_id AS user_id, status, true AS is_friend_requester FROM friendship;

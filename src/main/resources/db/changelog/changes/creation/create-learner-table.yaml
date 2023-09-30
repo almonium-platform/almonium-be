@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-learner-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: learner
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: fk_learner_user
+                    references: user_core(id)

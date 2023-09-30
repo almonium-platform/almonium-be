@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-translation-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: translation
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: translation
+                  type: TEXT
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_translation_card
+                    references: card(id)

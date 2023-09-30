@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tag-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: tag
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: VARCHAR(255)

@@ -1,0 +1,11 @@
+@import '~@angular/material/core/theming';
+
+@include mat-core();
+
+$my-theme: mat-light-theme($my-primary-color, $my-accent-color, $my-warn-color);
+
+@include angular-material-theme($my-theme);
+
+$my-primary-color: #3f51b5;
+$my-accent-color: #e91e63;
+$my-warn-color: #f44336;

@@ -100,7 +100,6 @@ export class CardService {
       falseFriend: formGroup.controls.falseFriend.value,
       irregularSpelling: formGroup.controls.irregularSpelling.value,
       notes: formGroup.controls.notes.value,
-      source: formGroup.controls.source.value,
       tags: Array.from(formGroup.controls.tags.value),
       activeLearning: formGroup.controls.activeLearning.value,
     }, httpOptions);

@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: user_core
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: provider_user_id
+                  type: varchar(255)
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: registered
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: profile_id
+                  type: bigint
+              - column:
+                  name: learner_id
+                  type: bigint

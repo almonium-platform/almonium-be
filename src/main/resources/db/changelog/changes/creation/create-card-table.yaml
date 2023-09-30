@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-card-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: card
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: public_id
+                  type: UUID
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: entry
+                  type: TEXT
+              - column:
+                  name: created
+                  type: TIMESTAMP
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+              - column:
+                  name: last_repeat
+                  type: TIMESTAMP
+              - column:
+                  name: first_repeat
+                  type: TIMESTAMP
+              - column:
+                  name: owner_id
+                  type: BIGINT
+              - column:
+                  name: active_learning
+                  type: BOOLEAN
+              - column:
+                  name: irregular_spelling
+                  type: BOOLEAN
+              - column:
+                  name: false_friend
+                  type: BOOLEAN
+              - column:
+                  name: irregular_plural
+                  type: BOOLEAN
+              - column:
+                  name: learnt
+                  type: BOOLEAN
+              - column:
+                  name: lang_id
+                  type: BIGINT

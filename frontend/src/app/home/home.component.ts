@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
   }
 
   count(): number {
-    return this.cards.filter(card => card.lastRepeat !== null).length;
+    return this.cards.filter(card => card.iteration !== null).length;
   }
 
   ngOnInit(): void {

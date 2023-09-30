@@ -153,7 +153,6 @@ export class CardComponent implements OnInit {
     tags: new FormControl(''),
     priority: new FormControl(''),
     activeLearning: new FormControl(''),
-    source: new FormControl(''),
     falseFriend: new FormControl(''),
     irregularPlural: new FormControl(''),
     irregularSpelling: new FormControl(''),
@@ -360,7 +359,6 @@ export class CardComponent implements OnInit {
       this.cardFormGroup.patchValue({
         entry: this.card.entry,
         notes: this.card.notes,
-        source: this.card.source,
         priority: this.card.priority,
         activeLearning: this.card.activeLearning,
         falseFriend: this.card.falseFriend,
@@ -612,7 +610,7 @@ export class CardComponent implements OnInit {
   }
 
   getLink(): string {
-    return window.location.origin + '/discover/dialog/' + this.card.hash;
+    return window.location.origin + '/discover/dialog/' + this.card.public_id;
   }
 
   openDeletionDialog(): void {
