@@ -26,6 +26,6 @@ public class HomeController {
 
     @GetMapping("/cards")
     public ResponseEntity<List<CardDto>> getCurrentUser(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(cardService.getUsersCards(user.getUser()));
+        return ResponseEntity.ok(cardService.getUsersCards(user.getUser().getLearner()));
     }
 }

@@ -11,7 +11,7 @@ import java.util.UUID;
 public class GeneralUtils {
 
     public static String generateId() {
-        return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     public static String queryBuilder(String httpUrl, Collection<String> params) {

@@ -31,8 +31,8 @@ public class YandexClient extends AbstractClient {
 
     public ResponseEntity<YandexDto> translate(String word, Language from, Language to) {
         String langPair = String.format("%s-%s",
-                from.getCode().toLowerCase(Locale.ROOT),
-                to.getCode().toLowerCase(Locale.ROOT));
+                from.name().toLowerCase(Locale.ROOT),
+                to.name().toLowerCase(Locale.ROOT));
 
         return super.request(
                 URL,

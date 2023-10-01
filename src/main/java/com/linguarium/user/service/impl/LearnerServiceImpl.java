@@ -4,9 +4,6 @@ import com.linguarium.card.model.CardTag;
 import com.linguarium.card.model.Tag;
 import com.linguarium.card.repository.CardTagRepository;
 import com.linguarium.card.repository.TagRepository;
-import com.linguarium.translator.model.Language;
-import com.linguarium.translator.model.LanguageEntity;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
@@ -32,7 +29,6 @@ public class LearnerServiceImpl implements LearnerService {
     LearnerRepository learnerRepository;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
-    LanguageRepository languageRepository;
 
     @Override
     @Transactional
@@ -63,10 +59,7 @@ public class LearnerServiceImpl implements LearnerService {
     @Override
     @Transactional
     public void setTargetLangs(LangCodeDto dto, Learner learner) {
-        Set<LanguageEntity> languages = new HashSet<>();
-        Arrays.stream(dto.getCodes()).forEach(
-                code -> languages.add(
-                        languageRepository.findByCode(Language.fromString(code)).orElseThrow()));
+        Set<String> languages = new HashSet<>(Arrays.asList(dto.getCodes()));
         learner.setTargetLangs(languages);
         learnerRepository.save(learner);
     }
@@ -74,10 +67,7 @@ public class LearnerServiceImpl implements LearnerService {
     @Override
     @Transactional
     public void setFluentLangs(LangCodeDto dto, Learner learner) {
-        Set<LanguageEntity> languages = new HashSet<>();
-        Arrays.stream(dto.getCodes()).forEach(
-                code -> languages.add(
-                        languageRepository.findByCode(Language.fromString(code)).orElseThrow()));
+        Set<String> languages = new HashSet<>(Arrays.asList(dto.getCodes()));
         learner.setFluentLangs(languages);
         learnerRepository.save(learner);
     }

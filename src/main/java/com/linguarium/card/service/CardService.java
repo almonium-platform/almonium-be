@@ -3,6 +3,7 @@ package com.linguarium.card.service;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 
 import java.util.List;
@@ -13,15 +14,15 @@ public interface CardService {
 
     CardDto getCardByPublicId(String hash);
 
-    List<CardDto> getUsersCards(User user);
+    List<CardDto> getUsersCards(Learner learner);
 
-    void createCard(User user, CardCreationDto dto);
+    void createCard(Learner learner, CardCreationDto dto);
 
-    List<CardDto> searchByEntry(String entry, User user);
+    List<CardDto> searchByEntry(String entry, Learner learner);
 
-    void updateCard(CardUpdateDto dto, User user);
+    void updateCard(CardUpdateDto dto, Learner learner);
 
-    List<CardDto> getUsersCardsOfLang(String code, User user);
+    List<CardDto> getUsersCardsOfLang(String code, Learner user);
 
     void deleteById(Long id);
 }

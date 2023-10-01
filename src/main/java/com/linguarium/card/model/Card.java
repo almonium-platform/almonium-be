@@ -1,14 +1,14 @@
 package com.linguarium.card.model;
 
-import com.linguarium.translator.model.LanguageEntity;
+import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
-import javax.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,15 +52,14 @@ public class Card implements Serializable {
     boolean learnt;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "lang_id", referencedColumnName = "id")
-    LanguageEntity language;
+    @Enumerated(EnumType.STRING)
+    Language language;
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Example> examples;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST) //check
+    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<Translation> translations;
 

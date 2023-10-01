@@ -18,11 +18,10 @@ import com.linguarium.client.words.WordsClient;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.yandex.YandexClient;
 import com.linguarium.client.yandex.dto.YandexDto;
-import com.linguarium.translator.model.Language;
 import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
+import com.linguarium.translator.model.Language;
 import com.linguarium.translator.repository.LangPairTranslatorRepository;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.translator.repository.TranslatorRepository;
 import com.linguarium.translator.service.TranslationService;
 import com.linguarium.user.model.User;
@@ -60,7 +59,6 @@ public class LanguageProcessorImpl {
     CoreNLPServiceImpl coreNLPServiceImpl;
     TranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
-    LanguageRepository languageRepository;
     TranslatorRepository translatorRepository;
     DictionaryDtoMapper dictionaryDtoMapper;
 
@@ -80,7 +78,7 @@ public class LanguageProcessorImpl {
         //todo deepL
         return MLTranslationCard.builder()
                 .provider(translatorRepository.getGoogle().getName())
-                .text(googleService.bulkTranslateText(text, targetLang.getCode()))
+                .text(googleService.bulkTranslateText(text, targetLang.name()))
                 .build();
     }
 
@@ -92,8 +90,8 @@ public class LanguageProcessorImpl {
         }
 
         List<Long> translatorsIds = langPairTranslatorRepository.getBySourceLangAndTargetLang(
-                languageRepository.findByCode(sourceLang).orElseThrow().getId(),
-                languageRepository.findByCode(targetLang).orElseThrow().getId());
+                sourceLang.name(),
+                targetLang.name());
 
         if (translatorsIds.size() == 0) {
             return null;
@@ -222,8 +220,8 @@ public class LanguageProcessorImpl {
         List<String> lemmas = coreNLPServiceImpl.lemmatize(entry);
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
-        Language sourceLang = Language.fromString(languageCode);
-        Language fluentLanguage = user.getLearner().getFluentLangs().iterator().next().getCode();
+        Language sourceLang = Language.valueOf(languageCode);
+        Language fluentLanguage =Language.valueOf(user.getLearner().getFluentLangs().iterator().next());
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));

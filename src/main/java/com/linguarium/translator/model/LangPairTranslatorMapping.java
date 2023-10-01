@@ -14,31 +14,25 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Table(
         uniqueConstraints =
-        @UniqueConstraint(columnNames = {"source_lang_id", "target_lang_id", "translator_id"})
+        @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"})
 )
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @IdClass(TranslatorMappingKey.class)
 public class LangPairTranslatorMapping implements Serializable {
 
     @Id
-    @Column(name = "source_lang_id")
-    Long sourceLangId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "source_lang")
+    Language sourceLang;
 
     @Id
-    @Column(name = "target_lang_id")
-    Long targetLangId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "target_lang")
+    Language targetLang;
 
     @Id
     @Column(name = "translator_id")
     Long translatorId;
-
-    @ManyToOne
-    @JoinColumn(name = "source_lang_id", referencedColumnName = "id", insertable = false, updatable = false)
-    LanguageEntity sourceLang;
-
-    @ManyToOne
-    @JoinColumn(name = "target_lang_id", referencedColumnName = "id", insertable = false, updatable = false)
-    LanguageEntity targetLang;
 
     @ManyToOne
     @JoinColumn(name = "translator_id", referencedColumnName = "id", insertable = false, updatable = false)

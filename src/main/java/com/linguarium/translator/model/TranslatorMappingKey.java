@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TranslatorMappingKey implements Serializable {
-    Long sourceLangId;
-    Long targetLangId;
+    Language sourceLang;
+    Language targetLang;
     Long translatorId;
 }

@@ -25,7 +25,7 @@ public class CardDto {
     @NotBlank
     String entry;
     @NotNull
-    LanguageDto language;
+    String language;
     @NotEmpty
     TranslationDto[] translations;
     String notes;

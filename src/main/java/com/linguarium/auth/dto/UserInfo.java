@@ -1,12 +1,8 @@
 package com.linguarium.auth.dto;
 
-import lombok.Value;
+import java.util.Collection;
 
-import java.util.List;
-
-@Value
-public class UserInfo {
-	String id, username, email, uiLang, profilePicLink, background;
-	Integer streak;
-	List<String> roles, tags, targetLangs, fluentLangs;
+public record UserInfo(String id, String username, String email, String uiLang, String profilePicLink,
+					   String background, Integer streak, Collection<String> targetLangs,
+					   Collection<String> fluentLangs, Collection<String> tags) {
 }

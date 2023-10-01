@@ -1,15 +1,13 @@
 package com.linguarium.card.service.impl;
 
 import com.linguarium.card.dto.*;
+import com.linguarium.card.mapper.CardMapper;
 import com.linguarium.card.model.*;
 import com.linguarium.card.repository.*;
 import com.linguarium.translator.model.Language;
-import com.linguarium.translator.model.LanguageEntity;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
-import com.linguarium.user.repository.UserRepository;
-import com.linguarium.card.mapper.CardMapper;
+import com.linguarium.user.repository.LearnerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,9 +39,7 @@ class CardServiceTest {
     @Mock
     TranslationRepository translationRepository;
     @Mock
-    UserRepository userRepository;
-    @Mock
-    LanguageRepository languageRepository;
+    LearnerRepository learnerRepository;
     @Mock
     CardMapper cardMapper;
 
@@ -53,7 +49,7 @@ class CardServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        cardServiceImpl = new CardServiceImpl(cardRepository, cardTagRepository, tagRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
+        cardServiceImpl = new CardServiceImpl(cardRepository, cardTagRepository, tagRepository, exampleRepository, translationRepository, learnerRepository, cardMapper);
     }
 
     @Test
@@ -61,7 +57,7 @@ class CardServiceTest {
     public void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() {
         // Arrange
         String entry = "test";
-        User user = new User();
+        Learner user = new Learner();
         Card card1 = Card.builder().id(1L).build();
         card1.setEntry("test1");
         Card card2 = Card.builder().id(2L).build();
@@ -122,7 +118,7 @@ class CardServiceTest {
     @DisplayName("Should return list of CardDto when getUsersCards is called")
     public void givenUser_whenGetUsersCards_thenReturnListOfCardDto() {
         // Arrange
-        User user = new User();
+        Learner user = new Learner();
         Card card1 = Card.builder().id(1L).build();
         Card card2 = Card.builder().id(2L).build();
         List<Card> cards = Arrays.asList(card1, card2);
@@ -170,7 +166,7 @@ class CardServiceTest {
                 .examples(new ExampleDto[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         // Create a list of examples, some of which will be deleted
         List<Example> examples = new ArrayList<>();
@@ -210,7 +206,7 @@ class CardServiceTest {
                 .examples(new ExampleDto[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         // Create a list of translations, some of which will be deleted
         List<Translation> translations = new ArrayList<>();
@@ -266,7 +262,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         // Create a list of translations, some of which will be updated
         List<Translation> originalTranslations = new ArrayList<>();
@@ -320,7 +316,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         // Create a list of examples, some of which will be updated
         List<Example> originalExamples = new ArrayList<>();
@@ -376,7 +372,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         Card card = Card.builder().id(cardId)
                 .translations(new ArrayList<>())
@@ -416,7 +412,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
 
         Card card = Card.builder().id(cardId)
                 .examples(new ArrayList<>())
@@ -451,7 +447,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
 
         when(cardRepository.getById(cardId)).thenReturn(card);
@@ -478,7 +474,7 @@ class CardServiceTest {
                 .ex_del(new int[]{})
                 .build();
 
-        User user = new User();
+        Learner user = new Learner();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
 
         when(cardRepository.getById(cardId)).thenReturn(card);
@@ -507,9 +503,6 @@ class CardServiceTest {
                 .build();
 
         Learner learner = new Learner();
-        User user = User.builder()
-                .learner(learner)
-                .build();
         Card card = Card.builder().id(cardId).build();
 
         // Mock existing tags on the card
@@ -525,7 +518,7 @@ class CardServiceTest {
         when(cardTagRepository.getByCardAndText(eq(card), eq("tag4"))).thenReturn(tag4);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(dto, learner);
 
         // Assert
         // Verify deletion of old tags
@@ -546,22 +539,10 @@ class CardServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw NoSuchElement when given bad language code")
-    void givenUserAndNonExistentLanguageCode_whenGetUsersCardsOfLang_thenThrowException() {
-        when(languageRepository.findByCode(eq(Language.GERMAN))).thenReturn(Optional.empty());
-        assertThrows(NoSuchElementException.class,
-                () -> cardServiceImpl.getUsersCardsOfLang(Language.GERMAN.getCode(), new User()));
-
-    }
-
-    @Test
     @DisplayName("Should return user's cards of the specified language")
     void givenUserAndLanguageCode_whenGetUsersCardsOfLang_thenReturnRightCards() {
         // Mocked data
-        User user = new User();
-
-        LanguageEntity languageEntity = new LanguageEntity(1L, Language.GERMAN);
-        when(languageRepository.findByCode(eq(Language.GERMAN))).thenReturn(Optional.of(languageEntity));
+        Learner user = new Learner();
 
         List<Card> mockedCards = List.of(
                 Card.builder()
@@ -574,7 +555,7 @@ class CardServiceTest {
                         .id(3L)
                         .build()
         );
-        when(cardRepository.findAllByOwnerAndLanguage(user, languageEntity)).thenReturn(mockedCards);
+        when(cardRepository.findAllByOwnerAndLanguage(user, Language.DE)).thenReturn(mockedCards);
 
         List<CardDto> mockedCardDtos = List.of(
                 CardDto.builder()
@@ -592,7 +573,7 @@ class CardServiceTest {
         }
 
         // Invoke the method
-        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.GERMAN.getCode(), user);
+        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.DE.name(), user);
 
         // Assertions
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);

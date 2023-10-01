@@ -9,8 +9,8 @@ import com.linguarium.card.model.Tag;
 import com.linguarium.card.repository.CardTagRepository;
 import com.linguarium.card.repository.TagRepository;
 import com.linguarium.translator.model.Language;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.user.model.User;
+import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,11 +47,11 @@ class UserServiceImplTest {
     @Mock
     TagRepository tagRepository;
     @Mock
-    LanguageRepository languageRepository;
+    LearnerRepository learnerRepository;
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepository, passwordEncoder, cardTagRepository, tagRepository, languageRepository);
+        userService = new UserServiceImpl(userRepository, learnerRepository, passwordEncoder, cardTagRepository, tagRepository);
     }
 
     @Test
@@ -274,13 +274,13 @@ class UserServiceImplTest {
         UserInfo userInfo = userService.buildUserInfo(localUser);
 
         assertThat(userInfo).isNotNull()
-                .extracting(UserInfo::getId, UserInfo::getUsername, UserInfo::getEmail, UserInfo::getUiLang,
-                        UserInfo::getProfilePicLink, UserInfo::getBackground, UserInfo::getStreak)
-                .containsExactly("1", "john", "john@example.com", Language.ENGLISH.getCode(),
+                .extracting(UserInfo::id, UserInfo::username, UserInfo::email, UserInfo::uiLang,
+                        UserInfo::profilePicLink, UserInfo::background, UserInfo::streak)
+                .containsExactly("1", "john", "john@example.com", Language.EN.name(),
                         "profile.jpg", "background.jpg", 5);
-        assertThat(userInfo.getTags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
-        assertThat(userInfo.getTargetLangs()).containsExactlyInAnyOrder(Language.GERMAN.getCode(), Language.FRENCH.getCode());
-        assertThat(userInfo.getFluentLangs()).containsExactlyInAnyOrder(Language.SPANISH.getCode(), Language.RUSSIAN.getCode());
+        assertThat(userInfo.tags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
+        assertThat(userInfo.targetLangs()).containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name());
+        assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
 
         verify(cardTagRepository).getLearnersTags(user.getLearner());
         tagIds.forEach(tagId -> verify(tagRepository).getById(eq(tagId)));

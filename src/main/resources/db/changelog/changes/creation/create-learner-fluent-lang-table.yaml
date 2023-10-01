@@ -14,13 +14,11 @@ databaseChangeLog:
                     foreignKeyName: fk_learner_fluent_lang_learner
                     references: user_core(id)
               - column:
-                  name: lang_id
-                  type: BIGINT
+                  name: lang
+                  type: VARCHAR(2)
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_learner_fluent_lang_language
-                    references: language(id)
         - addUniqueConstraint:
             tableName: learner_fluent_lang
-            columnNames: learner_id, lang_id
+            columnNames: learner_id, lang
             constraintName: uk_learner_fluent_lang

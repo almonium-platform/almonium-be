@@ -32,7 +32,7 @@ public class CardCreationDto {
     boolean irregularSpelling;
     boolean learnt;
     @NotNull
-    LanguageDto language;
+    String language;
     String created;
     String updated;
     Integer priority;

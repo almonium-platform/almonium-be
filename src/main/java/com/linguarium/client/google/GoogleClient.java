@@ -34,11 +34,11 @@ public class GoogleClient extends AbstractClient {
     static int END_YEAR_VALUE = 2019;
     static boolean IS_CASE_INSENSITIVE = true;
     static Map<Language, String> languageMap = Map.of(
-            Language.ENGLISH, "en-2019",
-            Language.GERMAN, "de-2019",
-            Language.FRENCH, "fr-2019",
-            Language.SPANISH, "es-2019",
-            Language.RUSSIAN, "ru-2019"
+            Language.EN, "en-2019",
+            Language.DE, "de-2019",
+            Language.FR, "fr-2019",
+            Language.ES, "es-2019",
+            Language.RU, "ru-2019"
     );
 
     public ResponseEntity<List<GoogleDto>> get(String entry, Language language) {

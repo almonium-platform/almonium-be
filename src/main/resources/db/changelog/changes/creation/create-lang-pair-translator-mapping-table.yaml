@@ -7,13 +7,13 @@ databaseChangeLog:
             tableName: lang_pair_translator_mapping
             columns:
               - column:
-                  name: source_lang_id
-                  type: BIGINT
+                  name: source_lang
+                  type: VARCHAR(2)
                   constraints:
                     nullable: false
               - column:
-                  name: target_lang_id
-                  type: BIGINT
+                  name: target_lang
+                  type: VARCHAR(2)
                   constraints:
                     nullable: false
               - column:

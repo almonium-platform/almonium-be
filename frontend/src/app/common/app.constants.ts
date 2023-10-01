@@ -15,8 +15,6 @@ export class AppConstants {
 
   public static GOOGLE_AUTH_URL = AppConstants.OAUTH2_URL + 'google' + AppConstants.REDIRECT_URL;
   public static FACEBOOK_AUTH_URL = AppConstants.OAUTH2_URL + 'facebook' + AppConstants.REDIRECT_URL;
-  public static GITHUB_AUTH_URL = AppConstants.OAUTH2_URL + 'github' + AppConstants.REDIRECT_URL;
-  public static LINKEDIN_AUTH_URL = AppConstants.OAUTH2_URL + 'linkedin' + AppConstants.REDIRECT_URL;
 
   public static FD_BASE_URL = 'https://api.dictionaryapi.dev/api/v2';
   public static FD_ENDPOINT = '/entries';

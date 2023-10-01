@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface LangPairTranslatorRepository extends JpaRepository<LangPairTranslatorMapping, TranslatorMappingKey> {
 
-    @Query("SELECT l.translatorId FROM LangPairTranslatorMapping l WHERE l.sourceLangId = :sourceLangId AND l.targetLangId = :targetLangId ORDER BY l.priority")
-    List<Long> getBySourceLangAndTargetLang(@Param("sourceLangId") long sourceLangId, @Param("targetLangId") long targetLangId);
+    @Query("SELECT l.translatorId FROM LangPairTranslatorMapping l WHERE l.sourceLang = :sourceLang AND l.targetLang = :targetLang ORDER BY l.priority")
+    List<Long> getBySourceLangAndTargetLang(@Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
 }

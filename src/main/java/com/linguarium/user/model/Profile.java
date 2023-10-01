@@ -43,7 +43,7 @@ public class Profile {
     int streak = 1;
 
     @Column
-    Language uiLang = Language.ENGLISH;
+    Language uiLang = Language.EN;
 
     @OneToMany(mappedBy = "requestee")
     @OnDelete(action = OnDeleteAction.CASCADE)

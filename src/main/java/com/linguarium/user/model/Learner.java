@@ -3,7 +3,6 @@ import javax.persistence.*;
 
 
 import com.linguarium.card.model.Card;
-import com.linguarium.translator.model.LanguageEntity;
 import com.linguarium.suggestion.model.CardSuggestion;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +29,7 @@ public class Learner {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    User user;
 
     @OneToMany(mappedBy = "owner")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -44,21 +43,15 @@ public class Learner {
     @OnDelete(action = OnDeleteAction.CASCADE)
     List<CardSuggestion> incomingSuggestions;
 
-    @ManyToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinTable(name = "user_target_lang",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
-    )
-    Set<LanguageEntity> targetLangs;
+    @ElementCollection
+    @CollectionTable(name = "learner_target_lang", joinColumns = @JoinColumn(name = "learner_id"))
+    @Column(name = "lang")
+    Set<String> targetLangs;
 
-    @ManyToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinTable(name = "user_fluent_lang",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "lang_id", referencedColumnName = "id")}
-    )
-    Set<LanguageEntity> fluentLangs;
+    @ElementCollection
+    @CollectionTable(name = "learner_fluent_lang", joinColumns = @JoinColumn(name = "learner_id"))
+    @Column(name = "lang")
+    Set<String> fluentLangs;
 
     public void addCard(Card card) {
         if (card != null) {

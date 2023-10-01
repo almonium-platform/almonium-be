@@ -30,24 +30,24 @@ public class CardController {
 
     @PostMapping("create")
     public ResponseEntity<?> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
-        cardService.createCard(userDetails.getUser(), dto);
+        cardService.createCard(userDetails.getUser().getLearner(), dto);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("update")
     public ResponseEntity<?> updateCard(@Valid @RequestBody CardUpdateDto dto, @CurrentUser LocalUser user) {
-        cardService.updateCard(dto, user.getUser());
+        cardService.updateCard(dto, user.getUser().getLearner());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("all")
     public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(cardService.getUsersCards(user.getUser()));
+        return ResponseEntity.ok(cardService.getUsersCards(user.getUser().getLearner()));
     }
 
     @GetMapping("all/{code}")
     public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser LocalUser user) {
-        return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getUser()));
+        return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getUser().getLearner()));
     }
 
     @GetMapping("suggested")

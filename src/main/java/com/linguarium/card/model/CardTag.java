@@ -30,7 +30,7 @@ public class CardTag {
     Tag tag;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "learner_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Learner learner;
 }

@@ -52,5 +52,17 @@ databaseChangeLog:
                   name: learnt
                   type: BOOLEAN
               - column:
-                  name: lang_id
-                  type: BIGINT
+                  name: language
+                  type: VARCHAR(2)
+              - column:
+                  name: notes
+                  type: VARCHAR(255)
+              - column:
+                  name: frequency
+                  type: INT
+              - column:
+                  name: iteration
+                  type: INT
+              - column:
+                  name: priority
+                  type: INT

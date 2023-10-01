@@ -12,7 +12,6 @@ import com.linguarium.suggestion.dto.CardAcceptanceDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
@@ -43,8 +42,6 @@ class CardSuggestionServiceTest {
     @Mock
     UserRepository userRepository;
     @Mock
-    LanguageRepository languageRepository;
-    @Mock
     CardMapper cardMapper;
 
     @InjectMocks
@@ -52,7 +49,7 @@ class CardSuggestionServiceTest {
 
     @BeforeEach
     void setUp() {
-        cardSuggestionService = new CardSuggestionServiceImpl(cardRepository, cardSuggestionRepository, exampleRepository, translationRepository, userRepository, languageRepository, cardMapper);
+        cardSuggestionService = new CardSuggestionServiceImpl(cardRepository, cardSuggestionRepository, exampleRepository, translationRepository, userRepository, cardMapper);
     }
 
     @Test
@@ -150,7 +147,7 @@ class CardSuggestionServiceTest {
 
         CardDto cardDto = new CardDto(); // Initialize as needed
         when(cardMapper.cardEntityToDto(card)).thenReturn(cardDto);
-        when(cardMapper.copyCardDtoToEntity(eq(cardDto), any(LanguageRepository.class))).thenReturn(card);
+        when(cardMapper.copyCardDtoToEntity(eq(cardDto))).thenReturn(card);
 
         // Act
         cardSuggestionService.cloneCard(card, user);

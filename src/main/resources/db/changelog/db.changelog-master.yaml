@@ -20,8 +20,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-card-tag-table.yaml
   - include:
-      file: db/changelog/changes/creation/create-language-table.yaml
-  - include:
       file: db/changelog/changes/creation/create-translator-table.yaml
   - include:
       file: db/changelog/changes/creation/create-lang-pair-translator-mapping-table.yaml

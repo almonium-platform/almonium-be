@@ -10,10 +10,8 @@ import com.linguarium.card.model.*;
 import com.linguarium.card.repository.*;
 import com.linguarium.card.service.CardService;
 import com.linguarium.translator.model.Language;
-import com.linguarium.translator.model.LanguageEntity;
-import com.linguarium.translator.repository.LanguageRepository;
-import com.linguarium.user.model.User;
-import com.linguarium.user.repository.UserRepository;
+import com.linguarium.user.model.Learner;
+import com.linguarium.user.repository.LearnerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +34,7 @@ public class CardServiceImpl implements CardService {
     TagRepository tagRepository;
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
-    UserRepository userRepository;
-    LanguageRepository languageRepository;
+    LearnerRepository learnerRepository;
     CardMapper cardMapper;
 
     @Override
@@ -55,17 +52,17 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public List<CardDto> getUsersCards(User user) {
-        return cardRepository.findAllByOwner(user).stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+    public List<CardDto> getUsersCards(Learner learner) {
+        return cardRepository.findAllByOwner(learner).stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void createCard(User user, CardCreationDto dto) {
-        Card card = cardMapper.cardDtoToEntity(dto, languageRepository);
+    public void createCard(Learner learner, CardCreationDto dto) {
+        Card card = cardMapper.cardDtoToEntity(dto);
         card.setCreated(LocalDateTime.now());
         card.setUpdated(LocalDateTime.now());
-        user.getLearner().addCard(card);
+        learner.addCard(card);
 
         List<Example> examples = card.getExamples();
         examples.forEach(example -> example.setCard(card));
@@ -97,22 +94,22 @@ public class CardServiceImpl implements CardService {
         exampleRepository.saveAll(examples);
         cardTagRepository.saveAll(cardTags);
 
-        userRepository.save(user);
-        log.info("Created card {} for user {}", card, user);
+        learnerRepository.save(learner);
+        log.info("Created card {} for user {}", card, learner);
     }
 
     @Override
     @Transactional
-    public List<CardDto> searchByEntry(String entry, User user) {
-        return cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(user, '%' + entry.trim().toLowerCase() + '%')
+    public List<CardDto> searchByEntry(String entry, Learner learner) {
+        return cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(learner, '%' + entry.trim().toLowerCase() + '%')
                 .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void updateCard(CardUpdateDto dto, User user) {
+    public void updateCard(CardUpdateDto dto, Learner learner) {
         Card entity = cardRepository.getById(dto.getId());
-        cardMapper.update(dto, entity, languageRepository);
+        cardMapper.update(dto, entity);
 
         Arrays.stream(dto.getTr_del()).forEach(i -> translationRepository.deleteById((long) i));
         Arrays.stream(dto.getEx_del()).forEach(i -> exampleRepository.deleteById((long) i));
@@ -175,7 +172,7 @@ public class CardServiceImpl implements CardService {
             });
 
             CardTag cardTag = CardTag.builder()
-                    .learner(user.getLearner())
+                    .learner(learner)
                     .tag(tag)
                     .card(entity)
                     .id(new CardTagPK(entity.getId(), tag.getId()))
@@ -188,11 +185,9 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public List<CardDto> getUsersCardsOfLang(String code, User user) {
-        LanguageEntity language = languageRepository.findByCode(Language.fromString(code))
-                .orElseThrow(() -> new NoSuchElementException("Can't find language for code: " + code));
+    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
         return cardRepository
-                .findAllByOwnerAndLanguage(user, language)
+                .findAllByOwnerAndLanguage(learner, Language.valueOf(code))
                 .stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());

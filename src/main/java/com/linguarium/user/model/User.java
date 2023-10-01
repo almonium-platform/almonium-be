@@ -1,15 +1,29 @@
 package com.linguarium.user.model;
 
-import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static com.linguarium.util.GeneralUtils.generateId;
-
+@NamedEntityGraph(
+        name = "graph.User.details",
+        attributeNodes = {
+                @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
+                @NamedAttributeNode("profile")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "learner.details",
+                        attributeNodes = {
+                                @NamedAttributeNode("targetLangs"),
+                                @NamedAttributeNode("fluentLangs")
+                        }
+                )
+        }
+)
 @Entity
 @Table(name = "user_core")
 @Getter
@@ -35,7 +49,7 @@ public class User implements Serializable {
     String email;
 
     @Column(unique = true, nullable = false)
-    String username = generateId();
+    String username;
 
     @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     @CreatedDate

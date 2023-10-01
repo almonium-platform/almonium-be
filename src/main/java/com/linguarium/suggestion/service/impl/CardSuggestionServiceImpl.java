@@ -13,7 +13,6 @@ import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.suggestion.service.CardSuggestionService;
-import com.linguarium.translator.repository.LanguageRepository;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +36,11 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
     UserRepository userRepository;
-    LanguageRepository languageRepository;
     CardMapper cardMapper;
 
     @Transactional
     public void cloneCard(Card entity, User user) {
-        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity), languageRepository);
+        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
 
         user.getLearner().addCard(card);
 

@@ -36,5 +36,5 @@ public class CardUpdateDto {
     Boolean falseFriend;
     Boolean irregularPlural;
     Boolean irregularSpelling;
-    LanguageDto language;
+    String language;
 }

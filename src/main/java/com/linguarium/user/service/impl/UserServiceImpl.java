@@ -10,16 +10,17 @@ import com.linguarium.card.repository.CardTagRepository;
 import com.linguarium.card.repository.TagRepository;
 import com.linguarium.configuration.security.oauth2.user.OAuth2UserInfo;
 import com.linguarium.configuration.security.oauth2.user.OAuth2UserInfoFactory;
-import com.linguarium.translator.repository.LanguageRepository;
+import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
+import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.UserService;
 import com.linguarium.util.GeneralUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -28,9 +29,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.linguarium.util.GeneralUtils.generateId;
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
@@ -40,10 +45,10 @@ import static lombok.AccessLevel.PRIVATE;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
+    LearnerRepository learnerRepository;
     PasswordEncoder passwordEncoder;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
-    LanguageRepository languageRepository;
 
     @Override
     public User findUserByEmail(final String email) {
@@ -87,9 +92,17 @@ public class UserServiceImpl implements UserService {
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
         user.setRegistered(now);
+        user.setUsername(generateId());
+
         Learner learner = new Learner();
-        learner.setTargetLangs(Set.of(languageRepository.getEnglish()));
+        learner.setUser(user);
+        learner.setTargetLangs(Set.of(Language.EN.name()));
         user.setLearner(learner);
+
+        Profile profile = new Profile();
+        profile.setUser(user);
+        user.setProfile(profile);
+
         user = userRepository.save(user);
         return user;
     }
@@ -120,27 +133,29 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     @Transactional
     public UserInfo buildUserInfo(LocalUser localUser) {
-        List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         User user = localUser.getUser();
-        List<String> tags = cardTagRepository.getLearnersTags(user.getLearner()).stream().map(r -> tagRepository.getById(r).getText()).collect(Collectors.toList());
-        List<String> targetLangs = user.getLearner().getTargetLangs().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
-        List<String> fluentLangs = user.getLearner().getFluentLangs().stream().map(t -> t.getCode().getCode()).collect(Collectors.toList());
+        Learner learner = user.getLearner();
+        Profile profile = user.getProfile();
+
+        List<String> tags = cardTagRepository.getLearnersTags(user.getLearner())
+                .stream().map(r -> tagRepository.getById(r).getText()).collect(Collectors.toList());
         return new UserInfo(
                 user.getId().toString(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getProfile().getUiLang().getCode(),
-                user.getProfile().getProfilePicLink(),
-                user.getProfile().getBackground(),
-                user.getProfile().getStreak(),
-                roles,
-                tags,
-                targetLangs,
-                fluentLangs);
+
+                profile.getUiLang().name(),
+                profile.getProfilePicLink(),
+                profile.getBackground(),
+                profile.getStreak(),
+
+                learner.getTargetLangs(),
+                learner.getFluentLangs(),
+
+                tags);
     }
 
 
@@ -149,7 +164,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(formDTO.getUsername());
         user.setEmail(formDTO.getEmail());
         user.setPassword(passwordEncoder.encode(formDTO.getPassword()));
-        user.getProfile().setProfilePicLink(formDTO.getProfilePicLink());
+        user.setProfile(Profile.builder().profilePicLink(formDTO.getProfilePicLink()).build());
         user.setProvider(formDTO.getSocialProvider().getProviderType());
         user.setProviderUserId(formDTO.getProviderUserId());
         return user;
