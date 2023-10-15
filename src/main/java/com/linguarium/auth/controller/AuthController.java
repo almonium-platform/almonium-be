@@ -9,6 +9,7 @@ import com.linguarium.auth.model.LocalUser;
 import com.linguarium.configuration.security.jwt.TokenProvider;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -20,7 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 

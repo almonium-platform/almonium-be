@@ -1,11 +1,12 @@
 package com.linguarium.card.model;
 
 import com.linguarium.user.model.Learner;
-import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

@@ -1,6 +1,4 @@
 package com.linguarium.user.model;
-import javax.persistence.*;
-
 
 import com.linguarium.card.model.Card;
 import com.linguarium.suggestion.model.CardSuggestion;
@@ -9,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 

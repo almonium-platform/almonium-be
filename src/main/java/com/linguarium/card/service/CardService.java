@@ -4,7 +4,6 @@ import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.User;
 
 import java.util.List;
 

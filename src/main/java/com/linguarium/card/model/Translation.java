@@ -1,9 +1,9 @@
 package com.linguarium.card.model;
 
-import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity

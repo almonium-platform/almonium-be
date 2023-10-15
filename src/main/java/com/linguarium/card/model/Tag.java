@@ -1,10 +1,10 @@
 package com.linguarium.card.model;
 
-import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnTransformer;
 
+import javax.persistence.*;
 import java.util.Locale;
 import java.util.Set;
 

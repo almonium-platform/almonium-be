@@ -6,7 +6,6 @@ import com.linguarium.card.model.*;
 import com.linguarium.card.repository.*;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.User;
 import com.linguarium.user.repository.LearnerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

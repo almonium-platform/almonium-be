@@ -1,10 +1,9 @@
 package com.linguarium.friendship.model;
 
-import javax.persistence.*;
-
 import com.linguarium.user.model.User;
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

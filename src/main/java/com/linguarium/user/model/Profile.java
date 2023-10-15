@@ -1,14 +1,13 @@
 package com.linguarium.user.model;
 
-import com.linguarium.translator.model.Language;
 import com.linguarium.friendship.model.Friendship;
-import javax.persistence.*;
+import com.linguarium.translator.model.Language;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 

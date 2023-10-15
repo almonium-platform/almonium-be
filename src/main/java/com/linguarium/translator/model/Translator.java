@@ -1,7 +1,9 @@
 package com.linguarium.translator.model;
-import javax.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

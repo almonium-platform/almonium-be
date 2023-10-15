@@ -7,11 +7,11 @@ import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.suggestion.service.CardSuggestionService;
+import jakarta.validation.Valid;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;

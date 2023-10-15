@@ -1,8 +1,7 @@
 package com.linguarium.auth.dto.request;
 
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
 public class LoginRequest {

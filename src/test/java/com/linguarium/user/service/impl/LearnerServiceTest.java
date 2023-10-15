@@ -1,7 +1,5 @@
 package com.linguarium.user.service.impl;
 
-import com.linguarium.card.repository.CardTagRepository;
-import com.linguarium.card.repository.TagRepository;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
@@ -31,15 +29,11 @@ public class LearnerServiceTest {
     LearnerServiceImpl learnerService;
 
     @Mock
-    CardTagRepository cardTagRepository;
-    @Mock
-    TagRepository tagRepository;
-    @Mock
     LearnerRepository learnerRepository;
 
     @BeforeEach
     void setUp() {
-        learnerService = new LearnerServiceImpl(learnerRepository, cardTagRepository, tagRepository);
+        learnerService = new LearnerServiceImpl(learnerRepository);
     }
 
     @Test

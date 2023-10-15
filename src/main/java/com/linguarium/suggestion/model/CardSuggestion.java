@@ -1,7 +1,5 @@
 package com.linguarium.suggestion.model;
 
-import javax.persistence.*;
-
 import com.linguarium.card.model.Card;
 import com.linguarium.user.model.User;
 import lombok.AccessLevel;
@@ -12,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

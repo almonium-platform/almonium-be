@@ -1,14 +1,12 @@
 package com.linguarium.auth.dto.request;
 
 import com.linguarium.auth.dto.SocialProvider;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-
 
 @Data
 @Builder

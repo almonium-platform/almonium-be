@@ -2,14 +2,12 @@ package com.linguarium.user.service.impl;
 
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.repository.ProfileRepository;
-import com.linguarium.user.service.impl.ProfileServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;

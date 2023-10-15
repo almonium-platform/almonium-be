@@ -2,19 +2,19 @@ package com.linguarium.friendship.controller;
 
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.impl.FriendshipServiceImpl;
 import com.linguarium.suggestion.dto.CardAcceptanceDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;
+import jakarta.validation.Valid;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 

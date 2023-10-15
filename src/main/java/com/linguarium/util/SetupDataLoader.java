@@ -1,6 +1,5 @@
 package com.linguarium.util;
 
-import com.linguarium.user.model.User;
 import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.ProfileRepository;
 import com.linguarium.user.repository.UserRepository;

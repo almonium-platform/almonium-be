@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService {
 
         Profile profile = new Profile();
         profile.setUser(user);
+        profile.setProfilePicLink(signUpRequest.getProfilePicLink());
         user.setProfile(profile);
 
         user = userRepository.save(user);

@@ -1,9 +1,5 @@
 package com.linguarium.user.service.impl;
 
-import com.linguarium.card.model.CardTag;
-import com.linguarium.card.model.Tag;
-import com.linguarium.card.repository.CardTagRepository;
-import com.linguarium.card.repository.TagRepository;
 import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
@@ -16,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -27,34 +22,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerServiceImpl implements LearnerService {
     LearnerRepository learnerRepository;
-    CardTagRepository cardTagRepository;
-    TagRepository tagRepository;
-
-    @Override
-    @Transactional
-    public void renameTagForUser(Learner user, Tag tag, String proposedName) {
-        if (tag.getText().equals(Tag.normalizeText(proposedName))) {
-            return;
-        }
-        Set<CardTag> foundTaggedCards = cardTagRepository.getByLearnerAndTag(user, tag);
-
-        if (foundTaggedCards.isEmpty()) {
-            return;
-        }
-
-        Optional<Tag> tagOptional = tagRepository.findByText(proposedName);
-        Tag proposedTag;
-        if (tagOptional.isPresent()) {
-            proposedTag = tagOptional.get();
-        } else {
-            proposedTag = new Tag(proposedName);
-            tagRepository.save(proposedTag);
-        }
-        foundTaggedCards.forEach(cardTag -> {
-            cardTag.setTag(proposedTag);
-            cardTagRepository.save(cardTag);
-        });
-    }
 
     @Override
     @Transactional
