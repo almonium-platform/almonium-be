@@ -59,43 +59,20 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public void createCard(Learner learner, CardCreationDto dto) {
-        Card card = cardMapper.cardDtoToEntity(dto);
-        card.setCreated(LocalDateTime.now());
-        card.setUpdated(LocalDateTime.now());
-        learner.addCard(card);
-
-        List<Example> examples = card.getExamples();
-        examples.forEach(example -> example.setCard(card));
-
-        List<Translation> translations = card.getTranslations();
-        translations.forEach(translation -> translation.setCard(card));
-        List<CardTag> cardTags = new ArrayList<>();
-        TagDto[] tags = dto.getTags();
-        Arrays.stream(tags).forEach(tagDto -> {
-            CardTag cardTag = new CardTag();
-            cardTag.setCard(card);
-            cardTag.setLearner(card.getOwner());
-
-            Optional<Tag> tagOptional = tagRepository.findByTextNormalized(tagDto.getText());
-            if (tagOptional.isPresent()) {
-                cardTag.setTag(tagOptional.get());
-            } else {
-                Tag tag = new Tag(tagDto.getText());
-                tagRepository.save(tag);
-                cardTag.setTag(tag);
-            }
-
-            cardTags.add(cardTag);
-        });
-
-        cardRepository.save(card);
-
-        translationRepository.saveAll(translations);
-        exampleRepository.saveAll(examples);
-        cardTagRepository.saveAll(cardTags);
-
-        learnerRepository.save(learner);
+        Card card = initializeCard(learner, dto);
+        List<CardTag> cardTags = createCardTags(card, dto.getTags());
+        saveEntities(card, card.getTranslations(), card.getExamples(), cardTags, learner);
         log.info("Created card {} for user {}", card, learner);
+    }
+
+    @Override
+    @Transactional
+    public void updateCard(CardUpdateDto dto, Learner learner) {
+        Card entity = cardRepository.getById(dto.getId());
+        updateCardDetails(entity, dto);
+        updateTags(entity, dto.getTags(), learner);
+        entity.setUpdated(LocalDateTime.now());
+        cardRepository.save(entity);
     }
 
     @Override
@@ -107,13 +84,66 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public void updateCard(CardUpdateDto dto, Learner learner) {
-        Card entity = cardRepository.getById(dto.getId());
+    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
+        return cardRepository
+                .findAllByOwnerAndLanguage(learner, Language.valueOf(code))
+                .stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        cardRepository.deleteById(id);
+    }
+
+    private Card initializeCard(Learner learner, CardCreationDto dto) {
+        Card card = cardMapper.cardDtoToEntity(dto);
+        card.setCreated(LocalDateTime.now());
+        card.setUpdated(LocalDateTime.now());
+        learner.addCard(card);
+        return card;
+    }
+
+    private List<CardTag> createCardTags(Card card, TagDto[] tagDtos) {
+        List<CardTag> cardTags = new ArrayList<>();
+        for (TagDto tagDto : tagDtos) {
+            CardTag cardTag = new CardTag();
+            cardTag.setCard(card);
+            cardTag.setLearner(card.getOwner());
+            cardTag.setTag(findOrCreateTag(tagDto.getText()));
+            cardTags.add(cardTag);
+        }
+        return cardTags;
+    }
+
+    private Tag findOrCreateTag(String text) {
+        return tagRepository.findByTextNormalized(text)
+                .orElseGet(() -> {
+                    Tag tag = new Tag(text);
+                    tagRepository.save(tag);
+                    return tag;
+                });
+    }
+
+    private void saveEntities(Card card, List<Translation> translations, List<Example> examples, List<CardTag> cardTags, Learner learner) {
+        cardRepository.save(card);
+        translationRepository.saveAll(translations);
+        exampleRepository.saveAll(examples);
+        cardTagRepository.saveAll(cardTags);
+        learnerRepository.save(learner);
+    }
+
+    private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        Arrays.stream(dto.getTr_del()).forEach(i -> translationRepository.deleteById((long) i));
-        Arrays.stream(dto.getEx_del()).forEach(i -> exampleRepository.deleteById((long) i));
+        // Logic for deleting translations
+        Arrays.stream(dto.getTr_del()).forEach(id -> translationRepository.deleteById((long) id));
 
+        // Logic for deleting examples
+        Arrays.stream(dto.getEx_del()).forEach(id -> exampleRepository.deleteById((long) id));
+
+        // Your existing logic for updating translations
         Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
             Long id = translationDto.getId();
             if (id != null) {
@@ -127,6 +157,8 @@ public class CardServiceImpl implements CardService {
                         .build());
             }
         });
+
+        // Your existing logic for updating examples
         Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
             Long id = exampleDto.getId();
             if (id != null) {
@@ -142,9 +174,11 @@ public class CardServiceImpl implements CardService {
                         .build());
             }
         });
+    }
 
+    private void updateTags(Card entity, TagDto[] tagDtos, Learner learner) {
         HashSet<String> dtoTagSet = Arrays
-                .stream(dto.getTags())
+                .stream(tagDtos)
                 .map(TagDto::getText)
                 .collect(Collectors.toCollection(HashSet::new));
 
@@ -179,22 +213,5 @@ public class CardServiceImpl implements CardService {
                     .build();
             cardTagRepository.save(cardTag);
         }
-        entity.setUpdated(LocalDateTime.now());
-        cardRepository.save(entity);
-    }
-
-    @Override
-    @Transactional
-    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
-        return cardRepository
-                .findAllByOwnerAndLanguage(learner, Language.valueOf(code))
-                .stream()
-                .map(cardMapper::cardEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        cardRepository.deleteById(id);
     }
 }
