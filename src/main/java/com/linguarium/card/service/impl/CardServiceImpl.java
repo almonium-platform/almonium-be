@@ -71,16 +71,16 @@ public class CardServiceImpl implements CardService {
         translations.forEach(translation -> translation.setCard(card));
         List<CardTag> cardTags = new ArrayList<>();
         TagDto[] tags = dto.getTags();
-        Arrays.stream(tags).forEach(t -> {
+        Arrays.stream(tags).forEach(tagDto -> {
             CardTag cardTag = new CardTag();
             cardTag.setCard(card);
             cardTag.setLearner(card.getOwner());
 
-            Optional<Tag> tagOptional = tagRepository.findByTextNormalized(t.getText());
+            Optional<Tag> tagOptional = tagRepository.findByTextNormalized(tagDto.getText());
             if (tagOptional.isPresent()) {
                 cardTag.setTag(tagOptional.get());
             } else {
-                Tag tag = new Tag(t.getText());
+                Tag tag = new Tag(tagDto.getText());
                 tagRepository.save(tag);
                 cardTag.setTag(tag);
             }
