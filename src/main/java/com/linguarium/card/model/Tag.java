@@ -6,11 +6,13 @@ import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,5 +41,20 @@ public class Tag {
 
     public static String normalizeText(String text) {
         return text.replaceAll("\\s", "_").toLowerCase(Locale.ROOT).trim();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag = (Tag) o;
+
+        return Objects.equals(id, tag.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

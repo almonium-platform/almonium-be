@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -34,4 +35,19 @@ public class CardTag {
     @JoinColumn(name = "learner_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Learner learner;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CardTag cardTag = (CardTag) o;
+
+        return Objects.equals(id, cardTag.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

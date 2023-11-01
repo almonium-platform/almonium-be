@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
@@ -150,6 +151,18 @@ class CardServiceTest {
     }
 
     @Test
+    @DisplayName("Should delete card by ID")
+    public void givenCardId_whenDeleteById_thenCardIsDeleted() {
+        Long id = 1L;
+
+        // Act
+        cardServiceImpl.deleteById(id);
+
+        // Assert
+        verify(cardRepository, times(1)).deleteById(id);
+    }
+
+    @Test
     @DisplayName("Should delete specified examples")
     public void givenCardUpdateDto_whenUpdateCard_thenExamplesDeleted() {
         // Arrange
@@ -227,18 +240,6 @@ class CardServiceTest {
         for (int id : tr_del) {
             verify(translationRepository).deleteById((long) id);
         }
-    }
-
-    @Test
-    @DisplayName("Should delete card by ID")
-    public void givenCardId_whenDeleteById_thenCardIsDeleted() {
-        Long id = 1L;
-
-        // Act
-        cardServiceImpl.deleteById(id);
-
-        // Assert
-        verify(cardRepository, times(1)).deleteById(id);
     }
 
     @Test
@@ -490,51 +491,82 @@ class CardServiceTest {
     @DisplayName("Should update tags for a given card")
     public void givenCardUpdateDto_whenUpdateCard_thenTagsUpdated() {
         // Arrange
-        Long cardId = 1L;
-        TagDto[] newTags = {new TagDto("tag1"), new TagDto("tag2")};
-        CardUpdateDto dto = CardUpdateDto.builder()
-                .id(cardId)
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
-                .tags(newTags)
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
-                .build();
+        Long cardId = 7L;
+        String tagToBeDeleted = "tagtobedeleted";
+        String oldTag1 = "oldtag1";
+        String oldTag2 = "oldtag2";
+        String newTag = "newtag";
 
+        CardUpdateDto dto = createCardUpdateDto(cardId, oldTag1, oldTag2, newTag);
         Learner learner = new Learner();
         Card card = Card.builder().id(cardId).build();
 
-        // Mock existing tags on the card
-        CardTag tag3 = CardTag.builder().tag(new Tag("tag3")).card(card).learner(learner).build();
-        CardTag tag4 = CardTag.builder().tag(new Tag("tag4")).card(card).learner(learner).build();
-        CardTag tag1 = CardTag.builder().tag(new Tag("tag1")).card(card).learner(learner).build(); // This tag should persist
+        Set<CardTag> existingCardTags = createExistingCardTags(card, learner, oldTag1, oldTag2, tagToBeDeleted);
+        card.setCardTags(existingCardTags);
 
-        Set<CardTag> existingTags = new HashSet<>(Arrays.asList(tag3, tag4, tag1));
-        card.setCardTags(existingTags);
+        mockCardTagRepository(existingCardTags);
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
-        when(cardTagRepository.getByCardAndText(eq(card), eq("tag3"))).thenReturn(tag3);
-        when(cardTagRepository.getByCardAndText(eq(card), eq("tag4"))).thenReturn(tag4);
+        // Deep copy of existingCardTags
+        Set<CardTag> existingCardTagsCopy = deepCopyCardTags(existingCardTags);
 
         // Act
         cardServiceImpl.updateCard(dto, learner);
 
         // Assert
-        // Verify deletion of old tags
-        verify(cardTagRepository).delete(eq(tag3));
-        verify(cardTagRepository).delete(eq(tag4));
+        assertTagDeletion(existingCardTagsCopy, tagToBeDeleted);
+        assertTagPersistence(existingCardTagsCopy, tagToBeDeleted);
+        assertNewTagAddition(newTag);
+    }
 
-        // Verify no deletion for the tag that should persist
-        verify(cardTagRepository, never()).delete(eq(tag1));
 
-        // Verify addition of new tags
-        ArgumentCaptor<CardTag> argumentCaptor = ArgumentCaptor.forClass(CardTag.class);
-        verify(cardTagRepository, times(1)).save(argumentCaptor.capture());
+    @Test
+    @DisplayName("Should create a new card with all associated entities")
+    public void givenCardCreationDtoAndLearner_whenCreateCard_thenCardCreatedWithAllEntities() {
+        // Arrange
+        Learner mockLearner = mock(Learner.class);
+        CardCreationDto mockDto = mock(CardCreationDto.class);
+        Card mockCard = mock(Card.class);
+        List<Example> mockExamples = Collections.singletonList(mock(Example.class));
+        List<Translation> mockTranslations = Collections.singletonList(mock(Translation.class));
+        TagDto[] mockTags = {
+                TagDto.builder()
+                        .text("text1")
+                        .build(),
+                TagDto.builder()
+                        .text("text2")
+                        .build()
+        };
 
-        List<CardTag> capturedTags = argumentCaptor.getAllValues();
-        assertThat(capturedTags).extracting(CardTag::getTag)
-                .extracting(Tag::getText)
-                .containsExactlyInAnyOrder("tag2"); // tag1 should not be added again
+        when(cardMapper.cardDtoToEntity(mockDto)).thenReturn(mockCard);
+        when(tagRepository.findByTextNormalized(eq("text1"))).thenReturn(Optional.empty());
+        when(tagRepository.findByTextNormalized(eq("text2"))).thenReturn(Optional.of(
+                Tag.builder()
+                        .id(22L)
+                        .text("text2")
+                        .build()));
+        when(mockCard.getExamples()).thenReturn(mockExamples);
+        when(mockCard.getTranslations()).thenReturn(mockTranslations);
+        when(mockDto.getTags()).thenReturn(mockTags);
+
+        // Act
+        cardServiceImpl.createCard(mockLearner, mockDto);
+
+
+        // Verify
+        ArgumentCaptor<List<CardTag>> argumentCaptor = ArgumentCaptor.forClass(List.class);
+        verify(cardTagRepository).saveAll(argumentCaptor.capture());
+        List<CardTag> capturedCardTags = argumentCaptor.getValue();
+        assertThat(capturedCardTags.size()).isEqualTo(2);
+        assertThat(capturedCardTags.get(0).getTag().getText()).isEqualTo("text1");
+        assertThat(capturedCardTags.get(1).getTag().getText()).isEqualTo("text2");
+
+        verify(mockLearner).addCard(mockCard);
+        verify(tagRepository).save(eq((new Tag("text1"))));
+        verify(tagRepository).findByTextNormalized(eq("text1"));
+        verify(tagRepository).findByTextNormalized(eq("text2"));
+        verify(translationRepository).saveAll(mockTranslations);
+        verify(exampleRepository).saveAll(mockExamples);
+        verify(learnerRepository).save(mockLearner);
     }
 
     @Test
@@ -576,5 +608,68 @@ class CardServiceTest {
 
         // Assertions
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);
+    }
+
+    private CardUpdateDto createCardUpdateDto(Long cardId, String... tags) {
+        return CardUpdateDto.builder()
+                .id(cardId)
+                .translations(new TranslationDto[]{})
+                .examples(new ExampleDto[]{})
+                .tags(Arrays.stream(tags).map(TagDto::new).toArray(TagDto[]::new))
+                .tr_del(new int[]{})
+                .ex_del(new int[]{})
+                .build();
+    }
+
+    private Set<CardTag> createExistingCardTags(Card card, Learner learner, String... tags) {
+        return Arrays.stream(tags)
+                .map(tagText -> CardTag.builder()
+                        .id(new CardTagPK(card.getId(), new Random().nextLong()))  // Random ID for demonstration
+                        .card(card)
+                        .tag(new Tag(tagText))
+                        .learner(learner)
+                        .build())
+                .collect(Collectors.toSet());
+    }
+
+    private void mockCardTagRepository(Set<CardTag> existingCardTags) {
+        when(cardRepository.getById(anyLong())).thenReturn(existingCardTags.iterator().next().getCard());
+        existingCardTags.forEach(
+                cardTag -> when(cardTagRepository.getByCardAndText(
+                        eq(cardTag.getCard()),
+                        eq(cardTag.getTag().getText())
+                )).thenReturn(cardTag)
+        );
+    }
+
+    private Set<CardTag> deepCopyCardTags(Set<CardTag> existingCardTags) {
+        return existingCardTags.stream()
+                .map(cardTag -> CardTag.builder()
+                        .id(cardTag.getId())
+                        .card(cardTag.getCard())
+                        .tag(cardTag.getTag())
+                        .learner(cardTag.getLearner())
+                        .build())
+                .collect(Collectors.toSet());
+    }
+
+    private void assertTagDeletion(Set<CardTag> existingCardTags, String tagToBeDeleted) {
+        verify(cardTagRepository).delete(existingCardTags.stream().filter(x
+                -> x.getTag().getText().equals(tagToBeDeleted)).findAny().orElseThrow());
+    }
+
+    private void assertTagPersistence(Set<CardTag> existingCardTags, String tagToBeDeleted) {
+        verify(cardTagRepository, never()).delete(existingCardTags.stream().filter(x
+                -> !x.getTag().getText().equals(tagToBeDeleted)).findAny().orElseThrow());
+    }
+
+    private void assertNewTagAddition(String newTag) {
+        ArgumentCaptor<CardTag> argumentCaptor = ArgumentCaptor.forClass(CardTag.class);
+        verify(cardTagRepository, times(1)).save(argumentCaptor.capture());
+
+        List<CardTag> capturedTags = argumentCaptor.getAllValues();
+        assertThat(capturedTags).extracting(CardTag::getTag)
+                .extracting(Tag::getText)
+                .containsExactlyInAnyOrder(newTag);
     }
 }
