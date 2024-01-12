@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: fill-user-table-for-test
       author: okuzan
-      context: test
+      context: dev
       changes:
         - insert:
             tableName: user_core
@@ -24,7 +24,7 @@ databaseChangeLog:
   - changeSet:
       id: fill-card-table-for-test
       author: okuzan
-      context: test
+      context: dev
       changes:
         - insert:
             tableName: card
