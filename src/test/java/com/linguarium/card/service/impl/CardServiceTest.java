@@ -538,8 +538,8 @@ class CardServiceTest {
         };
 
         when(cardMapper.cardDtoToEntity(mockDto)).thenReturn(mockCard);
-        when(tagRepository.findByTextNormalized(eq("text1"))).thenReturn(Optional.empty());
-        when(tagRepository.findByTextNormalized(eq("text2"))).thenReturn(Optional.of(
+        when(tagRepository.findByTextWithNormalization(eq("text1"))).thenReturn(Optional.empty());
+        when(tagRepository.findByTextWithNormalization(eq("text2"))).thenReturn(Optional.of(
                 Tag.builder()
                         .id(22L)
                         .text("text2")
@@ -562,8 +562,8 @@ class CardServiceTest {
 
         verify(mockLearner).addCard(mockCard);
         verify(tagRepository).save(eq((new Tag("text1"))));
-        verify(tagRepository).findByTextNormalized(eq("text1"));
-        verify(tagRepository).findByTextNormalized(eq("text2"));
+        verify(tagRepository).findByTextWithNormalization(eq("text1"));
+        verify(tagRepository).findByTextWithNormalization(eq("text2"));
         verify(translationRepository).saveAll(mockTranslations);
         verify(exampleRepository).saveAll(mockExamples);
         verify(learnerRepository).save(mockLearner);

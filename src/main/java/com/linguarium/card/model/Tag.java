@@ -5,7 +5,6 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Tag {
+    private static final String WHITESPACE_PATTERN = "\\s+";
+    private static final String CONNECTING_SYMBOL = "_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +41,10 @@ public class Tag {
     }
 
     public static String normalizeText(String text) {
-        return text.replaceAll("\\s", "_").toLowerCase(Locale.ROOT).trim();
+        if (text == null) {
+            throw new IllegalArgumentException("Text cannot be null for normalization");
+        }
+        return text.trim().replaceAll(WHITESPACE_PATTERN, CONNECTING_SYMBOL).toLowerCase();
     }
 
     @Override
@@ -56,5 +60,11 @@ public class Tag {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void prepareData() {
+        text = normalizeText(text);
     }
 }

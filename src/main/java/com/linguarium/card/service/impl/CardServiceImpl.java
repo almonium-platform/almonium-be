@@ -118,7 +118,7 @@ public class CardServiceImpl implements CardService {
     }
 
     private Tag findOrCreateTag(String text) {
-        return tagRepository.findByTextNormalized(text)
+        return tagRepository.findByTextWithNormalization(text)
                 .orElseGet(() -> {
                     Tag tag = new Tag(text);
                     tagRepository.save(tag);
