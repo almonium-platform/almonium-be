@@ -1,5 +1,5 @@
-import { FormGroup } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
+import {FormGroup} from '@angular/forms';
+import {ReplaySubject} from 'rxjs';
 
 export class FormIntactChecker {
 

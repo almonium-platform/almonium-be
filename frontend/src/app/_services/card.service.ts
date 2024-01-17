@@ -5,7 +5,6 @@ import {AppConstants} from '../common/app.constants';
 import {FormGroup} from '@angular/forms';
 import {CardDto} from '../models/card.model';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {stringify} from "querystring";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})

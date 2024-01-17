@@ -4,6 +4,7 @@ import com.linguarium.card.model.Card;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
+import com.linguarium.util.TestEntityGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,7 +39,7 @@ public class CardRepositoryTest {
 
     @BeforeEach
     public void setup() {
-        User user = buildTestUser();
+        User user = TestEntityGenerator.buildTestUser();
 
         managedLearner = new Learner();
         managedLearner.setUser(user);
@@ -82,16 +82,6 @@ public class CardRepositoryTest {
         Optional<Card> card = cardRepository.getByPublicId(TEST_PUBLIC_ID);
         assertThat(card).isPresent();
         assertThat(card.get().getPublicId()).isEqualTo(TEST_PUBLIC_ID);
-    }
-
-    private User buildTestUser() {
-        User user = new User();
-        user.setUsername("john");
-        user.setEmail("john@email.com");
-        user.setPassword("password");
-        user.setProvider("local");
-        user.setRegistered(LocalDateTime.now());
-        return user;
     }
 
     private Card buildTestCard() {

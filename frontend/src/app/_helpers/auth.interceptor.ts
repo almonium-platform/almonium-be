@@ -1,10 +1,16 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { TokenStorageService } from '../_services/token-storage.service';
+import {
+  HTTP_INTERCEPTORS,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {TokenStorageService} from '../_services/token-storage.service';
 import {tap} from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 

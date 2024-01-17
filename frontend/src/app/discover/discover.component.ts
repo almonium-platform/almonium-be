@@ -25,7 +25,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CardDialog, CardService} from '../_services/card.service';
 import {CardDto, ReportDto} from '../models/card.model';
 import {SafeUrl} from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {HttpClient} from "@angular/common/http";
 
 declare var Essential_Audio;

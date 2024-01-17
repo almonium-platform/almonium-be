@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AppConstants} from '../common/app.constants';
 import {User} from '../models/user.model';
-import {CardDto} from "../models/card.model";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
