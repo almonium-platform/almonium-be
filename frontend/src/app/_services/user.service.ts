@@ -1,50 +1,38 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AppConstants} from '../common/app.constants';
-import {User} from '../models/user.model';
+import {environment} from '../../environments/environment';
+import {UserInfoDto} from '../models/user-info.dto';
+import {UsernameAvailability} from '../models/username-availability.dto';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
-
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class UserService {
+  private apiUrl = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {
   }
 
-  getMe(): Observable<User> {
-    return this.http.get<User>(AppConstants.API_URL + 'user/me');
+  getCurrentUser(): Observable<UserInfoDto> {
+    return this.http.get<UserInfoDto>(`${this.apiUrl}/me`);
   }
 
-  deleteAccount(): Observable<any> {
-    return this.http.delete(AppConstants.API_URL + 'user/delete', {responseType: "text"});
+  deleteAccount(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/me/account`);
   }
 
-  getAccount(id: number) {
-    return this.http.get<User>(AppConstants.API_URL + 'user/' + id);
+  checkUsernameAvailability(username: string): Observable<UsernameAvailability> {
+    return this.http.get<UsernameAvailability>(`${this.apiUrl}/${username}/availability`);
   }
 
-  checkUsername(username: string) {
-    return this.http.get<boolean>(AppConstants.API_URL + 'user/check/' + username);
+  changeUsername(request: { newUsername: string }): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/me/username`, request);
   }
 
-  changeUsername(username: string) {
-    return this.http.post(AppConstants.API_URL + 'user/change/' + username, {});
+  updateTargetLanguages(langCodes: string[]): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/me/target-languages`, {langCodes});
   }
 
-  setTargetLangs(codes: string[]): Observable<any> {
-    return this.http.post(AppConstants.API_URL + 'user/target/', {
-      codes: codes,
-    }, httpOptions);
-  }
-  setFluentLangs(codes: string[]): Observable<any> {
-    return this.http.post(AppConstants.API_URL + 'user/fluent/', {
-      codes: codes,
-    }, httpOptions);
+  updateFluentLanguages(langCodes: string[]): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/me/fluent-languages`, {langCodes});
   }
 }

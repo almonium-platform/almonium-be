@@ -1,10 +1,11 @@
 package com.linguarium.user.service;
 
-import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
 
-public interface LearnerService {
-    void setTargetLangs(LangCodeDto dto, Learner user);
+import java.util.List;
 
-    void setFluentLangs(LangCodeDto dto, Learner user);
+public interface LearnerService {
+    void updateTargetLanguages(List<String> dto, Learner user);
+
+    void updateFluentLanguages(List<String> dto, Learner user);
 }

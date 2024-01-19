@@ -279,14 +279,14 @@ export class ProfileComponent implements OnInit {
   }
 
   saveTargetLangs() {
-    this.userService.setTargetLangs(Array.from(this.targetLangTags)).subscribe(data => {
+    this.userService.updateTargetLanguages(Array.from(this.targetLangTags)).subscribe(data => {
       this.dataService.showToast("Changes saved");
     }, error => {
     })
   }
 
   saveFluentLangs() {
-    this.userService.setFluentLangs(Array.from(this.fluentLangTags)).subscribe(data => {
+    this.userService.updateFluentLanguages(Array.from(this.fluentLangTags)).subscribe(data => {
       this.dataService.showToast("Changes saved");
     }, error => {
     })
@@ -302,7 +302,7 @@ export class ProfileComponent implements OnInit {
       this.currentUsername = true;
       return;
     }
-    this.userService.checkUsername(this.usernameFormGroup.controls.username.value).subscribe(data => {
+    this.userService.checkUsernameAvailability(this.usernameFormGroup.controls.username.value).subscribe(data => {
       console.log(data)
       if (data === true) {
         this.availableUsername = true;

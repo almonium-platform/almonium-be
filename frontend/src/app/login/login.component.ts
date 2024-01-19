@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       this.currentUser = this.tokenStorage.getUser();
     } else if (token) {
       this.tokenStorage.saveToken(token);
-      this.userService.getMe().subscribe(
+      this.userService.getCurrentUser().subscribe(
         data => {
           this.login(data);
         },

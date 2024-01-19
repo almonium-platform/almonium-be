@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,15 +40,15 @@ public class LearnerServiceTest {
     @Test
     @DisplayName("Should set new fluent languages for user with existing target languages")
     void givenUserWithExistingTargetLanguages_whenSetTargetLangs_thenNewLanguagesSet() {
-        LangCodeDto dto = new LangCodeDto(new String[]{"DE", "FR", "ES"});
+        List<String> langCodes = List.of(Language.DE.name(), Language.FR.name(), Language.ES.name());
         Learner learner = new Learner();
-        learner.setTargetLangs(Set.of("EN", "DE", "FR"));
+        learner.setTargetLangs(Set.of(Language.EN.name(), Language.DE.name(), Language.FR.name()));
 
-        learnerService.setTargetLangs(dto, learner);
+        learnerService.updateTargetLanguages(langCodes, learner);
 
         assertThat(learner.getTargetLangs())
                 .as("The new target languages should be set correctly")
-                .containsExactlyInAnyOrder("DE", "FR", "ES");
+                .containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name(), Language.ES.name());
 
         verify(learnerRepository).save(learner);
     }
@@ -55,30 +56,29 @@ public class LearnerServiceTest {
     @Test
     @DisplayName("Should set target languages for user based on language code DTO")
     void givenLangCodeDto_whenSetTargetLangs_thenUserTargetLanguagesAreSet() {
-        LangCodeDto dto = new LangCodeDto();
-        dto.setCodes(new String[]{"EN", "DE"});
+        List<String> langCodes = List.of(Language.DE.name(), Language.EN.name());
 
         Learner learner = new Learner();
 
-        learnerService.setTargetLangs(dto, learner);
+        learnerService.updateTargetLanguages(langCodes, learner);
 
-        assertThat(learner.getTargetLangs()).hasSize(2).containsExactlyInAnyOrder("EN", "DE");
+        assertThat(learner.getTargetLangs()).hasSize(2).containsExactlyInAnyOrder(Language.EN.name(), Language.DE.name());
         verify(learnerRepository, times(1)).save(learner);
     }
 
     @Test
     @DisplayName("Should set new fluent languages for user with existing fluent languages")
     void givenUserWithExistingFluentLanguages_whenSetFluentLangs_thenNewLanguagesSet() {
-        LangCodeDto dto = new LangCodeDto(new String[]{"DE", "FR", "ES"});
+        List<String> langCodes = List.of(Language.DE.name(), Language.FR.name(), Language.ES.name());
         Learner learner = new Learner();
-        learner.setFluentLangs(new HashSet<>(Arrays.asList("EN", "DE", "FR")));
+        learner.setFluentLangs(new HashSet<>(Arrays.asList(Language.EN.name(), Language.DE.name(), Language.FR.name())));
 
-        learnerService.setFluentLangs(dto, learner);
+        learnerService.updateFluentLanguages(langCodes, learner);
 
         assertThat(learner.getFluentLangs())
                 .as("The new fluent languages should be set correctly")
-                .hasSize(dto.getCodes().length)
-                .containsExactlyInAnyOrder("DE", "FR", "ES");
+                .hasSize(langCodes.size())
+                .containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name(), Language.ES.name());
 
         verify(learnerRepository).save(learner);
     }
@@ -86,14 +86,13 @@ public class LearnerServiceTest {
     @Test
     @DisplayName("Should set fluent languages for user based on language code DTO")
     void givenLangCodeDto_whenSetFluentLangs_thenUserFluentLanguagesAreSet() {
-        LangCodeDto dto = new LangCodeDto();
-        dto.setCodes(new String[]{"EN", "DE"});
+        List<String> langCodes = List.of(Language.DE.name(), Language.EN.name());
 
         Learner learner = new Learner();
 
-        learnerService.setFluentLangs(dto, learner);
+        learnerService.updateFluentLanguages(langCodes, learner);
 
-        assertThat(learner.getFluentLangs()).hasSize(2).containsExactlyInAnyOrder("EN", "DE");
+        assertThat(learner.getFluentLangs()).hasSize(2).containsExactlyInAnyOrder(Language.EN.name(), Language.DE.name());
         verify(learnerRepository, times(1)).save(learner);
     }
 

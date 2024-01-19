@@ -75,8 +75,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+    public boolean isUsernameAvailable(String username) {
+        return !userRepository.existsByUsername(username);
     }
 
     @Override
@@ -136,13 +136,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserInfo buildUserInfo(LocalUser localUser) {
-        User user = localUser.getUser();
+    public UserInfo buildUserInfo(User user) {
         Learner learner = user.getLearner();
         Profile profile = user.getProfile();
 
         List<String> tags = cardTagRepository.getLearnersTags(user.getLearner())
-                .stream().map(r -> tagRepository.getById(r).getText()).collect(Collectors.toList());
+                .stream().map(tag -> tagRepository.getById(tag).getText()).collect(Collectors.toList());
         return new UserInfo(
                 user.getId().toString(),
                 user.getUsername(),

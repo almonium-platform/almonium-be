@@ -57,7 +57,7 @@ public class AuthController {
         String jwt = tokenProvider.createToken(authentication);
         LocalUser localUser = (LocalUser) authentication.getPrincipal();
         profileService.updateLoginStreak(localUser.getUser().getProfile());
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userService.buildUserInfo(localUser)));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, userService.buildUserInfo(localUser.getUser())));
     }
 
     @PostMapping("/signup")

@@ -1,6 +1,5 @@
 package com.linguarium.user.service.impl;
 
-import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.service.LearnerService;
@@ -10,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -25,16 +24,16 @@ public class LearnerServiceImpl implements LearnerService {
 
     @Override
     @Transactional
-    public void setTargetLangs(LangCodeDto dto, Learner learner) {
-        Set<String> languages = new HashSet<>(Arrays.asList(dto.getCodes()));
+    public void updateTargetLanguages(List<String> langs, Learner learner) {
+        Set<String> languages = new HashSet<>(langs);
         learner.setTargetLangs(languages);
         learnerRepository.save(learner);
     }
 
     @Override
     @Transactional
-    public void setFluentLangs(LangCodeDto dto, Learner learner) {
-        Set<String> languages = new HashSet<>(Arrays.asList(dto.getCodes()));
+    public void updateFluentLanguages(List<String> langs, Learner learner) {
+        Set<String> languages = new HashSet<>(langs);
         learner.setFluentLangs(languages);
         learnerRepository.save(learner);
     }

@@ -254,16 +254,6 @@ class UserServiceImplTest {
     void givenLocalUser_whenBuildUserInfo_thenReturnUserInfo() {
         User user = getUser();
 
-        OidcIdToken idToken = mock(OidcIdToken.class);
-        OidcUserInfo oidcUserInfo = mock(OidcUserInfo.class);
-
-        LocalUser localUser = new LocalUser(
-                user.getEmail(),
-                user.getPassword(),
-                user,
-                idToken,
-                oidcUserInfo);
-
         Set<Long> tagIds = Set.of(1L, 2L, 3L);
         when(cardTagRepository.getLearnersTags(user.getLearner())).thenReturn(tagIds);
         when(tagRepository.getById(anyLong())).thenAnswer(invocation -> {
@@ -271,7 +261,7 @@ class UserServiceImplTest {
             return new Tag(tagId, "Tag " + tagId);
         });
 
-        UserInfo userInfo = userService.buildUserInfo(localUser);
+        UserInfo userInfo = userService.buildUserInfo(user);
 
         assertThat(userInfo).isNotNull()
                 .extracting(UserInfo::id, UserInfo::username, UserInfo::email, UserInfo::uiLang,

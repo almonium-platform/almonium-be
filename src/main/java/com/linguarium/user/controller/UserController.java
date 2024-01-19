@@ -1,60 +1,59 @@
 package com.linguarium.user.controller;
 
 import com.linguarium.auth.annotation.CurrentUser;
+import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.user.dto.LangCodeDto;
+import com.linguarium.user.dto.LanguageUpdateRequest;
+import com.linguarium.user.dto.UsernameAvailability;
+import com.linguarium.user.dto.UsernameUpdateRequest;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
-import com.linguarium.user.service.impl.UserServiceImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @RestController
-@RequestMapping("/api/user/")
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-     UserService userService;
-     LearnerService learnerService;
+    UserService userService;
+    LearnerService learnerService;
 
-    public UserController(UserServiceImpl userService, LearnerService learnerService) {
-        this.userService = userService;
-        this.learnerService = learnerService;
+    @GetMapping("/me")
+    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser LocalUser localUser) {
+        return ResponseEntity.ok(userService.buildUserInfo(localUser.getUser()));
     }
 
-    @GetMapping("me")
-    public ResponseEntity<?> getCurrentUser(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(userService.buildUserInfo(user));
+    @GetMapping("/{username}/availability/")
+    public ResponseEntity<UsernameAvailability> checkUsernameAvailability(@PathVariable String username) {
+        boolean isAvailable = userService.isUsernameAvailable(username);
+        return ResponseEntity.ok(new UsernameAvailability(isAvailable));
     }
 
-    @GetMapping("check/{username}")
-    public ResponseEntity<Boolean> isUsernameAvailable(@PathVariable String username) {
-        return ResponseEntity.ok(!userService.existsByUsername(username));
+    @PutMapping("/me/username")
+    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @CurrentUser LocalUser user) {
+        userService.changeUsername(request.getNewUsername(), user.getUser().getId());
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("change/{username}")
-    public ResponseEntity<Boolean> changeUsername(@PathVariable String username, @CurrentUser LocalUser user) {
-        userService.changeUsername(username, user.getUser().getId());
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("delete")
-    public ResponseEntity<?> deleteAccount(@CurrentUser LocalUser user) {
+    @DeleteMapping("/me/account")
+    public ResponseEntity<Void> deleteCurrentUserAccount(@CurrentUser LocalUser user) {
         userService.deleteAccount(user.getUser());
-        return ResponseEntity.ok("{'text' : 'ok'}");
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("target")
-    public ResponseEntity<?> setTargetLangs(@RequestBody LangCodeDto dto, @CurrentUser LocalUser user) {
-        learnerService.setTargetLangs(dto, user.getUser().getLearner());
-        return ResponseEntity.ok().build();
+    @PutMapping("/me/target-languages")
+    public ResponseEntity<Void> updateTargetLanguages(@RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
+        learnerService.updateTargetLanguages(request.getLangCodes(), user.getUser().getLearner());
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("fluent")
-    public ResponseEntity<?> setFluentLangs(@RequestBody LangCodeDto dto, @CurrentUser LocalUser user) {
-        learnerService.setFluentLangs(dto, user.getUser().getLearner());
-        return ResponseEntity.ok().build();
+    @PutMapping("/me/fluent-languages")
+    public ResponseEntity<Void> updateFluentLanguages(@RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
+        learnerService.updateFluentLanguages(request.getLangCodes(), user.getUser().getLearner());
+        return ResponseEntity.noContent().build();
     }
 }

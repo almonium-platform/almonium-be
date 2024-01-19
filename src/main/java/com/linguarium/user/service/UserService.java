@@ -20,11 +20,11 @@ public interface UserService {
 
     LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
 
-    UserInfo buildUserInfo(LocalUser localUser);
+    UserInfo buildUserInfo(User user);
 
     void deleteAccount(User user);
 
     void changeUsername(String username, Long id);
 
-    boolean existsByUsername(String username);
+    boolean isUsernameAvailable(String username);
 }
