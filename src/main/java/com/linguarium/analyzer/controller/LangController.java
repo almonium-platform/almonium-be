@@ -1,13 +1,16 @@
 package com.linguarium.analyzer.controller;
 
 import com.linguarium.analyzer.dto.AnalysisDto;
-import com.linguarium.analyzer.service.impl.LanguageProcessorImpl;
+import com.linguarium.analyzer.service.impl.LanguageProcessor;
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.client.words.dto.WordsReportDto;
+import com.linguarium.translator.dto.MLTranslationCard;
+import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -22,87 +25,65 @@ import static lombok.AccessLevel.PRIVATE;
 
 @RestController
 @RequestMapping("/api/lang")
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LangController {
     CardService cardService;
-    LanguageProcessorImpl languageProcessorImpl;
-
-    public LangController(CardService cardService, LanguageProcessorImpl languageProcessorImpl) {
-        this.cardService = cardService;
-        this.languageProcessorImpl = languageProcessorImpl;
-    }
+    LanguageProcessor languageProcessor;
 
     @CrossOrigin
-    @GetMapping("/stack-search/{text}")
+    @GetMapping("/cards/search/{text}")
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
         return ResponseEntity.ok(cardService.searchByEntry(text, localUser.getUser().getLearner()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
-    public ResponseEntity<?> translate(@PathVariable String langFrom,
-                                       @PathVariable String langTo,
-                                       @PathVariable String text) {
-        return ResponseEntity.ok(languageProcessorImpl.translate(text, Language.valueOf(langFrom), Language.valueOf(langTo)));
+    public ResponseEntity<TranslationCardDto> translate(@PathVariable String langFrom,
+                                                        @PathVariable String langTo,
+                                                        @PathVariable String text) {
+        return ResponseEntity.ok(languageProcessor.translate(text, Language.valueOf(langFrom), Language.valueOf(langTo)));
     }
 
-    @PostMapping("/bulk-translate/{langTo}")
-    public ResponseEntity<?> bulkTranslate(@PathVariable String langTo,
-                                           @RequestBody String text) {
-        return ResponseEntity.ok(languageProcessorImpl.bulkTranslate(text, Language.valueOf(langTo)));
+    @PostMapping("/translations/{langTo}/bulk")
+    public ResponseEntity<MLTranslationCard> bulkTranslate(@PathVariable String langTo,
+                                                           @RequestBody String text) {
+        return ResponseEntity.ok(languageProcessor.bulkTranslate(text, Language.valueOf(langTo)));
     }
 
-    @GetMapping("/random")
+    @GetMapping("/words/random")
     public ResponseEntity<WordsReportDto> random() {
-        return ResponseEntity.ok(languageProcessorImpl.getRandom());
+        return ResponseEntity.ok(languageProcessor.getRandom());
     }
 
-    @GetMapping("/audio/{word}")
-    public ResponseEntity<?> audio(@PathVariable String word) {
-        return ResponseEntity.ok(languageProcessorImpl.getAudioLink(word));
+    @GetMapping("/words/{word}/audio")
+    public ResponseEntity<List<String>> audio(@PathVariable String word) {
+        return ResponseEntity.ok(languageProcessor.getAudioLink(word));
     }
 
-    @GetMapping("/audio/{lang}/{text}/file.mp3")
+    @GetMapping("/words/{text}/audio/{lang}")
     public ResponseEntity<Resource> bulkPronounce(@PathVariable String lang, @PathVariable String text) {
-        HttpHeaders header = new HttpHeaders();
-        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=file.mp3");
-        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        header.add("Pragma", "no-cache");
-        header.add("Expires", "0");
-
-        byte[] bytes = languageProcessorImpl.textToSpeech(lang, text).toByteArray();
-        ByteArrayResource resource = new ByteArrayResource(bytes);
+        byte[] bytes = languageProcessor.textToSpeech(lang, text).toByteArray();
 
         return ResponseEntity.ok()
-                .headers(header)
+                .headers(createAudioHeaders())
                 .contentLength(bytes.length)
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-
+                .contentType(MediaType.parseMediaType("audio/mpeg"))
+                .body(new ByteArrayResource(bytes));
     }
 
-    @RequestMapping(path = "/download/file.mp3", method = RequestMethod.GET)
-    public ResponseEntity<Resource> download() {
-
-        HttpHeaders header = new HttpHeaders();
-        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=file.mp3");
-        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        header.add("Pragma", "no-cache");
-        header.add("Expires", "0");
-
-        byte[] bytes = languageProcessorImpl.textToSpeech("en", "How come you didn't wake up early?").toByteArray();
-        ByteArrayResource resource = new ByteArrayResource(bytes);
-
-        return ResponseEntity.ok()
-                .headers(header)
-                .contentLength(bytes.length)
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-    }
-
-    @GetMapping("/report/{lang}/{text}")
+    @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(@PathVariable String text,
                                                  @PathVariable String lang,
                                                  @CurrentUser LocalUser user) {
-        return ResponseEntity.ok(languageProcessorImpl.getReport(text, lang, user.getUser()));
+        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user.getUser()));
+    }
+
+    private HttpHeaders createAudioHeaders() {
+        HttpHeaders header = new HttpHeaders();
+        header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=file.mp3");
+        header.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        header.add("Pragma", "no-cache");
+        header.add("Expires", "0");
+        return header;
     }
 }

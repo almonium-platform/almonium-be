@@ -1,6 +1,7 @@
 package com.linguarium.auth.model;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -13,11 +14,12 @@ import java.util.Map;
 
 @Getter
 public class LocalUser extends User implements OAuth2User, OidcUser {
-
     private final OidcIdToken idToken;
     private final OidcUserInfo userInfo;
+    @Setter
     private Map<String, Object> attributes;
-    private com.linguarium.user.model.User user;
+    @Getter
+    private final com.linguarium.user.model.User user;
 
     public LocalUser(final String userID, final String password, final com.linguarium.user.model.User user) {
         this(userID, password, user, null, null);
@@ -35,10 +37,6 @@ public class LocalUser extends User implements OAuth2User, OidcUser {
         LocalUser localUser = new LocalUser(user.getEmail(), user.getPassword(), user, idToken, userInfo);
         localUser.setAttributes(attributes);
         return localUser;
-    }
-
-    public void setAttributes(Map<String, Object> attributes) {
-        this.attributes = attributes;
     }
 
     @Override
@@ -64,9 +62,5 @@ public class LocalUser extends User implements OAuth2User, OidcUser {
     @Override
     public OidcIdToken getIdToken() {
         return this.idToken;
-    }
-
-    public com.linguarium.user.model.User getUser() {
-        return user;
     }
 }

@@ -25,11 +25,11 @@ export class DiscoveryService {
   }
 
   searchInMyStack(text: string): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.LANG_API + 'stack-search/' + text);
+    return this.http.get<CardDto[]>(AppConstants.LANG_API + 'cards/search/' + text);
   }
 
   getReport(text: string, lang: string): Observable<any> {
-    return this.http.get<ReportDto>(AppConstants.LANG_API + 'report/' + lang + '/' + text);
+    return this.http.get<ReportDto>(AppConstants.LANG_API + 'words/' + text + '/' + lang + '/report');
   }
 
   translate(text: string, from: string, to: string): Observable<HttpResponse<TranslationCard>> {
@@ -37,7 +37,7 @@ export class DiscoveryService {
   }
 
   bulkTranslate(text: string, to: string): Observable<any> {
-    return this.http.post<HttpResponse<MachineTranslationDto>>(AppConstants.LANG_API + 'bulk-translate/' + to, text
+    return this.http.post<HttpResponse<MachineTranslationDto>>(AppConstants.LANG_API + 'translations/' + to + '/bulk', text
     );
   }
 
@@ -57,11 +57,11 @@ export class DiscoveryService {
   }
 
   random(): Observable<any> {
-    return this.http.get(AppConstants.LANG_API + 'random');
+    return this.http.get(AppConstants.LANG_API + 'words/random');
   }
 
   getAudioFileLink(word: string): Observable<any> {
-    return this.http.get(AppConstants.LANG_API + 'audio/' + word);
+    return this.http.get(AppConstants.LANG_API + 'words/' + word + '/audio');
   }
 
   getPronunciationSafe(lang: string, text: string): Observable<SafeUrl> {
@@ -93,5 +93,4 @@ export class DiscoveryService {
       responseType: 'blob'
     });
   }
-
 }

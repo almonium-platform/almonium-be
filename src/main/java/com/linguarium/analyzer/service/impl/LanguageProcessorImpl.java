@@ -45,7 +45,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class LanguageProcessorImpl {
+public class LanguageProcessorImpl implements LanguageProcessor {
 
     UrbanClient urbanClient;
     DatamuseClient datamuseClient;
@@ -73,6 +73,7 @@ public class LanguageProcessorImpl {
 //        return this.translate(entry, Language.fromString(sourceLang), Language.fromString(targetLang));
 //    }
 
+    @Override
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
 
         //todo deepL
@@ -82,6 +83,7 @@ public class LanguageProcessorImpl {
                 .build();
     }
 
+    @Override
     @SneakyThrows
     public TranslationCardDto translate(String entry, Language sourceLang, Language targetLang) {
 
@@ -147,6 +149,7 @@ public class LanguageProcessorImpl {
         return null;
     }
 
+    @Override
     public List<String> getAudioLink(String word) {
         return Objects.requireNonNull(wordnikClient.getAudioFile(word).getBody())
                 .stream().map(WordnikAudioDto::getFileUrl).collect(Collectors.toList());
@@ -215,13 +218,14 @@ public class LanguageProcessorImpl {
         return dto.getSyllables().getList();
     }
 
+    @Override
     public AnalysisDto getReport(String entry, String languageCode, User user) {
         AnalysisDto analysisDto = new AnalysisDto();
         List<String> lemmas = coreNLPServiceImpl.lemmatize(entry);
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
         Language sourceLang = Language.valueOf(languageCode);
-        Language fluentLanguage =Language.valueOf(user.getLearner().getFluentLangs().iterator().next());
+        Language fluentLanguage = Language.valueOf(user.getLearner().getFluentLangs().iterator().next());
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
@@ -246,6 +250,7 @@ public class LanguageProcessorImpl {
         return analysisDto;
     }
 
+    @Override
     public WordsReportDto getRandom() {
         return wordsClient.getRandomWord().getBody();
     }
@@ -258,6 +263,7 @@ public class LanguageProcessorImpl {
         throw new NotImplementedException("not yet");
     }
 
+    @Override
     public ByteString textToSpeech(String code, String text) {
         return googleService.textToSpeech(code, text);
     }
