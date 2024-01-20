@@ -77,32 +77,39 @@ class CardSuggestionServiceTest {
     @DisplayName("Should delete the suggestion")
     public void givenCardAcceptanceDtoAndUser_whenDeclineSuggestion_thenSuggestionDeleted() {
         // Arrange
-        Long senderId = 1L;
-        Long cardId = 2L;
-        Long recipientId = 3L;
-        CardAcceptanceDto dto = new CardAcceptanceDto(senderId, cardId);
-        User recipient = User.builder().id(recipientId).build();
+        //TODO provoke illegalAccess
+        Long suggestionId = 3L;
+        Long userId = 4L;
+
+        User recipient = User.builder().id(userId).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .card(Card.builder().build())
+                .recipient(recipient)
+                .build();
+        when(cardSuggestionRepository.getById(suggestionId)).thenReturn(cardSuggestion);
 
         // Act
-        cardSuggestionService.declineSuggestion(dto, recipient);
+        cardSuggestionService.declineSuggestion(suggestionId, recipient);
 
         // Assert
-        verify(cardSuggestionRepository).deleteBySenderIdAndRecipientIdAndCardId(senderId, recipientId, cardId);
+        verify(cardSuggestionRepository).deleteById(suggestionId);
     }
 
     @Test
     @DisplayName("Should accept a card suggestion and clone the card")
     public void givenCardAcceptanceDtoAndRecipient_whenAcceptSuggestion_thenCloneCardAndDeleteSuggestion() {
         // Arrange
-        CardAcceptanceDto dto = new CardAcceptanceDto(1L, 2L);
-        User recipient = new User();
-        User sender = new User();
-        Card card = new Card();
-        CardSuggestion cardSuggestion = new CardSuggestion(sender, recipient, card);
-
-        when(userRepository.getById(dto.getSenderId())).thenReturn(sender);
-        when(cardRepository.getById(dto.getCardId())).thenReturn(card);
-        when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(cardSuggestion);
+        Long suggestionId = 3L;
+        Long userId = 4L;
+        Card card = Card.builder().id(1L).build();
+        User recipient = User.builder().id(userId).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .card(card)
+                .recipient(recipient)
+                .build();
+        when(cardSuggestionRepository.getById(suggestionId)).thenReturn(cardSuggestion);
 
         // Create a spy of your service
         CardSuggestionServiceImpl cardServiceSpy = spy(cardSuggestionService);
@@ -111,7 +118,7 @@ class CardSuggestionServiceTest {
         doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(User.class));
 
         // Act
-        cardServiceSpy.acceptSuggestion(dto, recipient);
+        cardServiceSpy.acceptSuggestion(suggestionId, recipient);
 
         // Assert
         verify(cardServiceSpy).cloneCard(card, recipient);

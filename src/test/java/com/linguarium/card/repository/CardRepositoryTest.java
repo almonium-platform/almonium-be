@@ -4,7 +4,7 @@ import com.linguarium.card.model.Card;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
-import com.linguarium.util.TestEntityGenerator;
+import com.linguarium.util.TestDataGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ public class CardRepositoryTest {
 
     @BeforeEach
     public void setup() {
-        User user = TestEntityGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUser();
 
         managedLearner = new Learner();
         managedLearner.setUser(user);

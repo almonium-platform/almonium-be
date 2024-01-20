@@ -2,10 +2,7 @@ package com.linguarium.suggestion.model;
 
 import com.linguarium.card.model.Card;
 import com.linguarium.user.model.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -16,6 +13,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(
@@ -30,7 +29,7 @@ public class CardSuggestion {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "card_id", referencedColumnName = "id",  updatable = false)
+    @JoinColumn(name = "card_id", referencedColumnName = "id", updatable = false)
     Card card;
 
     @ManyToOne

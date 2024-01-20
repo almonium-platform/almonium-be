@@ -4,12 +4,17 @@ import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.card.dto.CardDto;
-import com.linguarium.card.dto.TranslationDto;
+import com.linguarium.card.dto.*;
 import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
+import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.model.FriendStatus;
+import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.FriendshipAction;
+import com.linguarium.friendship.model.FriendshipStatus;
 import com.linguarium.translator.dto.DefinitionDto;
 import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
@@ -18,13 +23,14 @@ import com.linguarium.user.model.User;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public final class TestEntityGenerator {
+public final class TestDataGenerator {
     private static final Random random = new Random();
 
-    private TestEntityGenerator() {
+    private TestDataGenerator() {
     }
 
     public static ByteString generateRandomAudioBytes() {
@@ -148,6 +154,7 @@ public final class TestEntityGenerator {
         user.setLearner(new Learner());
         return new LocalUser("user@example.com", "password", user);
     }
+
     public static WordsReportDto createEmptyWordsReportDto() {
         return WordsReportDto.builder()
                 .word("word")
@@ -170,5 +177,152 @@ public final class TestEntityGenerator {
         user.setProvider("local");
         user.setRegistered(LocalDateTime.now());
         return user;
+    }
+
+    public static CardCreationDto getCardCreationDto() {
+        CardCreationDto cardCreationDto = new CardCreationDto();
+
+        cardCreationDto.setEntry("Sample Entry");
+
+        TranslationDto[] translations = new TranslationDto[2];
+        translations[0] = new TranslationDto(1L, "Translation 1");
+        translations[1] = new TranslationDto(2L, "Translation 2");
+        cardCreationDto.setTranslations(translations);
+
+        cardCreationDto.setNotes("Sample Notes");
+
+        TagDto[] tags = new TagDto[2];
+        tags[0] = new TagDto("Tag 1");
+        tags[1] = new TagDto("Tag 2");
+        cardCreationDto.setTags(tags);
+
+        ExampleDto[] examples = new ExampleDto[2];
+        examples[0] = new ExampleDto(1L, "Example 1", "Translation 1");
+        examples[1] = new ExampleDto(2L, "Example 2", "Translation 2");
+        cardCreationDto.setExamples(examples);
+
+        cardCreationDto.setActiveLearning(true);
+        cardCreationDto.setIrregularPlural(false);
+        cardCreationDto.setFalseFriend(true);
+        cardCreationDto.setIrregularSpelling(false);
+        cardCreationDto.setLearnt(false);
+
+        cardCreationDto.setLanguage("English");
+
+        cardCreationDto.setCreated("2024-01-20T00:00:00");
+        cardCreationDto.setUpdated("2024-01-20T12:30:00");
+
+        cardCreationDto.setPriority(5);
+
+        return cardCreationDto;
+    }
+
+    public static CardUpdateDto generateRandomCardUpdateDto() {
+        CardUpdateDto cardUpdateDto = new CardUpdateDto();
+
+        cardUpdateDto.setId(random.nextLong());
+        cardUpdateDto.setEntry(generateRandomString());
+        cardUpdateDto.setTranslations(generateRandomTranslationDtos());
+        cardUpdateDto.setNotes(generateRandomString());
+        cardUpdateDto.setTags(generateRandomTagDtos());
+        cardUpdateDto.setExamples(generateRandomExampleDtos());
+        cardUpdateDto.setCreated(LocalDateTime.now());
+        cardUpdateDto.setLastRepeat(LocalDateTime.now());
+        cardUpdateDto.setIteration(random.nextInt(10));
+        cardUpdateDto.setUserId(random.nextLong());
+        cardUpdateDto.setPriority(random.nextInt(5));
+        cardUpdateDto.setTr_del(generateRandomIntArray());
+        cardUpdateDto.setEx_del(generateRandomIntArray());
+        cardUpdateDto.setUpdated(LocalDateTime.now());
+        cardUpdateDto.setActiveLearning(random.nextBoolean());
+        cardUpdateDto.setFalseFriend(random.nextBoolean());
+        cardUpdateDto.setIrregularPlural(random.nextBoolean());
+        cardUpdateDto.setIrregularSpelling(random.nextBoolean());
+        cardUpdateDto.setLanguage(generateRandomString());
+
+        return cardUpdateDto;
+    }
+
+    private static String generateRandomString() {
+        int length = random.nextInt(10) + 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            char randomChar = (char) (random.nextInt(26) + 'a');
+            sb.append(randomChar);
+        }
+        return sb.toString();
+    }
+
+    private static TranslationDto[] generateRandomTranslationDtos() {
+        int numTranslations = random.nextInt(5);
+        TranslationDto[] translations = new TranslationDto[numTranslations];
+        for (int i = 0; i < numTranslations; i++) {
+            translations[i] = new TranslationDto(random.nextLong(), generateRandomString());
+        }
+        return translations;
+    }
+
+    private static TagDto[] generateRandomTagDtos() {
+        int numTags = random.nextInt(3);
+        TagDto[] tags = new TagDto[numTags];
+        for (int i = 0; i < numTags; i++) {
+            tags[i] = new TagDto(generateRandomString());
+        }
+        return tags;
+    }
+
+    private static ExampleDto[] generateRandomExampleDtos() {
+        int numExamples = random.nextInt(3);
+        ExampleDto[] examples = new ExampleDto[numExamples];
+        for (int i = 0; i < numExamples; i++) {
+            examples[i] = new ExampleDto(random.nextLong(), generateRandomString(), generateRandomString());
+        }
+        return examples;
+    }
+
+    private static int[] generateRandomIntArray() {
+        int length = random.nextInt(5);
+        int[] array = new int[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = random.nextInt(10);
+        }
+        return array;
+    }
+
+    public static FriendInfoDto generateFriendInfoDto() {
+        FriendInfoDto friendInfoDto = new FriendInfoDto();
+        friendInfoDto.setStatus(FriendStatus.FRIENDS);
+        friendInfoDto.setId(1L);
+        friendInfoDto.setUsername("testuser");
+        friendInfoDto.setEmail("test@example.com");
+        return friendInfoDto;
+    }
+
+    public static FriendshipActionDto generateFriendshipActionDto() {
+        FriendshipActionDto friendshipActionDto = new FriendshipActionDto();
+        friendshipActionDto.setIdInitiator(1L);
+        friendshipActionDto.setIdAcceptor(2L);
+        friendshipActionDto.setAction(FriendshipAction.REQUEST);
+        return friendshipActionDto;
+    }
+
+    public static List<FriendInfoDto> generateFriendInfoDtoList(int count) {
+        List<FriendInfoDto> friendInfoDtoList = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            FriendInfoDto friendInfoDto = generateFriendInfoDto();
+            friendInfoDto.setId((long) (i + 1));
+            friendInfoDto.setUsername("user" + (i + 1));
+            friendInfoDtoList.add(friendInfoDto);
+        }
+        return friendInfoDtoList;
+    }
+
+    public static Friendship generateFriendship(Long requesterId, Long requesteeId) {
+        Friendship friendship = new Friendship();
+        friendship.setRequesterId(requesterId);
+        friendship.setRequesteeId(requesteeId);
+        friendship.setCreated(LocalDateTime.now());
+        friendship.setFriendshipStatus(FriendshipStatus.FRIENDS);
+        return friendship;
     }
 }

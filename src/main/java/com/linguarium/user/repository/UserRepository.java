@@ -23,7 +23,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void changeUsername(String username, Long id);
 
     User findByEmail(String email);
+
     boolean existsByEmail(String email);
+
     boolean existsByUsername(String username);
+
     Optional<FriendWrapper> findAllById(long id);
 }

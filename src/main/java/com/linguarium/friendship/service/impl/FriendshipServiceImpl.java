@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +43,7 @@ public class FriendshipServiceImpl implements FriendshipService {
     }
 
     @Override
-    public Collection<FriendInfoDto> getFriends(long id) {
+    public List<FriendInfoDto> getFriends(long id) {
         List<FriendInfoView> friendInfoViews = friendshipRepository.findByUserId(id);
 
         List<FriendInfoDto> result = new ArrayList<>();
@@ -61,22 +60,13 @@ public class FriendshipServiceImpl implements FriendshipService {
 
     @Override
     @Transactional
-    public Friendship editFriendship(FriendshipActionDto dto) {
-        switch (dto.getAction()) {
-            case REQUEST:
-                return createFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
-            case ACCEPT:
-                return approveFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
-            case BLOCK:
-                return blockUser(dto.getIdInitiator(), dto.getIdAcceptor());
-            case UNBLOCK:
-            case CANCEL:
-            case REJECT:
-            case UNFRIEND:
-                return cancelFriendship(dto.getIdInitiator(), dto.getIdAcceptor());
-            default:
-                throw new IllegalArgumentException();
-        }
+    public Friendship manageFriendship(FriendshipActionDto dto) {
+        return switch (dto.getAction()) {
+            case REQUEST -> createFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
+            case ACCEPT -> approveFriendshipRequest(dto.getIdInitiator(), dto.getIdAcceptor());
+            case BLOCK -> blockUser(dto.getIdInitiator(), dto.getIdAcceptor());
+            case UNBLOCK, CANCEL, REJECT, UNFRIEND -> cancelFriendship(dto.getIdInitiator(), dto.getIdAcceptor());
+        };
     }
 
     @SneakyThrows

@@ -7,6 +7,7 @@ export class AppConstants {
   public static ALL_API = AppConstants.API_URL + 'all/';
   public static CARD_API = AppConstants.API_URL + 'cards/';
   public static FRIEND_API = AppConstants.API_URL + 'friend/';
+  public static SUGGESTION_API = AppConstants.API_URL + 'cards/suggest/';
   public static LANG_API = AppConstants.API_URL + 'lang/';
 
   private static OAUTH2_URL = AppConstants.API_BASE_URL + 'oauth2/authorization/';

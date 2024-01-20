@@ -67,7 +67,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public void updateCard(CardUpdateDto dto, Learner learner) {
+    public void updateCard(Long id, CardUpdateDto dto, Learner learner) {
         Card entity = cardRepository.getById(dto.getId());
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);

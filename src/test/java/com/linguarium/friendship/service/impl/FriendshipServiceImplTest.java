@@ -54,7 +54,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
-        Friendship result = friendshipService.editFriendship(dto);
+        Friendship result = friendshipService.manageFriendship(dto);
 
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FST_BLOCKED_SND);
     }
@@ -70,7 +70,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(requesteeId, requesterId)).thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
-        Friendship result = friendshipService.editFriendship(dto);
+        Friendship result = friendshipService.manageFriendship(dto);
 
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.SND_BLOCKED_FST);
     }
@@ -85,7 +85,7 @@ public class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
 
-        assertThatThrownBy(() -> friendshipService.editFriendship(dto))
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Friendship status must be FRIENDS or PENDING");
     }
@@ -100,7 +100,7 @@ public class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> friendshipService.editFriendship(dto))
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
                 .isInstanceOf(FriendshipNotFoundException.class);
     }
 
@@ -171,7 +171,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
                 .thenReturn(Optional.of(existingFriendship));
 
-        friendshipService.editFriendship(dto);
+        friendshipService.manageFriendship(dto);
 
         verify(friendshipRepository).delete(existingFriendship);
     }
@@ -188,7 +188,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
                 .thenReturn(Optional.of(existingFriendship));
 
-        friendshipService.editFriendship(dto);
+        friendshipService.manageFriendship(dto);
 
         verify(friendshipRepository).delete(existingFriendship);
     }
@@ -203,7 +203,7 @@ public class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.empty());
 
-        assertThrows(FriendshipNotFoundException.class, () -> friendshipService.editFriendship(dto));
+        assertThrows(FriendshipNotFoundException.class, () -> friendshipService.manageFriendship(dto));
     }
 
     @Test
@@ -220,7 +220,7 @@ public class FriendshipServiceImplTest {
                 .action(FriendshipAction.REQUEST)
                 .build();
 
-        assertThrows(FriendshipNotAllowedException.class, () -> friendshipService.editFriendship(dto));
+        assertThrows(FriendshipNotAllowedException.class, () -> friendshipService.manageFriendship(dto));
     }
 
     @Test
@@ -244,7 +244,7 @@ public class FriendshipServiceImplTest {
                 .action(FriendshipAction.ACCEPT)
                 .build();
 
-        assertThrows(IllegalArgumentException.class, () -> friendshipService.editFriendship(dto));
+        assertThrows(IllegalArgumentException.class, () -> friendshipService.manageFriendship(dto));
     }
 
     @Test
@@ -260,7 +260,7 @@ public class FriendshipServiceImplTest {
         Friendship expectedFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(expectedFriendship);
 
-        Friendship result = friendshipService.editFriendship(dto);
+        Friendship result = friendshipService.manageFriendship(dto);
 
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.PENDING);
     }
@@ -276,7 +276,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
-        Friendship result = friendshipService.editFriendship(dto);
+        Friendship result = friendshipService.manageFriendship(dto);
 
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FRIENDS);
     }
@@ -293,7 +293,7 @@ public class FriendshipServiceImplTest {
                 .thenReturn(Optional.of(existingFriendship));
 
         FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class, () -> {
-            friendshipService.editFriendship(dto);
+            friendshipService.manageFriendship(dto);
         });
 
         assertThat(String.format("Friendship between %s and %s already exists, status: %s",
@@ -315,7 +315,7 @@ public class FriendshipServiceImplTest {
                 .thenReturn(Optional.of(existingFriendship));
 
         FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class, () -> {
-            friendshipService.editFriendship(dto);
+            friendshipService.manageFriendship(dto);
         });
 
         assertThat("User limited your ability to send requests!").isEqualTo(exception.getMessage());

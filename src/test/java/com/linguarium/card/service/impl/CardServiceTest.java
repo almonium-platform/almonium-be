@@ -193,7 +193,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify deletion of examples
@@ -233,7 +233,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify deletion of translations
@@ -285,7 +285,7 @@ class CardServiceTest {
         }
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify update of translations
@@ -340,7 +340,7 @@ class CardServiceTest {
         }
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify update of examples
@@ -381,7 +381,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify creation of new translations
@@ -421,7 +421,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify creation of new examples
@@ -453,7 +453,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify that the updated timestamp was set
@@ -480,7 +480,7 @@ class CardServiceTest {
         when(cardRepository.getById(cardId)).thenReturn(card);
 
         // Act
-        cardServiceImpl.updateCard(dto, user);
+        cardServiceImpl.updateCard(cardId, dto, user);
 
         // Assert
         // Verify that the updated card was saved
@@ -510,7 +510,7 @@ class CardServiceTest {
         Set<CardTag> existingCardTagsCopy = deepCopyCardTags(existingCardTags);
 
         // Act
-        cardServiceImpl.updateCard(dto, learner);
+        cardServiceImpl.updateCard(cardId, dto, learner);
 
         // Assert
         assertTagDeletion(existingCardTagsCopy, tagToBeDeleted);

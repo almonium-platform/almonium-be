@@ -4,6 +4,7 @@ export interface Friend {
   username: string;
   email: string;
 }
+
 export interface User {
   id: number;
   streak: number;
@@ -18,8 +19,17 @@ export interface User {
   background: string;
   fluentLangs: string[];
 }
+
 export interface FriendshipActionDto {
   idInitiator: number;
   idAcceptor: number;
   action: string;
+}
+
+export interface FriendshipDto {
+  requesterId: number;
+  requesteeId: number;
+  status: string;
+  created: string;
+  updated: string;
 }

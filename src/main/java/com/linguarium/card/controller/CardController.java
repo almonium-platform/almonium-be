@@ -8,7 +8,9 @@ import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,35 +19,31 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("api/cards")
+@RequestMapping("/api/cards")
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardController {
     CardService cardService;
-    private final CardSuggestionService cardSuggestionService;
+    CardSuggestionService cardSuggestionService;
 
-    public CardController(CardService cardService, CardSuggestionService cardSuggestionService) {
-        this.cardService = cardService;
-        this.cardSuggestionService = cardSuggestionService;
-    }
-
-    @PostMapping("create")
-    public ResponseEntity<?> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
+    @PostMapping
+    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
         cardService.createCard(userDetails.getUser().getLearner(), dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateCard(@PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @CurrentUser LocalUser user) {
+        cardService.updateCard(id, dto, user.getUser().getLearner());
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("update")
-    public ResponseEntity<?> updateCard(@Valid @RequestBody CardUpdateDto dto, @CurrentUser LocalUser user) {
-        cardService.updateCard(dto, user.getUser().getLearner());
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("all")
+    @GetMapping
     public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(cardService.getUsersCards(user.getUser().getLearner()));
     }
 
-    @GetMapping("all/{code}")
+    @GetMapping("/lang/{code}")
     public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser LocalUser user) {
         return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getUser().getLearner()));
     }
@@ -60,14 +58,14 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 
-    @GetMapping("hash/{hash}")
+    @GetMapping("public/{hash}")
     public ResponseEntity<CardDto> getCardByHash(@PathVariable String hash) {
         return ResponseEntity.ok(cardService.getCardByPublicId(hash));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<CardDto> deleteCard(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
         cardService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

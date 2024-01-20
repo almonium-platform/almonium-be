@@ -22,6 +22,11 @@ export interface CardDto {
   learnt: boolean;
 }
 
+export interface CardSuggestionDto {
+  recipientId: number;
+  cardId: number;
+}
+
 export interface Suggestion {
   card: CardDto;
   sender: number;
@@ -49,4 +54,32 @@ export interface TranslationDto {
 export interface TagDto {
   id: number;
   text: string;
+}
+export interface CardCreationDto {
+  entry: string;
+  language: string;
+  priority: number;
+  examples: ExampleDto[];
+  translations: TranslationDto[];
+  irregularPlural: boolean;
+  falseFriend: boolean;
+  irregularSpelling: boolean;
+  notes: string;
+  tags: string[];
+  activeLearning: boolean;
+}
+
+export interface CardUpdateDto {
+  id: number;
+  entry?: string;
+  language?: string;
+  priority?: number;
+  examples?: ExampleDto[];
+  translations?: TranslationDto[];
+  irregularPlural?: boolean;
+  falseFriend?: boolean;
+  irregularSpelling?: boolean;
+  notes?: string;
+  tags?: string[];
+  activeLearning?: boolean;
 }

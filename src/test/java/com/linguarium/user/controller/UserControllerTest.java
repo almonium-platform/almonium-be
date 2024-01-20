@@ -17,7 +17,7 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
 import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
-import com.linguarium.util.TestEntityGenerator;
+import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,12 +45,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class UserControllerTest {
-    static final String ME_URL = "/api/users/me";
-    static final String CHECK_USERNAME_AVAILABILITY_URL = "/api/users/{username}/availability/";
-    static final String UPDATE_USERNAME_URL = "/api/users/me/username";
-    static final String DELETE_CURRENT_USER_ACCOUNT_URL = "/api/users/me/account";
-    static final String UPDATE_TARGET_LANGUAGES_URL = "/api/users/me/target-languages";
-    static final String UPDATE_FLUENT_LANGUAGES_URL = "/api/users/me/fluent-languages";
+    static final String BASE_URL = "/api/users";
+    static final String ME_URL = BASE_URL + "/me";
+    static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
+    static final String UPDATE_USERNAME_URL = ME_URL + "/username";
+    static final String DELETE_CURRENT_USER_ACCOUNT_URL = ME_URL + "/account";
+    static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-languages";
+    static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-languages";
 
     @Autowired
     MockMvc mockMvc;
@@ -102,13 +103,13 @@ class UserControllerTest {
     @Test
     void givenAuthenticatedUser_whenGetCurrentUser_thenReturnUserInfo() throws Exception {
         testUserInfo = createTestUserInfo();
-        LocalUser localUser = TestEntityGenerator.createLocalUser();
+        LocalUser localUser = TestDataGenerator.createLocalUser();
 
         when(userService.buildUserInfo(any(User.class))).thenReturn(testUserInfo);
 
         mockMvc.perform(MockMvcRequestBuilders.get(ME_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
     }
@@ -138,7 +139,7 @@ class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_USERNAME_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isNoContent());
 
         verify(userService).changeUsername(request.getNewUsername(), user.getId());
@@ -149,7 +150,7 @@ class UserControllerTest {
     void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(DELETE_CURRENT_USER_ACCOUNT_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isNoContent());
 
         verify(userService).deleteAccount(user);
@@ -163,7 +164,7 @@ class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_TARGET_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isNoContent());
 
         verify(learnerService).updateTargetLanguages(request.getLangCodes(), user.getLearner());
@@ -177,7 +178,7 @@ class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser)))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser)))
                 )
                 .andExpect(status().isNoContent());
 

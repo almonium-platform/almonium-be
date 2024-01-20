@@ -4,13 +4,13 @@ import com.linguarium.friendship.dto.FriendInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.Friendship;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface FriendshipService {
-    Friendship editFriendship(FriendshipActionDto dto);
+    Friendship manageFriendship(FriendshipActionDto dto);
 
     Optional<FriendInfoDto> findFriendByEmail(final String email);
 
-    Collection<FriendInfoDto> getFriends(long id) ;
+    List<FriendInfoDto> getFriends(long id);
 }

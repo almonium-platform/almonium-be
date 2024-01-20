@@ -2,8 +2,7 @@ import {Component, Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AppConstants} from '../common/app.constants';
-import {FormGroup} from '@angular/forms';
-import {CardDto} from '../models/card.model';
+import {CardCreationDto, CardDto, CardSuggestionDto, CardUpdateDto} from '../models/card.model';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 const httpOptions = {
@@ -17,6 +16,7 @@ const httpOptionsText = {
   providedIn: 'root'
 })
 export class CardService {
+  private apiURL = AppConstants.CARD_API; // Assuming this is something like 'http://localhost:8080/api/cards'
 
   constructor(private http: HttpClient,
               public dialog: MatDialog) {
@@ -38,72 +38,49 @@ export class CardService {
       })
   }
 
-  deleteCard(id: number): Observable<any> {
-    return this.http.delete(AppConstants.CARD_API + id);
+  createCard(cardCreationDto: CardCreationDto): Observable<CardDto> {
+    return this.http.post<CardDto>(this.apiURL, cardCreationDto, httpOptions);
   }
 
-  updateCard(changes: any): Observable<any> {
-    let body: string = JSON.stringify(changes);
-    return this.http.patch(AppConstants.CARD_API + "update/", body, httpOptions);
+  getCard(id: number): Observable<CardDto> {
+    return this.http.get<CardDto>(`${this.apiURL}/${id}`);
   }
 
-  getCards(): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'all');
+  updateCard(id: number, cardUpdateDto: CardUpdateDto): Observable<void> {
+    return this.http.put<void>(`${this.apiURL}/${id}`, cardUpdateDto, httpOptions);
   }
 
-  getCardsOfLang(code: string): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'all/' + code);
+  deleteCard(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiURL}/${id}`);
   }
 
-  getSuggestedCards(): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'suggested');
+  getCards(): Observable<CardDto[]> {
+    return this.http.get<CardDto[]>(this.apiURL);
   }
 
-  getCard(id: number): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + id);
+  getCardsOfLang(code: string): Observable<CardDto[]> {
+    return this.http.get<CardDto[]>(`${this.apiURL}/language/${code}`);
   }
 
-  getCardByHash(hash: string): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.CARD_API + 'hash/' + hash);
+  getSuggestedCards(): Observable<CardDto[]> {
+    return this.http.get<CardDto[]>(`${this.apiURL}/suggested`);
   }
 
-  suggestCard(userId: number, cardId: number): Observable<any> {
-    return this.http.post(AppConstants.FRIEND_API + 'suggest/', {
-      recipientId: userId,
-      cardId: cardId,
-    }, httpOptions);
+  getCardByHash(hash: string): Observable<CardDto> {
+    return this.http.get<CardDto>(`${this.apiURL}/public/${hash}`);
   }
 
-  acceptCard(cardId: number, senderId: number): Observable<any> {
-    return this.http.post(AppConstants.FRIEND_API + 'accept/', {
-      cardId: cardId,
-      senderId: senderId,
-    }, httpOptions);
+  suggestCard(suggestion: CardSuggestionDto): Observable<any> {
+    return this.http.post(AppConstants.SUGGESTION_API, suggestion, httpOptions);
   }
 
-  declineCard(cardId: number, senderId: number): Observable<any> {
-    return this.http.post(AppConstants.FRIEND_API + 'decline/', {
-      cardId: cardId,
-      senderId: senderId,
-    }, httpOptions);
+  acceptCard(suggestionId: number): Observable<any> {
+    return this.http.put(`${AppConstants.SUGGESTION_API}/${suggestionId}/accept`, null, httpOptions);
   }
 
-  createCard(formGroup: FormGroup, filteredExamples: any, filteredTranslations: any, language: string): Observable<any> {
-    return this.http.post(AppConstants.CARD_API + 'create', {
-      entry: formGroup.controls.entry.value,
-      language: language,
-      priority: formGroup.controls.priority.value,
-      examples: filteredExamples,
-      translations: filteredTranslations,
-      irregularPlural: formGroup.controls.irregularPlural.value,
-      falseFriend: formGroup.controls.falseFriend.value,
-      irregularSpelling: formGroup.controls.irregularSpelling.value,
-      notes: formGroup.controls.notes.value,
-      tags: Array.from(formGroup.controls.tags.value),
-      activeLearning: formGroup.controls.activeLearning.value,
-    }, httpOptions);
-  }
-}
+  declineCard(suggestionId: number): Observable<any> {
+    return this.http.put(`${AppConstants.SUGGESTION_API}/${suggestionId}/decline`, null, httpOptions);
+  }}
 
 @Component({
   selector: 'card-view',

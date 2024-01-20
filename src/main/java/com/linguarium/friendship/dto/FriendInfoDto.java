@@ -36,19 +36,12 @@ public class FriendInfoDto {
     }
 
     private FriendStatus pickStatus(FriendshipStatus status, boolean isFriendRequester) {
-        switch (status) {
-            case FRIENDS:
-                return FriendStatus.FRIENDS;
-            case PENDING: {
-                return isFriendRequester ? FriendStatus.ASKED_ME : FriendStatus.ASKED;
-            }
-            case FST_BLOCKED_SND: {
-                return isFriendRequester ? FriendStatus.BLOCKED_ME : FriendStatus.BLOCKED;
-            }
-            case SND_BLOCKED_FST: {
-                return isFriendRequester ? FriendStatus.BLOCKED : FriendStatus.BLOCKED_ME;
-            }
-        }
-        return null;
+        return switch (status) {
+            case FRIENDS -> FriendStatus.FRIENDS;
+            case PENDING -> isFriendRequester ? FriendStatus.ASKED_ME : FriendStatus.ASKED;
+            case FST_BLOCKED_SND -> isFriendRequester ? FriendStatus.BLOCKED_ME : FriendStatus.BLOCKED;
+            case SND_BLOCKED_FST -> isFriendRequester ? FriendStatus.BLOCKED : FriendStatus.BLOCKED_ME;
+            default -> null;
+        };
     }
 }

@@ -6,7 +6,7 @@ import com.linguarium.card.model.Tag;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
-import com.linguarium.util.TestEntityGenerator;
+import com.linguarium.util.TestDataGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class CardTagRepositoryTest {
     @BeforeEach
     public void setup() {
         // Set up the Learner, Card, and Tag entities
-        managedUser = TestEntityGenerator.buildTestUser();
+        managedUser = TestDataGenerator.buildTestUser();
         managedLearner = buildTestLearner();
         managedCard = buildTestCard();
         managedTag = buildTestTag();

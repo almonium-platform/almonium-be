@@ -19,7 +19,7 @@ public interface CardService {
 
     List<CardDto> searchByEntry(String entry, Learner learner);
 
-    void updateCard(CardUpdateDto dto, Learner learner);
+    void updateCard(Long id, CardUpdateDto dto, Learner learner);
 
     List<CardDto> getUsersCardsOfLang(String code, Learner user);
 

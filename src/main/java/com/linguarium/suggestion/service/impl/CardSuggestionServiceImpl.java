@@ -8,7 +8,6 @@ import com.linguarium.card.model.Translation;
 import com.linguarium.card.repository.CardRepository;
 import com.linguarium.card.repository.ExampleRepository;
 import com.linguarium.card.repository.TranslationRepository;
-import com.linguarium.suggestion.dto.CardAcceptanceDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
@@ -16,6 +15,7 @@ import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,25 +69,29 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
                 .collect(Collectors.toList());
     }
 
+    @SneakyThrows
     @Override
     @Transactional
-    public void declineSuggestion(CardAcceptanceDto dto, User recipient) {
-        //TODO Test, changed repo name - entity to just ID
-        cardSuggestionRepository
-                .deleteBySenderIdAndRecipientIdAndCardId(
-                        dto.getSenderId(),
-                        recipient.getId(),
-                        dto.getCardId()
-                );
+    public void declineSuggestion(Long id, User actionExecutor) {
+        CardSuggestion cardSuggestion = cardSuggestionRepository.getById(id);
+        User recipient = cardSuggestion.getRecipient();
+        if (!recipient.equals(actionExecutor)) {
+            throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
+        }
+        cardSuggestionRepository.deleteById(id);
     }
 
+    @SneakyThrows
     @Override
     @Transactional
-    public void acceptSuggestion(CardAcceptanceDto dto, User recipient) {
-        User sender = userRepository.getById(dto.getSenderId());
-        Card card = cardRepository.getById(dto.getCardId());
-        cloneCard(card, recipient);
-        CardSuggestion cardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card);
+    public void acceptSuggestion(Long id, User actionExecutor) {
+        CardSuggestion cardSuggestion = cardSuggestionRepository.getById(id);
+        User recipient = cardSuggestion.getRecipient();
+        if (!recipient.equals(actionExecutor)) {
+            throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
+        }
+
+        cloneCard(cardSuggestion.getCard(), recipient);
         cardSuggestionRepository.delete(cardSuggestion);
     }
 

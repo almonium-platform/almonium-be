@@ -5,66 +5,40 @@ import com.linguarium.auth.model.LocalUser;
 import com.linguarium.friendship.dto.FriendInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.service.impl.FriendshipServiceImpl;
-import com.linguarium.suggestion.dto.CardAcceptanceDto;
-import com.linguarium.suggestion.dto.CardSuggestionDto;
-import com.linguarium.suggestion.service.CardSuggestionService;
+import com.linguarium.friendship.service.FriendshipService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("/api/friend/")
+@RequestMapping("/api/friends")
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FriendController {
-    CardSuggestionService cardSuggestionService;
-    FriendshipServiceImpl friendshipServiceImpl;
+    FriendshipService friendshipService;
 
-    public FriendController(CardSuggestionService cardSuggestionService, FriendshipServiceImpl friendshipServiceImpl) {
-        this.cardSuggestionService = cardSuggestionService;
-        this.friendshipServiceImpl = friendshipServiceImpl;
+    @GetMapping
+    public ResponseEntity<List<FriendInfoDto>> getMyFriends(@CurrentUser LocalUser user) {
+        List<FriendInfoDto> friends = friendshipService.getFriends(user.getUser().getId());
+        return ResponseEntity.ok(friends);
     }
 
-    @GetMapping("friends/")
-    public Collection<FriendInfoDto> getMyFriends(@CurrentUser LocalUser user) {
-        return friendshipServiceImpl.getFriends(user.getUser().getId());
+    @GetMapping("/search")
+    public ResponseEntity<FriendInfoDto> searchFriendsByEmail(@RequestParam String email) {
+        return friendshipService.findFriendByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("search/{email}")
-    public ResponseEntity<?> searchFriendsByEmail(@PathVariable String email) {
-        Optional<FriendInfoDto> friendInfoOptional = friendshipServiceImpl.findFriendByEmail(email);
-        return friendInfoOptional.isPresent() ? ResponseEntity.ok(friendInfoOptional.get()) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("suggest/")
-    public ResponseEntity<?> suggestCard(@RequestBody CardSuggestionDto dto, @CurrentUser LocalUser user) {
-        boolean result = cardSuggestionService.suggestCard(dto, user.getUser());
-        if (result) return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().body("You've already sent that card!");
-    }
-
-    @PostMapping("accept/")
-    public ResponseEntity<?> acceptCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
-        cardSuggestionService.acceptSuggestion(dto, user.getUser());
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("decline/")
-    public ResponseEntity<?> declineCard(@RequestBody CardAcceptanceDto dto, @CurrentUser LocalUser user) {
-        cardSuggestionService.declineSuggestion(dto, user.getUser());
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("friendship")
-    public ResponseEntity<?> editFriendship(@Valid @RequestBody FriendshipActionDto dto) {
-        Friendship friendship = friendshipServiceImpl.editFriendship(dto);
-        return new ResponseEntity<>(friendship, HttpStatus.OK);
+    @PostMapping("/friendships")
+    public ResponseEntity<Friendship> manageFriendship(@Valid @RequestBody FriendshipActionDto dto) {
+        Friendship friendship = friendshipService.manageFriendship(dto);
+        return ResponseEntity.ok(friendship);
     }
 }

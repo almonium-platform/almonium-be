@@ -20,7 +20,7 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
-import com.linguarium.util.TestEntityGenerator;
+import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,12 +50,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(LangController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class LangControllerTest {
-    static final String TRANSLATE_URL = "/api/lang/translate/{langFrom}/{langTo}/{text}";
-    static final String REPORT_URL = "/api/lang/words/{text}/{lang}/report";
-    static final String BULK_PRONOUNCE_URL = "/api/lang/words/{text}/audio/{lang}";
-    static final String RANDOM_URL = "/api/lang/words/random";
-    static final String BULK_TRANSLATE_URL = "/api/lang/translations/{langTo}/bulk";
-    static final String SEARCH_URL = "/api/lang/cards/search/{text}";
+    static final String BASE_URL = "/api/lang/";
+
+    static final String TRANSLATE_URL = BASE_URL + "translate/{langFrom}/{langTo}/{text}";
+    static final String REPORT_URL = BASE_URL + "words/{text}/{lang}/report";
+    static final String BULK_PRONOUNCE_URL = BASE_URL + "words/{text}/audio/{lang}";
+    static final String RANDOM_URL = BASE_URL + "words/random";
+    static final String BULK_TRANSLATE_URL = BASE_URL + "translations/{langTo}/bulk";
+    static final String SEARCH_URL = BASE_URL + "cards/search/{text}";
 
     @Autowired
     MockMvc mockMvc;
@@ -112,12 +114,12 @@ class LangControllerTest {
     public void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() throws Exception {
         // Arrange
         String searchText = "hello";
-        CardDto[] dummyCards = TestEntityGenerator.createCardDtos();
+        CardDto[] dummyCards = TestDataGenerator.createCardDtos();
         when(cardService.searchByEntry(eq(searchText), any(Learner.class))).thenReturn(List.of(dummyCards));
 
         // Set up the Security Context with the mock user
-        LocalUser principal = TestEntityGenerator.createLocalUser();
-        TestingAuthenticationToken authenticationToken = TestEntityGenerator.getAuthenticationToken(principal);
+        LocalUser principal = TestDataGenerator.createLocalUser();
+        TestingAuthenticationToken authenticationToken = TestDataGenerator.getAuthenticationToken(principal);
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
@@ -140,7 +142,7 @@ class LangControllerTest {
         String langTo = Language.ES.name();
         String text = "Hello";
 
-        TranslationCardDto translationCardDto = TestEntityGenerator.createTranslationCardDto();
+        TranslationCardDto translationCardDto = TestDataGenerator.createTranslationCardDto();
 
         when(languageProcessor.translate(text, Language.EN, Language.ES))
                 .thenReturn(translationCardDto);
@@ -158,15 +160,15 @@ class LangControllerTest {
         // Arrange
         String text = "Hello";
         String lang = Language.EN.name();
-        LocalUser localUser = TestEntityGenerator.createLocalUser();
-        AnalysisDto analysisDto = TestEntityGenerator.createTestAnalysisDto();
+        LocalUser localUser = TestDataGenerator.createLocalUser();
+        AnalysisDto analysisDto = TestDataGenerator.createTestAnalysisDto();
         when(languageProcessor.getReport(text, lang, localUser.getUser()))
                 .thenReturn(analysisDto);
 
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.get(LangControllerTest.REPORT_URL, text, lang)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestEntityGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(analysisDto)));
     }
@@ -178,7 +180,7 @@ class LangControllerTest {
         String langTo = Language.ES.name();
         String text = "Hello";
 
-        MLTranslationCard mlTranslationCard = TestEntityGenerator.createMLTranslationCard();
+        MLTranslationCard mlTranslationCard = TestDataGenerator.createMLTranslationCard();
 
         when(languageProcessor.bulkTranslate(text, Language.ES))
                 .thenReturn(mlTranslationCard);
@@ -198,7 +200,7 @@ class LangControllerTest {
         String lang = Language.EN.name();
         String text = "Hello";
 
-        ByteString audioBytes = TestEntityGenerator.generateRandomAudioBytes();
+        ByteString audioBytes = TestDataGenerator.generateRandomAudioBytes();
         when(languageProcessor.textToSpeech(lang, text))
                 .thenReturn(audioBytes);
 
@@ -214,7 +216,7 @@ class LangControllerTest {
     @Test
     public void shouldGetRandomWordsReportDto() throws Exception {
         // Arrange
-        WordsReportDto wordsReportDto = TestEntityGenerator.createEmptyWordsReportDto();
+        WordsReportDto wordsReportDto = TestDataGenerator.createEmptyWordsReportDto();
         when(languageProcessor.getRandom()).thenReturn(wordsReportDto);
 
         // Act & Assert
