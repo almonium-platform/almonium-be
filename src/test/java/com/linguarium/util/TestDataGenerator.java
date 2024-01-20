@@ -5,6 +5,7 @@ import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.*;
+import com.linguarium.card.model.Card;
 import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
@@ -18,6 +19,7 @@ import com.linguarium.friendship.model.FriendshipStatus;
 import com.linguarium.translator.dto.DefinitionDto;
 import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
+import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import org.springframework.security.authentication.TestingAuthenticationToken;
@@ -26,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public final class TestDataGenerator {
     private static final Random random = new Random();
@@ -179,6 +182,16 @@ public final class TestDataGenerator {
         return user;
     }
 
+    public static User buildAnotherTestUser() {
+        User user = new User();
+        user.setUsername("jake");
+        user.setEmail("jake@email.com");
+        user.setPassword("password");
+        user.setProvider("local");
+        user.setRegistered(LocalDateTime.now());
+        return user;
+    }
+
     public static CardCreationDto getCardCreationDto() {
         CardCreationDto cardCreationDto = new CardCreationDto();
 
@@ -324,5 +337,23 @@ public final class TestDataGenerator {
         friendship.setCreated(LocalDateTime.now());
         friendship.setFriendshipStatus(FriendshipStatus.FRIENDS);
         return friendship;
+    }
+
+    public static Card buildTestCard(UUID uuid, String entry, Learner owner) {
+        Card card = new Card();
+        card.setPublicId(uuid);
+        card.setEntry(entry);
+        card.setOwner(owner);
+        card.setLanguage(Language.EN);
+        return card;
+
+    }
+
+    public static Card buildTestCard() {
+        Card card = new Card();
+        card.setPublicId(UUID.randomUUID());
+        card.setEntry("TEST_ENTRY");
+        card.setLanguage(Language.EN);
+        return card;
     }
 }

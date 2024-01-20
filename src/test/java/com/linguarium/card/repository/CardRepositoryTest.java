@@ -48,7 +48,7 @@ public class CardRepositoryTest {
         entityManager.persist(user);
         entityManager.flush();
 
-        Card card = buildTestCard();
+        Card card = TestDataGenerator.buildTestCard(TEST_PUBLIC_ID, TEST_ENTRY, managedLearner);
         entityManager.persist(card);
         entityManager.flush();
     }
@@ -82,14 +82,5 @@ public class CardRepositoryTest {
         Optional<Card> card = cardRepository.getByPublicId(TEST_PUBLIC_ID);
         assertThat(card).isPresent();
         assertThat(card.get().getPublicId()).isEqualTo(TEST_PUBLIC_ID);
-    }
-
-    private Card buildTestCard() {
-        Card card = new Card();
-        card.setPublicId(TEST_PUBLIC_ID);
-        card.setEntry(TEST_ENTRY);
-        card.setOwner(managedLearner);
-        card.setLanguage(Language.EN);
-        return card;
     }
 }

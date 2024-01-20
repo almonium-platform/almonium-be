@@ -101,11 +101,10 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         User recipient = userRepository.getById(dto.getRecipientId());
         //TODO  notifications
         //TODO check if has access
-        if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) == null) {
-            cardSuggestionRepository.save(new CardSuggestion(sender, recipient, card));
-            return true;
-        } else {
+        if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) != null) {
             return false;
         }
+        cardSuggestionRepository.save(new CardSuggestion(sender, recipient, card));
+        return true;
     }
 }
