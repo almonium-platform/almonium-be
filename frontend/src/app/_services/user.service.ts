@@ -7,7 +7,7 @@ import {UsernameAvailability} from '../models/username-availability.dto';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/users`;
+  private apiUrl = `${environment.apiUrl}users`;
 
   constructor(private http: HttpClient) {
   }

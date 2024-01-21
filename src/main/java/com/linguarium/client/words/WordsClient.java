@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +34,7 @@ public class WordsClient extends AbstractClient {
     @Value("${external.api.key.yandex}")
     String API_KEY_HEADER_VALUE;
 
+    @Autowired
     RestTemplate restTemplate;
 
     public ResponseEntity<WordsReportDto> getReport(String word) {

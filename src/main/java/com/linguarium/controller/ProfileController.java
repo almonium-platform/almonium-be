@@ -13,7 +13,7 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("api/all")
+@RequestMapping("/api/all")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProfileController {
     Environment environment;
@@ -22,7 +22,7 @@ public class ProfileController {
         this.environment = environment;
     }
 
-    @GetMapping("profile")
+    @GetMapping("/profile")
     public ResponseEntity<List<String>> getCurrentActiveProfiles() {
         return ResponseEntity.ok(Arrays.asList(environment.getActiveProfiles()));
     }

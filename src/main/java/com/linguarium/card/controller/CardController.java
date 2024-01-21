@@ -48,22 +48,22 @@ public class CardController {
         return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getUser().getLearner()));
     }
 
-    @GetMapping("suggested")
+    @GetMapping("/suggested")
     public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(user.getUser()));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CardDto> getCard(@PathVariable Long id) {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 
-    @GetMapping("public/{hash}")
+    @GetMapping("/public/{hash}")
     public ResponseEntity<CardDto> getCardByHash(@PathVariable String hash) {
         return ResponseEntity.ok(cardService.getCardByPublicId(hash));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
         cardService.deleteById(id);
         return ResponseEntity.noContent().build();
