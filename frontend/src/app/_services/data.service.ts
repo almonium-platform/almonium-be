@@ -114,7 +114,7 @@ export class DataService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.get(AppConstants.ALL_API + "profile");
+    return this.http.get(AppConstants.ALL_API + "/profile");
   }
 
   showToast(msg: string): void {

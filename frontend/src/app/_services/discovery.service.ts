@@ -25,19 +25,19 @@ export class DiscoveryService {
   }
 
   searchInMyStack(text: string): Observable<any> {
-    return this.http.get<CardDto[]>(AppConstants.LANG_API + 'cards/search/' + text);
+    return this.http.get<CardDto[]>(AppConstants.LANG_API + '/cards/search/' + text);
   }
 
   getReport(text: string, lang: string): Observable<any> {
-    return this.http.get<ReportDto>(AppConstants.LANG_API + 'words/' + text + '/' + lang + '/report');
+    return this.http.get<ReportDto>(AppConstants.LANG_API + '/words/' + text + '/' + lang + '/report');
   }
 
   translate(text: string, from: string, to: string): Observable<HttpResponse<TranslationCard>> {
-    return this.http.get<HttpResponse<TranslationCard>>(AppConstants.LANG_API + 'translate/' + from + '/' + to + '/' + text);
+    return this.http.get<HttpResponse<TranslationCard>>(AppConstants.LANG_API + '/translate/' + from + '/' + to + '/' + text);
   }
 
   bulkTranslate(text: string, to: string): Observable<any> {
-    return this.http.post<HttpResponse<MachineTranslationDto>>(AppConstants.LANG_API + 'translations/' + to + '/bulk', text
+    return this.http.post<HttpResponse<MachineTranslationDto>>(AppConstants.LANG_API + '/translations/' + to + '/bulk', text
     );
   }
 
@@ -48,7 +48,7 @@ export class DiscoveryService {
 
   yandexTranslate(text: string):
     Observable<any> {
-    return this.http.get(AppConstants.LANG_API + 'yandex');
+    return this.http.get(AppConstants.LANG_API + '/yandex');
   }
 
   urbanSearch(text: string):
@@ -57,11 +57,11 @@ export class DiscoveryService {
   }
 
   random(): Observable<any> {
-    return this.http.get(AppConstants.LANG_API + 'words/random');
+    return this.http.get(AppConstants.LANG_API + '/words/random');
   }
 
   getAudioFileLink(word: string): Observable<any> {
-    return this.http.get(AppConstants.LANG_API + 'words/' + word + '/audio');
+    return this.http.get(AppConstants.LANG_API + '/words/' + word + '/audio');
   }
 
   getPronunciationSafe(lang: string, text: string): Observable<SafeUrl> {
