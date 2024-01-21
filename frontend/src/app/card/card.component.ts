@@ -12,7 +12,7 @@ import {FormIntactChecker} from '../_helpers/form-intact-checker';
 import {UserService} from '../_services/user.service';
 import {Friend} from '../models/user.model';
 import {FriendshipService} from '../_services/friendship.service';
-import {CardDto} from '../models/card.model';
+import {CardCreationDto, CardDto, CardSuggestionDto, CardUpdateDto} from '../models/card.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
@@ -412,21 +412,18 @@ export class CardComponent implements OnInit {
     console.log(this.changes);
     console.log(JSON.stringify(Object.assign({}, this.changes)));
 
-    this.changes['id'] = this.card.id;
-    this.changes['tags'] = Array.from(this.tags);
-    if (this.tokenStorageService.getCurLang() !== this.card.language) {
-      this.changes['lang'] = this.tokenStorageService.getCurLang();
-    }
+    const cardUpdateDto: CardUpdateDto = {
+      id: this.card.id, // Include the id property
+      ...this.changes, // Spread the rest of the changes
+    };
 
-    this.cardService.updateCard(
-      Object.assign({}, this.changes),
-    ).subscribe(
+    this.cardService.updateCard(this.card.id, cardUpdateDto).subscribe(
       data => {
         this.dialog.closeAll();
         this.showToast('Card changes saved');
       },
       err => {
-        // console.log(err.error.message);
+        console.error(err.error.message);
       }
     );
   }
@@ -441,13 +438,21 @@ export class CardComponent implements OnInit {
     const filteredTranslations = this.cardFormGroup.controls.translations.value.filter(o => {
       return o.translation;
     });
+    const cardCreationDto: CardCreationDto = {
+      entry: this.cardFormGroup.controls.entry.value,
+      language: this.tokenStorageService.getCurLang(),
+      priority: this.cardFormGroup.controls.priority.value,
+      examples: filteredExamples,
+      translations: filteredTranslations,
+      irregularPlural: this.cardFormGroup.controls.irregularPlural.value,
+      falseFriend: this.cardFormGroup.controls.falseFriend.value,
+      irregularSpelling: this.cardFormGroup.controls.irregularSpelling.value,
+      notes: this.cardFormGroup.controls.notes.value,
+      tags: Array.from(this.cardFormGroup.controls.tags.value),
+      activeLearning: this.cardFormGroup.controls.activeLearning.value,
+    };
 
-    this.cardService.createCard(
-      this.cardFormGroup,
-      filteredExamples,
-      filteredTranslations,
-      this.tokenStorageService.getCurLang()
-    ).subscribe(
+    this.cardService.createCard(cardCreationDto).subscribe(
       data => {
         console.log('SUCCESS');
         this.dataService.showToast('Card successfully created');
@@ -571,7 +576,11 @@ export class CardComponent implements OnInit {
       const friend: Friend = this.friends.find(f => f.username === this.searchText);
       console.log(friend);
       console.log(this.card);
-      this.cardService.suggestCard(friend.id, this.card.id).subscribe(data => {
+      const suggestion: CardSuggestionDto = {
+        recipientId: friend.id,
+        cardId: this.card.id
+      };
+      this.cardService.suggestCard(suggestion).subscribe(data => {
           this.suggestCardToast();
         },
         err => {
@@ -590,7 +599,8 @@ export class CardComponent implements OnInit {
   }
 
   acceptCard() {
-    this.cardService.acceptCard(this.card.id, this.card.userId).subscribe(data => {
+    //TODO same
+    this.cardService.acceptCard(234).subscribe(data => {
       this.dialog.closeAll();
       this.dataService.showToast('Card accepted');
     }, error => {
@@ -600,7 +610,9 @@ export class CardComponent implements OnInit {
   }
 
   declineCard() {
-    this.cardService.declineCard(this.card.id, this.card.userId).subscribe(data => {
+    //TODO should get suggestion id
+    let id = 243;
+    this.cardService.declineCard(id).subscribe(data => {
       this.dataService.showToast('Card declined');
       this.dialog.closeAll();
     }, error => {

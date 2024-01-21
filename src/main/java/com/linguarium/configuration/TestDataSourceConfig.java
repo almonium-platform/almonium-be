@@ -10,11 +10,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TestDataSourceConfig {
     static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
-    static final String URL = "jdbc:postgresql://localhost:5432/liquid-test";
+    static final String URL = "jdbc:postgresql://localhost:5432/liquid_test";
     static final String USERNAME = "postgres";
     static final String PASSWORD = "password";
 

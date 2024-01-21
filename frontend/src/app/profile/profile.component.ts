@@ -243,8 +243,9 @@ export class ProfileComponent implements OnInit {
     } else if (this.friendSearchText === this.currentUser.email) {
       this.searchYourself = true;
     } else {
-      this.friendshipService.searchFriends(this.friendSearchText).subscribe(data => {
-          this.searchFriend = JSON.parse(data);
+      this.friendshipService.searchFriends(this.friendSearchText).subscribe(
+        (friend: Friend) => { // Update the type to match the returned Friend interface
+          this.searchFriend = friend;
           console.log(this.searchFriend);
           console.log(this.searchFriend.email);
           console.log(this.searchFriend.username);
@@ -253,7 +254,8 @@ export class ProfileComponent implements OnInit {
           this.notFound = true;
           console.log('NOT FOUND');
           // this.content = JSON.parse(err.error).message;
-        });
+        }
+      );
     }
   }
 
@@ -298,18 +300,17 @@ export class ProfileComponent implements OnInit {
     this.unavailableUsername = false;
     this.currentUsername = false;
 
-    if (this.usernameFormGroup.controls.username.value == this.currentUser.username) {
+    if (this.usernameFormGroup.controls.username.value === this.currentUser.username) {
       this.currentUsername = true;
       return;
     }
     this.userService.checkUsernameAvailability(this.usernameFormGroup.controls.username.value).subscribe(data => {
-      console.log(data)
-      if (data === true) {
+      if (data.available === true) {
         this.availableUsername = true;
       } else {
         this.unavailableUsername = true;
       }
-    })
+    });
   }
 
   changeUsername() {
