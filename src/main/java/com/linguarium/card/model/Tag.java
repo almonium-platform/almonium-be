@@ -4,7 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnTransformer;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 

@@ -46,7 +46,6 @@ class CardControllerTest {
     static final String UPDATE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     static final String GET_CARDS_URL = BASE_URL;
     static final String GET_CARDS_OF_LANG_URL = BASE_URL + "lang/{code}";
-    static final String GET_SUGGESTED_CARDS_URL = BASE_URL + "suggested";
     static final String GET_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     static final String DELETE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
 
@@ -146,16 +145,6 @@ class CardControllerTest {
                 .andExpect(status().isOk());
 
         verify(cardService).getUsersCardsOfLang(eq(languageCode), any(Learner.class));
-    }
-
-    @DisplayName("Should retrieve suggested cards for a user")
-    @Test
-    void givenUser_whenGetSuggestedCards_thenReturnsCards() throws Exception {
-        mockMvc.perform(get(GET_SUGGESTED_CARDS_URL)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
-                .andExpect(status().isOk());
-
-        verify(cardSuggestionService).getSuggestedCards(any(User.class));
     }
 
     @DisplayName("Should retrieve a card by ID")

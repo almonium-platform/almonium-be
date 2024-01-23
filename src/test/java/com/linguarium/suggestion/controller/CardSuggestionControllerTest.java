@@ -10,7 +10,7 @@ import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationFailureH
 import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;
-import com.linguarium.user.model.User;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
@@ -25,14 +25,17 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CardSuggestionController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class CardSuggestionControllerTest {
+
     static final String BASE_URL = "/api/cards/suggestions";
     static final String ACCEPT_CARD_URL = BASE_URL + "/{id}/accept";
     static final String DECLINE_CARD_URL = BASE_URL + "/{id}/decline";
@@ -71,11 +74,11 @@ class CardSuggestionControllerTest {
     LocalUser localUser;
 
     @MockBean
-    User user;
+    Learner learner;
 
     @BeforeEach
     void setUp() {
-        when(localUser.getUser()).thenReturn(user);
+        when(localUser.getUser().getLearner()).thenReturn(learner);
     }
 
     @DisplayName("Should suggest card")
@@ -103,7 +106,7 @@ class CardSuggestionControllerTest {
                         .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isNoContent());
 
-        verify(cardSuggestionService).acceptSuggestion(cardIdToAccept, user);
+        verify(cardSuggestionService).acceptSuggestion(cardIdToAccept, learner);
     }
 
     @DisplayName("Should decline a card suggestion for current user")
@@ -116,6 +119,17 @@ class CardSuggestionControllerTest {
                         .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
                 .andExpect(status().isNoContent());
 
-        verify(cardSuggestionService).declineSuggestion(cardIdToDecline, user);
+        verify(cardSuggestionService).declineSuggestion(cardIdToDecline, learner);
+    }
+
+
+    @DisplayName("Should retrieve suggested cards for a user")
+    @Test
+    void givenUser_whenGetSuggestedCards_thenReturnsCards() throws Exception {
+        mockMvc.perform(get(BASE_URL)
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                .andExpect(status().isOk());
+
+        verify(cardSuggestionService).getSuggestedCards(any(Learner.class));
     }
 }

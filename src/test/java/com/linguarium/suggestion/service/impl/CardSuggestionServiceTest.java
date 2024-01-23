@@ -8,13 +8,11 @@ import com.linguarium.card.model.Translation;
 import com.linguarium.card.repository.CardRepository;
 import com.linguarium.card.repository.ExampleRepository;
 import com.linguarium.card.repository.TranslationRepository;
-import com.linguarium.suggestion.dto.CardAcceptanceDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.User;
-import com.linguarium.user.repository.UserRepository;
+import com.linguarium.user.repository.LearnerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,7 @@ class CardSuggestionServiceTest {
     @Mock
     TranslationRepository translationRepository;
     @Mock
-    UserRepository userRepository;
+    LearnerRepository learnerRepository;
     @Mock
     CardMapper cardMapper;
 
@@ -49,16 +47,22 @@ class CardSuggestionServiceTest {
 
     @BeforeEach
     void setUp() {
-        cardSuggestionService = new CardSuggestionServiceImpl(cardRepository, cardSuggestionRepository, exampleRepository, translationRepository, userRepository, cardMapper);
+        cardSuggestionService = new CardSuggestionServiceImpl(
+                cardRepository,
+                cardSuggestionRepository,
+                exampleRepository,
+                translationRepository,
+                learnerRepository,
+                cardMapper);
     }
 
     @Test
     @DisplayName("Should return list of suggested CardDto")
     public void givenUser_whenGetSuggestedCards_thenReturnListOfCardDto() {
         // Arrange
-        User user = new User();
+        Learner user = new Learner();
         Long id = 1L;
-        User sender = User.builder().id(id).build();
+        Learner sender = Learner.builder().id(id).build();
         Card card = Card.builder().id(id).build();
         List<CardSuggestion> suggestions = Collections.singletonList(new CardSuggestion(sender, user, card));
         CardDto expectedDto = CardDto.builder().userId(sender.getId()).build();
@@ -81,13 +85,13 @@ class CardSuggestionServiceTest {
         Long suggestionId = 3L;
         Long userId = 4L;
 
-        User recipient = User.builder().id(userId).build();
+        Learner recipient = Learner.builder().id(userId).build();
         CardSuggestion cardSuggestion = CardSuggestion.builder()
                 .id(suggestionId)
                 .card(Card.builder().build())
                 .recipient(recipient)
                 .build();
-        when(cardSuggestionRepository.getById(suggestionId)).thenReturn(cardSuggestion);
+        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
         // Act
         cardSuggestionService.declineSuggestion(suggestionId, recipient);
@@ -103,19 +107,19 @@ class CardSuggestionServiceTest {
         Long suggestionId = 3L;
         Long userId = 4L;
         Card card = Card.builder().id(1L).build();
-        User recipient = User.builder().id(userId).build();
+        Learner recipient = Learner.builder().id(userId).build();
         CardSuggestion cardSuggestion = CardSuggestion.builder()
                 .id(suggestionId)
                 .card(card)
                 .recipient(recipient)
                 .build();
-        when(cardSuggestionRepository.getById(suggestionId)).thenReturn(cardSuggestion);
+        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
         // Create a spy of your service
         CardSuggestionServiceImpl cardServiceSpy = spy(cardSuggestionService);
 
         // Mock the cloneCard method to do nothing
-        doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(User.class));
+        doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(Learner.class));
 
         // Act
         cardServiceSpy.acceptSuggestion(suggestionId, recipient);
@@ -130,10 +134,8 @@ class CardSuggestionServiceTest {
     public void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
         // Arrange
         Card card = new Card();
-        User user = User.builder()
-                .learner(Learner.builder()
-                        .cards(new HashSet<>())
-                        .build())
+        Learner user = Learner.builder()
+                .cards(new HashSet<>())
                 .build();
 
         List<Example> examples = Arrays.asList(
@@ -166,7 +168,7 @@ class CardSuggestionServiceTest {
         ));
         verify(translationRepository).saveAll(eq(translations));
         verify(exampleRepository).saveAll(eq(examples));
-        verify(userRepository).save(eq(user));
+        verify(learnerRepository).save(eq(user));
     }
 
     @Test
@@ -174,15 +176,15 @@ class CardSuggestionServiceTest {
     public void givenNewCardSuggestionDtoAndSender_whenSuggestCard_thenReturnTrueAndSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
-        User sender = new User();
-        User recipient = new User();
+        Learner sender = new Learner();
+        Learner recipient = new Learner();
         Card card = Card.builder().id(2L)
                 .examples(new ArrayList<>())
                 .translations(new ArrayList<>())
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(dto.getCardId())).thenReturn(card);
-        when(userRepository.getById(dto.getRecipientId())).thenReturn(recipient);
+        when(cardRepository.findById(dto.getCardId())).thenReturn(Optional.of(card));
+        when(learnerRepository.findById(dto.getRecipientId())).thenReturn(Optional.of(recipient));
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(null);
 
         // Act
@@ -202,13 +204,13 @@ class CardSuggestionServiceTest {
     public void givenExistingCardSuggestionDtoAndSender_whenSuggestCard_thenReturnFalseAndDoNotSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
-        User sender = new User();
-        User recipient = new User();
+        Learner sender = new Learner();
+        Learner recipient = new Learner();
         Card card = new Card();
         CardSuggestion existingSuggestion = new CardSuggestion(sender, recipient, card);
 
-        when(cardRepository.getById(dto.getCardId())).thenReturn(card);
-        when(userRepository.getById(dto.getRecipientId())).thenReturn(recipient);
+        when(cardRepository.findById(dto.getCardId())).thenReturn(Optional.of(card));
+        when(learnerRepository.findById(dto.getRecipientId())).thenReturn(Optional.of(recipient));
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card))
                 .thenReturn(existingSuggestion);
 

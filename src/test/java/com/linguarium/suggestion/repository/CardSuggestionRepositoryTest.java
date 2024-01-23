@@ -2,6 +2,7 @@ package com.linguarium.suggestion.repository;
 
 import com.linguarium.card.model.Card;
 import com.linguarium.suggestion.model.CardSuggestion;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,18 +30,22 @@ public class CardSuggestionRepositoryTest {
     @Autowired
     private CardSuggestionRepository cardSuggestionRepository;
 
-    private User sender;
-    private User recipient;
+    private Learner sender;
+    private Learner recipient;
     private Card card;
 
     @BeforeEach
     public void setUp() {
-        sender = TestDataGenerator.buildTestUser();
-        recipient = TestDataGenerator.buildAnotherTestUser();
+        User senderUser = TestDataGenerator.buildTestUser();
+        User recipientUser = TestDataGenerator.buildAnotherTestUser();
         card = TestDataGenerator.buildTestCard();
 
         entityManager.persist(sender);
         entityManager.persist(recipient);
+
+        sender = senderUser.getLearner();
+        recipient = recipientUser.getLearner();
+
         entityManager.persist(card);
         entityManager.flush();
     }

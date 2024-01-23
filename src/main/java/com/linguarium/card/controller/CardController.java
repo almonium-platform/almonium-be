@@ -24,7 +24,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardController {
     CardService cardService;
-    CardSuggestionService cardSuggestionService;
 
     @PostMapping
     public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser LocalUser userDetails) {
@@ -46,11 +45,6 @@ public class CardController {
     @GetMapping("/lang/{code}")
     public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser LocalUser user) {
         return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getUser().getLearner()));
-    }
-
-    @GetMapping("/suggested")
-    public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(user.getUser()));
     }
 
     @GetMapping("/{id}")
