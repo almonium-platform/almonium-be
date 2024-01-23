@@ -1,6 +1,6 @@
 export class AppConstants {
 
-  private static API_BASE_URL = 'http://localhost:9998/';
+  private static API_BASE_URL = 'http://localhost:9998';
 
   public static API_URL = AppConstants.API_BASE_URL + 'api';
   public static AUTH_API = AppConstants.API_URL + '/auth';
