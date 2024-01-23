@@ -50,14 +50,6 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        OAuth2AccessTokenResponseHttpMessageConverter tokenResponseHttpMessageConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
-        tokenResponseHttpMessageConverter.setAccessTokenResponseConverter(new OAuth2AccessTokenResponseConverterWithDefaults());
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(tokenResponseHttpMessageConverter);
-
-        DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
-        accessTokenResponseClient.setRestOperations(restTemplate);
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -70,7 +62,6 @@ public class WebSecurityConfig {
                                 .oidcUserService(customOidcUserService)
                                 .userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .tokenEndpoint(t -> t.accessTokenResponseClient(accessTokenResponseClient))
                         .failureHandler(oAuth2AuthenticationFailureHandler)
                 )
                 .build();
