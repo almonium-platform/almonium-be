@@ -14,10 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
-import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -62,6 +59,9 @@ public class WebSecurityConfig {
                                 .oidcUserService(customOidcUserService)
                                 .userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
+                        .authorizationEndpoint(
+                                authEndPoint -> authEndPoint.authorizationRequestRepository(
+                                        new HttpCookieOAuth2AuthorizationRequestRepository()))
                         .failureHandler(oAuth2AuthenticationFailureHandler)
                 )
                 .build();
