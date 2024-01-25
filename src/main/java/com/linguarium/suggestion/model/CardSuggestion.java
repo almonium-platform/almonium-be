@@ -1,13 +1,14 @@
 package com.linguarium.suggestion.model;
 
 import com.linguarium.card.model.Card;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,17 +36,17 @@ public class CardSuggestion {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "sender_id", referencedColumnName = "id", updatable = false)
-    User sender;
+    Learner sender;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id", updatable = false)
-    User recipient;
+    Learner recipient;
 
     @Column(columnDefinition = "TIMESTAMP")
     LocalDateTime created;
 
-    public CardSuggestion(User sender, User recipient, Card card) {
+    public CardSuggestion(Learner sender, Learner recipient, Card card) {
         this.sender = sender;
         this.recipient = recipient;
         this.card = card;

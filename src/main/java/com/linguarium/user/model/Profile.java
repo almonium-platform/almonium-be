@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -43,12 +43,4 @@ public class Profile {
 
     @Column
     Language uiLang = Language.EN;
-
-    @OneToMany(mappedBy = "requestee")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    Set<Friendship> incomingFriendships;
-
-    @OneToMany(mappedBy = "requester")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    Set<Friendship> outgoingFriendships;
 }

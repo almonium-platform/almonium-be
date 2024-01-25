@@ -104,6 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToProvider(url: string): void {
+    console.log("WOW");
     window.location.href = url;
   }
 }

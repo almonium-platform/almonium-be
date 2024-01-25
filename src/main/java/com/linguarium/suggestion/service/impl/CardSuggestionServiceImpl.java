@@ -12,7 +12,8 @@ import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.suggestion.service.CardSuggestionService;
-import com.linguarium.user.model.User;
+import com.linguarium.user.model.Learner;
+import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -35,14 +36,14 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     CardSuggestionRepository cardSuggestionRepository;
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
-    UserRepository userRepository;
+    LearnerRepository learnerRepository;
     CardMapper cardMapper;
 
     @Transactional
-    public void cloneCard(Card entity, User user) {
+    public void cloneCard(Card entity, Learner user) {
         Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
 
-        user.getLearner().addCard(card);
+        user.addCard(card);
 
         List<Example> examples = card.getExamples();
         examples.forEach(e -> e.setCard(card));
@@ -52,13 +53,13 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         cardRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
-        userRepository.save(user);
+        learnerRepository.save(user);
         log.info("Cloned card {} for user {}", card, user);
     }
 
     @Override
     @Transactional
-    public List<CardDto> getSuggestedCards(User user) {
+    public List<CardDto> getSuggestedCards(Learner user) {
         return cardSuggestionRepository.getByRecipient(user)
                 .stream()
                 .map(sug -> {
@@ -72,9 +73,9 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     @SneakyThrows
     @Override
     @Transactional
-    public void declineSuggestion(Long id, User actionExecutor) {
-        CardSuggestion cardSuggestion = cardSuggestionRepository.getById(id);
-        User recipient = cardSuggestion.getRecipient();
+    public void declineSuggestion(Long id, Learner actionExecutor) {
+        CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
+        Learner recipient = cardSuggestion.getRecipient();
         if (!recipient.equals(actionExecutor)) {
             throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
         }
@@ -84,9 +85,9 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     @SneakyThrows
     @Override
     @Transactional
-    public void acceptSuggestion(Long id, User actionExecutor) {
-        CardSuggestion cardSuggestion = cardSuggestionRepository.getById(id);
-        User recipient = cardSuggestion.getRecipient();
+    public void acceptSuggestion(Long id, Learner actionExecutor) {
+        CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
+        Learner recipient = cardSuggestion.getRecipient();
         if (!recipient.equals(actionExecutor)) {
             throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
         }
@@ -96,9 +97,9 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     }
 
     @Override
-    public boolean suggestCard(CardSuggestionDto dto, User sender) {
-        Card card = cardRepository.getById(dto.getCardId());
-        User recipient = userRepository.getById(dto.getRecipientId());
+    public boolean suggestCard(CardSuggestionDto dto, Learner sender) {
+        Card card = cardRepository.findById(dto.getCardId()).orElseThrow();
+        Learner recipient = learnerRepository.findById(dto.getRecipientId()).orElseThrow();
         //TODO  notifications
         //TODO check if has access
         if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) != null) {

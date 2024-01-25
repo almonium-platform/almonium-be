@@ -1,12 +1,16 @@
 package com.linguarium.user.model;
 
+import com.linguarium.friendship.model.Friendship;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @NamedEntityGraph(
         name = "graph.User.details",
@@ -60,4 +64,12 @@ public class User implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Learner learner;
+
+    @OneToMany(mappedBy = "requestee")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Set<Friendship> incomingFriendships;
+
+    @OneToMany(mappedBy = "requester")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Set<Friendship> outgoingFriendships;
 }

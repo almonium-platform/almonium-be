@@ -11,33 +11,33 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OAuth2AccessTokenResponseConverterWithDefaults implements Converter<Map<String, String>, OAuth2AccessTokenResponse> {
+public class OAuth2AccessTokenResponseConverterWithDefaults implements Converter<Map<String, Object>, OAuth2AccessTokenResponse> {
 	private static final Set<String> TOKEN_RESPONSE_PARAMETER_NAMES = Stream
 			.of(OAuth2ParameterNames.ACCESS_TOKEN, OAuth2ParameterNames.TOKEN_TYPE, OAuth2ParameterNames.EXPIRES_IN, OAuth2ParameterNames.REFRESH_TOKEN, OAuth2ParameterNames.SCOPE)
 			.collect(Collectors.toSet());
 
-	private OAuth2AccessToken.TokenType defaultAccessTokenType = OAuth2AccessToken.TokenType.BEARER;
+	private final OAuth2AccessToken.TokenType defaultAccessTokenType = OAuth2AccessToken.TokenType.BEARER;
 
 	@Override
-	public OAuth2AccessTokenResponse convert(Map<String, String> tokenResponseParameters) {
-		String accessToken = tokenResponseParameters.get(OAuth2ParameterNames.ACCESS_TOKEN);
+	public OAuth2AccessTokenResponse convert(Map<String, Object> tokenResponseParameters) {
+		String accessToken = (String) tokenResponseParameters.get(OAuth2ParameterNames.ACCESS_TOKEN);
 
 		OAuth2AccessToken.TokenType accessTokenType = this.defaultAccessTokenType;
-		if (OAuth2AccessToken.TokenType.BEARER.getValue().equalsIgnoreCase(tokenResponseParameters.get(OAuth2ParameterNames.TOKEN_TYPE))) {
+		if (OAuth2AccessToken.TokenType.BEARER.getValue().equalsIgnoreCase((String) tokenResponseParameters.get(OAuth2ParameterNames.TOKEN_TYPE))) {
 			accessTokenType = OAuth2AccessToken.TokenType.BEARER;
 		}
 
 		long expiresIn = 0;
 		if (tokenResponseParameters.containsKey(OAuth2ParameterNames.EXPIRES_IN)) {
 			try {
-				expiresIn = Long.valueOf(tokenResponseParameters.get(OAuth2ParameterNames.EXPIRES_IN));
-			} catch (NumberFormatException ex) {
+				expiresIn = Long.parseLong((String) tokenResponseParameters.get(OAuth2ParameterNames.EXPIRES_IN));
+			} catch (NumberFormatException ignored) {
 			}
 		}
 
 		Set<String> scopes = Collections.emptySet();
 		if (tokenResponseParameters.containsKey(OAuth2ParameterNames.SCOPE)) {
-			String scope = tokenResponseParameters.get(OAuth2ParameterNames.SCOPE);
+			String scope = (String) tokenResponseParameters.get(OAuth2ParameterNames.SCOPE);
 			scopes = Arrays.stream(StringUtils.delimitedListToStringArray(scope, " ")).collect(Collectors.toSet());
 		}
 
@@ -46,10 +46,5 @@ public class OAuth2AccessTokenResponseConverterWithDefaults implements Converter
 				.forEach(e -> additionalParameters.put(e.getKey(), e.getValue()));
 
 		return OAuth2AccessTokenResponse.withToken(accessToken).tokenType(accessTokenType).expiresIn(expiresIn).scopes(scopes).additionalParameters(additionalParameters).build();
-	}
-
-	public final void setDefaultAccessTokenType(OAuth2AccessToken.TokenType defaultAccessTokenType) {
-		Assert.notNull(defaultAccessTokenType, "defaultAccessTokenType cannot be null");
-		this.defaultAccessTokenType = defaultAccessTokenType;
 	}
 }
