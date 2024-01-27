@@ -153,9 +153,9 @@ public final class TestDataGenerator {
     }
 
     public static LocalUser createLocalUser() {
-        User user = new User();
-        user.setLearner(new Learner());
-        return new LocalUser("user@example.com", "password", user);
+        User user = buildTestUserWithId();
+        user.setLearner(Learner.builder().id(user.getId()).build());
+        return new LocalUser(user.getEmail(), user.getPassword(), user);
     }
 
     public static WordsReportDto createEmptyWordsReportDto() {
@@ -174,6 +174,17 @@ public final class TestDataGenerator {
 
     public static User buildTestUser() {
         User user = new User();
+        user.setUsername("john");
+        user.setEmail("john@email.com");
+        user.setPassword("password");
+        user.setProvider("local");
+        user.setRegistered(LocalDateTime.now());
+        return user;
+    }
+
+    public static User buildTestUserWithId() {
+        User user = new User();
+        user.setId(1L);
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");

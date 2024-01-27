@@ -24,6 +24,7 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.translator.repository.LangPairTranslatorRepository;
 import com.linguarium.translator.repository.TranslatorRepository;
 import com.linguarium.translator.service.TranslationService;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -219,13 +220,13 @@ public class LanguageProcessorImpl implements LanguageProcessor {
     }
 
     @Override
-    public AnalysisDto getReport(String entry, String languageCode, User user) {
+    public AnalysisDto getReport(String entry, String languageCode, Learner learner) {
         AnalysisDto analysisDto = new AnalysisDto();
         List<String> lemmas = coreNLPServiceImpl.lemmatize(entry);
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
         Language sourceLang = Language.valueOf(languageCode);
-        Language fluentLanguage = Language.valueOf(user.getLearner().getFluentLangs().iterator().next());
+        Language fluentLanguage = Language.valueOf(learner.getFluentLangs().iterator().next());
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));

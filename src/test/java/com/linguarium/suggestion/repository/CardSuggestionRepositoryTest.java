@@ -40,8 +40,8 @@ public class CardSuggestionRepositoryTest {
         User recipientUser = TestDataGenerator.buildAnotherTestUser();
         card = TestDataGenerator.buildTestCard();
 
-        entityManager.persist(sender);
-        entityManager.persist(recipient);
+        entityManager.persist(senderUser);
+        entityManager.persist(recipientUser);
 
         sender = senderUser.getLearner();
         recipient = recipientUser.getLearner();

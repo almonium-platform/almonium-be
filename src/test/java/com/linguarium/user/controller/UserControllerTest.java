@@ -1,14 +1,8 @@
 package com.linguarium.user.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linguarium.BaseControllerTest;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.configuration.security.PasswordEncoder;
-import com.linguarium.configuration.security.jwt.TokenProvider;
-import com.linguarium.configuration.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.configuration.security.oauth2.CustomOidcUserService;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.dto.LanguageUpdateRequest;
 import com.linguarium.user.dto.UsernameAvailability;
@@ -16,18 +10,17 @@ import com.linguarium.user.dto.UsernameUpdateRequest;
 import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
-import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
@@ -37,14 +30,14 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-class UserControllerTest {
+@AutoConfigureMockMvc(addFilters = false)
+class UserControllerTest extends BaseControllerTest {
     static final String BASE_URL = "/api/users";
     static final String ME_URL = BASE_URL + "/me";
     static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
@@ -53,63 +46,32 @@ class UserControllerTest {
     static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-languages";
     static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-languages";
 
-    @Autowired
-    MockMvc mockMvc;
-
     @MockBean
     UserService userService;
 
     @MockBean
     LearnerService learnerService;
 
-    @MockBean
-    LocalUserDetailServiceImpl localUserDetailsService;
+    LocalUser principal;
 
-    @MockBean
-    TokenProvider tokenProvider;
-
-    @MockBean
-    CustomOAuth2UserService customOAuth2UserService;
-
-    @MockBean
-    CustomOidcUserService customOidcUserService;
-
-    @MockBean
-    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
-    @MockBean
-    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-    @MockBean
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @MockBean
-    LocalUser localUser;
-
-    @MockBean
     User user;
-
-    UserInfo testUserInfo;
 
     @BeforeEach
     void setUp() {
-        when(localUser.getUser()).thenReturn(user);
+        principal = TestDataGenerator.createLocalUser();
+        user = principal.getUser();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 
     @DisplayName("Should return current user info when requested by authenticated user")
     @Test
     void givenAuthenticatedUser_whenGetCurrentUser_thenReturnUserInfo() throws Exception {
-        testUserInfo = createTestUserInfo();
-        LocalUser localUser = TestDataGenerator.createLocalUser();
+        UserInfo testUserInfo = createTestUserInfo();
 
         when(userService.buildUserInfo(any(User.class))).thenReturn(testUserInfo);
 
         mockMvc.perform(MockMvcRequestBuilders.get(ME_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
     }
@@ -117,7 +79,7 @@ class UserControllerTest {
     @DisplayName("Should verify username availability")
     @Test
     void givenUsername_whenCheckUsernameAvailability_thenRespondWithAvailabilityStatus() throws Exception {
-        String username = "testuser";
+        String username = principal.getUsername();
         boolean isAvailable = true;
         UsernameAvailability usernameAvailability = new UsernameAvailability(isAvailable);
 
@@ -138,8 +100,7 @@ class UserControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_USERNAME_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
         verify(userService).changeUsername(request.getNewUsername(), user.getId());
@@ -149,8 +110,7 @@ class UserControllerTest {
     @Test
     void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(DELETE_CURRENT_USER_ACCOUNT_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         verify(userService).deleteAccount(user);
@@ -163,8 +123,7 @@ class UserControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_TARGET_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
         verify(learnerService).updateTargetLanguages(request.getLangCodes(), user.getLearner());
@@ -178,7 +137,6 @@ class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser)))
                 )
                 .andExpect(status().isNoContent());
 

@@ -6,7 +6,6 @@ import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
-import com.linguarium.suggestion.service.CardSuggestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

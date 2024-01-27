@@ -1,30 +1,22 @@
 package com.linguarium.friendship.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linguarium.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.configuration.security.PasswordEncoder;
-import com.linguarium.configuration.security.jwt.TokenProvider;
-import com.linguarium.configuration.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.configuration.security.oauth2.CustomOidcUserService;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.linguarium.friendship.dto.FriendInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
-import com.linguarium.user.model.User;
-import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(FriendController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-class FriendControllerTest {
+@AutoConfigureMockMvc(addFilters = false)
+class FriendControllerTest extends BaseControllerTest {
     static final String BASE_URL = "/api/friends";
     static final String FRIEND_URL = BASE_URL;
 
@@ -47,45 +40,15 @@ class FriendControllerTest {
     static final String SEARCH_FRIENDS_BY_EMAIL_URL = FRIEND_URL + "/search";
     static final String MANAGE_FRIENDSHIP_URL = FRIEND_URL + "/friendships";
 
-    @Autowired
-    MockMvc mockMvc;
-
     @MockBean
     FriendshipService friendshipService;
 
-    @MockBean
-    LocalUserDetailServiceImpl localUserDetailsService;
-
-    @MockBean
-    TokenProvider tokenProvider;
-
-    @MockBean
-    CustomOAuth2UserService customOAuth2UserService;
-
-    @MockBean
-    CustomOidcUserService customOidcUserService;
-
-    @MockBean
-    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
-    @MockBean
-    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-    @MockBean
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @MockBean
-    LocalUser localUser;
-
-    @MockBean
-    User user;
+    LocalUser principal;
 
     @BeforeEach
     void setUp() {
-        when(localUser.getUser()).thenReturn(user);
+        principal = TestDataGenerator.createLocalUser();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 
     @DisplayName("Should retrieve current user's friends")
@@ -96,7 +59,7 @@ class FriendControllerTest {
         when(friendshipService.getFriends(anyLong())).thenReturn(friendsList);
 
         mockMvc.perform(get(GET_MY_FRIENDS_URL)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendsList)));
     }
@@ -104,13 +67,13 @@ class FriendControllerTest {
     @DisplayName("Should find friend by email")
     @Test
     void givenEmail_whenSearchFriendsByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() throws Exception {
-        String email = "test@example.com";
+        String email = "testEmail";
         FriendInfoDto friendInfo = TestDataGenerator.generateFriendInfoDto();
         when(friendshipService.findFriendByEmail(email)).thenReturn(Optional.of(friendInfo));
 
         mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL)
                         .param("email", email)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendInfo)));
     }
@@ -124,8 +87,7 @@ class FriendControllerTest {
 
         mockMvc.perform(post(MANAGE_FRIENDSHIP_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto))
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendship)));
     }

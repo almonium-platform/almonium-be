@@ -40,7 +40,7 @@ public class CardSuggestionController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/suggested")
+    @GetMapping
     public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser LocalUser user) {
         return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(user.getUser().getLearner()));
     }

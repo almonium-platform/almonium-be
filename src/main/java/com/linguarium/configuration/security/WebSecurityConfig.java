@@ -28,6 +28,7 @@ public class WebSecurityConfig {
     private final CustomOidcUserService customOidcUserService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -61,7 +62,7 @@ public class WebSecurityConfig {
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                         .authorizationEndpoint(
                                 authEndPoint -> authEndPoint.authorizationRequestRepository(
-                                        new HttpCookieOAuth2AuthorizationRequestRepository()))
+                                        authorizationRequestRepository))
                         .failureHandler(oAuth2AuthenticationFailureHandler)
                 )
                 .build();
