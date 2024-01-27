@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -30,15 +31,14 @@ public class WebSecurityConfig {
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     private final HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
 
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(
-            UserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
+    public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder);
@@ -55,16 +55,14 @@ public class WebSecurityConfig {
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .oauth2Login(f -> f
-                        .userInfoEndpoint(i -> i
+                .oauth2Login(loginConfigurer -> loginConfigurer
+                        .userInfoEndpoint(endpointConfig -> endpointConfig
                                 .oidcUserService(customOidcUserService)
                                 .userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .authorizationEndpoint(
-                                authEndPoint -> authEndPoint.authorizationRequestRepository(
-                                        authorizationRequestRepository))
-                        .failureHandler(oAuth2AuthenticationFailureHandler)
-                )
-                .build();
+                        .authorizationEndpoint(authEndPoint
+                                -> authEndPoint.authorizationRequestRepository(
+                                authorizationRequestRepository))
+                        .failureHandler(oAuth2AuthenticationFailureHandler)).build();
     }
 }

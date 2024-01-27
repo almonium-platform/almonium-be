@@ -19,13 +19,11 @@ public class AuthenticationProperties {
     @Getter
     public static class Auth {
         private String tokenSecret;
-        private long tokenExpirationMsec;
-
+        private long tokenExpirationMSec;
     }
 
     @Getter
     public static final class OAuth2 {
         private final List<String> authorizedRedirectUris = new ArrayList<>();
-
     }
 }

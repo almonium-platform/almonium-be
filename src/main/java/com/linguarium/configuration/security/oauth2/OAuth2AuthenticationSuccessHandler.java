@@ -22,11 +22,8 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
     private final TokenProvider tokenProvider;
-
     private final AuthenticationProperties authenticationProperties;
-
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Autowired

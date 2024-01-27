@@ -43,9 +43,7 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
-
     UserRepository userRepository;
-    LearnerRepository learnerRepository;
     PasswordEncoder passwordEncoder;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;

@@ -22,7 +22,7 @@ public class TokenProvider {
 		LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
 
 		Date now = new Date();
-		Date expiryDate = new Date(now.getTime() + authenticationProperties.getAuth().getTokenExpirationMsec());
+		Date expiryDate = new Date(now.getTime() + authenticationProperties.getAuth().getTokenExpirationMSec());
 
 		return Jwts.builder().setSubject(Long.toString(userPrincipal.getUser().getId())).setIssuedAt(new Date()).setExpiration(expiryDate)
 				.signWith(SignatureAlgorithm.HS512, authenticationProperties.getAuth().getTokenSecret()).compact();
