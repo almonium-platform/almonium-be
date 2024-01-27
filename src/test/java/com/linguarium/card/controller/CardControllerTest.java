@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class CardControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/api/cards";
+    static final String BASE_URL = "/cards";
     static final String ID_PLACEHOLDER = "/{id}";
 
     static final String CREATE_CARD_URL = BASE_URL;

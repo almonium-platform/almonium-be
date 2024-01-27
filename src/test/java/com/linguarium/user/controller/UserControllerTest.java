@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/api/users";
+    static final String BASE_URL = "/users";
     static final String ME_URL = BASE_URL + "/me";
     static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
     static final String UPDATE_USERNAME_URL = ME_URL + "/username";

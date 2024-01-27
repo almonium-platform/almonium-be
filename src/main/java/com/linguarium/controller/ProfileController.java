@@ -13,7 +13,7 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("/api/all")
+@RequestMapping("/all")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProfileController {
     Environment environment;

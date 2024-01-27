@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 class CardSuggestionControllerTest extends BaseControllerTest {
 
-    static final String BASE_URL = "/api/cards/suggestions";
+    static final String BASE_URL = "/cards/suggestions";
     static final String ACCEPT_CARD_URL = BASE_URL + "/{id}/accept";
     static final String DECLINE_CARD_URL = BASE_URL + "/{id}/decline";
 

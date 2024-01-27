@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LangControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/api/lang/";
+    static final String BASE_URL = "/lang/";
 
     static final String TRANSLATE_URL = BASE_URL + "translate/{langFrom}/{langTo}/{text}";
     static final String REPORT_URL = BASE_URL + "words/{text}/{lang}/report";

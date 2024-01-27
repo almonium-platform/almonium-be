@@ -28,7 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthController {
     AuthenticationManager authenticationManager;

@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class FriendControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/api/friends";
+    static final String BASE_URL = "/friends";
     static final String FRIEND_URL = BASE_URL;
 
     static final String GET_MY_FRIENDS_URL = FRIEND_URL;

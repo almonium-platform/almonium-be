@@ -15,7 +15,7 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("/api/home")
+@RequestMapping("/home")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class HomeController {
     CardService cardService;
