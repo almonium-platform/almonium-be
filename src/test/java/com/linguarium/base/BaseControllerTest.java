@@ -1,4 +1,4 @@
-package com.linguarium;
+package com.linguarium.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linguarium.configuration.security.jwt.TokenProvider;

@@ -1,7 +1,7 @@
 package com.linguarium.analyzer.controller;
 
 import com.google.protobuf.ByteString;
-import com.linguarium.BaseControllerTest;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.service.impl.LanguageProcessor;
 import com.linguarium.auth.model.LocalUser;

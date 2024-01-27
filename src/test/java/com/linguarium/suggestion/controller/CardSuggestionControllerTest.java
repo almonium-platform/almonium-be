@@ -1,6 +1,6 @@
 package com.linguarium.suggestion.controller;
 
-import com.linguarium.BaseControllerTest;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;

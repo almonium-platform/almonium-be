@@ -1,6 +1,6 @@
 package com.linguarium.friendship.controller;
 
-import com.linguarium.BaseControllerTest;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.friendship.dto.FriendInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;

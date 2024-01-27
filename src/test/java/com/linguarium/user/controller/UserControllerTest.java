@@ -1,6 +1,6 @@
 package com.linguarium.user.controller;
 
-import com.linguarium.BaseControllerTest;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.translator.model.Language;

@@ -1,6 +1,6 @@
 package com.linguarium.card.controller;
 
-import com.linguarium.BaseControllerTest;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardUpdateDto;
