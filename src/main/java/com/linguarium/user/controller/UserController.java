@@ -12,7 +12,13 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
@@ -34,8 +40,9 @@ public class UserController {
     }
 
     @PutMapping("/me/username")
-    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @CurrentUser LocalUser user) {
-        userService.changeUsername(request.getNewUsername(), user.getUser().getId());
+    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request,
+                                               @CurrentUser LocalUser user) {
+        userService.changeUsername(request.newUsername(), user.getUser().getId());
         return ResponseEntity.noContent().build();
     }
 
@@ -46,14 +53,16 @@ public class UserController {
     }
 
     @PutMapping("/me/target-languages")
-    public ResponseEntity<Void> updateTargetLanguages(@RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
-        learnerService.updateTargetLanguages(request.getLangCodes(), user.getUser().getLearner());
+    public ResponseEntity<Void> updateTargetLanguages(@RequestBody LanguageUpdateRequest request,
+                                                      @CurrentUser LocalUser user) {
+        learnerService.updateTargetLanguages(request.langCodes(), user.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/fluent-languages")
-    public ResponseEntity<Void> updateFluentLanguages(@RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
-        learnerService.updateFluentLanguages(request.getLangCodes(), user.getUser().getLearner());
+    public ResponseEntity<Void> updateFluentLanguages(@RequestBody LanguageUpdateRequest request,
+                                                      @CurrentUser LocalUser user) {
+        learnerService.updateFluentLanguages(request.langCodes(), user.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 }

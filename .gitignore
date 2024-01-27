@@ -31,7 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/secrets.properties
-/src/main/resources/secrets-dev.properties
+/src/main/resources/dev-secrets.yaml
 /src/main/java/com.linguatool/testing
 package-lock.json

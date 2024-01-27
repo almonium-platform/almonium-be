@@ -1,13 +1,21 @@
 package com.linguarium.card.model;
 
 import com.linguarium.user.model.Learner;
-import lombok.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import jakarta.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -15,10 +23,12 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CardTag {
 
     @EmbeddedId
+    @Builder.Default
     CardTagPK id = new CardTagPK();
 
     @ManyToOne
@@ -35,19 +45,4 @@ public class CardTag {
     @JoinColumn(name = "learner_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Learner learner;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CardTag cardTag = (CardTag) o;
-
-        return Objects.equals(id, cardTag.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 }

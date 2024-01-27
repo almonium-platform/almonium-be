@@ -1,9 +1,23 @@
 package com.linguarium.card.service.impl;
 
-import com.linguarium.card.dto.*;
+import com.linguarium.card.dto.CardCreationDto;
+import com.linguarium.card.dto.CardDto;
+import com.linguarium.card.dto.CardUpdateDto;
+import com.linguarium.card.dto.ExampleDto;
+import com.linguarium.card.dto.TagDto;
+import com.linguarium.card.dto.TranslationDto;
 import com.linguarium.card.mapper.CardMapper;
-import com.linguarium.card.model.*;
-import com.linguarium.card.repository.*;
+import com.linguarium.card.model.Card;
+import com.linguarium.card.model.CardTag;
+import com.linguarium.card.model.CardTagPK;
+import com.linguarium.card.model.Example;
+import com.linguarium.card.model.Tag;
+import com.linguarium.card.model.Translation;
+import com.linguarium.card.repository.CardRepository;
+import com.linguarium.card.repository.CardTagRepository;
+import com.linguarium.card.repository.ExampleRepository;
+import com.linguarium.card.repository.TagRepository;
+import com.linguarium.card.repository.TranslationRepository;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
@@ -17,7 +31,15 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +47,12 @@ import static org.assertj.core.api.Assertions.within;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class CardServiceTest {
     @Mock
@@ -86,7 +113,7 @@ class CardServiceTest {
                 .id(1L)
                 .build();
 
-        when(cardRepository.getById(id)).thenReturn(card);
+        when(cardRepository.findById(id)).thenReturn(Optional.of(card));
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
 
         // Act
@@ -171,8 +198,8 @@ class CardServiceTest {
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
-                .ex_del(ex_del)
-                .tr_del(new int[]{})
+                .deletedExamplesIds(ex_del)
+                .deletedTranslationsIds(new int[]{})
                 .tags(new TagDto[]{})
                 .translations(new TranslationDto[]{})
                 .examples(new ExampleDto[]{})
@@ -190,7 +217,7 @@ class CardServiceTest {
                 .examples(examples)
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -211,8 +238,8 @@ class CardServiceTest {
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
-                .tr_del(tr_del)
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(tr_del)
+                .deletedExamplesIds(new int[]{})
                 .tags(new TagDto[]{})
                 .translations(new TranslationDto[]{})
                 .examples(new ExampleDto[]{})
@@ -230,7 +257,7 @@ class CardServiceTest {
                 .translations(translations)
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -258,8 +285,8 @@ class CardServiceTest {
                 .translations(updatedTranslations)
                 .examples(new ExampleDto[]{})
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
@@ -273,15 +300,15 @@ class CardServiceTest {
                 .translations(originalTranslations)
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Mocking translation retrieval
         for (TranslationDto translationDto : updatedTranslations) {
-            when(translationRepository.getById(translationDto.getId())).thenReturn(
-                    Translation.builder()
+            when(translationRepository.findById(translationDto.getId())).thenReturn(
+                    Optional.of(Translation.builder()
                             .id(translationDto.getId())
                             .translation(translationDto.getTranslation())
-                            .build());
+                            .build()));
         }
 
         // Act
@@ -312,8 +339,8 @@ class CardServiceTest {
                 .translations(new TranslationDto[]{})
                 .examples(updatedExamples)
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
@@ -327,16 +354,16 @@ class CardServiceTest {
                 .examples(originalExamples)
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Mocking example retrieval
         for (ExampleDto exampleDto : updatedExamples) {
-            when(exampleRepository.getById(exampleDto.getId())).thenReturn(
+            when(exampleRepository.findById(exampleDto.getId())).thenReturn(Optional.of(
                     Example.builder()
                             .id(exampleDto.getId())
                             .example(exampleDto.getExample())
                             .translation(exampleDto.getTranslation())
-                            .build());
+                            .build()));
         }
 
         // Act
@@ -368,8 +395,8 @@ class CardServiceTest {
                 .translations(newTranslations)
                 .examples(new ExampleDto[]{})
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
@@ -378,7 +405,7 @@ class CardServiceTest {
                 .translations(new ArrayList<>())
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -408,8 +435,8 @@ class CardServiceTest {
                 .translations(new TranslationDto[]{})
                 .examples(newExamples)
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
@@ -418,7 +445,7 @@ class CardServiceTest {
                 .examples(new ArrayList<>())
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -443,14 +470,14 @@ class CardServiceTest {
                 .translations(new TranslationDto[]{})
                 .examples(new ExampleDto[]{})
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -470,14 +497,14 @@ class CardServiceTest {
                 .translations(new TranslationDto[]{})
                 .examples(new ExampleDto[]{})
                 .tags(new TagDto[]{})
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
 
         Learner user = new Learner();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
 
-        when(cardRepository.getById(cardId)).thenReturn(card);
+        when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, user);
@@ -616,8 +643,8 @@ class CardServiceTest {
                 .translations(new TranslationDto[]{})
                 .examples(new ExampleDto[]{})
                 .tags(Arrays.stream(tags).map(TagDto::new).toArray(TagDto[]::new))
-                .tr_del(new int[]{})
-                .ex_del(new int[]{})
+                .deletedTranslationsIds(new int[]{})
+                .deletedExamplesIds(new int[]{})
                 .build();
     }
 
@@ -633,7 +660,7 @@ class CardServiceTest {
     }
 
     private void mockCardTagRepository(Set<CardTag> existingCardTags) {
-        when(cardRepository.getById(anyLong())).thenReturn(existingCardTags.iterator().next().getCard());
+        when(cardRepository.findById(anyLong())).thenReturn(Optional.of(existingCardTags.iterator().next().getCard()));
         existingCardTags.forEach(
                 cardTag -> when(cardTagRepository.getByCardAndText(
                         eq(cardTag.getCard()),

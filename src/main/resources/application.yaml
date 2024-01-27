@@ -1,0 +1,38 @@
+# Main Configurations
+server:
+  port: 9998
+
+spring:
+  ### DATABASE CONFIG
+  jpa:
+    open-in-view: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    contexts: ${spring.profiles.active}
+  # OAuth Configurations
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 842714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com
+          facebook:
+            clientId: 1311434966049556
+        provider:
+          facebook:
+            user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
+  config:
+    import: optional:dev-secrets.yaml
+
+# Google Cloud Configurations
+google:
+  projectId: linguatool
+  parentLocation: global
+
+# Custom Configurations
+app:
+  auth:
+    tokenExpirationMSec: 864000000
+  oauth2:
+    authorizedRedirectUris: http://localhost:9999/oauth2/redirect

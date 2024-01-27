@@ -1,4 +1,4 @@
-package com.linguarium.client.free_dictionary.dto;
+package com.linguarium.client.freedictionary.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class FDDefinition {
-    String definition;
+public class FDMeaning {
+    String partOfSpeech;
     String[] synonyms;
     String[] antonyms;
+    FDDefinition[] definitions;
 }

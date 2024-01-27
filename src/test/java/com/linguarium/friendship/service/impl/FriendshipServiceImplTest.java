@@ -4,7 +4,11 @@ import com.linguarium.friendship.dto.FriendInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
-import com.linguarium.friendship.model.*;
+import com.linguarium.friendship.model.FriendInfoView;
+import com.linguarium.friendship.model.FriendWrapper;
+import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.FriendshipAction;
+import com.linguarium.friendship.model.FriendshipStatus;
 import com.linguarium.friendship.repository.FriendshipRepository;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
@@ -26,7 +30,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class FriendshipServiceImplTest {
@@ -150,7 +158,7 @@ public class FriendshipServiceImplTest {
     @Test
     @DisplayName("Should return empty list when user ID does not exist")
     void givenUserIdDoesNotExist_whenGetFriends_thenReturnEmptyList() {
-        Long userId = 1L;
+        long userId = 1L;
         when(friendshipRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
         Collection<FriendInfoDto> result = friendshipService.getFriends(userId);
@@ -212,7 +220,7 @@ public class FriendshipServiceImplTest {
         long requesterId = 1L;
         long requesteeId = 2L;
         User recipient = User.builder().profile(Profile.builder().friendshipRequestsBlocked(true).build()).build();
-        when(userRepository.getById(requesteeId)).thenReturn(recipient);
+        when(userRepository.findById(requesteeId)).thenReturn(Optional.of(recipient));
 
         FriendshipActionDto dto = FriendshipActionDto.builder()
                 .idInitiator(requesterId)
@@ -255,7 +263,7 @@ public class FriendshipServiceImplTest {
         FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.REQUEST);
 
         User mockUser = User.builder().profile(Profile.builder().build()).build();
-        when(userRepository.getById(requesteeId)).thenReturn(mockUser);
+        when(userRepository.findById(requesteeId)).thenReturn(Optional.of(mockUser));
 
         Friendship expectedFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(expectedFriendship);
@@ -291,10 +299,11 @@ public class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
+        when(userRepository.findById(actionAcceptorId)).thenReturn(
+                Optional.of(User.builder().id(actionAcceptorId).build()));
 
-        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class, () -> {
-            friendshipService.manageFriendship(dto);
-        });
+        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class,
+                () -> friendshipService.manageFriendship(dto));
 
         assertThat(String.format("Friendship between %s and %s already exists, status: %s",
                 actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()))
@@ -310,13 +319,13 @@ public class FriendshipServiceImplTest {
 
         Friendship existingFriendship = mock(Friendship.class);
         when(existingFriendship.whoDeniesFriendship()).thenReturn(actionAcceptorId);
-
+        when(userRepository.findById(actionAcceptorId)).thenReturn(
+                Optional.of(User.builder().id(actionAcceptorId).build()));
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
 
-        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class, () -> {
-            friendshipService.manageFriendship(dto);
-        });
+        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class,
+                () -> friendshipService.manageFriendship(dto));
 
         assertThat("User limited your ability to send requests!").isEqualTo(exception.getMessage());
     }

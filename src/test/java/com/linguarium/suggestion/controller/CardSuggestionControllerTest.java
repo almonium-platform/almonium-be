@@ -53,10 +53,7 @@ class CardSuggestionControllerTest extends BaseControllerTest {
     @DisplayName("Should suggest card")
     @Test
     void givenCardSuggestionDto_whenSuggestCard_thenCardSuggestionCreated() throws Exception {
-        CardSuggestionDto dto = CardSuggestionDto.builder()
-                .cardId(1L)
-                .recipientId(2L)
-                .build();
+        CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
 
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)

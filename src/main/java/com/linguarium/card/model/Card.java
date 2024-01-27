@@ -2,17 +2,32 @@ package com.linguarium.card.model;
 
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,6 +37,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Card implements Serializable {
 
@@ -31,6 +47,7 @@ public class Card implements Serializable {
     Long id;
 
     @Column(name = "public_id", nullable = false, unique = true)
+    @Builder.Default
     UUID publicId = UUID.randomUUID();
 
     @Column
@@ -46,6 +63,7 @@ public class Card implements Serializable {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     Learner owner;
 
+    @Builder.Default
     boolean activeLearning = true;
     boolean irregularSpelling;
     boolean falseFriend;
@@ -67,9 +85,10 @@ public class Card implements Serializable {
     @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
     Set<CardTag> cardTags;
-
     private String notes;
+    @Builder.Default
     private int iteration = 0;
+    @Builder.Default
     private int priority = 2;
     private int frequency;
 
@@ -77,20 +96,5 @@ public class Card implements Serializable {
         if (cardTag != null) {
             this.cardTags.remove(cardTag);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Card card = (Card) o;
-
-        return Objects.equals(id, card.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
     }
 }

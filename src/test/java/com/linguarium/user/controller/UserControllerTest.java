@@ -1,8 +1,8 @@
 package com.linguarium.user.controller;
 
-import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.dto.LanguageUpdateRequest;
 import com.linguarium.user.dto.UsernameAvailability;
@@ -103,7 +103,7 @@ class UserControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
-        verify(userService).changeUsername(request.getNewUsername(), user.getId());
+        verify(userService).changeUsername(request.newUsername(), user.getId());
     }
 
     @DisplayName("Should delete current user account")
@@ -126,7 +126,7 @@ class UserControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
-        verify(learnerService).updateTargetLanguages(request.getLangCodes(), user.getLearner());
+        verify(learnerService).updateTargetLanguages(request.langCodes(), user.getLearner());
     }
 
     @DisplayName("Should update fluent languages for current user")
@@ -140,7 +140,7 @@ class UserControllerTest extends BaseControllerTest {
                 )
                 .andExpect(status().isNoContent());
 
-        verify(learnerService).updateFluentLanguages(request.getLangCodes(), user.getLearner());
+        verify(learnerService).updateFluentLanguages(request.langCodes(), user.getLearner());
     }
 
     private UserInfo createTestUserInfo() {

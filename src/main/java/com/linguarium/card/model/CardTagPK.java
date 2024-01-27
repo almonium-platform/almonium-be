@@ -1,6 +1,5 @@
 package com.linguarium.card.model;
 
-
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

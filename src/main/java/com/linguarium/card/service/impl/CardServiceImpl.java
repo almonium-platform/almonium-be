@@ -6,8 +6,17 @@ import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.dto.TagDto;
 import com.linguarium.card.mapper.CardMapper;
-import com.linguarium.card.model.*;
-import com.linguarium.card.repository.*;
+import com.linguarium.card.model.Card;
+import com.linguarium.card.model.CardTag;
+import com.linguarium.card.model.CardTagPK;
+import com.linguarium.card.model.Example;
+import com.linguarium.card.model.Tag;
+import com.linguarium.card.model.Translation;
+import com.linguarium.card.repository.CardRepository;
+import com.linguarium.card.repository.CardTagRepository;
+import com.linguarium.card.repository.ExampleRepository;
+import com.linguarium.card.repository.TagRepository;
+import com.linguarium.card.repository.TranslationRepository;
 import com.linguarium.card.service.CardService;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
@@ -19,7 +28,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -40,7 +55,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public CardDto getCardById(Long id) {
-        return cardMapper.cardEntityToDto(cardRepository.getById(id));
+        return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
     }
 
     @Override
@@ -53,7 +68,11 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public List<CardDto> getUsersCards(Learner learner) {
-        return cardRepository.findAllByOwner(learner).stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+        return cardRepository
+                .findAllByOwner(learner)
+                .stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -68,7 +87,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public void updateCard(Long id, CardUpdateDto dto, Learner learner) {
-        Card entity = cardRepository.getById(dto.getId());
+        Card entity = cardRepository.findById(dto.getId()).orElseThrow();
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
         entity.setUpdated(LocalDateTime.now());
@@ -126,7 +145,11 @@ public class CardServiceImpl implements CardService {
                 });
     }
 
-    private void saveEntities(Card card, List<Translation> translations, List<Example> examples, List<CardTag> cardTags, Learner learner) {
+    private void saveEntities(Card card,
+                              List<Translation> translations,
+                              List<Example> examples,
+                              List<CardTag> cardTags,
+                              Learner learner) {
         cardRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
@@ -138,16 +161,16 @@ public class CardServiceImpl implements CardService {
         cardMapper.update(dto, entity);
 
         // Logic for deleting translations
-        Arrays.stream(dto.getTr_del()).forEach(id -> translationRepository.deleteById((long) id));
+        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(id -> translationRepository.deleteById((long) id));
 
         // Logic for deleting examples
-        Arrays.stream(dto.getEx_del()).forEach(id -> exampleRepository.deleteById((long) id));
+        Arrays.stream(dto.getDeletedExamplesIds()).forEach(id -> exampleRepository.deleteById((long) id));
 
         // Your existing logic for updating translations
         Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
             Long id = translationDto.getId();
             if (id != null) {
-                Translation translation = translationRepository.getById(id);
+                Translation translation = translationRepository.findById(id).orElseThrow();
                 translation.setTranslation(translationDto.getTranslation());
                 translationRepository.save(translation);
             } else {
@@ -162,7 +185,7 @@ public class CardServiceImpl implements CardService {
         Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
             Long id = exampleDto.getId();
             if (id != null) {
-                Example example = exampleRepository.getById(id);
+                Example example = exampleRepository.findById(id).orElseThrow();
                 example.setExample(exampleDto.getExample());
                 example.setTranslation(exampleDto.getTranslation());
                 exampleRepository.save(example);

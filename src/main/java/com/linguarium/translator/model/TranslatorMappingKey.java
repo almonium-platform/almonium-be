@@ -1,6 +1,10 @@
 package com.linguarium.translator.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -10,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TranslatorMappingKey implements Serializable {
-    Language sourceLang;
-    Language targetLang;
-    Long translatorId;
+    private Language sourceLang;
+    private Language targetLang;
+    private Long translatorId;
 }

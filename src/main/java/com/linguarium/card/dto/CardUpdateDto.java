@@ -29,8 +29,8 @@ public class CardUpdateDto {
     Integer iteration;
     Long userId;
     Integer priority;
-    int[] tr_del;
-    int[] ex_del;
+    int[] deletedTranslationsIds;
+    int[] deletedExamplesIds;
     LocalDateTime updated;
     Boolean activeLearning;
     Boolean falseFriend;

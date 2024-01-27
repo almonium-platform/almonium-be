@@ -1,15 +1,22 @@
 package com.linguarium.user.model;
 
-import com.linguarium.friendship.model.Friendship;
 import com.linguarium.translator.model.Language;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -28,10 +35,12 @@ public class Profile {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    User user;
 
     String background;
     String profilePicLink;
+
+    @Builder.Default
     int dailyGoal = 5;
     boolean friendshipRequestsBlocked;
 
@@ -39,8 +48,10 @@ public class Profile {
     LocalDateTime lastLogin;
 
     @Column
+    @Builder.Default
     int streak = 1;
 
     @Column
+    @Builder.Default
     Language uiLang = Language.EN;
 }

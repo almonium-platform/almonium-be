@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -34,7 +38,7 @@ public class OxfordClient extends AbstractClient {
     static String LANG_CODE = "/en-us";
 
     @Value("${external.api.key.oxford}")
-    String APIKEY_HEADER_VALUE;
+    private static String APIKEY_HEADER_VALUE;
 
     RestTemplate restTemplate;
 
@@ -44,7 +48,6 @@ public class OxfordClient extends AbstractClient {
         headers.set(APIKEY_HEADER_NAME, APIKEY_HEADER_VALUE);
 
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
 
         return restTemplate.exchange(
                 BASE_URL + ENTRIES + LANG_CODE + '/' + word,

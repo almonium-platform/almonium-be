@@ -12,7 +12,8 @@ public class OAuth2UserInfoFactory {
         } else if (registrationId.equalsIgnoreCase(SocialProvider.FACEBOOK.getProviderType())) {
             return new FacebookOAuth2UserInfo(attributes);
         } else {
-            throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
+            throw new OAuth2AuthenticationProcessingException("Sorry! Login with "
+                    + registrationId + " is not supported yet.");
         }
     }
 }

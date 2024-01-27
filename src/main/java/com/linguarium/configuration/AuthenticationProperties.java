@@ -1,7 +1,9 @@
 package com.linguarium.configuration;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +13,10 @@ import java.util.List;
 @Getter
 @Component
 @ConfigurationProperties(prefix = "app")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationProperties {
-    private final Auth auth = new Auth();
-    private final OAuth2 oauth2 = new OAuth2();
+    Auth auth = new Auth();
+    OAuth2 oauth2 = new OAuth2();
 
     @Setter
     @Getter

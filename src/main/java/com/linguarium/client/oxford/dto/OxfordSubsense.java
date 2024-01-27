@@ -16,5 +16,4 @@ import static lombok.AccessLevel.PRIVATE;
 public class OxfordSubsense {
     String[] definitions;
     String[] shortDefinitions;
-//    String[] examples;
 }

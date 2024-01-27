@@ -99,9 +99,12 @@ public class FriendshipServiceImpl implements FriendshipService {
 
     @SneakyThrows
     private Friendship createFriendshipRequest(long actionInitiatorId, long actionAcceptorId) {
-        User recipient = userRepository.getById(actionAcceptorId);
+        User recipient = userRepository.findById(actionAcceptorId).orElseThrow();
 
-        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
+        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(
+                actionInitiatorId,
+                actionAcceptorId);
+
         if (friendshipOptional.isPresent()) {
             Friendship existingFriendship = friendshipOptional.get();
 
@@ -109,9 +112,11 @@ public class FriendshipServiceImpl implements FriendshipService {
                 throw new FriendshipNotAllowedException("User limited your ability to send requests!");
             }
 
-            throw new FriendshipNotAllowedException(String.format("Friendship between %s and %s already exists, status: %s",
+            throw new FriendshipNotAllowedException(String.format(
+                    "Friendship between %s and %s already exists, status: %s",
                     actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()));
         }
+
         if (recipient.getProfile().isFriendshipRequestsBlocked()) {
             throw new FriendshipNotAllowedException("User doesn't accept friendship requests!");
         }

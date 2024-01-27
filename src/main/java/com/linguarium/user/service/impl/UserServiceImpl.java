@@ -14,10 +14,8 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
-import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.UserService;
-import com.linguarium.util.GeneralUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -81,11 +79,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(value = "transactionManager")
     public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistsAuthenticationException {
         if (signUpRequest.getUserID() != null && userRepository.existsById(signUpRequest.getUserID())) {
-            throw new UserAlreadyExistsAuthenticationException("User with id " + signUpRequest.getUserID() + " already exists");
+            throw new UserAlreadyExistsAuthenticationException("User with id "
+                    + signUpRequest.getUserID() + " already exists");
         } else if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            throw new UserAlreadyExistsAuthenticationException("User with email id " + signUpRequest.getEmail() + " already exists");
+            throw new UserAlreadyExistsAuthenticationException("User with email id "
+                    + signUpRequest.getEmail() + " already exists");
         } else if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            throw new UserAlreadyExistsAuthenticationException("User with username " + signUpRequest.getUsername() + " already exists");
+            throw new UserAlreadyExistsAuthenticationException("User with username "
+                    + signUpRequest.getUsername() + " already exists");
         }
         User user = buildUser(signUpRequest);
         LocalDateTime now = LocalDateTime.now();
@@ -108,7 +109,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
+    public LocalUser processUserRegistration(String registrationId,
+                                             Map<String, Object> attributes,
+                                             OidcIdToken idToken,
+                                             OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
         if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
@@ -119,18 +123,22 @@ public class UserServiceImpl implements UserService {
         SignUpRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
         User user = findUserByEmail(oAuth2UserInfo.getEmail());
         if (user != null) {
-            if (!user.getProvider().equals(registrationId) && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
+            if (!user.getProvider().equals(registrationId)
+                    && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
                 throw new OAuth2AuthenticationProcessingException(
-                        "Looks like you're signed up with " + user.getProvider() + " account. Please use your " + user.getProvider() + " account to login.");
+                        "Looks like you're signed up with "
+                                + user.getProvider()
+                                + " account. Please use your "
+                                + user.getProvider()
+                                + " account to login.");
             }
             user = updateExistingUser(user, oAuth2UserInfo);
         } else {
             user = registerNewUser(userDetails);
         }
 
-        return LocalUser.create(user, attributes, idToken, userInfo);
+        return new LocalUser(user, attributes, idToken, userInfo);
     }
-
 
     @Override
     @Transactional
@@ -139,7 +147,12 @@ public class UserServiceImpl implements UserService {
         Profile profile = user.getProfile();
 
         List<String> tags = cardTagRepository.getLearnersTags(user.getLearner())
-                .stream().map(tag -> tagRepository.getById(tag).getText()).collect(Collectors.toList());
+                .stream().map(tagId -> tagRepository
+                        .findById(tagId)
+                        .orElseThrow()
+                        .getText())
+                .collect(Collectors.toList());
+
         return new UserInfo(
                 user.getId().toString(),
                 user.getUsername(),
@@ -155,7 +168,6 @@ public class UserServiceImpl implements UserService {
 
                 tags);
     }
-
 
     private User buildUser(final SignUpRequest formDTO) {
         User user = new User();
@@ -173,7 +185,7 @@ public class UserServiceImpl implements UserService {
                 .providerUserId(oAuth2UserInfo.getId())
                 .email(oAuth2UserInfo.getEmail())
                 .profilePicLink(oAuth2UserInfo.getImageUrl())
-                .socialProvider(GeneralUtils.toSocialProvider(registrationId))
+                .socialProvider(SocialProvider.toSocialProvider(registrationId))
                 .password("changeit")
                 .build();
     }

@@ -1,7 +1,6 @@
 package com.linguarium.user.service.impl;
 
 import com.linguarium.translator.model.Language;
-import com.linguarium.user.dto.LangCodeDto;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;

@@ -6,7 +6,6 @@ import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class FriendshipStatusConverter implements AttributeConverter<FriendshipStatus, String> {
-
     @Override
     public String convertToDatabaseColumn(FriendshipStatus nodeType) {
         return nodeType.getCode();

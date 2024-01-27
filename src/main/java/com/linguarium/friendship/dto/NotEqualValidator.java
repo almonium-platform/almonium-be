@@ -4,9 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.beanutils.BeanUtils;
 
-
 public class NotEqualValidator implements ConstraintValidator<NotEqual, Object> {
-
     private String firstFieldName;
     private String secondFieldName;
 

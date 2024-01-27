@@ -1,6 +1,5 @@
 package com.linguarium.util;
 
-import com.linguarium.auth.dto.SocialProvider;
 import lombok.experimental.UtilityClass;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -9,7 +8,6 @@ import java.util.UUID;
 
 @UtilityClass
 public class GeneralUtils {
-
     public static String generateId() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
@@ -20,14 +18,5 @@ public class GeneralUtils {
             builder.queryParam(param, "{" + param + "}");
         }
         return builder.encode().toUriString();
-    }
-
-    public static SocialProvider toSocialProvider(String providerId) {
-        for (SocialProvider socialProvider : SocialProvider.values()) {
-            if (socialProvider.getProviderType().equals(providerId)) {
-                return socialProvider;
-            }
-        }
-        return SocialProvider.LOCAL;
     }
 }

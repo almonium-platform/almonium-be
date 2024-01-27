@@ -25,10 +25,7 @@ import com.linguarium.user.model.User;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public final class TestDataGenerator {
     private static final Random random = new Random();
@@ -155,7 +152,7 @@ public final class TestDataGenerator {
     public static LocalUser createLocalUser() {
         User user = buildTestUserWithId();
         user.setLearner(Learner.builder().id(user.getId()).build());
-        return new LocalUser(user.getEmail(), user.getPassword(), user);
+        return new LocalUser(user, Map.of(), null, null);
     }
 
     public static WordsReportDto createEmptyWordsReportDto() {
@@ -255,8 +252,8 @@ public final class TestDataGenerator {
         cardUpdateDto.setIteration(random.nextInt(10));
         cardUpdateDto.setUserId(random.nextLong());
         cardUpdateDto.setPriority(random.nextInt(5));
-        cardUpdateDto.setTr_del(generateRandomIntArray());
-        cardUpdateDto.setEx_del(generateRandomIntArray());
+        cardUpdateDto.setDeletedTranslationsIds(generateRandomIntArray());
+        cardUpdateDto.setDeletedExamplesIds(generateRandomIntArray());
         cardUpdateDto.setUpdated(LocalDateTime.now());
         cardUpdateDto.setActiveLearning(random.nextBoolean());
         cardUpdateDto.setFalseFriend(random.nextBoolean());

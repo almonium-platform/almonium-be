@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@NotEqual(firstField = "idInitiator", secondField = "idAcceptor", message = "idInitiator and idAcceptor must not be the same")
+@NotEqual(
+        firstField = "idInitiator",
+        secondField = "idAcceptor",
+        message = "idInitiator and idAcceptor must not be the same")
 public class FriendshipActionDto {
-    Long idInitiator;
-    Long idAcceptor;
-    FriendshipAction action;
+    private Long idInitiator;
+    private Long idAcceptor;
+    private FriendshipAction action;
 }

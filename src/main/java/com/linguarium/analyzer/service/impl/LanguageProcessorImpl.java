@@ -1,17 +1,13 @@
 package com.linguarium.analyzer.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.mapper.DictionaryDtoMapper;
 import com.linguarium.analyzer.model.POS;
 import com.linguarium.client.datamuse.DatamuseClient;
 import com.linguarium.client.datamuse.dto.DatamuseEntryDto;
-import com.linguarium.client.free_dictionary.FDClient;
 import com.linguarium.client.google.GoogleClient;
 import com.linguarium.client.google.dto.GoogleDto;
-import com.linguarium.client.oxford.OxfordClient;
-import com.linguarium.client.urban.UrbanClient;
 import com.linguarium.client.wordnik.WordnikClient;
 import com.linguarium.client.wordnik.dto.WordnikAudioDto;
 import com.linguarium.client.words.WordsClient;
@@ -25,7 +21,6 @@ import com.linguarium.translator.repository.LangPairTranslatorRepository;
 import com.linguarium.translator.repository.TranslatorRepository;
 import com.linguarium.translator.service.TranslationService;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -47,41 +42,28 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LanguageProcessorImpl implements LanguageProcessor {
+    private static final double LOW_BOUND = 1e-9;
+    private static final double OFFSET = 10;
+    private static final double SCALE = 1.153315895823627;
 
-    UrbanClient urbanClient;
     DatamuseClient datamuseClient;
     GoogleClient googleClient;
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
-    OxfordClient oxfordClient;
-    ObjectMapper objectMapper;
-    FDClient fdClient;
     CoreNLPServiceImpl coreNLPServiceImpl;
     TranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
     DictionaryDtoMapper dictionaryDtoMapper;
 
-    private static final double SCALE = 1.153315895823627;
-    private static final double OFFSET = 10;
-    private static final double LOW_BOUND = 1e-9;
-
-    public ResponseEntity<?> limitExceeded(String provider) {
-        return ResponseEntity.status(403).body(provider);
-    }
-//    public TranslationCardDto translate(String entry, String sourceLang, String targetLang) {
-//        return this.translate(entry, Language.fromString(sourceLang), Language.fromString(targetLang));
-//    }
-
     @Override
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
-
         //todo deepL
-        return MLTranslationCard.builder()
-                .provider(translatorRepository.getGoogle().getName())
-                .text(googleService.bulkTranslateText(text, targetLang.name()))
-                .build();
+        return new MLTranslationCard(
+                translatorRepository.getGoogle().getName(),
+                googleService.bulkTranslateText(text, targetLang.name())
+        );
     }
 
     @Override
@@ -108,7 +90,6 @@ public class LanguageProcessorImpl implements LanguageProcessor {
                     return card;
                 }
                 if (responseEntity.getStatusCode() == HttpStatus.FORBIDDEN) {
-//                    return limitExceeded(translatorRepository.getYandex().getName());
                     log.error("LIMIT EXCEEDED");
                     return null;
                 } else if (responseEntity.getStatusCode() == HttpStatus.NOT_IMPLEMENTED) {
@@ -116,7 +97,6 @@ public class LanguageProcessorImpl implements LanguageProcessor {
                     throw new Exception("Unexpectedly not supported lang pair in this provider");
                 } else if (responseEntity.getStatusCode().is4xxClientError()) {
                     log.error(responseEntity.getBody().toString());
-//                    return ResponseEntity.internalServerError().body(responseEntity.getBody());
                     return null;
                 } else {
                     return null;
@@ -124,30 +104,12 @@ public class LanguageProcessorImpl implements LanguageProcessor {
 
             } else {
                 log.error("Cannot recognize translator");
-//                return ResponseEntity.internalServerError().build();
                 return null;
             }
         } else {
             // TODO if multiple => which engines?
             return null;
         }
-    }
-
-    public void create(String word) {
-//        ResponseEntity<UrbanResponse> response = urbanClient.submit(word);
-//        ResponseEntity<WordnikFrequencyDto> response = wordnikClient.submit(word);
-//        ResponseEntity response = oxfordClient.submit(word);
-//        ResponseEntity<List<FDEntry>> response = fdClient.request(word);
-//        System.out.println("fd" + response);
-//        ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.request(word);
-//        UrbanResponse dto = response.getBody();
-//        System.out.println((dto.getList().size()));
-
-    }
-
-    public String[] homophones() {
-//        ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.request(entry);
-        return null;
     }
 
     @Override
@@ -159,7 +121,12 @@ public class LanguageProcessorImpl implements LanguageProcessor {
     @Deprecated
     public double getFrequencyDatamuse(String entry) {
         ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.getWordReport(entry);
-        String fTag = Arrays.stream(response.getBody().get(0).getTags()).filter(tag -> tag.startsWith("f")).findFirst().get();
+        String fTag = Arrays.stream(
+                        response.getBody()
+                                .get(0)
+                                .getTags()
+                ).filter(tag -> tag.startsWith("f"))
+                .findFirst().get();
         return Double.parseDouble(fTag.split(":")[1]);
     }
 
@@ -207,16 +174,6 @@ public class LanguageProcessorImpl implements LanguageProcessor {
         }
         analysisDto.setTranslationCards(this.translate(entry, from, to));
         analysisDto.setHomophones(getHomophones(entry));
-//        dto.setFamily(getWordFamily(entry));
-    }
-
-    public String[] getWordFamily(String entry) {
-        throw new NotImplementedException("not yet");
-    }
-
-    public String[] getSyllables(WordsReportDto dto) {
-//        wordsClient.getReport()
-        return dto.getSyllables().getList();
     }
 
     @Override
@@ -270,8 +227,12 @@ public class LanguageProcessorImpl implements LanguageProcessor {
     }
 
     private static double calculateRelativeFrequency(double frequency) {
-        if (frequency == 0) return 0;
-        if (frequency < LOW_BOUND) return 1;
+        if (frequency == 0) {
+            return 0;
+        }
+        if (frequency < LOW_BOUND) {
+            return 1;
+        }
         return SCALE * (Math.log10(frequency) + OFFSET);
     }
 }

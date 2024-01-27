@@ -1,7 +1,13 @@
 package com.linguarium.configuration.security;
 
-import com.linguarium.configuration.security.oauth2.*;
+import com.linguarium.configuration.security.oauth2.CustomOAuth2UserService;
+import com.linguarium.configuration.security.oauth2.CustomOidcUserService;
+import com.linguarium.configuration.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +19,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -22,15 +27,15 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WebSecurityConfig {
-    private final UserDetailsService userDetailsService;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    private final PasswordEncoder passwordEncoder;
-    private final CustomOidcUserService customOidcUserService;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    private final HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
-
+    UserDetailsService userDetailsService;
+    CustomOAuth2UserService customOAuth2UserService;
+    PasswordEncoder passwordEncoder;
+    CustomOidcUserService customOidcUserService;
+    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

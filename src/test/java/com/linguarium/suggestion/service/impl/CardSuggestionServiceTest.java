@@ -183,8 +183,8 @@ class CardSuggestionServiceTest {
                 .translations(new ArrayList<>())
                 .cardTags(Set.of()).build();
 
-        when(cardRepository.findById(dto.getCardId())).thenReturn(Optional.of(card));
-        when(learnerRepository.findById(dto.getRecipientId())).thenReturn(Optional.of(recipient));
+        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        when(learnerRepository.findById(dto.recipientId())).thenReturn(Optional.of(recipient));
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(null);
 
         // Act
@@ -209,8 +209,8 @@ class CardSuggestionServiceTest {
         Card card = new Card();
         CardSuggestion existingSuggestion = new CardSuggestion(sender, recipient, card);
 
-        when(cardRepository.findById(dto.getCardId())).thenReturn(Optional.of(card));
-        when(learnerRepository.findById(dto.getRecipientId())).thenReturn(Optional.of(recipient));
+        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        when(learnerRepository.findById(dto.recipientId())).thenReturn(Optional.of(recipient));
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card))
                 .thenReturn(existingSuggestion);
 

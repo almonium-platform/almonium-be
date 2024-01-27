@@ -1,9 +1,21 @@
 package com.linguarium.friendship.model;
 
 import com.linguarium.user.model.User;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,7 +32,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"requesterId", "requesteeId"})
 @IdClass(FriendshipPK.class)
 public class Friendship implements Serializable {
-
     @Id
     @Column(name = "requester_id")
     private Long requesterId;
@@ -58,12 +69,17 @@ public class Friendship implements Serializable {
 
     @Override
     public String toString() {
-        return "Friendship{" +
-                "requesterId=" + requesterId +
-                ", requesteeId=" + requesteeId +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", status=" + friendshipStatus +
-                '}';
+        return "Friendship{"
+                + "requesterId="
+                + requesterId
+                + ", requesteeId="
+                + requesteeId
+                + ", created="
+                + created
+                + ", updated="
+                + updated
+                + ", status="
+                + friendshipStatus
+                + '}';
     }
 }

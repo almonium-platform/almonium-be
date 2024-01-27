@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Repository
 public interface CardTagRepository extends JpaRepository<CardTag, CardTagPK> {
-
     @Query("SELECT DISTINCT c.tag.id FROM CardTag c WHERE c.learner = :learner")
     Set<Long> getLearnersTags(@Param("learner") Learner learner);
 

@@ -9,31 +9,36 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return (String) attributes.get("sub");
+        return getStringAttribute("sub");
     }
 
     @Override
     public String getName() {
-        return (String) attributes.get("name");
+        return getStringAttribute("name");
     }
 
     @Override
     public String getFirstName() {
-        return (String) attributes.get("given_name");
+        return getStringAttribute("given_name");
     }
 
     @Override
     public String getLastName() {
-        return (String) attributes.get("family_name");
+        return getStringAttribute("family_name");
     }
 
     @Override
     public String getEmail() {
-        return (String) attributes.get("email");
+        return getStringAttribute("email");
     }
 
     @Override
     public String getImageUrl() {
-        return (String) attributes.get("picture");
+        return getStringAttribute("picture");
+    }
+
+    private String getStringAttribute(String attributeName) {
+        Object value = attributes.get(attributeName);
+        return (value instanceof String) ? (String) value : null;
     }
 }

@@ -1,4 +1,4 @@
-package com.linguarium.client.free_dictionary.dto;
+package com.linguarium.client.freedictionary.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

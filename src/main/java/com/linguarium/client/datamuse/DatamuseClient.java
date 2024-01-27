@@ -7,7 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -80,17 +84,17 @@ public class DatamuseClient extends AbstractClient {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(
-                BASE_URL + ENDPOINT,
-                List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX)
-        );
-
         Map<String, String> params = new HashMap<>();
         params.put(SPELLED_LIKE, entry);
         params.put(QUERY_ECHO, SPELLED_LIKE);
         params.put(METADATA, FREQUENCY + PART_OF_SPEECH + PRONUNCIATION + DEFINITION);
         params.put(MAX, String.valueOf(1));
         params.put(IPA, String.valueOf(1));
+
+        String urlTemplate = queryBuilder(
+                BASE_URL + ENDPOINT,
+                List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX)
+        );
 
         return restTemplate.exchange(
                 urlTemplate,

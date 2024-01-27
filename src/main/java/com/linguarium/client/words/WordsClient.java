@@ -9,7 +9,11 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -32,7 +36,7 @@ public class WordsClient extends AbstractClient {
     static final String RANDOM = "random";
 
     @Value("${external.api.key.yandex}")
-    String API_KEY_HEADER_VALUE;
+    String apiKeyHeaderValue;
 
     @Autowired
     RestTemplate restTemplate;
@@ -40,7 +44,7 @@ public class WordsClient extends AbstractClient {
     public ResponseEntity<WordsReportDto> getReport(String word) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(API_ID_HEADER_NAME, API_ID_HEADER_VALUE);
-        headers.set(API_KEY_HEADER_NAME, API_KEY_HEADER_VALUE);
+        headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(BASE_URL + word,
@@ -59,7 +63,7 @@ public class WordsClient extends AbstractClient {
     public ResponseEntity<WordsReportDto> getRandomWord() {
         HttpHeaders headers = new HttpHeaders();
         headers.set(API_ID_HEADER_NAME, API_ID_HEADER_VALUE);
-        headers.set(API_KEY_HEADER_NAME, API_KEY_HEADER_VALUE);
+        headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(BASE_URL,

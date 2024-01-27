@@ -24,8 +24,8 @@ public class WordsResultDto {
     String[] examples;
 
     String[] similarTo;
-    String[] also;          // phrases of
-    String[] entails;       // verbs
+    String[] also; // phrases of
+    String[] entails; // verbs
     String[] pertainsTo;
 
     String[] memberOf;

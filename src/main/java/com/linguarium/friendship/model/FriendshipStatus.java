@@ -1,5 +1,8 @@
 package com.linguarium.friendship.model;
 
+import lombok.Getter;
+
+@Getter
 public enum FriendshipStatus {
     FRIENDS("F"),
     FST_BLOCKED_SND("1B2"),
@@ -7,28 +10,18 @@ public enum FriendshipStatus {
     PENDING("P"),
     REJECTED("R");
 
+    private final String code;
+
     FriendshipStatus(String code) {
         this.code = code;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    private final String code;
-
     public static FriendshipStatus fromString(String text) {
-        for (FriendshipStatus b : FriendshipStatus.values()) {
-            if (b.code.equalsIgnoreCase(text)) {
-                return b;
+        for (FriendshipStatus status : FriendshipStatus.values()) {
+            if (status.code.equalsIgnoreCase(text)) {
+                return status;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Couldn't find friendship status: " + text);
     }
-
-
-    public static boolean isBlocking(FriendshipStatus friendshipStatus) {
-        return friendshipStatus != null && (friendshipStatus.equals(FriendshipStatus.FST_BLOCKED_SND) || friendshipStatus.equals(FriendshipStatus.SND_BLOCKED_FST));
-    }
-
 }

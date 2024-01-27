@@ -14,7 +14,6 @@ import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
-import com.linguarium.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -46,7 +45,7 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         user.addCard(card);
 
         List<Example> examples = card.getExamples();
-        examples.forEach(e -> e.setCard(card));
+        examples.forEach(example -> example.setCard(card));
 
         List<Translation> translations = card.getTranslations();
 
@@ -98,8 +97,8 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
 
     @Override
     public boolean suggestCard(CardSuggestionDto dto, Learner sender) {
-        Card card = cardRepository.findById(dto.getCardId()).orElseThrow();
-        Learner recipient = learnerRepository.findById(dto.getRecipientId()).orElseThrow();
+        Card card = cardRepository.findById(dto.cardId()).orElseThrow();
+        Learner recipient = learnerRepository.findById(dto.recipientId()).orElseThrow();
         //TODO  notifications
         //TODO check if has access
         if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) != null) {

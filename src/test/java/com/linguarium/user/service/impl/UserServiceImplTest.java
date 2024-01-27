@@ -10,7 +10,6 @@ import com.linguarium.card.repository.CardTagRepository;
 import com.linguarium.card.repository.TagRepository;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.User;
-import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +20,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
 import java.util.Map;
 import java.util.Optional;
@@ -32,7 +30,15 @@ import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -46,12 +52,10 @@ class UserServiceImplTest {
     CardTagRepository cardTagRepository;
     @Mock
     TagRepository tagRepository;
-    @Mock
-    LearnerRepository learnerRepository;
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepository, learnerRepository, passwordEncoder, cardTagRepository, tagRepository);
+        userService = new UserServiceImpl(userRepository, passwordEncoder, cardTagRepository, tagRepository);
     }
 
     @Test
@@ -256,9 +260,9 @@ class UserServiceImplTest {
 
         Set<Long> tagIds = Set.of(1L, 2L, 3L);
         when(cardTagRepository.getLearnersTags(user.getLearner())).thenReturn(tagIds);
-        when(tagRepository.getById(anyLong())).thenAnswer(invocation -> {
+        when(tagRepository.findById(anyLong())).thenAnswer(invocation -> {
             Long tagId = invocation.getArgument(0);
-            return new Tag(tagId, "Tag " + tagId);
+            return Optional.of(new Tag(tagId, "Tag " + tagId));
         });
 
         UserInfo userInfo = userService.buildUserInfo(user);
@@ -273,6 +277,6 @@ class UserServiceImplTest {
         assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
 
         verify(cardTagRepository).getLearnersTags(user.getLearner());
-        tagIds.forEach(tagId -> verify(tagRepository).getById(eq(tagId)));
+        tagIds.forEach(tagId -> verify(tagRepository).findById(eq((tagId))));
     }
 }

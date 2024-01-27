@@ -9,7 +9,7 @@ import com.linguarium.translator.dto.TranslationDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
 public interface DictionaryDtoMapper {
     @Mapping(source = "def", target = "definitions")
     TranslationCardDto yandexToGeneral(YandexDto dto);

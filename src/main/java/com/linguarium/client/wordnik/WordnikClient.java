@@ -10,7 +10,11 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -51,24 +55,23 @@ public class WordnikClient extends AbstractClient {
     static final String INCLUDE_POS_VALUE = "noun%2Cadjective%2Cadverb%2Cverb-intransitive%2Cverb-transitive";
 
     @Value("${external.api.key.wordnik}")
-    String APIKEY_HEADER_VALUE;
+    String apikeyHeaderValue;
 
     RestTemplate restTemplate;
 
     public ResponseEntity<WordnikRandomWordDto> getRandomWord() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(APIKEY_HEADER_NAME, APIKEY_HEADER_VALUE);
+        headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
-        String urlTemplate = queryBuilder(BASE_URL_WORDS,
-                List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH)
-        );
-
 
         Map<String, Object> params = new HashMap<>();
         params.put(HAS_DICT_DEF, true);
         params.put(INCLUDE_POS, INCLUDE_POS_VALUE);
         params.put(MIN_LENGTH, 5);
+
+        String urlTemplate = queryBuilder(BASE_URL_WORDS,
+                List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH)
+        );
 
         return restTemplate.exchange(
                 urlTemplate,
@@ -79,7 +82,7 @@ public class WordnikClient extends AbstractClient {
 
     public ResponseEntity<List<WordnikAudioDto>> getAudioFile(String word) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(APIKEY_HEADER_NAME, APIKEY_HEADER_VALUE);
+        headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = queryBuilder(BASE_URL + word + AUDIO,

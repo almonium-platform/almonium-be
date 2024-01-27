@@ -3,7 +3,6 @@ package com.linguarium.suggestion.service;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.User;
 
 import java.util.List;
 

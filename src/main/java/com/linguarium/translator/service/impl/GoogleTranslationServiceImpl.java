@@ -1,6 +1,12 @@
 package com.linguarium.translator.service.impl;
 
-import com.google.cloud.texttospeech.v1.*;
+import com.google.cloud.texttospeech.v1.AudioConfig;
+import com.google.cloud.texttospeech.v1.AudioEncoding;
+import com.google.cloud.texttospeech.v1.SsmlVoiceGender;
+import com.google.cloud.texttospeech.v1.SynthesisInput;
+import com.google.cloud.texttospeech.v1.SynthesizeSpeechResponse;
+import com.google.cloud.texttospeech.v1.TextToSpeechClient;
+import com.google.cloud.texttospeech.v1.VoiceSelectionParams;
 import com.google.cloud.translate.v3.LocationName;
 import com.google.cloud.translate.v3.TranslateTextRequest;
 import com.google.cloud.translate.v3.TranslateTextResponse;
@@ -15,7 +21,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import static lombok.AccessLevel.PRIVATE;
-
 
 @Service
 @Slf4j
@@ -64,7 +69,6 @@ public class GoogleTranslationServiceImpl implements TranslationService {
         // Get the audio contents from the response
         return response.getAudioContent();
     }
-
 
     @Override
     public String bulkTranslateText(String text, String targetLanguage) {

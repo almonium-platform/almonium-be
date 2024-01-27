@@ -9,41 +9,49 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return (String) attributes.get("id");
+        return getStringAttribute("id");
     }
 
     @Override
     public String getName() {
-        return (String) attributes.get("name");
+        return getStringAttribute("name");
     }
 
     @Override
     public String getFirstName() {
-        return (String) attributes.get("first_name");
+        return getStringAttribute("first_name");
     }
 
     @Override
     public String getLastName() {
-        return (String) attributes.get("last_name");
+        return getStringAttribute("last_name");
     }
 
     @Override
     public String getEmail() {
-        return (String) attributes.get("email");
+        return getStringAttribute("email");
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public String getImageUrl() {
-        if (attributes.containsKey("picture")) {
-            Map<String, Object> pictureObj = (Map<String, Object>) attributes.get("picture");
-            if (pictureObj.containsKey("data")) {
-                Map<String, Object> dataObj = (Map<String, Object>) pictureObj.get("data");
-                if (dataObj.containsKey("url")) {
-                    return (String) dataObj.get("url");
-                }
+        return getNestedStringAttribute("picture.data.url");
+    }
+
+    private String getStringAttribute(String attributeName) {
+        Object value = attributes.get(attributeName);
+        return (value instanceof String) ? (String) value : null;
+    }
+
+    private String getNestedStringAttribute(String nestedAttributeName) {
+        String[] nestedAttributes = nestedAttributeName.split("\\.");
+        Object currentObj = attributes;
+        for (String attr : nestedAttributes) {
+            if (currentObj instanceof Map) {
+                currentObj = ((Map<?, ?>) currentObj).get(attr);
+            } else {
+                return null;
             }
         }
-        return null;
+        return (currentObj instanceof String) ? (String) currentObj : null;
     }
 }

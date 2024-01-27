@@ -8,8 +8,6 @@ import com.linguarium.user.model.Learner;
 import java.util.List;
 
 public interface CardService {
-
-
     CardDto getCardById(Long id);
 
     CardDto getCardByPublicId(String hash);
