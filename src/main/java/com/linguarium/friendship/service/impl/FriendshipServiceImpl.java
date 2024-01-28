@@ -1,6 +1,6 @@
 package com.linguarium.friendship.service.impl;
 
-import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
@@ -37,20 +37,20 @@ public class FriendshipServiceImpl implements FriendshipService {
     UserRepository userRepository;
 
     @Override
-    public Optional<FriendInfoDto> findFriendByEmail(final String email) {
+    public Optional<FriendshipInfoDto> findFriendByEmail(final String email) {
         Optional<FriendWrapper> friendOptional = userRepository.findFriendByEmail(email);
-        return friendOptional.map(FriendInfoDto::new);
+        return friendOptional.map(FriendshipInfoDto::new);
     }
 
     @Override
-    public List<FriendInfoDto> getFriends(long id) {
+    public List<FriendshipInfoDto> getFriends(long id) {
         List<FriendInfoView> friendInfoViews = friendshipRepository.findByUserId(id);
 
-        List<FriendInfoDto> result = new ArrayList<>();
+        List<FriendshipInfoDto> result = new ArrayList<>();
         for (FriendInfoView view : friendInfoViews) {
             Optional<FriendWrapper> friendOptional = userRepository.findAllById(view.getUserId());
             friendOptional.ifPresent(friendWrapper -> result.add(
-                    new FriendInfoDto(
+                    new FriendshipInfoDto(
                             friendWrapper,
                             FriendshipStatus.fromString(view.getStatus()),
                             view.getIsFriendRequester())));

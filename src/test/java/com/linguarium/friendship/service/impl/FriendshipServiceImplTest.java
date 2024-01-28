@@ -1,6 +1,6 @@
 package com.linguarium.friendship.service.impl;
 
-import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
@@ -118,7 +118,7 @@ public class FriendshipServiceImplTest {
         FriendWrapper friendWrapper = mock(FriendWrapper.class);
         when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.of(friendWrapper));
 
-        Optional<FriendInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
+        Optional<FriendshipInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
 
         assertThat(result).isNotEmpty();
         verify(userRepository).findFriendByEmail("test@email.com");
@@ -129,7 +129,7 @@ public class FriendshipServiceImplTest {
     void givenEmailDoesNotExist_whenFindFriendByEmail_thenReturnEmptyOptional() {
         when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.empty());
 
-        Optional<FriendInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
+        Optional<FriendshipInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
 
         assertThat(result).isEmpty();
         verify(userRepository).findFriendByEmail("test@email.com");
@@ -148,7 +148,7 @@ public class FriendshipServiceImplTest {
         when(friendshipRepository.findByUserId(userId)).thenReturn(Arrays.asList(view1, view2));
         when(userRepository.findAllById(anyLong())).thenReturn(Optional.of(friendWrapper1)).thenReturn(Optional.of(friendWrapper2));
 
-        Collection<FriendInfoDto> result = friendshipService.getFriends(userId);
+        Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
 
         assertThat(result).isNotEmpty();
         verify(friendshipRepository).findByUserId(userId);
@@ -161,7 +161,7 @@ public class FriendshipServiceImplTest {
         long userId = 1L;
         when(friendshipRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
-        Collection<FriendInfoDto> result = friendshipService.getFriends(userId);
+        Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
 
         assertThat(result).isEmpty();
         verify(friendshipRepository).findByUserId(userId);

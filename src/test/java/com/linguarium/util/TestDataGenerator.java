@@ -10,7 +10,7 @@ import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
-import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.FriendStatus;
 import com.linguarium.friendship.model.Friendship;
@@ -310,13 +310,13 @@ public final class TestDataGenerator {
         return array;
     }
 
-    public static FriendInfoDto generateFriendInfoDto() {
-        FriendInfoDto friendInfoDto = new FriendInfoDto();
-        friendInfoDto.setStatus(FriendStatus.FRIENDS);
-        friendInfoDto.setId(1L);
-        friendInfoDto.setUsername("testuser");
-        friendInfoDto.setEmail("test@example.com");
-        return friendInfoDto;
+    public static FriendshipInfoDto generateFriendInfoDto() {
+        FriendshipInfoDto friendshipInfoDto = new FriendshipInfoDto();
+        friendshipInfoDto.setStatus(FriendStatus.FRIENDS);
+        friendshipInfoDto.setId(1L);
+        friendshipInfoDto.setUsername("testuser");
+        friendshipInfoDto.setEmail("test@example.com");
+        return friendshipInfoDto;
     }
 
     public static FriendshipActionDto generateFriendshipActionDto() {
@@ -327,15 +327,15 @@ public final class TestDataGenerator {
         return friendshipActionDto;
     }
 
-    public static List<FriendInfoDto> generateFriendInfoDtoList(int count) {
-        List<FriendInfoDto> friendInfoDtoList = new ArrayList<>();
+    public static List<FriendshipInfoDto> generateFriendInfoDtoList(int count) {
+        List<FriendshipInfoDto> friendshipInfoDtoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            FriendInfoDto friendInfoDto = generateFriendInfoDto();
-            friendInfoDto.setId((long) (i + 1));
-            friendInfoDto.setUsername("user" + (i + 1));
-            friendInfoDtoList.add(friendInfoDto);
+            FriendshipInfoDto friendshipInfoDto = generateFriendInfoDto();
+            friendshipInfoDto.setId((long) (i + 1));
+            friendshipInfoDto.setUsername("user" + (i + 1));
+            friendshipInfoDtoList.add(friendshipInfoDto);
         }
-        return friendInfoDtoList;
+        return friendshipInfoDtoList;
     }
 
     public static Friendship generateFriendship(Long requesterId, Long requesteeId) {

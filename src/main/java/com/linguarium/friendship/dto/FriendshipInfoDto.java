@@ -14,17 +14,17 @@ import static lombok.AccessLevel.PRIVATE;
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class FriendInfoDto {
+public class FriendshipInfoDto {
     FriendStatus status;
     Long id;
     String username;
     String email;
 
-    public FriendInfoDto(FriendWrapper friendWrapper) {
+    public FriendshipInfoDto(FriendWrapper friendWrapper) {
         initCommonFields(friendWrapper);
     }
 
-    public FriendInfoDto(FriendWrapper friendWrapper, FriendshipStatus status, boolean isFriendRequester) {
+    public FriendshipInfoDto(FriendWrapper friendWrapper, FriendshipStatus status, boolean isFriendRequester) {
         initCommonFields(friendWrapper);
         this.status = pickStatus(status, isFriendRequester);
     }

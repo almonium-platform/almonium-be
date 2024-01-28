@@ -2,7 +2,7 @@ package com.linguarium.friendship.controller;
 
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.friendship.dto.FriendInfoDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
@@ -29,10 +29,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(FriendController.class)
+@WebMvcTest(FriendshipController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
-class FriendControllerTest extends BaseControllerTest {
+class FriendshipControllerTest extends BaseControllerTest {
     static final String BASE_URL = "/friends";
     static final String FRIEND_URL = BASE_URL;
 
@@ -54,7 +54,7 @@ class FriendControllerTest extends BaseControllerTest {
     @DisplayName("Should retrieve current user's friends")
     @Test
     void givenCurrentUser_whenGetMyFriends_thenReturnFriendsList() throws Exception {
-        List<FriendInfoDto> friendsList = TestDataGenerator.generateFriendInfoDtoList(5);
+        List<FriendshipInfoDto> friendsList = TestDataGenerator.generateFriendInfoDtoList(5);
 
         when(friendshipService.getFriends(anyLong())).thenReturn(friendsList);
 
@@ -68,7 +68,7 @@ class FriendControllerTest extends BaseControllerTest {
     @Test
     void givenEmail_whenSearchFriendsByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() throws Exception {
         String email = "testEmail";
-        FriendInfoDto friendInfo = TestDataGenerator.generateFriendInfoDto();
+        FriendshipInfoDto friendInfo = TestDataGenerator.generateFriendInfoDto();
         when(friendshipService.findFriendByEmail(email)).thenReturn(Optional.of(friendInfo));
 
         mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL)
