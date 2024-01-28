@@ -36,6 +36,10 @@ public abstract class AbstractClient {
                 },
                 params);
 
+        if (response.getBody() == null) {
+            throw new RuntimeException("Body of response is null!");
+        }
+
         List<T> resultList = new ArrayList<>();
         for (Map<String, Object> item : response.getBody()) {
             T resultItem = objectMapper.convertValue(item, clazz);

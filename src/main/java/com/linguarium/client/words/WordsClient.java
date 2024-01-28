@@ -3,11 +3,8 @@ package com.linguarium.client.words;
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.words.dto.WordsReportDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,22 +21,23 @@ import static com.linguarium.util.GeneralUtils.queryBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
 @Client
-@NoArgsConstructor
-@AllArgsConstructor
-@FieldDefaults(level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
 public class WordsClient extends AbstractClient {
-    static final String API_ID_HEADER_NAME = "X-RapidAPI-Host";
-    static final String API_ID_HEADER_VALUE = "wordsapiv1.p.rapidapi.com";
-    static final String API_KEY_HEADER_NAME = "X-RapidAPI-Key";
-    static final String BASE_URL = "https://wordsapiv1.p.rapidapi.com/words/";
-    static final String RANDOM = "random";
+    private static final String API_ID_HEADER_NAME = "X-RapidAPI-Host";
+    private static final String API_ID_HEADER_VALUE = "wordsapiv1.p.rapidapi.com";
+    private static final String API_KEY_HEADER_NAME = "X-RapidAPI-Key";
+    private static final String BASE_URL = "https://wordsapiv1.p.rapidapi.com/words/";
+    private static final String RANDOM = "random";
 
-    @Value("${external.api.key.yandex}")
+    RestTemplate restTemplate;
     String apiKeyHeaderValue;
 
-    @Autowired
-    RestTemplate restTemplate;
+    public WordsClient(RestTemplate restTemplate,
+                       @Value("${external.api.key.words}") String apiKeyHeaderValue) {
+        this.restTemplate = restTemplate;
+        this.apiKeyHeaderValue = apiKeyHeaderValue;
+    }
 
     public ResponseEntity<WordsReportDto> getReport(String word) {
         HttpHeaders headers = new HttpHeaders();
