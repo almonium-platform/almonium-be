@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -72,6 +73,7 @@ class AuthControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.accessToken").value(jwt));
 
         verify(profileService).updateLoginStreak(any(Profile.class));
+        verify(tokenProvider).createToken(any(Authentication.class));
     }
 
     @DisplayName("Should handle authentication failure")
@@ -124,6 +126,5 @@ class AuthControllerTest extends BaseControllerTest {
                 .profilePicLink("http://example.com/dummy.jpg")
                 .password("dummyPassword123")
                 .build();
-
     }
 }
