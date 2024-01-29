@@ -7,6 +7,8 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Set;
@@ -24,22 +25,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@ActiveProfiles("test")
-public class CardTagRepositoryTest {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class CardTagRepositoryTest {
+    @Autowired
+    TestEntityManager entityManager;
 
     @Autowired
-    private TestEntityManager entityManager;
+    CardTagRepository cardTagRepository;
+    User managedUser;
 
-    @Autowired
-    private CardTagRepository cardTagRepository;
-    private User managedUser;
-
-    private Learner managedLearner;
-    private Card managedCard;
-    private Tag managedTag;
+    Learner managedLearner;
+    Card managedCard;
+    Tag managedTag;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         // Set up the Learner, Card, and Tag entities
         managedUser = TestDataGenerator.buildTestUser();
         managedLearner = buildTestLearner();
@@ -63,7 +63,7 @@ public class CardTagRepositoryTest {
 
     @Test
     @DisplayName("Should retrieve a set of learner's tags")
-    public void whenGetLearnersTags_thenShouldReturnTags() {
+    void whenGetLearnersTags_thenShouldReturnTags() {
         Set<Long> tags = cardTagRepository.getLearnersTags(managedLearner);
         assertThat(tags).isNotEmpty();
         assertThat(tags).contains(managedTag.getId());
@@ -71,7 +71,7 @@ public class CardTagRepositoryTest {
 
     @Test
     @DisplayName("Should get CardTag by card and tag text")
-    public void givenCardAndText_whenGetByCardAndText_thenShouldReturnCardTag() {
+    void givenCardAndText_whenGetByCardAndText_thenShouldReturnCardTag() {
         CardTag cardTag = cardTagRepository.getByCardAndText(managedCard, managedTag.getText());
         assertThat(cardTag).isNotNull();
         assertThat(cardTag.getCard()).isEqualTo(managedCard);

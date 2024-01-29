@@ -1,7 +1,7 @@
 package com.linguarium.suggestion.controller;
 
-import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,10 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class CardSuggestionControllerTest extends BaseControllerTest {
-
-    static final String BASE_URL = "/cards/suggestions";
-    static final String ACCEPT_CARD_URL = BASE_URL + "/{id}/accept";
-    static final String DECLINE_CARD_URL = BASE_URL + "/{id}/decline";
+    private static final String BASE_URL = "/cards/suggestions";
+    private static final String ACCEPT_CARD_URL = BASE_URL + "/{id}/accept";
+    private static final String DECLINE_CARD_URL = BASE_URL + "/{id}/decline";
 
     @Autowired
     MockMvc mockMvc;

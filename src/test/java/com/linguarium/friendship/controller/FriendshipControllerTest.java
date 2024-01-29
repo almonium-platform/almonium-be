@@ -1,9 +1,9 @@
 package com.linguarium.friendship.controller;
 
-import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
 import com.linguarium.util.TestDataGenerator;
@@ -33,12 +33,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class FriendshipControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/friends";
-    static final String FRIEND_URL = BASE_URL;
-
-    static final String GET_MY_FRIENDS_URL = FRIEND_URL;
-    static final String SEARCH_FRIENDS_BY_EMAIL_URL = FRIEND_URL + "/search";
-    static final String MANAGE_FRIENDSHIP_URL = FRIEND_URL + "/friendships";
+    private static final String BASE_URL = "/friends";
+    private static final String FRIEND_URL = BASE_URL;
+    private static final String GET_MY_FRIENDS_URL = FRIEND_URL;
+    private static final String SEARCH_FRIENDS_BY_EMAIL_URL = FRIEND_URL + "/search";
+    private static final String MANAGE_FRIENDSHIP_URL = FRIEND_URL + "/friendships";
 
     @MockBean
     FriendshipService friendshipService;

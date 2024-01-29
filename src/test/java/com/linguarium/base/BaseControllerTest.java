@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ContextConfiguration
 public abstract class BaseControllerTest {
-
     @Autowired
     protected MockMvc mockMvc;
 

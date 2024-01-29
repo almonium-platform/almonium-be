@@ -1,7 +1,7 @@
 package com.linguarium.friendship.service.impl;
 
-import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
 import com.linguarium.friendship.model.FriendInfoView;
@@ -13,6 +13,8 @@ import com.linguarium.friendship.repository.FriendshipRepository;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,14 +39,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FriendshipServiceImplTest {
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class FriendshipServiceImplTest {
     @InjectMocks
-    private FriendshipServiceImpl friendshipService;
+    FriendshipServiceImpl friendshipService;
     @Mock
-    private FriendshipRepository friendshipRepository;
+    FriendshipRepository friendshipRepository;
     @Mock
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @BeforeEach
     void setUp() {

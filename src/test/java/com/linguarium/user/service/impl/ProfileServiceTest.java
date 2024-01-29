@@ -2,7 +2,8 @@ package com.linguarium.user.service.impl;
 
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.repository.ProfileRepository;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,16 +17,12 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class ProfileServiceTest {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class ProfileServiceTest {
     @InjectMocks
     ProfileServiceImpl profileService;
     @Mock
     ProfileRepository profileRepository;
-
-    @BeforeEach
-    void setUp() {
-        profileService = new ProfileServiceImpl(profileRepository);
-    }
 
     @Test
     @DisplayName("Should increase streak if last login is on the previous day")

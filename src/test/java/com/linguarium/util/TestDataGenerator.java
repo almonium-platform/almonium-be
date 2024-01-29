@@ -4,14 +4,19 @@ import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.card.dto.*;
+import com.linguarium.card.dto.CardCreationDto;
+import com.linguarium.card.dto.CardDto;
+import com.linguarium.card.dto.CardUpdateDto;
+import com.linguarium.card.dto.ExampleDto;
+import com.linguarium.card.dto.TagDto;
+import com.linguarium.card.dto.TranslationDto;
 import com.linguarium.card.model.Card;
 import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.FriendStatus;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.model.FriendshipAction;
@@ -21,14 +26,19 @@ import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public final class TestDataGenerator {
-    private static final Random random = new Random();
+    public static final Random random = new Random();
 
     private TestDataGenerator() {
     }
@@ -152,6 +162,7 @@ public final class TestDataGenerator {
     public static LocalUser createLocalUser() {
         User user = buildTestUserWithId();
         user.setLearner(Learner.builder().id(user.getId()).build());
+        user.setProfile(Profile.builder().build());
         return new LocalUser(user, Map.of(), null, null);
     }
 

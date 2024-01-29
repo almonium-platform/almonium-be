@@ -1,5 +1,6 @@
 package com.linguarium.card.service.impl;
 
+import com.google.common.collect.Sets;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
@@ -21,26 +22,29 @@ import com.linguarium.card.repository.TranslationRepository;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import com.linguarium.util.TestDataGenerator;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
@@ -54,6 +58,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class CardServiceTest {
     @Mock
     CardRepository cardRepository;
@@ -69,19 +75,17 @@ class CardServiceTest {
     LearnerRepository learnerRepository;
     @Mock
     CardMapper cardMapper;
-
     @InjectMocks
     CardServiceImpl cardServiceImpl;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         cardServiceImpl = new CardServiceImpl(cardRepository, cardTagRepository, tagRepository, exampleRepository, translationRepository, learnerRepository, cardMapper);
     }
 
     @Test
     @DisplayName("Should return a list of CardDto that match the search entry")
-    public void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() {
+    void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() {
         // Arrange
         String entry = "test";
         Learner user = new Learner();
@@ -105,7 +109,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should return CardDto when getCardById is called")
-    public void givenCardId_whenGetCardById_thenReturnCardDto() {
+    void givenCardId_whenGetCardById_thenReturnCardDto() {
         // Arrange
         Long id = 1L;
         Card card = Card.builder().id(id).build();
@@ -125,7 +129,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should return CardDto when getCardByHash is called")
-    public void givenCardHash_whenGetCardByHash_thenReturnCardDto() {
+    void givenCardHash_whenGetCardByHash_thenReturnCardDto() {
         // Arrange
         UUID uuid = UUID.randomUUID();
         Card card = Card.builder().publicId(uuid).build();
@@ -143,7 +147,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should return list of CardDto when getUsersCards is called")
-    public void givenUser_whenGetUsersCards_thenReturnListOfCardDto() {
+    void givenUser_whenGetUsersCards_thenReturnListOfCardDto() {
         // Arrange
         Learner user = new Learner();
         Card card1 = Card.builder().id(1L).build();
@@ -167,7 +171,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should throw exception when getCardByHash is called with non-existent hash")
-    public void givenNonExistentCardHash_whenGetCardByHash_thenThrowException() {
+    void givenNonExistentCardHash_whenGetCardByHash_thenThrowException() {
         // Arrange
         UUID random = UUID.randomUUID();
 
@@ -179,7 +183,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should delete card by ID")
-    public void givenCardId_whenDeleteById_thenCardIsDeleted() {
+    void givenCardId_whenDeleteById_thenCardIsDeleted() {
         Long id = 1L;
 
         // Act
@@ -191,7 +195,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should delete specified examples")
-    public void givenCardUpdateDto_whenUpdateCard_thenExamplesDeleted() {
+    void givenCardUpdateDto_whenUpdateCard_thenExamplesDeleted() {
         // Arrange
         Long cardId = 1L;
         int[] ex_del = {4, 5};  // IDs of examples to be deleted
@@ -231,7 +235,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should delete specified translations")
-    public void givenCardUpdateDto_whenUpdateCard_thenTranslationsDeleted() {
+    void givenCardUpdateDto_whenUpdateCard_thenTranslationsDeleted() {
         // Arrange
         Long cardId = 1L;
         int[] tr_del = {2, 3};  // IDs of translations to be deleted
@@ -271,7 +275,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should update existing translations")
-    public void givenCardUpdateDto_whenUpdateCard_thenExistingTranslationsUpdated() {
+    void givenCardUpdateDto_whenUpdateCard_thenExistingTranslationsUpdated() {
         // Arrange
         Long cardId = 1L;
 
@@ -325,7 +329,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should update existing examples")
-    public void givenCardUpdateDto_whenUpdateCard_thenExistingExamplesUpdated() {
+    void givenCardUpdateDto_whenUpdateCard_thenExistingExamplesUpdated() {
         // Arrange
         Long cardId = 1L;
 
@@ -381,7 +385,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should create new translations")
-    public void givenCardUpdateDto_whenUpdateCard_thenNewTranslationsCreated() {
+    void givenCardUpdateDto_whenUpdateCard_thenNewTranslationsCreated() {
         // Arrange
         Long cardId = 1L;
 
@@ -421,7 +425,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should create new examples")
-    public void givenCardUpdateDto_whenUpdateCard_thenNewExamplesCreated() {
+    void givenCardUpdateDto_whenUpdateCard_thenNewExamplesCreated() {
         // Arrange
         Long cardId = 1L;
 
@@ -462,7 +466,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should update the timestamp of the card")
-    public void givenCardUpdateDto_whenUpdateCard_thenTimestampUpdated() {
+    void givenCardUpdateDto_whenUpdateCard_thenTimestampUpdated() {
         // Arrange
         Long cardId = 1L;
         CardUpdateDto dto = CardUpdateDto.builder()
@@ -489,7 +493,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should save the updated card")
-    public void givenCardUpdateDto_whenUpdateCard_thenCardSaved() {
+    void givenCardUpdateDto_whenUpdateCard_thenCardSaved() {
         // Arrange
         Long cardId = 1L;
         CardUpdateDto dto = CardUpdateDto.builder()
@@ -516,7 +520,7 @@ class CardServiceTest {
 
     @Test
     @DisplayName("Should update tags for a given card")
-    public void givenCardUpdateDto_whenUpdateCard_thenTagsUpdated() {
+    void givenCardUpdateDto_whenUpdateCard_thenTagsUpdated() {
         // Arrange
         Long cardId = 7L;
         String tagToBeDeleted = "tagtobedeleted";
@@ -528,27 +532,27 @@ class CardServiceTest {
         Learner learner = new Learner();
         Card card = Card.builder().id(cardId).build();
 
-        Set<CardTag> existingCardTags = createExistingCardTags(card, learner, oldTag1, oldTag2, tagToBeDeleted);
-        card.setCardTags(existingCardTags);
+        CardTag cardTagToBeDeleted = createCardTag(card, learner, tagToBeDeleted);
+        CardTag oldCardTag1 = createCardTag(card, learner, oldTag1);
+        CardTag oldCardTag2 = createCardTag(card, learner, oldTag2);
+        HashSet<CardTag> existingCardTagsSet = Sets.newHashSet(cardTagToBeDeleted, oldCardTag1, oldCardTag2);
+        card.setCardTags(existingCardTagsSet);
 
-        mockCardTagRepository(existingCardTags);
-
-        // Deep copy of existingCardTags
-        Set<CardTag> existingCardTagsCopy = deepCopyCardTags(existingCardTags);
+        mockCardTagRepository(List.of(cardTagToBeDeleted));
 
         // Act
         cardServiceImpl.updateCard(cardId, dto, learner);
 
         // Assert
-        assertTagDeletion(existingCardTagsCopy, tagToBeDeleted);
-        assertTagPersistence(existingCardTagsCopy, tagToBeDeleted);
+        verify(cardTagRepository).delete(cardTagToBeDeleted);
+        verify(cardTagRepository, never()).delete(oldCardTag1);
+        verify(cardTagRepository, never()).delete(oldCardTag2);
         assertNewTagAddition(newTag);
     }
 
-
     @Test
     @DisplayName("Should create a new card with all associated entities")
-    public void givenCardCreationDtoAndLearner_whenCreateCard_thenCardCreatedWithAllEntities() {
+    void givenCardCreationDtoAndLearner_whenCreateCard_thenCardCreatedWithAllEntities() {
         // Arrange
         Learner mockLearner = mock(Learner.class);
         CardCreationDto mockDto = mock(CardCreationDto.class);
@@ -648,18 +652,16 @@ class CardServiceTest {
                 .build();
     }
 
-    private Set<CardTag> createExistingCardTags(Card card, Learner learner, String... tags) {
-        return Arrays.stream(tags)
-                .map(tagText -> CardTag.builder()
-                        .id(new CardTagPK(card.getId(), new Random().nextLong()))  // Random ID for demonstration
-                        .card(card)
-                        .tag(new Tag(tagText))
-                        .learner(learner)
-                        .build())
-                .collect(Collectors.toSet());
+    private CardTag createCardTag(Card card, Learner learner, String tagText) {
+        return CardTag.builder()
+                .id(new CardTagPK(card.getId(), TestDataGenerator.random.nextLong()))
+                .card(card)
+                .tag(new Tag(tagText))
+                .learner(learner)
+                .build();
     }
 
-    private void mockCardTagRepository(Set<CardTag> existingCardTags) {
+    private void mockCardTagRepository(List<CardTag> existingCardTags) {
         when(cardRepository.findById(anyLong())).thenReturn(Optional.of(existingCardTags.iterator().next().getCard()));
         existingCardTags.forEach(
                 cardTag -> when(cardTagRepository.getByCardAndText(
@@ -667,27 +669,6 @@ class CardServiceTest {
                         eq(cardTag.getTag().getText())
                 )).thenReturn(cardTag)
         );
-    }
-
-    private Set<CardTag> deepCopyCardTags(Set<CardTag> existingCardTags) {
-        return existingCardTags.stream()
-                .map(cardTag -> CardTag.builder()
-                        .id(cardTag.getId())
-                        .card(cardTag.getCard())
-                        .tag(cardTag.getTag())
-                        .learner(cardTag.getLearner())
-                        .build())
-                .collect(Collectors.toSet());
-    }
-
-    private void assertTagDeletion(Set<CardTag> existingCardTags, String tagToBeDeleted) {
-        verify(cardTagRepository).delete(existingCardTags.stream().filter(x
-                -> x.getTag().getText().equals(tagToBeDeleted)).findAny().orElseThrow());
-    }
-
-    private void assertTagPersistence(Set<CardTag> existingCardTags, String tagToBeDeleted) {
-        verify(cardTagRepository, never()).delete(existingCardTags.stream().filter(x
-                -> !x.getTag().getText().equals(tagToBeDeleted)).findAny().orElseThrow());
     }
 
     private void assertNewTagAddition(String newTag) {

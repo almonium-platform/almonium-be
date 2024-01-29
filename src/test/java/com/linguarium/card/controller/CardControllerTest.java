@@ -1,7 +1,7 @@
 package com.linguarium.card.controller;
 
-import com.linguarium.base.BaseControllerTest;
 import com.linguarium.auth.model.LocalUser;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
@@ -23,22 +23,25 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CardController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class CardControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/cards";
-    static final String ID_PLACEHOLDER = "/{id}";
+    private static final String BASE_URL = "/cards";
+    private static final String ID_PLACEHOLDER = "/{id}";
 
-    static final String CREATE_CARD_URL = BASE_URL;
-    static final String UPDATE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
-    static final String GET_CARDS_URL = BASE_URL;
-    static final String GET_CARDS_OF_LANG_URL = BASE_URL + "/lang/{code}";
-    static final String GET_CARD_URL = BASE_URL + ID_PLACEHOLDER;
-    static final String DELETE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
+    private static final String CREATE_CARD_URL = BASE_URL;
+    private static final String UPDATE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
+    private static final String GET_CARDS_URL = BASE_URL;
+    private static final String GET_CARDS_OF_LANG_URL = BASE_URL + "/lang/{code}";
+    private static final String GET_CARD_URL = BASE_URL + ID_PLACEHOLDER;
+    private static final String DELETE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
 
     @MockBean
     CardService cardService;

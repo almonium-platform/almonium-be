@@ -94,7 +94,7 @@ public class Card implements Serializable {
 
     public void removeCardTag(CardTag cardTag) {
         if (cardTag != null) {
-            this.cardTags.remove(cardTag);
+            cardTags.remove(cardTag);
         }
     }
 }

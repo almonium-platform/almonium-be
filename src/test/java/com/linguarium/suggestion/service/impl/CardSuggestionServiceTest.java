@@ -13,6 +13,8 @@ import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,13 +23,26 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class CardSuggestionServiceTest {
     @Mock
     CardRepository cardRepository;
@@ -58,7 +73,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should return list of suggested CardDto")
-    public void givenUser_whenGetSuggestedCards_thenReturnListOfCardDto() {
+    void givenUser_whenGetSuggestedCards_thenReturnListOfCardDto() {
         // Arrange
         Learner user = new Learner();
         Long id = 1L;
@@ -79,7 +94,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should delete the suggestion")
-    public void givenCardAcceptanceDtoAndUser_whenDeclineSuggestion_thenSuggestionDeleted() {
+    void givenCardAcceptanceDtoAndUser_whenDeclineSuggestion_thenSuggestionDeleted() {
         // Arrange
         //TODO provoke illegalAccess
         Long suggestionId = 3L;
@@ -102,7 +117,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should accept a card suggestion and clone the card")
-    public void givenCardAcceptanceDtoAndRecipient_whenAcceptSuggestion_thenCloneCardAndDeleteSuggestion() {
+    void givenCardAcceptanceDtoAndRecipient_whenAcceptSuggestion_thenCloneCardAndDeleteSuggestion() {
         // Arrange
         Long suggestionId = 3L;
         Long userId = 4L;
@@ -131,7 +146,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should clone a card and save it along with its examples, translations, and tags")
-    public void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
+    void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
         // Arrange
         Card card = new Card();
         Learner user = Learner.builder()
@@ -173,7 +188,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should save a card suggestion and return true if it doesn't exist")
-    public void givenNewCardSuggestionDtoAndSender_whenSuggestCard_thenReturnTrueAndSaveIt() {
+    void givenNewCardSuggestionDtoAndSender_whenSuggestCard_thenReturnTrueAndSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
         Learner sender = new Learner();
@@ -201,7 +216,7 @@ class CardSuggestionServiceTest {
 
     @Test
     @DisplayName("Should not save a card suggestion and return false if it already exists")
-    public void givenExistingCardSuggestionDtoAndSender_whenSuggestCard_thenReturnFalseAndDoNotSaveIt() {
+    void givenExistingCardSuggestionDtoAndSender_whenSuggestCard_thenReturnFalseAndDoNotSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
         Learner sender = new Learner();

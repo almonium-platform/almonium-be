@@ -1,10 +1,10 @@
 package com.linguarium.analyzer.controller;
 
 import com.google.protobuf.ByteString;
-import com.linguarium.base.BaseControllerTest;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.service.impl.LanguageProcessor;
 import com.linguarium.auth.model.LocalUser;
+import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.client.words.dto.WordsReportDto;
@@ -41,14 +41,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LangControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/lang/";
-
-    static final String TRANSLATE_URL = BASE_URL + "translate/{langFrom}/{langTo}/{text}";
-    static final String REPORT_URL = BASE_URL + "words/{text}/{lang}/report";
-    static final String BULK_PRONOUNCE_URL = BASE_URL + "words/{text}/audio/{lang}";
-    static final String RANDOM_URL = BASE_URL + "words/random";
-    static final String BULK_TRANSLATE_URL = BASE_URL + "translations/{langTo}/bulk";
-    static final String SEARCH_URL = BASE_URL + "cards/search/{text}";
+    private static final String BASE_URL = "/lang/";
+    private static final String TRANSLATE_URL = BASE_URL + "translate/{langFrom}/{langTo}/{text}";
+    private static final String REPORT_URL = BASE_URL + "words/{text}/{lang}/report";
+    private static final String BULK_PRONOUNCE_URL = BASE_URL + "words/{text}/audio/{lang}";
+    private static final String RANDOM_URL = BASE_URL + "words/random";
+    private static final String BULK_TRANSLATE_URL = BASE_URL + "translations/{langTo}/bulk";
+    private static final String SEARCH_URL = BASE_URL + "cards/search/{text}";
 
     @MockBean
     CardService cardService;
@@ -60,7 +59,7 @@ class LangControllerTest extends BaseControllerTest {
     Learner learner;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         principal = TestDataGenerator.createLocalUser();
         learner = principal.getUser().getLearner();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
@@ -69,7 +68,7 @@ class LangControllerTest extends BaseControllerTest {
     @DisplayName("Should find cards by search text when called with valid text")
     @WithMockUser(username = "user@example.com")
     @Test
-    public void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() throws Exception {
+    void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() throws Exception {
         // Arrange
         String searchText = "hello";
         CardDto[] dummyCards = TestDataGenerator.createCardDtos();
@@ -87,7 +86,7 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should translate text from one language to another")
     @Test
-    public void shouldTranslateText() throws Exception {
+    void shouldTranslateText() throws Exception {
         // Arrange
         String langFrom = Language.EN.name();
         String langTo = Language.ES.name();
@@ -109,7 +108,7 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should get a report for a given text and language")
     @Test
-    public void shouldGetReportForTextAndLanguage() throws Exception {
+    void shouldGetReportForTextAndLanguage() throws Exception {
         // Arrange
         String text = "Hello";
         String lang = Language.EN.name();
@@ -127,7 +126,7 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should bulk translate text to a specified language")
     @Test
-    public void shouldBulkTranslateText() throws Exception {
+    void shouldBulkTranslateText() throws Exception {
         // Arrange
         String langTo = Language.ES.name();
         String text = "Hello";
@@ -147,7 +146,7 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should bulk pronounce text to a specified language")
     @Test
-    public void shouldBulkPronounceText() throws Exception {
+    void shouldBulkPronounceText() throws Exception {
         // Arrange
         String lang = Language.EN.name();
         String text = "Hello";
@@ -166,7 +165,7 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should get a random WordsReportDto")
     @Test
-    public void shouldGetRandomWordsReportDto() throws Exception {
+    void shouldGetRandomWordsReportDto() throws Exception {
         // Arrange
         WordsReportDto wordsReportDto = TestDataGenerator.createEmptyWordsReportDto();
         when(languageProcessor.getRandom()).thenReturn(wordsReportDto);

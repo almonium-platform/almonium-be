@@ -5,6 +5,8 @@ import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -21,21 +22,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@ActiveProfiles("test")
-public class CardSuggestionRepositoryTest {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class CardSuggestionRepositoryTest {
+    @Autowired
+    TestEntityManager entityManager;
 
     @Autowired
-    private TestEntityManager entityManager;
+    CardSuggestionRepository cardSuggestionRepository;
 
-    @Autowired
-    private CardSuggestionRepository cardSuggestionRepository;
-
-    private Learner sender;
-    private Learner recipient;
-    private Card card;
+    Learner sender;
+    Learner recipient;
+    Card card;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         User senderUser = TestDataGenerator.buildTestUser();
         User recipientUser = TestDataGenerator.buildAnotherTestUser();
         card = TestDataGenerator.buildTestCard();
@@ -52,7 +52,7 @@ public class CardSuggestionRepositoryTest {
 
     @Test
     @DisplayName("Should find a CardSuggestion by sender, recipient, and card")
-    public void givenSenderRecipientCard_whenGetBySenderAndRecipientAndCard_thenShouldReturnCardSuggestion() {
+    void givenSenderRecipientCard_whenGetBySenderAndRecipientAndCard_thenShouldReturnCardSuggestion() {
         CardSuggestion cardSuggestion = new CardSuggestion(sender, recipient, card);
         entityManager.persist(cardSuggestion);
         entityManager.flush();
@@ -67,7 +67,7 @@ public class CardSuggestionRepositoryTest {
 
     @Test
     @DisplayName("Should find all CardSuggestions for a recipient")
-    public void givenRecipient_whenGetByRecipient_thenShouldReturnListOfCardSuggestions() {
+    void givenRecipient_whenGetByRecipient_thenShouldReturnListOfCardSuggestions() {
         Card secondCard = TestDataGenerator.buildTestCard();
         entityManager.persist(secondCard);
         entityManager.flush();

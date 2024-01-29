@@ -6,6 +6,8 @@ import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.LearnerRepository;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class LearnerServiceTest {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class LearnerServiceTest {
     @InjectMocks
     LearnerServiceImpl learnerService;
 

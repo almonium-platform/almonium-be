@@ -11,6 +11,8 @@ import com.linguarium.card.repository.TagRepository;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,6 +43,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserServiceImplTest {
     @InjectMocks
     UserServiceImpl userService;
@@ -115,7 +118,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing userId")
-    public void givenExistingUserId_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
+    void givenExistingUserId_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
         SignUpRequest signUpRequest = new SignUpRequest();
         signUpRequest.setUserID(1L);
 
@@ -130,7 +133,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing email")
-    public void givenExistingUserEmail_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
+    void givenExistingUserEmail_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
         SignUpRequest signUpRequest = new SignUpRequest();
         signUpRequest.setEmail("john@example.com");
 
@@ -148,7 +151,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing username")
-    public void givenExistingUsername_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
+    void givenExistingUsername_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
         SignUpRequest signUpRequest = new SignUpRequest();
         signUpRequest.setUsername("john");
 
@@ -165,7 +168,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should change username")
-    public void givenUsername_whenChangeUsername_thenUsernameChanged() {
+    void givenUsername_whenChangeUsername_thenUsernameChanged() {
         String username = "newUsername";
         Long id = 1L;
 
@@ -179,7 +182,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Shouldn't change username for existing username")
-    public void givenExistingUsername_whenChangeUsername_thenUsernameNotChanged() {
+    void givenExistingUsername_whenChangeUsername_thenUsernameNotChanged() {
         String username = "existingUsername";
         Long id = 1L;
 
@@ -193,7 +196,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should return user optional for existing user")
-    public void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
+    void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
         Long userId = 1L;
         User user = new User();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
@@ -207,7 +210,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should return empty optional for non existing user")
-    public void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
+    void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
         Long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
@@ -219,7 +222,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should delete user account")
-    public void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
+    void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
         User user = new User();
 
         userService.deleteAccount(user);
@@ -229,7 +232,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should return user if email exists")
-    public void givenExistentEmail_whenFindByEmail_thenReturnUser() {
+    void givenExistentEmail_whenFindByEmail_thenReturnUser() {
         String email = "john@example.com";
         User expectedUser = new User();
         expectedUser.setEmail(email);
@@ -243,7 +246,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("Should return null if email doesn't exist")
-    public void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
+    void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
         String email = "nonexistent@example.com";
 
         when(userRepository.findByEmail(email)).thenReturn(null);

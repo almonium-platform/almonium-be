@@ -38,13 +38,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest extends BaseControllerTest {
-    static final String BASE_URL = "/users";
-    static final String ME_URL = BASE_URL + "/me";
-    static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
-    static final String UPDATE_USERNAME_URL = ME_URL + "/username";
-    static final String DELETE_CURRENT_USER_ACCOUNT_URL = ME_URL + "/account";
-    static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-languages";
-    static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-languages";
+    private static final String BASE_URL = "/users";
+    private static final String ME_URL = BASE_URL + "/me";
+    private static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
+    private static final String UPDATE_USERNAME_URL = ME_URL + "/username";
+    private static final String DELETE_CURRENT_USER_ACCOUNT_URL = ME_URL + "/account";
+    private static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-languages";
+    private static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-languages";
 
     @MockBean
     UserService userService;
