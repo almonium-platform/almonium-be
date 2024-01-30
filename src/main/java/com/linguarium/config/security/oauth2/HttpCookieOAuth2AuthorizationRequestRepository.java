@@ -1,4 +1,4 @@
-package com.linguarium.configuration.security.oauth2;
+package com.linguarium.config.security.oauth2;
 
 import com.linguarium.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;

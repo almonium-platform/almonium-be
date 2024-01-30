@@ -5,7 +5,7 @@ import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.configuration.security.jwt.TokenProvider;
+import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.linguarium.configuration.security.jwt;
+package com.linguarium.config.security.jwt;
 
 import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
 import jakarta.servlet.FilterChain;

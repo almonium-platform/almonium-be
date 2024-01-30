@@ -1,8 +1,8 @@
-package com.linguarium.configuration.security.oauth2;
+package com.linguarium.config.security.oauth2;
 
 import com.linguarium.auth.exception.BadRequestException;
-import com.linguarium.configuration.AuthenticationProperties;
-import com.linguarium.configuration.security.jwt.TokenProvider;
+import com.linguarium.config.AuthenticationProperties;
+import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.util.CookieUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

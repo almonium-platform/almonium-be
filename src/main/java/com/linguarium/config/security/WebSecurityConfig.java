@@ -1,10 +1,10 @@
-package com.linguarium.configuration.security;
+package com.linguarium.config.security;
 
-import com.linguarium.configuration.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.configuration.security.oauth2.CustomOidcUserService;
-import com.linguarium.configuration.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.linguarium.configuration.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
+import com.linguarium.config.security.oauth2.CustomOidcUserService;
+import com.linguarium.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

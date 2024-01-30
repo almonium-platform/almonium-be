@@ -1,4 +1,4 @@
-package com.linguarium.configuration;
+package com.linguarium.config;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.linguarium.configuration.security;
+package com.linguarium.config.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

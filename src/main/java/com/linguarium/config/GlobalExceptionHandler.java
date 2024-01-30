@@ -1,4 +1,4 @@
-package com.linguarium.configuration;
+package com.linguarium.config;
 
 import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;

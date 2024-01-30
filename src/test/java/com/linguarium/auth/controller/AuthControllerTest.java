@@ -6,7 +6,7 @@ import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
-import com.linguarium.configuration.GlobalExceptionHandler;
+import com.linguarium.config.GlobalExceptionHandler;
 import com.linguarium.friendship.service.FriendshipService;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.service.ProfileService;

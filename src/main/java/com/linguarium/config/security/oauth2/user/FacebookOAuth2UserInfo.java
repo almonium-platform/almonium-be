@@ -1,4 +1,4 @@
-package com.linguarium.configuration.security.oauth2.user;
+package com.linguarium.config.security.oauth2.user;
 
 import java.util.Map;
 

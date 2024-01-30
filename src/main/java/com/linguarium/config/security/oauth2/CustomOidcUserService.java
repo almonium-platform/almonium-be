@@ -1,4 +1,4 @@
-package com.linguarium.configuration.security.oauth2;
+package com.linguarium.config.security.oauth2;
 
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.user.service.UserService;

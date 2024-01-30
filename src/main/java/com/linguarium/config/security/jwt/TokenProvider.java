@@ -1,7 +1,7 @@
-package com.linguarium.configuration.security.jwt;
+package com.linguarium.config.security.jwt;
 
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.configuration.AuthenticationProperties;
+import com.linguarium.config.AuthenticationProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
