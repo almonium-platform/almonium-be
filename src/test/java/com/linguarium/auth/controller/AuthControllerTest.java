@@ -2,7 +2,7 @@ package com.linguarium.auth.controller;
 
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.SignUpRequest;
+import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
@@ -92,11 +92,11 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should register user successfully")
     @Test
     void givenValidSignUpRequest_whenRegister_thenSuccess() throws Exception {
-        SignUpRequest signUpRequest = createSignUpRequest();
+        RegistrationRequest registrationRequest = createSignUpRequest();
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(signUpRequest)))
+                        .content(objectMapper.writeValueAsString(registrationRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
     }
@@ -104,20 +104,20 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should handle existing user registration attempt")
     @Test
     void givenExistingUser_whenRegister_thenBadRequest() throws Exception {
-        SignUpRequest signUpRequest = createSignUpRequest();
+        RegistrationRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
-                .when(userService).registerNewUser(any(SignUpRequest.class));
+                .when(userService).registerNewUser(any(RegistrationRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(signUpRequest)))
+                        .content(objectMapper.writeValueAsString(registrationRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.success").value(false));
     }
 
-    private SignUpRequest createSignUpRequest() {
-        return SignUpRequest.builder()
+    private RegistrationRequest createSignUpRequest() {
+        return RegistrationRequest.builder()
                 .userID(1L)
                 .providerUserId("dummyProviderUserId")
                 .username("dummyUsername")

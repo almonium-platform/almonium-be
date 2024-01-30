@@ -22,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("update User u set u.username = ?1 where u.id = ?2")
     void changeUsername(String username, Long id);
 
+    @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     User findByEmail(String email);
 
     boolean existsByEmail(String email);

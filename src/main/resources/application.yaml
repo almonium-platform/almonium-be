@@ -32,7 +32,11 @@ google:
 
 # Custom Configurations
 app:
+  server:
+    frontend:
+      url: http://localhost:9999
+
   auth:
     tokenExpirationMSec: 864000000
   oauth2:
-    authorizedRedirectUris: http://localhost:9999/oauth2/redirect
+    authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect

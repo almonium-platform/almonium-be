@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpRequest {
+public class RegistrationRequest {
     private Long userID;
     private String providerUserId;
     @NotEmpty

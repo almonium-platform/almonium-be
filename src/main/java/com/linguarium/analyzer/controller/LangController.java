@@ -17,7 +17,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +36,6 @@ public class LangController {
     CardService cardService;
     LanguageProcessor languageProcessor;
 
-    @CrossOrigin
     @GetMapping("/cards/search/{text}")
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
         return ResponseEntity.ok(cardService.searchByEntry(text, localUser.getUser().getLearner()));

@@ -2,7 +2,7 @@ package com.linguarium.user.service.impl;
 
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.dto.request.SignUpRequest;
+import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
@@ -77,21 +77,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(value = "transactionManager")
-    public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistsAuthenticationException {
-        if (signUpRequest.getUserID() != null && userRepository.existsById(signUpRequest.getUserID())) {
+    public User registerNewUser(final RegistrationRequest registrationRequest) throws UserAlreadyExistsAuthenticationException {
+        if (registrationRequest.getUserID() != null && userRepository.existsById(registrationRequest.getUserID())) {
             throw new UserAlreadyExistsAuthenticationException("User with id "
-                    + signUpRequest.getUserID() + " already exists");
-        } else if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                    + registrationRequest.getUserID() + " already exists");
+        } else if (userRepository.existsByEmail(registrationRequest.getEmail())) {
             throw new UserAlreadyExistsAuthenticationException("User with email id "
-                    + signUpRequest.getEmail() + " already exists");
-        } else if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                    + registrationRequest.getEmail() + " already exists");
+        } else if (userRepository.existsByUsername(registrationRequest.getUsername())) {
             throw new UserAlreadyExistsAuthenticationException("User with username "
-                    + signUpRequest.getUsername() + " already exists");
+                    + registrationRequest.getUsername() + " already exists");
         }
-        User user = buildUser(signUpRequest);
+        User user = buildUser(registrationRequest);
         LocalDateTime now = LocalDateTime.now();
         user.setRegistered(now);
-        user.setUsername(generateId());
+        user.setUsername(generateId()); //TODO set real username
 
         Learner learner = new Learner();
         learner.setUser(user);
@@ -100,7 +100,8 @@ public class UserServiceImpl implements UserService {
 
         Profile profile = new Profile();
         profile.setUser(user);
-        profile.setProfilePicLink(signUpRequest.getProfilePicLink());
+        profile.setLastLogin(now);
+        profile.setProfilePicLink(registrationRequest.getProfilePicLink()); //TODO null?
         user.setProfile(profile);
 
         user = userRepository.save(user);
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        SignUpRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
+        RegistrationRequest userDetails = toUserRegistrationObject(registrationId, oAuth2UserInfo);
         User user = findUserByEmail(oAuth2UserInfo.getEmail());
         if (user != null) {
             if (!user.getProvider().equals(registrationId)
@@ -169,7 +170,7 @@ public class UserServiceImpl implements UserService {
                 tags);
     }
 
-    private User buildUser(final SignUpRequest formDTO) {
+    private User buildUser(final RegistrationRequest formDTO) {
         User user = new User();
         user.setUsername(formDTO.getUsername());
         user.setEmail(formDTO.getEmail());
@@ -180,8 +181,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private SignUpRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
-        return SignUpRequest.builder()
+    private RegistrationRequest toUserRegistrationObject(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
+        return RegistrationRequest.builder()
                 .providerUserId(oAuth2UserInfo.getId())
                 .email(oAuth2UserInfo.getEmail())
                 .profilePicLink(oAuth2UserInfo.getImageUrl())

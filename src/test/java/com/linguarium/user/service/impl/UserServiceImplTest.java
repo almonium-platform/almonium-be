@@ -2,7 +2,7 @@ package com.linguarium.user.service.impl;
 
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.dto.request.SignUpRequest;
+import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.model.Tag;
@@ -89,7 +89,7 @@ class UserServiceImplTest {
         );
 
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
-        SignUpRequest signUpRequest = SignUpRequest.builder()
+        RegistrationRequest registrationRequest = RegistrationRequest.builder()
                 .email("johnwick@gmail.com")
                 .password(password)
                 .providerUserId(sub)
@@ -103,11 +103,11 @@ class UserServiceImplTest {
                 .providerUserId(sub)
                 .build();
 
-        doReturn(user).when(userServiceSpy).registerNewUser(signUpRequest);
+        doReturn(user).when(userServiceSpy).registerNewUser(registrationRequest);
 
         LocalUser result = userServiceSpy.processUserRegistration(registrationId, attributes, idToken, null);
 
-        verify(userServiceSpy).registerNewUser(eq(signUpRequest));
+        verify(userServiceSpy).registerNewUser(eq(registrationRequest));
 
         assertThat(result).isNotNull();
         assertThat(result.getIdToken()).isEqualTo(idToken);
@@ -119,30 +119,30 @@ class UserServiceImplTest {
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing userId")
     void givenExistingUserId_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
-        SignUpRequest signUpRequest = new SignUpRequest();
-        signUpRequest.setUserID(1L);
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setUserID(1L);
 
-        when(userRepository.existsById(signUpRequest.getUserID())).thenReturn(true);
+        when(userRepository.existsById(registrationRequest.getUserID())).thenReturn(true);
 
         assertThrows(UserAlreadyExistsAuthenticationException.class,
-                () -> userService.registerNewUser(signUpRequest));
+                () -> userService.registerNewUser(registrationRequest));
 
-        verify(userRepository).existsById(signUpRequest.getUserID());
+        verify(userRepository).existsById(registrationRequest.getUserID());
         verifyNoMoreInteractions(userRepository);
     }
 
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing email")
     void givenExistingUserEmail_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
-        SignUpRequest signUpRequest = new SignUpRequest();
-        signUpRequest.setEmail("john@example.com");
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setEmail("john@example.com");
 
-        when(userRepository.existsByEmail(signUpRequest.getEmail())).thenReturn(true);
+        when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
 
         assertThrows(UserAlreadyExistsAuthenticationException.class,
-                () -> userService.registerNewUser(signUpRequest));
+                () -> userService.registerNewUser(registrationRequest));
 
-        verify(userRepository).existsByEmail(signUpRequest.getEmail());
+        verify(userRepository).existsByEmail(registrationRequest.getEmail());
         verify(userRepository, never()).existsById(anyLong());
         verify(userRepository, never()).existsByUsername(anyString());
         verify(userRepository, never()).save(any(User.class));
@@ -152,14 +152,14 @@ class UserServiceImplTest {
     @Test
     @DisplayName("Should throw an exception when trying to register user with existing username")
     void givenExistingUsername_whenRegisterNewUser_thenThrowUserAlreadyExistsAuthenticationException() {
-        SignUpRequest signUpRequest = new SignUpRequest();
-        signUpRequest.setUsername("john");
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setUsername("john");
 
-        when(userRepository.existsByUsername(signUpRequest.getUsername())).thenReturn(true);
+        when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
 
-        assertThrows(UserAlreadyExistsAuthenticationException.class, () -> userService.registerNewUser(signUpRequest));
+        assertThrows(UserAlreadyExistsAuthenticationException.class, () -> userService.registerNewUser(registrationRequest));
 
-        verify(userRepository).existsByUsername(signUpRequest.getUsername());
+        verify(userRepository).existsByUsername(registrationRequest.getUsername());
         verify(userRepository, never()).existsById(anyLong());
         verify(userRepository, never()).existsByEmail(anyString());
         verify(userRepository, never()).save(any(User.class));

@@ -2,7 +2,7 @@ export class AppConstants {
 
   private static API_BASE_URL = 'http://localhost:9998';
 
-  public static API_URL = AppConstants.API_BASE_URL + '/api';
+  public static API_URL = AppConstants.API_BASE_URL + '';
   public static AUTH_API = AppConstants.API_URL + '/auth';
   public static ALL_API = AppConstants.API_URL + '/all';
   public static CARD_API = AppConstants.API_URL + '/cards';

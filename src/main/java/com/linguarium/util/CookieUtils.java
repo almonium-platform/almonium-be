@@ -1,12 +1,15 @@
 package com.linguarium.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -51,18 +54,26 @@ public class CookieUtils {
     }
 
     public static String serialize(Object object) {
-        try {
-            return Base64.getUrlEncoder().encodeToString(objectMapper.writeValueAsBytes(object));
-        } catch (JsonProcessingException e) {
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)
+        ) {
+
+            objectOutputStream.writeObject(object);
+            objectOutputStream.flush();
+            return Base64.getUrlEncoder().encodeToString(byteArrayOutputStream.toByteArray());
+        } catch (IOException e) {
             throw new RuntimeException("Serialization error", e);
         }
     }
 
-    public static <T> T deserialize(Cookie cookie, Class<T> cls) {
-        byte[] bytes = Base64.getUrlDecoder().decode(cookie.getValue());
-        try {
-            return objectMapper.readValue(bytes, cls);
-        } catch (IOException e) {
+    public static <T> T deserialize(String base64, Class<T> cls) {
+        byte[] bytes = Base64.getUrlDecoder().decode(base64);
+        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
+
+            Object object = objectInputStream.readObject();
+            return cls.cast(object);
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Deserialization error", e);
         }
     }

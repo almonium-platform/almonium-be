@@ -1,7 +1,7 @@
 package com.linguarium.auth.controller;
 
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.SignUpRequest;
+import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.model.LocalUser;
@@ -36,7 +36,7 @@ public class AuthController {
     TokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.email(),
                 loginRequest.password()));
@@ -50,8 +50,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        userService.registerNewUser(signUpRequest);
+    public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        userService.registerNewUser(registrationRequest);
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
     }
 }
