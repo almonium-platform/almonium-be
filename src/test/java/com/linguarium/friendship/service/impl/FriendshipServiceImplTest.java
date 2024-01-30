@@ -55,13 +55,14 @@ class FriendshipServiceImplTest {
 
     @Test
     @DisplayName("Should set FriendshipStatus to FST_BLOCKED_SND when requester is the action initiator")
-    void givenRequesterIsActionInitiator_whenBlockUser_thenSetFST_BLOCKED_SND() {
+    void givenRequesterIsActionInitiator_whenBlockUser_thenSetFstBlockedSnd() {
         long requesterId = 1L;
         long requesteeId = 2L;
         FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.BLOCK);
         Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
 
-        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
+        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
+                .thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
         Friendship result = friendshipService.manageFriendship(dto);
@@ -71,13 +72,14 @@ class FriendshipServiceImplTest {
 
     @Test
     @DisplayName("Should set FriendshipStatus to SND_BLOCKED_FST when requestee is the action initiator")
-    void givenRequesteeIsActionInitiator_whenBlockUser_thenSetSND_BLOCKED_FST() {
+    void givenRequesteeIsActionInitiator_whenBlockUser_thenSetSndBlockedFst() {
         long requesterId = 1L;
         long requesteeId = 2L;
         FriendshipActionDto dto = generateFriendshipActionDto(requesteeId, requesterId, FriendshipAction.BLOCK);
         Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
 
-        when(friendshipRepository.getFriendshipByUsersIds(requesteeId, requesterId)).thenReturn(Optional.of(existingFriendship));
+        when(friendshipRepository.getFriendshipByUsersIds(requesteeId, requesterId))
+                .thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
         Friendship result = friendshipService.manageFriendship(dto);
@@ -93,7 +95,8 @@ class FriendshipServiceImplTest {
         FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.BLOCK);
         Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FST_BLOCKED_SND);
 
-        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
+        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
+                .thenReturn(Optional.of(existingFriendship));
 
         assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -148,7 +151,9 @@ class FriendshipServiceImplTest {
         FriendWrapper friendWrapper2 = mock(FriendWrapper.class);
 
         when(friendshipRepository.findByUserId(userId)).thenReturn(Arrays.asList(view1, view2));
-        when(userRepository.findAllById(anyLong())).thenReturn(Optional.of(friendWrapper1)).thenReturn(Optional.of(friendWrapper2));
+        when(userRepository.findAllById(anyLong()))
+                .thenReturn(Optional.of(friendWrapper1))
+                .thenReturn(Optional.of(friendWrapper2));
 
         Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
 
@@ -217,7 +222,11 @@ class FriendshipServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should throw FriendshipNotAllowedException when creating a friendship request with a user who has blocked requests")
+    @DisplayName("""
+            Should throw FriendshipNotAllowedException
+            when creating a friendship request 
+            with a user who has blocked requests
+            """)
     void givenUserHasBlockedRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -283,7 +292,8 @@ class FriendshipServiceImplTest {
         FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.ACCEPT);
 
         Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
-        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.of(existingFriendship));
+        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
+                .thenReturn(Optional.of(existingFriendship));
         when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
 
         Friendship result = friendshipService.manageFriendship(dto);
@@ -296,8 +306,10 @@ class FriendshipServiceImplTest {
     void givenExistingFriendship_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long actionInitiatorId = 1L;
         long actionAcceptorId = 2L;
-        FriendshipActionDto dto = generateFriendshipActionDto(actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
-        Friendship existingFriendship = generateFriendship(actionInitiatorId, actionAcceptorId, FriendshipStatus.FRIENDS);
+        FriendshipActionDto dto = generateFriendshipActionDto(
+                actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
+        Friendship existingFriendship = generateFriendship(
+                actionInitiatorId, actionAcceptorId, FriendshipStatus.FRIENDS);
 
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
@@ -317,7 +329,8 @@ class FriendshipServiceImplTest {
     void givenUserLimitsAbilityToSendRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long actionInitiatorId = 1L;
         long actionAcceptorId = 2L;
-        FriendshipActionDto dto = generateFriendshipActionDto(actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
+        FriendshipActionDto dto = generateFriendshipActionDto(
+                actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
 
         Friendship existingFriendship = mock(Friendship.class);
         when(existingFriendship.whoDeniesFriendship()).thenReturn(actionAcceptorId);
@@ -332,7 +345,9 @@ class FriendshipServiceImplTest {
         assertThat("User limited your ability to send requests!").isEqualTo(exception.getMessage());
     }
 
-    private FriendshipActionDto generateFriendshipActionDto(long requesterId, long requesteeId, FriendshipAction action) {
+    private FriendshipActionDto generateFriendshipActionDto(long requesterId,
+                                                            long requesteeId,
+                                                            FriendshipAction action) {
         return FriendshipActionDto.builder()
                 .idInitiator(requesterId)
                 .idAcceptor(requesteeId)

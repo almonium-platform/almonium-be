@@ -157,7 +157,8 @@ class UserServiceImplTest {
 
         when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
 
-        assertThrows(UserAlreadyExistsAuthenticationException.class, () -> userService.registerNewUser(registrationRequest));
+        assertThrows(UserAlreadyExistsAuthenticationException.class,
+                () -> userService.registerNewUser(registrationRequest));
 
         verify(userRepository).existsByUsername(registrationRequest.getUsername());
         verify(userRepository, never()).existsById(anyLong());

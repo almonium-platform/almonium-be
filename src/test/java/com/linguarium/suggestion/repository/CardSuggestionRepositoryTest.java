@@ -57,7 +57,8 @@ class CardSuggestionRepositoryTest {
         entityManager.persist(cardSuggestion);
         entityManager.flush();
 
-        CardSuggestion foundCardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card);
+        CardSuggestion foundCardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(
+                sender, recipient, card);
 
         assertThat(foundCardSuggestion)
                 .isNotNull()

@@ -77,7 +77,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(value = "transactionManager")
-    public User registerNewUser(final RegistrationRequest registrationRequest) throws UserAlreadyExistsAuthenticationException {
+    public User registerNewUser(final RegistrationRequest registrationRequest)
+            throws UserAlreadyExistsAuthenticationException {
         if (registrationRequest.getUserID() != null && userRepository.existsById(registrationRequest.getUserID())) {
             throw new UserAlreadyExistsAuthenticationException("User with id "
                     + registrationRequest.getUserID() + " already exists");

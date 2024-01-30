@@ -159,7 +159,9 @@ class LangControllerTest extends BaseControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(BULK_PRONOUNCE_URL, text, lang)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.header().string("Content-Disposition", "attachment; filename=file.mp3"))
+                .andExpect(MockMvcResultMatchers.header().string(
+                        "Content-Disposition",
+                        "attachment; filename=file.mp3"))
                 .andExpect(MockMvcResultMatchers.content().bytes(audioBytes.toByteArray()));
     }
 

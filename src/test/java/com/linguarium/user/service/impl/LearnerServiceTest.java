@@ -64,7 +64,9 @@ class LearnerServiceTest {
 
         learnerService.updateTargetLanguages(langCodes, learner);
 
-        assertThat(learner.getTargetLangs()).hasSize(2).containsExactlyInAnyOrder(Language.EN.name(), Language.DE.name());
+        assertThat(learner.getTargetLangs()).hasSize(2).containsExactlyInAnyOrder(
+                Language.EN.name(),
+                Language.DE.name());
         verify(learnerRepository, times(1)).save(learner);
     }
 
@@ -73,7 +75,10 @@ class LearnerServiceTest {
     void givenUserWithExistingFluentLanguages_whenSetFluentLangs_thenNewLanguagesSet() {
         List<String> langCodes = List.of(Language.DE.name(), Language.FR.name(), Language.ES.name());
         Learner learner = new Learner();
-        learner.setFluentLangs(new HashSet<>(Arrays.asList(Language.EN.name(), Language.DE.name(), Language.FR.name())));
+        learner.setFluentLangs(new HashSet<>(Arrays.asList(
+                Language.EN.name(),
+                Language.DE.name(),
+                Language.FR.name())));
 
         learnerService.updateFluentLanguages(langCodes, learner);
 
@@ -94,7 +99,9 @@ class LearnerServiceTest {
 
         learnerService.updateFluentLanguages(langCodes, learner);
 
-        assertThat(learner.getFluentLangs()).hasSize(2).containsExactlyInAnyOrder(Language.EN.name(), Language.DE.name());
+        assertThat(learner.getFluentLangs()).hasSize(2).containsExactlyInAnyOrder(
+                Language.EN.name(),
+                Language.DE.name());
         verify(learnerRepository, times(1)).save(learner);
     }
 

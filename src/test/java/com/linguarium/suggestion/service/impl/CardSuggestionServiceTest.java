@@ -149,9 +149,6 @@ class CardSuggestionServiceTest {
     void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
         // Arrange
         Card card = new Card();
-        Learner user = Learner.builder()
-                .cards(new HashSet<>())
-                .build();
 
         List<Example> examples = Arrays.asList(
                 new Example(1L, "example1", "translation1", card),
@@ -168,6 +165,9 @@ class CardSuggestionServiceTest {
                 .cardTags(new HashSet<>())
                 .build();
 
+        Learner user = Learner.builder()
+                .cards(new HashSet<>())
+                .build();
 
         CardDto cardDto = new CardDto(); // Initialize as needed
         when(cardMapper.cardEntityToDto(card)).thenReturn(cardDto);
@@ -178,8 +178,8 @@ class CardSuggestionServiceTest {
 
         // Assert
         verify(cardRepository).save(argThat(savedCard ->
-                savedCard.getExamples().equals(examples) &&
-                        savedCard.getTranslations().equals(translations)
+                savedCard.getExamples().equals(examples)
+                        && savedCard.getTranslations().equals(translations)
         ));
         verify(translationRepository).saveAll(eq(translations));
         verify(exampleRepository).saveAll(eq(examples));
@@ -208,9 +208,9 @@ class CardSuggestionServiceTest {
         // Assert
         assertThat(result).isTrue();
         verify(cardSuggestionRepository).save(argThat(suggestion ->
-                suggestion.getSender().equals(sender) &&
-                        suggestion.getRecipient().equals(recipient) &&
-                        suggestion.getCard().equals(card)
+                suggestion.getSender().equals(sender)
+                        && suggestion.getRecipient().equals(recipient)
+                        && suggestion.getCard().equals(card)
         ));
     }
 

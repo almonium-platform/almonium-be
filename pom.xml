@@ -27,6 +27,8 @@
         <version.google-guava>32.0.0-android</version.google-guava>
         <version.google-cloud>26.1.3</version.google-cloud>
         <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
+        <project.build.sourceDirectories>${basedir}/src</project.build.sourceDirectories>
+        <checkstyle.config.location>${basedir}/checkstyle.xml</checkstyle.config.location>
     </properties>
 
     <dependencies>
@@ -206,9 +208,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.3.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.13.0</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
+                    <violationSeverity>warning</violationSeverity>
                     <consoleOutput>true</consoleOutput>
+                    <configLocation>${checkstyle.config.location}</configLocation>
+                    <sourceDirectories>${project.build.sourceDirectories}</sourceDirectories>
+                    <propertyExpansion>suppressionFile=${basedir}/suppressions.xml</propertyExpansion>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
                 </configuration>

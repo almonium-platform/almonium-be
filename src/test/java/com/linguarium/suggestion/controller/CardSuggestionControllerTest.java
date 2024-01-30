@@ -83,7 +83,6 @@ class CardSuggestionControllerTest extends BaseControllerTest {
         verify(cardSuggestionService).declineSuggestion(cardIdToDecline, learner);
     }
 
-
     @DisplayName("Should retrieve suggested cards for a user")
     @Test
     void givenUser_whenGetSuggestedCards_thenReturnsCards() throws Exception {

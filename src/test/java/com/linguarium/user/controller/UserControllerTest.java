@@ -155,6 +155,8 @@ class UserControllerTest extends BaseControllerTest {
         Collection<String> fluentLangs = Arrays.asList("FR", "DE");
         Collection<String> tags = Arrays.asList("tag1", "tag2");
 
-        return new UserInfo(id, username, email, uiLang, profilePicLink, background, streak, targetLangs, fluentLangs, tags);
+        return new UserInfo(id, username, email,
+                uiLang, profilePicLink, background,
+                streak, targetLangs, fluentLangs, tags);
     }
 }

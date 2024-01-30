@@ -38,14 +38,14 @@ public class OxfordClient extends AbstractClient {
     static String LANG_CODE = "/en-us";
 
     @Value("${external.api.key.oxford}")
-    private static String APIKEY_HEADER_VALUE;
+    String apikeyHeaderValue;
 
     RestTemplate restTemplate;
 
     public ResponseEntity<OxfordResponse> submit(String word) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(API_ID_HEADER_NAME, API_ID_HEADER_VALUE);
-        headers.set(APIKEY_HEADER_NAME, APIKEY_HEADER_VALUE);
+        headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
 
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 

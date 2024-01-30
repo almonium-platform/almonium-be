@@ -63,13 +63,15 @@ class CardRepositoryTest {
     void givenOwnerAndLanguage_whenFindAllByOwnerAndLanguage_thenShouldReturnCardsWithCorrectDetails() {
         List<Card> cards = cardRepository.findAllByOwnerAndLanguage(managedLearner, TEST_LANGUAGE);
         assertThat(cards).isNotEmpty();
-        assertThat(cards).allMatch(card -> card.getOwner().equals(managedLearner) && card.getLanguage().equals(TEST_LANGUAGE));
+        assertThat(cards).allMatch(card -> card.getOwner().equals(managedLearner)
+                && card.getLanguage().equals(TEST_LANGUAGE));
     }
 
     @Test
     @DisplayName("Should find cards matching entry pattern with case insensitivity")
     void givenOwnerAndEntry_whenFindAllByOwnerAndEntryLikeIgnoreCase_thenShouldReturnMatchingCards() {
-        List<Card> cards = cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(managedLearner, TEST_ENTRY.toLowerCase());
+        List<Card> cards = cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(
+                managedLearner, TEST_ENTRY.toLowerCase());
         assertThat(cards).isNotEmpty();
         assertThat(cards).anyMatch(card -> card.getEntry().equalsIgnoreCase(TEST_ENTRY));
     }
