@@ -43,8 +43,8 @@ class UserControllerTest extends BaseControllerTest {
     private static final String CHECK_USERNAME_AVAILABILITY_URL = BASE_URL + "/{username}/availability/";
     private static final String UPDATE_USERNAME_URL = ME_URL + "/username";
     private static final String DELETE_CURRENT_USER_ACCOUNT_URL = ME_URL + "/account";
-    private static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-languages";
-    private static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-languages";
+    private static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-langs";
+    private static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-langs";
 
     @MockBean
     UserService userService;

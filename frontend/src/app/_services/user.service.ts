@@ -30,10 +30,10 @@ export class UserService {
   }
 
   updateTargetLanguages(langCodes: string[]): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/me/target-languages`, {langCodes});
+    return this.http.put<void>(`${this.apiUrl}/me/target-langs`, {langCodes});
   }
 
   updateFluentLanguages(langCodes: string[]): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/me/fluent-languages`, {langCodes});
+    return this.http.put<void>(`${this.apiUrl}/me/fluent-langs`, {langCodes});
   }
 }

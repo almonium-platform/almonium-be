@@ -52,14 +52,14 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/target-languages")
+    @PutMapping("/me/target-langs")
     public ResponseEntity<Void> updateTargetLanguages(@RequestBody LanguageUpdateRequest request,
                                                       @CurrentUser LocalUser user) {
         learnerService.updateTargetLanguages(request.langCodes(), user.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/fluent-languages")
+    @PutMapping("/me/fluent-langs")
     public ResponseEntity<Void> updateFluentLanguages(@RequestBody LanguageUpdateRequest request,
                                                       @CurrentUser LocalUser user) {
         learnerService.updateFluentLanguages(request.langCodes(), user.getUser().getLearner());
