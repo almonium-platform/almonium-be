@@ -51,15 +51,15 @@ class CardRepositoryTest {
         entityManager.flush();
     }
 
-    @Test
     @DisplayName("Should find all cards by owner with correct details")
+    @Test
     void givenOwner_whenFindAllByOwner_thenShouldReturnCardsWithCorrectDetails() {
         List<Card> cards = cardRepository.findAllByOwner(managedLearner);
         assertThat(cards).allMatch(card -> card.getOwner().equals(managedLearner));
     }
 
-    @Test
     @DisplayName("Should find all cards by owner and language with correct details")
+    @Test
     void givenOwnerAndLanguage_whenFindAllByOwnerAndLanguage_thenShouldReturnCardsWithCorrectDetails() {
         List<Card> cards = cardRepository.findAllByOwnerAndLanguage(managedLearner, TEST_LANGUAGE);
         assertThat(cards).isNotEmpty();
@@ -67,8 +67,8 @@ class CardRepositoryTest {
                 && card.getLanguage().equals(TEST_LANGUAGE));
     }
 
-    @Test
     @DisplayName("Should find cards matching entry pattern with case insensitivity")
+    @Test
     void givenOwnerAndEntry_whenFindAllByOwnerAndEntryLikeIgnoreCase_thenShouldReturnMatchingCards() {
         List<Card> cards = cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(
                 managedLearner, TEST_ENTRY.toLowerCase());
@@ -76,8 +76,8 @@ class CardRepositoryTest {
         assertThat(cards).anyMatch(card -> card.getEntry().equalsIgnoreCase(TEST_ENTRY));
     }
 
-    @Test
     @DisplayName("Should get card by public ID with correct details")
+    @Test
     void givenPublicId_whenGetByPublicId_thenShouldReturnCorrectCard() {
         Optional<Card> card = cardRepository.getByPublicId(TEST_PUBLIC_ID);
         assertThat(card).isPresent();

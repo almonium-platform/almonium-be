@@ -71,8 +71,8 @@ class CardSuggestionServiceTest {
                 cardMapper);
     }
 
-    @Test
     @DisplayName("Should return list of suggested CardDto")
+    @Test
     void givenUser_whenGetSuggestedCards_thenReturnListOfCardDto() {
         // Arrange
         Learner user = new Learner();
@@ -92,8 +92,8 @@ class CardSuggestionServiceTest {
         assertThat(result).containsExactly(expectedDto);
     }
 
-    @Test
     @DisplayName("Should delete the suggestion")
+    @Test
     void givenCardAcceptanceDtoAndUser_whenDeclineSuggestion_thenSuggestionDeleted() {
         // Arrange
         //TODO provoke illegalAccess
@@ -115,8 +115,8 @@ class CardSuggestionServiceTest {
         verify(cardSuggestionRepository).deleteById(suggestionId);
     }
 
-    @Test
     @DisplayName("Should accept a card suggestion and clone the card")
+    @Test
     void givenCardAcceptanceDtoAndRecipient_whenAcceptSuggestion_thenCloneCardAndDeleteSuggestion() {
         // Arrange
         Long suggestionId = 3L;
@@ -144,8 +144,8 @@ class CardSuggestionServiceTest {
         verify(cardSuggestionRepository).delete(cardSuggestion);
     }
 
-    @Test
     @DisplayName("Should clone a card and save it along with its examples, translations, and tags")
+    @Test
     void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
         // Arrange
         Card card = new Card();
@@ -186,8 +186,8 @@ class CardSuggestionServiceTest {
         verify(learnerRepository).save(eq(user));
     }
 
-    @Test
     @DisplayName("Should save a card suggestion and return true if it doesn't exist")
+    @Test
     void givenNewCardSuggestionDtoAndSender_whenSuggestCard_thenReturnTrueAndSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
@@ -214,8 +214,8 @@ class CardSuggestionServiceTest {
         ));
     }
 
-    @Test
     @DisplayName("Should not save a card suggestion and return false if it already exists")
+    @Test
     void givenExistingCardSuggestionDtoAndSender_whenSuggestCard_thenReturnFalseAndDoNotSaveIt() {
         // Arrange
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);

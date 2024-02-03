@@ -23,7 +23,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -65,7 +64,6 @@ class LangControllerTest extends BaseControllerTest {
     }
 
     @DisplayName("Should find cards by search text when called with valid text")
-    @WithMockUser(username = "user@example.com")
     @Test
     void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() throws Exception {
         // Arrange

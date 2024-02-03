@@ -53,8 +53,8 @@ class FriendshipServiceImplTest {
         friendshipService = new FriendshipServiceImpl(friendshipRepository, userRepository);
     }
 
-    @Test
     @DisplayName("Should set FriendshipStatus to FST_BLOCKED_SND when requester is the action initiator")
+    @Test
     void givenRequesterIsActionInitiator_whenBlockUser_thenSetFstBlockedSnd() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -70,8 +70,8 @@ class FriendshipServiceImplTest {
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FST_BLOCKED_SND);
     }
 
-    @Test
     @DisplayName("Should set FriendshipStatus to SND_BLOCKED_FST when requestee is the action initiator")
+    @Test
     void givenRequesteeIsActionInitiator_whenBlockUser_thenSetSndBlockedFst() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -87,8 +87,8 @@ class FriendshipServiceImplTest {
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.SND_BLOCKED_FST);
     }
 
-    @Test
     @DisplayName("Should throw IllegalArgumentException when friendship status is neither FRIENDS nor PENDING")
+    @Test
     void givenInvalidFriendshipStatus_whenBlockUser_thenThrowIllegalArgumentException() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -103,8 +103,8 @@ class FriendshipServiceImplTest {
                 .hasMessage("Friendship status must be FRIENDS or PENDING");
     }
 
-    @Test
     @DisplayName("Should throw FriendshipNotFoundException when friendship does not exist")
+    @Test
     void givenInvalidIds_whenBlockUser_thenThrowFriendshipNotFoundException() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -117,8 +117,8 @@ class FriendshipServiceImplTest {
                 .isInstanceOf(FriendshipNotFoundException.class);
     }
 
-    @Test
     @DisplayName("Should return Optional with FriendInfoDto when email exists")
+    @Test
     void givenEmailExists_whenFindFriendByEmail_thenReturnOptionalWithFriendInfoDto() {
         FriendWrapper friendWrapper = mock(FriendWrapper.class);
         when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.of(friendWrapper));
@@ -129,8 +129,8 @@ class FriendshipServiceImplTest {
         verify(userRepository).findFriendByEmail("test@email.com");
     }
 
-    @Test
     @DisplayName("Should return empty Optional when email does not exist")
+    @Test
     void givenEmailDoesNotExist_whenFindFriendByEmail_thenReturnEmptyOptional() {
         when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.empty());
 
@@ -140,8 +140,8 @@ class FriendshipServiceImplTest {
         verify(userRepository).findFriendByEmail("test@email.com");
     }
 
-    @Test
     @DisplayName("Should return list of FriendInfoDto when user ID exists")
+    @Test
     void givenUserIdExists_whenGetFriends_thenReturnListOfFriendInfoDto() {
         long userId = 1L;
 
@@ -168,8 +168,8 @@ class FriendshipServiceImplTest {
         verify(userRepository, times(4)).findAllById(anyLong());
     }
 
-    @Test
     @DisplayName("Should return empty list when user ID does not exist")
+    @Test
     void givenUserIdDoesNotExist_whenGetFriends_thenReturnEmptyList() {
         long userId = 1L;
         when(friendshipRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
@@ -180,8 +180,8 @@ class FriendshipServiceImplTest {
         verify(friendshipRepository).findByUserId(userId);
     }
 
-    @Test
     @DisplayName("Should delete friendship when canceling with valid IDs")
+    @Test
     void givenValidIds_whenCancelFriendship_thenDeleteFriendship() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -197,8 +197,8 @@ class FriendshipServiceImplTest {
         verify(friendshipRepository).delete(existingFriendship);
     }
 
-    @Test
     @DisplayName("Should delete friendship when unblocking with valid IDs")
+    @Test
     void givenValidIds_whenUnblockFriendship_thenDeleteFriendship() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -214,8 +214,8 @@ class FriendshipServiceImplTest {
         verify(friendshipRepository).delete(existingFriendship);
     }
 
-    @Test
     @DisplayName("Should throw FriendshipNotFoundException when canceling friendship with invalid IDs")
+    @Test
     void givenInvalidIds_whenCancelFriendship_thenThrowFriendshipNotFoundException() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -250,8 +250,8 @@ class FriendshipServiceImplTest {
                 .isInstanceOf(FriendshipNotAllowedException.class);
     }
 
-    @Test
     @DisplayName("Should throw IllegalArgumentException when approving a friendship request with a non-PENDING status")
+    @Test
     void givenNonPendingStatus_whenApproveFriendshipRequest_thenThrowIllegalArgumentException() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -274,8 +274,8 @@ class FriendshipServiceImplTest {
         assertThatThrownBy(() -> friendshipService.manageFriendship(dto)).isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
     @DisplayName("Should create a new friendship with PENDING status when creating a friendship request")
+    @Test
     void givenValidIds_whenCreateFriendshipRequest_thenCreateNewFriendship() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -292,8 +292,8 @@ class FriendshipServiceImplTest {
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.PENDING);
     }
 
-    @Test
     @DisplayName("Should update friendship to FRIENDS status when approving a friendship request")
+    @Test
     void givenPendingStatus_whenApproveFriendshipRequest_thenUpdateToFriends() {
         long requesterId = 1L;
         long requesteeId = 2L;
@@ -309,8 +309,8 @@ class FriendshipServiceImplTest {
         assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FRIENDS);
     }
 
-    @Test
     @DisplayName("Should throw FriendshipNotAllowedException when friendship already exists")
+    @Test
     void givenExistingFriendship_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long actionInitiatorId = 1L;
         long actionAcceptorId = 2L;
@@ -333,8 +333,8 @@ class FriendshipServiceImplTest {
                 .isEqualTo(exception.getMessage());
     }
 
-    @Test
     @DisplayName("Should throw FriendshipNotAllowedException when userInfo limits ability to send requests")
+    @Test
     void givenUserLimitsAbilityToSendRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long actionInitiatorId = 1L;
         long actionAcceptorId = 2L;

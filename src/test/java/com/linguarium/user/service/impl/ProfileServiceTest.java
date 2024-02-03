@@ -24,8 +24,8 @@ class ProfileServiceTest {
     @Mock
     ProfileRepository profileRepository;
 
-    @Test
     @DisplayName("Should increase streak if last login is on the previous day")
+    @Test
     void givenLastLoginIsPreviousDay_whenUpdateLoginStreak_thenStreakIsIncreased() {
         Profile profile = new Profile();
         LocalDateTime lastLogin = LocalDateTime.now().minusDays(1);
@@ -37,8 +37,8 @@ class ProfileServiceTest {
         assertThat(profile.getLastLogin().toLocalDate()).isEqualTo(LocalDate.now());
     }
 
-    @Test
     @DisplayName("Should reset streak if last login is not on the previous day")
+    @Test
     void givenLastLoginNotPreviousDay_whenUpdateLoginStreak_thenStreakIsReset() {
         Profile profile = new Profile();
         LocalDateTime lastLogin = LocalDateTime.now().minusDays(2);

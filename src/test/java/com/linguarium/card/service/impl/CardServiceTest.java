@@ -90,8 +90,8 @@ class CardServiceTest {
                 cardMapper);
     }
 
-    @Test
     @DisplayName("Should return a list of CardDto that match the search entry")
+    @Test
     void givenSearchEntryAndUser_whenSearchByEntry_thenReturnMatchingCards() {
         // Arrange
         Learner user = new Learner();
@@ -114,8 +114,8 @@ class CardServiceTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
-    @Test
     @DisplayName("Should return CardDto when getCardById is called")
+    @Test
     void givenCardId_whenGetCardById_thenReturnCardDto() {
         // Arrange
         Long id = 1L;
@@ -134,8 +134,8 @@ class CardServiceTest {
         assertThat(result).isEqualTo(expectedDto);
     }
 
-    @Test
     @DisplayName("Should return CardDto when getCardByHash is called")
+    @Test
     void givenCardHash_whenGetCardByHash_thenReturnCardDto() {
         // Arrange
         UUID uuid = UUID.randomUUID();
@@ -152,8 +152,8 @@ class CardServiceTest {
         assertThat(result).isEqualTo(expectedDto);
     }
 
-    @Test
     @DisplayName("Should return list of CardDto when getUsersCards is called")
+    @Test
     void givenUser_whenGetUsersCards_thenReturnListOfCardDto() {
         // Arrange
         Learner user = new Learner();
@@ -176,8 +176,8 @@ class CardServiceTest {
         assertThat(result).isEqualTo(expectedDtos);
     }
 
-    @Test
     @DisplayName("Should throw exception when getCardByHash is called with non-existent hash")
+    @Test
     void givenNonExistentCardHash_whenGetCardByHash_thenThrowException() {
         // Arrange
         UUID random = UUID.randomUUID();
@@ -189,8 +189,8 @@ class CardServiceTest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
-    @Test
     @DisplayName("Should delete card by ID")
+    @Test
     void givenCardId_whenDeleteById_thenCardIsDeleted() {
         Long id = 1L;
 
@@ -201,8 +201,8 @@ class CardServiceTest {
         verify(cardRepository, times(1)).deleteById(id);
     }
 
-    @Test
     @DisplayName("Should delete specified examples")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenExamplesDeleted() {
         // Arrange
         Long cardId = 1L;
@@ -241,8 +241,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should delete specified translations")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenTranslationsDeleted() {
         // Arrange
         Long cardId = 1L;
@@ -281,8 +281,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should update existing translations")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenExistingTranslationsUpdated() {
         // Arrange
         Long cardId = 1L;
@@ -335,8 +335,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should update existing examples")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenExistingExamplesUpdated() {
         // Arrange
         Long cardId = 1L;
@@ -403,8 +403,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should create new translations")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenNewTranslationsCreated() {
         // Arrange
         Long cardId = 1L;
@@ -443,8 +443,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should create new examples")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenNewExamplesCreated() {
         // Arrange
         Long cardId = 1L;
@@ -484,8 +484,8 @@ class CardServiceTest {
         }
     }
 
-    @Test
     @DisplayName("Should update the timestamp of the card")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenTimestampUpdated() {
         // Arrange
         Long cardId = 1L;
@@ -511,8 +511,8 @@ class CardServiceTest {
         assertThat(card.getUpdated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
     }
 
-    @Test
     @DisplayName("Should save the updated card")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenCardSaved() {
         // Arrange
         Long cardId = 1L;
@@ -538,8 +538,8 @@ class CardServiceTest {
         verify(cardRepository).save(card);
     }
 
-    @Test
     @DisplayName("Should update tags for a given card")
+    @Test
     void givenCardUpdateDto_whenUpdateCard_thenTagsUpdated() {
         // Arrange
         Long cardId = 7L;
@@ -570,8 +570,8 @@ class CardServiceTest {
         assertNewTagAddition(newTag);
     }
 
-    @Test
     @DisplayName("Should create a new card with all associated entities")
+    @Test
     void givenCardCreationDtoAndLearner_whenCreateCard_thenCardCreatedWithAllEntities() {
         // Arrange
         CardCreationDto mockDto = mock(CardCreationDto.class);
@@ -621,8 +621,8 @@ class CardServiceTest {
         verify(learnerRepository).save(mockLearner);
     }
 
-    @Test
     @DisplayName("Should return user's cards of the specified language")
+    @Test
     void givenUserAndLanguageCode_whenGetUsersCardsOfLang_thenReturnRightCards() {
         // Mocked data
         Learner user = new Learner();

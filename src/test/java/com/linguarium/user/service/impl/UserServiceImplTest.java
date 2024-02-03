@@ -88,8 +88,8 @@ class UserServiceImplTest {
     @Mock
     ProfileService profileService;
 
-    @Test
     @DisplayName("Should throw exception if OAuth2UserInfo doesn't contain a name")
+    @Test
     void givenOAuth2UserInfoWithNoName_whenProcessUserRegistration_thenThrowsOAuth2AuthenticationProcessingException() {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("email", "johnwick@gmail.com");
@@ -105,8 +105,8 @@ class UserServiceImplTest {
         )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
-    @Test
     @DisplayName("Should throw exception if OAuth2UserInfo doesn't contain an email")
+    @Test
     void givenOAuth2UserInfoWithNoEmail_whenProcessAuthFromProvider_thenThrowsOAuth2ProcessingException() {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("name", "John Wick");
@@ -122,8 +122,8 @@ class UserServiceImplTest {
         )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
-    @Test
     @DisplayName("Should throw exception if userInfo signed up with different non-local provider")
+    @Test
     void givenUserSignedUpWithDifferentProvider_whenProcessUserRegistration_thenThrowsException() {
         UserServiceImpl userServiceSpy = spy(userService);
 
@@ -147,8 +147,8 @@ class UserServiceImplTest {
         )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
-    @Test
     @DisplayName("Should update existing user with new OAuth2UserInfo when user already exists")
+    @Test
     void givenExistingUser_whenProcessUserRegistration_thenUpdatesUser() {
         // Arrange
         String registrationId = SocialProvider.GOOGLE.getProviderType();
@@ -184,8 +184,8 @@ class UserServiceImplTest {
         assertThat(result.getUser()).isEqualTo(existingUser);
     }
 
-    @Test
     @DisplayName("Should register new user from provider when user is not found")
+    @Test
     void givenUserNotFound_whenProcessUserRegistration_thenRegistersNewUser() {
         // Arrange
         String registrationId = "google";
@@ -211,8 +211,8 @@ class UserServiceImplTest {
         assertThat(result.getAttributes()).isEqualTo(attributes);
     }
 
-    @Test
     @DisplayName("Should successfully register local user")
+    @Test
     void givenValidLocalRequest_whenRegister_thenSaveUser() {
         // Arrange
         SocialProvider provider = SocialProvider.LOCAL;
@@ -261,8 +261,8 @@ class UserServiceImplTest {
         verify(userRepository).save(any(User.class));
     }
 
-    @Test
     @DisplayName("Should successfully register user from provider")
+    @Test
     void givenValidProviderRequestFrom_whenRegister_thenSaveUser() {
         // Arrange
         SocialProvider provider = SocialProvider.GOOGLE;
@@ -312,8 +312,8 @@ class UserServiceImplTest {
         verify(userRepository).save(any(User.class));
     }
 
-    @Test
     @DisplayName("Should throw an exception when trying to register user with existing userId")
+    @Test
     void givenExistingUserId_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
         RegistrationRequest registrationRequest = new RegistrationRequest();
         registrationRequest.setUserId(1L);
@@ -327,168 +327,8 @@ class UserServiceImplTest {
         verifyNoMoreInteractions(userRepository);
     }
 
-    @Test
-    @DisplayName("Should throw an exception when trying to register user with existing email")
-    void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setEmail("john@example.com");
-
-        when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
-
-        assertThatThrownBy(() -> userService.register(registrationRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
-
-        verify(userRepository).existsByEmail(registrationRequest.getEmail());
-        verify(userRepository, never()).existsById(anyLong());
-        verify(userRepository, never()).existsByUsername(anyString());
-        verify(userRepository, never()).save(any(User.class));
-        verify(userRepository, never()).flush();
-    }
-
-    @Test
-    @DisplayName("Should throw an exception when trying to register user with existing username")
-    void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setUsername("john");
-
-        when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
-
-        assertThatThrownBy(() -> userService.register(registrationRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
-
-        verify(userRepository).existsByUsername(registrationRequest.getUsername());
-        verify(userRepository, never()).existsById(anyLong());
-        verify(userRepository, never()).existsByEmail(anyString());
-        verify(userRepository, never()).save(any(User.class));
-        verify(userRepository, never()).flush();
-    }
-
-    @Test
-    @DisplayName("Should change username")
-    void givenUsername_whenChangeUsername_thenUsernameChanged() {
-        String username = "newUsername";
-        Long id = 1L;
-
-        userService.changeUsername(username, id);
-
-        verify(userRepository).changeUsername(username, id);
-    }
-
-    @Test
-    @DisplayName("Should return user optional for existing user")
-    void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
-        Long userId = 1L;
-        User user = getUser();
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        Optional<User> result = userService.findUserById(userId);
-
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(user);
-        verify(userRepository).findById(userId);
-    }
-
-    @Test
-    @DisplayName("Should return empty optional for non existing user")
-    void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
-        Long userId = 1L;
-        when(userRepository.findById(userId)).thenReturn(Optional.empty());
-
-        Optional<User> result = userService.findUserById(userId);
-
-        assertThat(result).isEmpty();
-        verify(userRepository).findById(userId);
-    }
-
-    @Test
-    @DisplayName("Should delete user account")
-    void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
-        User user = getUser();
-
-        userService.deleteAccount(user);
-
-        verify(userRepository).delete(user);
-    }
-
-    @Test
-    @DisplayName("Should return user if email exists")
-    void givenExistentEmail_whenFindByEmail_thenReturnUser() {
-        String email = "john@example.com";
-        User expectedUser = getUser();
-        expectedUser.setEmail(email);
-
-        when(userRepository.findByEmail(email)).thenReturn(expectedUser);
-
-        User actualUser = userService.findUserByEmail(email);
-
-        assertThat(expectedUser).isEqualTo(actualUser);
-    }
-
-    @Test
-    @DisplayName("Should return null if email doesn't exist")
-    void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
-        String email = "nonexistent@example.com";
-
-        when(userRepository.findByEmail(email)).thenReturn(null);
-
-        User actualUser = userService.findUserByEmail(email);
-
-        assertThat(actualUser).isNull();
-    }
-
-    @Test
-    @DisplayName("Should build UserInfo from LocalUser")
-    void givenLocalUser_whenBuildUserInfo_thenReturnUserInfo() {
-        User user = getUser();
-
-        Set<Long> tagIds = Set.of(1L, 2L, 3L);
-        mockTags(tagIds, user);
-
-        UserInfo userInfo = userService.buildUserInfo(user);
-
-        assertThat(userInfo).isNotNull()
-                .extracting(UserInfo::id, UserInfo::username, UserInfo::email, UserInfo::uiLang,
-                        UserInfo::profilePicLink, UserInfo::background, UserInfo::streak)
-                .containsExactly("1", "john", "john@example.com", Language.EN.name(),
-                        "profile.jpg", "background.jpg", 5);
-        assertThat(userInfo.tags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
-        assertThat(userInfo.targetLangs()).containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name());
-        assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
-
-        verify(cardTagRepository).getLearnersTags(user.getLearner());
-        tagIds.forEach(tagId -> verify(tagRepository).findById(eq((tagId))));
-    }
-
-    @Test
-    @DisplayName("Should return true when username is available")
-    void givenAvailableUsername_whenIsUsernameAvailable_thenReturnsTrue() {
-        // Arrange
-        String username = "newUsername";
-        when(userRepository.existsByUsername(username)).thenReturn(false);
-
-        // Act
-        boolean result = userService.isUsernameAvailable(username);
-
-        // Assert
-        assertThat(result).isTrue();
-    }
-
-    @Test
-    @DisplayName("Should return false when username is already taken")
-    void givenTakenUsername_whenIsUsernameAvailable_thenReturnsFalse() {
-        // Arrange
-        String username = "existingUsername";
-        when(userRepository.existsByUsername(username)).thenReturn(true);
-
-        // Act
-        boolean result = userService.isUsernameAvailable(username);
-
-        // Assert
-        assertThat(result).isFalse();
-    }
-
-    @Test
     @DisplayName("Should authenticate and return JWT when given valid credentials")
+    @Test
     void givenValidCredentials_whenAuthenticate_thenReturnJwtAndUserInfo() {
         // Arrange
         User user = getUser();
@@ -518,8 +358,105 @@ class UserServiceImplTest {
         assertThat(result.userInfo()).usingRecursiveComparison().isEqualTo(userInfo);
     }
 
+    @DisplayName("Should throw an exception when trying to register user with existing email")
     @Test
+    void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setEmail("john@example.com");
+
+        when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
+
+        assertThatThrownBy(() -> userService.register(registrationRequest))
+                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
+
+        verify(userRepository).existsByEmail(registrationRequest.getEmail());
+        verify(userRepository, never()).existsById(anyLong());
+        verify(userRepository, never()).existsByUsername(anyString());
+        verify(userRepository, never()).save(any(User.class));
+        verify(userRepository, never()).flush();
+    }
+
+    @DisplayName("Should throw an exception when trying to register user with existing username")
+    @Test
+    void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
+        RegistrationRequest registrationRequest = new RegistrationRequest();
+        registrationRequest.setUsername("john");
+
+        when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
+
+        assertThatThrownBy(() -> userService.register(registrationRequest))
+                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
+
+        verify(userRepository).existsByUsername(registrationRequest.getUsername());
+        verify(userRepository, never()).existsById(anyLong());
+        verify(userRepository, never()).existsByEmail(anyString());
+        verify(userRepository, never()).save(any(User.class));
+        verify(userRepository, never()).flush();
+    }
+
+    @DisplayName("Should change username")
+    @Test
+    void givenUsername_whenChangeUsername_thenUsernameChanged() {
+        String username = "newUsername";
+        Long id = 1L;
+
+        userService.changeUsername(username, id);
+
+        verify(userRepository).changeUsername(username, id);
+    }
+
+    @DisplayName("Should return user optional for existing user")
+    @Test
+    void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
+        Long userId = 1L;
+        User user = getUser();
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        Optional<User> result = userService.findUserById(userId);
+
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(user);
+        verify(userRepository).findById(userId);
+    }
+
+    @DisplayName("Should return empty optional for non existing user")
+    @Test
+    void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
+        Long userId = 1L;
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        Optional<User> result = userService.findUserById(userId);
+
+        assertThat(result).isEmpty();
+        verify(userRepository).findById(userId);
+    }
+
+    @DisplayName("Should delete user account")
+    @Test
+    void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
+        User user = getUser();
+
+        userService.deleteAccount(user);
+
+        verify(userRepository).delete(user);
+    }
+
+    @DisplayName("Should return user if email exists")
+    @Test
+    void givenExistentEmail_whenFindByEmail_thenReturnUser() {
+        String email = "john@example.com";
+        User expectedUser = getUser();
+        expectedUser.setEmail(email);
+
+        when(userRepository.findByEmail(email)).thenReturn(expectedUser);
+
+        User actualUser = userService.findUserByEmail(email);
+
+        assertThat(expectedUser).isEqualTo(actualUser);
+    }
+
     @DisplayName("Should throw exception when try to register with placeholder password")
+    @Test
     void givenStubbedPassword_whenAuthenticate_thenThrowBadCredentialsException() {
         // Arrange
         String email = "johnwick@gmail.com";
@@ -531,6 +468,69 @@ class UserServiceImplTest {
 
         // Verify that no interactions have occurred with the authentication manager
         verifyNoInteractions(authenticationManager);
+    }
+
+    @DisplayName("Should return null if email doesn't exist")
+    @Test
+    void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
+        String email = "nonexistent@example.com";
+
+        when(userRepository.findByEmail(email)).thenReturn(null);
+
+        User actualUser = userService.findUserByEmail(email);
+
+        assertThat(actualUser).isNull();
+    }
+
+    @DisplayName("Should build UserInfo from LocalUser")
+    @Test
+    void givenLocalUser_whenBuildUserInfo_thenReturnUserInfo() {
+        User user = getUser();
+
+        Set<Long> tagIds = Set.of(1L, 2L, 3L);
+        mockTags(tagIds, user);
+
+        UserInfo userInfo = userService.buildUserInfo(user);
+
+        assertThat(userInfo).isNotNull()
+                .extracting(UserInfo::id, UserInfo::username, UserInfo::email, UserInfo::uiLang,
+                        UserInfo::profilePicLink, UserInfo::background, UserInfo::streak)
+                .containsExactly("1", "john", "john@example.com", Language.EN.name(),
+                        "profile.jpg", "background.jpg", 5);
+        assertThat(userInfo.tags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
+        assertThat(userInfo.targetLangs()).containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name());
+        assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
+
+        verify(cardTagRepository).getLearnersTags(user.getLearner());
+        tagIds.forEach(tagId -> verify(tagRepository).findById(eq((tagId))));
+    }
+
+    @DisplayName("Should return true when username is available")
+    @Test
+    void givenAvailableUsername_whenIsUsernameAvailable_thenReturnsTrue() {
+        // Arrange
+        String username = "newUsername";
+        when(userRepository.existsByUsername(username)).thenReturn(false);
+
+        // Act
+        boolean result = userService.isUsernameAvailable(username);
+
+        // Assert
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("Should return false when username is already taken")
+    @Test
+    void givenTakenUsername_whenIsUsernameAvailable_thenReturnsFalse() {
+        // Arrange
+        String username = "existingUsername";
+        when(userRepository.existsByUsername(username)).thenReturn(true);
+
+        // Act
+        boolean result = userService.isUsernameAvailable(username);
+
+        // Assert
+        assertThat(result).isFalse();
     }
 
     private void mockTags(Set<Long> tagIds, User user) {

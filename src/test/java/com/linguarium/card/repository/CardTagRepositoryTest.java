@@ -61,16 +61,16 @@ class CardTagRepositoryTest {
         entityManager.flush();
     }
 
-    @Test
     @DisplayName("Should retrieve a set of learner's tags")
+    @Test
     void whenGetLearnersTags_thenShouldReturnTags() {
         Set<Long> tags = cardTagRepository.getLearnersTags(managedLearner);
         assertThat(tags).isNotEmpty();
         assertThat(tags).contains(managedTag.getId());
     }
 
-    @Test
     @DisplayName("Should get CardTag by card and tag text")
+    @Test
     void givenCardAndText_whenGetByCardAndText_thenShouldReturnCardTag() {
         CardTag cardTag = cardTagRepository.getByCardAndText(managedCard, managedTag.getText());
         assertThat(cardTag).isNotNull();

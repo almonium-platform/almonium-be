@@ -50,8 +50,8 @@ class CardSuggestionRepositoryTest {
         entityManager.flush();
     }
 
-    @Test
     @DisplayName("Should find a CardSuggestion by sender, recipient, and card")
+    @Test
     void givenSenderRecipientCard_whenGetBySenderAndRecipientAndCard_thenShouldReturnCardSuggestion() {
         CardSuggestion cardSuggestion = new CardSuggestion(sender, recipient, card);
         entityManager.persist(cardSuggestion);
@@ -66,8 +66,8 @@ class CardSuggestionRepositoryTest {
                 .containsExactly(sender, recipient, card);
     }
 
-    @Test
     @DisplayName("Should find all CardSuggestions for a recipient")
+    @Test
     void givenRecipient_whenGetByRecipient_thenShouldReturnListOfCardSuggestions() {
         Card secondCard = TestDataGenerator.buildTestCard();
         entityManager.persist(secondCard);

@@ -34,16 +34,16 @@ class TagRepositoryTest {
         entityManager.flush();
     }
 
-    @Test
     @DisplayName("Should find tag by text ignoring case and space")
+    @Test
     void whenFindByTextNormalized_thenShouldReturnTag() {
         Optional<Tag> foundTag = tagRepository.findByTextWithNormalization(" sample tag ");
         assertThat(foundTag).isPresent();
         assertThat(foundTag.get().getText()).isEqualTo(managedTag.getText());
     }
 
-    @Test
     @DisplayName("Should find tag by exact text")
+    @Test
     void whenFindByText_thenShouldReturnTag() {
         Optional<Tag> foundTag = tagRepository.findByText("sample_tag");
         assertThat(foundTag).isPresent();

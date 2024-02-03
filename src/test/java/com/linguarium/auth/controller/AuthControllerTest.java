@@ -62,8 +62,8 @@ class AuthControllerTest extends BaseControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(response)));
     }
 
-    @Test
     @DisplayName("Should handle BadCredentialsException by returning unauthorized status")
+    @Test
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() throws Exception {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "wrongpassword");
         when(userService.login(any(LoginRequest.class)))

@@ -39,8 +39,8 @@ class LearnerServiceTest {
         learnerService = new LearnerServiceImpl(learnerRepository);
     }
 
-    @Test
     @DisplayName("Should set new fluent languages for user with existing target languages")
+    @Test
     void givenUserWithExistingTargetLanguages_whenSetTargetLangs_thenNewLanguagesSet() {
         List<String> langCodes = List.of(Language.DE.name(), Language.FR.name(), Language.ES.name());
         Learner learner = new Learner();
@@ -55,8 +55,8 @@ class LearnerServiceTest {
         verify(learnerRepository).save(learner);
     }
 
-    @Test
     @DisplayName("Should set target languages for user based on language code DTO")
+    @Test
     void givenLangCodeDto_whenSetTargetLangs_thenUserTargetLanguagesAreSet() {
         List<String> langCodes = List.of(Language.DE.name(), Language.EN.name());
 
@@ -70,8 +70,8 @@ class LearnerServiceTest {
         verify(learnerRepository, times(1)).save(learner);
     }
 
-    @Test
     @DisplayName("Should set new fluent languages for user with existing fluent languages")
+    @Test
     void givenUserWithExistingFluentLanguages_whenSetFluentLangs_thenNewLanguagesSet() {
         List<String> langCodes = List.of(Language.DE.name(), Language.FR.name(), Language.ES.name());
         Learner learner = new Learner();
@@ -90,8 +90,8 @@ class LearnerServiceTest {
         verify(learnerRepository).save(learner);
     }
 
-    @Test
     @DisplayName("Should set fluent languages for user based on language code DTO")
+    @Test
     void givenLangCodeDto_whenSetFluentLangs_thenUserFluentLanguagesAreSet() {
         List<String> langCodes = List.of(Language.DE.name(), Language.EN.name());
 
