@@ -8,3 +8,48 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+
+  # OAuth Configurations
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: google_id_dummy
+            clientSecret: google_secret_dummy
+
+          facebook:
+            clientId: facebook_id_dummy
+            clientSecret: facebook_secret_dummy
+
+        provider:
+          facebook:
+            user-info-uri: https://dummy.url
+
+# Google Cloud Configurations
+google:
+  projectId: google_project_id_dummy
+  parentLocation: global
+
+# Custom Configurations
+app:
+  server:
+    frontend:
+      url: http://localhost:9999
+
+  auth:
+    tokenExpirationMSec: 864000000
+    tokenSecret: token_secret_dummy
+
+  oauth2:
+    authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect
+
+# External API keys
+external:
+  api:
+    key:
+      urban: dummy_urban_key
+      wordnik: dummy_wordnik_key
+      yandex: dummy_yandex_key
+      words: dummy_words_key
+      oxford: dummy_oxford_key
