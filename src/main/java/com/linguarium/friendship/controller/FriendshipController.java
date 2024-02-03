@@ -2,8 +2,8 @@ package com.linguarium.friendship.controller;
 
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
 import jakarta.validation.Valid;

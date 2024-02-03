@@ -1,7 +1,7 @@
 package com.linguarium.friendship.service.impl;
 
-import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipActionDto;
+import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
 import com.linguarium.friendship.model.FriendInfoView;
