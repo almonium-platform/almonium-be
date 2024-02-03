@@ -1,13 +1,12 @@
 package com.linguarium;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication(scanBasePackages = "com.linguarium")
+@SpringBootApplication
 public class LinguariumApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplicationBuilder app = new SpringApplicationBuilder(LinguariumApplication.class);
-        app.run();
+        SpringApplication.run(LinguariumApplication.class, args);
     }
 }
