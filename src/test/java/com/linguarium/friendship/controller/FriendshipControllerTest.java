@@ -41,11 +41,9 @@ class FriendshipControllerTest extends BaseControllerTest {
     @MockBean
     FriendshipService friendshipService;
 
-    LocalUser principal;
-
     @BeforeEach
     void setUp() {
-        principal = TestDataGenerator.createLocalUser();
+        LocalUser principal = TestDataGenerator.createLocalUser();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 

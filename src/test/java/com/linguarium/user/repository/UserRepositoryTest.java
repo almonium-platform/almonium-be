@@ -33,15 +33,14 @@ class UserRepositoryTest {
     void givenEmail_whenFindFriendByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() {
         Optional<FriendWrapper> friend = userRepository.findFriendByEmail(JOHN_EMAIL);
         assertThat(friend).isPresent();
-        assertThat(friend.get().getUsername()).isEqualTo(JOHN_USERNAME);
+        assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
 
     @DisplayName("Should find user by id")
     @Test
     void givenId_whenFindById_thenUserShouldBePresentAndUsernameShouldMatch() {
         Optional<User> user = userRepository.findById(JOHN_ID);
-        assertThat(user).isPresent();
-        assertThat(user.get().getUsername()).isEqualTo(JOHN_USERNAME);
+        assertThat(user.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
 
     @DisplayName("Should change username")
@@ -50,8 +49,7 @@ class UserRepositoryTest {
         String newUsername = "john_new";
         userRepository.changeUsername(newUsername, JOHN_ID);
         Optional<User> user = userRepository.findById(JOHN_ID);
-        assertThat(user).isPresent();
-        assertThat(user.get().getUsername()).isEqualTo(newUsername);
+        assertThat(user.orElseThrow().getUsername()).isEqualTo(newUsername);
     }
 
     @DisplayName("Should find user by email")

@@ -110,7 +110,7 @@ class AuthControllerTest extends BaseControllerTest {
                 .username("dummyUsername")
                 .email("dummy@example.com")
                 .socialProvider(SocialProvider.FACEBOOK)
-                .profilePicLink("http://example.com/dummy.jpg")
+                .profilePicLink("https://example.com/dummy.jpg")
                 .password("dummyPassword123")
                 .build();
     }

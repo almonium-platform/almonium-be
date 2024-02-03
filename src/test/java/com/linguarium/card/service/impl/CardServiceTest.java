@@ -25,11 +25,11 @@ import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -78,17 +78,8 @@ class CardServiceTest {
     @InjectMocks
     CardServiceImpl cardServiceImpl;
 
-    @BeforeEach
-    void setUp() {
-        cardServiceImpl = new CardServiceImpl(
-                cardRepository,
-                cardTagRepository,
-                tagRepository,
-                exampleRepository,
-                translationRepository,
-                learnerRepository,
-                cardMapper);
-    }
+    @Captor
+    private ArgumentCaptor<List<CardTag>> captor;
 
     @DisplayName("Should return a list of CardDto that match the search entry")
     @Test
@@ -605,9 +596,8 @@ class CardServiceTest {
         cardServiceImpl.createCard(mockLearner, mockDto);
 
         // Verify
-        ArgumentCaptor<List<CardTag>> argumentCaptor = ArgumentCaptor.forClass(List.class);
-        verify(cardTagRepository).saveAll(argumentCaptor.capture());
-        List<CardTag> capturedCardTags = argumentCaptor.getValue();
+        verify(cardTagRepository).saveAll(captor.capture());
+        List<CardTag> capturedCardTags = captor.getValue();
         assertThat(capturedCardTags.size()).isEqualTo(2);
         assertThat(capturedCardTags.get(0).getTag().getText()).isEqualTo("text1");
         assertThat(capturedCardTags.get(1).getTag().getText()).isEqualTo("text2");

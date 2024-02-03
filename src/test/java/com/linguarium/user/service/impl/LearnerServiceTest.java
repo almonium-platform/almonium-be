@@ -8,7 +8,6 @@ import com.linguarium.user.repository.LearnerRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,14 +29,8 @@ import static org.mockito.Mockito.verify;
 class LearnerServiceTest {
     @InjectMocks
     LearnerServiceImpl learnerService;
-
     @Mock
     LearnerRepository learnerRepository;
-
-    @BeforeEach
-    void setUp() {
-        learnerService = new LearnerServiceImpl(learnerRepository);
-    }
 
     @DisplayName("Should set new fluent languages for user with existing target languages")
     @Test

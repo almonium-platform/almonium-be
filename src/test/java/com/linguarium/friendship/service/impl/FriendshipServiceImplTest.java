@@ -15,7 +15,6 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,11 +46,6 @@ class FriendshipServiceImplTest {
     FriendshipRepository friendshipRepository;
     @Mock
     UserRepository userRepository;
-
-    @BeforeEach
-    void setUp() {
-        friendshipService = new FriendshipServiceImpl(friendshipRepository, userRepository);
-    }
 
     @DisplayName("Should set FriendshipStatus to FST_BLOCKED_SND when requester is the action initiator")
     @Test
@@ -231,7 +225,7 @@ class FriendshipServiceImplTest {
     @Test
     @DisplayName("""
             Should throw FriendshipNotAllowedException
-            when creating a friendship request 
+            when creating a friendship request
             with a user who has blocked requests
             """)
     void givenUserHasBlockedRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
@@ -348,9 +342,8 @@ class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
 
-        FriendshipNotAllowedException exception = catchThrowableOfType(
-                () -> friendshipService.manageFriendship(dto),
-                FriendshipNotAllowedException.class);
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
+                .isInstanceOf(FriendshipNotAllowedException.class);
     }
 
     private FriendshipActionDto generateFriendshipActionDto(long requesterId,

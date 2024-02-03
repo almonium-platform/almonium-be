@@ -15,7 +15,6 @@ import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,20 +55,8 @@ class CardSuggestionServiceTest {
     LearnerRepository learnerRepository;
     @Mock
     CardMapper cardMapper;
-
     @InjectMocks
     CardSuggestionServiceImpl cardSuggestionService;
-
-    @BeforeEach
-    void setUp() {
-        cardSuggestionService = new CardSuggestionServiceImpl(
-                cardRepository,
-                cardSuggestionRepository,
-                exampleRepository,
-                translationRepository,
-                learnerRepository,
-                cardMapper);
-    }
 
     @DisplayName("Should return list of suggested CardDto")
     @Test

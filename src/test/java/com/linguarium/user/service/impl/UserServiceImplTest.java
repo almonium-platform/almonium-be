@@ -189,7 +189,10 @@ class UserServiceImplTest {
     void givenUserNotFound_whenProcessUserRegistration_thenRegistersNewUser() {
         // Arrange
         String registrationId = "google";
-        Map<String, Object> attributes = createAttributes("johnwick@gmail.com", "101868015518714862283");
+        String email = "johnwick@gmail.com";
+        String userId = "101868015518714862283";
+
+        Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
 
@@ -206,7 +209,7 @@ class UserServiceImplTest {
 
         // Assert
         verify(userRepository).save(any(User.class));
-        assertThat(result.getUser().getEmail()).isEqualTo("johnwick@gmail.com");
+        assertThat(result.getUser().getEmail()).isEqualTo(email);
         assertThat(result.getIdToken()).isEqualTo(idToken);
         assertThat(result.getAttributes()).isEqualTo(attributes);
     }
