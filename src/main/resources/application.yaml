@@ -1,42 +1,64 @@
-# Main Configurations
 server:
-  port: 9998
+  port: ${BE_PORT}
 
 spring:
-  ### DATABASE CONFIG
+
+  ### Database Config
   jpa:
     open-in-view: false
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
   liquibase:
     contexts: ${spring.profiles.active}
+
   # OAuth Configurations
   security:
     oauth2:
       client:
         registration:
           google:
-            clientId: 842714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com
+            clientId: ${GOOGLE_ID}
+            clientSecret: ${GOOGLE_SECRET}
+
           facebook:
-            clientId: 1311434966049556
+            clientId: ${FACEBOOK_ID}
+            clientSecret: ${FACEBOOK_SECRET}
+
         provider:
           facebook:
             user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
   config:
-    import: optional:dev-secrets.yaml
+    import:
+      - optional:file:.env[.properties]
 
 # Google Cloud Configurations
 google:
-  projectId: linguatool
+  projectId: ${GOOGLE_PROJECT_ID}
   parentLocation: global
 
 # Custom Configurations
 app:
   server:
     frontend:
-      url: http://localhost:9999
+      url: ${FE_URL}
 
   auth:
     tokenExpirationMSec: 864000000
+    tokenSecret: ${TOKEN_SECRET}
+
   oauth2:
     authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect
+
+# External API keys
+external:
+  api:
+    key:
+      urban: ${URBAN_KEY}
+      wordnik: ${WORDNIK_KEY}
+      yandex: ${YANDEX_KEY}
+      words: ${WORDS_KEY}
+      oxford: ${OXFORD_KEY}
