@@ -1,4 +1,4 @@
-package com.linguarium.config.security.oauth2.user;
+package com.linguarium.config.security.oauth2.userinfo;
 
 import java.util.Map;
 
@@ -35,23 +35,5 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return getNestedStringAttribute("picture.data.url");
-    }
-
-    private String getStringAttribute(String attributeName) {
-        Object value = attributes.get(attributeName);
-        return (value instanceof String) ? (String) value : null;
-    }
-
-    private String getNestedStringAttribute(String nestedAttributeName) {
-        String[] nestedAttributes = nestedAttributeName.split("\\.");
-        Object currentObj = attributes;
-        for (String attr : nestedAttributes) {
-            if (currentObj instanceof Map) {
-                currentObj = ((Map<?, ?>) currentObj).get(attr);
-            } else {
-                return null;
-            }
-        }
-        return (currentObj instanceof String) ? (String) currentObj : null;
     }
 }

@@ -13,9 +13,9 @@ import java.util.Set;
 
 @Repository
 public interface CardTagRepository extends JpaRepository<CardTag, CardTagPK> {
-    @Query("SELECT DISTINCT c.tag.id FROM CardTag c WHERE c.learner = :learner")
+    @Query("select distinct c.tag.id from CardTag c where c.learner = :learner")
     Set<Long> getLearnersTags(@Param("learner") Learner learner);
 
-    @Query(value = "FROM CardTag CT WHERE CT.card = :card AND CT.tag.text = :text")
+    @Query(value = "from CardTag CT where CT.card = :card and CT.tag.text = :text")
     CardTag getByCardAndText(Card card, String text);
 }

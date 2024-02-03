@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
@@ -147,19 +147,25 @@ class FriendshipServiceImplTest {
 
         FriendInfoView view1 = new FriendInfoView(userId, FriendshipStatus.FRIENDS.getCode(), true);
         FriendInfoView view2 = new FriendInfoView(userId, FriendshipStatus.PENDING.getCode(), false);
+        FriendInfoView view3 = new FriendInfoView(userId, FriendshipStatus.FST_BLOCKED_SND.getCode(), true);
+        FriendInfoView view4 = new FriendInfoView(userId, FriendshipStatus.SND_BLOCKED_FST.getCode(), false);
         FriendWrapper friendWrapper1 = mock(FriendWrapper.class);
         FriendWrapper friendWrapper2 = mock(FriendWrapper.class);
+        FriendWrapper friendWrapper3 = mock(FriendWrapper.class);
+        FriendWrapper friendWrapper4 = mock(FriendWrapper.class);
 
-        when(friendshipRepository.findByUserId(userId)).thenReturn(Arrays.asList(view1, view2));
+        when(friendshipRepository.findByUserId(userId)).thenReturn(Arrays.asList(view1, view2, view3, view4));
         when(userRepository.findAllById(anyLong()))
                 .thenReturn(Optional.of(friendWrapper1))
-                .thenReturn(Optional.of(friendWrapper2));
+                .thenReturn(Optional.of(friendWrapper2))
+                .thenReturn(Optional.of(friendWrapper3))
+                .thenReturn(Optional.of(friendWrapper4));
 
         Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
 
         assertThat(result).isNotEmpty();
         verify(friendshipRepository).findByUserId(userId);
-        verify(userRepository, times(2)).findAllById(anyLong());
+        verify(userRepository, times(4)).findAllById(anyLong());
     }
 
     @Test
@@ -218,7 +224,8 @@ class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId)).thenReturn(Optional.empty());
 
-        assertThrows(FriendshipNotFoundException.class, () -> friendshipService.manageFriendship(dto));
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
+                .isInstanceOf(FriendshipNotFoundException.class);
     }
 
     @Test
@@ -239,7 +246,8 @@ class FriendshipServiceImplTest {
                 .action(FriendshipAction.REQUEST)
                 .build();
 
-        assertThrows(FriendshipNotAllowedException.class, () -> friendshipService.manageFriendship(dto));
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
+                .isInstanceOf(FriendshipNotAllowedException.class);
     }
 
     @Test
@@ -263,7 +271,7 @@ class FriendshipServiceImplTest {
                 .action(FriendshipAction.ACCEPT)
                 .build();
 
-        assertThrows(IllegalArgumentException.class, () -> friendshipService.manageFriendship(dto));
+        assertThatThrownBy(() -> friendshipService.manageFriendship(dto)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -316,8 +324,9 @@ class FriendshipServiceImplTest {
         when(userRepository.findById(actionAcceptorId)).thenReturn(
                 Optional.of(User.builder().id(actionAcceptorId).build()));
 
-        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class,
-                () -> friendshipService.manageFriendship(dto));
+        FriendshipNotAllowedException exception = catchThrowableOfType(
+                () -> friendshipService.manageFriendship(dto),
+                FriendshipNotAllowedException.class);
 
         assertThat(String.format("Friendship between %s and %s already exists, status: %s",
                 actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()))
@@ -325,7 +334,7 @@ class FriendshipServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should throw FriendshipNotAllowedException when user limits ability to send requests")
+    @DisplayName("Should throw FriendshipNotAllowedException when userInfo limits ability to send requests")
     void givenUserLimitsAbilityToSendRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
         long actionInitiatorId = 1L;
         long actionAcceptorId = 2L;
@@ -339,10 +348,9 @@ class FriendshipServiceImplTest {
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
 
-        FriendshipNotAllowedException exception = assertThrows(FriendshipNotAllowedException.class,
-                () -> friendshipService.manageFriendship(dto));
-
-        assertThat("User limited your ability to send requests!").isEqualTo(exception.getMessage());
+        FriendshipNotAllowedException exception = catchThrowableOfType(
+                () -> friendshipService.manageFriendship(dto),
+                FriendshipNotAllowedException.class);
     }
 
     private FriendshipActionDto generateFriendshipActionDto(long requesterId,

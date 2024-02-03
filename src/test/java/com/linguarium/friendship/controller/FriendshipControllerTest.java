@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -57,8 +56,7 @@ class FriendshipControllerTest extends BaseControllerTest {
 
         when(friendshipService.getFriends(anyLong())).thenReturn(friendsList);
 
-        mockMvc.perform(get(GET_MY_FRIENDS_URL)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+        mockMvc.perform(get(GET_MY_FRIENDS_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendsList)));
     }
@@ -71,8 +69,7 @@ class FriendshipControllerTest extends BaseControllerTest {
         when(friendshipService.findFriendByEmail(email)).thenReturn(Optional.of(friendInfo));
 
         mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL)
-                        .param("email", email)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+                        .param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendInfo)));
     }

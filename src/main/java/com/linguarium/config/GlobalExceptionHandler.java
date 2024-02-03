@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Slf4j
 @ControllerAdvice
-public class GlobalExceptionHandler {
-    @ExceptionHandler(BadCredentialsException.class)
+public class GlobalExceptionHandler { // TODO test
+    @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})
     public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiResponse(false, "Bad credentials"));
+                .body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
     public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(new ApiResponse(false, "Email or username already in use!"));
+                .body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
@@ -32,6 +32,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponse(false, "An internal error occurred"));
+                .body(new ApiResponse(false, ex.getMessage()));
     }
 }

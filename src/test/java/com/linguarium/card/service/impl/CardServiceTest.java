@@ -47,8 +47,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.within;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyLong;
@@ -185,7 +185,8 @@ class CardServiceTest {
         when(cardRepository.getByPublicId(random)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(NoSuchElementException.class, () -> cardServiceImpl.getCardByPublicId(random.toString()));
+        assertThatThrownBy(() -> cardServiceImpl.getCardByPublicId(random.toString()))
+                .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -674,7 +675,7 @@ class CardServiceTest {
 
     private CardTag createCardTag(Card card, Learner learner, String tagText) {
         return CardTag.builder()
-                .id(new CardTagPK(card.getId(), TestDataGenerator.random.nextLong()))
+                .id(new CardTagPK(card.getId(), TestDataGenerator.random().nextLong()))
                 .card(card)
                 .tag(new Tag(tagText))
                 .learner(learner)

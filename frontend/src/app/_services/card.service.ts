@@ -59,7 +59,7 @@ export class CardService {
   }
 
   getCardsOfLang(code: string): Observable<CardDto[]> {
-    return this.http.get<CardDto[]>(`${this.apiURL}/language/${code}`);
+    return this.http.get<CardDto[]>(`${this.apiURL}/lang/${code}`);
   }
 
   getSuggestedCards(): Observable<CardDto[]> {

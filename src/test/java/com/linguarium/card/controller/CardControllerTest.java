@@ -7,6 +7,7 @@ import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import com.linguarium.util.GeneralUtils;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -22,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,10 +35,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CardControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/cards";
     private static final String ID_PLACEHOLDER = "/{id}";
-
     private static final String CREATE_CARD_URL = BASE_URL;
     private static final String UPDATE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     private static final String GET_CARDS_URL = BASE_URL;
+    private static final String GET_CARDS_BY_HASH_URL = BASE_URL + "/public" + ID_PLACEHOLDER;
     private static final String GET_CARDS_OF_LANG_URL = BASE_URL + "/lang/{code}";
     private static final String GET_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     private static final String DELETE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
@@ -46,24 +46,20 @@ class CardControllerTest extends BaseControllerTest {
     @MockBean
     CardService cardService;
 
-    LocalUser principal;
-
     @BeforeEach
     void setUp() {
-        principal = TestDataGenerator.createLocalUser();
+        LocalUser principal = TestDataGenerator.createLocalUser();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 
     @DisplayName("Should create card")
     @Test
     void givenCardCreationDto_whenCreateCard_thenCreatedSuccessfully() throws Exception {
-        LocalUser localUser = TestDataGenerator.createLocalUser();
         CardCreationDto dto = TestDataGenerator.getCardCreationDto();
 
         mockMvc.perform(post(CREATE_CARD_URL)
                         .content(objectMapper.writeValueAsString(dto))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(localUser))))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
 
@@ -75,8 +71,7 @@ class CardControllerTest extends BaseControllerTest {
 
         mockMvc.perform(put(UPDATE_CARD_URL, cardId)
                         .content(objectMapper.writeValueAsString(updateDto))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(cardService).updateCard(eq(cardId), any(CardUpdateDto.class), any(Learner.class));
@@ -85,8 +80,7 @@ class CardControllerTest extends BaseControllerTest {
     @DisplayName("Should retrieve all cards of a user")
     @Test
     void givenUser_whenGetCards_thenReturnsCards() throws Exception {
-        mockMvc.perform(get(GET_CARDS_URL)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+        mockMvc.perform(get(GET_CARDS_URL))
                 .andExpect(status().isOk());
 
         verify(cardService).getUsersCards(any(Learner.class));
@@ -97,8 +91,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenUserAndLanguageCode_whenGetCardsOfLang_thenReturnsCards() throws Exception {
         String languageCode = Language.EN.name();
 
-        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode))
                 .andExpect(status().isOk());
 
         verify(cardService).getUsersCardsOfLang(eq(languageCode), any(Learner.class));
@@ -109,11 +102,21 @@ class CardControllerTest extends BaseControllerTest {
     void givenCardId_whenGetCard_thenReturnsCard() throws Exception {
         Long cardId = 1L;
 
-        mockMvc.perform(get(GET_CARD_URL, cardId)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+        mockMvc.perform(get(GET_CARD_URL, cardId))
                 .andExpect(status().isOk());
 
         verify(cardService).getCardById(cardId);
+    }
+
+    @DisplayName("Should retrieve a card by hash")
+    @Test
+    void givenCardHash_whenGetCardByHash_thenReturnsCard() throws Exception {
+        String hash = GeneralUtils.generateId();
+
+        mockMvc.perform(get(GET_CARDS_BY_HASH_URL, hash))
+                .andExpect(status().isOk());
+
+        verify(cardService).getCardByPublicId(hash);
     }
 
     @DisplayName("Should delete a card by ID")
@@ -121,8 +124,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenCardId_whenDeleteCard_thenCardIsDeleted() throws Exception {
         Long cardId = 1L;
 
-        mockMvc.perform(delete(DELETE_CARD_URL, cardId)
-                        .with(authentication(TestDataGenerator.getAuthenticationToken(principal))))
+        mockMvc.perform(delete(DELETE_CARD_URL, cardId))
                 .andExpect(status().isNoContent());
 
         verify(cardService).deleteById(cardId);

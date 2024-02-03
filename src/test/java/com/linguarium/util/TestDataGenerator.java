@@ -3,6 +3,7 @@ package com.linguarium.util;
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
+import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
@@ -28,6 +29,7 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 import java.time.LocalDateTime;
@@ -35,42 +37,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
+@UtilityClass
 public final class TestDataGenerator {
-    public static final Random random = new Random();
+    private final Random random = new Random();
 
-    private TestDataGenerator() {
+    public Random random() {
+        return random;
     }
 
-    public static ByteString generateRandomAudioBytes() {
+    public ByteString generateRandomAudioBytes() {
         byte[] byteArray = new byte[10];
         random.nextBytes(byteArray);
         return ByteString.copyFrom(byteArray);
     }
 
-    public static TranslationCardDto createTranslationCardDto() {
+    public TranslationCardDto createTranslationCardDto() {
         return TranslationCardDto.builder()
                 .provider("GOOGLE")
                 .definitions(new DefinitionDto[]{})
                 .build();
     }
 
-    public static TestingAuthenticationToken getAuthenticationToken(LocalUser principal) {
+    public TestingAuthenticationToken getAuthenticationToken(LocalUser principal) {
         return new TestingAuthenticationToken(
                 principal,
                 null,
                 List.of());
     }
 
-    public static TranslationCardDto createTestTranslationCardDto() {
+    public TranslationCardDto createTestTranslationCardDto() {
         return TranslationCardDto.builder()
                 .provider("ExampleProvider")
                 .definitions(createTestDefinitionDtos())
                 .build();
     }
 
-    public static DefinitionDto[] createTestDefinitionDtos() {
+    public DefinitionDto[] createTestDefinitionDtos() {
         return new DefinitionDto[]{
                 DefinitionDto.builder()
                         .text("Definition 1")
@@ -87,7 +92,7 @@ public final class TestDataGenerator {
         };
     }
 
-    public static com.linguarium.translator.dto.TranslationDto[] createTestTranslationDtos() {
+    public com.linguarium.translator.dto.TranslationDto[] createTestTranslationDtos() {
         return new com.linguarium.translator.dto.TranslationDto[]{
                 com.linguarium.translator.dto.TranslationDto.builder()
                         .text("Translation 1")
@@ -102,7 +107,7 @@ public final class TestDataGenerator {
         };
     }
 
-    public static AnalysisDto createTestAnalysisDto() {
+    public AnalysisDto createTestAnalysisDto() {
         return AnalysisDto.builder()
                 .frequency(0.75)
                 .cefr(CEFR.B1)
@@ -121,7 +126,7 @@ public final class TestDataGenerator {
                 .build();
     }
 
-    public static CardDto[] createCardDtos() {
+    public CardDto[] createCardDtos() {
         CardDto card1 = CardDto.builder()
                 .id(1L)
                 .publicId("publicId1")
@@ -159,14 +164,14 @@ public final class TestDataGenerator {
         return new CardDto[]{card1, card2};
     }
 
-    public static LocalUser createLocalUser() {
+    public LocalUser createLocalUser() {
         User user = buildTestUserWithId();
         user.setLearner(Learner.builder().id(user.getId()).build());
-        user.setProfile(Profile.builder().build());
+        user.setProfile(Profile.builder().id(user.getId()).build());
         return new LocalUser(user, Map.of(), null, null);
     }
 
-    public static WordsReportDto createEmptyWordsReportDto() {
+    public WordsReportDto createEmptyWordsReportDto() {
         return WordsReportDto.builder()
                 .word("word")
                 .frequency(0.0)
@@ -176,11 +181,39 @@ public final class TestDataGenerator {
                 .build();
     }
 
-    public static MLTranslationCard createMLTranslationCard() {
+    public MLTranslationCard createMLTranslationCard() {
         return new MLTranslationCard("google", "test");
     }
 
-    public static User buildTestUser() {
+    public UserInfo buildTestUserInfo() {
+        User user = buildTestUserWithId();
+        Learner learner = Learner.builder().id(user.getId())
+                .targetLangs(Set.of(Language.EN.name(), Language.ES.name()))
+                .fluentLangs(Set.of(Language.FR.name(), Language.DE.name()))
+                .build();
+        Profile profile = Profile.builder().id(user.getId())
+                .background("Background Image URL")
+                .profilePicLink("Profile Image URL")
+                .streak(3)
+                .uiLang(Language.EN)
+                .lastLogin(LocalDateTime.now())
+                .build();
+
+        return new UserInfo(
+                user.getId().toString(),
+                user.getUsername(),
+                user.getEmail(),
+                profile.getUiLang().name(),
+                profile.getProfilePicLink(),
+                profile.getBackground(),
+                profile.getStreak(),
+                learner.getTargetLangs(),
+                learner.getFluentLangs(),
+                List.of("tag1", "tag2", "tag3")
+        );
+    }
+
+    public User buildTestUser() {
         User user = new User();
         user.setUsername("john");
         user.setEmail("john@email.com");
@@ -190,7 +223,7 @@ public final class TestDataGenerator {
         return user;
     }
 
-    public static User buildTestUserWithId() {
+    public User buildTestUserWithId() {
         User user = new User();
         user.setId(1L);
         user.setUsername("john");
@@ -201,7 +234,7 @@ public final class TestDataGenerator {
         return user;
     }
 
-    public static User buildAnotherTestUser() {
+    public User buildAnotherTestUser() {
         User user = new User();
         user.setUsername("jake");
         user.setEmail("jake@email.com");
@@ -211,7 +244,7 @@ public final class TestDataGenerator {
         return user;
     }
 
-    public static CardCreationDto getCardCreationDto() {
+    public CardCreationDto getCardCreationDto() {
         CardCreationDto cardCreationDto = new CardCreationDto();
 
         cardCreationDto.setEntry("Sample Entry");
@@ -249,7 +282,7 @@ public final class TestDataGenerator {
         return cardCreationDto;
     }
 
-    public static CardUpdateDto generateRandomCardUpdateDto() {
+    public CardUpdateDto generateRandomCardUpdateDto() {
         CardUpdateDto cardUpdateDto = new CardUpdateDto();
 
         cardUpdateDto.setId(random.nextLong());
@@ -321,7 +354,7 @@ public final class TestDataGenerator {
         return array;
     }
 
-    public static FriendshipInfoDto generateFriendInfoDto() {
+    public FriendshipInfoDto generateFriendInfoDto() {
         FriendshipInfoDto friendshipInfoDto = new FriendshipInfoDto();
         friendshipInfoDto.setStatus(FriendStatus.FRIENDS);
         friendshipInfoDto.setId(1L);
@@ -330,7 +363,7 @@ public final class TestDataGenerator {
         return friendshipInfoDto;
     }
 
-    public static FriendshipActionDto generateFriendshipActionDto() {
+    public FriendshipActionDto generateFriendshipActionDto() {
         FriendshipActionDto friendshipActionDto = new FriendshipActionDto();
         friendshipActionDto.setIdInitiator(1L);
         friendshipActionDto.setIdAcceptor(2L);
@@ -338,18 +371,18 @@ public final class TestDataGenerator {
         return friendshipActionDto;
     }
 
-    public static List<FriendshipInfoDto> generateFriendInfoDtoList(int count) {
+    public List<FriendshipInfoDto> generateFriendInfoDtoList(int count) {
         List<FriendshipInfoDto> friendshipInfoDtoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             FriendshipInfoDto friendshipInfoDto = generateFriendInfoDto();
             friendshipInfoDto.setId((long) (i + 1));
-            friendshipInfoDto.setUsername("user" + (i + 1));
+            friendshipInfoDto.setUsername("userInfo" + (i + 1));
             friendshipInfoDtoList.add(friendshipInfoDto);
         }
         return friendshipInfoDtoList;
     }
 
-    public static Friendship generateFriendship(Long requesterId, Long requesteeId) {
+    public Friendship generateFriendship(Long requesterId, Long requesteeId) {
         Friendship friendship = new Friendship();
         friendship.setRequesterId(requesterId);
         friendship.setRequesteeId(requesteeId);
@@ -358,7 +391,7 @@ public final class TestDataGenerator {
         return friendship;
     }
 
-    public static Card buildTestCard(UUID uuid, String entry, Learner owner) {
+    public Card buildTestCard(UUID uuid, String entry, Learner owner) {
         Card card = new Card();
         card.setPublicId(uuid);
         card.setEntry(entry);
@@ -368,7 +401,7 @@ public final class TestDataGenerator {
 
     }
 
-    public static Card buildTestCard() {
+    public Card buildTestCard() {
         Card card = new Card();
         card.setPublicId(UUID.randomUUID());
         card.setEntry("TEST_ENTRY");

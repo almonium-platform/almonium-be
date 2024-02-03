@@ -75,9 +75,7 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     public void declineSuggestion(Long id, Learner actionExecutor) {
         CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
         Learner recipient = cardSuggestion.getRecipient();
-        if (!recipient.equals(actionExecutor)) {
-            throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
-        }
+        checkAuthorization(actionExecutor, recipient);
         cardSuggestionRepository.deleteById(id);
     }
 
@@ -87,10 +85,7 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     public void acceptSuggestion(Long id, Learner actionExecutor) {
         CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
         Learner recipient = cardSuggestion.getRecipient();
-        if (!recipient.equals(actionExecutor)) {
-            throw new IllegalAccessException("You aren't authorized to act on behalf of other user");
-        }
-
+        checkAuthorization(actionExecutor, recipient);
         cloneCard(cardSuggestion.getCard(), recipient);
         cardSuggestionRepository.delete(cardSuggestion);
     }
@@ -106,5 +101,12 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         }
         cardSuggestionRepository.save(new CardSuggestion(sender, recipient, card));
         return true;
+    }
+
+    @SneakyThrows
+    private void checkAuthorization(Learner actionExecutor, Learner recipient) {
+        if (!recipient.equals(actionExecutor)) {
+            throw new IllegalAccessException("You aren't authorized to act on behalf of other userInfo");
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.linguarium.config.security.oauth2.user;
+package com.linguarium.config.security.oauth2.userinfo;
 
 import java.util.Map;
 
@@ -35,10 +35,5 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return getStringAttribute("picture");
-    }
-
-    private String getStringAttribute(String attributeName) {
-        Object value = attributes.get(attributeName);
-        return (value instanceof String) ? (String) value : null;
     }
 }

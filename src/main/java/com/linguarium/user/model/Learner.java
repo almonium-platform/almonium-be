@@ -58,7 +58,7 @@ public class Learner {
     @ElementCollection
     @CollectionTable(name = "learner_target_lang", joinColumns = @JoinColumn(name = "learner_id"))
     @Column(name = "lang")
-    Set<String> targetLangs;
+    Set<String> targetLangs; //TODO why not enum
 
     @ElementCollection
     @CollectionTable(name = "learner_fluent_lang", joinColumns = @JoinColumn(name = "learner_id"))

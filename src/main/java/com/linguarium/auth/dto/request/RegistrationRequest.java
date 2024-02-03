@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationRequest {
-    private Long userID;
+    private Long userId;
     private String providerUserId;
     @NotEmpty
     private String username;
