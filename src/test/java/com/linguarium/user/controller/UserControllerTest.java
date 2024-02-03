@@ -21,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +29,9 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -70,7 +71,7 @@ class UserControllerTest extends BaseControllerTest {
 
         when(userService.buildUserInfo(any(User.class))).thenReturn(testUserInfo);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ME_URL)
+        mockMvc.perform(get(ME_URL)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
@@ -98,7 +99,7 @@ class UserControllerTest extends BaseControllerTest {
     void givenUsernameUpdateRequest_whenUpdateUsername_thenUpdateSuccessfully() throws Exception {
         UsernameUpdateRequest request = new UsernameUpdateRequest("newUsername");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_USERNAME_URL)
+        mockMvc.perform(put(UPDATE_USERNAME_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
@@ -109,7 +110,7 @@ class UserControllerTest extends BaseControllerTest {
     @DisplayName("Should delete current user account")
     @Test
     void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(DELETE_CURRENT_USER_ACCOUNT_URL)
+        mockMvc.perform(delete(DELETE_CURRENT_USER_ACCOUNT_URL)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -121,7 +122,7 @@ class UserControllerTest extends BaseControllerTest {
     void givenLanguageUpdateRequest_whenUpdateTargetLanguages_thenUpdateSuccessfully() throws Exception {
         LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.EN.name(), Language.ES.name()));
 
-        mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_TARGET_LANGUAGES_URL)
+        mockMvc.perform(put(UPDATE_TARGET_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
@@ -134,7 +135,7 @@ class UserControllerTest extends BaseControllerTest {
     void givenLanguageUpdateRequest_whenUpdateFluentLanguages_thenUpdateSuccessfully() throws Exception {
         LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.FR.name(), Language.DE.name()));
 
-        mockMvc.perform(MockMvcRequestBuilders.put(UPDATE_FLUENT_LANGUAGES_URL)
+        mockMvc.perform(put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                 )

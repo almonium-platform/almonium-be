@@ -18,11 +18,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CardSuggestionController.class)
@@ -53,7 +54,7 @@ class CardSuggestionControllerTest extends BaseControllerTest {
     void givenCardSuggestionDto_whenSuggestCard_thenCardSuggestionCreated() throws Exception {
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated());
@@ -64,7 +65,7 @@ class CardSuggestionControllerTest extends BaseControllerTest {
     void givenCardId_whenAcceptCard_thenSuggestionAccepted() throws Exception {
         Long cardIdToAccept = 1L;
 
-        mockMvc.perform(MockMvcRequestBuilders.put(ACCEPT_CARD_URL, cardIdToAccept)
+        mockMvc.perform(put(ACCEPT_CARD_URL, cardIdToAccept)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -76,7 +77,7 @@ class CardSuggestionControllerTest extends BaseControllerTest {
     void givenCardId_whenDeclineCard_thenSuggestionDeclined() throws Exception {
         Long cardIdToDecline = 1L;
 
-        mockMvc.perform(MockMvcRequestBuilders.put(DECLINE_CARD_URL, cardIdToDecline)
+        mockMvc.perform(put(DECLINE_CARD_URL, cardIdToDecline)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
