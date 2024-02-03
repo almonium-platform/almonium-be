@@ -533,16 +533,16 @@ class UserServiceImplTest {
         verifyNoInteractions(authenticationManager);
     }
 
-    private Map<String, Object> createAttributes(String email, String userId) {
-        return createAttributes(email, userId, PROFILE_PIC_LINK);
-    }
-
     private void mockTags(Set<Long> tagIds, User user) {
         when(cardTagRepository.getLearnersTags(user.getLearner())).thenReturn(tagIds);
         when(tagRepository.findById(anyLong())).thenAnswer(invocation -> {
             Long tagId = invocation.getArgument(0);
             return Optional.of(new Tag(tagId, "Tag " + tagId));
         });
+    }
+
+    private Map<String, Object> createAttributes(String email, String userId) {
+        return createAttributes(email, userId, PROFILE_PIC_LINK);
     }
 
     private Map<String, Object> createAttributes(String email, String userId, String profilePicUrl) {
