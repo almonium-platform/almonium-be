@@ -69,7 +69,6 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
                 .collect(Collectors.toList());
     }
 
-    @SneakyThrows
     @Override
     @Transactional
     public void declineSuggestion(Long id, Learner actionExecutor) {
@@ -79,7 +78,6 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         cardSuggestionRepository.deleteById(id);
     }
 
-    @SneakyThrows
     @Override
     @Transactional
     public void acceptSuggestion(Long id, Learner actionExecutor) {

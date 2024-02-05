@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -79,11 +80,30 @@ class CardSuggestionServiceTest {
         assertThat(result).containsExactly(expectedDto);
     }
 
-    @DisplayName("Should delete the suggestion")
+    @DisplayName("Should throw IllegalAccessException on accepting suggestion with unauthorized user")
+    @Test
+    void givenUnauthorizedUserWhenAcceptSuggestionThenThrowIllegalAccessException() {
+        // Arrange
+        Long suggestionId = 3L;
+        Long executorId = 4L; // Action executor's ID
+        Long recipientId = 5L; // Recipient's ID, different from the executor to provoke illegal access
+        Learner executor = Learner.builder().id(executorId).build();
+        Learner recipient = Learner.builder().id(recipientId).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .recipient(recipient)
+                .build();
+        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
+        // Act & Assert
+        assertThatThrownBy(() -> cardSuggestionService.acceptSuggestion(suggestionId, executor))
+                .isInstanceOf(IllegalAccessException.class)
+                .hasMessageContaining("You aren't authorized to act on behalf of other userInfo");
+    }
+
+    @DisplayName("Should decline and delete the suggestion")
     @Test
     void givenCardAcceptanceDtoAndUser_whenDeclineSuggestion_thenSuggestionDeleted() {
         // Arrange
-        //TODO provoke illegalAccess
         Long suggestionId = 3L;
         Long userId = 4L;
 
@@ -100,6 +120,29 @@ class CardSuggestionServiceTest {
 
         // Assert
         verify(cardSuggestionRepository).deleteById(suggestionId);
+    }
+
+    @DisplayName("Should throw IllegalAccessException on declining suggestion with unauthorized user")
+    @Test
+    void givenUnauthorizedUser_whenDeclineSuggestion_thenThrowIllegalAccessException() {
+        // Arrange
+        Long suggestionId = 3L;
+        Long executorId = 4L; // Action executor's ID
+        Long recipientId = 5L; // Recipient's ID, different from the executor to provoke illegal access
+
+        Learner executor = Learner.builder().id(executorId).build();
+        Learner recipient = Learner.builder().id(recipientId).build();
+
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .recipient(recipient)
+                .build();
+        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
+
+        // Act & Assert
+        assertThatThrownBy(() -> cardSuggestionService.declineSuggestion(suggestionId, executor))
+                .isInstanceOf(IllegalAccessException.class)
+                .hasMessageContaining("You aren't authorized to act on behalf of other userInfo");
     }
 
     @DisplayName("Should accept a card suggestion and clone the card")
