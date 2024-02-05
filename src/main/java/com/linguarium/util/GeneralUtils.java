@@ -1,10 +1,9 @@
 package com.linguarium.util;
 
-import lombok.experimental.UtilityClass;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.Collection;
 import java.util.UUID;
+import lombok.experimental.UtilityClass;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @UtilityClass
 public class GeneralUtils {

@@ -1,5 +1,23 @@
 package com.linguarium.user.service.impl;
 
+import static com.linguarium.user.service.impl.LearnerServiceTest.getUser;
+import static java.util.Map.entry;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.BDDAssertions.within;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
@@ -22,6 +40,12 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.util.TestDataGenerator;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -38,53 +62,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
-import static com.linguarium.user.service.impl.LearnerServiceTest.getUser;
-import static java.util.Map.entry;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.assertj.core.api.BDDAssertions.within;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyMap;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class UserServiceImplTest {
     private static final String PROFILE_PIC_LINK =
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";
     private static final String OAUTH2_PLACEHOLDER = "OAUTH2_PLACEHOLDER";
+
     @InjectMocks
     UserServiceImpl userService;
+
     @Mock
     UserRepository userRepository;
+
     @Mock
     PasswordEncoder passwordEncoder;
+
     @Mock
     CardTagRepository cardTagRepository;
+
     @Mock
     TagRepository tagRepository;
+
     @Mock
     OAuth2UserInfoFactory userInfoFactory;
+
     @Mock
     AuthenticationManager authenticationManager;
+
     @Mock
     TokenProvider tokenProvider;
+
     @Mock
     ProfileService profileService;
 
@@ -98,11 +106,11 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userService.processAuthenticationFromProvider(
-                SocialProvider.FACEBOOK.getProviderType(),
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)
-        )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
+                        SocialProvider.FACEBOOK.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
+                .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
     @DisplayName("Should throw exception if OAuth2UserInfo doesn't contain an email")
@@ -115,11 +123,11 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userService.processAuthenticationFromProvider(
-                SocialProvider.GOOGLE.getProviderType(),
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)
-        )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
+                        SocialProvider.GOOGLE.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
+                .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
     @DisplayName("Should throw exception if userInfo signed up with different non-local provider")
@@ -130,9 +138,7 @@ class UserServiceImplTest {
         // Arrange
         String existingProvider = SocialProvider.GOOGLE.getProviderType();
         User user = TestDataGenerator.buildTestUser();
-        user.setProfile(Profile.builder()
-                .profilePicLink(PROFILE_PIC_LINK)
-                .build());
+        user.setProfile(Profile.builder().profilePicLink(PROFILE_PIC_LINK).build());
         user.setProvider(existingProvider);
         when(userServiceSpy.findUserByEmail(anyString())).thenReturn(user);
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
@@ -141,10 +147,11 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userServiceSpy.processAuthenticationFromProvider(
-                SocialProvider.FACEBOOK.getProviderType(), attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)
-        )).isInstanceOf(OAuth2AuthenticationProcessingException.class);
+                        SocialProvider.FACEBOOK.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
+                .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
     @DisplayName("Should update existing user with new OAuth2UserInfo when user already exists")
@@ -172,11 +179,7 @@ class UserServiceImplTest {
 
         // Act
         LocalUser result = userService.processAuthenticationFromProvider(
-                registrationId,
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)
-        );
+                registrationId, attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class));
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -201,11 +204,7 @@ class UserServiceImplTest {
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        LocalUser result = userService.processAuthenticationFromProvider(
-                registrationId,
-                attributes,
-                idToken,
-                null);
+        LocalUser result = userService.processAuthenticationFromProvider(registrationId, attributes, idToken, null);
 
         // Assert
         verify(userRepository).save(any(User.class));
@@ -244,17 +243,12 @@ class UserServiceImplTest {
         // Assert
         assertThat(actualUser)
                 .usingRecursiveComparison()
-                .ignoringFields(
-                        "registered",
-                        "username",
-                        "profile",
-                        "learner"
-                ).isEqualTo(expectedUser);
+                .ignoringFields("registered", "username", "profile", "learner")
+                .isEqualTo(expectedUser);
 
         assertThat(actualUser.getRegistered()).isEqualTo(actualUser.getProfile().getLastLogin());
 
-        assertThat(actualUser.getRegistered())
-                .isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
+        assertThat(actualUser.getRegistered()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 
         assertThat(actualUser.getProfile()).isNotNull();
         assertThat(actualUser.getLearner()).isNotNull();
@@ -295,17 +289,12 @@ class UserServiceImplTest {
         // Assert
         assertThat(actualUser)
                 .usingRecursiveComparison()
-                .ignoringFields(
-                        "registered",
-                        "username",
-                        "profile",
-                        "learner"
-                ).isEqualTo(expectedUser);
+                .ignoringFields("registered", "username", "profile", "learner")
+                .isEqualTo(expectedUser);
 
         assertThat(actualUser.getRegistered()).isEqualTo(actualUser.getProfile().getLastLogin());
 
-        assertThat(actualUser.getRegistered())
-                .isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
+        assertThat(actualUser.getRegistered()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
 
         assertThat(actualUser.getProfile()).isNotNull();
         assertThat(actualUser.getLearner()).isNotNull();
@@ -466,8 +455,7 @@ class UserServiceImplTest {
         LoginRequest loginRequest = new LoginRequest(email, OAUTH2_PLACEHOLDER);
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.login(loginRequest))
-                .isInstanceOf(BadCredentialsException.class);
+        assertThatThrownBy(() -> userService.login(loginRequest)).isInstanceOf(BadCredentialsException.class);
 
         // Verify that no interactions have occurred with the authentication manager
         verifyNoInteractions(authenticationManager);
@@ -495,11 +483,18 @@ class UserServiceImplTest {
 
         UserInfo userInfo = userService.buildUserInfo(user);
 
-        assertThat(userInfo).isNotNull()
-                .extracting(UserInfo::id, UserInfo::username, UserInfo::email, UserInfo::uiLang,
-                        UserInfo::profilePicLink, UserInfo::background, UserInfo::streak)
-                .containsExactly("1", "john", "john@example.com", Language.EN.name(),
-                        "profile.jpg", "background.jpg", 5);
+        assertThat(userInfo)
+                .isNotNull()
+                .extracting(
+                        UserInfo::id,
+                        UserInfo::username,
+                        UserInfo::email,
+                        UserInfo::uiLang,
+                        UserInfo::profilePicLink,
+                        UserInfo::background,
+                        UserInfo::streak)
+                .containsExactly(
+                        "1", "john", "john@example.com", Language.EN.name(), "profile.jpg", "background.jpg", 5);
         assertThat(userInfo.tags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
         assertThat(userInfo.targetLangs()).containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name());
         assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
@@ -558,13 +553,12 @@ class UserServiceImplTest {
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
                 entry("picture", profilePicUrl),
-                entry("aud", new String[]{"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
+                entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),
                 entry("exp", "2023-06-27T15:00:44Z"),
                 entry("family_name", "Wick"),
                 entry("iat", "2023-06-27T14:00:44Z"),
-                entry("email", email)
-        );
+                entry("email", email));
     }
 }

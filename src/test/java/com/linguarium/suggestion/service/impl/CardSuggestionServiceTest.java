@@ -1,5 +1,16 @@
 package com.linguarium.suggestion.service.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.mapper.CardMapper;
 import com.linguarium.card.model.Card;
@@ -13,6 +24,13 @@ import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -22,40 +40,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class CardSuggestionServiceTest {
     @Mock
     CardRepository cardRepository;
+
     @Mock
     CardSuggestionRepository cardSuggestionRepository;
+
     @Mock
     ExampleRepository exampleRepository;
+
     @Mock
     TranslationRepository translationRepository;
+
     @Mock
     LearnerRepository learnerRepository;
+
     @Mock
     CardMapper cardMapper;
+
     @InjectMocks
     CardSuggestionServiceImpl cardSuggestionService;
 
@@ -89,10 +94,8 @@ class CardSuggestionServiceTest {
         Long recipientId = 5L; // Recipient's ID, different from the executor to provoke illegal access
         Learner executor = Learner.builder().id(executorId).build();
         Learner recipient = Learner.builder().id(recipientId).build();
-        CardSuggestion cardSuggestion = CardSuggestion.builder()
-                .id(suggestionId)
-                .recipient(recipient)
-                .build();
+        CardSuggestion cardSuggestion =
+                CardSuggestion.builder().id(suggestionId).recipient(recipient).build();
         when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
         // Act & Assert
         assertThatThrownBy(() -> cardSuggestionService.acceptSuggestion(suggestionId, executor))
@@ -133,10 +136,8 @@ class CardSuggestionServiceTest {
         Learner executor = Learner.builder().id(executorId).build();
         Learner recipient = Learner.builder().id(recipientId).build();
 
-        CardSuggestion cardSuggestion = CardSuggestion.builder()
-                .id(suggestionId)
-                .recipient(recipient)
-                .build();
+        CardSuggestion cardSuggestion =
+                CardSuggestion.builder().id(suggestionId).recipient(recipient).build();
         when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
         // Act & Assert
@@ -181,13 +182,9 @@ class CardSuggestionServiceTest {
         Card card = new Card();
 
         List<Example> examples = Arrays.asList(
-                new Example(1L, "example1", "translation1", card),
-                new Example(2L, "example2", "translation2", card)
-        );
-        List<Translation> translations = Arrays.asList(
-                new Translation(3L, "translation1", card),
-                new Translation(4L, "translation2", card)
-        );
+                new Example(1L, "example1", "translation1", card), new Example(2L, "example2", "translation2", card));
+        List<Translation> translations =
+                Arrays.asList(new Translation(3L, "translation1", card), new Translation(4L, "translation2", card));
 
         card = Card.builder()
                 .examples(examples)
@@ -195,9 +192,7 @@ class CardSuggestionServiceTest {
                 .cardTags(new HashSet<>())
                 .build();
 
-        Learner user = Learner.builder()
-                .cards(new HashSet<>())
-                .build();
+        Learner user = Learner.builder().cards(new HashSet<>()).build();
 
         CardDto cardDto = new CardDto(); // Initialize as needed
         when(cardMapper.cardEntityToDto(card)).thenReturn(cardDto);
@@ -207,10 +202,9 @@ class CardSuggestionServiceTest {
         cardSuggestionService.cloneCard(card, user);
 
         // Assert
-        verify(cardRepository).save(argThat(savedCard ->
-                savedCard.getExamples().equals(examples)
-                        && savedCard.getTranslations().equals(translations)
-        ));
+        verify(cardRepository)
+                .save(argThat(savedCard -> savedCard.getExamples().equals(examples)
+                        && savedCard.getTranslations().equals(translations)));
         verify(translationRepository).saveAll(eq(translations));
         verify(exampleRepository).saveAll(eq(examples));
         verify(learnerRepository).save(eq(user));
@@ -223,25 +217,27 @@ class CardSuggestionServiceTest {
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
         Learner sender = new Learner();
         Learner recipient = new Learner();
-        Card card = Card.builder().id(2L)
+        Card card = Card.builder()
+                .id(2L)
                 .examples(new ArrayList<>())
                 .translations(new ArrayList<>())
-                .cardTags(Set.of()).build();
+                .cardTags(Set.of())
+                .build();
 
         when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
         when(learnerRepository.findById(dto.recipientId())).thenReturn(Optional.of(recipient));
-        when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card)).thenReturn(null);
+        when(cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card))
+                .thenReturn(null);
 
         // Act
         boolean result = cardSuggestionService.suggestCard(dto, sender);
 
         // Assert
         assertThat(result).isTrue();
-        verify(cardSuggestionRepository).save(argThat(suggestion ->
-                suggestion.getSender().equals(sender)
+        verify(cardSuggestionRepository)
+                .save(argThat(suggestion -> suggestion.getSender().equals(sender)
                         && suggestion.getRecipient().equals(recipient)
-                        && suggestion.getCard().equals(card)
-        ));
+                        && suggestion.getCard().equals(card)));
     }
 
     @DisplayName("Should not save a card suggestion and return false if it already exists")

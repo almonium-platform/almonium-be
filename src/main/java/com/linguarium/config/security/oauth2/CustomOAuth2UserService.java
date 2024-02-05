@@ -1,7 +1,11 @@
 package com.linguarium.config.security.oauth2;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.user.service.UserService;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.AuthenticationException;
@@ -10,11 +14,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Service
 @RequiredArgsConstructor

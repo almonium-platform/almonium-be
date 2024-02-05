@@ -36,7 +36,7 @@ public class Example {
     @Column
     String translation;
 
-    //TODO comment out
+    // TODO comment out
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     Card card;

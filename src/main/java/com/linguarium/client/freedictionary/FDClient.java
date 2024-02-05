@@ -1,8 +1,11 @@
 package com.linguarium.client.freedictionary;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.freedictionary.dto.FDEntry;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +16,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @AllArgsConstructor
@@ -36,7 +35,6 @@ public class FDClient extends AbstractClient {
                 BASE_URL + ENDPOINT + LANG_CODE + word,
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
-                new ParameterizedTypeReference<>() {
-                });
+                new ParameterizedTypeReference<>() {});
     }
 }

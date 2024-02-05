@@ -1,5 +1,12 @@
 package com.linguarium.friendship.controller;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.friendship.dto.FriendshipActionDto;
@@ -7,6 +14,8 @@ import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
 import com.linguarium.util.TestDataGenerator;
+import java.util.List;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,16 +26,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(FriendshipController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -66,8 +65,7 @@ class FriendshipControllerTest extends BaseControllerTest {
         FriendshipInfoDto friendInfo = TestDataGenerator.generateFriendInfoDto();
         when(friendshipService.findFriendByEmail(email)).thenReturn(Optional.of(friendInfo));
 
-        mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL)
-                        .param("email", email))
+        mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL).param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(friendInfo)));
     }

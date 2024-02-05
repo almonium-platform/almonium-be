@@ -1,5 +1,14 @@
 package com.linguarium.user.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
@@ -11,6 +20,9 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,19 +33,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -71,8 +70,7 @@ class UserControllerTest extends BaseControllerTest {
 
         when(userService.buildUserInfo(any(User.class))).thenReturn(testUserInfo);
 
-        mockMvc.perform(get(ME_URL)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(ME_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
     }
@@ -86,8 +84,7 @@ class UserControllerTest extends BaseControllerTest {
 
         when(userService.isUsernameAvailable(username)).thenReturn(isAvailable);
 
-        mockMvc.perform(get(CHECK_USERNAME_AVAILABILITY_URL, username)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(CHECK_USERNAME_AVAILABILITY_URL, username).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(usernameAvailability)));
 
@@ -110,8 +107,7 @@ class UserControllerTest extends BaseControllerTest {
     @DisplayName("Should delete current user account")
     @Test
     void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() throws Exception {
-        mockMvc.perform(delete(DELETE_CURRENT_USER_ACCOUNT_URL)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete(DELETE_CURRENT_USER_ACCOUNT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         verify(userService).deleteAccount(user);
@@ -137,8 +133,7 @@ class UserControllerTest extends BaseControllerTest {
 
         mockMvc.perform(put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                )
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
         verify(learnerService).updateFluentLanguages(request.langCodes(), user.getLearner());
@@ -156,8 +151,7 @@ class UserControllerTest extends BaseControllerTest {
         Collection<String> fluentLangs = Arrays.asList("FR", "DE");
         Collection<String> tags = Arrays.asList("tag1", "tag2");
 
-        return new UserInfo(id, username, email,
-                uiLang, profilePicLink, background,
-                streak, targetLangs, fluentLangs, tags);
+        return new UserInfo(
+                id, username, email, uiLang, profilePicLink, background, streak, targetLangs, fluentLangs, tags);
     }
 }

@@ -1,18 +1,17 @@
 package com.linguarium.client.google;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.google.dto.GoogleDto;
 import com.linguarium.translator.model.Language;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-import java.util.Map;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @AllArgsConstructor
@@ -38,8 +37,7 @@ public class GoogleClient extends AbstractClient {
             Language.DE, "de-2019",
             Language.FR, "fr-2019",
             Language.ES, "es-2019",
-            Language.RU, "ru-2019"
-    );
+            Language.RU, "ru-2019");
 
     public ResponseEntity<List<GoogleDto>> get(String entry, Language language) {
         Map<String, String> params = Map.of(
@@ -48,8 +46,7 @@ public class GoogleClient extends AbstractClient {
                 START_YEAR, String.valueOf(START_YEAR_VALUE),
                 END_YEAR, String.valueOf(END_YEAR_VALUE),
                 SMOOTHING, String.valueOf(SMOOTHING_VALUE),
-                CASE_INSENSITIVE, String.valueOf(IS_CASE_INSENSITIVE)
-        );
+                CASE_INSENSITIVE, String.valueOf(IS_CASE_INSENSITIVE));
         return super.requestList(URL, params, GoogleDto.class);
     }
 }

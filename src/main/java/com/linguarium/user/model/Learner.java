@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.util.List;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +23,6 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -58,7 +57,7 @@ public class Learner {
     @ElementCollection
     @CollectionTable(name = "learner_target_lang", joinColumns = @JoinColumn(name = "learner_id"))
     @Column(name = "lang")
-    Set<String> targetLangs; //TODO why not enum
+    Set<String> targetLangs; // TODO why not enum
 
     @ElementCollection
     @CollectionTable(name = "learner_fluent_lang", joinColumns = @JoinColumn(name = "learner_id"))

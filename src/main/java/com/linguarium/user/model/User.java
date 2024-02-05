@@ -13,6 +13,9 @@ import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,26 +28,17 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Set;
-
 @NamedEntityGraph(
         name = "graph.User.details",
         attributeNodes = {
-                @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
-                @NamedAttributeNode("profile")
+            @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
+            @NamedAttributeNode("profile")
         },
         subgraphs = {
-                @NamedSubgraph(
-                        name = "learner.details",
-                        attributeNodes = {
-                                @NamedAttributeNode("targetLangs"),
-                                @NamedAttributeNode("fluentLangs")
-                        }
-                )
-        }
-)
+            @NamedSubgraph(
+                    name = "learner.details",
+                    attributeNodes = {@NamedAttributeNode("targetLangs"), @NamedAttributeNode("fluentLangs")})
+        })
 @Entity
 @Table(name = "user_core")
 @Getter
@@ -59,10 +53,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
+
     String providerUserId;
 
     @Column(nullable = false)
     String password;
+
     String provider;
 
     @Column(unique = true)

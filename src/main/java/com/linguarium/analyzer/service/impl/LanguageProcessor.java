@@ -7,7 +7,6 @@ import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
-
 import java.util.List;
 
 public interface LanguageProcessor {

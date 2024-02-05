@@ -1,6 +1,11 @@
 package com.linguarium.client;
 
+import static com.linguarium.util.GeneralUtils.queryBuilder;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.ParameterizedTypeReference;
@@ -10,12 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static com.linguarium.util.GeneralUtils.queryBuilder;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public abstract class AbstractClient {
@@ -29,12 +28,7 @@ public abstract class AbstractClient {
         String urlTemplate = queryBuilder(url, params.keySet());
 
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                new ParameterizedTypeReference<>() {
-                },
-                params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
 
         if (response.getBody() == null) {
             throw new RuntimeException("Body of response is null!");
@@ -46,7 +40,9 @@ public abstract class AbstractClient {
             resultList.add(resultItem);
         }
 
-        return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders()).body(resultList);
+        return ResponseEntity.status(response.getStatusCode())
+                .headers(response.getHeaders())
+                .body(resultList);
     }
 
     protected <T> ResponseEntity<T> request(String url, Map<String, String> params, Class<T> clazz) {
@@ -55,11 +51,6 @@ public abstract class AbstractClient {
 
         String urlTemplate = queryBuilder(url, params.keySet());
 
-        return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                clazz,
-                params);
+        return restTemplate.exchange(urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), clazz, params);
     }
 }

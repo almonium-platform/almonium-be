@@ -1,5 +1,7 @@
 package com.linguarium.analyzer.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.mapper.DictionaryDtoMapper;
@@ -21,6 +23,10 @@ import com.linguarium.translator.repository.LangPairTranslatorRepository;
 import com.linguarium.translator.repository.TranslatorRepository;
 import com.linguarium.translator.service.TranslationService;
 import com.linguarium.user.model.Learner;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -29,13 +35,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Service
 @Slf4j
@@ -59,11 +58,9 @@ public class LanguageProcessorImpl implements LanguageProcessor {
 
     @Override
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
-        //todo deepL
+        // todo deepL
         return new MLTranslationCard(
-                translatorRepository.getGoogle().getName(),
-                googleService.bulkTranslateText(text, targetLang.name())
-        );
+                translatorRepository.getGoogle().getName(), googleService.bulkTranslateText(text, targetLang.name()));
     }
 
     @Override
@@ -74,9 +71,8 @@ public class LanguageProcessorImpl implements LanguageProcessor {
             return null;
         }
 
-        List<Long> translatorsIds = langPairTranslatorRepository.getBySourceLangAndTargetLang(
-                sourceLang.name(),
-                targetLang.name());
+        List<Long> translatorsIds =
+                langPairTranslatorRepository.getBySourceLangAndTargetLang(sourceLang.name(), targetLang.name());
 
         if (translatorsIds.size() == 0) {
             return null;
@@ -114,19 +110,18 @@ public class LanguageProcessorImpl implements LanguageProcessor {
 
     @Override
     public List<String> getAudioLink(String word) {
-        return Objects.requireNonNull(wordnikClient.getAudioFile(word).getBody())
-                .stream().map(WordnikAudioDto::getFileUrl).collect(Collectors.toList());
+        return Objects.requireNonNull(wordnikClient.getAudioFile(word).getBody()).stream()
+                .map(WordnikAudioDto::getFileUrl)
+                .collect(Collectors.toList());
     }
 
     @Deprecated
     public double getFrequencyDatamuse(String entry) {
         ResponseEntity<List<DatamuseEntryDto>> response = datamuseClient.getWordReport(entry);
-        String fTag = Arrays.stream(
-                        response.getBody()
-                                .get(0)
-                                .getTags()
-                ).filter(tag -> tag.startsWith("f"))
-                .findFirst().get();
+        String fTag = Arrays.stream(response.getBody().get(0).getTags())
+                .filter(tag -> tag.startsWith("f"))
+                .findFirst()
+                .get();
         return Double.parseDouble(fTag.split(":")[1]);
     }
 
@@ -136,32 +131,34 @@ public class LanguageProcessorImpl implements LanguageProcessor {
     }
 
     public String[] getNounsForAdjective(String entry) {
-        return Objects.requireNonNull(datamuseClient.getNounsForAdjective(entry)
-                .getBody()).stream().map(DatamuseEntryDto::getWord).map(String::new).toArray(String[]::new);
+        return Objects.requireNonNull(datamuseClient.getNounsForAdjective(entry).getBody()).stream()
+                .map(DatamuseEntryDto::getWord)
+                .map(String::new)
+                .toArray(String[]::new);
     }
 
     public String[] getHomophones(String entry) {
-        return Objects.requireNonNull(datamuseClient.getHomophones(entry)
-                .getBody()).stream().map(DatamuseEntryDto::getWord).map(String::new).toArray(String[]::new);
+        return Objects.requireNonNull(datamuseClient.getHomophones(entry).getBody()).stream()
+                .map(DatamuseEntryDto::getWord)
+                .map(String::new)
+                .toArray(String[]::new);
     }
 
     public String[] getAdjectivesForNoun(String entry) {
-        return Objects.requireNonNull(datamuseClient.getNounsForAdjective(entry)
-                .getBody()).stream().map(DatamuseEntryDto::getWord).map(String::new).toArray(String[]::new);
+        return Objects.requireNonNull(datamuseClient.getNounsForAdjective(entry).getBody()).stream()
+                .map(DatamuseEntryDto::getWord)
+                .map(String::new)
+                .toArray(String[]::new);
     }
 
-    private void singleWordAnalysis(AnalysisDto analysisDto,
-                                    String entry,
-                                    List<POS> posTags,
-                                    List<String> lemmas,
-                                    Language from,
-                                    Language to
-    ) {
+    private void singleWordAnalysis(
+            AnalysisDto analysisDto, String entry, List<POS> posTags, List<String> lemmas, Language from, Language to) {
         if (posTags.get(0).equals(POS.ADJECTIVE_COMPARATIVE)) {
             getBaseAdjectiveForComparative(entry);
         } else if (posTags.get(0).equals(POS.ADJECTIVE_SUPERLATIVE)) {
             getBaseAdjectiveForSuperlative(entry);
-        } else if (posTags.get(0).equals(POS.PROPER_NOUN_SINGULAR) || posTags.get(0).equals(POS.PROPER_NOUN_PLURAL)) {
+        } else if (posTags.get(0).equals(POS.PROPER_NOUN_SINGULAR)
+                || posTags.get(0).equals(POS.PROPER_NOUN_PLURAL)) {
             analysisDto.setIsProper(true);
         } else if (posTags.get(0).equals(POS.FOREIGN_WORD)) {
             analysisDto.setIsForeignWord(true);
@@ -183,7 +180,8 @@ public class LanguageProcessorImpl implements LanguageProcessor {
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
         Language sourceLang = Language.valueOf(languageCode);
-        Language fluentLanguage = Language.valueOf(learner.getFluentLangs().iterator().next());
+        Language fluentLanguage =
+                Language.valueOf(learner.getFluentLangs().iterator().next());
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));

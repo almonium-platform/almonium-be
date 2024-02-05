@@ -1,5 +1,14 @@
 package com.linguarium.auth.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
@@ -22,20 +31,11 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@WebMvcTest(controllers = AuthController.class, includeFilters = {
-        @ComponentScan.Filter(
-                type = FilterType.ASSIGNABLE_TYPE,
-                classes = GlobalExceptionHandler.class)
-})
+@WebMvcTest(
+        controllers = AuthController.class,
+        includeFilters = {
+            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
+        })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest extends BaseControllerTest {
@@ -66,8 +66,7 @@ class AuthControllerTest extends BaseControllerTest {
     @Test
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() throws Exception {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "wrongpassword");
-        when(userService.login(any(LoginRequest.class)))
-                .thenThrow(new BadCredentialsException("Bad credentials"));
+        when(userService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +93,8 @@ class AuthControllerTest extends BaseControllerTest {
         RegistrationRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
-                .when(userService).register(any(RegistrationRequest.class));
+                .when(userService)
+                .register(any(RegistrationRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)

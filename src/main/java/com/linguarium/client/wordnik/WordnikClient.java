@@ -1,9 +1,15 @@
 package com.linguarium.client.wordnik;
 
+import static com.linguarium.util.GeneralUtils.queryBuilder;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.wordnik.dto.WordnikAudioDto;
 import com.linguarium.client.wordnik.dto.WordnikRandomWordDto;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,13 +22,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.linguarium.util.GeneralUtils.queryBuilder;
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @NoArgsConstructor
@@ -69,15 +68,10 @@ public class WordnikClient extends AbstractClient {
         params.put(INCLUDE_POS, INCLUDE_POS_VALUE);
         params.put(MIN_LENGTH, 5);
 
-        String urlTemplate = queryBuilder(BASE_URL_WORDS,
-                List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH)
-        );
+        String urlTemplate = queryBuilder(BASE_URL_WORDS, List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH));
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                WordnikRandomWordDto.class, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), WordnikRandomWordDto.class, params);
     }
 
     public ResponseEntity<List<WordnikAudioDto>> getAudioFile(String word) {
@@ -85,17 +79,11 @@ public class WordnikClient extends AbstractClient {
         headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL + word + AUDIO,
-                List.of()
-        );
+        String urlTemplate = queryBuilder(BASE_URL + word + AUDIO, List.of());
 
         Map<String, Object> params = new HashMap<>();
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                new ParameterizedTypeReference<>() {
-                }, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
     }
 }

@@ -34,6 +34,7 @@
         <version.dotenv-java>3.0.0</version.dotenv-java>
         <version.puppycrawl-checkstyle>10.13.0</version.puppycrawl-checkstyle>
         <version.mvn-checkstyle>3.3.1</version.mvn-checkstyle>
+        <version.spotless>2.43.0</version.spotless>
         <project.build.sourceDirectories>${basedir}/src</project.build.sourceDirectories>
         <checkstyle.config.location>${basedir}/checkstyle.xml</checkstyle.config.location>
     </properties>
@@ -238,6 +239,30 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${version.spotless}</version>
+                <configuration>
+                    <formats>
+                        <format>
+                            <includes>
+                                <include>.gitignore</include>
+                                <include>.yaml</include>
+                                <include>.env</include>
+                            </includes>
+                            <trimTrailingWhitespace/>
+                            <endWithNewline/>
+                        </format>
+                    </formats>
+                    <java>
+                        <palantirJavaFormat>
+                            <version>2.40.0</version>
+                            <style>PALANTIR</style>
+                        </palantirJavaFormat>
+                    </java>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -14,6 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +29,6 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -65,6 +64,7 @@ public class Card implements Serializable {
 
     @Builder.Default
     boolean activeLearning = true;
+
     boolean irregularSpelling;
     boolean falseFriend;
     boolean irregularPlural;
@@ -85,11 +85,15 @@ public class Card implements Serializable {
     @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
     Set<CardTag> cardTags;
+
     private String notes;
+
     @Builder.Default
     private int iteration = 0;
+
     @Builder.Default
     private int priority = 2;
+
     private int frequency;
 
     public void removeCardTag(CardTag cardTag) {

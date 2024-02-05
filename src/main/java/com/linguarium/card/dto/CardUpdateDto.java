@@ -1,15 +1,14 @@
 package com.linguarium.card.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
@@ -19,6 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class CardUpdateDto {
     @NotNull
     Long id;
+
     String entry;
     TranslationDto[] translations;
     String notes;

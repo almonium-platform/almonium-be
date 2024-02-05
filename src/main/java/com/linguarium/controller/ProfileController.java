@@ -1,16 +1,15 @@
 package com.linguarium.controller;
 
+import static lombok.AccessLevel.PRIVATE;
+
+import java.util.Arrays;
+import java.util.List;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @RestController
 @RequestMapping("/all")

@@ -8,6 +8,4 @@ import org.springframework.stereotype.Component;
  * This class is kept in a separate class to avoid circular dependency problems.
  */
 @Component
-public class PasswordEncoder extends BCryptPasswordEncoder {
-
-}
+public class PasswordEncoder extends BCryptPasswordEncoder {}

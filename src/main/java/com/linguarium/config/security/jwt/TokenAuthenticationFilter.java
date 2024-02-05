@@ -1,10 +1,14 @@
 package com.linguarium.config.security.jwt;
 
+import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
+import static com.google.auth.http.AuthHttpConstants.BEARER;
+
 import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +22,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-
-import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
-import static com.google.auth.http.AuthHttpConstants.BEARER;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -32,9 +31,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     LocalUserDetailServiceImpl customUserDetailsService;
 
     @Override
-    public void doFilterInternal(@NonNull HttpServletRequest request,
-                                 @NonNull HttpServletResponse response,
-                                 @NonNull FilterChain filterChain) throws ServletException, IOException {
+    public void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
         try {
             String jwt = getJwtFromRequest(request);
 
@@ -42,10 +43,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 Long userId = tokenProvider.getUserIdFromToken(jwt);
 
                 UserDetails userDetails = customUserDetailsService.loadUserById(userId);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);

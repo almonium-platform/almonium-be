@@ -1,5 +1,7 @@
 package com.linguarium.friendship.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.friendship.model.FriendStatus;
 import com.linguarium.friendship.model.FriendWrapper;
 import com.linguarium.friendship.model.FriendshipStatus;
@@ -7,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @Setter

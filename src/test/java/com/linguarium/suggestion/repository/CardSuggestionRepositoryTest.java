@@ -1,10 +1,13 @@
 package com.linguarium.suggestion.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.linguarium.card.model.Card;
 import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -57,8 +56,8 @@ class CardSuggestionRepositoryTest {
         entityManager.persist(cardSuggestion);
         entityManager.flush();
 
-        CardSuggestion foundCardSuggestion = cardSuggestionRepository.getBySenderAndRecipientAndCard(
-                sender, recipient, card);
+        CardSuggestion foundCardSuggestion =
+                cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card);
 
         assertThat(foundCardSuggestion)
                 .isNotNull()
@@ -88,5 +87,4 @@ class CardSuggestionRepositoryTest {
                 .extracting(CardSuggestion::getRecipient)
                 .containsOnly(recipient);
     }
-
 }

@@ -1,5 +1,7 @@
 package com.linguarium.suggestion.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.mapper.CardMapper;
 import com.linguarium.card.model.Card;
@@ -14,17 +16,14 @@ import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @Service
@@ -59,8 +58,7 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     @Override
     @Transactional
     public List<CardDto> getSuggestedCards(Learner user) {
-        return cardSuggestionRepository.getByRecipient(user)
-                .stream()
+        return cardSuggestionRepository.getByRecipient(user).stream()
                 .map(sug -> {
                     CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
                     dto.setUserId(sug.getSender().getId());
@@ -92,8 +90,8 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     public boolean suggestCard(CardSuggestionDto dto, Learner sender) {
         Card card = cardRepository.findById(dto.cardId()).orElseThrow();
         Learner recipient = learnerRepository.findById(dto.recipientId()).orElseThrow();
-        //TODO  notifications
-        //TODO check if has access
+        // TODO  notifications
+        // TODO check if has access
         if (cardSuggestionRepository.getBySenderAndRecipientAndCard(sender, recipient, card) != null) {
             return false;
         }

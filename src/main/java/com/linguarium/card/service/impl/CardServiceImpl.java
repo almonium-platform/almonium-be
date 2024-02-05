@@ -1,5 +1,7 @@
 package com.linguarium.card.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.google.common.collect.Sets;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
@@ -21,12 +23,6 @@ import com.linguarium.card.service.CardService;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +32,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static lombok.AccessLevel.PRIVATE;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -68,9 +67,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public List<CardDto> getUsersCards(Learner learner) {
-        return cardRepository
-                .findAllByOwner(learner)
-                .stream()
+        return cardRepository.findAllByOwner(learner).stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -97,16 +94,18 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public List<CardDto> searchByEntry(String entry, Learner learner) {
-        return cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(learner, '%' + entry.trim().toLowerCase() + '%')
-                .stream().map(cardMapper::cardEntityToDto).collect(Collectors.toList());
+        return cardRepository
+                .findAllByOwnerAndEntryLikeIgnoreCase(
+                        learner, '%' + entry.trim().toLowerCase() + '%')
+                .stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
-        return cardRepository
-                .findAllByOwnerAndLanguage(learner, Language.valueOf(code))
-                .stream()
+        return cardRepository.findAllByOwnerAndLanguage(learner, Language.valueOf(code)).stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -137,19 +136,19 @@ public class CardServiceImpl implements CardService {
     }
 
     private Tag findOrCreateTag(String text) {
-        return tagRepository.findByTextWithNormalization(text)
-                .orElseGet(() -> {
-                    Tag tag = new Tag(text);
-                    tagRepository.save(tag);
-                    return tag;
-                });
+        return tagRepository.findByTextWithNormalization(text).orElseGet(() -> {
+            Tag tag = new Tag(text);
+            tagRepository.save(tag);
+            return tag;
+        });
     }
 
-    private void saveEntities(Card card,
-                              List<Translation> translations,
-                              List<Example> examples,
-                              List<CardTag> cardTags,
-                              Learner learner) {
+    private void saveEntities(
+            Card card,
+            List<Translation> translations,
+            List<Example> examples,
+            List<CardTag> cardTags,
+            Learner learner) {
         cardRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
@@ -200,13 +199,10 @@ public class CardServiceImpl implements CardService {
     }
 
     private void updateTags(Card entity, TagDto[] tagDtos, Learner learner) {
-        HashSet<String> dtoTagSet = Arrays
-                .stream(tagDtos)
-                .map(TagDto::getText)
-                .collect(Collectors.toCollection(HashSet::new));
+        HashSet<String> dtoTagSet =
+                Arrays.stream(tagDtos).map(TagDto::getText).collect(Collectors.toCollection(HashSet::new));
 
-        HashSet<String> cardTagSet = entity.getCardTags()
-                .stream()
+        HashSet<String> cardTagSet = entity.getCardTags().stream()
                 .map(cardTag -> cardTag.getTag().getText())
                 .collect(Collectors.toCollection(HashSet::new));
 

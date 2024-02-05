@@ -1,8 +1,14 @@
 package com.linguarium.client.datamuse;
 
+import static com.linguarium.util.GeneralUtils.queryBuilder;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.datamuse.dto.DatamuseEntryDto;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -13,13 +19,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.linguarium.util.GeneralUtils.queryBuilder;
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @AllArgsConstructor
@@ -91,36 +90,22 @@ public class DatamuseClient extends AbstractClient {
         params.put(MAX, String.valueOf(1));
         params.put(IPA, String.valueOf(1));
 
-        String urlTemplate = queryBuilder(
-                BASE_URL + ENDPOINT,
-                List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX)
-        );
+        String urlTemplate = queryBuilder(BASE_URL + ENDPOINT, List.of(SPELLED_LIKE, QUERY_ECHO, METADATA, IPA, MAX));
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                new ParameterizedTypeReference<>() {
-                }, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
     }
 
     private ResponseEntity<List<DatamuseEntryDto>> request(String word, String parameter) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(
-                BASE_URL + ENDPOINT,
-                List.of(parameter)
-        );
+        String urlTemplate = queryBuilder(BASE_URL + ENDPOINT, List.of(parameter));
 
         Map<String, String> params = new HashMap<>();
         params.put(parameter, word);
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                new ParameterizedTypeReference<>() {
-                }, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
     }
 }

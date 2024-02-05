@@ -1,8 +1,12 @@
 package com.linguarium.client.urban;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.urban.dto.UrbanResponse;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -15,11 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @NoArgsConstructor
@@ -53,9 +52,6 @@ public class UrbanClient extends AbstractClient {
         params.put("term", word);
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                UrbanResponse.class, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), UrbanResponse.class, params);
     }
 }

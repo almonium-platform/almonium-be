@@ -1,8 +1,14 @@
 package com.linguarium.client.words;
 
+import static com.linguarium.util.GeneralUtils.queryBuilder;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.client.AbstractClient;
 import com.linguarium.client.Client;
 import com.linguarium.client.words.dto.WordsReportDto;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,13 +18,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.linguarium.util.GeneralUtils.queryBuilder;
-import static lombok.AccessLevel.PRIVATE;
 
 @Client
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -33,8 +32,7 @@ public class WordsClient extends AbstractClient {
     RestTemplate restTemplate;
     String apiKeyHeaderValue;
 
-    public WordsClient(RestTemplate restTemplate,
-                       @Value("${external.api.key.words}") String apiKeyHeaderValue) {
+    public WordsClient(RestTemplate restTemplate, @Value("${external.api.key.words}") String apiKeyHeaderValue) {
         this.restTemplate = restTemplate;
         this.apiKeyHeaderValue = apiKeyHeaderValue;
     }
@@ -45,17 +43,12 @@ public class WordsClient extends AbstractClient {
         headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL + word,
-                List.of()
-        );
+        String urlTemplate = queryBuilder(BASE_URL + word, List.of());
 
         Map<String, Object> params = new HashMap<>();
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                WordsReportDto.class, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), WordsReportDto.class, params);
     }
 
     public ResponseEntity<WordsReportDto> getRandomWord() {
@@ -64,17 +57,12 @@ public class WordsClient extends AbstractClient {
         headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL,
-                List.of(RANDOM)
-        );
+        String urlTemplate = queryBuilder(BASE_URL, List.of(RANDOM));
 
         Map<String, Object> params = new HashMap<>();
         params.put(RANDOM, true);
 
         return restTemplate.exchange(
-                urlTemplate,
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                WordsReportDto.class, params);
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), WordsReportDto.class, params);
     }
 }

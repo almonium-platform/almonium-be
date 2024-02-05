@@ -1,7 +1,10 @@
 package com.linguarium.user.repository;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import com.linguarium.friendship.model.FriendWrapper;
 import com.linguarium.user.model.User;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -11,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest

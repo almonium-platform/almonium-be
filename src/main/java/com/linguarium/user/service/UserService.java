@@ -6,11 +6,10 @@ import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.user.model.User;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
-
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
 public interface UserService {
     User register(RegistrationRequest registrationRequest);
@@ -21,10 +20,8 @@ public interface UserService {
 
     JwtAuthenticationResponse login(LoginRequest loginRequest);
 
-    LocalUser processAuthenticationFromProvider(String registrationId,
-                                                Map<String, Object> attributes,
-                                                OidcIdToken idToken,
-                                                OidcUserInfo userInfo);
+    LocalUser processAuthenticationFromProvider(
+            String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
 
     UserInfo buildUserInfo(User user);
 

@@ -23,9 +23,8 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
     }
 
     @Override
-    public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest,
-                                         HttpServletRequest request,
-                                         HttpServletResponse response) {
+    public void saveAuthorizationRequest(
+            OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         if (authorizationRequest == null) {
             CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
             CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
@@ -42,16 +41,13 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
 
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
             CookieUtils.addCookie(
-                    response,
-                    REDIRECT_URI_PARAM_COOKIE_NAME,
-                    redirectUriAfterLogin,
-                    COOKIE_EXPIRE_SECONDS);
+                    response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, COOKIE_EXPIRE_SECONDS);
         }
     }
 
     @Override
-    public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request,
-                                                                 HttpServletResponse response) {
+    public OAuth2AuthorizationRequest removeAuthorizationRequest(
+            HttpServletRequest request, HttpServletResponse response) {
         return loadAuthorizationRequest(request);
     }
 

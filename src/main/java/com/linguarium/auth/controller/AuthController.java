@@ -1,5 +1,7 @@
 package com.linguarium.auth.controller;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @RestController

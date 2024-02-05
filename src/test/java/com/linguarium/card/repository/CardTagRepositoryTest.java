@@ -1,5 +1,7 @@
 package com.linguarium.card.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.linguarium.card.model.Card;
 import com.linguarium.card.model.CardTag;
 import com.linguarium.card.model.Tag;
@@ -7,6 +9,8 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
+import java.util.Set;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +22,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Set;
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -32,6 +31,7 @@ class CardTagRepositoryTest {
 
     @Autowired
     CardTagRepository cardTagRepository;
+
     User managedUser;
 
     Learner managedLearner;

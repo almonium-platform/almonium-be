@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class FriendInfoView {
     @Id
     private Long userId;
+
     private String status;
     private Boolean isFriendRequester;
 }
-

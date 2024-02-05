@@ -1,5 +1,13 @@
 package com.linguarium.analyzer.controller;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.service.impl.LanguageProcessor;
@@ -13,6 +21,7 @@ import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.util.TestDataGenerator;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,16 +32,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.List;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LangController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -69,8 +68,7 @@ class LangControllerTest extends BaseControllerTest {
         CardDto[] dummyCards = TestDataGenerator.createCardDtos();
         when(cardService.searchByEntry(searchText, learner)).thenReturn(List.of(dummyCards));
 
-        mockMvc.perform(get(SEARCH_URL, searchText)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(SEARCH_URL, searchText).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(dummyCards)));
 
@@ -87,8 +85,7 @@ class LangControllerTest extends BaseControllerTest {
 
         when(languageProcessor.translate(text, Language.EN, Language.ES)).thenReturn(translationCardDto);
 
-        mockMvc.perform(get(TRANSLATE_URL, langFrom, langTo, text)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(TRANSLATE_URL, langFrom, langTo, text).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(translationCardDto)));
     }
@@ -99,10 +96,10 @@ class LangControllerTest extends BaseControllerTest {
         String text = "Hello";
         String lang = Language.EN.name();
         AnalysisDto analysisDto = TestDataGenerator.createTestAnalysisDto();
-        when(languageProcessor.getReport(text, lang, principal.getUser().getLearner())).thenReturn(analysisDto);
+        when(languageProcessor.getReport(text, lang, principal.getUser().getLearner()))
+                .thenReturn(analysisDto);
 
-        mockMvc.perform(get(REPORT_URL, text, lang)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(REPORT_URL, text, lang).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(analysisDto)));
     }
@@ -131,8 +128,7 @@ class LangControllerTest extends BaseControllerTest {
         ByteString audioBytes = TestDataGenerator.generateRandomAudioBytes();
         when(languageProcessor.textToSpeech(lang, text)).thenReturn(audioBytes);
 
-        mockMvc.perform(get(BULK_PRONOUNCE_URL, text, lang)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(BULK_PRONOUNCE_URL, text, lang).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Disposition", "attachment; filename=file.mp3"))
                 .andExpect(content().bytes(audioBytes.toByteArray()));
@@ -146,8 +142,7 @@ class LangControllerTest extends BaseControllerTest {
         when(languageProcessor.getRandom()).thenReturn(wordsReportDto);
 
         // Act & Assert
-        mockMvc.perform(get(RANDOM_URL)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(RANDOM_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(wordsReportDto)));
     }

@@ -1,5 +1,7 @@
 package com.linguarium.analyzer.controller;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.service.impl.LanguageProcessor;
 import com.linguarium.auth.annotation.CurrentUser;
@@ -10,6 +12,7 @@ import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,10 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static lombok.AccessLevel.PRIVATE;
-
 @RestController
 @RequestMapping("/lang")
 @RequiredArgsConstructor
@@ -38,22 +37,19 @@ public class LangController {
 
     @GetMapping("/cards/search/{text}")
     public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser LocalUser localUser) {
-        return ResponseEntity.ok(cardService.searchByEntry(text, localUser.getUser().getLearner()));
+        return ResponseEntity.ok(
+                cardService.searchByEntry(text, localUser.getUser().getLearner()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
-    public ResponseEntity<TranslationCardDto> translate(@PathVariable String langFrom,
-                                                        @PathVariable String langTo,
-                                                        @PathVariable String text) {
-        return ResponseEntity.ok(languageProcessor.translate(
-                text,
-                Language.valueOf(langFrom),
-                Language.valueOf(langTo)));
+    public ResponseEntity<TranslationCardDto> translate(
+            @PathVariable String langFrom, @PathVariable String langTo, @PathVariable String text) {
+        return ResponseEntity.ok(
+                languageProcessor.translate(text, Language.valueOf(langFrom), Language.valueOf(langTo)));
     }
 
     @PostMapping("/translations/{langTo}/bulk")
-    public ResponseEntity<MLTranslationCard> bulkTranslate(@PathVariable String langTo,
-                                                           @RequestBody String text) {
+    public ResponseEntity<MLTranslationCard> bulkTranslate(@PathVariable String langTo, @RequestBody String text) {
         return ResponseEntity.ok(languageProcessor.bulkTranslate(text, Language.valueOf(langTo)));
     }
 
@@ -79,10 +75,10 @@ public class LangController {
     }
 
     @GetMapping("/words/{text}/{lang}/report")
-    public ResponseEntity<AnalysisDto> getReport(@PathVariable String text,
-                                                 @PathVariable String lang,
-                                                 @CurrentUser LocalUser localUser) {
-        return ResponseEntity.ok(languageProcessor.getReport(text, lang, localUser.getUser().getLearner()));
+    public ResponseEntity<AnalysisDto> getReport(
+            @PathVariable String text, @PathVariable String lang, @CurrentUser LocalUser localUser) {
+        return ResponseEntity.ok(
+                languageProcessor.getReport(text, lang, localUser.getUser().getLearner()));
     }
 
     private HttpHeaders createAudioHeaders() {

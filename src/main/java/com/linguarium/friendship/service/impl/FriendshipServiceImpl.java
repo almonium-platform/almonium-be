@@ -1,5 +1,9 @@
 package com.linguarium.friendship.service.impl;
 
+import static com.linguarium.friendship.model.FriendshipStatus.FRIENDS;
+import static com.linguarium.friendship.model.FriendshipStatus.PENDING;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
@@ -12,21 +16,16 @@ import com.linguarium.friendship.repository.FriendshipRepository;
 import com.linguarium.friendship.service.FriendshipService;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static com.linguarium.friendship.model.FriendshipStatus.FRIENDS;
-import static com.linguarium.friendship.model.FriendshipStatus.PENDING;
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @Service
@@ -49,11 +48,8 @@ public class FriendshipServiceImpl implements FriendshipService {
         List<FriendshipInfoDto> result = new ArrayList<>();
         for (FriendInfoView view : friendInfoViews) {
             Optional<FriendWrapper> friendOptional = userRepository.findAllById(view.getUserId());
-            friendOptional.ifPresent(friendWrapper -> result.add(
-                    new FriendshipInfoDto(
-                            friendWrapper,
-                            FriendshipStatus.fromString(view.getStatus()),
-                            view.getIsFriendRequester())));
+            friendOptional.ifPresent(friendWrapper -> result.add(new FriendshipInfoDto(
+                    friendWrapper, FriendshipStatus.fromString(view.getStatus()), view.getIsFriendRequester())));
         }
         return result;
     }
@@ -75,22 +71,24 @@ public class FriendshipServiceImpl implements FriendshipService {
                 .getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId)
                 .orElseThrow(FriendshipNotFoundException::new);
 
-        if (!friendship.getFriendshipStatus().equals(FRIENDS) && !friendship.getFriendshipStatus().equals(PENDING)) {
+        if (!friendship.getFriendshipStatus().equals(FRIENDS)
+                && !friendship.getFriendshipStatus().equals(PENDING)) {
             throw new IllegalArgumentException("Friendship status must be FRIENDS or PENDING");
         }
 
         LocalDateTime now = LocalDateTime.now();
         friendship.setUpdated(now);
-        friendship.setFriendshipStatus(friendship.getRequesterId().equals(actionInitiatorId)
-                ? FriendshipStatus.FST_BLOCKED_SND
-                : FriendshipStatus.SND_BLOCKED_FST
-        );
+        friendship.setFriendshipStatus(
+                friendship.getRequesterId().equals(actionInitiatorId)
+                        ? FriendshipStatus.FST_BLOCKED_SND
+                        : FriendshipStatus.SND_BLOCKED_FST);
         return friendshipRepository.save(friendship);
     }
 
     @SneakyThrows
     private Friendship cancelFriendship(Long actionInitiatorId, Long actionAcceptorId) {
-        Friendship friendship = friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId)
+        Friendship friendship = friendshipRepository
+                .getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId)
                 .orElseThrow(FriendshipNotFoundException::new);
 
         friendshipRepository.delete(friendship);
@@ -101,9 +99,8 @@ public class FriendshipServiceImpl implements FriendshipService {
     private Friendship createFriendshipRequest(long actionInitiatorId, long actionAcceptorId) {
         User recipient = userRepository.findById(actionAcceptorId).orElseThrow();
 
-        Optional<Friendship> friendshipOptional = friendshipRepository.getFriendshipByUsersIds(
-                actionInitiatorId,
-                actionAcceptorId);
+        Optional<Friendship> friendshipOptional =
+                friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId);
 
         if (friendshipOptional.isPresent()) {
             Friendship existingFriendship = friendshipOptional.get();

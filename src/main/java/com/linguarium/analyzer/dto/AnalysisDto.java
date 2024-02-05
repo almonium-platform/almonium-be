@@ -1,5 +1,7 @@
 package com.linguarium.analyzer.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.analyzer.model.CEFR;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.translator.dto.TranslationCardDto;
@@ -8,8 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder

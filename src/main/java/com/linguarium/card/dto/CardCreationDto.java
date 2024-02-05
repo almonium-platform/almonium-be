@@ -1,5 +1,7 @@
 package com.linguarium.card.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -8,8 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @Builder
@@ -20,8 +20,10 @@ public class CardCreationDto {
 
     @NotBlank
     String entry;
+
     @NotEmpty
     TranslationDto[] translations;
+
     String notes;
     TagDto[] tags;
     ExampleDto[] examples;
@@ -30,8 +32,10 @@ public class CardCreationDto {
     boolean falseFriend;
     boolean irregularSpelling;
     boolean learnt;
+
     @NotNull
     String language;
+
     String created;
     String updated;
     Integer priority;

@@ -1,10 +1,15 @@
 package com.linguarium.card.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.linguarium.card.model.Card;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -63,15 +62,16 @@ class CardRepositoryTest {
     void givenOwnerAndLanguage_whenFindAllByOwnerAndLanguage_thenShouldReturnCardsWithCorrectDetails() {
         List<Card> cards = cardRepository.findAllByOwnerAndLanguage(managedLearner, TEST_LANGUAGE);
         assertThat(cards).isNotEmpty();
-        assertThat(cards).allMatch(card -> card.getOwner().equals(managedLearner)
-                && card.getLanguage().equals(TEST_LANGUAGE));
+        assertThat(cards)
+                .allMatch(card -> card.getOwner().equals(managedLearner)
+                        && card.getLanguage().equals(TEST_LANGUAGE));
     }
 
     @DisplayName("Should find cards matching entry pattern with case insensitivity")
     @Test
     void givenOwnerAndEntry_whenFindAllByOwnerAndEntryLikeIgnoreCase_thenShouldReturnMatchingCards() {
-        List<Card> cards = cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(
-                managedLearner, TEST_ENTRY.toLowerCase());
+        List<Card> cards =
+                cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(managedLearner, TEST_ENTRY.toLowerCase());
         assertThat(cards).isNotEmpty();
         assertThat(cards).anyMatch(card -> card.getEntry().equalsIgnoreCase(TEST_ENTRY));
     }

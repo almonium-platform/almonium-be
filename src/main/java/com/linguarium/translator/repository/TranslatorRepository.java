@@ -1,10 +1,9 @@
 package com.linguarium.translator.repository;
 
 import com.linguarium.translator.model.Translator;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface TranslatorRepository extends JpaRepository<Translator, Long> {

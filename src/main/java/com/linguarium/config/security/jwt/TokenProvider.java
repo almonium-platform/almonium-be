@@ -9,17 +9,16 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 @Slf4j
 @Service
@@ -39,15 +38,17 @@ public class TokenProvider {
 
         Instant now = Instant.now();
         long expirationMillis = authenticationProperties.getAuth().getTokenExpirationMSec();
-        LocalDateTime expiryDateTime = LocalDateTime.ofInstant(
-                now.plusMillis(expirationMillis),
-                ZoneId.systemDefault());
+        LocalDateTime expiryDateTime =
+                LocalDateTime.ofInstant(now.plusMillis(expirationMillis), ZoneId.systemDefault());
 
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getUser().getId()))
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(expiryDateTime.atZone(ZoneId.systemDefault()).toInstant()))
-                .signWith(SignatureAlgorithm.HS512, authenticationProperties.getAuth().getTokenSecret())
+                .setExpiration(
+                        Date.from(expiryDateTime.atZone(ZoneId.systemDefault()).toInstant()))
+                .signWith(
+                        SignatureAlgorithm.HS512,
+                        authenticationProperties.getAuth().getTokenSecret())
                 .compact();
     }
 
@@ -62,7 +63,9 @@ public class TokenProvider {
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(authenticationProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
+            Jwts.parser()
+                    .setSigningKey(authenticationProperties.getAuth().getTokenSecret())
+                    .parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
             log.error(TOKEN_SIGNATURE_INVALID);

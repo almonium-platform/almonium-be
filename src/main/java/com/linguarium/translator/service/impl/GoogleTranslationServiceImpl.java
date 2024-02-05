@@ -1,5 +1,7 @@
 package com.linguarium.translator.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.google.cloud.texttospeech.v1.AudioConfig;
 import com.google.cloud.texttospeech.v1.AudioEncoding;
 import com.google.cloud.texttospeech.v1.SsmlVoiceGender;
@@ -19,8 +21,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Service
 @Slf4j
@@ -51,11 +51,10 @@ public class GoogleTranslationServiceImpl implements TranslationService {
 
         // Build the voice request, select the language code ("en-US") and the ssml voice gender
         // ("neutral")
-        VoiceSelectionParams voice =
-                VoiceSelectionParams.newBuilder()
-                        .setLanguageCode(languageCode)
-                        .setSsmlGender(SsmlVoiceGender.NEUTRAL)
-                        .build();
+        VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
+                .setLanguageCode(languageCode)
+                .setSsmlGender(SsmlVoiceGender.NEUTRAL)
+                .build();
 
         // Select the type of audio file you want returned
         AudioConfig audioConfig =
@@ -63,8 +62,7 @@ public class GoogleTranslationServiceImpl implements TranslationService {
 
         // Perform the text-to-speech request on the text input with the selected voice parameters and
         // audio file type
-        SynthesizeSpeechResponse response =
-                textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
+        SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
 
         // Get the audio contents from the response
         return response.getAudioContent();
@@ -72,17 +70,16 @@ public class GoogleTranslationServiceImpl implements TranslationService {
 
     @Override
     public String bulkTranslateText(String text, String targetLanguage) {
-        TranslateTextRequest request =
-                TranslateTextRequest.newBuilder()
-                        .setParent(parent.toString())
-                        .setMimeType("text/plain")
-                        .setTargetLanguageCode(targetLanguage)
-                        .addContents(text)
-                        .build();
+        TranslateTextRequest request = TranslateTextRequest.newBuilder()
+                .setParent(parent.toString())
+                .setMimeType("text/plain")
+                .setTargetLanguageCode(targetLanguage)
+                .addContents(text)
+                .build();
 
         TranslateTextResponse response = translationClient.translateText(request);
 
-        //TODO what's in other indexes?
+        // TODO what's in other indexes?
         return response.getTranslationsList().get(0).getTranslatedText();
     }
 }

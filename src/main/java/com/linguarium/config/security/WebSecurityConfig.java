@@ -1,10 +1,21 @@
 package com.linguarium.config.security;
 
+import static jakarta.ws.rs.HttpMethod.DELETE;
+import static jakarta.ws.rs.HttpMethod.GET;
+import static jakarta.ws.rs.HttpMethod.OPTIONS;
+import static jakarta.ws.rs.HttpMethod.POST;
+import static jakarta.ws.rs.HttpMethod.PUT;
+import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static jakarta.ws.rs.core.HttpHeaders.CACHE_CONTROL;
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
 import com.linguarium.config.security.oauth2.CustomOidcUserService;
 import com.linguarium.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,18 +37,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
-
-import static jakarta.ws.rs.HttpMethod.DELETE;
-import static jakarta.ws.rs.HttpMethod.GET;
-import static jakarta.ws.rs.HttpMethod.OPTIONS;
-import static jakarta.ws.rs.HttpMethod.POST;
-import static jakarta.ws.rs.HttpMethod.PUT;
-import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static jakarta.ws.rs.core.HttpHeaders.CACHE_CONTROL;
-import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -50,6 +49,7 @@ public class WebSecurityConfig {
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
+
     @NonFinal
     @Value("${app.server.frontend.url}")
     String frontendUrl;
@@ -77,13 +77,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -92,9 +91,9 @@ public class WebSecurityConfig {
                                 .oidcUserService(customOidcUserService)
                                 .userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .authorizationEndpoint(authEndPoint
-                                -> authEndPoint.authorizationRequestRepository(
-                                authorizationRequestRepository))
-                        .failureHandler(oAuth2AuthenticationFailureHandler)).build();
+                        .authorizationEndpoint(authEndPoint ->
+                                authEndPoint.authorizationRequestRepository(authorizationRequestRepository))
+                        .failureHandler(oAuth2AuthenticationFailureHandler))
+                .build();
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,17 +18,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.io.Serializable;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-        uniqueConstraints =
-        @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"})
-)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"}))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @IdClass(TranslatorMappingKey.class)
 public class LangPairTranslatorMapping implements Serializable {

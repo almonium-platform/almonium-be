@@ -2,13 +2,12 @@ package com.linguarium.user.repository;
 
 import com.linguarium.friendship.model.FriendWrapper;
 import com.linguarium.user.model.User;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -23,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void changeUsername(String username, Long id);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
-    User findByEmail(String email); //TODO optional
+    User findByEmail(String email); // TODO optional
 
     boolean existsByEmail(String email);
 

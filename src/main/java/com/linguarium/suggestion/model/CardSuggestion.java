@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +22,6 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -30,10 +29,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(
-        uniqueConstraints =
-        @UniqueConstraint(columnNames = {"card_id", "sender_id", "recipient_id"})
-)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"card_id", "sender_id", "recipient_id"}))
 public class CardSuggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

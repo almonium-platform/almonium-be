@@ -1,9 +1,8 @@
 package com.linguarium.config.security.oauth2.userinfo;
 
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.Map;
 
 @Getter
 @AllArgsConstructor

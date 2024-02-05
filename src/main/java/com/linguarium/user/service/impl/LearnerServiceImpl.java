@@ -1,19 +1,18 @@
 package com.linguarium.user.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.service.LearnerService;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @Service

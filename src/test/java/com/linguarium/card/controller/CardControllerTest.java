@@ -1,5 +1,14 @@
 package com.linguarium.card.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardCreationDto;
@@ -19,15 +28,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CardController.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -80,8 +80,7 @@ class CardControllerTest extends BaseControllerTest {
     @DisplayName("Should retrieve all cards of a user")
     @Test
     void givenUser_whenGetCards_thenReturnsCards() throws Exception {
-        mockMvc.perform(get(GET_CARDS_URL))
-                .andExpect(status().isOk());
+        mockMvc.perform(get(GET_CARDS_URL)).andExpect(status().isOk());
 
         verify(cardService).getUsersCards(any(Learner.class));
     }
@@ -91,8 +90,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenUserAndLanguageCode_whenGetCardsOfLang_thenReturnsCards() throws Exception {
         String languageCode = Language.EN.name();
 
-        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode))
-                .andExpect(status().isOk());
+        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode)).andExpect(status().isOk());
 
         verify(cardService).getUsersCardsOfLang(eq(languageCode), any(Learner.class));
     }
@@ -102,8 +100,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenCardId_whenGetCard_thenReturnsCard() throws Exception {
         Long cardId = 1L;
 
-        mockMvc.perform(get(GET_CARD_URL, cardId))
-                .andExpect(status().isOk());
+        mockMvc.perform(get(GET_CARD_URL, cardId)).andExpect(status().isOk());
 
         verify(cardService).getCardById(cardId);
     }
@@ -113,8 +110,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenCardHash_whenGetCardByHash_thenReturnsCard() throws Exception {
         String hash = GeneralUtils.generateId();
 
-        mockMvc.perform(get(GET_CARDS_BY_HASH_URL, hash))
-                .andExpect(status().isOk());
+        mockMvc.perform(get(GET_CARDS_BY_HASH_URL, hash)).andExpect(status().isOk());
 
         verify(cardService).getCardByPublicId(hash);
     }
@@ -124,8 +120,7 @@ class CardControllerTest extends BaseControllerTest {
     void givenCardId_whenDeleteCard_thenCardIsDeleted() throws Exception {
         Long cardId = 1L;
 
-        mockMvc.perform(delete(DELETE_CARD_URL, cardId))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(delete(DELETE_CARD_URL, cardId)).andExpect(status().isNoContent());
 
         verify(cardService).deleteById(cardId);
     }

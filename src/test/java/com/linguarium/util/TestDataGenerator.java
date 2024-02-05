@@ -29,9 +29,6 @@ import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
-import lombok.experimental.UtilityClass;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +36,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import lombok.experimental.UtilityClass;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 
 @UtilityClass
 public final class TestDataGenerator {
@@ -57,15 +56,12 @@ public final class TestDataGenerator {
     public TranslationCardDto createTranslationCardDto() {
         return TranslationCardDto.builder()
                 .provider("GOOGLE")
-                .definitions(new DefinitionDto[]{})
+                .definitions(new DefinitionDto[] {})
                 .build();
     }
 
     public TestingAuthenticationToken getAuthenticationToken(LocalUser principal) {
-        return new TestingAuthenticationToken(
-                principal,
-                null,
-                List.of());
+        return new TestingAuthenticationToken(principal, null, List.of());
     }
 
     public TranslationCardDto createTestTranslationCardDto() {
@@ -76,34 +72,34 @@ public final class TestDataGenerator {
     }
 
     public DefinitionDto[] createTestDefinitionDtos() {
-        return new DefinitionDto[]{
-                DefinitionDto.builder()
-                        .text("Definition 1")
-                        .pos("Noun")
-                        .transcription("[ˌdɛfɪˈnɪʃən]")
-                        .translations(createTestTranslationDtos())
-                        .build(),
-                DefinitionDto.builder()
-                        .text("Definition 2")
-                        .pos("Verb")
-                        .transcription("[vɜːrb]")
-                        .translations(createTestTranslationDtos())
-                        .build()
+        return new DefinitionDto[] {
+            DefinitionDto.builder()
+                    .text("Definition 1")
+                    .pos("Noun")
+                    .transcription("[ˌdɛfɪˈnɪʃən]")
+                    .translations(createTestTranslationDtos())
+                    .build(),
+            DefinitionDto.builder()
+                    .text("Definition 2")
+                    .pos("Verb")
+                    .transcription("[vɜːrb]")
+                    .translations(createTestTranslationDtos())
+                    .build()
         };
     }
 
     public com.linguarium.translator.dto.TranslationDto[] createTestTranslationDtos() {
-        return new com.linguarium.translator.dto.TranslationDto[]{
-                com.linguarium.translator.dto.TranslationDto.builder()
-                        .text("Translation 1")
-                        .pos("Noun")
-                        .frequency(5)
-                        .build(),
-                com.linguarium.translator.dto.TranslationDto.builder()
-                        .text("Translation 2")
-                        .pos("Verb")
-                        .frequency(3)
-                        .build()
+        return new com.linguarium.translator.dto.TranslationDto[] {
+            com.linguarium.translator.dto.TranslationDto.builder()
+                    .text("Translation 1")
+                    .pos("Noun")
+                    .frequency(5)
+                    .build(),
+            com.linguarium.translator.dto.TranslationDto.builder()
+                    .text("Translation 2")
+                    .pos("Verb")
+                    .frequency(3)
+                    .build()
         };
     }
 
@@ -111,14 +107,14 @@ public final class TestDataGenerator {
         return AnalysisDto.builder()
                 .frequency(0.75)
                 .cefr(CEFR.B1)
-                .lemmas(new String[]{"lemma1", "lemma2"})
-                .posTags(new String[]{"Noun", "Adjective"})
-                .adjectives(new String[]{"adjective1", "adjective2"})
-                .nouns(new String[]{"noun1", "noun2"})
+                .lemmas(new String[] {"lemma1", "lemma2"})
+                .posTags(new String[] {"Noun", "Adjective"})
+                .adjectives(new String[] {"adjective1", "adjective2"})
+                .nouns(new String[] {"noun1", "noun2"})
                 .foundCards(createCardDtos())
-                .homophones(new String[]{"homophone1", "homophone2"})
-                .family(new String[]{"word1", "word2"})
-                .syllables(new String[]{"syllable1", "syllable2"})
+                .homophones(new String[] {"homophone1", "homophone2"})
+                .family(new String[] {"word1", "word2"})
+                .syllables(new String[] {"syllable1", "syllable2"})
                 .isProper(true)
                 .isForeignWord(false)
                 .isPlural(true)
@@ -133,7 +129,7 @@ public final class TestDataGenerator {
                 .userId(1L)
                 .entry("Hello")
                 .language("English")
-                .translations(new TranslationDto[]{new TranslationDto(1L, "Hola")})
+                .translations(new TranslationDto[] {new TranslationDto(1L, "Hola")})
                 .created(LocalDateTime.now())
                 .updated(LocalDateTime.now())
                 .iteration(1)
@@ -150,7 +146,7 @@ public final class TestDataGenerator {
                 .userId(2L)
                 .entry("Bonjour")
                 .language("French")
-                .translations(new TranslationDto[]{new TranslationDto(2L, "Hello")})
+                .translations(new TranslationDto[] {new TranslationDto(2L, "Hello")})
                 .created(LocalDateTime.now())
                 .updated(LocalDateTime.now())
                 .iteration(3)
@@ -161,7 +157,7 @@ public final class TestDataGenerator {
                 .falseFriend(false)
                 .build();
 
-        return new CardDto[]{card1, card2};
+        return new CardDto[] {card1, card2};
     }
 
     public LocalUser createLocalUser() {
@@ -187,11 +183,13 @@ public final class TestDataGenerator {
 
     public UserInfo buildTestUserInfo() {
         User user = buildTestUserWithId();
-        Learner learner = Learner.builder().id(user.getId())
+        Learner learner = Learner.builder()
+                .id(user.getId())
                 .targetLangs(Set.of(Language.EN.name(), Language.ES.name()))
                 .fluentLangs(Set.of(Language.FR.name(), Language.DE.name()))
                 .build();
-        Profile profile = Profile.builder().id(user.getId())
+        Profile profile = Profile.builder()
+                .id(user.getId())
                 .background("Background Image URL")
                 .profilePicLink("Profile Image URL")
                 .streak(3)
@@ -209,8 +207,7 @@ public final class TestDataGenerator {
                 profile.getStreak(),
                 learner.getTargetLangs(),
                 learner.getFluentLangs(),
-                List.of("tag1", "tag2", "tag3")
-        );
+                List.of("tag1", "tag2", "tag3"));
     }
 
     public User buildTestUser() {
@@ -398,7 +395,6 @@ public final class TestDataGenerator {
         card.setOwner(owner);
         card.setLanguage(Language.EN);
         return card;
-
     }
 
     public Card buildTestCard() {
