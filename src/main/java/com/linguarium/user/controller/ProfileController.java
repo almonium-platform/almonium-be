@@ -1,4 +1,4 @@
-package com.linguarium.controller;
+package com.linguarium.user.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
