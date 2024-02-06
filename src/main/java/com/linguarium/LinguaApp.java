@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class LinguariumApplication extends SpringBootServletInitializer {
+public class LinguaApp extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(LinguariumApplication.class, args);
+        SpringApplication.run(LinguaApp.class, args);
     }
 }
