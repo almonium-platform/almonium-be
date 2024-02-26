@@ -4,7 +4,7 @@ import com.linguarium.friendship.model.FriendshipStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = true)
+@Converter(autoApply = true) // TODO delete?
 public class FriendshipStatusConverter implements AttributeConverter<FriendshipStatus, String> {
     @Override
     public String convertToDatabaseColumn(FriendshipStatus nodeType) {
