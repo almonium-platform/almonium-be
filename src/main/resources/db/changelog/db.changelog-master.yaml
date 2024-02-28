@@ -31,5 +31,3 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-friend-info-view.yaml
   - include:
       file: db/changelog/changes/insertion/fill-static-tables.yaml
-#  - include:
-#      file: db/changelog/changes/fill-test-data.yaml
