@@ -2,7 +2,6 @@
   <configuration default="false" name="APP DEV" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="dev" />
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
-    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <module name="linguarium" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.linguarium.LinguaApp" />
     <extension name="coverage">
