@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.4</version>
     </parent>
 
     <groupId>com</groupId>
@@ -22,7 +22,7 @@
         <version.lombok>1.18.28</version.lombok>
         <version.mapstruct>1.5.5.Final</version.mapstruct>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
-        <version.postgresql>42.5.4</version.postgresql>
+        <version.postgresql>42.7.3</version.postgresql>
         <version.jjwt>0.9.1</version.jjwt>
         <version.commons-configuration2>2.9.0</version.commons-configuration2>
         <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
@@ -31,9 +31,6 @@
         <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
         <version.jakarta>10.0.0</version.jakarta>
         <version.json-path>2.9.0</version.json-path>
-        <version.dotenv-java>3.0.0</version.dotenv-java>
-        <version.puppycrawl-checkstyle>10.13.0</version.puppycrawl-checkstyle>
-        <version.mvn-checkstyle>3.3.1</version.mvn-checkstyle>
         <version.spotless>2.43.0</version.spotless>
         <project.build.sourceDirectories>${basedir}/src</project.build.sourceDirectories>
         <checkstyle.config.location>${basedir}/checkstyle.xml</checkstyle.config.location>
