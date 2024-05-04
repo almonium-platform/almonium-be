@@ -304,21 +304,6 @@ class UserServiceImplTest {
         verify(userRepository).save(any(User.class));
     }
 
-    @DisplayName("Should throw an exception when trying to register user with existing userId")
-    @Test
-    void givenExistingUserId_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setUserId(1L);
-
-        when(userRepository.existsById(registrationRequest.getUserId())).thenReturn(true);
-
-        assertThatThrownBy(() -> userService.register(registrationRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
-
-        verify(userRepository).existsById(registrationRequest.getUserId());
-        verifyNoMoreInteractions(userRepository);
-    }
-
     @DisplayName("Should authenticate and return JWT when given valid credentials")
     @Test
     void givenValidCredentials_whenAuthenticate_thenReturnJwtAndUserInfo() {

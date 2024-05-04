@@ -13,11 +13,11 @@ public class OAuth2UserInfoFactory {
             SocialProvider.GOOGLE.getProviderType(), GoogleOAuth2UserInfo::new,
             SocialProvider.FACEBOOK.getProviderType(), FacebookOAuth2UserInfo::new);
 
-    public OAuth2UserInfo getOAuth2UserInfo(@NotNull String registrationId, Map<String, Object> attributes) {
-        Function<Map<String, Object>, OAuth2UserInfo> strategy = strategies.get(registrationId.toLowerCase());
+    public OAuth2UserInfo getOAuth2UserInfo(@NotNull String provider, Map<String, Object> attributes) {
+        Function<Map<String, Object>, OAuth2UserInfo> strategy = strategies.get(provider.toLowerCase());
         if (strategy == null) {
             throw new OAuth2AuthenticationProcessingException(
-                    "Sorry! Login with " + registrationId + " is not supported yet.");
+                    "Sorry! Login with " + provider + " is not supported yet.");
         }
         return strategy.apply(attributes);
     }

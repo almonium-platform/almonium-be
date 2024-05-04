@@ -105,7 +105,6 @@ class AuthControllerTest extends BaseControllerTest {
 
     private RegistrationRequest createSignUpRequest() {
         return RegistrationRequest.builder()
-                .userId(1L)
                 .providerUserId("dummyProviderUserId")
                 .username("dummyUsername")
                 .email("dummy@example.com")

@@ -1,8 +1,5 @@
 package com.linguarium.user.service.impl;
 
-import static com.linguarium.util.GeneralUtils.generateId;
-import static lombok.AccessLevel.PRIVATE;
-
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
@@ -23,12 +20,6 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -43,6 +34,16 @@ import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.linguarium.util.GeneralUtils.generateId;
+import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @Service
@@ -159,17 +160,17 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     @Override
     @Transactional
     public LocalUser processAuthenticationFromProvider(
-            String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
-        OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(registrationId, attributes);
+            String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
+        OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(provider, attributes);
         validateOAuth2UserInfo(oAuth2UserInfo);
 
         User user = findUserByEmail(oAuth2UserInfo.getEmail());
 
         if (user == null) {
-            RegistrationRequest request = createRegistrationRequestFromProviderInfo(registrationId, oAuth2UserInfo);
+            RegistrationRequest request = createRegistrationRequestFromProviderInfo(provider, oAuth2UserInfo);
             user = register(request);
         } else {
-            validateExistingUser(user, registrationId);
+            validateExistingUser(user, provider);
             user = updateExistingUser(user, oAuth2UserInfo);
         }
 
@@ -208,9 +209,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
                 && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
             throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with "
                     + user.getProvider()
-                    + " account. Please use your "
-                    + user.getProvider()
-                    + " account to login.");
+                    + " account. Please use it to login.");
         }
     }
 
@@ -255,10 +254,6 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     }
 
     private void validateRegistrationRequest(RegistrationRequest registrationRequest) {
-        if (userRepository.existsById(registrationRequest.getUserId())) { // TODO analyze this case
-            throw new UserAlreadyExistsAuthenticationException(
-                    "User with id " + registrationRequest.getUserId() + " already exists");
-        }
         if (userRepository.existsByEmail(registrationRequest.getEmail())) {
             throw new UserAlreadyExistsAuthenticationException(
                     "User with email id " + registrationRequest.getEmail() + " already exists");

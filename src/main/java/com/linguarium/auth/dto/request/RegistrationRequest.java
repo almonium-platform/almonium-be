@@ -1,7 +1,8 @@
 package com.linguarium.auth.dto.request;
 
 import com.linguarium.auth.dto.SocialProvider;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,18 +14,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationRequest {
-    private Long userId;
-    private String providerUserId;
-
-    @NotEmpty
+    @NotBlank
     private String username;
-
-    @NotEmpty
+    @NotBlank
     private String email;
-
+    @NotBlank
+    @Size(min = 8, max = 32)
+    private String password;
+    @NotNull
     private SocialProvider socialProvider;
     private String profilePicLink;
-
-    @Size(min = 8, message = "{Size.userDto.password}")
-    private String password;
+    private String providerUserId;
 }
