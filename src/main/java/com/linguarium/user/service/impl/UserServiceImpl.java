@@ -205,8 +205,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     }
 
     private void validateExistingUser(User user, String registrationId) {
-        if (!user.getProvider().equals(registrationId)
-                && !user.getProvider().equals(SocialProvider.LOCAL.getProviderType())) {
+        if (!user.getProvider().equals(registrationId)) {
             throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with "
                     + user.getProvider()
                     + " account. Please use it to login.");
