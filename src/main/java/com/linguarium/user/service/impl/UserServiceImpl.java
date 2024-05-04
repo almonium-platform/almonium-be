@@ -255,8 +255,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     }
 
     private void validateRegistrationRequest(RegistrationRequest registrationRequest) {
-        if (registrationRequest.getUserId() != null
-                && userRepository.existsById(registrationRequest.getUserId())) { // TODO analyze this case
+        if (userRepository.existsById(registrationRequest.getUserId())) { // TODO analyze this case
             throw new UserAlreadyExistsAuthenticationException(
                     "User with id " + registrationRequest.getUserId() + " already exists");
         }

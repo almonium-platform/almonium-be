@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/all")
+@RequestMapping("/all") // Change the request mapping to /users
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProfileController {
     Environment environment;
