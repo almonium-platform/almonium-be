@@ -1,28 +1,10 @@
 package com.linguarium.user.service;
 
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.RegistrationRequest;
-import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.user.model.User;
-import java.util.Map;
 import java.util.Optional;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
 public interface UserService {
-    User register(RegistrationRequest registrationRequest);
-
-    User findUserByEmail(String email);
-
-    Optional<User> findUserById(Long id);
-
-    JwtAuthenticationResponse login(LoginRequest loginRequest);
-
-    LocalUser processProviderAuth(
-            String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
-
     UserInfo buildUserInfoFromUser(User user);
 
     void deleteAccount(User user);
@@ -30,4 +12,8 @@ public interface UserService {
     void changeUsernameById(String username, Long id);
 
     boolean isUsernameAvailable(String username);
+
+    User findUserByEmail(String email);
+
+    Optional<User> findUserById(Long id);
 }

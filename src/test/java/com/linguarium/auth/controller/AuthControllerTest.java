@@ -17,7 +17,7 @@ import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.config.GlobalExceptionHandler;
-import com.linguarium.user.service.UserService;
+import com.linguarium.user.service.impl.AuthService;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -44,7 +44,7 @@ class AuthControllerTest extends BaseControllerTest {
     private static final String REGISTER_URL = BASE_URL + "/register";
 
     @MockBean
-    UserService userService;
+    AuthService authService;
 
     @DisplayName("Should authenticate user successfully")
     @Test
@@ -53,7 +53,7 @@ class AuthControllerTest extends BaseControllerTest {
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
         JwtAuthenticationResponse response = new JwtAuthenticationResponse("xxx.yyy.zzz", userInfo);
-        when(userService.login(eq(loginRequest))).thenReturn(response);
+        when(authService.login(eq(loginRequest))).thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ class AuthControllerTest extends BaseControllerTest {
     @Test
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() throws Exception {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "wrongpassword");
-        when(userService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
+        when(authService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +93,7 @@ class AuthControllerTest extends BaseControllerTest {
         RegistrationRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
-                .when(userService)
+                .when(authService)
                 .register(any(RegistrationRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
