@@ -1,15 +1,15 @@
 package com.linguarium.user.service.impl;
 
-import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
-import java.util.ArrayList;
 import java.util.Set;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class UserUtility {
-    public static User getUser() {
+    public User getUser() {
         User user = new User();
         user.setId(1L);
         user.setUsername("john");
@@ -26,20 +26,5 @@ public class UserUtility {
         learner.setFluentLangs(Set.of(Language.ES.name(), Language.RU.name()));
         user.setLearner(learner);
         return user;
-    }
-
-    public static UserInfo getUserInfo(User user) {
-        return new UserInfo(
-                user.getId().toString(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getProfile().getUiLang().name(),
-                user.getProfile().getProfilePicLink(),
-                user.getProfile().getBackground(),
-                user.getProfile().getStreak(),
-                new ArrayList<>(user.getLearner().getTargetLangs()),
-                new ArrayList<>(user.getLearner().getFluentLangs()),
-                new ArrayList<>()
-        );
     }
 }
