@@ -6,7 +6,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
-import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
+import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public JwtAuthenticationResponse login(LoginRequest loginRequest) {
+    public JwtAuthResponse login(LoginRequest loginRequest) {
         String password = loginRequest.password();
 
         Authentication authentication =
@@ -84,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
         LocalUser localUser = (LocalUser) authentication.getPrincipal();
         profileService.updateLoginStreak(localUser.getUser().getProfile());
         String jwt = tokenProvider.createToken(authentication);
-        return new JwtAuthenticationResponse(jwt, userService.buildUserInfoFromUser(localUser.getUser()));
+        return new JwtAuthResponse(jwt, userService.buildUserInfoFromUser(localUser.getUser()));
     }
 
     @Override

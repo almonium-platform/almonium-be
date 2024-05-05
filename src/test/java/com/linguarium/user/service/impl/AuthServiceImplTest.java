@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
-import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
+import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
@@ -337,7 +337,7 @@ class AuthServiceImplTest {
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act
-        JwtAuthenticationResponse result = authService.login(loginRequest);
+        JwtAuthResponse result = authService.login(loginRequest);
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));

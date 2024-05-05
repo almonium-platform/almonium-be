@@ -13,7 +13,7 @@ import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
-import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
+import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.config.GlobalExceptionHandler;
@@ -52,7 +52,7 @@ class AuthControllerTest extends BaseControllerTest {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "password");
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
-        JwtAuthenticationResponse response = new JwtAuthenticationResponse("xxx.yyy.zzz", userInfo);
+        JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
         when(authService.login(eq(loginRequest))).thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)

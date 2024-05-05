@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
-import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
+import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.user.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthenticationResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 
