@@ -11,13 +11,11 @@ import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.card.repository.CardTagRepository;
-import com.linguarium.card.repository.TagRepository;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.translator.model.Language;
-import com.linguarium.user.mapper.UserToUserInfoMapper;
+import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
@@ -53,26 +51,23 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     OAuth2UserInfoFactory userInfoFactory;
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
-    UserToUserInfoMapper userToUserInfoMapper;
+    UserMapper userMapper;
 
     public UserServiceImpl(
             ProfileService profileService,
             TokenProvider tokenProvider,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            CardTagRepository cardTagRepository,
-            TagRepository tagRepository,
             OAuth2UserInfoFactory userInfoFactory,
-            UserToUserInfoMapper userToUserInfoMapper,
-            @Lazy AuthenticationManager manager
-    ) {
+            UserMapper userMapper,
+            @Lazy AuthenticationManager manager) {
         this.profileService = profileService;
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userInfoFactory = userInfoFactory;
         this.manager = manager;
-        this.userToUserInfoMapper = userToUserInfoMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -139,7 +134,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
             RegistrationRequest request = createRegistrationRequestFromProviderInfo(provider, oAuth2UserInfo);
             user = register(request);
         } else {
-            validateExistingUser(user, provider);
+            validateUserProviderMatch(user, provider);
             user = updateExistingUserWithProviderInfo(user, oAuth2UserInfo);
         }
 
@@ -148,7 +143,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
 
     @Override
     public UserInfo buildUserInfoFromUser(User user) {
-        return userToUserInfoMapper.userToUserInfo(user);
+        return userMapper.userToUserInfo(user);
     }
 
     @Override
@@ -176,11 +171,10 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
         return !userRepository.existsByUsername(username);
     }
 
-    private void validateExistingUser(User user, String registrationId) {
+    private void validateUserProviderMatch(User user, String registrationId) {
         if (!user.getProvider().equals(registrationId)) {
-            throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with "
-                    + user.getProvider()
-                    + " account. Please use it to login.");
+            throw new OAuth2AuthenticationProcessingException(
+                    "Looks like you're signed up with " + user.getProvider() + " account. Please use it to login.");
         }
     }
 

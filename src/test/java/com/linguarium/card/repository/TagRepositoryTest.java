@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class TagRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
+
     @Autowired
     private TagRepository tagRepository;
 

@@ -13,10 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 public abstract class BaseControllerTest {
     @Autowired
     protected MockMvc mockMvc;
+
     @MockBean
     protected LocalUserDetailServiceImpl localUserDetailsService;
+
     @MockBean
     protected TokenProvider tokenProvider;
+
     @Autowired
     protected ObjectMapper objectMapper;
 }

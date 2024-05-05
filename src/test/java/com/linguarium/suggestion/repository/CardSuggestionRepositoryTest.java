@@ -25,8 +25,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class CardSuggestionRepositoryTest {
     @Autowired
     TestEntityManager entityManager;
+
     @Autowired
     CardSuggestionRepository cardSuggestionRepository;
+
     Learner sender;
     Learner recipient;
     Card card;

@@ -62,18 +62,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class CardServiceTest {
     @Mock
     CardRepository cardRepository;
+
     @Mock
     CardTagRepository cardTagRepository;
+
     @Mock
     TagRepository tagRepository;
+
     @Mock
     ExampleRepository exampleRepository;
+
     @Mock
     TranslationRepository translationRepository;
+
     @Mock
     LearnerRepository learnerRepository;
+
     @Mock
     CardMapper cardMapper;
+
     @InjectMocks
     CardServiceImpl cardServiceImpl;
 

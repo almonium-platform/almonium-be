@@ -47,8 +47,10 @@ class LangControllerTest extends BaseControllerTest {
 
     @MockBean
     CardService cardService;
+
     @MockBean
     LanguageProcessor languageProcessor;
+
     LocalUser principal;
     Learner learner;
 

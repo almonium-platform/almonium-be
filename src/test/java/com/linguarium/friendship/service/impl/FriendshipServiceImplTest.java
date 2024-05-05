@@ -41,8 +41,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class FriendshipServiceImplTest {
     @Mock
     FriendshipRepository friendshipRepository;
+
     @Mock
     UserRepository userRepository;
+
     @InjectMocks
     FriendshipServiceImpl friendshipService;
 

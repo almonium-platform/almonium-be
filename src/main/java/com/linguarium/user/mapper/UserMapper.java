@@ -6,12 +6,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper
-public interface UserToUserInfoMapper {
+public interface UserMapper {
     @Mapping(source = "learner.targetLangs", target = "targetLangs")
     @Mapping(source = "learner.fluentLangs", target = "fluentLangs")
     UserInfo userToUserInfo(User user);
 
-    default String idToString(Long id) {
-        return id != null ? id.toString() : null;
-    }
+    //    default String idToString(Long id) {
+    //        return id != null ? id.toString() : null;
+    //    }
 }

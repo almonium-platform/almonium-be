@@ -31,7 +31,7 @@ import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
-import com.linguarium.user.mapper.UserToUserInfoMapper;
+import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
@@ -67,22 +67,31 @@ class UserServiceImplTest {
 
     @InjectMocks
     UserServiceImpl userService;
+
     @Mock
     UserRepository userRepository;
+
     @Mock
     PasswordEncoder passwordEncoder;
+
     @Mock
     CardTagRepository cardTagRepository;
+
     @Mock
     TagRepository tagRepository;
+
     @Mock
     OAuth2UserInfoFactory userInfoFactory;
+
     @Mock
     AuthenticationManager authenticationManager;
+
     @Mock
     TokenProvider tokenProvider;
+
     @Mock
-    UserToUserInfoMapper userToUserInfoMapper;
+    UserMapper userMapper;
+
     @Mock
     ProfileService profileService;
 
@@ -96,10 +105,10 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userService.processProviderAuth(
-                SocialProvider.FACEBOOK.getProviderType(),
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)))
+                        SocialProvider.FACEBOOK.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -113,10 +122,10 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userService.processProviderAuth(
-                SocialProvider.GOOGLE.getProviderType(),
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)))
+                        SocialProvider.GOOGLE.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -137,10 +146,10 @@ class UserServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> userServiceSpy.processProviderAuth(
-                SocialProvider.FACEBOOK.getProviderType(),
-                attributes,
-                mock(OidcIdToken.class),
-                mock(OidcUserInfo.class)))
+                        SocialProvider.FACEBOOK.getProviderType(),
+                        attributes,
+                        mock(OidcIdToken.class),
+                        mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -435,7 +444,7 @@ class UserServiceImplTest {
     void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
         User user = getUser();
         userService.buildUserInfoFromUser(user);
-        verify(userToUserInfoMapper).userToUserInfo(user);
+        verify(userMapper).userToUserInfo(user);
     }
 
     @DisplayName("Should return true when username is available")
@@ -488,7 +497,7 @@ class UserServiceImplTest {
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
                 entry("picture", profilePicUrl),
-                entry("aud", new String[]{"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
+                entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),
                 entry("exp", "2023-06-27T15:00:44Z"),

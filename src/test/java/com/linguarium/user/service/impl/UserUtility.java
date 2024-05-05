@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UserUtility {
-    public User getUser() {
+    public static User getUser() {
         User user = new User();
         user.setId(1L);
         user.setUsername("john");

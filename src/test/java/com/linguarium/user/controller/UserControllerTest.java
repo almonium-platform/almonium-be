@@ -48,8 +48,10 @@ class UserControllerTest extends BaseControllerTest {
 
     @MockBean
     UserService userService;
+
     @MockBean
     LearnerService learnerService;
+
     LocalUser principal;
     User user;
 

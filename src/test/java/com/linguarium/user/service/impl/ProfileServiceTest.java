@@ -18,10 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class ProfileServiceTest {
-    @InjectMocks
-    ProfileServiceImpl profileService;
+
     @Mock
     ProfileRepository profileRepository;
+
+    @InjectMocks
+    ProfileServiceImpl profileService;
 
     @DisplayName("Should increase streak if last login is on the previous day")
     @Test
