@@ -23,7 +23,6 @@ import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.card.model.Tag;
 import com.linguarium.card.repository.CardTagRepository;
 import com.linguarium.card.repository.TagRepository;
 import com.linguarium.config.security.jwt.TokenProvider;
@@ -31,7 +30,9 @@ import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
+import com.linguarium.translator.model.Language;
 import com.linguarium.user.mapper.UserMapper;
+import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
@@ -194,6 +195,14 @@ class UserServiceImplTest {
         String email = "johnwick@gmail.com";
         String userId = "101868015518714862283";
 
+        RegistrationRequest registrationRequest = RegistrationRequest.builder()
+                .email(email)
+                .password(OAUTH2_PLACEHOLDER)
+                .socialProvider(SocialProvider.GOOGLE)
+                .profilePicLink(PROFILE_PIC_LINK)
+                .providerUserId(userId)
+                .build();
+
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
@@ -201,6 +210,8 @@ class UserServiceImplTest {
         when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
         when(userRepository.findByEmail(anyString())).thenReturn(null);
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
+        when(userMapper.registrationRequestToUser(registrationRequest))
+                .thenReturn(buildFromRegistrationRequest(registrationRequest));
 
         // Act
         LocalUser result = userService.processProviderAuth(registrationId, attributes, idToken, null);
@@ -236,6 +247,9 @@ class UserServiceImplTest {
 
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
         when(passwordEncoder.encode(eq(password))).thenReturn(encodedPassword);
+        when(userMapper.registrationRequestToUser(registrationRequest))
+                .thenReturn(buildFromRegistrationRequest(registrationRequest));
+
         // Act
         User actualUser = userService.register(registrationRequest);
 
@@ -281,6 +295,8 @@ class UserServiceImplTest {
                 .build();
 
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
+        when(userMapper.registrationRequestToUser(registrationRequest))
+                .thenReturn(buildFromRegistrationRequest(registrationRequest));
 
         // Act
         User actualUser = userService.register(registrationRequest);
@@ -475,14 +491,6 @@ class UserServiceImplTest {
         assertThat(result).isFalse();
     }
 
-    private void mockTags(Set<Long> tagIds, User user) {
-        when(cardTagRepository.getLearnersTags(user.getLearner())).thenReturn(tagIds);
-        when(tagRepository.findById(anyLong())).thenAnswer(invocation -> {
-            Long tagId = invocation.getArgument(0);
-            return Optional.of(new Tag(tagId, "Tag " + tagId));
-        });
-    }
-
     private Map<String, Object> createAttributes(String email, String userId) {
         return createAttributes(email, userId, PROFILE_PIC_LINK);
     }
@@ -504,5 +512,15 @@ class UserServiceImplTest {
                 entry("family_name", "Wick"),
                 entry("iat", "2023-06-27T14:00:44Z"),
                 entry("email", email));
+    }
+
+    private User buildFromRegistrationRequest(RegistrationRequest request) {
+        return User.builder()
+                .providerUserId(request.getProviderUserId())
+                .provider(request.getSocialProvider().getProviderType())
+                .password(request.getPassword())
+                .email(request.getEmail())
+                .username(request.getUsername())
+                .build();
     }
 }

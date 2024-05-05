@@ -89,18 +89,12 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     @Transactional
     public User register(RegistrationRequest request) {
         validateRegistrationRequest(request);
-
         SocialProvider provider = request.getSocialProvider();
         String password = getEncodedPasswordOrPlaceholder(provider, request.getPassword());
 
         LocalDateTime now = LocalDateTime.now();
-        User user = User.builder() // TODO mapstruct
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .password(password)
-                .provider(provider.getProviderType())
-                .providerUserId(request.getProviderUserId())
-                .build();
+        User user = userMapper.registrationRequestToUser(request);
+        user.setPassword(password);
 
         Learner learner = Learner.builder()
                 .user(user)
