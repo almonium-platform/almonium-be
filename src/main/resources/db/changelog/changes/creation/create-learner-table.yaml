@@ -12,4 +12,4 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     foreignKeyName: fk_learner_user
-                    references: user_core(id)
+                    references: auth(id)

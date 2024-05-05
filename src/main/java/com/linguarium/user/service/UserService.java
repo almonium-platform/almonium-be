@@ -20,14 +20,14 @@ public interface UserService {
 
     JwtAuthenticationResponse login(LoginRequest loginRequest);
 
-    LocalUser processAuthenticationFromProvider(
+    LocalUser processProviderAuth(
             String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
 
-    UserInfo buildUserInfo(User user);
+    UserInfo buildUserInfoFromUser(User user);
 
     void deleteAccount(User user);
 
-    void changeUsername(String username, Long id);
+    void changeUsernameById(String username, Long id);
 
     boolean isUsernameAvailable(String username);
 }

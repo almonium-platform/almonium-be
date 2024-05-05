@@ -14,8 +14,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.linguarium.auth.dto.SocialProvider;
@@ -56,7 +54,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -71,28 +68,20 @@ class UserServiceImplTest {
 
     @InjectMocks
     UserServiceImpl userService;
-
     @Mock
     UserRepository userRepository;
-
     @Mock
     PasswordEncoder passwordEncoder;
-
     @Mock
     CardTagRepository cardTagRepository;
-
     @Mock
     TagRepository tagRepository;
-
     @Mock
     OAuth2UserInfoFactory userInfoFactory;
-
     @Mock
     AuthenticationManager authenticationManager;
-
     @Mock
     TokenProvider tokenProvider;
-
     @Mock
     ProfileService profileService;
 
@@ -105,11 +94,11 @@ class UserServiceImplTest {
         when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.processAuthenticationFromProvider(
-                        SocialProvider.FACEBOOK.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> userService.processProviderAuth(
+                SocialProvider.FACEBOOK.getProviderType(),
+                attributes,
+                mock(OidcIdToken.class),
+                mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -122,15 +111,15 @@ class UserServiceImplTest {
         when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.processAuthenticationFromProvider(
-                        SocialProvider.GOOGLE.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> userService.processProviderAuth(
+                SocialProvider.GOOGLE.getProviderType(),
+                attributes,
+                mock(OidcIdToken.class),
+                mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
-    @DisplayName("Should throw exception if userInfo signed up with different non-local provider")
+    @DisplayName("Should throw exception if user is signed up with a different provider")
     @Test
     void givenUserSignedUpWithDifferentProvider_whenProcessUserRegistration_thenThrowsException() {
         UserServiceImpl userServiceSpy = spy(userService);
@@ -146,11 +135,11 @@ class UserServiceImplTest {
         when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> userServiceSpy.processAuthenticationFromProvider(
-                        SocialProvider.FACEBOOK.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> userServiceSpy.processProviderAuth(
+                SocialProvider.FACEBOOK.getProviderType(),
+                attributes,
+                mock(OidcIdToken.class),
+                mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -178,7 +167,7 @@ class UserServiceImplTest {
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        LocalUser result = userService.processAuthenticationFromProvider(
+        LocalUser result = userService.processProviderAuth(
                 registrationId, attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class));
 
         // Assert
@@ -204,7 +193,7 @@ class UserServiceImplTest {
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        LocalUser result = userService.processAuthenticationFromProvider(registrationId, attributes, idToken, null);
+        LocalUser result = userService.processProviderAuth(registrationId, attributes, idToken, null);
 
         // Assert
         verify(userRepository).save(any(User.class));
@@ -311,7 +300,7 @@ class UserServiceImplTest {
         User user = getUser();
         mockTags(Set.of(1L, 2L, 3L), user);
 
-        UserInfo userInfo = userService.buildUserInfo(user);
+        UserInfo userInfo = userService.buildUserInfoFromUser(user);
 
         String email = user.getEmail();
         String password = user.getPassword();
@@ -373,11 +362,11 @@ class UserServiceImplTest {
 
     @DisplayName("Should change username")
     @Test
-    void givenUsername_whenChangeUsername_thenUsernameChanged() {
+    void givenUsername_whenChangeUsername_thenUsernameByIdChanged() {
         String username = "newUsername";
         Long id = 1L;
 
-        userService.changeUsername(username, id);
+        userService.changeUsernameById(username, id);
 
         verify(userRepository).changeUsername(username, id);
     }
@@ -432,20 +421,6 @@ class UserServiceImplTest {
         assertThat(expectedUser).isEqualTo(actualUser);
     }
 
-    @DisplayName("Should throw exception when try to register with placeholder password")
-    @Test
-    void givenStubbedPassword_whenAuthenticate_thenThrowBadCredentialsException() {
-        // Arrange
-        String email = "johnwick@gmail.com";
-        LoginRequest loginRequest = new LoginRequest(email, OAUTH2_PLACEHOLDER);
-
-        // Act & Assert
-        assertThatThrownBy(() -> userService.login(loginRequest)).isInstanceOf(BadCredentialsException.class);
-
-        // Verify that no interactions have occurred with the authentication manager
-        verifyNoInteractions(authenticationManager);
-    }
-
     @DisplayName("Should return null if email doesn't exist")
     @Test
     void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
@@ -460,13 +435,13 @@ class UserServiceImplTest {
 
     @DisplayName("Should build UserInfo from LocalUser")
     @Test
-    void givenLocalUser_whenBuildUserInfo_thenReturnUserInfo() {
+    void givenLocalUser_whenBuildUserInfo_thenReturnUserInfoFromUser() {
         User user = getUser();
 
         Set<Long> tagIds = Set.of(1L, 2L, 3L);
         mockTags(tagIds, user);
 
-        UserInfo userInfo = userService.buildUserInfo(user);
+        UserInfo userInfo = userService.buildUserInfoFromUser(user);
 
         assertThat(userInfo)
                 .isNotNull()
@@ -538,7 +513,7 @@ class UserServiceImplTest {
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
                 entry("picture", profilePicUrl),
-                entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
+                entry("aud", new String[]{"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),
                 entry("exp", "2023-06-27T15:00:44Z"),

@@ -20,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ProfileServiceTest {
     @InjectMocks
     ProfileServiceImpl profileService;
-
     @Mock
     ProfileRepository profileRepository;
 

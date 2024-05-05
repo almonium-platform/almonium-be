@@ -25,7 +25,7 @@ public class CustomOidcUserService extends OidcUserService {
     public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
         OidcUser oidcUser = super.loadUser(userRequest);
         try {
-            return userService.processAuthenticationFromProvider(
+            return userService.processProviderAuth(
                     userRequest.getClientRegistration().getRegistrationId(),
                     oidcUser.getAttributes(),
                     oidcUser.getIdToken(),

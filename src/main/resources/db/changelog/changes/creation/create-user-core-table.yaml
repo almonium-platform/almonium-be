@@ -4,7 +4,7 @@ databaseChangeLog:
       author: okuzan
       changes:
         - createTable:
-            tableName: user_core
+            tableName: auth
             columns:
               - column:
                   name: id

@@ -12,7 +12,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     foreignKeyName: fk_profile_user
-                    references: user_core(id)
+                    references: auth(id)
               - column:
                   name: background
                   type: varchar(255)

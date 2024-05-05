@@ -28,10 +28,8 @@ class CardRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
-
     @Autowired
     private CardRepository cardRepository;
-
     private Learner managedLearner;
 
     @BeforeEach

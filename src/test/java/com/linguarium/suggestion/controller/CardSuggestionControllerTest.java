@@ -36,10 +36,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
     @MockBean
     CardSuggestionService cardSuggestionService;
-
     Learner learner;
 
     @BeforeEach

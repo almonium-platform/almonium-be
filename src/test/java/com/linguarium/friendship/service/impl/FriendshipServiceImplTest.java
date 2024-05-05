@@ -39,14 +39,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class FriendshipServiceImplTest {
-    @InjectMocks
-    FriendshipServiceImpl friendshipService;
-
     @Mock
     FriendshipRepository friendshipRepository;
-
     @Mock
     UserRepository userRepository;
+    @InjectMocks
+    FriendshipServiceImpl friendshipService;
 
     @DisplayName("Should set FriendshipStatus to FST_BLOCKED_SND when requester is the action initiator")
     @Test

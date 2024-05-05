@@ -40,7 +40,7 @@ import org.springframework.data.annotation.CreatedDate;
                     attributeNodes = {@NamedAttributeNode("targetLangs"), @NamedAttributeNode("fluentLangs")})
         })
 @Entity
-@Table(name = "user_core")
+@Table(name = "auth")
 @Getter
 @Setter
 @Builder

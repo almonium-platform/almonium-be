@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser LocalUser localUser) {
-        return ResponseEntity.ok(userService.buildUserInfo(localUser.getUser()));
+        return ResponseEntity.ok(userService.buildUserInfoFromUser(localUser.getUser()));
     }
 
     @GetMapping("/{username}/availability/")
@@ -42,7 +42,7 @@ public class UserController {
     @PutMapping("/me/username")
     public ResponseEntity<Void> updateUsername(
             @RequestBody UsernameUpdateRequest request, @CurrentUser LocalUser user) {
-        userService.changeUsername(request.newUsername(), user.getUser().getId());
+        userService.changeUsernameById(request.newUsername(), user.getUser().getId());
         return ResponseEntity.noContent().build();
     }
 

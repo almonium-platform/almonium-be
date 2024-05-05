@@ -28,7 +28,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class LearnerServiceTest {
     @InjectMocks
     LearnerServiceImpl learnerService;
-
     @Mock
     LearnerRepository learnerRepository;
 

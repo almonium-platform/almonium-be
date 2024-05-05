@@ -12,7 +12,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     foreignKeyName: fk_learner_target_lang_learner
-                    references: user_core(id)
+                    references: auth(id)
               - column:
                   name: lang
                   type: VARCHAR(2)

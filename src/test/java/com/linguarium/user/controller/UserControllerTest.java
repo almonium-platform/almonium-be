@@ -68,7 +68,7 @@ class UserControllerTest extends BaseControllerTest {
     void givenAuthenticatedUser_whenGetCurrentUser_thenReturnUserInfo() throws Exception {
         UserInfo testUserInfo = createTestUserInfo();
 
-        when(userService.buildUserInfo(any(User.class))).thenReturn(testUserInfo);
+        when(userService.buildUserInfoFromUser(any(User.class))).thenReturn(testUserInfo);
 
         mockMvc.perform(get(ME_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -101,7 +101,7 @@ class UserControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent());
 
-        verify(userService).changeUsername(request.newUsername(), user.getId());
+        verify(userService).changeUsernameById(request.newUsername(), user.getId());
     }
 
     @DisplayName("Should delete current user account")

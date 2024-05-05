@@ -24,7 +24,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,13 +49,13 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService { // TODO move to AuthService
     private static final String OAUTH2_PLACEHOLDER = "OAUTH2_PLACEHOLDER";
+    UserRepository userRepository;
     ProfileService profileService;
     TokenProvider tokenProvider;
-    UserRepository userRepository;
-    PasswordEncoder passwordEncoder;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
     OAuth2UserInfoFactory userInfoFactory;
+    PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
 
     public UserServiceImpl(
@@ -79,37 +78,9 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     }
 
     @Override
-    public User findUserByEmail(final String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    @Transactional
-    public void deleteAccount(User user) {
-        userRepository.delete(user);
-    }
-
-    @Override
-    public Optional<User> findUserById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    @Transactional
-    public void changeUsername(String username, Long id) {
-        userRepository.changeUsername(username, id);
-    }
-
-    @Override
-    public boolean isUsernameAvailable(String username) {
-        return !userRepository.existsByUsername(username);
-    }
-
-    @Override
     @Transactional
     public JwtAuthenticationResponse login(LoginRequest loginRequest) {
         String password = loginRequest.password();
-        validatePasswordNotStubbed(password);
 
         Authentication authentication =
                 manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.email(), password));
@@ -118,7 +89,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
         LocalUser localUser = (LocalUser) authentication.getPrincipal();
         profileService.updateLoginStreak(localUser.getUser().getProfile());
         String jwt = tokenProvider.createToken(authentication);
-        return new JwtAuthenticationResponse(jwt, buildUserInfo(localUser.getUser()));
+        return new JwtAuthenticationResponse(jwt, buildUserInfoFromUser(localUser.getUser()));
     }
 
     @Override
@@ -127,7 +98,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
         validateRegistrationRequest(request);
 
         SocialProvider provider = request.getSocialProvider();
-        String password = validateAndPreparePassword(provider, request.getPassword());
+        String password = getEncodedPasswordOrPlaceholder(provider, request.getPassword());
 
         LocalDateTime now = LocalDateTime.now();
         User user = User.builder() // TODO mapstruct
@@ -159,7 +130,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
 
     @Override
     @Transactional
-    public LocalUser processAuthenticationFromProvider(
+    public LocalUser processProviderAuth(
             String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(provider, attributes);
         validateOAuth2UserInfo(oAuth2UserInfo);
@@ -171,7 +142,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
             user = register(request);
         } else {
             validateExistingUser(user, provider);
-            user = updateExistingUser(user, oAuth2UserInfo);
+            user = updateExistingUserWithProviderInfo(user, oAuth2UserInfo);
         }
 
         return new LocalUser(user, attributes, idToken, userInfo);
@@ -179,7 +150,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
 
     @Override
     @Transactional
-    public UserInfo buildUserInfo(User user) {
+    public UserInfo buildUserInfoFromUser(User user) {
         Learner learner = user.getLearner();
         Profile profile = user.getProfile();
 
@@ -198,6 +169,31 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
                 tags);
     }
 
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void deleteAccount(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void changeUsernameById(String username, Long id) {
+        userRepository.changeUsername(username, id);
+    }
+
+    @Override
+    public boolean isUsernameAvailable(String username) {
+        return !userRepository.existsByUsername(username);
+    }
+
     private List<String> getTags(User user) {
         return cardTagRepository.getLearnersTags(user.getLearner()).stream()
                 .map(tagId -> tagRepository.findById(tagId).orElseThrow().getText())
@@ -212,18 +208,11 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
         }
     }
 
-    private String validateAndPreparePassword(SocialProvider provider, String password) {
-        if (SocialProvider.LOCAL.equals(provider)) {
-            validatePasswordNotStubbed(password);
-            return passwordEncoder.encode(password);
+    private String getEncodedPasswordOrPlaceholder(SocialProvider provider, String password) {
+        if (!SocialProvider.LOCAL.equals(provider)) {
+            return OAUTH2_PLACEHOLDER;
         }
-        return OAUTH2_PLACEHOLDER;
-    }
-
-    private void validatePasswordNotStubbed(String password) {
-        if (OAUTH2_PLACEHOLDER.equals(password)) {
-            throw new BadCredentialsException("Invalid password");
-        }
+        return passwordEncoder.encode(password);
     }
 
     private RegistrationRequest createRegistrationRequestFromProviderInfo(
@@ -237,7 +226,7 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
                 .build();
     }
 
-    private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
+    private User updateExistingUserWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.getProfile().setProfilePicLink(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }
