@@ -17,7 +17,7 @@ import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.config.GlobalExceptionHandler;
-import com.linguarium.user.service.impl.AuthService;
+import com.linguarium.user.service.AuthService;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

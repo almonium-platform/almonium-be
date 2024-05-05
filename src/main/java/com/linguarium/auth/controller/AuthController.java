@@ -6,7 +6,7 @@ import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
-import com.linguarium.user.service.impl.AuthService;
+import com.linguarium.user.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

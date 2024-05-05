@@ -19,6 +19,7 @@ import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import com.linguarium.user.service.AuthService;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import java.time.LocalDateTime;

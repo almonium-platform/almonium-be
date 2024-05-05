@@ -3,7 +3,7 @@ package com.linguarium.config.security.oauth2;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
-import com.linguarium.user.service.impl.AuthService;
+import com.linguarium.user.service.AuthService;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
