@@ -1,5 +1,8 @@
 package com.linguarium.user.service.impl;
 
+import static com.linguarium.util.GeneralUtils.generateId;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
@@ -14,12 +17,17 @@ import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.translator.model.Language;
+import com.linguarium.user.mapper.UserToUserInfoMapper;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -34,16 +42,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static com.linguarium.util.GeneralUtils.generateId;
-import static lombok.AccessLevel.PRIVATE;
-
 @Slf4j
 @Service
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -52,11 +50,10 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     UserRepository userRepository;
     ProfileService profileService;
     TokenProvider tokenProvider;
-    CardTagRepository cardTagRepository;
-    TagRepository tagRepository;
     OAuth2UserInfoFactory userInfoFactory;
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
+    UserToUserInfoMapper userToUserInfoMapper;
 
     public UserServiceImpl(
             ProfileService profileService,
@@ -66,15 +63,16 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
             CardTagRepository cardTagRepository,
             TagRepository tagRepository,
             OAuth2UserInfoFactory userInfoFactory,
-            @Lazy AuthenticationManager manager) {
+            UserToUserInfoMapper userToUserInfoMapper,
+            @Lazy AuthenticationManager manager
+    ) {
         this.profileService = profileService;
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.cardTagRepository = cardTagRepository;
-        this.tagRepository = tagRepository;
         this.userInfoFactory = userInfoFactory;
         this.manager = manager;
+        this.userToUserInfoMapper = userToUserInfoMapper;
     }
 
     @Override
@@ -149,24 +147,8 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     }
 
     @Override
-    @Transactional
     public UserInfo buildUserInfoFromUser(User user) {
-        Learner learner = user.getLearner();
-        Profile profile = user.getProfile();
-
-        List<String> tags = getTags(user);
-
-        return new UserInfo(
-                user.getId().toString(),
-                user.getUsername(),
-                user.getEmail(),
-                profile.getUiLang().name(),
-                profile.getProfilePicLink(),
-                profile.getBackground(),
-                profile.getStreak(),
-                learner.getTargetLangs(),
-                learner.getFluentLangs(),
-                tags);
+        return userToUserInfoMapper.userToUserInfo(user);
     }
 
     @Override
@@ -192,12 +174,6 @@ public class UserServiceImpl implements UserService { // TODO move to AuthServic
     @Override
     public boolean isUsernameAvailable(String username) {
         return !userRepository.existsByUsername(username);
-    }
-
-    private List<String> getTags(User user) {
-        return cardTagRepository.getLearnersTags(user.getLearner()).stream()
-                .map(tagId -> tagRepository.findById(tagId).orElseThrow().getText())
-                .collect(Collectors.toList());
     }
 
     private void validateExistingUser(User user, String registrationId) {

@@ -6,10 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.Profile;
-import com.linguarium.user.model.User;
 import com.linguarium.user.repository.LearnerRepository;
-import jakarta.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -93,25 +90,5 @@ class LearnerServiceTest {
                 .hasSize(2)
                 .containsExactlyInAnyOrder(Language.EN.name(), Language.DE.name());
         verify(learnerRepository, times(1)).save(learner);
-    }
-
-    @NotNull
-    static User getUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setUsername("john");
-        user.setPassword("password");
-        user.setEmail("john@example.com");
-        Profile profile = new Profile();
-        profile.setUiLang(Language.EN);
-        profile.setProfilePicLink("profile.jpg");
-        profile.setBackground("background.jpg");
-        profile.setStreak(5);
-        user.setProfile(profile);
-        Learner learner = new Learner();
-        learner.setTargetLangs(Set.of(Language.DE.name(), Language.FR.name()));
-        learner.setFluentLangs(Set.of(Language.ES.name(), Language.RU.name()));
-        user.setLearner(learner);
-        return user;
     }
 }

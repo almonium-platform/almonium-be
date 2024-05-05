@@ -1,6 +1,6 @@
 package com.linguarium.user.service.impl;
 
-import static com.linguarium.user.service.impl.LearnerServiceTest.getUser;
+import static com.linguarium.user.service.impl.UserUtility.getUser;
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -17,7 +17,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.linguarium.auth.dto.SocialProvider;
-import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.JwtAuthenticationResponse;
@@ -32,7 +31,7 @@ import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
-import com.linguarium.translator.model.Language;
+import com.linguarium.user.mapper.UserToUserInfoMapper;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
@@ -82,6 +81,8 @@ class UserServiceImplTest {
     AuthenticationManager authenticationManager;
     @Mock
     TokenProvider tokenProvider;
+    @Mock
+    UserToUserInfoMapper userToUserInfoMapper;
     @Mock
     ProfileService profileService;
 
@@ -298,9 +299,6 @@ class UserServiceImplTest {
     void givenValidCredentials_whenAuthenticate_thenReturnJwtAndUserInfo() {
         // Arrange
         User user = getUser();
-        mockTags(Set.of(1L, 2L, 3L), user);
-
-        UserInfo userInfo = userService.buildUserInfoFromUser(user);
 
         String email = user.getEmail();
         String password = user.getPassword();
@@ -321,7 +319,6 @@ class UserServiceImplTest {
         verify(profileService).updateLoginStreak(any(Profile.class));
         verify(tokenProvider).createToken(any(Authentication.class));
         assertThat(result.accessToken()).isEqualTo(expectedJwt);
-        assertThat(result.userInfo()).usingRecursiveComparison().isEqualTo(userInfo);
     }
 
     @DisplayName("Should throw an exception when trying to register user with existing email")
@@ -433,34 +430,12 @@ class UserServiceImplTest {
         assertThat(actualUser).isNull();
     }
 
-    @DisplayName("Should build UserInfo from LocalUser")
+    @DisplayName("Should use mapper to build userInfo")
     @Test
-    void givenLocalUser_whenBuildUserInfo_thenReturnUserInfoFromUser() {
+    void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
         User user = getUser();
-
-        Set<Long> tagIds = Set.of(1L, 2L, 3L);
-        mockTags(tagIds, user);
-
-        UserInfo userInfo = userService.buildUserInfoFromUser(user);
-
-        assertThat(userInfo)
-                .isNotNull()
-                .extracting(
-                        UserInfo::id,
-                        UserInfo::username,
-                        UserInfo::email,
-                        UserInfo::uiLang,
-                        UserInfo::profilePicLink,
-                        UserInfo::background,
-                        UserInfo::streak)
-                .containsExactly(
-                        "1", "john", "john@example.com", Language.EN.name(), "profile.jpg", "background.jpg", 5);
-        assertThat(userInfo.tags()).containsExactlyInAnyOrder("tag_1", "tag_2", "tag_3");
-        assertThat(userInfo.targetLangs()).containsExactlyInAnyOrder(Language.DE.name(), Language.FR.name());
-        assertThat(userInfo.fluentLangs()).containsExactlyInAnyOrder(Language.ES.name(), Language.RU.name());
-
-        verify(cardTagRepository).getLearnersTags(user.getLearner());
-        tagIds.forEach(tagId -> verify(tagRepository).findById(eq((tagId))));
+        userService.buildUserInfoFromUser(user);
+        verify(userToUserInfoMapper).userToUserInfo(user);
     }
 
     @DisplayName("Should return true when username is available")
