@@ -8,21 +8,18 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.UserService;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     UserMapper userMapper;
-
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Override
     public UserInfo buildUserInfoFromUser(User user) {

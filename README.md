@@ -83,3 +83,12 @@
 - `BLOCK`: Block a user.
 - `UNBLOCK`: Unblock a user.
 - `UNFRIEND`: Remove a user from the friend list.
+
+IDEA Setup.
+Imports:
+static
+<empty line>
+non-static
+
+Plugins:
+palantir-java-format
