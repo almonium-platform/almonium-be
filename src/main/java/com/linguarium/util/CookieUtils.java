@@ -1,6 +1,5 @@
 package com.linguarium.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import java.util.Base64;
 import java.util.Optional;
 
 public class CookieUtils {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String PATH = "/";
 
     public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {

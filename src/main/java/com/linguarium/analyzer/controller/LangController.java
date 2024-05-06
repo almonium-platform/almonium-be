@@ -3,7 +3,7 @@ package com.linguarium.analyzer.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.analyzer.dto.AnalysisDto;
-import com.linguarium.analyzer.service.impl.LanguageProcessor;
+import com.linguarium.analyzer.service.LanguageProcessor;
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardDto;

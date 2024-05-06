@@ -1,4 +1,4 @@
-package com.linguarium.analyzer.service.impl;
+package com.linguarium.analyzer.service;
 
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;

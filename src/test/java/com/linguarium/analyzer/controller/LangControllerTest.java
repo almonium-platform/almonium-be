@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
-import com.linguarium.analyzer.service.impl.LanguageProcessor;
+import com.linguarium.analyzer.service.LanguageProcessor;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardDto;
