@@ -20,6 +20,12 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Friendsh
             """)
     Optional<Friendship> getFriendshipByUsersIds(@Param("id1") long id1, @Param("id2") long id2);
 
-    @Query(value = "select * from friend_info_view where user_id = :id", nativeQuery = true)
+    @Query(
+            """
+       SELECT new FriendInfoView(u.id, str(f.status), CASE WHEN f.requester = :user THEN true ELSE false END)
+       FROM User u
+       JOIN Friendship f ON (u.id = f.requesterId OR u.id = f.requesteeId)
+       WHERE u.id = :id
+       """)
     List<FriendInfoView> findByUserId(@Param("id") long id);
 }

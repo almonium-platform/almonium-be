@@ -71,14 +71,13 @@ public class FriendshipServiceImpl implements FriendshipService {
                 .getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId)
                 .orElseThrow(FriendshipNotFoundException::new);
 
-        if (!friendship.getFriendshipStatus().equals(FRIENDS)
-                && !friendship.getFriendshipStatus().equals(PENDING)) {
+        if (!friendship.getStatus().equals(FRIENDS) && !friendship.getStatus().equals(PENDING)) {
             throw new IllegalArgumentException("Friendship status must be FRIENDS or PENDING");
         }
 
         LocalDateTime now = LocalDateTime.now();
         friendship.setUpdated(now);
-        friendship.setFriendshipStatus(
+        friendship.setStatus(
                 friendship.getRequesterId().equals(actionInitiatorId)
                         ? FriendshipStatus.FST_BLOCKED_SND
                         : FriendshipStatus.SND_BLOCKED_FST);
@@ -111,7 +110,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 
             throw new FriendshipNotAllowedException(String.format(
                     "Friendship between %s and %s already exists, status: %s",
-                    actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()));
+                    actionInitiatorId, actionAcceptorId, existingFriendship.getStatus()));
         }
 
         if (recipient.getProfile().isFriendshipRequestsBlocked()) {
@@ -119,7 +118,7 @@ public class FriendshipServiceImpl implements FriendshipService {
         }
 
         Friendship friendship = Friendship.builder()
-                .friendshipStatus(PENDING)
+                .status(PENDING)
                 .created(LocalDateTime.now())
                 .updated(LocalDateTime.now())
                 .requesterId(actionInitiatorId)
@@ -134,11 +133,11 @@ public class FriendshipServiceImpl implements FriendshipService {
                 .getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId)
                 .orElseThrow(FriendshipNotFoundException::new);
 
-        if (!friendship.getFriendshipStatus().equals(PENDING)) {
+        if (!friendship.getStatus().equals(PENDING)) {
             throw new IllegalArgumentException("Status must be PENDING");
         }
 
-        friendship.setFriendshipStatus(FriendshipStatus.FRIENDS);
+        friendship.setStatus(FriendshipStatus.FRIENDS);
         friendship.setUpdated(LocalDateTime.now());
         return friendshipRepository.save(friendship);
     }

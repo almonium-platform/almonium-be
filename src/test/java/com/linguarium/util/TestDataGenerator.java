@@ -384,7 +384,7 @@ public final class TestDataGenerator {
         friendship.setRequesterId(requesterId);
         friendship.setRequesteeId(requesteeId);
         friendship.setCreated(LocalDateTime.now());
-        friendship.setFriendshipStatus(FriendshipStatus.FRIENDS);
+        friendship.setStatus(FriendshipStatus.FRIENDS);
         return friendship;
     }
 

@@ -62,7 +62,7 @@ class FriendshipServiceImplTest {
 
         Friendship result = friendshipService.manageFriendship(dto);
 
-        assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FST_BLOCKED_SND);
+        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.FST_BLOCKED_SND);
     }
 
     @DisplayName("Should set FriendshipStatus to SND_BLOCKED_FST when requestee is the action initiator")
@@ -79,7 +79,7 @@ class FriendshipServiceImplTest {
 
         Friendship result = friendshipService.manageFriendship(dto);
 
-        assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.SND_BLOCKED_FST);
+        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.SND_BLOCKED_FST);
     }
 
     @DisplayName("Should throw IllegalArgumentException when friendship status is neither FRIENDS nor PENDING")
@@ -259,7 +259,7 @@ class FriendshipServiceImplTest {
         Friendship existingFriendship = Friendship.builder()
                 .requesterId(requesterId)
                 .requesteeId(requesteeId)
-                .friendshipStatus(FriendshipStatus.FRIENDS)
+                .status(FriendshipStatus.FRIENDS)
                 .build();
 
         when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
@@ -289,7 +289,7 @@ class FriendshipServiceImplTest {
 
         Friendship result = friendshipService.manageFriendship(dto);
 
-        assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.PENDING);
+        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.PENDING);
     }
 
     @DisplayName("Should update friendship to FRIENDS status when approving a friendship request")
@@ -306,7 +306,7 @@ class FriendshipServiceImplTest {
 
         Friendship result = friendshipService.manageFriendship(dto);
 
-        assertThat(result.getFriendshipStatus()).isEqualTo(FriendshipStatus.FRIENDS);
+        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.FRIENDS);
     }
 
     @DisplayName("Should throw FriendshipNotAllowedException when friendship already exists")
@@ -329,7 +329,7 @@ class FriendshipServiceImplTest {
 
         assertThat(String.format(
                         "Friendship between %s and %s already exists, status: %s",
-                        actionInitiatorId, actionAcceptorId, existingFriendship.getFriendshipStatus()))
+                        actionInitiatorId, actionAcceptorId, existingFriendship.getStatus()))
                 .isEqualTo(exception.getMessage());
     }
 
@@ -365,7 +365,7 @@ class FriendshipServiceImplTest {
         return Friendship.builder()
                 .requesterId(requesterId)
                 .requesteeId(requesteeId)
-                .friendshipStatus(status)
+                .status(status)
                 .build();
     }
 }

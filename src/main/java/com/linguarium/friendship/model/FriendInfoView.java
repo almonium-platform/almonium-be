@@ -16,6 +16,6 @@ public class FriendInfoView {
     @Id
     private Long userId;
 
-    private String status;
+    private String status; // TODO change to FriendshipStatus
     private Boolean isFriendRequester;
 }

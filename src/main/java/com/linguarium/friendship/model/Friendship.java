@@ -50,13 +50,13 @@ public class Friendship {
     private LocalDateTime updated;
 
     @Column(name = "status")
-    private FriendshipStatus friendshipStatus;
+    private FriendshipStatus status;
 
     public Long whoDeniesFriendship() {
-        if (this.getFriendshipStatus().equals(FriendshipStatus.FST_BLOCKED_SND)) {
+        if (this.getStatus().equals(FriendshipStatus.FST_BLOCKED_SND)) {
             return requesterId;
         }
-        if (this.getFriendshipStatus().equals(FriendshipStatus.SND_BLOCKED_FST)) {
+        if (this.getStatus().equals(FriendshipStatus.SND_BLOCKED_FST)) {
             return requesteeId;
         }
         return null;
@@ -74,7 +74,7 @@ public class Friendship {
                 + ", updated="
                 + updated
                 + ", status="
-                + friendshipStatus
+                + status
                 + '}';
     }
 }
