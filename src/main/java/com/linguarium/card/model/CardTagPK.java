@@ -1,7 +1,6 @@
 package com.linguarium.card.model;
 
 import jakarta.persistence.Embeddable;
-import java.io.Serializable;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

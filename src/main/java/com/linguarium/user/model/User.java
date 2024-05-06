@@ -13,7 +13,6 @@ import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.AccessLevel;

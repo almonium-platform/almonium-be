@@ -1,6 +1,5 @@
 package com.linguarium.friendship.model;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
