@@ -12,28 +12,26 @@
 
     <groupId>com</groupId>
     <artifactId>linguarium</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <name>linguarium</name>
 
     <description>language learning app</description>
 
     <properties>
         <java.version>17</java.version>
-        <version.lombok>1.18.28</version.lombok>
-        <version.mapstruct>1.5.5.Final</version.mapstruct>
-        <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
-        <version.postgresql>42.7.3</version.postgresql>
-        <version.jjwt>0.9.1</version.jjwt>
         <version.commons-configuration2>2.9.0</version.commons-configuration2>
-        <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
-        <version.google-guava>32.0.0-android</version.google-guava>
         <version.google-cloud>26.1.3</version.google-cloud>
-        <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
+        <version.google-guava>32.0.0-android</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
+        <version.jjwt>0.9.1</version.jjwt>
         <version.json-path>2.9.0</version.json-path>
+        <version.lombok>1.18.28</version.lombok>
+        <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
+        <version.mapstruct>1.5.5.Final</version.mapstruct>
+        <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
+        <version.postgresql>42.7.3</version.postgresql>
         <version.spotless>2.43.0</version.spotless>
-        <project.build.sourceDirectories>${basedir}/src</project.build.sourceDirectories>
-        <checkstyle.config.location>${basedir}/checkstyle.xml</checkstyle.config.location>
+        <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
     </properties>
 
     <dependencies>
@@ -174,6 +172,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
