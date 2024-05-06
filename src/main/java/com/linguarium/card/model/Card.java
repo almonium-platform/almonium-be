@@ -38,7 +38,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Card implements Serializable {
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

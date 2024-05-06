@@ -27,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"requesterId", "requesteeId"})
 @IdClass(FriendshipPK.class)
-public class Friendship implements Serializable {
+public class Friendship {
     @Id
     @Column(name = "requester_id")
     private Long requesterId;

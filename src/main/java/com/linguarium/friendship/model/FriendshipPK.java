@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"requesterId", "requesteeId"})
-public class FriendshipPK implements Serializable {
+public class FriendshipPK {
     private Long requesterId;
     private Long requesteeId;
 }

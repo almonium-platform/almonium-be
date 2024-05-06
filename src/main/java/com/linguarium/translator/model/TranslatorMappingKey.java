@@ -12,7 +12,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class TranslatorMappingKey implements Serializable {
+public class TranslatorMappingKey {
     private Language sourceLang;
     private Language targetLang;
     private Long translatorId;

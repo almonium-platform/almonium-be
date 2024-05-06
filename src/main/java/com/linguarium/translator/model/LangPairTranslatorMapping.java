@@ -26,7 +26,7 @@ import lombok.experimental.FieldDefaults;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"}))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @IdClass(TranslatorMappingKey.class)
-public class LangPairTranslatorMapping implements Serializable {
+public class LangPairTranslatorMapping {
 
     @Id
     @Enumerated(EnumType.STRING)

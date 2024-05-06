@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
-public class CardTagPK implements Serializable {
+public class CardTagPK {
     private Long cardId;
     private Long tagId;
 
