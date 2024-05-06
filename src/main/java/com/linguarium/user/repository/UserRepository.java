@@ -15,11 +15,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<FriendWrapper> findFriendByEmail(String email);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
-    Optional<User> findById(Long id);
+    Optional<User> findById(long id);
 
     @Modifying
     @Query("update User u set u.username = ?1 where u.id = ?2")
-    void changeUsername(String username, Long id);
+    void changeUsername(String username, long id);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     User findByEmail(String email); // TODO optional

@@ -35,7 +35,7 @@ class UserServiceImplTest {
     @Test
     void givenUsername_whenChangeUsername_thenUsernameByIdChanged() {
         String username = "newUsername";
-        Long id = 1L;
+        long id = 1L;
 
         userService.changeUsernameById(username, id);
 
