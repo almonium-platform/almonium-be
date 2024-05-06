@@ -22,7 +22,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Friendsh
 
     @Query(
             """
-            SELECT new FriendInfoView(u.id, str(f.status), CASE WHEN f.requester = :user THEN true ELSE false END)
+            SELECT new FriendInfoView(u.id, str(f.status), CASE WHEN f.requesterId = :id THEN true ELSE false END)
             FROM User u
             JOIN Friendship f ON (u.id = f.requesterId OR u.id = f.requesteeId)
             WHERE u.id = :id
