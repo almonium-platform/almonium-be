@@ -30,6 +30,7 @@
         <version.mapstruct>1.5.5.Final</version.mapstruct>
         <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
         <version.postgresql>42.7.3</version.postgresql>
+        <version.springdoc>2.5.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
     </properties>
@@ -151,6 +152,11 @@
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-texttospeech</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${version.springdoc}</version>
         </dependency>
 
         <!--        transitive dependencies-->
