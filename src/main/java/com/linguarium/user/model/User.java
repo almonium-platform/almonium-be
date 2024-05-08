@@ -82,6 +82,7 @@ public class User implements OAuth2User, UserDetails {
     @CreatedDate
     LocalDateTime registered;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     AuthProvider provider = AuthProvider.LOCAL;
 
@@ -144,6 +145,7 @@ public class User implements OAuth2User, UserDetails {
 
     // OAuth2User methods
     @Transient
+    @Builder.Default
     Map<String, Object> attributes = new HashMap<>();
 
     @Override

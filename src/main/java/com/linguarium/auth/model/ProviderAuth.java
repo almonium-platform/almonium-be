@@ -49,7 +49,7 @@ public class ProviderAuth {
     LocalDateTime added;
 
     @Enumerated(EnumType.STRING)
-    AuthProvider provider = AuthProvider.LOCAL;
+    AuthProvider provider;
 
     String providerUserId;
 }
