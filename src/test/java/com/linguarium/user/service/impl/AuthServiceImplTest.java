@@ -22,7 +22,6 @@ import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.config.security.jwt.TokenProvider;
-import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.user.mapper.UserMapper;
@@ -32,7 +31,6 @@ import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -78,30 +76,6 @@ class AuthServiceImplTest {
 
     @Mock
     ProfileService profileService;
-
-    @DisplayName("Should throw exception if OAuth2UserInfo doesn't contain a name")
-    @Test
-    void givenOAuth2UserInfoWithNoName_whenProcessUserRegistration_thenThrowsOAuth2AuthenticationProcessingException() {
-        // Arrange
-        Map<String, Object> attributes = Collections.singletonMap("email", "johnwick@gmail.com");
-        OAuth2UserInfo oAuth2UserInfo = new FacebookOAuth2UserInfo(attributes);
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.authenticateProviderRequest(oAuth2UserInfo))
-                .isInstanceOf(OAuth2AuthenticationProcessingException.class);
-    }
-
-    @DisplayName("Should throw exception if OAuth2UserInfo doesn't contain an email")
-    @Test
-    void givenOAuth2UserInfoWithNoEmail_whenProcessAuthFromProvider_thenThrowsOAuth2ProcessingException() {
-        // Arrange
-        Map<String, Object> attributes = Collections.singletonMap("name", "John Wick");
-        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.authenticateProviderRequest(oAuth2UserInfo))
-                .isInstanceOf(OAuth2AuthenticationProcessingException.class);
-    }
 
     @DisplayName("Should throw exception if user is signed up with a different provider")
     @Test

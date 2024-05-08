@@ -17,7 +17,6 @@ import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.AuthService;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
-import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -28,7 +27,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
@@ -86,20 +84,20 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public User authenticateProviderRequest(OAuth2UserInfo userInfo) {
-        validateProviderUserInfo(userInfo);
+        User user = userService
+                .findUserByEmail(userInfo.getEmail())
+                .map(existingUser -> {
+                    validateUserProviderMatch(existingUser, userInfo.getProvider());
+                    return existingUser;
+                })
+                .orElseGet(() -> {
+                    User newUser = userMapper.providerUserInfoToUser(userInfo);
+                    newUser.setUsername(generateId());
+                    newUser.setPassword(PLACEHOLDER);
+                    userRepository.save(newUser);
+                    return newUser;
+                });
 
-        Optional<User> optionalUser = userService.findUserByEmail(userInfo.getEmail());
-
-        User user;
-        if (optionalUser.isPresent()) {
-            user = optionalUser.get();
-            validateUserProviderMatch(user, userInfo.getProvider());
-        } else {
-            user = userMapper.providerUserInfoToUser(userInfo);
-            user.setUsername(generateId());
-            user.setPassword(PLACEHOLDER);
-            userRepository.save(user);
-        }
         return updateUserWithProviderInfo(user, userInfo);
     }
 
@@ -124,15 +122,5 @@ public class AuthServiceImpl implements AuthService {
     private User updateUserWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl()); // todo save, but not update
         return userRepository.save(existingUser);
-    }
-
-    private void validateProviderUserInfo(OAuth2UserInfo oAuth2UserInfo) {
-        if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
-            throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
-        }
-
-        if (!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
-        }
     }
 }
