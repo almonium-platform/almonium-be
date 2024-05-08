@@ -66,7 +66,7 @@ public class User {
     @Column(unique = true)
     String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     String username;
 
     @Column(nullable = false, updatable = false)

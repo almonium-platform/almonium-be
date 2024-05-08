@@ -6,5 +6,5 @@ import lombok.Getter;
 public enum AuthProvider {
     FACEBOOK,
     GOOGLE,
-    LOCAL;
+    LOCAL
 }

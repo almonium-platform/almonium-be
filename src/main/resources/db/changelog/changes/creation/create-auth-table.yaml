@@ -29,9 +29,6 @@ databaseChangeLog:
               - column:
                   name: username
                   type: varchar(255)
-                  constraints:
-                    unique: true
-                    nullable: false
               - column:
                   name: registered
                   type: timestamp
