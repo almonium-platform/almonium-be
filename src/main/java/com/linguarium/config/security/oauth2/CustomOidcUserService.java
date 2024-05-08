@@ -26,7 +26,7 @@ public class CustomOidcUserService extends OidcUserService {
         OidcUser oidcUser = super.loadUser(userRequest);
         try {
             return authService.processProviderAuth(
-                    userRequest.getClientRegistration().getRegistrationId(),
+                    userRequest.getClientRegistration().getRegistrationId().toUpperCase(),
                     oidcUser.getAttributes(),
                     oidcUser.getIdToken(),
                     oidcUser.getUserInfo());

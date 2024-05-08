@@ -14,5 +14,5 @@ public interface AuthService {
     JwtAuthResponse login(LoginRequest loginRequest);
 
     LocalUser processProviderAuth(
-            String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
+            String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
 }

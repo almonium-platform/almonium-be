@@ -26,7 +26,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
         try {
             Map<String, Object> attributes = new HashMap<>(oAuth2User.getAttributes());
-            String provider = oAuth2UserRequest.getClientRegistration().getRegistrationId();
+            String provider = oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase();
             return authService.processProviderAuth(provider, attributes, null, null);
         } catch (AuthenticationException ex) {
             throw ex;
