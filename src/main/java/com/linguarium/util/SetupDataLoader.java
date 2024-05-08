@@ -1,5 +1,6 @@
 package com.linguarium.util;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -11,7 +12,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private boolean alreadySetup = false;
 
     @Override
-    public void onApplicationEvent(final ContextRefreshedEvent event) {
+    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         if (alreadySetup) {
             return;
         }
