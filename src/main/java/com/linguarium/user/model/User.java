@@ -16,6 +16,7 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -90,4 +91,14 @@ public class User {
     @OneToMany(mappedBy = "requester")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Set<Friendship> outgoingFriendships;
+
+    @PrePersist
+    private void prePersist() {
+        if (this.profile == null) {
+            this.profile = Profile.builder().user(this).build();
+        }
+        if (this.learner == null) {
+            this.learner = Learner.builder().user(this).build();
+        }
+    }
 }

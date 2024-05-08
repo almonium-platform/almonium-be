@@ -15,17 +15,13 @@ import com.linguarium.auth.model.LocalUser;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
-import com.linguarium.translator.model.Language;
 import com.linguarium.user.mapper.UserMapper;
-import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.AuthService;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import java.util.Map;
-import java.util.Set;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -93,7 +89,6 @@ public class AuthServiceImpl implements AuthService {
         validateRegisterRequest(request);
         User user = userMapper.localRegisterRequestToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        setupRelatedEntities(user);
         userRepository.save(user);
     }
 
@@ -109,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
         if (user == null) {
             ProviderRegisterRequest request = toProviderRegistrationRequest(provider, oAuth2UserInfo);
             user = userMapper.providerRegisterRequestToUser(request);
-            setupRelatedEntities(user);
+            userRepository.save(user);
         } else {
             validateUserProviderMatch(user, provider);
         }
@@ -117,23 +112,14 @@ public class AuthServiceImpl implements AuthService {
         return new LocalUser(user, attributes, idToken, userInfo);
     }
 
-    private void setupRelatedEntities(User user) {
-        user.setProfile(Profile.builder().user(user).build());
-        Learner learner = Learner.builder()
-                .user(user)
-                .targetLangs(Set.of(Language.EN.name())) // TODO temporary
-                .build();
-        user.setLearner(learner);
-    }
-
-    private String getUsername() {
-        return generateId(); // TODO set real username
-    }
-
-    private void validateUserProviderMatch(User user, String registrationId) {
-        if (!user.getProvider().name().equals(registrationId)) {
-            throw new OAuth2AuthenticationProcessingException(
-                    "Looks like you're signed up with " + user.getProvider() + " account. Please use it to login.");
+    private void validateRegisterRequest(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new UserAlreadyExistsAuthenticationException(
+                    "User with email id " + request.getEmail() + " already exists");
+        }
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new UserAlreadyExistsAuthenticationException(
+                    "User with username " + request.getUsername() + " already exists");
         }
     }
 
@@ -147,8 +133,19 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
+    private String getUsername() {
+        return generateId(); // TODO set real username
+    }
+
+    private void validateUserProviderMatch(User user, String registrationId) {
+        if (!user.getProvider().name().equals(registrationId)) {
+            throw new OAuth2AuthenticationProcessingException(
+                    "Looks like you're signed up with " + user.getProvider() + " account. Please use it to login.");
+        }
+    }
+
     private User saveUserUpdatedWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl());
+        existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl()); // todo save, but not update
         return userRepository.save(existingUser);
     }
 
@@ -159,17 +156,6 @@ public class AuthServiceImpl implements AuthService {
 
         if (!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
-        }
-    }
-
-    private void validateRegisterRequest(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new UserAlreadyExistsAuthenticationException(
-                    "User with email id " + request.getEmail() + " already exists");
-        }
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new UserAlreadyExistsAuthenticationException(
-                    "User with username " + request.getUsername() + " already exists");
         }
     }
 }
