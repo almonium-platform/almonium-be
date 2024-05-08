@@ -22,11 +22,11 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Friendsh
 
     @Query(
             """
-                    select new com.linguarium.friendship.model.FriendInfoView(u.id, str(f.status),
-                    case when f.requesterId = :id then true else false end)
-                    from User u
-                    join Friendship f on (u.id = f.requesterId or u.id = f.requesteeId)
-                    where u.id = :id
-                    """)
+            select new com.linguarium.friendship.model.FriendInfoView(u.id, str(f.status),
+            case when f.requesterId = :id then true else false end)
+            from User u
+            join Friendship f on (u.id = f.requesterId or u.id = f.requesteeId)
+            where u.id = :id
+            """)
     List<FriendInfoView> findByUserId(@Param("id") long id);
 }

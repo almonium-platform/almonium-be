@@ -24,3 +24,10 @@ databaseChangeLog:
               - column:
                   name: priority
                   type: INT
+        - addForeignKeyConstraint:
+            baseTableName: lang_pair_translator_mapping
+            baseColumnNames: translator_id
+            referencedTableName: translator
+            referencedColumnNames: id
+            constraintName: fk_lang_pair_translator
+            onDelete: CASCADE

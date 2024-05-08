@@ -27,3 +27,17 @@ databaseChangeLog:
               - column:
                   name: status
                   type: VARCHAR(50)
+        - addForeignKeyConstraint:
+            baseTableName: friendship
+            baseColumnNames: requester_id
+            referencedTableName: auth
+            referencedColumnNames: id
+            constraintName: fk_friendship_requester
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: friendship
+            baseColumnNames: requestee_id
+            referencedTableName: auth
+            referencedColumnNames: id
+            constraintName: fk_friendship_requestee
+            onDelete: CASCADE

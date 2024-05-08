@@ -3,6 +3,7 @@ package com.linguarium.friendship.model;
 import com.linguarium.user.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
@@ -16,6 +17,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"requester_id", "requestee_id"}))
@@ -24,9 +27,14 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = {"requesterId", "requesteeId"})
 @IdClass(FriendshipPK.class)
 public class Friendship {
+    //    @Id
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    private Long id;
+
     @Id
     @Column(name = "requester_id")
     private Long requesterId;
@@ -44,6 +52,7 @@ public class Friendship {
     private User requestee;
 
     @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime created;
 
     private LocalDateTime updated;
@@ -64,16 +73,11 @@ public class Friendship {
     @Override
     public String toString() {
         return "Friendship{"
-                + "requesterId="
-                + requesterId
-                + ", requesteeId="
-                + requesteeId
-                + ", created="
-                + created
-                + ", updated="
-                + updated
-                + ", status="
-                + status
+                + "requesterId=" + requester.getId()
+                + ", requesteeId=" + requestee.getId()
+                + ", created=" + created
+                + ", updated=" + updated
+                + ", status=" + status
                 + '}';
     }
 }

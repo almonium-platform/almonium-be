@@ -11,5 +11,10 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     primaryKey: true
-                    foreignKeyName: fk_learner_user
-                    references: auth(id)
+        - addForeignKeyConstraint:
+            baseTableName: learner
+            baseColumnNames: id
+            referencedTableName: auth
+            referencedColumnNames: id
+            constraintName: fk_learner_user
+            onDelete: CASCADE

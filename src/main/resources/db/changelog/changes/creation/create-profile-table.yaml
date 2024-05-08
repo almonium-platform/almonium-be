@@ -11,8 +11,16 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     primaryKey: true
-                    foreignKeyName: fk_profile_user
-                    references: auth(id)
+        - addForeignKeyConstraint:
+            baseTableName: profile
+            baseColumnNames: id
+            referencedTableName: auth
+            referencedColumnNames: id
+            constraintName: fk_profile_user
+            onDelete: CASCADE
+        - addColumn:
+            tableName: profile
+            columns:
               - column:
                   name: background
                   type: varchar(255)
