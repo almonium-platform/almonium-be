@@ -12,7 +12,6 @@ import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
-import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
@@ -50,7 +49,6 @@ public class AuthServiceImpl implements AuthService {
             TokenProvider tokenProvider,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            OAuth2UserInfoFactory userInfoFactory,
             UserMapper userMapper,
             @Lazy AuthenticationManager manager) {
         this.userService = userService;
