@@ -7,11 +7,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
+import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -44,8 +44,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        LocalUser principal = TestDataGenerator.createLocalUser();
-        learner = principal.getUser().getLearner();
+        User principal = TestDataGenerator.buildTestUserWithId();
+        learner = principal.getLearner();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 

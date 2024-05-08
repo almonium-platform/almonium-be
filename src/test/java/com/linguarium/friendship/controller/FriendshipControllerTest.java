@@ -7,12 +7,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
+import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +42,7 @@ class FriendshipControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        LocalUser principal = TestDataGenerator.createLocalUser();
+        User principal = TestDataGenerator.buildTestUserWithId();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 

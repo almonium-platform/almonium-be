@@ -6,6 +6,7 @@ import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
+import com.linguarium.user.model.User;
 import com.linguarium.user.service.AuthService;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .toUpperCase();
 
             OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
-            return authService.authenticateProviderRequest(userInfo);
+            User user = authService.authenticateProviderRequest(userInfo);
+            user.setAttributes(attributes);
+            return user;
         } catch (AuthenticationException ex) {
             throw ex;
         } catch (Exception ex) {

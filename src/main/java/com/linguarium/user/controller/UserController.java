@@ -2,10 +2,10 @@ package com.linguarium.user.controller;
 
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.user.dto.LanguageUpdateRequest;
 import com.linguarium.user.dto.UsernameAvailability;
 import com.linguarium.user.dto.UsernameUpdateRequest;
+import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
 import lombok.AccessLevel;
@@ -29,8 +29,8 @@ public class UserController {
     LearnerService learnerService;
 
     @GetMapping("/me")
-    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser LocalUser localUser) {
-        return ResponseEntity.ok(userService.buildUserInfoFromUser(localUser.getUser()));
+    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser User user) {
+        return ResponseEntity.ok(userService.buildUserInfoFromUser(user));
     }
 
     @GetMapping("/{username}/availability/")
@@ -40,29 +40,28 @@ public class UserController {
     }
 
     @PutMapping("/me/username")
-    public ResponseEntity<Void> updateUsername(
-            @RequestBody UsernameUpdateRequest request, @CurrentUser LocalUser user) {
-        userService.changeUsernameById(request.newUsername(), user.getUser().getId());
+    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @CurrentUser User user) {
+        userService.changeUsernameById(request.newUsername(), user.getId());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/me/account")
-    public ResponseEntity<Void> deleteCurrentUserAccount(@CurrentUser LocalUser user) {
-        userService.deleteAccount(user.getUser());
+    public ResponseEntity<Void> deleteCurrentUserAccount(@CurrentUser User user) {
+        userService.deleteAccount(user);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/target-langs")
     public ResponseEntity<Void> updateTargetLanguages(
-            @RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
-        learnerService.updateTargetLanguages(request.langCodes(), user.getUser().getLearner());
+            @RequestBody LanguageUpdateRequest request, @CurrentUser User user) {
+        learnerService.updateTargetLanguages(request.langCodes(), user.getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/fluent-langs")
     public ResponseEntity<Void> updateFluentLanguages(
-            @RequestBody LanguageUpdateRequest request, @CurrentUser LocalUser user) {
-        learnerService.updateFluentLanguages(request.langCodes(), user.getUser().getLearner());
+            @RequestBody LanguageUpdateRequest request, @CurrentUser User user) {
+        learnerService.updateFluentLanguages(request.langCodes(), user.getLearner());
         return ResponseEntity.noContent().build();
     }
 }

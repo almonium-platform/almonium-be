@@ -1,10 +1,10 @@
 package com.linguarium.suggestion.controller;
 
 import com.linguarium.auth.annotation.CurrentUser;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
 import com.linguarium.suggestion.service.CardSuggestionService;
+import com.linguarium.user.model.User;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AccessLevel;
@@ -28,26 +28,25 @@ public class CardSuggestionController {
     CardSuggestionService cardSuggestionService;
 
     @PostMapping
-    public ResponseEntity<?> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @CurrentUser LocalUser user) {
-        cardSuggestionService.suggestCard(dto, user.getUser().getLearner());
+    public ResponseEntity<?> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @CurrentUser User user) {
+        cardSuggestionService.suggestCard(dto, user.getLearner());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/accept")
-    public ResponseEntity<Void> acceptCard(@PathVariable Long id, @CurrentUser LocalUser user) {
-        cardSuggestionService.acceptSuggestion(id, user.getUser().getLearner());
+    public ResponseEntity<Void> acceptCard(@PathVariable Long id, @CurrentUser User user) {
+        cardSuggestionService.acceptSuggestion(id, user.getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/decline")
-    public ResponseEntity<Void> declineCard(@PathVariable Long id, @CurrentUser LocalUser user) {
-        cardSuggestionService.declineSuggestion(id, user.getUser().getLearner());
+    public ResponseEntity<Void> declineCard(@PathVariable Long id, @CurrentUser User user) {
+        cardSuggestionService.declineSuggestion(id, user.getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser LocalUser user) {
-        return ResponseEntity.ok(
-                cardSuggestionService.getSuggestedCards(user.getUser().getLearner()));
+    public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser User user) {
+        return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(user.getLearner()));
     }
 }

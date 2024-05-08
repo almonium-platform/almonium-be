@@ -1,7 +1,7 @@
 package com.linguarium.config.security.jwt;
 
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.config.AuthenticationProperties;
+import com.linguarium.user.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -34,7 +34,7 @@ public class TokenProvider {
     AuthenticationProperties authenticationProperties;
 
     public String createToken(Authentication authentication) {
-        LocalUser userPrincipal = (LocalUser) authentication.getPrincipal();
+        User userPrincipal = (User) authentication.getPrincipal();
 
         Instant now = Instant.now();
         long expirationMillis = authenticationProperties.getAuth().getTokenExpirationMSec();
@@ -42,7 +42,7 @@ public class TokenProvider {
                 LocalDateTime.ofInstant(now.plusMillis(expirationMillis), ZoneId.systemDefault());
 
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getUser().getId()))
+                .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(Date.from(now))
                 .setExpiration(
                         Date.from(expiryDateTime.atZone(ZoneId.systemDefault()).toInstant()))

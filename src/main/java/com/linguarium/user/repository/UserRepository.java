@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void changeUsername(String username, long id);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
-    User findByEmail(String email); // TODO optional
+    Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
 

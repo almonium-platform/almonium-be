@@ -5,7 +5,6 @@ import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
 import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.dto.CardUpdateDto;
@@ -33,7 +32,6 @@ import com.linguarium.user.model.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -61,7 +59,7 @@ public final class TestDataGenerator {
                 .build();
     }
 
-    public TestingAuthenticationToken getAuthenticationToken(LocalUser principal) {
+    public TestingAuthenticationToken getAuthenticationToken(User principal) {
         return new TestingAuthenticationToken(principal, null, List.of());
     }
 
@@ -161,13 +159,6 @@ public final class TestDataGenerator {
         return new CardDto[] {card1, card2};
     }
 
-    public LocalUser createLocalUser() {
-        User user = buildTestUserWithId();
-        user.setLearner(Learner.builder().id(user.getId()).build());
-        user.setProfile(Profile.builder().id(user.getId()).build());
-        return new LocalUser(user, Map.of(), null, null);
-    }
-
     public WordsReportDto createEmptyWordsReportDto() {
         return WordsReportDto.builder()
                 .word("word")
@@ -229,6 +220,8 @@ public final class TestDataGenerator {
         user.setPassword("password");
         user.setProvider(AuthProvider.LOCAL);
         user.setRegistered(LocalDateTime.now());
+        user.setProfile(Profile.builder().user(user).build());
+        user.setLearner(Learner.builder().user(user).build());
         return user;
     }
 

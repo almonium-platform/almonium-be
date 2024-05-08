@@ -85,9 +85,9 @@ class UserServiceImplTest {
         User expectedUser = getUser();
         expectedUser.setEmail(email);
 
-        when(userRepository.findByEmail(email)).thenReturn(expectedUser);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(expectedUser));
 
-        User actualUser = userService.findUserByEmail(email);
+        User actualUser = userService.findUserByEmail(email).orElseThrow();
 
         assertThat(expectedUser).isEqualTo(actualUser);
     }
@@ -97,11 +97,11 @@ class UserServiceImplTest {
     void givenNonExistentEmail_whenFindByEmail_thenReturnNull() {
         String email = "nonexistent@example.com";
 
-        when(userRepository.findByEmail(email)).thenReturn(null);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
-        User actualUser = userService.findUserByEmail(email);
+        Optional<User> actualUser = userService.findUserByEmail(email);
 
-        assertThat(actualUser).isNull();
+        assertThat(actualUser).isEmpty();
     }
 
     @DisplayName("Should use mapper to build userInfo")

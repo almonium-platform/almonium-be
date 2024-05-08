@@ -21,7 +21,6 @@ import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
@@ -35,6 +34,7 @@ import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -112,7 +112,7 @@ class AuthServiceImplTest {
         User user = TestDataGenerator.buildTestUser();
         user.setProfile(Profile.builder().avatarUrl(PROFILE_PIC_LINK).build());
         user.setProvider(AuthProvider.FACEBOOK);
-        when(userService.findUserByEmail(anyString())).thenReturn(user);
+        when(userService.findUserByEmail(anyString())).thenReturn(Optional.of(user));
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
@@ -139,16 +139,16 @@ class AuthServiceImplTest {
                         .build())
                 .build();
 
-        when(userService.findUserByEmail(email)).thenReturn(existingUser);
+        when(userService.findUserByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
+        User result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
         verify(userRepository).save(existingUser);
         assertThat(existingUser.getProfile().getAvatarUrl()).isEqualTo(newProfilePicLink);
-        assertThat(result.getUser()).isEqualTo(existingUser);
+        assertThat(result).isEqualTo(existingUser);
     }
 
     @DisplayName("Should register new user from provider when user is not found")
@@ -162,7 +162,7 @@ class AuthServiceImplTest {
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
-        when(userService.findUserByEmail(eq(email))).thenReturn(null);
+        when(userService.findUserByEmail(eq(email))).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
             User user = invocation.getArgument(0);
             user.setProfile(Profile.builder().user(user).build());
@@ -176,11 +176,11 @@ class AuthServiceImplTest {
                         .build());
 
         // Act
-        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
+        User result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
         verify(userRepository, atLeastOnce()).save(any(User.class));
-        assertThat(result.getUser().getEmail()).isEqualTo(email);
+        assertThat(result.getEmail()).isEqualTo(email);
     }
 
     @DisplayName("Should successfully register local user")
@@ -225,18 +225,18 @@ class AuthServiceImplTest {
                         .build())
                 .build();
 
-        when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(null);
+        when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo))).thenReturn(newUser);
         when(userRepository.save(newUser)).thenReturn(newUser);
 
         // Act
-        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
+        User result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
         verify(userService).findUserByEmail("johnwick@gmail.com");
         verify(userMapper).providerUserInfoToUser(eq(oAuth2UserInfo));
         verify(userRepository, atLeastOnce()).save(newUser);
-        assertThat(result.getUser()).isEqualTo(newUser);
+        assertThat(result).isEqualTo(newUser);
     }
 
     @DisplayName("Should authenticate and return JWT when given valid credentials")
@@ -250,10 +250,9 @@ class AuthServiceImplTest {
         String expectedJwt = "xxx.yyy.zzz";
         LoginRequest loginRequest = new LoginRequest(email, password);
 
-        LocalUser localUser = new LocalUser(user, null, null, null);
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(auth.getPrincipal()).thenReturn(localUser);
+        when(auth.getPrincipal()).thenReturn(user);
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act

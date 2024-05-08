@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.dto.LanguageUpdateRequest;
@@ -52,14 +51,12 @@ class UserControllerTest extends BaseControllerTest {
     @MockBean
     LearnerService learnerService;
 
-    LocalUser principal;
     User user;
 
     @BeforeEach
     void setUp() {
-        principal = TestDataGenerator.createLocalUser();
-        user = principal.getUser();
-        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
+        user = TestDataGenerator.buildTestUserWithId();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(user));
     }
 
     @DisplayName("Should return current user info when requested by authenticated user")
@@ -77,7 +74,7 @@ class UserControllerTest extends BaseControllerTest {
     @DisplayName("Should verify username availability")
     @Test
     void givenUsername_whenCheckUsernameAvailability_thenRespondWithAvailabilityStatus() throws Exception {
-        String username = principal.getUsername();
+        String username = user.getUsername();
         boolean isAvailable = true;
         UsernameAvailability usernameAvailability = new UsernameAvailability(isAvailable);
 

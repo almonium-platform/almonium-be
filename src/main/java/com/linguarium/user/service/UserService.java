@@ -13,7 +13,7 @@ public interface UserService {
 
     boolean isUsernameAvailable(String username);
 
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 
     Optional<User> findUserById(Long id);
 }

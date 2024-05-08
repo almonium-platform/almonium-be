@@ -54,9 +54,9 @@ class UserRepositoryTest {
     @DisplayName("Should find user by email")
     @Test
     void givenEmail_whenFindByEmail_thenUserShouldNotBeNullAndUsernameShouldMatch() {
-        User user = userRepository.findByEmail(JOHN_EMAIL);
-        assertThat(user).isNotNull();
-        assertThat(user.getUsername()).isEqualTo(JOHN_USERNAME);
+        Optional<User> user = userRepository.findByEmail(JOHN_EMAIL);
+        assertThat(user).isPresent();
+        assertThat(user.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
 
     @DisplayName("Should check if user exists by email")

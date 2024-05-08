@@ -3,11 +3,11 @@ package com.linguarium.friendship.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.annotation.CurrentUser;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.service.FriendshipService;
+import com.linguarium.user.model.User;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,8 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<FriendshipInfoDto>> getMyFriends(@CurrentUser LocalUser user) {
-        List<FriendshipInfoDto> friends =
-                friendshipService.getFriends(user.getUser().getId());
+    public ResponseEntity<List<FriendshipInfoDto>> getMyFriends(@CurrentUser User user) {
+        List<FriendshipInfoDto> friends = friendshipService.getFriends(user.getId());
         return ResponseEntity.ok(friends);
     }
 

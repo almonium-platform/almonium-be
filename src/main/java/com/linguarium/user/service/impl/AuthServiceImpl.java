@@ -9,7 +9,6 @@ import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.user.mapper.UserMapper;
@@ -18,7 +17,7 @@ import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.AuthService;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
-import java.util.Map;
+import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -35,6 +34,7 @@ import org.springframework.util.StringUtils;
 @Service
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
+    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
     UserService userService;
     UserRepository userRepository;
     ProfileService profileService;
@@ -68,10 +68,10 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        LocalUser localUser = (LocalUser) authentication.getPrincipal();
-        profileService.updateLoginStreak(localUser.getUser().getProfile());
+        User user = (User) authentication.getPrincipal();
+        profileService.updateLoginStreak(user.getProfile());
         String jwt = tokenProvider.createToken(authentication);
-        return new JwtAuthResponse(jwt, userService.buildUserInfoFromUser(localUser.getUser()));
+        return new JwtAuthResponse(jwt, userService.buildUserInfoFromUser(user));
     }
 
     @Override
@@ -85,20 +85,22 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public LocalUser authenticateProviderRequest(OAuth2UserInfo userInfo) {
+    public User authenticateProviderRequest(OAuth2UserInfo userInfo) {
         validateProviderUserInfo(userInfo);
 
-        User user = userService.findUserByEmail(userInfo.getEmail());
+        Optional<User> optionalUser = userService.findUserByEmail(userInfo.getEmail());
 
-        if (user == null) {
+        User user;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+            validateUserProviderMatch(user, userInfo.getProvider());
+        } else {
             user = userMapper.providerUserInfoToUser(userInfo);
             user.setUsername(generateId());
+            user.setPassword(PLACEHOLDER);
             userRepository.save(user);
-        } else {
-            validateUserProviderMatch(user, userInfo.getProvider());
         }
-        user = updateUserWithProviderInfo(user, userInfo);
-        return new LocalUser(user, Map.of(), null, null);
+        return updateUserWithProviderInfo(user, userInfo);
     }
 
     private void validateRegisterRequest(RegisterRequest request) {

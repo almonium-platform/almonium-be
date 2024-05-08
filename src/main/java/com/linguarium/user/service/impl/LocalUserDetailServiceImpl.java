@@ -1,6 +1,5 @@
 package com.linguarium.user.service.impl;
 
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.user.model.User;
 import com.linguarium.user.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,17 +19,14 @@ public class LocalUserDetailServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public LocalUser loadUserByUsername(final String email) throws UsernameNotFoundException {
-        User user = userService.findUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + email + " was not found in the database");
-        }
-        return new LocalUser(user);
+    public User loadUserByUsername(final String email) throws UsernameNotFoundException {
+        return userService
+                .findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User " + email + " was not found in the database"));
     }
 
     @Transactional
-    public LocalUser loadUserById(Long id) {
-        User user = userService.findUserById(id).orElseThrow(() -> new EntityNotFoundException("User not found " + id));
-        return new LocalUser(user);
+    public User loadUserById(Long id) {
+        return userService.findUserById(id).orElseThrow(() -> new EntityNotFoundException("User not found " + id));
     }
 }

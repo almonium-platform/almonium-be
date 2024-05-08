@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.service.LanguageProcessor;
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.card.service.CardService;
@@ -20,6 +19,7 @@ import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import java.util.List;
 import lombok.AccessLevel;
@@ -51,14 +51,13 @@ class LangControllerTest extends BaseControllerTest {
     @MockBean
     LanguageProcessor languageProcessor;
 
-    LocalUser principal;
     Learner learner;
 
     @BeforeEach
     void setUp() {
-        principal = TestDataGenerator.createLocalUser();
-        learner = principal.getUser().getLearner();
-        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
+        User user = TestDataGenerator.buildTestUserWithId();
+        learner = user.getLearner();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(user));
     }
 
     @DisplayName("Should find cards by search text when called with valid text")
@@ -96,8 +95,7 @@ class LangControllerTest extends BaseControllerTest {
         String text = "Hello";
         String lang = Language.EN.name();
         AnalysisDto analysisDto = TestDataGenerator.createTestAnalysisDto();
-        when(languageProcessor.getReport(text, lang, principal.getUser().getLearner()))
-                .thenReturn(analysisDto);
+        when(languageProcessor.getReport(text, lang, learner)).thenReturn(analysisDto);
 
         mockMvc.perform(get(REPORT_URL, text, lang).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

@@ -9,13 +9,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.linguarium.auth.model.LocalUser;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.card.dto.CardCreationDto;
 import com.linguarium.card.dto.CardUpdateDto;
 import com.linguarium.card.service.CardService;
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
+import com.linguarium.user.model.User;
 import com.linguarium.util.GeneralUtils;
 import com.linguarium.util.TestDataGenerator;
 import lombok.AccessLevel;
@@ -48,7 +48,7 @@ class CardControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        LocalUser principal = TestDataGenerator.createLocalUser();
+        User principal = TestDataGenerator.buildTestUserWithId();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 
