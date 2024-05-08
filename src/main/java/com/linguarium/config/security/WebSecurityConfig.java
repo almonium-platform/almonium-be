@@ -11,9 +11,9 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.linguarium.config.security.oauth2.OAuth2CookieRequestRepository;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class WebSecurityConfig {
     CustomOAuth2UserService customOAuth2UserService;
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
+    OAuth2CookieRequestRepository authorizationRequestRepository;
 
     @NonFinal
     @Value("${app.server.frontend.url}")
