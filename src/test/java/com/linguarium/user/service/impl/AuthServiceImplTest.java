@@ -17,9 +17,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.linguarium.auth.dto.AuthProvider;
-import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.ProviderRegisterRequest;
+import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
@@ -180,14 +179,6 @@ class AuthServiceImplTest {
         String email = "johnwick@gmail.com";
         String userId = "101868015518714862283";
 
-        ProviderRegisterRequest registrationRequest = ProviderRegisterRequest.builder()
-                .email(email)
-                .password(OAUTH2_PLACEHOLDER)
-                .provider(provider)
-                .avatarUrl(PROFILE_PIC_LINK)
-                .providerUserId(userId)
-                .build();
-
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
@@ -199,8 +190,12 @@ class AuthServiceImplTest {
             user.setProfile(Profile.builder().user(user).build());
             return user;
         });
-        when(userMapper.providerRegisterRequestToUser(any(ProviderRegisterRequest.class)))
-                .thenReturn(buildFromRegistrationRequest(registrationRequest));
+        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider)))
+                .thenReturn(User.builder()
+                        .email(email)
+                        .providerUserId(userId)
+                        .provider(provider)
+                        .build());
 
         // Act
         LocalUser result = authService.processProviderAuth(provider.name(), attributes, idToken, null);
@@ -216,7 +211,7 @@ class AuthServiceImplTest {
     @Test
     void givenValidLocalRequest_whenRegister_thenSaveUser() {
         // Arrange
-        LocalRegisterRequest registrationRequest = LocalRegisterRequest.builder()
+        RegisterRequest registrationRequest = RegisterRequest.builder()
                 .email("johnwick@gmail.com")
                 .username("johnwick")
                 .password("password!123")
@@ -228,14 +223,14 @@ class AuthServiceImplTest {
                 .username(registrationRequest.getUsername())
                 .build();
 
-        when(userMapper.localRegisterRequestToUser(registrationRequest)).thenReturn(user);
+        when(userMapper.registerRequestToUser(registrationRequest)).thenReturn(user);
         when(passwordEncoder.encode(registrationRequest.getPassword())).thenReturn("$2b$encoded/Password");
 
         // Act
         authService.register(registrationRequest);
 
         // Assert
-        verify(userMapper).localRegisterRequestToUser(registrationRequest);
+        verify(userMapper).registerRequestToUser(registrationRequest);
         verify(passwordEncoder).encode(registrationRequest.getPassword());
         verify(userRepository).save(user);
     }
@@ -253,23 +248,16 @@ class AuthServiceImplTest {
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         when(userInfoFactory.getOAuth2UserInfo(eq(provider), anyMap())).thenReturn(oAuth2UserInfo);
 
-        ProviderRegisterRequest providerRequest = ProviderRegisterRequest.builder()
-                .email("johnwick@gmail.com")
-                .providerUserId("101868015518714862283")
-                .avatarUrl(PROFILE_PIC_LINK)
-                .provider(AuthProvider.GOOGLE)
-                .build();
-
         User newUser = User.builder()
-                .email(providerRequest.getEmail())
-                .providerUserId(providerRequest.getProviderUserId())
+                .email(oAuth2UserInfo.getEmail())
+                .providerUserId(oAuth2UserInfo.getId())
                 .profile(Profile.builder()
-                        .avatarUrl(providerRequest.getAvatarUrl())
+                        .avatarUrl(oAuth2UserInfo.getImageUrl())
                         .build())
                 .build();
 
         when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(null);
-        when(userMapper.providerRegisterRequestToUser(any(ProviderRegisterRequest.class)))
+        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider)))
                 .thenReturn(newUser);
         when(userRepository.save(newUser)).thenReturn(newUser);
 
@@ -279,7 +267,7 @@ class AuthServiceImplTest {
         // Assert
         verify(userInfoFactory).getOAuth2UserInfo(provider, attributes);
         verify(userService).findUserByEmail("johnwick@gmail.com");
-        verify(userMapper).providerRegisterRequestToUser(any(ProviderRegisterRequest.class));
+        verify(userMapper).providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider));
         verify(userRepository, atLeastOnce()).save(newUser);
         assertThat(result.getUser()).isEqualTo(newUser);
     }
@@ -314,8 +302,8 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing email")
     @Test
     void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        LocalRegisterRequest registrationRequest =
-                LocalRegisterRequest.builder().email("john@mail.com").build();
+        RegisterRequest registrationRequest =
+                RegisterRequest.builder().email("john@mail.com").build();
 
         when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
 
@@ -332,8 +320,8 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing username")
     @Test
     void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        LocalRegisterRequest registrationRequest =
-                LocalRegisterRequest.builder().username("john").build();
+        RegisterRequest registrationRequest =
+                RegisterRequest.builder().username("john").build();
 
         when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
 
@@ -368,15 +356,5 @@ class AuthServiceImplTest {
                 entry("family_name", "Wick"),
                 entry("iat", "2023-06-27T14:00:44Z"),
                 entry("email", email));
-    }
-
-    private User buildFromRegistrationRequest(ProviderRegisterRequest request) {
-        return User.builder()
-                .providerUserId(request.getProviderUserId())
-                .provider(request.getProvider())
-                .password(request.getPassword())
-                .email(request.getEmail())
-                .username(request.getUsername())
-                .build();
     }
 }

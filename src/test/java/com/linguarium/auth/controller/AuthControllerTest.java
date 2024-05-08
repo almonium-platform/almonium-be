@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
+import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.base.BaseControllerTest;
@@ -77,7 +77,7 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should register user successfully")
     @Test
     void givenValidSignUpRequest_whenRegister_thenSuccess() throws Exception {
-        LocalRegisterRequest registrationRequest = createSignUpRequest();
+        RegisterRequest registrationRequest = createSignUpRequest();
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -89,11 +89,11 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should handle existing user registration attempt by returning bad request status")
     @Test
     void givenExistingUser_whenRegister_thenBadRequest() throws Exception {
-        LocalRegisterRequest registrationRequest = createSignUpRequest();
+        RegisterRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
                 .when(authService)
-                .register(any(LocalRegisterRequest.class));
+                .register(any(RegisterRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -102,8 +102,8 @@ class AuthControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.success").value(false));
     }
 
-    private LocalRegisterRequest createSignUpRequest() {
-        return LocalRegisterRequest.builder()
+    private RegisterRequest createSignUpRequest() {
+        return RegisterRequest.builder()
                 .username("dummyUsername")
                 .email("dummy@example.com")
                 .password("dummyPassword123")

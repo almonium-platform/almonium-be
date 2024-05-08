@@ -4,9 +4,7 @@ import static com.linguarium.util.GeneralUtils.generateId;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.AuthProvider;
-import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.ProviderRegisterRequest;
 import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
@@ -84,9 +82,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void register(LocalRegisterRequest request) {
+    public void register(RegisterRequest request) {
         validateRegisterRequest(request);
-        User user = userMapper.localRegisterRequestToUser(request);
+        User user = userMapper.registerRequestToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
     }
@@ -95,14 +93,15 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public LocalUser processProviderAuth(
             String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
+        AuthProvider authProvider = AuthProvider.valueOf(provider);
         OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
         validateProviderUserInfo(oAuth2UserInfo);
 
         User user = userService.findUserByEmail(oAuth2UserInfo.getEmail());
 
         if (user == null) {
-            ProviderRegisterRequest request = toProviderRegisterRequest(provider, oAuth2UserInfo);
-            user = userMapper.providerRegisterRequestToUser(request);
+            user = userMapper.providerUserInfoToUser(oAuth2UserInfo, authProvider);
+            user.setUsername(generateId());
             userRepository.save(user);
         } else {
             validateUserProviderMatch(user, provider);
@@ -120,19 +119,6 @@ public class AuthServiceImpl implements AuthService {
             throw new UserAlreadyExistsAuthenticationException(
                     "User with username " + request.getUsername() + " already exists");
         }
-    }
-
-    private ProviderRegisterRequest toProviderRegisterRequest(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
-        return ProviderRegisterRequest.builder()
-                .providerUserId(oAuth2UserInfo.getId())
-                .email(oAuth2UserInfo.getEmail())
-                .username(getUsername())
-                .provider(AuthProvider.valueOf(registrationId))
-                .build();
-    }
-
-    private String getUsername() {
-        return generateId(); // TODO set real username
     }
 
     private void validateUserProviderMatch(User user, String registrationId) {
