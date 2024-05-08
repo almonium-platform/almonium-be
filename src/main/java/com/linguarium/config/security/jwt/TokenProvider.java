@@ -57,7 +57,7 @@ public class TokenProvider {
         return Long.parseLong(claims.getSubject());
     }
 
-    public boolean validateToken(String authToken) {
+    protected boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(authToken);
             return true;
