@@ -42,12 +42,11 @@ class CardTagRepositoryTest {
     void setup() {
         // Set up the Learner, Card, and Tag entities
         managedUser = TestDataGenerator.buildTestUser();
-        managedLearner = buildTestLearner();
         managedCard = buildTestCard();
         managedTag = buildTestTag();
 
         entityManager.persist(managedUser);
-        entityManager.persist(managedLearner);
+        managedLearner = managedUser.getLearner();
         entityManager.persist(managedCard);
         entityManager.persist(managedTag);
         entityManager.flush();
@@ -76,12 +75,6 @@ class CardTagRepositoryTest {
         assertThat(cardTag).isNotNull();
         assertThat(cardTag.getCard()).isEqualTo(managedCard);
         assertThat(cardTag.getTag()).isEqualTo(managedTag);
-    }
-
-    private Learner buildTestLearner() {
-        Learner learner = new Learner();
-        learner.setUser(managedUser);
-        return learner;
     }
 
     private Card buildTestCard() {

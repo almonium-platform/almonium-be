@@ -70,13 +70,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public JwtAuthResponse login(LoginRequest loginRequest) {
-        String password = loginRequest.password();
-
+    public JwtAuthResponse login(LoginRequest request) {
         Authentication authentication =
-                manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.email(), password));
+                manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         LocalUser localUser = (LocalUser) authentication.getPrincipal();
         profileService.updateLoginStreak(localUser.getUser().getProfile());
         String jwt = tokenProvider.createToken(authentication);
@@ -97,18 +96,18 @@ public class AuthServiceImpl implements AuthService {
     public LocalUser processProviderAuth(
             String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
-        validateOAuth2UserInfo(oAuth2UserInfo);
+        validateProviderUserInfo(oAuth2UserInfo);
 
         User user = userService.findUserByEmail(oAuth2UserInfo.getEmail());
 
         if (user == null) {
-            ProviderRegisterRequest request = toProviderRegistrationRequest(provider, oAuth2UserInfo);
+            ProviderRegisterRequest request = toProviderRegisterRequest(provider, oAuth2UserInfo);
             user = userMapper.providerRegisterRequestToUser(request);
             userRepository.save(user);
         } else {
             validateUserProviderMatch(user, provider);
         }
-        user = saveUserUpdatedWithProviderInfo(user, oAuth2UserInfo);
+        user = updateUserWithProviderInfo(user, oAuth2UserInfo);
         return new LocalUser(user, attributes, idToken, userInfo);
     }
 
@@ -123,8 +122,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private ProviderRegisterRequest toProviderRegistrationRequest(
-            String registrationId, OAuth2UserInfo oAuth2UserInfo) {
+    private ProviderRegisterRequest toProviderRegisterRequest(String registrationId, OAuth2UserInfo oAuth2UserInfo) {
         return ProviderRegisterRequest.builder()
                 .providerUserId(oAuth2UserInfo.getId())
                 .email(oAuth2UserInfo.getEmail())
@@ -144,12 +142,12 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private User saveUserUpdatedWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
+    private User updateUserWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl()); // todo save, but not update
         return userRepository.save(existingUser);
     }
 
-    private void validateOAuth2UserInfo(OAuth2UserInfo oAuth2UserInfo) {
+    private void validateProviderUserInfo(OAuth2UserInfo oAuth2UserInfo) {
         if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
             throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
         }

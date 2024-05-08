@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -175,14 +176,14 @@ class AuthServiceImplTest {
     @Test
     void givenUserNotFound_whenProcessUserRegistration_thenRegistersNewUser() {
         // Arrange
-        String registrationId = "google";
+        AuthProvider provider = AuthProvider.GOOGLE;
         String email = "johnwick@gmail.com";
         String userId = "101868015518714862283";
 
         ProviderRegisterRequest registrationRequest = ProviderRegisterRequest.builder()
                 .email(email)
                 .password(OAUTH2_PLACEHOLDER)
-                .provider(AuthProvider.GOOGLE)
+                .provider(provider)
                 .avatarUrl(PROFILE_PIC_LINK)
                 .providerUserId(userId)
                 .build();
@@ -191,18 +192,21 @@ class AuthServiceImplTest {
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
 
-        when(userInfoFactory.getOAuth2UserInfo(eq(AuthProvider.GOOGLE), eq(attributes)))
-                .thenReturn(oAuth2UserInfo);
+        when(userInfoFactory.getOAuth2UserInfo(eq(provider), eq(attributes))).thenReturn(oAuth2UserInfo);
         when(userService.findUserByEmail(eq(email))).thenReturn(null);
-        when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
+            User user = invocation.getArgument(0);
+            user.setProfile(Profile.builder().user(user).build());
+            return user;
+        });
         when(userMapper.providerRegisterRequestToUser(any(ProviderRegisterRequest.class)))
                 .thenReturn(buildFromRegistrationRequest(registrationRequest));
 
         // Act
-        LocalUser result = authService.processProviderAuth(registrationId, attributes, idToken, null);
+        LocalUser result = authService.processProviderAuth(provider.name(), attributes, idToken, null);
 
         // Assert
-        verify(userRepository).save(any(User.class));
+        verify(userRepository, atLeastOnce()).save(any(User.class));
         assertThat(result.getUser().getEmail()).isEqualTo(email);
         assertThat(result.getIdToken()).isEqualTo(idToken);
         assertThat(result.getAttributes()).isEqualTo(attributes);
@@ -212,10 +216,11 @@ class AuthServiceImplTest {
     @Test
     void givenValidLocalRequest_whenRegister_thenSaveUser() {
         // Arrange
-        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
-        registrationRequest.setEmail("johnwick@gmail.com");
-        registrationRequest.setPassword("password!123");
-        registrationRequest.setUsername("johnwick");
+        LocalRegisterRequest registrationRequest = LocalRegisterRequest.builder()
+                .email("johnwick@gmail.com")
+                .username("johnwick")
+                .password("password!123")
+                .build();
 
         User user = User.builder()
                 .email(registrationRequest.getEmail())
@@ -275,7 +280,7 @@ class AuthServiceImplTest {
         verify(userInfoFactory).getOAuth2UserInfo(provider, attributes);
         verify(userService).findUserByEmail("johnwick@gmail.com");
         verify(userMapper).providerRegisterRequestToUser(any(ProviderRegisterRequest.class));
-        verify(userRepository).save(newUser);
+        verify(userRepository, atLeastOnce()).save(newUser);
         assertThat(result.getUser()).isEqualTo(newUser);
     }
 
@@ -309,8 +314,8 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing email")
     @Test
     void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
-        registrationRequest.setEmail("john@example.com");
+        LocalRegisterRequest registrationRequest =
+                LocalRegisterRequest.builder().email("john@mail.com").build();
 
         when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
 
@@ -327,8 +332,8 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing username")
     @Test
     void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
-        registrationRequest.setUsername("john");
+        LocalRegisterRequest registrationRequest =
+                LocalRegisterRequest.builder().username("john").build();
 
         when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
 

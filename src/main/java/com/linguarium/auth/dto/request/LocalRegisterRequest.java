@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 public class LocalRegisterRequest extends RegisterRequest {}
