@@ -37,9 +37,3 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
-              - column:
-                  name: profile_id
-                  type: bigint
-              - column:
-                  name: learner_id
-                  type: bigint
