@@ -1,13 +1,15 @@
-package com.linguarium.user.model;
+package com.linguarium.auth.model;
 
-import com.linguarium.translator.model.Language;
+import com.linguarium.auth.dto.AuthProvider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Table(name = "auth")
 @Getter
 @Setter
 @Builder
@@ -29,34 +32,24 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class Profile {
-
+public class ProviderAuth {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    User user;
+    @Column(unique = true)
+    String email;
 
-    String background;
-    String profilePicLink;
+    @Column(unique = true, nullable = false)
+    String username;
 
-    @Builder.Default
-    int dailyGoal = 5;
-
-    boolean friendshipRequestsBlocked;
-
-    @Column(columnDefinition = "TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     @CreatedDate
-    LocalDateTime lastLogin;
+    LocalDateTime registered;
 
-    @Column
-    @Builder.Default
-    int streak = 1;
+    @Enumerated(EnumType.STRING)
+    AuthProvider provider = AuthProvider.LOCAL;
 
-    @Column
-    @Builder.Default
-    Language uiLang = Language.EN;
+    String providerUserId;
 }

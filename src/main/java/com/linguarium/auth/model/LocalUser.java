@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LocalUser extends User implements OAuth2User, OidcUser {
+    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
     OidcIdToken idToken;
     OidcUserInfo userInfo;
     Map<String, Object> attributes;
@@ -31,7 +32,7 @@ public class LocalUser extends User implements OAuth2User, OidcUser {
             OidcUserInfo userInfo) {
         super(
                 user.getEmail(),
-                user.getPassword(),
+                user.getPassword() == null ? PLACEHOLDER : user.getPassword(),
                 true,
                 true,
                 true,

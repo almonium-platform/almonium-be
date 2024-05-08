@@ -4,7 +4,6 @@ import static com.linguarium.user.service.impl.UserUtility.getUser;
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.assertj.core.api.BDDAssertions.within;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.anyLong;
@@ -16,15 +15,14 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.linguarium.auth.dto.SocialProvider;
+import com.linguarium.auth.dto.AuthProvider;
+import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.RegistrationRequest;
+import com.linguarium.auth.dto.request.ProviderRegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.auth.model.LocalUser;
-import com.linguarium.card.repository.CardTagRepository;
-import com.linguarium.card.repository.TagRepository;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
@@ -37,8 +35,6 @@ import com.linguarium.user.repository.UserRepository;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Map;
 import lombok.AccessLevel;
@@ -76,12 +72,6 @@ class AuthServiceImplTest {
     PasswordEncoder passwordEncoder;
 
     @Mock
-    CardTagRepository cardTagRepository;
-
-    @Mock
-    TagRepository tagRepository;
-
-    @Mock
     OAuth2UserInfoFactory userInfoFactory;
 
     @Mock
@@ -102,14 +92,12 @@ class AuthServiceImplTest {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new FacebookOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
+        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
+                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
         assertThatThrownBy(() -> authService.processProviderAuth(
-                        SocialProvider.FACEBOOK.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+                        AuthProvider.FACEBOOK.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -119,14 +107,12 @@ class AuthServiceImplTest {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("name", "John Wick");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
+        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
+                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
         assertThatThrownBy(() -> authService.processProviderAuth(
-                        SocialProvider.GOOGLE.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+                        AuthProvider.GOOGLE.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -136,21 +122,18 @@ class AuthServiceImplTest {
         AuthServiceImpl userServiceSpy = spy(authService);
 
         // Arrange
-        String existingProvider = SocialProvider.GOOGLE.getProviderType();
         User user = TestDataGenerator.buildTestUser();
         user.setProfile(Profile.builder().profilePicLink(PROFILE_PIC_LINK).build());
-        user.setProvider(existingProvider);
+        user.setProvider(AuthProvider.GOOGLE);
         when(userService.findUserByEmail(anyString())).thenReturn(user);
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
+        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
+                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
         assertThatThrownBy(() -> userServiceSpy.processProviderAuth(
-                        SocialProvider.FACEBOOK.getProviderType(),
-                        attributes,
-                        mock(OidcIdToken.class),
-                        mock(OidcUserInfo.class)))
+                        AuthProvider.FACEBOOK.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -158,7 +141,7 @@ class AuthServiceImplTest {
     @Test
     void givenExistingUser_whenProcessUserRegistration_thenUpdatesUser() {
         // Arrange
-        String registrationId = SocialProvider.GOOGLE.getProviderType();
+        String registrationId = AuthProvider.GOOGLE.name();
         String email = "johnwick@gmail.com";
         String newProfilePicLink = "https://new-image-link.com";
         Map<String, Object> attributes = createAttributes(email, "101868015518714862283", newProfilePicLink);
@@ -167,13 +150,14 @@ class AuthServiceImplTest {
         User existingUser = User.builder()
                 .email(email)
                 .password(OAUTH2_PLACEHOLDER)
-                .provider(SocialProvider.GOOGLE.getProviderType())
+                .provider(AuthProvider.GOOGLE)
                 .profile(Profile.builder()
                         .profilePicLink("https://old-image-link.com")
                         .build())
                 .build();
 
-        when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
+        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
+                .thenReturn(oAuth2UserInfo);
         when(userService.findUserByEmail(email)).thenReturn(existingUser);
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
@@ -195,10 +179,10 @@ class AuthServiceImplTest {
         String email = "johnwick@gmail.com";
         String userId = "101868015518714862283";
 
-        RegistrationRequest registrationRequest = RegistrationRequest.builder()
+        ProviderRegisterRequest registrationRequest = ProviderRegisterRequest.builder()
                 .email(email)
                 .password(OAUTH2_PLACEHOLDER)
-                .socialProvider(SocialProvider.GOOGLE)
+                .provider(AuthProvider.GOOGLE)
                 .profilePicLink(PROFILE_PIC_LINK)
                 .providerUserId(userId)
                 .build();
@@ -207,10 +191,11 @@ class AuthServiceImplTest {
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
 
-        when(userInfoFactory.getOAuth2UserInfo(anyString(), anyMap())).thenReturn(oAuth2UserInfo);
-        when(userService.findUserByEmail(anyString())).thenReturn(null);
+        when(userInfoFactory.getOAuth2UserInfo(eq(AuthProvider.GOOGLE), eq(attributes)))
+                .thenReturn(oAuth2UserInfo);
+        when(userService.findUserByEmail(eq(email))).thenReturn(null);
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
-        when(userMapper.registrationRequestToUser(registrationRequest))
+        when(userMapper.providerRegisterRequestToUser(any(ProviderRegisterRequest.class)))
                 .thenReturn(buildFromRegistrationRequest(registrationRequest));
 
         // Act
@@ -227,96 +212,71 @@ class AuthServiceImplTest {
     @Test
     void givenValidLocalRequest_whenRegister_thenSaveUser() {
         // Arrange
-        SocialProvider provider = SocialProvider.LOCAL;
-        String email = "johnwick@gmail.com";
-        String password = "password!123";
-        String encodedPassword = "$2a$12$ugbD8fSrfyP3BoaM/nyK1OUheCxtTwtANKfUG0VnYq5BWQSurW2g2";
+        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
+        registrationRequest.setEmail("johnwick@gmail.com");
+        registrationRequest.setPassword("password!123");
+        registrationRequest.setUsername("johnwick");
 
-        RegistrationRequest registrationRequest = RegistrationRequest.builder()
-                .email(email)
-                .password(password)
-                .socialProvider(provider)
-                .profilePicLink(PROFILE_PIC_LINK)
+        User user = User.builder()
+                .email(registrationRequest.getEmail())
+                .password(registrationRequest.getPassword())
+                .username(registrationRequest.getUsername())
                 .build();
 
-        User expectedUser = User.builder()
-                .email(email)
-                .password(encodedPassword)
-                .provider(provider.getProviderType())
-                .build();
-
-        when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
-        when(passwordEncoder.encode(eq(password))).thenReturn(encodedPassword);
-        when(userMapper.registrationRequestToUser(registrationRequest))
-                .thenReturn(buildFromRegistrationRequest(registrationRequest));
+        when(userMapper.localRegisterRequestToUser(registrationRequest)).thenReturn(user);
+        when(passwordEncoder.encode(registrationRequest.getPassword())).thenReturn("$2b$encoded/Password");
 
         // Act
-        User actualUser = authService.register(registrationRequest);
+        authService.register(registrationRequest);
 
         // Assert
-        assertThat(actualUser)
-                .usingRecursiveComparison()
-                .ignoringFields("registered", "username", "profile", "learner")
-                .isEqualTo(expectedUser);
-
-        assertThat(actualUser.getRegistered()).isEqualTo(actualUser.getProfile().getLastLogin());
-
-        assertThat(actualUser.getRegistered()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
-
-        assertThat(actualUser.getProfile()).isNotNull();
-        assertThat(actualUser.getLearner()).isNotNull();
-        assertThat(actualUser.getProfile().getProfilePicLink()).isEqualTo(PROFILE_PIC_LINK);
-        assertThat(actualUser.getUsername()).isNotBlank();
-
-        verify(userRepository).save(any(User.class));
+        verify(userMapper).localRegisterRequestToUser(registrationRequest);
+        verify(passwordEncoder).encode(registrationRequest.getPassword());
+        verify(userRepository).save(user);
     }
 
     @DisplayName("Should successfully register user from provider")
     @Test
-    void givenValidProviderRequestFrom_whenRegister_thenSaveUser() {
+    void givenValidProviderRequestFrom_whenProcessProviderAuth_thenSaveOrUpdateUser() {
         // Arrange
-        SocialProvider provider = SocialProvider.GOOGLE;
-        String userId = "101868015518714862283";
-        String email = "johnwick@gmail.com";
+        AuthProvider provider = AuthProvider.GOOGLE;
+        Map<String, Object> attributes =
+                createAttributes("johnwick@gmail.com", "101868015518714862283", PROFILE_PIC_LINK);
+        OidcIdToken idToken = mock(OidcIdToken.class);
+        OidcUserInfo userInfo = mock(OidcUserInfo.class);
 
-        RegistrationRequest registrationRequest = RegistrationRequest.builder()
-                .email(email)
-                .password(OAUTH2_PLACEHOLDER)
-                .providerUserId(userId)
-                .socialProvider(provider)
+        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
+        when(userInfoFactory.getOAuth2UserInfo(eq(provider), anyMap())).thenReturn(oAuth2UserInfo);
+
+        ProviderRegisterRequest providerRequest = ProviderRegisterRequest.builder()
+                .email("johnwick@gmail.com")
+                .providerUserId("101868015518714862283")
                 .profilePicLink(PROFILE_PIC_LINK)
+                .provider(AuthProvider.GOOGLE)
                 .build();
 
-        User expectedUser = User.builder()
-                .email(email)
-                .password(OAUTH2_PLACEHOLDER)
-                .provider(provider.getProviderType())
-                .providerUserId(userId)
+        User newUser = User.builder()
+                .email(providerRequest.getEmail())
+                .providerUserId(providerRequest.getProviderUserId())
+                .profile(Profile.builder()
+                        .profilePicLink(providerRequest.getProfilePicLink())
+                        .build())
                 .build();
 
-        when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
-        when(userMapper.registrationRequestToUser(registrationRequest))
-                .thenReturn(buildFromRegistrationRequest(registrationRequest));
+        when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(null);
+        when(userMapper.providerRegisterRequestToUser(any(ProviderRegisterRequest.class)))
+                .thenReturn(newUser);
+        when(userRepository.save(newUser)).thenReturn(newUser);
 
         // Act
-        User actualUser = authService.register(registrationRequest);
+        LocalUser result = authService.processProviderAuth(provider.name(), attributes, idToken, userInfo);
 
         // Assert
-        assertThat(actualUser)
-                .usingRecursiveComparison()
-                .ignoringFields("registered", "username", "profile", "learner")
-                .isEqualTo(expectedUser);
-
-        assertThat(actualUser.getRegistered()).isEqualTo(actualUser.getProfile().getLastLogin());
-
-        assertThat(actualUser.getRegistered()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
-
-        assertThat(actualUser.getProfile()).isNotNull();
-        assertThat(actualUser.getLearner()).isNotNull();
-        assertThat(actualUser.getProfile().getProfilePicLink()).isEqualTo(PROFILE_PIC_LINK);
-        assertThat(actualUser.getUsername()).isNotBlank();
-
-        verify(userRepository).save(any(User.class));
+        verify(userInfoFactory).getOAuth2UserInfo(provider, attributes);
+        verify(userService).findUserByEmail("johnwick@gmail.com");
+        verify(userMapper).providerRegisterRequestToUser(any(ProviderRegisterRequest.class));
+        verify(userRepository).save(newUser);
+        assertThat(result.getUser()).isEqualTo(newUser);
     }
 
     @DisplayName("Should authenticate and return JWT when given valid credentials")
@@ -349,7 +309,7 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing email")
     @Test
     void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
+        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
         registrationRequest.setEmail("john@example.com");
 
         when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
@@ -367,7 +327,7 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing username")
     @Test
     void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
+        LocalRegisterRequest registrationRequest = new LocalRegisterRequest();
         registrationRequest.setUsername("john");
 
         when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
@@ -405,10 +365,10 @@ class AuthServiceImplTest {
                 entry("email", email));
     }
 
-    private User buildFromRegistrationRequest(RegistrationRequest request) {
+    private User buildFromRegistrationRequest(ProviderRegisterRequest request) {
         return User.builder()
                 .providerUserId(request.getProviderUserId())
-                .provider(request.getSocialProvider().getProviderType())
+                .provider(request.getProvider())
                 .password(request.getPassword())
                 .email(request.getEmail())
                 .username(request.getUsername())

@@ -3,6 +3,7 @@ package com.linguarium.util;
 import com.google.protobuf.ByteString;
 import com.linguarium.analyzer.dto.AnalysisDto;
 import com.linguarium.analyzer.model.CEFR;
+import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.model.LocalUser;
 import com.linguarium.card.dto.CardCreationDto;
@@ -215,7 +216,7 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider("local");
+        user.setProvider(AuthProvider.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -226,7 +227,7 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider("local");
+        user.setProvider(AuthProvider.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -236,7 +237,7 @@ public final class TestDataGenerator {
         user.setUsername("jake");
         user.setEmail("jake@email.com");
         user.setPassword("password");
-        user.setProvider("local");
+        user.setProvider(AuthProvider.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }

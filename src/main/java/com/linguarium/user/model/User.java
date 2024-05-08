@@ -1,9 +1,13 @@
 package com.linguarium.user.model;
 
+import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.friendship.model.Friendship;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +30,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @NamedEntityGraph(
         name = "graph.User.details",
@@ -47,18 +52,15 @@ import org.springframework.data.annotation.CreatedDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long id;
 
-    String providerUserId;
-
     @Column(nullable = false)
     String password;
-
-    String provider;
 
     @Column(unique = true)
     String email;
@@ -69,6 +71,11 @@ public class User {
     @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime registered;
+
+    @Enumerated(EnumType.STRING)
+    AuthProvider provider = AuthProvider.LOCAL;
+
+    String providerUserId;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     Profile profile;

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
+      id: create-auth-table
       author: okuzan
       changes:
         - createTable:
@@ -18,8 +18,6 @@ databaseChangeLog:
               - column:
                   name: password
                   type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: provider
                   type: varchar(255)

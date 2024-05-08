@@ -9,10 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.linguarium.auth.dto.SocialProvider;
 import com.linguarium.auth.dto.UserInfo;
+import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.base.BaseControllerTest;
@@ -65,7 +64,7 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should handle BadCredentialsException by returning unauthorized status")
     @Test
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() throws Exception {
-        LoginRequest loginRequest = new LoginRequest("user@example.com", "wrongpassword");
+        LoginRequest loginRequest = new LoginRequest("user@example.com", "wrong_password");
         when(authService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
@@ -78,7 +77,7 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should register user successfully")
     @Test
     void givenValidSignUpRequest_whenRegister_thenSuccess() throws Exception {
-        RegistrationRequest registrationRequest = createSignUpRequest();
+        LocalRegisterRequest registrationRequest = createSignUpRequest();
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,11 +89,11 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("Should handle existing user registration attempt by returning bad request status")
     @Test
     void givenExistingUser_whenRegister_thenBadRequest() throws Exception {
-        RegistrationRequest registrationRequest = createSignUpRequest();
+        LocalRegisterRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
                 .when(authService)
-                .register(any(RegistrationRequest.class));
+                .register(any(LocalRegisterRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -103,13 +102,10 @@ class AuthControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.success").value(false));
     }
 
-    private RegistrationRequest createSignUpRequest() {
-        return RegistrationRequest.builder()
-                .providerUserId("dummyProviderUserId")
+    private LocalRegisterRequest createSignUpRequest() {
+        return LocalRegisterRequest.builder()
                 .username("dummyUsername")
                 .email("dummy@example.com")
-                .socialProvider(SocialProvider.FACEBOOK)
-                .profilePicLink("https://example.com/dummy.jpg")
                 .password("dummyPassword123")
                 .build();
     }

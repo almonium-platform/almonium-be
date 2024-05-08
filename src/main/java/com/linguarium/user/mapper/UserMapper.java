@@ -1,7 +1,8 @@
 package com.linguarium.user.mapper;
 
 import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.auth.dto.request.RegistrationRequest;
+import com.linguarium.auth.dto.request.LocalRegisterRequest;
+import com.linguarium.auth.dto.request.ProviderRegisterRequest;
 import com.linguarium.user.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,6 +13,7 @@ public interface UserMapper {
     @Mapping(source = "learner.fluentLangs", target = "fluentLangs")
     UserInfo userToUserInfo(User user);
 
-    @Mapping(source = "socialProvider.providerType", target = "providerUserId")
-    User registrationRequestToUser(RegistrationRequest request);
+    User providerRegisterRequestToUser(ProviderRegisterRequest request);
+
+    User localRegisterRequestToUser(LocalRegisterRequest request);
 }

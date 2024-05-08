@@ -2,8 +2,8 @@ package com.linguarium.auth.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.linguarium.auth.dto.request.LocalRegisterRequest;
 import com.linguarium.auth.dto.request.LoginRequest;
-import com.linguarium.auth.dto.request.RegistrationRequest;
 import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.user.service.AuthService;
@@ -31,8 +31,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        authService.register(registrationRequest);
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody LocalRegisterRequest request) {
+        authService.register(request);
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
     }
 }

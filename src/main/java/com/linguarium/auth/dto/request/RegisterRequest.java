@@ -1,20 +1,19 @@
 package com.linguarium.auth.dto.request;
 
-import com.linguarium.auth.dto.AuthProvider;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationRequest {
+public class RegisterRequest {
     @NotBlank
+    @Size(min = 5, max = 20)
     private String username;
 
     @NotBlank
@@ -23,10 +22,4 @@ public class RegistrationRequest {
     @NotBlank
     @Size(min = 8, max = 32)
     private String password;
-
-    @NotNull
-    private AuthProvider authProvider;
-
-    private String profilePicLink;
-    private String providerUserId;
 }
