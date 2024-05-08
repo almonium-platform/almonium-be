@@ -69,7 +69,7 @@ public class User {
     @Column(unique = true, nullable = false)
     String username;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime registered;
 

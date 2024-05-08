@@ -44,9 +44,9 @@ public class ProviderAuth {
     @Column(unique = true, nullable = false)
     String username;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     @CreatedDate
-    LocalDateTime registered;
+    LocalDateTime added;
 
     @Enumerated(EnumType.STRING)
     AuthProvider provider = AuthProvider.LOCAL;

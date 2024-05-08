@@ -5,6 +5,7 @@ import com.linguarium.user.model.Learner;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +29,8 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
@@ -37,6 +40,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class Card {
 
     @Id
@@ -51,10 +55,9 @@ public class Card {
     @Column
     String entry;
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @CreatedDate
     LocalDateTime created;
 
-    @Column(columnDefinition = "TIMESTAMP")
     LocalDateTime updated;
 
     @ManyToOne

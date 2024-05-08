@@ -43,10 +43,9 @@ public class Friendship {
     @JoinColumn(name = "requestee_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User requestee;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime created;
 
-    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime updated;
 
     @Column(name = "status")

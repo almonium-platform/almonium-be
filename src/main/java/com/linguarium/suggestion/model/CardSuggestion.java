@@ -4,6 +4,7 @@ import com.linguarium.card.model.Card;
 import com.linguarium.user.model.Learner;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +22,8 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
@@ -30,6 +33,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"card_id", "sender_id", "recipient_id"}))
+@EntityListeners(AuditingEntityListener.class)
 public class CardSuggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +55,7 @@ public class CardSuggestion {
     @JoinColumn(name = "recipient_id", referencedColumnName = "id", updatable = false)
     Learner recipient;
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @CreatedDate
     LocalDateTime created;
 
     public CardSuggestion(Learner sender, Learner recipient, Card card) {

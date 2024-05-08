@@ -48,7 +48,6 @@ public class Profile {
 
     boolean friendshipRequestsBlocked;
 
-    @Column(columnDefinition = "TIMESTAMP")
     @CreatedDate
     LocalDateTime lastLogin;
 
