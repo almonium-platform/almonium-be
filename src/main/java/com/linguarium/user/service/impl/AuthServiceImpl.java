@@ -101,8 +101,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public LocalUser processProviderAuth(
             String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
-        OAuth2UserInfo oAuth2UserInfo =
-                userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
+        OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
         validateOAuth2UserInfo(oAuth2UserInfo);
 
         User user = userService.findUserByEmail(oAuth2UserInfo.getEmail());
@@ -144,13 +143,12 @@ public class AuthServiceImpl implements AuthService {
                 .providerUserId(oAuth2UserInfo.getId())
                 .email(oAuth2UserInfo.getEmail())
                 .username(getUsername())
-                .profilePicLink(oAuth2UserInfo.getImageUrl())
                 .provider(AuthProvider.valueOf(registrationId))
                 .build();
     }
 
     private User saveUserUpdatedWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.getProfile().setProfilePicLink(oAuth2UserInfo.getImageUrl());
+        existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }
 

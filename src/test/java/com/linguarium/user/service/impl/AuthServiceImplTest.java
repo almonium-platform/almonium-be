@@ -167,7 +167,7 @@ class AuthServiceImplTest {
 
         // Assert
         verify(userRepository).save(existingUser);
-        assertThat(existingUser.getProfile().getProfilePicLink()).isEqualTo(newProfilePicLink);
+        assertThat(existingUser.getProfile().getAvatarUrl()).isEqualTo(newProfilePicLink);
         assertThat(result.getUser()).isEqualTo(existingUser);
     }
 

@@ -17,8 +17,8 @@ databaseChangeLog:
                   name: background
                   type: varchar(255)
               - column:
-                  name: profile_pic_link
-                  type: varchar(255)
+                  name: avatar_url
+                  type: varchar(2048)
               - column:
                   name: daily_goal
                   type: int

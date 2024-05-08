@@ -23,6 +23,7 @@ spring:
           google:
             clientId: ${GOOGLE_ID}
             clientSecret: ${GOOGLE_SECRET}
+            scope: profile,email
 
           facebook:
             clientId: ${FACEBOOK_ID}

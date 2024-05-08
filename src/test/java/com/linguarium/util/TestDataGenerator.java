@@ -203,7 +203,7 @@ public final class TestDataGenerator {
                 user.getUsername(),
                 user.getEmail(),
                 profile.getUiLang().name(),
-                profile.getProfilePicLink(),
+                profile.getAvatarUrl(),
                 profile.getBackground(),
                 profile.getStreak(),
                 learner.getTargetLangs(),

@@ -41,7 +41,7 @@ public class Profile {
     User user;
 
     String background;
-    String profilePicLink;
+    String avatarUrl;
 
     @Builder.Default
     int dailyGoal = 5;
