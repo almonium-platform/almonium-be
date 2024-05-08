@@ -192,7 +192,7 @@ public final class TestDataGenerator {
         Profile profile = Profile.builder()
                 .id(user.getId())
                 .background("Background Image URL")
-                .profilePicLink("Profile Image URL")
+                .avatarUrl("Profile Image URL")
                 .streak(3)
                 .uiLang(Language.EN)
                 .lastLogin(LocalDateTime.now())

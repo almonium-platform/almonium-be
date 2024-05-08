@@ -123,7 +123,7 @@ class AuthServiceImplTest {
 
         // Arrange
         User user = TestDataGenerator.buildTestUser();
-        user.setProfile(Profile.builder().profilePicLink(PROFILE_PIC_LINK).build());
+        user.setProfile(Profile.builder().avatarUrl(PROFILE_PIC_LINK).build());
         user.setProvider(AuthProvider.GOOGLE);
         when(userService.findUserByEmail(anyString())).thenReturn(user);
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
@@ -152,7 +152,7 @@ class AuthServiceImplTest {
                 .password(OAUTH2_PLACEHOLDER)
                 .provider(AuthProvider.GOOGLE)
                 .profile(Profile.builder()
-                        .profilePicLink("https://old-image-link.com")
+                        .avatarUrl("https://old-image-link.com")
                         .build())
                 .build();
 
@@ -183,7 +183,7 @@ class AuthServiceImplTest {
                 .email(email)
                 .password(OAUTH2_PLACEHOLDER)
                 .provider(AuthProvider.GOOGLE)
-                .profilePicLink(PROFILE_PIC_LINK)
+                .avatarUrl(PROFILE_PIC_LINK)
                 .providerUserId(userId)
                 .build();
 
@@ -251,7 +251,7 @@ class AuthServiceImplTest {
         ProviderRegisterRequest providerRequest = ProviderRegisterRequest.builder()
                 .email("johnwick@gmail.com")
                 .providerUserId("101868015518714862283")
-                .profilePicLink(PROFILE_PIC_LINK)
+                .avatarUrl(PROFILE_PIC_LINK)
                 .provider(AuthProvider.GOOGLE)
                 .build();
 
@@ -259,7 +259,7 @@ class AuthServiceImplTest {
                 .email(providerRequest.getEmail())
                 .providerUserId(providerRequest.getProviderUserId())
                 .profile(Profile.builder()
-                        .profilePicLink(providerRequest.getProfilePicLink())
+                        .avatarUrl(providerRequest.getAvatarUrl())
                         .build())
                 .build();
 

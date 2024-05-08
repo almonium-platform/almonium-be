@@ -19,5 +19,5 @@ public class ProviderRegisterRequest extends RegisterRequest {
     @NotBlank
     private String providerUserId;
 
-    private String profilePicLink;
+    private String avatarUrl;
 }
