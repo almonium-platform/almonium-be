@@ -2,7 +2,10 @@ package com.linguarium.config.security.oauth2;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
+import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
+import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.user.service.AuthService;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     AuthService authService;
+    OAuth2UserInfoFactory userInfoFactory;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -30,7 +34,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .getClientRegistration()
                     .getRegistrationId()
                     .toUpperCase();
-            return authService.processProviderAuth(provider, attributes, null, null);
+
+            OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
+            return authService.authenticateProviderRequest(userInfo);
         } catch (AuthenticationException ex) {
             throw ex;
         } catch (Exception ex) {

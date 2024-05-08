@@ -28,8 +28,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -42,7 +40,6 @@ public class AuthServiceImpl implements AuthService {
     UserRepository userRepository;
     ProfileService profileService;
     TokenProvider tokenProvider;
-    OAuth2UserInfoFactory userInfoFactory;
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
     UserMapper userMapper;
@@ -61,7 +58,6 @@ public class AuthServiceImpl implements AuthService {
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userInfoFactory = userInfoFactory;
         this.manager = manager;
         this.userMapper = userMapper;
     }
@@ -91,23 +87,20 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public LocalUser processProviderAuth(
-            String provider, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
-        AuthProvider authProvider = AuthProvider.valueOf(provider);
-        OAuth2UserInfo oAuth2UserInfo = userInfoFactory.getOAuth2UserInfo(AuthProvider.valueOf(provider), attributes);
-        validateProviderUserInfo(oAuth2UserInfo);
+    public LocalUser authenticateProviderRequest(OAuth2UserInfo userInfo) {
+        validateProviderUserInfo(userInfo);
 
-        User user = userService.findUserByEmail(oAuth2UserInfo.getEmail());
+        User user = userService.findUserByEmail(userInfo.getEmail());
 
         if (user == null) {
-            user = userMapper.providerUserInfoToUser(oAuth2UserInfo, authProvider);
+            user = userMapper.providerUserInfoToUser(userInfo);
             user.setUsername(generateId());
             userRepository.save(user);
         } else {
-            validateUserProviderMatch(user, provider);
+            validateUserProviderMatch(user, userInfo.getProvider());
         }
-        user = updateUserWithProviderInfo(user, oAuth2UserInfo);
-        return new LocalUser(user, attributes, idToken, userInfo);
+        user = updateUserWithProviderInfo(user, userInfo);
+        return new LocalUser(user, Map.of(), null, null);
     }
 
     private void validateRegisterRequest(RegisterRequest request) {
@@ -121,8 +114,8 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private void validateUserProviderMatch(User user, String registrationId) {
-        if (!user.getProvider().name().equals(registrationId)) {
+    private void validateUserProviderMatch(User user, AuthProvider provider) {
+        if (!user.getProvider().equals(provider)) {
             throw new OAuth2AuthenticationProcessingException(
                     "Looks like you're signed up with " + user.getProvider() + " account. Please use it to login.");
         }

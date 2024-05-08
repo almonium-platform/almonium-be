@@ -1,6 +1,5 @@
 package com.linguarium.user.mapper;
 
-import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
@@ -17,7 +16,7 @@ public interface UserMapper {
     @Mapping(source = "info.id", target = "providerUserId")
     @Mapping(source = "info.email", target = "email")
     @Mapping(target = "id", ignore = true)
-    User providerUserInfoToUser(OAuth2UserInfo info, AuthProvider provider);
+    User providerUserInfoToUser(OAuth2UserInfo info);
 
     User registerRequestToUser(RegisterRequest request);
 }

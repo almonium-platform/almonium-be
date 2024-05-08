@@ -11,7 +11,6 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.config.security.oauth2.CustomOidcUserService;
 import com.linguarium.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
@@ -45,7 +44,6 @@ public class WebSecurityConfig {
     UserDetailsService userDetailsService;
     PasswordEncoder passwordEncoder;
     CustomOAuth2UserService customOAuth2UserService;
-    CustomOidcUserService customOidcUserService;
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     HttpCookieOAuth2AuthorizationRequestRepository authorizationRequestRepository;
@@ -88,9 +86,7 @@ public class WebSecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .oauth2Login(loginConfigurer -> loginConfigurer
-                        .userInfoEndpoint(endpointConfig -> endpointConfig
-                                .oidcUserService(customOidcUserService)
-                                .userService(customOAuth2UserService))
+                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                         .authorizationEndpoint(authEndPoint ->
                                 authEndPoint.authorizationRequestRepository(authorizationRequestRepository))

@@ -5,7 +5,6 @@ import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.atLeastOnce;
@@ -27,7 +26,6 @@ import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.FacebookOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
-import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
@@ -49,8 +47,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -72,9 +68,6 @@ class AuthServiceImplTest {
     PasswordEncoder passwordEncoder;
 
     @Mock
-    OAuth2UserInfoFactory userInfoFactory;
-
-    @Mock
     AuthenticationManager authenticationManager;
 
     @Mock
@@ -92,12 +85,9 @@ class AuthServiceImplTest {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new FacebookOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
-                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.processProviderAuth(
-                        AuthProvider.FACEBOOK.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> authService.authenticateProviderRequest(oAuth2UserInfo))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -107,12 +97,9 @@ class AuthServiceImplTest {
         // Arrange
         Map<String, Object> attributes = Collections.singletonMap("name", "John Wick");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
-                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.processProviderAuth(
-                        AuthProvider.GOOGLE.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> authService.authenticateProviderRequest(oAuth2UserInfo))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -124,16 +111,13 @@ class AuthServiceImplTest {
         // Arrange
         User user = TestDataGenerator.buildTestUser();
         user.setProfile(Profile.builder().avatarUrl(PROFILE_PIC_LINK).build());
-        user.setProvider(AuthProvider.GOOGLE);
+        user.setProvider(AuthProvider.FACEBOOK);
         when(userService.findUserByEmail(anyString())).thenReturn(user);
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
-                .thenReturn(oAuth2UserInfo);
 
         // Act & Assert
-        assertThatThrownBy(() -> userServiceSpy.processProviderAuth(
-                        AuthProvider.FACEBOOK.name(), attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class)))
+        assertThatThrownBy(() -> userServiceSpy.authenticateProviderRequest(oAuth2UserInfo))
                 .isInstanceOf(OAuth2AuthenticationProcessingException.class);
     }
 
@@ -141,7 +125,6 @@ class AuthServiceImplTest {
     @Test
     void givenExistingUser_whenProcessUserRegistration_thenUpdatesUser() {
         // Arrange
-        String registrationId = AuthProvider.GOOGLE.name();
         String email = "johnwick@gmail.com";
         String newProfilePicLink = "https://new-image-link.com";
         Map<String, Object> attributes = createAttributes(email, "101868015518714862283", newProfilePicLink);
@@ -156,14 +139,11 @@ class AuthServiceImplTest {
                         .build())
                 .build();
 
-        when(userInfoFactory.getOAuth2UserInfo(any(AuthProvider.class), anyMap()))
-                .thenReturn(oAuth2UserInfo);
         when(userService.findUserByEmail(email)).thenReturn(existingUser);
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        LocalUser result = authService.processProviderAuth(
-                registrationId, attributes, mock(OidcIdToken.class), mock(OidcUserInfo.class));
+        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -181,16 +161,14 @@ class AuthServiceImplTest {
 
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        OidcIdToken idToken = new OidcIdToken("random_token_value", null, null, attributes);
 
-        when(userInfoFactory.getOAuth2UserInfo(eq(provider), eq(attributes))).thenReturn(oAuth2UserInfo);
         when(userService.findUserByEmail(eq(email))).thenReturn(null);
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
             User user = invocation.getArgument(0);
             user.setProfile(Profile.builder().user(user).build());
             return user;
         });
-        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider)))
+        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo)))
                 .thenReturn(User.builder()
                         .email(email)
                         .providerUserId(userId)
@@ -198,13 +176,11 @@ class AuthServiceImplTest {
                         .build());
 
         // Act
-        LocalUser result = authService.processProviderAuth(provider.name(), attributes, idToken, null);
+        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
         verify(userRepository, atLeastOnce()).save(any(User.class));
         assertThat(result.getUser().getEmail()).isEqualTo(email);
-        assertThat(result.getIdToken()).isEqualTo(idToken);
-        assertThat(result.getAttributes()).isEqualTo(attributes);
     }
 
     @DisplayName("Should successfully register local user")
@@ -237,16 +213,9 @@ class AuthServiceImplTest {
 
     @DisplayName("Should successfully register user from provider")
     @Test
-    void givenValidProviderRequestFrom_whenProcessProviderAuth_thenSaveOrUpdateUser() {
-        // Arrange
-        AuthProvider provider = AuthProvider.GOOGLE;
-        Map<String, Object> attributes =
-                createAttributes("johnwick@gmail.com", "101868015518714862283", PROFILE_PIC_LINK);
-        OidcIdToken idToken = mock(OidcIdToken.class);
-        OidcUserInfo userInfo = mock(OidcUserInfo.class);
-
-        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(userInfoFactory.getOAuth2UserInfo(eq(provider), anyMap())).thenReturn(oAuth2UserInfo);
+    void givenValidProviderRequestFrom_whenAuthenticateProviderRequest_thenSaveOrUpdateUser() {
+        OAuth2UserInfo oAuth2UserInfo =
+                new GoogleOAuth2UserInfo(createAttributes("johnwick@gmail.com", "101868015518714862283"));
 
         User newUser = User.builder()
                 .email(oAuth2UserInfo.getEmail())
@@ -257,17 +226,15 @@ class AuthServiceImplTest {
                 .build();
 
         when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(null);
-        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider)))
-                .thenReturn(newUser);
+        when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo))).thenReturn(newUser);
         when(userRepository.save(newUser)).thenReturn(newUser);
 
         // Act
-        LocalUser result = authService.processProviderAuth(provider.name(), attributes, idToken, userInfo);
+        LocalUser result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
-        verify(userInfoFactory).getOAuth2UserInfo(provider, attributes);
         verify(userService).findUserByEmail("johnwick@gmail.com");
-        verify(userMapper).providerUserInfoToUser(eq(oAuth2UserInfo), eq(provider));
+        verify(userMapper).providerUserInfoToUser(eq(oAuth2UserInfo));
         verify(userRepository, atLeastOnce()).save(newUser);
         assertThat(result.getUser()).isEqualTo(newUser);
     }
