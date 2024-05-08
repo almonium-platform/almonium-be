@@ -48,8 +48,8 @@ app:
       url: ${FE_URL}
 
   auth:
-    tokenExpirationMSec: 864000000
-    tokenSecret: ${TOKEN_SECRET}
+    tokenExpirationDurationMillis: 864000000
+    tokenSigningSecret: ${TOKEN_SECRET}
 
   oauth2:
     authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect

@@ -38,8 +38,8 @@ app:
       url: http://localhost:9999
 
   auth:
-    tokenExpirationMSec: 864000000
-    tokenSecret: token_secret_dummy
+    tokenExpirationDurationMillis: 864000000
+    tokenSigningSecret: token_secret_dummy
 
   oauth2:
     authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect

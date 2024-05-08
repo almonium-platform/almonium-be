@@ -1,6 +1,5 @@
 package com.linguarium.config.security.jwt;
 
-import com.linguarium.config.AuthenticationProperties;
 import com.linguarium.user.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,17 +12,15 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TokenProvider {
     private static final String TOKEN_EXPIRED = "Expired JWT token";
     private static final String TOKEN_INVALID = "Invalid JWT token";
@@ -31,41 +28,38 @@ public class TokenProvider {
     private static final String TOKEN_SIGNATURE_INVALID = "Invalid JWT signature";
     private static final String TOKEN_CLAIMS_EMPTY = "JWT claims string is empty.";
 
-    AuthenticationProperties authenticationProperties;
+    @Value("${app.auth.tokenSigningSecret}")
+    private String tokenSecret;
+
+    @Value("${app.auth.tokenExpirationDurationMillis}")
+    private long tokenExpirationMSec;
 
     public String createToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();
 
         Instant now = Instant.now();
-        long expirationMillis = authenticationProperties.getAuth().getTokenExpirationMSec();
         LocalDateTime expiryDateTime =
-                LocalDateTime.ofInstant(now.plusMillis(expirationMillis), ZoneId.systemDefault());
+                LocalDateTime.ofInstant(now.plusMillis(tokenExpirationMSec), ZoneId.systemDefault());
 
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(Date.from(now))
                 .setExpiration(
                         Date.from(expiryDateTime.atZone(ZoneId.systemDefault()).toInstant()))
-                .signWith(
-                        SignatureAlgorithm.HS512,
-                        authenticationProperties.getAuth().getTokenSecret())
+                .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .compact();
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(authenticationProperties.getAuth().getTokenSecret())
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims =
+                Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token).getBody();
 
         return Long.parseLong(claims.getSubject());
     }
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser()
-                    .setSigningKey(authenticationProperties.getAuth().getTokenSecret())
-                    .parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
             log.error(TOKEN_SIGNATURE_INVALID);

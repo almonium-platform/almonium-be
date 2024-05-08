@@ -1,6 +1,5 @@
 package com.linguarium.config.security.oauth2;
 
-import com.linguarium.config.AuthenticationProperties;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.util.CookieUtils;
 import jakarta.servlet.http.Cookie;
@@ -8,11 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -26,8 +27,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     TokenProvider tokenProvider;
-    AuthenticationProperties authenticationProperties;
     OAuth2CookieRequestRepository requestRepository;
+
+    @Value("${app.oauth2.authorizedRedirectUris}")
+    private List<String> authorizedRedirectUris;
 
     @Override
     public void onAuthenticationSuccess(
@@ -74,11 +77,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUri = URI.create(uri);
 
-        return authenticationProperties.getOauth2().getAuthorizedRedirectUris().stream()
-                .anyMatch(authorizedRedirectUri -> {
-                    URI authorizedURI = URI.create(authorizedRedirectUri);
-                    return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
-                            && authorizedURI.getPort() == clientRedirectUri.getPort();
-                });
+        return authorizedRedirectUris.stream().anyMatch(authorizedRedirectUri -> {
+            URI authorizedURI = URI.create(authorizedRedirectUri);
+            return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+                    && authorizedURI.getPort() == clientRedirectUri.getPort();
+        });
     }
 }
