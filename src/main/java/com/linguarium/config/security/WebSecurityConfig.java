@@ -84,7 +84,7 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.NOT_FOUND)))
-                .authorizeHttpRequests(auth -> auth.requestMatchers(PERMIT_ALL_URL_PATTERNS.toArray(new String[0]))
+                .authorizeHttpRequests(auth -> auth.requestMatchers(PERMIT_ALL_URL_PATTERNS.toArray(String[]::new))
                         .permitAll()
                         .anyRequest()
                         .authenticated())
