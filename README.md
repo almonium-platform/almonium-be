@@ -45,7 +45,7 @@
 **Status**: `FST_BLOCKED_SND` or `SND_BLOCKED_FST` depending on who initiated the action.
 
 **Checks**:
-- The existing status must be either `FRIENDS` or `PENDING.
+- The existing status must be either `FRIENDS` or `PENDING`.
 
 **Note**: Blocking prevents the blocked user from sending friend requests.
 
