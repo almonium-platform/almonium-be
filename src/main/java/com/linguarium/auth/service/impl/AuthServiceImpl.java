@@ -1,4 +1,4 @@
-package com.linguarium.user.service.impl;
+package com.linguarium.auth.service.impl;
 
 import static com.linguarium.util.GeneralUtils.generateId;
 import static lombok.AccessLevel.PRIVATE;
@@ -9,12 +9,12 @@ import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
+import com.linguarium.auth.service.AuthService;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
-import com.linguarium.user.service.AuthService;
 import com.linguarium.user.service.ProfileService;
 import com.linguarium.user.service.UserService;
 import lombok.experimental.FieldDefaults;

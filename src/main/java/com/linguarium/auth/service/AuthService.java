@@ -1,4 +1,4 @@
-package com.linguarium.user.service;
+package com.linguarium.auth.service;
 
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegisterRequest;

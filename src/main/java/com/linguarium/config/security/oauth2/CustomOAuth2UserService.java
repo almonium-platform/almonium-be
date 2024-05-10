@@ -4,10 +4,10 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
+import com.linguarium.auth.service.AuthService;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.user.model.User;
-import com.linguarium.user.service.AuthService;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

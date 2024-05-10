@@ -1,4 +1,4 @@
-package com.linguarium.user.service.impl;
+package com.linguarium.auth.service;
 
 import static com.linguarium.user.service.impl.UserUtility.getUser;
 import static java.util.Map.entry;
@@ -21,6 +21,7 @@ import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
+import com.linguarium.auth.service.impl.AuthServiceImpl;
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.config.security.oauth2.userinfo.GoogleOAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
