@@ -2,12 +2,14 @@ package com.linguarium.user.service.impl;
 
 import static com.linguarium.user.service.impl.UserUtility.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.linguarium.user.mapper.UserMapper;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -49,22 +51,19 @@ class UserServiceImplTest {
         User user = getUser();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        Optional<User> result = userService.findUserById(userId);
+        User result = userService.getById(userId);
 
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(user);
+        assertThat(result).isEqualTo(user);
         verify(userRepository).findById(userId);
     }
 
     @DisplayName("Should return empty optional for non existing user")
     @Test
-    void givenNonExistingUser_whenFindUserById_thenReturnEmptyOptional() {
+    void givenNonExistingUser_whenFindUserById_thenThrowEntityNotFoundException() {
         Long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        Optional<User> result = userService.findUserById(userId);
-
-        assertThat(result).isEmpty();
+        assertThatThrownBy(() -> userService.getById(userId)).isInstanceOf(EntityNotFoundException.class);
         verify(userRepository).findById(userId);
     }
 
@@ -87,7 +86,7 @@ class UserServiceImplTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(expectedUser));
 
-        User actualUser = userService.findUserByEmail(email).orElseThrow();
+        User actualUser = userService.findByEmail(email).orElseThrow();
 
         assertThat(expectedUser).isEqualTo(actualUser);
     }
@@ -99,7 +98,7 @@ class UserServiceImplTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
-        Optional<User> actualUser = userService.findUserByEmail(email);
+        Optional<User> actualUser = userService.findByEmail(email);
 
         assertThat(actualUser).isEmpty();
     }

@@ -5,12 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.linguarium.card.model.Card;
 import com.linguarium.card.model.CardTag;
 import com.linguarium.card.model.Tag;
-import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import java.util.Set;
-import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +30,6 @@ class CardTagRepositoryTest {
     @Autowired
     CardTagRepository cardTagRepository;
 
-    User managedUser;
-
     Learner managedLearner;
     Card managedCard;
     Tag managedTag;
@@ -41,15 +37,16 @@ class CardTagRepositoryTest {
     @BeforeEach
     void setup() {
         // Set up the Learner, Card, and Tag entities
-        managedUser = TestDataGenerator.buildTestUser();
-        managedCard = buildTestCard();
+        User managedUser = TestDataGenerator.buildTestUser();
         managedTag = buildTestTag();
 
         entityManager.persist(managedUser);
         managedLearner = managedUser.getLearner();
-        entityManager.persist(managedCard);
         entityManager.persist(managedTag);
         entityManager.flush();
+
+        managedCard = TestDataGenerator.buildTestCard(managedLearner);
+        entityManager.persist(managedCard);
 
         // Create and persist a CardTag
         CardTag cardTag = new CardTag();
@@ -75,15 +72,6 @@ class CardTagRepositoryTest {
         assertThat(cardTag).isNotNull();
         assertThat(cardTag.getCard()).isEqualTo(managedCard);
         assertThat(cardTag.getTag()).isEqualTo(managedTag);
-    }
-
-    private Card buildTestCard() {
-        Card card = new Card();
-        card.setPublicId(UUID.randomUUID());
-        card.setEntry("Sample Entry");
-        card.setOwner(managedLearner);
-        card.setLanguage(Language.EN);
-        return card;
     }
 
     private Tag buildTestTag() {

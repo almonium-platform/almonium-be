@@ -11,5 +11,5 @@ public interface FriendshipService {
 
     Optional<FriendshipInfoDto> findFriendByEmail(final String email);
 
-    List<FriendshipInfoDto> getFriends(long id);
+    List<FriendshipInfoDto> getFriendships(long id);
 }

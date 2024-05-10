@@ -51,7 +51,7 @@ class FriendshipControllerTest extends BaseControllerTest {
     void givenCurrentUser_whenGetMyFriends_thenReturnFriendsList() throws Exception {
         List<FriendshipInfoDto> friendsList = TestDataGenerator.generateFriendInfoDtoList(5);
 
-        when(friendshipService.getFriends(anyLong())).thenReturn(friendsList);
+        when(friendshipService.getFriendships(anyLong())).thenReturn(friendsList);
 
         mockMvc.perform(get(GET_MY_FRIENDS_URL))
                 .andExpect(status().isOk())

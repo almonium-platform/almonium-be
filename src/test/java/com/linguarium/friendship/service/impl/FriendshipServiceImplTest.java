@@ -23,6 +23,7 @@ import com.linguarium.friendship.repository.FriendshipRepository;
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
+import com.linguarium.user.service.UserService;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +45,9 @@ class FriendshipServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    UserService userService;
 
     @InjectMocks
     FriendshipServiceImpl friendshipService;
@@ -138,7 +142,7 @@ class FriendshipServiceImplTest {
 
     @DisplayName("Should return list of FriendInfoDto when user ID exists")
     @Test
-    void givenUserIdExists_whenGetFriends_thenReturnListOfFriendInfoDto() {
+    void givenUserIdExists_whenGetFriendships_thenReturnListOfFriendInfoDto() {
         long userId = 1L;
 
         FriendInfoView view1 = new FriendInfoView(userId, FriendshipStatus.FRIENDS.getCode(), true);
@@ -157,7 +161,7 @@ class FriendshipServiceImplTest {
                 .thenReturn(Optional.of(friendWrapper3))
                 .thenReturn(Optional.of(friendWrapper4));
 
-        Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
+        Collection<FriendshipInfoDto> result = friendshipService.getFriendships(userId);
 
         assertThat(result).isNotEmpty();
         verify(friendshipRepository).findByUserId(userId);
@@ -166,11 +170,11 @@ class FriendshipServiceImplTest {
 
     @DisplayName("Should return empty list when user ID does not exist")
     @Test
-    void givenUserIdDoesNotExist_whenGetFriends_thenReturnEmptyList() {
+    void givenUserIdDoesNotExist_whenGetFriendships_thenReturnEmptyList() {
         long userId = 1L;
         when(friendshipRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
 
-        Collection<FriendshipInfoDto> result = friendshipService.getFriends(userId);
+        Collection<FriendshipInfoDto> result = friendshipService.getFriendships(userId);
 
         assertThat(result).isEmpty();
         verify(friendshipRepository).findByUserId(userId);
@@ -178,7 +182,7 @@ class FriendshipServiceImplTest {
 
     @DisplayName("Should delete friendship when canceling with valid IDs")
     @Test
-    void givenValidIds_whenCancelFriendship_thenDeleteFriendship() {
+    void givenValidIds_whenDeleteFriendship_thenDeleteFriendship() {
         long requesterId = 1L;
         long requesteeId = 2L;
 
@@ -212,7 +216,7 @@ class FriendshipServiceImplTest {
 
     @DisplayName("Should throw FriendshipNotFoundException when canceling friendship with invalid IDs")
     @Test
-    void givenInvalidIds_whenCancelFriendship_thenThrowFriendshipNotFoundException() {
+    void givenInvalidIds_whenDeleteFriendship_thenThrowFriendshipNotFoundException() {
         long requesterId = 1L;
         long requesteeId = 2L;
 
@@ -238,11 +242,11 @@ class FriendshipServiceImplTest {
         User recipient = User.builder()
                 .profile(Profile.builder().friendshipRequestsBlocked(true).build())
                 .build();
-        when(userRepository.findById(requesteeId)).thenReturn(Optional.of(recipient));
+        when(userService.getById(requesteeId)).thenReturn(recipient);
 
         FriendshipActionDto dto = FriendshipActionDto.builder()
-                .idInitiator(requesterId)
-                .idAcceptor(requesteeId)
+                .initiatorId(requesterId)
+                .recipientId(requesteeId)
                 .action(FriendshipAction.REQUEST)
                 .build();
 
@@ -266,8 +270,8 @@ class FriendshipServiceImplTest {
                 .thenReturn(Optional.of(existingFriendship));
 
         FriendshipActionDto dto = FriendshipActionDto.builder()
-                .idInitiator(requesterId)
-                .idAcceptor(requesteeId)
+                .initiatorId(requesterId)
+                .recipientId(requesteeId)
                 .action(FriendshipAction.ACCEPT)
                 .build();
 
@@ -282,7 +286,7 @@ class FriendshipServiceImplTest {
         FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.REQUEST);
 
         User mockUser = User.builder().profile(Profile.builder().build()).build();
-        when(userRepository.findById(requesteeId)).thenReturn(Optional.of(mockUser));
+        when(userService.getById(requesteeId)).thenReturn(mockUser);
 
         Friendship expectedFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
         when(friendshipRepository.save(any(Friendship.class))).thenReturn(expectedFriendship);
@@ -321,8 +325,8 @@ class FriendshipServiceImplTest {
 
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
-        when(userRepository.findById(actionAcceptorId))
-                .thenReturn(Optional.of(User.builder().id(actionAcceptorId).build()));
+        when(userService.getById(actionAcceptorId))
+                .thenReturn(User.builder().id(actionAcceptorId).build());
 
         FriendshipNotAllowedException exception = catchThrowableOfType(
                 () -> friendshipService.manageFriendship(dto), FriendshipNotAllowedException.class);
@@ -343,8 +347,8 @@ class FriendshipServiceImplTest {
 
         Friendship existingFriendship = mock(Friendship.class);
         when(existingFriendship.whoDeniesFriendship()).thenReturn(actionAcceptorId);
-        when(userRepository.findById(actionAcceptorId))
-                .thenReturn(Optional.of(User.builder().id(actionAcceptorId).build()));
+        when(userService.getById(actionAcceptorId))
+                .thenReturn((User.builder().id(actionAcceptorId).build()));
         when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
                 .thenReturn(Optional.of(existingFriendship));
 
@@ -355,8 +359,8 @@ class FriendshipServiceImplTest {
     private FriendshipActionDto generateFriendshipActionDto(
             long requesterId, long requesteeId, FriendshipAction action) {
         return FriendshipActionDto.builder()
-                .idInitiator(requesterId)
-                .idAcceptor(requesteeId)
+                .initiatorId(requesterId)
+                .recipientId(requesteeId)
                 .action(action)
                 .build();
     }

@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -55,10 +56,17 @@ public class Friendship {
     @CreatedDate
     private LocalDateTime created;
 
+    @LastModifiedDate
     private LocalDateTime updated;
 
     @Column(name = "status")
     private FriendshipStatus status;
+
+    public Friendship(Long requesterId, Long requesteeId) {
+        this.requesterId = requesterId;
+        this.requesteeId = requesteeId;
+        status = FriendshipStatus.PENDING;
+    }
 
     public Long whoDeniesFriendship() {
         if (this.getStatus().equals(FriendshipStatus.FST_BLOCKED_SND)) {

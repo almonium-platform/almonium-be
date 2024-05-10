@@ -3,17 +3,18 @@ package com.linguarium.user.service;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.user.model.User;
 import java.util.Optional;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
+    Optional<User> findByEmail(String email);
+
+    User getById(Long id);
+
     UserInfo buildUserInfoFromUser(User user);
-
-    void deleteAccount(User user);
-
-    void changeUsernameById(String username, Long id);
 
     boolean isUsernameAvailable(String username);
 
-    Optional<User> findUserByEmail(String email);
+    void changeUsernameById(String username, Long id);
 
-    Optional<User> findUserById(Long id);
+    void deleteAccount(User user);
 }

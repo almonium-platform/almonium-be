@@ -86,7 +86,7 @@ class AuthServiceImplTest {
         User user = TestDataGenerator.buildTestUser();
         user.setProfile(Profile.builder().avatarUrl(PROFILE_PIC_LINK).build());
         user.setProvider(AuthProvider.FACEBOOK);
-        when(userService.findUserByEmail(anyString())).thenReturn(Optional.of(user));
+        when(userService.findByEmail(anyString())).thenReturn(Optional.of(user));
         Map<String, Object> attributes = Map.of("name", "John Wick", "email", "johnwick@gmail.com");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
@@ -113,7 +113,7 @@ class AuthServiceImplTest {
                         .build())
                 .build();
 
-        when(userService.findUserByEmail(email)).thenReturn(Optional.of(existingUser));
+        when(userService.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
@@ -136,7 +136,7 @@ class AuthServiceImplTest {
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
-        when(userService.findUserByEmail(eq(email))).thenReturn(Optional.empty());
+        when(userService.findByEmail(eq(email))).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
             User user = invocation.getArgument(0);
             user.setProfile(Profile.builder().user(user).build());
@@ -199,7 +199,7 @@ class AuthServiceImplTest {
                         .build())
                 .build();
 
-        when(userService.findUserByEmail("johnwick@gmail.com")).thenReturn(Optional.empty());
+        when(userService.findByEmail("johnwick@gmail.com")).thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToUser(eq(oAuth2UserInfo))).thenReturn(newUser);
         when(userRepository.save(newUser)).thenReturn(newUser);
 
@@ -207,7 +207,7 @@ class AuthServiceImplTest {
         User result = authService.authenticateProviderRequest(oAuth2UserInfo);
 
         // Assert
-        verify(userService).findUserByEmail("johnwick@gmail.com");
+        verify(userService).findByEmail("johnwick@gmail.com");
         verify(userMapper).providerUserInfoToUser(eq(oAuth2UserInfo));
         verify(userRepository, atLeastOnce()).save(newUser);
         assertThat(result).isEqualTo(newUser);

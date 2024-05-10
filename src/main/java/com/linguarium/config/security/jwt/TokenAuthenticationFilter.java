@@ -3,7 +3,7 @@ package com.linguarium.config.security.jwt;
 import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
 import static com.google.auth.http.AuthHttpConstants.BEARER;
 
-import com.linguarium.user.service.impl.LocalUserDetailServiceImpl;
+import com.linguarium.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     TokenProvider tokenProvider;
-    LocalUserDetailServiceImpl customUserDetailsService;
+    UserService userService;
 
     @Override
     public void doFilterInternal(
@@ -42,7 +42,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 Long userId = tokenProvider.getUserIdFromToken(jwt);
 
-                UserDetails userDetails = customUserDetailsService.loadUserById(userId);
+                UserDetails userDetails = userService.getById(userId);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

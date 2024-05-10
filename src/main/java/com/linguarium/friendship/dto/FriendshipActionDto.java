@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FriendshipActionDto {
-    private Long idInitiator;
-    private Long idAcceptor;
+public class FriendshipActionDto { // todo try record
+    private Long initiatorId;
+    private Long recipientId;
     private FriendshipAction action;
 }

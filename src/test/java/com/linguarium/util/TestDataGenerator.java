@@ -356,8 +356,8 @@ public final class TestDataGenerator {
 
     public FriendshipActionDto generateFriendshipActionDto() {
         FriendshipActionDto friendshipActionDto = new FriendshipActionDto();
-        friendshipActionDto.setIdInitiator(1L);
-        friendshipActionDto.setIdAcceptor(2L);
+        friendshipActionDto.setInitiatorId(1L);
+        friendshipActionDto.setRecipientId(2L);
         friendshipActionDto.setAction(FriendshipAction.REQUEST);
         return friendshipActionDto;
     }
@@ -388,6 +388,17 @@ public final class TestDataGenerator {
         card.setEntry(entry);
         card.setOwner(owner);
         card.setLanguage(Language.EN);
+        card.setCreated(LocalDateTime.now());
+        return card;
+    }
+
+    public Card buildTestCard(Learner owner) {
+        Card card = new Card();
+        card.setPublicId(UUID.randomUUID());
+        card.setEntry("dummyEntry");
+        card.setOwner(owner);
+        card.setLanguage(Language.EN);
+        card.setCreated(LocalDateTime.now());
         return card;
     }
 
@@ -396,6 +407,7 @@ public final class TestDataGenerator {
         card.setPublicId(UUID.randomUUID());
         card.setEntry("TEST_ENTRY");
         card.setLanguage(Language.EN);
+        card.setCreated(LocalDateTime.now());
         return card;
     }
 }

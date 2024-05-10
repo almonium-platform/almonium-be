@@ -30,6 +30,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -55,9 +56,11 @@ public class Card {
     @Column
     String entry;
 
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime created;
 
+    @LastModifiedDate
     LocalDateTime updated;
 
     @ManyToOne

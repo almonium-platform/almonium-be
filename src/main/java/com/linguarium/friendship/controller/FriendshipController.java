@@ -29,7 +29,7 @@ public class FriendshipController {
 
     @GetMapping
     public ResponseEntity<List<FriendshipInfoDto>> getMyFriends(@CurrentUser User user) {
-        List<FriendshipInfoDto> friends = friendshipService.getFriends(user.getId());
+        List<FriendshipInfoDto> friends = friendshipService.getFriendships(user.getId());
         return ResponseEntity.ok(friends);
     }
 

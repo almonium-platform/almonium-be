@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public User authenticateProviderRequest(OAuth2UserInfo userInfo) {
         User user = userService
-                .findUserByEmail(userInfo.getEmail())
+                .findByEmail(userInfo.getEmail())
                 .map(existingUser -> {
                     validateUserProviderMatch(existingUser, userInfo.getProvider());
                     return existingUser;

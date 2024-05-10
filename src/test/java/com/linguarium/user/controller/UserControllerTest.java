@@ -17,7 +17,6 @@ import com.linguarium.user.dto.UsernameAvailability;
 import com.linguarium.user.dto.UsernameUpdateRequest;
 import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
-import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,9 +43,6 @@ class UserControllerTest extends BaseControllerTest {
     private static final String DELETE_CURRENT_USER_ACCOUNT_URL = ME_URL + "/account";
     private static final String UPDATE_TARGET_LANGUAGES_URL = ME_URL + "/target-langs";
     private static final String UPDATE_FLUENT_LANGUAGES_URL = ME_URL + "/fluent-langs";
-
-    @MockBean
-    UserService userService;
 
     @MockBean
     LearnerService learnerService;
