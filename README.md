@@ -92,3 +92,5 @@ non-static
 
 Plugins:
 palantir-java-format
+Editor -> General -> Console -> Use soft wraps in console
+Editor -> Code Style -> Java -> Imports

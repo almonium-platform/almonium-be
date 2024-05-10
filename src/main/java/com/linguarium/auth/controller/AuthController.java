@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegisterRequest;
-import com.linguarium.auth.dto.response.ApiResponse;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.service.AuthService;
+import com.linguarium.util.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

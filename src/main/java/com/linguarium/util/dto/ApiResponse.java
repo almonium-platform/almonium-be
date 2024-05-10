@@ -1,3 +1,3 @@
-package com.linguarium.auth.dto.response;
+package com.linguarium.util.dto;
 
 public record ApiResponse(boolean success, String message) {}
