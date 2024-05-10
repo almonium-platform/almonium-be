@@ -63,7 +63,7 @@
 
 **Status**: No friendship record.
 
-**Checks**: The existing status must be FRIENDS.
+**Checks**: The existing status must be `FRIENDS`.
 
 ## Enums
 
