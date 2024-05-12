@@ -1,11 +1,11 @@
 package com.linguarium.user.repository;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.linguarium.friendship.model.FriendWrapper;
 import com.linguarium.user.model.User;
 import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
@@ -76,7 +76,7 @@ class UserRepositoryTest {
     @DisplayName("Should find friend by id")
     @Test
     void givenId_whenFindAllById_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<FriendWrapper> friend = userRepository.findAllById(JOHN_ID);
+        Optional<FriendWrapper> friend = userRepository.findUserById(JOHN_ID);
         assertThat(friend).isPresent();
         assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }

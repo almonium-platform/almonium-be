@@ -1,5 +1,7 @@
 package com.linguarium.config.security.oauth2;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.config.security.jwt.TokenProvider;
 import com.linguarium.util.CookieUtils;
 import jakarta.servlet.http.Cookie;
@@ -9,7 +11,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     TokenProvider tokenProvider;
     OAuth2CookieRequestRepository requestRepository;

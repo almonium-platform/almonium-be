@@ -1,5 +1,7 @@
 package com.linguarium.card.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import jakarta.persistence.CascadeType;
@@ -19,7 +21,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -40,7 +41,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class Card {
 

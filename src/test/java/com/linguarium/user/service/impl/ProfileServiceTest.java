@@ -1,12 +1,12 @@
 package com.linguarium.user.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.linguarium.user.model.Profile;
 import com.linguarium.user.repository.ProfileRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 class ProfileServiceTest {
 
     @Mock

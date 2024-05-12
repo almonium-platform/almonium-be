@@ -1,5 +1,7 @@
 package com.linguarium.user.controller;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.auth.dto.UserInfo;
 import com.linguarium.user.dto.LanguageUpdateRequest;
@@ -8,7 +10,6 @@ import com.linguarium.user.dto.UsernameUpdateRequest;
 import com.linguarium.user.model.User;
 import com.linguarium.user.service.LearnerService;
 import com.linguarium.user.service.UserService;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserController {
     UserService userService;
     LearnerService learnerService;

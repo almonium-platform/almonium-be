@@ -8,6 +8,7 @@ import static jakarta.ws.rs.HttpMethod.PUT;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import static jakarta.ws.rs.core.HttpHeaders.CACHE_CONTROL;
 import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
+import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
@@ -15,7 +16,6 @@ import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.linguarium.config.security.oauth2.OAuth2CookieRequestRepository;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -41,7 +41,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class WebSecurityConfig {
     UserDetailsService userDetailsService;
     PasswordEncoder passwordEncoder;

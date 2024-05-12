@@ -2,6 +2,7 @@ package com.linguarium.config.security.jwt;
 
 import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
 import static com.google.auth.http.AuthHttpConstants.BEARER;
+import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.user.service.UserService;
 import jakarta.servlet.FilterChain;
@@ -9,7 +10,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +25,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     TokenProvider tokenProvider;
     UserService userService;

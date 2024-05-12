@@ -7,6 +7,13 @@ databaseChangeLog:
             tableName: friendship
             columns:
               - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
                   name: requester_id
                   type: BIGINT
                   constraints:

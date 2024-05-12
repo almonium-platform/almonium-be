@@ -1,6 +1,7 @@
 package com.linguarium.user.service.impl;
 
 import static com.linguarium.user.service.impl.UserUtility.getUser;
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -11,7 +12,6 @@ import com.linguarium.user.model.User;
 import com.linguarium.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 class UserServiceImplTest {
 
     @InjectMocks

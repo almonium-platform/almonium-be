@@ -1,5 +1,7 @@
 package com.linguarium.user.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.friendship.model.Friendship;
 import jakarta.persistence.CascadeType;
@@ -25,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -61,7 +62,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class User implements OAuth2User, UserDetails {
     @Id

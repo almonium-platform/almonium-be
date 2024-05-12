@@ -1,5 +1,6 @@
 package com.linguarium.analyzer.controller;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,7 +23,7 @@ import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
 import java.util.List;
-import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @WebMvcTest(LangController.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LangControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/lang/";
@@ -62,7 +63,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should find cards by search text when called with valid text")
     @Test
-    void givenSearchTextAndUser_whenSearchCards_thenReturnMatchingCards() throws Exception {
+    @SneakyThrows
+    void givenSearchTextAndUser_whenSearchCards_thenReturnMatchingCards() {
         String searchText = "hello";
         CardDto[] dummyCards = TestDataGenerator.createCardDtos();
         when(cardService.searchByEntry(searchText, learner)).thenReturn(List.of(dummyCards));
@@ -76,7 +78,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should translate text from one language to another")
     @Test
-    void givenTextAndLanguagePair_whenTranslateText_thenReturnTranslation() throws Exception {
+    @SneakyThrows
+    void givenTextAndLanguagePair_whenTranslateText_thenReturnTranslation() {
         String langFrom = Language.EN.name();
         String langTo = Language.ES.name();
         String text = "Hello";
@@ -91,7 +94,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should get a report for a given text and language")
     @Test
-    void givenTextAndLanguage_whenGetReport_thenReturnAnalysis() throws Exception {
+    @SneakyThrows
+    void givenTextAndLanguage_whenGetReport_thenReturnAnalysis() {
         String text = "Hello";
         String lang = Language.EN.name();
         AnalysisDto analysisDto = TestDataGenerator.createTestAnalysisDto();
@@ -104,7 +108,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should bulk translate text to a specified language")
     @Test
-    void givenTextAndTargetLanguage_whenBulkTranslate_thenReturnTranslations() throws Exception {
+    @SneakyThrows
+    void givenTextAndTargetLanguage_whenBulkTranslate_thenReturnTranslations() {
         String langTo = Language.ES.name();
         String text = "Hello";
         MLTranslationCard mlTranslationCard = TestDataGenerator.createMLTranslationCard();
@@ -120,7 +125,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should bulk pronounce text in a specified language")
     @Test
-    void givenTextAndLanguage_whenBulkPronounce_thenReturnAudio() throws Exception {
+    @SneakyThrows
+    void givenTextAndLanguage_whenBulkPronounce_thenReturnAudio() {
         String lang = Language.EN.name();
         String text = "Hello";
         ByteString audioBytes = TestDataGenerator.generateRandomAudioBytes();
@@ -134,7 +140,8 @@ class LangControllerTest extends BaseControllerTest {
 
     @DisplayName("Should get a random WordsReportDto")
     @Test
-    void whenGetRandomWordsReport_thenReturnRandomWordsReportDto() throws Exception {
+    @SneakyThrows
+    void whenGetRandomWordsReport_thenReturnRandomWordsReportDto() {
         // Arrange
         WordsReportDto wordsReportDto = TestDataGenerator.createEmptyWordsReportDto();
         when(languageProcessor.getRandom()).thenReturn(wordsReportDto);

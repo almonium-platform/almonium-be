@@ -1,5 +1,7 @@
 package com.linguarium.auth.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.dto.AuthProvider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -30,7 +31,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class ProviderAuth {
     @Id

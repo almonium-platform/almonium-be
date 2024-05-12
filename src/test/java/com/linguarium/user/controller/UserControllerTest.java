@@ -1,5 +1,6 @@
 package com.linguarium.user.controller;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,7 +22,7 @@ import com.linguarium.util.TestDataGenerator;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @WebMvcTest(UserController.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/users";
@@ -57,7 +58,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should return current user info when requested by authenticated user")
     @Test
-    void givenAuthenticatedUser_whenGetCurrentUser_thenReturnUserInfo() throws Exception {
+    @SneakyThrows
+    void givenAuthenticatedUser_whenGetCurrentUser_thenReturnUserInfo() {
         UserInfo testUserInfo = createTestUserInfo();
 
         when(userService.buildUserInfoFromUser(any(User.class))).thenReturn(testUserInfo);
@@ -69,7 +71,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should verify username availability")
     @Test
-    void givenUsername_whenCheckUsernameAvailability_thenRespondWithAvailabilityStatus() throws Exception {
+    @SneakyThrows
+    void givenUsername_whenCheckUsernameAvailability_thenRespondWithAvailabilityStatus() {
         String username = user.getUsername();
         boolean isAvailable = true;
         UsernameAvailability usernameAvailability = new UsernameAvailability(isAvailable);
@@ -85,7 +88,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should update username for current user")
     @Test
-    void givenUsernameUpdateRequest_whenUpdateUsername_thenUpdateSuccessfully() throws Exception {
+    @SneakyThrows
+    void givenUsernameUpdateRequest_whenUpdateUsername_thenUpdateSuccessfully() {
         UsernameUpdateRequest request = new UsernameUpdateRequest("newUsername");
 
         mockMvc.perform(put(UPDATE_USERNAME_URL)
@@ -98,7 +102,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should delete current user account")
     @Test
-    void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() throws Exception {
+    @SneakyThrows
+    void givenCurrentUser_whenDeleteCurrentUserAccount_thenAccountDeleted() {
         mockMvc.perform(delete(DELETE_CURRENT_USER_ACCOUNT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -107,7 +112,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should update target languages for current user")
     @Test
-    void givenLanguageUpdateRequest_whenUpdateTargetLanguages_thenUpdateSuccessfully() throws Exception {
+    @SneakyThrows
+    void givenLanguageUpdateRequest_whenUpdateTargetLanguages_thenUpdateSuccessfully() {
         LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.EN.name(), Language.ES.name()));
 
         mockMvc.perform(put(UPDATE_TARGET_LANGUAGES_URL)
@@ -120,7 +126,8 @@ class UserControllerTest extends BaseControllerTest {
 
     @DisplayName("Should update fluent languages for current user")
     @Test
-    void givenLanguageUpdateRequest_whenUpdateFluentLanguages_thenUpdateSuccessfully() throws Exception {
+    @SneakyThrows
+    void givenLanguageUpdateRequest_whenUpdateFluentLanguages_thenUpdateSuccessfully() {
         LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.FR.name(), Language.DE.name()));
 
         mockMvc.perform(put(UPDATE_FLUENT_LANGUAGES_URL)

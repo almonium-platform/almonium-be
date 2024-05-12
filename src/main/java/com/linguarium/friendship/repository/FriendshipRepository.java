@@ -2,7 +2,6 @@ package com.linguarium.friendship.repository;
 
 import com.linguarium.friendship.model.FriendInfoView;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.FriendshipPK;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FriendshipRepository extends JpaRepository<Friendship, FriendshipPK> {
+public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
     @Query(
             """
             select f from Friendship f

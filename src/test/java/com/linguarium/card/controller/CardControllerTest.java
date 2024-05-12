@@ -1,5 +1,6 @@
 package com.linguarium.card.controller;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -18,7 +19,7 @@ import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.GeneralUtils;
 import com.linguarium.util.TestDataGenerator;
-import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @WebMvcTest(CardController.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class CardControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/cards";
@@ -54,7 +55,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should create card")
     @Test
-    void givenCardCreationDto_whenCreateCard_thenCreatedSuccessfully() throws Exception {
+    @SneakyThrows
+    void givenCardCreationDto_whenCreateCard_thenCreatedSuccessfully() {
         CardCreationDto dto = TestDataGenerator.getCardCreationDto();
 
         mockMvc.perform(post(CREATE_CARD_URL)
@@ -65,7 +67,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should update card")
     @Test
-    void givenCardUpdateDto_whenUpdateCard_thenUpdateSuccessfully() throws Exception {
+    @SneakyThrows
+    void givenCardUpdateDto_whenUpdateCard_thenUpdateSuccessfully() {
         Long cardId = 1L;
         CardUpdateDto updateDto = TestDataGenerator.generateRandomCardUpdateDto();
 
@@ -79,7 +82,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should retrieve all cards of a user")
     @Test
-    void givenUser_whenGetCards_thenReturnsCards() throws Exception {
+    @SneakyThrows
+    void givenUser_whenGetCards_thenReturnsCards() {
         mockMvc.perform(get(GET_CARDS_URL)).andExpect(status().isOk());
 
         verify(cardService).getUsersCards(any(Learner.class));
@@ -87,7 +91,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should retrieve all cards of a user for a specific language")
     @Test
-    void givenUserAndLanguageCode_whenGetCardsOfLang_thenReturnsCards() throws Exception {
+    @SneakyThrows
+    void givenUserAndLanguageCode_whenGetCardsOfLang_thenReturnsCards() {
         String languageCode = Language.EN.name();
 
         mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode)).andExpect(status().isOk());
@@ -97,7 +102,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should retrieve a card by ID")
     @Test
-    void givenCardId_whenGetCard_thenReturnsCard() throws Exception {
+    @SneakyThrows
+    void givenCardId_whenGetCard_thenReturnsCard() {
         Long cardId = 1L;
 
         mockMvc.perform(get(GET_CARD_URL, cardId)).andExpect(status().isOk());
@@ -107,7 +113,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should retrieve a card by hash")
     @Test
-    void givenCardHash_whenGetCardByHash_thenReturnsCard() throws Exception {
+    @SneakyThrows
+    void givenCardHash_whenGetCardByHash_thenReturnsCard() {
         String hash = GeneralUtils.generateId();
 
         mockMvc.perform(get(GET_CARDS_BY_HASH_URL, hash)).andExpect(status().isOk());
@@ -117,7 +124,8 @@ class CardControllerTest extends BaseControllerTest {
 
     @DisplayName("Should delete a card by ID")
     @Test
-    void givenCardId_whenDeleteCard_thenCardIsDeleted() throws Exception {
+    @SneakyThrows
+    void givenCardId_whenDeleteCard_thenCardIsDeleted() {
         Long cardId = 1L;
 
         mockMvc.perform(delete(DELETE_CARD_URL, cardId)).andExpect(status().isNoContent());

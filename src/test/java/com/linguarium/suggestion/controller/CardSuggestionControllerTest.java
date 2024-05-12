@@ -1,5 +1,6 @@
 package com.linguarium.suggestion.controller;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,7 +14,7 @@ import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.model.User;
 import com.linguarium.util.TestDataGenerator;
-import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(CardSuggestionController.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class CardSuggestionControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/cards/suggestions";
@@ -51,7 +52,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @DisplayName("Should suggest card")
     @Test
-    void givenCardSuggestionDto_whenSuggestCard_thenCardSuggestionCreated() throws Exception {
+    @SneakyThrows
+    void givenCardSuggestionDto_whenSuggestCard_thenCardSuggestionCreated() {
         CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
 
         mockMvc.perform(post(BASE_URL)
@@ -62,7 +64,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @DisplayName("Should accept a card suggestion for current user")
     @Test
-    void givenCardId_whenAcceptCard_thenSuggestionAccepted() throws Exception {
+    @SneakyThrows
+    void givenCardId_whenAcceptCard_thenSuggestionAccepted() {
         Long cardIdToAccept = 1L;
 
         mockMvc.perform(put(ACCEPT_CARD_URL, cardIdToAccept).contentType(MediaType.APPLICATION_JSON))
@@ -73,7 +76,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @DisplayName("Should decline a card suggestion for current user")
     @Test
-    void givenCardId_whenDeclineCard_thenSuggestionDeclined() throws Exception {
+    @SneakyThrows
+    void givenCardId_whenDeclineCard_thenSuggestionDeclined() {
         Long cardIdToDecline = 1L;
 
         mockMvc.perform(put(DECLINE_CARD_URL, cardIdToDecline).contentType(MediaType.APPLICATION_JSON))
@@ -84,7 +88,8 @@ class CardSuggestionControllerTest extends BaseControllerTest {
 
     @DisplayName("Should retrieve suggested cards for a user")
     @Test
-    void givenUser_whenGetSuggestedCards_thenReturnsCards() throws Exception {
+    @SneakyThrows
+    void givenUser_whenGetSuggestedCards_thenReturnsCards() {
         mockMvc.perform(get(BASE_URL)).andExpect(status().isOk());
 
         verify(cardSuggestionService).getSuggestedCards(eq(learner));

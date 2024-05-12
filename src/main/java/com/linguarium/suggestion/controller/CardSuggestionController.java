@@ -1,5 +1,7 @@
 package com.linguarium.suggestion.controller;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.card.dto.CardDto;
 import com.linguarium.suggestion.dto.CardSuggestionDto;
@@ -7,7 +9,6 @@ import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.User;
 import jakarta.validation.Valid;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cards/suggestions")
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class CardSuggestionController {
     CardSuggestionService cardSuggestionService;

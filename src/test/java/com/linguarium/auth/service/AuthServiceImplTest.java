@@ -2,6 +2,7 @@ package com.linguarium.auth.service;
 
 import static com.linguarium.user.service.impl.UserUtility.getUser;
 import static java.util.Map.entry;
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +35,6 @@ import com.linguarium.user.service.UserService;
 import com.linguarium.util.TestDataGenerator;
 import java.util.Map;
 import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 class AuthServiceImplTest {
     private static final String PROFILE_PIC_LINK =
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";

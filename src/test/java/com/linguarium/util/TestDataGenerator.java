@@ -16,11 +16,9 @@ import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
-import com.linguarium.friendship.dto.FriendshipActionDto;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.model.FriendStatus;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.FriendshipAction;
 import com.linguarium.friendship.model.FriendshipStatus;
 import com.linguarium.translator.dto.DefinitionDto;
 import com.linguarium.translator.dto.MLTranslationCard;
@@ -352,14 +350,6 @@ public final class TestDataGenerator {
         friendshipInfoDto.setUsername("testuser");
         friendshipInfoDto.setEmail("test@example.com");
         return friendshipInfoDto;
-    }
-
-    public FriendshipActionDto generateFriendshipActionDto() {
-        FriendshipActionDto friendshipActionDto = new FriendshipActionDto();
-        friendshipActionDto.setInitiatorId(1L);
-        friendshipActionDto.setRecipientId(2L);
-        friendshipActionDto.setAction(FriendshipAction.REQUEST);
-        return friendshipActionDto;
     }
 
     public List<FriendshipInfoDto> generateFriendInfoDtoList(int count) {

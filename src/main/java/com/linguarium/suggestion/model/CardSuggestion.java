@@ -1,5 +1,7 @@
 package com.linguarium.suggestion.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.card.model.Card;
 import com.linguarium.user.model.Learner;
 import jakarta.persistence.Column;
@@ -13,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +32,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"card_id", "sender_id", "recipient_id"}))
 @EntityListeners(AuditingEntityListener.class)
 public class CardSuggestion {

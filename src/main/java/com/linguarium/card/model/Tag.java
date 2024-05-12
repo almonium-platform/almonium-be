@@ -1,5 +1,7 @@
 package com.linguarium.card.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +11,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,7 @@ import org.hibernate.annotations.ColumnTransformer;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 public class Tag {
     private static final String WHITESPACE_PATTERN = "\\s+";
     private static final String CONNECTING_SYMBOL = "_";

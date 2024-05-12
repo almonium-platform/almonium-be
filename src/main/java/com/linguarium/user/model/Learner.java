@@ -1,5 +1,7 @@
 package com.linguarium.user.model;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.linguarium.card.model.Card;
 import com.linguarium.suggestion.model.CardSuggestion;
 import jakarta.persistence.CollectionTable;
@@ -13,7 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.List;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -31,7 +32,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 public class Learner {
     @Id
     @Column(name = "id")

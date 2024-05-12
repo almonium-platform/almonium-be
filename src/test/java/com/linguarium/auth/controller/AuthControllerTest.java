@@ -1,5 +1,6 @@
 package com.linguarium.auth.controller;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
@@ -18,7 +19,7 @@ import com.linguarium.auth.service.AuthService;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.config.GlobalExceptionHandler;
 import com.linguarium.util.TestDataGenerator;
-import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ import org.springframework.security.authentication.BadCredentialsException;
         includeFilters = {
             @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
         })
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/auth";
@@ -47,7 +48,8 @@ class AuthControllerTest extends BaseControllerTest {
 
     @DisplayName("Should authenticate user successfully")
     @Test
-    void givenValidCredentials_whenLogin_thenReturnJwtToken() throws Exception {
+    @SneakyThrows
+    void givenValidCredentials_whenLogin_thenReturnJwtToken() {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "password");
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
@@ -63,7 +65,8 @@ class AuthControllerTest extends BaseControllerTest {
 
     @DisplayName("Should handle BadCredentialsException by returning unauthorized status")
     @Test
-    void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() throws Exception {
+    @SneakyThrows
+    void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "wrong_password");
         when(authService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
@@ -76,7 +79,8 @@ class AuthControllerTest extends BaseControllerTest {
 
     @DisplayName("Should register user successfully")
     @Test
-    void givenValidSignUpRequest_whenRegister_thenSuccess() throws Exception {
+    @SneakyThrows
+    void givenValidSignUpRequest_whenRegister_thenSuccess() {
         RegisterRequest registrationRequest = createSignUpRequest();
 
         mockMvc.perform(post(REGISTER_URL)
@@ -88,7 +92,8 @@ class AuthControllerTest extends BaseControllerTest {
 
     @DisplayName("Should handle existing user registration attempt by returning bad request status")
     @Test
-    void givenExistingUser_whenRegister_thenBadRequest() throws Exception {
+    @SneakyThrows
+    void givenExistingUser_whenRegister_thenBadRequest() {
         RegisterRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))

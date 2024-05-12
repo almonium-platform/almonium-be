@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum FriendshipStatus {
     FRIENDS("F"),
+    MUTUALLY_BLOCKED("MB"),
     FST_BLOCKED_SND("1B2"),
     SND_BLOCKED_FST("2B1"),
     PENDING("P"),
