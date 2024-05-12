@@ -3,7 +3,7 @@ package com.linguarium.friendship.service;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipRequestDto;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.FriendshipAction;
+import com.linguarium.friendship.model.enums.FriendshipAction;
 import com.linguarium.user.model.User;
 import java.util.List;
 import java.util.Optional;

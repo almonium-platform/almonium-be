@@ -5,4 +5,4 @@ VALUES (1, 'provider1', 'password1', 'FACEBOOK', 'user1@example.com', 'user1', N
 
 -- Populating the friendship table
 INSERT INTO friendship (requester_id, requestee_id, created, updated, status)
-VALUES (1, 2, NOW(), NOW(), 'F');
+VALUES (1, 2, NOW(), NOW(), 'FRIENDS');

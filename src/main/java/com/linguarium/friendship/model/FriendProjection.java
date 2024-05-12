@@ -1,6 +1,6 @@
 package com.linguarium.friendship.model;
 
-public interface FriendWrapper {
+public interface FriendProjection {
     Long getId();
 
     String getUsername();

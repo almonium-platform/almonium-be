@@ -38,8 +38,8 @@ class FriendshipRepositoryTest {
 
     @DisplayName("Should find friend info by user ID")
     @Test
-    void givenUserId_whenFindByUserId_thenFriendInfoViewShouldBePresent() {
-        List<FriendInfoView> friendInfoViews = friendshipRepository.findByUserId(USER_ID);
+    void givenUserId_whenGetVisibleFriendships_thenFriendInfoViewShouldBePresent() {
+        List<FriendInfoView> friendInfoViews = friendshipRepository.getVisibleFriendships(USER_ID);
         assertThat(friendInfoViews).isNotEmpty();
     }
 }

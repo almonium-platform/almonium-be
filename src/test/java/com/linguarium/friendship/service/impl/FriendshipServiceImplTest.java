@@ -17,8 +17,8 @@
 // import com.linguarium.friendship.model.FriendInfoView;
 // import com.linguarium.friendship.model.FriendWrapper;
 // import com.linguarium.friendship.model.Friendship;
-// import com.linguarium.friendship.model.FriendshipAction;
-// import com.linguarium.friendship.model.FriendshipStatus;
+// import com.linguarium.friendship.model.enums.FriendshipAction;
+// import com.linguarium.friendship.model.enums.FriendshipStatus;
 // import com.linguarium.friendship.repository.FriendshipRepository;
 // import com.linguarium.user.model.Profile;
 // import com.linguarium.user.model.User;

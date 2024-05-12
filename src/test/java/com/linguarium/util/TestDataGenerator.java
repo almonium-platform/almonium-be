@@ -17,9 +17,9 @@ import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
-import com.linguarium.friendship.model.FriendStatus;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.FriendshipStatus;
+import com.linguarium.friendship.model.enums.FriendStatus;
+import com.linguarium.friendship.model.enums.FriendshipStatus;
 import com.linguarium.translator.dto.DefinitionDto;
 import com.linguarium.translator.dto.MLTranslationCard;
 import com.linguarium.translator.dto.TranslationCardDto;
@@ -365,8 +365,8 @@ public final class TestDataGenerator {
 
     public Friendship generateFriendship(Long requesterId, Long requesteeId) {
         Friendship friendship = new Friendship();
-        friendship.setRequesterId(requesterId);
-        friendship.setRequesteeId(requesteeId);
+        friendship.setRequester(User.builder().id(requesterId).build());
+        friendship.setRequestee(User.builder().id(requesteeId).build());
         friendship.setCreated(LocalDateTime.now());
         friendship.setStatus(FriendshipStatus.FRIENDS);
         return friendship;

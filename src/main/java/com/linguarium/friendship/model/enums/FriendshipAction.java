@@ -1,4 +1,4 @@
-package com.linguarium.friendship.model;
+package com.linguarium.friendship.model.enums;
 
 public enum FriendshipAction {
     ACCEPT,

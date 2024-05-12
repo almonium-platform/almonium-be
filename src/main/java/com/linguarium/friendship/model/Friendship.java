@@ -1,9 +1,12 @@
 package com.linguarium.friendship.model;
 
+import com.linguarium.friendship.model.enums.FriendshipStatus;
 import com.linguarium.user.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,12 +40,6 @@ public class Friendship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "requester_id")
-    private Long requesterId;
-
-    @Column(name = "requestee_id")
-    private Long requesteeId;
-
     @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User requester;
@@ -58,41 +55,22 @@ public class Friendship {
     @LastModifiedDate
     private LocalDateTime updated;
 
-    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private FriendshipStatus status;
-
-    public Friendship(Long requesterId, Long requesteeId) {
-        this.requesterId = requesterId;
-        this.requesteeId = requesteeId;
-        status = FriendshipStatus.PENDING;
-    }
 
     public Friendship(User requester, User requestee) {
         this.requester = requester;
         this.requestee = requestee;
-        this.requesterId = requester.getId();
-        this.requesteeId = requestee.getId();
         status = FriendshipStatus.PENDING;
     }
 
     public Optional<Long> getFriendshipDenier() {
         if (this.getStatus().equals(FriendshipStatus.FST_BLOCKED_SND)) {
-            return requesterId.describeConstable();
+            return requester.getId().describeConstable();
         }
         if (this.getStatus().equals(FriendshipStatus.SND_BLOCKED_FST)) {
-            return requesteeId.describeConstable();
+            return requestee.getId().describeConstable();
         }
         return Optional.empty();
-    }
-
-    @Override
-    public String toString() {
-        return "Friendship{"
-                + "requesterId=" + requester.getId()
-                + ", requesteeId=" + requestee.getId()
-                + ", created=" + created
-                + ", updated=" + updated
-                + ", status=" + status
-                + '}';
     }
 }

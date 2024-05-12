@@ -1,6 +1,6 @@
 package com.linguarium.user.repository;
 
-import com.linguarium.friendship.model.FriendWrapper;
+import com.linguarium.friendship.model.FriendProjection;
 import com.linguarium.user.model.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -12,10 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u.id as id, u.username as username, u.email as email from User u where u.email = :email")
-    Optional<FriendWrapper> findFriendByEmail(String email);
-
-    @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
-    Optional<User> findById(long id);
+    Optional<FriendProjection> findFriendByEmail(String email);
 
     @Modifying
     @Query("update User u set u.username = ?1 where u.id = ?2")
@@ -28,5 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
-    Optional<FriendWrapper> findUserById(long id);
+    Optional<FriendProjection> findUserById(long id);
 }

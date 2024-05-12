@@ -2,9 +2,9 @@ package com.linguarium.friendship.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.linguarium.friendship.model.FriendStatus;
-import com.linguarium.friendship.model.FriendWrapper;
-import com.linguarium.friendship.model.FriendshipStatus;
+import com.linguarium.friendship.model.FriendProjection;
+import com.linguarium.friendship.model.enums.FriendStatus;
+import com.linguarium.friendship.model.enums.FriendshipStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,33 +15,33 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class FriendshipInfoDto {
-    FriendStatus status;
     Long id;
     String username;
     String email;
+    FriendStatus status;
 
-    public FriendshipInfoDto(FriendWrapper friendWrapper) {
-        initCommonFields(friendWrapper);
+    public FriendshipInfoDto(FriendProjection friendProjection) {
+        initCommonFields(friendProjection);
     }
 
-    public FriendshipInfoDto(FriendWrapper friendWrapper, FriendshipStatus status, boolean isFriendRequester) {
-        initCommonFields(friendWrapper);
+    public FriendshipInfoDto(FriendProjection friendProjection, FriendshipStatus status, boolean isFriendRequester) {
+        initCommonFields(friendProjection);
         this.status = pickStatus(status, isFriendRequester);
     }
 
-    private void initCommonFields(FriendWrapper friendWrapper) {
-        this.id = friendWrapper.getId();
-        this.email = friendWrapper.getEmail();
-        this.username = friendWrapper.getUsername();
+    private void initCommonFields(FriendProjection friendProjection) {
+        id = friendProjection.getId();
+        email = friendProjection.getEmail();
+        username = friendProjection.getUsername();
     }
 
+    // here we will have already filtered friendships - blocked by us
     private FriendStatus pickStatus(FriendshipStatus status, boolean isFriendRequester) {
         return switch (status) {
             case FRIENDS -> FriendStatus.FRIENDS;
             case PENDING -> isFriendRequester ? FriendStatus.ASKED_ME : FriendStatus.ASKED_THEM;
-            case FST_BLOCKED_SND -> isFriendRequester ? FriendStatus.BLOCKED_ME : FriendStatus.BLOCKED_THEM;
-            case SND_BLOCKED_FST -> isFriendRequester ? FriendStatus.BLOCKED_THEM : FriendStatus.BLOCKED_ME;
-            default -> null;
+            case MUTUALLY_BLOCKED, FST_BLOCKED_SND, SND_BLOCKED_FST -> FriendStatus.BLOCKED;
+            default -> throw new IllegalArgumentException("Invalid friendship status");
         };
     }
 }

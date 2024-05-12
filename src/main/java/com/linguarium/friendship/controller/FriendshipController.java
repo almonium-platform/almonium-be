@@ -6,7 +6,7 @@ import com.linguarium.auth.annotation.CurrentUser;
 import com.linguarium.friendship.dto.FriendshipInfoDto;
 import com.linguarium.friendship.dto.FriendshipRequestDto;
 import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.FriendshipAction;
+import com.linguarium.friendship.model.enums.FriendshipAction;
 import com.linguarium.friendship.service.FriendshipService;
 import com.linguarium.user.model.User;
 import jakarta.validation.Valid;
