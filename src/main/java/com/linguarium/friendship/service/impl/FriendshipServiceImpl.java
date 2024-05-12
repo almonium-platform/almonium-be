@@ -26,11 +26,9 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -38,13 +36,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class FriendshipServiceImpl implements FriendshipService {
     private static final String USER_DOESNT_ACCEPT_REQUESTS_EX = "User doesn't accept friendship requests!";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
+
     FriendshipRepository friendshipRepository;
     UserRepository userRepository;
     UserService userService;
 
     @Override
     public Optional<FriendshipInfoDto> findFriendByEmail(final String email) {
-        Optional<FriendWrapper> friendOptional = userRepository.findFriendByEmail(email); // todo is user discoverable
+        Optional<FriendWrapper> friendOptional = userRepository.findFriendByEmail(email);
         return friendOptional.map(FriendshipInfoDto::new);
     }
 
@@ -92,22 +91,21 @@ public class FriendshipServiceImpl implements FriendshipService {
     }
 
     private Friendship cancelOwnRequest(User user, Friendship friendship) {
-        checkFriendshipStatus(friendship, List.of(PENDING));
-        checkCorrectRole(user, friendship, true);
+        validateFriendshipStatus(friendship, PENDING);
+        validateCorrectRole(user, friendship, true);
         return deleteFriendship(friendship);
     }
 
     private Friendship rejectIncomingRequest(User user, Friendship friendship) {
-        checkFriendshipStatus(friendship, List.of(PENDING));
-        checkCorrectRole(user, friendship, false);
+        validateFriendshipStatus(friendship, PENDING);
+        validateCorrectRole(user, friendship, false);
         return deleteFriendship(friendship);
     }
 
     private Friendship unblock(User user, Friendship friendship) {
-        if (friendship.getStatus().equals(MUTUALLY_BLOCKED)) {
+        if (friendship.getStatus() == MUTUALLY_BLOCKED) {
             friendship.setStatus(user.getId().equals(friendship.getRequesterId()) ? SND_BLOCKED_FST : FST_BLOCKED_SND);
-            friendshipRepository.save(friendship);
-            return friendship;
+            return friendshipRepository.save(friendship);
         }
 
         Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
@@ -127,14 +125,14 @@ public class FriendshipServiceImpl implements FriendshipService {
     }
 
     private Friendship befriend(User user, Friendship friendship) {
-        checkFriendshipStatus(friendship, List.of(PENDING));
-        checkCorrectRole(user, friendship, false);
+        validateFriendshipStatus(friendship, PENDING);
+        validateCorrectRole(user, friendship, false);
         friendship.setStatus(FRIENDS);
         return friendshipRepository.save(friendship);
     }
 
     private Friendship block(User user, Friendship friendship) {
-        if (friendship.getStatus().equals(MUTUALLY_BLOCKED)) {
+        if (friendship.getStatus() == MUTUALLY_BLOCKED) {
             throw new FriendshipNotAllowedException(FRIENDSHIP_IS_ALREADY_BLOCKED);
         }
         Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
@@ -144,14 +142,14 @@ public class FriendshipServiceImpl implements FriendshipService {
             }
             friendship.setStatus(MUTUALLY_BLOCKED);
         } else {
-            checkFriendshipStatus(friendship, List.of(FRIENDS, PENDING));
+            validateFriendshipStatus(friendship, FRIENDS, PENDING);
             friendship.setStatus(user.getId().equals(friendship.getRequesterId()) ? FST_BLOCKED_SND : SND_BLOCKED_FST);
         }
         return friendshipRepository.save(friendship);
     }
 
     private Friendship unfriend(Friendship friendship) {
-        checkFriendshipStatus(friendship, List.of(FRIENDS));
+        validateFriendshipStatus(friendship, FRIENDS);
         return deleteFriendship(friendship);
     }
 
@@ -160,7 +158,7 @@ public class FriendshipServiceImpl implements FriendshipService {
         return friendship;
     }
 
-    private void checkCorrectRole(User user, Friendship friendship, boolean requesterNotRequestee) {
+    private void validateCorrectRole(User user, Friendship friendship, boolean requesterNotRequestee) {
         if (requesterNotRequestee && !user.getId().equals(friendship.getRequesterId())) {
             throw new FriendshipNotAllowedException("User is not the requester of this friendship");
         }
@@ -169,9 +167,9 @@ public class FriendshipServiceImpl implements FriendshipService {
         }
     }
 
-    private void checkFriendshipStatus(Friendship friendship, List<FriendshipStatus> statuses) {
-        if (!statuses.contains(friendship.getStatus())) {
-            throw new FriendshipNotAllowedException("Friendship status must be one of " + statuses);
+    private void validateFriendshipStatus(Friendship friendship, FriendshipStatus... allowedStatuses) {
+        if (!List.of(allowedStatuses).contains(friendship.getStatus())) {
+            throw new FriendshipNotAllowedException("Friendship status must be one of " + List.of(allowedStatuses));
         }
     }
 }
