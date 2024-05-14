@@ -89,7 +89,7 @@ public class Card {
     List<Translation> translations;
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE) // todo delete
     Set<CardTag> cardTags;
 
     private String notes;
