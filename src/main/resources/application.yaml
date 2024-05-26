@@ -48,10 +48,13 @@ logging:
     root: INFO
     org:
       hibernate:
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+        info: info
+        SQL: debug
+        orm.jdbc.bind: trace
+        stat: debug
+        SQL_SLOW: info
+        cache: debug
+        type.descriptor.sql.BasicBinder: trace
   pattern:
     console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
 
