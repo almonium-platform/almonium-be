@@ -7,13 +7,13 @@ import static com.linguarium.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.linguarium.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.linguarium.friendship.dto.FriendshipInfoDto;
+import com.linguarium.friendship.dto.FriendDto;
 import com.linguarium.friendship.dto.FriendshipRequestDto;
 import com.linguarium.friendship.exception.FriendshipNotAllowedException;
 import com.linguarium.friendship.exception.FriendshipNotFoundException;
-import com.linguarium.friendship.model.FriendInfoView;
-import com.linguarium.friendship.model.FriendProjection;
 import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.FriendshipToUserProjection;
+import com.linguarium.friendship.model.UserToFriendProjection;
 import com.linguarium.friendship.model.enums.FriendshipAction;
 import com.linguarium.friendship.model.enums.FriendshipStatus;
 import com.linguarium.friendship.repository.FriendshipRepository;
@@ -42,19 +42,19 @@ public class FriendshipServiceImpl implements FriendshipService {
     UserService userService;
 
     @Override
-    public Optional<FriendshipInfoDto> findFriendByEmail(String email) {
-        Optional<FriendProjection> friendOptional = userRepository.findFriendByEmail(email);
-        return friendOptional.map(FriendshipInfoDto::new);
+    public Optional<FriendDto> findFriendByEmail(String email) {
+        Optional<UserToFriendProjection> friendOptional = userRepository.findFriendByEmail(email);
+        return friendOptional.map(FriendDto::new);
     }
 
     @Override
-    public List<FriendshipInfoDto> getFriendships(long id) {
-        List<FriendInfoView> friendInfoViews = friendshipRepository.getVisibleFriendships(id);
-        List<FriendshipInfoDto> result = new ArrayList<>();
-        for (FriendInfoView view : friendInfoViews) {
-            Optional<FriendProjection> friendOptional = userRepository.findUserById(view.getUserId());
-            friendOptional.ifPresent(friendProjection ->
-                    result.add(new FriendshipInfoDto(friendProjection, view.getStatus(), view.getIsFriendRequester())));
+    public List<FriendDto> getFriends(long id) {
+        List<FriendshipToUserProjection> friendshipToUserProjections = friendshipRepository.getVisibleFriendships(id);
+        List<FriendDto> result = new ArrayList<>();
+        for (FriendshipToUserProjection friend : friendshipToUserProjections) {
+            Optional<UserToFriendProjection> friendProjectionOptional = userRepository.findUserById(friend.getUserId());
+            friendProjectionOptional.ifPresent(userToFriendProjection ->
+                    result.add(new FriendDto(userToFriendProjection, friend.getStatus(), friend.isRequester())));
         }
         return result;
     }

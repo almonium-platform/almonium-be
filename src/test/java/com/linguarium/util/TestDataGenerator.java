@@ -16,8 +16,9 @@ import com.linguarium.client.words.dto.WordsPronunciationDto;
 import com.linguarium.client.words.dto.WordsReportDto;
 import com.linguarium.client.words.dto.WordsResultDto;
 import com.linguarium.client.words.dto.WordsSyllablesDto;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
+import com.linguarium.friendship.dto.FriendDto;
 import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.UserToFriendProjection;
 import com.linguarium.friendship.model.enums.FriendStatus;
 import com.linguarium.friendship.model.enums.FriendshipStatus;
 import com.linguarium.translator.dto.DefinitionDto;
@@ -223,6 +224,19 @@ public final class TestDataGenerator {
         return user;
     }
 
+    public User buildTestUserWithId(long id) {
+        User user = new User();
+        user.setId(id);
+        user.setUsername("john");
+        user.setEmail("john@email.com");
+        user.setPassword("password");
+        user.setProvider(AuthProvider.LOCAL);
+        user.setRegistered(LocalDateTime.now());
+        user.setProfile(Profile.builder().user(user).build());
+        user.setLearner(Learner.builder().user(user).build());
+        return user;
+    }
+
     public User buildAnotherTestUser() {
         User user = new User();
         user.setUsername("jake");
@@ -343,24 +357,43 @@ public final class TestDataGenerator {
         return array;
     }
 
-    public FriendshipInfoDto generateFriendInfoDto() {
-        FriendshipInfoDto friendshipInfoDto = new FriendshipInfoDto();
-        friendshipInfoDto.setStatus(FriendStatus.FRIENDS);
-        friendshipInfoDto.setId(1L);
-        friendshipInfoDto.setUsername("testuser");
-        friendshipInfoDto.setEmail("test@example.com");
-        return friendshipInfoDto;
+    public static UserToFriendProjection buildTestUserToFriendProjection(long id, String username, String email) {
+        return new UserToFriendProjection() {
+            @Override
+            public long getId() {
+                return id;
+            }
+
+            @Override
+            public String getUsername() {
+                return username;
+            }
+
+            @Override
+            public String getEmail() {
+                return email;
+            }
+        };
     }
 
-    public List<FriendshipInfoDto> generateFriendInfoDtoList(int count) {
-        List<FriendshipInfoDto> friendshipInfoDtoList = new ArrayList<>();
+    public FriendDto generateFriendInfoDto() {
+        FriendDto friendDto = new FriendDto();
+        friendDto.setStatus(FriendStatus.FRIENDS);
+        friendDto.setId(1L);
+        friendDto.setUsername("testuser");
+        friendDto.setEmail("test@example.com");
+        return friendDto;
+    }
+
+    public List<FriendDto> generateFriendInfoDtoList(int count) {
+        List<FriendDto> friendDtoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            FriendshipInfoDto friendshipInfoDto = generateFriendInfoDto();
-            friendshipInfoDto.setId((long) (i + 1));
-            friendshipInfoDto.setUsername("userInfo" + (i + 1));
-            friendshipInfoDtoList.add(friendshipInfoDto);
+            FriendDto friendDto = generateFriendInfoDto();
+            friendDto.setId((long) (i + 1));
+            friendDto.setUsername("userInfo" + (i + 1));
+            friendDtoList.add(friendDto);
         }
-        return friendshipInfoDtoList;
+        return friendDtoList;
     }
 
     public Friendship generateFriendship(Long requesterId, Long requesteeId) {

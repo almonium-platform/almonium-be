@@ -3,8 +3,8 @@ package com.linguarium.friendship;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.linguarium.friendship.model.FriendInfoView;
 import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.FriendshipToUserProjection;
 import com.linguarium.friendship.repository.FriendshipRepository;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +39,8 @@ class FriendshipRepositoryTest {
     @DisplayName("Should find friend info by user ID")
     @Test
     void givenUserId_whenGetVisibleFriendships_thenFriendInfoViewShouldBePresent() {
-        List<FriendInfoView> friendInfoViews = friendshipRepository.getVisibleFriendships(USER_ID);
-        assertThat(friendInfoViews).isNotEmpty();
+        List<FriendshipToUserProjection> friendshipToUserProjections =
+                friendshipRepository.getVisibleFriendships(USER_ID);
+        assertThat(friendshipToUserProjections).isNotEmpty();
     }
 }

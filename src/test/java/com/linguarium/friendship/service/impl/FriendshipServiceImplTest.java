@@ -1,378 +1,526 @@
-// package com.linguarium.friendship.service.impl;
-//
-// import static org.assertj.core.api.Assertions.assertThat;
-// import static org.assertj.core.api.Assertions.assertThatThrownBy;
-// import static org.assertj.core.api.Assertions.catchThrowableOfType;
-// import static org.mockito.ArgumentMatchers.anyLong;
-// import static org.mockito.Mockito.any;
-// import static org.mockito.Mockito.mock;
-// import static org.mockito.Mockito.times;
-// import static org.mockito.Mockito.verify;
-// import static org.mockito.Mockito.when;
-//
-// import com.linguarium.friendship.dto.FriendshipActionDto;
-// import com.linguarium.friendship.dto.FriendshipInfoDto;
-// import com.linguarium.friendship.exception.FriendshipNotAllowedException;
-// import com.linguarium.friendship.exception.FriendshipNotFoundException;
-// import com.linguarium.friendship.model.FriendInfoView;
-// import com.linguarium.friendship.model.FriendWrapper;
-// import com.linguarium.friendship.model.Friendship;
-// import com.linguarium.friendship.model.enums.FriendshipAction;
-// import com.linguarium.friendship.model.enums.FriendshipStatus;
-// import com.linguarium.friendship.repository.FriendshipRepository;
-// import com.linguarium.user.model.Profile;
-// import com.linguarium.user.model.User;
-// import com.linguarium.user.repository.UserRepository;
-// import com.linguarium.user.service.UserService;
-// import java.util.Arrays;
-// import java.util.Collection;
-// import java.util.Collections;
-// import java.util.Optional;
-// import lombok.AccessLevel;
-// import lombok.experimental.FieldDefaults;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.extension.ExtendWith;
-// import org.mockito.InjectMocks;
-// import org.mockito.Mock;
-// import org.mockito.junit.jupiter.MockitoExtension;
-//
-// @ExtendWith(MockitoExtension.class)
-// @FieldDefaults(level = PRIVATE)
-// class FriendshipServiceImplTest {
-//    @Mock
-//    FriendshipRepository friendshipRepository;
-//
-//    @Mock
-//    UserRepository userRepository;
-//
-//    @Mock
-//    UserService userService;
-//
-//    @InjectMocks
-//    FriendshipServiceImpl friendshipService;
-//
-//    @DisplayName("Should set FriendshipStatus to FST_BLOCKED_SND when requester is the action initiator")
-//    @Test
-//    void givenRequesterIsActionInitiator_whenBlockUser_thenSetFstBlockedSnd() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.BLOCK);
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//        when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
-//
-//        Friendship result = friendshipService.manageFriendship(dto);
-//
-//        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.FST_BLOCKED_SND);
-//    }
-//
-//    @DisplayName("Should set FriendshipStatus to SND_BLOCKED_FST when requestee is the action initiator")
-//    @Test
-//    void givenRequesteeIsActionInitiator_whenBlockUser_thenSetSndBlockedFst() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesteeId, requesterId, FriendshipAction.BLOCK);
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesteeId, requesterId))
-//                .thenReturn(Optional.of(existingFriendship));
-//        when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
-//
-//        Friendship result = friendshipService.manageFriendship(dto);
-//
-//        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.SND_BLOCKED_FST);
-//    }
-//
-//    @DisplayName("Should throw IllegalArgumentException when friendship status is neither FRIENDS nor PENDING")
-//    @Test
-//    void givenInvalidFriendshipStatus_whenBlockUser_thenThrowIllegalArgumentException() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.BLOCK);
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId,
-// FriendshipStatus.FST_BLOCKED_SND);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//
-//        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
-//                .isInstanceOf(IllegalArgumentException.class)
-//                .hasMessage("Friendship status must be FRIENDS or PENDING");
-//    }
-//
-//    @DisplayName("Should throw FriendshipNotFoundException when friendship does not exist")
-//    @Test
-//    void givenInvalidIds_whenBlockUser_thenThrowFriendshipNotFoundException() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.CANCEL);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.empty());
-//
-//        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
-//                .isInstanceOf(FriendshipNotFoundException.class);
-//    }
-//
-//    @DisplayName("Should return Optional with FriendInfoDto when email exists")
-//    @Test
-//    void givenEmailExists_whenFindFriendByEmail_thenReturnOptionalWithFriendInfoDto() {
-//        FriendWrapper friendWrapper = mock(FriendWrapper.class);
-//        when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.of(friendWrapper));
-//
-//        Optional<FriendshipInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
-//
-//        assertThat(result).isNotEmpty();
-//        verify(userRepository).findFriendByEmail("test@email.com");
-//    }
-//
-//    @DisplayName("Should return empty Optional when email does not exist")
-//    @Test
-//    void givenEmailDoesNotExist_whenFindFriendByEmail_thenReturnEmptyOptional() {
-//        when(userRepository.findFriendByEmail("test@email.com")).thenReturn(Optional.empty());
-//
-//        Optional<FriendshipInfoDto> result = friendshipService.findFriendByEmail("test@email.com");
-//
-//        assertThat(result).isEmpty();
-//        verify(userRepository).findFriendByEmail("test@email.com");
-//    }
-//
-//    @DisplayName("Should return list of FriendInfoDto when user ID exists")
-//    @Test
-//    void givenUserIdExists_whenGetFriendships_thenReturnListOfFriendInfoDto() {
-//        long userId = 1L;
-//
-//        FriendInfoView view1 = new FriendInfoView(userId, FriendshipStatus.FRIENDS.getCode(), true);
-//        FriendInfoView view2 = new FriendInfoView(userId, FriendshipStatus.PENDING.getCode(), false);
-//        FriendInfoView view3 = new FriendInfoView(userId, FriendshipStatus.FST_BLOCKED_SND.getCode(), true);
-//        FriendInfoView view4 = new FriendInfoView(userId, FriendshipStatus.SND_BLOCKED_FST.getCode(), false);
-//        FriendWrapper friendWrapper1 = mock(FriendWrapper.class);
-//        FriendWrapper friendWrapper2 = mock(FriendWrapper.class);
-//        FriendWrapper friendWrapper3 = mock(FriendWrapper.class);
-//        FriendWrapper friendWrapper4 = mock(FriendWrapper.class);
-//
-//        when(friendshipRepository.findByUserId(userId)).thenReturn(Arrays.asList(view1, view2, view3, view4));
-//        when(userRepository.findUserById(anyLong()))
-//                .thenReturn(Optional.of(friendWrapper1))
-//                .thenReturn(Optional.of(friendWrapper2))
-//                .thenReturn(Optional.of(friendWrapper3))
-//                .thenReturn(Optional.of(friendWrapper4));
-//
-//        Collection<FriendshipInfoDto> result = friendshipService.getFriendships(userId);
-//
-//        assertThat(result).isNotEmpty();
-//        verify(friendshipRepository).findByUserId(userId);
-//        verify(userRepository, times(4)).findUserById(anyLong());
-//    }
-//
-//    @DisplayName("Should return empty list when user ID does not exist")
-//    @Test
-//    void givenUserIdDoesNotExist_whenGetFriendships_thenReturnEmptyList() {
-//        long userId = 1L;
-//        when(friendshipRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
-//
-//        Collection<FriendshipInfoDto> result = friendshipService.getFriendships(userId);
-//
-//        assertThat(result).isEmpty();
-//        verify(friendshipRepository).findByUserId(userId);
-//    }
-//
-//    @DisplayName("Should delete friendship when canceling with valid IDs")
-//    @Test
-//    void givenValidIds_whenDeleteFriendship_thenDeleteFriendship() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.CANCEL);
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//
-//        friendshipService.manageFriendship(dto);
-//
-//        verify(friendshipRepository).delete(existingFriendship);
-//    }
-//
-//    @DisplayName("Should delete friendship when unblocking with valid IDs")
-//    @Test
-//    void givenValidIds_whenUnblockFriendship_thenDeleteFriendship() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.CANCEL);
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.FRIENDS);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//
-//        friendshipService.manageFriendship(dto);
-//
-//        verify(friendshipRepository).delete(existingFriendship);
-//    }
-//
-//    @DisplayName("Should throw FriendshipNotFoundException when canceling friendship with invalid IDs")
-//    @Test
-//    void givenInvalidIds_whenDeleteFriendship_thenThrowFriendshipNotFoundException() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.CANCEL);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.empty());
-//
-//        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
-//                .isInstanceOf(FriendshipNotFoundException.class);
-//    }
-//
-//    @Test
-//    @DisplayName(
-//            """
-//            Should throw FriendshipNotAllowedException
-//            when creating a friendship request
-//            with a user who has blocked requests
-//            """)
-//    void givenUserHasBlockedRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        User recipient = User.builder()
-//                .profile(Profile.builder().friendshipRequestsBlocked(true).build())
-//                .build();
-//        when(userService.getById(requesteeId)).thenReturn(recipient);
-//
-//        FriendshipActionDto dto = FriendshipActionDto.builder()
-//                .initiatorId(requesterId)
-//                .recipientId(requesteeId)
-//                .action(FriendshipAction.REQUEST)
-//                .build();
-//
-//        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
-//                .isInstanceOf(FriendshipNotAllowedException.class);
-//    }
-//
-//    @DisplayName("Should throw IllegalArgumentException when approving a friendship request with a non-PENDING
-// status")
-//    @Test
-//    void givenNonPendingStatus_whenApproveFriendshipRequest_thenThrowIllegalArgumentException() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//
-//        Friendship existingFriendship = Friendship.builder()
-//                .requesterId(requesterId)
-//                .requesteeId(requesteeId)
-//                .status(FriendshipStatus.FRIENDS)
-//                .build();
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//
-//        FriendshipActionDto dto = FriendshipActionDto.builder()
-//                .initiatorId(requesterId)
-//                .recipientId(requesteeId)
-//                .action(FriendshipAction.ACCEPT)
-//                .build();
-//
-//        assertThatThrownBy(() ->
-// friendshipService.manageFriendship(dto)).isInstanceOf(IllegalArgumentException.class);
-//    }
-//
-//    @DisplayName("Should create a new friendship with PENDING status when creating a friendship request")
-//    @Test
-//    void givenValidIds_whenCreateFriendshipRequest_thenCreateNewFriendship() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.REQUEST);
-//
-//        User mockUser = User.builder().profile(Profile.builder().build()).build();
-//        when(userService.getById(requesteeId)).thenReturn(mockUser);
-//
-//        Friendship expectedFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
-//        when(friendshipRepository.save(any(Friendship.class))).thenReturn(expectedFriendship);
-//
-//        Friendship result = friendshipService.manageFriendship(dto);
-//
-//        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.PENDING);
-//    }
-//
-//    @DisplayName("Should update friendship to FRIENDS status when approving a friendship request")
-//    @Test
-//    void givenPendingStatus_whenApproveFriendshipRequest_thenUpdateToFriends() {
-//        long requesterId = 1L;
-//        long requesteeId = 2L;
-//        FriendshipActionDto dto = generateFriendshipActionDto(requesterId, requesteeId, FriendshipAction.ACCEPT);
-//
-//        Friendship existingFriendship = generateFriendship(requesterId, requesteeId, FriendshipStatus.PENDING);
-//        when(friendshipRepository.getFriendshipByUsersIds(requesterId, requesteeId))
-//                .thenReturn(Optional.of(existingFriendship));
-//        when(friendshipRepository.save(existingFriendship)).thenReturn(existingFriendship);
-//
-//        Friendship result = friendshipService.manageFriendship(dto);
-//
-//        assertThat(result.getStatus()).isEqualTo(FriendshipStatus.FRIENDS);
-//    }
-//
-//    @DisplayName("Should throw FriendshipNotAllowedException when friendship already exists")
-//    @Test
-//    void givenExistingFriendship_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
-//        long actionInitiatorId = 1L;
-//        long actionAcceptorId = 2L;
-//        FriendshipActionDto dto =
-//                generateFriendshipActionDto(actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
-//        Friendship existingFriendship =
-//                generateFriendship(actionInitiatorId, actionAcceptorId, FriendshipStatus.FRIENDS);
-//
-//        when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
-//                .thenReturn(Optional.of(existingFriendship));
-//        when(userService.getById(actionAcceptorId))
-//                .thenReturn(User.builder().id(actionAcceptorId).build());
-//
-//        FriendshipNotAllowedException exception = catchThrowableOfType(
-//                () -> friendshipService.manageFriendship(dto), FriendshipNotAllowedException.class);
-//
-//        assertThat(String.format(
-//                        "Friendship between %s and %s already exists, status: %s",
-//                        actionInitiatorId, actionAcceptorId, existingFriendship.getStatus()))
-//                .isEqualTo(exception.getMessage());
-//    }
-//
-//    @DisplayName("Should throw FriendshipNotAllowedException when userInfo limits ability to send requests")
-//    @Test
-//    void givenUserLimitsAbilityToSendRequests_whenCreateFriendshipRequest_thenThrowFriendshipNotAllowedException() {
-//        long actionInitiatorId = 1L;
-//        long actionAcceptorId = 2L;
-//        FriendshipActionDto dto =
-//                generateFriendshipActionDto(actionInitiatorId, actionAcceptorId, FriendshipAction.REQUEST);
-//
-//        Friendship existingFriendship = mock(Friendship.class);
-//        when(existingFriendship.whoDeniesFriendship()).thenReturn(actionAcceptorId);
-//        when(userService.getById(actionAcceptorId))
-//                .thenReturn((User.builder().id(actionAcceptorId).build()));
-//        when(friendshipRepository.getFriendshipByUsersIds(actionInitiatorId, actionAcceptorId))
-//                .thenReturn(Optional.of(existingFriendship));
-//
-//        assertThatThrownBy(() -> friendshipService.manageFriendship(dto))
-//                .isInstanceOf(FriendshipNotAllowedException.class);
-//    }
-//
-//    private FriendshipActionDto generateFriendshipActionDto(
-//            long requesterId, long requesteeId, FriendshipAction action) {
-//        return FriendshipActionDto.builder()
-//                .initiatorId(requesterId)
-//                .recipientId(requesteeId)
-//                .action(action)
-//                .build();
-//    }
-//
-//    private Friendship generateFriendship(long requesterId, long requesteeId, FriendshipStatus status) {
-//        return Friendship.builder()
-//                .requesterId(requesterId)
-//                .requesteeId(requesteeId)
-//                .status(status)
-//                .build();
-//    }
-// }
+package com.linguarium.friendship.service.impl;
+
+import static com.linguarium.friendship.model.enums.FriendshipStatus.FRIENDS;
+import static com.linguarium.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
+import static com.linguarium.friendship.model.enums.FriendshipStatus.MUTUALLY_BLOCKED;
+import static com.linguarium.friendship.model.enums.FriendshipStatus.PENDING;
+import static com.linguarium.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.linguarium.friendship.dto.FriendDto;
+import com.linguarium.friendship.dto.FriendshipRequestDto;
+import com.linguarium.friendship.exception.FriendshipNotAllowedException;
+import com.linguarium.friendship.model.Friendship;
+import com.linguarium.friendship.model.FriendshipToUserProjection;
+import com.linguarium.friendship.model.UserToFriendProjection;
+import com.linguarium.friendship.model.enums.FriendStatus;
+import com.linguarium.friendship.model.enums.FriendshipAction;
+import com.linguarium.friendship.repository.FriendshipRepository;
+import com.linguarium.user.model.User;
+import com.linguarium.user.repository.UserRepository;
+import com.linguarium.user.service.UserService;
+import com.linguarium.util.TestDataGenerator;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
+class FriendshipServiceImplTest {
+    private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
+    private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
+
+    private static final long REQUESTER_ID = 1L;
+    private static final long RECIPIENT_ID = 2L;
+    private static final long FRIENDSHIP_ID = 1L;
+
+    @Mock
+    FriendshipRepository friendshipRepository;
+
+    @Mock
+    UserRepository userRepository;
+
+    @Mock
+    UserService userService;
+
+    @InjectMocks
+    FriendshipServiceImpl friendshipServiceImpl;
+
+    User requester;
+    User recipient;
+    Friendship friendship;
+
+    @BeforeEach
+    void setUp() {
+        requester = TestDataGenerator.buildTestUserWithId(REQUESTER_ID);
+        recipient = TestDataGenerator.buildTestUserWithId(RECIPIENT_ID);
+        friendship =
+                new Friendship(FRIENDSHIP_ID, requester, recipient, LocalDateTime.now(), LocalDateTime.now(), PENDING);
+    }
+
+    @DisplayName("Should find friend by email")
+    @Test
+    void givenEmail_whenFindFriendByEmail_thenReturnFriendDto() {
+        // Arrange
+        String email = "test@example.com";
+        String username = "username";
+        UserToFriendProjection projection =
+                TestDataGenerator.buildTestUserToFriendProjection(REQUESTER_ID, username, email);
+        when(userRepository.findFriendByEmail(email)).thenReturn(Optional.of(projection));
+
+        // Act
+        Optional<FriendDto> result = friendshipServiceImpl.findFriendByEmail(email);
+
+        // Assert
+        assertThat(result).isPresent();
+        assertThat(result.get().getId()).isEqualTo(REQUESTER_ID);
+        assertThat(result.get().getEmail()).isEqualTo(email);
+        assertThat(result.get().getUsername()).isEqualTo(username);
+    }
+
+    @DisplayName("Should return empty when friend not found by email")
+    @Test
+    void givenNonExistingEmail_whenFindFriendByEmail_thenReturnEmpty() {
+        // Arrange
+        String email = "nonexistent@example.com";
+        when(userRepository.findFriendByEmail(email)).thenReturn(Optional.empty());
+
+        // Act
+        Optional<FriendDto> result = friendshipServiceImpl.findFriendByEmail(email);
+
+        // Assert
+        assertThat(result).isEmpty();
+    }
+
+    @DisplayName("Should return friends for a user")
+    @Test
+    void givenUserId_whenGetFriends_thenReturnListOfFriends() {
+        // Arrange
+        FriendshipToUserProjection projection = new FriendshipToUserProjection(RECIPIENT_ID, FRIENDS, true);
+        String username = "friendUsername";
+        String email = "friend@example.com";
+        UserToFriendProjection friendProjection =
+                TestDataGenerator.buildTestUserToFriendProjection(RECIPIENT_ID, username, email);
+
+        when(friendshipRepository.getVisibleFriendships(REQUESTER_ID)).thenReturn(List.of(projection));
+        when(userRepository.findUserById(RECIPIENT_ID)).thenReturn(Optional.of(friendProjection));
+
+        // Act
+        List<FriendDto> result = friendshipServiceImpl.getFriends(REQUESTER_ID);
+
+        // Assert
+        assertThat(result).isNotEmpty();
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getId()).isEqualTo(RECIPIENT_ID);
+        assertThat(result.get(0).getUsername()).isEqualTo(username);
+        assertThat(result.get(0).getEmail()).isEqualTo(email);
+        assertThat(result.get(0).getStatus()).isEqualTo(FriendStatus.FRIENDS);
+    }
+
+    @DisplayName("Should return empty list when no friends found for a user")
+    @Test
+    void givenUserId_whenGetFriends_thenReturnEmptyList() {
+        // Arrange
+        when(friendshipRepository.getVisibleFriendships(REQUESTER_ID)).thenReturn(Collections.emptyList());
+
+        // Act
+        List<FriendDto> result = friendshipServiceImpl.getFriends(REQUESTER_ID);
+
+        // Assert
+        assertThat(result).isEmpty();
+    }
+
+    @DisplayName("Should create a new friendship request")
+    @Test
+    void givenValidFriendshipRequestDto_whenCreateFriendshipRequest_thenFriendshipIsCreated() {
+        // Arrange
+        FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
+
+        when(friendshipRepository.getFriendshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
+                .thenReturn(Optional.empty());
+        when(userService.getById(RECIPIENT_ID)).thenReturn(recipient);
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship createdFriendship = friendshipServiceImpl.createFriendshipRequest(requester, dto);
+
+        // Assert
+        assertThat(createdFriendship).isNotNull();
+        assertThat(createdFriendship.getRequester()).isEqualTo(requester);
+        assertThat(createdFriendship.getRequestee()).isEqualTo(recipient);
+        assertThat(createdFriendship.getStatus()).isEqualTo(PENDING);
+    }
+
+    @DisplayName("Should not create a friendship request when friendship already exists")
+    @Test
+    void givenExistingFriendship_whenCreateFriendshipRequest_thenThrowException() {
+        // Arrange
+        FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
+
+        when(friendshipRepository.getFriendshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
+                .thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() -> friendshipServiceImpl.createFriendshipRequest(requester, dto))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage(FRIENDSHIP_CANT_BE_ESTABLISHED);
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should not create a friendship request when recipient blocks requests")
+    @Test
+    void givenRecipientBlocksRequests_whenCreateFriendshipRequest_thenThrowException() {
+        // Arrange
+        FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
+        recipient.getProfile().setFriendshipRequestsBlocked(true);
+
+        when(friendshipRepository.getFriendshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
+                .thenReturn(Optional.empty());
+        when(userService.getById(RECIPIENT_ID)).thenReturn(recipient);
+
+        // Act & Assert
+        assertThatThrownBy(() -> friendshipServiceImpl.createFriendshipRequest(requester, dto))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage(FRIENDSHIP_CANT_BE_ESTABLISHED);
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should accept a pending friendship request")
+    @Test
+    void givenPendingFriendship_whenAcceptFriendshipRequest_thenStatusIsUpdatedToFriends() {
+        // Arrange
+        friendship.setStatus(PENDING);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship updatedFriendship =
+                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.ACCEPT);
+
+        // Assert
+        assertThat(updatedFriendship).isNotNull();
+        assertThat(updatedFriendship.getStatus()).isEqualTo(FRIENDS);
+    }
+
+    @DisplayName("Should not accept a non-pending friendship request")
+    @Test
+    void givenNonPendingFriendship_whenAcceptFriendshipRequest_thenThrowException() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(
+                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                .isInstanceOf(FriendshipNotAllowedException.class);
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should cancel own friendship request")
+    @Test
+    void givenPendingFriendship_whenCancelOwnRequest_thenFriendshipIsDeleted() {
+        // Arrange
+        friendship.setStatus(PENDING);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act
+        Friendship deletedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL);
+
+        // Assert
+        assertThat(deletedFriendship).isNotNull();
+        verify(friendshipRepository).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should not cancel a non-pending friendship request")
+    @Test
+    void givenNonPendingFriendship_whenCancelOwnRequest_thenThrowException() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(
+                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL))
+                .isInstanceOf(FriendshipNotAllowedException.class);
+
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should reject incoming friendship request")
+    @Test
+    void givenPendingFriendship_whenRejectIncomingRequest_thenFriendshipIsDeleted() {
+        // Arrange
+        friendship.setStatus(PENDING);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act
+        Friendship deletedFriendship =
+                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.REJECT);
+
+        // Assert
+        assertThat(deletedFriendship).isNotNull();
+        verify(friendshipRepository).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should unfriend a friend")
+    @Test
+    void givenFriends_whenUnfriend_thenFriendshipIsDeleted() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act
+        Friendship deletedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNFRIEND);
+
+        // Assert
+        assertThat(deletedFriendship).isNotNull();
+        verify(friendshipRepository).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should block a friend")
+    @Test
+    void givenFriends_whenBlockFriend_thenStatusIsUpdatedToBlocked() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship blockedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK);
+
+        // Assert
+        assertThat(blockedFriendship).isNotNull();
+        assertThat(blockedFriendship.getStatus()).isEqualTo(FST_BLOCKED_SND);
+    }
+
+    @DisplayName("Should unblock a friend")
+    @Test
+    void givenBlockedFriend_whenUnblock_thenFriendshipIsDeleted() {
+        // Arrange
+        friendship.setStatus(FST_BLOCKED_SND);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act
+        Friendship unblockedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK);
+
+        // Assert
+        assertThat(unblockedFriendship).isEqualTo(friendship);
+        verify(friendshipRepository).delete(friendship);
+    }
+
+    @DisplayName("Should unblock a mutually blocked friendship")
+    @Test
+    void givenMutuallyBlockedFriendship_whenUnblock_thenStatusIsUpdated() {
+        // Arrange
+        friendship.setStatus(MUTUALLY_BLOCKED);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship unblockedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK);
+
+        // Assert
+        assertThat(unblockedFriendship).isNotNull();
+        assertThat(unblockedFriendship.getStatus()).isEqualTo(SND_BLOCKED_FST);
+        verify(friendshipRepository).save(friendship);
+    }
+
+    @DisplayName("Should unblock a mutually blocked friendship as requestee")
+    @Test
+    void givenMutuallyBlockedFriendshipAsRequestee_whenUnblock_thenStatusIsUpdated() {
+        // Arrange
+        friendship.setStatus(MUTUALLY_BLOCKED);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship unblockedFriendship =
+                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK);
+
+        // Assert
+        assertThat(unblockedFriendship).isNotNull();
+        assertThat(unblockedFriendship.getStatus()).isEqualTo(FST_BLOCKED_SND);
+        verify(friendshipRepository).save(friendship);
+    }
+
+    @DisplayName("Should throw exception when friendship is not blocked")
+    @Test
+    void givenNotBlockedFriendship_whenUnblock_thenThrowException() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() ->
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage("Friendship is not blocked");
+
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should throw exception when user is not the denier of the friendship")
+    @Test
+    void givenBlockedFriendship_whenNotDenierUnblock_thenThrowException() {
+        // Arrange
+        friendship.setStatus(FST_BLOCKED_SND);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() ->
+                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage("User is not the denier of this friendship");
+
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should not block a mutually blocked friendship")
+    @Test
+    void givenMutuallyBlockedFriendship_whenBlockFriend_thenThrowException() {
+        // Arrange
+        friendship.setStatus(MUTUALLY_BLOCKED);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(
+                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should not block a friendship already blocked by the user")
+    @Test
+    void givenFriendshipAlreadyBlockedByUser_whenBlockFriend_thenThrowException() {
+        // Arrange
+        friendship.setStatus(FST_BLOCKED_SND);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(
+                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should set friendship status to MUTUALLY_BLOCKED when blocked by the other user")
+    @Test
+    void givenFriendshipBlockedByOtherUser_whenBlockFriend_thenStatusIsUpdatedToMutuallyBlocked() {
+        // Arrange
+        friendship.setStatus(SND_BLOCKED_FST);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship blockedFriendship =
+                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK);
+
+        // Assert
+        assertThat(blockedFriendship).isNotNull();
+        assertThat(blockedFriendship.getStatus()).isEqualTo(MUTUALLY_BLOCKED);
+    }
+
+    @DisplayName("Should block a friend by requestee")
+    @Test
+    void givenFriends_whenBlockAsRequestee_thenUpdateStatus() {
+        // Arrange
+        friendship.setStatus(FRIENDS);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
+
+        // Act
+        Friendship blockedFriendship =
+                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.BLOCK);
+
+        // Assert
+        assertThat(blockedFriendship).isNotNull();
+        assertThat(blockedFriendship.getStatus()).isEqualTo(SND_BLOCKED_FST);
+    }
+
+    @DisplayName("Should throw exception when user is not part of friendship")
+    @Test
+    void givenInvalidUser_whenManageFriendship_thenThrowException() {
+        // Arrange
+        User invalidUser = TestDataGenerator.buildTestUserWithId(999L);
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() ->
+                friendshipServiceImpl.manageFriendship(invalidUser, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage("User is not part of this friendship");
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+
+    @DisplayName("Should throw exception when user is not the recipient of the friendship")
+    @Test
+    void givenNotRequester_whenValidateCorrectRole_thenThrowException() {
+        // Arrange
+        friendship.setStatus(PENDING);
+        friendship.setRequester(recipient);
+        friendship.setRequestee(requester);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() -> friendshipServiceImpl.manageFriendship(
+                friendship.getRequestee(), FRIENDSHIP_ID, FriendshipAction.CANCEL))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage("User is not the requester of this friendship");
+
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+    }
+
+    @DisplayName("Should throw exception when user is not the requestee of the friendship")
+    @Test
+    void givenNotRequestee_whenValidateCorrectRole_thenThrowException() {
+        // Arrange
+        friendship.setStatus(PENDING);
+        friendship.setRequester(recipient);
+        friendship.setRequestee(requester);
+
+        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+
+        // Act & Assert
+        assertThatThrownBy(() -> friendshipServiceImpl.manageFriendship(
+                friendship.getRequester(), FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                .isInstanceOf(FriendshipNotAllowedException.class)
+                .hasMessage("User is not the requestee of this friendship");
+
+        verify(friendshipRepository, never()).save(any(Friendship.class));
+    }
+}

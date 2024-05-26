@@ -3,7 +3,7 @@ package com.linguarium.friendship.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.annotation.CurrentUser;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
+import com.linguarium.friendship.dto.FriendDto;
 import com.linguarium.friendship.dto.FriendshipRequestDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.model.enums.FriendshipAction;
@@ -31,13 +31,13 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<FriendshipInfoDto>> getMyFriends(@CurrentUser User user) {
-        List<FriendshipInfoDto> friends = friendshipService.getFriendships(user.getId());
+    public ResponseEntity<List<FriendDto>> getMyFriends(@CurrentUser User user) {
+        List<FriendDto> friends = friendshipService.getFriends(user.getId());
         return ResponseEntity.ok(friends);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<FriendshipInfoDto> searchFriendsByEmail(@RequestParam String email) {
+    public ResponseEntity<FriendDto> searchFriendsByEmail(@RequestParam String email) {
         return friendshipService
                 .findFriendByEmail(email)
                 .map(ResponseEntity::ok)

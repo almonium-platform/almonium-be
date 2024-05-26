@@ -3,7 +3,7 @@ package com.linguarium.user.repository;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.linguarium.friendship.model.FriendProjection;
+import com.linguarium.friendship.model.UserToFriendProjection;
 import com.linguarium.user.model.User;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +30,7 @@ class UserRepositoryTest {
     @DisplayName("Should find friend by email")
     @Test
     void givenEmail_whenFindFriendByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<FriendProjection> friend = userRepository.findFriendByEmail(JOHN_EMAIL);
+        Optional<UserToFriendProjection> friend = userRepository.findFriendByEmail(JOHN_EMAIL);
         assertThat(friend).isPresent();
         assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
@@ -76,7 +76,7 @@ class UserRepositoryTest {
     @DisplayName("Should find friend by id")
     @Test
     void givenId_whenFindAllById_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<FriendProjection> friend = userRepository.findUserById(JOHN_ID);
+        Optional<UserToFriendProjection> friend = userRepository.findUserById(JOHN_ID);
         assertThat(friend).isPresent();
         assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }

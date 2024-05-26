@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.linguarium.base.BaseControllerTest;
-import com.linguarium.friendship.dto.FriendshipInfoDto;
+import com.linguarium.friendship.dto.FriendDto;
 import com.linguarium.friendship.model.Friendship;
 import com.linguarium.friendship.model.enums.FriendshipAction;
 import com.linguarium.friendship.service.FriendshipService;
@@ -50,9 +50,9 @@ class FriendshipControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenCurrentUser_whenGetMyFriends_thenReturnFriendsList() {
-        List<FriendshipInfoDto> friendsList = TestDataGenerator.generateFriendInfoDtoList(5);
+        List<FriendDto> friendsList = TestDataGenerator.generateFriendInfoDtoList(5);
 
-        when(friendshipService.getFriendships(anyLong())).thenReturn(friendsList);
+        when(friendshipService.getFriends(anyLong())).thenReturn(friendsList);
 
         mockMvc.perform(get(GET_MY_FRIENDS_URL))
                 .andExpect(status().isOk())
@@ -64,7 +64,7 @@ class FriendshipControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenEmail_whenSearchFriendsByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() {
         String email = "testEmail";
-        FriendshipInfoDto friendInfo = TestDataGenerator.generateFriendInfoDto();
+        FriendDto friendInfo = TestDataGenerator.generateFriendInfoDto();
         when(friendshipService.findFriendByEmail(email)).thenReturn(Optional.of(friendInfo));
 
         mockMvc.perform(get(SEARCH_FRIENDS_BY_EMAIL_URL).param("email", email))
