@@ -6,9 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +23,7 @@ import com.linguarium.suggestion.model.CardSuggestion;
 import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -146,35 +145,6 @@ class CardSuggestionServiceTest {
                 .hasMessageContaining("You aren't authorized to act on behalf of other userInfo");
     }
 
-    @DisplayName("Should accept a card suggestion and clone the card")
-    @Test
-    void givenCardAcceptanceDtoAndRecipient_whenAcceptSuggestion_thenCloneCardAndDeleteSuggestion() {
-        // Arrange
-        Long suggestionId = 3L;
-        Long userId = 4L;
-        Card card = Card.builder().id(1L).build();
-        Learner recipient = Learner.builder().id(userId).build();
-        CardSuggestion cardSuggestion = CardSuggestion.builder()
-                .id(suggestionId)
-                .card(card)
-                .recipient(recipient)
-                .build();
-        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
-
-        // Create a spy of your service
-        CardSuggestionServiceImpl cardServiceSpy = spy(cardSuggestionService);
-
-        // Mock the cloneCard method to do nothing
-        doNothing().when(cardServiceSpy).cloneCard(any(Card.class), any(Learner.class));
-
-        // Act
-        cardServiceSpy.acceptSuggestion(suggestionId, recipient);
-
-        // Assert
-        verify(cardServiceSpy).cloneCard(card, recipient);
-        verify(cardSuggestionRepository).delete(cardSuggestion);
-    }
-
     @DisplayName("Should clone a card and save it along with its examples, translations, and tags")
     @Test
     void givenCardAndUser_whenCloneCard_thenSaveClonedCardAndRelatedEntities() {
@@ -192,14 +162,24 @@ class CardSuggestionServiceTest {
                 .cardTags(new HashSet<>())
                 .build();
 
-        Learner user = Learner.builder().cards(new HashSet<>()).build();
+        // Arrange
+        Long suggestionId = 3L;
+        Long userId = 4L;
+        Learner recipient = Learner.builder().id(userId).cards(new HashSet<>()).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .card(card)
+                .recipient(recipient)
+                .build();
+
+        when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
         CardDto cardDto = new CardDto(); // Initialize as needed
         when(cardMapper.cardEntityToDto(card)).thenReturn(cardDto);
         when(cardMapper.copyCardDtoToEntity(eq(cardDto))).thenReturn(card);
 
         // Act
-        cardSuggestionService.cloneCard(card, user);
+        cardSuggestionService.acceptSuggestion(suggestionId, recipient);
 
         // Assert
         verify(cardRepository)
@@ -207,7 +187,8 @@ class CardSuggestionServiceTest {
                         && savedCard.getTranslations().equals(translations)));
         verify(translationRepository).saveAll(eq(translations));
         verify(exampleRepository).saveAll(eq(examples));
-        verify(learnerRepository).save(eq(user));
+        verify(learnerRepository).save(eq(recipient));
+        verify(cardSuggestionRepository).delete(cardSuggestion);
     }
 
     @DisplayName("Should save a card suggestion and return true if it doesn't exist")
@@ -261,5 +242,18 @@ class CardSuggestionServiceTest {
         // Assert
         assertThat(result).isFalse();
         verify(cardSuggestionRepository, never()).save(any(CardSuggestion.class));
+    }
+
+    @DisplayName("Should throw EntityNotFoundException when CardSuggestion not found")
+    @Test
+    void givenNonExistingCardSuggestionId_whenGetCardSuggestion_thenThrowEntityNotFoundException() {
+        // Arrange
+        Long nonExistingId = 99L;
+        when(cardSuggestionRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> cardSuggestionService.acceptSuggestion(nonExistingId, new Learner()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("Card suggestion with ID " + nonExistingId + " not found");
     }
 }

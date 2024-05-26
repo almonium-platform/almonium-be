@@ -16,6 +16,7 @@ import com.linguarium.suggestion.repository.CardSuggestionRepository;
 import com.linguarium.suggestion.service.CardSuggestionService;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
+@Transactional
 public class CardSuggestionServiceImpl implements CardSuggestionService {
     CardRepository cardRepository;
     CardSuggestionRepository cardSuggestionRepository;
@@ -37,26 +39,7 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     LearnerRepository learnerRepository;
     CardMapper cardMapper;
 
-    @Transactional
-    public void cloneCard(Card entity, Learner user) {
-        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
-
-        user.addCard(card);
-
-        List<Example> examples = card.getExamples();
-        examples.forEach(example -> example.setCard(card));
-
-        List<Translation> translations = card.getTranslations();
-
-        cardRepository.save(card);
-        translationRepository.saveAll(translations);
-        exampleRepository.saveAll(examples);
-        learnerRepository.save(user);
-        log.info("Cloned card {} for user {}", card, user);
-    }
-
     @Override
-    @Transactional
     public List<CardDto> getSuggestedCards(Learner user) {
         return cardSuggestionRepository.getByRecipient(user).stream()
                 .map(sug -> {
@@ -68,18 +51,16 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     }
 
     @Override
-    @Transactional
     public void declineSuggestion(Long id, Learner actionExecutor) {
-        CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
+        CardSuggestion cardSuggestion = getCardSuggestion(id);
         Learner recipient = cardSuggestion.getRecipient();
         checkAuthorization(actionExecutor, recipient);
         cardSuggestionRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public void acceptSuggestion(Long id, Learner actionExecutor) {
-        CardSuggestion cardSuggestion = cardSuggestionRepository.findById(id).orElseThrow();
+        CardSuggestion cardSuggestion = getCardSuggestion(id);
         Learner recipient = cardSuggestion.getRecipient();
         checkAuthorization(actionExecutor, recipient);
         cloneCard(cardSuggestion.getCard(), recipient);
@@ -99,10 +80,32 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
         return true;
     }
 
+    private void cloneCard(Card entity, Learner user) {
+        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
+
+        user.addCard(card);
+
+        List<Example> examples = card.getExamples();
+        examples.forEach(example -> example.setCard(card));
+
+        List<Translation> translations = card.getTranslations();
+
+        cardRepository.save(card);
+        translationRepository.saveAll(translations);
+        exampleRepository.saveAll(examples);
+        learnerRepository.save(user);
+        log.info("Cloned card {} for user {}", card, user);
+    }
+
     @SneakyThrows
     private void checkAuthorization(Learner actionExecutor, Learner recipient) {
         if (!recipient.equals(actionExecutor)) {
             throw new IllegalAccessException("You aren't authorized to act on behalf of other userInfo");
         }
+    }
+
+    private CardSuggestion getCardSuggestion(Long id) {
+        return cardSuggestionRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException("Card suggestion with ID " + id + " not found"));
     }
 }
