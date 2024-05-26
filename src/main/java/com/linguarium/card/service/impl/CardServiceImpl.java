@@ -40,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardServiceImpl implements CardService {
@@ -52,22 +53,37 @@ public class CardServiceImpl implements CardService {
     CardMapper cardMapper;
 
     @Override
-    @Transactional
     public CardDto getCardById(Long id) {
         return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
     }
 
     @Override
-    @Transactional
     public CardDto getCardByPublicId(String hash) {
         Card card = cardRepository.getByPublicId(UUID.fromString(hash)).orElseThrow();
         return cardMapper.cardEntityToDto(card);
     }
 
     @Override
-    @Transactional
     public List<CardDto> getUsersCards(Learner learner) {
         return cardRepository.findAllByOwner(learner).stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
+        return cardRepository.findAllByOwnerAndLanguage(learner, Language.valueOf(code)).stream()
+                .map(cardMapper::cardEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<CardDto> searchByEntry(String entry, Learner learner) {
+        return cardRepository
+                .findAllByOwnerAndEntryLikeIgnoreCase(
+                        learner, '%' + entry.trim().toLowerCase() + '%')
+                .stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -93,24 +109,6 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public List<CardDto> searchByEntry(String entry, Learner learner) {
-        return cardRepository
-                .findAllByOwnerAndEntryLikeIgnoreCase(
-                        learner, '%' + entry.trim().toLowerCase() + '%')
-                .stream()
-                .map(cardMapper::cardEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
-        return cardRepository.findAllByOwnerAndLanguage(learner, Language.valueOf(code)).stream()
-                .map(cardMapper::cardEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void deleteById(Long id) {
         cardRepository.deleteById(id);
     }
@@ -159,13 +157,10 @@ public class CardServiceImpl implements CardService {
     private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        // Logic for deleting translations
         Arrays.stream(dto.getDeletedTranslationsIds()).forEach(id -> translationRepository.deleteById((long) id));
 
-        // Logic for deleting examples
         Arrays.stream(dto.getDeletedExamplesIds()).forEach(id -> exampleRepository.deleteById((long) id));
 
-        // Your existing logic for updating translations
         Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
             Long id = translationDto.getId();
             if (id != null) {
@@ -180,7 +175,6 @@ public class CardServiceImpl implements CardService {
             }
         });
 
-        // Your existing logic for updating examples
         Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
             Long id = exampleDto.getId();
             if (id != null) {
