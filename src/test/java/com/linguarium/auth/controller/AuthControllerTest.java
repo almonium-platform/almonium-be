@@ -15,7 +15,7 @@ import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
 import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
-import com.linguarium.auth.service.AuthService;
+import com.linguarium.auth.service.LocalAuthService;
 import com.linguarium.base.BaseControllerTest;
 import com.linguarium.config.GlobalExceptionHandler;
 import com.linguarium.util.TestDataGenerator;
@@ -44,7 +44,7 @@ class AuthControllerTest extends BaseControllerTest {
     private static final String REGISTER_URL = BASE_URL + "/register";
 
     @MockBean
-    AuthService authService;
+    LocalAuthService localAuthService;
 
     @DisplayName("Should authenticate user successfully")
     @Test
@@ -54,7 +54,7 @@ class AuthControllerTest extends BaseControllerTest {
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
         JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(authService.login(eq(loginRequest))).thenReturn(response);
+        when(localAuthService.login(eq(loginRequest))).thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ class AuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "wrong_password");
-        when(authService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
+        when(localAuthService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +97,7 @@ class AuthControllerTest extends BaseControllerTest {
         RegisterRequest registrationRequest = createSignUpRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
-                .when(authService)
+                .when(localAuthService)
                 .register(any(RegisterRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)

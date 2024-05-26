@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.linguarium.auth.dto.request.LoginRequest;
 import com.linguarium.auth.dto.request.RegisterRequest;
 import com.linguarium.auth.dto.response.JwtAuthResponse;
-import com.linguarium.auth.service.AuthService;
+import com.linguarium.auth.service.LocalAuthService;
 import com.linguarium.util.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthController {
-    AuthService authService;
+    LocalAuthService localAuthService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(authService.login(loginRequest));
+        return ResponseEntity.ok(localAuthService.login(loginRequest));
     }
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest request) {
-        authService.register(request);
+        localAuthService.register(request);
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
     }
 }

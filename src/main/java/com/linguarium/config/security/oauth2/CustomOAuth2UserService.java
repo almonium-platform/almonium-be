@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.auth.exception.OAuth2AuthenticationProcessingException;
-import com.linguarium.auth.service.AuthService;
+import com.linguarium.auth.service.ProviderAuthService;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfo;
 import com.linguarium.config.security.oauth2.userinfo.OAuth2UserInfoFactory;
 import com.linguarium.user.model.User;
@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    AuthService authService;
+    ProviderAuthService authService;
     OAuth2UserInfoFactory userInfoFactory;
 
     @Override
@@ -38,7 +38,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         validateProviderUserInfo(userInfo);
 
         try {
-            User user = authService.authenticateProviderRequest(userInfo);
+            User user = authService.authenticate(userInfo);
             user.setAttributes(attributes);
             return user;
         } catch (Exception ex) {
