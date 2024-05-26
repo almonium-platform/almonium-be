@@ -105,7 +105,8 @@ public class CardSuggestionServiceImpl implements CardSuggestionService {
     }
 
     private CardSuggestion getCardSuggestion(Long id) {
-        return cardSuggestionRepository.findById(id).orElseThrow(()
-                -> new EntityNotFoundException("Card suggestion with ID " + id + " not found"));
+        return cardSuggestionRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Card suggestion with ID " + id + " not found"));
     }
 }

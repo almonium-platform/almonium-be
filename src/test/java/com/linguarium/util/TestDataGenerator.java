@@ -176,8 +176,8 @@ public final class TestDataGenerator {
         User user = buildTestUserWithId();
         Learner learner = Learner.builder()
                 .id(user.getId())
-                .targetLangs(Set.of(Language.EN.name(), Language.ES.name()))
-                .fluentLangs(Set.of(Language.FR.name(), Language.DE.name()))
+                .targetLangs(Set.of(Language.EN, Language.ES))
+                .fluentLangs(Set.of(Language.FR, Language.DE))
                 .build();
         Profile profile = Profile.builder()
                 .id(user.getId())
@@ -192,7 +192,7 @@ public final class TestDataGenerator {
                 user.getId().toString(),
                 user.getUsername(),
                 user.getEmail(),
-                profile.getUiLang().name(),
+                profile.getUiLang(),
                 profile.getAvatarUrl(),
                 profile.getBackground(),
                 profile.getStreak(),

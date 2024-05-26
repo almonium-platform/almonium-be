@@ -114,7 +114,7 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenLanguageUpdateRequest_whenUpdateTargetLanguages_thenUpdateSuccessfully() {
-        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.EN.name(), Language.ES.name()));
+        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.EN, Language.ES));
 
         mockMvc.perform(put(UPDATE_TARGET_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -128,7 +128,7 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenLanguageUpdateRequest_whenUpdateFluentLanguages_thenUpdateSuccessfully() {
-        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.FR.name(), Language.DE.name()));
+        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.FR, Language.DE));
 
         mockMvc.perform(put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -142,12 +142,12 @@ class UserControllerTest extends BaseControllerTest {
         String id = "testuser";
         String username = "testuser";
         String email = "test@example.com";
-        String uiLang = "EN";
+        Language uiLang = Language.EN;
         String profilePicLink = "https://example.com/profilepic.jpg";
         String background = "https://example.com/background.jpg";
         Integer streak = 0;
-        Collection<String> targetLangs = Arrays.asList("EN", "ES");
-        Collection<String> fluentLangs = Arrays.asList("FR", "DE");
+        Collection<Language> targetLangs = Arrays.asList(Language.EN, Language.ES);
+        Collection<Language> fluentLangs = Arrays.asList(Language.FR, Language.DE);
         Collection<String> tags = Arrays.asList("tag1", "tag2");
 
         return new UserInfo(

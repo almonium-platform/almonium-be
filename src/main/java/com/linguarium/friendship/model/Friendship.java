@@ -2,7 +2,6 @@ package com.linguarium.friendship.model;
 
 import com.linguarium.friendship.model.enums.FriendshipStatus;
 import com.linguarium.user.model.User;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -41,14 +40,13 @@ public class Friendship {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "requester_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "requester_id", referencedColumnName = "id")
     private User requester;
 
     @ManyToOne
-    @JoinColumn(name = "requestee_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "requestee_id", referencedColumnName = "id")
     private User requestee;
 
-    @Column(nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime created;
 

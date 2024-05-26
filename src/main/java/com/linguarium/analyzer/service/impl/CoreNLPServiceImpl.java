@@ -15,9 +15,8 @@ import java.util.Properties;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-@Service
+// @Service
 @Slf4j
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)

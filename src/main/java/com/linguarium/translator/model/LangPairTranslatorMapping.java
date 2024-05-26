@@ -27,15 +27,12 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 @IdClass(TranslatorMappingKey.class)
 public class LangPairTranslatorMapping {
-
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(name = "source_lang")
     Language sourceLang;
 
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(name = "target_lang")
     Language targetLang;
 
     @Id
@@ -43,7 +40,7 @@ public class LangPairTranslatorMapping {
     Long translatorId;
 
     @ManyToOne
-    @JoinColumn(name = "translator_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "translator_id", referencedColumnName = "id")
     Translator translator;
 
     int priority;

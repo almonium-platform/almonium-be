@@ -2,6 +2,7 @@ package com.linguarium.user.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
 import com.linguarium.user.repository.LearnerRepository;
 import com.linguarium.user.service.LearnerService;
@@ -23,16 +24,16 @@ public class LearnerServiceImpl implements LearnerService {
 
     @Override
     @Transactional
-    public void updateTargetLanguages(List<String> langs, Learner learner) {
-        Set<String> languages = new HashSet<>(langs);
+    public void updateTargetLanguages(List<Language> langs, Learner learner) {
+        Set<Language> languages = new HashSet<>(langs);
         learner.setTargetLangs(languages);
         learnerRepository.save(learner);
     }
 
     @Override
     @Transactional
-    public void updateFluentLanguages(List<String> langs, Learner learner) {
-        Set<String> languages = new HashSet<>(langs);
+    public void updateFluentLanguages(List<Language> langs, Learner learner) {
+        Set<Language> languages = new HashSet<>(langs);
         learner.setFluentLangs(languages);
         learnerRepository.save(learner);
     }

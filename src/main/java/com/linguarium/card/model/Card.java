@@ -4,8 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.translator.model.Language;
 import com.linguarium.user.model.Learner;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -28,8 +26,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -44,20 +40,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class Card {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
-    @Column(name = "public_id", nullable = false, unique = true)
     @Builder.Default
     UUID publicId = UUID.randomUUID();
 
-    @Column
     String entry;
 
-    @Column(nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime created;
 
@@ -80,16 +71,13 @@ public class Card {
     @Enumerated(EnumType.STRING)
     Language language;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "card")
     List<Example> examples;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "card")
     List<Translation> translations;
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.PERSIST)
-    @OnDelete(action = OnDeleteAction.CASCADE) // todo delete
+    @OneToMany(mappedBy = "card")
     Set<CardTag> cardTags;
 
     private String notes;

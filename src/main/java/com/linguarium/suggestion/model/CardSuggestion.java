@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.card.model.Card;
 import com.linguarium.user.model.Learner;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +20,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -38,22 +35,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class CardSuggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "card_id", referencedColumnName = "id", updatable = false)
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
     Card card;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "sender_id", referencedColumnName = "id", updatable = false)
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
     Learner sender;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "recipient_id", referencedColumnName = "id", updatable = false)
+    @JoinColumn(name = "recipient_id", referencedColumnName = "id")
     Learner recipient;
 
     @CreatedDate

@@ -15,8 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
@@ -44,6 +42,5 @@ public class CardTag {
 
     @ManyToOne
     @JoinColumn(name = "learner_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     Learner learner;
 }

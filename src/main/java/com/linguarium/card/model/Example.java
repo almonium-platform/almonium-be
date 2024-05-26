@@ -2,7 +2,6 @@ package com.linguarium.card.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,16 +27,12 @@ import lombok.experimental.FieldDefaults;
 public class Example {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
-    @Column
     String example;
 
-    @Column
     String translation;
 
-    // TODO comment out
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     Card card;

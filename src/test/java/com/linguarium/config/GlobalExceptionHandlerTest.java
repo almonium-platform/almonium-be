@@ -56,7 +56,8 @@ class GlobalExceptionHandlerTest {
     @DisplayName("Should handle UserAlreadyExistsAuthenticationException")
     @Test
     void givenUserAlreadyExistsException_whenHandleException_thenRespondWithBadRequest() {
-        UserAlreadyExistsAuthenticationException ex = new UserAlreadyExistsAuthenticationException("User already exists");
+        UserAlreadyExistsAuthenticationException ex =
+                new UserAlreadyExistsAuthenticationException("User already exists");
 
         ResponseEntity<?> response = exceptionHandler.handleUserAlreadyExistsException(ex);
 

@@ -3,11 +3,9 @@ package com.linguarium.user.model;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.translator.model.Language;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
@@ -31,14 +29,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class Profile {
-
     @Id
-    @Column(name = "id")
     Long id;
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id")
     User user;
 
     String background;
@@ -52,11 +47,9 @@ public class Profile {
     @CreatedDate
     LocalDateTime lastLogin;
 
-    @Column
     @Builder.Default
     int streak = 1;
 
-    @Column
     @Builder.Default
     Language uiLang = Language.EN;
 }

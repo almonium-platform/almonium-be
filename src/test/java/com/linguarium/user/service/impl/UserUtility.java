@@ -22,8 +22,8 @@ public class UserUtility {
         profile.setStreak(5);
         user.setProfile(profile);
         Learner learner = new Learner();
-        learner.setTargetLangs(Set.of(Language.DE.name(), Language.FR.name()));
-        learner.setFluentLangs(Set.of(Language.ES.name(), Language.RU.name()));
+        learner.setTargetLangs(Set.of(Language.DE, Language.FR));
+        learner.setFluentLangs(Set.of(Language.ES, Language.RU));
         user.setLearner(learner);
         return user;
     }

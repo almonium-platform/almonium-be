@@ -2,7 +2,6 @@ package com.linguarium.translator.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +23,7 @@ import lombok.experimental.FieldDefaults;
 public class Translator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
-    @Column
     String name;
 }

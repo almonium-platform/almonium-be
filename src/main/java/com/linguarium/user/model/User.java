@@ -4,8 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.AuthProvider;
 import com.linguarium.friendship.model.Friendship;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -34,8 +32,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -67,19 +63,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 public class User implements OAuth2User, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
-    @Column(nullable = false)
     String password;
 
-    @Column(unique = true)
     String email;
 
-    @Column(unique = true)
     String username;
 
-    @Column(nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime registered;
 
@@ -89,18 +80,16 @@ public class User implements OAuth2User, UserDetails {
 
     String providerUserId;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(mappedBy = "user")
     Profile profile;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(mappedBy = "user")
     Learner learner;
 
     @OneToMany(mappedBy = "requestee")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     Set<Friendship> incomingFriendships;
 
     @OneToMany(mappedBy = "requester")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     Set<Friendship> outgoingFriendships;
 
     @PrePersist

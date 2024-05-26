@@ -23,10 +23,7 @@ public class ProviderAuthServiceImpl implements ProviderAuthService {
     UserRepository userRepository;
     UserMapper userMapper;
 
-    public ProviderAuthServiceImpl(
-            UserRepository userRepository,
-            UserMapper userMapper
-    ) {
+    public ProviderAuthServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

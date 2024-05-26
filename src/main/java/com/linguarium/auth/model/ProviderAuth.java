@@ -3,7 +3,6 @@ package com.linguarium.auth.model;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.linguarium.auth.dto.AuthProvider;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -36,16 +35,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class ProviderAuth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
-    @Column(unique = true)
     String email;
 
-    @Column(unique = true, nullable = false)
     String username;
 
-    @Column(nullable = false, updatable = false)
     @CreatedDate
     LocalDateTime added;
 

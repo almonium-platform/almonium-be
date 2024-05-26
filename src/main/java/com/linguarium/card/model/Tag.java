@@ -2,7 +2,6 @@ package com.linguarium.card.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,10 +33,8 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false)
     Long id;
 
-    @Column(name = "text")
     @ColumnTransformer(read = "LOWER(text)")
     String text;
 

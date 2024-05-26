@@ -51,7 +51,7 @@ public class LanguageProcessorImpl implements LanguageProcessor {
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
-    CoreNLPServiceImpl coreNLPServiceImpl;
+    CoreNLPServiceImpl coreNLPServiceImpl = null;
     TranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
@@ -181,8 +181,7 @@ public class LanguageProcessorImpl implements LanguageProcessor {
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
         Language sourceLang = Language.valueOf(languageCode);
-        Language fluentLanguage =
-                Language.valueOf(learner.getFluentLangs().iterator().next());
+        Language fluentLanguage = learner.getFluentLangs().iterator().next();
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
