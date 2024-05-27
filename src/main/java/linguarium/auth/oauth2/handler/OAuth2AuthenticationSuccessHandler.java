@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import linguarium.auth.oauth2.OAuth2CookieRequestRepository;
+import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.util.CookieUtils;
 import lombok.RequiredArgsConstructor;

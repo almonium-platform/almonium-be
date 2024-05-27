@@ -12,9 +12,9 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import java.util.List;
-import linguarium.auth.oauth2.OAuth2CookieRequestRepository;
 import linguarium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import linguarium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
+import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.auth.oauth2.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
