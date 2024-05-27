@@ -1,4 +1,4 @@
-package linguarium.user.friendship.model;
+package linguarium.user.friendship.model.projection;
 
 import linguarium.user.friendship.model.enums.FriendshipStatus;
 import lombok.AllArgsConstructor;

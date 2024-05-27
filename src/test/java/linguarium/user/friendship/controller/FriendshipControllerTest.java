@@ -11,9 +11,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Optional;
 import linguarium.base.BaseControllerTest;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.friendship.dto.FriendDto;
-import linguarium.user.friendship.model.Friendship;
+import linguarium.user.friendship.model.entity.Friendship;
 import linguarium.user.friendship.model.enums.FriendshipAction;
 import linguarium.user.friendship.service.FriendshipService;
 import linguarium.util.TestDataGenerator;

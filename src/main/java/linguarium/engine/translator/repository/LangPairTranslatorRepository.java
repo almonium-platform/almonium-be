@@ -1,8 +1,8 @@
 package linguarium.engine.translator.repository;
 
 import java.util.List;
-import linguarium.engine.translator.model.LangPairTranslatorMapping;
-import linguarium.engine.translator.model.TranslatorMappingKey;
+import linguarium.engine.translator.model.entity.LangPairTranslatorMapping;
+import linguarium.engine.translator.model.entity.pk.TranslatorMappingKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Optional;
-import linguarium.user.friendship.model.Friendship;
-import linguarium.user.friendship.model.FriendshipToUserProjection;
+import linguarium.user.friendship.model.entity.Friendship;
+import linguarium.user.friendship.model.projection.FriendshipToUserProjection;
 import linguarium.user.friendship.repository.FriendshipRepository;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;

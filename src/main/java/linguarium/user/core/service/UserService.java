@@ -2,7 +2,7 @@ package linguarium.user.core.service;
 
 import java.util.Optional;
 import linguarium.user.core.dto.UserInfo;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {

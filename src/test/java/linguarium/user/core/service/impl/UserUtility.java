@@ -1,10 +1,10 @@
 package linguarium.user.core.service.impl;
 
 import java.util.Set;
-import linguarium.engine.translator.model.Language;
-import linguarium.user.core.model.Learner;
-import linguarium.user.core.model.Profile;
-import linguarium.user.core.model.User;
+import linguarium.engine.translator.model.enums.Language;
+import linguarium.user.core.model.entity.Learner;
+import linguarium.user.core.model.entity.Profile;
+import linguarium.user.core.model.entity.User;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

@@ -1,8 +1,8 @@
 package linguarium.user.core.repository;
 
 import java.util.Optional;
-import linguarium.user.core.model.User;
-import linguarium.user.friendship.model.UserToFriendProjection;
+import linguarium.user.core.model.entity.User;
+import linguarium.user.friendship.model.projection.UserToFriendProjection;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

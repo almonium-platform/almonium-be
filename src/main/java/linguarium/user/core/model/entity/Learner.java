@@ -1,4 +1,4 @@
-package linguarium.user.core.model;
+package linguarium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -15,9 +15,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.List;
 import java.util.Set;
-import linguarium.card.core.model.Card;
-import linguarium.card.suggestion.model.CardSuggestion;
-import linguarium.engine.translator.model.Language;
+import linguarium.card.core.model.entity.Card;
+import linguarium.card.suggestion.model.entity.CardSuggestion;
+import linguarium.engine.translator.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

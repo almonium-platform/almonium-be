@@ -3,7 +3,7 @@ package linguarium.engine.analyzer.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import linguarium.card.core.dto.CardDto;
-import linguarium.engine.analyzer.model.CEFR;
+import linguarium.engine.analyzer.model.enums.CEFR;
 import linguarium.engine.translator.dto.TranslationCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

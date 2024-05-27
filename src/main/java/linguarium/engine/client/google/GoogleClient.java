@@ -7,7 +7,7 @@ import java.util.Map;
 import linguarium.engine.client.AbstractClient;
 import linguarium.engine.client.Client;
 import linguarium.engine.client.google.dto.GoogleDto;
-import linguarium.engine.translator.model.Language;
+import linguarium.engine.translator.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,7 @@ import java.util.List;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
-import linguarium.user.core.model.Learner;
+import linguarium.user.core.model.entity.Learner;
 
 public interface CardService {
     CardDto getCardById(Long id);

@@ -1,4 +1,4 @@
-package linguarium.engine.translator.model;
+package linguarium.engine.translator.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import linguarium.engine.translator.model.entity.pk.TranslatorMappingKey;
+import linguarium.engine.translator.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

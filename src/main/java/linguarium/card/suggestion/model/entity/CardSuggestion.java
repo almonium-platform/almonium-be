@@ -1,4 +1,4 @@
-package linguarium.card.suggestion.model;
+package linguarium.card.suggestion.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
-import linguarium.card.core.model.Card;
-import linguarium.user.core.model.Learner;
+import linguarium.card.core.model.entity.Card;
+import linguarium.user.core.model.entity.Learner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

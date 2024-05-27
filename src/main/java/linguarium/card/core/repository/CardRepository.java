@@ -3,9 +3,9 @@ package linguarium.card.core.repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import linguarium.card.core.model.Card;
-import linguarium.engine.translator.model.Language;
-import linguarium.user.core.model.Learner;
+import linguarium.card.core.model.entity.Card;
+import linguarium.engine.translator.model.enums.Language;
+import linguarium.user.core.model.entity.Learner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

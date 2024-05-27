@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import linguarium.user.core.model.Profile;
+import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.repository.ProfileRepository;
 import linguarium.user.core.service.ProfileService;
 import lombok.RequiredArgsConstructor;

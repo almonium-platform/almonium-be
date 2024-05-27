@@ -1,4 +1,4 @@
-package linguarium.user.friendship.model;
+package linguarium.user.friendship.model.projection;
 
 /**
  * A projection interface for retrieving basic friend information.

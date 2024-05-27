@@ -1,6 +1,6 @@
 package linguarium.user.core.repository;
 
-import linguarium.user.core.model.Learner;
+import linguarium.user.core.model.entity.Learner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

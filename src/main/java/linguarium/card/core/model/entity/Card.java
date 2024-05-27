@@ -1,4 +1,4 @@
-package linguarium.card.core.model;
+package linguarium.card.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import linguarium.engine.translator.model.Language;
-import linguarium.user.core.model.Learner;
+import linguarium.engine.translator.model.enums.Language;
+import linguarium.user.core.model.entity.Learner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

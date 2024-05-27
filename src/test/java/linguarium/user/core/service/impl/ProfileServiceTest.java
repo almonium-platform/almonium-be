@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import linguarium.user.core.model.Profile;
+import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.repository.ProfileRepository;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;

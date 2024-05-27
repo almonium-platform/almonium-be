@@ -1,4 +1,4 @@
-package linguarium.engine.translator.model;
+package linguarium.engine.translator.model.enums;
 
 import lombok.Getter;
 

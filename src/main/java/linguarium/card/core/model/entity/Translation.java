@@ -1,4 +1,4 @@
-package linguarium.card.core.model;
+package linguarium.card.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,20 +20,18 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
-public class Example {
+public class Translation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String example;
-
     String translation;
 
     @ManyToOne
-    @JoinColumn(name = "card_id", referencedColumnName = "id")
+    @JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
     Card card;
 }

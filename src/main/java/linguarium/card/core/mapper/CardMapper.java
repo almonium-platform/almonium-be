@@ -3,7 +3,7 @@ package linguarium.card.core.mapper;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
-import linguarium.card.core.model.Card;
+import linguarium.card.core.model.entity.Card;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

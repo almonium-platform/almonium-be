@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.util.Optional;
-import linguarium.user.core.model.User;
-import linguarium.user.friendship.model.UserToFriendProjection;
+import linguarium.user.core.model.entity.User;
+import linguarium.user.friendship.model.projection.UserToFriendProjection;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -11,8 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import linguarium.base.BaseControllerTest;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
 import linguarium.card.suggestion.service.CardSuggestionService;
-import linguarium.user.core.model.Learner;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.Learner;
+import linguarium.user.core.model.entity.User;
 import linguarium.util.TestDataGenerator;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;

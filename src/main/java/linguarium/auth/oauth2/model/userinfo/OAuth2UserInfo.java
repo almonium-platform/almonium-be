@@ -1,7 +1,7 @@
 package linguarium.auth.oauth2.model.userinfo;
 
 import java.util.Map;
-import linguarium.auth.oauth2.model.AuthProviderType;
+import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package linguarium.card.core.model;
+package linguarium.card.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 

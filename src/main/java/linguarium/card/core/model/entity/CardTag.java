@@ -1,4 +1,4 @@
-package linguarium.card.core.model;
+package linguarium.card.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -7,7 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import linguarium.user.core.model.Learner;
+import linguarium.card.core.model.entity.pk.CardTagPK;
+import linguarium.user.core.model.entity.Learner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

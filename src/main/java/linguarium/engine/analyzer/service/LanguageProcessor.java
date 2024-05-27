@@ -6,8 +6,8 @@ import linguarium.engine.analyzer.dto.AnalysisDto;
 import linguarium.engine.client.words.dto.WordsReportDto;
 import linguarium.engine.translator.dto.MLTranslationCard;
 import linguarium.engine.translator.dto.TranslationCardDto;
-import linguarium.engine.translator.model.Language;
-import linguarium.user.core.model.Learner;
+import linguarium.engine.translator.model.enums.Language;
+import linguarium.user.core.model.entity.Learner;
 
 public interface LanguageProcessor {
     MLTranslationCard bulkTranslate(String text, Language targetLang);

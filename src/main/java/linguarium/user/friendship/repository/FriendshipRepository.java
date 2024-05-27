@@ -2,8 +2,8 @@ package linguarium.user.friendship.repository;
 
 import java.util.List;
 import java.util.Optional;
-import linguarium.user.friendship.model.Friendship;
-import linguarium.user.friendship.model.FriendshipToUserProjection;
+import linguarium.user.friendship.model.entity.Friendship;
+import linguarium.user.friendship.model.projection.FriendshipToUserProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

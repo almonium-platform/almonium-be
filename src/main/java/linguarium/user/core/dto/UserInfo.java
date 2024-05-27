@@ -1,7 +1,7 @@
 package linguarium.user.core.dto;
 
 import java.util.Collection;
-import linguarium.engine.translator.model.Language;
+import linguarium.engine.translator.model.enums.Language;
 
 public record UserInfo(
         String id,

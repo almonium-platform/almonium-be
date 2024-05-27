@@ -4,10 +4,10 @@ import static linguarium.util.GeneralUtils.generateId;
 import static lombok.AccessLevel.PRIVATE;
 
 import linguarium.auth.oauth2.exception.OAuth2AuthenticationProcessingException;
-import linguarium.auth.oauth2.model.AuthProviderType;
+import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.mapper.UserMapper;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

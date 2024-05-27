@@ -1,4 +1,4 @@
-package linguarium.engine.analyzer.model;
+package linguarium.engine.analyzer.model.enums;
 
 public enum CEFR {
     A1,

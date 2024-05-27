@@ -1,4 +1,4 @@
-package linguarium.card.core.model;
+package linguarium.card.core.model.entity.pk;
 
 import jakarta.persistence.Embeddable;
 import java.util.Objects;

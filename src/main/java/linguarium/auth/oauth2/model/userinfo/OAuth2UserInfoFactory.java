@@ -3,7 +3,7 @@ package linguarium.auth.oauth2.model.userinfo;
 import java.util.Map;
 import java.util.function.Function;
 import linguarium.auth.oauth2.exception.OAuth2AuthenticationProcessingException;
-import linguarium.auth.oauth2.model.AuthProviderType;
+import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
-import linguarium.card.core.model.Card;
-import linguarium.card.core.model.CardTag;
-import linguarium.card.core.model.Tag;
-import linguarium.user.core.model.Learner;
-import linguarium.user.core.model.User;
+import linguarium.card.core.model.entity.Card;
+import linguarium.card.core.model.entity.CardTag;
+import linguarium.card.core.model.entity.Tag;
+import linguarium.user.core.model.entity.Learner;
+import linguarium.user.core.model.entity.User;
 import linguarium.util.TestDataGenerator;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;

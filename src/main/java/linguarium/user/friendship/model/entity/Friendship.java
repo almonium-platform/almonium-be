@@ -1,4 +1,4 @@
-package linguarium.user.friendship.model;
+package linguarium.user.friendship.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.friendship.model.enums.FriendshipStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

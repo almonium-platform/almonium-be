@@ -3,7 +3,7 @@ package linguarium.user.core.mapper;
 import linguarium.auth.local.dto.request.RegisterRequest;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

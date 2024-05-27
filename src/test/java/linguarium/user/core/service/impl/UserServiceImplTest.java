@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import linguarium.user.core.mapper.UserMapper;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;

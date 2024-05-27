@@ -1,5 +1,6 @@
-package linguarium.engine.translator.model;
+package linguarium.engine.translator.model.entity.pk;
 
+import linguarium.engine.translator.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

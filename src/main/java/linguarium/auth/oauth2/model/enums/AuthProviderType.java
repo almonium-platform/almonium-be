@@ -1,4 +1,4 @@
-package linguarium.auth.oauth2.model;
+package linguarium.auth.oauth2.model.enums;
 
 import lombok.Getter;
 

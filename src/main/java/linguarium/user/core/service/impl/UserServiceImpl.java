@@ -6,7 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.mapper.UserMapper;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import linguarium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;

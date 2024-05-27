@@ -9,7 +9,7 @@ import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.AuthService;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.mapper.UserMapper;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import linguarium.user.core.service.ProfileService;
 import linguarium.user.core.service.UserService;

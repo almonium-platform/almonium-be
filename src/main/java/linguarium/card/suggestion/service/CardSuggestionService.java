@@ -3,7 +3,7 @@ package linguarium.card.suggestion.service;
 import java.util.List;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
-import linguarium.user.core.model.Learner;
+import linguarium.user.core.model.entity.Learner;
 
 public interface CardSuggestionService {
     List<CardDto> getSuggestedCards(Learner user);

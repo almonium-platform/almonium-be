@@ -1,10 +1,10 @@
 package linguarium.card.core.repository;
 
 import java.util.Set;
-import linguarium.card.core.model.Card;
-import linguarium.card.core.model.CardTag;
-import linguarium.card.core.model.CardTagPK;
-import linguarium.user.core.model.Learner;
+import linguarium.card.core.model.entity.Card;
+import linguarium.card.core.model.entity.CardTag;
+import linguarium.card.core.model.entity.pk.CardTagPK;
+import linguarium.user.core.model.entity.Learner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

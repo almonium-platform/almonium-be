@@ -1,4 +1,4 @@
-package linguarium.user.core.model;
+package linguarium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
-import linguarium.engine.translator.model.Language;
+import linguarium.engine.translator.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

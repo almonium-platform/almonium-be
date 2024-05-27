@@ -6,7 +6,7 @@ import linguarium.user.core.dto.LanguageUpdateRequest;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.dto.UsernameAvailability;
 import linguarium.user.core.dto.UsernameUpdateRequest;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.LearnerService;
 import linguarium.user.core.service.UserService;
 import linguarium.util.annotation.CurrentUser;

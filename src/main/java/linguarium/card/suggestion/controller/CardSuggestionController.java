@@ -7,7 +7,7 @@ import java.util.List;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
 import linguarium.card.suggestion.service.CardSuggestionService;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.util.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

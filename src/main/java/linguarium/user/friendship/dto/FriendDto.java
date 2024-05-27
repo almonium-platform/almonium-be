@@ -2,9 +2,9 @@ package linguarium.user.friendship.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.user.friendship.model.UserToFriendProjection;
 import linguarium.user.friendship.model.enums.FriendStatus;
 import linguarium.user.friendship.model.enums.FriendshipStatus;
+import linguarium.user.friendship.model.projection.UserToFriendProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;

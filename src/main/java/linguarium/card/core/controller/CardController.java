@@ -8,7 +8,7 @@ import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
-import linguarium.user.core.model.User;
+import linguarium.user.core.model.entity.User;
 import linguarium.util.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
