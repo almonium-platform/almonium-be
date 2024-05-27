@@ -2,6 +2,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-auth-table.yaml
   - include:
+      file: db/changelog/changes/creation/create-provider-account-table.yaml
+  - include:
       file: db/changelog/changes/creation/create-profile-table.yaml
   - include:
       file: db/changelog/changes/creation/create-learner-table.yaml

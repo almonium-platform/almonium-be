@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-provider-account-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: provider_account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: added
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: provider_user_id
+                  type: varchar(255)
+        - addForeignKeyConstraint:
+            baseTableName: provider_account
+            baseColumnNames: user_id
+            referencedTableName: auth
+            referencedColumnNames: id
+            constraintName: fk_provider_account_user
+            onDelete: CASCADE
+        - createIndex:
+            tableName: provider_account
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_provider_account_user_id
+        - createIndex:
+            tableName: provider_account
+            columns:
+              - column:
+                  name: email
+            indexName: idx_provider_account_email
+        - createIndex:
+            tableName: provider_account
+            columns:
+              - column:
+                  name: provider
+            indexName: idx_provider_account_provider
+        - createIndex:
+            tableName: provider_account
+            columns:
+              - column:
+                  name: provider_user_id
+            indexName: idx_provider_account_provider_user_id

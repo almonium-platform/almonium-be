@@ -39,14 +39,14 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
      */
     @Query(
             """
-                                    select new linguarium.user.friendship.model.FriendshipToUserProjection(
-                        case when f.requester.id = :id then f.requestee.id else f.requester.id end,
-                        str(f.status),
-                        case when f.requester.id = :id then true else false end)
-                    from Friendship f
-                    where (f.requester.id = :id or f.requestee.id = :id)
-            and not ((f.requester.id = :id and str(f.status) = 'SND_BLOCKED_FST')
-                        or (f.requestee.id = :id and str(f.status) = 'FST_BLOCKED_SND'))
-            """)
+                    select new linguarium.user.friendship.model.projection.FriendshipToUserProjection(
+                                case when f.requester.id = :id then f.requestee.id else f.requester.id end,
+                                str(f.status),
+                                case when f.requester.id = :id then true else false end)
+                            from Friendship f
+                            where (f.requester.id = :id or f.requestee.id = :id)
+                    and not ((f.requester.id = :id and str(f.status) = 'SND_BLOCKED_FST')
+                                or (f.requestee.id = :id and str(f.status) = 'FST_BLOCKED_SND'))
+                    """)
     List<FriendshipToUserProjection> getVisibleFriendships(@Param("id") long id);
 }

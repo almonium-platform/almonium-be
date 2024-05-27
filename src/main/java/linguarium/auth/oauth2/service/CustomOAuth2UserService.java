@@ -8,7 +8,6 @@ import linguarium.auth.oauth2.exception.OAuth2AuthenticationProcessingException;
 import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
-import linguarium.user.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -37,9 +36,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         validateProviderUserInfo(userInfo);
 
         try {
-            User user = authService.authenticate(userInfo);
-            user.setAttributes(attributes);
-            return user;
+            return authService.authenticate(userInfo, attributes);
         } catch (Exception ex) {
             throw new OAuth2AuthenticationProcessingException("Authentication failed", ex);
         }

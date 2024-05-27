@@ -9,9 +9,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.user.core.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,9 +28,10 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Entity
-@Table(name = "provider_auth")
 @Getter
 @Setter
 @Builder
@@ -32,14 +40,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class ProviderAuth {
+public class ProviderAccount implements OAuth2User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String email;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    User user;
 
-    String username;
+    String email;
 
     @CreatedDate
     LocalDateTime added;
@@ -48,4 +58,28 @@ public class ProviderAuth {
     AuthProviderType provider;
 
     String providerUserId;
+
+    @Transient
+    @Builder.Default
+    Map<String, Object> attributes = new HashMap<>();
+
+    @Override
+    public <A> A getAttribute(String name) {
+        return OAuth2User.super.getAttribute(name);
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getName() {
+        return email;
+    }
 }

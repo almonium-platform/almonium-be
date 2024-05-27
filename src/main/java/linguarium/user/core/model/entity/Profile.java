@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class Profile {
 
     @OneToOne
     @MapsId
+    @JoinColumn(name = "id")
     User user;
 
     String background;

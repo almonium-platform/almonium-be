@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import linguarium.auth.oauth2.model.entity.ProviderAccount;
 import linguarium.user.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +36,13 @@ public class TokenProvider {
     private long tokenExpirationMSec;
 
     public String createToken(Authentication authentication) {
-        User userPrincipal = (User) authentication.getPrincipal();
-
+        Long id = getId(authentication);
         Instant now = Instant.now();
         LocalDateTime expiryDateTime =
                 LocalDateTime.ofInstant(now.plusMillis(tokenExpirationMSec), ZoneId.systemDefault());
 
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
+                .setSubject(Long.toString(id))
                 .setIssuedAt(Date.from(now))
                 .setExpiration(
                         Date.from(expiryDateTime.atZone(ZoneId.systemDefault()).toInstant()))
@@ -73,5 +73,20 @@ public class TokenProvider {
             log.error(TOKEN_CLAIMS_EMPTY);
         }
         return false;
+    }
+
+    private static Long getId(Authentication authentication) {
+        Object principal = authentication.getPrincipal();
+        Long id;
+        if (principal instanceof ProviderAccount) {
+            ProviderAccount userPrincipal = (ProviderAccount) authentication.getPrincipal();
+            id = userPrincipal.getUser().getId();
+        } else if (principal instanceof User) {
+            User user = (User) authentication.getPrincipal();
+            id = user.getId();
+        } else {
+            throw new IllegalStateException("Authentication principle of unknown type! " + principal.getClass());
+        }
+        return id;
     }
 }

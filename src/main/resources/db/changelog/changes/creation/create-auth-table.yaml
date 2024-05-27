@@ -13,19 +13,13 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: provider_user_id
-                  type: varchar(255)
-              - column:
-                  name: password
-                  type: varchar(255)
-              - column:
-                  name: provider
-                  type: varchar(255)
-              - column:
                   name: email
                   type: varchar(255)
                   constraints:
                     unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
               - column:
                   name: username
                   type: varchar(255)

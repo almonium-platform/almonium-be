@@ -1,14 +1,15 @@
 package linguarium.auth.oauth2.service;
 
-import static linguarium.util.GeneralUtils.generateId;
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.auth.oauth2.exception.OAuth2AuthenticationProcessingException;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import java.util.Map;
+import linguarium.auth.oauth2.model.entity.ProviderAccount;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.oauth2.repository.ProviderAccountRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,45 +17,40 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProviderAuthServiceImpl {
-    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
     UserRepository userRepository;
     UserMapper userMapper;
-
-    public ProviderAuthServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
+    ProviderAccountRepository providerAccountRepository;
 
     @Transactional
-    public User authenticate(OAuth2UserInfo userInfo) {
-        User user = userRepository
+    public ProviderAccount authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+        ProviderAccount account = userMapper.providerUserInfoToProviderAccount(userInfo);
+        account.setAttributes(attributes);
+
+        userRepository
                 .findByEmail(userInfo.getEmail())
-                .map(existingUser -> {
-                    validateUserProviderMatch(existingUser, userInfo.getProvider());
-                    return existingUser;
-                })
-                .orElseGet(() -> {
-                    User newUser = userMapper.providerUserInfoToUser(userInfo);
-                    newUser.setUsername(generateId());
-                    newUser.setPassword(PLACEHOLDER);
-                    userRepository.save(newUser);
-                    return newUser;
-                });
+                .ifPresentOrElse(user -> updateUser(user, account, userInfo),
+                        () -> createUser(account));
 
-        return updateUserWithProviderInfo(user, userInfo);
+        return account;
     }
 
-    private void validateUserProviderMatch(User user, AuthProviderType provider) {
-        if (!user.getProvider().equals(provider)) {
-            throw new OAuth2AuthenticationProcessingException(
-                    "Looks like you're signed up with " + user.getProvider() + " account. Please use it to login.");
+    private void createUser(ProviderAccount account) {
+        User user = new User(account);
+        userRepository.save(user);
+        account.setUser(user);
+        providerAccountRepository.save(account);
+    }
+
+    private void updateUser(User user, ProviderAccount account, OAuth2UserInfo userInfo) {
+        if (user.getProviderAccounts().stream()
+                .anyMatch(acc -> acc.getProvider().equals(userInfo.getProvider()))) {
+            user.getProfile().setAvatarUrl(userInfo.getImageUrl());
+        } else {
+            user.getProviderAccounts().add(account);
         }
-    }
-
-    private User updateUserWithProviderInfo(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.getProfile().setAvatarUrl(oAuth2UserInfo.getImageUrl()); // todo save, but not update
-        return userRepository.save(existingUser);
+        userRepository.save(user);
     }
 }

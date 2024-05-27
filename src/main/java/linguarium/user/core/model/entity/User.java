@@ -5,8 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,15 +15,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.oauth2.model.entity.ProviderAccount;
 import linguarium.user.friendship.model.entity.Friendship;
+import linguarium.util.GeneralUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -38,7 +35,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @NamedEntityGraph(
         name = "graph.User.details",
@@ -61,7 +57,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class User implements OAuth2User, UserDetails {
+public class User implements UserDetails {
+    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -75,11 +73,8 @@ public class User implements OAuth2User, UserDetails {
     @CreatedDate
     LocalDateTime registered;
 
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    AuthProviderType provider = AuthProviderType.LOCAL;
-
-    String providerUserId;
+    @OneToMany(mappedBy = "user")
+    List<ProviderAccount> providerAccounts = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     Profile profile;
@@ -92,6 +87,13 @@ public class User implements OAuth2User, UserDetails {
 
     @OneToMany(mappedBy = "requester")
     Set<Friendship> outgoingFriendships;
+
+    public User(ProviderAccount account) {
+        username = GeneralUtils.generateId();
+        email = account.getEmail();
+        password = PLACEHOLDER;
+        providerAccounts.add(account);
+    }
 
     @PrePersist
     private void prePersist() {
@@ -131,21 +133,6 @@ public class User implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
-    }
-
-    // OAuth2User methods
-    @Transient
-    @Builder.Default
-    Map<String, Object> attributes = new HashMap<>();
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    @Override
-    public String getName() {
         return username;
     }
 }

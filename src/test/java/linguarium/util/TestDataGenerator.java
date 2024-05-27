@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
@@ -208,7 +207,6 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -219,7 +217,6 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -232,7 +229,6 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -244,7 +240,6 @@ public final class TestDataGenerator {
         user.setUsername("jake");
         user.setEmail("jake@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
