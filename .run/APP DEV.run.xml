@@ -3,7 +3,7 @@
     <option name="ACTIVE_PROFILES" value="dev" />
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
     <module name="linguarium" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.linguarium.LinguaApp" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="linguarium.LinguaApp"/>
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.linguatool.*" />

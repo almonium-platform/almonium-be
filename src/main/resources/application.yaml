@@ -44,7 +44,7 @@ spring:
 
 logging:
   level:
-    com.linguarium: DEBUG
+    linguarium: DEBUG
     root: INFO
     org:
       hibernate:
