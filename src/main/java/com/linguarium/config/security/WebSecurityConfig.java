@@ -11,10 +11,10 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-import com.linguarium.config.security.oauth2.CustomOAuth2UserService;
-import com.linguarium.config.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.linguarium.config.security.oauth2.OAuth2AuthenticationSuccessHandler;
-import com.linguarium.config.security.oauth2.OAuth2CookieRequestRepository;
+import com.linguarium.auth.oauth2.OAuth2CookieRequestRepository;
+import com.linguarium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
+import com.linguarium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
+import com.linguarium.auth.oauth2.service.CustomOAuth2UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

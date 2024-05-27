@@ -4,7 +4,7 @@ import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
 import static com.google.auth.http.AuthHttpConstants.BEARER;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.linguarium.user.service.UserService;
+import com.linguarium.user.core.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

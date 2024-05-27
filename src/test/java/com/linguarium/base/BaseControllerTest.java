@@ -2,7 +2,7 @@ package com.linguarium.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linguarium.config.security.jwt.TokenProvider;
-import com.linguarium.user.service.UserService;
+import com.linguarium.user.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;

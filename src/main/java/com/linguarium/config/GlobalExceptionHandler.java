@@ -1,6 +1,6 @@
 package com.linguarium.config;
 
-import com.linguarium.auth.exception.UserAlreadyExistsAuthenticationException;
+import com.linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import com.linguarium.util.dto.ApiResponse;
 import java.util.HashMap;
 import java.util.Map;

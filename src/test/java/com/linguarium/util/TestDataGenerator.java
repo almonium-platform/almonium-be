@@ -1,33 +1,33 @@
 package com.linguarium.util;
 
 import com.google.protobuf.ByteString;
-import com.linguarium.analyzer.dto.AnalysisDto;
-import com.linguarium.analyzer.model.CEFR;
-import com.linguarium.auth.dto.AuthProvider;
-import com.linguarium.auth.dto.UserInfo;
-import com.linguarium.card.dto.CardCreationDto;
-import com.linguarium.card.dto.CardDto;
-import com.linguarium.card.dto.CardUpdateDto;
-import com.linguarium.card.dto.ExampleDto;
-import com.linguarium.card.dto.TagDto;
-import com.linguarium.card.dto.TranslationDto;
-import com.linguarium.card.model.Card;
-import com.linguarium.client.words.dto.WordsPronunciationDto;
-import com.linguarium.client.words.dto.WordsReportDto;
-import com.linguarium.client.words.dto.WordsResultDto;
-import com.linguarium.client.words.dto.WordsSyllablesDto;
-import com.linguarium.friendship.dto.FriendDto;
-import com.linguarium.friendship.model.Friendship;
-import com.linguarium.friendship.model.UserToFriendProjection;
-import com.linguarium.friendship.model.enums.FriendStatus;
-import com.linguarium.friendship.model.enums.FriendshipStatus;
-import com.linguarium.translator.dto.DefinitionDto;
-import com.linguarium.translator.dto.MLTranslationCard;
-import com.linguarium.translator.dto.TranslationCardDto;
-import com.linguarium.translator.model.Language;
-import com.linguarium.user.model.Learner;
-import com.linguarium.user.model.Profile;
-import com.linguarium.user.model.User;
+import com.linguarium.auth.oauth2.model.AuthProviderType;
+import com.linguarium.card.core.dto.CardCreationDto;
+import com.linguarium.card.core.dto.CardDto;
+import com.linguarium.card.core.dto.CardUpdateDto;
+import com.linguarium.card.core.dto.ExampleDto;
+import com.linguarium.card.core.dto.TagDto;
+import com.linguarium.card.core.dto.TranslationDto;
+import com.linguarium.card.core.model.Card;
+import com.linguarium.engine.analyzer.dto.AnalysisDto;
+import com.linguarium.engine.analyzer.model.CEFR;
+import com.linguarium.engine.client.words.dto.WordsPronunciationDto;
+import com.linguarium.engine.client.words.dto.WordsReportDto;
+import com.linguarium.engine.client.words.dto.WordsResultDto;
+import com.linguarium.engine.client.words.dto.WordsSyllablesDto;
+import com.linguarium.engine.translator.dto.DefinitionDto;
+import com.linguarium.engine.translator.dto.MLTranslationCard;
+import com.linguarium.engine.translator.dto.TranslationCardDto;
+import com.linguarium.engine.translator.model.Language;
+import com.linguarium.user.core.dto.UserInfo;
+import com.linguarium.user.core.model.Learner;
+import com.linguarium.user.core.model.Profile;
+import com.linguarium.user.core.model.User;
+import com.linguarium.user.friendship.dto.FriendDto;
+import com.linguarium.user.friendship.model.Friendship;
+import com.linguarium.user.friendship.model.UserToFriendProjection;
+import com.linguarium.user.friendship.model.enums.FriendStatus;
+import com.linguarium.user.friendship.model.enums.FriendshipStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,8 @@ import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 @UtilityClass
 public final class TestDataGenerator {
@@ -86,14 +88,14 @@ public final class TestDataGenerator {
         };
     }
 
-    public com.linguarium.translator.dto.TranslationDto[] createTestTranslationDtos() {
-        return new com.linguarium.translator.dto.TranslationDto[] {
-            com.linguarium.translator.dto.TranslationDto.builder()
+    public com.linguarium.engine.translator.dto.TranslationDto[] createTestTranslationDtos() {
+        return new com.linguarium.engine.translator.dto.TranslationDto[]{
+                com.linguarium.engine.translator.dto.TranslationDto.builder()
                     .text("Translation 1")
                     .pos("Noun")
                     .frequency(5)
                     .build(),
-            com.linguarium.translator.dto.TranslationDto.builder()
+                com.linguarium.engine.translator.dto.TranslationDto.builder()
                     .text("Translation 2")
                     .pos("Verb")
                     .frequency(3)
@@ -206,7 +208,7 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProvider.LOCAL);
+        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -217,7 +219,7 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProvider.LOCAL);
+        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -230,7 +232,7 @@ public final class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProvider.LOCAL);
+        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -242,7 +244,7 @@ public final class TestDataGenerator {
         user.setUsername("jake");
         user.setEmail("jake@email.com");
         user.setPassword("password");
-        user.setProvider(AuthProvider.LOCAL);
+        user.setProvider(AuthProviderType.LOCAL);
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -432,5 +434,20 @@ public final class TestDataGenerator {
         card.setLanguage(Language.EN);
         card.setCreated(LocalDateTime.now());
         return card;
+    }
+
+    public static ClientRegistration buildClientRegistration() {
+        return ClientRegistration.withRegistrationId("google")
+                .clientId("test-client-id")
+                .clientSecret("test-client-secret")
+                .scope("openid", "profile", "email")
+                .authorizationUri("https://accounts.google.com/o/oauth2/auth")
+                .tokenUri("https://oauth2.googleapis.com/token")
+                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
+                .userNameAttributeName("sub")
+                .clientName("Google")
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+                .build();
     }
 }
