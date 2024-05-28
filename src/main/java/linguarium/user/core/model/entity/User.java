@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 import linguarium.auth.oauth2.model.entity.ProviderAccount;
 import linguarium.user.friendship.model.entity.Friendship;
-import linguarium.util.GeneralUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -58,8 +57,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
-    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -73,6 +70,7 @@ public class User implements UserDetails {
     @CreatedDate
     LocalDateTime registered;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     List<ProviderAccount> providerAccounts = new ArrayList<>();
 
@@ -87,13 +85,6 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "requester")
     Set<Friendship> outgoingFriendships;
-
-    public User(ProviderAccount account) {
-        username = GeneralUtils.generateId();
-        email = account.getEmail();
-        password = PLACEHOLDER;
-        providerAccounts.add(account);
-    }
 
     @PrePersist
     private void prePersist() {
