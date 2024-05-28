@@ -44,6 +44,8 @@ spring:
 
 logging:
   level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
     linguarium: DEBUG
     root: INFO
     org:

@@ -83,7 +83,7 @@ public class WebSecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
-                        exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.NOT_FOUND)))
+                        exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.FORBIDDEN)))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PERMIT_ALL_URL_PATTERNS.toArray(String[]::new))
                         .permitAll()
                         .anyRequest()
