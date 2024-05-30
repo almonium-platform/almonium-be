@@ -12,8 +12,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import linguarium.auth.local.dto.request.LoginRequest;
-import linguarium.auth.local.dto.request.RegisterRequest;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.impl.AuthServiceImpl;
@@ -25,6 +24,7 @@ import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import linguarium.user.core.service.ProfileService;
 import linguarium.user.core.service.UserService;
+import linguarium.util.TestDataGenerator;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,20 +67,22 @@ class AuthServiceImplTest {
     @Test
     void givenValidLocalRequest_whenRegister_thenSaveUser() {
         // Arrange
-        RegisterRequest registrationRequest = RegisterRequest.builder()
-                .email("johnwick@gmail.com")
-                .password("password!123")
-                .build();
+        LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
+        User user = User.builder().email(registrationRequest.email()).build();
+        String expectedJwt = "xxx.yyy.zzz";
+        Principal principal = Principal.builder().user(user).build();
+        Authentication auth = mock(Authentication.class);
+        when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
+        when(auth.getPrincipal()).thenReturn(principal);
+        when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
-        User user = User.builder().email(registrationRequest.getEmail()).build();
-
-        when(passwordEncoder.encode(registrationRequest.getPassword())).thenReturn("$2b$encoded/Password");
+        when(passwordEncoder.encode(registrationRequest.password())).thenReturn("$2b$encoded/Password");
 
         // Act
         authService.register(registrationRequest);
 
         // Assert
-        verify(passwordEncoder).encode(registrationRequest.getPassword());
+        verify(passwordEncoder).encode(registrationRequest.password());
         verify(userRepository).save(user);
     }
 
@@ -93,7 +95,7 @@ class AuthServiceImplTest {
         String email = user.getEmail();
         String password = "fdsfsd";
         String expectedJwt = "xxx.yyy.zzz";
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
         Principal principal = Principal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
@@ -101,7 +103,7 @@ class AuthServiceImplTest {
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act
-        JwtAuthResponse result = authService.login(loginRequest);
+        JwtAuthResponse result = authService.login(localAuthRequest);
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
@@ -113,15 +115,14 @@ class AuthServiceImplTest {
     @DisplayName("Should throw an exception when trying to register user with existing email")
     @Test
     void givenExistingUserEmail_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegisterRequest registrationRequest =
-                RegisterRequest.builder().email("john@mail.com").build();
+        LocalAuthRequest registrationRequest = new LocalAuthRequest("johnwick@gmail.com", "password");
 
-        when(userRepository.existsByEmail(registrationRequest.getEmail())).thenReturn(true);
+        when(userRepository.existsByEmail(registrationRequest.email())).thenReturn(true);
 
         assertThatThrownBy(() -> authService.register(registrationRequest))
                 .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
 
-        verify(userRepository).existsByEmail(registrationRequest.getEmail());
+        verify(userRepository).existsByEmail(registrationRequest.email());
         verify(userRepository, never()).existsById(anyLong());
         verify(userRepository, never()).existsByUsername(anyString());
         verify(userRepository, never()).save(any(User.class));

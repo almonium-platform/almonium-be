@@ -1,11 +1,10 @@
 package linguarium.auth.local.service;
 
-import linguarium.auth.local.dto.request.LoginRequest;
-import linguarium.auth.local.dto.request.RegisterRequest;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 
 public interface AuthService {
-    void register(RegisterRequest registrationRequest);
+    JwtAuthResponse register(LocalAuthRequest registrationRequest);
 
-    JwtAuthResponse login(LoginRequest loginRequest);
+    JwtAuthResponse login(LocalAuthRequest localAuthRequest);
 }

@@ -3,11 +3,9 @@ package linguarium.auth.local.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
-import linguarium.auth.local.dto.request.LoginRequest;
-import linguarium.auth.local.dto.request.RegisterRequest;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.service.AuthService;
-import linguarium.util.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +24,12 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(authService.login(loginRequest));
+    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LocalAuthRequest localAuthRequest) {
+        return ResponseEntity.ok(authService.login(localAuthRequest));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterRequest request) {
-        authService.register(request);
-        return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
+    public ResponseEntity<JwtAuthResponse> register(@Valid @RequestBody LocalAuthRequest request) {
+        return ResponseEntity.ok(authService.register(request));
     }
 }

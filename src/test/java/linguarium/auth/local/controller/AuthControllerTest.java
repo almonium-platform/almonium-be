@@ -10,8 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import linguarium.auth.local.dto.request.LoginRequest;
-import linguarium.auth.local.dto.request.RegisterRequest;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.AuthService;
@@ -50,15 +49,15 @@ class AuthControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenValidCredentials_whenLogin_thenReturnJwtToken() {
-        LoginRequest loginRequest = new LoginRequest("user@example.com", "password");
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
         JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(authService.login(eq(loginRequest))).thenReturn(response);
+        when(authService.login(eq(localAuthRequest))).thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginRequest)))
+                        .content(objectMapper.writeValueAsString(localAuthRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(response)));
     }
@@ -67,12 +66,12 @@ class AuthControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() {
-        LoginRequest loginRequest = new LoginRequest("user@example.com", "wrong_password");
-        when(authService.login(any(LoginRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        when(authService.login(any(LocalAuthRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginRequest)))
+                        .content(objectMapper.writeValueAsString(localAuthRequest)))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.success").value(false));
     }
@@ -81,36 +80,33 @@ class AuthControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenValidSignUpRequest_whenRegister_thenSuccess() {
-        RegisterRequest registrationRequest = createSignUpRequest();
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
+
+        JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
+        when(authService.register(eq(localAuthRequest))).thenReturn(response);
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(registrationRequest)))
+                        .content(objectMapper.writeValueAsString(localAuthRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.success").value(true));
+                .andExpect(content().json(objectMapper.writeValueAsString(response)));
     }
 
     @DisplayName("Should handle existing user registration attempt by returning bad request status")
     @Test
     @SneakyThrows
     void givenExistingUser_whenRegister_thenBadRequest() {
-        RegisterRequest registrationRequest = createSignUpRequest();
+        LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
                 .when(authService)
-                .register(any(RegisterRequest.class));
+                .register(any(LocalAuthRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registrationRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.success").value(false));
-    }
-
-    private RegisterRequest createSignUpRequest() {
-        return RegisterRequest.builder()
-                .email("dummy@example.com")
-                .password("dummyPassword123")
-                .build();
     }
 }

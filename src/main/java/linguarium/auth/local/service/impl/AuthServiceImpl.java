@@ -2,8 +2,7 @@ package linguarium.auth.local.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.auth.local.dto.request.LoginRequest;
-import linguarium.auth.local.dto.request.RegisterRequest;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.AuthService;
@@ -56,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtAuthResponse login(LoginRequest request) {
+    public JwtAuthResponse login(LocalAuthRequest request) {
         Authentication authentication =
                 manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
@@ -70,19 +69,20 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void register(RegisterRequest request) {
+    public JwtAuthResponse register(LocalAuthRequest request) {
         validateRegisterRequest(request);
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-        User user = User.builder().email(request.getEmail()).build();
+        String encodedPassword = passwordEncoder.encode(request.password());
+        User user = User.builder().email(request.email()).build();
         Principal account = new Principal(user, encodedPassword);
         userRepository.save(user);
         principalRepository.save(account);
+        return login(request);
     }
 
-    private void validateRegisterRequest(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+    private void validateRegisterRequest(LocalAuthRequest request) {
+        if (userRepository.existsByEmail(request.email())) {
             throw new UserAlreadyExistsAuthenticationException(
-                    "User with email " + request.getEmail() + " already exists");
+                    "User with email " + request.email() + " already exists");
         }
     }
 }

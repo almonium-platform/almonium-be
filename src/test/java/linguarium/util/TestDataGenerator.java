@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
@@ -431,6 +432,10 @@ public final class TestDataGenerator {
         card.setLanguage(Language.EN);
         card.setCreatedAt(LocalDateTime.now());
         return card;
+    }
+
+    public LocalAuthRequest createLocalAuthRequest() {
+        return new LocalAuthRequest("dummy@example.com", "dummyPassword123");
     }
 
     public static ClientRegistration buildClientRegistration() {
