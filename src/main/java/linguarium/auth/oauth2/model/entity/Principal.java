@@ -77,7 +77,13 @@ public class Principal implements OAuth2User, UserDetails {
 
     @Override
     public <A> A getAttribute(String name) {
-        return OAuth2User.super.getAttribute(name);
+        try {
+            @SuppressWarnings("unchecked")
+            A value = (A) attributes.get(name);
+            return value;
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException("Attribute " + name + " is not of the expected type", e);
+        }
     }
 
     @Override
