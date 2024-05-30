@@ -17,7 +17,6 @@ import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
 import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.model.entity.Learner;
-import linguarium.util.GeneralUtils;
 import linguarium.util.TestDataGenerator;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -115,7 +114,7 @@ class CardControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenCardHash_whenGetCardByHash_thenReturnsCard() {
-        String hash = GeneralUtils.generateId();
+        String hash = TestDataGenerator.generateId();
 
         mockMvc.perform(get(GET_CARDS_BY_HASH_URL, hash)).andExpect(status().isOk());
 

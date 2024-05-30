@@ -1,5 +1,6 @@
 package linguarium.card.suggestion.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-public record CardSuggestionDto(@NotNull Long recipientId, @NotNull Long cardId) {}
+public record CardSuggestionDto(@Positive Long recipientId, @Positive Long cardId) {
+}

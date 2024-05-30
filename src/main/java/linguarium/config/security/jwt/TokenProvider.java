@@ -35,7 +35,7 @@ public class TokenProvider {
     private long tokenExpirationMSec;
 
     public String createToken(Authentication authentication) {
-        Long id = getId(authentication);
+        Long id = getIdFromAuthentication(authentication);
         Instant now = Instant.now();
         LocalDateTime expiryDateTime =
                 LocalDateTime.ofInstant(now.plusMillis(tokenExpirationMSec), ZoneId.systemDefault());
@@ -74,7 +74,7 @@ public class TokenProvider {
         return false;
     }
 
-    private static Long getId(Authentication authentication) {
+    private static Long getIdFromAuthentication(Authentication authentication) {
         Object principal = authentication.getPrincipal();
         if (principal instanceof Principal) {
             return ((Principal) authentication.getPrincipal()).getId();

@@ -7,6 +7,7 @@ import static linguarium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static linguarium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,6 @@ import linguarium.user.core.service.UserService;
 import linguarium.user.friendship.dto.FriendDto;
 import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.exception.FriendshipNotAllowedException;
-import linguarium.user.friendship.exception.FriendshipNotFoundException;
 import linguarium.user.friendship.model.entity.Friendship;
 import linguarium.user.friendship.model.enums.FriendshipAction;
 import linguarium.user.friendship.model.enums.FriendshipStatus;
@@ -77,7 +77,7 @@ public class FriendshipServiceImpl implements FriendshipService {
     @Override
     @Transactional
     public Friendship manageFriendship(User user, Long id, FriendshipAction action) {
-        Friendship friendship = friendshipRepository.findById(id).orElseThrow(FriendshipNotFoundException::new);
+        Friendship friendship = friendshipRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         validateUserIsPartOfFriendship(user, friendship);
 
         return switch (action) {

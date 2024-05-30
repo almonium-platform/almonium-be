@@ -435,4 +435,8 @@ public final class TestDataGenerator {
     public LocalAuthRequest createLocalAuthRequest() {
         return new LocalAuthRequest("dummy@example.com", "dummyPassword123");
     }
+
+    public static String generateId() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 }
