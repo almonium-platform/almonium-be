@@ -24,16 +24,6 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getFirstName() {
-        return getStringAttribute("given_name");
-    }
-
-    @Override
-    public String getLastName() {
-        return getStringAttribute("family_name");
-    }
-
-    @Override
     public String getEmail() {
         return getStringAttribute("email");
     }

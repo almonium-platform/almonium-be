@@ -24,16 +24,6 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getFirstName() {
-        return getStringAttribute("first_name");
-    }
-
-    @Override
-    public String getLastName() {
-        return getStringAttribute("last_name");
-    }
-
-    @Override
     public String getEmail() {
         return getStringAttribute("email");
     }
