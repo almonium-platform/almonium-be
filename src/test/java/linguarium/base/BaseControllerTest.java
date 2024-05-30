@@ -1,6 +1,7 @@
 package linguarium.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public abstract class BaseControllerTest {
 
     @MockBean
     protected TokenProvider tokenProvider;
+
+    @MockBean
+    protected PrincipalRepository principalRepository;
 
     @Autowired
     protected ObjectMapper objectMapper;

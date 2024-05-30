@@ -76,7 +76,8 @@ public class LangController {
     @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(
             @PathVariable String text, @PathVariable String lang, @CurrentUser Principal auth) {
-        return ResponseEntity.ok(languageProcessor.getReport(text, lang, auth.getUser().getLearner()));
+        return ResponseEntity.ok(
+                languageProcessor.getReport(text, lang, auth.getUser().getLearner()));
     }
 
     private HttpHeaders createAudioHeaders() {

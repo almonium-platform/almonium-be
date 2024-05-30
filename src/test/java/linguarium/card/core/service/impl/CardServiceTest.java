@@ -521,7 +521,7 @@ class CardServiceTest {
 
         // Assert
         // Verify that the updated timestamp was set
-        assertThat(card.getUpdated()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
+        assertThat(card.getUpdatedAt()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
     }
 
     @DisplayName("Should save the updated card")

@@ -24,12 +24,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: created
+                  name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
-                  name: updated
+                  name: updated_at
                   type: TIMESTAMP
               - column:
                   name: status

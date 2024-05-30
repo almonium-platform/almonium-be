@@ -17,6 +17,8 @@ import linguarium.auth.local.dto.request.RegisterRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.impl.AuthServiceImpl;
+import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.Profile;
@@ -46,6 +48,9 @@ class AuthServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    PrincipalRepository principalRepository;
 
     @Mock
     PasswordEncoder passwordEncoder;
@@ -99,10 +104,10 @@ class AuthServiceImplTest {
         String password = "fdsfsd";
         String expectedJwt = "xxx.yyy.zzz";
         LoginRequest loginRequest = new LoginRequest(email, password);
-
+        Principal principal = Principal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(auth.getPrincipal()).thenReturn(user);
+        when(auth.getPrincipal()).thenReturn(principal);
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act

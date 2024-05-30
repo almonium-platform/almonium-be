@@ -24,14 +24,14 @@ public class CardUpdateDto {
     String notes;
     TagDto[] tags;
     ExampleDto[] examples;
-    LocalDateTime created;
+    LocalDateTime createdAt;
     LocalDateTime lastRepeat;
     Integer iteration;
     Long userId;
     Integer priority;
     int[] deletedTranslationsIds;
     int[] deletedExamplesIds;
-    LocalDateTime updated;
+    LocalDateTime updatedAt;
     Boolean activeLearning;
     Boolean falseFriend;
     Boolean irregularPlural;

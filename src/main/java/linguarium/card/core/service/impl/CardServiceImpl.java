@@ -103,7 +103,7 @@ public class CardServiceImpl implements CardService {
         Card entity = cardRepository.findById(dto.getId()).orElseThrow();
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
-        entity.setUpdated(LocalDateTime.now());
+        entity.setUpdatedAt(LocalDateTime.now());
         cardRepository.save(entity);
     }
 
@@ -115,8 +115,8 @@ public class CardServiceImpl implements CardService {
 
     private Card initializeCard(Learner learner, CardCreationDto dto) {
         Card card = cardMapper.cardDtoToEntity(dto);
-        card.setCreated(LocalDateTime.now());
-        card.setUpdated(LocalDateTime.now());
+        card.setCreatedAt(LocalDateTime.now());
+        card.setUpdatedAt(LocalDateTime.now());
         learner.addCard(card);
         return card;
     }

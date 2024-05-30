@@ -50,7 +50,8 @@ public class CardController {
 
     @GetMapping("/lang/{code}")
     public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser Principal auth) {
-        return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, auth.getUser().getLearner()));
+        return ResponseEntity.ok(
+                cardService.getUsersCardsOfLang(code, auth.getUser().getLearner()));
     }
 
     @GetMapping("/{id}")

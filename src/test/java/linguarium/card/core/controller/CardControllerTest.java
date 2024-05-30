@@ -10,13 +10,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
 import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.model.entity.Learner;
-import linguarium.user.core.model.entity.User;
 import linguarium.util.GeneralUtils;
 import linguarium.util.TestDataGenerator;
 import lombok.SneakyThrows;
@@ -49,7 +49,7 @@ class CardControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        User principal = TestDataGenerator.buildTestUserWithId();
+        Principal principal = TestDataGenerator.buildTestPrincipal();
         SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 

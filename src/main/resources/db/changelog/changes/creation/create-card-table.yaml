@@ -26,7 +26,7 @@ databaseChangeLog:
                   name: created
                   type: TIMESTAMP
               - column:
-                  name: updated
+                  name: updated_at
                   type: TIMESTAMP
               - column:
                   name: last_repeat

@@ -30,8 +30,8 @@ public class UserController {
     LearnerService learnerService;
 
     @GetMapping("/me")
-    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser Principal user) {
-        return ResponseEntity.ok(userService.buildUserInfoFromUser(user.getUser()));
+    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser Principal auth) {
+        return ResponseEntity.ok(userService.buildUserInfoFromUser(auth.getUser()));
     }
 
     @GetMapping("/{username}/availability/")
@@ -41,7 +41,8 @@ public class UserController {
     }
 
     @PutMapping("/me/username")
-    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @CurrentUser Principal auth) {
+    public ResponseEntity<Void> updateUsername(
+            @RequestBody UsernameUpdateRequest request, @CurrentUser Principal auth) {
         userService.changeUsernameById(request.newUsername(), auth.getUser().getId());
         return ResponseEntity.noContent().build();
     }

@@ -28,5 +28,5 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: created
+                  name: created_at
                   type: TIMESTAMP

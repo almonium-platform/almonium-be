@@ -34,8 +34,8 @@ public class CardDto {
     String notes;
     TagDto[] tags;
     ExampleDto[] examples;
-    LocalDateTime created;
-    LocalDateTime updated;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
     int iteration;
     int priority;
     boolean activeLearning;

@@ -50,10 +50,10 @@ public class Card {
     String entry;
 
     @CreatedDate
-    LocalDateTime created;
+    LocalDateTime createdAt;
 
     @LastModifiedDate
-    LocalDateTime updated;
+    LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")

@@ -48,6 +48,7 @@ public class CardSuggestionController {
 
     @GetMapping
     public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser Principal auth) {
-        return ResponseEntity.ok(cardSuggestionService.getSuggestedCards(auth.getUser().getLearner()));
+        return ResponseEntity.ok(
+                cardSuggestionService.getSuggestedCards(auth.getUser().getLearner()));
     }
 }

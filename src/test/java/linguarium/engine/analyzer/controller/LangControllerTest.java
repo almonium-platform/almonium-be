@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.google.protobuf.ByteString;
 import java.util.List;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.service.CardService;
@@ -21,7 +22,6 @@ import linguarium.engine.translator.dto.MLTranslationCard;
 import linguarium.engine.translator.dto.TranslationCardDto;
 import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.model.entity.Learner;
-import linguarium.user.core.model.entity.User;
 import linguarium.util.TestDataGenerator;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -56,9 +56,9 @@ class LangControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        User user = TestDataGenerator.buildTestUserWithId();
-        learner = user.getLearner();
-        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(user));
+        Principal principal = TestDataGenerator.buildTestPrincipal();
+        learner = principal.getUser().getLearner();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
     }
 
     @DisplayName("Should find cards by search text when called with valid text")

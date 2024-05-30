@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
@@ -59,7 +60,7 @@ public final class TestDataGenerator {
                 .build();
     }
 
-    public TestingAuthenticationToken getAuthenticationToken(User principal) {
+    public TestingAuthenticationToken getAuthenticationToken(Principal principal) {
         return new TestingAuthenticationToken(principal, null, List.of());
     }
 
@@ -129,8 +130,8 @@ public final class TestDataGenerator {
                 .entry("Hello")
                 .language("English")
                 .translations(new TranslationDto[] {new TranslationDto(1L, "Hola")})
-                .created(LocalDateTime.now())
-                .updated(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .iteration(1)
                 .priority(2)
                 .activeLearning(true)
@@ -146,8 +147,8 @@ public final class TestDataGenerator {
                 .entry("Bonjour")
                 .language("French")
                 .translations(new TranslationDto[] {new TranslationDto(2L, "Hello")})
-                .created(LocalDateTime.now())
-                .updated(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .iteration(3)
                 .priority(1)
                 .activeLearning(true)
@@ -221,6 +222,11 @@ public final class TestDataGenerator {
         return user;
     }
 
+    public Principal buildTestPrincipal() {
+        User user = buildTestUserWithId();
+        return Principal.builder().user(user).email(user.getEmail()).build();
+    }
+
     public User buildTestUserWithId(long id) {
         User user = new User();
         user.setId(id);
@@ -287,14 +293,14 @@ public final class TestDataGenerator {
         cardUpdateDto.setNotes(generateRandomString());
         cardUpdateDto.setTags(generateRandomTagDtos());
         cardUpdateDto.setExamples(generateRandomExampleDtos());
-        cardUpdateDto.setCreated(LocalDateTime.now());
+        cardUpdateDto.setCreatedAt(LocalDateTime.now());
         cardUpdateDto.setLastRepeat(LocalDateTime.now());
         cardUpdateDto.setIteration(random.nextInt(10));
         cardUpdateDto.setUserId(random.nextLong());
         cardUpdateDto.setPriority(random.nextInt(5));
         cardUpdateDto.setDeletedTranslationsIds(generateRandomIntArray());
         cardUpdateDto.setDeletedExamplesIds(generateRandomIntArray());
-        cardUpdateDto.setUpdated(LocalDateTime.now());
+        cardUpdateDto.setUpdatedAt(LocalDateTime.now());
         cardUpdateDto.setActiveLearning(random.nextBoolean());
         cardUpdateDto.setFalseFriend(random.nextBoolean());
         cardUpdateDto.setIrregularPlural(random.nextBoolean());
@@ -404,7 +410,7 @@ public final class TestDataGenerator {
         card.setEntry(entry);
         card.setOwner(owner);
         card.setLanguage(Language.EN);
-        card.setCreated(LocalDateTime.now());
+        card.setCreatedAt(LocalDateTime.now());
         return card;
     }
 
@@ -414,7 +420,7 @@ public final class TestDataGenerator {
         card.setEntry("dummyEntry");
         card.setOwner(owner);
         card.setLanguage(Language.EN);
-        card.setCreated(LocalDateTime.now());
+        card.setCreatedAt(LocalDateTime.now());
         return card;
     }
 
@@ -423,7 +429,7 @@ public final class TestDataGenerator {
         card.setPublicId(UUID.randomUUID());
         card.setEntry("TEST_ENTRY");
         card.setLanguage(Language.EN);
-        card.setCreated(LocalDateTime.now());
+        card.setCreatedAt(LocalDateTime.now());
         return card;
     }
 

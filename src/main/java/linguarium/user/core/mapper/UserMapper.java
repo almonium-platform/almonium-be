@@ -22,6 +22,9 @@ public interface UserMapper {
     @Mapping(source = "info.id", target = "providerUserId")
     @Mapping(source = "info.email", target = "email")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     Principal providerUserInfoToPrincipal(OAuth2UserInfo info);
 
     @Mapping(target = "id", ignore = true)
@@ -30,6 +33,6 @@ public interface UserMapper {
     @Mapping(target = "learner", ignore = true)
     @Mapping(target = "incomingFriendships", ignore = true)
     @Mapping(target = "outgoingFriendships", ignore = true)
-    @Mapping(target = "providerAccounts", ignore = true)
+    @Mapping(target = "principals", ignore = true)
     User registerRequestToUser(RegisterRequest request);
 }

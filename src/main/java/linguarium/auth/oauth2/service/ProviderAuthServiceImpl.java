@@ -56,8 +56,7 @@ public class ProviderAuthServiceImpl {
         return createAndSaveProviderAuth(user, userInfo, attributes);
     }
 
-    private Principal createAndSaveProviderAuth(
-            User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private Principal createAndSaveProviderAuth(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         log.debug("Creating new principal for user: {}", userInfo.getEmail());
         Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
         account.setAttributes(attributes);

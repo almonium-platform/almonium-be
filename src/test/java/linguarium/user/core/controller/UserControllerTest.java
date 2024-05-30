@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.dto.LanguageUpdateRequest;
@@ -52,8 +53,9 @@ class UserControllerTest extends BaseControllerTest {
 
     @BeforeEach
     void setUp() {
-        user = TestDataGenerator.buildTestUserWithId();
-        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(user));
+        Principal principal = TestDataGenerator.buildTestPrincipal();
+        SecurityContextHolder.getContext().setAuthentication(TestDataGenerator.getAuthenticationToken(principal));
+        user = principal.getUser();
     }
 
     @DisplayName("Should return current user info when requested by authenticated user")

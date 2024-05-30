@@ -56,7 +56,7 @@ public class Principal implements OAuth2User, UserDetails {
     String password;
 
     @CreatedDate
-    LocalDateTime added;
+    LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     AuthProviderType provider;
