@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void addLocalLogin(Long userId, LocalAuthRequest localAuthRequest) {
+    public void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest) {
         User user = userService.getUserWithPrincipals(userId);
         validateAddLocalAuthRequest(user, localAuthRequest);
         Principal localPrincipal = createLocalPrincipal(user, localAuthRequest);

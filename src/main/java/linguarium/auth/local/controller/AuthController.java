@@ -36,10 +36,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
-    @PutMapping("/local-login")
+    @PutMapping("/local")
     public ResponseEntity<?> addLocalLogin(
             @CurrentUser Principal auth, @Valid @RequestBody LocalAuthRequest localAuthRequest) {
-        authService.addLocalLogin(auth.getUser().getId(), localAuthRequest);
+        authService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
         return ResponseEntity.ok().build();
     }
 }

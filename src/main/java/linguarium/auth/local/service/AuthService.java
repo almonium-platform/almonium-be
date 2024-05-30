@@ -8,5 +8,5 @@ public interface AuthService {
 
     JwtAuthResponse login(LocalAuthRequest localAuthRequest);
 
-    void addLocalLogin(Long userId, LocalAuthRequest localAuthRequest);
+    void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest);
 }

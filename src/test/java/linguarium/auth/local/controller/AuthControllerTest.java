@@ -147,7 +147,7 @@ class AuthControllerTest extends BaseControllerTest {
         doThrow(new EmailMismatchException("You need to register with the email you currently use: "
                 + principal.getUser().getEmail()))
                 .when(authService)
-                .addLocalLogin(anyLong(), eq(localAuthRequest));
+                .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local-login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -167,7 +167,7 @@ class AuthControllerTest extends BaseControllerTest {
         doThrow(new UserAlreadyExistsAuthenticationException("You already have local account registered with "
                 + principal.getUser().getEmail()))
                 .when(authService)
-                .addLocalLogin(anyLong(), eq(localAuthRequest));
+                .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local-login")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -133,7 +133,7 @@ class AuthServiceImplTest {
 
     @DisplayName("Should add local login successfully")
     @Test
-    void givenValidLocalLoginRequest_whenAddLocalLogin_thenSuccess() {
+    void givenValidLocalLoginRequest_whenLinkLocalAuth_thenSuccess() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUser();
@@ -144,7 +144,7 @@ class AuthServiceImplTest {
         when(passwordEncoder.encode(localAuthRequest.password())).thenReturn("$2b$encoded/Password");
 
         // Act
-        authService.addLocalLogin(user.getId(), localAuthRequest);
+        authService.linkLocalAuth(user.getId(), localAuthRequest);
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
@@ -154,7 +154,7 @@ class AuthServiceImplTest {
 
     @DisplayName("Should throw exception when email mismatch on adding local login")
     @Test
-    void givenEmailMismatch_whenAddLocalLogin_thenThrowEmailMismatchException() {
+    void givenEmailMismatch_whenLinkLocalAuth_thenThrowEmailMismatchException() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUser();
@@ -163,7 +163,7 @@ class AuthServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.addLocalLogin(user.getId(), localAuthRequest))
+        assertThatThrownBy(() -> authService.linkLocalAuth(user.getId(), localAuthRequest))
                 .isInstanceOf(EmailMismatchException.class)
                 .hasMessageContaining("You need to register with the email you currently use: " + user.getEmail());
 
@@ -173,7 +173,7 @@ class AuthServiceImplTest {
 
     @DisplayName("Should throw exception when local login already exists")
     @Test
-    void givenExistingLocalLogin_whenAddLocalLogin_thenThrowUserAlreadyExistsAuthenticationException() {
+    void givenExistingLocalLogin_whenLinkLocalAuth_thenThrowUserAlreadyExistsAuthenticationException() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUser();
@@ -184,7 +184,7 @@ class AuthServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.addLocalLogin(user.getId(), localAuthRequest))
+        assertThatThrownBy(() -> authService.linkLocalAuth(user.getId(), localAuthRequest))
                 .isInstanceOf(UserAlreadyExistsAuthenticationException.class)
                 .hasMessageContaining("You already have local account registered with " + user.getEmail());
 
