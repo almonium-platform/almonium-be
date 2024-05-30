@@ -46,6 +46,7 @@ logging:
   level:
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
+    org.springframework.transaction.interceptor: TRACE
     linguarium: DEBUG
     root: INFO
     org:

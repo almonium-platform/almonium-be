@@ -36,7 +36,7 @@ public class CardCreationDto {
     @NotNull
     String language;
 
-    String created;
-    String updated;
+    String createdAt;
+    String updatedAt;
     Integer priority;
 }

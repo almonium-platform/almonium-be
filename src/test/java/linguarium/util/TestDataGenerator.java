@@ -37,8 +37,6 @@ import linguarium.user.friendship.model.enums.FriendshipStatus;
 import linguarium.user.friendship.model.projection.UserToFriendProjection;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 @UtilityClass
 public final class TestDataGenerator {
@@ -277,8 +275,8 @@ public final class TestDataGenerator {
 
         cardCreationDto.setLanguage("English");
 
-        cardCreationDto.setCreated("2024-01-20T00:00:00");
-        cardCreationDto.setUpdated("2024-01-20T12:30:00");
+        cardCreationDto.setCreatedAt("2024-01-20T00:00:00");
+        cardCreationDto.setUpdatedAt("2024-01-20T12:30:00");
 
         cardCreationDto.setPriority(5);
 
@@ -400,7 +398,7 @@ public final class TestDataGenerator {
         Friendship friendship = new Friendship();
         friendship.setRequester(User.builder().id(requesterId).build());
         friendship.setRequestee(User.builder().id(requesteeId).build());
-        friendship.setCreated(LocalDateTime.now());
+        friendship.setCreatedAt(LocalDateTime.now());
         friendship.setStatus(FriendshipStatus.FRIENDS);
         return friendship;
     }
@@ -436,20 +434,5 @@ public final class TestDataGenerator {
 
     public LocalAuthRequest createLocalAuthRequest() {
         return new LocalAuthRequest("dummy@example.com", "dummyPassword123");
-    }
-
-    public static ClientRegistration buildClientRegistration() {
-        return ClientRegistration.withRegistrationId("google")
-                .clientId("test-client-id")
-                .clientSecret("test-client-secret")
-                .scope("openid", "profile", "email")
-                .authorizationUri("https://accounts.google.com/o/oauth2/auth")
-                .tokenUri("https://oauth2.googleapis.com/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName("sub")
-                .clientName("Google")
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-                .build();
     }
 }

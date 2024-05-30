@@ -26,4 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
 
     Optional<UserToFriendProjection> findUserById(long id);
+
+    @EntityGraph(attributePaths = {"principals"})
+    Optional<User> findById(long id);
 }

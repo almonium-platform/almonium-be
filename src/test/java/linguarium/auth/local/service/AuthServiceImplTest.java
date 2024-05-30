@@ -14,9 +14,11 @@ import static org.mockito.Mockito.when;
 
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.impl.AuthServiceImpl;
 import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.Profile;
@@ -127,5 +129,66 @@ class AuthServiceImplTest {
         verify(userRepository, never()).existsByUsername(anyString());
         verify(userRepository, never()).save(any(User.class));
         verify(userRepository, never()).flush();
+    }
+
+    @DisplayName("Should add local login successfully")
+    @Test
+    void givenValidLocalLoginRequest_whenAddLocalLogin_thenSuccess() {
+        // Arrange
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        User user = TestDataGenerator.buildTestUser();
+        user.setEmail(localAuthRequest.email()); // Ensure email matches
+        Principal principal = Principal.builder().user(user).build();
+
+        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+        when(passwordEncoder.encode(localAuthRequest.password())).thenReturn("$2b$encoded/Password");
+
+        // Act
+        authService.addLocalLogin(user.getId(), localAuthRequest);
+
+        // Assert
+        verify(userService).getUserWithPrincipals(user.getId());
+        verify(passwordEncoder).encode(localAuthRequest.password());
+        verify(principalRepository).save(any(Principal.class));
+    }
+
+    @DisplayName("Should throw exception when email mismatch on adding local login")
+    @Test
+    void givenEmailMismatch_whenAddLocalLogin_thenThrowEmailMismatchException() {
+        // Arrange
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        User user = TestDataGenerator.buildTestUser();
+        user.setEmail("different-email@example.com");
+
+        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.addLocalLogin(user.getId(), localAuthRequest))
+                .isInstanceOf(EmailMismatchException.class)
+                .hasMessageContaining("You need to register with the email you currently use: " + user.getEmail());
+
+        verify(userService).getUserWithPrincipals(user.getId());
+        verify(principalRepository, never()).save(any(Principal.class));
+    }
+
+    @DisplayName("Should throw exception when local login already exists")
+    @Test
+    void givenExistingLocalLogin_whenAddLocalLogin_thenThrowUserAlreadyExistsAuthenticationException() {
+        // Arrange
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        User user = TestDataGenerator.buildTestUser();
+        Principal existingPrincipal =
+                Principal.builder().user(user).provider(AuthProviderType.LOCAL).build();
+        user.getPrincipals().add(existingPrincipal);
+
+        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.addLocalLogin(user.getId(), localAuthRequest))
+                .isInstanceOf(UserAlreadyExistsAuthenticationException.class)
+                .hasMessageContaining("You already have local account registered with " + user.getEmail());
+
+        verify(userService).getUserWithPrincipals(user.getId());
+        verify(principalRepository, never()).save(any(Principal.class));
     }
 }

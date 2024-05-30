@@ -4,9 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.AuthService;
 import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.oauth2.model.enums.AuthProviderType;
 import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.User;
@@ -55,18 +57,42 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtAuthResponse register(LocalAuthRequest request) {
         validateRegisterRequest(request);
-        String encodedPassword = passwordEncoder.encode(request.password());
         User user = User.builder().email(request.email()).build();
-        Principal account = new Principal(user, encodedPassword);
+        Principal account = createLocalPrincipal(user, request);
         userRepository.save(user);
         principalRepository.save(account);
         return login(request);
+    }
+
+    @Override
+    public void addLocalLogin(Long userId, LocalAuthRequest localAuthRequest) {
+        User user = userService.getUserWithPrincipals(userId);
+        validateAddLocalAuthRequest(user, localAuthRequest);
+        Principal localPrincipal = createLocalPrincipal(user, localAuthRequest);
+        principalRepository.save(localPrincipal);
+    }
+
+    private Principal createLocalPrincipal(User user, LocalAuthRequest request) {
+        String encodedPassword = passwordEncoder.encode(request.password());
+        return new Principal(user, encodedPassword);
     }
 
     private void validateRegisterRequest(LocalAuthRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new UserAlreadyExistsAuthenticationException(
                     "User with email " + request.email() + " already exists");
+        }
+    }
+
+    private void validateAddLocalAuthRequest(User user, LocalAuthRequest request) {
+        if (user.getPrincipals().stream()
+                .anyMatch(principal -> principal.getProvider().equals(AuthProviderType.LOCAL))) {
+            throw new UserAlreadyExistsAuthenticationException(
+                    "You already have local account registered with " + user.getEmail());
+        }
+        if (!user.getEmail().equals(request.email())) {
+            throw new EmailMismatchException(
+                    "You need to register with the email you currently use: " + user.getEmail());
         }
     }
 }

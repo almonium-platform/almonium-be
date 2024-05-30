@@ -2,12 +2,15 @@ package linguarium.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import linguarium.auth.local.exception.EmailMismatchException;
+import linguarium.auth.local.exception.NoPrincipalsFoundException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.util.dto.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +21,11 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler({InternalAuthenticationServiceException.class})
+    public ResponseEntity<?> handleInternalAuthenticationServiceException(InternalAuthenticationServiceException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
+    }
+
     @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})
     public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
@@ -31,6 +39,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
     public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailMismatchException.class)
+    public ResponseEntity<Object> handleEmailMismatchException(EmailMismatchException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoPrincipalsFoundException.class)
+    public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalsFoundException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

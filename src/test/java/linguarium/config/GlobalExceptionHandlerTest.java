@@ -61,7 +61,7 @@ class GlobalExceptionHandlerTest {
 
         ResponseEntity<?> response = exceptionHandler.handleUserAlreadyExistsException(ex);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
         assertThat(((ApiResponse) response.getBody()).message()).isEqualTo(ex.getMessage());
         assertThat(((ApiResponse) response.getBody()).success()).isFalse();
     }

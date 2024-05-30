@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
+import linguarium.auth.local.exception.NoPrincipalsFoundException;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
@@ -12,6 +13,7 @@ import linguarium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,9 +62,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
+    public UserDetails loadUserByUsername(String email) { // todo handle
         return findByEmail(email)
-                .map(user -> user.getPrincipals().stream().findFirst().orElseThrow())
-                .orElseThrow();
+                .map(user -> user.getPrincipals().stream()
+                        .findFirst()
+                        .orElseThrow(
+                                () -> new NoPrincipalsFoundException("User exists without any principals: " + email)))
+                .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));
+    }
+
+    @Override
+    public User getUserWithPrincipals(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
 }

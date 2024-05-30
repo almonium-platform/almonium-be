@@ -48,10 +48,10 @@ public class Friendship {
     private User requestee;
 
     @CreatedDate
-    private LocalDateTime created;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updated;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private FriendshipStatus status;
