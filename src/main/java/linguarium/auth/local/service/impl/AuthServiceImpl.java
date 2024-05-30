@@ -13,9 +13,9 @@ import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import linguarium.user.core.service.ProfileService;
 import linguarium.user.core.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
     UserService userService;
@@ -36,23 +37,6 @@ public class AuthServiceImpl implements AuthService {
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
     PrincipalRepository principalRepository;
-
-    public AuthServiceImpl(
-            UserService userService,
-            ProfileService profileService,
-            TokenProvider tokenProvider,
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder,
-            PrincipalRepository principalRepository,
-            @Lazy AuthenticationManager manager) {
-        this.userService = userService;
-        this.profileService = profileService;
-        this.tokenProvider = tokenProvider;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.manager = manager;
-        this.principalRepository = principalRepository;
-    }
 
     @Override
     public JwtAuthResponse login(LocalAuthRequest request) {
