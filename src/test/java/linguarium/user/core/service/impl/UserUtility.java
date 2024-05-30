@@ -13,7 +13,6 @@ public class UserUtility {
         User user = new User();
         user.setId(1L);
         user.setUsername("john");
-        user.setPassword("password");
         user.setEmail("john@example.com");
         Profile profile = new Profile();
         profile.setUiLang(Language.EN);

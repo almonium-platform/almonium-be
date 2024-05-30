@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import linguarium.user.core.service.UserService;
+import linguarium.auth.oauth2.repository.PrincipalRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +28,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     TokenProvider tokenProvider;
-    UserService userService;
+    PrincipalRepository principalRepository;
 
     @Override
     public void doFilterInternal(
@@ -42,7 +42,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 Long userId = tokenProvider.getUserIdFromToken(jwt);
 
-                UserDetails userDetails = userService.getById(userId);
+                UserDetails userDetails =
+                        principalRepository.findById(userId).orElseThrow();
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

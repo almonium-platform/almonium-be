@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import linguarium.user.core.model.entity.User;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.user.friendship.dto.FriendDto;
 import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.model.entity.Friendship;
@@ -31,8 +31,8 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<FriendDto>> getMyFriends(@CurrentUser User user) {
-        List<FriendDto> friends = friendshipService.getFriends(user.getId());
+    public ResponseEntity<List<FriendDto>> getMyFriends(@CurrentUser Principal auth) {
+        List<FriendDto> friends = friendshipService.getFriends(auth.getUser().getId());
         return ResponseEntity.ok(friends);
     }
 
@@ -46,15 +46,15 @@ public class FriendshipController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Friendship> manageFriendship(
-            @CurrentUser User user, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
-        Friendship friendship = friendshipService.manageFriendship(user, id, action);
+            @CurrentUser Principal auth, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
+        Friendship friendship = friendshipService.manageFriendship(auth.getUser(), id, action);
         return ResponseEntity.ok(friendship);
     }
 
     @PostMapping
     public ResponseEntity<Friendship> createFriendshipRequest(
-            @CurrentUser User user, @Valid @RequestBody FriendshipRequestDto dto) {
-        Friendship friendship = friendshipService.createFriendshipRequest(user, dto);
+            @CurrentUser Principal auth, @Valid @RequestBody FriendshipRequestDto dto) {
+        Friendship friendship = friendshipService.createFriendshipRequest(auth.getUser(), dto);
         return ResponseEntity.ok(friendship);
     }
 }

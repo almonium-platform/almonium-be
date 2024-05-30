@@ -17,10 +17,9 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import linguarium.auth.oauth2.model.entity.ProviderAccount;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.user.friendship.model.entity.Friendship;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,23 +30,20 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @NamedEntityGraph(
         name = "graph.User.details",
         attributeNodes = {
-            @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
-            @NamedAttributeNode("profile")
+                @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
+                @NamedAttributeNode("profile")
         },
         subgraphs = {
-            @NamedSubgraph(
-                    name = "learner.details",
-                    attributeNodes = {@NamedAttributeNode("targetLangs"), @NamedAttributeNode("fluentLangs")})
+                @NamedSubgraph(
+                        name = "learner.details",
+                        attributeNodes = {@NamedAttributeNode("targetLangs"), @NamedAttributeNode("fluentLangs")})
         })
 @Entity
-@Table(name = "auth")
+@Table(name = "user_core")
 @Getter
 @Setter
 @Builder
@@ -56,12 +52,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    String password;
 
     String email;
 
@@ -72,7 +66,7 @@ public class User implements UserDetails {
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
-    List<ProviderAccount> providerAccounts = new ArrayList<>();
+    List<Principal> principals = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     Profile profile;
@@ -94,36 +88,5 @@ public class User implements UserDetails {
         if (learner == null) {
             learner = Learner.builder().user(this).build();
         }
-    }
-
-    // UserDetails methods
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 }

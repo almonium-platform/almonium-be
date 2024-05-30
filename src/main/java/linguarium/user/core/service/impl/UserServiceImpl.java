@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,9 +60,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByEmail(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException("User " + username + " was not found in the database"));
+    public UserDetails loadUserByUsername(String email) {
+        return findByEmail(email)
+                .map(user -> user.getPrincipals().stream().findFirst().orElseThrow())
+                .orElseThrow();
     }
 }

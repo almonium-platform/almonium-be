@@ -14,7 +14,7 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseTableName: profile
             baseColumnNames: id
-            referencedTableName: auth
+            referencedTableName: user_core
             referencedColumnNames: id
             constraintName: fk_profile_user
             onDelete: CASCADE

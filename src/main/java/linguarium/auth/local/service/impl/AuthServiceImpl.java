@@ -7,6 +7,8 @@ import linguarium.auth.local.dto.request.RegisterRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.auth.local.service.AuthService;
+import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
     UserService userService;
@@ -34,6 +37,7 @@ public class AuthServiceImpl implements AuthService {
     TokenProvider tokenProvider;
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
+    PrincipalRepository principalRepository;
     UserMapper userMapper;
 
     public AuthServiceImpl(
@@ -43,37 +47,40 @@ public class AuthServiceImpl implements AuthService {
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             UserMapper userMapper,
+            PrincipalRepository principalRepository,
             @Lazy AuthenticationManager manager) {
         this.userService = userService;
         this.profileService = profileService;
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.manager = manager;
         this.userMapper = userMapper;
+        this.manager = manager;
+        this.principalRepository = principalRepository;
     }
 
     @Override
-    @Transactional
     public JwtAuthResponse login(LoginRequest request) {
         Authentication authentication =
                 manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User user = (User) authentication.getPrincipal();
+        Principal account = (Principal) authentication.getPrincipal();
+        User user = account.getUser();
         profileService.updateLoginStreak(user.getProfile());
         String jwt = tokenProvider.createToken(authentication);
         return new JwtAuthResponse(jwt, userService.buildUserInfoFromUser(user));
     }
 
     @Override
-    @Transactional
     public void register(RegisterRequest request) {
         validateRegisterRequest(request);
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         User user = userMapper.registerRequestToUser(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        Principal account = new Principal(user, encodedPassword);
         userRepository.save(user);
+        principalRepository.save(account);
     }
 
     private void validateRegisterRequest(RegisterRequest request) {

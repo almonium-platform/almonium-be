@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-auth-table
+      id: create-user_core-table
       author: okuzan
       changes:
         - createTable:
-            tableName: auth
+            tableName: user_core
             columns:
               - column:
                   name: id
@@ -17,9 +17,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     unique: true
-              - column:
-                  name: password
-                  type: varchar(255)
               - column:
                   name: username
                   type: varchar(255)

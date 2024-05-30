@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
-import linguarium.user.core.model.entity.User;
 import linguarium.util.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -31,26 +31,26 @@ public class CardController {
     CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser User user) {
-        cardService.createCard(user.getLearner(), dto);
+    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser Principal auth) {
+        cardService.createCard(auth.getUser().getLearner(), dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCard(
-            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @CurrentUser User user) {
-        cardService.updateCard(id, dto, user.getLearner());
+            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @CurrentUser Principal auth) {
+        cardService.updateCard(id, dto, auth.getUser().getLearner());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser User user) {
-        return ResponseEntity.ok(cardService.getUsersCards(user.getLearner()));
+    public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser Principal auth) {
+        return ResponseEntity.ok(cardService.getUsersCards(auth.getUser().getLearner()));
     }
 
     @GetMapping("/lang/{code}")
-    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser User user) {
-        return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, user.getLearner()));
+    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser Principal auth) {
+        return ResponseEntity.ok(cardService.getUsersCardsOfLang(code, auth.getUser().getLearner()));
     }
 
     @GetMapping("/{id}")

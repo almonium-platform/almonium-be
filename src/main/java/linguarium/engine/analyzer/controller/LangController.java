@@ -3,6 +3,7 @@ package linguarium.engine.analyzer.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.service.CardService;
 import linguarium.engine.analyzer.dto.AnalysisDto;
@@ -11,7 +12,6 @@ import linguarium.engine.client.words.dto.WordsReportDto;
 import linguarium.engine.translator.dto.MLTranslationCard;
 import linguarium.engine.translator.dto.TranslationCardDto;
 import linguarium.engine.translator.model.enums.Language;
-import linguarium.user.core.model.entity.User;
 import linguarium.util.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,8 +36,8 @@ public class LangController {
     LanguageProcessor languageProcessor;
 
     @GetMapping("/cards/search/{text}")
-    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser User user) {
-        return ResponseEntity.ok(cardService.searchByEntry(text, user.getLearner()));
+    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser Principal auth) {
+        return ResponseEntity.ok(cardService.searchByEntry(text, auth.getUser().getLearner()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
@@ -75,8 +75,8 @@ public class LangController {
 
     @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(
-            @PathVariable String text, @PathVariable String lang, @CurrentUser User user) {
-        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user.getLearner()));
+            @PathVariable String text, @PathVariable String lang, @CurrentUser Principal auth) {
+        return ResponseEntity.ok(languageProcessor.getReport(text, lang, auth.getUser().getLearner()));
     }
 
     private HttpHeaders createAudioHeaders() {

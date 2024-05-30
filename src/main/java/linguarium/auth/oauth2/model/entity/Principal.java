@@ -29,6 +29,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Entity
@@ -40,7 +42,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class ProviderAccount implements OAuth2User {
+public class Principal implements OAuth2User, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -50,6 +52,8 @@ public class ProviderAccount implements OAuth2User {
     User user;
 
     String email;
+
+    String password;
 
     @CreatedDate
     LocalDateTime added;
@@ -63,6 +67,14 @@ public class ProviderAccount implements OAuth2User {
     @Builder.Default
     Map<String, Object> attributes = new HashMap<>();
 
+    public Principal(User user, String encodedPassword) {
+        this.user = user;
+        email = user.getEmail();
+        user.getPrincipals().add(this);
+        password = encodedPassword;
+        provider = AuthProviderType.LOCAL;
+    }
+
     @Override
     public <A> A getAttribute(String name) {
         return OAuth2User.super.getAttribute(name);
@@ -74,12 +86,38 @@ public class ProviderAccount implements OAuth2User {
     }
 
     @Override
+    public String getName() {
+        return email;
+    }
+
+    // UserDetails methods
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
-    public String getName() {
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String getUsername() {
         return email;
     }
 }

@@ -206,7 +206,6 @@ public final class TestDataGenerator {
         User user = new User();
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setPassword("password");
         user.setRegistered(LocalDateTime.now());
         return user;
     }
@@ -216,7 +215,6 @@ public final class TestDataGenerator {
         user.setId(1L);
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setPassword("password");
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -228,7 +226,6 @@ public final class TestDataGenerator {
         user.setId(id);
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setPassword("password");
         user.setRegistered(LocalDateTime.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
@@ -239,7 +236,6 @@ public final class TestDataGenerator {
         User user = new User();
         user.setUsername("jake");
         user.setEmail("jake@email.com");
-        user.setPassword("password");
         user.setRegistered(LocalDateTime.now());
         return user;
     }

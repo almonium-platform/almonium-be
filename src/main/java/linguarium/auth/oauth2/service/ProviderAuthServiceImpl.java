@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Map;
 import java.util.Optional;
-import linguarium.auth.oauth2.model.entity.ProviderAccount;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
-import linguarium.auth.oauth2.repository.ProviderAccountRepository;
+import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
@@ -25,22 +25,22 @@ public class ProviderAuthServiceImpl {
 
     UserRepository userRepository;
     UserMapper userMapper;
-    ProviderAccountRepository providerAccountRepository;
+    PrincipalRepository principalRepository;
 
     @Transactional
-    public ProviderAccount authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    public Principal authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         return userRepository
                 .findByEmail(userInfo.getEmail())
                 .map(user -> handleExistingUser(user, userInfo, attributes))
-                .orElseGet(() -> createNewUserAndProviderAccount(userInfo, attributes));
+                .orElseGet(() -> createNewUserAndPrincipal(userInfo, attributes));
     }
 
-    private ProviderAccount handleExistingUser(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
-        Optional<ProviderAccount> existingAccountOptional =
-                providerAccountRepository.findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId());
+    private Principal handleExistingUser(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+        Optional<Principal> existingAccountOptional =
+                principalRepository.findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId());
 
         if (existingAccountOptional.isEmpty()) {
-            return createAndSaveProviderAccount(user, userInfo, attributes);
+            return createAndSaveProviderAuth(user, userInfo, attributes);
         }
         log.debug("Updating avatar URL for existing user: {}", userInfo.getEmail());
         user.getProfile().setAvatarUrl(userInfo.getImageUrl());
@@ -48,23 +48,23 @@ public class ProviderAuthServiceImpl {
         return existingAccountOptional.get();
     }
 
-    private ProviderAccount createNewUserAndProviderAccount(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
-        user.setPassword(PLACEHOLDER);
         user.setEmail(userInfo.getEmail());
         user.setUsername(String.format("%s-%s", userInfo.getProvider(), userInfo.getId()));
-        return createAndSaveProviderAccount(user, userInfo, attributes);
+        return createAndSaveProviderAuth(user, userInfo, attributes);
     }
 
-    private ProviderAccount createAndSaveProviderAccount(
+    private Principal createAndSaveProviderAuth(
             User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
-        log.debug("Creating new provider account for user: {}", userInfo.getEmail());
-        ProviderAccount account = userMapper.providerUserInfoToProviderAccount(userInfo);
+        log.debug("Creating new principal for user: {}", userInfo.getEmail());
+        Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
         account.setAttributes(attributes);
         account.setUser(user);
-        user.getProviderAccounts().add(account);
+        account.setPassword(PLACEHOLDER);
+        user.getPrincipals().add(account);
         userRepository.save(user);
-        return providerAccountRepository.save(account);
+        return principalRepository.save(account);
     }
 }

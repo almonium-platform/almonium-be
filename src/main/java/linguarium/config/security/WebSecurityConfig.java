@@ -16,6 +16,7 @@ import linguarium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import linguarium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.auth.oauth2.service.CustomOAuth2UserService;
+import linguarium.config.security.jwt.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -34,6 +35,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,6 +48,7 @@ public class WebSecurityConfig {
     UserDetailsService userDetailsService;
     PasswordEncoder passwordEncoder;
     CustomOAuth2UserService customOAuth2UserService;
+    TokenAuthenticationFilter tokenAuthenticationFilter;
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     OAuth2CookieRequestRepository authorizationRequestRepository;
@@ -91,6 +94,7 @@ public class WebSecurityConfig {
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)

@@ -1,7 +1,7 @@
 package linguarium.user.core.mapper;
 
 import linguarium.auth.local.dto.request.RegisterRequest;
-import linguarium.auth.oauth2.model.entity.ProviderAccount;
+import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.model.entity.User;
@@ -22,7 +22,7 @@ public interface UserMapper {
     @Mapping(source = "info.id", target = "providerUserId")
     @Mapping(source = "info.email", target = "email")
     @Mapping(target = "id", ignore = true)
-    ProviderAccount providerUserInfoToProviderAccount(OAuth2UserInfo info);
+    Principal providerUserInfoToPrincipal(OAuth2UserInfo info);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "registered", ignore = true)

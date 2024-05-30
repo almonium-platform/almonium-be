@@ -74,7 +74,6 @@ class AuthServiceImplTest {
 
         User user = User.builder()
                 .email(registrationRequest.getEmail())
-                .password(registrationRequest.getPassword())
                 .username(registrationRequest.getUsername())
                 .build();
 
@@ -97,7 +96,7 @@ class AuthServiceImplTest {
         User user = getUser();
 
         String email = user.getEmail();
-        String password = user.getPassword();
+        String password = "fdsfsd";
         String expectedJwt = "xxx.yyy.zzz";
         LoginRequest loginRequest = new LoginRequest(email, password);
 

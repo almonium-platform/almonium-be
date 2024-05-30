@@ -11,8 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import linguarium.auth.oauth2.model.entity.ProviderAccount;
-import linguarium.user.core.model.entity.User;
+import linguarium.auth.oauth2.model.entity.Principal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,16 +76,9 @@ public class TokenProvider {
 
     private static Long getId(Authentication authentication) {
         Object principal = authentication.getPrincipal();
-        Long id;
-        if (principal instanceof ProviderAccount) {
-            ProviderAccount userPrincipal = (ProviderAccount) authentication.getPrincipal();
-            id = userPrincipal.getUser().getId();
-        } else if (principal instanceof User) {
-            User user = (User) authentication.getPrincipal();
-            id = user.getId();
-        } else {
-            throw new IllegalStateException("Authentication principle of unknown type! " + principal.getClass());
+        if (principal instanceof Principal) {
+            return ((Principal) authentication.getPrincipal()).getId();
         }
-        return id;
+        throw new IllegalStateException("Authentication principle of unknown type! " + principal.getClass());
     }
 }
