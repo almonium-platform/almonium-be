@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +16,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class CardCreationDto {
-
     @NotBlank
     String entry;
+
+    @NotBlank
+    String language;
 
     @NotEmpty
     TranslationDto[] translations;
@@ -32,9 +33,6 @@ public class CardCreationDto {
     boolean falseFriend;
     boolean irregularSpelling;
     boolean learnt;
-
-    @NotNull
-    String language;
 
     String createdAt;
     String updatedAt;
