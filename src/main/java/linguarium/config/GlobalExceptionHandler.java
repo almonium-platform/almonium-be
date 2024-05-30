@@ -17,7 +17,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @ControllerAdvice
-public class GlobalExceptionHandler { // TODO test
+public class GlobalExceptionHandler {
     @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})
     public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler { // TODO test
 
     @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
     public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
