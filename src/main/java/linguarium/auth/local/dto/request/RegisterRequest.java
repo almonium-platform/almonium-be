@@ -13,10 +13,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class RegisterRequest {
     @NotBlank
-    @Size(min = 5, max = 20)
-    private String username;
-
-    @NotBlank
     private String email;
 
     @NotBlank

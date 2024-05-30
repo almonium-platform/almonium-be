@@ -109,7 +109,6 @@ class AuthControllerTest extends BaseControllerTest {
 
     private RegisterRequest createSignUpRequest() {
         return RegisterRequest.builder()
-                .username("dummyUsername")
                 .email("dummy@example.com")
                 .password("dummyPassword123")
                 .build();

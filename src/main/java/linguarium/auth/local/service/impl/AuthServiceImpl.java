@@ -10,7 +10,6 @@ import linguarium.auth.local.service.AuthService;
 import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
-import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
 import linguarium.user.core.service.ProfileService;
@@ -38,7 +37,6 @@ public class AuthServiceImpl implements AuthService {
     PasswordEncoder passwordEncoder;
     AuthenticationManager manager;
     PrincipalRepository principalRepository;
-    UserMapper userMapper;
 
     public AuthServiceImpl(
             UserService userService,
@@ -46,7 +44,6 @@ public class AuthServiceImpl implements AuthService {
             TokenProvider tokenProvider,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            UserMapper userMapper,
             PrincipalRepository principalRepository,
             @Lazy AuthenticationManager manager) {
         this.userService = userService;
@@ -54,7 +51,6 @@ public class AuthServiceImpl implements AuthService {
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userMapper = userMapper;
         this.manager = manager;
         this.principalRepository = principalRepository;
     }
@@ -77,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
     public void register(RegisterRequest request) {
         validateRegisterRequest(request);
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-        User user = userMapper.registerRequestToUser(request);
+        User user = User.builder().email(request.getEmail()).build();
         Principal account = new Principal(user, encodedPassword);
         userRepository.save(user);
         principalRepository.save(account);
@@ -86,11 +82,7 @@ public class AuthServiceImpl implements AuthService {
     private void validateRegisterRequest(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new UserAlreadyExistsAuthenticationException(
-                    "User with email id " + request.getEmail() + " already exists");
-        }
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new UserAlreadyExistsAuthenticationException(
-                    "User with username " + request.getUsername() + " already exists");
+                    "User with email " + request.getEmail() + " already exists");
         }
     }
 }

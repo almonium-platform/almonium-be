@@ -1,6 +1,5 @@
 package linguarium.user.core.mapper;
 
-import linguarium.auth.local.dto.request.RegisterRequest;
 import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
@@ -26,13 +25,4 @@ public interface UserMapper {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     Principal providerUserInfoToPrincipal(OAuth2UserInfo info);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "registered", ignore = true)
-    @Mapping(target = "profile", ignore = true)
-    @Mapping(target = "learner", ignore = true)
-    @Mapping(target = "incomingFriendships", ignore = true)
-    @Mapping(target = "outgoingFriendships", ignore = true)
-    @Mapping(target = "principals", ignore = true)
-    User registerRequestToUser(RegisterRequest request);
 }

@@ -20,7 +20,6 @@ import linguarium.auth.local.service.impl.AuthServiceImpl;
 import linguarium.auth.oauth2.model.entity.Principal;
 import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
-import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
@@ -62,9 +61,6 @@ class AuthServiceImplTest {
     TokenProvider tokenProvider;
 
     @Mock
-    UserMapper userMapper;
-
-    @Mock
     ProfileService profileService;
 
     @DisplayName("Should successfully register local user")
@@ -73,23 +69,17 @@ class AuthServiceImplTest {
         // Arrange
         RegisterRequest registrationRequest = RegisterRequest.builder()
                 .email("johnwick@gmail.com")
-                .username("johnwick")
                 .password("password!123")
                 .build();
 
-        User user = User.builder()
-                .email(registrationRequest.getEmail())
-                .username(registrationRequest.getUsername())
-                .build();
+        User user = User.builder().email(registrationRequest.getEmail()).build();
 
-        when(userMapper.registerRequestToUser(registrationRequest)).thenReturn(user);
         when(passwordEncoder.encode(registrationRequest.getPassword())).thenReturn("$2b$encoded/Password");
 
         // Act
         authService.register(registrationRequest);
 
         // Assert
-        verify(userMapper).registerRequestToUser(registrationRequest);
         verify(passwordEncoder).encode(registrationRequest.getPassword());
         verify(userRepository).save(user);
     }
@@ -134,24 +124,6 @@ class AuthServiceImplTest {
         verify(userRepository).existsByEmail(registrationRequest.getEmail());
         verify(userRepository, never()).existsById(anyLong());
         verify(userRepository, never()).existsByUsername(anyString());
-        verify(userRepository, never()).save(any(User.class));
-        verify(userRepository, never()).flush();
-    }
-
-    @DisplayName("Should throw an exception when trying to register user with existing username")
-    @Test
-    void givenExistingUsername_whenRegister_thenThrowUserAlreadyExistsAuthenticationException() {
-        RegisterRequest registrationRequest =
-                RegisterRequest.builder().username("john").build();
-
-        when(userRepository.existsByUsername(registrationRequest.getUsername())).thenReturn(true);
-
-        assertThatThrownBy(() -> authService.register(registrationRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
-
-        verify(userRepository).existsByUsername(registrationRequest.getUsername());
-        verify(userRepository, never()).existsById(anyLong());
-        verify(userRepository, never()).existsByEmail(anyString());
         verify(userRepository, never()).save(any(User.class));
         verify(userRepository, never()).flush();
     }
