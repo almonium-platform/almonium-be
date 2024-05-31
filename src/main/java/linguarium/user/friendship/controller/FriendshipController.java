@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.core.entity.Principal;
 import linguarium.user.friendship.dto.FriendDto;
 import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.model.entity.Friendship;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/friendships")
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true) // todo accessLevel.PRIVATE
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FriendshipController {
     FriendshipService friendshipService;
 

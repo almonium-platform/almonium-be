@@ -1,6 +1,6 @@
 package linguarium.user.core.mapper;
 
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.core.entity.Principal;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.model.entity.User;

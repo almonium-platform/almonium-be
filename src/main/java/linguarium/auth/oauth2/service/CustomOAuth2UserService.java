@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.HashMap;
 import java.util.Map;
-import linguarium.auth.oauth2.exception.OAuth2AuthenticationProcessingException;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.core.enums.AuthProviderType;
+import linguarium.auth.oauth2.exception.OAuth2AuthenticationException;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +37,17 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         try {
             return authService.authenticate(userInfo, attributes);
         } catch (Exception ex) {
-            throw new OAuth2AuthenticationProcessingException("Authentication failed", ex);
+            throw new OAuth2AuthenticationException("Authentication failed", ex);
         }
     }
 
     private void validateProviderUserInfo(OAuth2UserInfo oAuth2UserInfo) {
         if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
-            throw new OAuth2AuthenticationProcessingException("Name not found from OAuth2 provider");
+            throw new OAuth2AuthenticationException("Name not found from OAuth2 provider");
         }
 
         if (!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+            throw new OAuth2AuthenticationException("Email not found from OAuth2 provider");
         }
     }
 }

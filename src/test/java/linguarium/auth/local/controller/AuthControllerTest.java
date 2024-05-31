@@ -12,12 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import linguarium.auth.core.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
-import linguarium.auth.local.service.AuthService;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.local.service.LocalAuthService;
 import linguarium.base.BaseControllerTest;
 import linguarium.config.GlobalExceptionHandler;
 import linguarium.user.core.dto.UserInfo;
@@ -49,7 +49,7 @@ class AuthControllerTest extends BaseControllerTest {
     private static final String REGISTER_URL = BASE_URL + "/register";
 
     @MockBean
-    AuthService authService;
+    LocalAuthService localAuthService;
 
     @BeforeEach
     void setUp() {
@@ -65,7 +65,7 @@ class AuthControllerTest extends BaseControllerTest {
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
         JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(authService.login(eq(localAuthRequest))).thenReturn(response);
+        when(localAuthService.login(eq(localAuthRequest))).thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +79,7 @@ class AuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() {
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        when(authService.login(any(LocalAuthRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
+        when(localAuthService.login(any(LocalAuthRequest.class))).thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -96,7 +96,7 @@ class AuthControllerTest extends BaseControllerTest {
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
         JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(authService.register(eq(localAuthRequest))).thenReturn(response);
+        when(localAuthService.register(eq(localAuthRequest))).thenReturn(response);
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ class AuthControllerTest extends BaseControllerTest {
         LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
 
         doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
-                .when(authService)
+                .when(localAuthService)
                 .register(any(LocalAuthRequest.class));
 
         mockMvc.perform(post(REGISTER_URL)
@@ -146,7 +146,7 @@ class AuthControllerTest extends BaseControllerTest {
 
         doThrow(new EmailMismatchException("You need to register with the email you currently use: "
                 + principal.getUser().getEmail()))
-                .when(authService)
+                .when(localAuthService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local-login")
@@ -166,7 +166,7 @@ class AuthControllerTest extends BaseControllerTest {
 
         doThrow(new UserAlreadyExistsAuthenticationException("You already have local account registered with "
                 + principal.getUser().getEmail()))
-                .when(authService)
+                .when(localAuthService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local-login")

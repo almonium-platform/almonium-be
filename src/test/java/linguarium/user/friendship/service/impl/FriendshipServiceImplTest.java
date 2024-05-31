@@ -5,6 +5,7 @@ import static linguarium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKE
 import static linguarium.user.friendship.model.enums.FriendshipStatus.MUTUALLY_BLOCKED;
 import static linguarium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static linguarium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.any;
@@ -29,7 +30,6 @@ import linguarium.user.friendship.model.projection.FriendshipToUserProjection;
 import linguarium.user.friendship.model.projection.UserToFriendProjection;
 import linguarium.user.friendship.repository.FriendshipRepository;
 import linguarium.util.TestDataGenerator;
-import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +40,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = PRIVATE)
 class FriendshipServiceImplTest {
     private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";

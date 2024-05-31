@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 import java.util.Optional;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.core.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.friendship.dto.FriendDto;

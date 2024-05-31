@@ -1,7 +1,7 @@
 package linguarium.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import linguarium.auth.oauth2.repository.PrincipalRepository;
+import linguarium.auth.core.repository.PrincipalRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

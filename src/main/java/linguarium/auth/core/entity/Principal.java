@@ -1,4 +1,4 @@
-package linguarium.auth.oauth2.model.entity;
+package linguarium.auth.core.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.core.enums.AuthProviderType;
 import linguarium.user.core.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

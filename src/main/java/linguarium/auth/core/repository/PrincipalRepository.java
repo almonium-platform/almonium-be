@@ -1,8 +1,8 @@
-package linguarium.auth.oauth2.repository;
+package linguarium.auth.core.repository;
 
 import java.util.Optional;
-import linguarium.auth.oauth2.model.entity.Principal;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.core.entity.Principal;
+import linguarium.auth.core.enums.AuthProviderType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

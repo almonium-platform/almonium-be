@@ -12,14 +12,14 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import linguarium.auth.core.entity.Principal;
+import linguarium.auth.core.enums.AuthProviderType;
+import linguarium.auth.core.repository.PrincipalRepository;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
-import linguarium.auth.local.service.impl.AuthServiceImpl;
-import linguarium.auth.oauth2.model.entity.Principal;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
-import linguarium.auth.oauth2.repository.PrincipalRepository;
+import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.model.entity.User;
@@ -40,9 +40,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class AuthServiceImplTest {
+class LocalAuthServiceImplTest {
     @InjectMocks
-    AuthServiceImpl authService;
+    LocalAuthServiceImpl authService;
 
     @Mock
     UserService userService;

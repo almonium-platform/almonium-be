@@ -3,10 +3,10 @@ package linguarium.auth.local.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
+import linguarium.auth.core.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
-import linguarium.auth.local.service.AuthService;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.local.service.LocalAuthService;
 import linguarium.util.annotation.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,22 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthController {
-    AuthService authService;
+    LocalAuthService localAuthService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LocalAuthRequest localAuthRequest) {
-        return ResponseEntity.ok(authService.login(localAuthRequest));
+        return ResponseEntity.ok(localAuthService.login(localAuthRequest));
     }
 
     @PostMapping("/register")
     public ResponseEntity<JwtAuthResponse> register(@Valid @RequestBody LocalAuthRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+        return ResponseEntity.ok(localAuthService.register(request));
     }
 
     @PutMapping("/local")
     public ResponseEntity<?> addLocalLogin(
             @CurrentUser Principal auth, @Valid @RequestBody LocalAuthRequest localAuthRequest) {
-        authService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
+        localAuthService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
         return ResponseEntity.ok().build();
     }
 }

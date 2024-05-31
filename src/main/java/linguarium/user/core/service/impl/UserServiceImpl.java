@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
-import linguarium.auth.local.exception.NoPrincipalsFoundException;
 import linguarium.user.core.dto.UserInfo;
+import linguarium.user.core.exception.NoPrincipalsFoundException;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;

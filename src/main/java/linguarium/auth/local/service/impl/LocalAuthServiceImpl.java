@@ -2,14 +2,14 @@ package linguarium.auth.local.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import linguarium.auth.core.entity.Principal;
+import linguarium.auth.core.enums.AuthProviderType;
+import linguarium.auth.core.repository.PrincipalRepository;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
-import linguarium.auth.local.service.AuthService;
-import linguarium.auth.oauth2.model.entity.Principal;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
-import linguarium.auth.oauth2.repository.PrincipalRepository;
+import linguarium.auth.local.service.LocalAuthService;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class AuthServiceImpl implements AuthService {
+public class LocalAuthServiceImpl implements LocalAuthService {
     UserService userService;
     UserRepository userRepository;
     ProfileService profileService;

@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.core.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
 import linguarium.card.suggestion.service.CardSuggestionService;

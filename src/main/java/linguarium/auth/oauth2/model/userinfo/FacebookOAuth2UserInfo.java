@@ -1,7 +1,7 @@
 package linguarium.auth.oauth2.model.userinfo;
 
 import java.util.Map;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.core.enums.AuthProviderType;
 
 public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     public FacebookOAuth2UserInfo(Map<String, Object> attributes) {

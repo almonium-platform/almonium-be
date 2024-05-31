@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Map;
 import java.util.Optional;
-import linguarium.auth.oauth2.model.entity.Principal;
+import linguarium.auth.core.entity.Principal;
+import linguarium.auth.core.repository.PrincipalRepository;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
-import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;

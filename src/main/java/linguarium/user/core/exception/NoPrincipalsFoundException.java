@@ -1,4 +1,4 @@
-package linguarium.auth.local.exception;
+package linguarium.user.core.exception;
 
 public class NoPrincipalsFoundException extends IllegalStateException {
     public NoPrincipalsFoundException(String message) {

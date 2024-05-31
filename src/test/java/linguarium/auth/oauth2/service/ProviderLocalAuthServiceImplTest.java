@@ -11,11 +11,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.Map;
 import java.util.Optional;
-import linguarium.auth.oauth2.model.entity.Principal;
-import linguarium.auth.oauth2.model.enums.AuthProviderType;
+import linguarium.auth.core.entity.Principal;
+import linguarium.auth.core.enums.AuthProviderType;
+import linguarium.auth.core.repository.PrincipalRepository;
 import linguarium.auth.oauth2.model.userinfo.GoogleOAuth2UserInfo;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
-import linguarium.auth.oauth2.repository.PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.model.entity.User;
@@ -31,7 +31,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class ProviderAuthServiceImplTest {
+class ProviderLocalAuthServiceImplTest {
     private static final String PROFILE_PIC_LINK =
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";
 
