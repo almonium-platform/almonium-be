@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
+import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.exception.NoPrincipalsFoundException;
 import linguarium.user.core.mapper.UserMapper;
@@ -62,12 +63,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) { // todo handle
+    public UserDetails loadUserByUsername(String email) {
         return (UserDetails) findByEmail(email)
-                .map(user -> user.getPrincipals().stream()
-                        .findFirst()
-                        .orElseThrow(
-                                () -> new NoPrincipalsFoundException("User exists without any principals: " + email)))
+                .map(user -> {
+                    if (user.getPrincipals().isEmpty()) {
+                        throw new NoPrincipalsFoundException("User exists without any principals: " + email);
+                    }
+
+                    return user.getPrincipals().stream()
+                            .filter(principal -> principal instanceof LocalPrincipal)
+                            .findFirst()
+                            .orElseThrow(() -> new NoPrincipalsFoundException(
+                                    "User tries to authenticate with local principle, but all his principles are not local: "
+                                            + email));
+                })
                 .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));
     }
 

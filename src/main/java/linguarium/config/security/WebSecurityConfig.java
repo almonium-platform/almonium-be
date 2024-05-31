@@ -18,6 +18,7 @@ import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.auth.oauth2.service.CustomOAuth2UserService;
 import linguarium.config.security.jwt.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
@@ -81,7 +82,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @SneakyThrows
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
