@@ -9,7 +9,7 @@ import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -31,25 +31,25 @@ public class CardController {
     CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @CurrentUser Principal auth) {
+    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth Principal auth) {
         cardService.createCard(auth.getUser().getLearner(), dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCard(
-            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @CurrentUser Principal auth) {
+            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @Auth Principal auth) {
         cardService.updateCard(id, dto, auth.getUser().getLearner());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getCardStack(@CurrentUser Principal auth) {
+    public ResponseEntity<List<CardDto>> getCardStack(@Auth Principal auth) {
         return ResponseEntity.ok(cardService.getUsersCards(auth.getUser().getLearner()));
     }
 
     @GetMapping("/lang/{code}")
-    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @CurrentUser Principal auth) {
+    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @Auth Principal auth) {
         return ResponseEntity.ok(
                 cardService.getUsersCardsOfLang(code, auth.getUser().getLearner()));
     }

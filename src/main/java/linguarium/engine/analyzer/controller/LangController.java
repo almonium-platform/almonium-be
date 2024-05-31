@@ -12,7 +12,7 @@ import linguarium.engine.client.words.dto.WordsReportDto;
 import linguarium.engine.translator.dto.MLTranslationCard;
 import linguarium.engine.translator.dto.TranslationCardDto;
 import linguarium.engine.translator.model.enums.Language;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.io.ByteArrayResource;
@@ -36,7 +36,7 @@ public class LangController {
     LanguageProcessor languageProcessor;
 
     @GetMapping("/cards/search/{text}")
-    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @CurrentUser Principal auth) {
+    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @Auth Principal auth) {
         return ResponseEntity.ok(cardService.searchByEntry(text, auth.getUser().getLearner()));
     }
 
@@ -75,7 +75,7 @@ public class LangController {
 
     @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(
-            @PathVariable String text, @PathVariable String lang, @CurrentUser Principal auth) {
+            @PathVariable String text, @PathVariable String lang, @Auth Principal auth) {
         return ResponseEntity.ok(
                 languageProcessor.getReport(text, lang, auth.getUser().getLearner()));
     }

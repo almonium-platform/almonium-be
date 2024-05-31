@@ -7,7 +7,7 @@ import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +29,13 @@ public class AuthManagementController {
 
     @PutMapping("/local")
     public ResponseEntity<?> addLocalLogin(
-            @CurrentUser Principal auth, @Valid @RequestBody LocalAuthRequest localAuthRequest) {
+            @Auth Principal auth, @Valid @RequestBody LocalAuthRequest localAuthRequest) {
         authManagementService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/provider/{provider}")
-    public ResponseEntity<?> unlinkProvider(@CurrentUser Principal auth, @PathVariable AuthProviderType provider) {
+    public ResponseEntity<?> unlinkProvider(@Auth Principal auth, @PathVariable AuthProviderType provider) {
         Long userId = auth.getUser().getId();
         authManagementService.unlinkProviderAuth(userId, provider);
         return ResponseEntity.ok().build();

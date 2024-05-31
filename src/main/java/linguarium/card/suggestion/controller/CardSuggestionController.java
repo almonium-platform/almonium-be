@@ -8,7 +8,7 @@ import linguarium.auth.common.model.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
 import linguarium.card.suggestion.service.CardSuggestionService;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -29,25 +29,25 @@ public class CardSuggestionController {
     CardSuggestionService cardSuggestionService;
 
     @PostMapping
-    public ResponseEntity<?> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @CurrentUser Principal auth) {
+    public ResponseEntity<?> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @Auth Principal auth) {
         cardSuggestionService.suggestCard(dto, auth.getUser().getLearner());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/accept")
-    public ResponseEntity<Void> acceptCard(@PathVariable Long id, @CurrentUser Principal auth) {
+    public ResponseEntity<Void> acceptCard(@PathVariable Long id, @Auth Principal auth) {
         cardSuggestionService.acceptSuggestion(id, auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/decline")
-    public ResponseEntity<Void> declineCard(@PathVariable Long id, @CurrentUser Principal auth) {
+    public ResponseEntity<Void> declineCard(@PathVariable Long id, @Auth Principal auth) {
         cardSuggestionService.declineSuggestion(id, auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getSuggestedCardStack(@CurrentUser Principal auth) {
+    public ResponseEntity<List<CardDto>> getSuggestedCardStack(@Auth Principal auth) {
         return ResponseEntity.ok(
                 cardSuggestionService.getSuggestedCards(auth.getUser().getLearner()));
     }

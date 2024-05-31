@@ -10,7 +10,7 @@ import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.model.entity.Friendship;
 import linguarium.user.friendship.model.enums.FriendshipAction;
 import linguarium.user.friendship.service.FriendshipService;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<FriendDto>> getMyFriends(@CurrentUser Principal auth) {
+    public ResponseEntity<List<FriendDto>> getMyFriends(@Auth Principal auth) {
         List<FriendDto> friends = friendshipService.getFriends(auth.getUser().getId());
         return ResponseEntity.ok(friends);
     }
@@ -46,14 +46,14 @@ public class FriendshipController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Friendship> manageFriendship(
-            @CurrentUser Principal auth, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
+            @Auth Principal auth, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
         Friendship friendship = friendshipService.manageFriendship(auth.getUser(), id, action);
         return ResponseEntity.ok(friendship);
     }
 
     @PostMapping
     public ResponseEntity<Friendship> createFriendshipRequest(
-            @CurrentUser Principal auth, @Valid @RequestBody FriendshipRequestDto dto) {
+            @Auth Principal auth, @Valid @RequestBody FriendshipRequestDto dto) {
         Friendship friendship = friendshipService.createFriendshipRequest(auth.getUser(), dto);
         return ResponseEntity.ok(friendship);
     }

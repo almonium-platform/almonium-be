@@ -9,7 +9,7 @@ import linguarium.user.core.dto.UsernameAvailability;
 import linguarium.user.core.dto.UsernameUpdateRequest;
 import linguarium.user.core.service.LearnerService;
 import linguarium.user.core.service.UserService;
-import linguarium.util.annotation.CurrentUser;
+import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class UserController {
     LearnerService learnerService;
 
     @GetMapping("/me")
-    public ResponseEntity<UserInfo> getCurrentUser(@CurrentUser Principal auth) {
+    public ResponseEntity<UserInfo> getCurrentUser(@Auth Principal auth) {
         return ResponseEntity.ok(userService.buildUserInfoFromUser(auth.getUser()));
     }
 
@@ -42,27 +42,27 @@ public class UserController {
 
     @PutMapping("/me/username")
     public ResponseEntity<Void> updateUsername(
-            @RequestBody UsernameUpdateRequest request, @CurrentUser Principal auth) {
+            @RequestBody UsernameUpdateRequest request, @Auth Principal auth) {
         userService.changeUsernameById(request.newUsername(), auth.getUser().getId());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/me/account")
-    public ResponseEntity<Void> deleteCurrentUserAccount(@CurrentUser Principal auth) {
+    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth) {
         userService.deleteAccount(auth.getUser());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/target-langs")
     public ResponseEntity<Void> updateTargetLanguages(
-            @RequestBody LanguageUpdateRequest request, @CurrentUser Principal auth) {
+            @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
         learnerService.updateTargetLanguages(request.langCodes(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/fluent-langs")
     public ResponseEntity<Void> updateFluentLanguages(
-            @RequestBody LanguageUpdateRequest request, @CurrentUser Principal auth) {
+            @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
         learnerService.updateFluentLanguages(request.langCodes(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
