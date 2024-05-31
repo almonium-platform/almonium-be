@@ -2,6 +2,7 @@ package linguarium.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import linguarium.auth.common.exception.AuthMethodNotFoundException;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
 import linguarium.user.core.exception.NoPrincipalsFoundException;
@@ -31,26 +32,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<?> handleNoResourceFoundException(NoResourceFoundException ignored) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
-    public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(EmailMismatchException.class)
-    public ResponseEntity<Object> handleEmailMismatchException(EmailMismatchException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(NoPrincipalsFoundException.class)
-    public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalsFoundException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -72,5 +53,31 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleGlobalException(Exception ex) {
         log.error("An error occurred: {}", ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    // custom exceptions
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<?> handleNoResourceFoundException(NoResourceFoundException ignored) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
+    public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailMismatchException.class)
+    public ResponseEntity<Object> handleEmailMismatchException(EmailMismatchException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoPrincipalsFoundException.class)
+    public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalsFoundException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(AuthMethodNotFoundException.class)
+    public ResponseEntity<Object> handleAuthMethodNotFound(AuthMethodNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 }

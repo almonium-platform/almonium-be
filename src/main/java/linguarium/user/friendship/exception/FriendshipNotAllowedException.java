@@ -1,7 +1,7 @@
 package linguarium.user.friendship.exception;
 
 public class FriendshipNotAllowedException extends RuntimeException {
-    public FriendshipNotAllowedException(String s) {
-        super(s);
+    public FriendshipNotAllowedException(String message) {
+        super(message);
     }
 }

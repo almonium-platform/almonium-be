@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
+import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
@@ -224,6 +225,15 @@ public final class TestDataGenerator {
     public Principal buildTestPrincipal() {
         User user = buildTestUserWithId();
         return Principal.builder().user(user).email(user.getEmail()).build();
+    }
+
+    public Principal buildTestPrincipal(AuthProviderType providerType) {
+        User user = buildTestUserWithId();
+        return Principal.builder()
+                .user(user)
+                .email(user.getEmail())
+                .provider(providerType)
+                .build();
     }
 
     public User buildTestUserWithId(long id) {

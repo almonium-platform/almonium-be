@@ -2,7 +2,7 @@ package linguarium.user.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
 import linguarium.user.core.dto.LanguageUpdateRequest;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.dto.UsernameAvailability;

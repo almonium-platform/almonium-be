@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.google.protobuf.ByteString;
 import java.util.List;
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.service.CardService;

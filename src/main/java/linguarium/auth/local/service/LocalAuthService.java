@@ -7,6 +7,4 @@ public interface LocalAuthService {
     JwtAuthResponse register(LocalAuthRequest registrationRequest);
 
     JwtAuthResponse login(LocalAuthRequest localAuthRequest);
-
-    void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest);
 }

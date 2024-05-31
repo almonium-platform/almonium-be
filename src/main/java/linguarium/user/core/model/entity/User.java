@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
 import linguarium.user.friendship.model.entity.Friendship;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

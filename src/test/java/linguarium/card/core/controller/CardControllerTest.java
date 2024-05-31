@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardUpdateDto;

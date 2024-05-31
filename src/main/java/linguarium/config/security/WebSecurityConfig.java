@@ -12,10 +12,10 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import java.util.List;
-import linguarium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
-import linguarium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
-import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import linguarium.auth.oauth2.service.CustomOAuth2UserService;
+import linguarium.auth.social.handler.OAuth2AuthenticationFailureHandler;
+import linguarium.auth.social.handler.OAuth2AuthenticationSuccessHandler;
+import linguarium.auth.social.repository.OAuth2CookieRequestRepository;
+import linguarium.auth.social.service.CustomOAuth2UserService;
 import linguarium.config.security.jwt.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -54,7 +54,7 @@ public class WebSecurityConfig {
     OAuth2CookieRequestRepository authorizationRequestRepository;
 
     private static final List<String> PERMIT_ALL_URL_PATTERNS =
-            List.of("/auth/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
+            List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
 
     @NonFinal
     @Value("${app.server.frontend.url}")

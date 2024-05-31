@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import linguarium.auth.core.entity.Principal;
+import linguarium.auth.common.entity.Principal;
 import linguarium.base.BaseControllerTest;
 import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.dto.LanguageUpdateRequest;
