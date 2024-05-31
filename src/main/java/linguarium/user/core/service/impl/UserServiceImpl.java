@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) { // todo handle
-        return findByEmail(email)
+        return (UserDetails) findByEmail(email)
                 .map(user -> user.getPrincipals().stream()
                         .findFirst()
                         .orElseThrow(

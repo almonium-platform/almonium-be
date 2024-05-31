@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Map;
 import java.util.Optional;
-import linguarium.auth.common.entity.Principal;
-import linguarium.auth.common.repository.PrincipalRepository;
+import linguarium.auth.social.model.OAuth2Principal;
 import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.social.repository.OAuth2PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.repository.UserRepository;
@@ -21,22 +21,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProviderAuthServiceImpl {
-    private static final String PLACEHOLDER = "OAUTH2_PLACEHOLDER";
-
     UserRepository userRepository;
     UserMapper userMapper;
-    PrincipalRepository principalRepository;
+    OAuth2PrincipalRepository principalRepository;
 
     @Transactional
-    public Principal authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    public OAuth2Principal authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         return userRepository
                 .findByEmail(userInfo.getEmail())
                 .map(user -> handleExistingUser(user, userInfo, attributes))
                 .orElseGet(() -> createNewUserAndPrincipal(userInfo, attributes));
     }
 
-    private Principal handleExistingUser(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
-        Optional<Principal> existingAccountOptional =
+    private OAuth2Principal handleExistingUser(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+        Optional<OAuth2Principal> existingAccountOptional =
                 principalRepository.findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId());
 
         if (existingAccountOptional.isEmpty()) {
@@ -48,7 +46,7 @@ public class ProviderAuthServiceImpl {
         return existingAccountOptional.get();
     }
 
-    private Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
         user.setEmail(userInfo.getEmail());
@@ -56,12 +54,12 @@ public class ProviderAuthServiceImpl {
         return createAndSaveProviderAuth(user, userInfo, attributes);
     }
 
-    private Principal createAndSaveProviderAuth(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private OAuth2Principal createAndSaveProviderAuth(
+            User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
         log.debug("Creating new principal for user: {}", userInfo.getEmail());
-        Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
-        account.setAttributes(attributes);
+        OAuth2Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
         account.setUser(user);
-        account.setPassword(PLACEHOLDER);
+        account.setAttributes(attributes);
         user.getPrincipals().add(account);
         userRepository.save(user);
         return principalRepository.save(account);

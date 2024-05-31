@@ -7,15 +7,16 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import linguarium.auth.common.entity.Principal;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.service.impl.AuthManagementServiceImpl;
 import linguarium.auth.common.util.PrincipalFactory;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import linguarium.util.TestDataGenerator;
@@ -52,7 +53,7 @@ class AuthManagementServiceImplTest {
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
-                .thenReturn(new Principal(user, "encodedPassword"));
+                .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
 
         // Act
         authService.linkLocalAuth(user.getId(), localAuthRequest);
@@ -88,8 +89,10 @@ class AuthManagementServiceImplTest {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUser();
-        Principal existingPrincipal =
-                Principal.builder().user(user).provider(AuthProviderType.LOCAL).build();
+        Principal existingPrincipal = LocalPrincipal.builder()
+                .user(user)
+                .provider(AuthProviderType.LOCAL)
+                .build();
         user.getPrincipals().add(existingPrincipal);
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);

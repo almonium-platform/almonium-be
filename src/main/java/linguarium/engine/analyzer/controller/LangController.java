@@ -3,7 +3,7 @@ package linguarium.engine.analyzer.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
-import linguarium.auth.common.entity.Principal;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.service.CardService;
 import linguarium.engine.analyzer.dto.AnalysisDto;

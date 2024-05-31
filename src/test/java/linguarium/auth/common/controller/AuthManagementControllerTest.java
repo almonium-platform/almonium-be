@@ -11,9 +11,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import linguarium.auth.common.entity.Principal;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;

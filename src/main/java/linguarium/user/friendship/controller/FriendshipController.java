@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import linguarium.auth.common.entity.Principal;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.user.friendship.dto.FriendDto;
 import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.model.entity.Friendship;

@@ -2,7 +2,7 @@ package linguarium.auth.local.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.auth.common.entity.Principal;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.util.PrincipalFactory;
 import linguarium.auth.local.dto.request.LocalAuthRequest;

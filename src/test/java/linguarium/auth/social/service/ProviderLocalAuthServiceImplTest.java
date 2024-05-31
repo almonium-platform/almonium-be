@@ -11,11 +11,12 @@ import static org.mockito.Mockito.when;
 
 import java.util.Map;
 import java.util.Optional;
-import linguarium.auth.common.entity.Principal;
 import linguarium.auth.common.enums.AuthProviderType;
-import linguarium.auth.common.repository.PrincipalRepository;
+import linguarium.auth.common.model.entity.Principal;
+import linguarium.auth.social.model.OAuth2Principal;
 import linguarium.auth.social.model.userinfo.GoogleOAuth2UserInfo;
 import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.social.repository.OAuth2PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.model.entity.User;
@@ -45,7 +46,7 @@ class ProviderLocalAuthServiceImplTest {
     UserMapper userMapper;
 
     @Mock
-    PrincipalRepository principalRepository;
+    OAuth2PrincipalRepository oAuth2PrincipalRepository;
 
     @DisplayName("Should create new principal if user exists but principal is not found")
     @Test
@@ -63,7 +64,7 @@ class ProviderLocalAuthServiceImplTest {
                 .profile(Profile.builder().avatarUrl(newProfilePicLink).build())
                 .build();
 
-        Principal newPrincipal = Principal.builder()
+        OAuth2Principal newPrincipal = OAuth2Principal.builder()
                 .email(email)
                 .providerUserId(userId)
                 .provider(oAuth2UserInfo.getProvider())
@@ -71,10 +72,10 @@ class ProviderLocalAuthServiceImplTest {
                 .build();
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
-        when(principalRepository.findByProviderAndProviderUserId(AuthProviderType.GOOGLE, userId))
+        when(oAuth2PrincipalRepository.findByProviderAndProviderUserId(AuthProviderType.GOOGLE, userId))
                 .thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo))).thenReturn(newPrincipal);
-        when(principalRepository.save(any(Principal.class))).thenReturn(newPrincipal);
+        when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(newPrincipal);
         when(userRepository.save(existingUser)).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
@@ -82,7 +83,7 @@ class ProviderLocalAuthServiceImplTest {
 
         // Assert
         verify(userRepository).save(existingUser);
-        verify(principalRepository).save(newPrincipal);
+        verify(oAuth2PrincipalRepository).save(newPrincipal);
         assertThat(result).isEqualTo(newPrincipal);
     }
 
@@ -102,14 +103,15 @@ class ProviderLocalAuthServiceImplTest {
                         .avatarUrl("https://old-image-link.com")
                         .build())
                 .build();
-        Principal principal = Principal.builder()
+        OAuth2Principal principal = OAuth2Principal.builder()
                 .provider(AuthProviderType.GOOGLE)
                 .providerUserId("101868015518714862283")
                 .build();
         existingUser.getPrincipals().add(principal);
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
-        when(principalRepository.findByProviderAndProviderUserId(AuthProviderType.GOOGLE, "101868015518714862283"))
+        when(oAuth2PrincipalRepository.findByProviderAndProviderUserId(
+                AuthProviderType.GOOGLE, "101868015518714862283"))
                 .thenReturn(Optional.of(principal));
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
@@ -132,7 +134,7 @@ class ProviderLocalAuthServiceImplTest {
 
         Map<String, Object> attributes = createAttributes(email, userId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-        when(principalRepository.save(any(Principal.class))).thenAnswer(invocation -> {
+        when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenAnswer(invocation -> {
             Principal auth = invocation.getArgument(0);
             auth.setId(1L);
             return auth;
@@ -144,7 +146,7 @@ class ProviderLocalAuthServiceImplTest {
             return user;
         });
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo)))
-                .thenReturn(Principal.builder()
+                .thenReturn(OAuth2Principal.builder()
                         .email(email)
                         .providerUserId(userId)
                         .provider(provider)
@@ -172,7 +174,7 @@ class ProviderLocalAuthServiceImplTest {
                         .avatarUrl(oAuth2UserInfo.getImageUrl())
                         .build())
                 .build();
-        Principal principal = Principal.builder()
+        OAuth2Principal principal = OAuth2Principal.builder()
                 .email(oAuth2UserInfo.getEmail())
                 .providerUserId(oAuth2UserInfo.getId())
                 .provider(oAuth2UserInfo.getProvider())
@@ -182,7 +184,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.findByEmail("johnwick@gmail.com")).thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo))).thenReturn(principal);
         when(userRepository.save(newUser)).thenReturn(newUser);
-        when(principalRepository.save(principal)).thenReturn(principal);
+        when(oAuth2PrincipalRepository.save(principal)).thenReturn(principal);
 
         // Act
         Principal result = authService.authenticate(
@@ -192,7 +194,7 @@ class ProviderLocalAuthServiceImplTest {
         verify(userRepository).findByEmail("johnwick@gmail.com");
         verify(userMapper).providerUserInfoToPrincipal(eq(oAuth2UserInfo));
         verify(userRepository, atLeastOnce()).save(newUser);
-        verify(principalRepository).save(principal);
+        verify(oAuth2PrincipalRepository).save(principal);
         assertThat(result).isEqualTo(principal);
     }
 

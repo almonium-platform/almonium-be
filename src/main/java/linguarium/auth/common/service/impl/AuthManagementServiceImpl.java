@@ -2,9 +2,9 @@ package linguarium.auth.common.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import linguarium.auth.common.entity.Principal;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.common.util.PrincipalFactory;

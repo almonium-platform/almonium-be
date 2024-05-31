@@ -3,8 +3,8 @@ package linguarium.auth.common.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
-import linguarium.auth.common.entity.Principal;
 import linguarium.auth.common.enums.AuthProviderType;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.util.annotation.CurrentUser;

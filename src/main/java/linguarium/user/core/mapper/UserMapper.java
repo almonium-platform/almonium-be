@@ -1,6 +1,6 @@
 package linguarium.user.core.mapper;
 
-import linguarium.auth.common.entity.Principal;
+import linguarium.auth.social.model.OAuth2Principal;
 import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.model.entity.User;
@@ -22,7 +22,6 @@ public interface UserMapper {
     @Mapping(source = "info.email", target = "email")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "password", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
-    Principal providerUserInfoToPrincipal(OAuth2UserInfo info);
+    OAuth2Principal providerUserInfoToPrincipal(OAuth2UserInfo info);
 }

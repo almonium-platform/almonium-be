@@ -12,12 +12,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import linguarium.auth.common.entity.Principal;
+import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.util.PrincipalFactory;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.Profile;
@@ -70,14 +71,14 @@ class LocalAuthServiceImplTest {
         LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
         User user = User.builder().email(registrationRequest.email()).build();
         String expectedJwt = "xxx.yyy.zzz";
-        Principal principal = Principal.builder().user(user).build();
+        Principal principal = LocalPrincipal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(auth.getPrincipal()).thenReturn(principal);
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         when(passwordEncoder.createLocalPrincipal(user, registrationRequest))
-                .thenReturn(new Principal(user, "encodedPassword"));
+                .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
 
         // Act
         authService.register(registrationRequest);
@@ -97,7 +98,7 @@ class LocalAuthServiceImplTest {
         String password = "fdsfsd";
         String expectedJwt = "xxx.yyy.zzz";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
-        Principal principal = Principal.builder().user(user).build();
+        Principal principal = LocalPrincipal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(auth.getPrincipal()).thenReturn(principal);
