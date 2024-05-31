@@ -9,10 +9,10 @@ import static org.mockito.Mockito.when;
 
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.service.impl.AuthManagementServiceImpl;
-import linguarium.auth.common.util.PrincipalFactory;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;

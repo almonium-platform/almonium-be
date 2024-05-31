@@ -1,4 +1,4 @@
-package linguarium.auth.common.util;
+package linguarium.auth.common.factory;
 
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
