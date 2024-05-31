@@ -1,4 +1,4 @@
-package linguarium.auth.social.handler;
+package linguarium.auth.oauth2.handler;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import linguarium.auth.social.repository.OAuth2CookieRequestRepository;
+import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.util.CookieUtils;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package linguarium.auth.social.repository;
+package linguarium.auth.oauth2.repository;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;

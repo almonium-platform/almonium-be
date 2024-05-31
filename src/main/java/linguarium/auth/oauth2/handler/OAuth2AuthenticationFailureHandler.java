@@ -1,4 +1,4 @@
-package linguarium.auth.social.handler;
+package linguarium.auth.oauth2.handler;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -6,7 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import linguarium.auth.social.repository.OAuth2CookieRequestRepository;
+import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import linguarium.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

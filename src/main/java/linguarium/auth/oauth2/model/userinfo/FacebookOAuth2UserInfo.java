@@ -1,21 +1,21 @@
-package linguarium.auth.social.model.userinfo;
+package linguarium.auth.oauth2.model.userinfo;
 
 import java.util.Map;
 import linguarium.auth.common.enums.AuthProviderType;
 
-public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
-    public GoogleOAuth2UserInfo(Map<String, Object> attributes) {
+public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
+    public FacebookOAuth2UserInfo(Map<String, Object> attributes) {
         super(attributes);
     }
 
     @Override
     public AuthProviderType getProvider() {
-        return AuthProviderType.GOOGLE;
+        return AuthProviderType.FACEBOOK;
     }
 
     @Override
     public String getId() {
-        return getStringAttribute("sub");
+        return getStringAttribute("id");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getImageUrl() {
-        return getStringAttribute("picture");
+        return getNestedStringAttribute("picture.data.url");
     }
 }

@@ -1,7 +1,7 @@
 package linguarium.user.core.mapper;
 
-import linguarium.auth.social.model.OAuth2Principal;
-import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.oauth2.model.OAuth2Principal;
+import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.user.core.dto.UserInfo;
 import linguarium.user.core.model.entity.User;
 import org.mapstruct.Mapper;

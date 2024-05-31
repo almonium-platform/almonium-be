@@ -1,13 +1,13 @@
-package linguarium.auth.social.service;
+package linguarium.auth.oauth2.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.HashMap;
 import java.util.Map;
 import linguarium.auth.common.enums.AuthProviderType;
-import linguarium.auth.social.exception.OAuth2AuthenticationException;
-import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
-import linguarium.auth.social.model.userinfo.OAuth2UserInfoFactory;
+import linguarium.auth.oauth2.exception.OAuth2AuthenticationException;
+import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

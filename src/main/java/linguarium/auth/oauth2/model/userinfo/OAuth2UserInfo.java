@@ -1,4 +1,4 @@
-package linguarium.auth.social.model.userinfo;
+package linguarium.auth.oauth2.model.userinfo;
 
 import java.util.Map;
 import linguarium.auth.common.enums.AuthProviderType;

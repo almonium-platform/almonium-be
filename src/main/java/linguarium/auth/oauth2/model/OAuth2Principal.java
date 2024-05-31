@@ -1,4 +1,4 @@
-package linguarium.auth.social.model;
+package linguarium.auth.oauth2.model;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package linguarium.auth.social.service;
+package linguarium.auth.oauth2.service;
 
 import static java.util.Map.entry;
 import static lombok.AccessLevel.PRIVATE;
@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.Optional;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.model.entity.Principal;
-import linguarium.auth.social.model.OAuth2Principal;
-import linguarium.auth.social.model.userinfo.GoogleOAuth2UserInfo;
-import linguarium.auth.social.model.userinfo.OAuth2UserInfo;
-import linguarium.auth.social.repository.OAuth2PrincipalRepository;
+import linguarium.auth.oauth2.model.OAuth2Principal;
+import linguarium.auth.oauth2.model.userinfo.GoogleOAuth2UserInfo;
+import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
+import linguarium.auth.oauth2.repository.OAuth2PrincipalRepository;
 import linguarium.user.core.mapper.UserMapper;
 import linguarium.user.core.model.entity.Profile;
 import linguarium.user.core.model.entity.User;

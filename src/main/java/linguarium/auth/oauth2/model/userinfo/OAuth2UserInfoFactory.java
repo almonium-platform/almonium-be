@@ -1,9 +1,9 @@
-package linguarium.auth.social.model.userinfo;
+package linguarium.auth.oauth2.model.userinfo;
 
 import java.util.Map;
 import java.util.function.Function;
 import linguarium.auth.common.enums.AuthProviderType;
-import linguarium.auth.social.exception.OAuth2AuthenticationException;
+import linguarium.auth.oauth2.exception.OAuth2AuthenticationException;
 import org.springframework.stereotype.Service;
 
 @Service
