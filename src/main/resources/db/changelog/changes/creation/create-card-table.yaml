@@ -23,7 +23,7 @@ databaseChangeLog:
                   name: entry
                   type: TEXT
               - column:
-                  name: created
+                  name: created_at
                   type: TIMESTAMP
               - column:
                   name: updated_at
