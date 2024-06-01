@@ -5,6 +5,7 @@ import java.util.Map;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
 import linguarium.auth.common.exception.LastAuthMethodException;
 import linguarium.auth.local.exception.EmailMismatchException;
+import linguarium.auth.local.exception.EmailNotVerifiedException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.user.core.exception.NoPrincipalsFoundException;
 import linguarium.user.friendship.exception.FriendshipNotAllowedException;
@@ -86,6 +87,11 @@ public class GlobalExceptionHandler {
     }
 
     // auth
+    @ExceptionHandler(EmailNotVerifiedException.class)
+    public ResponseEntity<?> handleEmailNotVerifiedException(EmailNotVerifiedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
+    }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ApiResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));

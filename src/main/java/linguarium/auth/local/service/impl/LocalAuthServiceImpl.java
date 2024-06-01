@@ -7,6 +7,7 @@ import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailNotVerifiedException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.repository.LocalPrincipalRepository;
 import linguarium.auth.local.service.LocalAuthService;
@@ -46,7 +47,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
                 manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
         if (!localPrincipalRepository.findByEmail(request.email()).isVerified()) {
-            throw new RuntimeException("Email needs to be verified before logging in.");
+            throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
