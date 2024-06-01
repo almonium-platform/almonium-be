@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import linguarium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import linguarium.util.CookieUtils;
+import linguarium.auth.oauth2.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.AuthenticationException;

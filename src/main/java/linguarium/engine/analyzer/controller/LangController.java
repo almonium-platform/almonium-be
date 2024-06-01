@@ -3,6 +3,7 @@ package linguarium.engine.analyzer.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
+import linguarium.auth.common.annotation.Auth;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.service.CardService;
@@ -12,7 +13,6 @@ import linguarium.engine.client.words.dto.WordsReportDto;
 import linguarium.engine.translator.dto.MLTranslationCard;
 import linguarium.engine.translator.dto.TranslationCardDto;
 import linguarium.engine.translator.model.enums.Language;
-import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.io.ByteArrayResource;

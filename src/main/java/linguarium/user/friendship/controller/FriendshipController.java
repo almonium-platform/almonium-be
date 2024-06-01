@@ -4,13 +4,13 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import linguarium.auth.common.annotation.Auth;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.user.friendship.dto.FriendDto;
 import linguarium.user.friendship.dto.FriendshipRequestDto;
 import linguarium.user.friendship.model.entity.Friendship;
 import linguarium.user.friendship.model.enums.FriendshipAction;
 import linguarium.user.friendship.service.FriendshipService;
-import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;

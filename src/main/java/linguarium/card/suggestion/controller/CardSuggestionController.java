@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import linguarium.auth.common.annotation.Auth;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.suggestion.dto.CardSuggestionDto;
 import linguarium.card.suggestion.service.CardSuggestionService;
-import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;

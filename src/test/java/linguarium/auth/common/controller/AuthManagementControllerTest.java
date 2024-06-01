@@ -17,7 +17,7 @@ import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.base.BaseControllerTest;
 import linguarium.config.GlobalExceptionHandler;
 import linguarium.user.core.model.entity.User;
@@ -99,7 +99,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         Principal principal = TestDataGenerator.buildTestPrincipal();
 
-        doThrow(new UserAlreadyExistsAuthenticationException("You already have local account registered with "
+        doThrow(new UserAlreadyExistsException("You already have local account registered with "
                 + principal.getUser().getEmail()))
                 .when(authManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));

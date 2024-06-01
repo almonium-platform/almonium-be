@@ -3,7 +3,7 @@ package linguarium.config;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.util.dto.ApiResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -56,8 +56,7 @@ class GlobalExceptionHandlerTest {
     @DisplayName("Should handle UserAlreadyExistsAuthenticationException")
     @Test
     void givenUserAlreadyExistsException_whenHandleException_thenRespondWithBadRequest() {
-        UserAlreadyExistsAuthenticationException ex =
-                new UserAlreadyExistsAuthenticationException("User already exists");
+        UserAlreadyExistsException ex = new UserAlreadyExistsException("User already exists");
 
         ResponseEntity<?> response = exceptionHandler.handleUserAlreadyExistsException(ex);
 

@@ -4,13 +4,14 @@ import static lombok.AccessLevel.PRIVATE;
 
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.exception.LastAuthMethodException;
 import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,13 +42,18 @@ public class AuthManagementServiceImpl implements AuthManagementService {
     @Override
     public void unlinkProviderAuth(Long userId, AuthProviderType providerType) {
         User user = userService.getUserWithPrincipals(userId);
-        Principal principal = getProviderIfExistsElseThrow(providerType, user);
+        Principal principal = getProviderIfPossibleElseThrow(providerType, user);
         user.getPrincipals().remove(principal);
         principalRepository.delete(principal);
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
     }
 
-    private Principal getProviderIfExistsElseThrow(AuthProviderType providerType, User user) {
+    private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {
+        if (user.getPrincipals().size() == 1) {
+            throw new LastAuthMethodException(
+                    "Cannot remove the last authentication method for the user: " + user.getEmail());
+        }
+
         return user.getPrincipals().stream()
                 .filter(principal -> principal.getProvider() == providerType)
                 .findFirst()
@@ -57,8 +63,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
     private void validateAddLocalAuthRequest(User user, LocalAuthRequest request) {
         if (user.getPrincipals().stream()
                 .anyMatch(principal -> principal.getProvider().equals(AuthProviderType.LOCAL))) {
-            throw new UserAlreadyExistsAuthenticationException(
-                    "You already have local account registered with " + user.getEmail());
+            throw new UserAlreadyExistsException("You already have local account registered with " + user.getEmail());
         }
         if (!user.getEmail().equals(request.email())) {
             throw new EmailMismatchException(

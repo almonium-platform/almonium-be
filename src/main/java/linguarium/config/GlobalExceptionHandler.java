@@ -3,9 +3,11 @@ package linguarium.config;
 import java.util.HashMap;
 import java.util.Map;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.exception.LastAuthMethodException;
 import linguarium.auth.local.exception.EmailMismatchException;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.user.core.exception.NoPrincipalsFoundException;
+import linguarium.user.friendship.exception.FriendshipNotAllowedException;
 import linguarium.util.dto.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -61,8 +63,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserAlreadyExistsAuthenticationException.class)
-    public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsAuthenticationException ex) {
+    @ExceptionHandler(FriendshipNotAllowedException.class)
+    public ResponseEntity<?> handleFriendshipNotAllowedException(FriendshipNotAllowedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    // auth
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<?> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
     }
 
@@ -79,5 +87,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthMethodNotFoundException.class)
     public ResponseEntity<Object> handleAuthMethodNotFound(AuthMethodNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(LastAuthMethodException.class)
+    public ResponseEntity<?> handleLastAuthMethodException(LastAuthMethodException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 }

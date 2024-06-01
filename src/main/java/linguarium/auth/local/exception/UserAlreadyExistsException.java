@@ -5,8 +5,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class UserAlreadyExistsAuthenticationException extends AuthenticationException {
-    public UserAlreadyExistsAuthenticationException(String msg) {
+public class UserAlreadyExistsException extends AuthenticationException {
+    public UserAlreadyExistsException(String msg) {
         super(msg);
     }
 }

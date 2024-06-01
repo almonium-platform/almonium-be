@@ -1,4 +1,4 @@
-package linguarium.util.annotation;
+package linguarium.auth.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.service.LocalAuthService;
 import linguarium.base.BaseControllerTest;
 import linguarium.config.GlobalExceptionHandler;
@@ -109,7 +109,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
     void givenExistingUser_whenRegister_thenBadRequest() {
         LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
 
-        doThrow(new UserAlreadyExistsAuthenticationException("User already exists"))
+        doThrow(new UserAlreadyExistsException("User already exists"))
                 .when(localAuthService)
                 .register(any(LocalAuthRequest.class));
 

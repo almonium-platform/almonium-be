@@ -17,7 +17,7 @@ import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
 import linguarium.config.security.jwt.TokenProvider;
@@ -122,7 +122,7 @@ class LocalAuthServiceImplTest {
         when(userRepository.existsByEmail(registrationRequest.email())).thenReturn(true);
 
         assertThatThrownBy(() -> authService.register(registrationRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class);
+                .isInstanceOf(UserAlreadyExistsException.class);
 
         verify(userRepository).existsByEmail(registrationRequest.email());
         verify(userRepository, never()).existsById(anyLong());

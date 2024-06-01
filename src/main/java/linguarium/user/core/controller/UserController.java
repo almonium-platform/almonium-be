@@ -2,6 +2,7 @@ package linguarium.user.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import linguarium.auth.common.annotation.Auth;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.user.core.dto.LanguageUpdateRequest;
 import linguarium.user.core.dto.UserInfo;
@@ -9,7 +10,6 @@ import linguarium.user.core.dto.UsernameAvailability;
 import linguarium.user.core.dto.UsernameUpdateRequest;
 import linguarium.user.core.service.LearnerService;
 import linguarium.user.core.service.UserService;
-import linguarium.util.annotation.Auth;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +41,7 @@ public class UserController {
     }
 
     @PutMapping("/me/username")
-    public ResponseEntity<Void> updateUsername(
-            @RequestBody UsernameUpdateRequest request, @Auth Principal auth) {
+    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @Auth Principal auth) {
         userService.changeUsernameById(request.newUsername(), auth.getUser().getId());
         return ResponseEntity.noContent().build();
     }

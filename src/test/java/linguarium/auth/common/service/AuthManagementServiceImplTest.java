@@ -9,13 +9,14 @@ import static org.mockito.Mockito.when;
 
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
+import linguarium.auth.common.exception.LastAuthMethodException;
 import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.common.repository.PrincipalRepository;
 import linguarium.auth.common.service.impl.AuthManagementServiceImpl;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
-import linguarium.auth.local.exception.UserAlreadyExistsAuthenticationException;
+import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
@@ -99,7 +100,7 @@ class AuthManagementServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.linkLocalAuth(user.getId(), localAuthRequest))
-                .isInstanceOf(UserAlreadyExistsAuthenticationException.class)
+                .isInstanceOf(UserAlreadyExistsException.class)
                 .hasMessageContaining("You already have local account registered with " + user.getEmail());
 
         verify(userService).getUserWithPrincipals(user.getId());
@@ -111,8 +112,10 @@ class AuthManagementServiceImplTest {
     void givenValidProvider_whenUnlinkProvider_thenSuccess() {
         // Arrange
         User user = TestDataGenerator.buildTestUser();
-        Principal principal = TestDataGenerator.buildTestPrincipal(AuthProviderType.GOOGLE);
-        user.getPrincipals().add(principal);
+        Principal principalGoogle = TestDataGenerator.buildTestPrincipal(AuthProviderType.GOOGLE);
+        Principal principalFacebook = TestDataGenerator.buildTestPrincipal(AuthProviderType.FACEBOOK);
+        user.getPrincipals().add(principalGoogle);
+        user.getPrincipals().add(principalFacebook);
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
@@ -121,7 +124,7 @@ class AuthManagementServiceImplTest {
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalRepository).delete(principal);
+        verify(principalRepository).delete(principalGoogle);
     }
 
     @DisplayName("Should throw exception when provider not found")
@@ -136,6 +139,25 @@ class AuthManagementServiceImplTest {
         assertThatThrownBy(() -> authService.unlinkProviderAuth(user.getId(), AuthProviderType.GOOGLE))
                 .isInstanceOf(AuthMethodNotFoundException.class)
                 .hasMessageContaining("Auth method not found GOOGLE");
+
+        verify(userService).getUserWithPrincipals(user.getId());
+        verify(principalRepository, never()).delete(any(Principal.class));
+    }
+
+    @DisplayName("Should throw exception when trying to unlink the last auth method")
+    @Test
+    void givenLastAuthMethod_whenUnlinkProvider_thenThrowLastAuthMethodException() {
+        // Arrange
+        User user = TestDataGenerator.buildTestUser();
+        Principal principal = TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
+        user.getPrincipals().add(principal);
+
+        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.unlinkProviderAuth(user.getId(), AuthProviderType.LOCAL))
+                .isInstanceOf(LastAuthMethodException.class)
+                .hasMessageContaining("Cannot remove the last authentication method for the user: " + user.getEmail());
 
         verify(userService).getUserWithPrincipals(user.getId());
         verify(principalRepository, never()).delete(any(Principal.class));

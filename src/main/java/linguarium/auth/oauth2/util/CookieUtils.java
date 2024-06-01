@@ -1,4 +1,4 @@
-package linguarium.util;
+package linguarium.auth.oauth2.util;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class CookieUtils {
     private static final String PATH = "/";
+    private static final boolean SECURE = true; // false if not using HTTPS
 
     public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {
         Cookie[] cookies = request.getCookies();
@@ -32,6 +33,7 @@ public class CookieUtils {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath(PATH);
         cookie.setHttpOnly(true);
+        cookie.setSecure(SECURE);
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
     }
@@ -58,7 +60,7 @@ public class CookieUtils {
             objectOutputStream.flush();
             return Base64.getUrlEncoder().encodeToString(byteArrayOutputStream.toByteArray());
         } catch (IOException e) {
-            throw new RuntimeException("Serialization error", e);
+            throw new IllegalStateException("Serialization error", e);
         }
     }
 
@@ -70,7 +72,7 @@ public class CookieUtils {
             Object object = objectInputStream.readObject();
             return cls.cast(object);
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException("Deserialization error", e);
+            throw new IllegalStateException("Deserialization error", e);
         }
     }
 }
