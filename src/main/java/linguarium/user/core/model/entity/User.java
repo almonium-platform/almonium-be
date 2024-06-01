@@ -19,7 +19,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import linguarium.auth.common.model.entity.Principal;
+import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.user.friendship.model.entity.Friendship;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,6 +81,17 @@ public class User {
 
     @OneToMany(mappedBy = "requester")
     Set<Friendship> outgoingFriendships;
+
+    public List<Principal> getVerifiedPrincipals() { // todo unused
+        return principals.stream()
+                .filter(principal -> {
+                    if (principal instanceof LocalPrincipal) {
+                        return ((LocalPrincipal) principal).isVerified();
+                    }
+                    return true; // OAuth2Principal is verified by definition
+                })
+                .collect(Collectors.toList());
+    }
 
     @PrePersist
     private void prePersist() {

@@ -5,6 +5,7 @@ import {CardDto} from "../models/card.model";
 import {MatDialog} from "@angular/material/dialog";
 import {CardService} from "../_services/card.service";
 import {User} from "../models/user.model";
+import {AppConstants} from "../common/app.constants";
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,8 @@ export class HomeComponent implements OnInit {
   filteredCards: CardDto[]; // Add this property
   filterBy: string;
   learning: number;
+  googleURL = AppConstants.GOOGLE_AUTH_URL;
+  facebookURL = AppConstants.FACEBOOK_AUTH_URL;
 
 
   constructor(private userService: UserService,
@@ -24,6 +27,10 @@ export class HomeComponent implements OnInit {
               public tokenStorageService: TokenStorageService,
               public dialog: MatDialog
   ) {
+  }
+
+  navigateToProvider(url: string): void {
+    window.location.href = url;
   }
 
   openDialogLocal(card: CardDto, mode: string): void {

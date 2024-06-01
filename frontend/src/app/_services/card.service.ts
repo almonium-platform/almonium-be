@@ -63,7 +63,7 @@ export class CardService {
   }
 
   getSuggestedCards(): Observable<CardDto[]> {
-    return this.http.get<CardDto[]>(`${this.apiURL}/suggested`);
+    return this.http.get<CardDto[]>(`${this.apiURL}/suggestions/`);
   }
 
   getCardByHash(hash: string): Observable<CardDto> {

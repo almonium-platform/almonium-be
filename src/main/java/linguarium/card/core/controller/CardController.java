@@ -10,6 +10,7 @@ import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
 import linguarium.card.core.service.CardService;
+import linguarium.engine.translator.model.enums.Language;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -48,10 +49,10 @@ public class CardController {
         return ResponseEntity.ok(cardService.getUsersCards(auth.getUser().getLearner()));
     }
 
-    @GetMapping("/lang/{code}")
-    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable String code, @Auth Principal auth) {
+    @GetMapping("/lang/{lang}")
+    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable Language lang, @Auth Principal auth) {
         return ResponseEntity.ok(
-                cardService.getUsersCardsOfLang(code, auth.getUser().getLearner()));
+                cardService.getUsersCardsOfLang(lang, auth.getUser().getLearner()));
     }
 
     @GetMapping("/{id}")

@@ -648,7 +648,7 @@ class CardServiceImplTest {
         }
 
         // Invoke the method
-        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.DE.name(), user);
+        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.DE, user);
 
         // Assertions
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);

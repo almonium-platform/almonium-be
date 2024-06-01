@@ -92,11 +92,11 @@ class CardControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenUserAndLanguageCode_whenGetCardsOfLang_thenReturnsCards() {
-        String languageCode = Language.EN.name();
+        Language language = Language.EN;
 
-        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, languageCode)).andExpect(status().isOk());
+        mockMvc.perform(get(GET_CARDS_OF_LANG_URL, language)).andExpect(status().isOk());
 
-        verify(cardService).getUsersCardsOfLang(eq(languageCode), any(Learner.class));
+        verify(cardService).getUsersCardsOfLang(eq(language), any(Learner.class));
     }
 
     @DisplayName("Should retrieve a card by ID")

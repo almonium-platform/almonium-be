@@ -4,6 +4,7 @@ import java.util.List;
 import linguarium.card.core.dto.CardCreationDto;
 import linguarium.card.core.dto.CardDto;
 import linguarium.card.core.dto.CardUpdateDto;
+import linguarium.engine.translator.model.enums.Language;
 import linguarium.user.core.model.entity.Learner;
 
 public interface CardService {
@@ -19,7 +20,7 @@ public interface CardService {
 
     void updateCard(Long id, CardUpdateDto dto, Learner learner);
 
-    List<CardDto> getUsersCardsOfLang(String code, Learner user);
+    List<CardDto> getUsersCardsOfLang(Language code, Learner user);
 
     void deleteById(Long id);
 }

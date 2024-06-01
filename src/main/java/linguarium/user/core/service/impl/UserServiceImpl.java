@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
                             .filter(principal -> principal instanceof LocalPrincipal)
                             .findFirst()
                             .orElseThrow(() -> new NoPrincipalsFoundException(
-                                    "User tries to authenticate with local principle, but all his principles are not local: "
+                                    "User tries to authenticate with local principal, but all his principals are not local: "
                                             + email));
                 })
                 .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));

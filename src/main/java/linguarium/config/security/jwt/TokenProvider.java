@@ -79,6 +79,6 @@ public class TokenProvider {
         if (principal instanceof Principal) {
             return ((Principal) authentication.getPrincipal()).getId();
         }
-        throw new IllegalStateException("Authentication principle of unknown type! " + principal.getClass());
+        throw new IllegalStateException("Authentication principal of unknown type! " + principal.getClass());
     }
 }

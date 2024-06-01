@@ -36,3 +36,29 @@
     {{ card.entry }}
   </button>
 </div>
+<button
+  color="primary"
+  mat-raised-button
+  class="provider-btn"
+  (click)="navigateToProvider(googleURL)">
+  <div class="provider-icon-wrapper">
+    <img class="google-icon"
+         src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+    <div class="provider-text">
+      Sign up with Google
+    </div>
+  </div>
+</button>
+<button
+  color="primary"
+  mat-raised-button
+  class="provider-btn"
+  (click)="navigateToProvider(facebookURL)">
+  <div class="provider-icon-wrapper">
+    <img class="fb-icon"
+         src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"/>
+    <div class="provider-text">
+      Sign up with Facebook
+    </div>
+  </div>
+</button>

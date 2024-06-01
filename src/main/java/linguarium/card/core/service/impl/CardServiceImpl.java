@@ -71,8 +71,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardDto> getUsersCardsOfLang(String code, Learner learner) {
-        return cardRepository.findAllByOwnerAndLanguage(learner, Language.valueOf(code)).stream()
+    public List<CardDto> getUsersCardsOfLang(Language language, Learner learner) {
+        return cardRepository.findAllByOwnerAndLanguage(learner, language).stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
