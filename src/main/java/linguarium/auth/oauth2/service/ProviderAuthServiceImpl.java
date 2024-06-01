@@ -50,7 +50,6 @@ public class ProviderAuthServiceImpl {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
         user.setEmail(userInfo.getEmail());
-        user.setUsername(String.format("%s-%s", userInfo.getProvider(), userInfo.getId()));
         return createAndSaveProviderAuth(user, userInfo, attributes);
     }
 
