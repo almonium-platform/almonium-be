@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
+import linguarium.auth.local.dto.request.PasswordResetConfirmRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.EmailNotFoundException;
 import linguarium.auth.local.exception.InvalidTokenException;
@@ -152,8 +153,11 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenValidEmail_whenRequestPasswordReset_thenSuccess() {
         String email = "test@example.com";
+        LocalAuthRequest request = new LocalAuthRequest(email, null);
 
-        mockMvc.perform(post(FORGOT_PASSWORD_URL).param("email", email))
+        mockMvc.perform(post(FORGOT_PASSWORD_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
     }
@@ -163,11 +167,15 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenInvalidEmail_whenRequestPasswordReset_thenNotFound() {
         String email = "invalid@example.com";
+        LocalAuthRequest request = new LocalAuthRequest(email, null);
+
         doThrow(new EmailNotFoundException("Invalid email"))
                 .when(localAuthService)
                 .requestPasswordReset(email);
 
-        mockMvc.perform(post(FORGOT_PASSWORD_URL).param("email", email))
+        mockMvc.perform(post(FORGOT_PASSWORD_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
     }
@@ -178,8 +186,11 @@ class LocalAuthControllerTest extends BaseControllerTest {
     void givenValidTokenAndNewPassword_whenResetPassword_thenSuccess() {
         String token = "valid-token";
         String newPassword = "newPassword123";
+        PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
 
-        mockMvc.perform(post(RESET_PASSWORD_URL).param("token", token).param("newPassword", newPassword))
+        mockMvc.perform(post(RESET_PASSWORD_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
     }
@@ -190,12 +201,15 @@ class LocalAuthControllerTest extends BaseControllerTest {
     void givenInvalidToken_whenResetPassword_thenForbidden() {
         String token = "invalid-token";
         String newPassword = "newPassword123";
+        PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
 
         doThrow(new InvalidTokenException("Invalid verification token"))
                 .when(localAuthService)
                 .resetPassword(token, newPassword);
 
-        mockMvc.perform(post(RESET_PASSWORD_URL).param("token", token).param("newPassword", newPassword))
+        mockMvc.perform(post(RESET_PASSWORD_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false));
     }

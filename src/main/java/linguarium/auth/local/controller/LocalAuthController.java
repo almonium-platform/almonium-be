@@ -4,6 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.Valid;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
+import linguarium.auth.local.dto.request.PasswordResetConfirmRequest;
+import linguarium.auth.local.dto.request.PasswordResetRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.service.LocalAuthService;
 import linguarium.util.dto.ApiResponse;
@@ -44,15 +46,16 @@ public class LocalAuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<ApiResponse> requestPasswordReset(@RequestParam("email") String email) {
-        localAuthService.requestPasswordReset(email);
+    public ResponseEntity<ApiResponse> requestPasswordReset(
+            @Valid @RequestBody PasswordResetRequest passwordResetRequest) {
+        localAuthService.requestPasswordReset(passwordResetRequest.email());
         return ResponseEntity.ok(new ApiResponse(true, "Password reset email sent successfully"));
     }
 
     @PostMapping("/reset-password")
     public ResponseEntity<ApiResponse> resetPassword(
-            @RequestParam("token") String token, @RequestParam("newPassword") String newPassword) {
-        localAuthService.resetPassword(token, newPassword);
+            @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
+        localAuthService.resetPassword(passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());
         return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
     }
 }
