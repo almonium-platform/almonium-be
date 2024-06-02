@@ -450,4 +450,8 @@ public final class TestDataGenerator {
     public static String generateId() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
+
+    public static LocalPrincipal buildTestLocalPrincipal() {
+        return (LocalPrincipal) TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
+    }
 }

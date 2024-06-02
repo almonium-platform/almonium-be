@@ -187,9 +187,8 @@ class AuthManagementServiceImplTest {
     @Test
     void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
         // Arrange
-        LocalPrincipal localPrincipal = (LocalPrincipal) TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
+        LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
         String token = "123456";
-//        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, 60);
 
         when(tokenGenerator.generateOTP(6)).thenReturn(token);
 

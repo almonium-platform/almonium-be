@@ -12,13 +12,19 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailNotVerifiedException;
+import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
+import linguarium.auth.local.model.entity.VerificationToken;
 import linguarium.auth.local.repository.LocalPrincipalRepository;
+import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.Profile;
@@ -66,6 +72,9 @@ class LocalAuthServiceImplTest {
 
     @Mock
     ProfileService profileService;
+
+    @Mock
+    VerificationTokenRepository verificationTokenRepository;
 
     @DisplayName("Should successfully register local user")
     @Test
@@ -128,4 +137,78 @@ class LocalAuthServiceImplTest {
         verify(userRepository, never()).save(any(User.class));
         verify(userRepository, never()).flush();
     }
+
+    @DisplayName("Should throw an exception when email is not verified during login")
+    @Test
+    void givenUnverifiedEmail_whenLogin_thenThrowEmailNotVerifiedException() {
+        // Arrange
+        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
+        LocalPrincipal principal = LocalPrincipal.builder()
+                .email(localAuthRequest.email())
+                .password("encodedPassword")
+                .verified(false)
+                .build();
+        when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(principal);
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.login(localAuthRequest))
+                .isInstanceOf(EmailNotVerifiedException.class)
+                .hasMessage("Email needs to be verified before logging in.");
+
+        verify(profileService, never()).updateLoginStreak(any(Profile.class));
+        verify(tokenProvider, never()).createToken(any(Authentication.class));
+    }
+
+    @DisplayName("Should throw exception when token is invalid")
+    @Test
+    void givenInvalidToken_whenVerifyEmail_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "invalidToken";
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.verifyEmail(token))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Invalid verification token");
+
+        verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
+    }
+
+    @DisplayName("Should throw exception when token is expired")
+    @Test
+    void givenExpiredToken_whenVerifyEmail_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "expiredToken";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        verificationToken.setExpiryDate(LocalDateTime.now().minusDays(1));
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.verifyEmail(token))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Verification token has expired");
+
+        verify(verificationTokenRepository).delete(verificationToken);
+        verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
+    }
+
+    @DisplayName("Should verify email successfully")
+    @Test
+    void givenValidToken_whenVerifyEmail_thenSetVerifiedAndDeleteToken() {
+        // Arrange
+        String token = "validToken";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+
+        // Act
+        authService.verifyEmail(token);
+
+        // Assert
+        assertThat(principal.isVerified()).isTrue();
+        verify(localPrincipalRepository).save(principal);
+        verify(verificationTokenRepository).delete(verificationToken);
+    }
+
 }
