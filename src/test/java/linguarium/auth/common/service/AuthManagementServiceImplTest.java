@@ -21,6 +21,7 @@ import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
 import linguarium.auth.local.repository.VerificationTokenRepository;
+import linguarium.auth.local.service.impl.SecureRandomTokenGeneratorImpl;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import linguarium.util.TestDataGenerator;
@@ -36,6 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
 class AuthManagementServiceImplTest {
+    private static final int OTP_LENGTH = 6;
     @InjectMocks
     AuthManagementServiceImpl authService;
 
@@ -52,6 +54,9 @@ class AuthManagementServiceImplTest {
     EmailService emailService;
 
     @Mock
+    SecureRandomTokenGeneratorImpl tokenGenerator;
+
+    @Mock
     VerificationTokenRepository verificationTokenRepository;
 
     @DisplayName("Should add local login successfully")
@@ -62,6 +67,8 @@ class AuthManagementServiceImplTest {
         User user = TestDataGenerator.buildTestUser();
         user.setEmail(localAuthRequest.email()); // Ensure email matches
 
+        String token = "123456";
+        when(tokenGenerator.generateOTP(OTP_LENGTH)).thenReturn(token);
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
@@ -71,8 +78,9 @@ class AuthManagementServiceImplTest {
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(emailService).sendVerificationEmail(eq(localAuthRequest.email()), any(String.class));
+        verify(emailService).sendVerificationEmail(eq(localAuthRequest.email()), eq(token));
         verify(verificationTokenRepository).save(any(VerificationToken.class));
+        verify(tokenGenerator).generateOTP(OTP_LENGTH);
         verify(passwordEncoder).createLocalPrincipal(user, localAuthRequest);
         verify(principalRepository).save(any(Principal.class));
     }
@@ -173,5 +181,23 @@ class AuthManagementServiceImplTest {
 
         verify(userService).getUserWithPrincipals(user.getId());
         verify(principalRepository, never()).delete(any(Principal.class));
+    }
+
+    @DisplayName("Should create and send verification token successfully")
+    @Test
+    void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
+        // Arrange
+        LocalPrincipal localPrincipal = (LocalPrincipal) TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
+        String token = "123456";
+//        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, 60);
+
+        when(tokenGenerator.generateOTP(6)).thenReturn(token);
+
+        // Act
+        authService.createAndSendVerificationToken(localPrincipal);
+
+        // Assert
+        verify(verificationTokenRepository).save(any(VerificationToken.class));
+        verify(emailService).sendVerificationEmail(eq(localPrincipal.getEmail()), eq(token));
     }
 }

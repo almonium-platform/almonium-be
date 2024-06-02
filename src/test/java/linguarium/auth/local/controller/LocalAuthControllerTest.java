@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.service.LocalAuthService;
 import linguarium.base.BaseControllerTest;
@@ -114,5 +115,33 @@ class LocalAuthControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(registrationRequest)))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @DisplayName("Should verify email successfully")
+    @Test
+    @SneakyThrows
+    void givenValidToken_whenVerifyEmail_thenSuccess() {
+        String token = "validToken";
+        mockMvc.perform(post(BASE_URL + "/verify-email")
+                        .param("token", token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("Email verified successfully"));
+    }
+
+    @DisplayName("Should handle invalid token by returning forbidden status")
+    @Test
+    @SneakyThrows
+    void givenInvalidToken_whenVerifyEmail_thenReturnsForbidden() {
+        String token = "invalidToken";
+        doThrow(new InvalidTokenException("Invalid verification token"))
+                .when(localAuthService)
+                .verifyEmail(any(String.class));
+
+        mockMvc.perform(post(BASE_URL + "/verify-email")
+                        .param("token", token))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value("Invalid verification token"));
     }
 }

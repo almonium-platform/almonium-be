@@ -15,7 +15,7 @@ import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
 import linguarium.auth.local.repository.VerificationTokenRepository;
-import linguarium.auth.local.util.TokenGenerator;
+import linguarium.auth.local.service.TokenGenerator;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import linguarium.util.service.EmailService;
@@ -37,6 +37,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
     PrincipalFactory principalFactory;
     PrincipalRepository principalRepository;
     VerificationTokenRepository verificationTokenRepository;
+    TokenGenerator tokenGenerator;
 
     @Override
     public void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest) {
@@ -59,7 +60,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
 
     @Override
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal) {
-        String token = TokenGenerator.generateOTP(OTP_LENGTH);
+        String token = tokenGenerator.generateOTP(OTP_LENGTH);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, 60);
         verificationTokenRepository.save(verificationToken);
         emailService.sendVerificationEmail(localPrincipal.getEmail(), verificationToken.getToken());
