@@ -38,6 +38,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @FieldDefaults(level = PRIVATE)
 class AuthManagementServiceImplTest {
     private static final int OTP_LENGTH = 6;
+
     @InjectMocks
     AuthManagementServiceImpl authService;
 

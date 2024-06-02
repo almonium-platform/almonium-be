@@ -5,6 +5,7 @@ import java.util.Map;
 import linguarium.auth.common.exception.AuthMethodNotFoundException;
 import linguarium.auth.common.exception.LastAuthMethodException;
 import linguarium.auth.local.exception.EmailMismatchException;
+import linguarium.auth.local.exception.EmailNotFoundException;
 import linguarium.auth.local.exception.EmailNotVerifiedException;
 import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
@@ -96,6 +97,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<?> handleInvalidTokenException(InvalidTokenException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<?> handleEmailNotFoundException(EmailNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)

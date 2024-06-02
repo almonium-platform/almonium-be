@@ -7,6 +7,7 @@ import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailNotFoundException;
 import linguarium.auth.local.exception.EmailNotVerifiedException;
 import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
@@ -51,7 +52,9 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         Authentication authentication =
                 manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        LocalPrincipal localPrincipal = localPrincipalRepository.findByEmail(request.email());
+        LocalPrincipal localPrincipal = localPrincipalRepository
+                .findByEmail(request.email())
+                .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
         if (!localPrincipal.isVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
@@ -75,6 +78,31 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 
     @Override
     public void verifyEmail(String token) {
+        VerificationToken verificationToken = getTokenOrThrow(token);
+        LocalPrincipal principal = verificationToken.getPrincipal();
+        principal.setVerified(true);
+        localPrincipalRepository.save(principal);
+        verificationTokenRepository.delete(verificationToken);
+    }
+
+    @Override
+    public void requestPasswordReset(String email) {
+        LocalPrincipal localPrincipal = localPrincipalRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new EmailNotFoundException("Invalid email"));
+        authManagementService.createAndSendVerificationToken(localPrincipal);
+    }
+
+    @Override
+    public void resetPassword(String token, String newPassword) {
+        VerificationToken verificationToken = getTokenOrThrow(token);
+        LocalPrincipal principal = verificationToken.getPrincipal();
+        principal.setPassword(principalFactory.encodePassword(newPassword));
+        localPrincipalRepository.save(principal);
+        verificationTokenRepository.delete(verificationToken);
+    }
+
+    private VerificationToken getTokenOrThrow(String token) {
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidTokenException("Invalid verification token"));
@@ -83,11 +111,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
             verificationTokenRepository.delete(verificationToken);
             throw new InvalidTokenException("Verification token has expired");
         }
-
-        LocalPrincipal principal = verificationToken.getPrincipal();
-        principal.setVerified(true);
-        localPrincipalRepository.save(principal);
-        verificationTokenRepository.delete(verificationToken);
+        return verificationToken;
     }
 
     private void validateRegisterRequest(LocalAuthRequest request) {

@@ -13,9 +13,12 @@ public class PrincipalFactory {
     private final PasswordEncoder passwordEncoder;
 
     public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
-        String encodedPassword = passwordEncoder.encode(request.password());
-        LocalPrincipal principal = new LocalPrincipal(user, user.getEmail(), encodedPassword);
+        LocalPrincipal principal = new LocalPrincipal(user, user.getEmail(), encodePassword(request.password()));
         user.getPrincipals().add(principal);
         return principal;
+    }
+
+    public String encodePassword(String password) {
+        return passwordEncoder.encode(password);
     }
 }

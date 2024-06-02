@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailNotFoundException;
 import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.service.LocalAuthService;
@@ -45,6 +46,9 @@ class LocalAuthControllerTest extends BaseControllerTest {
     private static final String BASE_URL = "/auth/public";
     private static final String LOGIN_URL = BASE_URL + "/login";
     private static final String REGISTER_URL = BASE_URL + "/register";
+    private static final String VERIFY_EMAIL_URL = BASE_URL + "/verify-email";
+    private static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
+    private static final String RESET_PASSWORD_URL = BASE_URL + "/reset-password";
 
     @MockBean
     LocalAuthService localAuthService;
@@ -122,8 +126,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenValidToken_whenVerifyEmail_thenSuccess() {
         String token = "validToken";
-        mockMvc.perform(post(BASE_URL + "/verify-email")
-                        .param("token", token))
+        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("Email verified successfully"));
@@ -138,10 +141,62 @@ class LocalAuthControllerTest extends BaseControllerTest {
                 .when(localAuthService)
                 .verifyEmail(any(String.class));
 
-        mockMvc.perform(post(BASE_URL + "/verify-email")
-                        .param("token", token))
+        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.message").value("Invalid verification token"));
+    }
+
+    @DisplayName("Should request password reset successfully")
+    @Test
+    @SneakyThrows
+    void givenValidEmail_whenRequestPasswordReset_thenSuccess() {
+        String email = "test@example.com";
+
+        mockMvc.perform(post(FORGOT_PASSWORD_URL).param("email", email))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @DisplayName("Should return not found when requesting password reset with invalid email")
+    @Test
+    @SneakyThrows
+    void givenInvalidEmail_whenRequestPasswordReset_thenNotFound() {
+        String email = "invalid@example.com";
+        doThrow(new EmailNotFoundException("Invalid email"))
+                .when(localAuthService)
+                .requestPasswordReset(email);
+
+        mockMvc.perform(post(FORGOT_PASSWORD_URL).param("email", email))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @DisplayName("Should reset password successfully")
+    @Test
+    @SneakyThrows
+    void givenValidTokenAndNewPassword_whenResetPassword_thenSuccess() {
+        String token = "valid-token";
+        String newPassword = "newPassword123";
+
+        mockMvc.perform(post(RESET_PASSWORD_URL).param("token", token).param("newPassword", newPassword))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @DisplayName("Should return forbidden when resetting password with invalid token")
+    @Test
+    @SneakyThrows
+    void givenInvalidToken_whenResetPassword_thenForbidden() {
+        String token = "invalid-token";
+        String newPassword = "newPassword123";
+
+        doThrow(new InvalidTokenException("Invalid verification token"))
+                .when(localAuthService)
+                .resetPassword(token, newPassword);
+
+        mockMvc.perform(post(RESET_PASSWORD_URL).param("token", token).param("newPassword", newPassword))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.success").value(false));
     }
 }

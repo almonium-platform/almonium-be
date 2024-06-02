@@ -42,4 +42,17 @@ public class LocalAuthController {
         localAuthService.verifyEmail(token);
         return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse> requestPasswordReset(@RequestParam("email") String email) {
+        localAuthService.requestPasswordReset(email);
+        return ResponseEntity.ok(new ApiResponse(true, "Password reset email sent successfully"));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse> resetPassword(
+            @RequestParam("token") String token, @RequestParam("newPassword") String newPassword) {
+        localAuthService.resetPassword(token, newPassword);
+        return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
+    }
 }

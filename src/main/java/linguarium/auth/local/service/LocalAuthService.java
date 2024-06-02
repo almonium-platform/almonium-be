@@ -9,4 +9,8 @@ public interface LocalAuthService {
     JwtAuthResponse login(LocalAuthRequest localAuthRequest);
 
     void verifyEmail(String token);
+
+    void requestPasswordReset(String email);
+
+    void resetPassword(String token, String newPassword);
 }

@@ -18,6 +18,7 @@ import linguarium.auth.common.factory.PrincipalFactory;
 import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
+import linguarium.auth.local.exception.EmailNotFoundException;
 import linguarium.auth.local.exception.EmailNotVerifiedException;
 import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
@@ -59,7 +60,7 @@ class LocalAuthServiceImplTest {
     LocalPrincipalRepository localPrincipalRepository;
 
     @Mock
-    PrincipalFactory passwordEncoder;
+    PrincipalFactory principalFactory;
 
     @Mock
     AuthenticationManager authenticationManager;
@@ -83,15 +84,17 @@ class LocalAuthServiceImplTest {
         LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
         User user = User.builder().email(registrationRequest.email()).build();
 
-        when(passwordEncoder.createLocalPrincipal(user, registrationRequest))
+        when(principalFactory.createLocalPrincipal(user, registrationRequest))
                 .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
 
         // Act
         authService.register(registrationRequest);
 
         // Assert
-        verify(passwordEncoder).createLocalPrincipal(user, registrationRequest);
+        verify(principalFactory).createLocalPrincipal(user, registrationRequest);
         verify(userRepository).save(user);
+        verify(localPrincipalRepository).save(any(LocalPrincipal.class));
+        verify(authManagementService).createAndSendVerificationToken(any(LocalPrincipal.class));
     }
 
     @DisplayName("Should authenticate and return JWT when given valid credentials")
@@ -108,7 +111,7 @@ class LocalAuthServiceImplTest {
                 LocalPrincipal.builder().user(user).verified(true).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(localPrincipalRepository.findByEmail(email)).thenReturn(principal);
+        when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act
@@ -148,7 +151,7 @@ class LocalAuthServiceImplTest {
                 .password("encodedPassword")
                 .verified(false)
                 .build();
-        when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(principal);
+        when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
 
         // Act & Assert
         assertThatThrownBy(() -> authService.login(localAuthRequest))
@@ -211,4 +214,93 @@ class LocalAuthServiceImplTest {
         verify(verificationTokenRepository).delete(verificationToken);
     }
 
+    @DisplayName("Should request password reset successfully")
+    @Test
+    void givenValidEmail_whenRequestPasswordReset_thenSendVerificationToken() {
+        // Arrange
+        String email = "test@example.com";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
+
+        // Act
+        authService.requestPasswordReset(email);
+
+        // Assert
+        verify(localPrincipalRepository).findByEmail(email);
+        verify(authManagementService).createAndSendVerificationToken(principal);
+    }
+
+    @DisplayName("Should throw exception when email is not found for password reset request")
+    @Test
+    void givenInvalidEmail_whenRequestPasswordReset_thenThrowUsernameNotFoundException() {
+        // Arrange
+        String email = "invalid@example.com";
+        when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.requestPasswordReset(email))
+                .isInstanceOf(EmailNotFoundException.class)
+                .hasMessage("Invalid email");
+
+        verify(localPrincipalRepository).findByEmail(email);
+        verify(authManagementService, never()).createAndSendVerificationToken(any(LocalPrincipal.class));
+    }
+
+    @DisplayName("Should reset password successfully")
+    @Test
+    void givenValidTokenAndNewPassword_whenResetPassword_thenUpdatePasswordAndDeleteToken() {
+        // Arrange
+        String token = "validToken";
+        String newPassword = "newPassword123";
+        String encodedPassword = "2b$encodedPassword";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+        when(principalFactory.encodePassword(newPassword)).thenReturn(encodedPassword);
+
+        // Act
+        authService.resetPassword(token, newPassword);
+
+        // Assert
+        assertThat(principal.getPassword()).isEqualTo(encodedPassword);
+        verify(localPrincipalRepository).save(principal);
+        verify(verificationTokenRepository).delete(verificationToken);
+    }
+
+    @DisplayName("Should throw exception when token is invalid for password reset")
+    @Test
+    void givenInvalidToken_whenResetPassword_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "invalidToken";
+        String newPassword = "newPassword123";
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Invalid verification token");
+
+        verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
+        verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
+    }
+
+    @DisplayName("Should throw exception when token is expired for password reset")
+    @Test
+    void givenExpiredToken_whenResetPassword_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "expiredToken";
+        String newPassword = "newPassword123";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        verificationToken.setExpiryDate(LocalDateTime.now().minusDays(1));
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Verification token has expired");
+
+        verify(verificationTokenRepository).delete(verificationToken);
+        verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
+    }
 }
