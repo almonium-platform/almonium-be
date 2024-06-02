@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-verification-token-table
+      author: okuzan
+      changes:
+        - createTable:
+            tableName: verification_token
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: principal_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_verification_token_principal_id
+                    references: principal(id)
+              - column:
+                  name: expiry_date
+                  type: datetime
+                  constraints:
+                    nullable: false

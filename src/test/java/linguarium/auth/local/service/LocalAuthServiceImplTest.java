@@ -13,12 +13,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import linguarium.auth.common.factory.PrincipalFactory;
-import linguarium.auth.common.model.entity.Principal;
-import linguarium.auth.common.repository.PrincipalRepository;
+import linguarium.auth.common.service.AuthManagementService;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
+import linguarium.auth.local.repository.LocalPrincipalRepository;
 import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
 import linguarium.config.security.jwt.TokenProvider;
 import linguarium.user.core.model.entity.Profile;
@@ -50,13 +50,16 @@ class LocalAuthServiceImplTest {
     UserRepository userRepository;
 
     @Mock
-    PrincipalRepository principalRepository;
+    LocalPrincipalRepository localPrincipalRepository;
 
     @Mock
     PrincipalFactory passwordEncoder;
 
     @Mock
     AuthenticationManager authenticationManager;
+
+    @Mock
+    AuthManagementService authManagementService;
 
     @Mock
     TokenProvider tokenProvider;
@@ -70,12 +73,6 @@ class LocalAuthServiceImplTest {
         // Arrange
         LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
         User user = User.builder().email(registrationRequest.email()).build();
-        String expectedJwt = "xxx.yyy.zzz";
-        Principal principal = LocalPrincipal.builder().user(user).build();
-        Authentication auth = mock(Authentication.class);
-        when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(auth.getPrincipal()).thenReturn(principal);
-        when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         when(passwordEncoder.createLocalPrincipal(user, registrationRequest))
                 .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
@@ -98,10 +95,11 @@ class LocalAuthServiceImplTest {
         String password = "fdsfsd";
         String expectedJwt = "xxx.yyy.zzz";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
-        Principal principal = LocalPrincipal.builder().user(user).build();
+        LocalPrincipal principal =
+                LocalPrincipal.builder().user(user).verified(true).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(auth.getPrincipal()).thenReturn(principal);
+        when(localPrincipalRepository.findByEmail(email)).thenReturn(principal);
         when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
 
         // Act

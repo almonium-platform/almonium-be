@@ -37,7 +37,7 @@ public class AuthManagementController {
     @DeleteMapping("/provider/{provider}")
     public ResponseEntity<?> unlinkProvider(@Auth Principal auth, @PathVariable AuthProviderType provider) {
         Long userId = auth.getUser().getId();
-        authManagementService.unlinkProviderAuth(userId, provider);
+        authManagementService.unlinkAuthMethod(userId, provider);
         return ResponseEntity.ok().build();
     }
 }

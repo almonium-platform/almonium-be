@@ -123,7 +123,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         mockMvc.perform(delete(BASE_URL + "/provider/" + providerType).principal(() -> "user@example.com"))
                 .andExpect(status().isOk());
 
-        verify(authManagementService).unlinkProviderAuth(user.getId(), providerType);
+        verify(authManagementService).unlinkAuthMethod(user.getId(), providerType);
     }
 
     @DisplayName("Should return 404 when provider not found")
@@ -133,13 +133,13 @@ class AuthManagementControllerTest extends BaseControllerTest {
         AuthProviderType providerType = AuthProviderType.GOOGLE;
         doThrow(new AuthMethodNotFoundException("Auth method not found " + providerType))
                 .when(authManagementService)
-                .unlinkProviderAuth(user.getId(), providerType);
+                .unlinkAuthMethod(user.getId(), providerType);
 
         // Act & Assert
         mockMvc.perform(delete(BASE_URL + "/provider/" + providerType).principal(() -> "user@example.com"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Auth method not found " + providerType));
 
-        verify(authManagementService).unlinkProviderAuth(user.getId(), providerType);
+        verify(authManagementService).unlinkAuthMethod(user.getId(), providerType);
     }
 }

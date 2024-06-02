@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.dto.response.JwtAuthResponse;
 import linguarium.auth.local.service.LocalAuthService;
+import linguarium.util.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -29,7 +31,15 @@ public class LocalAuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<JwtAuthResponse> register(@Valid @RequestBody LocalAuthRequest request) {
-        return ResponseEntity.ok(localAuthService.register(request));
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody LocalAuthRequest request) {
+        localAuthService.register(request);
+        return ResponseEntity.ok(
+                new ApiResponse(true, "User registration attempt recorded. Needs verification to complete"));
+    }
+
+    @PostMapping("/verify-email")
+    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String token) {
+        localAuthService.verifyEmail(token);
+        return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
     }
 }

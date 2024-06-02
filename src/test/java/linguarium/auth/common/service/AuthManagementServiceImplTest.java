@@ -3,6 +3,7 @@ package linguarium.auth.common.service;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,9 +19,12 @@ import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
+import linguarium.auth.local.model.entity.VerificationToken;
+import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import linguarium.util.TestDataGenerator;
+import linguarium.util.service.EmailService;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +48,12 @@ class AuthManagementServiceImplTest {
     @Mock
     PrincipalFactory passwordEncoder;
 
+    @Mock
+    EmailService emailService;
+
+    @Mock
+    VerificationTokenRepository verificationTokenRepository;
+
     @DisplayName("Should add local login successfully")
     @Test
     void givenValidLocalLoginRequest_whenLinkLocalAuth_thenSuccess() {
@@ -61,6 +71,8 @@ class AuthManagementServiceImplTest {
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
+        verify(emailService).sendVerificationEmail(eq(localAuthRequest.email()), any(String.class));
+        verify(verificationTokenRepository).save(any(VerificationToken.class));
         verify(passwordEncoder).createLocalPrincipal(user, localAuthRequest);
         verify(principalRepository).save(any(Principal.class));
     }
@@ -120,7 +132,7 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act
-        authService.unlinkProviderAuth(user.getId(), AuthProviderType.GOOGLE);
+        authService.unlinkAuthMethod(user.getId(), AuthProviderType.GOOGLE);
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
@@ -136,7 +148,7 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.unlinkProviderAuth(user.getId(), AuthProviderType.GOOGLE))
+        assertThatThrownBy(() -> authService.unlinkAuthMethod(user.getId(), AuthProviderType.GOOGLE))
                 .isInstanceOf(AuthMethodNotFoundException.class)
                 .hasMessageContaining("Auth method not found GOOGLE");
 
@@ -155,7 +167,7 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.unlinkProviderAuth(user.getId(), AuthProviderType.LOCAL))
+        assertThatThrownBy(() -> authService.unlinkAuthMethod(user.getId(), AuthProviderType.LOCAL))
                 .isInstanceOf(LastAuthMethodException.class)
                 .hasMessageContaining("Cannot remove the last authentication method for the user: " + user.getEmail());
 

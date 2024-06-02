@@ -1,6 +1,5 @@
 package linguarium.auth.common.factory;
 
-import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.local.dto.request.LocalAuthRequest;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.config.security.PasswordEncoder;
@@ -13,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class PrincipalFactory {
     private final PasswordEncoder passwordEncoder;
 
-    public Principal createLocalPrincipal(User user, LocalAuthRequest request) {
+    public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
         String encodedPassword = passwordEncoder.encode(request.password());
-        Principal principal = new LocalPrincipal(user, user.getEmail(), encodedPassword);
+        LocalPrincipal principal = new LocalPrincipal(user, user.getEmail(), encodedPassword);
         user.getPrincipals().add(principal);
         return principal;
     }

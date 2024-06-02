@@ -90,17 +90,13 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenValidSignUpRequest_whenRegister_thenSuccess() {
-        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
-
-        JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(localAuthService.register(eq(localAuthRequest))).thenReturn(response);
+        LocalAuthRequest registrationRequest = TestDataGenerator.createLocalAuthRequest();
 
         mockMvc.perform(post(REGISTER_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(localAuthRequest)))
+                        .content(objectMapper.writeValueAsString(registrationRequest)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(response)));
+                .andExpect(jsonPath("$.success").value(true));
     }
 
     @DisplayName("Should handle existing user registration attempt by returning bad request status")

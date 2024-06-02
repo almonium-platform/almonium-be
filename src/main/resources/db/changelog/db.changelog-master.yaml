@@ -30,4 +30,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-learner-target-lang-table.yaml
   - include:
+      file: db/changelog/changes/creation/create-verification-token-table.yaml
+  - include:
       file: db/changelog/changes/insertion/fill-static-tables.yaml
