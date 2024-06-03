@@ -48,6 +48,7 @@ import {CardDialog} from './_services/card.service';
 import {TileComponent} from './tile/tile.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {EmailVerificationComponent} from './email-verification/email-verification.component';
+import {PasswordResetComponent} from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {EmailVerificationComponent} from './email-verification/email-verificatio
     AboutComponent,
     TileComponent,
     EmailVerificationComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

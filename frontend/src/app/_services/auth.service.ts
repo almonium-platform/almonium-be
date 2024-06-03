@@ -13,6 +13,7 @@ const httpOptions = {
 })
 export class AuthService {
   private baseUrl = `${environment.apiUrl}/auth/public`;
+
   constructor(private http: HttpClient) {
   }
 
@@ -34,5 +35,12 @@ export class AuthService {
 
   verifyEmail(token: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/verify-email?token=${token}`, {});
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, {
+      token,
+      newPassword
+    });
   }
 }
