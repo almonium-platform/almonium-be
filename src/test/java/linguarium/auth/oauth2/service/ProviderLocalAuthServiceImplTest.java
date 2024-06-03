@@ -3,9 +3,11 @@ package linguarium.auth.oauth2.service;
 import static java.util.Map.entry;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.model.entity.Principal;
+import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.oauth2.model.OAuth2Principal;
 import linguarium.auth.oauth2.model.enums.OAuth2Intent;
 import linguarium.auth.oauth2.model.userinfo.GoogleOAuth2UserInfo;
@@ -197,6 +200,26 @@ class ProviderLocalAuthServiceImplTest {
         verify(userRepository, atLeastOnce()).save(newUser);
         verify(oAuth2PrincipalRepository).save(principal);
         assertThat(result).isEqualTo(principal);
+    }
+
+    @DisplayName("Should throw EmailMismatchException when linking account and user is not found")
+    @Test
+    void givenOAuth2IntentLinkAndUserNotFound_whenAuthenticate_thenThrowEmailMismatchException() {
+        // Arrange
+        String email = "johnwick@gmail.com";
+        String userId = "101868015518714862283";
+        Map<String, Object> attributes = createAttributes(email, userId);
+        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.LINK))
+                .isInstanceOf(EmailMismatchException.class)
+                .hasMessageContaining("No user found for email " + email + " to link account.");
+
+        verify(userRepository).findByEmail(email);
+        verify(oAuth2PrincipalRepository, never()).save(any(OAuth2Principal.class));
     }
 
     private Map<String, Object> createAttributes(String email, String userId) {

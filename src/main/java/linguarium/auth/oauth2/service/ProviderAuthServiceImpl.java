@@ -52,7 +52,7 @@ public class ProviderAuthServiceImpl {
             OAuth2UserInfo userInfo, Map<String, Object> attributes, OAuth2Intent intent) {
         if (intent == OAuth2Intent.LINK) {
             log.error("User not found for email: {}", userInfo.getEmail());
-            throw new EmailMismatchException("No user found for email: " + userInfo.getEmail() + " to link account.");
+            throw new EmailMismatchException("No user found for email " + userInfo.getEmail() + " to link account.");
         }
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
