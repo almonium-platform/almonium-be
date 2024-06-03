@@ -37,10 +37,11 @@ public class EmailComposerService {
     }
 
     private String generateUrl(String token, TokenType tokenType) {
-        String endpoint = switch (tokenType) {
-            case EMAIL_VERIFICATION -> "/verify-email";
-            case PASSWORD_RESET -> "/reset-password";
-        };
+        String endpoint =
+                switch (tokenType) {
+                    case EMAIL_VERIFICATION -> "/verify-email";
+                    case PASSWORD_RESET -> "/reset-password";
+                };
         return domain + endpoint + "?token=" + token;
     }
 }

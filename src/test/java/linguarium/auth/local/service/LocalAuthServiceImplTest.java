@@ -96,7 +96,8 @@ class LocalAuthServiceImplTest {
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
         verify(userRepository).save(user);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
-        verify(authManagementService).createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
+        verify(authManagementService)
+                .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
     }
 
     @DisplayName("Should authenticate and return JWT when given valid credentials")
@@ -245,7 +246,8 @@ class LocalAuthServiceImplTest {
                 .hasMessage("Invalid email invalid@example.com");
 
         verify(localPrincipalRepository).findByEmail(email);
-        verify(authManagementService, never()).createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
+        verify(authManagementService, never())
+                .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
     }
 
     @DisplayName("Should reset password successfully")
