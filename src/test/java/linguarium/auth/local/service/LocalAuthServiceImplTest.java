@@ -307,4 +307,41 @@ class LocalAuthServiceImplTest {
         verify(verificationTokenRepository).delete(verificationToken);
         verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
     }
+
+    @DisplayName("Should throw exception when token type does not match expected type")
+    @Test
+    void givenTokenTypeMismatch_whenVerifyEmail_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "validToken";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.PASSWORD_RESET, 60); // Use PASSWORD_RESET type
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.verifyEmail(token))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
+
+        verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
+        verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
+    }
+
+    @DisplayName("Should throw exception when token type does not match expected type for password reset")
+    @Test
+    void givenTokenTypeMismatch_whenResetPassword_thenThrowInvalidTokenException() {
+        // Arrange
+        String token = "validToken";
+        String newPassword = "newPassword123";
+        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60); // Use EMAIL_VERIFICATION type
+        when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
+
+        // Act & Assert
+        assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
+                .isInstanceOf(InvalidTokenException.class)
+                .hasMessage("Invalid token type: should be PASSWORD_RESET but got EMAIL_VERIFICATION instead");
+
+        verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
+        verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
+    }
 }
