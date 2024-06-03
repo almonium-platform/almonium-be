@@ -34,9 +34,10 @@ public class VerificationToken {
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
-    public VerificationToken(LocalPrincipal principal, String token, long minutes) {
+    public VerificationToken(LocalPrincipal principal, String token, TokenType tokenType, long minutes) {
         this.principal = principal;
         this.token = token;
+        this.tokenType = tokenType;
         expiryDate = LocalDateTime.now().plusMinutes(minutes);
     }
 }

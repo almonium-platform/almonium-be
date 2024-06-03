@@ -74,7 +74,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         userRepository.save(user);
         localPrincipalRepository.save(localPrincipal);
-        authManagementService.createAndSendVerificationToken(localPrincipal);
+        authManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     @Override
@@ -90,8 +90,8 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     public void requestPasswordReset(String email) {
         LocalPrincipal localPrincipal = localPrincipalRepository
                 .findByEmail(email)
-                .orElseThrow(() -> new EmailNotFoundException("Invalid email"));
-        authManagementService.createAndSendVerificationToken(localPrincipal);
+                .orElseThrow(() -> new EmailNotFoundException("Invalid email " + email));
+        authManagementService.createAndSendVerificationToken(localPrincipal, TokenType.PASSWORD_RESET);
     }
 
     @Override

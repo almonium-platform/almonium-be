@@ -14,11 +14,14 @@ import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
+import linguarium.auth.local.model.enums.TokenType;
 import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.auth.local.service.TokenGenerator;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
-import linguarium.util.service.EmailService;
+import linguarium.util.email.dto.EmailDto;
+import linguarium.util.email.service.EmailComposerService;
+import linguarium.util.email.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthManagementServiceImpl implements AuthManagementService {
     private static final int OTP_LENGTH = 6;
     EmailService emailService;
+    EmailComposerService emailComposerService;
     UserService userService;
     PrincipalFactory principalFactory;
     PrincipalRepository principalRepository;
@@ -45,7 +49,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
         validateAddLocalAuthRequest(user, localAuthRequest);
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, localAuthRequest);
         principalRepository.save(localPrincipal);
-        createAndSendVerificationToken(localPrincipal);
+        createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
         log.info("Local auth for user {} waiting for verification", userId);
     }
 
@@ -59,11 +63,12 @@ public class AuthManagementServiceImpl implements AuthManagementService {
     }
 
     @Override
-    public void createAndSendVerificationToken(LocalPrincipal localPrincipal) {
+    public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(OTP_LENGTH);
-        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, 60);
+        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
         verificationTokenRepository.save(verificationToken);
-        emailService.sendVerificationEmail(localPrincipal.getEmail(), verificationToken.getToken());
+        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), token, tokenType);
+        emailService.sendEmail(emailDto);
     }
 
     private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {

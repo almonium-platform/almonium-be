@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
@@ -24,6 +25,7 @@ import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
+import linguarium.auth.local.model.enums.TokenType;
 import linguarium.auth.local.repository.LocalPrincipalRepository;
 import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.auth.local.service.impl.LocalAuthServiceImpl;
@@ -94,7 +96,7 @@ class LocalAuthServiceImplTest {
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
         verify(userRepository).save(user);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
-        verify(authManagementService).createAndSendVerificationToken(any(LocalPrincipal.class));
+        verify(authManagementService).createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
     }
 
     @DisplayName("Should authenticate and return JWT when given valid credentials")
@@ -183,7 +185,7 @@ class LocalAuthServiceImplTest {
         // Arrange
         String token = "expiredToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
         verificationToken.setExpiryDate(LocalDateTime.now().minusDays(1));
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
@@ -202,7 +204,7 @@ class LocalAuthServiceImplTest {
         // Arrange
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act
@@ -227,7 +229,7 @@ class LocalAuthServiceImplTest {
 
         // Assert
         verify(localPrincipalRepository).findByEmail(email);
-        verify(authManagementService).createAndSendVerificationToken(principal);
+        verify(authManagementService).createAndSendVerificationToken(principal, TokenType.PASSWORD_RESET);
     }
 
     @DisplayName("Should throw exception when email is not found for password reset request")
@@ -240,10 +242,10 @@ class LocalAuthServiceImplTest {
         // Act & Assert
         assertThatThrownBy(() -> authService.requestPasswordReset(email))
                 .isInstanceOf(EmailNotFoundException.class)
-                .hasMessage("Invalid email");
+                .hasMessage("Invalid email invalid@example.com");
 
         verify(localPrincipalRepository).findByEmail(email);
-        verify(authManagementService, never()).createAndSendVerificationToken(any(LocalPrincipal.class));
+        verify(authManagementService, never()).createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
     }
 
     @DisplayName("Should reset password successfully")
@@ -254,7 +256,7 @@ class LocalAuthServiceImplTest {
         String newPassword = "newPassword123";
         String encodedPassword = "2b$encodedPassword";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.PASSWORD_RESET, 60);
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
         when(principalFactory.encodePassword(newPassword)).thenReturn(encodedPassword);
 
@@ -291,7 +293,7 @@ class LocalAuthServiceImplTest {
         String token = "expiredToken";
         String newPassword = "newPassword123";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, 60);
+        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
         verificationToken.setExpiryDate(LocalDateTime.now().minusDays(1));
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 

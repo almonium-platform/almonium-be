@@ -20,12 +20,14 @@ import linguarium.auth.local.exception.EmailMismatchException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
+import linguarium.auth.local.model.enums.TokenType;
 import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.auth.local.service.impl.SecureRandomTokenGeneratorImpl;
 import linguarium.user.core.model.entity.User;
 import linguarium.user.core.service.UserService;
 import linguarium.util.TestDataGenerator;
-import linguarium.util.service.EmailService;
+import linguarium.util.email.service.EmailComposerService;
+import linguarium.util.email.service.EmailService;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +57,9 @@ class AuthManagementServiceImplTest {
     EmailService emailService;
 
     @Mock
+    EmailComposerService emailComposerService;
+
+    @Mock
     SecureRandomTokenGeneratorImpl tokenGenerator;
 
     @Mock
@@ -73,13 +78,15 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
+        when(emailComposerService.composeEmail(localAuthRequest.email(), token, TokenType.EMAIL_VERIFICATION))
+                .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act
         authService.linkLocalAuth(user.getId(), localAuthRequest);
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(emailService).sendVerificationEmail(eq(localAuthRequest.email()), eq(token));
+        verify(emailService).sendEmail(eq(TestDataGenerator.createEmailDto()));
         verify(verificationTokenRepository).save(any(VerificationToken.class));
         verify(tokenGenerator).generateOTP(OTP_LENGTH);
         verify(passwordEncoder).createLocalPrincipal(user, localAuthRequest);
@@ -192,12 +199,14 @@ class AuthManagementServiceImplTest {
         String token = "123456";
 
         when(tokenGenerator.generateOTP(6)).thenReturn(token);
+        when(emailComposerService.composeEmail(localPrincipal.getEmail(), token, TokenType.EMAIL_VERIFICATION))
+                .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act
-        authService.createAndSendVerificationToken(localPrincipal);
+        authService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
 
         // Assert
         verify(verificationTokenRepository).save(any(VerificationToken.class));
-        verify(emailService).sendVerificationEmail(eq(localPrincipal.getEmail()), eq(token));
+        verify(emailService).sendEmail(eq(TestDataGenerator.createEmailDto()));
     }
 }
