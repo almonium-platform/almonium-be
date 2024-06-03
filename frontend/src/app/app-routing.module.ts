@@ -8,6 +8,7 @@ import {DialogEntryComponent, DiscoverComponent} from './discover/discover.compo
 import {SettingsComponent} from './settings/settings.component';
 import {GamesComponent} from './games/games.component';
 import {LogoutGuard} from './_helpers/logout.guard';
+import {EmailVerificationComponent} from "./email-verification/email-verification.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'games', component: GamesComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'profile', component: ProfileComponent},
+  {path: 'verify-email', component: EmailVerificationComponent},
   {path: 'logout', canActivate: [LogoutGuard], component: LoginComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];

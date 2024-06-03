@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class EmailService {
     private static final String SUBJECT = "Verify your email address";
-    private static final String VERIFICATION_ENDPOINT = "/auth/public/verify-email";
+    private static final String VERIFICATION_ENDPOINT = "/verify-email";
     private static final String BODY = "Please verify your email by clicking the following link: ";
     JavaMailSender mailSender;
 

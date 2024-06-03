@@ -41,18 +41,20 @@ import {GamesComponent} from './games/games.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {AboutComponent} from './about/about.component';
 import {CardComponent, CardDeletionConfirmationDialog} from './card/card.component';
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {ClipboardModule} from "@angular/cdk/clipboard";
-import {AccountDeletionConfirmationDialog, ProfileComponent} from "./profile/profile.component";
-import {CardDialog} from "./_services/card.service";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {AccountDeletionConfirmationDialog, ProfileComponent} from './profile/profile.component';
+import {CardDialog} from './_services/card.service';
 import {TileComponent} from './tile/tile.component';
-import {DragDropModule} from "@angular/cdk/drag-drop";
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {EmailVerificationComponent} from './email-verification/email-verification.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
+    EmailVerificationComponent,
     CardDialog,
     ProfileComponent,
     TrackCapsDirective,
@@ -68,6 +70,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     GamesComponent,
     AboutComponent,
     TileComponent,
+    EmailVerificationComponent,
   ],
   imports: [
     BrowserModule,
