@@ -29,7 +29,9 @@ public class EmailComposerServiceTest {
         TokenType tokenType = TokenType.EMAIL_VERIFICATION;
         String expectedSubject = "Verify your email address";
         String expectedBody =
-                "Please verify your email by clicking the following link: " + domain + "/verify-email?token=" + token;
+                "Please verify your email by clicking the following link: " + domain + "/verify-email?token=" + token
+                        + ".\nIf the link doesn't work, please paste the code into the form provided.\n"
+                        + "If you didn't create an account, you can safely ignore this email.\n";
 
         // Act
         EmailDto result = emailComposerService.composeEmail(recipientEmail, token, tokenType);
@@ -48,8 +50,9 @@ public class EmailComposerServiceTest {
         String token = "testToken";
         TokenType tokenType = TokenType.PASSWORD_RESET;
         String expectedSubject = "Reset your password";
-        String expectedBody =
-                "To reset your password, click the following link: " + domain + "/reset-password?token=" + token;
+        String expectedBody = "To reset your password, click the following link: " + domain + "/reset-password?token="
+                + token + ".\nIf the link doesn't work, please copy and paste it into your browser.\n"
+                + "If you didn't request a password reset, you can safely ignore this email.\n";
 
         // Act
         EmailDto result = emailComposerService.composeEmail(recipientEmail, token, tokenType);

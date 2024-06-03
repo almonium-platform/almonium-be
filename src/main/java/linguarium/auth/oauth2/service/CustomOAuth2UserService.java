@@ -39,7 +39,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         validateProviderUserInfo(userInfo);
 
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        HttpServletRequest request =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         OAuth2Intent intent = CookieUtils.getCookie(request, CookieUtils.INTENT_PARAM_COOKIE_NAME)
                 .map(cookie -> OAuth2Intent.valueOf(cookie.getValue().toUpperCase()))
                 .orElse(OAuth2Intent.SIGN_IN);

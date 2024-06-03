@@ -48,7 +48,8 @@ public class ProviderAuthServiceImpl {
         return existingAccountOptional.get();
     }
 
-    private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, Map<String, Object> attributes, OAuth2Intent intent) {
+    private OAuth2Principal createNewUserAndPrincipal(
+            OAuth2UserInfo userInfo, Map<String, Object> attributes, OAuth2Intent intent) {
         if (intent == OAuth2Intent.LINK) {
             log.error("User not found for email: {}", userInfo.getEmail());
             throw new EmailMismatchException("No user found for email: " + userInfo.getEmail() + " to link account.");

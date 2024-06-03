@@ -14,6 +14,7 @@ import java.util.Optional;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.common.model.entity.Principal;
 import linguarium.auth.oauth2.model.OAuth2Principal;
+import linguarium.auth.oauth2.model.enums.OAuth2Intent;
 import linguarium.auth.oauth2.model.userinfo.GoogleOAuth2UserInfo;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.auth.oauth2.repository.OAuth2PrincipalRepository;
@@ -79,7 +80,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.save(existingUser)).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes);
+        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -116,7 +117,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes);
+        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -153,7 +154,7 @@ class ProviderLocalAuthServiceImplTest {
                         .build());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes);
+        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository, atLeastOnce()).save(any(User.class));
@@ -188,7 +189,7 @@ class ProviderLocalAuthServiceImplTest {
 
         // Act
         Principal result = authService.authenticate(
-                oAuth2UserInfo, createAttributes("johnwick@gmail.com", "101868015518714862283"));
+                oAuth2UserInfo, createAttributes("johnwick@gmail.com", "101868015518714862283"), OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).findByEmail("johnwick@gmail.com");
