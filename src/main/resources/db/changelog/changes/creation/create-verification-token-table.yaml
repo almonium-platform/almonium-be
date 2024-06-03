@@ -23,10 +23,15 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_verification_token_principal_id
-                    references: principal(id)
               - column:
                   name: expiry_date
                   type: datetime
                   constraints:
                     nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: verification_token
+            baseColumnNames: principal_id
+            referencedTableName: principal
+            referencedColumnNames: id
+            constraintName: fk_verification_token_principal_id
+            onDelete: CASCADE

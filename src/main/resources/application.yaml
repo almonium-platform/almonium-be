@@ -41,6 +41,17 @@ spring:
   config:
     import:
       - optional:file:.env[.properties]
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:
@@ -69,15 +80,14 @@ google:
 # Custom Configurations
 app:
   server:
-    frontend:
-      url: ${FE_URL}
+    domain: ${SERVER_DOMAIN}
 
   auth:
     tokenExpirationDurationMillis: 864000000
     tokenSigningSecret: ${TOKEN_SECRET}
 
   oauth2:
-    authorizedRedirectUris: ${app.server.frontend.url}/oauth2/redirect
+    authorizedRedirectUris: ${app.server.domain}/oauth2/redirect
 
 # External API keys
 external:

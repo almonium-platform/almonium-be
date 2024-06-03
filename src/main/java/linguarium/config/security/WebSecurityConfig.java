@@ -58,8 +58,8 @@ public class WebSecurityConfig {
             List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
 
     @NonFinal
-    @Value("${app.server.frontend.url}")
-    String frontendUrl;
+    @Value("${app.server.domain}")
+    String domain;
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -73,7 +73,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(frontendUrl));
+        configuration.setAllowedOrigins(List.of(domain));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, DELETE, OPTIONS));
         configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
