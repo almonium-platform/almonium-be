@@ -314,7 +314,8 @@ class LocalAuthServiceImplTest {
         // Arrange
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.PASSWORD_RESET, 60); // Use PASSWORD_RESET type
+        VerificationToken verificationToken =
+                new VerificationToken(principal, token, TokenType.PASSWORD_RESET, 60); // Use PASSWORD_RESET type
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
@@ -333,7 +334,8 @@ class LocalAuthServiceImplTest {
         String token = "validToken";
         String newPassword = "newPassword123";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60); // Use EMAIL_VERIFICATION type
+        VerificationToken verificationToken = new VerificationToken(
+                principal, token, TokenType.EMAIL_VERIFICATION, 60); // Use EMAIL_VERIFICATION type
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
