@@ -12,6 +12,8 @@ import java.util.Base64;
 import java.util.Optional;
 
 public class CookieUtils {
+    public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
+    public static final String INTENT_PARAM_COOKIE_NAME = "intent";
     private static final String PATH = "/";
     private static final boolean SECURE = true; // false if not using HTTPS
 

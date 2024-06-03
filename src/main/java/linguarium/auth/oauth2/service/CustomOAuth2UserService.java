@@ -2,12 +2,15 @@ package linguarium.auth.oauth2.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import linguarium.auth.common.enums.AuthProviderType;
 import linguarium.auth.oauth2.exception.OAuth2AuthenticationException;
+import linguarium.auth.oauth2.model.enums.OAuth2Intent;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import linguarium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
+import linguarium.auth.oauth2.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -15,6 +18,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +39,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         validateProviderUserInfo(userInfo);
 
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        OAuth2Intent intent = CookieUtils.getCookie(request, CookieUtils.INTENT_PARAM_COOKIE_NAME)
+                .map(cookie -> OAuth2Intent.valueOf(cookie.getValue().toUpperCase()))
+                .orElse(OAuth2Intent.SIGN_IN);
+
         try {
-            return authService.authenticate(userInfo, attributes);
+            return authService.authenticate(userInfo, attributes, intent);
         } catch (Exception ex) {
             throw new OAuth2AuthenticationException("Authentication failed", ex);
         }

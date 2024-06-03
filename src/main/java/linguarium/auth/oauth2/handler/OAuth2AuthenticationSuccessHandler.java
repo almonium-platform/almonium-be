@@ -1,5 +1,6 @@
 package linguarium.auth.oauth2.handler;
 
+import static linguarium.auth.oauth2.util.CookieUtils.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.servlet.http.Cookie;
@@ -53,7 +54,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     protected String determineTargetUrl(
             HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Optional<String> redirectUri = CookieUtils.getCookie(
-                        request, OAuth2CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
+                        request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue);
 
         if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToProvider(url: string): void {
-    window.location.href = url;
+    window.location.href = `${url}&intent=link`;
   }
 
   openDialogLocal(card: CardDto, mode: string): void {

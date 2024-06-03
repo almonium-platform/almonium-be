@@ -1,5 +1,8 @@
 package linguarium.auth.oauth2.repository;
 
+import static linguarium.auth.oauth2.util.CookieUtils.INTENT_PARAM_COOKIE_NAME;
+import static linguarium.auth.oauth2.util.CookieUtils.REDIRECT_URI_PARAM_COOKIE_NAME;
+
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OAuth2CookieRequestRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
-    public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
     private static final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
     private static final int COOKIE_EXPIRE_SECONDS = 180;
 
@@ -27,6 +29,7 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
         if (authorizationRequest == null) {
             CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
             CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
+            CookieUtils.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
             return;
         }
 
@@ -36,10 +39,14 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
                 CookieUtils.serialize(authorizationRequest),
                 COOKIE_EXPIRE_SECONDS);
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
+        String intent = request.getParameter(INTENT_PARAM_COOKIE_NAME);
 
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
             CookieUtils.addCookie(
                     response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, COOKIE_EXPIRE_SECONDS);
+        }
+        if (StringUtils.isNotBlank(intent)) {
+            CookieUtils.addCookie(response, INTENT_PARAM_COOKIE_NAME, intent, COOKIE_EXPIRE_SECONDS);
         }
     }
 
@@ -52,5 +59,6 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
     public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {
         CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
         CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
+        CookieUtils.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
     }
 }
