@@ -28,6 +28,11 @@ databaseChangeLog:
                   type: datetime
                   constraints:
                     nullable: false
+              - column:
+                  name: token_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: verification_token
             baseColumnNames: principal_id

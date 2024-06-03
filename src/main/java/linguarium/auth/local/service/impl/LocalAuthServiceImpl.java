@@ -13,6 +13,7 @@ import linguarium.auth.local.exception.InvalidTokenException;
 import linguarium.auth.local.exception.UserAlreadyExistsException;
 import linguarium.auth.local.model.entity.LocalPrincipal;
 import linguarium.auth.local.model.entity.VerificationToken;
+import linguarium.auth.local.model.enums.TokenType;
 import linguarium.auth.local.repository.LocalPrincipalRepository;
 import linguarium.auth.local.repository.VerificationTokenRepository;
 import linguarium.auth.local.service.LocalAuthService;
@@ -78,7 +79,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 
     @Override
     public void verifyEmail(String token) {
-        VerificationToken verificationToken = getTokenOrThrow(token);
+        VerificationToken verificationToken = getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setVerified(true);
         localPrincipalRepository.save(principal);
@@ -95,14 +96,14 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 
     @Override
     public void resetPassword(String token, String newPassword) {
-        VerificationToken verificationToken = getTokenOrThrow(token);
+        VerificationToken verificationToken = getTokenOrThrow(token, TokenType.PASSWORD_RESET);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setPassword(principalFactory.encodePassword(newPassword));
         localPrincipalRepository.save(principal);
         verificationTokenRepository.delete(verificationToken);
     }
 
-    private VerificationToken getTokenOrThrow(String token) {
+    private VerificationToken getTokenOrThrow(String token, TokenType expectedType) {
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidTokenException("Invalid verification token"));
@@ -111,6 +112,12 @@ public class LocalAuthServiceImpl implements LocalAuthService {
             verificationTokenRepository.delete(verificationToken);
             throw new InvalidTokenException("Verification token has expired");
         }
+
+        if (verificationToken.getTokenType() != expectedType) {
+            throw new InvalidTokenException("Invalid token type: should be " + expectedType + " but got "
+                    + verificationToken.getTokenType() + " instead");
+        }
+
         return verificationToken;
     }
 
