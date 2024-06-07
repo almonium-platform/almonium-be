@@ -231,7 +231,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(
-                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                        () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
                 .isInstanceOf(FriendshipNotAllowedException.class);
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
@@ -264,7 +264,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(
-                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL))
+                        () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL))
                 .isInstanceOf(FriendshipNotAllowedException.class);
 
         verify(friendshipRepository, never()).delete(any(Friendship.class));
@@ -381,7 +381,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() ->
-                friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
+                        friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage("Friendship is not blocked");
 
@@ -397,7 +397,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() ->
-                friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
+                        friendshipServiceImpl.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage("User is not the denier of this friendship");
 
@@ -413,7 +413,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(
-                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
+                        () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
 
@@ -429,7 +429,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(
-                () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
+                        () -> friendshipServiceImpl.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
 
@@ -480,7 +480,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() ->
-                friendshipServiceImpl.manageFriendship(invalidUser, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                        friendshipServiceImpl.manageFriendship(invalidUser, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage("User is not part of this friendship");
 
@@ -499,7 +499,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipServiceImpl.manageFriendship(
-                friendship.getRequestee(), FRIENDSHIP_ID, FriendshipAction.CANCEL))
+                        friendship.getRequestee(), FRIENDSHIP_ID, FriendshipAction.CANCEL))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage("User is not the requester of this friendship");
 
@@ -518,7 +518,7 @@ class FriendshipServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipServiceImpl.manageFriendship(
-                friendship.getRequester(), FRIENDSHIP_ID, FriendshipAction.ACCEPT))
+                        friendship.getRequester(), FRIENDSHIP_ID, FriendshipAction.ACCEPT))
                 .isInstanceOf(FriendshipNotAllowedException.class)
                 .hasMessage("User is not the requestee of this friendship");
 

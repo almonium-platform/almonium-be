@@ -115,7 +115,7 @@ class ProviderLocalAuthServiceImplTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(oAuth2PrincipalRepository.findByProviderAndProviderUserId(
-                AuthProviderType.GOOGLE, "101868015518714862283"))
+                        AuthProviderType.GOOGLE, "101868015518714862283"))
                 .thenReturn(Optional.of(principal));
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
@@ -236,7 +236,7 @@ class ProviderLocalAuthServiceImplTest {
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
                 entry("picture", profilePicUrl),
-                entry("aud", new String[]{"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
+                entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),
                 entry("exp", "2023-06-27T15:00:44Z"),
