@@ -46,7 +46,7 @@ google:
 # Custom Configurations
 app:
   server:
-    domain: linguarium-dummy.com
+    domain: almonium-dummy.com
 
   auth:
     tokenExpirationDurationMillis: 864000000
