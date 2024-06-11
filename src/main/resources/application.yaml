@@ -42,7 +42,7 @@ spring:
     import:
       - optional:file:.env[.properties]
   mail:
-    host: smtp.gmail.com
+    host: smtppro.zoho.eu
     port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
@@ -52,6 +52,7 @@ spring:
           auth: true
           starttls:
             enable: true
+          timeout: 3000
 
 logging:
   level:
