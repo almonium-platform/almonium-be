@@ -34,3 +34,4 @@ build/
 /src/main/java/com.linguatool/testing
 package-lock.json
 .env
+.env.deployed
