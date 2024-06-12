@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LinguaAngular": {
+    "almonium-fe": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/LinguaAngular",
+            "outputPath": "dist/almonium-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,21 +65,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "host": "0.0.0.0",
-            "browserTarget": "LinguaAngular:build",
+            "browserTarget": "almonium-fe:build",
             "port": 9999,
             "disableHostCheck": true
           },
           "defaultConfiguration": "development",
           "configurations": {
             "production": {
-              "browserTarget": "LinguaAngular:build:production"
+              "browserTarget": "almonium-fe:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LinguaAngular:build"
+            "browserTarget": "almonium-fe:build"
           }
         },
         "test": {
@@ -117,18 +117,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "LinguaAngular:serve"
+            "devServerTarget": "almonium-fe:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "LinguaAngular:serve:production"
+              "devServerTarget": "almonium-fe:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "LinguaAngular",
+  "defaultProject": "almonium-fe",
   "cli": {
     "analytics": "07e8adb6-4bde-4606-8968-9c12660c01ff"
   }
