@@ -7,6 +7,7 @@ import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.local.exception.InvalidTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
+import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalsFoundException;
@@ -98,6 +99,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlanSubscriptionException.class)
     public ResponseEntity<ApiResponse> handlePlanSubscriptionException(PlanSubscriptionException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailConfigurationException.class)
+    public ResponseEntity<ApiResponse> handleEmailConfigurationException(EmailConfigurationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 
     // auth
