@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   googleURL = AppConstants.GOOGLE_AUTH_URL;
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
+  appleURL = AppConstants.APPLE_AUTH_URL;
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
@@ -99,12 +100,7 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
-  get passwordInput() {
-    return this.loginForm.get('password');
-  }
-
   navigateToProvider(url: string): void {
-    console.log("WOW");
     window.location.href = url;
   }
 }

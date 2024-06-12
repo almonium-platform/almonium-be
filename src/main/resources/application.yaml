@@ -36,19 +36,23 @@ spring:
             clientSecret: ${FACEBOOK_SECRET}
 
           apple:
-            clientId: ${APPLE_ID}
-            clientSecret: ${APPLE_SECRET}
-            scope: name,email
+            client-id: ${APPLE_ID}
+            client-secret: ${APPLE_SECRET}
             authorization-grant-type: authorization_code
-            redirect-uri: https://api.almonium.com/api/v1/login/oauth2/code/apple
+            client-name: Apple
+            client-authentication-method: post
+            redirect-uri: ${APPLE_DOMAIN_TEMP}${server.servlet.context-path}/login/oauth2/code/apple
+            scope: name,email
 
         provider:
           facebook:
             user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
           apple:
-            user-info-uri: https://appleid.apple.com/auth/userinfo
-            authorization-uri: https://appleid.apple.com/auth/authorize
             token-uri: https://appleid.apple.com/auth/token
+            authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
+            user-info-uri: https://appleid.apple.com/auth/userinfo
+            jwk-set-uri: https://appleid.apple.com/auth/keys
+            user-name-attribute: sub
 
   config:
     import:

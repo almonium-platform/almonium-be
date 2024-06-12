@@ -1,6 +1,6 @@
 export class AppConstants {
 
-  private static API_BASE_URL = 'http://localhost:9998';
+  private static API_BASE_URL = 'https://api.almonium.com';
 
   public static API_URL = AppConstants.API_BASE_URL + '/api/v1';
   public static AUTH_API = AppConstants.API_URL + '/auth';
@@ -14,6 +14,7 @@ export class AppConstants {
 
   public static GOOGLE_AUTH_URL = AppConstants.OAUTH2_URL + '/google' + AppConstants.REDIRECT_URL;
   public static FACEBOOK_AUTH_URL = AppConstants.OAUTH2_URL + '/facebook' + AppConstants.REDIRECT_URL;
+  public static APPLE_AUTH_URL = AppConstants.OAUTH2_URL + '/apple' + AppConstants.REDIRECT_URL;
 
   public static FD_BASE_URL = 'https://api.dictionaryapi.dev/api/v2';
   public static FD_ENDPOINT = 'entries';

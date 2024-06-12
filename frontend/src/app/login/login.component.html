@@ -76,6 +76,20 @@
               color="primary"
               mat-raised-button
               class="provider-btn"
+              (click)="navigateToProvider(appleURL)">
+              <div class="provider-icon-wrapper">
+                <img class="google-icon"
+                     src="https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg" alt="apple"/>
+                <div class="provider-text">
+                  Sign in with Apple
+                </div>
+              </div>
+            </button>
+            <button
+              type="button"
+              color="primary"
+              mat-raised-button
+              class="provider-btn"
               (click)="navigateToProvider(facebookURL)">
               <div class="provider-icon-wrapper">
                 <img class="fb-icon"
@@ -92,11 +106,6 @@
       <mat-tab label="Sign up">
         <mat-card-content>
           <form name="signUpForm" (ngSubmit)="upF.form.valid && onRegistrationSubmit()" #upF="ngForm">
-
-            <!--            <div class="custom-error" *ngIf="upF.submitted && isSignUpFailed">-->
-            <!--              Signup failed!<br/>{{ errorMessage }}-->
-            <!--            </div>-->
-
             <mat-form-field hideRequiredMarker>
               <input
                 matInput
