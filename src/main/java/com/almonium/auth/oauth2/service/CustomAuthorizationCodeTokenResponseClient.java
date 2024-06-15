@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
@@ -22,32 +23,40 @@ public class CustomAuthorizationCodeTokenResponseClient
 
     @Value("${spring.security.oauth2.client.registration.apple.client-secret}")
     private String clientSecret;
+    private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
+            new DefaultAuthorizationCodeTokenResponseClient();
 
     @Override
     public OAuth2AccessTokenResponse getTokenResponse(
             OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
         // Create the request to Apple's token endpoint
         log.info("Authorization code grant request: {}", authorizationCodeGrantRequest);
-        String tokenUri = authorizationCodeGrantRequest
-                .getClientRegistration()
-                .getProviderDetails()
-                .getTokenUri();
-        Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
+        String registrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
 
-        // Make the POST request
-        OAuth2AccessTokenResponse tokenResponse =
-                restTemplate.postForObject(tokenUri, formParameters, OAuth2AccessTokenResponse.class);
-        log.info("Token response: {}", tokenResponse);
-        // Extract the id_token from the response
-        String idToken = (String) tokenResponse.getAdditionalParameters().get("id_token");
-        if (idToken != null) {
-            Map<String, Object> userInfo = parseIdToken(idToken);
-            log.info("User info: {}", userInfo);
-            // Save the user info to session or database
-            saveUserInfo(userInfo);
+        if ("apple".equalsIgnoreCase(registrationId)) {
+            String tokenUri = authorizationCodeGrantRequest
+                    .getClientRegistration()
+                    .getProviderDetails()
+                    .getTokenUri();
+            Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
+
+            // Make the POST request
+            OAuth2AccessTokenResponse tokenResponse =
+                    restTemplate.postForObject(tokenUri, formParameters, OAuth2AccessTokenResponse.class);
+            log.info("Token response: {}", tokenResponse);
+            // Extract the id_token from the response
+            String idToken = (String) tokenResponse.getAdditionalParameters().get("id_token");
+            if (idToken != null) {
+                Map<String, Object> userInfo = parseIdToken(idToken);
+                log.info("User info: {}", userInfo);
+                // Save the user info to session or database
+                saveUserInfo(userInfo);
+            }
+            return tokenResponse;
+        } else {
+            log.info("Delegating token request to default client for provider: {}", registrationId);
+            return defaultClient.getTokenResponse(authorizationCodeGrantRequest);
         }
-
-        return tokenResponse;
     }
 
     private Map<String, String> getStringStringMap(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
