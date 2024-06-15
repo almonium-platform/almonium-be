@@ -8,6 +8,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -18,19 +23,20 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class CustomAuthorizationCodeTokenResponseClient
         implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
+
     private static final Logger log = LoggerFactory.getLogger(CustomAuthorizationCodeTokenResponseClient.class);
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Value("${spring.security.oauth2.client.registration.apple.client-secret}")
     private String clientSecret;
+
     private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
 
     @Override
     public OAuth2AccessTokenResponse getTokenResponse(
             OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
-        // Create the request to Apple's token endpoint
-        log.info("Authorization code grant request: {}", authorizationCodeGrantRequest);
+
         String registrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
 
         if ("apple".equalsIgnoreCase(registrationId)) {
@@ -40,19 +46,29 @@ public class CustomAuthorizationCodeTokenResponseClient
                     .getTokenUri();
             Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
 
-            // Make the POST request
-            OAuth2AccessTokenResponse tokenResponse =
-                    restTemplate.postForObject(tokenUri, formParameters, OAuth2AccessTokenResponse.class);
-            log.info("Token response: {}", tokenResponse);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            HttpEntity<Map<String, String>> entity = new HttpEntity<>(formParameters, headers);
+
+            log.info("Sending request to {} with headers {}", tokenUri, headers);
+            log.info("Request body: {}", formParameters);
+
+            ResponseEntity<OAuth2AccessTokenResponse> response =
+                    restTemplate.exchange(tokenUri, HttpMethod.POST, entity, OAuth2AccessTokenResponse.class);
+
+            log.info("Token response: {}", response);
+
             // Extract the id_token from the response
-            String idToken = (String) tokenResponse.getAdditionalParameters().get("id_token");
+            String idToken = (String) response.getBody().getAdditionalParameters().get("id_token");
             if (idToken != null) {
                 Map<String, Object> userInfo = parseIdToken(idToken);
                 log.info("User info: {}", userInfo);
                 // Save the user info to session or database
                 saveUserInfo(userInfo);
             }
-            return tokenResponse;
+
+            return response.getBody();
         } else {
             log.info("Delegating token request to default client for provider: {}", registrationId);
             return defaultClient.getTokenResponse(authorizationCodeGrantRequest);
