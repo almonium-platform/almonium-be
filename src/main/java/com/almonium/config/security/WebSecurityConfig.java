@@ -57,7 +57,7 @@ public class WebSecurityConfig {
     CustomAuthorizationRequestResolver customAuthorizationRequestResolver;
 
     private static final List<String> PERMIT_ALL_URL_PATTERNS =
-            List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
+            List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/oauth2/authorization/**");
 
     @NonFinal
     @Value("${app.domain}")
