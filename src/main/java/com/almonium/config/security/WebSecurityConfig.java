@@ -102,9 +102,9 @@ public class WebSecurityConfig {
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .authorizationEndpoint(authEndPoint ->
-                                authEndPoint.authorizationRequestRepository(authorizationRequestRepository)
-                                        .authorizationRequestResolver(customAuthorizationRequestResolver))
+                        .authorizationEndpoint(authEndPoint -> authEndPoint
+                                .authorizationRequestRepository(authorizationRequestRepository)
+                                .authorizationRequestResolver(customAuthorizationRequestResolver))
                         .failureHandler(oAuth2AuthenticationFailureHandler))
                 .build();
     }

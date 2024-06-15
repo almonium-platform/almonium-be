@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
+public class CustomAuthorizationCodeTokenResponseClient
+        implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
     private static final Logger log = LoggerFactory.getLogger(CustomAuthorizationCodeTokenResponseClient.class);
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -23,14 +24,19 @@ public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessT
     private String clientSecret;
 
     @Override
-    public OAuth2AccessTokenResponse getTokenResponse(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+    public OAuth2AccessTokenResponse getTokenResponse(
+            OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
         // Create the request to Apple's token endpoint
         log.info("Authorization code grant request: {}", authorizationCodeGrantRequest);
-        String tokenUri = authorizationCodeGrantRequest.getClientRegistration().getProviderDetails().getTokenUri();
+        String tokenUri = authorizationCodeGrantRequest
+                .getClientRegistration()
+                .getProviderDetails()
+                .getTokenUri();
         Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
 
         // Make the POST request
-        OAuth2AccessTokenResponse tokenResponse = restTemplate.postForObject(tokenUri, formParameters, OAuth2AccessTokenResponse.class);
+        OAuth2AccessTokenResponse tokenResponse =
+                restTemplate.postForObject(tokenUri, formParameters, OAuth2AccessTokenResponse.class);
         log.info("Token response: {}", tokenResponse);
         // Extract the id_token from the response
         String idToken = (String) tokenResponse.getAdditionalParameters().get("id_token");
@@ -44,13 +50,21 @@ public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessT
         return tokenResponse;
     }
 
-
     private Map<String, String> getStringStringMap(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
         Map<String, String> formParameters = new HashMap<>();
         formParameters.put("grant_type", "authorization_code");
-        formParameters.put("code", authorizationCodeGrantRequest.getAuthorizationExchange().getAuthorizationResponse().getCode());
-        formParameters.put("redirect_uri", authorizationCodeGrantRequest.getClientRegistration().getRedirectUri());
-        formParameters.put("client_id", authorizationCodeGrantRequest.getClientRegistration().getClientId());
+        formParameters.put(
+                "code",
+                authorizationCodeGrantRequest
+                        .getAuthorizationExchange()
+                        .getAuthorizationResponse()
+                        .getCode());
+        formParameters.put(
+                "redirect_uri",
+                authorizationCodeGrantRequest.getClientRegistration().getRedirectUri());
+        formParameters.put(
+                "client_id",
+                authorizationCodeGrantRequest.getClientRegistration().getClientId());
         formParameters.put("client_secret", clientSecret);
         return formParameters;
     }

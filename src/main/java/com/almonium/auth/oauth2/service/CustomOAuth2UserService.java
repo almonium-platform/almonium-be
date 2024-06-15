@@ -47,7 +47,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         if (provider == AuthProviderType.APPLE) {
             // Extract ID token from userRequest
-            String idToken = (String) oAuth2UserRequest.getAdditionalParameters().get("id_token");
+            String idToken =
+                    (String) oAuth2UserRequest.getAdditionalParameters().get("id_token");
             log.info("ID Token: {}", idToken);
 
             // Parse the ID token
