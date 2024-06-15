@@ -53,7 +53,7 @@ app:
     tokenSigningSecret: token_secret_dummy
 
   oauth2:
-    authorizedRedirectUris: ${app.server.domain}/oauth2/redirect
+    authorizedRedirectUris: ${app.domain}/oauth2/redirect
 
 # External API keys
 external:

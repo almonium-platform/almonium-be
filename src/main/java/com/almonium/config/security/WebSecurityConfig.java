@@ -60,7 +60,7 @@ public class WebSecurityConfig {
             List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
 
     @NonFinal
-    @Value("${app.server.domain}")
+    @Value("${app.domain}")
     String domain;
 
     @Bean

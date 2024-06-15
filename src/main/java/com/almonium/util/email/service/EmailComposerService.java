@@ -22,7 +22,7 @@ public class EmailComposerService {
             If you didn't request a password reset, you can safely ignore this email.
             """;
 
-    @Value("${app.server.domain}")
+    @Value("${app.domain}")
     private String domain;
 
     public EmailDto composeEmail(String recipientEmail, String token, TokenType tokenType) {

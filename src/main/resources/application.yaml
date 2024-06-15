@@ -96,15 +96,14 @@ google:
 
 # Custom Configurations
 app:
-  server:
-    domain: ${SERVER_DOMAIN}
+  domain: ${WEB_APP_DOMAIN}
 
   auth:
     tokenExpirationDurationMillis: 864000000
     tokenSigningSecret: ${TOKEN_SECRET}
 
   oauth2:
-    authorizedRedirectUris: ${app.server.domain}/oauth2/redirect
+    authorizedRedirectUris: ${app.domain}/oauth2/redirect
 
 # External API keys
 external:

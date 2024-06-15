@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 @ExtendWith(MockitoExtension.class)
 public class EmailComposerServiceTest {
 
-    @Value("${app.server.domain}")
+    @Value("${app.domain}")
     private String domain;
 
     @InjectMocks
