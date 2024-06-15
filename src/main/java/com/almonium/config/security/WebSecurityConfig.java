@@ -14,6 +14,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
+import com.almonium.auth.oauth2.service.CustomAuthorizationRequestResolver;
 import com.almonium.auth.oauth2.service.CustomOAuth2UserService;
 import com.almonium.config.security.jwt.TokenAuthenticationFilter;
 import java.util.List;
@@ -53,6 +54,7 @@ public class WebSecurityConfig {
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     OAuth2CookieRequestRepository authorizationRequestRepository;
+    CustomAuthorizationRequestResolver customAuthorizationRequestResolver;
 
     private static final List<String> PERMIT_ALL_URL_PATTERNS =
             List.of("/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**");
@@ -101,7 +103,8 @@ public class WebSecurityConfig {
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                         .authorizationEndpoint(authEndPoint ->
-                                authEndPoint.authorizationRequestRepository(authorizationRequestRepository))
+                                authEndPoint.authorizationRequestRepository(authorizationRequestRepository)
+                                        .authorizationRequestResolver(customAuthorizationRequestResolver))
                         .failureHandler(oAuth2AuthenticationFailureHandler))
                 .build();
     }
