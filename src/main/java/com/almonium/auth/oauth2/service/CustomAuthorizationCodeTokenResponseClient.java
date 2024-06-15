@@ -42,7 +42,8 @@ public class CustomAuthorizationCodeTokenResponseClient
     public OAuth2AccessTokenResponse getTokenResponse(
             OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
 
-        String registrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
+        String registrationId =
+                authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
 
         if ("apple".equalsIgnoreCase(registrationId)) {
             String tokenUri = authorizationCodeGrantRequest
@@ -65,7 +66,8 @@ public class CustomAuthorizationCodeTokenResponseClient
             log.info("Token response: {}", response);
 
             // Extract the id_token from the response
-            String idToken = (String) response.getBody().getAdditionalParameters().get("id_token");
+            String idToken =
+                    (String) response.getBody().getAdditionalParameters().get("id_token");
             if (idToken != null) {
                 Map<String, Object> userInfo = parseIdToken(idToken);
                 log.info("User info: {}", userInfo);

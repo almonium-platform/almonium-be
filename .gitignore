@@ -35,3 +35,4 @@ build/
 package-lock.json
 .env
 .env.deployed
+service-account.json
