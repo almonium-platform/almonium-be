@@ -1,31 +1,27 @@
 package com.almonium.auth.oauth2.service;
 
+import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.oauth2.client.AppleTokenClient;
+import com.almonium.auth.oauth2.dto.AppleTokenResponse;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import java.text.ParseException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
 public class CustomAuthorizationCodeTokenResponseClient
         implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
-    private final RestTemplate restTemplate;
+    private final AppleTokenClient appleTokenClient;
 
     @Value("${spring.security.oauth2.client.registration.apple.client-secret}")
     private String clientSecret;
@@ -33,9 +29,8 @@ public class CustomAuthorizationCodeTokenResponseClient
     private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
 
-    public CustomAuthorizationCodeTokenResponseClient() {
-        this.restTemplate = new RestTemplate();
-        this.restTemplate.setMessageConverters(Collections.singletonList(new FormHttpMessageConverter()));
+    public CustomAuthorizationCodeTokenResponseClient(AppleTokenClient appleTokenClient) {
+        this.appleTokenClient = appleTokenClient;
     }
 
     @Override
@@ -45,41 +40,45 @@ public class CustomAuthorizationCodeTokenResponseClient
         String registrationId =
                 authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
 
-        if ("apple".equalsIgnoreCase(registrationId)) {
-            String tokenUri = authorizationCodeGrantRequest
-                    .getClientRegistration()
-                    .getProviderDetails()
-                    .getTokenUri();
-            Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-            HttpEntity<Map<String, String>> entity = new HttpEntity<>(formParameters, headers);
-
-            log.info("Sending request to {} with headers {}", tokenUri, headers);
-            log.info("Request body: {}", formParameters);
-
-            ResponseEntity<OAuth2AccessTokenResponse> response =
-                    restTemplate.exchange(tokenUri, HttpMethod.POST, entity, OAuth2AccessTokenResponse.class);
-
-            log.info("Token response: {}", response);
-
-            // Extract the id_token from the response
-            String idToken =
-                    (String) response.getBody().getAdditionalParameters().get("id_token");
-            if (idToken != null) {
-                Map<String, Object> userInfo = parseIdToken(idToken);
-                log.info("User info: {}", userInfo);
-                // Save the user info to session or database
-                saveUserInfo(userInfo);
-            }
-
-            return response.getBody();
-        } else {
-            log.info("Delegating token request to default client for provider: {}", registrationId);
-            return defaultClient.getTokenResponse(authorizationCodeGrantRequest);
+        if (AuthProviderType.APPLE.name().equalsIgnoreCase(registrationId)) {
+            return handleAppleAuth(authorizationCodeGrantRequest);
         }
+        log.info("Delegating token request to default client for provider: {}", registrationId);
+        return defaultClient.getTokenResponse(authorizationCodeGrantRequest);
+    }
+
+    private OAuth2AccessTokenResponse handleAppleAuth(
+            OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+        String tokenUri = authorizationCodeGrantRequest
+                .getClientRegistration()
+                .getProviderDetails()
+                .getTokenUri();
+        Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
+
+        log.info("Sending request to {} with parameters {}", tokenUri, formParameters);
+
+        AppleTokenResponse response = appleTokenClient.getToken(
+                formParameters.get("grant_type"),
+                formParameters.get("code"),
+                formParameters.get("redirect_uri"),
+                formParameters.get("client_id"),
+                formParameters.get("client_secret"));
+
+        log.info("Token response: {}", response);
+
+        // Convert AppleTokenResponse to OAuth2AccessTokenResponse
+        OAuth2AccessTokenResponse tokenResponse = convertToOAuth2AccessTokenResponse(response);
+
+        // Extract the id_token from the response
+        String idToken = response.idToken();
+        if (idToken != null) {
+            Map<String, Object> userInfo = parseIdToken(idToken);
+            log.info("User info: {}", userInfo);
+            // Save the user info to session or database
+            saveUserInfo(userInfo);
+        }
+
+        return tokenResponse;
     }
 
     private Map<String, String> getStringStringMap(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
@@ -123,5 +122,14 @@ public class CustomAuthorizationCodeTokenResponseClient
     private void saveUserInfo(Map<String, Object> userInfo) {
         // Implement your logic to save user information
         // Example: save to database or session
+    }
+
+    private OAuth2AccessTokenResponse convertToOAuth2AccessTokenResponse(AppleTokenResponse response) {
+        return OAuth2AccessTokenResponse.withToken(response.accessToken())
+                .tokenType(OAuth2AccessToken.TokenType.BEARER)
+                .expiresIn(response.expiresIn())
+                .refreshToken(response.refreshToken())
+                .additionalParameters(Map.of("id_token", response.idToken()))
+                .build();
     }
 }

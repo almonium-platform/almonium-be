@@ -104,6 +104,7 @@ app:
 
   oauth2:
     authorizedRedirectUris: ${app.domain}/oauth2/redirect
+    appleTokenUrl: https://appleid.apple.com
 
 # External API keys
 external:

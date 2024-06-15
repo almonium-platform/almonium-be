@@ -63,6 +63,10 @@ public class WebSecurityConfig {
     @Value("${app.domain}")
     String domain;
 
+    @NonFinal
+    @Value("${app.oauth2.appleTokenUrl}")
+    String appleTokenUrl;
+
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -75,7 +79,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(domain, "https://appleid.apple.com"));
+        configuration.setAllowedOrigins(List.of(domain, appleTokenUrl));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, DELETE, OPTIONS));
         configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
