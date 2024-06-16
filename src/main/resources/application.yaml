@@ -1,5 +1,5 @@
 server:
-  port: ${BE_PORT}
+  port: ${LOCAL_PORT}
   servlet:
     context-path: /api/v1
 

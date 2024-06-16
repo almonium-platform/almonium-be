@@ -1,17 +1,18 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+  app:
+    image: almonium
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - ${LOCAL_PORT}:${LOCAL_PORT}
+      - ${DEBUG_PORT}:${DEBUG_PORT}
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"
+      GOOGLE_APPLICATION_CREDENTIALS: /app/service-account.json
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
+      - ./service-account.json:/app/service-account.json
+    env_file:
+      - ./.env
