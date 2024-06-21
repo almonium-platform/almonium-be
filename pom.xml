@@ -24,6 +24,7 @@
         <version.google-guava>32.0.0-android</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
         <version.jjwt>0.9.1</version.jjwt>
+        <version.java-jwt>4.2.1</version.java-jwt>
         <version.json-path>2.9.0</version.json-path>
         <version.logback>1.4.14</version.logback>
         <version.lombok>1.18.28</version.lombok>
@@ -166,6 +167,11 @@
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>${version.nimbus}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${version.java-jwt}</version>
         </dependency>
 
         <!--        Google-->

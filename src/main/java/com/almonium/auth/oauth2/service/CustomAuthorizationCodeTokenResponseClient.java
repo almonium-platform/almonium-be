@@ -1,13 +1,24 @@
 package com.almonium.auth.oauth2.service;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.oauth2.client.AppleTokenClient;
 import com.almonium.auth.oauth2.dto.AppleTokenResponse;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
-import java.text.ParseException;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigInteger;
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.RSAPublicKeySpec;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
@@ -19,12 +30,16 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@FieldDefaults(level = PRIVATE)
 public class CustomAuthorizationCodeTokenResponseClient
         implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
-    private final AppleTokenClient appleTokenClient;
+    final AppleTokenClient appleTokenClient;
 
     @Value("${spring.security.oauth2.client.registration.apple.client-secret}")
-    private String clientSecret;
+    String clientSecret;
+
+    @Value("${app.oauth2.appleTokenUrl}")
+    String appleTokenUrl;
 
     private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
@@ -100,23 +115,41 @@ public class CustomAuthorizationCodeTokenResponseClient
         return formParameters;
     }
 
+    @SneakyThrows
     private Map<String, Object> parseIdToken(String idToken) {
-        try {
-            SignedJWT signedJWT = SignedJWT.parse(idToken);
-            JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
-            String email = claims.getStringClaim("email");
-            String firstName = (String) claims.getJSONObjectClaim("name").get("firstName");
-            String lastName = (String) claims.getJSONObjectClaim("name").get("lastName");
+        // Decode the public key components from Base64
+        DecodedJWT decodedJWT = JWT.decode(idToken);
 
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("email", email);
-            userInfo.put("firstName", firstName);
-            userInfo.put("lastName", lastName);
+        // Get the header from the token
+        String headerJson = new String(Base64.getUrlDecoder().decode(decodedJWT.getHeader()));
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> headerMap = mapper.readValue(headerJson, Map.class);
 
-            return userInfo;
-        } catch (ParseException e) {
-            throw new RuntimeException("Failed to parse ID token", e);
-        }
+        // Extract the modulus and exponent from the header
+        String n = (String) headerMap.get("n");
+        String e = (String) headerMap.get("e");
+
+        // Decode the modulus and exponent from Base64
+        BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(n));
+        BigInteger exponent = new BigInteger(1, Base64.getUrlDecoder().decode(e));
+
+        // Generate the RSA public key
+        RSAPublicKeySpec spec = new RSAPublicKeySpec(modulus, exponent);
+        KeyFactory factory = KeyFactory.getInstance("RSA");
+        RSAPublicKey publicKey = (RSAPublicKey) factory.generatePublic(spec);
+
+        // Verify the token
+        Algorithm algorithm = Algorithm.RSA256(publicKey, null);
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer(appleTokenUrl)
+                .withAudience("com.almonium.auth")
+                .build();
+        DecodedJWT jwt = verifier.verify(idToken);
+
+        String email = jwt.getClaim("email").asString();
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("email", email);
+        return userInfo;
     }
 
     private void saveUserInfo(Map<String, Object> userInfo) {
