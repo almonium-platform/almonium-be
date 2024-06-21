@@ -14,6 +14,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
+import com.almonium.auth.oauth2.service.AppleOidcUserFilter;
 import com.almonium.auth.oauth2.service.CustomAuthorizationRequestResolver;
 import com.almonium.auth.oauth2.service.CustomOAuth2UserService;
 import com.almonium.config.security.jwt.TokenAuthenticationFilter;
@@ -35,6 +36,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -51,6 +53,7 @@ public class WebSecurityConfig {
     PasswordEncoder passwordEncoder;
     CustomOAuth2UserService customOAuth2UserService;
     TokenAuthenticationFilter tokenAuthenticationFilter;
+    AppleOidcUserFilter appleOidcUserFilter;
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     OAuth2CookieRequestRepository authorizationRequestRepository;
@@ -103,6 +106,7 @@ public class WebSecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(appleOidcUserFilter, OAuth2LoginAuthenticationFilter.class)
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
