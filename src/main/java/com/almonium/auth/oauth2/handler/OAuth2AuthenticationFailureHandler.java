@@ -1,10 +1,10 @@
 package com.almonium.auth.oauth2.handler;
 
-import static com.almonium.auth.oauth2.util.CookieUtils.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.oauth2.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.util.CookieUtils;
+import com.almonium.auth.oauth2.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(
             HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException {
-        String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+        String targetUrl = CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue)
                 .orElse("/");
 

@@ -1,9 +1,9 @@
 package com.almonium.auth.oauth2.repository;
 
-import static com.almonium.auth.oauth2.util.CookieUtils.INTENT_PARAM_COOKIE_NAME;
-import static com.almonium.auth.oauth2.util.CookieUtils.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.oauth2.util.CookieUtil.INTENT_PARAM_COOKIE_NAME;
+import static com.almonium.auth.oauth2.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 
-import com.almonium.auth.oauth2.util.CookieUtils;
+import com.almonium.auth.oauth2.util.CookieUtil;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,8 +18,8 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
-        return CookieUtils.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
-                .map(cookie -> CookieUtils.deserialize(cookie.getValue(), OAuth2AuthorizationRequest.class))
+        return CookieUtil.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
+                .map(cookie -> CookieUtil.deserialize(cookie.getValue(), OAuth2AuthorizationRequest.class))
                 .orElse(null);
     }
 
@@ -27,26 +27,26 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
     public void saveAuthorizationRequest(
             OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         if (authorizationRequest == null) {
-            CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
-            CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
-            CookieUtils.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
+            CookieUtil.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+            CookieUtil.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
+            CookieUtil.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
             return;
         }
 
-        CookieUtils.addCookie(
+        CookieUtil.addCookie(
                 response,
                 OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-                CookieUtils.serialize(authorizationRequest),
+                CookieUtil.serialize(authorizationRequest),
                 COOKIE_EXPIRE_SECONDS);
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
         String intent = request.getParameter(INTENT_PARAM_COOKIE_NAME);
 
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
-            CookieUtils.addCookie(
+            CookieUtil.addCookie(
                     response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, COOKIE_EXPIRE_SECONDS);
         }
         if (StringUtils.isNotBlank(intent)) {
-            CookieUtils.addCookie(response, INTENT_PARAM_COOKIE_NAME, intent, COOKIE_EXPIRE_SECONDS);
+            CookieUtil.addCookie(response, INTENT_PARAM_COOKIE_NAME, intent, COOKIE_EXPIRE_SECONDS);
         }
     }
 
@@ -57,8 +57,8 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
     }
 
     public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
-        CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
-        CookieUtils.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
+        CookieUtil.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+        CookieUtil.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
+        CookieUtil.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
     }
 }

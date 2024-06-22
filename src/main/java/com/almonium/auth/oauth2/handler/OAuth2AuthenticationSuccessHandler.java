@@ -1,10 +1,10 @@
 package com.almonium.auth.oauth2.handler;
 
-import static com.almonium.auth.oauth2.util.CookieUtils.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.oauth2.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.util.CookieUtils;
+import com.almonium.auth.oauth2.util.CookieUtil;
 import com.almonium.config.security.jwt.TokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,7 +54,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     protected String determineTargetUrl(
             HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Optional<String> redirectUri =
-                CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
+                CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
 
         if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
             throw new ResponseStatusException(

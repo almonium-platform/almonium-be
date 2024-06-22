@@ -7,11 +7,9 @@ import com.almonium.auth.oauth2.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
-import com.almonium.auth.oauth2.util.CookieUtils;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
+import com.almonium.auth.oauth2.util.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -32,9 +31,23 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     ProviderAuthServiceImpl authService;
     OAuth2UserInfoFactory userInfoFactory;
+    AppleUserStore appleUserStore;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) {
+        String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
+
+        if (AuthProviderType.APPLE.name().equalsIgnoreCase(registrationId)) {
+            log.info("Handling Apple provider");
+            Map<String, Object> attributes = appleUserStore.getAppleUser();
+            if (attributes != null) {
+                appleUserStore.removeAppleUser();
+                OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProviderType.APPLE, attributes);
+                validateProviderUserInfo(userInfo);
+                return new DefaultOAuth2User(new ArrayList<>(), attributes, "email");
+            }
+        }
+
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
         log.info("OAuth2User: {}", oAuth2User);
 
@@ -45,36 +58,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase());
         log.info("Provider: {}", provider);
 
-        if (provider == AuthProviderType.APPLE) {
-            // Extract ID token from userRequest
-            String idToken =
-                    (String) oAuth2UserRequest.getAdditionalParameters().get("id_token");
-            log.info("ID Token: {}", idToken);
-
-            // Parse the ID token
-            try {
-                SignedJWT signedJWT = SignedJWT.parse(idToken);
-                JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
-                attributes.put("sub", claims.getSubject());
-                attributes.put("email", claims.getStringClaim("email"));
-                Map<String, Object> name = new HashMap<>();
-                name.put("firstName", claims.getStringClaim("firstName"));
-                name.put("lastName", claims.getStringClaim("lastName"));
-                attributes.put("name", name);
-                log.info("Parsed ID Token: {}", attributes);
-            } catch (ParseException e) {
-                log.error("Failed to parse ID token", e);
-                throw new OAuth2AuthenticationException("Failed to parse ID token", e);
-            }
-        }
-
         OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(provider, attributes);
 
         validateProviderUserInfo(userInfo);
 
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        OAuth2Intent intent = CookieUtils.getCookie(request, CookieUtils.INTENT_PARAM_COOKIE_NAME)
+        OAuth2Intent intent = CookieUtil.getCookie(request, CookieUtil.INTENT_PARAM_COOKIE_NAME)
                 .map(cookie -> OAuth2Intent.valueOf(cookie.getValue().toUpperCase()))
                 .orElse(OAuth2Intent.SIGN_IN);
 

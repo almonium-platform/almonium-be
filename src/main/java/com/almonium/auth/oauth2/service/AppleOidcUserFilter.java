@@ -32,7 +32,7 @@ public class AppleOidcUserFilter implements Filter {
             if (jsonUser != null) {
                 log.debug("User parameter is present: first Apple login.");
                 AppleUser user = objectMapper.readValue(jsonUser, AppleUser.class);
-                appleUserStore.setAppleUser(user);
+                appleUserStore.setAppleUser(null); // todo
             }
         } catch (JsonProcessingException e) {
             log.error("JSON parse error of user attribute", e);
