@@ -24,7 +24,8 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
+public class CustomAuthorizationCodeTokenResponseClient
+        implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
     OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
     AppleTokenClient appleTokenClient;
@@ -36,8 +37,10 @@ public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessT
     String clientSecret;
 
     @Override
-    public OAuth2AccessTokenResponse getTokenResponse(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
-        String registrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
+    public OAuth2AccessTokenResponse getTokenResponse(
+            OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+        String registrationId =
+                authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
 
         if (AuthProviderType.APPLE.name().equalsIgnoreCase(registrationId)) {
             return handleAppleAuth(authorizationCodeGrantRequest);
@@ -46,8 +49,12 @@ public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessT
         return defaultClient.getTokenResponse(authorizationCodeGrantRequest);
     }
 
-    private OAuth2AccessTokenResponse handleAppleAuth(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
-        String tokenUri = authorizationCodeGrantRequest.getClientRegistration().getProviderDetails().getTokenUri();
+    private OAuth2AccessTokenResponse handleAppleAuth(
+            OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+        String tokenUri = authorizationCodeGrantRequest
+                .getClientRegistration()
+                .getProviderDetails()
+                .getTokenUri();
         Map<String, String> formParameters = parseAuthorizationRequest(authorizationCodeGrantRequest);
 
         log.info("Sending request to {} with parameters {}", tokenUri, formParameters);
@@ -77,12 +84,22 @@ public class CustomAuthorizationCodeTokenResponseClient implements OAuth2AccessT
         return tokenResponse;
     }
 
-    private Map<String, String> parseAuthorizationRequest(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+    private Map<String, String> parseAuthorizationRequest(
+            OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
         Map<String, String> formParameters = new HashMap<>();
         formParameters.put("grant_type", "authorization_code");
-        formParameters.put("code", authorizationCodeGrantRequest.getAuthorizationExchange().getAuthorizationResponse().getCode());
-        formParameters.put("redirect_uri", authorizationCodeGrantRequest.getClientRegistration().getRedirectUri());
-        formParameters.put("client_id", authorizationCodeGrantRequest.getClientRegistration().getClientId());
+        formParameters.put(
+                "code",
+                authorizationCodeGrantRequest
+                        .getAuthorizationExchange()
+                        .getAuthorizationResponse()
+                        .getCode());
+        formParameters.put(
+                "redirect_uri",
+                authorizationCodeGrantRequest.getClientRegistration().getRedirectUri());
+        formParameters.put(
+                "client_id",
+                authorizationCodeGrantRequest.getClientRegistration().getClientId());
         formParameters.put("client_secret", clientSecret);
         return formParameters;
     }

@@ -18,7 +18,8 @@ public class AppleOidcConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<AppleOidcUserFilter> appleOidcUserFilterFilterRegistrationBean(AppleOidcUserFilter filter) {
+    public FilterRegistrationBean<AppleOidcUserFilter> appleOidcUserFilterFilterRegistrationBean(
+            AppleOidcUserFilter filter) {
         FilterRegistrationBean<AppleOidcUserFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
         registrationBean.setOrder(-100);
