@@ -16,7 +16,7 @@ public class AppleOidcUserFilter implements Filter {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    private AppleUserStore appleUserStore;
+    private ThreadLocalStore threadLocalStore;
 
     public AppleOidcUserFilter() {
         objectMapper = new ObjectMapper();
@@ -31,13 +31,13 @@ public class AppleOidcUserFilter implements Filter {
             if (jsonUser != null) {
                 log.debug("User parameter is present: first Apple login.");
                 AppleUser user = objectMapper.readValue(jsonUser, AppleUser.class);
-                appleUserStore.setAppleUser(null); // todo
+                threadLocalStore.setAttributes(null); // todo
             }
         } catch (JsonProcessingException e) {
             log.error("JSON parse error of user attribute", e);
         } finally {
             chain.doFilter(request, response);
-            appleUserStore.removeAppleUser();
+            threadLocalStore.getAttributesAndClearContext();
         }
     }
 

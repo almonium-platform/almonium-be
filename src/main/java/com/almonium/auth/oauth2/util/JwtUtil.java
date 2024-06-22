@@ -5,9 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.security.interfaces.RSAPublicKey;
-import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,22 +23,21 @@ public class JwtUtil {
     @Value("${app.oauth2.appleServiceId}")
     String appleServiceId;
 
-    public Map<String, Object> parseAndVerifyToken(String idToken) throws Exception {
-        DecodedJWT decodedJWT = JWT.decode(idToken);
-        String kid = decodedJWT.getKeyId();
-
-        RSAPublicKey publicKey = JwksUtil.getPublicKey(appleJwkUri, kid);
+    @SneakyThrows
+    public Map<String, Object> verifyAndParseToken(String idToken) {
+        RSAPublicKey publicKey =
+                JwksUtil.getPublicKey(appleJwkUri, JWT.decode(idToken).getKeyId());
 
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
+
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(appleTokenUrl)
                 .withAudience(appleServiceId)
                 .build();
+
         DecodedJWT jwt = verifier.verify(idToken);
 
-        String email = jwt.getClaim("email").asString();
-        Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("email", email);
-        return userInfo;
+        String email = "email";
+        return Map.of(email, jwt.getClaim(email).asString());
     }
 }
