@@ -9,8 +9,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.KeyFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAPublicKeySpec;
@@ -41,6 +45,12 @@ public class CustomAuthorizationCodeTokenResponseClient
     @Value("${app.oauth2.appleTokenUrl}")
     String appleTokenUrl;
 
+    @Value("${spring.security.oauth2.client.provider.apple.jwk-set-uri}")
+    String appleJwkUri;
+
+    @Value("${app.oauth2.appleServiceId}")
+    String appleServiceId;
+
     private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
 
@@ -68,7 +78,7 @@ public class CustomAuthorizationCodeTokenResponseClient
                 .getClientRegistration()
                 .getProviderDetails()
                 .getTokenUri();
-        Map<String, String> formParameters = getStringStringMap(authorizationCodeGrantRequest);
+        Map<String, String> formParameters = parseAuthorizationRequest(authorizationCodeGrantRequest);
 
         log.info("Sending request to {} with parameters {}", tokenUri, formParameters);
 
@@ -96,7 +106,7 @@ public class CustomAuthorizationCodeTokenResponseClient
         return tokenResponse;
     }
 
-    private Map<String, String> getStringStringMap(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+    private Map<String, String> parseAuthorizationRequest(OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
         Map<String, String> formParameters = new HashMap<>();
         formParameters.put("grant_type", "authorization_code");
         formParameters.put(
@@ -117,41 +127,55 @@ public class CustomAuthorizationCodeTokenResponseClient
 
     @SneakyThrows
     private Map<String, Object> parseIdToken(String idToken) {
-        // Decode the public key components from Base64
+        // Decode the JWT token without verification to get the header
         DecodedJWT decodedJWT = JWT.decode(idToken);
+        String kid = decodedJWT.getKeyId();
 
-        // Get the header from the token
-        String headerJson = new String(Base64.getUrlDecoder().decode(decodedJWT.getHeader()));
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> headerMap = mapper.readValue(headerJson, Map.class);
-
-        // Extract the modulus and exponent from the header
-        String n = (String) headerMap.get("n");
-        String e = (String) headerMap.get("e");
-
-        // Decode the modulus and exponent from Base64
-        BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(n));
-        BigInteger exponent = new BigInteger(1, Base64.getUrlDecoder().decode(e));
-
-        // Generate the RSA public key
-        RSAPublicKeySpec spec = new RSAPublicKeySpec(modulus, exponent);
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        RSAPublicKey publicKey = (RSAPublicKey) factory.generatePublic(spec);
+        // Fetch the JWKS from the identity provider
+        RSAPublicKey publicKey = getPublicKeyFromJWKS(appleJwkUri, kid);
 
         // Verify the token
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(appleTokenUrl)
-                .withAudience("com.almonium.auth")
+                .withAudience(appleServiceId)
                 .build();
         DecodedJWT jwt = verifier.verify(idToken);
 
-        String email = jwt.getClaim("email").asString();
+        String emailClaim = "email";
+        String email = jwt.getClaim(emailClaim).asString();
         Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("email", email);
+        userInfo.put(emailClaim, email);
         return userInfo;
     }
 
+
+    @SneakyThrows
+    private RSAPublicKey getPublicKeyFromJWKS(String jwksUrl, String kid) {
+        URL url = new URL(jwksUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        InputStream inputStream = connection.getInputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jwks = mapper.readTree(inputStream);
+
+        for (JsonNode key : jwks.get("keys")) {
+            if (kid.equals(key.get("kid").asText())) {
+                String n = key.get("n").asText();
+                String e = key.get("e").asText();
+
+                BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(n));
+                BigInteger exponent = new BigInteger(1, Base64.getUrlDecoder().decode(e));
+
+                RSAPublicKeySpec spec = new RSAPublicKeySpec(modulus, exponent);
+                KeyFactory factory = KeyFactory.getInstance("RSA");
+                return (RSAPublicKey) factory.generatePublic(spec);
+            }
+        }
+
+        throw new IllegalStateException("Failed to retrieve public key from JWKS");
+    }
     private void saveUserInfo(Map<String, Object> userInfo) {
         // Implement your logic to save user information
         // Example: save to database or session

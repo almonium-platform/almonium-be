@@ -105,6 +105,7 @@ app:
   oauth2:
     authorizedRedirectUris: ${app.domain}/oauth2/redirect
     appleTokenUrl: https://appleid.apple.com
+    appleServiceId: com.almonium.auth
 
 # External API keys
 external:
