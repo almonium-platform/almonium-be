@@ -43,6 +43,6 @@ public class AppleJwtUtil {
                 email,
                 jwt.getClaim(email).asString(),
                 emailVerified,
-                jwt.getClaim(emailVerified).asString());
+                jwt.getClaim(emailVerified).asBoolean());
     }
 }
