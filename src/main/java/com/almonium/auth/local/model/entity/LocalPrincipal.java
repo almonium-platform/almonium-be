@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @DiscriminatorValue("LOCAL")
 public class LocalPrincipal extends Principal implements UserDetails {
     String password;
-    boolean verified;
 
     public LocalPrincipal() {
         this.setProvider(LOCAL);
@@ -31,7 +30,6 @@ public class LocalPrincipal extends Principal implements UserDetails {
     public LocalPrincipal(User user, String email, String password) {
         super(user, email, LOCAL);
         this.password = password;
-        this.verified = false;
     }
 
     // UserDetails methods

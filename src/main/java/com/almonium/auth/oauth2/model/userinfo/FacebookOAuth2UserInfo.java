@@ -24,6 +24,16 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
+    public String getFirstName() {
+        return getStringAttribute("first_name");
+    }
+
+    @Override
+    public String getLastName() {
+        return getStringAttribute("last_name");
+    }
+
+    @Override
     public String getEmail() {
         return getStringAttribute("email");
     }
@@ -31,5 +41,10 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return getNestedStringAttribute("picture.data.url");
+    }
+
+    @Override
+    public boolean isEmailVerified() {
+        return true;
     }
 }

@@ -6,6 +6,7 @@ databaseChangeLog:
         - createTable:
             tableName: principal
             columns:
+              # common
               - column:
                   name: id
                   type: bigint
@@ -23,8 +24,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: password
-                  type: varchar(255)
+                  name: email_verified
+                  type: boolean
               - column:
                   name: created_at
                   type: timestamp
@@ -35,6 +36,11 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              # local
+              - column:
+                  name: password
+                  type: varchar(255)
+              # oauth2
               - column:
                   name: provider_user_id
                   type: varchar(255)
@@ -44,8 +50,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: verified
-                  type: boolean
+                  name: first_name
+                  type: varchar(255)
+              - column:
+                  name: last_name
+                  type: varchar(255)
         - addForeignKeyConstraint:
             baseTableName: principal
             baseColumnNames: user_id

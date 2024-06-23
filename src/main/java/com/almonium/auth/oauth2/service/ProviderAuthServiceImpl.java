@@ -42,10 +42,17 @@ public class ProviderAuthServiceImpl {
         if (existingAccountOptional.isEmpty()) {
             return createAndSaveProviderAuth(user, userInfo, attributes);
         }
-        log.debug("Updating avatar URL for existing user: {}", userInfo.getEmail());
+
+        OAuth2Principal existingPrincipal = existingAccountOptional.get();
+
+        log.debug("Updating existing user: {}", userInfo.getEmail());
         user.getProfile().setAvatarUrl(userInfo.getImageUrl());
         userRepository.save(user);
-        return existingAccountOptional.get();
+
+        existingPrincipal.setFirstName(userInfo.getFirstName());
+        existingPrincipal.setLastName(userInfo.getLastName());
+        existingPrincipal.setEmailVerified(userInfo.isEmailVerified());
+        return principalRepository.save(existingPrincipal);
     }
 
     private OAuth2Principal createNewUserAndPrincipal(

@@ -14,11 +14,19 @@ public abstract class OAuth2UserInfo {
 
     public abstract String getId();
 
-    public abstract String getName();
+    public abstract String getFirstName();
+
+    public abstract String getLastName();
+
+    public String getName() {
+        return getFirstName() + " " + getLastName();
+    }
 
     public abstract String getEmail();
 
     public abstract String getImageUrl();
+
+    public abstract boolean isEmailVerified();
 
     public String getStringAttribute(String attributeName) {
         Object value = attributes.get(attributeName);

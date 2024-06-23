@@ -111,7 +111,7 @@ class LocalAuthServiceImplTest {
         String expectedJwt = "xxx.yyy.zzz";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
         LocalPrincipal principal =
-                LocalPrincipal.builder().user(user).verified(true).build();
+                LocalPrincipal.builder().user(user).emailVerified(true).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
@@ -152,7 +152,7 @@ class LocalAuthServiceImplTest {
         LocalPrincipal principal = LocalPrincipal.builder()
                 .email(localAuthRequest.email())
                 .password("encodedPassword")
-                .verified(false)
+                .emailVerified(false)
                 .build();
         when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
 
@@ -212,7 +212,7 @@ class LocalAuthServiceImplTest {
         authService.verifyEmail(token);
 
         // Assert
-        assertThat(principal.isVerified()).isTrue();
+        assertThat(principal.isEmailVerified()).isTrue();
         verify(localPrincipalRepository).save(principal);
         verify(verificationTokenRepository).delete(verificationToken);
     }

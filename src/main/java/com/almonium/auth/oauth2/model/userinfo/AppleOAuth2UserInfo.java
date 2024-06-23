@@ -19,9 +19,13 @@ public class AppleOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getName() {
-        // Apple returns the name only once during the first authorization
-        return getNestedStringAttribute("name.firstName") + " " + getNestedStringAttribute("name.lastName");
+    public String getFirstName() {
+        return getNestedStringAttribute("name.firstName");
+    }
+
+    @Override
+    public String getLastName() {
+        return getNestedStringAttribute("name.lastName");
     }
 
     @Override
@@ -31,6 +35,11 @@ public class AppleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getImageUrl() {
-        return null; // Apple does not provide an image URL
+        return null;
+    }
+
+    @Override
+    public boolean isEmailVerified() {
+        return (boolean) attributes.get("email_verified");
     }
 }

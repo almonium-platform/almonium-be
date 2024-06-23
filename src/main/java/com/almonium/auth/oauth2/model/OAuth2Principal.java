@@ -27,6 +27,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @DiscriminatorValue("OAUTH2")
 public class OAuth2Principal extends Principal implements OAuth2User {
     String providerUserId;
+    String firstName;
+    String lastName;
 
     @Transient
     @Builder.Default

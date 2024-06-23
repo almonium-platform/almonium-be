@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.oauth2.client.AppleTokenClient;
 import com.almonium.auth.oauth2.dto.AppleTokenResponse;
-import com.almonium.auth.oauth2.util.JwtUtil;
+import com.almonium.auth.oauth2.util.AppleJwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +28,7 @@ public class CustomAuthorizationCodeTokenResponseClient
     OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();
     AppleTokenClient appleTokenClient;
-    JwtUtil jwtUtil;
+    AppleJwtUtil appleJwtUtil;
     ThreadLocalStore threadLocalStore;
 
     @NonFinal
@@ -68,7 +68,7 @@ public class CustomAuthorizationCodeTokenResponseClient
                 authorizationCodeGrantRequest.getClientRegistration().getClientId(),
                 clientSecret);
 
-        threadLocalStore.setAttributes(jwtUtil.verifyAndParseToken(response.idToken()));
+        threadLocalStore.addAttributes(appleJwtUtil.verifyAndParseToken(response.idToken())); // here i set email
 
         return OAuth2AccessTokenResponse.withToken(response.accessToken())
                 .tokenType(OAuth2AccessToken.TokenType.BEARER)

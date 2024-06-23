@@ -56,7 +56,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         LocalPrincipal localPrincipal = localPrincipalRepository
                 .findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
-        if (!localPrincipal.isVerified()) {
+        if (!localPrincipal.isEmailVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
 
@@ -81,7 +81,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     public void verifyEmail(String token) {
         VerificationToken verificationToken = getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
         LocalPrincipal principal = verificationToken.getPrincipal();
-        principal.setVerified(true);
+        principal.setEmailVerified(true);
         localPrincipalRepository.save(principal);
         verificationTokenRepository.delete(verificationToken);
     }

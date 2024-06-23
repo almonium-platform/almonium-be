@@ -24,6 +24,16 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
+    public String getFirstName() {
+        return getStringAttribute("given_name");
+    }
+
+    @Override
+    public String getLastName() {
+        return getStringAttribute("family_name");
+    }
+
+    @Override
     public String getEmail() {
         return getStringAttribute("email");
     }
@@ -31,5 +41,10 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return getStringAttribute("picture");
+    }
+
+    @Override
+    public boolean isEmailVerified() {
+        return (boolean) attributes.get("email_verified");
     }
 }

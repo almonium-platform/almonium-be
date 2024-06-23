@@ -1,12 +1,14 @@
 package com.almonium.auth.oauth2.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import java.util.Map;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +32,15 @@ public class AppleOidcUserFilter implements Filter {
             String jsonUser = request.getParameter("user");
             if (jsonUser != null) {
                 log.debug("User parameter is present: first Apple login.");
-                AppleUser user = objectMapper.readValue(jsonUser, AppleUser.class);
-                threadLocalStore.setAttributes(null); // todo
+                Map<String, Object> attributes = objectMapper.readValue(jsonUser, new TypeReference<>() {
+                });
+                threadLocalStore.addAttributes(attributes);
             }
         } catch (JsonProcessingException e) {
             log.error("JSON parse error of user attribute", e);
         } finally {
             chain.doFilter(request, response);
-            threadLocalStore.getAttributesAndClearContext();
+            threadLocalStore.clearContext();
         }
     }
 

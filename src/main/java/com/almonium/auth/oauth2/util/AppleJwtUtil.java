@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JwtUtil {
+public class AppleJwtUtil {
     @Value("${app.oauth2.appleTokenUrl}")
     String appleTokenUrl;
 
@@ -38,6 +38,11 @@ public class JwtUtil {
         DecodedJWT jwt = verifier.verify(idToken);
 
         String email = "email";
-        return Map.of(email, jwt.getClaim(email).asString());
+        String emailVerified = "email_verified";
+        return Map.of(
+                email,
+                jwt.getClaim(email).asString(),
+                emailVerified,
+                jwt.getClaim(emailVerified).asString());
     }
 }

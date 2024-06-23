@@ -19,7 +19,6 @@ public interface UserMapper {
     UserInfo userToUserInfo(User user);
 
     @Mapping(source = "info.id", target = "providerUserId")
-    @Mapping(source = "info.email", target = "email")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

@@ -49,6 +49,8 @@ public abstract class Principal {
 
     String email;
 
+    boolean emailVerified;
+
     @CreatedDate
     LocalDateTime createdAt;
 
