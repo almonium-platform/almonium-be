@@ -31,6 +31,7 @@ public interface UserMapper {
     @Mapping(target = "providerUserId", source = "email")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "attributes", ignore = true)
     @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     void updatePrincipalFromUserInfo(@MappingTarget OAuth2Principal principal, OAuth2UserInfo userInfo);
