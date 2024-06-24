@@ -15,7 +15,7 @@ public class AppleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return getStringAttribute("sub");
+        return getStringAttribute(SUB);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AppleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getEmail() {
-        return getStringAttribute("email");
+        return getStringAttribute(EMAIL);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class AppleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public boolean isEmailVerified() {
-        return (boolean) attributes.get("email_verified");
+        return (boolean) attributes.get(EMAIL_VERIFIED);
     }
 }

@@ -8,6 +8,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public abstract class OAuth2UserInfo {
+    public static final String SUB = "sub";
+    public static final String EMAIL = "email";
+    public static final String EMAIL_VERIFIED = "email_verified";
+
     protected Map<String, Object> attributes;
 
     public abstract AuthProviderType getProvider();

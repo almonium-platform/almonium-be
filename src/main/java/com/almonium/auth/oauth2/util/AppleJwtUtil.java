@@ -1,5 +1,9 @@
 package com.almonium.auth.oauth2.util;
 
+import static com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo.EMAIL;
+import static com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo.EMAIL_VERIFIED;
+import static com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo.SUB;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -37,12 +41,12 @@ public class AppleJwtUtil {
 
         DecodedJWT jwt = verifier.verify(idToken);
 
-        String email = "email";
-        String emailVerified = "email_verified";
         return Map.of(
-                email,
-                jwt.getClaim(email).asString(),
-                emailVerified,
-                jwt.getClaim(emailVerified).asBoolean());
+                EMAIL,
+                jwt.getClaim(EMAIL).asString(),
+                EMAIL_VERIFIED,
+                jwt.getClaim(EMAIL_VERIFIED).asBoolean(),
+                SUB,
+                jwt.getClaim(SUB).asString());
     }
 }
