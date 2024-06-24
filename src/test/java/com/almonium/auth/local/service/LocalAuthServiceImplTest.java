@@ -31,6 +31,7 @@ import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
+import com.almonium.user.core.service.UserService;
 import com.almonium.user.core.service.impl.UserUtility;
 import com.almonium.util.TestDataGenerator;
 import java.time.LocalDateTime;
@@ -68,6 +69,9 @@ class LocalAuthServiceImplTest {
 
     @Mock
     TokenProvider tokenProvider;
+
+    @Mock
+    UserService userService;
 
     @Mock
     ProfileService profileService;

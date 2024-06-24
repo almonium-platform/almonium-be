@@ -28,10 +28,16 @@ public class OAuth2AuthenticationService {
 
     @Transactional
     public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
-        return userRepository
-                .findByEmail(userInfo.getEmail())
-                .map(user -> handleExistingUser(user, userInfo))
-                .orElseGet(() -> createNewUserAndPrincipal(userInfo, intent));
+        log.debug("Starting authentication process for email: {}", userInfo.getEmail());
+
+        Optional<User> userOptional = userRepository.findByEmail(userInfo.getEmail());
+        if (userOptional.isPresent()) {
+            log.debug("User found by email: {}", userInfo.getEmail());
+            return handleExistingUser(userOptional.get(), userInfo);
+        } else {
+            log.debug("User not found by email, creating new user: {}", userInfo.getEmail());
+            return createNewUserAndPrincipal(userInfo, intent);
+        }
     }
 
     private OAuth2Principal handleExistingUser(User user, OAuth2UserInfo userInfo) {

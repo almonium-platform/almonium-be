@@ -21,16 +21,30 @@ spring:
           facebook:
             client-id: facebook_id_dummy
             client-secret: facebook_secret_dummy
+          apple:
+            client-id: apple_id_dummy
+            client-secret: apple_secret_dummy
+            authorization-grant-type: authorization_code
+            client-name: Apple
+            client-authentication-method: client_secret_post
+            redirect-uri: https://backend.com/api/v3/login/oauth2/code/apple
+            scope: name,email
 
         provider:
           facebook:
             user-info-uri: https://dummy.url
+          apple:
+            token-uri: https://appleid.apple.com/auth/token
+            authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
+            user-info-uri: https://appleid.apple.com/auth/userinfo
+            jwk-set-uri: https://appleid.apple.com/auth/keys
+            user-name-attribute: sub
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    username: dummy@test.com
+    password: dummy-password
     properties:
       mail:
         smtp:
@@ -52,6 +66,8 @@ app:
 
     oauth2:
       authorized-redirect-uris: ${app.domain}/oauth2/redirect
+      apple-token-url: https://appleid.apple.com
+      apple-service-id: com.almonium.auth
 
 external:
   api:

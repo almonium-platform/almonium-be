@@ -23,6 +23,7 @@ import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.UserService;
 import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
@@ -36,7 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class ProviderLocalAuthServiceImplTest {
+class OAuth2AuthenticationServiceTest {
     private static final String PROFILE_PIC_LINK =
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";
 
@@ -45,6 +46,9 @@ class ProviderLocalAuthServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    UserService userService;
 
     @Mock
     UserMapper userMapper;
@@ -118,12 +122,14 @@ class ProviderLocalAuthServiceImplTest {
                         AuthProviderType.GOOGLE, "101868015518714862283"))
                 .thenReturn(Optional.of(principal));
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
+        when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(principal);
 
         // Act
         Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).save(existingUser);
+        verify(oAuth2PrincipalRepository).save(any());
         assertThat(existingUser.getProfile().getAvatarUrl()).isEqualTo(newProfilePicLink);
         assertThat(result).isEqualTo(principal);
     }
