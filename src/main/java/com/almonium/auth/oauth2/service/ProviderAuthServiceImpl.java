@@ -49,9 +49,7 @@ public class ProviderAuthServiceImpl {
         user.getProfile().setAvatarUrl(userInfo.getImageUrl());
         userRepository.save(user);
 
-        existingPrincipal.setFirstName(userInfo.getFirstName());
-        existingPrincipal.setLastName(userInfo.getLastName());
-        existingPrincipal.setEmailVerified(userInfo.isEmailVerified());
+        userMapper.updatePrincipalFromUserInfo(existingPrincipal, userInfo);
         return principalRepository.save(existingPrincipal);
     }
 

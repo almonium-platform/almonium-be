@@ -28,12 +28,12 @@ public abstract class OAuth2UserInfo {
 
     public abstract boolean isEmailVerified();
 
-    public String getStringAttribute(String attributeName) {
+    protected String getStringAttribute(String attributeName) {
         Object value = attributes.get(attributeName);
         return (value instanceof String) ? (String) value : null;
     }
 
-    public String getNestedStringAttribute(String nestedAttributeName) {
+    protected String getNestedStringAttribute(String nestedAttributeName) {
         String[] nestedAttributes = nestedAttributeName.split("\\.");
         Object currentObj = attributes;
         for (String attr : nestedAttributes) {
