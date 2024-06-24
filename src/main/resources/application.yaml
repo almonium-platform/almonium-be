@@ -90,7 +90,7 @@ logging:
 
 # Custom Configurations
 app:
-  domain: https://${WEB_APP_DOMAIN}
+  domain: ${WEB_APP_DOMAIN}
 
   auth:
     jwt:
