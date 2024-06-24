@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.oauth2.model.OAuth2Principal;
+import com.almonium.auth.oauth2.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.model.userinfo.GoogleOAuth2UserInfo;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
@@ -41,7 +41,7 @@ class ProviderLocalAuthServiceImplTest {
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";
 
     @InjectMocks
-    ProviderAuthServiceImpl authService;
+    OAuth2AuthenticationService authService;
 
     @Mock
     UserRepository userRepository;

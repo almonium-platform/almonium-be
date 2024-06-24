@@ -1,11 +1,11 @@
 package com.almonium.engine.client.words;
 
-import static com.almonium.util.GeneralUtils.queryBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.engine.client.AbstractClient;
 import com.almonium.engine.client.Client;
 import com.almonium.engine.client.words.dto.WordsReportDto;
+import com.almonium.util.GeneralUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ public class WordsClient extends AbstractClient {
         headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL + word, List.of());
+        String urlTemplate = GeneralUtils.queryBuilder(BASE_URL + word, List.of());
 
         Map<String, Object> params = new HashMap<>();
 
@@ -57,7 +57,7 @@ public class WordsClient extends AbstractClient {
         headers.set(API_KEY_HEADER_NAME, apiKeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL, List.of(RANDOM));
+        String urlTemplate = GeneralUtils.queryBuilder(BASE_URL, List.of(RANDOM));
 
         Map<String, Object> params = new HashMap<>();
         params.put(RANDOM, true);

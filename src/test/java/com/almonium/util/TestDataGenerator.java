@@ -42,7 +42,7 @@ import lombok.experimental.UtilityClass;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 @UtilityClass
-public final class TestDataGenerator {
+public class TestDataGenerator {
     private final Random random = new Random();
 
     public Random random() {

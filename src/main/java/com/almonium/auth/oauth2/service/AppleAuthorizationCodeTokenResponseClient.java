@@ -6,6 +6,7 @@ import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.oauth2.client.AppleTokenClient;
 import com.almonium.auth.oauth2.dto.AppleTokenResponse;
 import com.almonium.auth.oauth2.util.AppleJwtUtil;
+import com.almonium.auth.oauth2.util.ThreadLocalStore;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CustomAuthorizationCodeTokenResponseClient
+public class AppleAuthorizationCodeTokenResponseClient
         implements OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
     OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> defaultClient =
             new DefaultAuthorizationCodeTokenResponseClient();

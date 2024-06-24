@@ -1,5 +1,6 @@
-package com.almonium.auth.oauth2.service;
+package com.almonium.auth.oauth2.filter;
 
+import com.almonium.auth.oauth2.util.ThreadLocalStore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;

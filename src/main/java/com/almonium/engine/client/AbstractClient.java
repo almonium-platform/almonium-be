@@ -1,8 +1,8 @@
 package com.almonium.engine.client;
 
-import static com.almonium.util.GeneralUtils.queryBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.util.GeneralUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class AbstractClient {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(url, params.keySet());
+        String urlTemplate = GeneralUtils.queryBuilder(url, params.keySet());
 
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
                 urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
@@ -49,7 +49,7 @@ public abstract class AbstractClient {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(url, params.keySet());
+        String urlTemplate = GeneralUtils.queryBuilder(url, params.keySet());
 
         return restTemplate.exchange(urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), clazz, params);
     }

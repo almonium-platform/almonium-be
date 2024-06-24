@@ -3,7 +3,7 @@ package com.almonium.auth.oauth2.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.oauth2.model.OAuth2Principal;
+import com.almonium.auth.oauth2.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.repository.OAuth2PrincipalRepository;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class ProviderAuthServiceImpl {
+public class OAuth2AuthenticationService {
     UserRepository userRepository;
     UserMapper userMapper;
     OAuth2PrincipalRepository principalRepository;

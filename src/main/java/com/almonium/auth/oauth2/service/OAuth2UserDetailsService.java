@@ -8,6 +8,7 @@ import com.almonium.auth.oauth2.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfoFactory;
 import com.almonium.auth.oauth2.util.CookieUtil;
+import com.almonium.auth.oauth2.util.ThreadLocalStore;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +27,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    ProviderAuthServiceImpl authService;
+public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
+    OAuth2AuthenticationService authService;
     OAuth2UserInfoFactory userInfoFactory;
     ThreadLocalStore threadLocalStore;
 

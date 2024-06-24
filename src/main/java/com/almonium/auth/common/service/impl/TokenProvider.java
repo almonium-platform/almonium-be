@@ -1,4 +1,4 @@
-package com.almonium.config.security.jwt;
+package com.almonium.auth.common.service.impl;
 
 import com.almonium.auth.common.model.entity.Principal;
 import io.jsonwebtoken.Claims;
@@ -56,7 +56,7 @@ public class TokenProvider {
         return Long.parseLong(claims.getSubject());
     }
 
-    protected boolean validateToken(String authToken) {
+    public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(authToken);
             return true;

@@ -3,9 +3,9 @@ package com.almonium.auth.oauth2.handler;
 import static com.almonium.auth.oauth2.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.service.impl.TokenProvider;
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.util.CookieUtil;
-import com.almonium.config.security.jwt.TokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

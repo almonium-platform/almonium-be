@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.impl.TokenProvider;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -16,7 +17,6 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.LocalAuthService;
-import com.almonium.config.security.jwt.TokenProvider;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;

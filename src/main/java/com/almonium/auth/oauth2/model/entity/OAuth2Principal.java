@@ -1,4 +1,4 @@
-package com.almonium.auth.oauth2.model;
+package com.almonium.auth.oauth2.model.entity;
 
 import com.almonium.auth.common.model.entity.Principal;
 import jakarta.persistence.DiscriminatorValue;

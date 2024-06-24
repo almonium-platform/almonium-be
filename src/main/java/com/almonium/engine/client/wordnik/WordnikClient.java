@@ -1,12 +1,12 @@
 package com.almonium.engine.client.wordnik;
 
-import static com.almonium.util.GeneralUtils.queryBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.engine.client.AbstractClient;
 import com.almonium.engine.client.Client;
 import com.almonium.engine.client.wordnik.dto.WordnikAudioDto;
 import com.almonium.engine.client.wordnik.dto.WordnikRandomWordDto;
+import com.almonium.util.GeneralUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +68,7 @@ public class WordnikClient extends AbstractClient {
         params.put(INCLUDE_POS, INCLUDE_POS_VALUE);
         params.put(MIN_LENGTH, 5);
 
-        String urlTemplate = queryBuilder(BASE_URL_WORDS, List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH));
+        String urlTemplate = GeneralUtils.queryBuilder(BASE_URL_WORDS, List.of(HAS_DICT_DEF, INCLUDE_POS, MIN_LENGTH));
 
         return restTemplate.exchange(
                 urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), WordnikRandomWordDto.class, params);
@@ -79,7 +79,7 @@ public class WordnikClient extends AbstractClient {
         headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = queryBuilder(BASE_URL + word + AUDIO, List.of());
+        String urlTemplate = GeneralUtils.queryBuilder(BASE_URL + word + AUDIO, List.of());
 
         Map<String, Object> params = new HashMap<>();
 

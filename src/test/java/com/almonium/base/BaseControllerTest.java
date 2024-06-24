@@ -1,7 +1,7 @@
 package com.almonium.base;
 
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.config.security.jwt.TokenProvider;
+import com.almonium.auth.common.service.impl.TokenProvider;
 import com.almonium.user.core.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

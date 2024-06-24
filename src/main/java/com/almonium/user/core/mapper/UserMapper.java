@@ -1,6 +1,6 @@
 package com.almonium.user.core.mapper;
 
-import com.almonium.auth.oauth2.model.OAuth2Principal;
+import com.almonium.auth.oauth2.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.User;
@@ -20,7 +20,7 @@ public interface UserMapper {
     @Mapping(target = "tags", ignore = true)
     UserInfo userToUserInfo(User user);
 
-    @Mapping(source = "info.id", target = "providerUserId")
+    @Mapping(target = "providerUserId", source = "id")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
@@ -28,6 +28,7 @@ public interface UserMapper {
 
     @Mapping(target = "firstName", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "lastName", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "providerUserId", source = "id")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "attributes", ignore = true)

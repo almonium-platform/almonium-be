@@ -1,6 +1,5 @@
 package com.almonium.user.core.service.impl;
 
-import static com.almonium.user.core.service.impl.UserUtility.getUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -48,7 +47,7 @@ class UserServiceImplTest {
     @Test
     void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
         Long userId = 1L;
-        User user = getUser();
+        User user = UserUtility.getUser();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
         User result = userService.getById(userId);
@@ -70,7 +69,7 @@ class UserServiceImplTest {
     @DisplayName("Should delete user account")
     @Test
     void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
-        User user = getUser();
+        User user = UserUtility.getUser();
 
         userService.deleteAccount(user);
 
@@ -81,7 +80,7 @@ class UserServiceImplTest {
     @Test
     void givenExistentEmail_whenFindByEmail_thenReturnUser() {
         String email = "john@example.com";
-        User expectedUser = getUser();
+        User expectedUser = UserUtility.getUser();
         expectedUser.setEmail(email);
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(expectedUser));
@@ -106,7 +105,7 @@ class UserServiceImplTest {
     @DisplayName("Should use mapper to build userInfo")
     @Test
     void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
-        User user = getUser();
+        User user = UserUtility.getUser();
         userService.buildUserInfoFromUser(user);
         verify(userMapper).userToUserInfo(user);
     }

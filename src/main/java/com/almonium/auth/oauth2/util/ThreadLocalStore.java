@@ -1,4 +1,4 @@
-package com.almonium.auth.oauth2.service;
+package com.almonium.auth.oauth2.util;
 
 import java.util.Map;
 import org.springframework.stereotype.Component;

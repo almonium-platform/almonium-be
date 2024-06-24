@@ -1,6 +1,6 @@
 package com.almonium.auth.oauth2.config;
 
-import com.almonium.auth.oauth2.service.AppleOidcUserFilter;
+import com.almonium.auth.oauth2.filter.AppleOidcUserFilter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -17,7 +17,7 @@ public class AppleOidcConfig {
 
     @Bean
     public AppleOidcUserFilter appleOidcUserFilter() {
-        return new AppleOidcUserFilter();
+        return new AppleOidcUserFilter(); // todo make it component
     }
 
     @Bean

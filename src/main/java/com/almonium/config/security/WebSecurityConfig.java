@@ -11,12 +11,12 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+import com.almonium.auth.common.filter.TokenAuthenticationFilter;
+import com.almonium.auth.oauth2.filter.AppleOidcUserFilter;
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import com.almonium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.service.AppleOidcUserFilter;
-import com.almonium.auth.oauth2.service.CustomOAuth2UserService;
-import com.almonium.config.security.jwt.TokenAuthenticationFilter;
+import com.almonium.auth.oauth2.service.OAuth2UserDetailsService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -50,7 +50,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig {
     UserDetailsService userDetailsService;
     PasswordEncoder passwordEncoder;
-    CustomOAuth2UserService customOAuth2UserService;
+    OAuth2UserDetailsService OAuth2UserDetailsService;
     TokenAuthenticationFilter tokenAuthenticationFilter;
     AppleOidcUserFilter appleOidcUserFilter;
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
@@ -106,7 +106,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(appleOidcUserFilter, OAuth2LoginAuthenticationFilter.class)
                 .oauth2Login(loginConfigurer -> loginConfigurer
-                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuth2UserService))
+                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(OAuth2UserDetailsService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
                         .authorizationEndpoint(authEndPoint ->
                                 authEndPoint.authorizationRequestRepository(authorizationRequestRepository))

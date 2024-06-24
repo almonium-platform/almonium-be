@@ -1,4 +1,4 @@
-package com.almonium.config.security.jwt;
+package com.almonium.auth.common.filter;
 
 import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
 import static com.google.auth.http.AuthHttpConstants.BEARER;
@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
+import com.almonium.auth.common.service.impl.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

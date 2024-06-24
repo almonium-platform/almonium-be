@@ -1,6 +1,5 @@
 package com.almonium.auth.local.service;
 
-import static com.almonium.user.core.service.impl.UserUtility.getUser;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -15,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.impl.TokenProvider;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -27,12 +27,11 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.LocalAuthServiceImpl;
-import com.almonium.config.security.jwt.TokenProvider;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
-import com.almonium.user.core.service.UserService;
+import com.almonium.user.core.service.impl.UserUtility;
 import com.almonium.util.TestDataGenerator;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -51,9 +50,6 @@ import org.springframework.security.core.Authentication;
 class LocalAuthServiceImplTest {
     @InjectMocks
     LocalAuthServiceImpl authService;
-
-    @Mock
-    UserService userService;
 
     @Mock
     UserRepository userRepository;
@@ -104,7 +100,7 @@ class LocalAuthServiceImplTest {
     @Test
     void givenValidCredentials_whenAuthenticate_thenReturnJwtAndUserInfo() {
         // Arrange
-        User user = getUser();
+        User user = UserUtility.getUser();
 
         String email = user.getEmail();
         String password = "fdsfsd";
