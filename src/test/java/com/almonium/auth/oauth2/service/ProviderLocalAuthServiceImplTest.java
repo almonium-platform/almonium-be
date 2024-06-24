@@ -83,7 +83,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.save(existingUser)).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -120,7 +120,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).save(existingUser);
@@ -157,7 +157,7 @@ class ProviderLocalAuthServiceImplTest {
                         .build());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository, atLeastOnce()).save(any(User.class));
@@ -191,8 +191,7 @@ class ProviderLocalAuthServiceImplTest {
         when(oAuth2PrincipalRepository.save(principal)).thenReturn(principal);
 
         // Act
-        Principal result = authService.authenticate(
-                oAuth2UserInfo, createAttributes("johnwick@gmail.com", "101868015518714862283"), OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
         verify(userRepository).findByEmail("johnwick@gmail.com");
@@ -214,7 +213,7 @@ class ProviderLocalAuthServiceImplTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.authenticate(oAuth2UserInfo, attributes, OAuth2Intent.LINK))
+        assertThatThrownBy(() -> authService.authenticate(oAuth2UserInfo, OAuth2Intent.LINK))
                 .isInstanceOf(EmailMismatchException.class)
                 .hasMessageContaining("No user found for email " + email + " to link account.");
 

@@ -44,7 +44,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         validateProviderUserInfo(userInfo);
 
         try {
-            return authService.authenticate(userInfo, attributes, getIntent());
+            return authService.authenticate(userInfo, getIntent());
         } catch (Exception ex) {
             throw new OAuth2AuthenticationException("Authentication failed", ex);
         }

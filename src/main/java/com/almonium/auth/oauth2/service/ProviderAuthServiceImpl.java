@@ -10,7 +10,6 @@ import com.almonium.auth.oauth2.repository.OAuth2PrincipalRepository;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,19 +27,19 @@ public class ProviderAuthServiceImpl {
     OAuth2PrincipalRepository principalRepository;
 
     @Transactional
-    public OAuth2Principal authenticate(OAuth2UserInfo userInfo, Map<String, Object> attributes, OAuth2Intent intent) {
+    public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
         return userRepository
                 .findByEmail(userInfo.getEmail())
-                .map(user -> handleExistingUser(user, userInfo, attributes))
-                .orElseGet(() -> createNewUserAndPrincipal(userInfo, attributes, intent));
+                .map(user -> handleExistingUser(user, userInfo))
+                .orElseGet(() -> createNewUserAndPrincipal(userInfo, intent));
     }
 
-    private OAuth2Principal handleExistingUser(User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private OAuth2Principal handleExistingUser(User user, OAuth2UserInfo userInfo) {
         Optional<OAuth2Principal> existingAccountOptional =
                 principalRepository.findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId());
 
         if (existingAccountOptional.isEmpty()) {
-            return createAndSaveProviderAuth(user, userInfo, attributes);
+            return createAndSaveProviderAuth(user, userInfo);
         }
 
         OAuth2Principal existingPrincipal = existingAccountOptional.get();
@@ -53,8 +52,7 @@ public class ProviderAuthServiceImpl {
         return principalRepository.save(existingPrincipal);
     }
 
-    private OAuth2Principal createNewUserAndPrincipal(
-            OAuth2UserInfo userInfo, Map<String, Object> attributes, OAuth2Intent intent) {
+    private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, OAuth2Intent intent) {
         if (intent == OAuth2Intent.LINK) {
             log.error("User not found for email: {}", userInfo.getEmail());
             throw new EmailMismatchException("No user found for email " + userInfo.getEmail() + " to link account.");
@@ -62,15 +60,13 @@ public class ProviderAuthServiceImpl {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
         user.setEmail(userInfo.getEmail());
-        return createAndSaveProviderAuth(user, userInfo, attributes);
+        return createAndSaveProviderAuth(user, userInfo);
     }
 
-    private OAuth2Principal createAndSaveProviderAuth(
-            User user, OAuth2UserInfo userInfo, Map<String, Object> attributes) {
+    private OAuth2Principal createAndSaveProviderAuth(User user, OAuth2UserInfo userInfo) {
         log.debug("Creating new principal for user: {}", userInfo.getEmail());
         OAuth2Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
         account.setUser(user);
-        account.setAttributes(attributes);
         user.getPrincipals().add(account);
         userRepository.save(user);
         return principalRepository.save(account);
