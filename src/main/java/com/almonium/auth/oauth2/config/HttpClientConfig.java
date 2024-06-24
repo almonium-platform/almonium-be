@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class HttpClientConfig {
 
-    @Value("${app.oauth2.appleTokenUrl}")
+    @Value("${app.auth.oauth2.apple-token-url}")
     private String appleTokenUrl;
 
     @Bean

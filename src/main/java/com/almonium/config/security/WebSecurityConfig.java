@@ -65,7 +65,7 @@ public class WebSecurityConfig {
     String domain;
 
     @NonFinal
-    @Value("${app.oauth2.appleTokenUrl}")
+    @Value("${app.auth.oauth2.apple-token-url}")
     String appleTokenUrl;
 
     @Bean
