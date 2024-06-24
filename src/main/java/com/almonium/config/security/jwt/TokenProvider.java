@@ -28,10 +28,10 @@ public class TokenProvider {
     private static final String TOKEN_SIGNATURE_INVALID = "Invalid JWT signature";
     private static final String TOKEN_CLAIMS_EMPTY = "JWT claims string is empty.";
 
-    @Value("${app.auth.tokenSigningSecret}")
+    @Value("${app.auth.jwt.token-signing-secret}")
     private String tokenSecret;
 
-    @Value("${app.auth.tokenExpirationDurationMillis}")
+    @Value("${app.auth.jwt.token-expiration-duration-millis}")
     private long tokenExpirationMSec;
 
     public String createToken(Authentication authentication) {

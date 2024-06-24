@@ -4,8 +4,10 @@ server:
     context-path: /api/v1
 
 spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
 
-  ### Database Config
   jpa:
     open-in-view: false
     show-sql: true
@@ -21,7 +23,6 @@ spring:
   liquibase:
     contexts: ${spring.profiles.active}
 
-  # OAuth Configurations
   security:
     oauth2:
       client:
@@ -41,7 +42,7 @@ spring:
             authorization-grant-type: authorization_code
             client-name: Apple
             client-authentication-method: client_secret_post
-            redirect-uri: https://api.almonium.com/api/v1/login/oauth2/code/apple
+            redirect-uri: https://${BACKEND_DOMAIN}${server.servlet.context-path}/login/oauth2/code/apple
             scope: name,email
 
         provider:
@@ -54,9 +55,6 @@ spring:
             jwk-set-uri: https://appleid.apple.com/auth/keys
             user-name-attribute: sub
 
-  config:
-    import:
-      - optional:file:.env[.properties]
   mail:
     host: smtppro.zoho.eu
     port: 587
@@ -89,25 +87,25 @@ logging:
   pattern:
     console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
 
-# Google Cloud Configurations
-google:
-  projectId: ${GOOGLE_PROJECT_ID}
-  parentLocation: global
 
 # Custom Configurations
 app:
-  domain: ${WEB_APP_DOMAIN}
+  domain: https://${WEB_APP_DOMAIN}
 
   auth:
-    tokenExpirationDurationMillis: 864000000
-    tokenSigningSecret: ${TOKEN_SECRET}
+    jwt:
+      token-expiration-duration-millis: 864000000
+      token-signing-secret: ${TOKEN_SECRET}
 
-  oauth2:
-    authorizedRedirectUris: ${app.domain}/oauth2/redirect
-    appleTokenUrl: https://appleid.apple.com
-    appleServiceId: com.almonium.auth
+    oauth2:
+      authorized-redirect-uris: ${app.domain}/oauth2/redirect
+      apple-token-url: https://appleid.apple.com
+      apple-service-id: com.almonium.auth
 
-# External API keys
+google:
+  project-id: ${GOOGLE_PROJECT_ID}
+  parent-location: global
+
 external:
   api:
     key:

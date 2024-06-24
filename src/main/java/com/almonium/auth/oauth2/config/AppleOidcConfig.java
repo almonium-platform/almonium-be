@@ -1,5 +1,8 @@
-package com.almonium.auth.oauth2.service;
+package com.almonium.auth.oauth2.config;
 
+import com.almonium.auth.oauth2.service.AppleOidcUserFilter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -9,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppleOidcConfig {
 
-    @Value("${spring.security.oauth2.client.registration.apple.redirect-pattern:/login/oauth2/code/apple}")
-    private String appleRedirectPattern;
+    @Value("${spring.security.oauth2.client.registration.apple.redirect-uri}")
+    private String appleRedirectUri;
 
     @Bean
     public AppleOidcUserFilter appleOidcUserFilter() {
@@ -19,11 +22,11 @@ public class AppleOidcConfig {
 
     @Bean
     public FilterRegistrationBean<AppleOidcUserFilter> appleOidcUserFilterFilterRegistrationBean(
-            AppleOidcUserFilter filter) {
+            AppleOidcUserFilter filter) throws URISyntaxException {
         FilterRegistrationBean<AppleOidcUserFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
         registrationBean.setOrder(-100);
-        registrationBean.setUrlPatterns(List.of(appleRedirectPattern));
+        registrationBean.setUrlPatterns(List.of(new URI(appleRedirectUri).getPath()));
         return registrationBean;
     }
 }

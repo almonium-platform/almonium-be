@@ -18,13 +18,14 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AppleJwtUtil {
-    @Value("${app.oauth2.appleTokenUrl}")
-    String appleTokenUrl;
 
     @Value("${spring.security.oauth2.client.provider.apple.jwk-set-uri}")
     String appleJwkUri;
 
-    @Value("${app.oauth2.appleServiceId}")
+    @Value("${app.auth.oauth2.apple-token-url}")
+    String appleTokenUrl;
+
+    @Value("${app.auth.oauth2.apple-service-id}")
     String appleServiceId;
 
     @SneakyThrows

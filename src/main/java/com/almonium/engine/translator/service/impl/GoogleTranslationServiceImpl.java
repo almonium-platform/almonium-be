@@ -27,10 +27,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class GoogleTranslationServiceImpl implements TranslationService {
-    @Value("${google.projectId}")
+
+    @Value("${google.project-id}")
     String projectId;
 
-    @Value("${google.parentLocation}")
+    @Value("${google.parent-location}")
     String parentLocation;
 
     LocationName parent;

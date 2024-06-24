@@ -2,7 +2,7 @@ spring:
   datasource:
     username: sa
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
     password: password
   jpa:
     open-in-view: false
@@ -10,22 +10,22 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
-  # OAuth Configurations
   security:
     oauth2:
       client:
         registration:
           google:
-            clientId: google_id_dummy
-            clientSecret: google_secret_dummy
+            client-id: google_id_dummy
+            client-secret: google_secret_dummy
 
           facebook:
-            clientId: facebook_id_dummy
-            clientSecret: facebook_secret_dummy
+            client-id: facebook_id_dummy
+            client-secret: facebook_secret_dummy
 
         provider:
           facebook:
             user-info-uri: https://dummy.url
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -38,24 +38,21 @@ spring:
           starttls:
             enable: true
 
-# Google Cloud Configurations
 google:
-  projectId: google_project_id_dummy
-  parentLocation: global
+  project-id: google_project_id_dummy
+  parent-location: global
 
-# Custom Configurations
 app:
-  server:
-    domain: almonium-dummy.com
+  domain: almonium-dummy.com
 
   auth:
-    tokenExpirationDurationMillis: 864000000
-    tokenSigningSecret: token_secret_dummy
+    jwt:
+      token-expiration-duration-millis: 864000000
+      token-signing-secret: token_secret_dummy
 
-  oauth2:
-    authorizedRedirectUris: ${app.domain}/oauth2/redirect
+    oauth2:
+      authorized-redirect-uris: ${app.domain}/oauth2/redirect
 
-# External API keys
 external:
   api:
     key:

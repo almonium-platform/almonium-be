@@ -32,7 +32,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     TokenProvider tokenProvider;
     OAuth2CookieRequestRepository requestRepository;
 
-    @Value("${app.oauth2.authorizedRedirectUris}")
+    @Value("${app.auth.oauth2.authorized-redirect-uris}")
     private List<String> authorizedRedirectUris;
 
     @Override
