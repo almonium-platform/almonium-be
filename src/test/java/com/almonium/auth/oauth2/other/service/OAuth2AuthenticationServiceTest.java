@@ -1,4 +1,4 @@
-package com.almonium.auth.oauth2.service;
+package com.almonium.auth.oauth2.other.service;
 
 import static java.util.Map.entry;
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +19,6 @@ import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.GoogleOAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
-import com.almonium.auth.oauth2.other.service.OAuth2AuthenticationService;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;

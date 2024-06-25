@@ -24,7 +24,7 @@ public class LoggingAspect {
 
     @Pointcut(POINTCUT)
     public void publicMethod() {
-        // Pointcut for public methods in linguarium package and sub-packages, excluding TokenAuthenticationFilter
+        // Pointcut for public methods in com.almonium package and sub-packages, excluding TokenAuthenticationFilter
     }
 
     @Before("publicMethod()")
