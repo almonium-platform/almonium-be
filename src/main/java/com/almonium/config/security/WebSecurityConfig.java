@@ -12,11 +12,11 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.almonium.auth.common.filter.TokenAuthenticationFilter;
-import com.almonium.auth.oauth2.filter.AppleOidcUserFilter;
-import com.almonium.auth.oauth2.handler.OAuth2AuthenticationFailureHandler;
-import com.almonium.auth.oauth2.handler.OAuth2AuthenticationSuccessHandler;
-import com.almonium.auth.oauth2.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.service.OAuth2UserDetailsService;
+import com.almonium.auth.oauth2.apple.filter.AppleOidcUserFilter;
+import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationFailureHandler;
+import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationSuccessHandler;
+import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
+import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

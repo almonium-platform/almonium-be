@@ -1,7 +1,7 @@
 package com.almonium.user.core.mapper;
 
-import com.almonium.auth.oauth2.model.entity.OAuth2Principal;
-import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
+import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
+import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.User;
 import org.mapstruct.Mapper;
