@@ -1,7 +1,7 @@
 package com.almonium.util;
 
-import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.card.core.dto.CardCreationDto;

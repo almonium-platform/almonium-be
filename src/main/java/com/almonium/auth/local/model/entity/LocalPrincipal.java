@@ -1,6 +1,6 @@
 package com.almonium.auth.local.model.entity;
 
-import static com.almonium.auth.common.enums.AuthProviderType.LOCAL;
+import static com.almonium.auth.common.model.enums.AuthProviderType.LOCAL;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.user.core.model.entity.User;

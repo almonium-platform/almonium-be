@@ -2,7 +2,7 @@ package com.almonium.auth.common.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;

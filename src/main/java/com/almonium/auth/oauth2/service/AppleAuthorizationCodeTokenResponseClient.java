@@ -2,7 +2,7 @@ package com.almonium.auth.oauth2.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.oauth2.client.AppleTokenClient;
 import com.almonium.auth.oauth2.dto.AppleTokenResponse;
 import com.almonium.auth.oauth2.util.AppleJwtUtil;

@@ -1,6 +1,6 @@
 package com.almonium.auth.oauth2.repository;
 
-import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.oauth2.model.entity.OAuth2Principal;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

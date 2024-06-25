@@ -1,6 +1,6 @@
 package com.almonium.auth.oauth2.model.userinfo;
 
-import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

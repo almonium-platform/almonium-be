@@ -1,4 +1,4 @@
-package com.almonium.auth.common.enums;
+package com.almonium.auth.common.model.enums;
 
 import lombok.Getter;
 

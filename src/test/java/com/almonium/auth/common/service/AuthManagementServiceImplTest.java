@@ -8,11 +8,11 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.almonium.auth.common.enums.AuthProviderType;
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.impl.AuthManagementServiceImpl;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;

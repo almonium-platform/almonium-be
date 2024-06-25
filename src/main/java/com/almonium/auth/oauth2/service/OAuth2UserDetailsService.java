@@ -2,7 +2,7 @@ package com.almonium.auth.oauth2.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.enums.AuthProviderType;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.oauth2.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.model.userinfo.OAuth2UserInfo;
