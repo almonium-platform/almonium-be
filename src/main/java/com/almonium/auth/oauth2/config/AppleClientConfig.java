@@ -11,7 +11,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class HttpClientConfig {
+public class AppleClientConfig {
 
     @Value("${app.auth.oauth2.apple-token-url}")
     private String appleTokenUrl;
