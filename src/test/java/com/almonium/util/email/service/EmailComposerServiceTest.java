@@ -3,7 +3,8 @@ package com.almonium.util.email.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.almonium.auth.local.model.enums.TokenType;
-import com.almonium.util.email.dto.EmailDto;
+import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.service.EmailComposerService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

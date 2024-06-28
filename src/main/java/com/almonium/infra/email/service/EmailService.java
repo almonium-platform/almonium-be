@@ -1,8 +1,8 @@
-package com.almonium.util.email.service;
+package com.almonium.infra.email.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.util.email.dto.EmailDto;
+import com.almonium.infra.email.dto.EmailDto;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;

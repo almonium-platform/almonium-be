@@ -3,7 +3,8 @@ package com.almonium.util.email.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
-import com.almonium.util.email.dto.EmailDto;
+import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.service.EmailService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

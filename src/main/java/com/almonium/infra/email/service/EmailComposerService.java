@@ -1,7 +1,7 @@
-package com.almonium.util.email.service;
+package com.almonium.infra.email.service;
 
 import com.almonium.auth.local.model.enums.TokenType;
-import com.almonium.util.email.dto.EmailDto;
+import com.almonium.infra.email.dto.EmailDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
