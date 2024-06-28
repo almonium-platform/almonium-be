@@ -1,6 +1,7 @@
 package com.almonium.auth.oauth2.apple.config;
 
 import com.almonium.auth.oauth2.apple.client.AppleTokenClient;
+import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,25 +18,19 @@ public class AppleClientConfig {
     private String appleTokenUrl;
 
     @Bean
-    public WebClient webClient() {
-        return WebClient.builder()
+    public AppleTokenClient appleTokenClient() {
+        WebClient webClient = WebClient.builder()
+                .baseUrl(appleTokenUrl)
                 .defaultStatusHandler(HttpStatusCode::is4xxClientError, resp -> resp.bodyToMono(String.class)
-                        .flatMap(errorBody -> Mono.error(new RuntimeException("Client error: " + errorBody))))
+                        .flatMap(errorBody ->
+                                Mono.error(new OAuth2AuthenticationException("Client error: " + errorBody))))
                 .defaultStatusHandler(
                         HttpStatusCode::is5xxServerError,
-                        resp -> Mono.just(new RuntimeException("Server error: " + resp.statusCode())))
-                .baseUrl(appleTokenUrl)
+                        resp -> Mono.just(new OAuth2AuthenticationException("Server error: " + resp.statusCode())))
                 .build();
-    }
 
-    @Bean
-    public HttpServiceProxyFactory httpServiceProxyFactory(WebClient webClient) {
         return HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient))
-                .build();
-    }
-
-    @Bean
-    public AppleTokenClient appleTokenClient(HttpServiceProxyFactory factory) {
-        return factory.createClient(AppleTokenClient.class);
+                .build()
+                .createClient(AppleTokenClient.class);
     }
 }

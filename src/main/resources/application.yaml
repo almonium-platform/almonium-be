@@ -14,6 +14,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
@@ -28,14 +29,12 @@ spring:
       client:
         registration:
           google:
-            clientId: ${GOOGLE_ID}
-            clientSecret: ${GOOGLE_SECRET}
+            client-id: ${GOOGLE_ID}
+            client-secret: ${GOOGLE_SECRET}
             scope: profile,email
-
           facebook:
-            clientId: ${FACEBOOK_ID}
-            clientSecret: ${FACEBOOK_SECRET}
-
+            client-id: ${FACEBOOK_ID}
+            client-secret: ${FACEBOOK_SECRET}
           apple:
             client-id: ${APPLE_ID}
             client-secret: ${APPLE_SECRET}
@@ -46,6 +45,8 @@ spring:
             scope: name,email
 
         provider:
+          google:
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
           facebook:
             user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
           apple:
@@ -105,6 +106,12 @@ app:
 google:
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
+
+openai:
+  gpt:
+    model: gpt-3.5-turbo
+    url: https://api.openai.com/v1/chat/completions
+    key: ${OPENAI_KEY}
 
 external:
   api:

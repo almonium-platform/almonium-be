@@ -1,0 +1,20 @@
+package com.almonium.engine.client.chatgpt.controller;
+
+import com.almonium.engine.client.chatgpt.service.GptService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping
+@RequiredArgsConstructor
+public class ChatController {
+    private final GptService gptService;
+
+    @PostMapping("/chat")
+    public String chat(@RequestBody String prompt) {
+        return gptService.getChatResponse(prompt);
+    }
+}
