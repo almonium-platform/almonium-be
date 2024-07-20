@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Client
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-@Slf4j
 public class WordsClient extends AbstractClient {
     private static final String API_ID_HEADER_NAME = "X-RapidAPI-Host";
     private static final String API_ID_HEADER_VALUE = "wordsapiv1.p.rapidapi.com";

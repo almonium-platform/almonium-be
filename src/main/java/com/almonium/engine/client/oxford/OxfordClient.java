@@ -8,7 +8,6 @@ import com.almonium.engine.client.oxford.dto.OxfordResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
-@Slf4j
 public class OxfordClient extends AbstractClient {
     static String API_ID_HEADER_NAME = "app_id";
     static String API_ID_HEADER_VALUE = "22117aac";

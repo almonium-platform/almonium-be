@@ -3,8 +3,11 @@ package com.almonium.auth.oauth2.other.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -43,7 +46,7 @@ public class CookieUtil {
 
     public static String serialize(Object object) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
 
             objectOutputStream.writeObject(object);
             return Base64.getUrlEncoder().encodeToString(byteArrayOutputStream.toByteArray());
@@ -55,7 +58,7 @@ public class CookieUtil {
     public static <T> T deserialize(String base64, Class<T> cls) {
         byte[] bytes = Base64.getUrlDecoder().decode(base64);
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
+             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
 
             Object object = objectInputStream.readObject();
             return cls.cast(object);

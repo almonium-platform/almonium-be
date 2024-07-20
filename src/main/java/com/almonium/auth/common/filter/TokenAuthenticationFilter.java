@@ -1,5 +1,9 @@
 package com.almonium.auth.common.filter;
 
+import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
+import static com.google.auth.http.AuthHttpConstants.BEARER;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.impl.TokenProvider;
@@ -8,6 +12,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collections;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,13 +25,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.util.Collections;
-
-import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
-import static com.google.auth.http.AuthHttpConstants.BEARER;
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @Component

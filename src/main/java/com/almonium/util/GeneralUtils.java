@@ -1,9 +1,8 @@
 package com.almonium.util;
 
+import java.util.Collection;
 import lombok.experimental.UtilityClass;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Collection;
 
 @UtilityClass
 public class GeneralUtils {

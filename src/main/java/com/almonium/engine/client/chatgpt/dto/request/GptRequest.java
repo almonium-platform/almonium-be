@@ -1,7 +1,6 @@
 package com.almonium.engine.client.chatgpt.dto.request;
 
 import com.almonium.engine.client.chatgpt.dto.common.Message;
-
 import java.util.List;
 
 public record GptRequest(String model, List<Message> messages, int n, double temperature) {
