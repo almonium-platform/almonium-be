@@ -1,4 +1,5 @@
 databaseChangeLog:
+  # Creation
   - include:
       file: db/changelog/changes/creation/create-user_core-table.yaml
   - include:
@@ -31,5 +32,6 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-learner-target-lang-table.yaml
   - include:
       file: db/changelog/changes/creation/create-verification-token-table.yaml
+  # Insertion
   - include:
-      file: db/changelog/changes/insertion/fill-static-tables.yaml
+      file: db/changelog/changes/insertion/translator-table-inserts.yaml

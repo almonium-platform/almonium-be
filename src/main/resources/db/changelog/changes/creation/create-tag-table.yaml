@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-tag-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: tag

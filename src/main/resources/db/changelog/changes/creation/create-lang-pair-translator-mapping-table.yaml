@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-lang-pair-translator-mapping-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: lang_pair_translator_mapping

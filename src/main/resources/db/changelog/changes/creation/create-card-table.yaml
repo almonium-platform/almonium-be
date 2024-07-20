@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-card-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: card

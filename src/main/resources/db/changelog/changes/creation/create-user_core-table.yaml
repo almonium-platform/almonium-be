@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-user_core-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: user_core

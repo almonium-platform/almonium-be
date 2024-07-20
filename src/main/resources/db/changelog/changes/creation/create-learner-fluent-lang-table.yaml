@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-learner-fluent-lang-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: learner_fluent_lang

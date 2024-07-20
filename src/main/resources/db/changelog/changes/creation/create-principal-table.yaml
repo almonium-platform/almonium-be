@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-principal-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: principal

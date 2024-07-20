@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-learner-target-lang-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: learner_target_lang

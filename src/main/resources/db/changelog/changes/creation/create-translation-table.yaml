@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-translation-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: translation

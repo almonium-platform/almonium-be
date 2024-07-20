@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-profile-table
-      author: okuzan
+      author: almoni
       changes:
         - createTable:
             tableName: profile
