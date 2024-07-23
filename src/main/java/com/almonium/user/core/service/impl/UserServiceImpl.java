@@ -3,6 +3,8 @@ package com.almonium.user.core.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.model.entity.LocalPrincipal;
+import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.exception.NoPrincipalsFoundException;
 import com.almonium.user.core.mapper.UserMapper;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     UserMapper userMapper;
+    PlanSubscriptionService planSubscriptionService;
+    StripeApiService stripeApiService;
 
     @Override
     public UserInfo buildUserInfoFromUser(User user) {
@@ -46,12 +50,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteAccount(User user) {
+        planSubscriptionService
+                .findActiveSubscription(user)
+                .ifPresent((activeSub) -> stripeApiService.cancelSubscription(activeSub.getStripeSubscriptionId()));
         userRepository.delete(user);
     }
 
     @Override
-    @Transactional
-    public void changeUsernameById(String username, Long id) {
+    public void changeUsernameById(String username, long id) {
         userRepository.changeUsername(username, id);
     }
 
@@ -79,7 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserWithPrincipals(Long id) {
+    public User getUserWithPrincipals(long id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
 }

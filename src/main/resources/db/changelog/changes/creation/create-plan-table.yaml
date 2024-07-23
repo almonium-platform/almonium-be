@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-plans-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: plan
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: price
+                  type: DOUBLE PRECISION
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stripe_price_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

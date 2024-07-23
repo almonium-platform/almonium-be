@@ -3,6 +3,7 @@ package com.almonium.user.core.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.friendship.model.entity.Friendship;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -89,4 +90,9 @@ public class User {
             learner = Learner.builder().user(this).build();
         }
     }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<PlanSubscription> planSubscriptions;
+
+    private String stripeCustomerId;
 }

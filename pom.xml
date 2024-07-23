@@ -36,6 +36,7 @@
         <version.springdoc>2.5.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
+        <version.stripe>26.1.0</version.stripe>
     </properties>
 
     <dependencies>
@@ -172,6 +173,11 @@
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>${version.java-jwt}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>${version.stripe}</version>
         </dependency>
 
         <!--        Google-->

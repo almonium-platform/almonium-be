@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-initial-plans
+      author: almoni
+      changes:
+        - insert:
+            tableName: plan
+            columns:
+              - column: { name: id, value: "1" }
+              - column: { name: name, value: "Free Plan" }
+              - column: { name: description, value: "Basic access" }
+              - column: { name: price, valueNumeric: "0.00" }
+              - column: { name: type, value: "MONTHLY" }
+              - column: { name: stripe_price_id, value: "price_1PecJYRoiildngwv9dV9w5nX" }
+        - insert:
+            tableName: plan
+            columns:
+              - column: { name: id, value: "2" }
+              - column: { name: name, value: "Pro Plan Monthly" }
+              - column: { name: description, value: "Access to all features" }
+              - column: { name: price, valueNumeric: "4.99" }
+              - column: { name: type, value: "MONTHLY" }
+              - column: { name: stripe_price_id, value: "price_1Pc8ogRoiildngwvW80LNpBt" }
+        - insert:
+            tableName: plan
+            columns:
+              - column: { name: id, value: "3" }
+              - column: { name: name, value: "Pro Plan Yearly" }
+              - column: { name: description, value: "Access to all features" }
+              - column: { name: price, valueNumeric: "49.99" }
+              - column: { name: type, value: "YEARLY" }
+              - column: { name: stripe_price_id, value: "price_1PecFYRoiildngwv0pwCFyJc" }

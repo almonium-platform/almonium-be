@@ -32,6 +32,14 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-learner-target-lang-table.yaml
   - include:
       file: db/changelog/changes/creation/create-verification-token-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-plan-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-plan-subscription-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-stripe-event-log-table.yaml
   # Insertion
   - include:
       file: db/changelog/changes/insertion/translator-table-inserts.yaml
+  - include:
+      file: db/changelog/changes/insertion/plan-table-inserts.yaml

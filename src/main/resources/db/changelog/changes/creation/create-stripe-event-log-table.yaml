@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-stripe-event-log-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: stripe_event_log
+            columns:
+              - column:
+                  name: event_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp
+                  constraints:
+                    nullable: false

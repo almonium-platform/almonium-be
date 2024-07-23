@@ -112,6 +112,15 @@ openai:
     url: https://api.openai.com/v1/chat/completions
     key: ${OPENAI_KEY}
 
+stripe:
+  webhook:
+    secret: ${STRIPE_WEBHOOK_SECRET}
+  api:
+    key: ${STRIPE_KEY}
+  checkout:
+    success-url: ${app.domain}/${STRIPE_SUCCESS_URL}
+    cancel-url: ${app.domain}/${STRIPE_CANCEL_URL}
+
 external:
   api:
     key:

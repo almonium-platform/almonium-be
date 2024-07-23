@@ -78,7 +78,7 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
-        when(emailComposerService.composeEmail(localAuthRequest.email(), token, TokenType.EMAIL_VERIFICATION))
+        when(emailComposerService.composeTokenEmail(localAuthRequest.email(), token, TokenType.EMAIL_VERIFICATION))
                 .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act
@@ -199,7 +199,7 @@ class AuthManagementServiceImplTest {
         String token = "123456";
 
         when(tokenGenerator.generateOTP(6)).thenReturn(token);
-        when(emailComposerService.composeEmail(localPrincipal.getEmail(), token, TokenType.EMAIL_VERIFICATION))
+        when(emailComposerService.composeTokenEmail(localPrincipal.getEmail(), token, TokenType.EMAIL_VERIFICATION))
                 .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act

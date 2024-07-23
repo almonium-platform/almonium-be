@@ -14,9 +14,9 @@ public interface UserService extends UserDetailsService {
 
     boolean isUsernameAvailable(String username);
 
-    void changeUsernameById(String username, Long id);
+    void changeUsernameById(String username, long id);
 
     void deleteAccount(User user);
 
-    User getUserWithPrincipals(Long id);
+    User getUserWithPrincipals(long id);
 }

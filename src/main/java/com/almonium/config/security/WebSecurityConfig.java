@@ -58,7 +58,12 @@ public class WebSecurityConfig {
     OAuth2CookieRequestRepository authorizationRequestRepository;
 
     private static final List<String> PERMIT_ALL_URL_PATTERNS = List.of(
-            "/auth/public/**", "swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/oauth2/authorization/**");
+            "/auth/public/**",
+            "swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/oauth2/authorization/**",
+            "/webhooks/**");
 
     @NonFinal
     @Value("${app.domain}")

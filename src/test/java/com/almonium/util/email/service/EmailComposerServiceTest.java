@@ -23,7 +23,7 @@ public class EmailComposerServiceTest {
 
     @DisplayName("Should compose an email with the provided recipient email, token, and token type")
     @Test
-    void givenRecipientEmailTokenAndTokenType_whenComposeEmailForEmailVerification_thenEmailIsComposed() {
+    void givenRecipientEmailTokenAndTokenType_whenComposeEmailForEmailVerification_thenTokenEmailIsComposed() {
         // Arrange
         String recipientEmail = "test@example.com";
         String token = "testToken";
@@ -35,7 +35,7 @@ public class EmailComposerServiceTest {
                         + "If you didn't create an account, you can safely ignore this email.\n";
 
         // Act
-        EmailDto result = emailComposerService.composeEmail(recipientEmail, token, tokenType);
+        EmailDto result = emailComposerService.composeTokenEmail(recipientEmail, token, tokenType);
 
         // Assert
         assertEquals(recipientEmail, result.recipient());
@@ -45,7 +45,7 @@ public class EmailComposerServiceTest {
 
     @DisplayName("Should compose an email with the provided recipient email, token, and PASSWORD_RESET token type")
     @Test
-    void givenRecipientEmailTokenAndTokenType_whenComposeEmailForPasswordReset_thenEmailIsComposed() {
+    void givenRecipientEmailTokenAndTokenType_whenComposeEmailForPasswordReset_thenTokenEmailIsComposed() {
         // Arrange
         String recipientEmail = "test@example.com";
         String token = "testToken";
@@ -56,7 +56,7 @@ public class EmailComposerServiceTest {
                 + "If you didn't request a password reset, you can safely ignore this email.\n";
 
         // Act
-        EmailDto result = emailComposerService.composeEmail(recipientEmail, token, tokenType);
+        EmailDto result = emailComposerService.composeTokenEmail(recipientEmail, token, tokenType);
 
         // Assert
         assertEquals(recipientEmail, result.recipient());

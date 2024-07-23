@@ -7,6 +7,8 @@ import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.local.exception.InvalidTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
+import com.almonium.subscription.exception.PlanSubscriptionException;
+import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalsFoundException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
@@ -88,19 +90,29 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
     }
 
+    @ExceptionHandler(StripeIntegrationException.class)
+    public ResponseEntity<ApiResponse> handleStripeIntegrationException(StripeIntegrationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(PlanSubscriptionException.class)
+    public ResponseEntity<ApiResponse> handlePlanSubscriptionException(PlanSubscriptionException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
     // auth
     @ExceptionHandler(EmailNotVerifiedException.class)
-    public ResponseEntity<?> handleEmailNotVerifiedException(EmailNotVerifiedException ex) {
+    public ResponseEntity<ApiResponse> handleEmailNotVerifiedException(EmailNotVerifiedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<?> handleInvalidTokenException(InvalidTokenException ex) {
+    public ResponseEntity<ApiResponse> handleInvalidTokenException(InvalidTokenException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(EmailNotFoundException.class)
-    public ResponseEntity<?> handleEmailNotFoundException(EmailNotFoundException ex) {
+    public ResponseEntity<ApiResponse> handleEmailNotFoundException(EmailNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 

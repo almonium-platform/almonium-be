@@ -29,4 +29,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {"principals"})
     Optional<User> findById(long id);
+
+    Optional<User> findByStripeCustomerId(String stripeCustomerId);
 }

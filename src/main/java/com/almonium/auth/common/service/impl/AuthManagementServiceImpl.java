@@ -67,7 +67,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
         String token = tokenGenerator.generateOTP(OTP_LENGTH);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
         verificationTokenRepository.save(verificationToken);
-        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), token, tokenType);
+        EmailDto emailDto = emailComposerService.composeTokenEmail(localPrincipal.getEmail(), token, tokenType);
         emailService.sendEmail(emailDto);
     }
 
