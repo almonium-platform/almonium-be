@@ -34,7 +34,7 @@ public class LocalAuthController {
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody LocalAuthRequest request) {
         localAuthService.register(request);
         return ResponseEntity.ok(
-                new ApiResponse(true, "User registration attempt recorded. Needs verification to complete"));
+                new ApiResponse(true, "Successfully registered. Please verify your email address"));
     }
 
     @PostMapping("/verify-email")
