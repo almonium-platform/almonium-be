@@ -63,6 +63,7 @@ public class WebSecurityConfig {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/oauth2/authorization/**",
+            "/system-info/**",
             "/webhooks/**");
 
     @NonFinal
