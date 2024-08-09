@@ -1,5 +1,3 @@
-(link) [https://almonium.com]
-
 # Friendships
 
 ## Scenarios
