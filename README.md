@@ -1,4 +1,4 @@
-(link)[https://almonium.com]
+(link) [https://almonium.com]
 
 # Friendships
 
