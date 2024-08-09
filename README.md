@@ -1,3 +1,5 @@
+[Try online](http://almonium.com)
+
 # Friendships
 
 ## Scenarios
@@ -8,7 +10,7 @@
 
 ### Sending a Friend Request
 
-**Flow**: [User]((link)[https://almonium.com]) A sends a friend request to User B.
+**Flow**: User A sends a friend request to User B.
 
 **Status**: `PENDING`
 
