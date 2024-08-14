@@ -20,9 +20,10 @@ public class EmailService {
     String from;
 
     public void sendEmail(EmailDto emailDto) {
+        String fromFormat = String.format("Almonium <%s>", from);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(emailDto.recipient());
-        message.setFrom(from);
+        message.setFrom(fromFormat);
         message.setSubject(emailDto.subject());
         message.setText(emailDto.body());
         mailSender.send(message);
