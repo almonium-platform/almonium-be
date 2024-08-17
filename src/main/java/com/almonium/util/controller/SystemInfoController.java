@@ -1,4 +1,4 @@
-package com.almonium.util.system;
+package com.almonium.util.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 

@@ -64,6 +64,7 @@ public class WebSecurityConfig {
             "/v3/api-docs/**",
             "/oauth2/authorization/**",
             "/system-info/**",
+            "/util/**",
             "/webhooks/**");
 
     @NonFinal
