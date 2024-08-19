@@ -70,7 +70,7 @@ class AuthManagementServiceImplTest {
     void givenValidLocalLoginRequest_whenLinkLocalAuth_thenSuccess() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
         user.setEmail(localAuthRequest.email()); // Ensure email matches
 
         String token = "123456";
@@ -98,7 +98,7 @@ class AuthManagementServiceImplTest {
     void givenEmailMismatch_whenLinkLocalAuth_thenThrowEmailMismatchException() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
         user.setEmail("different-email@example.com");
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
@@ -117,7 +117,7 @@ class AuthManagementServiceImplTest {
     void givenExistingLocalLogin_whenLinkLocalAuth_thenThrowUserAlreadyExistsAuthenticationException() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
         Principal existingPrincipal = LocalPrincipal.builder()
                 .user(user)
                 .provider(AuthProviderType.LOCAL)
@@ -139,7 +139,7 @@ class AuthManagementServiceImplTest {
     @Test
     void givenValidProvider_whenUnlinkProvider_thenSuccess() {
         // Arrange
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
         Principal principalGoogle = TestDataGenerator.buildTestPrincipal(AuthProviderType.GOOGLE);
         Principal principalFacebook = TestDataGenerator.buildTestPrincipal(AuthProviderType.FACEBOOK);
         user.getPrincipals().add(principalGoogle);
@@ -159,7 +159,7 @@ class AuthManagementServiceImplTest {
     @Test
     void givenInvalidProvider_whenUnlinkProvider_thenThrowException() {
         // Arrange
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
@@ -176,7 +176,7 @@ class AuthManagementServiceImplTest {
     @Test
     void givenLastAuthMethod_whenUnlinkProvider_thenThrowLastAuthMethodException() {
         // Arrange
-        User user = TestDataGenerator.buildTestUser();
+        User user = TestDataGenerator.buildTestUserWithId();
         Principal principal = TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
         user.getPrincipals().add(principal);
 

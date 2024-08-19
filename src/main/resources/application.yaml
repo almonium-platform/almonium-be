@@ -125,6 +125,8 @@ stripe:
 
 external:
   api:
+    ngrams: # free/non-rated
+      url: https://api.ngrams.dev
     key:
       urban: ${URBAN_KEY}
       wordnik: ${WORDNIK_KEY}

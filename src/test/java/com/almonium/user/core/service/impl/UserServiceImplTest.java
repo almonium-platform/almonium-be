@@ -6,6 +6,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -28,6 +31,12 @@ class UserServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    PlanSubscriptionService planSubscriptionService;
+
+    @Mock
+    StripeApiService stripeApiService;
 
     @Mock
     UserMapper userMapper;
@@ -70,9 +79,24 @@ class UserServiceImplTest {
     @Test
     void givenUser_whenDeleteAccount_thenRepositoryDeleteIsCalled() {
         User user = UserUtility.getUser();
-
+        when(planSubscriptionService.findActiveSubscription(user)).thenReturn(Optional.empty());
         userService.deleteAccount(user);
 
+        verify(userRepository).delete(user);
+    }
+
+    @DisplayName("Should delete user account")
+    @Test
+    void givenUserWithActiveSubscription_whenDeleteAccount_thenRepositoryDeleteIsCalledAndSubscriptionCancelled() {
+        User user = UserUtility.getUser();
+        String subscriptionId = "sub_123";
+        when(planSubscriptionService.findActiveSubscription(user)).thenReturn(Optional.of(PlanSubscription.builder()
+                .stripeSubscriptionId(subscriptionId)
+                .user(user)
+                .build()));
+        userService.deleteAccount(user);
+
+        verify(stripeApiService).cancelSubscription(subscriptionId);
         verify(userRepository).delete(user);
     }
 

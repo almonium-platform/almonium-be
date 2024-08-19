@@ -33,8 +33,7 @@ public class LocalAuthController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody LocalAuthRequest request) {
         localAuthService.register(request);
-        return ResponseEntity.ok(
-                new ApiResponse(true, "Successfully registered. Please verify your email address"));
+        return ResponseEntity.ok(new ApiResponse(true, "Successfully registered. Please verify your email address"));
     }
 
     @PostMapping("/verify-email")

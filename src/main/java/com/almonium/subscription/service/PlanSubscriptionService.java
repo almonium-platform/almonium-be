@@ -125,7 +125,8 @@ public class PlanSubscriptionService {
 
     public void cancelSubscription(User user) {
         PlanSubscription activeSubscription = findActiveSubscription(user)
-                .orElseThrow(() -> new PlanSubscriptionException("No active subscription found for user " + user.getId()));
+                .orElseThrow(
+                        () -> new PlanSubscriptionException("No active subscription found for user " + user.getId()));
         stripeApiService.cancelSubscription(activeSubscription.getStripeSubscriptionId());
         cancelPlanSubscription(activeSubscription);
     }
