@@ -90,10 +90,11 @@ class UserServiceImplTest {
     void givenUserWithActiveSubscription_whenDeleteAccount_thenRepositoryDeleteIsCalledAndSubscriptionCancelled() {
         User user = UserUtility.getUser();
         String subscriptionId = "sub_123";
-        when(planSubscriptionService.findActiveSubscription(user)).thenReturn(Optional.of(PlanSubscription.builder()
-                .stripeSubscriptionId(subscriptionId)
-                .user(user)
-                .build()));
+        when(planSubscriptionService.findActiveSubscription(user))
+                .thenReturn(Optional.of(PlanSubscription.builder()
+                        .stripeSubscriptionId(subscriptionId)
+                        .user(user)
+                        .build()));
         userService.deleteAccount(user);
 
         verify(stripeApiService).cancelSubscription(subscriptionId);
