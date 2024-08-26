@@ -1,3 +1,5 @@
+![Logo](readme/logo%20300x300.png)
+
 [Try online](http://almonium.com)
 
 # Friendships
