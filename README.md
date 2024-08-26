@@ -1,8 +1,13 @@
+![Logo](readme/logo%20300x300.png)
 <div style="text-align:center">
     <img src="readme/logo%20300x300.png" alt="almonium logo.png"/>
 </div>
 
-[Try online](https://almonium.com)
+<p align="center">
+  <img src="readme/logo%20300x300.png" alt="Almonium logo.png"/>
+</p>
+
+[Try online](http://almonium.com)
 
 # Friendships
 
