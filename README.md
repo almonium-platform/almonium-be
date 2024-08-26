@@ -1,6 +1,8 @@
-![Logo](readme/logo%20300x300.png)
+<div style="text-align:center">
+    <img src="readme/logo%20300x300.png" alt="almonium logo.png"/>
+</div>
 
-[Try online](http://almonium.com)
+[Try online](https://almonium.com)
 
 # Friendships
 
@@ -49,6 +51,7 @@
 **Status**: `FST_BLOCKED_SND` or `SND_BLOCKED_FST` depending on who initiated the action.
 
 **Checks**:
+
 - The existing status must be either `FRIENDS` or `PENDING`.
 
 **Note**: Blocking prevents the blocked user from sending friend requests.
