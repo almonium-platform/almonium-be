@@ -135,4 +135,3 @@ external:
       wordnik: ${WORDNIK_KEY}
       yandex: ${YANDEX_KEY}
       words: ${WORDS_KEY}
-      oxford: ${OXFORD_KEY}
