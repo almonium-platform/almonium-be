@@ -1,5 +1,6 @@
 package com.almonium.subscription.model.entity;
 
+import com.almonium.infra.email.model.enums.EmailTemplateType;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,10 +48,10 @@ public class PlanSubscription {
         ON_HOLD
     }
 
-    public enum Event {
+    public enum Event implements EmailTemplateType {
         SUBSCRIPTION_CREATED,
         SUBSCRIPTION_UPDATED,
         SUBSCRIPTION_CANCELED,
-        PAYMENT_FAILED
+        SUBSCRIPTION_PAYMENT_FAILED
     }
 }

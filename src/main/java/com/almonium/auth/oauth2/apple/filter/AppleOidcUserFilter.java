@@ -33,8 +33,7 @@ public class AppleOidcUserFilter implements Filter {
             String jsonUser = request.getParameter("user");
             if (jsonUser != null) {
                 log.debug("User parameter is present: first Apple login.");
-                Map<String, Object> attributes = objectMapper.readValue(jsonUser, new TypeReference<>() {
-                });
+                Map<String, Object> attributes = objectMapper.readValue(jsonUser, new TypeReference<>() {});
                 threadLocalStore.addAttributes(attributes);
             }
         } catch (JsonProcessingException e) {
@@ -46,6 +45,5 @@ public class AppleOidcUserFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 }

@@ -18,7 +18,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.infra.email.service.EmailComposerService;
+import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthManagementServiceImpl implements AuthManagementService {
     private static final int OTP_LENGTH = 6;
     EmailService emailService;
-    EmailComposerService emailComposerService;
+    AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     PrincipalFactory principalFactory;
     PrincipalRepository principalRepository;
@@ -67,7 +67,7 @@ public class AuthManagementServiceImpl implements AuthManagementService {
         String token = tokenGenerator.generateOTP(OTP_LENGTH);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
         verificationTokenRepository.save(verificationToken);
-        EmailDto emailDto = emailComposerService.composeTokenEmail(localPrincipal.getEmail(), token, tokenType);
+        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
         emailService.sendEmail(emailDto);
     }
 

@@ -1,6 +1,8 @@
 package com.almonium.auth.local.model.enums;
 
-public enum TokenType {
+import com.almonium.infra.email.model.enums.EmailTemplateType;
+
+public enum TokenType implements EmailTemplateType {
     EMAIL_VERIFICATION,
     PASSWORD_RESET
 }

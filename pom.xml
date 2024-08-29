@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <version.commons-configuration2>2.9.0</version.commons-configuration2>
+        <version.commons-configuration2>2.10.1</version.commons-configuration2>
         <version.google-cloud>26.1.3</version.google-cloud>
         <version.google-guava>32.0.0-android</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
@@ -72,6 +72,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
+        <!--        for AOP logging-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -86,11 +87,23 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+        <!--        to send emails-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!--        template engine for emails-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--        to inline csv in email templates-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.18.1</version>
         </dependency>
 
         <!--        for testing-->
@@ -137,6 +150,8 @@
             <artifactId>commons-configuration2</artifactId>
             <version>${version.commons-configuration2}</version>
         </dependency>
+
+        <!--        language processing-->
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
@@ -148,12 +163,14 @@
             <version>${version.stanford-corenlp}</version>
             <classifier>models</classifier>
         </dependency>
+
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${version.jakarta}</version>
             <scope>provided</scope>
         </dependency>
+        <!--        for customized logging-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -169,11 +186,13 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>${version.nimbus}</version>
         </dependency>
+        <!--        for apple oauth2 token-->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>${version.java-jwt}</version>
         </dependency>
+        <!--        payment system integration -->
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>

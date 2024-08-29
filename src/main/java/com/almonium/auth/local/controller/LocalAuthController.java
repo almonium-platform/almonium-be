@@ -36,7 +36,7 @@ public class LocalAuthController {
         return ResponseEntity.ok(new ApiResponse(true, "Successfully registered. Please verify your email address"));
     }
 
-    @PostMapping("/verify-email")
+    @PostMapping("${app.endpoints.verify-email}")
     public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String token) {
         localAuthService.verifyEmail(token);
         return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
@@ -49,7 +49,7 @@ public class LocalAuthController {
         return ResponseEntity.ok(new ApiResponse(true, "Password reset email sent successfully"));
     }
 
-    @PostMapping("/reset-password")
+    @PostMapping("${app.endpoints.reset-password}")
     public ResponseEntity<ApiResponse> resetPassword(
             @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
         localAuthService.resetPassword(passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());

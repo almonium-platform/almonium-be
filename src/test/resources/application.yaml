@@ -58,12 +58,15 @@ google:
 
 app:
   domain: almonium-dummy.com
-
+  email:
+    send: false
+  endpoints:
+    reset-password: /reset-password
+    verify-email: /verify-email
   auth:
     jwt:
       token-expiration-duration-millis: 864000000
       token-signing-secret: token_secret_dummy
-
     oauth2:
       authorized-redirect-uris: ${app.domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com

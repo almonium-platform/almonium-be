@@ -1,103 +1,79 @@
 package com.almonium.infra.email.service;
 
-import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.subscription.model.entity.PlanSubscription;
-import org.springframework.beans.factory.annotation.Value;
+import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
+import com.almonium.infra.email.model.enums.EmailTemplateType;
+import jakarta.validation.constraints.NotNull;
+import java.time.Year;
+import java.util.Map;
+import java.util.StringTokenizer;
+import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Service
-public class EmailComposerService {
-    private static final String EMAIL_VERIFICATION_SUBJECT = "Verify your email address";
-    private static final String PASSWORD_RESET_SUBJECT = "Reset your password";
-    private static final String SUBSCRIPTION_CREATED_SUBJECT = "Subscription Created";
-    private static final String SUBSCRIPTION_UPDATED_SUBJECT = "Subscription Updated";
-    private static final String SUBSCRIPTION_DELETED_SUBJECT = "Subscription Deleted";
-    private static final String PAYMENT_FAILED_SUBJECT = "Payment Failed";
+@RequiredArgsConstructor
+public abstract class EmailComposerService {
+    private static final String TEMPLATE_PATH_FORMAT = "%s/%s.html";
+    private static final Map<String, String> UNIVERSAL_EMAIL_PLACEHOLDERS = Map.of(
+            "footerText", "© " + Year.now().getValue() + " Almonium. All rights reserved.", "headerText", "Almonium");
 
-    private static final String EMAIL_VERIFICATION_BODY =
-            """
-            Please verify your email by clicking the following link: %s.
-            If the link doesn't work, please paste the code into the form provided.
-            If you didn't create an account, you can safely ignore this email.
-            """;
-    private static final String PASSWORD_RESET_BODY =
-            """
-            To reset your password, click the following link: %s.
-            If the link doesn't work, please copy and paste it into your browser.
-            If you didn't request a password reset, you can safely ignore this email.
-            """;
-    private static final String SUBSCRIPTION_CREATED_BODY =
-            """
-                    Your subscription to the %s plan has been successfully created.
-                    """;
-    private static final String SUBSCRIPTION_UPDATED_BODY =
-            """
-                    Your subscription to the %s plan has been updated.
-                    """;
-    private static final String SUBSCRIPTION_STOPPED_BODY =
-            """
-                    Your subscription to the %s plan has been suspended.
-                    """;
-    private static final String PAYMENT_FAILED_BODY =
-            """
-                    Your payment for the subscription to the %s plan has failed. Please update your payment method.
-                    """;
+    private final SpringTemplateEngine templateEngine;
 
-    @Value("${app.domain}")
-    private String domain;
+    public EmailDto composeEmail(String recipientEmail, EmailTemplateType templateType, String tokenOrPlanName) {
+        Context context = new Context();
+        getCustomPlaceholders(templateType, tokenOrPlanName).forEach(context::setVariable);
+        UNIVERSAL_EMAIL_PLACEHOLDERS.forEach(context::setVariable);
 
-    public EmailDto composeTokenEmail(String recipientEmail, String token, TokenType tokenType) {
-        String url = generateUrl(token, tokenType);
-        String body = String.format(getBodyTemplate(tokenType), url);
-        String subject = getSubject(tokenType);
-        return new EmailDto(recipientEmail, subject, body);
+        EmailSubjectTemplate dto = getTemplateTypeConfigMap().get(templateType);
+        String templatePath = String.format(TEMPLATE_PATH_FORMAT, getSubfolder(), dto.template());
+        String body = templateEngine.process(templatePath, context);
+        body = inlineCss(body);
+        return new EmailDto(recipientEmail, dto.subject(), body);
     }
 
-    public EmailDto composeSubscriptionEmail(String recipientEmail, PlanSubscription.Event event, String planName) {
-        String body = String.format(getBodyTemplate(event), planName);
-        String subject = getSubject(event);
-        return new EmailDto(recipientEmail, subject, body);
+    public static String inlineCss(String html) {
+        final String style = "style";
+        Document doc = Jsoup.parse(html);
+        Elements els = doc.select(style); // to get all the style elements
+        for (Element e : els) {
+            String styleRules =
+                    e.getAllElements().get(0).data().replaceAll("\n", "").trim();
+            String delims = "{}";
+            StringTokenizer st = new StringTokenizer(styleRules, delims);
+            while (st.countTokens() > 1) {
+                String selector = st.nextToken(), properties = st.nextToken();
+                if (!selector.contains(":")) { // skip a:hover rules, etc.
+                    Elements selectedElements = doc.select(selector);
+                    for (Element selElem : selectedElements) {
+                        String oldProperties = selElem.attr(style);
+                        selElem.attr(
+                                style,
+                                !oldProperties.isEmpty()
+                                        ? concatenateProperties(oldProperties, properties)
+                                        : properties);
+                    }
+                }
+            }
+            e.remove();
+        }
+        return doc.toString();
     }
 
-    private String getSubject(TokenType tokenType) {
-        return switch (tokenType) {
-            case EMAIL_VERIFICATION -> EMAIL_VERIFICATION_SUBJECT;
-            case PASSWORD_RESET -> PASSWORD_RESET_SUBJECT;
-        };
+    private static String concatenateProperties(String oldProp, @NotNull String newProp) {
+        oldProp = oldProp.trim();
+        if (!oldProp.endsWith(";")) oldProp += ";";
+        return oldProp + newProp.replaceAll("\\s{2,}", " ");
     }
 
-    private String getSubject(PlanSubscription.Event event) {
-        return switch (event) {
-            case SUBSCRIPTION_CREATED -> SUBSCRIPTION_CREATED_SUBJECT;
-            case SUBSCRIPTION_UPDATED -> SUBSCRIPTION_UPDATED_SUBJECT;
-            case SUBSCRIPTION_CANCELED -> SUBSCRIPTION_DELETED_SUBJECT;
-            case PAYMENT_FAILED -> PAYMENT_FAILED_SUBJECT;
-        };
-    }
+    public abstract Map<EmailTemplateType, EmailSubjectTemplate> getTemplateTypeConfigMap();
 
-    private String getBodyTemplate(TokenType tokenType) {
-        return switch (tokenType) {
-            case EMAIL_VERIFICATION -> EMAIL_VERIFICATION_BODY;
-            case PASSWORD_RESET -> PASSWORD_RESET_BODY;
-        };
-    }
+    public abstract Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String tokenOrPlanName);
 
-    private String getBodyTemplate(PlanSubscription.Event event) {
-        return switch (event) {
-            case SUBSCRIPTION_CREATED -> SUBSCRIPTION_CREATED_BODY;
-            case SUBSCRIPTION_UPDATED -> SUBSCRIPTION_UPDATED_BODY;
-            case SUBSCRIPTION_CANCELED -> SUBSCRIPTION_STOPPED_BODY;
-            case PAYMENT_FAILED -> PAYMENT_FAILED_BODY;
-        };
-    }
-
-    private String generateUrl(String token, TokenType tokenType) {
-        String endpoint =
-                switch (tokenType) {
-                    case EMAIL_VERIFICATION -> "/verify-email";
-                    case PASSWORD_RESET -> "/reset-password";
-                };
-        return domain + endpoint + "?token=" + token;
-    }
+    public abstract String getSubfolder();
 }

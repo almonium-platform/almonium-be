@@ -23,7 +23,7 @@ import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.SecureRandomTokenGeneratorImpl;
-import com.almonium.infra.email.service.EmailComposerService;
+import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
@@ -57,7 +57,7 @@ class AuthManagementServiceImplTest {
     EmailService emailService;
 
     @Mock
-    EmailComposerService emailComposerService;
+    AuthTokenEmailComposerService emailComposerService;
 
     @Mock
     SecureRandomTokenGeneratorImpl tokenGenerator;
@@ -78,7 +78,7 @@ class AuthManagementServiceImplTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
-        when(emailComposerService.composeTokenEmail(localAuthRequest.email(), token, TokenType.EMAIL_VERIFICATION))
+        when(emailComposerService.composeEmail(localAuthRequest.email(), TokenType.EMAIL_VERIFICATION, token))
                 .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act
@@ -199,7 +199,7 @@ class AuthManagementServiceImplTest {
         String token = "123456";
 
         when(tokenGenerator.generateOTP(6)).thenReturn(token);
-        when(emailComposerService.composeTokenEmail(localPrincipal.getEmail(), token, TokenType.EMAIL_VERIFICATION))
+        when(emailComposerService.composeEmail(localPrincipal.getEmail(), TokenType.EMAIL_VERIFICATION, token))
                 .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act

@@ -3,8 +3,8 @@ package com.almonium.subscription.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.infra.email.service.EmailComposerService;
 import com.almonium.infra.email.service.EmailService;
+import com.almonium.infra.email.service.SubscriptionEmailComposerService;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanSubscriptionService {
     EmailService emailService;
-    EmailComposerService emailComposerService;
+    SubscriptionEmailComposerService emailComposerService;
     StripeApiService stripeApiService;
     PlanSubscriptionRepository planSubscriptionRepository;
     PlanRepository planRepository;
@@ -88,7 +88,7 @@ public class PlanSubscriptionService {
         planSubscriptionRepository.save(newPlanSubscription);
         log.info("Subscription created for user {} with subscription ID {}", user.getId(), stripeSubscriptionId);
 
-        EmailDto emailDto = emailComposerService.composeSubscriptionEmail(
+        EmailDto emailDto = emailComposerService.composeEmail(
                 user.getEmail(),
                 PlanSubscription.Event.SUBSCRIPTION_CREATED,
                 newPlanSubscription.getPlan().getName());
@@ -102,16 +102,16 @@ public class PlanSubscriptionService {
         logSubscriptionStatusChange(planSubscription, status);
 
         User user = planSubscription.getUser();
-        EmailDto emailDto = emailComposerService.composeSubscriptionEmail(
+        EmailDto emailDto = emailComposerService.composeEmail(
                 user.getEmail(),
-                PlanSubscription.Event.PAYMENT_FAILED,
+                PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED,
                 planSubscription.getPlan().getName());
         emailService.sendEmail(emailDto);
     }
 
     public void cancelPlanSubscription(PlanSubscription planSubscription) {
         User user = planSubscription.getUser();
-        EmailDto emailDto = emailComposerService.composeSubscriptionEmail(
+        EmailDto emailDto = emailComposerService.composeEmail(
                 user.getEmail(),
                 PlanSubscription.Event.SUBSCRIPTION_CANCELED,
                 planSubscription.getPlan().getName());

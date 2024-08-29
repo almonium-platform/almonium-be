@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="readme/logo%20300x300.png" alt="Almonium logo.png"/>
+  <img src="src/main/resources/static/logo.png" alt="Almonium logo.png"/>
+  <img src="src/main/resources/static/title-white.png" alt="Almonium title.png"/>
 </p>
 
 [Try online](http://almonium.com)

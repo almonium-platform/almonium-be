@@ -1,4 +1,3 @@
 package com.almonium.subscription.dto;
 
-public record SessionResponseDto(String sessionUrl) {
-}
+public record SessionResponseDto(String sessionUrl) {}

@@ -22,11 +22,13 @@ import com.almonium.base.BaseControllerTest;
 import com.almonium.config.GlobalExceptionHandler;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.util.TestDataGenerator;
+import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -44,12 +46,25 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LocalAuthControllerTest extends BaseControllerTest {
+
+    @Value("${app.endpoints.verify-email}")
+    String appEndpointsVerifyEmail;
+
+    @Value("${app.endpoints.reset-password}")
+    String appEndpointsResetPassword;
+
     private static final String BASE_URL = "/auth/public";
     private static final String LOGIN_URL = BASE_URL + "/login";
     private static final String REGISTER_URL = BASE_URL + "/register";
-    private static final String VERIFY_EMAIL_URL = BASE_URL + "/verify-email";
     private static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
-    private static final String RESET_PASSWORD_URL = BASE_URL + "/reset-password";
+    String verifyEmailUrl;
+    String resetPasswordUrl;
+
+    @PostConstruct
+    void init() {
+        verifyEmailUrl = BASE_URL + appEndpointsVerifyEmail;
+        resetPasswordUrl = BASE_URL + appEndpointsResetPassword;
+    }
 
     @MockBean
     LocalAuthService localAuthService;
@@ -127,7 +142,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenValidToken_whenVerifyEmail_thenSuccess() {
         String token = "validToken";
-        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
+        mockMvc.perform(post(verifyEmailUrl).param("token", token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("Email verified successfully"));
@@ -142,7 +157,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
                 .when(localAuthService)
                 .verifyEmail(any(String.class));
 
-        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
+        mockMvc.perform(post(verifyEmailUrl).param("token", token))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.message").value("Invalid verification token"));
@@ -188,7 +203,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
         String newPassword = "newPassword123";
         PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
 
-        mockMvc.perform(post(RESET_PASSWORD_URL)
+        mockMvc.perform(post(resetPasswordUrl)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -207,7 +222,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
                 .when(localAuthService)
                 .resetPassword(token, newPassword);
 
-        mockMvc.perform(post(RESET_PASSWORD_URL)
+        mockMvc.perform(post(resetPasswordUrl)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden())
