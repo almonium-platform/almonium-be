@@ -59,7 +59,7 @@ google:
 app:
   domain: almonium-dummy.com
   email:
-    send: false
+    dry-run: true
   endpoints:
     reset-password: /reset-password
     verify-email: /verify-email

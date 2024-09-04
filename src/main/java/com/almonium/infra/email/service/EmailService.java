@@ -36,13 +36,13 @@ public class EmailService {
     @Value("${spring.mail.username}")
     String from;
 
-    @Value("${app.email.send}")
-    boolean isEmailSendingEnabled;
+    @Value("${app.email.dry-run}")
+    boolean isEmailSendingSimulated;
 
     public void sendEmail(EmailDto emailDto) {
         try {
             MimeMessage mimeMessage = createMimeMessage(emailDto);
-            if (!isEmailSendingEnabled) {
+            if (isEmailSendingSimulated) {
                 log.info("Email sending is disabled. Skipping sending email to {}", emailDto.recipient());
                 htmlFileWriter.saveMimeMessageToFile(mimeMessage);
             } else {

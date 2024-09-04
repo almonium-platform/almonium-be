@@ -94,7 +94,7 @@ logging:
 app:
   domain: ${WEB_APP_DOMAIN}
   email:
-    send: true
+    dry-run: false
   endpoints:
     reset-password: /reset-password
     verify-email: /verify-email
