@@ -39,6 +39,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
 @UtilityClass
@@ -450,7 +451,7 @@ public class TestDataGenerator {
     }
 
     public static String generateId() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
+        return UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY);
     }
 
     public static LocalPrincipal buildTestLocalPrincipal() {

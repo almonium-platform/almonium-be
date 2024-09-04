@@ -8,6 +8,7 @@ import com.almonium.auth.local.dto.request.PasswordResetRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.service.LocalAuthService;
 import com.almonium.util.dto.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,20 +27,15 @@ public class LocalAuthController {
     LocalAuthService localAuthService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LocalAuthRequest localAuthRequest) {
-        return ResponseEntity.ok(localAuthService.login(localAuthRequest));
+    public ResponseEntity<JwtAuthResponse> login(
+            @Valid @RequestBody LocalAuthRequest localAuthRequest, HttpServletResponse response) {
+        return ResponseEntity.ok(localAuthService.login(localAuthRequest, response));
     }
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody LocalAuthRequest request) {
         localAuthService.register(request);
         return ResponseEntity.ok(new ApiResponse(true, "Successfully registered. Please verify your email address"));
-    }
-
-    @PostMapping("${app.endpoints.verify-email}")
-    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String token) {
-        localAuthService.verifyEmail(token);
-        return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
     }
 
     @PostMapping("/forgot-password")
@@ -49,7 +45,13 @@ public class LocalAuthController {
         return ResponseEntity.ok(new ApiResponse(true, "Password reset email sent successfully"));
     }
 
-    @PostMapping("${app.endpoints.reset-password}")
+    @PostMapping("/verify-email")
+    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String token) {
+        localAuthService.verifyEmail(token);
+        return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
+    }
+
+    @PostMapping("/reset-password")
     public ResponseEntity<ApiResponse> resetPassword(
             @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
         localAuthService.resetPassword(passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());

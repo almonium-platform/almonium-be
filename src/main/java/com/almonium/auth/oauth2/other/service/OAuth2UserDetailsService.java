@@ -3,12 +3,12 @@ package com.almonium.auth.oauth2.other.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
+import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
 import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfoFactory;
-import com.almonium.auth.oauth2.other.util.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;

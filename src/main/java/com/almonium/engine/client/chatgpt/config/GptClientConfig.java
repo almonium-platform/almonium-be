@@ -1,7 +1,7 @@
 package com.almonium.engine.client.chatgpt.config;
 
+import com.almonium.auth.token.util.BearerTokenUtil;
 import com.almonium.engine.client.chatgpt.client.GptClient;
-import com.almonium.util.GeneralUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ class GptClientConfig {
     public GptClient gptClient() {
         WebClient webClient = WebClient.builder()
                 .baseUrl(openaiUrl)
-                .defaultHeader(HttpHeaders.AUTHORIZATION, GeneralUtils.bearerOf(openaiApiKey))
+                .defaultHeader(HttpHeaders.AUTHORIZATION, BearerTokenUtil.bearerOf(openaiApiKey))
                 .build();
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient))

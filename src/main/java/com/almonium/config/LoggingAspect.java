@@ -19,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class LoggingAspect {
     private static final String BASE_PACKAGE = "com.almonium";
-    private static final String FILTER_PATH = BASE_PACKAGE + ".auth.common.filter.TokenAuthenticationFilter";
+    private static final String FILTER_PATH = BASE_PACKAGE + ".auth.token.filter.TokenAuthenticationFilter";
     private static final String POINTCUT = "within(" + BASE_PACKAGE + "..*) && !within(" + FILTER_PATH + ")";
 
     @Pointcut(POINTCUT)

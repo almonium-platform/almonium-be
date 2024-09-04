@@ -19,15 +19,11 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
             new EmailSubjectTemplate("Reset your password", "password-reset"));
 
     private static final String PLACEHOLDER = "url";
+    private static final String VERIFY_EMAIL_URL = "/verify-email";
+    private static final String RESET_PASSWORD_URL = "/reset-password";
 
-    @Value("${app.domain}")
+    @Value("${app.web-domain}")
     private String domain;
-
-    @Value("${app.endpoints.verify-email}")
-    private String emailVerificationUrl;
-
-    @Value("${app.endpoints.reset-password}")
-    private String passwordResetUrl;
 
     public AuthTokenEmailComposerService(SpringTemplateEngine templateEngine) {
         super(templateEngine);
@@ -52,8 +48,8 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
     private String getApiUrlForAuthIntent(String token, TokenType tokenType) {
         String url =
                 switch (tokenType) {
-                    case EMAIL_VERIFICATION -> emailVerificationUrl;
-                    case PASSWORD_RESET -> passwordResetUrl;
+                    case EMAIL_VERIFICATION -> VERIFY_EMAIL_URL;
+                    case PASSWORD_RESET -> RESET_PASSWORD_URL;
                 };
         return domain + url + "?token=" + token;
     }

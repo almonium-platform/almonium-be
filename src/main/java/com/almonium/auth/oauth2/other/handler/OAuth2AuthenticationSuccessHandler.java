@@ -1,11 +1,11 @@
 package com.almonium.auth.oauth2.other.handler;
 
-import static com.almonium.auth.oauth2.other.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.service.impl.TokenProvider;
+import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.other.util.CookieUtil;
+import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    TokenProvider tokenProvider;
+    AuthTokenService authTokenService;
     OAuth2CookieRequestRepository requestRepository;
 
     @Value("${app.auth.oauth2.authorized-redirect-uris}")
@@ -63,17 +63,16 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        String token = tokenProvider.createToken(authentication);
 
-        return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", token)
-                .build()
-                .toUriString();
+        authTokenService.createAndSetAccessToken(authentication, response);
+        authTokenService.createAndSetRefreshToken(authentication, response);
+
+        return UriComponentsBuilder.fromUriString(targetUrl).build().toUriString();
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
-        requestRepository.removeAuthorizationRequestCookies(request, response);
+        requestRepository.removeAuthorizationRequestCookies(response);
     }
 
     private boolean isAuthorizedRedirectUri(String uri) {

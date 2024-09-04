@@ -11,12 +11,12 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-import com.almonium.auth.common.filter.TokenAuthenticationFilter;
 import com.almonium.auth.oauth2.apple.filter.AppleOidcUserFilter;
 import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationFailureHandler;
 import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationSuccessHandler;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
+import com.almonium.auth.token.filter.TokenAuthenticationFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -57,24 +57,36 @@ public class WebSecurityConfig {
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     OAuth2CookieRequestRepository authorizationRequestRepository;
 
-    private static final List<String> PERMIT_ALL_URL_PATTERNS = List.of(
-            "/auth/public/**",
-            "swagger-ui.html",
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/oauth2/authorization/**",
-            "/system-info/**",
-            "/util/**",
-            "/discover/**",
-            "/webhooks/**");
-
     @NonFinal
-    @Value("${app.domain}")
+    @Value("${app.web-domain}")
     String domain;
 
     @NonFinal
     @Value("${app.auth.oauth2.apple-token-url}")
     String appleTokenUrl;
+
+    @NonFinal
+    @Value("${app.auth.jwt.refresh-token-url}")
+    String refreshTokenEndpoint;
+
+    // non-static method because we need to append the refresh token endpoint
+    private List<String> getPermitAllUrlPatterns() {
+        return List.of(
+                // Swagger
+                "swagger-ui.html",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                // Auth
+                "/auth/public/**",
+                "/oauth2/authorization/**",
+                // Public
+                "/discover/**",
+                // Util
+                "/util/**",
+                // All webhooks (Stripe, etc.)
+                "/webhooks/**",
+                refreshTokenEndpoint);
+    }
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -91,6 +103,7 @@ public class WebSecurityConfig {
         configuration.setAllowedOrigins(List.of(domain, appleTokenUrl));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, DELETE, OPTIONS));
         configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
+        configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -100,14 +113,15 @@ public class WebSecurityConfig {
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable) // to enable
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
-                        exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.FORBIDDEN)))
-                .authorizeHttpRequests(auth -> auth.requestMatchers(PERMIT_ALL_URL_PATTERNS.toArray(String[]::new))
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                        exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .authorizeHttpRequests(
+                        auth -> auth.requestMatchers(getPermitAllUrlPatterns().toArray(String[]::new))
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -116,8 +130,8 @@ public class WebSecurityConfig {
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(OAuth2UserDetailsService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .authorizationEndpoint(authEndPoint ->
-                                authEndPoint.authorizationRequestRepository(authorizationRequestRepository))
+                        .authorizationEndpoint(authEndpoint ->
+                                authEndpoint.authorizationRequestRepository(authorizationRequestRepository))
                         .failureHandler(oAuth2AuthenticationFailureHandler))
                 .build();
     }

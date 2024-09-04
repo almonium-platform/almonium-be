@@ -31,7 +31,8 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserInfo> getCurrentUser(@Auth Principal auth) {
-        return ResponseEntity.ok(userService.buildUserInfoFromUser(auth.getUser()));
+        //        return ResponseEntity.ok(userService.buildUserInfoFromUser(auth.getUser()));
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{username}/availability/")

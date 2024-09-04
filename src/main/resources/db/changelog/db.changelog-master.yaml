@@ -1,43 +1,46 @@
 databaseChangeLog:
   # Creation
   - include:
-      file: db/changelog/changes/creation/create-user_core-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-principal-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-profile-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-learner-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-friendship-table.yaml
+      file: db/changelog/changes/creation/create-card-suggestion-table.yaml
   - include:
       file: db/changelog/changes/creation/create-card-table.yaml
   - include:
-      file: db/changelog/changes/creation/create-card-suggestion-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-translation-table.yaml
+      file: db/changelog/changes/creation/create-card-tag-table.yaml
   - include:
       file: db/changelog/changes/creation/create-example-table.yaml
   - include:
-      file: db/changelog/changes/creation/create-tag-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-card-tag-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-translator-table.yaml
+      file: db/changelog/changes/creation/create-friendship-table.yaml
   - include:
       file: db/changelog/changes/creation/create-lang-pair-translator-mapping-table.yaml
   - include:
       file: db/changelog/changes/creation/create-learner-fluent-lang-table.yaml
   - include:
+      file: db/changelog/changes/creation/create-learner-table.yaml
+  - include:
       file: db/changelog/changes/creation/create-learner-target-lang-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-verification-token-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-plan-table.yaml
   - include:
       file: db/changelog/changes/creation/create-plan-subscription-table.yaml
   - include:
+      file: db/changelog/changes/creation/create-plan-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-principal-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-profile-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-translation-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-tag-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-translator-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-user_core-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-verification-token-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-refresh-token-table.yaml
+  - include:
       file: db/changelog/changes/creation/create-stripe-event-log-table.yaml
+
   # Insertion
   - include:
       file: db/changelog/changes/insertion/translator-table-inserts.yaml

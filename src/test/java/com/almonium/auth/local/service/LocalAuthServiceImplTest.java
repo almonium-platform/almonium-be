@@ -14,12 +14,11 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthManagementService;
-import com.almonium.auth.common.service.impl.TokenProvider;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
-import com.almonium.auth.local.exception.InvalidTokenException;
+import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
@@ -27,6 +26,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.LocalAuthServiceImpl;
+import com.almonium.auth.token.service.impl.AuthTokenService;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -34,6 +34,7 @@ import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.core.service.impl.UserUtility;
 import com.almonium.util.TestDataGenerator;
+import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
@@ -68,7 +69,7 @@ class LocalAuthServiceImplTest {
     AuthManagementService authManagementService;
 
     @Mock
-    TokenProvider tokenProvider;
+    AuthTokenService tokenService;
 
     @Mock
     UserService userService;
@@ -108,23 +109,29 @@ class LocalAuthServiceImplTest {
 
         String email = user.getEmail();
         String password = "fdsfsd";
-        String expectedJwt = "xxx.yyy.zzz";
+        String expectedRefreshJwt = "xxx.yyy.zzz";
+        String expectedAccessJwt = "aaa.bbb.ccc";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
         LocalPrincipal principal =
                 LocalPrincipal.builder().user(user).emailVerified(true).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
-        when(tokenProvider.createToken(any(Authentication.class))).thenReturn(expectedJwt);
+        when(tokenService.createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class)))
+                .thenReturn(expectedAccessJwt);
+        when(tokenService.createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class)))
+                .thenReturn(expectedRefreshJwt);
 
         // Act
-        JwtAuthResponse result = authService.login(localAuthRequest);
+        JwtAuthResponse result = authService.login(localAuthRequest, mock(HttpServletResponse.class));
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
         verify(profileService).updateLoginStreak(any(Profile.class));
-        verify(tokenProvider).createToken(any(Authentication.class));
-        assertThat(result.accessToken()).isEqualTo(expectedJwt);
+        verify(tokenService).createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class));
+        verify(tokenService).createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class));
+        assertThat(result.accessToken()).isEqualTo(expectedAccessJwt);
+        assertThat(result.refreshToken()).isEqualTo(expectedRefreshJwt);
     }
 
     @DisplayName("Should throw an exception when trying to register user with existing email")
@@ -157,24 +164,27 @@ class LocalAuthServiceImplTest {
         when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.login(localAuthRequest))
+        assertThatThrownBy(() -> authService.login(localAuthRequest, mock(HttpServletResponse.class)))
                 .isInstanceOf(EmailNotVerifiedException.class)
                 .hasMessage("Email needs to be verified before logging in.");
 
         verify(profileService, never()).updateLoginStreak(any(Profile.class));
-        verify(tokenProvider, never()).createToken(any(Authentication.class));
+        verify(tokenService, never())
+                .createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class));
+        verify(tokenService, never())
+                .createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class));
     }
 
     @DisplayName("Should throw exception when token is invalid")
     @Test
-    void givenInvalidToken_whenVerifyEmail_thenThrowInvalidTokenException() {
+    void givenInvalidToken_whenVerifyEmail_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "invalidToken";
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThatThrownBy(() -> authService.verifyEmail(token))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid verification token");
 
         verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
@@ -182,7 +192,7 @@ class LocalAuthServiceImplTest {
 
     @DisplayName("Should throw exception when token is expired")
     @Test
-    void givenExpiredToken_whenVerifyEmail_thenThrowInvalidTokenException() {
+    void givenExpiredToken_whenVerifyEmail_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "expiredToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
@@ -192,7 +202,7 @@ class LocalAuthServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.verifyEmail(token))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
         verify(verificationTokenRepository).delete(verificationToken);
@@ -273,7 +283,7 @@ class LocalAuthServiceImplTest {
 
     @DisplayName("Should throw exception when token is invalid for password reset")
     @Test
-    void givenInvalidToken_whenResetPassword_thenThrowInvalidTokenException() {
+    void givenInvalidToken_whenResetPassword_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "invalidToken";
         String newPassword = "newPassword123";
@@ -281,7 +291,7 @@ class LocalAuthServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid verification token");
 
         verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
@@ -290,7 +300,7 @@ class LocalAuthServiceImplTest {
 
     @DisplayName("Should throw exception when token is expired for password reset")
     @Test
-    void givenExpiredToken_whenResetPassword_thenThrowInvalidTokenException() {
+    void givenExpiredToken_whenResetPassword_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "expiredToken";
         String newPassword = "newPassword123";
@@ -301,7 +311,7 @@ class LocalAuthServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
         verify(verificationTokenRepository).delete(verificationToken);
@@ -310,7 +320,7 @@ class LocalAuthServiceImplTest {
 
     @DisplayName("Should throw exception when token type does not match expected type")
     @Test
-    void givenTokenTypeMismatch_whenVerifyEmail_thenThrowInvalidTokenException() {
+    void givenTokenTypeMismatch_whenVerifyEmail_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
@@ -320,7 +330,7 @@ class LocalAuthServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.verifyEmail(token))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
 
         verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
@@ -329,7 +339,7 @@ class LocalAuthServiceImplTest {
 
     @DisplayName("Should throw exception when token type does not match expected type for password reset")
     @Test
-    void givenTokenTypeMismatch_whenResetPassword_thenThrowInvalidTokenException() {
+    void givenTokenTypeMismatch_whenResetPassword_thenThrowInvalidVerificationTokenException() {
         // Arrange
         String token = "validToken";
         String newPassword = "newPassword123";
@@ -340,7 +350,7 @@ class LocalAuthServiceImplTest {
 
         // Act & Assert
         assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
-                .isInstanceOf(InvalidTokenException.class)
+                .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be PASSWORD_RESET but got EMAIL_VERIFICATION instead");
 
         verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));

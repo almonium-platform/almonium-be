@@ -57,18 +57,18 @@ google:
   parent-location: global
 
 app:
-  domain: almonium-dummy.com
+  web-domain: almonium-dummy.com
+  api-domain: api.almonium-dummy.com
   email:
     dry-run: true
-  endpoints:
-    reset-password: /reset-password
-    verify-email: /verify-email
   auth:
     jwt:
-      token-expiration-duration-millis: 864000000
-      token-signing-secret: token_secret_dummy
+      token-signing-secret: token_signing_secret_dummy
+      access-token-expiration-duration: 900 # 15 minutes
+      refresh-token-expiration-duration: 1209600  # 14 days
+      refresh-token-url: /refresh
     oauth2:
-      authorized-redirect-uris: ${app.domain}/oauth2/redirect
+      authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com
       apple-service-id: com.almonium.auth
 
@@ -84,8 +84,8 @@ stripe:
   api:
     key: sk_live_dummy
   checkout:
-    success-url: ${app.domain}/success
-    cancel-url: ${app.domain}/cancel
+    success-url: ${app.web-domain}/success
+    cancel-url: ${app.web-domain}/cancel
 
 external:
   api:

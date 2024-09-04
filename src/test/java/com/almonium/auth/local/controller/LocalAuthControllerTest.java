@@ -2,7 +2,6 @@ package com.almonium.auth.local.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,20 +14,19 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordResetConfirmRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
-import com.almonium.auth.local.exception.InvalidTokenException;
+import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.service.LocalAuthService;
 import com.almonium.base.BaseControllerTest;
 import com.almonium.config.GlobalExceptionHandler;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.util.TestDataGenerator;
-import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -46,25 +44,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LocalAuthControllerTest extends BaseControllerTest {
-
-    @Value("${app.endpoints.verify-email}")
-    String appEndpointsVerifyEmail;
-
-    @Value("${app.endpoints.reset-password}")
-    String appEndpointsResetPassword;
-
     private static final String BASE_URL = "/auth/public";
     private static final String LOGIN_URL = BASE_URL + "/login";
     private static final String REGISTER_URL = BASE_URL + "/register";
     private static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
-    String verifyEmailUrl;
-    String resetPasswordUrl;
-
-    @PostConstruct
-    void init() {
-        verifyEmailUrl = BASE_URL + appEndpointsVerifyEmail;
-        resetPasswordUrl = BASE_URL + appEndpointsResetPassword;
-    }
+    private static final String VERIFY_EMAIL_URL = BASE_URL + "/verify-email";
+    private static final String RESET_PASSWORD_URL = BASE_URL + "/reset-password";
 
     @MockBean
     LocalAuthService localAuthService;
@@ -82,8 +67,9 @@ class LocalAuthControllerTest extends BaseControllerTest {
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         UserInfo userInfo = TestDataGenerator.buildTestUserInfo();
 
-        JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", userInfo);
-        when(localAuthService.login(eq(localAuthRequest))).thenReturn(response);
+        JwtAuthResponse response = new JwtAuthResponse("xxx.yyy.zzz", "aaa.bbb.ccc", userInfo);
+        when(localAuthService.login(any(LocalAuthRequest.class), any(HttpServletResponse.class)))
+                .thenReturn(response);
 
         mockMvc.perform(post(LOGIN_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +83,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenInvalidCredentials_whenLogin_thenReturnsUnauthorized() {
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        when(localAuthService.login(any(LocalAuthRequest.class)))
+        when(localAuthService.login(any(LocalAuthRequest.class), any(HttpServletResponse.class)))
                 .thenThrow(new BadCredentialsException("Bad credentials"));
 
         mockMvc.perform(post(LOGIN_URL)
@@ -142,7 +128,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenValidToken_whenVerifyEmail_thenSuccess() {
         String token = "validToken";
-        mockMvc.perform(post(verifyEmailUrl).param("token", token))
+        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("Email verified successfully"));
@@ -153,11 +139,11 @@ class LocalAuthControllerTest extends BaseControllerTest {
     @SneakyThrows
     void givenInvalidToken_whenVerifyEmail_thenReturnsForbidden() {
         String token = "invalidToken";
-        doThrow(new InvalidTokenException("Invalid verification token"))
+        doThrow(new InvalidVerificationTokenException("Invalid verification token"))
                 .when(localAuthService)
                 .verifyEmail(any(String.class));
 
-        mockMvc.perform(post(verifyEmailUrl).param("token", token))
+        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.message").value("Invalid verification token"));
@@ -203,7 +189,7 @@ class LocalAuthControllerTest extends BaseControllerTest {
         String newPassword = "newPassword123";
         PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
 
-        mockMvc.perform(post(resetPasswordUrl)
+        mockMvc.perform(post(RESET_PASSWORD_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -218,11 +204,11 @@ class LocalAuthControllerTest extends BaseControllerTest {
         String newPassword = "newPassword123";
         PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
 
-        doThrow(new InvalidTokenException("Invalid verification token"))
+        doThrow(new InvalidVerificationTokenException("Invalid verification token"))
                 .when(localAuthService)
                 .resetPassword(token, newPassword);
 
-        mockMvc.perform(post(resetPasswordUrl)
+        mockMvc.perform(post(RESET_PASSWORD_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden())

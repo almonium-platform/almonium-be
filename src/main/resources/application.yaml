@@ -92,18 +92,18 @@ logging:
 
 # Custom Configurations
 app:
-  domain: ${WEB_APP_DOMAIN}
+  web-domain: ${WEB_APP_DOMAIN}
+  api-domain: ${BACKEND_DOMAIN}
   email:
     dry-run: false
-  endpoints:
-    reset-password: /reset-password
-    verify-email: /verify-email
   auth:
     jwt:
-      token-expiration-duration-millis: 864000000
       token-signing-secret: ${TOKEN_SECRET}
+      access-token-expiration-duration: 900 # 15 minutes
+      refresh-token-expiration-duration: 1209600 # 14 days
+      refresh-token-url: /refresh
     oauth2:
-      authorized-redirect-uris: ${app.domain}/oauth2/redirect
+      authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com
       apple-service-id: com.almonium.auth
 
@@ -123,8 +123,8 @@ stripe:
   api:
     key: ${STRIPE_KEY}
   checkout:
-    success-url: ${app.domain}/${STRIPE_SUCCESS_URL}
-    cancel-url: ${app.domain}/${STRIPE_CANCEL_URL}
+    success-url: ${app.web-domain}/${STRIPE_SUCCESS_URL}
+    cancel-url: ${app.web-domain}/${STRIPE_CANCEL_URL}
 
 external:
   api:

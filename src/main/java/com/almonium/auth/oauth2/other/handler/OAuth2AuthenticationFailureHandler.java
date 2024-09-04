@@ -2,8 +2,8 @@ package com.almonium.auth.oauth2.other.handler;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.other.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 .build()
                 .toUriString();
 
-        requestRepository.removeAuthorizationRequestCookies(request, response);
+        requestRepository.removeAuthorizationRequestCookies(response);
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }

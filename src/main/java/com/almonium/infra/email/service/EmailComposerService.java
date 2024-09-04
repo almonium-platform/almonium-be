@@ -8,6 +8,7 @@ import java.time.Year;
 import java.util.Map;
 import java.util.StringTokenizer;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,8 +43,11 @@ public abstract class EmailComposerService {
         Document doc = Jsoup.parse(html);
         Elements els = doc.select(style); // to get all the style elements
         for (Element e : els) {
-            String styleRules =
-                    e.getAllElements().get(0).data().replaceAll("\n", "").trim();
+            String styleRules = e.getAllElements()
+                    .get(0)
+                    .data()
+                    .replaceAll("\n", StringUtils.EMPTY)
+                    .trim();
             String delims = "{}";
             StringTokenizer st = new StringTokenizer(styleRules, delims);
             while (st.countTokens() > 1) {

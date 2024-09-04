@@ -5,7 +5,7 @@ import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
-import com.almonium.auth.local.exception.InvalidTokenException;
+import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
@@ -112,8 +112,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    @ExceptionHandler(InvalidTokenException.class)
-    public ResponseEntity<ApiResponse> handleInvalidTokenException(InvalidTokenException ex) {
+    @ExceptionHandler(InvalidVerificationTokenException.class)
+    public ResponseEntity<ApiResponse> handleInvalidTokenException(InvalidVerificationTokenException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
     }
 

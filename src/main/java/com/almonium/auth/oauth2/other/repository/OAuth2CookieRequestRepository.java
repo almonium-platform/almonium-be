@@ -1,9 +1,9 @@
 package com.almonium.auth.oauth2.other.repository;
 
-import static com.almonium.auth.oauth2.other.util.CookieUtil.INTENT_PARAM_COOKIE_NAME;
-import static com.almonium.auth.oauth2.other.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.common.util.CookieUtil.INTENT_PARAM_COOKIE_NAME;
+import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 
-import com.almonium.auth.oauth2.other.util.CookieUtil;
+import com.almonium.auth.common.util.CookieUtil;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,9 +27,9 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
     public void saveAuthorizationRequest(
             OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
         if (authorizationRequest == null) {
-            CookieUtil.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
-            CookieUtil.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
-            CookieUtil.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
+            CookieUtil.deleteCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+            CookieUtil.deleteCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME);
+            CookieUtil.deleteCookie(response, INTENT_PARAM_COOKIE_NAME);
             return;
         }
 
@@ -56,9 +56,9 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
         return loadAuthorizationRequest(request);
     }
 
-    public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtil.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
-        CookieUtil.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
-        CookieUtil.deleteCookie(request, response, INTENT_PARAM_COOKIE_NAME);
+    public void removeAuthorizationRequestCookies(HttpServletResponse response) {
+        CookieUtil.deleteCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+        CookieUtil.deleteCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME);
+        CookieUtil.deleteCookie(response, INTENT_PARAM_COOKIE_NAME);
     }
 }
