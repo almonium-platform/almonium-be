@@ -5,6 +5,9 @@
 
 [Try online](http://almonium.com)
 
+[Frontend project](https://github.com/okuzan/almonium-fe)
+
+[Chrome extension](https://github.com/okuzan/chrome-extension)
 # Friendships
 
 ## Scenarios
