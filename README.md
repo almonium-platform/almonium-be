@@ -8,6 +8,14 @@
 [Frontend project](https://github.com/okuzan/almonium-fe)
 
 [Chrome extension](https://github.com/okuzan/chrome-extension)
+
+If you decide to change context path, you should also change it
+
+- in frontend project
+- in Chrome extension project
+- in redirect URI of Google and Facebook OAuth2
+- in Stripe integration webhook
+
 # Friendships
 
 ## Scenarios
