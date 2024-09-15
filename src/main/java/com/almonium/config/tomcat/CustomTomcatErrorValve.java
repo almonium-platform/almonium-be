@@ -26,10 +26,10 @@ public class CustomTomcatErrorValve extends ErrorReportValve {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             String jsonResponse = String.format("""
                     {
-                        "title": "%s",
-                        "status": %d
+                        "success": false,
+                        "message": "%s",
                     }
-                    """, reasonPhrase, statusCode);
+                    """, reasonPhrase);
             response.getWriter().write(jsonResponse);
             response.getWriter().flush();
 
