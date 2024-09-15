@@ -22,7 +22,7 @@ import com.almonium.user.core.service.LearnerService;
 import com.almonium.util.TestDataGenerator;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -116,7 +116,7 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenLanguageUpdateRequest_whenUpdateTargetLanguages_thenUpdateSuccessfully() {
-        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.EN, Language.ES));
+        LanguageUpdateRequest request = new LanguageUpdateRequest(Set.of(Language.EN, Language.ES));
 
         mockMvc.perform(put(UPDATE_TARGET_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -130,7 +130,7 @@ class UserControllerTest extends BaseControllerTest {
     @Test
     @SneakyThrows
     void givenLanguageUpdateRequest_whenUpdateFluentLanguages_thenUpdateSuccessfully() {
-        LanguageUpdateRequest request = new LanguageUpdateRequest(List.of(Language.FR, Language.DE));
+        LanguageUpdateRequest request = new LanguageUpdateRequest(Set.of(Language.FR, Language.DE));
 
         mockMvc.perform(put(UPDATE_FLUENT_LANGUAGES_URL)
                         .contentType(MediaType.APPLICATION_JSON)

@@ -56,7 +56,7 @@ databaseChangeLog:
                   type: BOOLEAN
               - column:
                   name: language
-                  type: VARCHAR(2)
+                  type: VARCHAR(10)
               - column:
                   name: notes
                   type: VARCHAR(255)

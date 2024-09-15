@@ -78,6 +78,7 @@ public class WebSecurityConfig {
                 "/v3/api-docs/**",
                 // Auth
                 "/auth/public/**",
+                "/public/lang/**",
                 "/oauth2/authorization/**",
                 // Public
                 "/discover/**",
