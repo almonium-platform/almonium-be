@@ -110,10 +110,9 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     private VerificationToken getTokenOrThrow(String token, TokenType expectedType) {
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
-                .orElseThrow(() -> new InvalidVerificationTokenException("Invalid verification token"));
+                .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
 
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            verificationTokenRepository.delete(verificationToken);
             throw new InvalidVerificationTokenException("Verification token has expired");
         }
 

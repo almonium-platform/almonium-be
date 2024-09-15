@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LanguageUpdateRequest;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.dto.UsernameAvailability;
@@ -50,6 +51,13 @@ public class UserController {
     @DeleteMapping("/me/account")
     public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth) {
         userService.deleteAccount(auth.getUser());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/me/langs")
+    public ResponseEntity<Void> setupLanguages(
+            @RequestBody LanguageSetupRequest request, @Auth Principal auth) {
+        learnerService.setupLanguages(request.fluentLangs(), request.targetLangs(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 

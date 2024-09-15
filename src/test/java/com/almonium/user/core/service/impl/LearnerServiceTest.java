@@ -10,7 +10,6 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +31,7 @@ class LearnerServiceTest {
     @DisplayName("Should set new fluent languages for user with existing target languages")
     @Test
     void givenUserWithExistingTargetLanguages_whenSetTargetLangs_thenNewLanguagesSet() {
-        List<Language> langCodes = List.of(Language.DE, Language.FR, Language.ES);
+        Set<Language> langCodes = Set.of(Language.DE, Language.FR, Language.ES);
         Learner learner = new Learner();
         learner.setTargetLangs(Set.of(Language.EN, Language.DE, Language.FR));
 
@@ -48,7 +47,7 @@ class LearnerServiceTest {
     @DisplayName("Should set target languages for user based on language code DTO")
     @Test
     void givenLangCodeDto_whenSetTargetLangs_thenUserTargetLanguagesAreSet() {
-        List<Language> langCodes = List.of(Language.DE, Language.EN);
+        Set<Language> langCodes = Set.of(Language.DE, Language.EN);
 
         Learner learner = new Learner();
 
@@ -61,7 +60,7 @@ class LearnerServiceTest {
     @DisplayName("Should set new fluent languages for user with existing fluent languages")
     @Test
     void givenUserWithExistingFluentLanguages_whenSetFluentLangs_thenNewLanguagesSet() {
-        List<Language> langCodes = List.of(Language.DE, Language.FR, Language.ES);
+        Set<Language> langCodes = Set.of(Language.DE, Language.FR, Language.ES);
         Learner learner = new Learner();
         learner.setFluentLangs(new HashSet<>(Arrays.asList(Language.EN, Language.DE, Language.FR)));
 
@@ -78,7 +77,7 @@ class LearnerServiceTest {
     @DisplayName("Should set fluent languages for user based on language code DTO")
     @Test
     void givenLangCodeDto_whenSetFluentLangs_thenUserFluentLanguagesAreSet() {
-        List<Language> langCodes = List.of(Language.DE, Language.EN);
+        Set<Language> langCodes = Set.of(Language.DE, Language.EN);
 
         Learner learner = new Learner();
 
