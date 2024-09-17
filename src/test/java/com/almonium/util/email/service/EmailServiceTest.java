@@ -21,6 +21,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 public class EmailServiceTest {
+    private static final String IS_EMAIL_SENDING_SIMULATED_FIELD = "isEmailSendingSimulated";
     @Mock
     private JavaMailSender mailSender;
 
@@ -37,7 +38,7 @@ public class EmailServiceTest {
         EmailDto emailDto = new EmailDto("test@example.com", "Test Subject", "Test Body");
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
-        ReflectionTestUtils.setField(emailService, "isEmailSendingEnabled", true);
+        ReflectionTestUtils.setField(emailService, IS_EMAIL_SENDING_SIMULATED_FIELD, false);
 
         // Act
         emailService.sendEmail(emailDto);
@@ -53,7 +54,7 @@ public class EmailServiceTest {
         EmailDto emailDto = new EmailDto("test@example.com", "Test Subject", "Test Body");
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
-        ReflectionTestUtils.setField(emailService, "isEmailSendingEnabled", false);
+        ReflectionTestUtils.setField(emailService, IS_EMAIL_SENDING_SIMULATED_FIELD, true);
 
         // Act
         emailService.sendEmail(emailDto);

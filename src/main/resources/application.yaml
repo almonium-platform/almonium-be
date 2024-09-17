@@ -101,7 +101,7 @@ app:
       token-signing-secret: ${TOKEN_SECRET}
       access-token-expiration-duration: 900 # 15 minutes
       refresh-token-expiration-duration: 1209600 # 14 days
-      refresh-token-url: /refresh
+      refresh-token-url: /public/auth/refresh-token
     oauth2:
       authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com

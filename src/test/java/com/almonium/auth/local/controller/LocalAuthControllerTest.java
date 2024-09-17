@@ -44,7 +44,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class LocalAuthControllerTest extends BaseControllerTest {
-    private static final String BASE_URL = "/auth/public";
+    private static final String BASE_URL = "/public/auth";
     private static final String LOGIN_URL = BASE_URL + "/login";
     private static final String REGISTER_URL = BASE_URL + "/register";
     private static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";

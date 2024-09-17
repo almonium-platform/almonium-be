@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/public/lang")
+@RequestMapping("/public")
 @RequiredArgsConstructor
 public class LanguageSupportController {
 
-    @GetMapping
+    @GetMapping("/supported-langs")
     public ResponseEntity<List<Language>> getAllSupportedLanguages() {
         return ResponseEntity.ok(List.of(Language.values()));
     }

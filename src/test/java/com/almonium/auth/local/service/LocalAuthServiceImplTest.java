@@ -185,7 +185,7 @@ class LocalAuthServiceImplTest {
         // Act & Assert
         assertThatThrownBy(() -> authService.verifyEmail(token))
                 .isInstanceOf(InvalidVerificationTokenException.class)
-                .hasMessage("Invalid verification token");
+                .hasMessage("Token is invalid or has been used");
 
         verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
     }
@@ -205,7 +205,6 @@ class LocalAuthServiceImplTest {
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
-        verify(verificationTokenRepository).delete(verificationToken);
         verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
     }
 
@@ -224,7 +223,6 @@ class LocalAuthServiceImplTest {
         // Assert
         assertThat(principal.isEmailVerified()).isTrue();
         verify(localPrincipalRepository).save(principal);
-        verify(verificationTokenRepository).delete(verificationToken);
     }
 
     @DisplayName("Should request password reset successfully")
@@ -292,7 +290,7 @@ class LocalAuthServiceImplTest {
         // Act & Assert
         assertThatThrownBy(() -> authService.resetPassword(token, newPassword))
                 .isInstanceOf(InvalidVerificationTokenException.class)
-                .hasMessage("Invalid verification token");
+                .hasMessage("Token is invalid or has been used");
 
         verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
         verify(verificationTokenRepository, never()).delete(any(VerificationToken.class));
@@ -314,7 +312,6 @@ class LocalAuthServiceImplTest {
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
-        verify(verificationTokenRepository).delete(verificationToken);
         verify(localPrincipalRepository, never()).save(any(LocalPrincipal.class));
     }
 

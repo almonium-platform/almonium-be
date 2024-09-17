@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth/manage")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthManagementController {
@@ -36,7 +36,7 @@ public class AuthManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/provider/{provider}")
+    @DeleteMapping("/providers/{provider}")
     public ResponseEntity<?> unlinkProvider(@Auth Principal auth, @PathVariable AuthProviderType provider) {
         Long userId = auth.getUser().getId();
         authManagementService.unlinkAuthMethod(userId, provider);

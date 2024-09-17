@@ -38,7 +38,7 @@ class CardControllerTest extends BaseControllerTest {
     private static final String CREATE_CARD_URL = BASE_URL;
     private static final String UPDATE_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     private static final String GET_CARDS_URL = BASE_URL;
-    private static final String GET_CARDS_BY_HASH_URL = BASE_URL + "/public" + ID_PLACEHOLDER;
+    private static final String GET_CARDS_BY_HASH_URL = BASE_URL + "/hash" + ID_PLACEHOLDER;
     private static final String GET_CARDS_OF_LANG_URL = BASE_URL + "/lang/{code}";
     private static final String GET_CARD_URL = BASE_URL + ID_PLACEHOLDER;
     private static final String DELETE_CARD_URL = BASE_URL + ID_PLACEHOLDER;

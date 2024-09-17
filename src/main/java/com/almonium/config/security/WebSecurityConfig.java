@@ -65,29 +65,15 @@ public class WebSecurityConfig {
     @Value("${app.auth.oauth2.apple-token-url}")
     String appleTokenUrl;
 
-    @NonFinal
-    @Value("${app.auth.jwt.refresh-token-url}")
-    String refreshTokenEndpoint;
-
-    // non-static method because we need to append the refresh token endpoint
-    private List<String> getPermitAllUrlPatterns() {
-        return List.of(
-                // Swagger
-                "swagger-ui.html",
-                "/swagger-ui/**",
-                "/v3/api-docs/**",
-                // Auth
-                "/auth/public/**",
-                "/public/lang/**",
-                "/oauth2/authorization/**",
-                // Public
-                "/discover/**",
-                // Util
-                "/util/**",
-                // All webhooks (Stripe, etc.)
-                "/webhooks/**",
-                refreshTokenEndpoint);
-    }
+    private static final String[] PUBLIC_URL_PATTERNS = new String[]{
+            // Swagger
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            // OAuth2
+            "/oauth2/authorization/**",
+            // Public endpoints
+            "/public/**",
+    };
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -119,7 +105,7 @@ public class WebSecurityConfig {
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(getPermitAllUrlPatterns().toArray(String[]::new))
+                        auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())

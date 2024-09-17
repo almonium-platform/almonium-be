@@ -38,12 +38,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @WebMvcTest(
         controllers = AuthManagementController.class,
         includeFilters = {
-            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
         })
 @FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
 class AuthManagementControllerTest extends BaseControllerTest {
-    private static final String BASE_URL = "/auth/manage";
+    private static final String BASE_URL = "/auth";
+    private static final String PROVIDERS_URL = BASE_URL + "/providers/";
 
     @MockBean
     AuthManagementService authManagementService;
@@ -80,7 +81,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         principal.getUser().setEmail("different-email@example.com");
 
         doThrow(new EmailMismatchException("You need to register with the email you currently use: "
-                        + principal.getUser().getEmail()))
+                + principal.getUser().getEmail()))
                 .when(authManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
@@ -100,7 +101,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         Principal principal = TestDataGenerator.buildTestPrincipal();
 
         doThrow(new UserAlreadyExistsException("You already have local account registered with "
-                        + principal.getUser().getEmail()))
+                + principal.getUser().getEmail()))
                 .when(authManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
@@ -120,7 +121,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
 
         // Act & Assert
-        mockMvc.perform(delete(BASE_URL + "/provider/" + providerType).principal(() -> "user@example.com"))
+        mockMvc.perform(delete(PROVIDERS_URL + providerType).principal(() -> "user@example.com"))
                 .andExpect(status().isOk());
 
         verify(authManagementService).unlinkAuthMethod(user.getId(), providerType);
@@ -136,7 +137,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
                 .unlinkAuthMethod(user.getId(), providerType);
 
         // Act & Assert
-        mockMvc.perform(delete(BASE_URL + "/provider/" + providerType).principal(() -> "user@example.com"))
+        mockMvc.perform(delete(PROVIDERS_URL + providerType).principal(() -> "user@example.com"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Auth method not found " + providerType));
 

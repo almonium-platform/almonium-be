@@ -60,7 +60,7 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 
-    @GetMapping("/public/{hash}")
+    @GetMapping("/hash/{hash}")
     public ResponseEntity<CardDto> getCardByHash(@PathVariable String hash) {
         return ResponseEntity.ok(cardService.getCardByPublicId(hash));
     }

@@ -48,7 +48,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/me/account")
+    @DeleteMapping("/me")
     public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth) {
         userService.deleteAccount(auth.getUser());
         return ResponseEntity.noContent().build();
