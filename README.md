@@ -16,6 +16,8 @@ If you decide to change context path, you should also change it
 - in redirect URI of Google and Facebook OAuth2
 - in Stripe integration webhook
 
+All URLs that start with `/public` don't require authentication.
+
 # Friendships
 
 ## Scenarios
