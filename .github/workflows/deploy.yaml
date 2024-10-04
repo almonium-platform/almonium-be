@@ -23,4 +23,4 @@ jobs:
       # Run your update script on the GCP instance
       - name: Run Deployment Script
         run: |
-          ssh -o StrictHostKeyChecking=no kuzanoleg@almonium 'bash ~/update_almonium.sh'
+          ssh -o StrictHostKeyChecking=no kuzanoleg@34.135.218.215	 'bash ~/update_almonium.sh'
