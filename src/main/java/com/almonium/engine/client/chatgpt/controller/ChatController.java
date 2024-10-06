@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
     private final GptService gptService;
 
-    @PostMapping("/chat")
+    @PostMapping("/public/chat")
     public String chat(@RequestBody String prompt) {
         return gptService.getChatResponse(prompt);
     }
