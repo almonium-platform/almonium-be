@@ -66,9 +66,9 @@ class UserControllerTest extends BaseControllerTest {
 
         when(userService.buildUserInfoFromUser(any(User.class))).thenReturn(testUserInfo);
 
-//        mockMvc.perform(get(ME_URL).contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
+        //        mockMvc.perform(get(ME_URL).contentType(MediaType.APPLICATION_JSON))
+        //                .andExpect(status().isOk())
+        //                .andExpect(content().json(objectMapper.writeValueAsString(testUserInfo)));
     }
 
     @DisplayName("Should verify username availability")

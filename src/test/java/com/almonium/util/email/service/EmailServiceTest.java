@@ -22,6 +22,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 @ExtendWith(MockitoExtension.class)
 public class EmailServiceTest {
     private static final String IS_EMAIL_SENDING_SIMULATED_FIELD = "isEmailSendingSimulated";
+
     @Mock
     private JavaMailSender mailSender;
 

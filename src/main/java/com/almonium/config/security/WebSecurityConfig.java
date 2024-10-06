@@ -104,11 +104,10 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)

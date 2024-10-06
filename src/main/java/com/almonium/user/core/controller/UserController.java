@@ -55,9 +55,9 @@ public class UserController {
     }
 
     @PutMapping("/me/langs")
-    public ResponseEntity<Void> setupLanguages(
-            @RequestBody LanguageSetupRequest request, @Auth Principal auth) {
-        learnerService.setupLanguages(request.fluentLangs(), request.targetLangs(), auth.getUser().getLearner());
+    public ResponseEntity<Void> setupLanguages(@RequestBody LanguageSetupRequest request, @Auth Principal auth) {
+        learnerService.setupLanguages(
+                request.fluentLangs(), request.targetLangs(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
