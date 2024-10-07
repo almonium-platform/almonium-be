@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
@@ -47,7 +47,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
     private static final String PROVIDERS_URL = BASE_URL + "/providers/";
 
     @MockBean
-    AuthManagementService authManagementService;
+    AuthMethodManagementService authMethodManagementService;
 
     User user;
 
@@ -82,7 +82,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
 
         doThrow(new EmailMismatchException("You need to register with the email you currently use: "
                         + principal.getUser().getEmail()))
-                .when(authManagementService)
+                .when(authMethodManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local")
@@ -102,7 +102,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
 
         doThrow(new UserAlreadyExistsException("You already have local account registered with "
                         + principal.getUser().getEmail()))
-                .when(authManagementService)
+                .when(authMethodManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
         mockMvc.perform(put(BASE_URL + "/local")
@@ -124,7 +124,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         mockMvc.perform(delete(PROVIDERS_URL + providerType).principal(() -> "user@example.com"))
                 .andExpect(status().isOk());
 
-        verify(authManagementService).unlinkAuthMethod(user.getId(), providerType);
+        verify(authMethodManagementService).unlinkAuthMethod(user.getId(), providerType);
     }
 
     @DisplayName("Should return 404 when provider not found")
@@ -133,7 +133,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         // Arrange
         AuthProviderType providerType = AuthProviderType.GOOGLE;
         doThrow(new AuthMethodNotFoundException("Auth method not found " + providerType))
-                .when(authManagementService)
+                .when(authMethodManagementService)
                 .unlinkAuthMethod(user.getId(), providerType);
 
         // Act & Assert
@@ -141,6 +141,6 @@ class AuthManagementControllerTest extends BaseControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Auth method not found " + providerType));
 
-        verify(authManagementService).unlinkAuthMethod(user.getId(), providerType);
+        verify(authMethodManagementService).unlinkAuthMethod(user.getId(), providerType);
     }
 }

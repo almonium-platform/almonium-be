@@ -3,7 +3,7 @@ package com.almonium.auth.local.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
-import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.common.service.impl.AuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
@@ -41,7 +41,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     // services
     AuthenticationManager authenticationManager;
     AuthenticationService authenticationService;
-    AuthManagementService authManagementService;
+    AuthMethodManagementService authMethodManagementService;
     UserService userService;
     PrincipalFactory principalFactory;
     // repositories
@@ -72,7 +72,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         userRepository.save(user);
         localPrincipalRepository.save(localPrincipal);
-        authManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        authMethodManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         LocalPrincipal localPrincipal = localPrincipalRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new EmailNotFoundException("Invalid email " + email));
-        authManagementService.createAndSendVerificationToken(localPrincipal, TokenType.PASSWORD_RESET);
+        authMethodManagementService.createAndSendVerificationToken(localPrincipal, TokenType.PASSWORD_RESET);
     }
 
     @Override

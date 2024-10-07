@@ -5,7 +5,7 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 
-public interface AuthManagementService {
+public interface AuthMethodManagementService {
     void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest);
 
     void unlinkAuthMethod(Long userId, AuthProviderType providerType);

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
-import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.common.service.impl.AuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
@@ -65,7 +65,7 @@ class LocalAuthServiceImplTest {
     AuthenticationManager authenticationManager;
 
     @Mock
-    AuthManagementService authManagementService;
+    AuthMethodManagementService authMethodManagementService;
 
     @Mock
     UserService userService;
@@ -93,7 +93,7 @@ class LocalAuthServiceImplTest {
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
         verify(userRepository).save(user);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
-        verify(authManagementService)
+        verify(authMethodManagementService)
                 .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
     }
 
@@ -228,7 +228,7 @@ class LocalAuthServiceImplTest {
 
         // Assert
         verify(localPrincipalRepository).findByEmail(email);
-        verify(authManagementService).createAndSendVerificationToken(principal, TokenType.PASSWORD_RESET);
+        verify(authMethodManagementService).createAndSendVerificationToken(principal, TokenType.PASSWORD_RESET);
     }
 
     @DisplayName("Should throw exception when email is not found for password reset request")
@@ -244,7 +244,7 @@ class LocalAuthServiceImplTest {
                 .hasMessage("Invalid email invalid@example.com");
 
         verify(localPrincipalRepository).findByEmail(email);
-        verify(authManagementService, never())
+        verify(authMethodManagementService, never())
                 .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
     }
 

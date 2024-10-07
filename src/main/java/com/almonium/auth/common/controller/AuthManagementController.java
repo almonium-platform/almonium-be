@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,20 +26,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthManagementController {
-    AuthManagementService authManagementService;
+    AuthMethodManagementService authMethodManagementService;
     AuthTokenService authTokenService;
 
     @PutMapping("/local")
     public ResponseEntity<?> addLocalLogin(
             @Auth Principal auth, @Valid @RequestBody LocalAuthRequest localAuthRequest) {
-        authManagementService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
+        authMethodManagementService.linkLocalAuth(auth.getUser().getId(), localAuthRequest);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/providers/{provider}")
     public ResponseEntity<?> unlinkProvider(@Auth Principal auth, @PathVariable AuthProviderType provider) {
         Long userId = auth.getUser().getId();
-        authManagementService.unlinkAuthMethod(userId, provider);
+        authMethodManagementService.unlinkAuthMethod(userId, provider);
         return ResponseEntity.ok().build();
     }
 
