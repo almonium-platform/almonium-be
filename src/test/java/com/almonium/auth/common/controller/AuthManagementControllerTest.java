@@ -38,7 +38,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @WebMvcTest(
         controllers = AuthManagementController.class,
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
+            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = GlobalExceptionHandler.class)
         })
 @FieldDefaults(level = PRIVATE)
 @AutoConfigureMockMvc(addFilters = false)
@@ -81,7 +81,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         principal.getUser().setEmail("different-email@example.com");
 
         doThrow(new EmailMismatchException("You need to register with the email you currently use: "
-                + principal.getUser().getEmail()))
+                        + principal.getUser().getEmail()))
                 .when(authManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 
@@ -101,7 +101,7 @@ class AuthManagementControllerTest extends BaseControllerTest {
         Principal principal = TestDataGenerator.buildTestPrincipal();
 
         doThrow(new UserAlreadyExistsException("You already have local account registered with "
-                + principal.getUser().getEmail()))
+                        + principal.getUser().getEmail()))
                 .when(authManagementService)
                 .linkLocalAuth(anyLong(), eq(localAuthRequest));
 

@@ -65,7 +65,7 @@ public class CookieUtil {
 
     public static String serialize(Object object) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
 
             objectOutputStream.writeObject(object);
             return Base64.getUrlEncoder().encodeToString(byteArrayOutputStream.toByteArray());
@@ -77,7 +77,7 @@ public class CookieUtil {
     public static <T> T deserialize(String base64, Class<T> cls) {
         byte[] bytes = Base64.getUrlDecoder().decode(base64);
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
 
             Object object = objectInputStream.readObject();
             return cls.cast(object);

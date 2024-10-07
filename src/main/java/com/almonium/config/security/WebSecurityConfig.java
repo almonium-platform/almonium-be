@@ -65,14 +65,14 @@ public class WebSecurityConfig {
     @Value("${app.auth.oauth2.apple-token-url}")
     String appleTokenUrl;
 
-    private static final String[] PUBLIC_URL_PATTERNS = new String[]{
-            // Swagger
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            // OAuth2
-            "/oauth2/authorization/**",
-            // Public endpoints
-            "/public/**",
+    private static final String[] PUBLIC_URL_PATTERNS = new String[] {
+        // Swagger
+        "/swagger-ui/**",
+        "/v3/api-docs/**",
+        // OAuth2
+        "/oauth2/authorization/**",
+        // Public endpoints
+        "/public/**",
     };
 
     @Bean

@@ -54,12 +54,10 @@ public class GoogleOneTapSignInController {
         try {
             GoogleIdToken idToken = verifyGoogleToken(idTokenString);
             if (idToken == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new ApiResponse(false, "Invalid token."));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, "Invalid token."));
             }
 
-            OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(
-                    AuthProviderType.GOOGLE, idToken.getPayload());
+            OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProviderType.GOOGLE, idToken.getPayload());
             OAuth2Principal principal = authService.authenticate(userInfo, OAuth2Intent.SIGN_IN);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -76,7 +74,7 @@ public class GoogleOneTapSignInController {
 
     private GoogleIdToken verifyGoogleToken(String idTokenString) throws GeneralSecurityException, IOException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
-                new NetHttpTransport(), GsonFactory.getDefaultInstance())
+                        new NetHttpTransport(), GsonFactory.getDefaultInstance())
                 .setAudience(Collections.singletonList(googleClientId))
                 .build();
         return verifier.verify(idTokenString);

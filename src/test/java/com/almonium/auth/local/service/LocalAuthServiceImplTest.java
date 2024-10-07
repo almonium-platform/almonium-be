@@ -113,7 +113,8 @@ class LocalAuthServiceImplTest {
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
-        when(authenticationService.authenticateUser(eq(principal), any(HttpServletResponse.class), any(Authentication.class)))
+        when(authenticationService.authenticateUser(
+                        eq(principal), any(HttpServletResponse.class), any(Authentication.class)))
                 .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
         // Act
         JwtAuthResponse result = authService.login(localAuthRequest, mock(HttpServletResponse.class));

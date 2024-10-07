@@ -6,5 +6,4 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 public record LanguageSetupRequest(
-        @NotEmpty @Size(max = 3) Set<Language> fluentLangs, @NotEmpty @Size(max = 3) Set<Language> targetLangs) {
-}
+        @NotEmpty @Size(max = 3) Set<Language> fluentLangs, @NotEmpty @Size(max = 3) Set<Language> targetLangs) {}
