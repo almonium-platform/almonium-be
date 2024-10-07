@@ -3,7 +3,6 @@ package com.almonium.auth.common.service;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,12 +18,6 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.model.entity.VerificationToken;
-import com.almonium.auth.local.model.enums.TokenType;
-import com.almonium.auth.local.repository.VerificationTokenRepository;
-import com.almonium.auth.local.service.impl.SecureRandomTokenGeneratorImpl;
-import com.almonium.infra.email.service.AuthTokenEmailComposerService;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.util.TestDataGenerator;
@@ -39,10 +32,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
 class AuthMethodManagementServiceImplTest {
-    private static final int OTP_LENGTH = 6;
-
     @InjectMocks
     AuthMethodManagementServiceImpl authService;
+
+    @Mock
+    VerificationTokenManagementService verificationTokenManagementService;
 
     @Mock
     UserService userService;
@@ -53,18 +47,6 @@ class AuthMethodManagementServiceImplTest {
     @Mock
     PrincipalFactory passwordEncoder;
 
-    @Mock
-    EmailService emailService;
-
-    @Mock
-    AuthTokenEmailComposerService emailComposerService;
-
-    @Mock
-    SecureRandomTokenGeneratorImpl tokenGenerator;
-
-    @Mock
-    VerificationTokenRepository verificationTokenRepository;
-
     @DisplayName("Should add local login successfully")
     @Test
     void givenValidLocalLoginRequest_whenLinkLocalAuth_thenSuccess() {
@@ -74,21 +56,15 @@ class AuthMethodManagementServiceImplTest {
         user.setEmail(localAuthRequest.email()); // Ensure email matches
 
         String token = "123456";
-        when(tokenGenerator.generateOTP(OTP_LENGTH)).thenReturn(token);
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
         when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
-        when(emailComposerService.composeEmail(localAuthRequest.email(), TokenType.EMAIL_VERIFICATION, token))
-                .thenReturn(TestDataGenerator.createEmailDto());
 
         // Act
         authService.linkLocalAuth(user.getId(), localAuthRequest);
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(emailService).sendEmail(eq(TestDataGenerator.createEmailDto()));
-        verify(verificationTokenRepository).save(any(VerificationToken.class));
-        verify(tokenGenerator).generateOTP(OTP_LENGTH);
         verify(passwordEncoder).createLocalPrincipal(user, localAuthRequest);
         verify(principalRepository).save(any(Principal.class));
     }
@@ -189,24 +165,5 @@ class AuthMethodManagementServiceImplTest {
 
         verify(userService).getUserWithPrincipals(user.getId());
         verify(principalRepository, never()).delete(any(Principal.class));
-    }
-
-    @DisplayName("Should create and send verification token successfully")
-    @Test
-    void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
-        // Arrange
-        LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
-        String token = "123456";
-
-        when(tokenGenerator.generateOTP(6)).thenReturn(token);
-        when(emailComposerService.composeEmail(localPrincipal.getEmail(), TokenType.EMAIL_VERIFICATION, token))
-                .thenReturn(TestDataGenerator.createEmailDto());
-
-        // Act
-        authService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
-
-        // Assert
-        verify(verificationTokenRepository).save(any(VerificationToken.class));
-        verify(emailService).sendEmail(eq(TestDataGenerator.createEmailDto()));
     }
 }

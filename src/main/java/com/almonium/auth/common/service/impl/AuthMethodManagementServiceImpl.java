@@ -9,17 +9,12 @@ import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.AuthMethodManagementService;
+import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
-import com.almonium.auth.local.repository.VerificationTokenRepository;
-import com.almonium.auth.local.service.TokenGenerator;
-import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.infra.email.service.AuthTokenEmailComposerService;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthMethodManagementServiceImpl implements AuthMethodManagementService {
-    private static final int OTP_LENGTH = 6;
-    EmailService emailService;
-    AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     PrincipalFactory principalFactory;
     PrincipalRepository principalRepository;
-    VerificationTokenRepository verificationTokenRepository;
-    TokenGenerator tokenGenerator;
+    VerificationTokenManagementService verificationTokenManagementService;
 
     @Override
     public void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest) {
@@ -49,7 +40,7 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
         validateAddLocalAuthRequest(user, localAuthRequest);
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, localAuthRequest);
         principalRepository.save(localPrincipal);
-        createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
         log.info("Local auth for user {} waiting for verification", userId);
     }
 
@@ -60,15 +51,6 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
         user.getPrincipals().remove(principal);
         principalRepository.delete(principal);
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
-    }
-
-    @Override
-    public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
-        String token = tokenGenerator.generateOTP(OTP_LENGTH);
-        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
-        verificationTokenRepository.save(verificationToken);
-        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
-        emailService.sendEmail(emailDto);
     }
 
     private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {

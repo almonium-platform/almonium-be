@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
-import com.almonium.auth.common.service.AuthMethodManagementService;
+import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
@@ -65,7 +65,7 @@ class LocalAuthServiceImplTest {
     AuthenticationManager authenticationManager;
 
     @Mock
-    AuthMethodManagementService authMethodManagementService;
+    VerificationTokenManagementService authMethodManagementService;
 
     @Mock
     UserService userService;
