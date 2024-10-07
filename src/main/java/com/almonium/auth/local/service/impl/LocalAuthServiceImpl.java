@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthMethodManagementService;
-import com.almonium.auth.common.service.impl.AuthenticationService;
+import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocalAuthServiceImpl implements LocalAuthService {
     // services
     AuthenticationManager authenticationManager;
-    AuthenticationService authenticationService;
+    UserAuthenticationService userAuthenticationService;
     AuthMethodManagementService authMethodManagementService;
     UserService userService;
     PrincipalFactory principalFactory;
@@ -57,7 +57,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         LocalPrincipal localPrincipal = validateAndGetLocalPrincipal(request);
 
         JwtTokenResponse tokenResponse =
-                authenticationService.authenticateUser(localPrincipal, response, authentication);
+                userAuthenticationService.authenticateUser(localPrincipal, response, authentication);
 
         return new JwtAuthResponse(
                 tokenResponse.accessToken(),

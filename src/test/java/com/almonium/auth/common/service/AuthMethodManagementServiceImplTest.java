@@ -14,7 +14,7 @@ import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.service.impl.AuthMethodMethodManagementServiceImpl;
+import com.almonium.auth.common.service.impl.AuthMethodManagementServiceImpl;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
@@ -42,7 +42,7 @@ class AuthMethodManagementServiceImplTest {
     private static final int OTP_LENGTH = 6;
 
     @InjectMocks
-    AuthMethodMethodManagementServiceImpl authService;
+    AuthMethodManagementServiceImpl authService;
 
     @Mock
     UserService userService;

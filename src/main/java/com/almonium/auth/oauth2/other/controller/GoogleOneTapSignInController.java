@@ -3,7 +3,7 @@ package com.almonium.auth.oauth2.other.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.service.impl.AuthenticationService;
+import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GoogleOneTapSignInController {
     OAuth2AuthenticationService authService;
-    AuthenticationService authenticationService;
+    UserAuthenticationService userAuthenticationService;
     OAuth2UserInfoFactory userInfoFactory;
 
     @NonFinal
@@ -63,7 +63,7 @@ public class GoogleOneTapSignInController {
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     principal, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
 
-            authenticationService.authenticateUser(principal, response, authentication);
+            userAuthenticationService.authenticateUser(principal, response, authentication);
 
             return ResponseEntity.ok(new ApiResponse(true, "User authenticated successfully."));
         } catch (Exception e) {
