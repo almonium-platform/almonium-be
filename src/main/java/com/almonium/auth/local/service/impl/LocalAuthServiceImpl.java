@@ -9,20 +9,17 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
-import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.LocalAuthService;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +44,6 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     // repositories
     UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
-    VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public JwtAuthResponse login(LocalAuthRequest request, HttpServletResponse response) {
@@ -77,11 +73,12 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 
     @Override
     public void verifyEmail(String token) {
-        VerificationToken verificationToken = getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
+        VerificationToken verificationToken =
+                verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setEmailVerified(true);
         localPrincipalRepository.save(principal);
-        verificationTokenRepository.delete(verificationToken);
+        verificationTokenManagementService.deleteToken(verificationToken);
     }
 
     @Override
@@ -94,11 +91,12 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 
     @Override
     public void resetPassword(String token, String newPassword) {
-        VerificationToken verificationToken = getTokenOrThrow(token, TokenType.PASSWORD_RESET);
+        VerificationToken verificationToken =
+                verificationTokenManagementService.getTokenOrThrow(token, TokenType.PASSWORD_RESET);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setPassword(principalFactory.encodePassword(newPassword));
         localPrincipalRepository.save(principal);
-        verificationTokenRepository.delete(verificationToken);
+        verificationTokenManagementService.deleteToken(verificationToken);
     }
 
     private LocalPrincipal validateAndGetLocalPrincipal(LocalAuthRequest request) {
@@ -110,23 +108,6 @@ public class LocalAuthServiceImpl implements LocalAuthService {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
         return localPrincipal;
-    }
-
-    private VerificationToken getTokenOrThrow(String token, TokenType expectedType) {
-        VerificationToken verificationToken = verificationTokenRepository
-                .findByToken(token)
-                .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
-
-        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new InvalidVerificationTokenException("Verification token has expired");
-        }
-
-        if (verificationToken.getTokenType() != expectedType) {
-            throw new InvalidVerificationTokenException("Invalid token type: should be " + expectedType + " but got "
-                    + verificationToken.getTokenType() + " instead");
-        }
-
-        return verificationToken;
     }
 
     private void validateRegisterRequest(LocalAuthRequest request) {

@@ -1,6 +1,7 @@
 package com.almonium.auth.common.service.impl;
 
 import com.almonium.auth.common.service.VerificationTokenManagementService;
+import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -9,6 +10,7 @@ import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,12 +27,34 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     EmailService emailService;
 
     @Override
-    public VerificationToken createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
+    public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(OTP_LENGTH);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
         verificationTokenRepository.save(verificationToken);
         EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
         emailService.sendEmail(emailDto);
+    }
+
+    @Override
+    public VerificationToken getTokenOrThrow(String token, TokenType expectedType) {
+        VerificationToken verificationToken = verificationTokenRepository
+                .findByToken(token)
+                .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
+
+        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new InvalidVerificationTokenException("Verification token has expired");
+        }
+
+        if (verificationToken.getTokenType() != expectedType) {
+            throw new InvalidVerificationTokenException("Invalid token type: should be " + expectedType + " but got "
+                    + verificationToken.getTokenType() + " instead");
+        }
+
         return verificationToken;
+    }
+
+    @Override
+    public void deleteToken(VerificationToken verificationToken) {
+        verificationTokenRepository.delete(verificationToken);
     }
 }

@@ -5,5 +5,9 @@ import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 
 public interface VerificationTokenManagementService {
-    VerificationToken createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType);
+    void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType);
+
+    VerificationToken getTokenOrThrow(String token, TokenType expectedType);
+
+    void deleteToken(VerificationToken verificationToken);
 }
