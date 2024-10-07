@@ -32,7 +32,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfo buildUserInfoFromUser(User user) {
-        return userMapper.userToUserInfo(user);
+        return userMapper.userToUserInfo(getByEmail(user.getEmail()));
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return userRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
     }
 
     @Override

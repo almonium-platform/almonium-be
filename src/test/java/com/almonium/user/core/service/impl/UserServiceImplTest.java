@@ -131,6 +131,7 @@ class UserServiceImplTest {
     @Test
     void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
         User user = UserUtility.getUser();
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         userService.buildUserInfoFromUser(user);
         verify(userMapper).userToUserInfo(user);
     }

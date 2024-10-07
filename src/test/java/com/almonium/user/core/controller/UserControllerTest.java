@@ -153,6 +153,6 @@ class UserControllerTest extends BaseControllerTest {
         Collection<String> tags = Arrays.asList("tag1", "tag2");
 
         return new UserInfo(
-                id, username, email, uiLang, profilePicLink, background, streak, targetLangs, fluentLangs, tags);
+                id, username, email, uiLang, profilePicLink, background, streak, targetLangs, fluentLangs, true, tags);
     }
 }
