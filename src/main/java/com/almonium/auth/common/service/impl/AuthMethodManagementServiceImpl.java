@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class AuthManagementServiceImpl implements AuthManagementService {
+public class AuthMethodManagementServiceImpl implements AuthManagementService {
     private static final int OTP_LENGTH = 6;
     EmailService emailService;
     AuthTokenEmailComposerService emailComposerService;
