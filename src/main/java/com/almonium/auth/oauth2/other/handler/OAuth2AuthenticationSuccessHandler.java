@@ -3,9 +3,10 @@ package com.almonium.auth.oauth2.other.handler;
 import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.service.impl.AuthenticationService;
 import com.almonium.auth.common.util.CookieUtil;
+import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,8 +30,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    AuthTokenService authTokenService;
     OAuth2CookieRequestRepository requestRepository;
+    AuthenticationService authenticationService;
 
     @Value("${app.auth.oauth2.authorized-redirect-uris}")
     private List<String> authorizedRedirectUris;
@@ -64,8 +65,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
-        authTokenService.createAndSetAccessToken(authentication, response);
-        authTokenService.createAndSetRefreshToken(authentication, response);
+        OAuth2Principal principal = (OAuth2Principal) authentication.getPrincipal();
+        authenticationService.authenticateUser(principal, response, authentication);
 
         return UriComponentsBuilder.fromUriString(targetUrl).build().toUriString();
     }

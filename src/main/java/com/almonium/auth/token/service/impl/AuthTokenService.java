@@ -6,6 +6,7 @@ import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.util.CookieUtil;
+import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.auth.token.model.entity.RefreshToken;
 import com.almonium.auth.token.repository.RefreshTokenRepository;
 import com.almonium.user.core.model.entity.User;
@@ -101,7 +102,21 @@ public class AuthTokenService {
         return accessToken;
     }
 
-    public String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
+    public Authentication getAuthenticationFromToken(String token) {
+        Principal principal = getPrincipalFromAccessToken(token);
+
+        return new UsernamePasswordAuthenticationToken(
+                principal, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+    }
+
+    public JwtTokenResponse createAndSetAccessAndRefreshTokens(
+            Authentication authentication, HttpServletResponse response) {
+        String accessToken = createAndSetAccessToken(authentication, response);
+        String refreshToken = createAndSetRefreshToken(authentication, response);
+        return new JwtTokenResponse(accessToken, refreshToken);
+    }
+
+    private String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
         String refreshToken = createRefreshToken(authentication);
 
         CookieUtil.addCookieWithPath(
@@ -115,14 +130,7 @@ public class AuthTokenService {
         return refreshToken;
     }
 
-    public Authentication getAuthenticationFromToken(String token) {
-        Principal principal = getPrincipalFromToken(token);
-
-        return new UsernamePasswordAuthenticationToken(
-                principal, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
-    }
-
-    public Principal getPrincipalFromToken(String token) {
+    private Principal getPrincipalFromAccessToken(String token) {
         Claims claims = extractClaims(token);
         long id = Long.parseLong(claims.getSubject());
 
@@ -155,7 +163,7 @@ public class AuthTokenService {
         Instant issueDate = claims.getIssuedAt().toInstant();
         Instant expiryDate = claims.getExpiration().toInstant();
         UUID id = UUID.fromString(claims.getId());
-        Principal principal = getPrincipalFromToken(token);
+        Principal principal = getPrincipalFromAccessToken(token);
         RefreshToken refreshToken = new RefreshToken(id, principal.getUser(), issueDate, expiryDate);
         refreshTokenRepository.save(refreshToken);
         return token;

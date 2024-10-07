@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.impl.AuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -16,10 +17,9 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.LocalAuthService;
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,36 +38,31 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LocalAuthServiceImpl implements LocalAuthService {
+    // services
+    AuthenticationManager authenticationManager;
+    AuthenticationService authenticationService;
     AuthManagementService authManagementService;
     UserService userService;
-    UserRepository userRepository;
-    ProfileService profileService;
-    AuthTokenService authTokenService;
     PrincipalFactory principalFactory;
-    AuthenticationManager manager;
-    VerificationTokenRepository verificationTokenRepository;
+    // repositories
+    UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
+    VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public JwtAuthResponse login(LocalAuthRequest request, HttpServletResponse response) {
-        Authentication authentication =
-                manager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        LocalPrincipal localPrincipal = localPrincipalRepository
-                .findByEmail(request.email())
-                .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
-        if (!localPrincipal.isEmailVerified()) {
-            throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
-        }
+        LocalPrincipal localPrincipal = validateAndGetLocalPrincipal(request);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = localPrincipal.getUser();
-        authTokenService.revokeRefreshTokensByUser(user);
-        profileService.updateLoginStreak(user.getProfile());
+        JwtTokenResponse tokenResponse =
+                authenticationService.authenticateUser(localPrincipal, response, authentication);
 
-        String accessToken = authTokenService.createAndSetAccessToken(authentication, response);
-        String refreshToken = authTokenService.createAndSetRefreshToken(authentication, response);
-        return new JwtAuthResponse(accessToken, refreshToken, userService.buildUserInfoFromUser(user));
+        return new JwtAuthResponse(
+                tokenResponse.accessToken(),
+                tokenResponse.refreshToken(),
+                userService.buildUserInfoFromUser(localPrincipal.getUser()));
     }
 
     @Override
@@ -105,6 +99,17 @@ public class LocalAuthServiceImpl implements LocalAuthService {
         principal.setPassword(principalFactory.encodePassword(newPassword));
         localPrincipalRepository.save(principal);
         verificationTokenRepository.delete(verificationToken);
+    }
+
+    private LocalPrincipal validateAndGetLocalPrincipal(LocalAuthRequest request) {
+        LocalPrincipal localPrincipal = localPrincipalRepository
+                .findByEmail(request.email())
+                .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
+
+        if (!localPrincipal.isEmailVerified()) {
+            throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
+        }
+        return localPrincipal;
     }
 
     private VerificationToken getTokenOrThrow(String token, TokenType expectedType) {

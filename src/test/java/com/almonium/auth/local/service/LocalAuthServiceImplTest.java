@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.AuthManagementService;
+import com.almonium.auth.common.service.impl.AuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -26,11 +27,9 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.LocalAuthServiceImpl;
-import com.almonium.auth.token.service.impl.AuthTokenService;
-import com.almonium.user.core.model.entity.Profile;
+import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.core.service.impl.UserUtility;
 import com.almonium.util.TestDataGenerator;
@@ -69,13 +68,10 @@ class LocalAuthServiceImplTest {
     AuthManagementService authManagementService;
 
     @Mock
-    AuthTokenService tokenService;
-
-    @Mock
     UserService userService;
 
     @Mock
-    ProfileService profileService;
+    AuthenticationService authenticationService;
 
     @Mock
     VerificationTokenRepository verificationTokenRepository;
@@ -117,19 +113,15 @@ class LocalAuthServiceImplTest {
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
-        when(tokenService.createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class)))
-                .thenReturn(expectedAccessJwt);
-        when(tokenService.createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class)))
-                .thenReturn(expectedRefreshJwt);
-
+        when(authenticationService.authenticateUser(eq(principal), any(HttpServletResponse.class), any(Authentication.class)))
+                .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
         // Act
         JwtAuthResponse result = authService.login(localAuthRequest, mock(HttpServletResponse.class));
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
-        verify(profileService).updateLoginStreak(any(Profile.class));
-        verify(tokenService).createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class));
-        verify(tokenService).createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class));
+        verify(authenticationService)
+                .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
         assertThat(result.accessToken()).isEqualTo(expectedAccessJwt);
         assertThat(result.refreshToken()).isEqualTo(expectedRefreshJwt);
     }
@@ -168,11 +160,8 @@ class LocalAuthServiceImplTest {
                 .isInstanceOf(EmailNotVerifiedException.class)
                 .hasMessage("Email needs to be verified before logging in.");
 
-        verify(profileService, never()).updateLoginStreak(any(Profile.class));
-        verify(tokenService, never())
-                .createAndSetAccessToken(any(Authentication.class), any(HttpServletResponse.class));
-        verify(tokenService, never())
-                .createAndSetRefreshToken(any(Authentication.class), any(HttpServletResponse.class));
+        verify(authenticationService, never())
+                .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
     }
 
     @DisplayName("Should throw exception when token is invalid")
