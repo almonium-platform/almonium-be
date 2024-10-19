@@ -22,7 +22,6 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +32,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -63,10 +63,10 @@ public class AuthTokenService {
 
     String fullRefreshTokenPath;
 
+    @Transactional
     public void revokeRefreshTokensByUser(User user) {
-        List<RefreshToken> tokens = refreshTokenRepository.findByUser(user);
-        tokens.forEach(token -> token.setRevoked(true));
-        refreshTokenRepository.saveAll(tokens);
+        // here, we could mark the refresh token as revoked instead of deleting it
+        refreshTokenRepository.deleteAllByUser(user);
     }
 
     public boolean validateToken(String token) {
