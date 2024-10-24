@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.token.service.impl.AuthTokenService;
 import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LanguageUpdateRequest;
 import com.almonium.user.core.dto.UserInfo;
@@ -11,6 +12,7 @@ import com.almonium.user.core.dto.UsernameAvailability;
 import com.almonium.user.core.dto.UsernameUpdateRequest;
 import com.almonium.user.core.service.LearnerService;
 import com.almonium.user.core.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     UserService userService;
     LearnerService learnerService;
+    AuthTokenService authTokenService;
 
     @GetMapping("/me")
     public ResponseEntity<UserInfo> getCurrentUser(@Auth Principal auth) {
@@ -48,8 +51,9 @@ public class UserController {
     }
 
     @DeleteMapping("/me")
-    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth) {
+    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth, HttpServletResponse response) {
         userService.deleteAccount(auth.getUser());
+        authTokenService.clearTokenCookies(response);
         return ResponseEntity.noContent().build();
     }
 

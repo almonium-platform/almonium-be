@@ -39,6 +39,7 @@ databaseChangeLog:
             referencedTableName: user_core
             referencedColumnNames: id
             constraintName: fk_refresh_token_user
+            onDelete: CASCADE
         - createIndex:
             indexName: idx_refresh_token_user
             tableName: refresh_token
