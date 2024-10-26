@@ -2,6 +2,7 @@ package com.almonium.user.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.StripeApiService;
@@ -13,6 +14,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -85,8 +87,7 @@ public class UserServiceImpl implements UserService {
                             .filter(principal -> principal instanceof LocalPrincipal)
                             .findFirst()
                             .orElseThrow(() -> new NoPrincipalsFoundException(
-                                    "User tries to authenticate with local principal, but all his principals are not local: "
-                                            + email));
+                                    "Use %s to access your account instead of email and password.".formatted(collectProvidersNames(user))));
                 })
                 .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));
     }
@@ -94,5 +95,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserWithPrincipals(long id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
+    }
+
+    private static String collectProvidersNames(User user) {
+        return user.getPrincipals()
+                .stream()
+                .map(Principal::getProvider)
+                .map(Enum::name)
+                .map(provider -> provider.substring(0, 1).toUpperCase() + provider.substring(1).toLowerCase())
+                .collect(Collectors.joining(", "));
     }
 }
