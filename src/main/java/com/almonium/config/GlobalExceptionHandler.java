@@ -36,12 +36,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({InternalAuthenticationServiceException.class})
     public ResponseEntity<ApiResponse> handleInternalAuthenticationServiceException(
             InternalAuthenticationServiceException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})
     public ResponseEntity<ApiResponse> handleBadCredentialsException(BadCredentialsException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
     }
 
     // controller exceptions
