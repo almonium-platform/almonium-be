@@ -87,7 +87,8 @@ public class UserServiceImpl implements UserService {
                             .filter(principal -> principal instanceof LocalPrincipal)
                             .findFirst()
                             .orElseThrow(() -> new NoPrincipalsFoundException(
-                                    "Use %s to access your account instead of email and password.".formatted(collectProvidersNames(user))));
+                                    "Use %s to access your account instead of email and password."
+                                            .formatted(collectProvidersNames(user))));
                 })
                 .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));
     }
@@ -98,11 +99,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private static String collectProvidersNames(User user) {
-        return user.getPrincipals()
-                .stream()
+        return user.getPrincipals().stream()
                 .map(Principal::getProvider)
                 .map(Enum::name)
-                .map(provider -> provider.substring(0, 1).toUpperCase() + provider.substring(1).toLowerCase())
+                .map(provider -> provider.substring(0, 1).toUpperCase()
+                        + provider.substring(1).toLowerCase())
                 .collect(Collectors.joining(", "));
     }
 }
