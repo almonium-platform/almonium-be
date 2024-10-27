@@ -97,6 +97,7 @@ app:
   email:
     dry-run: false
   auth:
+    email-verification-required: true
     jwt:
       token-signing-secret: ${TOKEN_SECRET}
       access-token-expiration-duration: 900 # 15 minutes

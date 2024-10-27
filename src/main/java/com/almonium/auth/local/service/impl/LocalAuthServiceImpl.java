@@ -22,7 +22,9 @@ import com.almonium.user.core.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,6 +46,10 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     // repositories
     UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
+
+    @NonFinal
+    @Value("${app.auth.email-verification-required}")
+    boolean emailVerificationRequired;
 
     @Override
     public JwtAuthResponse login(LocalAuthRequest request, HttpServletResponse response) {
@@ -104,7 +110,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
                 .findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
 
-        if (!localPrincipal.isEmailVerified()) {
+        if (emailVerificationRequired && !localPrincipal.isEmailVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
         return localPrincipal;
