@@ -6,7 +6,6 @@ import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.util.CookieUtil;
-import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.auth.token.model.entity.RefreshToken;
 import com.almonium.auth.token.repository.RefreshTokenRepository;
 import com.almonium.user.core.model.entity.User;
@@ -20,7 +19,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 import javax.crypto.SecretKey;
@@ -30,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +37,8 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE)
 public class AuthTokenService {
     private static final String LOCALHOST = "localhost";
+    private static final String IS_LIVE_TOKEN_CLAIM = "is_live";
+
     final PrincipalRepository principalRepository;
     final RefreshTokenRepository refreshTokenRepository;
 
@@ -91,8 +90,19 @@ public class AuthTokenService {
                 getCleanBackendDomain()); // Refresh token cleared with path
     }
 
-    public String createAndSetAccessToken(Authentication authentication, HttpServletResponse response) {
-        String accessToken = createAccessToken(authentication);
+    public String createAndSetAccessTokenForLiveLogin(Authentication authentication, HttpServletResponse response) {
+        String accessToken = generateLiveAccessToken(authentication);
+        CookieUtil.addCookie(
+                response,
+                CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
+                accessToken,
+                accessTokenExpirationSeconds,
+                getCleanBackendDomain());
+        return accessToken;
+    }
+
+    public String createAndSetAccessTokenForRefresh(Authentication authentication, HttpServletResponse response) {
+        String accessToken = generateRefreshedAccessToken(authentication);
         CookieUtil.addCookie(
                 response,
                 CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
@@ -108,14 +118,7 @@ public class AuthTokenService {
         return new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
     }
 
-    public JwtTokenResponse createAndSetAccessAndRefreshTokens(
-            Authentication authentication, HttpServletResponse response) {
-        String accessToken = createAndSetAccessToken(authentication, response);
-        String refreshToken = createAndSetRefreshToken(authentication, response);
-        return new JwtTokenResponse(accessToken, refreshToken);
-    }
-
-    private String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
+    public String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
         String refreshToken = createRefreshToken(authentication);
 
         CookieUtil.addCookieWithPath(
@@ -127,6 +130,20 @@ public class AuthTokenService {
                 getCleanBackendDomain());
 
         return refreshToken;
+    }
+
+    public boolean isAccessTokenLive(String accessToken) {
+        Claims claims = extractClaims(accessToken);
+        Object isLiveClaim = claims.get(IS_LIVE_TOKEN_CLAIM);
+        return isLiveClaim instanceof Boolean && (Boolean) isLiveClaim;
+    }
+
+    private String generateLiveAccessToken(Authentication authentication) {
+        return generateToken(authentication, accessTokenExpirationSeconds, true);
+    }
+
+    private String generateRefreshedAccessToken(Authentication authentication) {
+        return generateToken(authentication, accessTokenExpirationSeconds, false);
     }
 
     private Principal getPrincipalFromAccessToken(String token) {
@@ -145,19 +162,15 @@ public class AuthTokenService {
         return fullRefreshTokenPath;
     }
 
-    public String getCleanBackendDomain() {
+    private String getCleanBackendDomain() {
         if (backendDomain.contains(LOCALHOST)) {
             return LOCALHOST;
         }
         return backendDomain;
     }
 
-    private String createAccessToken(Authentication authentication) {
-        return generateToken(authentication, accessTokenExpirationSeconds);
-    }
-
     private String createRefreshToken(Authentication authentication) {
-        String token = generateToken(authentication, refreshTokenExpirationSeconds);
+        String token = generateToken(authentication, refreshTokenExpirationSeconds, false);
         Claims claims = extractClaims(token);
         Instant issueDate = claims.getIssuedAt().toInstant();
         Instant expiryDate = claims.getExpiration().toInstant();
@@ -176,7 +189,8 @@ public class AuthTokenService {
                 .getPayload();
     }
 
-    private String generateToken(Authentication authentication, long tokenExpirationSeconds) {
+    private String generateToken(
+            Authentication authentication, long tokenExpirationSeconds, boolean isReauthenticated) {
         long id = ((Principal) (authentication.getPrincipal())).getId();
 
         Instant now = Instant.now();
@@ -189,6 +203,7 @@ public class AuthTokenService {
         return Jwts.builder()
                 .id(jti)
                 .subject(Long.toString(id))
+                .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
                 .issuedAt(Date.from(now))
                 .expiration(expiryDate)
                 .signWith(key)

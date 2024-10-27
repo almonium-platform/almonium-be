@@ -60,8 +60,7 @@ public class GoogleOneTapSignInController {
             OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProviderType.GOOGLE, idToken.getPayload());
             OAuth2Principal principal = authService.authenticate(userInfo, OAuth2Intent.SIGN_IN);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    principal, null, Principal.ROLES);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
 
             userAuthenticationService.authenticateUser(principal, response, authentication);
 

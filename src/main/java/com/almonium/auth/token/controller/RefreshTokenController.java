@@ -33,7 +33,7 @@ public class RefreshTokenController {
         }
 
         Authentication authentication = tokenService.getAuthenticationFromToken(refreshToken);
-        String newAccessToken = tokenService.createAndSetAccessToken(authentication, response);
+        String newAccessToken = tokenService.createAndSetAccessTokenForRefresh(authentication, response);
 
         return ResponseEntity.ok(new JwtTokenResponse(newAccessToken, refreshToken));
     }

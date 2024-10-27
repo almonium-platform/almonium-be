@@ -12,6 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Common entry point for user authentication across all live authentication methods.
+ * This service sets up the security context, updates the user's login streak,
+ * and generates both access and refresh tokens.
+ */
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -23,6 +28,8 @@ public class UserAuthenticationService {
             Principal principal, HttpServletResponse response, Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         profileService.updateLoginStreak(principal.getUser().getProfile());
-        return authTokenService.createAndSetAccessAndRefreshTokens(authentication, response);
+        String accessToken = authTokenService.createAndSetAccessTokenForLiveLogin(authentication, response);
+        String refreshToken = authTokenService.createAndSetRefreshToken(authentication, response);
+        return new JwtTokenResponse(accessToken, refreshToken);
     }
 }
