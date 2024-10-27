@@ -2,6 +2,7 @@ package com.almonium.auth.oauth2.other.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
@@ -27,7 +28,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +61,7 @@ public class GoogleOneTapSignInController {
             OAuth2Principal principal = authService.authenticate(userInfo, OAuth2Intent.SIGN_IN);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    principal, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+                    principal, null, Principal.ROLES);
 
             userAuthenticationService.authenticateUser(principal, response, authentication);
 

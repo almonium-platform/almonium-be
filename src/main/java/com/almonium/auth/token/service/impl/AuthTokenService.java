@@ -105,8 +105,7 @@ public class AuthTokenService {
     public Authentication getAuthenticationFromToken(String token) {
         Principal principal = getPrincipalFromAccessToken(token);
 
-        return new UsernamePasswordAuthenticationToken(
-                principal, null, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+        return new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
     }
 
     public JwtTokenResponse createAndSetAccessAndRefreshTokens(

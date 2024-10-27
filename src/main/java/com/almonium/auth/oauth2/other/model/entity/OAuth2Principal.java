@@ -4,7 +4,6 @@ import com.almonium.auth.common.model.entity.Principal;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Entity
@@ -45,6 +43,6 @@ public class OAuth2Principal extends Principal implements OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return Principal.ROLES;
     }
 }

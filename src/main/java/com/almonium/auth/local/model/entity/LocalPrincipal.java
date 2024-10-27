@@ -7,12 +7,10 @@ import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import java.util.Collection;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -36,7 +34,7 @@ public class LocalPrincipal extends Principal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return Principal.ROLES;
     }
 
     @Override

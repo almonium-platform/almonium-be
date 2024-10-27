@@ -17,6 +17,8 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -39,6 +42,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Principal {
+    private static final SimpleGrantedAuthority DEFAULT_ROLE = new SimpleGrantedAuthority("ROLE_USER");
+    public static final List<SimpleGrantedAuthority> ROLES = Collections.singletonList(DEFAULT_ROLE);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
