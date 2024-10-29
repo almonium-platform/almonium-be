@@ -58,6 +58,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 CookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
 
         if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
+            log.warn("Invalid redirect URI detected: {}", redirectUri.get());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Invalid redirect URI detected. Unable to proceed with authentication process");

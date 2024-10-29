@@ -10,11 +10,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -33,6 +35,11 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 .queryParam("error", exception.getLocalizedMessage())
                 .build()
                 .toUriString();
+
+        log.error(
+                "Authentication failed for request: {} with error: {}",
+                request.getRequestURI(),
+                exception.getMessage());
 
         requestRepository.removeAuthorizationRequestCookies(response);
         getRedirectStrategy().sendRedirect(request, response, targetUrl);

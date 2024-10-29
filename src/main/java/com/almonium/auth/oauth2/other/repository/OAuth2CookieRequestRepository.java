@@ -4,6 +4,8 @@ import static com.almonium.auth.common.util.CookieUtil.INTENT_PARAM_COOKIE_NAME;
 import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 import com.almonium.auth.common.util.CookieUtil;
+import com.almonium.auth.common.util.UrlUtil;
+import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,15 +40,22 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
                 OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
                 CookieUtil.serialize(authorizationRequest),
                 COOKIE_EXPIRE_SECONDS);
+
+        String intentParam = request.getParameter(INTENT_PARAM_COOKIE_NAME);
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
-        String intent = request.getParameter(INTENT_PARAM_COOKIE_NAME);
+        OAuth2Intent intent = OAuth2Intent.fromString(intentParam);
+
+        if (intent != null) {
+            CookieUtil.addCookie(response, INTENT_PARAM_COOKIE_NAME, intentParam, COOKIE_EXPIRE_SECONDS);
+            if (intent == OAuth2Intent.LINK) {
+                // Front-end will use this to show an appropriate success message
+                redirectUriAfterLogin = UrlUtil.addQueryParam(redirectUriAfterLogin, "linked", "true");
+            }
+        }
 
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
             CookieUtil.addCookie(
                     response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, COOKIE_EXPIRE_SECONDS);
-        }
-        if (StringUtils.isNotBlank(intent)) {
-            CookieUtil.addCookie(response, INTENT_PARAM_COOKIE_NAME, intent, COOKIE_EXPIRE_SECONDS);
         }
     }
 
