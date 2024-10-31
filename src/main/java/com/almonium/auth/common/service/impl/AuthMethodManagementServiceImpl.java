@@ -3,6 +3,7 @@ package com.almonium.auth.common.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
+import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
@@ -11,8 +12,6 @@ import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -60,8 +59,7 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .orElseThrow(() ->
                         new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
 
-        LocalPrincipal newLocalPrincipal =
-                principalFactory.duplicateLocalPrincipalAndChangeEmail(existingLocalPrincipal, newEmail);
+        LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
     }
@@ -75,7 +73,7 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     public void linkLocalWithNewEmail(long id, LocalAuthRequest request) {
         User user = userService.getById(id);
         if (user.getEmail().equals(request.email())) {
-            throw new EmailMismatchException("You requested to change to the same email: " + user.getEmail());
+            throw new BadAuthActionRequest("You requested to change to the same email: " + user.getEmail());
         }
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
@@ -145,10 +143,14 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
 
     @Transactional
     @Override
-    public void linkLocal(long userId, LocalAuthRequest localAuthRequest) {
+    public void linkLocal(long userId, String password) {
         User user = userService.getUserWithPrincipals(userId);
-        validateAddLocalAuthRequest(user, localAuthRequest);
-        LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, localAuthRequest);
+
+        if (userService.getLocalPrincipal(user).isPresent()) {
+            throw new BadAuthActionRequest("Local auth method already exists for user: " + user.getEmail());
+        }
+
+        LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, password);
         principalRepository.save(localPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
         log.info("Local auth for user {} waiting for verification", userId);
@@ -193,16 +195,5 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .filter(principal -> principal.getProvider() == providerType)
                 .findFirst()
                 .orElseThrow(() -> new AuthMethodNotFoundException("Auth method not found " + providerType));
-    }
-
-    private void validateAddLocalAuthRequest(User user, LocalAuthRequest request) {
-        if (user.getPrincipals().stream()
-                .anyMatch(principal -> principal.getProvider().equals(AuthProviderType.LOCAL))) {
-            throw new UserAlreadyExistsException("You already have local account registered with " + user.getEmail());
-        }
-        if (!user.getEmail().equals(request.email())) {
-            throw new EmailMismatchException(
-                    "You need to register with the email you currently use: " + user.getEmail());
-        }
     }
 }

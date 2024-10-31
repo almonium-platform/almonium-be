@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class PrincipalFactory {
     private final PasswordEncoderService passwordEncoderService;
 
-    public LocalPrincipal duplicateLocalPrincipalAndChangeEmail(LocalPrincipal localPrincipal, String newEmail) {
+    public LocalPrincipal createLocalPrincipal(LocalPrincipal localPrincipal, String newEmail) {
         User user = localPrincipal.getUser();
         LocalPrincipal newPrincipal = new LocalPrincipal(user, newEmail, localPrincipal.getPassword());
         user.getPrincipals().add(newPrincipal);
@@ -22,6 +22,13 @@ public class PrincipalFactory {
     public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
         LocalPrincipal principal =
                 new LocalPrincipal(user, request.email(), passwordEncoderService.encodePassword(request.password()));
+        user.getPrincipals().add(principal);
+        return principal;
+    }
+
+    public LocalPrincipal createLocalPrincipal(User user, String password) {
+        LocalPrincipal principal =
+                new LocalPrincipal(user, user.getEmail(), passwordEncoderService.encodePassword(password));
         user.getPrincipals().add(principal);
         return principal;
     }

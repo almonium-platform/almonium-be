@@ -17,7 +17,7 @@ public interface AuthMethodManagementService {
 
     boolean isEmailAvailable(String email);
 
-    void linkLocal(long userId, LocalAuthRequest localAuthRequest);
+    void linkLocal(long userId, String password);
 
     void linkLocalWithNewEmail(long id, LocalAuthRequest request);
 

@@ -9,15 +9,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
+import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.impl.AuthMethodManagementServiceImpl;
-import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -26,6 +24,7 @@ import com.almonium.auth.local.service.impl.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.util.TestDataGenerator;
+import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -102,63 +101,44 @@ class AuthMethodManagementServiceImplTest {
     @Test
     void givenValidLocalLoginRequest_whenLinkLocal_thenSuccess() {
         // Arrange
-        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUserWithId();
-        user.setEmail(localAuthRequest.email()); // Ensure email matches
 
         String token = "123456";
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-        when(principalFactory.createLocalPrincipal(user, localAuthRequest))
-                .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
+        String password = "password";
+        when(principalFactory.createLocalPrincipal(user, password))
+                .thenReturn(new LocalPrincipal(user, "email@mail.com", "encodedPassword"));
 
         // Act
-        authService.linkLocal(user.getId(), localAuthRequest);
+        authService.linkLocal(user.getId(), password);
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalFactory).createLocalPrincipal(user, localAuthRequest);
+        verify(principalFactory).createLocalPrincipal(user, password);
         verify(principalRepository).save(any(Principal.class));
-    }
-
-    @DisplayName("Should throw exception when email mismatch on adding local login")
-    @Test
-    void givenEmailMismatch_whenLinkLocal_thenThrowEmailMismatchException() {
-        // Arrange
-        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        User user = TestDataGenerator.buildTestUserWithId();
-        user.setEmail("different-email@example.com");
-
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.linkLocal(user.getId(), localAuthRequest))
-                .isInstanceOf(EmailMismatchException.class)
-                .hasMessageContaining("You need to register with the email you currently use: " + user.getEmail());
-
-        verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalRepository, never()).save(any(Principal.class));
     }
 
     @DisplayName("Should throw exception when local login already exists")
     @Test
-    void givenExistingLocalLogin_whenLinkLocal_thenThrowUserAlreadyExistsAuthenticationException() {
+    void givenExistingLocalLogin_whenLinkLocal_thenThrowBadAuthActionRequestException() {
         // Arrange
-        LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = TestDataGenerator.buildTestUserWithId();
-        Principal existingPrincipal = LocalPrincipal.builder()
+        LocalPrincipal existingPrincipal = LocalPrincipal.builder()
                 .user(user)
                 .provider(AuthProviderType.LOCAL)
                 .build();
         user.getPrincipals().add(existingPrincipal);
 
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+        when(userService.getLocalPrincipal(user)).thenReturn(Optional.of(existingPrincipal));
+        String password = "password";
 
         // Act & Assert
-        assertThatThrownBy(() -> authService.linkLocal(user.getId(), localAuthRequest))
-                .isInstanceOf(UserAlreadyExistsException.class)
-                .hasMessageContaining("You already have local account registered with " + user.getEmail());
+        assertThatThrownBy(() -> authService.linkLocal(user.getId(), password))
+                .isInstanceOf(BadAuthActionRequest.class)
+                .hasMessageContaining("Local auth method already exists for user: " + user.getEmail());
 
-        verify(userService).getUserWithPrincipals(user.getId());
+        verify(userService).getLocalPrincipal(user);
         verify(principalRepository, never()).save(any(Principal.class));
     }
 

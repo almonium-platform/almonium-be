@@ -1,6 +1,7 @@
 package com.almonium.config;
 
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
+import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.EmailNotFoundException;
@@ -37,6 +38,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> handleInternalAuthenticationServiceException(
             InternalAuthenticationServiceException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler({BadAuthActionRequest.class})
+    public ResponseEntity<ApiResponse> handleBadAuthActionRequest(BadAuthActionRequest ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})

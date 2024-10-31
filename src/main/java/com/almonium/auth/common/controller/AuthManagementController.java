@@ -9,7 +9,7 @@ import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.dto.request.PasswordResetRequest;
+import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class AuthManagementController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordResetRequest request) {
+    public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
         authMethodManagementService.changePassword(auth.getUser().getId(), request.password());
         return ResponseEntity.ok().build();
     }
@@ -81,9 +81,8 @@ public class AuthManagementController {
 
     @PostMapping("/local")
     public ResponseEntity<?> addLocalLogin(
-            @Auth Principal auth,
-            @Valid @RequestBody LocalAuthRequest localAuthRequest) { // change to accept only password
-        authMethodManagementService.linkLocal(auth.getUser().getId(), localAuthRequest);
+            @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
+        authMethodManagementService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
         return ResponseEntity.ok().build();
     }
 
