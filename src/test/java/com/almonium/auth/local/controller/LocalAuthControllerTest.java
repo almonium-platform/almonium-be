@@ -14,7 +14,6 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordResetConfirmRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotFoundException;
-import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.service.LocalAuthService;
 import com.almonium.base.BaseControllerTest;
@@ -134,21 +133,6 @@ class LocalAuthControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("$.message").value("Email verified successfully"));
     }
 
-    @DisplayName("Should handle invalid token by returning forbidden status")
-    @Test
-    @SneakyThrows
-    void givenInvalidToken_whenVerifyEmail_thenReturnsForbidden() {
-        String token = "invalidToken";
-        doThrow(new InvalidVerificationTokenException("Invalid verification token"))
-                .when(localAuthService)
-                .verifyEmail(any(String.class));
-
-        mockMvc.perform(post(VERIFY_EMAIL_URL).param("token", token))
-                .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$.success").value(false))
-                .andExpect(jsonPath("$.message").value("Invalid verification token"));
-    }
-
     @DisplayName("Should request password reset successfully")
     @Test
     @SneakyThrows
@@ -194,24 +178,5 @@ class LocalAuthControllerTest extends BaseControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true));
-    }
-
-    @DisplayName("Should return forbidden when resetting password with invalid token")
-    @Test
-    @SneakyThrows
-    void givenInvalidToken_whenResetPassword_thenForbidden() {
-        String token = "invalid-token";
-        String newPassword = "newPassword123";
-        PasswordResetConfirmRequest request = new PasswordResetConfirmRequest(token, newPassword);
-
-        doThrow(new InvalidVerificationTokenException("Invalid verification token"))
-                .when(localAuthService)
-                .resetPassword(token, newPassword);
-
-        mockMvc.perform(post(RESET_PASSWORD_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$.success").value(false));
     }
 }

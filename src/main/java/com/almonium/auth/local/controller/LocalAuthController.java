@@ -2,9 +2,8 @@ package com.almonium.auth.local.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.dto.request.PasswordResetConfirmRequest;
-import com.almonium.auth.local.dto.request.PasswordResetRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.service.LocalAuthService;
 import com.almonium.util.dto.ApiResponse;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,22 +37,9 @@ public class LocalAuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<ApiResponse> requestPasswordReset(
-            @Valid @RequestBody PasswordResetRequest passwordResetRequest) {
-        localAuthService.requestPasswordReset(passwordResetRequest.email());
-        return ResponseEntity.ok(new ApiResponse(true, "Password reset email sent successfully"));
-    }
-
-    @PostMapping("/verify-email")
-    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String token) {
-        localAuthService.verifyEmail(token);
-        return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<ApiResponse> resetPassword(
-            @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
-        localAuthService.resetPassword(passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());
-        return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
+    public ResponseEntity<ApiResponse> requestPasswordReset(@Valid @RequestBody EmailRequestDto emailRequestDto) {
+        localAuthService.requestPasswordReset(emailRequestDto.email());
+        return ResponseEntity.ok(
+                new ApiResponse(true, "If an account with that email exists, a password reset link has been sent."));
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Email Change Request</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>We received a request to change your email to this address.</p>
+        <p>Until you verify this new email, you can continue signing in with your current login methods.
+            Please note that any social logins associated with your old email (such as Google or Apple) will no longer
+            be accessible after verification.</p>
+        <br>
+        <p>To proceed, please click the button below:</p>
+        <p class="button-p">
+            <a th:href="${url}" class="button">
+                Verify and Update Email
+            </a>
+        </p>
+        <p>
+            If the button above doesn’t work, copy and paste the following link into your browser:
+        </p>
+        <p>
+            <a th:href="${url}">
+                <span th:text="${url}"></span>
+            </a>
+        </p>
+        <br>
+        <p>If you didn’t make this request, you can safely ignore this email.</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+</body>
+</html>

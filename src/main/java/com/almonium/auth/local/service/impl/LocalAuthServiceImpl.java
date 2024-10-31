@@ -7,11 +7,9 @@ import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
-import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.service.LocalAuthService;
@@ -78,31 +76,11 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     }
 
     @Override
-    public void verifyEmail(String token) {
-        VerificationToken verificationToken =
-                verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
-        LocalPrincipal principal = verificationToken.getPrincipal();
-        principal.setEmailVerified(true);
-        localPrincipalRepository.save(principal);
-        verificationTokenManagementService.deleteToken(verificationToken);
-    }
-
-    @Override
     public void requestPasswordReset(String email) {
-        LocalPrincipal localPrincipal = localPrincipalRepository
+        localPrincipalRepository
                 .findByEmail(email)
-                .orElseThrow(() -> new EmailNotFoundException("Invalid email " + email));
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.PASSWORD_RESET);
-    }
-
-    @Override
-    public void resetPassword(String token, String newPassword) {
-        VerificationToken verificationToken =
-                verificationTokenManagementService.getTokenOrThrow(token, TokenType.PASSWORD_RESET);
-        LocalPrincipal principal = verificationToken.getPrincipal();
-        principal.setPassword(principalFactory.encodePassword(newPassword));
-        localPrincipalRepository.save(principal);
-        verificationTokenManagementService.deleteToken(verificationToken);
+                .ifPresent(principal -> verificationTokenManagementService.createAndSendVerificationToken(
+                        principal, TokenType.PASSWORD_RESET));
     }
 
     private LocalPrincipal validateAndGetLocalPrincipal(LocalAuthRequest request) {

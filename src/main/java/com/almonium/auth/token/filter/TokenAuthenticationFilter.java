@@ -34,6 +34,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+        if (request.getRequestURI().contains("/public")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String bearer = BearerTokenUtil.getBearerTokenFromRequest(request);
 
         Optional<String> token =

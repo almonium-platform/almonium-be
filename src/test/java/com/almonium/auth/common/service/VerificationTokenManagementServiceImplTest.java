@@ -69,7 +69,7 @@ class VerificationTokenManagementServiceImplTest {
 
     @DisplayName("Should throw exception when token is expired")
     @Test
-    void givenExpiredToken_whenGetTokenOrThrow_thenThrowInvalidVerificationTokenException() {
+    void givenExpiredToken_whenGetTokenOrThrow_thenThrowInvalidVerificationValidTokenException() {
         // Arrange
         String token = "expiredToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
@@ -79,8 +79,8 @@ class VerificationTokenManagementServiceImplTest {
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() ->
+                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
@@ -89,15 +89,15 @@ class VerificationTokenManagementServiceImplTest {
 
     @DisplayName("Should throw exception when token is invalid")
     @Test
-    void givenInvalidToken_whenGetTokenOrThrow_thenThrowInvalidVerificationTokenException() {
+    void givenInvalidToken_whenGetTokenOrThrow_thenThrowInvalidVerificationValidTokenException() {
         // Arrange
         String token = "invalidToken";
 
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() ->
+                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Token is invalid or has been used");
 
@@ -106,7 +106,7 @@ class VerificationTokenManagementServiceImplTest {
 
     @DisplayName("Should throw exception when token type does not match expected type")
     @Test
-    void givenTokenTypeMismatch_whenGetTokenOrThrow_thenThrowInvalidVerificationTokenException() {
+    void givenTokenTypeMismatch_whenGetTokenOrThrow_thenThrowInvalidVerificationValidTokenException() {
         // Arrange
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
@@ -115,8 +115,8 @@ class VerificationTokenManagementServiceImplTest {
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() ->
+                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
 
@@ -139,7 +139,7 @@ class VerificationTokenManagementServiceImplTest {
 
     @DisplayName("Should return verification token when token is valid and type matches expected type")
     @Test
-    void givenValidTokenAndMatchingType_whenGetTokenOrThrow_thenReturnVerificationToken() {
+    void givenValidTokenAndMatchingType_whenGetTokenOrThrow_thenReturnVerificationValidToken() {
         // Arrange
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
@@ -150,7 +150,7 @@ class VerificationTokenManagementServiceImplTest {
 
         // Act
         VerificationToken result =
-                verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
+                verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
 
         // Assert
         verify(verificationTokenRepository).findByToken(token);

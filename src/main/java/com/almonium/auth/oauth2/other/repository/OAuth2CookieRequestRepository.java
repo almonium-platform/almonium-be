@@ -47,10 +47,11 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
 
         if (intent != null) {
             CookieUtil.addCookie(response, INTENT_PARAM_COOKIE_NAME, intentParam, COOKIE_EXPIRE_SECONDS);
-            if (intent == OAuth2Intent.LINK) {
-                // Front-end will use this to show an appropriate success message
-                redirectUriAfterLogin = UrlUtil.addQueryParam(redirectUriAfterLogin, "linked", "true");
-            }
+            // Front-end will use this to show an appropriate success message
+            redirectUriAfterLogin = UrlUtil.addQueryParam(
+                    redirectUriAfterLogin,
+                    INTENT_PARAM_COOKIE_NAME,
+                    intent.name().toLowerCase());
         }
 
         if (StringUtils.isNotBlank(redirectUriAfterLogin)) {

@@ -2,7 +2,7 @@ package com.almonium.auth.common.factory;
 
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.config.security.PasswordEncoder;
+import com.almonium.auth.local.service.impl.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,15 +10,19 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PrincipalFactory {
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderService passwordEncoderService;
 
-    public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
-        LocalPrincipal principal = new LocalPrincipal(user, user.getEmail(), encodePassword(request.password()));
-        user.getPrincipals().add(principal);
-        return principal;
+    public LocalPrincipal duplicateLocalPrincipalAndChangeEmail(LocalPrincipal localPrincipal, String newEmail) {
+        User user = localPrincipal.getUser();
+        LocalPrincipal newPrincipal = new LocalPrincipal(user, newEmail, localPrincipal.getPassword());
+        user.getPrincipals().add(newPrincipal);
+        return newPrincipal;
     }
 
-    public String encodePassword(String password) {
-        return passwordEncoder.encode(password);
+    public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
+        LocalPrincipal principal =
+                new LocalPrincipal(user, user.getEmail(), passwordEncoderService.encodePassword(request.password()));
+        user.getPrincipals().add(principal);
+        return principal;
     }
 }

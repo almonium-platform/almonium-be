@@ -10,7 +10,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
-import com.almonium.user.core.exception.NoPrincipalsFoundException;
+import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
 import java.util.HashMap;
@@ -132,8 +132,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    @ExceptionHandler(NoPrincipalsFoundException.class)
-    public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalsFoundException ex) {
+    @ExceptionHandler(NoPrincipalFoundException.class)
+    public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalFoundException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 

@@ -44,6 +44,7 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         try {
             return authService.authenticate(userInfo, getIntent());
+
         } catch (Exception ex) {
             throw new OAuth2AuthenticationException("Authentication failed", ex);
         }

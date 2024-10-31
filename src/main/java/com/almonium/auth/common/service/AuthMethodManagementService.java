@@ -2,9 +2,30 @@ package com.almonium.auth.common.service;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
+import java.util.List;
 
 public interface AuthMethodManagementService {
-    void linkLocalAuth(Long userId, LocalAuthRequest localAuthRequest);
+    void changeEmail(String token);
 
-    void unlinkAuthMethod(Long userId, AuthProviderType providerType);
+    void changePassword(long id, String newPassword);
+
+    void requestEmailChange(long id, String newEmail);
+
+    void sendEmailVerification(long id);
+
+    boolean isEmailVerified(long id);
+
+    boolean isEmailAvailable(String email);
+
+    void linkLocal(long userId, LocalAuthRequest localAuthRequest);
+
+    void linkLocalWithNewEmail(long id, LocalAuthRequest request);
+
+    void unlinkAuthMethod(long userId, AuthProviderType providerType);
+
+    List<AuthProviderType> getAuthProviders(long id);
+
+    void verifyEmail(String token);
+
+    void resetPassword(String token, String newPassword);
 }

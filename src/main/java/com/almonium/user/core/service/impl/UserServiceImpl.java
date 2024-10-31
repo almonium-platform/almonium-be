@@ -7,7 +7,7 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.dto.UserInfo;
-import com.almonium.user.core.exception.NoPrincipalsFoundException;
+import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -77,16 +77,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        return (UserDetails) findByEmail(email)
+        return findByEmail(email)
                 .map(user -> {
                     if (user.getPrincipals().isEmpty()) {
-                        throw new NoPrincipalsFoundException("User exists without any principals: " + email);
+                        throw new NoPrincipalFoundException("User exists without any principals: " + email);
                     }
 
-                    return user.getPrincipals().stream()
-                            .filter(principal -> principal instanceof LocalPrincipal)
-                            .findFirst()
-                            .orElseThrow(() -> new NoPrincipalsFoundException(
+                    return getLocalPrincipal(user)
+                            .orElseThrow(() -> new NoPrincipalFoundException(
                                     "Use %s to access your account instead of email and password."
                                             .formatted(collectProvidersNames(user))));
                 })
@@ -96,6 +94,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserWithPrincipals(long id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
+    }
+
+    @Override
+    public Optional<LocalPrincipal> getLocalPrincipal(User user) {
+        return user.getPrincipals().stream()
+                .filter(principal -> principal instanceof LocalPrincipal)
+                .map(principal -> (LocalPrincipal) principal)
+                .findFirst();
     }
 
     private static String collectProvidersNames(User user) {

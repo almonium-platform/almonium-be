@@ -1,5 +1,6 @@
 package com.almonium.user.core.service;
 
+import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.User;
 import java.util.Optional;
@@ -21,4 +22,6 @@ public interface UserService extends UserDetailsService {
     void deleteAccount(User user);
 
     User getUserWithPrincipals(long id);
+
+    Optional<LocalPrincipal> getLocalPrincipal(User user);
 }

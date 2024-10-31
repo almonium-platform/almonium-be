@@ -7,7 +7,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 public interface VerificationTokenManagementService {
     void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType);
 
-    VerificationToken getTokenOrThrow(String token, TokenType expectedType);
+    VerificationToken getValidTokenOrThrow(String token, TokenType expectedType);
 
     void deleteToken(VerificationToken verificationToken);
 }

@@ -21,7 +21,6 @@ import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.service.impl.LocalAuthServiceImpl;
@@ -159,25 +158,6 @@ class LocalAuthServiceImplTest {
                 .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
     }
 
-    @DisplayName("Should verify email successfully")
-    @Test
-    void givenValidToken_whenVerifyEmail_thenSetVerifiedAndDeleteToken() {
-        // Arrange
-        String token = "validToken";
-        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
-        when(verificationTokenManagementService.getTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
-                .thenReturn(verificationToken);
-
-        // Act
-        authService.verifyEmail(token);
-
-        // Assert
-        assertThat(principal.isEmailVerified()).isTrue();
-        verify(localPrincipalRepository).save(principal);
-        verify(verificationTokenManagementService).deleteToken(verificationToken);
-    }
-
     @DisplayName("Should request password reset successfully")
     @Test
     void givenValidEmail_whenRequestPasswordReset_thenSendVerificationToken() {
@@ -209,26 +189,5 @@ class LocalAuthServiceImplTest {
         verify(localPrincipalRepository).findByEmail(email);
         verify(verificationTokenManagementService, never())
                 .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
-    }
-
-    @DisplayName("Should reset password successfully")
-    @Test
-    void givenValidTokenAndNewPassword_whenResetPassword_thenUpdatePasswordAndDeleteToken() {
-        // Arrange
-        String token = "validToken";
-        String newPassword = "newPassword123";
-        String encodedPassword = "2b$encodedPassword";
-        LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
-        VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.PASSWORD_RESET, 60);
-        when(principalFactory.encodePassword(newPassword)).thenReturn(encodedPassword);
-        when(verificationTokenManagementService.getTokenOrThrow(token, TokenType.PASSWORD_RESET))
-                .thenReturn(verificationToken);
-        // Act
-        authService.resetPassword(token, newPassword);
-
-        // Assert
-        assertThat(principal.getPassword()).isEqualTo(encodedPassword);
-        verify(localPrincipalRepository).save(principal);
-        verify(verificationTokenManagementService).deleteToken(verificationToken);
     }
 }

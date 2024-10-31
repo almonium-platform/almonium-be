@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -33,10 +35,11 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
         verificationTokenRepository.save(verificationToken);
         EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
         emailService.sendEmail(emailDto);
+        log.info("Verification token sent to {}", localPrincipal.getEmail());
     }
 
     @Override
-    public VerificationToken getTokenOrThrow(String token, TokenType expectedType) {
+    public VerificationToken getValidTokenOrThrow(String token, TokenType expectedType) {
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
