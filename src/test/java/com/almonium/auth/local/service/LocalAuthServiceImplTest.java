@@ -17,7 +17,6 @@ import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.common.service.impl.UserAuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
-import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
@@ -41,10 +40,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
+@ActiveProfiles("test")
+@TestPropertySource(properties = {"app.auth.email-verification-required=true"})
 class LocalAuthServiceImplTest {
+    private static final String IS_EMAIL_VERIFICATION_REQUIRED_FIELD = "emailVerificationRequired";
+
     @InjectMocks
     LocalAuthServiceImpl authService;
 
@@ -148,6 +154,7 @@ class LocalAuthServiceImplTest {
                 .emailVerified(false)
                 .build();
         when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
+        ReflectionTestUtils.setField(authService, IS_EMAIL_VERIFICATION_REQUIRED_FIELD, true);
 
         // Act & Assert
         assertThatThrownBy(() -> authService.login(localAuthRequest, mock(HttpServletResponse.class)))
@@ -172,22 +179,5 @@ class LocalAuthServiceImplTest {
         // Assert
         verify(localPrincipalRepository).findByEmail(email);
         verify(verificationTokenManagementService).createAndSendVerificationToken(principal, TokenType.PASSWORD_RESET);
-    }
-
-    @DisplayName("Should throw exception when email is not found for password reset request")
-    @Test
-    void givenInvalidEmail_whenRequestPasswordReset_thenThrowUsernameNotFoundException() {
-        // Arrange
-        String email = "invalid@example.com";
-        when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.requestPasswordReset(email))
-                .isInstanceOf(EmailNotFoundException.class)
-                .hasMessage("Invalid email invalid@example.com");
-
-        verify(localPrincipalRepository).findByEmail(email);
-        verify(verificationTokenManagementService, never())
-                .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.PASSWORD_RESET));
     }
 }

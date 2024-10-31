@@ -50,9 +50,6 @@ class AuthMethodManagementServiceImplTest {
     PrincipalRepository principalRepository;
 
     @Mock
-    PrincipalFactory passwordEncoder;
-
-    @Mock
     PrincipalFactory principalFactory;
 
     @Mock
@@ -111,7 +108,7 @@ class AuthMethodManagementServiceImplTest {
 
         String token = "123456";
         when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-        when(passwordEncoder.createLocalPrincipal(user, localAuthRequest))
+        when(principalFactory.createLocalPrincipal(user, localAuthRequest))
                 .thenReturn(new LocalPrincipal(user, localAuthRequest.email(), "encodedPassword"));
 
         // Act
@@ -119,7 +116,7 @@ class AuthMethodManagementServiceImplTest {
 
         // Assert
         verify(userService).getUserWithPrincipals(user.getId());
-        verify(passwordEncoder).createLocalPrincipal(user, localAuthRequest);
+        verify(principalFactory).createLocalPrincipal(user, localAuthRequest);
         verify(principalRepository).save(any(Principal.class));
     }
 
