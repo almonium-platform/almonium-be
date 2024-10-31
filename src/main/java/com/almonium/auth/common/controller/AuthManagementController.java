@@ -52,12 +52,14 @@ public class AuthManagementController {
         return ResponseEntity.ok(isAvailable);
     }
 
+    // if user has local account and wants to change email
     @PostMapping("/email-changes/request")
     public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @RequestBody EmailRequestDto request) {
         authMethodManagementService.requestEmailChange(auth.getUser().getId(), request.email());
         return ResponseEntity.ok().build();
     }
 
+    // if user doesn't have local account and wants to change email
     @PostMapping("/email-changes/link-local")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         authMethodManagementService.linkLocalWithNewEmail(auth.getUser().getId(), request);

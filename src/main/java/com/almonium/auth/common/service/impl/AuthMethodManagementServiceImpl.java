@@ -74,6 +74,10 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     @Override
     public void linkLocalWithNewEmail(long id, LocalAuthRequest request) {
         User user = userService.getById(id);
+        if (user.getEmail().equals(request.email())) {
+            throw new EmailMismatchException("You requested to change to the same email: " + user.getEmail());
+        }
+
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
@@ -114,7 +118,10 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .toList();
 
         principalsToUnlink.forEach(principal -> unlinkAuthMethod(userId, principal.getProvider()));
-        log.info("Authentications with old password unlinked for user: {}", user.getEmail());
+        log.info(
+                "{} authentications with old password unlinked for user: {}",
+                principalsToUnlink.size(),
+                user.getEmail());
     }
 
     @Override

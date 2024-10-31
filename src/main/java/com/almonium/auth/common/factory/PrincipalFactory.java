@@ -21,7 +21,7 @@ public class PrincipalFactory {
 
     public LocalPrincipal createLocalPrincipal(User user, LocalAuthRequest request) {
         LocalPrincipal principal =
-                new LocalPrincipal(user, user.getEmail(), passwordEncoderService.encodePassword(request.password()));
+                new LocalPrincipal(user, request.email(), passwordEncoderService.encodePassword(request.password()));
         user.getPrincipals().add(principal);
         return principal;
     }
