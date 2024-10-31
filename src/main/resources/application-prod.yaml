@@ -1,0 +1,7 @@
+app:
+  web-domain: https://almonium.com
+  api-domain: api.almonium.com
+  email:
+    dry-run: false
+  auth:
+    email-verification-required: true
