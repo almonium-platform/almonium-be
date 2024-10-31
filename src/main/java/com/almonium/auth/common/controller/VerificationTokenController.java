@@ -20,29 +20,32 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for authentication actions supported by verification tokens.
  */
 @RestController
-@RequestMapping("/auth/verification")
+@RequestMapping("/public/auth/verification")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenController {
     AuthMethodManagementService authMethodManagementService;
 
-    @PostMapping("/verify-email")
-    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam String token) {
+    // Verify email using a token
+    @PostMapping("/emails")
+    public ResponseEntity<ApiResponse> verifyEmail(@NotBlank @RequestParam String token) {
         authMethodManagementService.verifyEmail(token);
         return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
     }
 
-    @PostMapping("/reset-password")
+    // Confirm email change using a token
+    @PostMapping("/emails/change")
+    public ResponseEntity<?> confirmEmailChange(@NotBlank @RequestParam String token) {
+        authMethodManagementService.changeEmail(token);
+        return ResponseEntity.ok().build();
+    }
+
+    // Reset password using a token
+    @PostMapping("/password-resets")
     public ResponseEntity<ApiResponse> resetPassword(
             @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
         authMethodManagementService.resetPassword(
                 passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());
         return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
-    }
-
-    @PostMapping("/email-changes/confirm")
-    public ResponseEntity<?> confirmEmailChange(@NotBlank @RequestParam String token) {
-        authMethodManagementService.changeEmail(token);
-        return ResponseEntity.ok().build();
     }
 }
