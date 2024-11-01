@@ -3,27 +3,19 @@ package com.almonium.auth.common.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
-import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
 import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.AuthMethodManagementService;
-import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthManagementController {
     AuthMethodManagementService authMethodManagementService;
     AuthTokenService authTokenService;
+
+    @GetMapping("/providers")
+    public ResponseEntity<List<AuthProviderType>> getAuthProviders(@Auth Principal auth) {
+        return ResponseEntity.ok(
+                authMethodManagementService.getAuthProviders(auth.getUser().getId()));
+    }
 
     @PostMapping("/email-verification/request")
     public ResponseEntity<?> requestEmailVerification(@Auth Principal auth) {
@@ -48,39 +46,10 @@ public class AuthManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @RequireRecentLogin
-    @PutMapping("/password")
-    public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
-        authMethodManagementService.changePassword(auth.getUser().getId(), request.password());
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/email-availability")
     public ResponseEntity<Boolean> checkEmailAvailability(@RequestBody EmailRequestDto request) {
         boolean isAvailable = authMethodManagementService.isEmailAvailable(request.email());
         return ResponseEntity.ok(isAvailable);
-    }
-
-    // if user has local account and wants to change email
-    @RequireRecentLogin
-    @PostMapping("/email-changes/request")
-    public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @RequestBody EmailRequestDto request) {
-        authMethodManagementService.requestEmailChange(auth.getUser().getId(), request.email());
-        return ResponseEntity.ok().build();
-    }
-
-    // if user doesn't have local account and wants to change email
-    @RequireRecentLogin
-    @PostMapping("/email-changes/link-local")
-    public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
-        authMethodManagementService.linkLocalWithNewEmail(auth.getUser().getId(), request);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/providers")
-    public ResponseEntity<List<AuthProviderType>> getAuthProviders(@Auth Principal auth) {
-        return ResponseEntity.ok(
-                authMethodManagementService.getAuthProviders(auth.getUser().getId()));
     }
 
     @GetMapping("/email-verified")
@@ -88,24 +57,6 @@ public class AuthManagementController {
         boolean verified =
                 authMethodManagementService.isEmailVerified(auth.getUser().getId());
         return ResponseEntity.ok(verified);
-    }
-
-    @RequireRecentLogin
-    @PostMapping("/local")
-    public ResponseEntity<?> addLocalLogin(
-            @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
-        authMethodManagementService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
-        return ResponseEntity.ok().build();
-    }
-
-    @RequireRecentLogin
-    @DeleteMapping("/providers/{provider}")
-    public ResponseEntity<UnlinkProviderResponse> unlinkProvider(
-            @Auth Principal auth, @PathVariable AuthProviderType provider) {
-        authMethodManagementService.unlinkAuthMethod(auth.getUser().getId(), provider);
-
-        boolean isCurrentPrincipalBeingUnlinked = provider == auth.getProvider();
-        return ResponseEntity.ok(new UnlinkProviderResponse(isCurrentPrincipalBeingUnlinked));
     }
 
     @PostMapping("/logout")

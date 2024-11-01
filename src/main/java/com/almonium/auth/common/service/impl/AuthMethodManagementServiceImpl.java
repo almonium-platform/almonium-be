@@ -2,16 +2,12 @@ package com.almonium.auth.common.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.exception.AuthMethodNotFoundException;
-import com.almonium.auth.common.exception.BadAuthActionRequest;
-import com.almonium.auth.common.exception.LastAuthMethodException;
-import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.AuthMethodManagementService;
+import com.almonium.auth.common.service.SensitiveAuthActionService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
-import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -37,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthMethodManagementServiceImpl implements AuthMethodManagementService {
     UserService userService;
     UserRepository userRepository;
-    PrincipalFactory principalFactory;
+    SensitiveAuthActionService sensitiveAuthActionService;
     PasswordEncoderService passwordEncoderService;
     PrincipalRepository principalRepository;
     VerificationTokenManagementService verificationTokenManagementService;
@@ -50,35 +46,9 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .toList();
     }
 
-    @Transactional
-    @Override
-    public void requestEmailChange(long id, String newEmail) {
-        User user = userService.getById(id); // search through principalRepository
-        LocalPrincipal existingLocalPrincipal = userService
-                .getLocalPrincipal(user)
-                .orElseThrow(() ->
-                        new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
-
-        LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
-        newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
-    }
-
     @Override
     public boolean isEmailAvailable(String email) {
         return userRepository.findByEmail(email).isEmpty();
-    }
-
-    @Override
-    public void linkLocalWithNewEmail(long id, LocalAuthRequest request) {
-        User user = userService.getById(id);
-        if (user.getEmail().equals(request.email())) {
-            throw new BadAuthActionRequest("You requested to change to the same email: " + user.getEmail());
-        }
-
-        LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
-        newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
     }
 
     @Override
@@ -115,7 +85,8 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .filter(principal -> !Objects.equals(principal.getEmail(), localPrincipal.getEmail()))
                 .toList();
 
-        principalsToUnlink.forEach(principal -> unlinkAuthMethod(userId, principal.getProvider()));
+        principalsToUnlink.forEach(
+                principal -> sensitiveAuthActionService.unlinkAuthMethod(userId, principal.getProvider()));
         log.info(
                 "{} authentications with old password unlinked for user: {}",
                 principalsToUnlink.size(),
@@ -123,46 +94,8 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     }
 
     @Override
-    public void changePassword(long id, String newPassword) {
-        User user = userService.getById(id);
-        LocalPrincipal localPrincipal = userService
-                .getLocalPrincipal(user)
-                .orElseThrow(() ->
-                        new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
-
-        String encodedPassword = passwordEncoderService.encodePassword(newPassword);
-        localPrincipal.setPassword(encodedPassword);
-        principalRepository.save(localPrincipal);
-        log.info("Password changed for user: {}", user.getEmail());
-    }
-
-    @Override
     public boolean isEmailVerified(long id) {
         return principalRepository.findByUserId(id).stream().anyMatch(Principal::isEmailVerified);
-    }
-
-    @Transactional
-    @Override
-    public void linkLocal(long userId, String password) {
-        User user = userService.getUserWithPrincipals(userId);
-
-        if (userService.getLocalPrincipal(user).isPresent()) {
-            throw new BadAuthActionRequest("Local auth method already exists for user: " + user.getEmail());
-        }
-
-        LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, password);
-        principalRepository.save(localPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
-        log.info("Local auth for user {} waiting for verification", userId);
-    }
-
-    @Override
-    public void unlinkAuthMethod(long userId, AuthProviderType providerType) {
-        User user = userService.getUserWithPrincipals(userId);
-        Principal principal = getProviderIfPossibleElseThrow(providerType, user);
-        user.getPrincipals().remove(principal);
-        principalRepository.delete(principal);
-        log.info("Provider: {} unlinked for user: {}", providerType, userId);
     }
 
     @Override
@@ -183,17 +116,5 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
         principal.setPassword(passwordEncoderService.encodePassword(newPassword));
         localPrincipalRepository.save(principal);
         verificationTokenManagementService.deleteToken(verificationToken);
-    }
-
-    private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {
-        if (user.getPrincipals().size() == 1) {
-            throw new LastAuthMethodException(
-                    "Cannot remove the last authentication method for the user: " + user.getEmail());
-        }
-
-        return user.getPrincipals().stream()
-                .filter(principal -> principal.getProvider() == providerType)
-                .findFirst()
-                .orElseThrow(() -> new AuthMethodNotFoundException("Auth method not found " + providerType));
     }
 }
