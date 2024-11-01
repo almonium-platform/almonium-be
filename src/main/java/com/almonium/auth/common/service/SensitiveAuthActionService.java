@@ -15,4 +15,6 @@ public interface SensitiveAuthActionService {
     void unlinkAuthMethod(long userId, AuthProviderType providerType);
 
     void cancelEmailChangeRequest(long id);
+
+    void resendEmailChangeRequest(long id);
 }

@@ -70,19 +70,19 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
     @Override
     public void cancelEmailChangeRequest(long id) {
         User user = userService.getById(id);
-        LocalPrincipal localPrincipal = userService
-                .getUnverifiedLocalPrincipal(user)
-                .orElseThrow(() -> new NoPrincipalFoundException(
-                        "No unverified email change request found for user: " + user.getEmail()));
-
-        verificationTokenRepository
-                .findByPrincipal(localPrincipal)
-                .ifPresentOrElse(
-                        verificationTokenManagementService::deleteToken,
-                        () -> log.warn("No token found for local principal: {}", localPrincipal.getId()));
-
+        LocalPrincipal localPrincipal = getPendingPrincipalOrThrow(user);
+        verificationTokenManagementService.deleteToken(localPrincipal);
         principalRepository.delete(localPrincipal);
         log.info("Email change request cancelled for user: {}", user.getEmail());
+    }
+
+    @Transactional
+    @Override
+    public void resendEmailChangeRequest(long id) {
+        User user = userService.getById(id);
+        LocalPrincipal localPrincipal = getPendingPrincipalOrThrow(user);
+        verificationTokenManagementService.deleteToken(localPrincipal);
+        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_CHANGE);
     }
 
     @Transactional
@@ -124,6 +124,13 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         user.getPrincipals().remove(principal);
         principalRepository.delete(principal);
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
+    }
+
+    private LocalPrincipal getPendingPrincipalOrThrow(User user) {
+        return userService
+                .getUnverifiedLocalPrincipal(user)
+                .orElseThrow(() -> new NoPrincipalFoundException(
+                        "No unverified email change request found for user: " + user.getEmail()));
     }
 
     private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {

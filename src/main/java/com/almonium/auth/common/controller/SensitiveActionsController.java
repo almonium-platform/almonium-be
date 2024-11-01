@@ -43,6 +43,12 @@ public class SensitiveActionsController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/email-changes/request/resend")
+    public ResponseEntity<?> resendEmailChangeRequest(@Auth Principal auth) {
+        sensitiveAuthActionService.resendEmailChangeRequest(auth.getUser().getId());
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/email-changes")
     public ResponseEntity<?> deleteEmailChangeRequest(@Auth Principal auth) {
         sensitiveAuthActionService.cancelEmailChangeRequest(auth.getUser().getId());

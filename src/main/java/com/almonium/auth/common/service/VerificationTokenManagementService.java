@@ -10,4 +10,6 @@ public interface VerificationTokenManagementService {
     VerificationToken getValidTokenOrThrow(String token, TokenType expectedType);
 
     void deleteToken(VerificationToken verificationToken);
+
+    void deleteToken(LocalPrincipal localPrincipal);
 }

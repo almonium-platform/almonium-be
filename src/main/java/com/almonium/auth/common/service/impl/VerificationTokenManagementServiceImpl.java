@@ -60,4 +60,13 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     public void deleteToken(VerificationToken verificationToken) {
         verificationTokenRepository.delete(verificationToken);
     }
+
+    @Override
+    public void deleteToken(LocalPrincipal localPrincipal) {
+        verificationTokenRepository
+                .findByPrincipal(localPrincipal)
+                .ifPresentOrElse(
+                        this::deleteToken,
+                        () -> log.warn("No token found for local principal: {}", localPrincipal.getId()));
+    }
 }
