@@ -100,6 +100,8 @@ public class UserServiceImpl implements UserService {
     public Optional<LocalPrincipal> getLocalPrincipal(User user) {
         return user.getPrincipals().stream()
                 .filter(principal -> principal instanceof LocalPrincipal)
+                // to omit ephemeral principal waiting for email confirmation
+                .filter(principal -> principal.getEmail().equals(user.getEmail()))
                 .map(principal -> (LocalPrincipal) principal)
                 .findFirst();
     }
