@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
+import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.AuthMethodManagementService;
@@ -36,6 +37,12 @@ public class AuthManagementController {
 
     @PostMapping("/email-verification/request")
     public ResponseEntity<?> requestEmailVerification(@Auth Principal auth) {
+        boolean verified =
+                authMethodManagementService.isEmailVerified(auth.getUser().getId());
+        if (verified) {
+            throw new BadAuthActionRequest("Email is already verified");
+        }
+
         authMethodManagementService.sendEmailVerification(auth.getUser().getId());
         return ResponseEntity.ok().build();
     }
