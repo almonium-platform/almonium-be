@@ -1,6 +1,6 @@
 package com.almonium.auth.common.service;
 
-import com.almonium.auth.common.model.enums.AuthProviderType;
+import com.almonium.auth.common.dto.response.PrincipalDto;
 import java.util.List;
 
 public interface AuthMethodManagementService {
@@ -12,7 +12,7 @@ public interface AuthMethodManagementService {
 
     boolean isEmailAvailable(String email);
 
-    List<AuthProviderType> getAuthProviders(long id);
+    List<PrincipalDto> getAuthProviders(long id);
 
     void verifyEmail(String token);
 

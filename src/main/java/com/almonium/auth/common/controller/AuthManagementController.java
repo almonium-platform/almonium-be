@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
+import com.almonium.auth.common.dto.response.PrincipalDto;
 import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class AuthManagementController {
     AuthTokenService authTokenService;
 
     @GetMapping("/providers")
-    public ResponseEntity<List<AuthProviderType>> getAuthProviders(@Auth Principal auth) {
+    public ResponseEntity<List<PrincipalDto>> getAuthProviders(@Auth Principal auth) {
         return ResponseEntity.ok(
                 authMethodManagementService.getAuthProviders(auth.getUser().getId()));
     }

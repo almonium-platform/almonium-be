@@ -2,8 +2,9 @@ package com.almonium.auth.common.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.dto.response.PrincipalDto;
+import com.almonium.auth.common.mapper.PrincipalMapper;
 import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.common.service.SensitiveAuthActionService;
@@ -38,12 +39,11 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     PrincipalRepository principalRepository;
     VerificationTokenManagementService verificationTokenManagementService;
     LocalPrincipalRepository localPrincipalRepository;
+    PrincipalMapper principalMapper;
 
     @Override
-    public List<AuthProviderType> getAuthProviders(long id) {
-        return principalRepository.findByUserId(id).stream()
-                .map(Principal::getProvider)
-                .toList();
+    public List<PrincipalDto> getAuthProviders(long id) {
+        return principalMapper.toDto(principalRepository.findByUserId(id));
     }
 
     @Override
