@@ -13,4 +13,6 @@ public interface SensitiveAuthActionService {
     void linkLocalWithNewEmail(long id, LocalAuthRequest request);
 
     void unlinkAuthMethod(long userId, AuthProviderType providerType);
+
+    void cancelEmailChangeRequest(long id);
 }

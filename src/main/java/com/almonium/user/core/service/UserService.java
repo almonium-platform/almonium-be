@@ -24,4 +24,6 @@ public interface UserService extends UserDetailsService {
     User getUserWithPrincipals(long id);
 
     Optional<LocalPrincipal> getLocalPrincipal(User user);
+
+    Optional<LocalPrincipal> getUnverifiedLocalPrincipal(User user);
 }

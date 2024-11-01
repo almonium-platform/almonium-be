@@ -43,6 +43,12 @@ public class SensitiveActionsController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/email-changes")
+    public ResponseEntity<?> deleteEmailChangeRequest(@Auth Principal auth) {
+        sensitiveAuthActionService.cancelEmailChangeRequest(auth.getUser().getId());
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/email-changes/link-local")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         sensitiveAuthActionService.linkLocalWithNewEmail(auth.getUser().getId(), request);

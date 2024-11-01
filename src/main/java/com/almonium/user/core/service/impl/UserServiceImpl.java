@@ -106,6 +106,15 @@ public class UserServiceImpl implements UserService {
                 .findFirst();
     }
 
+    @Override
+    public Optional<LocalPrincipal> getUnverifiedLocalPrincipal(User user) {
+        return user.getPrincipals().stream()
+                .filter(principal -> principal instanceof LocalPrincipal)
+                .filter(principal -> !principal.getEmail().equals(user.getEmail()))
+                .map(principal -> (LocalPrincipal) principal)
+                .findFirst();
+    }
+
     private static String collectProvidersNames(User user) {
         return user.getPrincipals().stream()
                 .map(Principal::getProvider)

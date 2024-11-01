@@ -14,6 +14,7 @@ import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
+import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.model.entity.User;
@@ -35,6 +36,7 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
     PrincipalRepository principalRepository;
     PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService verificationTokenManagementService;
+    VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public void changePassword(long id, String newPassword) {
@@ -66,6 +68,25 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
 
     @Transactional
     @Override
+    public void cancelEmailChangeRequest(long id) {
+        User user = userService.getById(id);
+        LocalPrincipal localPrincipal = userService
+                .getUnverifiedLocalPrincipal(user)
+                .orElseThrow(() -> new NoPrincipalFoundException(
+                        "No unverified email change request found for user: " + user.getEmail()));
+
+        verificationTokenRepository
+                .findByPrincipal(localPrincipal)
+                .ifPresentOrElse(
+                        verificationTokenManagementService::deleteToken,
+                        () -> log.warn("No token found for local principal: {}", localPrincipal.getId()));
+
+        principalRepository.delete(localPrincipal);
+        log.info("Email change request cancelled for user: {}", user.getEmail());
+    }
+
+    @Transactional
+    @Override
     public void linkLocal(long userId, String password) {
         User user = userService.getUserWithPrincipals(userId);
 
@@ -84,6 +105,11 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         User user = userService.getById(id);
         if (user.getEmail().equals(request.email())) {
             throw new BadAuthActionRequest("You requested to change to the same email: " + user.getEmail());
+        }
+
+        if (userService.getUnverifiedLocalPrincipal(user).isPresent()) {
+            throw new BadAuthActionRequest(
+                    "You already have an unverified email change request. Cancel it to proceed.");
         }
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
