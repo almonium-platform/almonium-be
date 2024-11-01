@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class AccessTokenVerificationController {
+public class RecentManualLoginVerificationController {
     AuthTokenService authTokenService;
 
     @GetMapping("/access-token/verify-live")

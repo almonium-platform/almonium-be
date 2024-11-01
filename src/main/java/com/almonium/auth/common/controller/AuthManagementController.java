@@ -3,6 +3,7 @@ package com.almonium.auth.common.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
 import com.almonium.auth.common.exception.BadAuthActionRequest;
@@ -47,6 +48,7 @@ public class AuthManagementController {
         return ResponseEntity.ok().build();
     }
 
+    @RequireRecentLogin
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
         authMethodManagementService.changePassword(auth.getUser().getId(), request.password());
@@ -60,6 +62,7 @@ public class AuthManagementController {
     }
 
     // if user has local account and wants to change email
+    @RequireRecentLogin
     @PostMapping("/email-changes/request")
     public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @RequestBody EmailRequestDto request) {
         authMethodManagementService.requestEmailChange(auth.getUser().getId(), request.email());
@@ -67,6 +70,7 @@ public class AuthManagementController {
     }
 
     // if user doesn't have local account and wants to change email
+    @RequireRecentLogin
     @PostMapping("/email-changes/link-local")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         authMethodManagementService.linkLocalWithNewEmail(auth.getUser().getId(), request);
@@ -86,6 +90,7 @@ public class AuthManagementController {
         return ResponseEntity.ok(verified);
     }
 
+    @RequireRecentLogin
     @PostMapping("/local")
     public ResponseEntity<?> addLocalLogin(
             @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
@@ -93,6 +98,7 @@ public class AuthManagementController {
         return ResponseEntity.ok().build();
     }
 
+    @RequireRecentLogin
     @DeleteMapping("/providers/{provider}")
     public ResponseEntity<UnlinkProviderResponse> unlinkProvider(
             @Auth Principal auth, @PathVariable AuthProviderType provider) {

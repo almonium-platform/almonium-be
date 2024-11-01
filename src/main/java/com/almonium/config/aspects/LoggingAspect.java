@@ -1,4 +1,4 @@
-package com.almonium.config;
+package com.almonium.config.aspects;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
