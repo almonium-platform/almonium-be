@@ -20,7 +20,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class RecentLoginAspect {
     private final AuthTokenService authTokenService;
 
-    @Around("@annotation(com.almonium.auth.common.annotation.RequireRecentLogin)")
+    @Around(
+            "@annotation(com.almonium.auth.common.annotation.RequireRecentLogin) || within(@com.almonium.auth.common.annotation.RequireRecentLogin *)")
     public Object validateRecentLogin(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes)
                         Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
