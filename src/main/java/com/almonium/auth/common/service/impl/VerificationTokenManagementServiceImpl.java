@@ -5,12 +5,17 @@ import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
+import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
+import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.service.UserService;
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,6 +33,31 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     TokenGenerator tokenGenerator;
     AuthTokenEmailComposerService emailComposerService;
     EmailService emailService;
+    UserService userService;
+    LocalPrincipalRepository localPrincipalRepository;
+
+    @Override
+    public Optional<VerificationToken> findValidEmailVerificationToken(long userId) {
+        User user = userService.getUserWithPrincipals(userId);
+
+        return userService
+                .getUnverifiedLocalPrincipal(user)
+                .or(() -> userService.getLocalPrincipal(user))
+                .flatMap(localPrincipal -> {
+                    Optional<VerificationToken> token = verificationTokenRepository.findByPrincipalAndTokenTypeIn(
+                            localPrincipal, Set.of(TokenType.EMAIL_VERIFICATION, TokenType.EMAIL_CHANGE));
+
+                    if (token.isPresent() && token.get().getExpiresAt().isAfter(LocalDateTime.now())) {
+                        return token;
+                    }
+
+                    if (token.isPresent()) {
+                        verificationTokenRepository.delete(token.get());
+                        localPrincipalRepository.delete(localPrincipal);
+                    }
+                    return Optional.empty();
+                });
+    }
 
     @Override
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
@@ -60,14 +90,5 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     @Override
     public void deleteToken(VerificationToken verificationToken) {
         verificationTokenRepository.delete(verificationToken);
-    }
-
-    @Override
-    public void deleteToken(LocalPrincipal localPrincipal) {
-        verificationTokenRepository
-                .findByPrincipal(localPrincipal)
-                .ifPresentOrElse(
-                        this::deleteToken,
-                        () -> log.warn("No token found for local principal: {}", localPrincipal.getId()));
     }
 }
