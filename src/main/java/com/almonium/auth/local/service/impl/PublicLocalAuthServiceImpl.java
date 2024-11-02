@@ -12,7 +12,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.service.LocalAuthService;
+import com.almonium.auth.local.service.PublicLocalAuthService;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class LocalAuthServiceImpl implements LocalAuthService {
+public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
     // services
     AuthenticationManager authenticationManager;
     UserAuthenticationService userAuthenticationServiceImpl;

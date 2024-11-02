@@ -22,7 +22,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.service.impl.LocalAuthServiceImpl;
+import com.almonium.auth.local.service.impl.PublicLocalAuthServiceImpl;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -48,11 +48,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 @FieldDefaults(level = PRIVATE)
 @ActiveProfiles("test")
 @TestPropertySource(properties = {"app.auth.email-verification-required=true"})
-class LocalAuthServiceImplTest {
+class PublicLocalAuthServiceImplTest {
     private static final String IS_EMAIL_VERIFICATION_REQUIRED_FIELD = "emailVerificationRequired";
 
     @InjectMocks
-    LocalAuthServiceImpl authService;
+    PublicLocalAuthServiceImpl authService;
 
     @Mock
     UserRepository userRepository;
