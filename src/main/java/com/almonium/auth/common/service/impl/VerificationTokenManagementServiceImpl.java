@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VerificationTokenManagementServiceImpl implements VerificationTokenManagementService {
+    public static final int TOKEN_LIFESPAN = 60;
     private static final int OTP_LENGTH = 6;
     VerificationTokenRepository verificationTokenRepository;
     TokenGenerator tokenGenerator;
@@ -31,7 +32,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     @Override
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(OTP_LENGTH);
-        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, 60);
+        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, TOKEN_LIFESPAN);
         verificationTokenRepository.save(verificationToken);
         EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
         emailService.sendEmail(emailDto);
