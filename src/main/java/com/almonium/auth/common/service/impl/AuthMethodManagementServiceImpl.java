@@ -37,7 +37,7 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     SensitiveAuthActionService sensitiveAuthActionService;
     PasswordEncoderService passwordEncoderService;
     PrincipalRepository principalRepository;
-    VerificationTokenManagementService verificationTokenManagementService;
+    VerificationTokenManagementService tokenService;
     LocalPrincipalRepository localPrincipalRepository;
     PrincipalMapper principalMapper;
 
@@ -59,18 +59,17 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 .orElseThrow(() ->
                         new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
 
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        tokenService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     @Transactional
     @Override
     public void changeEmail(String token) {
-        VerificationToken verificationToken =
-                verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_CHANGE);
+        VerificationToken verificationToken = tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_CHANGE);
         Principal localPrincipal = verificationToken.getPrincipal();
         localPrincipal.setEmailVerified(true);
         principalRepository.save(localPrincipal);
-        verificationTokenManagementService.deleteToken(verificationToken);
+        tokenService.deleteToken(verificationToken);
         log.info(
                 "Email changed for local authentication method of user: {}",
                 localPrincipal.getUser().getEmail());
@@ -100,21 +99,19 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
 
     @Override
     public void verifyEmail(String token) {
-        VerificationToken verificationToken =
-                verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
+        VerificationToken verificationToken = tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setEmailVerified(true);
         localPrincipalRepository.save(principal);
-        verificationTokenManagementService.deleteToken(verificationToken);
+        tokenService.deleteToken(verificationToken);
     }
 
     @Override
     public void resetPassword(String token, String newPassword) {
-        VerificationToken verificationToken =
-                verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.PASSWORD_RESET);
+        VerificationToken verificationToken = tokenService.getValidTokenOrThrow(token, TokenType.PASSWORD_RESET);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setPassword(passwordEncoderService.encodePassword(newPassword));
         localPrincipalRepository.save(principal);
-        verificationTokenManagementService.deleteToken(verificationToken);
+        tokenService.deleteToken(verificationToken);
     }
 }
