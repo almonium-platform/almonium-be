@@ -41,7 +41,7 @@ public class VerificationTokenController {
     }
 
     // Reset password using a token
-    @PostMapping("/password-resets")
+    @PostMapping("/passwords")
     public ResponseEntity<ApiResponse> resetPassword(
             @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
         authMethodManagementService.resetPassword(
