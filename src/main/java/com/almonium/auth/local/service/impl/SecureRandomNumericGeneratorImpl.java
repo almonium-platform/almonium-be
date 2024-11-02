@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecureRandomTokenGeneratorImpl implements TokenGenerator {
+public class SecureRandomNumericGeneratorImpl implements TokenGenerator {
     private static final SecureRandom secureRandom = new SecureRandom();
 
     @Override
