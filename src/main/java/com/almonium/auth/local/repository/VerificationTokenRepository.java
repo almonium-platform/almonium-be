@@ -6,6 +6,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Repository;
 public interface VerificationTokenRepository extends JpaRepository<VerificationToken, Long> {
     Optional<VerificationToken> findByToken(String token);
 
-    Optional<VerificationToken> findByPrincipal(LocalPrincipal principal);
+    Optional<VerificationToken> findByPrincipalAndTokenTypeIn(LocalPrincipal localPrincipal, Set<TokenType> tokenTypes);
 
-    void deleteByExpiryDateBefore(LocalDateTime expiryDate);
+    void deleteByExpiresAtBefore(LocalDateTime expiryDate);
 
-    List<VerificationToken> findByTokenTypeAndExpiryDateBefore(TokenType tokenType, LocalDateTime expiryDate);
+    List<VerificationToken> findByTokenTypeAndExpiresAtBefore(TokenType tokenType, LocalDateTime expiryDate);
 }
