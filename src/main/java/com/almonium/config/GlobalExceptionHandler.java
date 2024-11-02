@@ -3,6 +3,7 @@ package com.almonium.config;
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.exception.LastAuthMethodException;
+import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.EmailNotFoundException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
@@ -34,6 +35,12 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 public class GlobalExceptionHandler {
     // // spring exceptions
     // auth exceptions
+    @ExceptionHandler(RecentLoginRequiredException.class)
+    public ResponseEntity<ApiResponse> handleRecentLoginRequiredException(RecentLoginRequiredException ex) {
+        ApiResponse response = new ApiResponse(false, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+
     @ExceptionHandler({InternalAuthenticationServiceException.class})
     public ResponseEntity<ApiResponse> handleInternalAuthenticationServiceException(
             InternalAuthenticationServiceException ex) {

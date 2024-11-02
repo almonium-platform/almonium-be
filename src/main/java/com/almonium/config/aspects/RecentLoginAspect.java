@@ -1,5 +1,6 @@
 package com.almonium.config.aspects;
 
+import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import jakarta.servlet.http.Cookie;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -34,7 +34,7 @@ public class RecentLoginAspect {
         if (accessToken == null
                 || !authTokenService.validateToken(accessToken)
                 || !authTokenService.isAccessTokenLive(accessToken)) {
-            throw new AccessDeniedException("User must have logged in manually within the last 15 minutes.");
+            throw new RecentLoginRequiredException("User must have logged in manually within the last 15 minutes.");
         }
         return joinPoint.proceed();
     }
