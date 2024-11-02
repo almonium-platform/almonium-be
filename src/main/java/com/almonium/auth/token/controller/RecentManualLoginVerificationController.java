@@ -26,7 +26,6 @@ public class RecentManualLoginVerificationController {
         if (accessToken == null || !authTokenService.validateToken(accessToken)) {
             return ResponseEntity.ok(false);
         }
-        return ResponseEntity.ok(
-                authTokenService.isAccessTokenLive(accessToken)); // special filter? for live token actions
+        return ResponseEntity.ok(authTokenService.isAccessTokenLive(accessToken));
     }
 }
