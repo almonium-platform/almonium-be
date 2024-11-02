@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.model.enums.TokenType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +18,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class VerificationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
