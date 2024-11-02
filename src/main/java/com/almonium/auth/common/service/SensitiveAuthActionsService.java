@@ -2,6 +2,7 @@ package com.almonium.auth.common.service;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
+import com.almonium.user.core.model.entity.User;
 
 public interface SensitiveAuthActionsService {
     void changePassword(long id, String newPassword);
@@ -11,6 +12,8 @@ public interface SensitiveAuthActionsService {
     void unlinkAuthMethod(long userId, AuthProviderType providerType);
 
     void linkLocalWithNewEmail(long id, LocalAuthRequest request);
+
+    void deleteAccount(User user);
 
     // email change actions
     void requestEmailChange(long id, String newEmail);

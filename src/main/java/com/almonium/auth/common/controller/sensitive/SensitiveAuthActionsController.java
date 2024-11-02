@@ -10,6 +10,8 @@ import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
+import com.almonium.auth.token.service.impl.AuthTokenService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequireRecentLogin
 public class SensitiveAuthActionsController {
     SensitiveAuthActionsService sensitiveAuthActionsService;
+    AuthTokenService authTokenService;
 
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
@@ -55,5 +58,12 @@ public class SensitiveAuthActionsController {
         sensitiveAuthActionsService.unlinkAuthMethod(auth.getUser().getId(), provider);
         boolean isCurrentPrincipalBeingUnlinked = provider == auth.getProvider();
         return ResponseEntity.ok(new UnlinkProviderResponse(isCurrentPrincipalBeingUnlinked));
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth, HttpServletResponse response) {
+        sensitiveAuthActionsService.deleteAccount(auth.getUser());
+        authTokenService.clearTokenCookies(response);
+        return ResponseEntity.noContent().build();
     }
 }

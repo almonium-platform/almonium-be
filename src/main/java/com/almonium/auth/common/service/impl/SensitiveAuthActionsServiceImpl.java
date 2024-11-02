@@ -16,7 +16,10 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
+import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +39,9 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
     PrincipalRepository principalRepository;
     PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService verificationTokenManagementService;
+    PlanSubscriptionService planSubscriptionService;
+    StripeApiService stripeApiService;
+    UserRepository userRepository;
 
     @Override
     public void changePassword(long id, String newPassword) {
@@ -117,6 +123,15 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
         user.getPrincipals().remove(principal);
         principalRepository.delete(principal);
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAccount(User user) {
+        planSubscriptionService
+                .findActiveSubscription(user)
+                .ifPresent((activeSub) -> stripeApiService.cancelSubscription(activeSub.getStripeSubscriptionId()));
+        userRepository.delete(user);
     }
 
     private void handleEmailChangeRequest(long id, Consumer<VerificationToken> action) {
