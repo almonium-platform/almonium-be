@@ -36,13 +36,13 @@ public class SensitiveActionsController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/link-local")
+    @PostMapping("/local/migrate")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         sensitiveAuthActionService.linkLocalWithNewEmail(auth.getUser().getId(), request);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/local")
+    @PostMapping("/local/link")
     public ResponseEntity<?> addLocalLogin(
             @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
         sensitiveAuthActionService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
