@@ -16,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 public class StripeEventLog {
     @Id
     String eventId;
+
     String eventType;
     Timestamp created;
 }
