@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
-import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
@@ -37,25 +36,7 @@ public class SensitiveActionsController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/email-changes/request")
-    public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @RequestBody EmailRequestDto request) {
-        sensitiveAuthActionService.requestEmailChange(auth.getUser().getId(), request.email());
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/email-changes/request/resend")
-    public ResponseEntity<?> resendEmailChangeRequest(@Auth Principal auth) {
-        sensitiveAuthActionService.resendEmailChangeRequest(auth.getUser().getId());
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/email-changes/request")
-    public ResponseEntity<?> deleteEmailChangeRequest(@Auth Principal auth) {
-        sensitiveAuthActionService.cancelEmailChangeRequest(auth.getUser().getId());
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/email-changes/link-local")
+    @PostMapping("/link-local")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         sensitiveAuthActionService.linkLocalWithNewEmail(auth.getUser().getId(), request);
         return ResponseEntity.ok().build();

@@ -6,13 +6,14 @@ import com.almonium.auth.local.dto.request.LocalAuthRequest;
 public interface SensitiveAuthActionService {
     void changePassword(long id, String newPassword);
 
-    void requestEmailChange(long id, String newEmail);
-
     void linkLocal(long userId, String password);
+
+    void unlinkAuthMethod(long userId, AuthProviderType providerType);
 
     void linkLocalWithNewEmail(long id, LocalAuthRequest request);
 
-    void unlinkAuthMethod(long userId, AuthProviderType providerType);
+    // email change actions
+    void requestEmailChange(long id, String newEmail);
 
     void cancelEmailChangeRequest(long id);
 
