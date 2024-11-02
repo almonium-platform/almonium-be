@@ -14,9 +14,7 @@ import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
-import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
-import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +34,6 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
     PrincipalRepository principalRepository;
     PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService verificationTokenManagementService;
-    VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public void changePassword(long id, String newPassword) {
@@ -44,7 +41,7 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         LocalPrincipal localPrincipal = userService
                 .getLocalPrincipal(user)
                 .orElseThrow(() ->
-                        new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
+                        new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
 
         String encodedPassword = passwordEncoderService.encodePassword(newPassword);
         localPrincipal.setPassword(encodedPassword);
@@ -59,7 +56,7 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         LocalPrincipal existingLocalPrincipal = userService
                 .getLocalPrincipal(user)
                 .orElseThrow(() ->
-                        new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
+                        new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
@@ -129,7 +126,7 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
     private LocalPrincipal getPendingPrincipalOrThrow(User user) {
         return userService
                 .getUnverifiedLocalPrincipal(user)
-                .orElseThrow(() -> new NoPrincipalFoundException(
+                .orElseThrow(() -> new BadAuthActionRequest(
                         "No unverified email change request found for user: " + user.getEmail()));
     }
 
