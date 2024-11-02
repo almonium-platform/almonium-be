@@ -78,15 +78,15 @@ public class Card {
     @OneToMany(mappedBy = "card")
     Set<CardTag> cardTags;
 
-    private String notes;
+    String notes;
 
     @Builder.Default
-    private int iteration = 0;
+    int iteration = 0;
 
     @Builder.Default
-    private int priority = 2;
+    int priority = 2;
 
-    private int frequency;
+    int frequency;
 
     public void removeCardTag(CardTag cardTag) {
         if (cardTag != null) {

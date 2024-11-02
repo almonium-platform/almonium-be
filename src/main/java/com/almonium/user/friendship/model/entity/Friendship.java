@@ -1,5 +1,7 @@
 package com.almonium.user.friendship.model.entity;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import jakarta.persistence.Entity;
@@ -21,6 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -34,27 +37,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = {"id"})
+@FieldDefaults(level = PRIVATE)
 public class Friendship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id")
-    private User requester;
+    User requester;
 
     @ManyToOne
     @JoinColumn(name = "requestee_id", referencedColumnName = "id")
-    private User requestee;
+    User requestee;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    private FriendshipStatus status;
+    FriendshipStatus status;
 
     public Friendship(User requester, User requestee) {
         this.requester = requester;

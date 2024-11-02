@@ -92,7 +92,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<PlanSubscription> planSubscriptions;
+    Set<PlanSubscription> planSubscriptions;
 
-    private String stripeCustomerId;
+    String stripeCustomerId;
 }

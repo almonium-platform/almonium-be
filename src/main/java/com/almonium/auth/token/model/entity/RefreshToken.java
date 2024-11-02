@@ -1,5 +1,7 @@
 package com.almonium.auth.token.model.entity;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,24 +12,26 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@FieldDefaults(level = PRIVATE)
 public class RefreshToken {
     @Id
-    private UUID id;
+    UUID id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    User user;
 
-    private Instant issueDate;
+    Instant issueDate;
 
-    private Instant expiryDate;
+    Instant expiryDate;
 
-    private boolean revoked;
+    boolean revoked;
 
     public RefreshToken(UUID id, User user, Instant issueDate, Instant expiryDate) {
         this.id = id;

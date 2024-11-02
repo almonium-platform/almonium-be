@@ -1,5 +1,7 @@
 package com.almonium.subscription.model.entity;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.infra.email.model.enums.EmailTemplateType;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.Entity;
@@ -16,6 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
@@ -23,24 +26,25 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = PRIVATE)
 public class PlanSubscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
+    Plan plan;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    User user;
 
-    private String stripeSubscriptionId;
-    private LocalDateTime startDate;
+    String stripeSubscriptionId;
+    LocalDateTime startDate;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    Status status;
 
     public enum Status {
         ACTIVE,

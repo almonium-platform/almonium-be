@@ -1,5 +1,7 @@
 package com.almonium.auth.local.model.entity;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.local.model.enums.TokenType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,26 +15,28 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@FieldDefaults(level = PRIVATE)
 public class VerificationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String token;
+    String token;
 
     @OneToOne(targetEntity = LocalPrincipal.class)
     @JoinColumn(name = "principal_id")
-    private LocalPrincipal principal;
+    LocalPrincipal principal;
 
-    private LocalDateTime expiryDate;
+    LocalDateTime expiryDate;
 
     @Enumerated(EnumType.STRING)
-    private TokenType tokenType;
+    TokenType tokenType;
 
     public VerificationToken(LocalPrincipal principal, String token, TokenType tokenType, long minutes) {
         this.principal = principal;
