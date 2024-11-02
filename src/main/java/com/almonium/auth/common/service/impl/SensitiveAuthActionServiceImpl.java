@@ -61,7 +61,8 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
+        verificationTokenManagementService.createAndSendVerificationToken(
+                newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 
     @Override
@@ -105,7 +106,8 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
+        verificationTokenManagementService.createAndSendVerificationToken(
+                newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 
     @Override

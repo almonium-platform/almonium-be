@@ -53,7 +53,8 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     @Transactional
     @Override
     public void changeEmail(String token) {
-        VerificationToken verificationToken = tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_CHANGE);
+        VerificationToken verificationToken =
+                tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_CHANGE_VERIFICATION);
         Principal localPrincipal = verificationToken.getPrincipal();
         localPrincipal.setEmailVerified(true);
         principalRepository.save(localPrincipal);

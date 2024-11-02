@@ -24,7 +24,7 @@ public class TokenCleanupTask {
 
         // Delete principals attached to expired EMAIL_CHANGE tokens
         List<VerificationToken> expiredEmailChangeTokens =
-                tokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE, now);
+                tokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE_VERIFICATION, now);
 
         principalRepository.deleteAll(expiredEmailChangeTokens.stream()
                 .map(VerificationToken::getPrincipal)

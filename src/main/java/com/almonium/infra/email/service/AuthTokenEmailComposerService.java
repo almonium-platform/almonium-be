@@ -17,7 +17,7 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
             new EmailSubjectTemplate("Verify your email address", "email-verification"),
             TokenType.PASSWORD_RESET,
             new EmailSubjectTemplate("Reset your password", "password-reset"),
-            TokenType.EMAIL_CHANGE,
+            TokenType.EMAIL_CHANGE_VERIFICATION,
             new EmailSubjectTemplate("Confirm your email change", "email-change"));
 
     private static final String PLACEHOLDER = "url";
@@ -53,7 +53,7 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
                 switch (tokenType) {
                     case EMAIL_VERIFICATION -> VERIFY_EMAIL_URL;
                     case PASSWORD_RESET -> RESET_PASSWORD_URL;
-                    case EMAIL_CHANGE -> CHANGE_EMAIL_URL;
+                    case EMAIL_CHANGE_VERIFICATION -> CHANGE_EMAIL_URL;
                 };
         return domain + url + "?token=" + token;
     }

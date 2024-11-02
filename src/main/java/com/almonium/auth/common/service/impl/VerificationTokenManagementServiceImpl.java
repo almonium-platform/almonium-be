@@ -45,7 +45,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
                 .or(() -> userService.getLocalPrincipal(user))
                 .flatMap(localPrincipal -> {
                     Optional<VerificationToken> token = verificationTokenRepository.findByPrincipalAndTokenTypeIn(
-                            localPrincipal, Set.of(TokenType.EMAIL_VERIFICATION, TokenType.EMAIL_CHANGE));
+                            localPrincipal, Set.of(TokenType.EMAIL_VERIFICATION, TokenType.EMAIL_CHANGE_VERIFICATION));
 
                     if (token.isPresent() && token.get().getExpiresAt().isAfter(LocalDateTime.now())) {
                         return token;
