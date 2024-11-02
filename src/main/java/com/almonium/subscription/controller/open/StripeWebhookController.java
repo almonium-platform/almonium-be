@@ -1,4 +1,4 @@
-package com.almonium.subscription.controller;
+package com.almonium.subscription.controller.open;
 
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.service.StripeWebhookService;

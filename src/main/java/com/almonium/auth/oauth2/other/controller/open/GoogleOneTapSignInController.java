@@ -1,4 +1,4 @@
-package com.almonium.auth.oauth2.other.controller;
+package com.almonium.auth.oauth2.other.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 

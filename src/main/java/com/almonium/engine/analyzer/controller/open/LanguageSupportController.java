@@ -1,4 +1,4 @@
-package com.almonium.engine.analyzer.controller;
+package com.almonium.engine.analyzer.controller.open;
 
 import com.almonium.engine.translator.model.enums.Language;
 import java.util.List;
