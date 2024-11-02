@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
-import com.almonium.auth.common.service.impl.UserAuthenticationService;
+import com.almonium.auth.common.service.impl.UserAuthenticationServiceImpl;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
@@ -73,7 +73,7 @@ class LocalAuthServiceImplTest {
     UserService userService;
 
     @Mock
-    UserAuthenticationService userAuthenticationService;
+    UserAuthenticationServiceImpl userAuthenticationServiceImpl;
 
     @DisplayName("Should successfully register local user")
     @Test
@@ -112,7 +112,7 @@ class LocalAuthServiceImplTest {
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
-        when(userAuthenticationService.authenticateUser(
+        when(userAuthenticationServiceImpl.authenticateUser(
                         eq(principal), any(HttpServletResponse.class), any(Authentication.class)))
                 .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
         // Act
@@ -120,7 +120,7 @@ class LocalAuthServiceImplTest {
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
-        verify(userAuthenticationService)
+        verify(userAuthenticationServiceImpl)
                 .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
         assertThat(result.accessToken()).isEqualTo(expectedAccessJwt);
         assertThat(result.refreshToken()).isEqualTo(expectedRefreshJwt);
@@ -161,7 +161,7 @@ class LocalAuthServiceImplTest {
                 .isInstanceOf(EmailNotVerifiedException.class)
                 .hasMessage("Email needs to be verified before logging in.");
 
-        verify(userAuthenticationService, never())
+        verify(userAuthenticationServiceImpl, never())
                 .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
     }
 

@@ -1,6 +1,7 @@
 package com.almonium.auth.common.service.impl;
 
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.service.UserAuthenticationService;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import com.almonium.user.core.service.ProfileService;
@@ -20,10 +21,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class UserAuthenticationService {
+public class UserAuthenticationServiceImpl implements UserAuthenticationService {
     AuthTokenService authTokenService;
     ProfileService profileService;
 
+    @Override
     public JwtTokenResponse authenticateUser(
             Principal principal, HttpServletResponse response, Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
