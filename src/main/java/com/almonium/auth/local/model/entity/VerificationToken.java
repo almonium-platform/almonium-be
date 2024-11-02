@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
@@ -33,7 +34,10 @@ public class VerificationToken {
     @JoinColumn(name = "principal_id")
     LocalPrincipal principal;
 
-    LocalDateTime expiryDate;
+    LocalDateTime expiresAt;
+
+    @CreatedDate
+    LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     TokenType tokenType;
@@ -42,6 +46,6 @@ public class VerificationToken {
         this.principal = principal;
         this.token = token;
         this.tokenType = tokenType;
-        expiryDate = LocalDateTime.now().plusMinutes(minutes);
+        expiresAt = LocalDateTime.now().plusMinutes(minutes);
     }
 }

@@ -45,7 +45,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
 
-        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+        if (verificationToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new InvalidVerificationTokenException("Verification token has expired");
         }
 

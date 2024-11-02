@@ -24,7 +24,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: expiry_date
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
                   type: datetime
                   constraints:
                     nullable: false

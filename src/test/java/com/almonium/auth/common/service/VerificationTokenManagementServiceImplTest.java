@@ -74,7 +74,7 @@ class VerificationTokenManagementServiceImplTest {
         String token = "expiredToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
         VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
-        verificationToken.setExpiryDate(LocalDateTime.now().minusDays(1)); // Set token to expired
+        verificationToken.setExpiresAt(LocalDateTime.now().minusDays(1)); // Set token to expired
 
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
@@ -144,7 +144,7 @@ class VerificationTokenManagementServiceImplTest {
         String token = "validToken";
         LocalPrincipal principal = TestDataGenerator.buildTestLocalPrincipal();
         VerificationToken verificationToken = new VerificationToken(principal, token, TokenType.EMAIL_VERIFICATION, 60);
-        verificationToken.setExpiryDate(LocalDateTime.now().plusDays(1)); // Set token to not expired
+        verificationToken.setExpiresAt(LocalDateTime.now().plusDays(1)); // Set token to not expired
 
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 

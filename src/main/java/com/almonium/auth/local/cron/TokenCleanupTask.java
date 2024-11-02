@@ -24,13 +24,13 @@ public class TokenCleanupTask {
 
         // Delete principals attached to expired EMAIL_CHANGE tokens
         List<VerificationToken> expiredEmailChangeTokens =
-                tokenRepository.findByTokenTypeAndExpiryDateBefore(TokenType.EMAIL_CHANGE, now);
+                tokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE, now);
 
         principalRepository.deleteAll(expiredEmailChangeTokens.stream()
                 .map(VerificationToken::getPrincipal)
                 .toList());
 
         // Delete other expired tokens
-        tokenRepository.deleteByExpiryDateBefore(now);
+        tokenRepository.deleteByExpiresAtBefore(now);
     }
 }
