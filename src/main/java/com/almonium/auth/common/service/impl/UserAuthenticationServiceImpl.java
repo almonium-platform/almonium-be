@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 /**
  * Common entry point for user authentication across all live authentication methods.
  * This service sets up the security context, updates the user's login streak,
- * and generates both access and refresh tokens.
+ * and attaches the access and refresh tokens to the response.
  */
 @Service
 @RequiredArgsConstructor

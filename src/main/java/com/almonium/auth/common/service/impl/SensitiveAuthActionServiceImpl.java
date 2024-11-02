@@ -53,7 +53,7 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
 
     @Override
     public void requestEmailChange(long id, String newEmail) {
-        User user = userService.getById(id); // search through principalRepository
+        User user = userService.getById(id);
         LocalPrincipal existingLocalPrincipal = userService
                 .getLocalPrincipal(user)
                 .orElseThrow(
