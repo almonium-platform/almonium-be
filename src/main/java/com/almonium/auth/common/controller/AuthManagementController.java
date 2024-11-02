@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.PrincipalDto;
-import com.almonium.auth.common.exception.BadAuthActionRequest;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.token.service.impl.AuthTokenService;
@@ -34,29 +33,10 @@ public class AuthManagementController {
                 authMethodManagementService.getAuthProviders(auth.getUser().getId()));
     }
 
-    @PostMapping("/email-verification/request")
-    public ResponseEntity<?> requestEmailVerification(@Auth Principal auth) {
-        boolean verified =
-                authMethodManagementService.isEmailVerified(auth.getUser().getId());
-        if (verified) {
-            throw new BadAuthActionRequest("Email is already verified");
-        }
-
-        authMethodManagementService.sendEmailVerification(auth.getUser().getId());
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/email-availability")
     public ResponseEntity<Boolean> checkEmailAvailability(@RequestBody EmailRequestDto request) {
         boolean isAvailable = authMethodManagementService.isEmailAvailable(request.email());
         return ResponseEntity.ok(isAvailable);
-    }
-
-    @GetMapping("/email-verified")
-    public ResponseEntity<?> isEmailVerified(@Auth Principal auth) {
-        boolean verified =
-                authMethodManagementService.isEmailVerified(auth.getUser().getId());
-        return ResponseEntity.ok(verified);
     }
 
     @PostMapping("/logout")

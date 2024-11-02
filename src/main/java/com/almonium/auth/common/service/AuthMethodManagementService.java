@@ -6,10 +6,6 @@ import java.util.List;
 public interface AuthMethodManagementService {
     void changeEmail(String token);
 
-    void sendEmailVerification(long id);
-
-    boolean isEmailVerified(long id);
-
     boolean isEmailAvailable(String email);
 
     List<PrincipalDto> getAuthProviders(long id);

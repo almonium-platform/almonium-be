@@ -14,7 +14,6 @@ import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
-import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -51,17 +50,6 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
         return userRepository.findByEmail(email).isEmpty();
     }
 
-    @Override
-    public void sendEmailVerification(long id) {
-        User user = userService.getById(id);
-        LocalPrincipal localPrincipal = userService
-                .getLocalPrincipal(user)
-                .orElseThrow(() ->
-                        new NoPrincipalFoundException("Local auth method not found for user: " + user.getEmail()));
-
-        tokenService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
-    }
-
     @Transactional
     @Override
     public void changeEmail(String token) {
@@ -90,11 +78,6 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
                 "{} authentications with old password unlinked for user: {}",
                 principalsToUnlink.size(),
                 user.getEmail());
-    }
-
-    @Override
-    public boolean isEmailVerified(long id) {
-        return principalRepository.findByUserId(id).stream().anyMatch(Principal::isEmailVerified);
     }
 
     @Override
