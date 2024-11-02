@@ -29,7 +29,7 @@ class AuthMethodManagementServiceImplTest {
     PrincipalRepository principalRepository;
 
     @Mock
-    SensitiveAuthActionService sensitiveAuthActionService;
+    SensitiveAuthActionsService sensitiveAuthActionsService;
 
     @Mock
     LocalPrincipalRepository localPrincipalRepository;

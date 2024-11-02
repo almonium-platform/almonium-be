@@ -6,7 +6,7 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.service.SensitiveAuthActionService;
+import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +22,23 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequireRecentLogin
 public class EmailChangeRequestController {
-    SensitiveAuthActionService sensitiveAuthActionService;
+    SensitiveAuthActionsService sensitiveAuthActionsService;
 
     @PostMapping
     public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @RequestBody EmailRequestDto request) {
-        sensitiveAuthActionService.requestEmailChange(auth.getUser().getId(), request.email());
+        sensitiveAuthActionsService.requestEmailChange(auth.getUser().getId(), request.email());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/resend")
     public ResponseEntity<?> resendEmailChangeRequest(@Auth Principal auth) {
-        sensitiveAuthActionService.resendEmailChangeRequest(auth.getUser().getId());
+        sensitiveAuthActionsService.resendEmailChangeRequest(auth.getUser().getId());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
     public ResponseEntity<?> deleteEmailChangeRequest(@Auth Principal auth) {
-        sensitiveAuthActionService.cancelEmailChangeRequest(auth.getUser().getId());
+        sensitiveAuthActionsService.cancelEmailChangeRequest(auth.getUser().getId());
         return ResponseEntity.ok().build();
     }
 }

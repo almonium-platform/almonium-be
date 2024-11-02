@@ -31,9 +31,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class SensitiveAuthActionServiceImplTest {
+class SensitiveAuthActionsServiceImplTest {
     @InjectMocks
-    SensitiveAuthActionServiceImpl authService;
+    SensitiveAuthActionsServiceImpl authService;
 
     @Mock
     VerificationTokenManagementService verificationTokenManagementService;

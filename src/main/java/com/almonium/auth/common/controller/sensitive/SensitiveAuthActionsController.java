@@ -7,7 +7,7 @@ import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.service.SensitiveAuthActionService;
+import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import jakarta.validation.Valid;
@@ -27,32 +27,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequireRecentLogin
-public class SensitiveActionsController {
-    SensitiveAuthActionService sensitiveAuthActionService;
+public class SensitiveAuthActionsController {
+    SensitiveAuthActionsService sensitiveAuthActionsService;
 
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
-        sensitiveAuthActionService.changePassword(auth.getUser().getId(), request.password());
+        sensitiveAuthActionsService.changePassword(auth.getUser().getId(), request.password());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/local/migrate")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
-        sensitiveAuthActionService.linkLocalWithNewEmail(auth.getUser().getId(), request);
+        sensitiveAuthActionsService.linkLocalWithNewEmail(auth.getUser().getId(), request);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/local/link")
     public ResponseEntity<?> addLocalLogin(
             @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
-        sensitiveAuthActionService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
+        sensitiveAuthActionsService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/providers/{provider}")
     public ResponseEntity<UnlinkProviderResponse> unlinkProvider(
             @Auth Principal auth, @PathVariable AuthProviderType provider) {
-        sensitiveAuthActionService.unlinkAuthMethod(auth.getUser().getId(), provider);
+        sensitiveAuthActionsService.unlinkAuthMethod(auth.getUser().getId(), provider);
         boolean isCurrentPrincipalBeingUnlinked = provider == auth.getProvider();
         return ResponseEntity.ok(new UnlinkProviderResponse(isCurrentPrincipalBeingUnlinked));
     }

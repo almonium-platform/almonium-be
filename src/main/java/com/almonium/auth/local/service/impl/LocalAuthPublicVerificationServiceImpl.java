@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.service.SensitiveAuthActionService;
+import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
@@ -32,7 +32,7 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
     UserService userService;
     PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService tokenService;
-    SensitiveAuthActionService sensitiveAuthActionService;
+    SensitiveAuthActionsService sensitiveAuthActionsService;
 
     UserRepository userRepository;
     PrincipalRepository principalRepository;
@@ -61,7 +61,7 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
                 .toList();
 
         principalsToUnlink.forEach(
-                principal -> sensitiveAuthActionService.unlinkAuthMethod(userId, principal.getProvider()));
+                principal -> sensitiveAuthActionsService.unlinkAuthMethod(userId, principal.getProvider()));
         log.info(
                 "{} authentications with old password unlinked for user: {}",
                 principalsToUnlink.size(),

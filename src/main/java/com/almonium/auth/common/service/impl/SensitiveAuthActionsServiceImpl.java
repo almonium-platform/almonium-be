@@ -9,7 +9,7 @@ import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.service.SensitiveAuthActionService;
+import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionService {
+public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsService {
     UserService userService;
     PrincipalFactory principalFactory;
     PrincipalRepository principalRepository;
