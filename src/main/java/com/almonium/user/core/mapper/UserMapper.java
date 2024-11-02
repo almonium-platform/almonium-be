@@ -44,5 +44,6 @@ public interface UserMapper {
     @Mapping(target = "attributes", ignore = true)
     @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     void updatePrincipalFromUserInfo(@MappingTarget OAuth2Principal principal, OAuth2UserInfo userInfo);
 }
