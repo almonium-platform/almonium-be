@@ -33,7 +33,7 @@ public class AuthManagementController {
                 authMethodManagementService.getAuthProviders(auth.getUser().getId()));
     }
 
-    @PostMapping("/email-availability")
+    @PostMapping("/email/availability")
     public ResponseEntity<Boolean> checkEmailAvailability(@RequestBody EmailRequestDto request) {
         boolean isAvailable = authMethodManagementService.isEmailAvailable(request.email());
         return ResponseEntity.ok(isAvailable);
