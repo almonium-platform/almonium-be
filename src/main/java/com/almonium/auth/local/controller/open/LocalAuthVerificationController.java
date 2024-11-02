@@ -1,9 +1,9 @@
-package com.almonium.auth.common.controller.open;
+package com.almonium.auth.local.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.local.dto.request.PasswordResetConfirmRequest;
+import com.almonium.auth.local.service.LocalAuthVerificationService;
 import com.almonium.util.dto.ApiResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -23,20 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/public/auth/verification")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class VerificationTokenController {
-    AuthMethodManagementService authMethodManagementService;
+public class LocalAuthVerificationController {
+    LocalAuthVerificationService localAuthVerificationService;
 
     // Verify email using a token
     @PostMapping("/emails")
     public ResponseEntity<ApiResponse> verifyEmail(@NotBlank @RequestParam String token) {
-        authMethodManagementService.verifyEmail(token);
+        localAuthVerificationService.verifyEmail(token);
         return ResponseEntity.ok(new ApiResponse(true, "Email verified successfully"));
     }
 
     // Confirm email change using a token
     @PostMapping("/emails/change")
     public ResponseEntity<?> confirmEmailChange(@NotBlank @RequestParam String token) {
-        authMethodManagementService.changeEmail(token);
+        localAuthVerificationService.changeEmail(token);
         return ResponseEntity.ok().build();
     }
 
@@ -44,7 +44,7 @@ public class VerificationTokenController {
     @PostMapping("/passwords")
     public ResponseEntity<ApiResponse> resetPassword(
             @Valid @RequestBody PasswordResetConfirmRequest passwordResetConfirmRequest) {
-        authMethodManagementService.resetPassword(
+        localAuthVerificationService.resetPassword(
                 passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());
         return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
     }
