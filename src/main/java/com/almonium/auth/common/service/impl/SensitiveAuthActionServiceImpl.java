@@ -13,10 +13,12 @@ import com.almonium.auth.common.service.SensitiveAuthActionService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
+import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
+import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +42,8 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         User user = userService.getById(id);
         LocalPrincipal localPrincipal = userService
                 .getLocalPrincipal(user)
-                .orElseThrow(() ->
-                        new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
+                .orElseThrow(
+                        () -> new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
 
         String encodedPassword = passwordEncoderService.encodePassword(newPassword);
         localPrincipal.setPassword(encodedPassword);
@@ -49,40 +51,32 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         log.info("Password changed for user: {}", user.getEmail());
     }
 
-    @Transactional
     @Override
     public void requestEmailChange(long id, String newEmail) {
         User user = userService.getById(id); // search through principalRepository
         LocalPrincipal existingLocalPrincipal = userService
                 .getLocalPrincipal(user)
-                .orElseThrow(() ->
-                        new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
+                .orElseThrow(
+                        () -> new BadAuthActionRequest("Local auth method not found for user: " + user.getEmail()));
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(newLocalPrincipal, TokenType.EMAIL_CHANGE);
     }
 
-    @Transactional
     @Override
     public void cancelEmailChangeRequest(long id) {
-        User user = userService.getById(id);
-        LocalPrincipal localPrincipal = getPendingPrincipalOrThrow(user);
-        verificationTokenManagementService.deleteToken(localPrincipal);
-        principalRepository.delete(localPrincipal);
-        log.info("Email change request cancelled for user: {}", user.getEmail());
+        handleEmailChangeRequest(id, token -> {});
     }
 
-    @Transactional
     @Override
     public void resendEmailChangeRequest(long id) {
-        User user = userService.getById(id);
-        LocalPrincipal localPrincipal = getPendingPrincipalOrThrow(user);
-        verificationTokenManagementService.deleteToken(localPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_CHANGE);
+        handleEmailChangeRequest(
+                id,
+                token -> verificationTokenManagementService.createAndSendVerificationToken(
+                        token.getPrincipal(), token.getTokenType()));
     }
 
-    @Transactional
     @Override
     public void linkLocal(long userId, String password) {
         User user = userService.getUserWithPrincipals(userId);
@@ -123,11 +117,20 @@ public class SensitiveAuthActionServiceImpl implements SensitiveAuthActionServic
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
     }
 
-    private LocalPrincipal getPendingPrincipalOrThrow(User user) {
-        return userService
-                .getUnverifiedLocalPrincipal(user)
-                .orElseThrow(() -> new BadAuthActionRequest(
-                        "No unverified email change request found for user: " + user.getEmail()));
+    private void handleEmailChangeRequest(long id, Consumer<VerificationToken> action) {
+
+        verificationTokenManagementService
+                .findValidEmailVerificationToken(id)
+                .ifPresentOrElse(
+                        token -> {
+                            verificationTokenManagementService.deleteToken(token);
+                            action.accept(token); // Perform the specific action (resend or just cancel)
+                            log.info("Email change request processed for user: {}", id);
+                        },
+                        () -> {
+                            throw new BadAuthActionRequest(
+                                    "No pending email verification or email change request found.");
+                        });
     }
 
     private Principal getProviderIfPossibleElseThrow(AuthProviderType providerType, User user) {
