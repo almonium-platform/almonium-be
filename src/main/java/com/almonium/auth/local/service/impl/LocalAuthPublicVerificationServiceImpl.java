@@ -10,7 +10,7 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.service.LocalAuthVerificationService;
+import com.almonium.auth.local.service.LocalAuthPublicVerificationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class LocalAuthVerificationServiceImpl implements LocalAuthVerificationService {
+public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVerificationService {
 
     UserService userService;
     PasswordEncoderService passwordEncoderService;
