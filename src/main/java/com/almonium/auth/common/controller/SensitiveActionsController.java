@@ -49,7 +49,7 @@ public class SensitiveActionsController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/email-changes")
+    @DeleteMapping("/email-changes/request")
     public ResponseEntity<?> deleteEmailChangeRequest(@Auth Principal auth) {
         sensitiveAuthActionService.cancelEmailChangeRequest(auth.getUser().getId());
         return ResponseEntity.ok().build();
