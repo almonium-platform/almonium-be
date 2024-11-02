@@ -1,4 +1,4 @@
-package com.almonium.auth.common.controller;
+package com.almonium.auth.common.controller.sensitive;
 
 import static lombok.AccessLevel.PRIVATE;
 
