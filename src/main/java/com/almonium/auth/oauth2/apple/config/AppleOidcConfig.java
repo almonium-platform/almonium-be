@@ -17,7 +17,7 @@ public class AppleOidcConfig {
 
     @Bean
     public AppleOidcUserFilter appleOidcUserFilter() {
-        return new AppleOidcUserFilter(); // todo make it component
+        return new AppleOidcUserFilter();
     }
 
     @Bean
