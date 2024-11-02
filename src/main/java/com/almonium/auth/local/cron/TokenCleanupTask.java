@@ -1,4 +1,4 @@
-package com.almonium.auth.local.scheduled;
+package com.almonium.auth.local.cron;
 
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.local.model.entity.VerificationToken;
@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 @RequiredArgsConstructor
 @Configuration
-public class ScheduledTasks {
+public class TokenCleanupTask {
     private final VerificationTokenRepository tokenRepository;
     private final PrincipalRepository principalRepository;
 
@@ -25,7 +25,10 @@ public class ScheduledTasks {
         // Delete principals attached to expired EMAIL_CHANGE tokens
         List<VerificationToken> expiredEmailChangeTokens =
                 tokenRepository.findByTokenTypeAndExpiryDateBefore(TokenType.EMAIL_CHANGE, now);
-        expiredEmailChangeTokens.stream().map(VerificationToken::getPrincipal).forEach(principalRepository::delete);
+
+        principalRepository.deleteAll(expiredEmailChangeTokens.stream()
+                .map(VerificationToken::getPrincipal)
+                .toList());
 
         // Delete other expired tokens
         tokenRepository.deleteByExpiryDateBefore(now);
