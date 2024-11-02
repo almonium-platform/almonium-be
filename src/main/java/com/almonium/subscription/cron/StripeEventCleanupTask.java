@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class EventCleanupTask {
+public class StripeEventCleanupTask {
     private static final int DAYS_TO_RETAIN = 10;
 
     StripeEventLogRepository stripeEventLogRepository;
