@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,8 +21,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class RecentLoginAspect {
     private final AuthTokenService authTokenService;
 
+    @Value("${app.auth.jwt.access-token-expiration-duration}")
+    private int recentLoginDuration;
+
     @Around(
-            "@annotation(com.almonium.auth.common.annotation.RequireRecentLogin) || within(@com.almonium.auth.common.annotation.RequireRecentLogin *)")
+            """
+            @annotation(com.almonium.auth.common.annotation.RequireRecentLogin)
+            || within(@com.almonium.auth.common.annotation.RequireRecentLogin *)
+            """)
     public Object validateRecentLogin(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes)
                         Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
@@ -34,7 +41,8 @@ public class RecentLoginAspect {
         if (accessToken == null
                 || !authTokenService.validateToken(accessToken)
                 || !authTokenService.isAccessTokenLive(accessToken)) {
-            throw new RecentLoginRequiredException("User must have logged in manually within the last 15 minutes.");
+            throw new RecentLoginRequiredException(String.format(
+                    "User must have logged in manually within the last %d minutes.", recentLoginDuration));
         }
         return joinPoint.proceed();
     }

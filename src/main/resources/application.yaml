@@ -93,7 +93,7 @@ app:
   auth:
     jwt:
       token-signing-secret: ${TOKEN_SECRET}
-      access-token-expiration-duration: 900 # 15 minutes
+      access-token-expiration-duration: 900 # 15 minutes | Should be in sync with the FE recent login cache
       refresh-token-expiration-duration: 1209600 # 14 days
       refresh-token-url: /public/auth/refresh-token
     oauth2:
