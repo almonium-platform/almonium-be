@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.util.CookieUtil;
+import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
 import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
@@ -44,7 +45,8 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         try {
             return authService.authenticate(userInfo, getIntent());
-
+        } catch (EmailMismatchException ex) {
+            throw new OAuth2AuthenticationException(ex.getMessage(), ex);
         } catch (Exception ex) {
             throw new OAuth2AuthenticationException("Authentication failed", ex);
         }
