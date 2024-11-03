@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -132,10 +133,17 @@ public class AuthTokenService {
         return refreshToken;
     }
 
-    public boolean isAccessTokenLive(String accessToken) {
+    public boolean isAccessTokenRefreshed(String accessToken) {
         Claims claims = extractClaims(accessToken);
         Object isLiveClaim = claims.get(IS_LIVE_TOKEN_CLAIM);
-        return isLiveClaim instanceof Boolean && (Boolean) isLiveClaim;
+        return !(isLiveClaim instanceof Boolean && (Boolean) isLiveClaim);
+    }
+
+    public Optional<Instant> recentLoginPrivilegeExpiresAt(String accessToken) {
+        if (isAccessTokenRefreshed(accessToken)) {
+            return Optional.empty();
+        }
+        return Optional.of(extractClaims(accessToken).getExpiration().toInstant());
     }
 
     private String generateLiveAccessToken(Authentication authentication) {

@@ -40,9 +40,9 @@ public class RecentLoginAspect {
 
         if (accessToken == null
                 || !authTokenService.validateToken(accessToken)
-                || !authTokenService.isAccessTokenLive(accessToken)) {
+                || authTokenService.isAccessTokenRefreshed(accessToken)) {
             throw new RecentLoginRequiredException(String.format(
-                    "User must have logged in manually within the last %d minutes.", recentLoginDuration));
+                    "User must have logged in manually within the last %d minutes.", recentLoginDuration / 60));
         }
         return joinPoint.proceed();
     }
