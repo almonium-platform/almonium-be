@@ -18,7 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +63,7 @@ public class User {
     String username;
 
     @CreatedDate
-    LocalDateTime registered;
+    Instant registered;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")

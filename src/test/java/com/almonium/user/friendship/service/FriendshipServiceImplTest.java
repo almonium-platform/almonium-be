@@ -27,7 +27,7 @@ import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import com.almonium.user.friendship.service.impl.FriendshipServiceImpl;
 import com.almonium.util.TestDataGenerator;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -70,8 +70,7 @@ class FriendshipServiceImplTest {
     void setUp() {
         requester = TestDataGenerator.buildTestUserWithId(REQUESTER_ID);
         recipient = TestDataGenerator.buildTestUserWithId(RECIPIENT_ID);
-        friendship =
-                new Friendship(FRIENDSHIP_ID, requester, recipient, LocalDateTime.now(), LocalDateTime.now(), PENDING);
+        friendship = new Friendship(FRIENDSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
     }
 
     @DisplayName("Should find friend by email")

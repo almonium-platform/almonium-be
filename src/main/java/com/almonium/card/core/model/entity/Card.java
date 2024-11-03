@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -49,10 +49,10 @@ public class Card {
     String entry;
 
     @CreatedDate
-    LocalDateTime createdAt;
+    Instant createdAt;
 
     @LastModifiedDate
-    LocalDateTime updatedAt;
+    Instant updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")

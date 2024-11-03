@@ -16,7 +16,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -59,10 +59,10 @@ public abstract class Principal {
     boolean emailVerified;
 
     @CreatedDate
-    LocalDateTime createdAt;
+    Instant createdAt;
 
     @LastModifiedDate
-    LocalDateTime updatedAt;
+    Instant updatedAt;
 
     @Enumerated(EnumType.STRING)
     AuthProviderType provider;

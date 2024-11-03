@@ -13,7 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,12 +50,12 @@ public class CardSuggestion {
     Learner recipient;
 
     @CreatedDate
-    LocalDateTime created;
+    Instant createdAt;
 
     public CardSuggestion(Learner sender, Learner recipient, Card card) {
         this.sender = sender;
         this.recipient = recipient;
         this.card = card;
-        this.created = LocalDateTime.now();
+        this.createdAt = Instant.now();
     }
 }

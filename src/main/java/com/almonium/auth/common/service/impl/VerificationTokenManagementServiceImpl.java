@@ -13,7 +13,7 @@ import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -47,7 +47,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
                     Optional<VerificationToken> token = verificationTokenRepository.findByPrincipalAndTokenTypeIn(
                             localPrincipal, Set.of(TokenType.EMAIL_VERIFICATION, TokenType.EMAIL_CHANGE_VERIFICATION));
 
-                    if (token.isPresent() && token.get().getExpiresAt().isAfter(LocalDateTime.now())) {
+                    if (token.isPresent() && token.get().getExpiresAt().isAfter(Instant.now())) {
                         return token;
                     }
 
@@ -75,7 +75,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
 
-        if (verificationToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+        if (verificationToken.getExpiresAt().isBefore(Instant.now())) {
             throw new InvalidVerificationTokenException("Verification token has expired");
         }
 

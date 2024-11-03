@@ -23,7 +23,7 @@ import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.google.common.collect.Sets;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -103,7 +103,7 @@ public class CardServiceImpl implements CardService {
         Card entity = cardRepository.findById(dto.getId()).orElseThrow();
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
-        entity.setUpdatedAt(LocalDateTime.now());
+        entity.setUpdatedAt(Instant.now());
         cardRepository.save(entity);
     }
 
@@ -115,8 +115,8 @@ public class CardServiceImpl implements CardService {
 
     private Card initializeCard(Learner learner, CardCreationDto dto) {
         Card card = cardMapper.cardDtoToEntity(dto);
-        card.setCreatedAt(LocalDateTime.now());
-        card.setUpdatedAt(LocalDateTime.now());
+        card.setCreatedAt(Instant.now());
+        card.setUpdatedAt(Instant.now());
         learner.addCard(card);
         return card;
     }

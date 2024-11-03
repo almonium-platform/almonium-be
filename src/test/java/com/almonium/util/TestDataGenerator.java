@@ -32,6 +32,7 @@ import com.almonium.user.friendship.model.enums.FriendStatus;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.google.protobuf.ByteString;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,8 +135,8 @@ public class TestDataGenerator {
                 .entry("Hello")
                 .language("English")
                 .translations(new TranslationDto[] {new TranslationDto(1L, "Hola")})
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .createdAt(Instant.now())
+                .updatedAt(Instant.now())
                 .iteration(1)
                 .priority(2)
                 .activeLearning(true)
@@ -151,8 +152,8 @@ public class TestDataGenerator {
                 .entry("Bonjour")
                 .language("French")
                 .translations(new TranslationDto[] {new TranslationDto(2L, "Hello")})
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .createdAt(Instant.now())
+                .updatedAt(Instant.now())
                 .iteration(3)
                 .priority(1)
                 .activeLearning(true)
@@ -212,7 +213,7 @@ public class TestDataGenerator {
         User user = new User();
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setRegistered(LocalDateTime.now());
+        user.setRegistered(Instant.now());
         return user;
     }
 
@@ -221,7 +222,7 @@ public class TestDataGenerator {
         user.setId(1L);
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setRegistered(LocalDateTime.now());
+        user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
         return user;
@@ -246,7 +247,7 @@ public class TestDataGenerator {
         user.setId(id);
         user.setUsername("john");
         user.setEmail("john@email.com");
-        user.setRegistered(LocalDateTime.now());
+        user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());
         return user;
@@ -256,7 +257,7 @@ public class TestDataGenerator {
         User user = new User();
         user.setUsername("jake");
         user.setEmail("jake@email.com");
-        user.setRegistered(LocalDateTime.now());
+        user.setRegistered(Instant.now());
         return user;
     }
 
@@ -307,14 +308,14 @@ public class TestDataGenerator {
         cardUpdateDto.setNotes(generateRandomString());
         cardUpdateDto.setTags(generateRandomTagDtos());
         cardUpdateDto.setExamples(generateRandomExampleDtos());
-        cardUpdateDto.setCreatedAt(LocalDateTime.now());
-        cardUpdateDto.setLastRepeat(LocalDateTime.now());
+        cardUpdateDto.setCreatedAt(Instant.now());
+        cardUpdateDto.setLastRepeat(Instant.now());
         cardUpdateDto.setIteration(random.nextInt(10));
         cardUpdateDto.setUserId(random.nextLong());
         cardUpdateDto.setPriority(random.nextInt(5));
         cardUpdateDto.setDeletedTranslationsIds(generateRandomIntArray());
         cardUpdateDto.setDeletedExamplesIds(generateRandomIntArray());
-        cardUpdateDto.setUpdatedAt(LocalDateTime.now());
+        cardUpdateDto.setUpdatedAt(Instant.now());
         cardUpdateDto.setActiveLearning(random.nextBoolean());
         cardUpdateDto.setFalseFriend(random.nextBoolean());
         cardUpdateDto.setIrregularPlural(random.nextBoolean());
@@ -413,7 +414,7 @@ public class TestDataGenerator {
         Friendship friendship = new Friendship();
         friendship.setRequester(User.builder().id(requesterId).build());
         friendship.setRequestee(User.builder().id(requesteeId).build());
-        friendship.setCreatedAt(LocalDateTime.now());
+        friendship.setCreatedAt(Instant.now());
         friendship.setStatus(FriendshipStatus.FRIENDS);
         return friendship;
     }
@@ -424,7 +425,7 @@ public class TestDataGenerator {
         card.setEntry(entry);
         card.setOwner(owner);
         card.setLanguage(Language.EN);
-        card.setCreatedAt(LocalDateTime.now());
+        card.setCreatedAt(Instant.now());
         return card;
     }
 
@@ -434,7 +435,7 @@ public class TestDataGenerator {
         card.setEntry("dummyEntry");
         card.setOwner(owner);
         card.setLanguage(Language.EN);
-        card.setCreatedAt(LocalDateTime.now());
+        card.setCreatedAt(Instant.now());
         return card;
     }
 
@@ -443,7 +444,7 @@ public class TestDataGenerator {
         card.setPublicId(UUID.randomUUID());
         card.setEntry("TEST_ENTRY");
         card.setLanguage(Language.EN);
-        card.setCreatedAt(LocalDateTime.now());
+        card.setCreatedAt(Instant.now());
         return card;
     }
 

@@ -13,7 +13,7 @@ import com.almonium.subscription.repository.PlanRepository;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -82,7 +82,7 @@ public class PlanSubscriptionService {
                 .plan(plan)
                 .stripeSubscriptionId(stripeSubscriptionId)
                 .status(PlanSubscription.Status.ACTIVE)
-                .startDate(LocalDateTime.now())
+                .startDate(Instant.now())
                 .build();
 
         planSubscriptionRepository.save(newPlanSubscription);

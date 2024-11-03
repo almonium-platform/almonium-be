@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,10 +37,10 @@ public class VerificationToken {
     @JoinColumn(name = "principal_id")
     LocalPrincipal principal;
 
-    LocalDateTime expiresAt;
+    Instant expiresAt;
 
     @CreatedDate
-    LocalDateTime createdAt;
+    Instant createdAt;
 
     @Enumerated(EnumType.STRING)
     TokenType tokenType;
@@ -49,6 +49,6 @@ public class VerificationToken {
         this.principal = principal;
         this.token = token;
         this.tokenType = tokenType;
-        expiresAt = LocalDateTime.now().plusMinutes(minutes);
+        expiresAt = Instant.now().plusSeconds(minutes * 60);
     }
 }

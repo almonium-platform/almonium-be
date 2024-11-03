@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class PlanSubscription {
     User user;
 
     String stripeSubscriptionId;
-    LocalDateTime startDate;
+    Instant startDate;
 
     @Enumerated(EnumType.STRING)
     Status status;

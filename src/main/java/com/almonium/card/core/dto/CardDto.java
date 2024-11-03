@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,8 +33,8 @@ public class CardDto {
     String notes;
     TagDto[] tags;
     ExampleDto[] examples;
-    LocalDateTime createdAt;
-    LocalDateTime updatedAt;
+    Instant createdAt;
+    Instant updatedAt;
     int iteration;
     int priority;
     boolean activeLearning;

@@ -3,7 +3,7 @@ package com.almonium.card.core.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,14 +24,14 @@ public class CardUpdateDto {
     String notes;
     TagDto[] tags;
     ExampleDto[] examples;
-    LocalDateTime createdAt;
-    LocalDateTime lastRepeat;
+    Instant createdAt;
+    Instant lastRepeat;
     Integer iteration;
     Long userId;
     Integer priority;
     int[] deletedTranslationsIds;
     int[] deletedExamplesIds;
-    LocalDateTime updatedAt;
+    Instant updatedAt;
     Boolean activeLearning;
     Boolean falseFriend;
     Boolean irregularPlural;

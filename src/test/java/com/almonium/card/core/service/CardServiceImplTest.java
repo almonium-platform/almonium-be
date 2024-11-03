@@ -37,7 +37,7 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.util.TestDataGenerator;
 import com.google.common.collect.Sets;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -522,7 +522,7 @@ class CardServiceImplTest {
 
         // Assert
         // Verify that the updated timestamp was set
-        assertThat(card.getUpdatedAt()).isCloseTo(LocalDateTime.now(), within(1, ChronoUnit.SECONDS));
+        assertThat(card.getUpdatedAt()).isCloseTo(Instant.now(), within(1, ChronoUnit.SECONDS));
     }
 
     @DisplayName("Should save the updated card")

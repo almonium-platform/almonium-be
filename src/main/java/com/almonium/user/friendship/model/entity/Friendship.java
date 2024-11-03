@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,10 +52,10 @@ public class Friendship {
     User requestee;
 
     @CreatedDate
-    LocalDateTime createdAt;
+    Instant createdAt;
 
     @LastModifiedDate
-    LocalDateTime updatedAt;
+    Instant updatedAt;
 
     @Enumerated(EnumType.STRING)
     FriendshipStatus status;

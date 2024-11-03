@@ -4,7 +4,7 @@ import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class TokenCleanupTask {
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
     public void purgeExpiredTokens() {
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
 
         // Delete principals attached to expired EMAIL_CHANGE tokens
         List<VerificationToken> expiredEmailChangeTokens =
