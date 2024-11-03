@@ -73,7 +73,7 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
 
     @Override
     public void cancelEmailChangeRequest(long id) {
-        handleEmailChangeRequest(id, token -> {});
+        handleEmailChangeRequest(id, token -> principalRepository.delete(token.getPrincipal()));
     }
 
     @Override
