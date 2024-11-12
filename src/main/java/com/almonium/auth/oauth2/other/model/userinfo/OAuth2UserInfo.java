@@ -23,7 +23,9 @@ public abstract class OAuth2UserInfo {
     public abstract String getLastName();
 
     public String getName() {
-        return getFirstName() + " " + getLastName();
+        String firstName = getFirstName();
+        String lastName = getLastName();
+        return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");
     }
 
     public abstract String getEmail();
