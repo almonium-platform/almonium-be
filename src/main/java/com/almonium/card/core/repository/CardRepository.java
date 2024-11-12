@@ -1,7 +1,7 @@
 package com.almonium.card.core.repository;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.Card;
-import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import java.util.List;
 import java.util.Optional;

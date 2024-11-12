@@ -2,13 +2,13 @@ package com.almonium.card.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.card.core.dto.CardCreationDto;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.dto.CardUpdateDto;
 import com.almonium.card.core.service.CardService;
-import com.almonium.engine.translator.model.enums.Language;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

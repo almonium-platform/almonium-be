@@ -2,7 +2,7 @@ package com.almonium.card.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.engine.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

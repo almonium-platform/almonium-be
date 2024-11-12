@@ -1,6 +1,6 @@
 package com.almonium.user.core.service;
 
-import com.almonium.engine.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import java.util.Set;
 

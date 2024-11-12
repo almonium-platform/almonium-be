@@ -1,6 +1,6 @@
 package com.almonium.user.core.dto;
 
-import com.almonium.engine.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.Language;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

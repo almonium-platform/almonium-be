@@ -1,9 +1,9 @@
 package com.almonium.card.core.service;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.CardCreationDto;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.dto.CardUpdateDto;
-import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import java.util.List;
 

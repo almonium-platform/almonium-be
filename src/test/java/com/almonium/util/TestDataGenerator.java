@@ -1,5 +1,15 @@
 package com.almonium.util;
 
+import com.almonium.analyzer.analyzer.dto.AnalysisDto;
+import com.almonium.analyzer.analyzer.model.enums.CEFR;
+import com.almonium.analyzer.client.words.dto.WordsPronunciationDto;
+import com.almonium.analyzer.client.words.dto.WordsReportDto;
+import com.almonium.analyzer.client.words.dto.WordsResultDto;
+import com.almonium.analyzer.client.words.dto.WordsSyllablesDto;
+import com.almonium.analyzer.translator.dto.DefinitionDto;
+import com.almonium.analyzer.translator.dto.MLTranslationCard;
+import com.almonium.analyzer.translator.dto.TranslationCardDto;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
@@ -11,16 +21,6 @@ import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
 import com.almonium.card.core.model.entity.Card;
-import com.almonium.engine.analyzer.dto.AnalysisDto;
-import com.almonium.engine.analyzer.model.enums.CEFR;
-import com.almonium.engine.client.words.dto.WordsPronunciationDto;
-import com.almonium.engine.client.words.dto.WordsReportDto;
-import com.almonium.engine.client.words.dto.WordsResultDto;
-import com.almonium.engine.client.words.dto.WordsSyllablesDto;
-import com.almonium.engine.translator.dto.DefinitionDto;
-import com.almonium.engine.translator.dto.MLTranslationCard;
-import com.almonium.engine.translator.dto.TranslationCardDto;
-import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.Learner;
@@ -93,14 +93,14 @@ public class TestDataGenerator {
     }
 
     // todo different names to avoid fully qualified names
-    public com.almonium.engine.translator.dto.TranslationDto[] createTestTranslationDtos() {
-        return new com.almonium.engine.translator.dto.TranslationDto[] {
-            com.almonium.engine.translator.dto.TranslationDto.builder()
+    public com.almonium.analyzer.translator.dto.TranslationDto[] createTestTranslationDtos() {
+        return new com.almonium.analyzer.translator.dto.TranslationDto[] {
+            com.almonium.analyzer.translator.dto.TranslationDto.builder()
                     .text("Translation 1")
                     .pos("Noun")
                     .frequency(5)
                     .build(),
-            com.almonium.engine.translator.dto.TranslationDto.builder()
+            com.almonium.analyzer.translator.dto.TranslationDto.builder()
                     .text("Translation 2")
                     .pos("Verb")
                     .frequency(3)

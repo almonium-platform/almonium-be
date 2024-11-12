@@ -2,8 +2,8 @@ package com.almonium.card.core.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.Card;
-import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.TestDataGenerator;

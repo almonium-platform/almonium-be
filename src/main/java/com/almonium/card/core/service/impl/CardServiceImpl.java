@@ -2,6 +2,7 @@ package com.almonium.card.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.CardCreationDto;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.dto.CardUpdateDto;
@@ -19,7 +20,6 @@ import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.TagRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.card.core.service.CardService;
-import com.almonium.engine.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.google.common.collect.Sets;

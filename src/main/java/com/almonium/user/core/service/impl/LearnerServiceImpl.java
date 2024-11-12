@@ -2,7 +2,7 @@ package com.almonium.user.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.engine.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.service.LearnerService;

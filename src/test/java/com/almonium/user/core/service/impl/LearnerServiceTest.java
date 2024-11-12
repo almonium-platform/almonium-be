@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.almonium.engine.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import java.util.Arrays;
