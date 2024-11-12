@@ -55,7 +55,7 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
         user.setEmail(localPrincipal.getEmail());
         userRepository.save(user);
 
-        // If app enforces single password per user, unlink all other auth methods with old password
+        // If app enforces single email per user, unlink all other auth methods with old email
         List<Principal> principalsToUnlink = user.getPrincipals().stream()
                 .filter(principal -> !Objects.equals(principal.getEmail(), localPrincipal.getEmail()))
                 .toList();
