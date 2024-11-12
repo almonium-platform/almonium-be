@@ -52,10 +52,10 @@ class VerificationTokenManagementServiceImplTest {
     void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
         // Arrange
         LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
-        String token = "123456";
+        String token = "1234567890abcd1234567890";
         EmailDto emailDto = TestDataGenerator.createEmailDto();
 
-        when(tokenGenerator.generateOTP(6)).thenReturn(token);
+        when(tokenGenerator.generateOTP(24)).thenReturn(token);
         when(emailComposerService.composeEmail(localPrincipal.getEmail(), TokenType.EMAIL_VERIFICATION, token))
                 .thenReturn(emailDto);
 
