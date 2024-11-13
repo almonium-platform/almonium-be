@@ -69,10 +69,10 @@ public class OAuth2AuthenticationService {
 
     private OAuth2Principal createAndSaveProviderAuth(User user, OAuth2UserInfo userInfo) {
         log.debug("Creating new principal for user: {}", userInfo.getEmail());
-        OAuth2Principal account = userMapper.providerUserInfoToPrincipal(userInfo);
-        account.setUser(user);
-        user.getPrincipals().add(account);
-        userRepository.save(user);
-        return principalRepository.save(account);
+        OAuth2Principal principal = userMapper.providerUserInfoToPrincipal(userInfo);
+        principal.setUser(user);
+        user.getPrincipals().add(principal);
+        principalRepository.save(principal);
+        return principal;
     }
 }
