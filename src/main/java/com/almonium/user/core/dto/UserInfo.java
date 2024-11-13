@@ -1,26 +1,31 @@
 package com.almonium.user.core.dto;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.analyzer.translator.model.enums.Language;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = PRIVATE)
 public class UserInfo {
-    private String id;
-    private String username;
-    private String email;
-    private Language uiLang;
-    private String profilePicLink;
-    private String background;
-    private Integer streak;
-    private Collection<Language> targetLangs;
-    private Collection<Language> fluentLangs;
-    private boolean setupCompleted;
-    private Collection<String> tags;
+    String id;
+    String username;
+    String email;
+    boolean emailVerified;
+    Language uiLang;
+    String profilePicLink;
+    String background;
+    Integer streak;
+    Collection<Language> targetLangs;
+    Collection<Language> fluentLangs;
+    boolean setupCompleted;
+    Collection<String> tags;
 }

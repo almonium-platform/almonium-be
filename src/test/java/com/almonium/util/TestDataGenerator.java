@@ -43,6 +43,7 @@ import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 
+// TODO a lot of unused code
 @UtilityClass
 public class TestDataGenerator {
     private final Random random = new Random();
@@ -199,6 +200,7 @@ public class TestDataGenerator {
                 user.getId().toString(),
                 user.getUsername(),
                 user.getEmail(),
+                user.isEmailVerified(),
                 profile.getUiLang(),
                 profile.getAvatarUrl(),
                 profile.getBackground(),
@@ -222,6 +224,7 @@ public class TestDataGenerator {
         user.setId(1L);
         user.setUsername("john");
         user.setEmail("john@email.com");
+        user.setEmailVerified(true);
         user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
         user.setLearner(Learner.builder().user(user).build());

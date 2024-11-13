@@ -6,7 +6,5 @@ import java.util.Optional;
 public interface EmailVerificationService {
     void sendEmailVerification(long id);
 
-    boolean isEmailVerified(long id);
-
     Optional<VerificationTokenDto> getLastEmailVerificationToken(long id);
 }

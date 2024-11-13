@@ -25,8 +25,9 @@ public class AuthMethodManagementServiceImpl implements AuthMethodManagementServ
     PrincipalMapper principalMapper;
 
     @Override
-    public List<PrincipalDto> getAuthProviders(long id) {
-        return principalMapper.toDto(principalRepository.findByUserId(id));
+    public List<PrincipalDto> getAuthProviders(String email) {
+        // searching by email to omit temp unverified principal in case of email migration
+        return principalMapper.toDto(principalRepository.findByEmail(email));
     }
 
     @Override

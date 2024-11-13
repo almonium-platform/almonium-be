@@ -30,7 +30,7 @@ spring:
           google:
             client-id: ${GOOGLE_ID}
             client-secret: ${GOOGLE_SECRET}
-            scope: profile,email
+            scope: email # add `profile` if needed
           facebook:
             client-id: ${FACEBOOK_ID}
             client-secret: ${FACEBOOK_SECRET}
@@ -41,7 +41,7 @@ spring:
             client-name: Apple
             client-authentication-method: client_secret_post
             redirect-uri: https://${app.api-domain}${server.servlet.context-path}/login/oauth2/code/apple
-            scope: name,email
+            scope: email # add `name` if needed
 
         provider:
           google:

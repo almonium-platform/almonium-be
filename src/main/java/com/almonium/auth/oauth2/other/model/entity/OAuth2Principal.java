@@ -3,6 +3,7 @@ package com.almonium.auth.oauth2.other.model.entity;
 import com.almonium.auth.common.model.entity.Principal;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 import java.util.Collection;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @DiscriminatorValue("OAUTH2")
 public class OAuth2Principal extends Principal implements OAuth2User {
     String providerUserId;
+
+    // compliance issue: don't store if not needed. Create Liquibase patch to add columns if needed.
+    @Transient
     String firstName;
+
+    @Transient
     String lastName;
 
     @Override

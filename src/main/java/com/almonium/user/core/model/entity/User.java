@@ -60,6 +60,8 @@ public class User {
 
     String email;
 
+    boolean emailVerified;
+
     String username;
 
     @CreatedDate

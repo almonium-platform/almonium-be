@@ -18,6 +18,11 @@ databaseChangeLog:
                   constraints:
                     unique: true
               - column:
+                  name: email_verified
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
                   name: username
                   type: varchar(255)
               - column:

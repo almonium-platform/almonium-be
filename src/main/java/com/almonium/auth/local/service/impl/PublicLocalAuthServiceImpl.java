@@ -88,7 +88,7 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
                 .findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
 
-        if (emailVerificationRequired && !localPrincipal.isEmailVerified()) {
+        if (emailVerificationRequired && !localPrincipal.getUser().isEmailVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
         return localPrincipal;

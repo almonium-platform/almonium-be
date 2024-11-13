@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PrincipalRepository extends JpaRepository<Principal, Long> {
-    List<Principal> findByUserId(long userId);
+    List<Principal> findByEmail(String email);
 }

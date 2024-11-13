@@ -56,8 +56,6 @@ public abstract class Principal {
 
     String email;
 
-    boolean emailVerified;
-
     @CreatedDate
     Instant createdAt;
 

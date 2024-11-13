@@ -30,7 +30,7 @@ public class AuthManagementController {
     @GetMapping("/providers")
     public ResponseEntity<List<PrincipalDto>> getAuthProviders(@Auth Principal auth) {
         return ResponseEntity.ok(
-                authMethodManagementService.getAuthProviders(auth.getUser().getId()));
+                authMethodManagementService.getAuthProviders(auth.getUser().getEmail()));
     }
 
     @PostMapping("/email/availability")

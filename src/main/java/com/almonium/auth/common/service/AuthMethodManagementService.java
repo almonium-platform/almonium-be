@@ -6,5 +6,5 @@ import java.util.List;
 public interface AuthMethodManagementService {
     boolean isEmailAvailable(String email);
 
-    List<PrincipalDto> getAuthProviders(long id);
+    List<PrincipalDto> getAuthProviders(String email);
 }

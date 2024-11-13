@@ -6,6 +6,7 @@ import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import java.time.LocalDate;
 import java.util.Collection;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @DiscriminatorValue("LOCAL")
 public class LocalPrincipal extends Principal implements UserDetails {
     String password;
+    LocalDate lastPasswordResetDate;
 
     public LocalPrincipal() {
         this.setProvider(LOCAL);

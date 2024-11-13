@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.local.exception.EmailMismatchException;
+import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
 import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -23,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -45,9 +48,12 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         try {
             return authService.authenticate(userInfo, getIntent());
+        } catch (EmailNotVerifiedException ex) {
+            throw new OAuth2AuthenticationException("Email not verified", ex);
         } catch (EmailMismatchException ex) {
             throw new OAuth2AuthenticationException(ex.getMessage(), ex);
         } catch (Exception ex) {
+            log.error("Authentication failed with unknown error", ex);
             throw new OAuth2AuthenticationException("Authentication failed", ex);
         }
     }

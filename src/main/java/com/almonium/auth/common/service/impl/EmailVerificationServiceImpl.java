@@ -3,8 +3,6 @@ package com.almonium.auth.common.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.exception.BadAuthActionRequest;
-import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.EmailVerificationService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.dto.response.VerificationTokenDto;
@@ -25,7 +23,6 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     UserService userService;
     VerificationTokenManagementService tokenService;
     VerificationTokenManagementServiceImpl verificationTokenManagementService;
-    PrincipalRepository principalRepository;
     VerificationTokenMapper verificationTokenMapper;
 
     @Override
@@ -37,11 +34,6 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
                         "Email verification is not available without local authentication method"));
 
         tokenService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
-    }
-
-    @Override
-    public boolean isEmailVerified(long id) {
-        return principalRepository.findByUserId(id).stream().anyMatch(Principal::isEmailVerified);
     }
 
     @Override

@@ -70,7 +70,7 @@ public class VerificationTokenManagementServiceImpl implements VerificationToken
     }
 
     @Override
-    public VerificationToken getValidTokenOrThrow(String token, TokenType expectedType) {
+    public VerificationToken getValidTokenOrThrow(String token, TokenType expectedType) { // delete token and return it
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));

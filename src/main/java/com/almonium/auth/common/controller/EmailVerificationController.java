@@ -22,13 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailVerificationController {
     EmailVerificationService emailVerificationService;
 
-    @GetMapping("/me")
-    public ResponseEntity<?> isEmailVerified(@Auth Principal auth) {
-        boolean verified =
-                emailVerificationService.isEmailVerified(auth.getUser().getId());
-        return ResponseEntity.ok(verified);
-    }
-
     @GetMapping("/last-token")
     public ResponseEntity<VerificationTokenDto> getLastEmailVerificationToken(@Auth Principal auth) {
         return emailVerificationService
@@ -37,11 +30,16 @@ public class EmailVerificationController {
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
+    /** Can only be used if app.auth.email-verification-required is set to false -
+     * then we allow users to request verification email from the settings
+     * If the email is already verified, throw an exception
+     *
+     * @param auth - authenticated user
+     * @return - 200 OK if the email was sent successfully
+     */
     @PostMapping("/request")
     public ResponseEntity<?> requestEmailVerification(@Auth Principal auth) {
-        boolean verified =
-                emailVerificationService.isEmailVerified(auth.getUser().getId());
-        if (verified) {
+        if (auth.getUser().isEmailVerified()) {
             throw new BadAuthActionRequest("Email is already verified");
         }
 

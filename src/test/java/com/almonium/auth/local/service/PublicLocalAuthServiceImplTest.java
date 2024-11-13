@@ -107,8 +107,7 @@ class PublicLocalAuthServiceImplTest {
         String expectedRefreshJwt = "xxx.yyy.zzz";
         String expectedAccessJwt = "aaa.bbb.ccc";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
-        LocalPrincipal principal =
-                LocalPrincipal.builder().user(user).emailVerified(true).build();
+        LocalPrincipal principal = LocalPrincipal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
@@ -150,8 +149,11 @@ class PublicLocalAuthServiceImplTest {
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         LocalPrincipal principal = LocalPrincipal.builder()
                 .email(localAuthRequest.email())
+                .user(User.builder()
+                        .email(localAuthRequest.email())
+                        .emailVerified(false)
+                        .build())
                 .password("encodedPassword")
-                .emailVerified(false)
                 .build();
         when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
         ReflectionTestUtils.setField(authService, IS_EMAIL_VERIFICATION_REQUIRED_FIELD, true);

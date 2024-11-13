@@ -3,7 +3,6 @@ package com.almonium.auth.local.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
@@ -30,12 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVerificationService {
 
     UserService userService;
-    PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService tokenService;
     SensitiveAuthActionsService sensitiveAuthActionsService;
+    PasswordEncoderService passwordEncoderService;
 
     UserRepository userRepository;
-    PrincipalRepository principalRepository;
     LocalPrincipalRepository localPrincipalRepository;
 
     @Override
@@ -43,8 +41,6 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
         VerificationToken verificationToken =
                 tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_CHANGE_VERIFICATION);
         Principal localPrincipal = verificationToken.getPrincipal();
-        localPrincipal.setEmailVerified(true);
-        principalRepository.save(localPrincipal);
         tokenService.deleteToken(verificationToken);
         log.info(
                 "Email changed for local authentication method of user: {}",
@@ -53,6 +49,7 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
         long userId = localPrincipal.getUser().getId();
         User user = userService.getUserWithPrincipals(userId);
         user.setEmail(localPrincipal.getEmail());
+        user.setEmailVerified(true);
         userRepository.save(user);
 
         // If app enforces single email per user, unlink all other auth methods with old email
@@ -72,8 +69,9 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
     public void verifyEmail(String token) {
         VerificationToken verificationToken = tokenService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
         LocalPrincipal principal = verificationToken.getPrincipal();
-        principal.setEmailVerified(true);
-        localPrincipalRepository.save(principal);
+        User user = principal.getUser();
+        user.setEmailVerified(true);
+        userRepository.save(user);
         tokenService.deleteToken(verificationToken);
     }
 

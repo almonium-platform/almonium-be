@@ -21,7 +21,7 @@ spring:
           google:
             client-id: google_id_dummy
             client-secret: google_secret_dummy
-
+            scope: email
           facebook:
             client-id: facebook_id_dummy
             client-secret: facebook_secret_dummy
@@ -32,7 +32,7 @@ spring:
             client-name: Apple
             client-authentication-method: client_secret_post
             redirect-uri: https://backend.com/api/v3/login/oauth2/code/apple
-            scope: name,email
+            scope: email
 
         provider:
           facebook:
