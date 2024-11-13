@@ -10,7 +10,6 @@ import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -30,44 +29,61 @@ public class OAuth2AuthenticationService {
     public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
         log.debug("Starting authentication process for email: {}", userInfo.getEmail());
 
-        // here, retrieve by provider and providerUserId. Account merging logic is not implemented fully
-
-        return userRepository
-                .findByEmail(userInfo.getEmail())
-                .map(user -> handleExistingUser(user, userInfo))
-                .orElseGet(() -> createNewUserAndPrincipal(userInfo, intent));
+        // check if we have this provider account
+        return principalRepository
+                .findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId())
+                .map(existingPrincipal -> updateExistingPrincipal(existingPrincipal, userInfo))
+                .orElseGet(() -> handleNewProviderAccount(userInfo, intent));
     }
 
-    private OAuth2Principal handleExistingUser(User user, OAuth2UserInfo userInfo) {
-        Optional<OAuth2Principal> existingAccountOptional =
-                principalRepository.findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId());
+    private OAuth2Principal updateExistingPrincipal(OAuth2Principal existingPrincipal, OAuth2UserInfo userInfo) {
+        User user = existingPrincipal.getUser();
 
-        if (existingAccountOptional.isEmpty()) {
-            return createAndSaveProviderAuth(user, userInfo);
+        // check if user changed email
+        if (!user.getEmail().equals(userInfo.getEmail())) {
+            log.error("User changed email from {} to {}", user.getEmail(), userInfo.getEmail());
+            // TODO handle more gracefully
+            throw new EmailMismatchException(String.format(
+                    "User had this provider account registered with email: %s but now has email: %s",
+                    user.getEmail(), userInfo.getEmail()));
         }
 
-        OAuth2Principal existingPrincipal = existingAccountOptional.get();
-
+        // match by provider/providerUserId AND email
         log.debug("Updating existing user: {}", userInfo.getEmail());
-        user.getProfile().setAvatarUrl(userInfo.getImageUrl());
-        userRepository.save(user);
-
         userMapper.updatePrincipalFromUserInfo(existingPrincipal, userInfo);
         return principalRepository.save(existingPrincipal);
     }
 
-    private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo, OAuth2Intent intent) {
-        if (intent == OAuth2Intent.LINK) {
-            log.error("User not found for email: {}", userInfo.getEmail());
-            throw new EmailMismatchException("No user found for email " + userInfo.getEmail() + " to link account.");
+    private OAuth2Principal handleNewProviderAccount(OAuth2UserInfo userInfo, OAuth2Intent intent) {
+        log.debug(
+                "We don't recognize this provider account. Provider: {}, providerUserId: {}",
+                userInfo.getProvider(),
+                userInfo.getId());
+
+        var userOptional = userRepository.findByEmail(userInfo.getEmail());
+
+        if (userOptional.isPresent()) {
+            log.debug("New provider account for existing user: {}", userInfo.getEmail());
+            return createAndSaveNewPrincipalForExistingUser(userOptional.get(), userInfo);
         }
+
+        log.debug("New provider account for new user: {}", userInfo.getEmail());
+        if (intent == OAuth2Intent.LINK) {
+            log.error("Can't link account registered with email: {}", userInfo.getEmail());
+            throw new EmailMismatchException("We don't have an account with email: " + userInfo.getEmail());
+        }
+
+        return createNewUserAndPrincipal(userInfo);
+    }
+
+    private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = new User();
         user.setEmail(userInfo.getEmail());
-        return createAndSaveProviderAuth(user, userInfo);
+        return createAndSaveNewPrincipalForExistingUser(user, userInfo);
     }
 
-    private OAuth2Principal createAndSaveProviderAuth(User user, OAuth2UserInfo userInfo) {
+    private OAuth2Principal createAndSaveNewPrincipalForExistingUser(User user, OAuth2UserInfo userInfo) {
         log.debug("Creating new principal for user: {}", userInfo.getEmail());
         OAuth2Principal principal = userMapper.providerUserInfoToPrincipal(userInfo);
         principal.setUser(user);
