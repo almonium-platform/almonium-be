@@ -96,7 +96,6 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
 
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, password);
         principalRepository.save(localPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
         log.info("Local auth for user {} waiting for verification", userId);
     }
 
