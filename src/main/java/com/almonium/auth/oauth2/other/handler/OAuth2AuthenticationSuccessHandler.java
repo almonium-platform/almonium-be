@@ -67,7 +67,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
         OAuth2Principal principal = (OAuth2Principal) authentication.getPrincipal();
-        userAuthenticationServiceImpl.authenticateUser(principal, response, authentication);
+        userAuthenticationServiceImpl.authenticateUser(principal.getUser(), response, authentication);
 
         return UriComponentsBuilder.fromUriString(targetUrl).build().toUriString();
     }

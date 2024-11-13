@@ -107,12 +107,11 @@ class PublicLocalAuthServiceImplTest {
         String expectedRefreshJwt = "xxx.yyy.zzz";
         String expectedAccessJwt = "aaa.bbb.ccc";
         LocalAuthRequest localAuthRequest = new LocalAuthRequest(email, password);
-        LocalPrincipal principal = LocalPrincipal.builder().user(user).build();
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
-        when(localPrincipalRepository.findByEmail(email)).thenReturn(Optional.of(principal));
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(userAuthenticationServiceImpl.authenticateUser(
-                        eq(principal), any(HttpServletResponse.class), any(Authentication.class)))
+                        eq(user), any(HttpServletResponse.class), any(Authentication.class)))
                 .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
         // Act
         JwtAuthResponse result = authService.login(localAuthRequest, mock(HttpServletResponse.class));
@@ -120,7 +119,7 @@ class PublicLocalAuthServiceImplTest {
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
         verify(userAuthenticationServiceImpl)
-                .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
+                .authenticateUser(any(User.class), any(HttpServletResponse.class), any(Authentication.class));
         assertThat(result.accessToken()).isEqualTo(expectedAccessJwt);
         assertThat(result.refreshToken()).isEqualTo(expectedRefreshJwt);
     }
@@ -147,15 +146,11 @@ class PublicLocalAuthServiceImplTest {
     void givenUnverifiedEmail_whenLogin_thenThrowEmailNotVerifiedException() {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
-        LocalPrincipal principal = LocalPrincipal.builder()
-                .email(localAuthRequest.email())
-                .user(User.builder()
+        User user = User.builder()
                         .email(localAuthRequest.email())
                         .emailVerified(false)
-                        .build())
-                .password("encodedPassword")
-                .build();
-        when(localPrincipalRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(principal));
+                        .build();
+        when(userRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(user));
         ReflectionTestUtils.setField(authService, IS_EMAIL_VERIFICATION_REQUIRED_FIELD, true);
 
         // Act & Assert
@@ -164,7 +159,7 @@ class PublicLocalAuthServiceImplTest {
                 .hasMessage("Email needs to be verified before logging in.");
 
         verify(userAuthenticationServiceImpl, never())
-                .authenticateUser(any(LocalPrincipal.class), any(HttpServletResponse.class), any(Authentication.class));
+                .authenticateUser(any(User.class), any(HttpServletResponse.class), any(Authentication.class));
     }
 
     @DisplayName("Should request password reset successfully")

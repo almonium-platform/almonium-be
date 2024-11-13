@@ -62,7 +62,7 @@ public class GoogleOneTapSignInController {
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
 
-            userAuthenticationServiceImpl.authenticateUser(principal, response, authentication);
+            userAuthenticationServiceImpl.authenticateUser(principal.getUser(), response, authentication);
 
             return ResponseEntity.ok(new ApiResponse(true, "User authenticated successfully."));
         } catch (Exception e) {

@@ -54,15 +54,15 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
-        LocalPrincipal localPrincipal = validateAndGetLocalPrincipal(request);
+        User user = validateAndGetLocalPrincipal(request);
 
         JwtTokenResponse tokenResponse =
-                userAuthenticationServiceImpl.authenticateUser(localPrincipal, response, authentication);
+                userAuthenticationServiceImpl.authenticateUser(user, response, authentication);
 
         return new JwtAuthResponse(
                 tokenResponse.accessToken(),
                 tokenResponse.refreshToken(),
-                userService.buildUserInfoFromUser(localPrincipal.getUser()));
+                userService.buildUserInfoFromUser(user));
     }
 
     @Override
@@ -83,15 +83,15 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
                         principal, TokenType.PASSWORD_RESET));
     }
 
-    private LocalPrincipal validateAndGetLocalPrincipal(LocalAuthRequest request) {
-        LocalPrincipal localPrincipal = localPrincipalRepository
-                .findByEmail(request.email())
-                .orElseThrow(() -> new IllegalStateException("User not found " + request.email()));
+    private User validateAndGetLocalPrincipal(LocalAuthRequest request) {
+        // loadUserByUsername is executed prior to this, thus IllegalState - it should always return a user
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new IllegalStateException("User with email " + request.email() + " not found"));
 
-        if (emailVerificationRequired && !localPrincipal.getUser().isEmailVerified()) {
+        if (emailVerificationRequired && !user.isEmailVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
-        return localPrincipal;
+        return user;
     }
 
     private void validateRegisterRequest(LocalAuthRequest request) {
