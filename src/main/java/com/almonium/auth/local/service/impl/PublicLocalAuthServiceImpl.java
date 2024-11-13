@@ -56,13 +56,10 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
 
         User user = validateAndGetLocalPrincipal(request);
 
-        JwtTokenResponse tokenResponse =
-                userAuthenticationServiceImpl.authenticateUser(user, response, authentication);
+        JwtTokenResponse tokenResponse = userAuthenticationServiceImpl.authenticateUser(user, response, authentication);
 
         return new JwtAuthResponse(
-                tokenResponse.accessToken(),
-                tokenResponse.refreshToken(),
-                userService.buildUserInfoFromUser(user));
+                tokenResponse.accessToken(), tokenResponse.refreshToken(), userService.buildUserInfoFromUser(user));
     }
 
     @Override
@@ -85,7 +82,8 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
 
     private User validateAndGetLocalPrincipal(LocalAuthRequest request) {
         // loadUserByUsername is executed prior to this, thus IllegalState - it should always return a user
-        User user = userRepository.findByEmail(request.email())
+        User user = userRepository
+                .findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("User with email " + request.email() + " not found"));
 
         if (emailVerificationRequired && !user.isEmailVerified()) {

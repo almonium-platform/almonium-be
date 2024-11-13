@@ -147,9 +147,9 @@ class PublicLocalAuthServiceImplTest {
         // Arrange
         LocalAuthRequest localAuthRequest = TestDataGenerator.createLocalAuthRequest();
         User user = User.builder()
-                        .email(localAuthRequest.email())
-                        .emailVerified(false)
-                        .build();
+                .email(localAuthRequest.email())
+                .emailVerified(false)
+                .build();
         when(userRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(user));
         ReflectionTestUtils.setField(authService, IS_EMAIL_VERIFICATION_REQUIRED_FIELD, true);
 
