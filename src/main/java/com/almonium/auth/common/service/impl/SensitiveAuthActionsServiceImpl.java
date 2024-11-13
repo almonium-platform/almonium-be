@@ -21,6 +21,7 @@ import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
+import java.time.LocalDate;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -53,6 +54,7 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
 
         String encodedPassword = passwordEncoderService.encodePassword(newPassword);
         localPrincipal.setPassword(encodedPassword);
+        localPrincipal.setLastPasswordResetDate(LocalDate.now());
         principalRepository.save(localPrincipal);
         log.info("Password changed for user: {}", user.getEmail());
     }
