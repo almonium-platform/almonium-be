@@ -35,7 +35,7 @@ public class VerificationToken {
 
     @OneToOne(targetEntity = LocalPrincipal.class)
     @JoinColumn(name = "principal_id")
-    LocalPrincipal principal; // maybe change to User?
+    LocalPrincipal principal;
 
     Instant expiresAt;
 

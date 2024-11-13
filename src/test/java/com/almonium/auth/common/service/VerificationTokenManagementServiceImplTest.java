@@ -79,8 +79,8 @@ class VerificationTokenManagementServiceImplTest {
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
-        assertThatThrownBy(() ->
-                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
@@ -96,8 +96,8 @@ class VerificationTokenManagementServiceImplTest {
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() ->
-                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Token is invalid or has been used");
 
@@ -115,8 +115,8 @@ class VerificationTokenManagementServiceImplTest {
         when(verificationTokenRepository.findByToken(token)).thenReturn(Optional.of(verificationToken));
 
         // Act & Assert
-        assertThatThrownBy(() ->
-                        verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION))
+        assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
 
@@ -150,10 +150,11 @@ class VerificationTokenManagementServiceImplTest {
 
         // Act
         VerificationToken result =
-                verificationTokenManagementService.getValidTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
+                verificationTokenManagementService.validateAndDeleteTokenOrThrow(token, TokenType.EMAIL_VERIFICATION);
 
         // Assert
         verify(verificationTokenRepository).findByToken(token);
+        verify(verificationTokenRepository).delete(any(VerificationToken.class));
         assertThat(result).isEqualTo(verificationToken);
     }
 }
