@@ -2,5 +2,12 @@ package com.almonium.auth.common.dto.response;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import java.time.Instant;
+import lombok.Data;
 
-public record PrincipalDto(AuthProviderType provider, String email, Instant createdAt, Instant updatedAt) {}
+@Data
+public class PrincipalDto {
+    private AuthProviderType provider;
+    private String email;
+    private Instant createdAt;
+    private Instant updatedAt;
+}

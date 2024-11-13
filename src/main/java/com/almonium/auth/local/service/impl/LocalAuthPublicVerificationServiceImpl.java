@@ -13,6 +13,7 @@ import com.almonium.auth.local.service.LocalAuthPublicVerificationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,7 @@ public class LocalAuthPublicVerificationServiceImpl implements LocalAuthPublicVe
                 tokenService.validateAndDeleteTokenOrThrow(token, TokenType.PASSWORD_RESET);
         LocalPrincipal principal = verificationToken.getPrincipal();
         principal.setPassword(passwordEncoderService.encodePassword(newPassword));
+        principal.setLastPasswordResetDate(LocalDate.now());
         localPrincipalRepository.save(principal);
     }
 }
