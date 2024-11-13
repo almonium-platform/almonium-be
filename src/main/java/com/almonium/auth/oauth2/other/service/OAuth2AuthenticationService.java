@@ -3,7 +3,6 @@ package com.almonium.auth.oauth2.other.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
@@ -31,10 +30,6 @@ public class OAuth2AuthenticationService {
     public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
         log.debug("Starting authentication process for email: {}", userInfo.getEmail());
 
-        if (!userInfo.isEmailVerified()) {
-            log.error("Email not verified for user: {}", userInfo.getEmail());
-            throw new EmailNotVerifiedException("Email not verified for user: " + userInfo.getEmail());
-        }
         // here, retrieve by provider and providerUserId. Account merging logic is not implemented fully
 
         return userRepository

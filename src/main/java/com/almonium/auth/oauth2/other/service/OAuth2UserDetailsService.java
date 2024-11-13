@@ -67,13 +67,14 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
                 .orElse(OAuth2Intent.SIGN_IN);
     }
 
-    private void validateProviderUserInfo(OAuth2UserInfo oAuth2UserInfo) {
-        if (!StringUtils.hasLength(oAuth2UserInfo.getName())) {
-            throw new OAuth2AuthenticationException("Name not found from OAuth2 provider");
+    private void validateProviderUserInfo(OAuth2UserInfo userInfo) {
+        if (!StringUtils.hasLength(userInfo.getEmail())) {
+            throw new OAuth2AuthenticationException("Email not found from OAuth2 provider");
         }
 
-        if (!StringUtils.hasLength(oAuth2UserInfo.getEmail())) {
-            throw new OAuth2AuthenticationException("Email not found from OAuth2 provider");
+        if (!userInfo.isEmailVerified()) {
+            log.error("Email not verified for user: {}", userInfo.getEmail());
+            throw new EmailNotVerifiedException("Email not verified for user: " + userInfo.getEmail());
         }
     }
 }
