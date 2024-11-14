@@ -13,7 +13,6 @@ import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfoFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -39,18 +38,16 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
         AuthProviderType provider = AuthProviderType.valueOf(
                 oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
-        Map<String, Object> attributes = provider == AuthProviderType.APPLE
+        var attributesMap = provider == AuthProviderType.APPLE
                 ? threadLocalStore.getAttributesAndClearContext()
                 : new HashMap<>(super.loadUser(oAuth2UserRequest).getAttributes());
 
-        OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(provider, attributes);
+        OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(provider, attributesMap);
         validateProviderUserInfo(userInfo);
 
         try {
             return authService.authenticate(userInfo, getIntent());
-        } catch (EmailNotVerifiedException ex) {
-            throw new OAuth2AuthenticationException("Email not verified", ex);
-        } catch (EmailMismatchException ex) {
+        } catch (EmailNotVerifiedException | EmailMismatchException ex) {
             throw new OAuth2AuthenticationException(ex.getMessage(), ex);
         } catch (Exception ex) {
             log.error("Authentication failed with unknown error", ex);
@@ -69,12 +66,14 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
 
     private void validateProviderUserInfo(OAuth2UserInfo userInfo) {
         if (!StringUtils.hasLength(userInfo.getEmail())) {
-            throw new OAuth2AuthenticationException("Email not found from OAuth2 provider");
+            throw new OAuth2AuthenticationException(
+                    String.format("Email not found in %s provider response", userInfo.getProvider()));
         }
 
         if (!userInfo.isEmailVerified()) {
             log.error("Email not verified for user: {}", userInfo.getEmail());
-            throw new EmailNotVerifiedException("Email not verified for user: " + userInfo.getEmail());
+            throw new EmailNotVerifiedException(String.format(
+                    "Email %s is not verified by provider %s", userInfo.getEmail(), userInfo.getProvider()));
         }
     }
 }
