@@ -34,11 +34,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        if (request.getRequestURI().contains("/public")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         String bearer = BearerTokenUtil.getBearerTokenFromRequest(request);
 
         Optional<String> token =
@@ -54,5 +49,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 .setAuthentication(authTokenService.getAuthenticationFromToken(validToken)));
 
         filterChain.doFilter(request, response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return request.getRequestURI().contains("/public");
     }
 }
