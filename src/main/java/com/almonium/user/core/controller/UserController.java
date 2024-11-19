@@ -12,6 +12,7 @@ import com.almonium.user.core.dto.UsernameAvailability;
 import com.almonium.user.core.dto.UsernameUpdateRequest;
 import com.almonium.user.core.service.LearnerService;
 import com.almonium.user.core.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -57,14 +58,14 @@ public class UserController {
 
     @PutMapping("/me/target-langs")
     public ResponseEntity<Void> updateTargetLanguages(
-            @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
+            @Valid @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
         learnerService.updateTargetLanguages(request.langCodes(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/fluent-langs")
     public ResponseEntity<Void> updateFluentLanguages(
-            @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
+            @Valid @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
         learnerService.updateFluentLanguages(request.langCodes(), auth.getUser().getLearner());
         return ResponseEntity.noContent().build();
     }
