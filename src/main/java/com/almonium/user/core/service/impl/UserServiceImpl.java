@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
     }
 
+    // TODO fix. Eagerly fetches all user details, may be redundant for some use cases
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);

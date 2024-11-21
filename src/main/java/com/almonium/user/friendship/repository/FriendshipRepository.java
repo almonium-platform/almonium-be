@@ -46,5 +46,5 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
                     and not ((f.requester.id = :id and str(f.status) = 'SND_BLOCKED_FST')
                                 or (f.requestee.id = :id and str(f.status) = 'FST_BLOCKED_SND'))
                     """)
-    List<FriendshipToUserProjection> getVisibleFriendships(@Param("id") long id);
+    List<FriendshipToUserProjection> getVisibleFriendships(long id); // TODO avoid writing FQN in query
 }
