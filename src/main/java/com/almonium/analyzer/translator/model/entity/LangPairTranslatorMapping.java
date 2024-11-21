@@ -25,7 +25,9 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"}))
+@Table(
+        name = "lang_pair_translator_mapping",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"source_lang", "target_lang", "translator_id"}))
 @FieldDefaults(level = PRIVATE)
 @IdClass(TranslatorMappingKey.class)
 public class LangPairTranslatorMapping {

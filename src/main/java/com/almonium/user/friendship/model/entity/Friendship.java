@@ -29,7 +29,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"requester_id", "requestee_id"}))
+@Table(name = "friendship", uniqueConstraints = @UniqueConstraint(columnNames = {"requester_id", "requestee_id"}))
 @Getter
 @Setter
 @Builder
