@@ -1,5 +1,7 @@
 package com.almonium.auth.common.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
@@ -16,7 +18,6 @@ import com.almonium.user.core.service.UserService;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementServiceImpl implements VerificationTokenManagementService {
     public static final int TOKEN_LIFESPAN = 60;
     private static final int OTP_LENGTH = 24;

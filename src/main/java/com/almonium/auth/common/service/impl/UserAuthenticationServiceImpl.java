@@ -1,12 +1,13 @@
 package com.almonium.auth.common.service.impl;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.common.service.UserAuthenticationService;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.auth.token.service.impl.AuthTokenService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.ProfileService;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserAuthenticationServiceImpl implements UserAuthenticationService {
     AuthTokenService authTokenService;
     ProfileService profileService;
