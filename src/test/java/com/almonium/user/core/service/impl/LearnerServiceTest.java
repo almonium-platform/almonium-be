@@ -4,12 +4,14 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -28,33 +30,21 @@ class LearnerServiceTest {
     @Mock
     LearnerRepository learnerRepository;
 
-    @DisplayName("Should set new fluent languages for user with existing target languages")
+    @DisplayName("Should add a new target language for user")
     @Test
-    void givenUserWithExistingTargetLanguages_whenSetTargetLangs_thenNewLanguagesSet() {
-        Set<Language> langCodes = Set.of(Language.DE, Language.FR, Language.ES);
-        Learner learner = new Learner();
-        learner.setTargetLangs(Set.of(Language.EN, Language.DE, Language.FR));
+    void givenLangCode_whenAddTargetLang_thenNewLangIsAdded() {
+        Language langCode = Language.EN;
+        long learnerId = 1L;
+        Learner learner = Learner.builder()
+                .targetLangs(new HashSet<>(Arrays.asList(Language.EN, Language.DE)))
+                .build();
+        when(learnerRepository.findLearnerWithTargetLangs(learnerId)).thenReturn(Optional.of(learner));
 
-        learnerService.updateTargetLanguages(langCodes, learner);
-
-        assertThat(learner.getTargetLangs())
-                .as("The new target languages should be set correctly")
-                .containsExactlyInAnyOrder(Language.DE, Language.FR, Language.ES);
-
-        verify(learnerRepository).save(learner);
-    }
-
-    @DisplayName("Should set target languages for user based on language code DTO")
-    @Test
-    void givenLangCodeDto_whenSetTargetLangs_thenUserTargetLanguagesAreSet() {
-        Set<Language> langCodes = Set.of(Language.DE, Language.EN);
-
-        Learner learner = new Learner();
-
-        learnerService.updateTargetLanguages(langCodes, learner);
+        learnerService.addTargetLanguage(langCode, learnerId);
 
         assertThat(learner.getTargetLangs()).hasSize(2).containsExactlyInAnyOrder(Language.EN, Language.DE);
-        verify(learnerRepository, times(1)).save(learner);
+        verify(learnerRepository).save(learner);
+        verify(learnerRepository).findLearnerWithTargetLangs(learnerId);
     }
 
     @DisplayName("Should set new fluent languages for user with existing fluent languages")

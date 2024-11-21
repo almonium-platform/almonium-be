@@ -113,6 +113,11 @@ public class CardServiceImpl implements CardService {
         cardRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteByLanguage(Language code, Learner user) {
+        cardRepository.deleteAllByOwnerAndLanguage(user, code);
+    }
+
     private Card initializeCard(Learner learner, CardCreationDto dto) {
         Card card = cardMapper.cardDtoToEntity(dto);
         card.setCreatedAt(Instant.now());

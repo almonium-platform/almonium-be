@@ -23,4 +23,6 @@ public interface CardService {
     List<CardDto> getUsersCardsOfLang(Language code, Learner user);
 
     void deleteById(Long id);
+
+    void deleteByLanguage(Language code, Learner user);
 }

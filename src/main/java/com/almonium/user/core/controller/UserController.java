@@ -2,9 +2,9 @@ package com.almonium.user.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.token.service.impl.AuthTokenService;
 import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LanguageUpdateRequest;
 import com.almonium.user.core.dto.UserInfo;
@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     UserService userService;
     LearnerService learnerService;
-    AuthTokenService authTokenService;
 
     @GetMapping("/me")
     public ResponseEntity<UserInfo> getCurrentUser(@Auth Principal auth) {
@@ -56,14 +56,19 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/target-langs")
-    public ResponseEntity<Void> updateTargetLanguages(
-            @Valid @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
-        learnerService.updateTargetLanguages(request.langCodes(), auth.getUser().getLearner());
+    @PutMapping("/me/langs/target/{code}")
+    public ResponseEntity<Void> addTargetLanguage(@PathVariable Language code, @Auth Principal auth) {
+        learnerService.addTargetLanguage(code, auth.getUser().getLearner().getId());
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/fluent-langs")
+    @DeleteMapping("/me/langs/target/{code}")
+    public ResponseEntity<Void> removeTargetLanguage(@PathVariable Language code, @Auth Principal auth) {
+        learnerService.removeTargetLanguage(code, auth.getUser().getLearner().getId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/me/langs/fluent")
     public ResponseEntity<Void> updateFluentLanguages(
             @Valid @RequestBody LanguageUpdateRequest request, @Auth Principal auth) {
         learnerService.updateFluentLanguages(request.langCodes(), auth.getUser().getLearner());

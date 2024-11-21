@@ -12,6 +12,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
+import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
@@ -117,6 +118,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailConfigurationException.class)
     public ResponseEntity<ApiResponse> handleEmailConfigurationException(EmailConfigurationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(BadUserRequestActionException.class)
+    public ResponseEntity<ApiResponse> handleBadUserRequestActionException(BadUserRequestActionException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 
     // auth

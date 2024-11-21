@@ -7,7 +7,9 @@ import java.util.Set;
 public interface LearnerService {
     void setupLanguages(Set<Language> fluentLangs, Set<Language> targetLangs, Learner user);
 
-    void updateTargetLanguages(Set<Language> dto, Learner user);
+    void removeTargetLanguage(Language code, long learnerId);
+
+    void addTargetLanguage(Language code, long learnerId);
 
     void updateFluentLanguages(Set<Language> dto, Learner user);
 }
