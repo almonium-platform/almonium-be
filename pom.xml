@@ -8,6 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.4</version>
+        <!--        todo update version-->
     </parent>
 
     <groupId>com.almonium</groupId>
@@ -36,7 +37,7 @@
         <version.springdoc>2.5.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
-        <version.stripe>26.1.0</version.stripe>
+        <version.stripe>28.0.1</version.stripe>
     </properties>
 
     <dependencies>
