@@ -4,6 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.CardService;
+import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerServiceImpl implements LearnerService {
     LearnerRepository learnerRepository;
+    PlanValidationService planValidationService;
     CardService cardService;
 
     @Override
@@ -35,6 +38,9 @@ public class LearnerServiceImpl implements LearnerService {
     @Override
     public void addTargetLanguage(Language code, long learnerId) {
         var learner = getLearnerWithTargetLangs(learnerId);
+        int currentTargetLangs = learner.getTargetLangs().size();
+        planValidationService.validatePlanFeature(
+                learner.getUser(), PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + 1);
         learner.getTargetLangs().add(code);
         learnerRepository.save(learner);
     }

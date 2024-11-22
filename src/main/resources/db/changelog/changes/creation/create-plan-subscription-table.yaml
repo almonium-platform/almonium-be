@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-subscription-table
+      id: create-plan-subscription-table
       author: almoni
       changes:
         - createTable:
@@ -25,8 +25,6 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_subscription_user
-                    references: user_core(id)
               - column:
                   name: stripe_subscription_id
                   type: VARCHAR(255)
@@ -42,3 +40,16 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: auto_renewal
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: true
+        - addForeignKeyConstraint:
+            baseTableName: plan_subscription
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_subscription_user
+            onDelete: CASCADE

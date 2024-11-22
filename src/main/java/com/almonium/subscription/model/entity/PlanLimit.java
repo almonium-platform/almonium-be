@@ -2,8 +2,7 @@ package com.almonium.subscription.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.email.model.enums.EmailTemplateType;
-import com.almonium.user.core.model.entity.User;
+import com.almonium.subscription.model.entity.enums.PlanFeature;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.Instant;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +26,9 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "plan_subscription")
 @FieldDefaults(level = PRIVATE)
-public class PlanSubscription {
+@Table(name = "plan_limit", uniqueConstraints = @UniqueConstraint(columnNames = {"plan_id", "feature_key"}))
+public class PlanLimit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -38,32 +37,8 @@ public class PlanSubscription {
     @JoinColumn(name = "plan_id", nullable = false)
     Plan plan;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    User user;
-
-    String stripeSubscriptionId;
-
-    Instant startDate;
-
     @Enumerated(EnumType.STRING)
-    Status status;
+    PlanFeature featureKey;
 
-    @Builder.Default
-    boolean autoRenewal = true;
-
-    public enum Status {
-        ACTIVE,
-        CANCELED,
-        INACTIVE,
-        PENDING_CANCELLATION,
-        ON_HOLD
-    }
-
-    public enum Event implements EmailTemplateType {
-        SUBSCRIPTION_CREATED,
-        SUBSCRIPTION_UPDATED,
-        SUBSCRIPTION_CANCELED,
-        SUBSCRIPTION_PAYMENT_FAILED
-    }
+    int value;
 }

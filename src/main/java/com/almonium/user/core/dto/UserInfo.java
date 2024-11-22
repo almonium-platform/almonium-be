@@ -28,4 +28,6 @@ public class UserInfo {
     Collection<Language> fluentLangs;
     boolean setupCompleted;
     Collection<String> tags;
+    PlanDto plan;
+    boolean isPremium;
 }

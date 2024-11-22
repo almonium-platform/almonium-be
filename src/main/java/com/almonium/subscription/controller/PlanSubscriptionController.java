@@ -24,13 +24,13 @@ public class PlanSubscriptionController {
 
     @PostMapping("/{id}")
     public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable long id, @Auth Principal principal) {
-        String sessionUrl = planSubscriptionService.subscribeToPlan(principal.getUser(), id);
+        String sessionUrl = planSubscriptionService.initiatePlanSubscribing(principal.getUser(), id);
         return ResponseEntity.ok(new SessionResponseDto(sessionUrl));
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse> cancelMySubscription(@Auth Principal principal) {
-        planSubscriptionService.cancelSubscription(principal.getUser());
+        planSubscriptionService.initiateSubscriptionCancellation(principal.getUser());
         return ResponseEntity.ok(new ApiResponse(true, "Subscription cancelled successfully"));
     }
 }

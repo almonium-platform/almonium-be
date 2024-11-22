@@ -4,6 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
+import com.almonium.subscription.PlanSubscriptionMapper;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.user.core.dto.PlanDto;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
@@ -11,6 +16,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +32,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
+    PlanSubscriptionService planSubscriptionService;
+    PlanService planService;
     UserMapper userMapper;
+    PlanSubscriptionMapper planSubscriptionMapper;
 
     @Override
     public UserInfo buildUserInfoFromUser(User user) {
-        return userMapper.userToUserInfo(getByEmail(user.getEmail()));
+        User fetchedUser = getByEmail(user.getEmail());
+        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSubscription(user);
+        Map<PlanFeature, Integer> limits =
+                planService.getPlanLimits(activePlanSubscription.getPlan().getId());
+        var userInfo = userMapper.userToUserInfo(fetchedUser);
+        PlanDto planDto = planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
+        userInfo.setPlan(planDto);
+        userInfo.getPlan().setLimits(limits);
+        userInfo.setPremium(
+                !planService.isPlanDefault(activePlanSubscription.getPlan().getId()));
+        return userInfo;
     }
 
     @Override

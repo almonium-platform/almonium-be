@@ -17,7 +17,6 @@ import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.service.impl.PasswordEncoderService;
 import com.almonium.subscription.service.PlanSubscriptionService;
-import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -41,7 +40,6 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
     PasswordEncoderService passwordEncoderService;
     VerificationTokenManagementService verificationTokenManagementService;
     PlanSubscriptionService planSubscriptionService;
-    StripeApiService stripeApiService;
     UserRepository userRepository;
 
     @Override
@@ -129,9 +127,7 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
     @Override
     @Transactional
     public void deleteAccount(User user) {
-        planSubscriptionService
-                .findActiveSubscription(user)
-                .ifPresent((activeSub) -> stripeApiService.cancelSubscription(activeSub.getStripeSubscriptionId()));
+        planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
         userRepository.delete(user);
     }
 

@@ -11,6 +11,7 @@ import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
+import com.almonium.subscription.exception.PlanValidationException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
@@ -99,12 +100,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    // // custom exceptions
-    @ExceptionHandler(FriendshipNotAllowedException.class)
-    public ResponseEntity<ApiResponse> handleFriendshipNotAllowedException(FriendshipNotAllowedException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
-    }
-
+    // // subscription exceptions
     @ExceptionHandler(StripeIntegrationException.class)
     public ResponseEntity<ApiResponse> handleStripeIntegrationException(StripeIntegrationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
@@ -113,6 +109,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlanSubscriptionException.class)
     public ResponseEntity<ApiResponse> handlePlanSubscriptionException(PlanSubscriptionException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(PlanValidationException.class)
+    public ResponseEntity<ApiResponse> handlePlanValidationException(PlanValidationException ex) {
+        return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).body(new ApiResponse(false, ex.getMessage())); // 402
+    }
+
+    // // other custom exceptions
+    @ExceptionHandler(FriendshipNotAllowedException.class)
+    public ResponseEntity<ApiResponse> handleFriendshipNotAllowedException(FriendshipNotAllowedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(EmailConfigurationException.class)

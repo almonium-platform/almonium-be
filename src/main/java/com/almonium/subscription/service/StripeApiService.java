@@ -9,6 +9,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
 import com.stripe.model.checkout.Session;
+import com.stripe.param.SubscriptionUpdateParams;
 import com.stripe.param.checkout.SessionCreateParams;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -31,7 +32,8 @@ public class StripeApiService {
     @NonFinal
     String cancelUrl;
 
-    public void cancelSubscription(String stripeSubscriptionId) {
+    // if business logic requires to cancel subscription immediately
+    public void cancelSubscriptionImmediately(String stripeSubscriptionId) {
         try {
             Subscription subscription = Subscription.retrieve(stripeSubscriptionId);
             subscription.cancel();
@@ -39,6 +41,20 @@ public class StripeApiService {
         } catch (StripeException e) {
             log.error("Failed to cancel subscription with ID {}", stripeSubscriptionId);
             throw new StripeIntegrationException("Failed to cancel subscription: " + e.getMessage(), e);
+        }
+    }
+
+    public void scheduleSubscriptionCancellation(String stripeSubscriptionId) {
+        try {
+            Subscription subscription = Subscription.retrieve(stripeSubscriptionId);
+            SubscriptionUpdateParams params = SubscriptionUpdateParams.builder()
+                    .setCancelAtPeriodEnd(true)
+                    .build();
+            subscription.update(params);
+            log.info("Scheduled cancellation for subscription ID {}", stripeSubscriptionId);
+        } catch (StripeException e) {
+            log.error("Failed to schedule cancellation for subscription ID {}", stripeSubscriptionId);
+            throw new StripeIntegrationException("Failed to schedule cancellation: " + e.getMessage(), e);
         }
     }
 

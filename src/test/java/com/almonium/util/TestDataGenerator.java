@@ -208,7 +208,8 @@ public class TestDataGenerator {
                 learner.getTargetLangs(),
                 learner.getFluentLangs(),
                 true,
-                List.of("tag1", "tag2", "tag3"));
+                List.of("tag1", "tag2", "tag3"),
+                null);
     }
 
     public User buildTestUser() {

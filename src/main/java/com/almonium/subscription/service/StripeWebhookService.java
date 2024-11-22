@@ -96,7 +96,7 @@ public class StripeWebhookService {
     private void handleSubscriptionDeleted(Event event) {
         Subscription subscription = getSubscriptionFromStripeEvent(event);
         PlanSubscription planSubscription = getPlanSubscriptionFromStripeData(subscription.getId());
-        planSubscriptionService.cancelPlanSubscription(planSubscription);
+        planSubscriptionService.cancelSubscription(planSubscription);
     }
 
     // logging methods

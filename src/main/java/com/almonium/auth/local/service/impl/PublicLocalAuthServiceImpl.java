@@ -14,6 +14,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.service.PublicLocalAuthService;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
+import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -41,6 +42,7 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
     VerificationTokenManagementService verificationTokenManagementService;
     UserService userService;
     PrincipalFactory principalFactory;
+    UserFactory userFactory;
     // repositories
     UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
@@ -65,7 +67,7 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
     @Override
     public void register(LocalAuthRequest request) {
         validateRegisterRequest(request);
-        User user = User.builder().email(request.email()).build();
+        User user = userFactory.createUserWithDefaultPlan(request.email());
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         userRepository.save(user);
         localPrincipalRepository.save(localPrincipal);

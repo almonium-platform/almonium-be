@@ -21,6 +21,7 @@ public interface UserMapper {
     @Mapping(target = "setupCompleted", ignore = true)
     @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)
+    @Mapping(target = "plan", ignore = true)
     UserInfo userToUserInfo(User user);
 
     @AfterMapping

@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-plan-limit-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: plan_limit
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: plan_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: feature_key
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: plan_limit
+            baseColumnNames: plan_id
+            referencedTableName: plan
+            referencedColumnNames: id
+            constraintName: fk_plan_limit_plan
+        - addUniqueConstraint:
+            tableName: plan_limit
+            columnNames: plan_id, feature_key
+            constraintName: uq_plan_limit_plan_feature_key

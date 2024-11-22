@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-plans-table
+      id: create-plan-table
       author: almoni
       changes:
         - createTable:
@@ -15,6 +15,7 @@ databaseChangeLog:
                   name: name
                   type: VARCHAR(255)
                   constraints:
+                    unique: true
                     nullable: false
               - column:
                   name: description

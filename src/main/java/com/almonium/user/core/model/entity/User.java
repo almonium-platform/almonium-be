@@ -36,7 +36,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
         name = "graph.User.details",
         attributeNodes = {
             @NamedAttributeNode(value = "learner", subgraph = "learner.details"),
-            @NamedAttributeNode("profile")
+            @NamedAttributeNode("profile"),
+            @NamedAttributeNode("planSubscriptions")
         },
         subgraphs = {
             @NamedSubgraph(
