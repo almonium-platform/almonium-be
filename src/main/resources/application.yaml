@@ -72,7 +72,7 @@ logging:
   level:
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
-    org.springframework.transaction.interceptor: TRACE
+    org.springframework.transaction.interceptor: INFO
     com.almonium: DEBUG
     root: INFO
     org:
