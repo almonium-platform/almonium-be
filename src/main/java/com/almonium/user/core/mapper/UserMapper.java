@@ -22,6 +22,7 @@ public interface UserMapper {
     @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "plan", ignore = true)
+    @Mapping(target = "isPremium", ignore = true)
     UserInfo userToUserInfo(User user);
 
     @AfterMapping
