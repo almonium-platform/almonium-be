@@ -16,16 +16,15 @@ public class PlanValidationService {
     public void validatePlanFeature(User user, PlanFeature featureKey, int requestedValue) {
         Plan activePlan = subscriptionService.getActivePlan(user);
 
-        int allowedValue = activePlan.getLimits().stream()
+        activePlan.getLimits().stream()
                 .filter(limit -> limit.getFeatureKey().equals(featureKey))
                 .map(PlanLimit::getValue)
                 .findFirst()
-                .orElseThrow(
-                        () -> new PlanValidationException("Plan does not specify a limit for feature: " + featureKey));
-
-        if (requestedValue > allowedValue) {
-            throw new PlanValidationException(
-                    "Plan does not allow this action. Limit: " + allowedValue + ", Required: " + requestedValue);
-        }
+                .ifPresent(allowedValue -> {
+                    if (requestedValue > allowedValue) {
+                        throw new PlanValidationException("Plan does not allow this action. Limit: " + allowedValue
+                                + ", Required: " + requestedValue);
+                    }
+                });
     }
 }
