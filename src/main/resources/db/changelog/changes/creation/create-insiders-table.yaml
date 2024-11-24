@@ -11,3 +11,9 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     primaryKey: true
+        - addForeignKeyConstraint:
+            baseTableName: insiders
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_insiders_user
