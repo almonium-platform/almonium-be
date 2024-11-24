@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-insiders-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: insiders
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true

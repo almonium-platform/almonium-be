@@ -9,6 +9,7 @@ import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.repository.InsiderRepository;
 import com.almonium.subscription.repository.PlanRepository;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -36,6 +37,7 @@ public class PlanSubscriptionService {
     PlanRepository planRepository;
     UserRepository userRepository;
     PlanService planService;
+    InsiderRepository insiderRepository;
 
     // User initiated actions
     public String initiatePlanSubscribing(User user, long planId) {
@@ -50,7 +52,16 @@ public class PlanSubscriptionService {
 
         // We can't subscribe to a free plan. We can return to a free plan if we cancel the subscription.
         assertPlanIsPremium(plan);
+        if (isInsider(user)) {
+            assignPremiumPlanToUserAndNotify(user, plan);
+        }
+
         return stripeApiService.createPaymentSession(user, plan);
+    }
+
+    public void assignPremiumPlanToUserAndNotify(User user, Plan plan) {
+        assignPlanToUser(user, plan);
+        sendEmailForEvent(user, getActiveSubscription(user), PlanSubscription.Event.SUBSCRIPTION_CREATED);
     }
 
     public void initiateSubscriptionCancellation(User user) {
@@ -85,17 +96,7 @@ public class PlanSubscriptionService {
 
     public void assignFreePlanToUser(User user) {
         Plan freePlan = planService.getDefaultPlan();
-
-        PlanSubscription freePlanSubscription = PlanSubscription.builder()
-                .user(user)
-                .plan(freePlan)
-                .status(PlanSubscription.Status.ACTIVE)
-                .startDate(Instant.now())
-                .build();
-
-        user.getPlanSubscriptions().add(freePlanSubscription);
-        planSubscriptionRepository.save(freePlanSubscription);
-        log.info("Assigned free plan to user {}", user.getId());
+        assignPlanToUser(user, freePlan);
     }
 
     // For StripeApiService to call
@@ -121,19 +122,6 @@ public class PlanSubscriptionService {
                 .findByStripePriceId(stripePriceId)
                 .orElseThrow(() -> new StripeIntegrationException("Plan not found with price ID: " + stripePriceId));
 
-        PlanSubscription newPlanSubscription = PlanSubscription.builder()
-                .user(user)
-                .plan(plan)
-                .stripeSubscriptionId(stripeSubscriptionId)
-                .status(PlanSubscription.Status.ACTIVE)
-                .startDate(Instant.now())
-                .build();
-
-        planSubscriptionRepository.save(newPlanSubscription);
-        log.info("Subscription created for user {} with subscription ID {}", user.getId(), stripeSubscriptionId);
-
-        sendEmailForEvent(user, newPlanSubscription, PlanSubscription.Event.SUBSCRIPTION_CREATED);
-
         PlanSubscription activeSubscription = getActiveSubscription(user);
         if (isPlanDefault(activeSubscription.getPlan())) {
             updatePlanSubStatus(activeSubscription, PlanSubscription.Status.INACTIVE);
@@ -141,6 +129,8 @@ public class PlanSubscriptionService {
             updatePlanSubStatus(activeSubscription, PlanSubscription.Status.PENDING_CANCELLATION);
             scheduleCancellation(activeSubscription);
         }
+
+        assignPremiumPlanToUserAndNotify(user, plan);
     }
 
     public void cancelSubscription(PlanSubscription planSubscription) {
@@ -173,6 +163,10 @@ public class PlanSubscriptionService {
                         () -> log.warn("No user found with Stripe customer ID {}", customerId));
     }
 
+    private boolean isInsider(User user) {
+        return insiderRepository.existsById(user.getId());
+    }
+
     private void assertStripeSubscriptionIdIsPresent(PlanSubscription planSubscription) {
         if (planSubscription.getStripeSubscriptionId() == null) {
             throw new PlanSubscriptionException("Subscription ID is null for subscription " + planSubscription.getId());
@@ -184,6 +178,19 @@ public class PlanSubscriptionService {
                 .filter(planSubscription -> isPlanDefault(planSubscription.getPlan()))
                 .findFirst()
                 .orElseThrow(() -> new PlanSubscriptionException("No default plan found for user " + user.getId()));
+    }
+
+    private void assignPlanToUser(User user, Plan plan) {
+        PlanSubscription planSubscription = PlanSubscription.builder()
+                .user(user)
+                .plan(plan)
+                .status(PlanSubscription.Status.ACTIVE)
+                .startDate(Instant.now())
+                .build();
+
+        user.getPlanSubscriptions().add(planSubscription);
+        planSubscriptionRepository.save(planSubscription);
+        log.info("Assigned free plan to user {}", user.getId());
     }
 
     private void scheduleCancellation(PlanSubscription activeSubscription) {

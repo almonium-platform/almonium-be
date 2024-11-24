@@ -37,6 +37,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-plan-subscription-table.yaml
   - include:
+      file: db/changelog/changes/creation/create-insiders-table.yaml
+  - include:
       file: db/changelog/changes/creation/create-plan-limit-table.yaml
   - include:
       file: db/changelog/changes/creation/create-stripe-event-log-table.yaml
