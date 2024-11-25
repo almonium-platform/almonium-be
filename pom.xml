@@ -7,8 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version>
-        <!--        todo update version-->
+        <version>3.4.0</version>
     </parent>
 
     <groupId>com.almonium</groupId>
@@ -20,24 +19,23 @@
 
     <properties>
         <java.version>17</java.version>
-        <version.commons-configuration2>2.10.1</version.commons-configuration2>
-        <version.google-cloud>26.1.3</version.google-cloud>
-        <version.google-guava>32.0.0-android</version.google-guava>
+        <version.commons-configuration2>2.11.0</version.commons-configuration2>
+        <version.google-cloud>26.50.0</version.google-cloud>
+        <version.google-guava>33.3.1-jre</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
         <version.jjwt>0.12.6</version.jjwt>
-        <version.java-jwt>4.2.1</version.java-jwt>
+        <version.java-jwt>4.4.0</version.java-jwt>
         <version.json-path>2.9.0</version.json-path>
-        <version.logback>1.4.14</version.logback>
-        <version.lombok>1.18.28</version.lombok>
+        <version.logback>1.5.12</version.logback>
+        <version.lombok>1.18.36</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
         <version.mapstruct>1.5.5.Final</version.mapstruct>
-        <version.maven-compiler-plugin>3.11.0</version.maven-compiler-plugin>
-        <version.nimbus>9.40</version.nimbus>
-        <version.postgresql>42.7.3</version.postgresql>
-        <version.springdoc>2.5.0</version.springdoc>
+        <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
+        <version.nimbus>9.47</version.nimbus>
+        <version.springdoc>2.7.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
-        <version.stanford-corenlp>4.5.5</version.stanford-corenlp>
-        <version.stripe>28.0.1</version.stripe>
+        <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
+        <version.stripe>28.1.0</version.stripe>
     </properties>
 
     <dependencies>
@@ -128,7 +126,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${version.postgresql}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -215,6 +212,7 @@
         </dependency>
 
         <!--        Google-->
+        <!--        com.google.common-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
