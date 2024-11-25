@@ -3,15 +3,23 @@ package com.almonium.user.core.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.subscription.PlanSubscriptionMapper;
+import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.StripeApiService;
+import com.almonium.user.core.dto.PlanDto;
+import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +41,12 @@ class UserServiceImplTest {
 
     @Mock
     PlanSubscriptionService planSubscriptionService;
+
+    @Mock
+    PlanService planService;
+
+    @Mock
+    PlanSubscriptionMapper planSubscriptionMapper;
 
     @Mock
     StripeApiService stripeApiService;
@@ -131,9 +145,37 @@ class UserServiceImplTest {
     @Test
     void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
         User user = UserUtility.getUser();
+        user.setEmail("john@example.com");
+        user.setId(1L);
+
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-        userService.buildUserInfoFromUser(user);
+
+        // plan
+        long planId = 22L;
+        Plan plan = Plan.builder().id(planId).name("Premium Plan").build();
+        PlanSubscription planSubscription = PlanSubscription.builder()
+                .plan(plan)
+                .status(PlanSubscription.Status.ACTIVE)
+                .build();
+
+        when(planSubscriptionService.getActiveSubscription(user)).thenReturn(planSubscription);
+        when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmail(user.getEmail());
+        when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
+        PlanDto planDto = new PlanDto();
+        planDto.setName(plan.getName());
+        when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
+                .thenReturn(planDto);
+        when(planService.isPlanDefault(planId)).thenReturn(false);
+
+        UserInfo result = userService.buildUserInfoFromUser(user);
+
         verify(userMapper).userToUserInfo(user);
+        assertThat(result.getEmail()).isEqualTo("john@example.com");
+        assertThat(result.getPlan().getName()).isEqualTo("Premium Plan");
+        assertThat(result.getPlan().getLimits()).containsEntry(PlanFeature.MAX_TARGET_LANGS, 3);
+        assertThat(result.isPremium()).isTrue();
     }
 
     @DisplayName("Should return true when username is available")

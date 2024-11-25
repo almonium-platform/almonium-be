@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -19,6 +18,7 @@ import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.GoogleOAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
+import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
@@ -30,7 +30,6 @@ import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -55,6 +54,9 @@ class OAuth2UserAuthenticationServiceImplTest {
 
     @Mock
     OAuth2PrincipalRepository oAuth2PrincipalRepository;
+
+    @Mock
+    UserFactory userFactory;
 
     @DisplayName("Should create new principal if user exists but principal is not found")
     @Test
@@ -84,13 +86,11 @@ class OAuth2UserAuthenticationServiceImplTest {
                 .thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo))).thenReturn(newPrincipal);
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(newPrincipal);
-        when(userRepository.save(existingUser)).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // Act
         Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
-        verify(userRepository).save(existingUser);
         verify(oAuth2PrincipalRepository).save(newPrincipal);
         assertThat(result).isEqualTo(newPrincipal);
     }
@@ -100,8 +100,7 @@ class OAuth2UserAuthenticationServiceImplTest {
     void givenExistingUser_whenProcessUserRegistration_thenUpdatesUser() {
         // Arrange
         String email = "johnwick@gmail.com";
-        String newProfilePicLink = "https://new-image-link.com";
-        Map<String, Object> attributes = createAttributes(email, "101868015518714862283", newProfilePicLink);
+        Map<String, Object> attributes = createAttributes(email, "101868015518714862283");
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
         User existingUser = User.builder()
@@ -113,24 +112,21 @@ class OAuth2UserAuthenticationServiceImplTest {
                 .build();
         OAuth2Principal principal = OAuth2Principal.builder()
                 .provider(AuthProviderType.GOOGLE)
+                .user(existingUser)
                 .providerUserId("101868015518714862283")
                 .build();
         existingUser.getPrincipals().add(principal);
 
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(oAuth2PrincipalRepository.findByProviderAndProviderUserId(
                         AuthProviderType.GOOGLE, "101868015518714862283"))
                 .thenReturn(Optional.of(principal));
-        when(userRepository.save(any(User.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(principal);
 
         // Act
         Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
-        verify(userRepository).save(existingUser);
         verify(oAuth2PrincipalRepository).save(any());
-        assertThat(existingUser.getProfile().getAvatarUrl()).isEqualTo(newProfilePicLink);
         assertThat(result).isEqualTo(principal);
     }
 
@@ -150,11 +146,9 @@ class OAuth2UserAuthenticationServiceImplTest {
             return auth;
         });
         when(userRepository.findByEmail(eq(email))).thenReturn(Optional.empty());
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
-            User user = invocation.getArgument(0);
-            user.setProfile(Profile.builder().user(user).build());
-            return user;
-        });
+        when(userFactory.createUserWithDefaultPlan(any(String.class)))
+                .thenAnswer(invocation ->
+                        User.builder().email(invocation.getArgument(0)).build());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo)))
                 .thenReturn(OAuth2Principal.builder()
                         .email(email)
@@ -166,7 +160,7 @@ class OAuth2UserAuthenticationServiceImplTest {
         Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
-        verify(userRepository, atLeastOnce()).save(any(User.class));
+        verify(userFactory).createUserWithDefaultPlan(email);
         assertThat(result.getEmail()).isEqualTo(email);
     }
 
@@ -174,8 +168,8 @@ class OAuth2UserAuthenticationServiceImplTest {
     @Test
     void givenValidProviderRequestFrom_whenAuthenticateProviderRequest_thenSaveOrUpdateUser() {
         // Arrange
-        OAuth2UserInfo oAuth2UserInfo =
-                new GoogleOAuth2UserInfo(createAttributes("johnwick@gmail.com", "101868015518714862283"));
+        String mail = "johnwick@gmail.com";
+        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(createAttributes(mail, "101868015518714862283"));
 
         User newUser = User.builder()
                 .email(oAuth2UserInfo.getEmail())
@@ -191,18 +185,18 @@ class OAuth2UserAuthenticationServiceImplTest {
                 .user(newUser)
                 .build();
 
-        when(userRepository.findByEmail("johnwick@gmail.com")).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(mail)).thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo))).thenReturn(principal);
-        when(userRepository.save(newUser)).thenReturn(newUser);
         when(oAuth2PrincipalRepository.save(principal)).thenReturn(principal);
+        when(userFactory.createUserWithDefaultPlan(mail)).thenReturn(newUser);
 
         // Act
         Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
 
         // Assert
-        verify(userRepository).findByEmail("johnwick@gmail.com");
+        verify(userRepository).findByEmail(mail);
         verify(userMapper).providerUserInfoToPrincipal(eq(oAuth2UserInfo));
-        verify(userRepository, atLeastOnce()).save(newUser);
+        verify(userFactory).createUserWithDefaultPlan(mail);
         verify(oAuth2PrincipalRepository).save(principal);
         assertThat(result).isEqualTo(principal);
     }
@@ -221,7 +215,7 @@ class OAuth2UserAuthenticationServiceImplTest {
         // Act & Assert
         assertThatThrownBy(() -> authService.authenticate(oAuth2UserInfo, OAuth2Intent.LINK))
                 .isInstanceOf(EmailMismatchException.class)
-                .hasMessageContaining("No user found for email " + email + " to link account.");
+                .hasMessageContaining("We don't have an account with email: " + email);
 
         verify(userRepository).findByEmail(email);
         verify(oAuth2PrincipalRepository, never()).save(any(OAuth2Principal.class));

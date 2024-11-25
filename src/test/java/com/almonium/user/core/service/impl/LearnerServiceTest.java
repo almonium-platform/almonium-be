@@ -7,7 +7,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,14 +32,19 @@ class LearnerServiceTest {
     @Mock
     LearnerRepository learnerRepository;
 
+    @Mock
+    PlanValidationService planValidationService;
+
     @DisplayName("Should add a new target language for user")
     @Test
     void givenLangCode_whenAddTargetLang_thenNewLangIsAdded() {
         Language langCode = Language.EN;
         long learnerId = 1L;
         Learner learner = Learner.builder()
+                .user(User.builder().id(learnerId).build())
                 .targetLangs(new HashSet<>(Arrays.asList(Language.EN, Language.DE)))
                 .build();
+
         when(learnerRepository.findLearnerWithTargetLangs(learnerId)).thenReturn(Optional.of(learner));
 
         learnerService.addTargetLanguage(langCode, learnerId);

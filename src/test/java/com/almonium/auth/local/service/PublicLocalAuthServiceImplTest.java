@@ -24,6 +24,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.service.impl.PublicLocalAuthServiceImpl;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
+import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -73,6 +74,9 @@ class PublicLocalAuthServiceImplTest {
     UserService userService;
 
     @Mock
+    UserFactory userFactory;
+
+    @Mock
     UserAuthenticationServiceImpl userAuthenticationServiceImpl;
 
     @DisplayName("Should successfully register local user")
@@ -84,6 +88,7 @@ class PublicLocalAuthServiceImplTest {
 
         when(principalFactory.createLocalPrincipal(user, registrationRequest))
                 .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
+        when(userFactory.createUserWithDefaultPlan(registrationRequest.email())).thenReturn(user);
 
         // Act
         authService.register(registrationRequest);
