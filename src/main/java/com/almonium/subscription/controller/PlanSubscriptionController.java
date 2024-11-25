@@ -10,17 +10,23 @@ import com.almonium.util.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/subscriptions")
+@RequestMapping("/plans")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanSubscriptionController {
     PlanSubscriptionService planSubscriptionService;
+
+    @GetMapping
+    public ResponseEntity<?> getPlans() {
+        return ResponseEntity.ok(planSubscriptionService.getAllPlans());
+    }
 
     @PostMapping("/{id}")
     public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable long id, @Auth Principal principal) {

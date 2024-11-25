@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.subscription.PlanSubscriptionMapper;
+import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
-import com.almonium.user.core.dto.PlanDto;
+import com.almonium.user.core.dto.SubscriptionInfoDto;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
@@ -44,8 +44,9 @@ public class UserServiceImpl implements UserService {
         Map<PlanFeature, Integer> limits =
                 planService.getPlanLimits(activePlanSubscription.getPlan().getId());
         var userInfo = userMapper.userToUserInfo(fetchedUser);
-        PlanDto planDto = planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
-        userInfo.setPlan(planDto);
+        SubscriptionInfoDto subscriptionInfoDto =
+                planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
+        userInfo.setPlan(subscriptionInfoDto);
         userInfo.getPlan().setLimits(limits);
         userInfo.setPremium(
                 !planService.isPlanDefault(activePlanSubscription.getPlan().getId()));

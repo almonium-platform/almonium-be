@@ -7,13 +7,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.almonium.subscription.PlanSubscriptionMapper;
+import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.StripeApiService;
-import com.almonium.user.core.dto.PlanDto;
+import com.almonium.user.core.dto.SubscriptionInfoDto;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
@@ -163,10 +163,10 @@ class UserServiceImplTest {
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(user.getEmail());
         when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
-        PlanDto planDto = new PlanDto();
-        planDto.setName(plan.getName());
+        SubscriptionInfoDto subscriptionInfoDto = new SubscriptionInfoDto();
+        subscriptionInfoDto.setName(plan.getName());
         when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
-                .thenReturn(planDto);
+                .thenReturn(subscriptionInfoDto);
         when(planService.isPlanDefault(planId)).thenReturn(false);
 
         UserInfo result = userService.buildUserInfoFromUser(user);

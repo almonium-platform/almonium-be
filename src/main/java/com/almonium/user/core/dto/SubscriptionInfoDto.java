@@ -17,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class PlanDto {
+public class SubscriptionInfoDto {
     String name;
     Map<PlanFeature, Integer> limits;
     boolean autoRenewal;

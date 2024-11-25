@@ -5,8 +5,10 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
+import com.almonium.subscription.dto.PlanDto;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
+import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.repository.InsiderRepository;
@@ -18,6 +20,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.impl.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -38,6 +41,11 @@ public class PlanSubscriptionService {
     UserRepository userRepository;
     PlanService planService;
     InsiderRepository insiderRepository;
+    PlanSubscriptionMapper planSubscriptionMapper;
+
+    public List<PlanDto> getAllPlans() {
+        return planSubscriptionMapper.toDto(planRepository.findAll());
+    }
 
     // User initiated actions
     public String initiatePlanSubscribing(User user, long planId) {

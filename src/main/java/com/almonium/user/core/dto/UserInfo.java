@@ -28,6 +28,6 @@ public class UserInfo {
     Collection<Language> fluentLangs;
     boolean setupCompleted;
     Collection<String> tags;
-    PlanDto plan;
+    SubscriptionInfoDto plan;
     boolean isPremium;
 }
