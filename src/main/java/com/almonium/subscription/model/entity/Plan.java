@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "plan", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "type"}))
 public class Plan {
 
     @Id
@@ -48,6 +51,7 @@ public class Plan {
 
     public enum Type {
         MONTHLY,
-        YEARLY
+        YEARLY,
+        LIFETIME
     }
 }

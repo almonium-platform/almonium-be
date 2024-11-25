@@ -7,16 +7,16 @@ databaseChangeLog:
             tableName: plan
             columns:
               - column: { name: id, value: "1" }
-              - column: { name: name, value: "Free Plan" }
+              - column: { name: name, value: "FREE" }
               - column: { name: description, value: "Basic access" }
               - column: { name: price, valueNumeric: "0.00" }
-              - column: { name: type, value: "MONTHLY" }
+              - column: { name: type, value: "LIFETIME" }
               - column: { name: stripe_price_id, value: "price_1PecJYRoiildngwv9dV9w5nX" }
         - insert:
             tableName: plan
             columns:
               - column: { name: id, value: "2" }
-              - column: { name: name, value: "Pro Plan Monthly" }
+              - column: { name: name, value: "PREMIUM" }
               - column: { name: description, value: "Access to all features" }
               - column: { name: price, valueNumeric: "4.99" }
               - column: { name: type, value: "MONTHLY" }
@@ -25,7 +25,7 @@ databaseChangeLog:
             tableName: plan
             columns:
               - column: { name: id, value: "3" }
-              - column: { name: name, value: "Pro Plan Yearly" }
+              - column: { name: name, value: "PREMIUM" }
               - column: { name: description, value: "Access to all features" }
               - column: { name: price, valueNumeric: "49.99" }
               - column: { name: type, value: "YEARLY" }

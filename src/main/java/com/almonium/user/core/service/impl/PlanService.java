@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanService {
-    private static final String DEFAULT_PLAN_NAME = "Free Plan";
+    private static final String DEFAULT_PLAN_NAME = "FREE";
     PlanRepository planRepository;
     AtomicReference<Plan> cachedDefaultPlan = new AtomicReference<>();
     PlanLimitRepository PlanLimitRepository;

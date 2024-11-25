@@ -9,13 +9,13 @@ databaseChangeLog:
               - column:
                   name: id
                   type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
                   name: name
                   type: VARCHAR(255)
                   constraints:
-                    unique: true
                     nullable: false
               - column:
                   name: description
@@ -35,3 +35,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: plan
+            columnNames: name,type
+            constraintName: unique_name_type
