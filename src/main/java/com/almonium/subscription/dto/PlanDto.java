@@ -1,3 +1,5 @@
 package com.almonium.subscription.dto;
 
-public record PlanDto(Long id, String name, String description, Double price) {}
+import com.almonium.subscription.model.entity.Plan;
+
+public record PlanDto(Long id, String name, Plan.Type type, String description, Double price) {}
