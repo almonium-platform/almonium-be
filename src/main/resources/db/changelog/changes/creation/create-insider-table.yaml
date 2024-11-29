@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-insiders-table
+      id: create-insider-table
       author: almoni
       changes:
         - createTable:
-            tableName: insiders
+            tableName: insider
             columns:
               - column:
                   name: user_id
@@ -12,8 +12,8 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
         - addForeignKeyConstraint:
-            baseTableName: insiders
+            baseTableName: insider
             baseColumnNames: user_id
             referencedTableName: user_core
             referencedColumnNames: id
-            constraintName: fk_insiders_user
+            constraintName: fk_insider_user
