@@ -21,6 +21,10 @@ databaseChangeLog:
                   name: description
                   type: TEXT
               - column:
+                  name: active
+                  type: boolean
+                  defaultValueBoolean: true
+              - column:
                   name: price
                   type: DOUBLE PRECISION
                   constraints:

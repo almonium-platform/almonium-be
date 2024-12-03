@@ -46,6 +46,8 @@ public class Plan {
 
     String stripePriceId;
 
+    boolean active;
+
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     List<PlanLimit> limits;
 

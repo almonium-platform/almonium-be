@@ -141,9 +141,9 @@ class UserServiceImplTest {
         assertThat(actualUser).isEmpty();
     }
 
-    @DisplayName("Should use mapper to build userInfo")
+    @DisplayName("Should map user to user info")
     @Test
-    void givenLocalUser_whenBuildUserInfo_thenInvokeMapper() {
+    void givenLocalUser_whenBuildUserInfo_thenMapFieldsAndCallNecessaryServices() {
         User user = UserUtility.getUser();
         user.setEmail("john@example.com");
         user.setId(1L);
@@ -158,23 +158,28 @@ class UserServiceImplTest {
                 .status(PlanSubscription.Status.ACTIVE)
                 .build();
 
-        when(planSubscriptionService.getActiveSubscription(user)).thenReturn(planSubscription);
-        when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(user.getEmail());
-        when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
         SubscriptionInfoDto subscriptionInfoDto = new SubscriptionInfoDto();
         subscriptionInfoDto.setName(plan.getName());
+
+        when(planSubscriptionService.getActiveSub(user)).thenReturn(planSubscription);
+        when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
+        when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
         when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
                 .thenReturn(subscriptionInfoDto);
-        when(planService.isPlanDefault(planId)).thenReturn(false);
+        when(planService.isPlanPremium(eq(planId))).thenReturn(true);
 
         UserInfo result = userService.buildUserInfoFromUser(user);
 
         verify(userMapper).userToUserInfo(user);
+        verify(planSubscriptionMapper).planSubscriptionToPlanDto(planSubscription);
+        verify(planService).getPlanLimits(planId);
+        verify(planService).isPlanPremium(planId);
+
         assertThat(result.getEmail()).isEqualTo("john@example.com");
-        assertThat(result.getPlan().getName()).isEqualTo("Premium Plan");
-        assertThat(result.getPlan().getLimits()).containsEntry(PlanFeature.MAX_TARGET_LANGS, 3);
+        assertThat(result.getSubscription().getName()).isEqualTo("Premium Plan");
+        assertThat(result.getSubscription().getLimits()).containsEntry(PlanFeature.MAX_TARGET_LANGS, 3);
         assertThat(result.isPremium()).isTrue();
     }
 

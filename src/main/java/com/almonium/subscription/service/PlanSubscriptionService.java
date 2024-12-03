@@ -5,10 +5,8 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
-import com.almonium.subscription.dto.PlanDto;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
-import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.repository.InsiderRepository;
@@ -20,8 +18,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.impl.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
-import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -36,126 +33,140 @@ public class PlanSubscriptionService {
     EmailService emailService;
     SubscriptionEmailComposerService emailComposerService;
     StripeApiService stripeApiService;
-    PlanSubscriptionRepository planSubscriptionRepository;
+    PlanSubscriptionRepository planSubRepository;
     PlanRepository planRepository;
     UserRepository userRepository;
     PlanService planService;
     InsiderRepository insiderRepository;
-    PlanSubscriptionMapper planSubscriptionMapper;
 
-    public List<PlanDto> getAllPlans() {
-        return planSubscriptionMapper.toDto(planRepository.findAll());
-    }
-
-    // User initiated actions
     public String initiatePlanSubscribing(User user, long planId) {
-        Plan plan = planRepository
-                .findById(planId)
-                .orElseThrow(() -> new BadUserRequestActionException("Plan not found with ID: " + planId));
-
-        if (getActivePlan(user).equals(plan)) {
-            throw new BadUserRequestActionException(
-                    "User already has an active subscription to this plan " + plan.getName());
-        }
-
-        // We can't subscribe to a free plan. We can return to a free plan if we cancel the subscription.
-        assertPlanIsPremium(plan);
-        if (isInsider(user)) {
-            assignPremiumPlanToUserAndNotify(user, plan);
-        }
+        Plan plan = getAndValidatePlanEligibility(user, planId);
+        setCustomerIdIfNeeded(user);
+        plan = isInsider(user)
+                ? planService.getInsiderPlan()
+                : plan; // backdoor for insiders, they can't subscribe to regular plans
 
         return stripeApiService.createPaymentSession(user, plan);
     }
 
-    public void assignPremiumPlanToUserAndNotify(User user, Plan plan) {
-        assignPlanToUser(user, plan);
-        sendEmailForEvent(user, getActiveSubscription(user), PlanSubscription.Event.SUBSCRIPTION_CREATED);
+    public String initiateCustomerPortalAccess(User user) {
+        if (user.getStripeCustomerId() == null) {
+            throw new PlanSubscriptionException("User has no Stripe customer ID");
+        }
+        return stripeApiService.createBillingPortalSessionForUser(user);
     }
 
-    public void initiateSubscriptionCancellation(User user) {
-        PlanSubscription activeSubscription = getActiveSubscription(user);
-        assertPlanIsPremium(activeSubscription.getPlan());
-        updatePlanSubStatus(activeSubscription, PlanSubscription.Status.PENDING_CANCELLATION);
-        updatePlanSubStatus(getOrThrowDefaultPlan(user), PlanSubscription.Status.ACTIVE);
-        scheduleCancellation(activeSubscription);
+    // goal - downgrade user to the default plan
+    public void downgradeMe(User user) {
+        PlanSubscription activeSubscription = getActiveSub(user);
+        if (isPlanDefault(activeSubscription.getPlan())) {
+            throw new BadUserRequestActionException("User is already on the default plan");
+        } else if (planService.isPlanInsider(activeSubscription.getPlan().getId())) {
+            updatePlanSubStatus(activeSubscription, PlanSubscription.Status.INACTIVE);
+            findAndActivateDefaultPlan(activeSubscription.getUser());
+        } else {
+            cancelSubImmediately(activeSubscription);
+        }
     }
 
     // Global actions
-    public PlanSubscription getActiveSubscription(User user) {
-        return planSubscriptionRepository
+    public PlanSubscription getActiveSub(User user) {
+        return planSubRepository
                 .findByUserAndStatus(user, PlanSubscription.Status.ACTIVE)
                 .orElseThrow(
                         () -> new PlanSubscriptionException("No active subscription found for user " + user.getId()));
     }
 
-    public void cleanUpPaidSubscriptionsIfAny(User user) {
-        PlanSubscription activeSubscription = getActiveSubscription(user);
-        if (isPlanDefault(activeSubscription.getPlan())) {
-            log.info("User {} is not a paying customer. No subscription to cancel.", user.getId());
-            return;
-        }
-        assertStripeSubscriptionIdIsPresent(activeSubscription);
-        stripeApiService.cancelSubscriptionImmediately(activeSubscription.getStripeSubscriptionId());
-    }
-
     public Plan getActivePlan(User user) {
-        return getActiveSubscription(user).getPlan();
+        return getActiveSub(user).getPlan();
     }
 
-    public void assignFreePlanToUser(User user) {
-        Plan freePlan = planService.getDefaultPlan();
-        assignPlanToUser(user, freePlan);
+    // on account deletion
+    public void cleanUpPaidSubscriptionsIfAny(User user) {
+        PlanSubscription activeSubscription = getActiveSub(user);
+        if (activeSubscription.getStripeSubscriptionId() != null) {
+            cancelSubImmediately(activeSubscription);
+        }
     }
 
-    // For StripeApiService to call
-    public void updateSubscriptionStatusToOnHold(PlanSubscription planSubscription) {
+    // on user registration
+    public void assignDefaultPlanToUser(User user) {
+        createNewPlanSub(user, planService.getDefaultPlan(), null);
+    }
+
+    // For StripeWebhookService
+    public void assignInsiderPlanToCustomer(String customerId) {
+        User user = getUserByStripeCustomerIdOrThrow(customerId);
+
+        getInsiderPlanSub(user)
+                .ifPresentOrElse(
+                        insiderPlanSub -> {
+                            deactivateCurrentSub(user);
+                            updatePlanSubStatus(insiderPlanSub, PlanSubscription.Status.ACTIVE);
+                        },
+                        () -> replaceCurrentPlanSubWithNew(user, planService.getInsiderPlan(), null));
+    }
+
+    public void disableSubscriptionRenewal(String stripeSubscriptionId) {
+        PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
+        setAndSaveAutoRenewal(planSubscription, false);
+        sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_CANCELED);
+    }
+
+    public void renewSubscription(String stripeSubscriptionId) {
+        PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
+        setAndSaveAutoRenewal(planSubscription, true);
+        sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_RENEWED);
+    }
+
+    public void putSubscriptionOnHold(String stripeSubscriptionId) {
+        PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
         updatePlanSubStatus(planSubscription, PlanSubscription.Status.ON_HOLD);
         sendEmailForEvent(
                 planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED);
     }
 
-    public void createSubscription(String email, String customerId, String stripePriceId, String stripeSubscriptionId) {
-        User user = userRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new StripeIntegrationException("User not found with email: " + email));
-
-        if (user.getStripeCustomerId() == null) {
-            // if it's user's first subscription
-            user.setStripeCustomerId(customerId);
-            userRepository.save(user);
-            log.info("Updated user {} with Stripe customer ID {}", user.getId(), customerId);
-        }
-
-        Plan plan = planRepository
-                .findByStripePriceId(stripePriceId)
-                .orElseThrow(() -> new StripeIntegrationException("Plan not found with price ID: " + stripePriceId));
-
-        PlanSubscription activeSubscription = getActiveSubscription(user);
-        if (isPlanDefault(activeSubscription.getPlan())) {
-            updatePlanSubStatus(activeSubscription, PlanSubscription.Status.INACTIVE);
-        } else {
-            updatePlanSubStatus(activeSubscription, PlanSubscription.Status.PENDING_CANCELLATION);
-            scheduleCancellation(activeSubscription);
-        }
-
-        assignPremiumPlanToUserAndNotify(user, plan);
+    public void replaceCurrentPlanSubWithNew(String customerId, String stripePriceId, String stripeSubscriptionId) {
+        Plan plan = getPlanByStripePriceIdOrThrow(stripePriceId);
+        User user = getUserByStripeCustomerIdOrThrow(customerId);
+        replaceCurrentPlanSubWithNew(user, plan, stripeSubscriptionId);
     }
 
-    public void cancelSubscription(PlanSubscription planSubscription) {
-        if (planSubscription.getStatus() != PlanSubscription.Status.PENDING_CANCELLATION) {
-            throw new PlanSubscriptionException("Subscription is not pending cancellation");
-        }
-        updatePlanSubStatus(planSubscription, PlanSubscription.Status.CANCELED);
-        Plan currentPlan = getActivePlan(planSubscription.getUser());
-        Plan toBeCanceledPlan = planSubscription.getPlan();
-        boolean hasAnotherPremiumSubscription =
-                !isPlanDefault(currentPlan) && !Objects.equals(toBeCanceledPlan.getId(), currentPlan.getId());
+    private Plan getPlanByStripePriceIdOrThrow(String stripePriceId) {
+        return planRepository
+                .findByStripePriceId(stripePriceId)
+                .orElseThrow(() -> new StripeIntegrationException("Plan not found with price ID: " + stripePriceId));
+    }
 
-        boolean isDowngrade = !hasAnotherPremiumSubscription;
-        if (isDowngrade) {
-            sendEmailForEvent(
-                    planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_CANCELED);
+    public void cancelSubscription(String stripeSubscriptionId) {
+        PlanSubscription targetedPlanSub = getPlanSubFromStripeData(stripeSubscriptionId);
+        PlanSubscription.Status status = targetedPlanSub.getStatus();
+
+        if (status == PlanSubscription.Status.CANCELED) {
+            log.info("Subscription {} is already canceled", targetedPlanSub.getId());
+            return;
         }
+
+        // main path: user cancelled the subscription some time ago, and now the billing cycle is ending
+        if (status == PlanSubscription.Status.ACTIVE) {
+            updatePlanSubStatus(targetedPlanSub, PlanSubscription.Status.CANCELED);
+            sendEmailForEvent(targetedPlanSub.getUser(), targetedPlanSub, PlanSubscription.Event.SUBSCRIPTION_ENDED);
+            findAndActivateDefaultPlan(targetedPlanSub.getUser());
+        }
+    }
+
+    private PlanSubscription getDefaultPlanSubOrThrow(User user) {
+        return user.getPlanSubscriptions().stream()
+                .filter(planSubscription -> isPlanDefault(planSubscription.getPlan()))
+                .findFirst()
+                .orElseThrow(() -> new PlanSubscriptionException("No default plan found for user " + user.getId()));
+    }
+
+    private Optional<PlanSubscription> getInsiderPlanSub(User user) {
+        return user.getPlanSubscriptions().stream()
+                .filter(planSubscription ->
+                        planService.isPlanInsider(planSubscription.getPlan().getId()))
+                .findFirst();
     }
 
     // unexpected - we normally don't delete stripe customers
@@ -175,62 +186,139 @@ public class PlanSubscriptionService {
         return insiderRepository.existsById(user.getId());
     }
 
-    private void assertStripeSubscriptionIdIsPresent(PlanSubscription planSubscription) {
+    private void cancelSubImmediately(PlanSubscription activeSubscription) {
+        assertStripeSubIdIsPresent(activeSubscription);
+        stripeApiService.cancelSubImmediately(activeSubscription.getStripeSubscriptionId());
+    }
+
+    private PlanSubscription getPlanSubFromStripeData(String stripeSubscriptionId) {
+        return planSubRepository
+                .findByStripeSubscriptionId(stripeSubscriptionId)
+                .orElseThrow(() -> new StripeIntegrationException(
+                        "Plan subscription not found with subscription ID: " + stripeSubscriptionId));
+    }
+
+    private Plan getAndValidatePlanEligibility(User user, long planId) {
+        Plan targetPlan = planRepository
+                .findById(planId)
+                .orElseThrow(() -> new BadUserRequestActionException("Plan not found with ID: " + planId));
+
+        // insider and free will be filtered out
+        planService.getAvailableRecurringPremiumPlans().stream()
+                .filter(planDto -> planDto.id() == planId)
+                .findAny()
+                .orElseThrow(() -> new BadUserRequestActionException("Plan is not available for subscription"));
+
+        PlanSubscription activeSub = getActiveSub(user);
+        Plan activePlan = activeSub.getPlan();
+
+        if (activePlan.equals(targetPlan)) {
+            throw new BadUserRequestActionException(
+                    "User already has an active subscription to this plan " + targetPlan.getName());
+        }
+
+        if (!isPlanDefault(activePlan)) {
+            throw new BadUserRequestActionException("Cancel the current subscription before subscribing to a new one.");
+        }
+
+        return targetPlan;
+    }
+
+    private void setCustomerIdIfNeeded(User user) {
+        Optional.ofNullable(user.getStripeCustomerId())
+                .ifPresentOrElse(
+                        customerId -> log.info("User {} has Stripe customer ID {}", user.getId(), customerId),
+                        // if user has no Stripe customer ID, create one
+                        () -> {
+                            String customerId = stripeApiService.createCustomerIdForUser(user);
+                            user.setStripeCustomerId(customerId);
+                            userRepository.save(user);
+                            log.info("Updated user {} with Stripe customer ID {}", user.getId(), customerId);
+                        });
+    }
+
+    private void replaceCurrentPlanSubWithNew(User user, Plan plan, String stripeSubscriptionId) {
+        deactivateCurrentSub(user);
+        createPremiumPlanSubAndNotify(user, plan, stripeSubscriptionId);
+    }
+
+    private void deactivateCurrentSub(User user) {
+        PlanSubscription activeSubscription = getActiveSub(user);
+
+        // lifetime plan is not canceled, it's just set to inactive
+        PlanSubscription.Status status = activeSubscription.getPlan().getType() == Plan.Type.LIFETIME
+                ? PlanSubscription.Status.INACTIVE
+                : PlanSubscription.Status.CANCELED;
+        updatePlanSubStatus(activeSubscription, status);
+    }
+
+    private User getUserByStripeCustomerIdOrThrow(String customerId) {
+        return userRepository
+                .findByStripeCustomerId(customerId)
+                .orElseThrow(() -> new StripeIntegrationException("User not found with customer ID: " + customerId));
+    }
+
+    private void createPremiumPlanSubAndNotify(User user, Plan plan, String stripeSubscriptionId) {
+        createNewPlanSub(user, plan, stripeSubscriptionId);
+        sendEmailForEvent(user, getActiveSub(user), PlanSubscription.Event.SUBSCRIPTION_CREATED);
+    }
+
+    private void assertStripeSubIdIsPresent(PlanSubscription planSubscription) {
         if (planSubscription.getStripeSubscriptionId() == null) {
             throw new PlanSubscriptionException("Subscription ID is null for subscription " + planSubscription.getId());
         }
     }
 
-    private PlanSubscription getOrThrowDefaultPlan(User user) {
-        return user.getPlanSubscriptions().stream()
-                .filter(planSubscription -> isPlanDefault(planSubscription.getPlan()))
-                .findFirst()
-                .orElseThrow(() -> new PlanSubscriptionException("No default plan found for user " + user.getId()));
-    }
+    private void createNewPlanSub(User user, Plan plan, String stripeSubscriptionId) {
+        boolean isAutoRenewal = plan.getType() != Plan.Type.LIFETIME;
 
-    private void assignPlanToUser(User user, Plan plan) {
         PlanSubscription planSubscription = PlanSubscription.builder()
                 .user(user)
                 .plan(plan)
                 .status(PlanSubscription.Status.ACTIVE)
+                .stripeSubscriptionId(stripeSubscriptionId)
                 .startDate(Instant.now())
+                .autoRenewal(isAutoRenewal)
                 .build();
 
         user.getPlanSubscriptions().add(planSubscription);
-        planSubscriptionRepository.save(planSubscription);
+        planSubRepository.save(planSubscription);
         log.info("Assigned free plan to user {}", user.getId());
     }
 
+    // if business logic requires to cancel subscription at the end of the billing period
+    @SuppressWarnings("unused")
     private void scheduleCancellation(PlanSubscription activeSubscription) {
-        assertStripeSubscriptionIdIsPresent(activeSubscription);
-        stripeApiService.scheduleSubscriptionCancellation(activeSubscription.getStripeSubscriptionId());
-        activeSubscription.setAutoRenewal(false);
-        planSubscriptionRepository.save(activeSubscription);
+        assertStripeSubIdIsPresent(activeSubscription);
+        stripeApiService.scheduleSubCancellation(activeSubscription.getStripeSubscriptionId());
         log.info(
                 "Subscription cancellation scheduled for user {}",
                 activeSubscription.getUser().getId());
     }
 
-    private void assertPlanIsPremium(Plan activePlan) {
-        if (isPlanDefault(activePlan)) {
-            throw new BadUserRequestActionException("This action is not allowed for free plans.");
-        }
+    private void setAndSaveAutoRenewal(PlanSubscription planSubscription, boolean autoRenewal) {
+        planSubscription.setAutoRenewal(autoRenewal);
+        planSubRepository.save(planSubscription);
     }
 
     private boolean isPlanDefault(Plan activePlan) {
         return planService.isPlanDefault(activePlan.getId());
     }
 
-    private void sendEmailForEvent(
-            User user, PlanSubscription planSubscription, PlanSubscription.Event subscriptionEvent) {
+    private void sendEmailForEvent(User user, PlanSubscription planSubscription, PlanSubscription.Event planSubEvent) {
         EmailDto emailDto = emailComposerService.composeEmail(
-                user.getEmail(), subscriptionEvent, planSubscription.getPlan().getName());
+                user.getEmail(), planSubEvent, planSubscription.getPlan().getName());
         emailService.sendEmail(emailDto);
     }
 
     private void updatePlanSubStatus(PlanSubscription planSubscription, PlanSubscription.Status status) {
         planSubscription.setStatus(status);
-        planSubscriptionRepository.save(planSubscription);
+        planSubRepository.save(planSubscription);
         log.info("Subscription {} set to {}", planSubscription.getId(), status);
+    }
+
+    private void findAndActivateDefaultPlan(User user) {
+        PlanSubscription defaultPlanSub = getDefaultPlanSubOrThrow(user);
+        updatePlanSubStatus(defaultPlanSub, PlanSubscription.Status.ACTIVE);
     }
 }

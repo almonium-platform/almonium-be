@@ -95,7 +95,7 @@ class GlobalExceptionHandlerTest {
     @DisplayName("Should handle general Exception")
     @Test
     void givenException_whenHandleException_thenRespondWithInternalServerError() {
-        Exception ex = new Exception("Internal server error");
+        Exception ex = new Exception("Something went wrong");
 
         ResponseEntity<?> response = exceptionHandler.handleGlobalException(ex);
 

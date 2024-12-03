@@ -40,16 +40,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
-        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSubscription(user);
+        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
         Map<PlanFeature, Integer> limits =
                 planService.getPlanLimits(activePlanSubscription.getPlan().getId());
         var userInfo = userMapper.userToUserInfo(fetchedUser);
         SubscriptionInfoDto subscriptionInfoDto =
                 planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
-        userInfo.setPlan(subscriptionInfoDto);
-        userInfo.getPlan().setLimits(limits);
+        userInfo.setSubscription(subscriptionInfoDto);
+        userInfo.getSubscription().setLimits(limits);
         userInfo.setPremium(
-                !planService.isPlanDefault(activePlanSubscription.getPlan().getId()));
+                planService.isPlanPremium(activePlanSubscription.getPlan().getId()));
         return userInfo;
     }
 

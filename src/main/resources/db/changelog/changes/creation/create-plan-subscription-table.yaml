@@ -43,9 +43,6 @@ databaseChangeLog:
               - column:
                   name: auto_renewal
                   type: BOOLEAN
-                  constraints:
-                    nullable: false
-                  defaultValueBoolean: true
         - addForeignKeyConstraint:
             baseTableName: plan_subscription
             baseColumnNames: user_id

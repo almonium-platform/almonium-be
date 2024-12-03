@@ -15,7 +15,7 @@ public class UserFactory {
         User user =
                 User.builder().email(email).planSubscriptions(new HashSet<>()).build();
 
-        planSubscriptionService.assignFreePlanToUser(user);
+        planSubscriptionService.assignDefaultPlanToUser(user);
         return user;
     }
 }

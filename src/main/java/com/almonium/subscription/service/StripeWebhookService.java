@@ -3,9 +3,7 @@ package com.almonium.subscription.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.subscription.exception.StripeIntegrationException;
-import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.StripeEventLog;
-import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.subscription.repository.StripeEventLogRepository;
 import com.stripe.model.Customer;
 import com.stripe.model.Event;
@@ -29,8 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class StripeWebhookService {
     StripeEventLogRepository stripeEventLogRepository;
     PlanSubscriptionService planSubscriptionService;
-    PlanSubscriptionRepository planSubscriptionRepository;
-    StripeApiService stripeApiService;
 
     private static final List<String> EXPECTED_EVENT_TYPES = List.of(
             "payment_intent.created",
@@ -80,23 +76,38 @@ public class StripeWebhookService {
         String stripePriceId =
                 subscription.getItems().getData().get(0).getPrice().getId();
 
-        Customer customer = stripeApiService.getCustomerById(customerId);
-        planSubscriptionService.createSubscription(
-                customer.getEmail(), customerId, stripePriceId, subscription.getId());
+        planSubscriptionService.replaceCurrentPlanSubWithNew(customerId, stripePriceId, subscription.getId());
     }
 
     private void handleInvoicePaymentFailed(Event event) {
         Invoice invoice = getInvoiceFromStripeEvent(event);
-
         String stripeSubscriptionId = invoice.getSubscription();
-        planSubscriptionService.updateSubscriptionStatusToOnHold(
-                getPlanSubscriptionFromStripeData(stripeSubscriptionId));
+        planSubscriptionService.putSubscriptionOnHold(stripeSubscriptionId);
     }
 
     private void handleSubscriptionDeleted(Event event) {
         Subscription subscription = getSubscriptionFromStripeEvent(event);
-        PlanSubscription planSubscription = getPlanSubscriptionFromStripeData(subscription.getId());
-        planSubscriptionService.cancelSubscription(planSubscription);
+        planSubscriptionService.cancelSubscription(subscription.getId());
+    }
+
+    // only used for insider plan, otherwise - just logging
+    private void handleCheckoutSessionCompleted(Event event) {
+        Session session = getSessionFromStripeEvent(event);
+
+        log.info(
+                "Checkout session completed: ID {}, Customer ID: {}, Subscription ID: {}, Amount Total: {}",
+                session.getId(),
+                session.getCustomer(),
+                session.getSubscription(),
+                session.getAmountTotal());
+
+        Session.CustomerDetails customerDetails = session.getCustomerDetails();
+        if (customerDetails != null) {
+            log.info("Customer Email: {}, Name: {}", customerDetails.getEmail(), customerDetails.getName());
+        }
+        if (session.getAmountTotal() == 0 && session.getSubscription() == null) {
+            planSubscriptionService.assignInsiderPlanToCustomer(session.getCustomer());
+        }
     }
 
     // logging methods
@@ -116,8 +127,28 @@ public class StripeWebhookService {
         log.info("Subscription updated: ID {}", stripeSubscriptionId);
 
         Map<String, Object> previousAttributes = event.getData().getPreviousAttributes();
-        if (previousAttributes != null && !previousAttributes.isEmpty()) {
-            previousAttributes.forEach((attribute, value) -> log.info("Previous {}: {}", attribute, value));
+
+        if (previousAttributes == null || previousAttributes.isEmpty()) {
+            log.info("No previous attributes found");
+            return;
+        }
+
+        previousAttributes.forEach((attribute, value) -> log.info("Previous {}: {}", attribute, value));
+
+        if (previousAttributes.containsKey("cancel_at_period_end")) {
+            boolean previousCancelAtPeriodEnd = (boolean) previousAttributes.get("cancel_at_period_end");
+            boolean newCancelAtPeriodEnd = subscription.getCancelAtPeriodEnd();
+
+            if (previousCancelAtPeriodEnd && !newCancelAtPeriodEnd) { // true -> false
+                log.info("Subscription is reactivated, ID: {}", stripeSubscriptionId);
+                planSubscriptionService.renewSubscription(stripeSubscriptionId);
+            }
+            if (!previousCancelAtPeriodEnd && newCancelAtPeriodEnd) { // true -> false
+                log.info(
+                        "Subscription is set to be canceled at the end of the billing period, ID: {}",
+                        stripeSubscriptionId);
+                planSubscriptionService.disableSubscriptionRenewal(stripeSubscriptionId);
+            }
         }
 
         log.info("Current subscription status: {}", subscription.getStatus());
@@ -132,29 +163,6 @@ public class StripeWebhookService {
         String name = customer.getName();
 
         log.info("For customer with email {} and name {} Stripe assigned ID {}", email, name, customerId);
-    }
-
-    private void handleCheckoutSessionCompleted(Event event) {
-        Session session = getSessionFromStripeEvent(event);
-
-        log.info(
-                "Checkout session completed: ID {}, Customer ID: {}, Subscription ID: {}, Amount Total: {}",
-                session.getId(),
-                session.getCustomer(),
-                session.getSubscription(),
-                session.getAmountTotal());
-
-        Session.CustomerDetails customerDetails = session.getCustomerDetails();
-        if (customerDetails != null) {
-            log.info("Customer Email: {}, Name: {}", customerDetails.getEmail(), customerDetails.getName());
-        }
-    }
-
-    private PlanSubscription getPlanSubscriptionFromStripeData(String stripeSubscriptionId) {
-        return planSubscriptionRepository
-                .findByStripeSubscriptionId(stripeSubscriptionId)
-                .orElseThrow(() -> new StripeIntegrationException(
-                        "Plan subscription not found with subscription ID: " + stripeSubscriptionId));
     }
 
     private Customer getCustomerFromStripeEvent(Event event) {

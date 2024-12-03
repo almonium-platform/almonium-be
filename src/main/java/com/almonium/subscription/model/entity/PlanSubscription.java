@@ -49,21 +49,22 @@ public class PlanSubscription {
     @Enumerated(EnumType.STRING)
     Status status;
 
-    @Builder.Default
-    boolean autoRenewal = true;
+    Boolean autoRenewal;
 
     public enum Status {
-        ACTIVE,
-        CANCELED,
-        INACTIVE,
-        PENDING_CANCELLATION,
-        ON_HOLD
+        ACTIVE, // premium plan active until at least (depending on autoRenewal) the end of the billing cycle
+        CANCELED, // premium plan canceled by user, plan expired
+        INACTIVE, // used when default plan is upgraded
+        ON_HOLD // when payment failed
     }
 
     public enum Event implements EmailTemplateType {
+        // remove prefix SUBSCRIPTION_
         SUBSCRIPTION_CREATED,
         SUBSCRIPTION_UPDATED,
-        SUBSCRIPTION_CANCELED,
+        SUBSCRIPTION_CANCELED, // premium plan canceled by user, plan is still active till the end of the billing cycle
+        SUBSCRIPTION_ENDED, // plan expired
+        SUBSCRIPTION_RENEWED,
         SUBSCRIPTION_PAYMENT_FAILED
     }
 }

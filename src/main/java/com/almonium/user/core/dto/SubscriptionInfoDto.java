@@ -20,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 public class SubscriptionInfoDto {
     String name;
     Map<PlanFeature, Integer> limits;
-    boolean autoRenewal;
+    Boolean autoRenewal;
     Plan.Type type;
     Instant startDate;
 }

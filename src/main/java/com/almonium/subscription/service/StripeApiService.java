@@ -9,11 +9,12 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
 import com.stripe.model.checkout.Session;
+import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.SubscriptionUpdateParams;
 import com.stripe.param.checkout.SessionCreateParams;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,36 +22,51 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE)
 public class StripeApiService {
 
     @Value("${stripe.checkout.success-url}")
-    @NonFinal
     String successUrl;
 
     @Value("${stripe.checkout.cancel-url}")
-    @NonFinal
     String cancelUrl;
 
-    // if business logic requires to cancel subscription immediately
-    public void cancelSubscriptionImmediately(String stripeSubscriptionId) {
+    @Value("${stripe.return-url}")
+    String returnUrl;
+
+    public String createBillingPortalSessionForUser(User user) {
         try {
-            Subscription subscription = Subscription.retrieve(stripeSubscriptionId);
-            subscription.cancel();
-            log.info("Canceled subscription with ID {}", subscription.getId());
+            com.stripe.param.billingportal.SessionCreateParams params =
+                    com.stripe.param.billingportal.SessionCreateParams.builder()
+                            .setCustomer(user.getStripeCustomerId())
+                            .setReturnUrl(returnUrl)
+                            .build();
+
+            return com.stripe.model.billingportal.Session.create(params).getUrl();
+        } catch (StripeException e) {
+            log.error("Failed to create session for user with ID {}", user.getId());
+            throw new StripeIntegrationException("Failed to create session: " + e.getMessage(), e);
+        }
+    }
+
+    // if business logic requires to cancel subscription immediately
+    public void cancelSubImmediately(String stripeSubscriptionId) {
+        try {
+            Subscription.retrieve(stripeSubscriptionId).cancel();
+            log.info("Canceled subscription with ID {}", stripeSubscriptionId);
         } catch (StripeException e) {
             log.error("Failed to cancel subscription with ID {}", stripeSubscriptionId);
             throw new StripeIntegrationException("Failed to cancel subscription: " + e.getMessage(), e);
         }
     }
 
-    public void scheduleSubscriptionCancellation(String stripeSubscriptionId) {
+    public void scheduleSubCancellation(String stripeSubscriptionId) {
         try {
-            Subscription subscription = Subscription.retrieve(stripeSubscriptionId);
             SubscriptionUpdateParams params = SubscriptionUpdateParams.builder()
                     .setCancelAtPeriodEnd(true)
                     .build();
-            subscription.update(params);
+
+            Subscription.retrieve(stripeSubscriptionId).update(params);
             log.info("Scheduled cancellation for subscription ID {}", stripeSubscriptionId);
         } catch (StripeException e) {
             log.error("Failed to schedule cancellation for subscription ID {}", stripeSubscriptionId);
@@ -58,27 +74,38 @@ public class StripeApiService {
         }
     }
 
-    public Customer getCustomerById(String customerId) {
-        try {
-            return Customer.retrieve(customerId);
-        } catch (StripeException e) {
-            throw new StripeIntegrationException("Failed to retrieve customer with ID: " + customerId, e);
-        }
-    }
-
     public String createPaymentSession(User user, Plan plan) {
         try {
-            SessionCreateParams params = buildSessionForUserAndPlan(user, plan);
-            return Session.create(params).getUrl();
+            return Session.create(buildCheckoutSessionForUserAndPlan(user, plan))
+                    .getUrl();
         } catch (StripeException e) {
             log.error("Stripe exception occurred while creating payment session: {}", e.getMessage());
             throw new StripeIntegrationException("Failed to create payment session", e);
         }
     }
 
-    private SessionCreateParams buildSessionForUserAndPlan(User user, Plan plan) {
+    public String createCustomerIdForUser(User user) {
+        try {
+            Customer stripeCustomer = Customer.create(CustomerCreateParams.builder()
+                    .setEmail(user.getEmail())
+                    .putMetadata("userId", user.getId().toString())
+                    .build());
+
+            return Optional.ofNullable(stripeCustomer.getId())
+                    .orElseThrow(() -> new StripeIntegrationException("User ID is null"));
+        } catch (StripeException e) {
+            throw new StripeIntegrationException("Failed to create customer for user with ID: " + user.getId(), e);
+        }
+    }
+
+    private SessionCreateParams buildCheckoutSessionForUserAndPlan(User user, Plan plan) {
+        var mode = plan.getType().equals(Plan.Type.LIFETIME)
+                ? SessionCreateParams.Mode.PAYMENT
+                : SessionCreateParams.Mode.SUBSCRIPTION;
+
         SessionCreateParams.Builder params = SessionCreateParams.builder()
-                .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
+                .setCustomer(user.getStripeCustomerId())
+                .setMode(mode)
                 .setSuccessUrl(successUrl + "?session_id={CHECKOUT_SESSION_ID}")
                 .setCancelUrl(cancelUrl)
                 .addLineItem(SessionCreateParams.LineItem.builder()
@@ -87,11 +114,6 @@ public class StripeApiService {
                         .build())
                 .setClientReferenceId(user.getId().toString());
 
-        if (user.getStripeCustomerId() != null) {
-            params.setCustomer(user.getStripeCustomerId());
-        } else {
-            params.setCustomerEmail(user.getEmail());
-        }
         return params.build();
     }
 }

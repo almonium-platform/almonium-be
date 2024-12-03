@@ -17,7 +17,11 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
             PlanSubscription.Event.SUBSCRIPTION_UPDATED,
             new EmailSubjectTemplate("Subscription Updated", "subscription-updated"),
             PlanSubscription.Event.SUBSCRIPTION_CANCELED,
-            new EmailSubjectTemplate("Subscription Deleted", "subscription-deleted"),
+            new EmailSubjectTemplate("Subscription Cancelled", "subscription-cancelled"),
+            PlanSubscription.Event.SUBSCRIPTION_ENDED,
+            new EmailSubjectTemplate("Subscription Ended", "subscription-ended"),
+            PlanSubscription.Event.SUBSCRIPTION_RENEWED,
+            new EmailSubjectTemplate("Subscription Ended", "subscription-renewed"),
             PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED,
             new EmailSubjectTemplate("Payment Failed", "subscription-payment-failed"));
 

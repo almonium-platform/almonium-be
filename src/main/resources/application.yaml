@@ -117,8 +117,9 @@ stripe:
   api:
     key: ${STRIPE_KEY}
   checkout:
-    success-url: ${app.web-domain}/${STRIPE_SUCCESS_URL}
-    cancel-url: ${app.web-domain}/${STRIPE_CANCEL_URL}
+    success-url: ${app.web-domain}/payment/success
+    cancel-url: ${app.web-domain}/pricing?canceled=true
+  return-url: ${app.web-domain}/settings/me?from=portal
 
 external:
   api:

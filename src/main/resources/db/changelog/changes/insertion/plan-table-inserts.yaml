@@ -30,3 +30,12 @@ databaseChangeLog:
               - column: { name: price, valueNumeric: "49.99" }
               - column: { name: type, value: "YEARLY" }
               - column: { name: stripe_price_id, value: "price_1PecFYRoiildngwv0pwCFyJc" }
+        - insert:
+            tableName: plan
+            columns:
+              - column: { name: id, value: "4" }
+              - column: { name: name, value: "INSIDER" }
+              - column: { name: description, value: "for insiders" }
+              - column: { name: price, valueNumeric: "0" }
+              - column: { name: type, value: "LIFETIME" }
+              - column: { name: stripe_price_id, value: "price_1PecJYRoiildngwv9dV9w5nX" }

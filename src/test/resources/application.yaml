@@ -91,6 +91,7 @@ stripe:
   checkout:
     success-url: ${app.web-domain}/success
     cancel-url: ${app.web-domain}/cancel
+  return-url: ${app.web-domain}/return
 
 external:
   api:
