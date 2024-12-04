@@ -18,6 +18,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.impl.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -72,7 +73,8 @@ public class PlanSubscriptionService {
     // Global actions
     public PlanSubscription getActiveSub(User user) {
         return planSubRepository
-                .findByUserAndStatus(user, PlanSubscription.Status.ACTIVE)
+                .findByUserAndStatusIn(
+                        user, List.of(PlanSubscription.Status.ACTIVE, PlanSubscription.Status.ACTIVE_TILL_CYCLE_END))
                 .orElseThrow(
                         () -> new PlanSubscriptionException("No active subscription found for user " + user.getId()));
     }
@@ -110,13 +112,13 @@ public class PlanSubscriptionService {
 
     public void disableSubscriptionRenewal(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
-        setAndSaveAutoRenewal(planSubscription, false);
+        updatePlanSubStatusAndSave(planSubscription, PlanSubscription.Status.ACTIVE_TILL_CYCLE_END);
         sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_CANCELED);
     }
 
     public void renewSubscription(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
-        setAndSaveAutoRenewal(planSubscription, true);
+        updatePlanSubStatusAndSave(planSubscription, PlanSubscription.Status.ACTIVE);
         sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_RENEWED);
     }
 
@@ -275,7 +277,6 @@ public class PlanSubscriptionService {
 
     private void createNewPlanSub(
             User user, Plan plan, String stripeSubscriptionId, Instant startDate, Instant endDate) {
-        boolean isAutoRenewal = plan.getType() != Plan.Type.LIFETIME;
 
         PlanSubscription planSubscription = PlanSubscription.builder()
                 .user(user)
@@ -284,7 +285,6 @@ public class PlanSubscriptionService {
                 .stripeSubscriptionId(stripeSubscriptionId)
                 .startDate(startDate)
                 .endDate(endDate)
-                .autoRenewal(isAutoRenewal)
                 .build();
 
         user.getPlanSubscriptions().add(planSubscription);
@@ -300,11 +300,6 @@ public class PlanSubscriptionService {
         log.info(
                 "Subscription cancellation scheduled for user {}",
                 activeSubscription.getUser().getId());
-    }
-
-    private void setAndSaveAutoRenewal(PlanSubscription planSubscription, boolean autoRenewal) {
-        planSubscription.setAutoRenewal(autoRenewal);
-        planSubRepository.save(planSubscription);
     }
 
     private boolean isPlanDefault(Plan activePlan) {

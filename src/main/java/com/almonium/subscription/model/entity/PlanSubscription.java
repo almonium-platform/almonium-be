@@ -58,12 +58,11 @@ public class PlanSubscription {
     @Enumerated(EnumType.STRING)
     Status status;
 
-    Boolean autoRenewal;
-
     public enum Status {
-        ACTIVE, // premium plan active until at least (depending on autoRenewal) the end of the billing cycle
+        ACTIVE, // premium plan active and not canceled
+        ACTIVE_TILL_CYCLE_END, // premium plan active but canceled by user
         CANCELED, // premium plan canceled by user, plan expired
-        INACTIVE, // used when default plan is upgraded
+        INACTIVE, // lifetime plan is inactive
         ON_HOLD // when payment failed
     }
 

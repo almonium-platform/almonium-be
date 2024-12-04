@@ -46,11 +46,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: auto_renewal
-                  type: BOOLEAN
-                  constraints:
-                    nullable: true
-              - column:
                   name: stripe_subscription_id
                   type: VARCHAR(255)
                   constraints:

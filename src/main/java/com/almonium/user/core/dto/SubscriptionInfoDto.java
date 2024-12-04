@@ -19,8 +19,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 public class SubscriptionInfoDto {
     String name;
+    boolean autoRenewal;
     Map<PlanFeature, Integer> limits;
-    Boolean autoRenewal;
     Plan.Type type;
     Instant startDate;
     Instant endDate;
