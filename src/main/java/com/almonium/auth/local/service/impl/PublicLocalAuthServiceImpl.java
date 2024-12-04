@@ -69,7 +69,6 @@ public class PublicLocalAuthServiceImpl implements PublicLocalAuthService {
         validateRegisterRequest(request);
         User user = userFactory.createUserWithDefaultPlan(request.email());
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
-        userRepository.save(user);
         localPrincipalRepository.save(localPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }

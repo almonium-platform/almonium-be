@@ -1,20 +1,34 @@
 package com.almonium.user.core.factory;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.UsernameGenerator;
 import java.util.HashSet;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = PRIVATE)
 public class UserFactory {
-    private final PlanSubscriptionService planSubscriptionService;
+    PlanSubscriptionService planSubscriptionService;
+    UsernameGenerator usernameGenerator;
+    UserRepository userRepository;
 
     public User createUserWithDefaultPlan(String email) {
-        User user =
-                User.builder().email(email).planSubscriptions(new HashSet<>()).build();
+        String username = usernameGenerator.generateUsername(email);
 
+        User user = User.builder()
+                .email(email)
+                .username(username)
+                .planSubscriptions(new HashSet<>())
+                .build();
+
+        userRepository.save(user);
         planSubscriptionService.assignDefaultPlanToUser(user);
         return user;
     }
