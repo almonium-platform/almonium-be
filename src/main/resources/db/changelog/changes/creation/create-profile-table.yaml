@@ -27,6 +27,9 @@ databaseChangeLog:
               - column:
                   name: friendship_requests_blocked
                   type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
               - column:
                   name: last_login
                   type: timestamp
