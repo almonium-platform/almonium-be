@@ -22,23 +22,19 @@ databaseChangeLog:
             tableName: profile
             columns:
               - column:
-                  name: background
-                  type: varchar(255)
-              - column:
                   name: avatar_url
                   type: varchar(2048)
-              - column:
-                  name: daily_goal
-                  type: int
               - column:
                   name: friendship_requests_blocked
                   type: boolean
               - column:
                   name: last_login
                   type: timestamp
+                  constraints:
+                    nullable: false
               - column:
                   name: streak
                   type: int
-              - column:
-                  name: ui_lang
-                  type: varchar(255)
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false

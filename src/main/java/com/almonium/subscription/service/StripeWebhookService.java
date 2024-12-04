@@ -10,7 +10,6 @@ import com.stripe.model.Event;
 import com.stripe.model.Invoice;
 import com.stripe.model.Subscription;
 import com.stripe.model.checkout.Session;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +47,8 @@ public class StripeWebhookService {
             return;
         }
 
-        stripeEventLogRepository.save(new StripeEventLog(
-                event.getId(), event.getType(), Timestamp.from(Instant.ofEpochSecond(event.getCreated()))));
+        stripeEventLogRepository.save(
+                new StripeEventLog(event.getId(), event.getType(), Instant.ofEpochSecond(event.getCreated())));
         log.info("Registered event: {}", event.getId());
 
         switch (event.getType()) {

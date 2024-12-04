@@ -12,7 +12,6 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: requester_id
                   type: BIGINT
@@ -31,9 +30,13 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: status
                   type: VARCHAR(50)
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: friendship
             baseColumnNames: requester_id

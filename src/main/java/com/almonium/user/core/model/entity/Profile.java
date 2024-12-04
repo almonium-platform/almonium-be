@@ -2,7 +2,6 @@ package com.almonium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
@@ -38,11 +37,7 @@ public class Profile {
     @JoinColumn(name = "id")
     User user;
 
-    String background;
     String avatarUrl;
-
-    @Builder.Default
-    int dailyGoal = 5;
 
     boolean friendshipRequestsBlocked;
 
@@ -50,8 +45,5 @@ public class Profile {
     LocalDateTime lastLogin;
 
     @Builder.Default
-    int streak = 1;
-
-    @Builder.Default
-    Language uiLang = Language.EN;
+    int streak = 0;
 }

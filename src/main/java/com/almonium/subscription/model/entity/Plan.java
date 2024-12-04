@@ -3,7 +3,6 @@ package com.almonium.subscription.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,7 +34,6 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(unique = true)
     String name;
 
     String description;

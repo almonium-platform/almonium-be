@@ -38,7 +38,7 @@ databaseChangeLog:
                   name: stripe_price_id
                   type: VARCHAR(255)
                   constraints:
-                    nullable: false
+                    nullable: true
         - addUniqueConstraint:
             tableName: plan
             columnNames: name,type

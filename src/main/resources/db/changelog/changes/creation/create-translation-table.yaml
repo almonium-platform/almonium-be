@@ -11,10 +11,11 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: translation
                   type: TEXT
+                  constraints:
+                    nullable: false
               - column:
                   name: card_id
                   type: BIGINT

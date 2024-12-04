@@ -58,14 +58,6 @@ public class Card {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     Learner owner;
 
-    @Builder.Default
-    boolean activeLearning = true;
-
-    boolean irregularSpelling;
-    boolean falseFriend;
-    boolean irregularPlural;
-    boolean learnt;
-
     @Enumerated(EnumType.STRING)
     Language language;
 
@@ -78,13 +70,8 @@ public class Card {
     @OneToMany(mappedBy = "card")
     Set<CardTag> cardTags;
 
-    String notes;
-
     @Builder.Default
     int iteration = 0;
-
-    @Builder.Default
-    int priority = 2;
 
     int frequency;
 

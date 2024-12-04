@@ -12,7 +12,6 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: public_id
                   type: UUID
@@ -22,53 +21,47 @@ databaseChangeLog:
               - column:
                   name: entry
                   type: TEXT
+                  constraints:
+                    nullable: false
               - column:
                   name: created_at
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: updated_at
                   type: TIMESTAMP
-              - column:
-                  name: last_repeat
-                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: first_repeat
                   type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_repeat
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
               - column:
                   name: owner_id
                   type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: active_learning
-                  type: BOOLEAN
-              - column:
-                  name: irregular_spelling
-                  type: BOOLEAN
-              - column:
-                  name: false_friend
-                  type: BOOLEAN
-              - column:
-                  name: irregular_plural
-                  type: BOOLEAN
-              - column:
-                  name: learnt
-                  type: BOOLEAN
-              - column:
                   name: language
                   type: VARCHAR(10)
-              - column:
-                  name: notes
-                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: frequency
                   type: INT
               - column:
                   name: iteration
                   type: INT
-              - column:
-                  name: priority
-                  type: INT
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: card
             baseColumnNames: owner_id

@@ -3,7 +3,6 @@ package com.almonium.subscription.cron;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.subscription.repository.StripeEventLogRepository;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ public class StripeEventCleanupTask {
     @Scheduled(cron = "0 0 0 * * ?") // Runs daily at midnight
     public void cleanOldEvents() {
         Instant retentionPeriod = Instant.now().minus(DAYS_TO_RETAIN, ChronoUnit.DAYS);
-        Timestamp timestamp = Timestamp.from(retentionPeriod);
-        stripeEventLogRepository.deleteByCreatedBefore(timestamp);
+        stripeEventLogRepository.deleteByCreatedAtBefore(retentionPeriod);
     }
 }

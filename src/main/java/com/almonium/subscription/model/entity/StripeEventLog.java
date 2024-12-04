@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.sql.Timestamp;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,5 +18,5 @@ public class StripeEventLog {
     String eventId;
 
     String eventType;
-    Timestamp created;
+    Instant createdAt;
 }

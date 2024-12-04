@@ -38,6 +38,11 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: principal_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
               # local
               - column:
                   name: password
@@ -49,11 +54,6 @@ databaseChangeLog:
               - column:
                   name: provider_user_id
                   type: varchar(255)
-              - column:
-                  name: principal_type
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: principal
             baseColumnNames: user_id

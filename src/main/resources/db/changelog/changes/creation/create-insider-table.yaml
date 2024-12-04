@@ -17,3 +17,4 @@ databaseChangeLog:
             referencedTableName: user_core
             referencedColumnNames: id
             constraintName: fk_insider_user
+            onDelete: CASCADE
