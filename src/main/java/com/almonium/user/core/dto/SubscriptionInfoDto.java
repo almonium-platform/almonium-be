@@ -23,4 +23,5 @@ public class SubscriptionInfoDto {
     Boolean autoRenewal;
     Plan.Type type;
     Instant startDate;
+    Instant endDate;
 }

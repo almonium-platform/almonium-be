@@ -76,7 +76,10 @@ public class StripeWebhookService {
         String stripePriceId =
                 subscription.getItems().getData().get(0).getPrice().getId();
 
-        planSubscriptionService.replaceCurrentPlanSubWithNew(customerId, stripePriceId, subscription.getId());
+        Instant periodStart = Instant.ofEpochSecond(subscription.getCurrentPeriodStart());
+        Instant periodEnd = Instant.ofEpochSecond(subscription.getCurrentPeriodEnd());
+        planSubscriptionService.replaceCurrentPlanSubWithNewPremium(
+                customerId, stripePriceId, subscription.getId(), periodStart, periodEnd);
     }
 
     private void handleInvoicePaymentFailed(Event event) {

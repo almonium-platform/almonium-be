@@ -62,7 +62,7 @@ public class PlanSubscriptionService {
         if (isPlanDefault(activeSubscription.getPlan())) {
             throw new BadUserRequestActionException("User is already on the default plan");
         } else if (planService.isPlanInsider(activeSubscription.getPlan().getId())) {
-            updatePlanSubStatus(activeSubscription, PlanSubscription.Status.INACTIVE);
+            updatePlanSubStatusAndSave(activeSubscription, PlanSubscription.Status.INACTIVE);
             findAndActivateDefaultPlan(activeSubscription.getUser());
         } else {
             cancelSubImmediately(activeSubscription);
@@ -91,7 +91,7 @@ public class PlanSubscriptionService {
 
     // on user registration
     public void assignDefaultPlanToUser(User user) {
-        createNewPlanSub(user, planService.getDefaultPlan(), null);
+        createNewPlanSub(user, planService.getDefaultPlan(), null, Instant.now(), null);
     }
 
     // For StripeWebhookService
@@ -102,9 +102,10 @@ public class PlanSubscriptionService {
                 .ifPresentOrElse(
                         insiderPlanSub -> {
                             deactivateCurrentSub(user);
-                            updatePlanSubStatus(insiderPlanSub, PlanSubscription.Status.ACTIVE);
+                            activateLifetimePlan(insiderPlanSub);
                         },
-                        () -> replaceCurrentPlanSubWithNew(user, planService.getInsiderPlan(), null));
+                        () -> replaceCurrentPlanSubWithNewPremium(
+                                user, planService.getInsiderPlan(), null, Instant.now(), null));
     }
 
     public void disableSubscriptionRenewal(String stripeSubscriptionId) {
@@ -121,15 +122,16 @@ public class PlanSubscriptionService {
 
     public void putSubscriptionOnHold(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
-        updatePlanSubStatus(planSubscription, PlanSubscription.Status.ON_HOLD);
+        updatePlanSubStatusAndSave(planSubscription, PlanSubscription.Status.ON_HOLD);
         sendEmailForEvent(
                 planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED);
     }
 
-    public void replaceCurrentPlanSubWithNew(String customerId, String stripePriceId, String stripeSubscriptionId) {
+    public void replaceCurrentPlanSubWithNewPremium(
+            String customerId, String stripePriceId, String stripeSubscriptionId, Instant startDate, Instant endDate) {
         Plan plan = getPlanByStripePriceIdOrThrow(stripePriceId);
         User user = getUserByStripeCustomerIdOrThrow(customerId);
-        replaceCurrentPlanSubWithNew(user, plan, stripeSubscriptionId);
+        replaceCurrentPlanSubWithNewPremium(user, plan, stripeSubscriptionId, startDate, endDate);
     }
 
     private Plan getPlanByStripePriceIdOrThrow(String stripePriceId) {
@@ -149,7 +151,7 @@ public class PlanSubscriptionService {
 
         // main path: user cancelled the subscription some time ago, and now the billing cycle is ending
         if (status == PlanSubscription.Status.ACTIVE) {
-            updatePlanSubStatus(targetedPlanSub, PlanSubscription.Status.CANCELED);
+            updatePlanSubStatusAndSave(targetedPlanSub, PlanSubscription.Status.CANCELED);
             sendEmailForEvent(targetedPlanSub.getUser(), targetedPlanSub, PlanSubscription.Event.SUBSCRIPTION_ENDED);
             findAndActivateDefaultPlan(targetedPlanSub.getUser());
         }
@@ -237,9 +239,10 @@ public class PlanSubscriptionService {
                         });
     }
 
-    private void replaceCurrentPlanSubWithNew(User user, Plan plan, String stripeSubscriptionId) {
+    private void replaceCurrentPlanSubWithNewPremium(
+            User user, Plan plan, String stripeSubscriptionId, Instant startDate, Instant endDate) {
         deactivateCurrentSub(user);
-        createPremiumPlanSubAndNotify(user, plan, stripeSubscriptionId);
+        createPremiumPlanSubAndNotify(user, plan, stripeSubscriptionId, startDate, endDate);
     }
 
     private void deactivateCurrentSub(User user) {
@@ -249,7 +252,7 @@ public class PlanSubscriptionService {
         PlanSubscription.Status status = activeSubscription.getPlan().getType() == Plan.Type.LIFETIME
                 ? PlanSubscription.Status.INACTIVE
                 : PlanSubscription.Status.CANCELED;
-        updatePlanSubStatus(activeSubscription, status);
+        updatePlanSubStatusAndSave(activeSubscription, status);
     }
 
     private User getUserByStripeCustomerIdOrThrow(String customerId) {
@@ -258,8 +261,9 @@ public class PlanSubscriptionService {
                 .orElseThrow(() -> new StripeIntegrationException("User not found with customer ID: " + customerId));
     }
 
-    private void createPremiumPlanSubAndNotify(User user, Plan plan, String stripeSubscriptionId) {
-        createNewPlanSub(user, plan, stripeSubscriptionId);
+    private void createPremiumPlanSubAndNotify(
+            User user, Plan plan, String stripeSubscriptionId, Instant startDate, Instant endDate) {
+        createNewPlanSub(user, plan, stripeSubscriptionId, startDate, endDate);
         sendEmailForEvent(user, getActiveSub(user), PlanSubscription.Event.SUBSCRIPTION_CREATED);
     }
 
@@ -269,7 +273,8 @@ public class PlanSubscriptionService {
         }
     }
 
-    private void createNewPlanSub(User user, Plan plan, String stripeSubscriptionId) {
+    private void createNewPlanSub(
+            User user, Plan plan, String stripeSubscriptionId, Instant startDate, Instant endDate) {
         boolean isAutoRenewal = plan.getType() != Plan.Type.LIFETIME;
 
         PlanSubscription planSubscription = PlanSubscription.builder()
@@ -277,7 +282,8 @@ public class PlanSubscriptionService {
                 .plan(plan)
                 .status(PlanSubscription.Status.ACTIVE)
                 .stripeSubscriptionId(stripeSubscriptionId)
-                .startDate(Instant.now())
+                .startDate(startDate)
+                .endDate(endDate)
                 .autoRenewal(isAutoRenewal)
                 .build();
 
@@ -311,7 +317,7 @@ public class PlanSubscriptionService {
         emailService.sendEmail(emailDto);
     }
 
-    private void updatePlanSubStatus(PlanSubscription planSubscription, PlanSubscription.Status status) {
+    private void updatePlanSubStatusAndSave(PlanSubscription planSubscription, PlanSubscription.Status status) {
         planSubscription.setStatus(status);
         planSubRepository.save(planSubscription);
         log.info("Subscription {} set to {}", planSubscription.getId(), status);
@@ -319,6 +325,12 @@ public class PlanSubscriptionService {
 
     private void findAndActivateDefaultPlan(User user) {
         PlanSubscription defaultPlanSub = getDefaultPlanSubOrThrow(user);
-        updatePlanSubStatus(defaultPlanSub, PlanSubscription.Status.ACTIVE);
+        activateLifetimePlan(defaultPlanSub);
+    }
+
+    private void activateLifetimePlan(PlanSubscription planSubscription) {
+        planSubscription.setStartDate(Instant.now());
+        planSubscription.setEndDate(null);
+        updatePlanSubStatusAndSave(planSubscription, PlanSubscription.Status.ACTIVE);
     }
 }

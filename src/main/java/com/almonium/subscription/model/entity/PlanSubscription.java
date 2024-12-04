@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.infra.email.model.enums.EmailTemplateType;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
@@ -29,6 +32,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Table(name = "plan_subscription")
 @FieldDefaults(level = PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class PlanSubscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +49,11 @@ public class PlanSubscription {
     String stripeSubscriptionId;
 
     Instant startDate;
+
+    Instant endDate;
+
+    @LastModifiedDate
+    Instant updatedAt;
 
     @Enumerated(EnumType.STRING)
     Status status;
