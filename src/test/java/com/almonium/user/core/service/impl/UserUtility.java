@@ -15,9 +15,7 @@ public class UserUtility {
         user.setUsername("john");
         user.setEmail("john@example.com");
         Profile profile = new Profile();
-        profile.setUiLang(Language.EN);
         profile.setAvatarUrl("profile.jpg");
-        profile.setBackground("background.jpg");
         profile.setStreak(5);
         user.setProfile(profile);
         Learner learner = new Learner();

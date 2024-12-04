@@ -18,7 +18,7 @@ public class PlanValidationService {
 
         activePlan.getLimits().stream()
                 .filter(limit -> limit.getFeatureKey().equals(featureKey))
-                .map(PlanLimit::getValue)
+                .map(PlanLimit::getLimitValue)
                 .findFirst()
                 .ifPresent(allowedValue -> {
                     if (requestedValue > allowedValue) {

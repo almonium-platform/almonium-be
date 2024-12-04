@@ -189,10 +189,8 @@ public class TestDataGenerator {
                 .build();
         Profile profile = Profile.builder()
                 .id(user.getId())
-                .background("Background Image URL")
                 .avatarUrl("Profile Image URL")
                 .streak(3)
-                .uiLang(Language.EN)
                 .lastLogin(LocalDateTime.now())
                 .build();
 
@@ -201,9 +199,7 @@ public class TestDataGenerator {
                 user.getUsername(),
                 user.getEmail(),
                 user.isEmailVerified(),
-                profile.getUiLang(),
                 profile.getAvatarUrl(),
-                profile.getBackground(),
                 profile.getStreak(),
                 learner.getTargetLangs(),
                 learner.getFluentLangs(),

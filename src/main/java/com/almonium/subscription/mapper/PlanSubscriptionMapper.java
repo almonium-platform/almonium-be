@@ -16,6 +16,7 @@ public interface PlanSubscriptionMapper {
     @Mapping(target = "name", source = "plan.name")
     @Mapping(target = "type", source = "plan.type")
     @Mapping(target = "limits", ignore = true)
+    @Mapping(target = "autoRenewal", ignore = true)
     SubscriptionInfoDto planSubscriptionToPlanDto(PlanSubscription planSubscription);
 
     @AfterMapping

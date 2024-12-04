@@ -20,9 +20,7 @@ public class UserInfo {
     String username;
     String email;
     boolean emailVerified;
-    Language uiLang;
     String profilePicLink;
-    String background;
     Integer streak;
     Collection<Language> targetLangs;
     Collection<Language> fluentLangs;

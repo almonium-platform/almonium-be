@@ -38,7 +38,7 @@ public class PlanService {
 
     public Map<PlanFeature, Integer> getPlanLimits(long planId) {
         return planLimitRepository.findByPlanId(planId).stream()
-                .collect(Collectors.toMap(PlanFeatureLimit::featureKey, PlanFeatureLimit::value));
+                .collect(Collectors.toMap(PlanFeatureLimit::featureKey, PlanFeatureLimit::limitValue));
     }
 
     public boolean isPlanDefault(long planId) {

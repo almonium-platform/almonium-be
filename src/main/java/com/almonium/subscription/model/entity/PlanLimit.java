@@ -40,5 +40,5 @@ public class PlanLimit {
     @Enumerated(EnumType.STRING)
     PlanFeature featureKey;
 
-    int value;
+    int limitValue;
 }
