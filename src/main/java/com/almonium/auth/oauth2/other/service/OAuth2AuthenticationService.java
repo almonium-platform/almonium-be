@@ -81,6 +81,7 @@ public class OAuth2AuthenticationService {
     private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = userFactory.createUserWithDefaultPlan(userInfo.getEmail());
+        user.setEmailVerified(true);
         return createAndSaveNewPrincipalForExistingUser(user, userInfo);
     }
 
