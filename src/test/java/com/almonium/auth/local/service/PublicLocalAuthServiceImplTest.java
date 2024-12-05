@@ -95,7 +95,7 @@ class PublicLocalAuthServiceImplTest {
 
         // Assert
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
-        verify(userRepository).save(user);
+        verify(userFactory).createUserWithDefaultPlan(registrationRequest.email());
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
         verify(verificationTokenManagementService)
                 .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
