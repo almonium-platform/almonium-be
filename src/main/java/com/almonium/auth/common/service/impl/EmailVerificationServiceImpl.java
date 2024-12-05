@@ -15,6 +15,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     VerificationTokenMapper verificationTokenMapper;
 
     @Override
+    @Transactional // TODO why it's needed?
     public void sendEmailVerification(long id) {
         User user = userService.getById(id);
         LocalPrincipal localPrincipal = userService

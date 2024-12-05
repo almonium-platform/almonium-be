@@ -73,6 +73,7 @@ public class SensitiveAuthActionsServiceImpl implements SensitiveAuthActionsServ
 
     @Override
     public void cancelEmailChangeRequest(long id) {
+        // todo bug, this deletes local principal when asked for verification, not email change
         handleEmailChangeRequest(id, token -> principalRepository.delete(token.getPrincipal()));
     }
 
