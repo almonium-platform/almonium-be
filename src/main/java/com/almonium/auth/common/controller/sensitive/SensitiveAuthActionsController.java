@@ -10,7 +10,7 @@ import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.service.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

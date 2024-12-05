@@ -18,6 +18,8 @@ import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.PlanService;
+import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
@@ -31,10 +33,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class UserServiceImplTest {
+class UserServiceTest {
 
     @InjectMocks
-    UserServiceImpl userService;
+    UserService userService;
 
     @Mock
     UserRepository userRepository;

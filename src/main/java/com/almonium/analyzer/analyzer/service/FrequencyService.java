@@ -1,4 +1,4 @@
-package com.almonium.analyzer.analyzer.service.impl;
+package com.almonium.analyzer.analyzer.service;
 
 import com.almonium.analyzer.client.ngrams.adapter.NgramsAdapter;
 import com.almonium.analyzer.translator.model.enums.Language;

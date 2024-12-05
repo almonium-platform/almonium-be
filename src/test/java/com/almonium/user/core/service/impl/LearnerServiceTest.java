@@ -11,6 +11,7 @@ import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
+import com.almonium.user.core.service.LearnerService;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -27,7 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @FieldDefaults(level = PRIVATE)
 class LearnerServiceTest {
     @InjectMocks
-    LearnerServiceImpl learnerService;
+    LearnerService learnerService;
 
     @Mock
     LearnerRepository learnerRepository;

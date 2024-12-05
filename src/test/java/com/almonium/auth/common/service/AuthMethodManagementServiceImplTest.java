@@ -3,9 +3,8 @@ package com.almonium.auth.common.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.service.impl.AuthMethodManagementServiceImpl;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.service.impl.PasswordEncoderService;
+import com.almonium.auth.local.service.PasswordEncoderService;
 import com.almonium.user.core.service.UserService;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @FieldDefaults(level = PRIVATE)
 class AuthMethodManagementServiceImplTest {
     @InjectMocks
-    AuthMethodManagementServiceImpl authService;
+    AuthMethodManagementService authService;
 
     @Mock
     VerificationTokenManagementService verificationTokenManagementService;

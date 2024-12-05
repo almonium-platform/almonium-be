@@ -1,6 +1,5 @@
-package com.almonium.auth.local.service.impl;
+package com.almonium.auth.local.service;
 
-import com.almonium.auth.local.service.TokenGenerator;
 import java.security.SecureRandom;
 import org.springframework.stereotype.Service;
 

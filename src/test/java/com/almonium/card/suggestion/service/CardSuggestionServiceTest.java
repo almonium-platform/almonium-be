@@ -21,7 +21,6 @@ import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.card.suggestion.dto.CardSuggestionDto;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.card.suggestion.repository.CardSuggestionRepository;
-import com.almonium.card.suggestion.service.impl.CardSuggestionServiceImpl;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,7 +41,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class CardSuggestionServiceImplTest {
+class CardSuggestionServiceTest {
     @Mock
     CardRepository cardRepository;
 
@@ -62,7 +61,7 @@ class CardSuggestionServiceImplTest {
     CardMapper cardMapper;
 
     @InjectMocks
-    CardSuggestionServiceImpl cardSuggestionService;
+    CardSuggestionService cardSuggestionService;
 
     @DisplayName("Should return list of suggested CardDto")
     @Test

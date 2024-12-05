@@ -2,7 +2,7 @@ package com.almonium.auth.token.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.service.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

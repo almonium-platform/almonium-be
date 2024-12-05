@@ -14,9 +14,10 @@ import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
+import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.service.impl.PasswordEncoderService;
+import com.almonium.auth.local.service.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.util.TestDataGenerator;
@@ -31,9 +32,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class SensitiveAuthActionsServiceImplTest {
+class SensitiveAuthActionsServiceTest {
     @InjectMocks
-    SensitiveAuthActionsServiceImpl authService;
+    SensitiveAuthActionsService authService;
 
     @Mock
     VerificationTokenManagementService verificationTokenManagementService;

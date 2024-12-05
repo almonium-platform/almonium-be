@@ -1,4 +1,4 @@
-package com.almonium.auth.token.service.impl;
+package com.almonium.auth.token.service;
 
 import static lombok.AccessLevel.PRIVATE;
 

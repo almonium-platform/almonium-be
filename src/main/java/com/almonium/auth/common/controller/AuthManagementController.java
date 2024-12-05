@@ -7,7 +7,7 @@ import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.PrincipalDto;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.service.AuthMethodManagementService;
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.service.AuthTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -13,8 +13,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.factory.PrincipalFactory;
+import com.almonium.auth.common.service.UserAuthenticationService;
 import com.almonium.auth.common.service.VerificationTokenManagementService;
-import com.almonium.auth.common.service.impl.UserAuthenticationServiceImpl;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
@@ -22,7 +22,6 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.auth.local.service.impl.PublicLocalAuthServiceImpl;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.model.entity.User;
@@ -49,11 +48,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 @FieldDefaults(level = PRIVATE)
 @ActiveProfiles("test")
 @TestPropertySource(properties = {"app.auth.email-verification-required=true"})
-class PublicLocalAuthServiceImplTest {
+class PublicLocalAuthServiceTest {
     private static final String IS_EMAIL_VERIFICATION_REQUIRED_FIELD = "emailVerificationRequired";
 
     @InjectMocks
-    PublicLocalAuthServiceImpl authService;
+    PublicLocalAuthService authService;
 
     @Mock
     UserRepository userRepository;
@@ -77,7 +76,7 @@ class PublicLocalAuthServiceImplTest {
     UserFactory userFactory;
 
     @Mock
-    UserAuthenticationServiceImpl userAuthenticationServiceImpl;
+    UserAuthenticationService userAuthenticationService;
 
     @DisplayName("Should successfully register local user")
     @Test
@@ -115,7 +114,7 @@ class PublicLocalAuthServiceImplTest {
         Authentication auth = mock(Authentication.class);
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(auth);
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
-        when(userAuthenticationServiceImpl.authenticateUser(
+        when(userAuthenticationService.authenticateUser(
                         eq(user), any(HttpServletResponse.class), any(Authentication.class)))
                 .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
         // Act
@@ -123,7 +122,7 @@ class PublicLocalAuthServiceImplTest {
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
-        verify(userAuthenticationServiceImpl)
+        verify(userAuthenticationService)
                 .authenticateUser(any(User.class), any(HttpServletResponse.class), any(Authentication.class));
         assertThat(result.accessToken()).isEqualTo(expectedAccessJwt);
         assertThat(result.refreshToken()).isEqualTo(expectedRefreshJwt);
@@ -163,7 +162,7 @@ class PublicLocalAuthServiceImplTest {
                 .isInstanceOf(EmailNotVerifiedException.class)
                 .hasMessage("Email needs to be verified before logging in.");
 
-        verify(userAuthenticationServiceImpl, never())
+        verify(userAuthenticationService, never())
                 .authenticateUser(any(User.class), any(HttpServletResponse.class), any(Authentication.class));
     }
 

@@ -2,7 +2,7 @@ package com.almonium.config.aspects;
 
 import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.common.util.CookieUtil;
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.service.AuthTokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;

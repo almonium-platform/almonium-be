@@ -3,7 +3,7 @@ package com.almonium.auth.token.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.util.CookieUtil;
-import com.almonium.auth.token.service.impl.AuthTokenService;
+import com.almonium.auth.token.service.AuthTokenService;
 import com.almonium.util.dto.ApiResponse;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;

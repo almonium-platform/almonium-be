@@ -7,13 +7,12 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.almonium.auth.common.service.impl.VerificationTokenManagementServiceImpl;
 import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
-import com.almonium.auth.local.service.impl.ApacheAlphanumericGeneratorImpl;
+import com.almonium.auth.local.service.ApacheAlphanumericGeneratorImpl;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
@@ -30,10 +29,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-class VerificationTokenManagementServiceImplTest {
+class VerificationTokenManagementServiceTest {
 
     @InjectMocks
-    VerificationTokenManagementServiceImpl verificationTokenManagementService;
+    VerificationTokenManagementService verificationTokenManagementService;
 
     @Mock
     EmailService emailService;

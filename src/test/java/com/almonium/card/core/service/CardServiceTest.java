@@ -32,7 +32,6 @@ import com.almonium.card.core.repository.CardTagRepository;
 import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.TagRepository;
 import com.almonium.card.core.repository.TranslationRepository;
-import com.almonium.card.core.service.impl.CardServiceImpl;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.util.TestDataGenerator;
@@ -60,7 +59,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class CardServiceImplTest {
+class CardServiceTest {
     @Mock
     CardRepository cardRepository;
 
@@ -83,7 +82,7 @@ class CardServiceImplTest {
     CardMapper cardMapper;
 
     @InjectMocks
-    CardServiceImpl cardServiceImpl;
+    CardService cardService;
 
     @Captor
     private ArgumentCaptor<List<CardTag>> captor;
@@ -106,7 +105,7 @@ class CardServiceImplTest {
         when(cardMapper.cardEntityToDto(card2)).thenReturn(new CardDto());
 
         // Act
-        List<CardDto> result = cardServiceImpl.searchByEntry(entry, user);
+        List<CardDto> result = cardService.searchByEntry(entry, user);
 
         // Assert
         assertThat(result).isNotNull();
@@ -125,7 +124,7 @@ class CardServiceImplTest {
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
 
         // Act
-        CardDto result = cardServiceImpl.getCardById(id);
+        CardDto result = cardService.getCardById(id);
 
         // Assert
         assertThat(result).isEqualTo(expectedDto);
@@ -143,7 +142,7 @@ class CardServiceImplTest {
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
 
         // Act
-        CardDto result = cardServiceImpl.getCardByPublicId(uuid.toString());
+        CardDto result = cardService.getCardByPublicId(uuid.toString());
 
         // Assert
         assertThat(result).isEqualTo(expectedDto);
@@ -167,7 +166,7 @@ class CardServiceImplTest {
         when(cardMapper.cardEntityToDto(card2)).thenReturn(dto2);
 
         // Act
-        List<CardDto> result = cardServiceImpl.getUsersCards(user);
+        List<CardDto> result = cardService.getUsersCards(user);
 
         // Assert
         assertThat(result).isEqualTo(expectedDtos);
@@ -182,7 +181,7 @@ class CardServiceImplTest {
         when(cardRepository.getByPublicId(random)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> cardServiceImpl.getCardByPublicId(random.toString()))
+        assertThatThrownBy(() -> cardService.getCardByPublicId(random.toString()))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -192,7 +191,7 @@ class CardServiceImplTest {
         Long id = 1L;
 
         // Act
-        cardServiceImpl.deleteById(id);
+        cardService.deleteById(id);
 
         // Assert
         verify(cardRepository, times(1)).deleteById(id);
@@ -240,7 +239,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify deletion of examples
@@ -282,7 +281,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify deletion of translations
@@ -337,7 +336,7 @@ class CardServiceImplTest {
         }
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify update of translations
@@ -402,7 +401,7 @@ class CardServiceImplTest {
         }
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify update of examples
@@ -444,7 +443,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify creation of new translations
@@ -486,7 +485,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify creation of new examples
@@ -518,7 +517,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify that the updated timestamp was set
@@ -545,7 +544,7 @@ class CardServiceImplTest {
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, user);
+        cardService.updateCard(cardId, dto, user);
 
         // Assert
         // Verify that the updated card was saved
@@ -575,7 +574,7 @@ class CardServiceImplTest {
         mockCardTagRepository(List.of(cardTagToBeDeleted));
 
         // Act
-        cardServiceImpl.updateCard(cardId, dto, learner);
+        cardService.updateCard(cardId, dto, learner);
 
         // Assert
         verify(cardTagRepository).delete(cardTagToBeDeleted);
@@ -609,7 +608,7 @@ class CardServiceImplTest {
         Learner mockLearner = mock(Learner.class);
 
         // Act
-        cardServiceImpl.createCard(mockLearner, mockDto);
+        cardService.createCard(mockLearner, mockDto);
 
         // Verify
         verify(cardTagRepository).saveAll(captor.capture());
@@ -648,7 +647,7 @@ class CardServiceImplTest {
         }
 
         // Invoke the method
-        List<CardDto> result = cardServiceImpl.getUsersCardsOfLang(Language.DE, user);
+        List<CardDto> result = cardService.getUsersCardsOfLang(Language.DE, user);
 
         // Assertions
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);

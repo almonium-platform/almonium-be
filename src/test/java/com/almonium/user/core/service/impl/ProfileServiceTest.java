@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.ProfileRepository;
+import com.almonium.user.core.service.ProfileService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.experimental.FieldDefaults;
@@ -23,7 +24,7 @@ class ProfileServiceTest {
     ProfileRepository profileRepository;
 
     @InjectMocks
-    ProfileServiceImpl profileService;
+    ProfileService profileService;
 
     @DisplayName("Should increase streak if last login is on the previous day")
     @Test

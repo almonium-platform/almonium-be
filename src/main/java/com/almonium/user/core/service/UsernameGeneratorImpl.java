@@ -2,7 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.local.service.impl.SecureRandomNumericGeneratorImpl;
+import com.almonium.auth.local.service.SecureRandomNumericGeneratorImpl;
 import com.almonium.user.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

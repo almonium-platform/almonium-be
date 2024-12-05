@@ -1,4 +1,4 @@
-package com.almonium.auth.local.service.impl;
+package com.almonium.auth.local.service;
 
 import com.almonium.config.security.PasswordEncoder;
 import lombok.RequiredArgsConstructor;

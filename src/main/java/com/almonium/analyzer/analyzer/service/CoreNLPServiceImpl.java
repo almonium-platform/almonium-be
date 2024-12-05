@@ -1,4 +1,4 @@
-package com.almonium.analyzer.analyzer.service.impl;
+package com.almonium.analyzer.analyzer.service;
 
 import static lombok.AccessLevel.PRIVATE;
 

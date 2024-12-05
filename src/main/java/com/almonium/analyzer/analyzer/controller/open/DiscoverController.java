@@ -2,7 +2,7 @@ package com.almonium.analyzer.analyzer.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.analyzer.service.impl.FrequencyService;
+import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.translator.model.enums.Language;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

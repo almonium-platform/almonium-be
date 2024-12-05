@@ -2,7 +2,7 @@ package com.almonium.auth.common.factory;
 
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.service.impl.PasswordEncoderService;
+import com.almonium.auth.local.service.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

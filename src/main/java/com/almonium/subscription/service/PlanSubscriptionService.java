@@ -15,7 +15,7 @@ import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.impl.PlanService;
+import com.almonium.user.core.service.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
