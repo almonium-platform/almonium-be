@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment Failed</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>We encountered an issue while processing your payment for the <b
+                th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan.</b></p>
+
+        <p>Don’t worry—your premium subscription is still active, and you can continue enjoying all the premium
+            features. We’ll automatically retry processing your payment several times over the next two weeks.</p>
+
+        <p>If the payment continues to fail, your subscription will be canceled after the final retry. To prevent any
+            interruptions, please update your payment method in your account settings as soon as possible.</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="button">
+                Update Payment Details
+            </a>
+        </p>
+
+        <p>If you have any questions or need assistance, our support team is here to help. Please don’t hesitate to
+            reach out!</p>
+
+        <br>
+        <p>Thank you for being with us!</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

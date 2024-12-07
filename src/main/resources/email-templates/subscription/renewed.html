@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome Back!</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>Thank you for renewing your subscription to the <b
+                th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan!</b></p>
+
+        <p>We’re thrilled to have you back as a premium subscriber. You now have full access to all the top-tier
+            features and benefits our service has to offer.</p>
+
+        <p>Your subscription is active again, and you can start enjoying all the premium content right away.</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="premium-btn">
+                Go to App
+            </a>
+        </p>
+
+        <p>If you’d like to manage your subscription settings or view billing information, you can always visit your
+            account settings.</p>
+
+        <p>If you have any questions or need assistance, feel free to reach out to our support team. We’re here to
+            help!</p>
+
+        <p>Thank you once again for choosing to continue with us. Enjoy all the great benefits of your premium plan!</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

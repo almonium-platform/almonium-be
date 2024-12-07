@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to Premium!</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>Congratulations! Your account has been successfully upgraded to our exclusive
+            <b th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></b>
+            <b> Plan</b>
+        </p>
+
+        <p>As a premium subscriber, you now have access to all the top-tier features and benefits our service has to
+            offer.</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="premium-btn">
+                Go to App
+            </a>
+        </p>
+
+        <p>You can manage your subscription and view your billing details anytime from your account settings.</p>
+
+        <p>Here’s what you can do in your account:</p>
+        <ul>
+            <li>View your next billing date and payment history</li>
+            <li>Update your payment method</li>
+            <li>Cancel renewal or downgrade immediately (if you ever decide to - but we hope you don't!)</li>
+        </ul>
+
+        <p>If you have any questions or need assistance, our support team is here to help. Don’t hesitate to reach
+            out!</p>
+
+        <br>
+        <p>Thank you for choosing our Premium Plan. We’re excited to have you on board!</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

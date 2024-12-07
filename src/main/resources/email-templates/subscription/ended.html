@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your Subscription Has Ended</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>We wanted to inform you that your <b
+                th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan has expired</b> and your
+            premium features are no longer available.</p>
+
+        <p>We hope you enjoyed the benefits of our premium plan! You can always upgrade back to enjoy all the features
+            and benefits of your premium account at any time.</p>
+
+        <p>If you decide to upgrade, simply click the link below to get started:</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="premium-btn">
+                Upgrade Now
+            </a>
+        </p>
+
+        <p>If you have any questions or need assistance, feel free to reach out to our support team. We’d be happy to
+            help!</p>
+
+        <p>Thank you for being a valued part of our community. We hope to welcome you back soon!</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

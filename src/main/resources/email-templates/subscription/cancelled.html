@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Subscription Cancelled</title>
+</head>
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hello,</p>
+        <p>We're sorry to see you go! Your subscription to the <b
+                th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan has been successfully
+            cancelled.</b></p>
+
+        <p>Your subscription will remain active until the end of your current billing period, and you’ll still be able
+            to enjoy all the premium features during this time.</p>
+
+        <p>If you change your mind, you can easily renew your subscription anytime from your profile settings before
+            your current period ends.</p>
+
+        <p>If you have any questions or would like assistance with your account, please don't hesitate to contact our
+            support team. We are here to help!</p>
+
+        <p>Thank you for being with us! We hope to welcome you back in the future.</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="button">
+                Go to Account Settings
+            </a>
+        </p>
+
+        <br>
+        <p>Warm regards,</p>
+        <p>The Almonium Team</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

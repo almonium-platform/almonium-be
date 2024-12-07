@@ -124,8 +124,7 @@ public class PlanSubscriptionService {
 
     public void putSubscriptionOnHold(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
-        sendEmailForEvent(
-                planSubscription.getUser(), planSubscription, PlanSubscription.Event.PAYMENT_FAILED);
+        sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.PAYMENT_FAILED);
     }
 
     public void replaceCurrentPlanSubWithNewPremium(
