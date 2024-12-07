@@ -4,7 +4,6 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
 import com.almonium.infra.email.model.enums.EmailTemplateType;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
@@ -25,9 +24,6 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
     private static final String RESET_PASSWORD_URL = "/reset-password";
     private static final String CHANGE_EMAIL_URL = "/change-email";
 
-    @Value("${app.web-domain}")
-    private String domain;
-
     public AuthTokenEmailComposerService(SpringTemplateEngine templateEngine) {
         super(templateEngine);
     }
@@ -38,8 +34,8 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
     }
 
     @Override
-    public Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String token) {
-        String url = getApiUrlForAuthIntent(token, (TokenType) templateType);
+    public Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String data) {
+        String url = getApiUrlForAuthIntent(data, (TokenType) templateType);
         return Map.of(PLACEHOLDER, url);
     }
 

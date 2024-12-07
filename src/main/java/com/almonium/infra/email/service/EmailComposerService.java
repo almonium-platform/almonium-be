@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -26,9 +27,12 @@ public abstract class EmailComposerService {
 
     private final SpringTemplateEngine templateEngine;
 
-    public EmailDto composeEmail(String recipientEmail, EmailTemplateType templateType, String tokenOrPlanName) {
+    @Value("${app.web-domain}")
+    protected String domain;
+
+    public EmailDto composeEmail(String recipientEmail, EmailTemplateType templateType, String data) {
         Context context = new Context();
-        getCustomPlaceholders(templateType, tokenOrPlanName).forEach(context::setVariable);
+        getCustomPlaceholders(templateType, data).forEach(context::setVariable);
         UNIVERSAL_EMAIL_PLACEHOLDERS.forEach(context::setVariable);
 
         EmailSubjectTemplate dto = getTemplateTypeConfigMap().get(templateType);
@@ -77,7 +81,7 @@ public abstract class EmailComposerService {
 
     public abstract Map<EmailTemplateType, EmailSubjectTemplate> getTemplateTypeConfigMap();
 
-    public abstract Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String tokenOrPlanName);
+    public abstract Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String data);
 
     public abstract String getSubfolder();
 }
