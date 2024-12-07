@@ -14,23 +14,23 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 @RequiredArgsConstructor
 @Configuration
-public class TokenCleanupTask {
-    private final VerificationTokenRepository tokenRepository;
+public class VerificationTokenCleanupTask {
+    private final VerificationTokenRepository verificationTokenRepository;
     private final PrincipalRepository principalRepository;
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
-    public void purgeExpiredTokens() {
+    public void purgeExpiredVerificationTokens() {
         Instant now = Instant.now();
 
         // Delete principals attached to expired EMAIL_CHANGE tokens
         List<VerificationToken> expiredEmailChangeTokens =
-                tokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE_VERIFICATION, now);
+                verificationTokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE_VERIFICATION, now);
 
         principalRepository.deleteAll(expiredEmailChangeTokens.stream()
                 .map(VerificationToken::getPrincipal)
                 .toList());
 
         // Delete other expired tokens
-        tokenRepository.deleteByExpiresAtBefore(now);
+        verificationTokenRepository.deleteByExpiresAtBefore(now);
     }
 }
