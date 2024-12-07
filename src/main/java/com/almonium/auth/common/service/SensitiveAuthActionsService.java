@@ -32,13 +32,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class SensitiveAuthActionsService {
-    UserService userService;
     PrincipalFactory principalFactory;
-    PrincipalRepository principalRepository;
+    UserService userService;
     PasswordEncoderService passwordEncoderService;
-    VerificationTokenManagementService verificationTokenManagementService;
     PlanSubscriptionService planSubscriptionService;
+    VerificationTokenManagementService verificationTokenManagementService;
+
     UserRepository userRepository;
+    PrincipalRepository principalRepository;
 
     public void changePassword(long id, String newPassword) {
         User user = userService.getById(id);
@@ -65,18 +66,6 @@ public class SensitiveAuthActionsService {
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(
                 newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
-    }
-
-    public void cancelEmailChangeRequest(long id) {
-        // todo bug, this deletes local principal when asked for verification, not email change
-        handleEmailChangeRequest(id, token -> principalRepository.delete(token.getPrincipal()));
-    }
-
-    public void resendEmailChangeRequest(long id) {
-        handleEmailChangeRequest(
-                id,
-                token -> verificationTokenManagementService.createAndSendVerificationToken(
-                        token.getPrincipal(), token.getTokenType()));
     }
 
     public void linkLocal(long userId, String password) {
@@ -116,14 +105,12 @@ public class SensitiveAuthActionsService {
         log.info("Provider: {} unlinked for user: {}", providerType, userId);
     }
 
-    @Transactional
     public void deleteAccount(User user) {
         planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
         userRepository.delete(user);
     }
 
-    private void handleEmailChangeRequest(long id, Consumer<VerificationToken> action) {
-
+    public void handleEmailChangeRequest(long id, Consumer<VerificationToken> action) {
         verificationTokenManagementService
                 .findValidEmailVerificationToken(id)
                 .ifPresentOrElse(

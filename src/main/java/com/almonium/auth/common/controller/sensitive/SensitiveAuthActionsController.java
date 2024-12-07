@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
+import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
@@ -39,9 +40,16 @@ public class SensitiveAuthActionsController {
         return ResponseEntity.ok().build();
     }
 
+    // used when the user doesn't have a local auth method
     @PostMapping("/local/migrate")
     public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
         sensitiveAuthActionsService.linkLocalWithNewEmail(auth.getUser().getId(), request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/email/change")
+    public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @Valid @RequestBody EmailRequestDto request) {
+        sensitiveAuthActionsService.requestEmailChange(auth.getUser().getId(), request.email());
         return ResponseEntity.ok().build();
     }
 
