@@ -67,10 +67,10 @@ public class PlanSubscription {
 
     public enum Event implements EmailTemplateType {
         // remove prefix SUBSCRIPTION_
-        SUBSCRIPTION_CREATED,
-        SUBSCRIPTION_CANCELED, // premium plan canceled by user, plan is still active till the end of the billing cycle
-        SUBSCRIPTION_ENDED, // plan expired
-        SUBSCRIPTION_RENEWED,
-        SUBSCRIPTION_PAYMENT_FAILED
+        CREATED,
+        CANCELED, // premium plan canceled by user, plan is still active till the end of the billing cycle
+        ENDED, // plan expired
+        RENEWED,
+        PAYMENT_FAILED,
     }
 }

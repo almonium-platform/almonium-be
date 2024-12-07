@@ -12,16 +12,16 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
     private static final String SUBFOLDER = "subscription";
 
     private static final Map<EmailTemplateType, EmailSubjectTemplate> TYPE_EMAIL_SUBJECT_TEMPLATE_MAP = Map.of(
-            PlanSubscription.Event.SUBSCRIPTION_CREATED,
-            new EmailSubjectTemplate("Subscription Created", "subscription-created"),
-            PlanSubscription.Event.SUBSCRIPTION_CANCELED,
-            new EmailSubjectTemplate("Subscription Cancelled", "subscription-cancelled"),
-            PlanSubscription.Event.SUBSCRIPTION_ENDED,
-            new EmailSubjectTemplate("Subscription Ended", "subscription-ended"),
-            PlanSubscription.Event.SUBSCRIPTION_RENEWED,
-            new EmailSubjectTemplate("Subscription Ended", "subscription-renewed"),
-            PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED,
-            new EmailSubjectTemplate("Payment Failed", "subscription-payment-failed"));
+            PlanSubscription.Event.CREATED,
+            new EmailSubjectTemplate("Welcome to Premium!", "created"),
+            PlanSubscription.Event.CANCELED,
+            new EmailSubjectTemplate("Subscription Cancelled", "cancelled"),
+            PlanSubscription.Event.ENDED,
+            new EmailSubjectTemplate("Your Subscription Has Ended", "ended"),
+            PlanSubscription.Event.RENEWED,
+            new EmailSubjectTemplate("Welcome Back!", "renewed"),
+            PlanSubscription.Event.PAYMENT_FAILED,
+            new EmailSubjectTemplate("Payment Failed", "payment-failed"));
 
     private static final String PLACEHOLDER = "planName";
 
@@ -42,5 +42,15 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
     @Override
     public String getSubfolder() {
         return SUBFOLDER;
+    }
+
+    private String getButtonUrl(PlanSubscription.Event event) {
+        String url =
+                switch (event) {
+                    case CREATED, RENEWED -> "/home";
+                    case CANCELED, PAYMENT_FAILED -> "/settings/me?portal=to";
+                    case ENDED -> "/pricing";
+                };
+        return this.domain + url;
     }
 }
