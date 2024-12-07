@@ -126,7 +126,7 @@ stripe:
   checkout:
     success-url: ${app.web-domain}/payment/success
     cancel-url: ${app.web-domain}/pricing?canceled=true
-  return-url: ${app.web-domain}/settings/me?from=portal
+  return-url: ${app.web-domain}/settings/me?portal=from
 
 external:
   api:
