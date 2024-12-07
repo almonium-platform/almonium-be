@@ -14,8 +14,6 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
     private static final Map<EmailTemplateType, EmailSubjectTemplate> TYPE_EMAIL_SUBJECT_TEMPLATE_MAP = Map.of(
             PlanSubscription.Event.SUBSCRIPTION_CREATED,
             new EmailSubjectTemplate("Subscription Created", "subscription-created"),
-            PlanSubscription.Event.SUBSCRIPTION_UPDATED,
-            new EmailSubjectTemplate("Subscription Updated", "subscription-updated"),
             PlanSubscription.Event.SUBSCRIPTION_CANCELED,
             new EmailSubjectTemplate("Subscription Cancelled", "subscription-cancelled"),
             PlanSubscription.Event.SUBSCRIPTION_ENDED,
