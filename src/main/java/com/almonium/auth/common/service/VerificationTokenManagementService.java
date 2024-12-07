@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementService {
-    public static final int TOKEN_LIFESPAN = 60;
+    private static final int TOKEN_LIFESPAN = 60;
     private static final int OTP_LENGTH = 24;
     VerificationTokenRepository verificationTokenRepository;
     TokenGenerator tokenGenerator;
