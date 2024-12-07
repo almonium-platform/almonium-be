@@ -63,7 +63,6 @@ public class PlanSubscription {
         ACTIVE_TILL_CYCLE_END, // premium plan active but canceled by user
         CANCELED, // premium plan canceled by user, plan expired
         INACTIVE, // lifetime plan is inactive
-        ON_HOLD // when payment failed
     }
 
     public enum Event implements EmailTemplateType {

@@ -124,7 +124,6 @@ public class PlanSubscriptionService {
 
     public void putSubscriptionOnHold(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
-        updatePlanSubStatusAndSave(planSubscription, PlanSubscription.Status.ON_HOLD);
         sendEmailForEvent(
                 planSubscription.getUser(), planSubscription, PlanSubscription.Event.SUBSCRIPTION_PAYMENT_FAILED);
     }
