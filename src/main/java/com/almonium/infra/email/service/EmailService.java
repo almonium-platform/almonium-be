@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE)
 public class EmailService {
     private static final String ALMONIUM_FROM_FORMAT = "Almonium <%s>";
-    private static final String STATIC_LOGO_IMG = "static/logo-white-bg.png";
+    private static final String STATIC_LOGO_IMG = "static/logo-white-2.png";
     private static final String STATIC_TITLE_IMG = "static/title-white.png";
     private static final Map<String, String> EMAIL_ASSETS = Map.of(
             "logoHeader", STATIC_LOGO_IMG,
