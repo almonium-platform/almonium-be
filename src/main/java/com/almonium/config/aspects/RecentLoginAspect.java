@@ -21,7 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class RecentLoginAspect {
     private final AuthTokenService authTokenService;
 
-    @Value("${app.auth.jwt.access-token-expiration-duration}")
+    @Value("${app.auth.jwt.access-token.lifetime}")
     private int recentLoginDuration;
 
     @Around(

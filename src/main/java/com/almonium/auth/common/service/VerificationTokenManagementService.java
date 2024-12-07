@@ -19,7 +19,9 @@ import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -27,8 +29,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementService {
-    private static final int TOKEN_LIFESPAN = 60;
-    private static final int OTP_LENGTH = 24;
+
+    @NonFinal
+    @Value("${app.auth.verification-token.length}")
+    int tokenLength;
+
+    @NonFinal
+    @Value("${app.auth.verification-token.lifetime}")
+    int tokenLifetime;
+
     VerificationTokenRepository verificationTokenRepository;
     TokenGenerator tokenGenerator;
     AuthTokenEmailComposerService emailComposerService;
@@ -59,8 +68,8 @@ public class VerificationTokenManagementService {
     }
 
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
-        String token = tokenGenerator.generateOTP(OTP_LENGTH);
-        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, TOKEN_LIFESPAN);
+        String token = tokenGenerator.generateOTP(tokenLength);
+        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, tokenLifetime);
         verificationTokenRepository.save(verificationToken);
         EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
         emailService.sendEmail(emailDto);

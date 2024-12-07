@@ -43,16 +43,16 @@ public class AuthTokenService {
     final PrincipalRepository principalRepository;
     final RefreshTokenRepository refreshTokenRepository;
 
-    @Value("${app.auth.jwt.token-signing-secret}")
+    @Value("${app.auth.jwt.secret}")
     String tokenSecret;
 
-    @Value("${app.auth.jwt.access-token-expiration-duration}")
-    int accessTokenExpirationSeconds;
+    @Value("${app.auth.jwt.access-token.lifetime}")
+    int accessTokenLifetimeInSeconds;
 
-    @Value("${app.auth.jwt.refresh-token-expiration-duration}")
-    int refreshTokenExpirationSeconds;
+    @Value("${app.auth.jwt.refresh-token.lifetime}")
+    int refreshTokenLifetimeInSeconds;
 
-    @Value("${app.auth.jwt.refresh-token-url}")
+    @Value("${app.auth.jwt.refresh-token.url}")
     String refreshTokenPath;
 
     @Value("${server.servlet.context-path}")
@@ -97,7 +97,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
-                accessTokenExpirationSeconds,
+                accessTokenLifetimeInSeconds,
                 getCleanBackendDomain());
         return accessToken;
     }
@@ -108,7 +108,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
-                accessTokenExpirationSeconds,
+                accessTokenLifetimeInSeconds,
                 getCleanBackendDomain());
         return accessToken;
     }
@@ -127,7 +127,7 @@ public class AuthTokenService {
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
                 refreshToken,
                 getFullRefreshTokenPath(),
-                refreshTokenExpirationSeconds,
+                refreshTokenLifetimeInSeconds,
                 getCleanBackendDomain());
 
         return refreshToken;
@@ -147,11 +147,11 @@ public class AuthTokenService {
     }
 
     private String generateLiveAccessToken(Authentication authentication) {
-        return generateToken(authentication, accessTokenExpirationSeconds, true);
+        return generateToken(authentication, accessTokenLifetimeInSeconds, true);
     }
 
     private String generateRefreshedAccessToken(Authentication authentication) {
-        return generateToken(authentication, accessTokenExpirationSeconds, false);
+        return generateToken(authentication, accessTokenLifetimeInSeconds, false);
     }
 
     private Principal getPrincipalFromAccessToken(String token) {
@@ -178,7 +178,7 @@ public class AuthTokenService {
     }
 
     private String createRefreshToken(Authentication authentication) {
-        String token = generateToken(authentication, refreshTokenExpirationSeconds, false);
+        String token = generateToken(authentication, refreshTokenLifetimeInSeconds, false);
         Claims claims = extractClaims(token);
         Instant issueDate = claims.getIssuedAt().toInstant();
         Instant expiryDate = claims.getExpiration().toInstant();

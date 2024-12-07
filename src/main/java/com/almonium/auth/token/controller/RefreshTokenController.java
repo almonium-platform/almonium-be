@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefreshTokenController {
     AuthTokenService tokenService;
 
-    @PostMapping("${app.auth.jwt.refresh-token-url}")
+    @PostMapping("${app.auth.jwt.refresh-token.url}")
     public ResponseEntity<?> refreshToken(
             @CookieValue(value = CookieUtil.REFRESH_TOKEN_COOKIE_NAME, required = false) String refreshToken,
             HttpServletResponse response) {

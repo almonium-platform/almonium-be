@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 @Primary
 public class ApacheAlphanumericGeneratorImpl implements TokenGenerator {
     private static final RandomStringGenerator randomStringGenerator = new RandomStringGenerator.Builder()
-            .withinRange('0', '9')
-            .withinRange('a', 'z')
-            .withinRange('A', 'Z')
+            .withinRange('0', 'z')
+            .filteredBy(Character::isLetterOrDigit)
             .get();
 
     @Override
