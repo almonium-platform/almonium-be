@@ -38,7 +38,7 @@ public abstract class EmailComposerService {
         return new EmailDto(recipientEmail, dto.subject(), body);
     }
 
-    public static String inlineCss(String html) {
+    private static String inlineCss(String html) {
         final String style = "style";
         Document doc = Jsoup.parse(html);
         Elements els = doc.select(style); // to get all the style elements
