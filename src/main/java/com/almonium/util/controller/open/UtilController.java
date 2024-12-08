@@ -1,4 +1,4 @@
-package com.almonium.util.controller;
+package com.almonium.util.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
