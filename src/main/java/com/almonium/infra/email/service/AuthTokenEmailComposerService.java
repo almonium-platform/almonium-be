@@ -19,7 +19,7 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
             TokenType.EMAIL_CHANGE_VERIFICATION,
             new EmailSubjectTemplate("Confirm your email change", "email-change"));
 
-    private static final String PLACEHOLDER = "url";
+    private static final String BUTTON_URL_PLACEHOLDER = "url";
     private static final String VERIFY_EMAIL_URL = "/verify-email";
     private static final String RESET_PASSWORD_URL = "/reset-password";
     private static final String CHANGE_EMAIL_URL = "/change-email";
@@ -34,9 +34,9 @@ public class AuthTokenEmailComposerService extends EmailComposerService {
     }
 
     @Override
-    public Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String data) {
-        String url = getApiUrlForAuthIntent(data, (TokenType) templateType);
-        return Map.of(PLACEHOLDER, url);
+    public Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String token) {
+        String url = getApiUrlForAuthIntent(token, (TokenType) templateType);
+        return Map.of(BUTTON_URL_PLACEHOLDER, url);
     }
 
     @Override

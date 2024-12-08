@@ -24,7 +24,7 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
             new EmailSubjectTemplate("Payment Failed", "payment-failed"));
 
     private static final String PLAN_NAME = "planName";
-    private static final String BUTTON_URL = "url";
+    private static final String BUTTON_URL_PLACEHOLDER = "url";
 
     public SubscriptionEmailComposerService(SpringTemplateEngine templateEngine) {
         super(templateEngine);
@@ -37,7 +37,7 @@ public class SubscriptionEmailComposerService extends EmailComposerService {
 
     @Override
     public Map<String, String> getCustomPlaceholders(EmailTemplateType templateType, String planName) {
-        return Map.of(PLAN_NAME, planName, BUTTON_URL, getButtonUrl((PlanSubscription.Event) templateType));
+        return Map.of(PLAN_NAME, planName, BUTTON_URL_PLACEHOLDER, getButtonUrl((PlanSubscription.Event) templateType));
     }
 
     @Override
