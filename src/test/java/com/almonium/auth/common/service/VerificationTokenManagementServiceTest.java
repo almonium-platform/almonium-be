@@ -3,6 +3,7 @@ package com.almonium.auth.common.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,10 +15,12 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.ApacheAlphanumericGeneratorImpl;
 import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
+import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -54,8 +57,10 @@ class VerificationTokenManagementServiceTest {
         String token = "1234567890abcd1234567890";
         EmailDto emailDto = TestDataGenerator.createEmailDto();
 
-        when(tokenGenerator.generateOTP(24)).thenReturn(token);
-        when(emailComposerService.composeEmail(localPrincipal.getEmail(), TokenType.EMAIL_VERIFICATION, token))
+        when(tokenGenerator.generateOTP(anyInt())).thenReturn(token);
+        var emailContext = new EmailContext<>(
+                TokenType.EMAIL_VERIFICATION, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
+        when(emailComposerService.composeEmail(localPrincipal.getEmail(), emailContext))
                 .thenReturn(emailDto);
 
         // Act
@@ -79,7 +84,7 @@ class VerificationTokenManagementServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                        token, TokenType.EMAIL_VERIFICATION))
+                token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
@@ -96,7 +101,7 @@ class VerificationTokenManagementServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                        token, TokenType.EMAIL_VERIFICATION))
+                token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Token is invalid or has been used");
 
@@ -115,7 +120,7 @@ class VerificationTokenManagementServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                        token, TokenType.EMAIL_VERIFICATION))
+                token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
 

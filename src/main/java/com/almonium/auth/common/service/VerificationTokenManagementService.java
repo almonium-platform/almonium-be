@@ -10,11 +10,13 @@ import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import java.time.Instant;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +73,8 @@ public class VerificationTokenManagementService {
         String token = tokenGenerator.generateOTP(tokenLength);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, tokenLifetime);
         verificationTokenRepository.save(verificationToken);
-        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), tokenType, token);
+        var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
+        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), emailContext);
         emailService.sendEmail(emailDto);
         log.info("Verification token sent to {}", localPrincipal.getEmail());
     }

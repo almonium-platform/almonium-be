@@ -3,6 +3,7 @@ package com.almonium.subscription.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
 import com.almonium.subscription.exception.PlanSubscriptionException;
@@ -19,6 +20,7 @@ import com.almonium.user.core.service.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -305,8 +307,12 @@ public class PlanSubscriptionService {
     }
 
     private void sendEmailForEvent(User user, PlanSubscription planSubscription, PlanSubscription.Event planSubEvent) {
-        EmailDto emailDto = emailComposerService.composeEmail(
-                user.getEmail(), planSubEvent, planSubscription.getPlan().getName());
+        var emailContext = new EmailContext<>(
+                planSubEvent,
+                Map.of(
+                        SubscriptionEmailComposerService.PLAN_NAME,
+                        planSubscription.getPlan().getName()));
+        EmailDto emailDto = emailComposerService.composeEmail(user.getEmail(), emailContext);
         emailService.sendEmail(emailDto);
     }
 
