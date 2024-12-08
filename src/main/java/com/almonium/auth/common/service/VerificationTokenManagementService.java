@@ -71,6 +71,9 @@ public class VerificationTokenManagementService {
 
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(tokenLength);
+        verificationTokenRepository
+                .findByPrincipalAndTokenTypeIn(localPrincipal, Set.of(tokenType))
+                .ifPresent(verificationTokenRepository::delete);
         VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, tokenLifetime);
         verificationTokenRepository.save(verificationToken);
         var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
