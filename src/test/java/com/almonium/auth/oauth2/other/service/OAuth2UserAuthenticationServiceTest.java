@@ -63,15 +63,15 @@ class OAuth2UserAuthenticationServiceTest {
     void givenExistingUserWithoutPrincipal_whenAuthenticate_thenCreateNewPrincipal() {
         // Arrange
         String email = "johnwick@gmail.com";
-        String newProfilePicLink = "https://old-image-link.com";
+        String newAvatarUrl = "https://old-image-link.com";
         String userId = "101868015518714862283";
-        Map<String, Object> attributes = createAttributes(email, userId, newProfilePicLink);
+        Map<String, Object> attributes = createAttributes(email, userId, newAvatarUrl);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
 
         User existingUser = User.builder()
                 .email(email)
                 .username("google-101868015518714862283")
-                .profile(Profile.builder().avatarUrl(newProfilePicLink).build())
+                .profile(Profile.builder().avatarUrl(newAvatarUrl).build())
                 .build();
 
         OAuth2Principal newPrincipal = OAuth2Principal.builder()
@@ -225,7 +225,7 @@ class OAuth2UserAuthenticationServiceTest {
         return createAttributes(email, userId, PROFILE_PIC_LINK);
     }
 
-    private Map<String, Object> createAttributes(String email, String userId, String profilePicUrl) {
+    private Map<String, Object> createAttributes(String email, String userId, String avatarUrl) {
         return Map.ofEntries(
                 entry("at_hash", "RkJFPU-iZS_amRETFhGrdA"),
                 entry("sub", userId),
@@ -234,7 +234,7 @@ class OAuth2UserAuthenticationServiceTest {
                 entry("given_name", "John"),
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
-                entry("picture", profilePicUrl),
+                entry("picture", avatarUrl),
                 entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),

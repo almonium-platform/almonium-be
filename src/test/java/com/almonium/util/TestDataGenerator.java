@@ -22,6 +22,10 @@ import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.user.core.dto.SubscriptionInfoDto;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.Profile;
@@ -34,8 +38,10 @@ import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.google.protobuf.ByteString;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -194,19 +200,35 @@ public class TestDataGenerator {
                 .lastLogin(LocalDateTime.now())
                 .build();
 
-        return new UserInfo(
-                user.getId().toString(),
-                user.getUsername(),
-                user.getEmail(),
-                user.isEmailVerified(),
-                profile.getAvatarUrl(),
-                profile.getStreak(),
-                learner.getTargetLangs(),
-                learner.getFluentLangs(),
-                true,
-                List.of("tag1", "tag2", "tag3"),
-                null,
-                false);
+        PlanSubscription planSubscription = PlanSubscription.builder()
+                .id(1L)
+                .plan(Plan.builder().id(1L).build())
+                .user(user)
+                .build();
+
+        SubscriptionInfoDto subscriptionInfo = SubscriptionInfoDto.builder()
+                .name("Premium Plan")
+                .autoRenewal(true)
+                .limits(Map.of(PlanFeature.MAX_TARGET_LANGS, 1000))
+                .type(Plan.Type.MONTHLY)
+                .startDate(Instant.now())
+                .endDate(Instant.now().plus(30, ChronoUnit.DAYS))
+                .build();
+
+        return UserInfo.builder()
+                .id(user.getId().toString())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .avatarUrl(profile.getAvatarUrl())
+                .emailVerified(user.isEmailVerified())
+                .setupCompleted(true)
+                .isPremium(false)
+                .streak(profile.getStreak())
+                .tags(List.of("tag1", "tag2"))
+                .targetLangs(learner.getTargetLangs())
+                .fluentLangs(learner.getFluentLangs())
+                .subscription(subscriptionInfo)
+                .build();
     }
 
     public User buildTestUser() {

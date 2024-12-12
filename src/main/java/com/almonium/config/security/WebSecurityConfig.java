@@ -3,6 +3,7 @@ package com.almonium.config.security;
 import static jakarta.ws.rs.HttpMethod.DELETE;
 import static jakarta.ws.rs.HttpMethod.GET;
 import static jakarta.ws.rs.HttpMethod.OPTIONS;
+import static jakarta.ws.rs.HttpMethod.PATCH;
 import static jakarta.ws.rs.HttpMethod.POST;
 import static jakarta.ws.rs.HttpMethod.PUT;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
@@ -88,7 +89,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(domain, appleTokenUrl));
-        configuration.setAllowedMethods(List.of(GET, POST, PUT, DELETE, OPTIONS));
+        configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
         configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
         configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

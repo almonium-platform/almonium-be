@@ -15,7 +15,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface UserMapper {
     @Mapping(source = "learner.targetLangs", target = "targetLangs")
     @Mapping(source = "learner.fluentLangs", target = "fluentLangs")
-    @Mapping(target = "profilePicLink", ignore = true)
+    @Mapping(source = "profile.avatarUrl", target = "avatarUrl")
     @Mapping(target = "setupCompleted", ignore = true)
     @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)

@@ -19,13 +19,17 @@ public class UserInfo {
     String id;
     String username;
     String email;
+    String avatarUrl;
+
     boolean emailVerified;
-    String profilePicLink;
+    boolean setupCompleted;
+    boolean isPremium;
+
     Integer streak;
+
+    Collection<String> tags;
     Collection<Language> targetLangs;
     Collection<Language> fluentLangs;
-    boolean setupCompleted;
-    Collection<String> tags;
+
     SubscriptionInfoDto subscription;
-    boolean isPremium;
 }
