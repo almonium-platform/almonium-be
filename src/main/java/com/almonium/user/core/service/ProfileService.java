@@ -35,6 +35,8 @@ public class ProfileService {
     }
 
     private Profile getProfileById(Long id) {
-        return profileRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Profile not found with id: " + id));
+        return profileRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found with id: " + id));
     }
 }

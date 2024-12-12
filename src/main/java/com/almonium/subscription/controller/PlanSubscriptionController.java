@@ -25,8 +25,7 @@ public class PlanSubscriptionController {
 
     @PostMapping("/portal")
     public ResponseEntity<SessionResponseDto> accessCustomerPortal(@Auth User user) {
-        return ResponseEntity.ok(
-                new SessionResponseDto(planSubscriptionService.initiateCustomerPortalAccess(user)));
+        return ResponseEntity.ok(new SessionResponseDto(planSubscriptionService.initiateCustomerPortalAccess(user)));
     }
 
     @PostMapping("/plans/{id}")

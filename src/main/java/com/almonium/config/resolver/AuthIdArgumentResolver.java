@@ -15,12 +15,16 @@ public class AuthIdArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(Auth.class) != null && parameter.getParameterType().equals(Long.class);
+        return parameter.getParameterAnnotation(Auth.class) != null
+                && parameter.getParameterType().equals(Long.class);
     }
 
     @Override
-    public Object resolveArgument(@NonNull MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  @NonNull NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+    public Object resolveArgument(
+            @NonNull MethodParameter parameter,
+            ModelAndViewContainer mavContainer,
+            @NonNull NativeWebRequest webRequest,
+            WebDataBinderFactory binderFactory) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Principal principal) {
             if (principal.getUser() != null) {
