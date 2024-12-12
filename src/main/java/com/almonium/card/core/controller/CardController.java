@@ -4,11 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.card.core.dto.CardCreationDto;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.dto.CardUpdateDto;
 import com.almonium.card.core.service.CardService;
+import com.almonium.user.core.model.entity.User;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -32,27 +32,27 @@ public class CardController {
     CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth Principal auth) {
-        cardService.createCard(auth.getUser().getLearner(), dto);
+    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
+        cardService.createCard(user.getLearner(), dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCard(
-            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @Auth Principal auth) {
-        cardService.updateCard(id, dto, auth.getUser().getLearner());
+            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @Auth User user) {
+        cardService.updateCard(id, dto, user.getLearner());
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getCardStack(@Auth Principal auth) {
-        return ResponseEntity.ok(cardService.getUsersCards(auth.getUser().getLearner()));
+    public ResponseEntity<List<CardDto>> getCardStack(@Auth User user) {
+        return ResponseEntity.ok(cardService.getUsersCards(user.getLearner()));
     }
 
     @GetMapping("/lang/{lang}")
-    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable Language lang, @Auth Principal auth) {
+    public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable Language lang, @Auth User user) {
         return ResponseEntity.ok(
-                cardService.getUsersCardsOfLang(lang, auth.getUser().getLearner()));
+                cardService.getUsersCardsOfLang(lang, user.getLearner()));
     }
 
     @GetMapping("/{id}")

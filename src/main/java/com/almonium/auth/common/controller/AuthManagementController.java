@@ -5,9 +5,9 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.PrincipalDto;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.service.AuthMethodManagementService;
 import com.almonium.auth.token.service.AuthTokenService;
+import com.almonium.user.core.model.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class AuthManagementController {
     AuthTokenService authTokenService;
 
     @GetMapping("/providers")
-    public ResponseEntity<List<PrincipalDto>> getAuthProviders(@Auth Principal auth) {
+    public ResponseEntity<List<PrincipalDto>> getAuthProviders(@Auth User user) {
         return ResponseEntity.ok(
-                authMethodManagementService.getAuthProviders(auth.getUser().getEmail()));
+                authMethodManagementService.getAuthProviders(user.getEmail()));
     }
 
     @PostMapping("/email/availability")
@@ -40,8 +40,8 @@ public class AuthManagementController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@Auth Principal auth, HttpServletResponse response) {
-        authTokenService.revokeRefreshTokensByUser(auth.getUser());
+    public ResponseEntity<?> logout(@Auth User user, HttpServletResponse response) {
+        authTokenService.revokeRefreshTokensByUser(user);
         authTokenService.clearTokenCookies(response);
         return ResponseEntity.ok().build();
     }

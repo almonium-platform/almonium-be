@@ -9,9 +9,9 @@ import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.service.CardService;
+import com.almonium.user.core.model.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,8 +36,8 @@ public class LangController {
     LanguageProcessor languageProcessor;
 
     @GetMapping("/cards/search/{text}")
-    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @Auth Principal auth) {
-        return ResponseEntity.ok(cardService.searchByEntry(text, auth.getUser().getLearner()));
+    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @Auth User user) {
+        return ResponseEntity.ok(cardService.searchByEntry(text, user.getLearner()));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
@@ -75,9 +75,9 @@ public class LangController {
 
     @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(
-            @PathVariable String text, @PathVariable String lang, @Auth Principal auth) {
+            @PathVariable String text, @PathVariable String lang, @Auth User user) {
         return ResponseEntity.ok(
-                languageProcessor.getReport(text, lang, auth.getUser().getLearner()));
+                languageProcessor.getReport(text, lang, user.getLearner()));
     }
 
     private HttpHeaders createAudioHeaders() {

@@ -3,9 +3,9 @@ package com.almonium.subscription.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.subscription.dto.SessionResponseDto;
 import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,20 +24,20 @@ public class PlanSubscriptionController {
     PlanSubscriptionService planSubscriptionService;
 
     @PostMapping("/portal")
-    public ResponseEntity<SessionResponseDto> accessCustomerPortal(@Auth Principal principal) {
+    public ResponseEntity<SessionResponseDto> accessCustomerPortal(@Auth User user) {
         return ResponseEntity.ok(
-                new SessionResponseDto(planSubscriptionService.initiateCustomerPortalAccess(principal.getUser())));
+                new SessionResponseDto(planSubscriptionService.initiateCustomerPortalAccess(user)));
     }
 
     @PostMapping("/plans/{id}")
-    public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable long id, @Auth Principal principal) {
-        String sessionUrl = planSubscriptionService.initiatePlanSubscribing(principal.getUser(), id);
+    public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable long id, @Auth User user) {
+        String sessionUrl = planSubscriptionService.initiatePlanSubscribing(user, id);
         return ResponseEntity.ok(new SessionResponseDto(sessionUrl));
     }
 
     @DeleteMapping
-    public ResponseEntity<ApiResponse> downgradeMe(@Auth Principal principal) {
-        planSubscriptionService.downgradeMe(principal.getUser());
+    public ResponseEntity<ApiResponse> downgradeMe(@Auth User user) {
+        planSubscriptionService.downgradeMe(user);
         return ResponseEntity.ok(new ApiResponse(true, "Subscription cancelled successfully"));
     }
 }

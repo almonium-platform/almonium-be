@@ -12,6 +12,7 @@ import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.AuthTokenService;
+import com.almonium.user.core.model.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,42 +36,42 @@ public class SensitiveAuthActionsController {
     AuthTokenService authTokenService;
 
     @PutMapping("/password")
-    public ResponseEntity<?> changePassword(@Auth Principal auth, @Valid @RequestBody PasswordRequestDto request) {
-        sensitiveAuthActionsService.changePassword(auth.getUser().getId(), request.password());
+    public ResponseEntity<?> changePassword(@Auth Long id, @Valid @RequestBody PasswordRequestDto request) {
+        sensitiveAuthActionsService.changePassword(id, request.password());
         return ResponseEntity.ok().build();
     }
 
     // used when the user doesn't have a local auth method
     @PostMapping("/local/migrate")
-    public ResponseEntity<?> linkLocalWithNewEmail(@Auth Principal auth, @Valid @RequestBody LocalAuthRequest request) {
-        sensitiveAuthActionsService.linkLocalWithNewEmail(auth.getUser().getId(), request);
+    public ResponseEntity<?> linkLocalWithNewEmail(@Auth Long id, @Valid @RequestBody LocalAuthRequest request) {
+        sensitiveAuthActionsService.linkLocalWithNewEmail(id, request);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/email/change")
-    public ResponseEntity<?> requestEmailChange(@Auth Principal auth, @Valid @RequestBody EmailRequestDto request) {
-        sensitiveAuthActionsService.requestEmailChange(auth.getUser().getId(), request.email());
+    public ResponseEntity<?> requestEmailChange(@Auth Long id, @Valid @RequestBody EmailRequestDto request) {
+        sensitiveAuthActionsService.requestEmailChange(id, request.email());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/local/link")
     public ResponseEntity<?> addLocalLogin(
-            @Auth Principal auth, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
-        sensitiveAuthActionsService.linkLocal(auth.getUser().getId(), passwordRequestDto.password());
+            @Auth Long id, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
+        sensitiveAuthActionsService.linkLocal(id, passwordRequestDto.password());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/providers/{provider}")
     public ResponseEntity<UnlinkProviderResponse> unlinkProvider(
-            @Auth Principal auth, @PathVariable AuthProviderType provider) {
-        sensitiveAuthActionsService.unlinkAuthMethod(auth.getUser().getId(), provider);
-        boolean isCurrentPrincipalBeingUnlinked = provider == auth.getProvider();
+            @Auth Principal principal, @PathVariable AuthProviderType provider) {
+        sensitiveAuthActionsService.unlinkAuthMethod(principal.getUser().getId(), provider);
+        boolean isCurrentPrincipalBeingUnlinked = provider == principal.getProvider();
         return ResponseEntity.ok(new UnlinkProviderResponse(isCurrentPrincipalBeingUnlinked));
     }
 
     @DeleteMapping("/me")
-    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth Principal auth, HttpServletResponse response) {
-        sensitiveAuthActionsService.deleteAccount(auth.getUser());
+    public ResponseEntity<Void> deleteCurrentUserAccount(@Auth User user, HttpServletResponse response) {
+        sensitiveAuthActionsService.deleteAccount(user);
         authTokenService.clearTokenCookies(response);
         return ResponseEntity.noContent().build();
     }

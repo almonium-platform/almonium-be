@@ -3,7 +3,7 @@ package com.almonium.user.friendship.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.user.friendship.dto.FriendDto;
 import com.almonium.user.friendship.dto.FriendshipRequestDto;
 import com.almonium.user.friendship.model.entity.Friendship;
@@ -31,8 +31,8 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<FriendDto>> getMyFriends(@Auth Principal auth) {
-        List<FriendDto> friends = friendshipService.getFriends(auth.getUser().getId());
+    public ResponseEntity<List<FriendDto>> getMyFriends(@Auth Long id) {
+        List<FriendDto> friends = friendshipService.getFriends(id);
         return ResponseEntity.ok(friends);
     }
 
@@ -46,15 +46,15 @@ public class FriendshipController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Friendship> manageFriendship(
-            @Auth Principal auth, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
-        Friendship friendship = friendshipService.manageFriendship(auth.getUser(), id, action);
+            @Auth User user, @PathVariable Long id, @Valid @RequestBody FriendshipAction action) {
+        Friendship friendship = friendshipService.manageFriendship(user, id, action);
         return ResponseEntity.ok(friendship);
     }
 
     @PostMapping
     public ResponseEntity<Friendship> createFriendshipRequest(
-            @Auth Principal auth, @Valid @RequestBody FriendshipRequestDto dto) {
-        Friendship friendship = friendshipService.createFriendshipRequest(auth.getUser(), dto);
+            @Auth User user, @Valid @RequestBody FriendshipRequestDto dto) {
+        Friendship friendship = friendshipService.createFriendshipRequest(user, dto);
         return ResponseEntity.ok(friendship);
     }
 }
