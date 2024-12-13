@@ -1,4 +1,4 @@
-package com.almonium.config.aspects;
+package com.almonium.config.aspect;
 
 import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.common.util.CookieUtil;
