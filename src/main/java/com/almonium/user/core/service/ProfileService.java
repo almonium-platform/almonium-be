@@ -2,9 +2,9 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.ProfileRepository;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -28,15 +28,9 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
-    public void updateAvatar(Long id, String url) {
-        Profile profile = getProfileById(id);
-        profile.setAvatarUrl(url);
-        profileRepository.save(profile);
-    }
-
-    private Profile getProfileById(Long id) {
+    public Profile getProfileById(Long id) {
         return profileRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotAccessibleException("Profile not found with id: " + id));
     }
 }

@@ -64,7 +64,7 @@ public class PublicLocalAuthService {
 
     public void register(LocalAuthRequest request) {
         validateRegisterRequest(request);
-        User user = userFactory.createUserWithDefaultPlan(request.email());
+        User user = userFactory.createUserWithDefaultPlan(request.email(), false);
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         localPrincipalRepository.save(localPrincipal);
         verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);

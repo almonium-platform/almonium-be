@@ -39,7 +39,7 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getImageUrl() {
+    public String getAvatarUrl() {
         return getNestedStringAttribute("picture.data.url");
     }
 

@@ -87,14 +87,15 @@ class PublicLocalAuthServiceTest {
 
         when(principalFactory.createLocalPrincipal(user, registrationRequest))
                 .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
-        when(userFactory.createUserWithDefaultPlan(registrationRequest.email())).thenReturn(user);
+        when(userFactory.createUserWithDefaultPlan(registrationRequest.email(), false))
+                .thenReturn(user);
 
         // Act
         authService.register(registrationRequest);
 
         // Assert
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
-        verify(userFactory).createUserWithDefaultPlan(registrationRequest.email());
+        verify(userFactory).createUserWithDefaultPlan(registrationRequest.email(), false);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
         verify(verificationTokenManagementService)
                 .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));

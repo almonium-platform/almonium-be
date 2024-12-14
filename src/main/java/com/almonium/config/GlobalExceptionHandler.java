@@ -14,7 +14,9 @@ import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.PlanValidationException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.BadUserRequestActionException;
+import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
+import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
 import java.util.HashMap;
@@ -126,6 +128,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailConfigurationException.class)
     public ResponseEntity<ApiResponse> handleEmailConfigurationException(EmailConfigurationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(FirebaseIntegrationException.class)
+    public ResponseEntity<ApiResponse> handleFirebaseIntegrationException(FirebaseIntegrationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(ResourceNotAccessibleException.class)
+    public ResponseEntity<ApiResponse> handleResourceNotAccessibleException(ResourceNotAccessibleException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(BadUserRequestActionException.class)

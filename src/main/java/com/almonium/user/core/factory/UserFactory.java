@@ -19,12 +19,13 @@ public class UserFactory {
     UsernameGenerator usernameGenerator;
     UserRepository userRepository;
 
-    public User createUserWithDefaultPlan(String email) {
+    public User createUserWithDefaultPlan(String email, boolean emailVerified) {
         String username = usernameGenerator.generateUsername(email);
 
         User user = User.builder()
                 .email(email)
                 .username(username)
+                .emailVerified(emailVerified)
                 .planSubscriptions(new HashSet<>())
                 .build();
 

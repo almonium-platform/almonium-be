@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-avatar-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: avatar
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: url
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: profile_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: avatar
+            baseColumnNames: profile_id
+            referencedTableName: profile
+            referencedColumnNames: id
+            constraintName: fk_avatar_profile_id
+            onDelete: CASCADE
+        - createIndex:
+            tableName: avatar
+            columns:
+              - column:
+                  name: profile_id
+            indexName: idx_avatar_profile_id

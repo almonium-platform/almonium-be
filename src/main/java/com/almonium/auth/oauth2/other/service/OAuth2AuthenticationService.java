@@ -11,6 +11,7 @@ import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.AvatarService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class OAuth2AuthenticationService {
     UserFactory userFactory;
     UserMapper userMapper;
     OAuth2PrincipalRepository principalRepository;
+    AvatarService avatarService;
 
     @Transactional
     public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
@@ -80,8 +82,10 @@ public class OAuth2AuthenticationService {
 
     private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
-        User user = userFactory.createUserWithDefaultPlan(userInfo.getEmail());
-        user.setEmailVerified(true);
+        User user = userFactory.createUserWithDefaultPlan(userInfo.getEmail(), true);
+        if (userInfo.getAvatarUrl() != null) {
+            avatarService.addAndSetNewCustomAvatar(user.getProfile().getId(), userInfo.getAvatarUrl());
+        }
         return createAndSaveNewPrincipalForExistingUser(user, userInfo);
     }
 

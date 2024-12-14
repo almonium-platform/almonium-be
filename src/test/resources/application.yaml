@@ -64,6 +64,11 @@ google:
   project-id: google_project_id_dummy
   parent-location: global
 
+firebase:
+  service-account-key-base64: firebase_service_account_key_dummy
+  storage:
+    bucket: almonium-dummy.appspot.com
+
 app:
   web-domain: almonium-dummy.com
   api-domain: api.almonium-dummy.com

@@ -17,6 +17,7 @@ import com.almonium.auth.local.service.PasswordEncoderService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.AvatarService;
 import com.almonium.user.core.service.UserService;
 import java.time.LocalDate;
 import java.util.function.Consumer;
@@ -37,6 +38,7 @@ public class SensitiveAuthActionsService {
     PasswordEncoderService passwordEncoderService;
     PlanSubscriptionService planSubscriptionService;
     VerificationTokenManagementService verificationTokenManagementService;
+    AvatarService avatarService;
 
     UserRepository userRepository;
     PrincipalRepository principalRepository;
@@ -107,6 +109,7 @@ public class SensitiveAuthActionsService {
 
     public void deleteAccount(User user) {
         planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
+        avatarService.cleanUpAvatars(user.getId());
         userRepository.delete(user);
     }
 
