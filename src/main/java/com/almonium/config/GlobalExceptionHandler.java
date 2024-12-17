@@ -16,6 +16,7 @@ import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
+import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
@@ -143,6 +144,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadUserRequestActionException.class)
     public ResponseEntity<ApiResponse> handleBadUserRequestActionException(BadUserRequestActionException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(ResourceConflictException.class)
+    public ResponseEntity<ApiResponse> handleResourceConflictException(ResourceConflictException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
     }
 
     // auth

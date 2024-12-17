@@ -42,15 +42,6 @@ class UserRepositoryTest {
         assertThat(user.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
 
-    @DisplayName("Should change username")
-    @Test
-    void givenNewUsernameAndId_whenChangeUsername_thenUserShouldHaveNewUsername() {
-        String newUsername = "john_new";
-        userRepository.changeUsername(newUsername, JOHN_ID);
-        Optional<User> user = userRepository.findById(JOHN_ID);
-        assertThat(user.orElseThrow().getUsername()).isEqualTo(newUsername);
-    }
-
     @DisplayName("Should find user by email")
     @Test
     void givenEmail_whenFindByEmail_thenUserShouldNotBeNullAndUsernameShouldMatch() {

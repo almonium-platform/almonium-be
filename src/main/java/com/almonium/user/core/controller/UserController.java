@@ -18,7 +18,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,15 +39,15 @@ public class UserController {
         return ResponseEntity.ok(userService.buildUserInfoFromUser(user));
     }
 
-    @GetMapping("/{username}/availability/")
+    @GetMapping("/{username}/availability")
     public ResponseEntity<UsernameAvailability> checkUsernameAvailability(@PathVariable String username) {
         boolean isAvailable = userService.isUsernameAvailable(username);
         return ResponseEntity.ok(new UsernameAvailability(isAvailable));
     }
 
-    @PutMapping("/me/username")
+    @PatchMapping("/me/username")
     public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @Auth User user) {
-        userService.changeUsernameById(request.newUsername(), user.getId());
+        userService.changeUsernameById(request.username(), user.getId());
         return ResponseEntity.noContent().build();
     }
 

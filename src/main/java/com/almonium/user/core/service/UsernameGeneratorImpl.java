@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 public class UsernameGeneratorImpl implements UsernameGenerator {
     private static final int MAX_ATTEMPTS = 5;
     private static final String SANITIZING_REGEX = "[^a-zA-Z0-9_]";
-    private static final int MAX_USERNAME_LENGTH = 10;
+    private static final int MAX_USERNAME_LENGTH = 20;
     UserRepository userRepository;
     SecureRandomNumericGeneratorImpl randomNumericGenerator;
 
     @Override
     public String generateUsername(String email) {
-        String username = email.split("@")[0].replaceAll(SANITIZING_REGEX, "");
+        String username = email.split("@")[0].replaceAll(SANITIZING_REGEX, "").toLowerCase();
 
         int attempts = 0;
         while (userRepository.existsByUsername(username) && attempts < MAX_ATTEMPTS) {

@@ -3,6 +3,7 @@ package com.almonium.user.core.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -59,12 +60,23 @@ class UserServiceTest {
     @DisplayName("Should change username")
     @Test
     void givenUsername_whenChangeUsername_thenUsernameByIdChanged() {
-        String username = "newUsername";
-        long id = 1L;
+        String username = "username";
+        String newUsername = "new_username";
+        Long id = 1L;
+        User user = User.builder()
+                .id(id)
+                .username(username)
+                .build();
 
-        userService.changeUsernameById(username, id);
+        when(userRepository.existsByUsername(newUsername)).thenReturn(false);
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
-        verify(userRepository).changeUsername(username, id);
+        userService.changeUsernameById(newUsername, id);
+
+        verify(userRepository).findById(id);
+        verify(userRepository).existsByUsername(newUsername);
+        verify(userRepository).save(any(User.class));
     }
 
     @DisplayName("Should return user optional for existing user")
@@ -189,7 +201,7 @@ class UserServiceTest {
     @Test
     void givenAvailableUsername_whenIsUsernameAvailable_thenReturnsTrue() {
         // Arrange
-        String username = "newUsername";
+        String username = "username";
         when(userRepository.existsByUsername(username)).thenReturn(false);
 
         // Act
@@ -203,7 +215,7 @@ class UserServiceTest {
     @Test
     void givenTakenUsername_whenIsUsernameAvailable_thenReturnsFalse() {
         // Arrange
-        String username = "existingUsername";
+        String username = "existing_username";
         when(userRepository.existsByUsername(username)).thenReturn(true);
 
         // Act

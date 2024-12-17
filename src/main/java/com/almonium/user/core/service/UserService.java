@@ -10,6 +10,7 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.dto.SubscriptionInfoDto;
 import com.almonium.user.core.dto.UserInfo;
+import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
@@ -70,11 +71,20 @@ public class UserService implements UserDetailsService {
     }
 
     public void changeUsernameById(String username, long id) {
-        userRepository.changeUsername(username, id);
+        username = username.toLowerCase();
+        User user = getById(id);
+        if (user.getUsername().equals(username)) {
+            throw new BadUserRequestActionException("Username is already set to: " + username);
+        }
+        if (!isUsernameAvailable(username)) {
+            throw new BadUserRequestActionException("Username is already taken: " + username);
+        }
+        user.setUsername(username);
+        userRepository.save(user);
     }
 
     public boolean isUsernameAvailable(String username) {
-        return !userRepository.existsByUsername(username);
+        return !userRepository.existsByUsername(username.toLowerCase());
     }
 
     public UserDetails loadUserByUsername(String email) {
