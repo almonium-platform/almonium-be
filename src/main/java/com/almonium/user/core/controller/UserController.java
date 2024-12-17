@@ -55,7 +55,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/langs/target/{code}")
+    @PostMapping("/me/langs/target/{code}")
     public ResponseEntity<Void> addTargetLanguage(@PathVariable Language code, @Auth User user) {
         learnerService.addTargetLanguage(code, user.getLearner().getId());
         return ResponseEntity.noContent().build();
