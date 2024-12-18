@@ -63,10 +63,7 @@ class UserServiceTest {
         String username = "username";
         String newUsername = "new_username";
         Long id = 1L;
-        User user = User.builder()
-                .id(id)
-                .username(username)
-                .build();
+        User user = User.builder().id(id).username(username).build();
 
         when(userRepository.existsByUsername(newUsername)).thenReturn(false);
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
