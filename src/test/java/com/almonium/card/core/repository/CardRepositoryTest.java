@@ -43,6 +43,7 @@ class CardRepositoryTest {
         user.setLearners(List.of(managedLearner));
 
         entityManager.persist(user);
+        entityManager.persist(managedLearner);
         entityManager.flush();
 
         Card card = TestDataGenerator.buildTestCard(TEST_PUBLIC_ID, TEST_ENTRY, managedLearner);
