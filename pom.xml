@@ -36,7 +36,7 @@
         <version.springdoc>2.7.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
-        <version.stripe>28.1.0</version.stripe>
+        <version.stripe>28.2.0</version.stripe>
     </properties>
 
     <dependencies>
