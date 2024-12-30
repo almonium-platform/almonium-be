@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-interest-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: user_interest
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: interest_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user_interest
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_user_interest_user_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: user_interest
+            baseColumnNames: interest_id
+            referencedTableName: interest
+            referencedColumnNames: id
+            constraintName: fk_user_interest_interest_id
+            onDelete: CASCADE

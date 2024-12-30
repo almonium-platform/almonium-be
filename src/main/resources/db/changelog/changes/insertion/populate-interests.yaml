@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-interests
+      author: almoni
+      changes:
+        - loadData:
+            tableName: interest
+            file: db/data/interests.csv
+            separator: ','

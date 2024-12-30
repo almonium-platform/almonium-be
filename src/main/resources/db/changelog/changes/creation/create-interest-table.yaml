@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-interest-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: interest
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

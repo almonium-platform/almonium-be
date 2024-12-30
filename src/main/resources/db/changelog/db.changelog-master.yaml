@@ -44,6 +44,10 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-stripe-event-log-table.yaml
   - include:
       file: db/changelog/changes/creation/create-refresh-token-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-interest-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-user-interest-table.yaml
   # Insertion
   - include:
       file: db/changelog/changes/insertion/populate-translators.yaml
@@ -51,3 +55,5 @@ databaseChangeLog:
       file: db/changelog/changes/insertion/populate-plans.yaml
   - include:
       file: db/changelog/changes/insertion/populate-plan-limits.yaml
+  - include:
+      file: db/changelog/changes/insertion/populate-interests.yaml
