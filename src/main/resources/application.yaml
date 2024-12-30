@@ -92,6 +92,7 @@ logging:
 
 # Custom Configurations
 app:
+  name: Almonium
   auth:
     verification-token:
       lifetime: 60

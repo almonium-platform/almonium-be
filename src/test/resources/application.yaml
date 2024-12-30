@@ -70,6 +70,7 @@ firebase:
     bucket: almonium-dummy.appspot.com
 
 app:
+  name: Almonium
   web-domain: almonium-dummy.com
   api-domain: api.almonium-dummy.com
   email:

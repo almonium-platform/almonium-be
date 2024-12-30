@@ -1,6 +1,7 @@
 package com.almonium.infra.email.service;
 
 import com.almonium.auth.local.model.enums.TokenType;
+import com.almonium.config.AppProperties;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
 import java.util.Map;
@@ -26,8 +27,8 @@ public class AuthTokenEmailComposerService extends EmailComposerService<TokenTyp
     private static final String RESET_PASSWORD_URL = "/reset-password";
     private static final String CHANGE_EMAIL_URL = "/change-email";
 
-    public AuthTokenEmailComposerService(SpringTemplateEngine templateEngine) {
-        super(templateEngine);
+    public AuthTokenEmailComposerService(SpringTemplateEngine templateEngine, AppProperties appProperties) {
+        super(templateEngine, appProperties);
     }
 
     @Override

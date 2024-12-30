@@ -1,5 +1,6 @@
 package com.almonium.infra.email.service;
 
+import com.almonium.config.AppProperties;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
 import com.almonium.subscription.model.entity.PlanSubscription;
@@ -26,8 +27,9 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
     private static final String BUTTON_URL_PLACEHOLDER = "url";
     private static final String SUBFOLDER = "subscription";
 
-    public SubscriptionEmailComposerService(SpringTemplateEngine templateEngine) {
-        super(templateEngine);
+    // RequiredArgsConstructor not possible due to inheritance
+    public SubscriptionEmailComposerService(SpringTemplateEngine templateEngine, AppProperties appProperties) {
+        super(templateEngine, appProperties);
     }
 
     @Override

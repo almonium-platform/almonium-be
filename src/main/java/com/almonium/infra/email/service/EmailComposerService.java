@@ -1,5 +1,8 @@
 package com.almonium.infra.email.service;
 
+import static lombok.AccessLevel.PRIVATE;
+
+import com.almonium.config.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.email.model.dto.EmailContext;
@@ -8,28 +11,24 @@ import com.almonium.infra.email.util.CssInliner;
 import java.time.Year;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public abstract class EmailComposerService<T> {
     private static final String TEMPLATE_PATH_FORMAT = "%s/%s.html";
-    private static final Map<String, String> UNIVERSAL_EMAIL_PLACEHOLDERS = Map.of(
-            "footerText", "© " + Year.now().getValue() + " Almonium. All rights reserved.", "headerText", "Almonium");
-
-    private final SpringTemplateEngine templateEngine;
-
-    @Value("${app.web-domain}")
-    private String domain;
+    SpringTemplateEngine templateEngine;
+    AppProperties appProperties;
 
     public EmailDto composeEmail(String recipientEmail, EmailContext<T> emailContext) {
         Context context = new Context();
         T templateType = emailContext.templateType();
         getCustomPlaceholders(emailContext).forEach(context::setVariable);
-        UNIVERSAL_EMAIL_PLACEHOLDERS.forEach(context::setVariable);
+        buildUniversalPlaceholders().forEach(context::setVariable);
 
         EmailSubjectTemplate dto = getTemplateTypeConfigMap().get(templateType);
         if (dto == null) {
@@ -49,6 +48,14 @@ public abstract class EmailComposerService<T> {
     public abstract String getSubfolder();
 
     protected String buildActionUrl(String path) {
-        return domain + path;
+        return appProperties.getWebDomain() + path;
+    }
+
+    private Map<String, String> buildUniversalPlaceholders() {
+        return Map.of(
+                "footerText",
+                String.format(
+                        "© %d %s. All rights reserved.", Year.now().getValue(), appProperties.getName()),
+                "headerText", appProperties.getName());
     }
 }
