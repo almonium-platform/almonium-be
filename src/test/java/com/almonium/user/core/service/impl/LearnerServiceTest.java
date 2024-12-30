@@ -41,10 +41,13 @@ class LearnerServiceTest {
 
     @Mock
     LearnerRepository learnerRepository;
+
     @Mock
     PlanValidationService planValidationService;
+
     @Mock
     CardService cardService;
+
     @Mock
     UserRepository userRepository;
 
@@ -57,8 +60,7 @@ class LearnerServiceTest {
         // Arrange
         User user = User.builder().id(10L).build();
         // Suppose we want to add French with some CEFR level
-        TargetLanguageWithProficiency languageData =
-                new TargetLanguageWithProficiency(CEFR.A1, Language.FR);
+        TargetLanguageWithProficiency languageData = new TargetLanguageWithProficiency(CEFR.A1, Language.FR);
 
         // No existing Learner with (userId=10, language=FR)
         when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
@@ -71,11 +73,10 @@ class LearnerServiceTest {
         learnerService.addTargetLanguage(languageData, user);
 
         // Assert
-        verify(planValidationService)
-                .validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, /* new total */ 2);
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, /* new total */ 2);
         // We expect a new Learner to be saved
-        verify(learnerRepository).save(argThat(learner ->
-                learner.getLanguage().equals(Language.FR)
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage().equals(Language.FR)
                         && learner.getUser().equals(user)));
     }
 
@@ -84,13 +85,12 @@ class LearnerServiceTest {
     void givenExistingTargetLanguage_whenAddTargetLanguage_thenThrowsException() {
         // Arrange
         User user = User.builder().id(11L).build();
-        TargetLanguageWithProficiency languageData =
-                new TargetLanguageWithProficiency(CEFR.C2, Language.DE);
+        TargetLanguageWithProficiency languageData = new TargetLanguageWithProficiency(CEFR.C2, Language.DE);
 
         // Mock that user already has a Learner for DE
-        Learner existingLearner = Learner.builder().user(user).language(Language.DE).build();
-        when(learnerRepository.findByUserIdAndLanguage(11L, Language.DE))
-                .thenReturn(Optional.of(existingLearner));
+        Learner existingLearner =
+                Learner.builder().user(user).language(Language.DE).build();
+        when(learnerRepository.findByUserIdAndLanguage(11L, Language.DE)).thenReturn(Optional.of(existingLearner));
 
         // Act & Assert
         assertThatThrownBy(() -> learnerService.addTargetLanguage(languageData, user))
@@ -108,8 +108,10 @@ class LearnerServiceTest {
         User user = User.builder().id(userId).build();
 
         // The user has, say, 2 learners: EN and FR
-        Learner enLearner = Learner.builder().id(100L).user(user).language(Language.EN).build();
-        Learner frLearner = Learner.builder().id(101L).user(user).language(Language.FR).build();
+        Learner enLearner =
+                Learner.builder().id(100L).user(user).language(Language.EN).build();
+        Learner frLearner =
+                Learner.builder().id(101L).user(user).language(Language.FR).build();
         user.setLearners(List.of(enLearner, frLearner));
 
         // The user is retrieved with all learners
@@ -132,7 +134,8 @@ class LearnerServiceTest {
         long userId = 21L;
         User user = User.builder().id(userId).build();
 
-        Learner onlyLearner = Learner.builder().id(200L).user(user).language(Language.EN).build();
+        Learner onlyLearner =
+                Learner.builder().id(200L).user(user).language(Language.EN).build();
         user.setLearners(List.of(onlyLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
@@ -153,7 +156,8 @@ class LearnerServiceTest {
         long userId = 22L;
         User user = User.builder().id(userId).build();
 
-        Learner enLearner = Learner.builder().id(300L).user(user).language(Language.EN).build();
+        Learner enLearner =
+                Learner.builder().id(300L).user(user).language(Language.EN).build();
         user.setLearners(List.of(enLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));

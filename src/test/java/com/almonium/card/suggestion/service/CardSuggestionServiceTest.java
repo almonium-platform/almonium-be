@@ -50,14 +50,19 @@ class CardSuggestionServiceTest {
 
     @Mock
     CardRepository cardRepository;
+
     @Mock
     CardSuggestionRepository cardSuggestionRepository;
+
     @Mock
     ExampleRepository exampleRepository;
+
     @Mock
     TranslationRepository translationRepository;
+
     @Mock
     LearnerRepository learnerRepository;
+
     @Mock
     CardMapper cardMapper;
     // IMPORTANT: We now need the LearnerFinder
@@ -104,16 +109,18 @@ class CardSuggestionServiceTest {
         // Arrange
         Long suggestionId = 3L;
         // We'll have two User objects:
-        Long executorId = 4L;   // Action executor's ID
-        Long recipientId = 5L;  // Recipient's user ID (different from the executor -> triggers illegal access)
+        Long executorId = 4L; // Action executor's ID
+        Long recipientId = 5L; // Recipient's user ID (different from the executor -> triggers illegal access)
 
         User executorUser = User.builder().id(executorId).build();
         User recipientUser = User.builder().id(recipientId).build();
 
         // The recipient Learner has user = recipientUser
         Learner recipientLearner = Learner.builder().user(recipientUser).build();
-        CardSuggestion cardSuggestion =
-                CardSuggestion.builder().id(suggestionId).recipient(recipientLearner).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .recipient(recipientLearner)
+                .build();
 
         when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
@@ -155,15 +162,17 @@ class CardSuggestionServiceTest {
     void givenUnauthorizedUser_whenDeclineSuggestion_thenThrowIllegalAccessException() {
         // Arrange
         Long suggestionId = 3L;
-        Long executorId = 4L;   // Action executor's ID
-        Long recipientId = 5L;  // Recipient's user ID
+        Long executorId = 4L; // Action executor's ID
+        Long recipientId = 5L; // Recipient's user ID
 
         User executorUser = User.builder().id(executorId).build();
         User recipientUser = User.builder().id(recipientId).build();
 
         Learner recipientLearner = Learner.builder().user(recipientUser).build();
-        CardSuggestion cardSuggestion =
-                CardSuggestion.builder().id(suggestionId).recipient(recipientLearner).build();
+        CardSuggestion cardSuggestion = CardSuggestion.builder()
+                .id(suggestionId)
+                .recipient(recipientLearner)
+                .build();
 
         when(cardSuggestionRepository.findById(suggestionId)).thenReturn(Optional.of(cardSuggestion));
 
@@ -182,9 +191,7 @@ class CardSuggestionServiceTest {
         User actionExecutor = User.builder().id(userId).build();
 
         // The recipient Learner with that user
-        Learner recipientLearner = Learner.builder()
-                .user(actionExecutor)
-                .build();
+        Learner recipientLearner = Learner.builder().user(actionExecutor).build();
 
         // Card to clone
         Card originalCard = Card.builder().id(999L).build();
@@ -192,8 +199,7 @@ class CardSuggestionServiceTest {
                 new Example(1L, "example1", "translation1", originalCard),
                 new Example(2L, "example2", "translation2", originalCard));
         List<Translation> translations = Arrays.asList(
-                new Translation(3L, "translationA", originalCard),
-                new Translation(4L, "translationB", originalCard));
+                new Translation(3L, "translationA", originalCard), new Translation(4L, "translationB", originalCard));
         originalCard.setExamples(examples);
         originalCard.setTranslations(translations);
 
@@ -213,22 +219,23 @@ class CardSuggestionServiceTest {
         // For simplicity, let's just return the same "originalCard" reference or a new instance.
         // Typically you'd want a deep copy, but let's keep it simple.
         Card clonedCard = Card.builder().build();
-        clonedCard.setExamples(
-                examples.stream().map(e -> new Example(e.getId(), e.getExample(), e.getTranslation(), clonedCard))
-                        .collect(Collectors.toList()));
-        clonedCard.setTranslations(
-                translations.stream().map(t -> new Translation(t.getId(), t.getTranslation(), clonedCard))
-                        .collect(Collectors.toList()));
+        clonedCard.setExamples(examples.stream()
+                .map(e -> new Example(e.getId(), e.getExample(), e.getTranslation(), clonedCard))
+                .collect(Collectors.toList()));
+        clonedCard.setTranslations(translations.stream()
+                .map(t -> new Translation(t.getId(), t.getTranslation(), clonedCard))
+                .collect(Collectors.toList()));
 
         when(cardMapper.copyCardDtoToEntity(eq(originalCardDto))).thenReturn(clonedCard);
-        when(learnerFinder.findLearner(actionExecutor, originalCard.getLanguage())).thenReturn(recipientLearner);
+        when(learnerFinder.findLearner(actionExecutor, originalCard.getLanguage()))
+                .thenReturn(recipientLearner);
         // The user is authorized
         // Act
         cardSuggestionService.acceptSuggestion(suggestionId, actionExecutor);
 
         // Assert
-        verify(cardRepository).save(argThat(savedCard ->
-                savedCard.getExamples().size() == examples.size()
+        verify(cardRepository)
+                .save(argThat(savedCard -> savedCard.getExamples().size() == examples.size()
                         && savedCard.getTranslations().size() == translations.size()));
         verify(translationRepository).saveAll(clonedCard.getTranslations());
         verify(exampleRepository).saveAll(clonedCard.getExamples());
@@ -273,8 +280,8 @@ class CardSuggestionServiceTest {
 
         // Assert
         assertThat(result).isTrue();
-        verify(cardSuggestionRepository).save(argThat(suggestion ->
-                suggestion.getSender().equals(senderLearner)
+        verify(cardSuggestionRepository)
+                .save(argThat(suggestion -> suggestion.getSender().equals(senderLearner)
                         && suggestion.getRecipient().equals(recipient)
                         && suggestion.getCard().equals(card)));
     }

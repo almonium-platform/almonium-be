@@ -67,16 +67,22 @@ class CardServiceTest {
 
     @Mock
     CardRepository cardRepository;
+
     @Mock
     CardTagRepository cardTagRepository;
+
     @Mock
     TagRepository tagRepository;
+
     @Mock
     ExampleRepository exampleRepository;
+
     @Mock
     TranslationRepository translationRepository;
+
     @Mock
     LearnerRepository learnerRepository;
+
     @Mock
     CardMapper cardMapper;
     /**
@@ -111,8 +117,10 @@ class CardServiceTest {
         when(cardRepository.findAllByOwnerAndEntryLikeIgnoreCase(learner, "%test%"))
                 .thenReturn(cards);
 
-        when(cardMapper.cardEntityToDto(card1)).thenReturn(CardDto.builder().id(1L).build());
-        when(cardMapper.cardEntityToDto(card2)).thenReturn(CardDto.builder().id(2L).build());
+        when(cardMapper.cardEntityToDto(card1))
+                .thenReturn(CardDto.builder().id(1L).build());
+        when(cardMapper.cardEntityToDto(card2))
+                .thenReturn(CardDto.builder().id(2L).build());
 
         // Act
         List<CardDto> result = cardService.searchByEntry(entry, language, user);
@@ -229,11 +237,24 @@ class CardServiceTest {
         int[] deletedExamplesIds = {4, 5}; // IDs of examples to be deleted
 
         List<Example> examples = new ArrayList<>();
-        examples.add(Example.builder().id(4L).example("example1").translation("translation1").build());
-        examples.add(Example.builder().id(5L).example("example2").translation("translation2").build());
-        examples.add(Example.builder().id(6L).example("example3").translation("translation3").build());
+        examples.add(Example.builder()
+                .id(4L)
+                .example("example1")
+                .translation("translation1")
+                .build());
+        examples.add(Example.builder()
+                .id(5L)
+                .example("example2")
+                .translation("translation2")
+                .build());
+        examples.add(Example.builder()
+                .id(6L)
+                .example("example3")
+                .translation("translation3")
+                .build());
 
-        Card card = Card.builder().id(cardId).examples(examples).cardTags(Set.of()).build();
+        Card card =
+                Card.builder().id(cardId).examples(examples).cardTags(Set.of()).build();
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
@@ -273,7 +294,11 @@ class CardServiceTest {
         translations.add(Translation.builder().id(2L).translation("trans2").build());
         translations.add(Translation.builder().id(3L).translation("trans3").build());
 
-        Card card = Card.builder().id(cardId).translations(translations).cardTags(Set.of()).build();
+        Card card = Card.builder()
+                .id(cardId)
+                .translations(translations)
+                .cardTags(Set.of())
+                .build();
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
@@ -307,15 +332,20 @@ class CardServiceTest {
 
         Long cardId = 1L;
         TranslationDto[] updatedTranslations = {
-                new TranslationDto(1L, "updatedTranslation1"),
-                new TranslationDto(2L, "updatedTranslation2")
+                new TranslationDto(1L, "updatedTranslation1"), new TranslationDto(2L, "updatedTranslation2")
         };
 
         List<Translation> originalTranslations = new ArrayList<>();
-        originalTranslations.add(Translation.builder().id(1L).translation("originalTranslation1").build());
-        originalTranslations.add(Translation.builder().id(2L).translation("originalTranslation2").build());
+        originalTranslations.add(
+                Translation.builder().id(1L).translation("originalTranslation1").build());
+        originalTranslations.add(
+                Translation.builder().id(2L).translation("originalTranslation2").build());
 
-        Card card = Card.builder().id(cardId).translations(originalTranslations).cardTags(Set.of()).build();
+        Card card = Card.builder()
+                .id(cardId)
+                .translations(originalTranslations)
+                .cardTags(Set.of())
+                .build();
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
@@ -332,7 +362,10 @@ class CardServiceTest {
         // Mocking the DB fetch of each translation
         for (TranslationDto t : updatedTranslations) {
             when(translationRepository.findById(t.getId()))
-                    .thenReturn(Optional.of(Translation.builder().id(t.getId()).translation(t.getTranslation()).build()));
+                    .thenReturn(Optional.of(Translation.builder()
+                            .id(t.getId())
+                            .translation(t.getTranslation())
+                            .build()));
         }
 
         // Act
@@ -341,9 +374,8 @@ class CardServiceTest {
         // Assert
         for (TranslationDto updatedTranslation : updatedTranslations) {
             verify(translationRepository)
-                    .save(argThat(translation ->
-                            translation.getId().equals(updatedTranslation.getId())
-                                    && translation.getTranslation().equals(updatedTranslation.getTranslation())));
+                    .save(argThat(translation -> translation.getId().equals(updatedTranslation.getId())
+                            && translation.getTranslation().equals(updatedTranslation.getTranslation())));
         }
     }
 
@@ -363,10 +395,22 @@ class CardServiceTest {
         };
 
         List<Example> originalExamples = new ArrayList<>();
-        originalExamples.add(Example.builder().id(1L).example("originalExample1").translation("originalTranslation1").build());
-        originalExamples.add(Example.builder().id(2L).example("originalExample2").translation("originalTranslation2").build());
+        originalExamples.add(Example.builder()
+                .id(1L)
+                .example("originalExample1")
+                .translation("originalTranslation1")
+                .build());
+        originalExamples.add(Example.builder()
+                .id(2L)
+                .example("originalExample2")
+                .translation("originalTranslation2")
+                .build());
 
-        Card card = Card.builder().id(cardId).examples(originalExamples).cardTags(Set.of()).build();
+        Card card = Card.builder()
+                .id(cardId)
+                .examples(originalExamples)
+                .cardTags(Set.of())
+                .build();
 
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
@@ -383,12 +427,11 @@ class CardServiceTest {
         // Mocking DB fetch
         for (ExampleDto e : updatedExamples) {
             when(exampleRepository.findById(e.getId()))
-                    .thenReturn(Optional.of(
-                            Example.builder()
-                                    .id(e.getId())
-                                    .example(e.getExample())
-                                    .translation(e.getTranslation())
-                                    .build()));
+                    .thenReturn(Optional.of(Example.builder()
+                            .id(e.getId())
+                            .example(e.getExample())
+                            .translation(e.getTranslation())
+                            .build()));
         }
 
         // Act
@@ -397,10 +440,9 @@ class CardServiceTest {
         // Assert
         for (ExampleDto updatedExample : updatedExamples) {
             verify(exampleRepository)
-                    .save(argThat(example ->
-                            example.getId().equals(updatedExample.getId())
-                                    && example.getExample().equals(updatedExample.getExample())
-                                    && example.getTranslation().equals(updatedExample.getTranslation())));
+                    .save(argThat(example -> example.getId().equals(updatedExample.getId())
+                            && example.getExample().equals(updatedExample.getExample())
+                            && example.getTranslation().equals(updatedExample.getTranslation())));
         }
     }
 
@@ -415,8 +457,7 @@ class CardServiceTest {
 
         Long cardId = 1L;
         TranslationDto[] newTranslations = {
-                new TranslationDto(null, "newTranslation1"),
-                new TranslationDto(null, "newTranslation2")
+                new TranslationDto(null, "newTranslation1"), new TranslationDto(null, "newTranslation2")
         };
 
         Card card = Card.builder()
@@ -443,7 +484,8 @@ class CardServiceTest {
         // Assert
         for (TranslationDto t : newTranslations) {
             verify(translationRepository)
-                    .save(argThat(tr -> tr.getTranslation().equals(t.getTranslation()) && tr.getCard().equals(card)));
+                    .save(argThat(tr -> tr.getTranslation().equals(t.getTranslation())
+                            && tr.getCard().equals(card)));
         }
     }
 
@@ -486,10 +528,9 @@ class CardServiceTest {
         // Assert
         for (ExampleDto e : newExamples) {
             verify(exampleRepository)
-                    .save(argThat(ex ->
-                            ex.getExample().equals(e.getExample())
-                                    && ex.getTranslation().equals(e.getTranslation())
-                                    && ex.getCard().equals(card)));
+                    .save(argThat(ex -> ex.getExample().equals(e.getExample())
+                            && ex.getTranslation().equals(e.getTranslation())
+                            && ex.getCard().equals(card)));
         }
     }
 
@@ -713,8 +754,8 @@ class CardServiceTest {
         Card card = existingCardTags.iterator().next().getCard();
         when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
 
-        existingCardTags.forEach(cardTag ->
-                when(cardTagRepository.getByCardAndText(card, cardTag.getTag().getText()))
-                        .thenReturn(cardTag));
+        existingCardTags.forEach(cardTag -> when(cardTagRepository.getByCardAndText(
+                card, cardTag.getTag().getText()))
+                .thenReturn(cardTag));
     }
 }
