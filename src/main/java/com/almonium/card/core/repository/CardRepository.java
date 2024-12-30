@@ -15,7 +15,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     void deleteAllByOwnerAndLanguage(Learner owner, Language language);
 
-    List<Card> findAllByOwnerAndEntryLikeIgnoreCase(Learner user, String entry);
+    List<Card> findAllByOwnerAndEntryLikeIgnoreCase(Learner owner, String entry);
 
     Optional<Card> getByPublicId(UUID id);
 }
