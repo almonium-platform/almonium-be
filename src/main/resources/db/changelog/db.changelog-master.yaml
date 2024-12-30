@@ -29,9 +29,7 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-lang-pair-translator-mapping-table.yaml
   - include:
-      file: db/changelog/changes/creation/create-learner-fluent-lang-table.yaml
-  - include:
-      file: db/changelog/changes/creation/create-learner-target-lang-table.yaml
+      file: db/changelog/changes/creation/create-user-fluent-lang-table.yaml
   - include:
       file: db/changelog/changes/creation/create-verification-token-table.yaml
   - include:

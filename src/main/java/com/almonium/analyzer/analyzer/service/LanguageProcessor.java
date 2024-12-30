@@ -21,7 +21,9 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.analyzer.translator.repository.LangPairTranslatorRepository;
 import com.almonium.analyzer.translator.repository.TranslatorRepository;
 import com.almonium.analyzer.translator.service.TranslationService;
+import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.model.entity.User;
 import com.google.protobuf.ByteString;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +57,7 @@ public class LanguageProcessor {
     LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
     DictionaryDtoMapper dictionaryDtoMapper;
+    LearnerFinder learnerFinder;
 
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
         // todo deepL
@@ -170,13 +173,13 @@ public class LanguageProcessor {
         analysisDto.setHomophones(getHomophones(entry));
     }
 
-    public AnalysisDto getReport(String entry, String languageCode, Learner learner) {
+    public AnalysisDto getReport(String entry, Language sourceLang, User user) {
+        Learner learner = learnerFinder.findLearner(user, sourceLang);
         AnalysisDto analysisDto = new AnalysisDto();
         List<String> lemmas = coreNLPServiceImpl.lemmatize(entry);
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
-        Language sourceLang = Language.valueOf(languageCode);
-        Language fluentLanguage = learner.getFluentLangs().iterator().next();
+        Language fluentLanguage = learner.getUser().getFluentLangs().iterator().next();
 
         List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));

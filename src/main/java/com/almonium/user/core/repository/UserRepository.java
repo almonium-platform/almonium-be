@@ -24,4 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(long id);
 
     Optional<User> findByStripeCustomerId(String stripeCustomerId);
+
+    @Query("select u from User u join Learner l on u.id = l.user.id where u.id = :id")
+    Optional<User> findUserWithLearners(long id);
 }

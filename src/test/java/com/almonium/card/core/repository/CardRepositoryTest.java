@@ -40,7 +40,7 @@ class CardRepositoryTest {
 
         managedLearner = new Learner();
         managedLearner.setUser(user);
-        user.setLearner(managedLearner);
+        user.setLearners(List.of(managedLearner));
 
         entityManager.persist(user);
         entityManager.flush();

@@ -2,6 +2,7 @@ package com.almonium.card.suggestion.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
 import com.almonium.card.core.model.entity.Card;
@@ -10,10 +11,12 @@ import com.almonium.card.core.model.entity.Translation;
 import com.almonium.card.core.repository.CardRepository;
 import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.TranslationRepository;
+import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.card.suggestion.dto.CardSuggestionDto;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.card.suggestion.repository.CardSuggestionRepository;
 import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -37,9 +40,12 @@ public class CardSuggestionService {
     TranslationRepository translationRepository;
     LearnerRepository learnerRepository;
     CardMapper cardMapper;
+    LearnerFinder learnerFinder;
 
-    public List<CardDto> getSuggestedCards(Learner user) {
-        return cardSuggestionRepository.getByRecipient(user).stream()
+    public List<CardDto> getSuggestedCards(User user, Language lang) {
+        Learner learner = learnerFinder.findLearner(user, lang);
+
+        return cardSuggestionRepository.getByRecipient(learner).stream()
                 .map(sug -> {
                     CardDto dto = cardMapper.cardEntityToDto(sug.getCard());
                     dto.setUserId(sug.getSender().getId());
@@ -48,23 +54,26 @@ public class CardSuggestionService {
                 .collect(Collectors.toList());
     }
 
-    public void declineSuggestion(Long id, Learner actionExecutor) {
+    public void declineSuggestion(Long id, User actionExecutor) {
         CardSuggestion cardSuggestion = getCardSuggestion(id);
-        Learner recipient = cardSuggestion.getRecipient();
+        User recipient = cardSuggestion.getRecipient().getUser();
         checkAuthorization(actionExecutor, recipient);
         cardSuggestionRepository.deleteById(id);
     }
 
-    public void acceptSuggestion(Long id, Learner actionExecutor) {
+    public void acceptSuggestion(Long id, User actionExecutor) {
         CardSuggestion cardSuggestion = getCardSuggestion(id);
-        Learner recipient = cardSuggestion.getRecipient();
+        User recipient = cardSuggestion.getRecipient().getUser();
         checkAuthorization(actionExecutor, recipient);
-        cloneCard(cardSuggestion.getCard(), recipient);
+        Learner recipientLearner =
+                learnerFinder.findLearner(recipient, cardSuggestion.getCard().getLanguage());
+        cloneCard(cardSuggestion.getCard(), recipientLearner);
         cardSuggestionRepository.delete(cardSuggestion);
     }
 
-    public boolean suggestCard(CardSuggestionDto dto, Learner sender) {
+    public boolean suggestCard(CardSuggestionDto dto, User user) {
         Card card = cardRepository.findById(dto.cardId()).orElseThrow();
+        Learner sender = learnerFinder.findLearner(user, card.getLanguage());
         Learner recipient = learnerRepository.findById(dto.recipientId()).orElseThrow();
         // TODO  notifications
         // TODO check if has access
@@ -93,7 +102,7 @@ public class CardSuggestionService {
     }
 
     @SneakyThrows
-    private void checkAuthorization(Learner actionExecutor, Learner recipient) {
+    private void checkAuthorization(User actionExecutor, User recipient) {
         if (!recipient.equals(actionExecutor)) {
             throw new IllegalAccessException("You aren't authorized to act on behalf of other userInfo");
         }

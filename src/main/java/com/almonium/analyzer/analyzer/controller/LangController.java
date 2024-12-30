@@ -35,9 +35,10 @@ public class LangController {
     CardService cardService;
     LanguageProcessor languageProcessor;
 
-    @GetMapping("/cards/search/{text}")
-    public ResponseEntity<List<CardDto>> search(@PathVariable String text, @Auth User user) {
-        return ResponseEntity.ok(cardService.searchByEntry(text, user.getLearner()));
+    @GetMapping("/cards/{lang}/search/{text}")
+    public ResponseEntity<List<CardDto>> search(
+            @PathVariable String text, @PathVariable Language lang, @Auth User user) {
+        return ResponseEntity.ok(cardService.searchByEntry(text, lang, user));
     }
 
     @GetMapping("/translate/{langFrom}/{langTo}/{text}")
@@ -75,8 +76,8 @@ public class LangController {
 
     @GetMapping("/words/{text}/{lang}/report")
     public ResponseEntity<AnalysisDto> getReport(
-            @PathVariable String text, @PathVariable String lang, @Auth User user) {
-        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user.getLearner()));
+            @PathVariable String text, @PathVariable Language lang, @Auth User user) {
+        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user));
     }
 
     private HttpHeaders createAudioHeaders() {

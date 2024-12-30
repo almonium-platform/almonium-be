@@ -2,22 +2,21 @@ package com.almonium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,15 +35,22 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 public class Learner {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
 
+    @Enumerated(EnumType.STRING)
+    Language language;
+
+    @Enumerated(EnumType.STRING)
+    CEFR selfReportedLevel;
+
+    @Builder.Default
     @OneToMany(mappedBy = "owner")
-    Set<Card> cards;
+    List<Card> cards = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender")
     List<CardSuggestion> outgoingSuggestions;
@@ -52,22 +58,16 @@ public class Learner {
     @OneToMany(mappedBy = "recipient")
     List<CardSuggestion> incomingSuggestions;
 
-    @ElementCollection(targetClass = Language.class)
-    @CollectionTable(name = "learner_target_lang", joinColumns = @JoinColumn(name = "learner_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "lang")
-    Set<Language> targetLangs;
-
-    @ElementCollection(targetClass = Language.class)
-    @CollectionTable(name = "learner_fluent_lang", joinColumns = @JoinColumn(name = "learner_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "lang")
-    Set<Language> fluentLangs;
-
     public void addCard(Card card) {
         if (card != null) {
             this.cards.add(card);
             card.setOwner(this);
         }
+    }
+
+    public Learner(User user, Language language, CEFR selfReportedLevel) {
+        this.user = user;
+        this.language = language;
+        this.selfReportedLevel = selfReportedLevel;
     }
 }

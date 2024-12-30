@@ -33,25 +33,19 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
-        cardService.createCard(user.getLearner(), dto);
+        cardService.createCard(user, dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCard(
-            @PathVariable Long id, @Valid @RequestBody CardUpdateDto dto, @Auth User user) {
-        cardService.updateCard(id, dto, user.getLearner());
+    @PutMapping
+    public ResponseEntity<Void> updateCard(@Valid @RequestBody CardUpdateDto dto, @Auth User user) {
+        cardService.updateCard(user, dto);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<CardDto>> getCardStack(@Auth User user) {
-        return ResponseEntity.ok(cardService.getUsersCards(user.getLearner()));
     }
 
     @GetMapping("/lang/{lang}")
     public ResponseEntity<List<CardDto>> getCardStackOfLang(@PathVariable Language lang, @Auth User user) {
-        return ResponseEntity.ok(cardService.getUsersCardsOfLang(lang, user.getLearner()));
+        return ResponseEntity.ok(cardService.getUsersCardsOfLang(user, lang));
     }
 
     @GetMapping("/{id}")

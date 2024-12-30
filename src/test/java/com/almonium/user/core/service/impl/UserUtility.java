@@ -4,6 +4,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
+import java.util.List;
 import java.util.Set;
 import lombok.experimental.UtilityClass;
 
@@ -18,10 +19,10 @@ public class UserUtility {
         profile.setAvatarUrl("profile.jpg");
         profile.setStreak(5);
         user.setProfile(profile);
-        Learner learner = new Learner();
-        learner.setTargetLangs(Set.of(Language.DE, Language.FR));
-        learner.setFluentLangs(Set.of(Language.ES, Language.RU));
-        user.setLearner(learner);
+        Learner learner = Learner.builder().language(Language.EN).build();
+        user.setLearners(List.of(learner));
+        user.setFluentLangs(Set.of(Language.ES, Language.RU));
+        user.setLearners(List.of(learner));
         return user;
     }
 }

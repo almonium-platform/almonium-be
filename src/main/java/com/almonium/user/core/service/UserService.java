@@ -2,6 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
@@ -13,24 +14,30 @@ import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
+import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-@Transactional(readOnly = true)
+@Transactional
 public class UserService implements UserDetailsService {
     UserRepository userRepository;
     PlanSubscriptionService planSubscriptionService;
@@ -50,6 +57,7 @@ public class UserService implements UserDetailsService {
         userInfo.getSubscription().setLimits(limits);
         userInfo.setPremium(
                 planService.isPlanPremium(activePlanSubscription.getPlan().getId()));
+        userInfo.setTargetLangs(getTargetLanguages(fetchedUser));
         return userInfo;
     }
 
@@ -122,6 +130,15 @@ public class UserService implements UserDetailsService {
                 .filter(principal -> !principal.getEmail().equals(user.getEmail()))
                 .map(principal -> (LocalPrincipal) principal)
                 .findFirst();
+    }
+
+    public List<Language> getTargetLanguages(User user) {
+        return user.getLearners().stream().map(Learner::getLanguage).toList();
+    }
+
+    public void updateFluentLanguages(Set<Language> langs, User user) {
+        user.setFluentLangs(new HashSet<>(langs));
+        userRepository.save(user);
     }
 
     private static String collectProvidersNames(User user) {

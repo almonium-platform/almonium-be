@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LanguageUpdateRequest;
+import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.dto.UsernameAvailability;
 import com.almonium.user.core.dto.UsernameUpdateRequest;
@@ -51,28 +51,23 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/me/langs")
-    public ResponseEntity<Void> setupLanguages(@RequestBody LanguageSetupRequest request, @Auth User user) {
-        learnerService.setupLanguages(request.fluentLangs(), request.targetLangs(), user.getLearner());
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/me/langs/target/{code}")
-    public ResponseEntity<Void> addTargetLanguage(@PathVariable Language code, @Auth User user) {
-        learnerService.addTargetLanguage(code, user.getLearner().getId());
+    @PostMapping("/me/langs/target")
+    public ResponseEntity<Void> addTargetLanguage(
+            @Valid @RequestBody TargetLanguageWithProficiency dto, @Auth User user) {
+        learnerService.addTargetLanguage(dto, user);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/me/langs/target/{code}")
     public ResponseEntity<Void> removeTargetLanguage(@PathVariable Language code, @Auth User user) {
-        learnerService.removeTargetLanguage(code, user.getLearner().getId());
+        learnerService.removeTargetLanguage(code, user.getId());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/me/langs/fluent")
     public ResponseEntity<Void> updateFluentLanguages(
             @Valid @RequestBody LanguageUpdateRequest request, @Auth User user) {
-        learnerService.updateFluentLanguages(request.langCodes(), user.getLearner());
+        userService.updateFluentLanguages(request.langCodes(), user);
         return ResponseEntity.noContent().build();
     }
 }

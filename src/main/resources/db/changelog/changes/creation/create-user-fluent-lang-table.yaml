@@ -1,25 +1,14 @@
 databaseChangeLog:
   - changeSet:
-      id: create-learner-table
+      id: create-user-fluent-lang-table
       author: almoni
       changes:
         - createTable:
-            tableName: learner
+            tableName: user_fluent_lang
             columns:
-              - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
               - column:
                   name: user_id
                   type: bigint
-                  constraints:
-                    nullable: false
-              - column:
-                  name: self_reported_level
-                  type: varchar(3)
                   constraints:
                     nullable: false
               - column:
@@ -27,10 +16,14 @@ databaseChangeLog:
                   type: varchar(10)
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: user_fluent_lang
+            columnNames: user_id, language
+            constraintName: uk_user_fluent_lang
         - addForeignKeyConstraint:
-            baseTableName: learner
+            baseTableName: user_fluent_lang
             baseColumnNames: user_id
             referencedTableName: user_core
             referencedColumnNames: id
-            constraintName: fk_learner_user
+            constraintName: fk_user_fluent_lang_user
             onDelete: CASCADE

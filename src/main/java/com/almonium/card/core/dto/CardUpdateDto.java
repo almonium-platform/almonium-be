@@ -2,6 +2,7 @@ package com.almonium.card.core.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,5 @@ public class CardUpdateDto {
     Boolean falseFriend;
     Boolean irregularPlural;
     Boolean irregularSpelling;
-    String language;
+    Language language;
 }

@@ -3,6 +3,7 @@ package com.almonium.card.core.repository;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.CardTag;
 import com.almonium.card.core.model.entity.Tag;
@@ -41,7 +42,10 @@ class CardTagRepositoryTest {
         managedTag = buildTestTag();
 
         entityManager.persist(managedUser);
-        managedLearner = managedUser.getLearner();
+        managedLearner =
+                Learner.builder().user(managedUser).language(Language.EN).build();
+        entityManager.persist(managedLearner);
+        entityManager.persist(managedUser);
         entityManager.persist(managedTag);
         entityManager.flush();
 

@@ -3,6 +3,7 @@ package com.almonium.card.suggestion.repository;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.user.core.model.entity.Learner;
@@ -35,17 +36,27 @@ class CardSuggestionRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        // Create and persist Users
         User senderUser = TestDataGenerator.buildTestUser();
         User recipientUser = TestDataGenerator.buildAnotherTestUser();
-        card = TestDataGenerator.buildTestCard();
-
         entityManager.persist(senderUser);
         entityManager.persist(recipientUser);
 
-        sender = senderUser.getLearner();
-        recipient = recipientUser.getLearner();
+        // Explicitly create Learners and associate with Users
+        sender = new Learner();
+        sender.setUser(senderUser);
+        sender.setLanguage(Language.EN); // Assuming Language is an Enum
+        entityManager.persist(sender);
 
+        recipient = new Learner();
+        recipient.setUser(recipientUser);
+        recipient.setLanguage(Language.FR); // Example: different language
+        entityManager.persist(recipient);
+
+        // Persist a test Card
+        card = TestDataGenerator.buildTestCard();
         entityManager.persist(card);
+
         entityManager.flush();
     }
 

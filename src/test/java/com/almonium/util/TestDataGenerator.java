@@ -188,11 +188,7 @@ public class TestDataGenerator {
 
     public UserInfo buildTestUserInfo() {
         User user = buildTestUserWithId();
-        Learner learner = Learner.builder()
-                .id(user.getId())
-                .targetLangs(Set.of(Language.EN, Language.ES))
-                .fluentLangs(Set.of(Language.FR, Language.DE))
-                .build();
+        Learner learner = Learner.builder().id(user.getId()).build();
         Profile profile = Profile.builder()
                 .id(user.getId())
                 .avatarUrl("Profile Image URL")
@@ -225,8 +221,8 @@ public class TestDataGenerator {
                 .isPremium(false)
                 .streak(profile.getStreak())
                 .tags(List.of("tag1", "tag2"))
-                .targetLangs(learner.getTargetLangs())
-                .fluentLangs(learner.getFluentLangs())
+                .targetLangs(Set.of(Language.EN, Language.ES))
+                .fluentLangs(Set.of(Language.FR, Language.DE))
                 .subscription(subscriptionInfo)
                 .build();
     }
@@ -247,7 +243,7 @@ public class TestDataGenerator {
         user.setEmailVerified(true);
         user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
-        user.setLearner(Learner.builder().user(user).build());
+        user.setLearners(List.of(Learner.builder().user(user).build()));
         return user;
     }
 
@@ -272,7 +268,7 @@ public class TestDataGenerator {
         user.setEmail("john@email.com");
         user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
-        user.setLearner(Learner.builder().user(user).build());
+        user.setLearners(List.of(Learner.builder().user(user).build()));
         return user;
     }
 
@@ -312,7 +308,7 @@ public class TestDataGenerator {
         cardCreationDto.setIrregularSpelling(false);
         cardCreationDto.setLearnt(false);
 
-        cardCreationDto.setLanguage("English");
+        cardCreationDto.setLanguage(Language.EN);
 
         cardCreationDto.setCreatedAt("2024-01-20T00:00:00");
         cardCreationDto.setUpdatedAt("2024-01-20T12:30:00");
@@ -343,7 +339,7 @@ public class TestDataGenerator {
         cardUpdateDto.setFalseFriend(random.nextBoolean());
         cardUpdateDto.setIrregularPlural(random.nextBoolean());
         cardUpdateDto.setIrregularSpelling(random.nextBoolean());
-        cardUpdateDto.setLanguage(generateRandomString());
+        cardUpdateDto.setLanguage(Language.EN);
 
         return cardUpdateDto;
     }

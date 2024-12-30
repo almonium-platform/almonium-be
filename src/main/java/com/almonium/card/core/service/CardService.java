@@ -20,6 +20,7 @@ import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.TagRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.google.common.collect.Sets;
 import java.time.Instant;
@@ -50,6 +51,7 @@ public class CardService {
     TranslationRepository translationRepository;
     LearnerRepository learnerRepository;
     CardMapper cardMapper;
+    LearnerFinder learnerFinder;
 
     public CardDto getCardById(Long id) {
         return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
@@ -60,20 +62,17 @@ public class CardService {
         return cardMapper.cardEntityToDto(card);
     }
 
-    public List<CardDto> getUsersCards(Learner learner) {
+    public List<CardDto> getUsersCardsOfLang(User user, Language language) {
+        Learner learner = learnerFinder.findLearner(user, language);
         return cardRepository.findAllByOwner(learner).stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
 
-    public List<CardDto> getUsersCardsOfLang(Language language, Learner learner) {
-        return cardRepository.findAllByOwnerAndLanguage(learner, language).stream()
-                .map(cardMapper::cardEntityToDto)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
-    public List<CardDto> searchByEntry(String entry, Learner learner) {
+    public List<CardDto> searchByEntry(String entry, Language language, User user) {
+        Learner learner = learnerFinder.findLearner(user, language);
+
         return cardRepository
                 .findAllByOwnerAndEntryLikeIgnoreCase(
                         learner, '%' + entry.trim().toLowerCase() + '%')
@@ -83,7 +82,9 @@ public class CardService {
     }
 
     @Transactional
-    public void createCard(Learner learner, CardCreationDto dto) {
+    public void createCard(User user, CardCreationDto dto) {
+        Language language = dto.getLanguage();
+        Learner learner = learnerFinder.findLearner(user, language);
         Card card = initializeCard(learner, dto);
         List<CardTag> cardTags = createCardTags(card, dto.getTags());
         saveEntities(card, card.getTranslations(), card.getExamples(), cardTags, learner);
@@ -91,7 +92,9 @@ public class CardService {
     }
 
     @Transactional
-    public void updateCard(Long id, CardUpdateDto dto, Learner learner) {
+    public void updateCard(User user, CardUpdateDto dto) {
+        Language language = dto.getLanguage();
+        Learner learner = learnerFinder.findLearner(user, language);
         Card entity = cardRepository.findById(dto.getId()).orElseThrow();
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
@@ -104,8 +107,8 @@ public class CardService {
         cardRepository.deleteById(id);
     }
 
-    public void deleteByLanguage(Language code, Learner user) {
-        cardRepository.deleteAllByOwnerAndLanguage(user, code);
+    public void deleteByLanguage(Language code, Learner learner) {
+        cardRepository.deleteAllByOwnerAndLanguage(learner, code);
     }
 
     private Card initializeCard(Learner learner, CardCreationDto dto) {

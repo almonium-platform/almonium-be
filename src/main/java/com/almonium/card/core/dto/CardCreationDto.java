@@ -2,6 +2,7 @@ package com.almonium.card.core.dto;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class CardCreationDto {
     String entry;
 
     @NotBlank
-    String language;
+    Language language;
 
     @NotEmpty
     TranslationDto[] translations;
