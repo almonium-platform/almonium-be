@@ -32,7 +32,7 @@ public class Tag {
     private static final String CONNECTING_SYMBOL = "_";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ColumnTransformer(read = "LOWER(text)")
