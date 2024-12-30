@@ -143,7 +143,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadUserRequestActionException.class)
     public ResponseEntity<ApiResponse> handleBadUserRequestActionException(BadUserRequestActionException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(ResourceConflictException.class)
