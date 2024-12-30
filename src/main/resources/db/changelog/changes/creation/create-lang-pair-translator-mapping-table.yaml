@@ -8,17 +8,17 @@ databaseChangeLog:
             columns:
               - column:
                   name: source_lang
-                  type: VARCHAR(10)
+                  type: varchar(10)
                   constraints:
                     nullable: false
               - column:
                   name: target_lang
-                  type: VARCHAR(10)
+                  type: varchar(10)
                   constraints:
                     nullable: false
               - column:
                   name: translator_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:

@@ -8,33 +8,33 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
                   name: requester_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: requestee_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: created_at
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: updated_at
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: status
-                  type: VARCHAR(50)
+                  type: varchar(50)
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:

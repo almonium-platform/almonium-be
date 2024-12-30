@@ -1,0 +1,5 @@
+id,name,description,price,type,stripe_price_id
+1,FREE,Basic access,0.00,LIFETIME,
+2,PREMIUM,Ultimate plan,4.99,MONTHLY,price_1QQx70Roiildngwvr35gBslF
+3,PREMIUM,Ultimate plan,49.99,YEARLY,price_1QQx6xRoiildngwviy3O1HUU
+4,INSIDER,Free premium plan for insiders,0.00,LIFETIME,price_1QQxSyRoiildngwvxq33MSSf

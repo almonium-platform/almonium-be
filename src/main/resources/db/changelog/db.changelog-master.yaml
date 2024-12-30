@@ -48,6 +48,6 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-refresh-token-table.yaml
   # Insertion
   - include:
-      file: db/changelog/changes/insertion/translator-table-inserts.yaml
+      file: db/changelog/changes/insertion/populate-translators.yaml
   - include:
-      file: db/changelog/changes/insertion/plan-table-inserts.yaml
+      file: db/changelog/changes/insertion/populate-plans.yaml

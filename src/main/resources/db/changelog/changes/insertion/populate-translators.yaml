@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-translators
+      author: almoni
+      changes:
+        - loadData:
+            tableName: translator
+            file: db/data/translators.csv
+            separator: ','

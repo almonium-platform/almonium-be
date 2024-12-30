@@ -8,17 +8,17 @@ databaseChangeLog:
             columns:
               - column:
                   name: card_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: tag_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: learner_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:

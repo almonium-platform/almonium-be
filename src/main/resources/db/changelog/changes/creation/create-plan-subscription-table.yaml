@@ -8,45 +8,45 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
                   name: user_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: plan_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
                     foreignKeyName: fk_subscription_plan
                     references: plan(id)
               - column:
                   name: status
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
                   name: start_date
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: end_date
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: true
               - column:
                   name: updated_at
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: stripe_subscription_id
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: true
         - addForeignKeyConstraint:

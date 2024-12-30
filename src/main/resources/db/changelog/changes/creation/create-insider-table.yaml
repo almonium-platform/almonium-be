@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     primaryKey: true
         - addForeignKeyConstraint:

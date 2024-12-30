@@ -1,0 +1,5 @@
+id,name,description,price,type,stripe_price_id
+1,FREE,Basic access,0.00,LIFETIME,
+2,PREMIUM,Access to all features,4.99,MONTHLY,price_1Pc8ogRoiildngwvW80LNpBt
+3,PREMIUM,Access to all features,49.99,YEARLY,price_1PecFYRoiildngwv0pwCFyJc
+4,INSIDER,For insiders,0.00,LIFETIME,price_1PecJYRoiildngwv9dV9w5nX

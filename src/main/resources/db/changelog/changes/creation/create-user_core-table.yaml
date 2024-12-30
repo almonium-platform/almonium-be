@@ -36,6 +36,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: stripe_customer_id
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
                     nullable: true

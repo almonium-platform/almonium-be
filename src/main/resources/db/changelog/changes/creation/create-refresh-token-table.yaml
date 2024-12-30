@@ -8,27 +8,27 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: uuid
                   constraints:
                     primaryKey: true
               - column:
                   name: user_id
-                  type: BIGINT
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
                   name: issue_date
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: expiry_date
-                  type: TIMESTAMP
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
                   name: revoked
-                  type: BOOLEAN
+                  type: boolean
                   defaultValueBoolean: false
                   constraints:
                     nullable: false
