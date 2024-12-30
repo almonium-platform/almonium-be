@@ -87,6 +87,7 @@ public class UserService implements UserDetailsService {
         return !userRepository.existsByUsername(username.toLowerCase());
     }
 
+    @Override
     public UserDetails loadUserByUsername(String email) {
         return findByEmail(email)
                 .map(user -> {
