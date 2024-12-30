@@ -51,3 +51,5 @@ databaseChangeLog:
       file: db/changelog/changes/insertion/populate-translators.yaml
   - include:
       file: db/changelog/changes/insertion/populate-plans.yaml
+  - include:
+      file: db/changelog/changes/insertion/populate-plan-limits.yaml

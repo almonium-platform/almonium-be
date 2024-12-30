@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-plan-limits
+      author: almoni
+      changes:
+        - loadData:
+            tableName: plan_limit
+            file: db/data/plan-limits.csv
+            separator: ','
