@@ -25,6 +25,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.FieldError;
@@ -63,6 +64,41 @@ public class GlobalExceptionHandler {
     }
 
     // controller exceptions
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        String errorMessage = "Invalid input provided. Please check your request.";
+
+        // Extract specific details (optional)
+        Throwable rootCause = ex.getRootCause();
+        if (rootCause != null) {
+            String detailedMessage = rootCause.getMessage();
+            if (detailedMessage.contains("Cannot deserialize value of type")) {
+                String invalidValue = extractInvalidValue(detailedMessage);
+                String expectedValues = extractExpectedValues(detailedMessage);
+                errorMessage = String.format(
+                        "Invalid value '%s'. Please use one of the accepted values: %s.", invalidValue, expectedValues);
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, errorMessage));
+    }
+
+    private String extractInvalidValue(String message) {
+        try {
+            return message.split("from String \"")[1].split("\"")[0];
+        } catch (Exception e) {
+            return "unknown value";
+        }
+    }
+
+    private String extractExpectedValues(String message) {
+        try {
+            return message.split("accepted for Enum class: \\[")[1].split("\\]")[0];
+        } catch (Exception e) {
+            return "unknown values";
+        }
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
