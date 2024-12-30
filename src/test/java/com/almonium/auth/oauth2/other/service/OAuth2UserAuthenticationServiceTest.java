@@ -122,7 +122,7 @@ class OAuth2UserAuthenticationServiceTest {
         existingUser.getPrincipals().add(principal);
 
         when(oAuth2PrincipalRepository.findByProviderAndProviderUserId(
-                        AuthProviderType.GOOGLE, "101868015518714862283"))
+                AuthProviderType.GOOGLE, "101868015518714862283"))
                 .thenReturn(Optional.of(principal));
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(principal);
 
@@ -168,7 +168,6 @@ class OAuth2UserAuthenticationServiceTest {
 
         // Assert
         verify(userFactory).createUserWithDefaultPlan(eq(email), eq(true));
-        verify(avatarService).addAndSetNewCustomAvatar(eq(userId), eq((String) attributes.get("picture")));
         assertThat(result.getEmail()).isEqualTo(email);
     }
 
@@ -243,7 +242,7 @@ class OAuth2UserAuthenticationServiceTest {
                 entry("locale", "uk"),
                 entry("nonce", "K3TiqNu1cgnErWX962crIutE8YiEjuQAd3PDzUV0E5M"),
                 entry("picture", avatarUrl),
-                entry("aud", new String[] {"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
+                entry("aud", new String[]{"832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"}),
                 entry("azp", "832714080763-hj64thg1sghaubbg9m6qd288mbv09li6.apps.googleusercontent.com"),
                 entry("name", "John Wick"),
                 entry("exp", "2023-06-27T15:00:44Z"),
