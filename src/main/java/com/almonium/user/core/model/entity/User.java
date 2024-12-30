@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.friendship.model.entity.Friendship;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -98,6 +99,9 @@ public class User {
     Set<PlanSubscription> planSubscriptions;
 
     String stripeCustomerId;
+
+    @Enumerated(EnumType.STRING)
+    SetupStep setupStep;
 
     @ElementCollection(targetClass = Language.class)
     @CollectionTable(name = "user_fluent_lang", joinColumns = @JoinColumn(name = "user_id"))

@@ -39,3 +39,8 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
+              - column:
+                  name: setup_step
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

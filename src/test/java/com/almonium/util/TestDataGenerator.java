@@ -30,6 +30,7 @@ import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.friendship.dto.FriendDto;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendStatus;
@@ -217,7 +218,7 @@ public class TestDataGenerator {
                 .email(user.getEmail())
                 .avatarUrl(profile.getAvatarUrl())
                 .emailVerified(user.isEmailVerified())
-                .setupCompleted(true)
+                .setupStep(SetupStep.getInitial())
                 .isPremium(false)
                 .streak(profile.getStreak())
                 .tags(List.of("tag1", "tag2"))

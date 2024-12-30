@@ -3,6 +3,7 @@ package com.almonium.user.core.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.user.core.model.enums.SetupStep;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,6 @@ public class UserInfo {
     String avatarUrl;
 
     boolean emailVerified;
-    boolean setupCompleted;
     boolean isPremium;
 
     Integer streak;
@@ -32,5 +32,6 @@ public class UserInfo {
     Collection<LearnerDto> learners;
     Collection<Language> fluentLangs;
 
+    SetupStep setupStep;
     SubscriptionInfoDto subscription;
 }

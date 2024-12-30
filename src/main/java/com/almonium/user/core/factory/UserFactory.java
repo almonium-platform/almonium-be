@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UsernameGenerator;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public class UserFactory {
                 .username(username)
                 .emailVerified(emailVerified)
                 .planSubscriptions(new HashSet<>())
+                .setupStep(SetupStep.getInitial())
                 .build();
 
         userRepository.save(user);

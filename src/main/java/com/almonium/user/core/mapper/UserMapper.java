@@ -4,8 +4,6 @@ import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.model.entity.User;
-import org.apache.commons.collections4.CollectionUtils;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,20 +12,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(uses = {LearnerMapper.class})
 public interface UserMapper {
     @Mapping(source = "profile.avatarUrl", target = "avatarUrl")
-    @Mapping(target = "setupCompleted", ignore = true)
     @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "subscription", ignore = true)
     @Mapping(target = "isPremium", ignore = true)
     @Mapping(target = "targetLangs", ignore = true)
     UserInfo userToUserInfo(User user);
-
-    @AfterMapping
-    default void setSetupCompleted(@MappingTarget UserInfo.UserInfoBuilder userInfo, User user) {
-        boolean setupCompleted = CollectionUtils.isNotEmpty(user.getLearner().getTargetLangs())
-                && CollectionUtils.isNotEmpty(user.getLearner().getFluentLangs());
-        userInfo.setupCompleted(setupCompleted);
-    }
 
     @Mapping(target = "providerUserId", source = "id")
     @Mapping(target = "id", ignore = true)
