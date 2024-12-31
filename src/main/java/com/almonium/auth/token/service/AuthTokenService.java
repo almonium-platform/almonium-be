@@ -17,7 +17,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -27,9 +26,7 @@ import java.util.UUID;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -42,10 +39,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthTokenService {
     private static final String LOCALHOST = "localhost";
     private static final String IS_LIVE_TOKEN_CLAIM = "isLive";
-
-    @NonFinal
-    @Value("${server.servlet.context-path}")
-    String contextPath;
 
     AppProperties appProperties;
     PrincipalRepository principalRepository;
@@ -72,7 +65,7 @@ public class AuthTokenService {
         CookieUtil.deleteCookie(
                 response,
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
-                getFullRefreshTokenPath(),
+                appProperties.getAuth().getJwt().getRefreshToken().getUrl(),
                 getCleanBackendDomain()); // Refresh token cleared with path
     }
 
@@ -111,7 +104,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
                 refreshToken,
-                getFullRefreshTokenPath(),
+                appProperties.getAuth().getJwt().getRefreshToken().getUrl(),
                 appProperties.getAuth().getJwt().getRefreshToken().getLifetime(),
                 getCleanBackendDomain());
 
@@ -152,12 +145,6 @@ public class AuthTokenService {
         return principalRepository
                 .findById(id)
                 .orElseThrow(() -> new AuthMethodNotFoundException("Principal not found by id: " + id));
-    }
-
-    private String getFullRefreshTokenPath() {
-        return URI.create(contextPath)
-                .resolve(appProperties.getAuth().getJwt().getRefreshToken().getUrl())
-                .toString();
     }
 
     private String getCleanBackendDomain() {

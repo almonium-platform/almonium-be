@@ -85,7 +85,7 @@ app:
         lifetime: 900 # 15 minutes | Should be in sync with the FE recent login cache
       refresh-token:
         lifetime: 1209600 # 14 days
-        url: /public/auth/refresh-token
+        url: ${server.servlet.context-path}/public/auth/refresh-token
     oauth2:
       authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com
