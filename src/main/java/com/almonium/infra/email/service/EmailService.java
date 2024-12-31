@@ -3,6 +3,7 @@ package com.almonium.infra.email.service;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 
+import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.util.HtmlFileWriter;
@@ -11,6 +12,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EmailService {
     private static final String ALMONIUM_FROM_FORMAT = "Almonium <%s>";
     private static final String STATIC_LOGO_IMG = "static/logo-white-2.png";
@@ -30,19 +32,18 @@ public class EmailService {
             "logoHeader", STATIC_LOGO_IMG,
             "titleHeader", STATIC_TITLE_IMG);
 
-    final JavaMailSender mailSender;
-    final HtmlFileWriter htmlFileWriter;
+    JavaMailSender mailSender;
+    HtmlFileWriter htmlFileWriter;
+    AppProperties appProperties;
 
+    @NonFinal
     @Value("${spring.mail.username}")
     String from;
-
-    @Value("${app.email.dry-run}")
-    boolean isEmailSendingSimulated;
 
     public void sendEmail(EmailDto emailDto) {
         try {
             MimeMessage mimeMessage = createMimeMessage(emailDto);
-            if (isEmailSendingSimulated) {
+            if (appProperties.getEmail().isDryRun()) {
                 log.info("Email sending is disabled. Skipping sending email to {}", emailDto.recipient());
                 htmlFileWriter.saveMimeMessageToFile(mimeMessage);
             } else {

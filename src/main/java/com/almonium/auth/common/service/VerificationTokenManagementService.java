@@ -9,6 +9,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
@@ -21,9 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -31,21 +30,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementService {
-
-    @NonFinal
-    @Value("${app.auth.verification-token.length}")
-    int tokenLength;
-
-    @NonFinal
-    @Value("${app.auth.verification-token.lifetime}")
-    int tokenLifetime;
-
-    VerificationTokenRepository verificationTokenRepository;
-    TokenGenerator tokenGenerator;
-    AuthTokenEmailComposerService emailComposerService;
     EmailService emailService;
+    AuthTokenEmailComposerService emailComposerService;
     UserService userService;
+    TokenGenerator tokenGenerator;
+    VerificationTokenRepository verificationTokenRepository;
     LocalPrincipalRepository localPrincipalRepository;
+    AppProperties appProperties;
 
     public Optional<VerificationToken> findValidEmailVerificationToken(long userId) {
         User user = userService.getUserWithPrincipals(userId);
@@ -70,11 +61,16 @@ public class VerificationTokenManagementService {
     }
 
     public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
-        String token = tokenGenerator.generateOTP(tokenLength);
+        String token = tokenGenerator.generateOTP(
+                appProperties.getAuth().getVerificationToken().getLength());
         verificationTokenRepository
                 .findByPrincipalAndTokenTypeIn(localPrincipal, Set.of(tokenType))
                 .ifPresent(verificationTokenRepository::delete);
-        VerificationToken verificationToken = new VerificationToken(localPrincipal, token, tokenType, tokenLifetime);
+        VerificationToken verificationToken = new VerificationToken(
+                localPrincipal,
+                token,
+                tokenType,
+                appProperties.getAuth().getVerificationToken().getLifetime());
         verificationTokenRepository.save(verificationToken);
         var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
         EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), emailContext);

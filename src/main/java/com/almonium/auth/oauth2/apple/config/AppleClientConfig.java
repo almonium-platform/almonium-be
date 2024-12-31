@@ -1,8 +1,12 @@
 package com.almonium.auth.oauth2.apple.config;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.oauth2.apple.client.AppleTokenClient;
 import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
-import org.springframework.beans.factory.annotation.Value;
+import com.almonium.config.properties.AppProperties;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatusCode;
@@ -12,15 +16,15 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.core.publisher.Mono;
 
 @Configuration
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AppleClientConfig {
-
-    @Value("${app.auth.oauth2.apple-token-url}")
-    private String appleTokenUrl;
+    AppProperties appProperties;
 
     @Bean
     public AppleTokenClient appleTokenClient() {
         WebClient webClient = WebClient.builder()
-                .baseUrl(appleTokenUrl)
+                .baseUrl(appProperties.getAuth().getOauth2().getAppleTokenUrl())
                 .defaultStatusHandler(HttpStatusCode::is4xxClientError, resp -> resp.bodyToMono(String.class)
                         .flatMap(errorBody ->
                                 Mono.error(new OAuth2AuthenticationException("Client error: " + errorBody))))

@@ -8,6 +8,7 @@ import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.token.model.entity.RefreshToken;
 import com.almonium.auth.token.repository.RefreshTokenRepository;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -16,6 +17,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -25,6 +27,7 @@ import java.util.UUID;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,33 +38,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthTokenService {
     private static final String LOCALHOST = "localhost";
-    private static final String IS_LIVE_TOKEN_CLAIM = "is_live";
+    private static final String IS_LIVE_TOKEN_CLAIM = "isLive";
 
-    final PrincipalRepository principalRepository;
-    final RefreshTokenRepository refreshTokenRepository;
-
-    @Value("${app.auth.jwt.secret}")
-    String tokenSecret;
-
-    @Value("${app.auth.jwt.access-token.lifetime}")
-    int accessTokenLifetimeInSeconds;
-
-    @Value("${app.auth.jwt.refresh-token.lifetime}")
-    int refreshTokenLifetimeInSeconds;
-
-    @Value("${app.auth.jwt.refresh-token.url}")
-    String refreshTokenPath;
-
+    @NonFinal
     @Value("${server.servlet.context-path}")
     String contextPath;
 
-    @Value("${app.api-domain}")
-    private String backendDomain;
-
-    String fullRefreshTokenPath;
+    AppProperties appProperties;
+    PrincipalRepository principalRepository;
+    RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
     public void revokeRefreshTokensByUser(User user) {
@@ -80,10 +68,7 @@ public class AuthTokenService {
     }
 
     public void clearTokenCookies(HttpServletResponse response) {
-        CookieUtil.deleteCookie(
-                response,
-                CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
-                getCleanBackendDomain()); // Access token cleared from root
+        CookieUtil.deleteCookie(response, CookieUtil.ACCESS_TOKEN_COOKIE_NAME, getCleanBackendDomain());
         CookieUtil.deleteCookie(
                 response,
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
@@ -97,7 +82,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
-                accessTokenLifetimeInSeconds,
+                appProperties.getAuth().getJwt().getAccessToken().getLifetime(),
                 getCleanBackendDomain());
         return accessToken;
     }
@@ -108,7 +93,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.ACCESS_TOKEN_COOKIE_NAME,
                 accessToken,
-                accessTokenLifetimeInSeconds,
+                appProperties.getAuth().getJwt().getAccessToken().getLifetime(),
                 getCleanBackendDomain());
         return accessToken;
     }
@@ -127,7 +112,7 @@ public class AuthTokenService {
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
                 refreshToken,
                 getFullRefreshTokenPath(),
-                refreshTokenLifetimeInSeconds,
+                appProperties.getAuth().getJwt().getRefreshToken().getLifetime(),
                 getCleanBackendDomain());
 
         return refreshToken;
@@ -147,11 +132,17 @@ public class AuthTokenService {
     }
 
     private String generateLiveAccessToken(Authentication authentication) {
-        return generateToken(authentication, accessTokenLifetimeInSeconds, true);
+        return generateToken(
+                authentication,
+                appProperties.getAuth().getJwt().getAccessToken().getLifetime(),
+                true);
     }
 
     private String generateRefreshedAccessToken(Authentication authentication) {
-        return generateToken(authentication, accessTokenLifetimeInSeconds, false);
+        return generateToken(
+                authentication,
+                appProperties.getAuth().getJwt().getAccessToken().getLifetime(),
+                false);
     }
 
     private Principal getPrincipalFromAccessToken(String token) {
@@ -164,21 +155,21 @@ public class AuthTokenService {
     }
 
     private String getFullRefreshTokenPath() {
-        if (fullRefreshTokenPath == null) {
-            fullRefreshTokenPath = contextPath + refreshTokenPath;
-        }
-        return fullRefreshTokenPath;
+        return URI.create(contextPath)
+                .resolve(appProperties.getAuth().getJwt().getRefreshToken().getUrl())
+                .toString();
     }
 
     private String getCleanBackendDomain() {
-        if (backendDomain.contains(LOCALHOST)) {
-            return LOCALHOST;
-        }
-        return backendDomain;
+        String backendDomain = appProperties.getApiDomain();
+        return backendDomain.contains(LOCALHOST) ? LOCALHOST : backendDomain;
     }
 
     private String createRefreshToken(Authentication authentication) {
-        String token = generateToken(authentication, refreshTokenLifetimeInSeconds, false);
+        String token = generateToken(
+                authentication,
+                appProperties.getAuth().getJwt().getRefreshToken().getLifetime(),
+                false);
         Claims claims = extractClaims(token);
         Instant issueDate = claims.getIssuedAt().toInstant();
         Instant expiryDate = claims.getExpiration().toInstant();
@@ -219,6 +210,6 @@ public class AuthTokenService {
     }
 
     private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(tokenSecret.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(appProperties.getAuth().getJwt().getSecret().getBytes(StandardCharsets.UTF_8));
     }
 }

@@ -2,7 +2,7 @@ package com.almonium.infra.email.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.config.AppProperties;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.email.model.dto.EmailContext;

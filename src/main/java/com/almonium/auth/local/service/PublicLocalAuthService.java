@@ -13,6 +13,7 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.factory.UserFactory;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -20,9 +21,7 @@ import com.almonium.user.core.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,15 +39,17 @@ public class PublicLocalAuthService {
     UserAuthenticationService userAuthenticationServiceImpl;
     VerificationTokenManagementService verificationTokenManagementService;
     UserService userService;
-    PrincipalFactory principalFactory;
+
+    // factories
     UserFactory userFactory;
+    PrincipalFactory principalFactory;
+
+    // properties
+    AppProperties appProperties;
+
     // repositories
     UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
-
-    @NonFinal
-    @Value("${app.auth.email-verification-required}")
-    boolean emailVerificationRequired;
 
     public JwtAuthResponse login(LocalAuthRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
@@ -83,7 +84,7 @@ public class PublicLocalAuthService {
                 .findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("User with email " + request.email() + " not found"));
 
-        if (emailVerificationRequired && !user.isEmailVerified()) {
+        if (appProperties.getAuth().isEmailVerificationRequired() && !user.isEmailVerified()) {
             throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
         }
         return user;

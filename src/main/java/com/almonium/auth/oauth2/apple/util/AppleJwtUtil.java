@@ -3,7 +3,9 @@ package com.almonium.auth.oauth2.apple.util;
 import static com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo.EMAIL;
 import static com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo.EMAIL_VERIFIED;
 import static com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo.SUB;
+import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.AppProperties;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,21 +14,20 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AppleJwtUtil {
+    AppProperties appProperties;
 
+    @NonFinal
     @Value("${spring.security.oauth2.client.provider.apple.jwk-set-uri}")
     String appleJwkUri;
-
-    @Value("${app.auth.oauth2.apple-token-url}")
-    String appleTokenUrl;
-
-    @Value("${app.auth.oauth2.apple-service-id}")
-    String appleServiceId;
 
     @SneakyThrows
     public Map<String, Object> verifyAndParseToken(String idToken) {
@@ -36,8 +37,8 @@ public class AppleJwtUtil {
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
 
         JWTVerifier verifier = JWT.require(algorithm)
-                .withIssuer(appleTokenUrl)
-                .withAudience(appleServiceId)
+                .withIssuer(appProperties.getAuth().getOauth2().getAppleTokenUrl())
+                .withAudience(appProperties.getAuth().getOauth2().getAppleServiceId())
                 .build();
 
         DecodedJWT jwt = verifier.verify(idToken);

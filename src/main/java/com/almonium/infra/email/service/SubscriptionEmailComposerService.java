@@ -1,6 +1,6 @@
 package com.almonium.infra.email.service;
 
-import com.almonium.config.AppProperties;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
 import com.almonium.subscription.model.entity.PlanSubscription;

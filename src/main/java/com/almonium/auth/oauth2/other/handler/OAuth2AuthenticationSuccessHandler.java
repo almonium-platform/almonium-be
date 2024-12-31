@@ -7,17 +7,16 @@ import com.almonium.auth.common.service.UserAuthenticationService;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
+import com.almonium.config.properties.AppProperties;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -32,9 +31,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     OAuth2CookieRequestRepository requestRepository;
     UserAuthenticationService userAuthenticationServiceImpl;
-
-    @Value("${app.auth.oauth2.authorized-redirect-uris}")
-    private List<String> authorizedRedirectUris;
+    AppProperties appProperties;
 
     @Override
     public void onAuthenticationSuccess(
@@ -80,10 +77,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUri = URI.create(uri);
 
-        return authorizedRedirectUris.stream().anyMatch(authorizedRedirectUri -> {
-            URI authorizedURI = URI.create(authorizedRedirectUri);
-            return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
-                    && authorizedURI.getPort() == clientRedirectUri.getPort();
-        });
+        return appProperties.getAuth().getOauth2().getAuthorizedRedirectUris().stream()
+                .anyMatch(authorizedRedirectUri -> {
+                    URI authorizedURI = URI.create(authorizedRedirectUri);
+                    return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
+                            && authorizedURI.getPort() == clientRedirectUri.getPort();
+                });
     }
 }

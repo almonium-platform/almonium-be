@@ -29,9 +29,11 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.core.service.impl.UserUtility;
 import com.almonium.util.TestDataGenerator;
+import com.almonium.util.config.AppConfigPropertiesTest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,17 +42,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-@ActiveProfiles("test")
-@TestPropertySource(properties = {"app.auth.email-verification-required=true"})
-class PublicLocalAuthServiceTest {
-    private static final String IS_EMAIL_VERIFICATION_REQUIRED_FIELD = "emailVerificationRequired";
-
+class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
     @InjectMocks
     PublicLocalAuthService authService;
 
@@ -77,6 +72,20 @@ class PublicLocalAuthServiceTest {
 
     @Mock
     UserAuthenticationService userAuthenticationService;
+
+    @BeforeEach
+    void setUp() {
+        authService = new PublicLocalAuthService(
+                authenticationManager,
+                userAuthenticationService,
+                verificationTokenManagementService,
+                userService,
+                userFactory,
+                principalFactory,
+                appProperties,
+                userRepository,
+                localPrincipalRepository);
+    }
 
     @DisplayName("Should successfully register local user")
     @Test
@@ -118,6 +127,9 @@ class PublicLocalAuthServiceTest {
         when(userAuthenticationService.authenticateUser(
                         eq(user), any(HttpServletResponse.class), any(Authentication.class)))
                 .thenReturn(new JwtTokenResponse(expectedAccessJwt, expectedRefreshJwt));
+
+        appProperties.getAuth().setEmailVerificationRequired(false);
+
         // Act
         JwtAuthResponse result = authService.login(localAuthRequest, mock(HttpServletResponse.class));
 
@@ -156,7 +168,6 @@ class PublicLocalAuthServiceTest {
                 .emailVerified(false)
                 .build();
         when(userRepository.findByEmail(localAuthRequest.email())).thenReturn(Optional.of(user));
-        ReflectionTestUtils.setField(authService, IS_EMAIL_VERIFICATION_REQUIRED_FIELD, true);
 
         // Act & Assert
         assertThatThrownBy(() -> authService.login(localAuthRequest, mock(HttpServletResponse.class)))

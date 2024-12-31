@@ -1,5 +1,6 @@
 package com.almonium.auth.common.service;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,17 +13,21 @@ import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
+import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.ApacheAlphanumericGeneratorImpl;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
+import com.almonium.user.core.service.UserService;
 import com.almonium.util.TestDataGenerator;
+import com.almonium.util.config.AppConfigPropertiesTest;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,14 +36,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-class VerificationTokenManagementServiceTest {
+@FieldDefaults(level = PRIVATE)
+class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
     @InjectMocks
     VerificationTokenManagementService verificationTokenManagementService;
 
     @Mock
     EmailService emailService;
+
+    @Mock
+    UserService userService;
 
     @Mock
     AuthTokenEmailComposerService emailComposerService;
@@ -48,6 +56,21 @@ class VerificationTokenManagementServiceTest {
 
     @Mock
     VerificationTokenRepository verificationTokenRepository;
+
+    @Mock
+    LocalPrincipalRepository localPrincipalRepository;
+
+    @BeforeEach
+    void setUp() {
+        verificationTokenManagementService = new VerificationTokenManagementService(
+                emailService,
+                emailComposerService,
+                userService,
+                tokenGenerator,
+                verificationTokenRepository,
+                localPrincipalRepository,
+                appProperties);
+    }
 
     @DisplayName("Should create and send verification token successfully")
     @Test

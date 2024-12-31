@@ -1,5 +1,6 @@
 package com.almonium.config;
 
+import com.almonium.config.properties.AppProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;

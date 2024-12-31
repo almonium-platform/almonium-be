@@ -9,7 +9,9 @@ import static org.mockito.Mockito.when;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.util.HtmlFileWriter;
+import com.almonium.util.config.AppConfigPropertiesTest;
 import jakarta.mail.internet.MimeMessage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +19,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
-public class EmailServiceTest {
-    private static final String IS_EMAIL_SENDING_SIMULATED_FIELD = "isEmailSendingSimulated";
-
+public class EmailServiceTest extends AppConfigPropertiesTest {
     @Mock
     private JavaMailSender mailSender;
 
@@ -32,6 +31,11 @@ public class EmailServiceTest {
     @InjectMocks
     private EmailService emailService;
 
+    @BeforeEach
+    void setUp() {
+        emailService = new EmailService(mailSender, htmlFileWriter, appProperties);
+    }
+
     @DisplayName("Should send an email with the provided EmailDto")
     @Test
     void givenEmailDto_whenSendEmail_thenEmailIsSent() {
@@ -39,7 +43,7 @@ public class EmailServiceTest {
         EmailDto emailDto = new EmailDto("test@example.com", "Test Subject", "Test Body");
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
-        ReflectionTestUtils.setField(emailService, IS_EMAIL_SENDING_SIMULATED_FIELD, false);
+        appProperties.getEmail().setDryRun(false);
 
         // Act
         emailService.sendEmail(emailDto);
@@ -55,7 +59,8 @@ public class EmailServiceTest {
         EmailDto emailDto = new EmailDto("test@example.com", "Test Subject", "Test Body");
         MimeMessage mimeMessage = mock(MimeMessage.class);
         when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
-        ReflectionTestUtils.setField(emailService, IS_EMAIL_SENDING_SIMULATED_FIELD, true);
+        // it's true in test properties, but added for more resilience and readability
+        appProperties.getEmail().setDryRun(true);
 
         // Act
         emailService.sendEmail(emailDto);

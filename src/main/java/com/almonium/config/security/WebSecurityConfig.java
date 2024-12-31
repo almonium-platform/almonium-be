@@ -18,12 +18,11 @@ import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationSuccessHandler
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
 import com.almonium.auth.token.filter.TokenAuthenticationFilter;
+import com.almonium.config.properties.AppProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -57,14 +56,7 @@ public class WebSecurityConfig {
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     OAuth2CookieRequestRepository authorizationRequestRepository;
-
-    @NonFinal
-    @Value("${app.web-domain}")
-    String domain;
-
-    @NonFinal
-    @Value("${app.auth.oauth2.apple-token-url}")
-    String appleTokenUrl;
+    AppProperties appProperties;
 
     private static final String[] PUBLIC_URL_PATTERNS = new String[] {
         // Swagger
@@ -88,7 +80,9 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(domain, appleTokenUrl));
+        configuration.setAllowedOrigins(List.of(
+                appProperties.getWebDomain(),
+                appProperties.getAuth().getOauth2().getAppleTokenUrl()));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
         configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
         configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
