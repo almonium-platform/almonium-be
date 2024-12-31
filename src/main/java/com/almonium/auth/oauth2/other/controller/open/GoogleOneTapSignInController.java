@@ -10,6 +10,7 @@ import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfoFactory;
 import com.almonium.auth.oauth2.other.service.OAuth2AuthenticationService;
+import com.almonium.config.properties.GoogleProperties;
 import com.almonium.util.dto.ApiResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -22,8 +23,6 @@ import java.util.Collections;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,10 +40,7 @@ public class GoogleOneTapSignInController {
     OAuth2AuthenticationService authService;
     UserAuthenticationService userAuthenticationServiceImpl;
     OAuth2UserInfoFactory userInfoFactory;
-
-    @NonFinal
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
-    String googleClientId;
+    GoogleProperties googleProperties;
 
     @PostMapping("/google/one-tap")
     public ResponseEntity<?> loginWithGoogle(
@@ -74,7 +70,8 @@ public class GoogleOneTapSignInController {
     private GoogleIdToken verifyGoogleToken(String idTokenString) throws GeneralSecurityException, IOException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
                         new NetHttpTransport(), GsonFactory.getDefaultInstance())
-                .setAudience(Collections.singletonList(googleClientId))
+                .setAudience(
+                        Collections.singletonList(googleProperties.getOauth2().getClientId()))
                 .build();
         return verifier.verify(idTokenString);
     }

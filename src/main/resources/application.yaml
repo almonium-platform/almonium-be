@@ -30,8 +30,8 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_ID}
-            client-secret: ${GOOGLE_SECRET}
+            client-id: ${google.oauth2.client-id}
+            client-secret: ${google.oauth2.client-secret}
             scope: email # add `profile` if needed
           facebook:
             client-id: ${FACEBOOK_ID}
@@ -110,6 +110,9 @@ app:
       apple-service-id: com.almonium.auth
 
 google:
+  oauth2:
+    client-id: ${GOOGLE_ID}
+    client-secret: ${GOOGLE_SECRET}
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
   firebase:

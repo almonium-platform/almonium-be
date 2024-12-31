@@ -23,8 +23,8 @@ spring:
       client:
         registration:
           google:
-            client-id: google_id_dummy
-            client-secret: google_secret_dummy
+            client-id: ${google.oauth2.client-id}
+            client-secret: ${google.oauth2.client-secret}
             scope: email
           facebook:
             client-id: facebook_id_dummy
@@ -61,6 +61,9 @@ spring:
             enable: true
 
 google:
+  oauth2:
+    client-id: google_client_id_dummy
+    client-secret: google_client_secret_dummy
   project-id: google_project_id_dummy
   parent-location: global
   firebase:

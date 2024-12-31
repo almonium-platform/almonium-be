@@ -17,6 +17,9 @@ public class GoogleProperties {
     @NestedConfigurationProperty
     FirebaseProperties firebase = new FirebaseProperties();
 
+    @NestedConfigurationProperty
+    Oauth2 oauth2 = new Oauth2();
+
     @Getter
     @Setter
     @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
@@ -32,5 +35,13 @@ public class GoogleProperties {
     @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
     public static class StorageProperties {
         String bucket;
+    }
+
+    @Getter
+    @Setter
+    @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+    public static class Oauth2 {
+        String clientId;
+        String clientSecret;
     }
 }
