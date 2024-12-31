@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -61,14 +62,17 @@ public class Card {
     @Enumerated(EnumType.STRING)
     Language language;
 
+    @Builder.Default
     @OneToMany(mappedBy = "card")
-    List<Example> examples;
+    List<Example> examples = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "card")
-    List<Translation> translations;
+    List<Translation> translations = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "card")
-    Set<CardTag> cardTags;
+    Set<CardTag> cardTags = Set.of();
 
     @Builder.Default
     int iteration = 0;

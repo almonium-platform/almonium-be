@@ -38,8 +38,9 @@ public class Tag {
     @ColumnTransformer(read = "LOWER(text)")
     String text;
 
+    @Builder.Default
     @OneToMany(mappedBy = "tag")
-    Set<CardTag> cardTags;
+    Set<CardTag> cardTags = Set.of();
 
     public Tag(String proposedName) {
         text = normalizeText(proposedName);

@@ -52,11 +52,13 @@ public class Learner {
     @OneToMany(mappedBy = "owner")
     List<Card> cards = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "sender")
-    List<CardSuggestion> outgoingSuggestions;
+    List<CardSuggestion> outgoingSuggestions = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "recipient")
-    List<CardSuggestion> incomingSuggestions;
+    List<CardSuggestion> incomingSuggestions = new ArrayList<>();
 
     public void addCard(Card card) {
         if (card != null) {

@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,8 +47,9 @@ public class Plan {
 
     boolean active;
 
+    @Builder.Default
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<PlanLimit> limits;
+    List<PlanLimit> limits = new ArrayList<>();
 
     public enum Type {
         MONTHLY,

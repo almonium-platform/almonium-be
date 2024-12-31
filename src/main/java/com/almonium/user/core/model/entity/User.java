@@ -69,39 +69,36 @@ public class User {
 
     String username;
 
+    String stripeCustomerId;
+
+    @Enumerated(EnumType.STRING)
+    SetupStep setupStep;
+
     @CreatedDate
     Instant registered;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    Profile profile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
     List<Principal> principals = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    Profile profile;
-
+    @Builder.Default
     @OneToMany(mappedBy = "user")
-    List<Learner> learners;
+    List<Learner> learners = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "requestee")
-    Set<Friendship> incomingFriendships;
+    Set<Friendship> incomingFriendships = Set.of();
 
+    @Builder.Default
     @OneToMany(mappedBy = "requester")
-    Set<Friendship> outgoingFriendships;
+    Set<Friendship> outgoingFriendships = Set.of();
 
-    @PrePersist
-    private void prePersist() {
-        if (profile == null) {
-            profile = Profile.builder().user(this).build();
-        }
-    }
-
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    Set<PlanSubscription> planSubscriptions;
-
-    String stripeCustomerId;
-
-    @Enumerated(EnumType.STRING)
-    SetupStep setupStep;
+    Set<PlanSubscription> planSubscriptions = Set.of();
 
     @ElementCollection(targetClass = Language.class)
     @CollectionTable(name = "user_fluent_lang", joinColumns = @JoinColumn(name = "user_id"))
@@ -115,4 +112,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id"))
     List<Interest> interests;
+
+    @PrePersist
+    private void prePersist() {
+        if (profile == null) {
+            profile = Profile.builder().user(this).build();
+        }
+    }
 }
