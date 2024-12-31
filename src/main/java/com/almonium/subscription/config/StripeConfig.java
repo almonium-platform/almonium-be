@@ -1,18 +1,22 @@
 package com.almonium.subscription.config;
 
+import static lombok.AccessLevel.PRIVATE;
+
+import com.almonium.config.properties.StripeProperties;
 import com.stripe.Stripe;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StripeConfig {
-
-    @Value("${stripe.api.key}")
-    private String stripeApiKey;
+    StripeProperties stripeProperties;
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = stripeApiKey;
+        Stripe.apiKey = stripeProperties.getApi().getKey();
     }
 }

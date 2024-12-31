@@ -2,6 +2,7 @@ package com.almonium.subscription.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.StripeProperties;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.user.core.model.entity.User;
@@ -16,30 +17,21 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StripeApiService {
-
-    @Value("${stripe.checkout.success-url}")
-    String successUrl;
-
-    @Value("${stripe.checkout.cancel-url}")
-    String cancelUrl;
-
-    @Value("${stripe.return-url}")
-    String returnUrl;
+    StripeProperties stripeProperties;
 
     public String createBillingPortalSessionForUser(User user) {
         try {
             com.stripe.param.billingportal.SessionCreateParams params =
                     com.stripe.param.billingportal.SessionCreateParams.builder()
                             .setCustomer(user.getStripeCustomerId())
-                            .setReturnUrl(returnUrl)
+                            .setReturnUrl(stripeProperties.getReturnUrl())
                             .build();
 
             return com.stripe.model.billingportal.Session.create(params).getUrl();
@@ -106,8 +98,8 @@ public class StripeApiService {
         SessionCreateParams.Builder params = SessionCreateParams.builder()
                 .setCustomer(user.getStripeCustomerId())
                 .setMode(mode)
-                .setSuccessUrl(successUrl + "?session_id={CHECKOUT_SESSION_ID}")
-                .setCancelUrl(cancelUrl)
+                .setSuccessUrl(stripeProperties.getCheckout().getSuccessUrl() + "?session_id={CHECKOUT_SESSION_ID}")
+                .setCancelUrl(stripeProperties.getCheckout().getCancelUrl())
                 .addLineItem(SessionCreateParams.LineItem.builder()
                         .setPrice(plan.getStripePriceId())
                         .setQuantity(1L)
