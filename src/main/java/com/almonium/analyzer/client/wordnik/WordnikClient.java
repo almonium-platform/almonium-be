@@ -6,15 +6,13 @@ import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.wordnik.dto.WordnikAudioDto;
 import com.almonium.analyzer.client.wordnik.dto.WordnikRandomWordDto;
+import com.almonium.config.properties.ExternalApiProperties;
 import com.almonium.util.GeneralUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,43 +22,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 @Client
-@NoArgsConstructor
-@AllArgsConstructor
-@FieldDefaults(level = PRIVATE)
-@Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class WordnikClient extends AbstractClient {
-    static int START_YEAR_VALUE = 1950;
-    static int END_YEAR_VALUE = 2022;
-    static final String APIKEY_HEADER_NAME = "api_key";
-    static final String BASE_URL = "https://api.wordnik.com/v4/word.json/";
-    static final String BASE_URL_WORDS = "https://api.wordnik.com/v4/words.json/randomWord";
+    private static final int START_YEAR_VALUE = 1950;
+    private static final int END_YEAR_VALUE = 2022;
+    private static final String APIKEY_HEADER_NAME = "api_key";
+    private static final String BASE_URL = "https://api.wordnik.com/v4/word.json/";
+    private static final String BASE_URL_WORDS = "https://api.wordnik.com/v4/words.json/randomWord";
 
-    static final String EXAMPLES = "/examples";
-    static final String DEFINITIONS = "/definitions";
-    static final String HYPERNATION = "/hypernation";
-    static final String TOP_EXAMPLE = "/topExample";
-    static final String RELATED_WORDS = "/relatedWords";
-    static final String PRONUNCIATION = "/pronunciation";
-    static final String PHRASES = "/phrases";
-    static final String AUDIO = "/audio";
-    static final String RANDOM_WORD = "";
-    static final String USE_CANONICAL = "useCanonical";
-    static final String END_YEAR = "endYear";
-    static final String START_YEAR = "startYear";
-    static final String FREQUENCY = "/frequency";
-    static final String MIN_LENGTH = "minLength";
-    static final String INCLUDE_POS = "includePartOfSpeech";
-    static final String HAS_DICT_DEF = "hasDictionaryDef";
-    static final String INCLUDE_POS_VALUE = "noun%2Cadjective%2Cadverb%2Cverb-intransitive%2Cverb-transitive";
+    private static final String EXAMPLES = "/examples";
+    private static final String DEFINITIONS = "/definitions";
+    private static final String HYPERNATION = "/hypernation";
+    private static final String TOP_EXAMPLE = "/topExample";
+    private static final String RELATED_WORDS = "/relatedWords";
+    private static final String PRONUNCIATION = "/pronunciation";
+    private static final String PHRASES = "/phrases";
+    private static final String AUDIO = "/audio";
+    private static final String RANDOM_WORD = "";
+    private static final String USE_CANONICAL = "useCanonical";
+    private static final String END_YEAR = "endYear";
+    private static final String START_YEAR = "startYear";
+    private static final String FREQUENCY = "/frequency";
+    private static final String MIN_LENGTH = "minLength";
+    private static final String INCLUDE_POS = "includePartOfSpeech";
+    private static final String HAS_DICT_DEF = "hasDictionaryDef";
+    private static final String INCLUDE_POS_VALUE = "noun%2Cadjective%2Cadverb%2Cverb-intransitive%2Cverb-transitive";
 
-    @Value("${external.api.key.wordnik}")
-    String apikeyHeaderValue;
-
+    ExternalApiProperties externalApiProperties;
     RestTemplate restTemplate;
 
     public ResponseEntity<WordnikRandomWordDto> getRandomWord() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
+        headers.set(APIKEY_HEADER_NAME, externalApiProperties.getKey().getWordnik());
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         Map<String, Object> params = new HashMap<>();
@@ -76,7 +70,7 @@ public class WordnikClient extends AbstractClient {
 
     public ResponseEntity<List<WordnikAudioDto>> getAudioFile(String word) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set(APIKEY_HEADER_NAME, apikeyHeaderValue);
+        headers.set(APIKEY_HEADER_NAME, externalApiProperties.getKey().getWordnik());
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
         String urlTemplate = GeneralUtils.queryBuilder(BASE_URL + word + AUDIO, List.of());
