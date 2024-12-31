@@ -54,8 +54,8 @@ public abstract class EmailComposerService<T> {
     private Map<String, String> buildUniversalPlaceholders() {
         return Map.of(
                 "footerText",
-                String.format(
-                        "© %d %s. All rights reserved.", Year.now().getValue(), appProperties.getName()),
-                "headerText", appProperties.getName());
+                String.format("© %d %s. All rights reserved.", Year.now().getValue(), appProperties.getName()),
+                "headerText",
+                appProperties.getName());
     }
 }
