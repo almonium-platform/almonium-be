@@ -1,4 +1,4 @@
-package com.almonium.util.email.service;
+package com.almonium.infra.email.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.util.HtmlFileWriter;
 import com.almonium.util.config.AppConfigPropertiesTest;
 import jakarta.mail.internet.MimeMessage;
