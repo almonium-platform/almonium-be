@@ -6,6 +6,7 @@ import static com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo.SUB;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.AppProperties;
+import com.almonium.config.properties.AppleOAuthProperties;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -15,8 +16,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,15 +23,13 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AppleJwtUtil {
     AppProperties appProperties;
-
-    @NonFinal
-    @Value("${spring.security.oauth2.client.provider.apple.jwk-set-uri}")
-    String appleJwkUri;
+    AppleOAuthProperties appleOAuthProperties;
 
     @SneakyThrows
     public Map<String, Object> verifyAndParseToken(String idToken) {
-        RSAPublicKey publicKey =
-                JwksUtil.getPublicKey(appleJwkUri, JWT.decode(idToken).getKeyId());
+        RSAPublicKey publicKey = JwksUtil.getPublicKey(
+                appleOAuthProperties.getProvider().getJwkSetUri(),
+                JWT.decode(idToken).getKeyId());
 
         Algorithm algorithm = Algorithm.RSA256(publicKey, null);
 

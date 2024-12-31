@@ -7,12 +7,11 @@ import com.almonium.auth.oauth2.apple.client.AppleTokenClient;
 import com.almonium.auth.oauth2.apple.dto.AppleTokenResponse;
 import com.almonium.auth.oauth2.apple.util.AppleJwtUtil;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
+import com.almonium.config.properties.AppleOAuthProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.endpoint.RestClientAuthorizationCodeTokenResponseClient;
@@ -31,14 +30,7 @@ public class AppleAuthorizationCodeTokenResponseClient
     AppleTokenClient appleTokenClient;
     AppleJwtUtil appleJwtUtil;
     ThreadLocalStore threadLocalStore;
-
-    @NonFinal
-    @Value("${spring.security.oauth2.client.registration.apple.client-secret}")
-    String clientSecret;
-
-    @NonFinal
-    @Value("${spring.security.oauth2.client.registration.apple.authorization-grant-type}")
-    String grantType;
+    AppleOAuthProperties appleOAuthProperties;
 
     @Override
     public OAuth2AccessTokenResponse getTokenResponse(
@@ -60,14 +52,14 @@ public class AppleAuthorizationCodeTokenResponseClient
             OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
 
         AppleTokenResponse response = appleTokenClient.getToken(
-                grantType,
+                appleOAuthProperties.getAuthorizationGrantType(),
                 authorizationCodeGrantRequest
                         .getAuthorizationExchange()
                         .getAuthorizationResponse()
                         .getCode(),
                 authorizationCodeGrantRequest.getClientRegistration().getRedirectUri(),
                 authorizationCodeGrantRequest.getClientRegistration().getClientId(),
-                clientSecret);
+                appleOAuthProperties.getClientSecret());
 
         threadLocalStore.addAttributes(appleJwtUtil.verifyAndParseToken(response.idToken())); // here i set email
 

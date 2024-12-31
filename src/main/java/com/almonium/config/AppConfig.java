@@ -1,6 +1,7 @@
 package com.almonium.config;
 
 import com.almonium.config.properties.AppProperties;
+import com.almonium.config.properties.AppleOAuthProperties;
 import com.almonium.config.properties.GoogleProperties;
 import com.almonium.config.properties.OpenAIProperties;
 import com.almonium.config.properties.StripeProperties;
@@ -17,6 +18,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableAspectJAutoProxy
 @EnableConfigurationProperties({
     AppProperties.class,
+    AppleOAuthProperties.class,
     GoogleProperties.class,
     OpenAIProperties.class,
     StripeProperties.class,
