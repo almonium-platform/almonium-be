@@ -37,7 +37,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +45,6 @@ import org.springframework.security.core.Authentication;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
 class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
-    @InjectMocks
     PublicLocalAuthService authService;
 
     @Mock

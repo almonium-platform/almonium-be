@@ -29,7 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
 public class EmailServiceTest extends AppConfigPropertiesTest {
-
+    // config to load mail properties in context
     @Configuration
     @EnableConfigurationProperties({MailProperties.class})
     protected static class LocalTestConfig {}
@@ -37,13 +37,13 @@ public class EmailServiceTest extends AppConfigPropertiesTest {
     @Autowired
     MailProperties mailProperties;
 
+    EmailService emailService;
+
     @Mock
     JavaMailSender mailSender;
 
     @Mock
     HtmlFileWriter htmlFileWriter;
-
-    EmailService emailService;
 
     @BeforeEach
     void setUp() {
