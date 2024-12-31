@@ -1,8 +1,12 @@
 package com.almonium.analyzer.client.chatgpt.config;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.analyzer.client.chatgpt.client.GptClient;
 import com.almonium.auth.token.util.BearerTokenUtil;
-import org.springframework.beans.factory.annotation.Value;
+import com.almonium.config.properties.OpenAIProperties;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -11,19 +15,18 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 class GptClientConfig {
-
-    @Value("${openai.gpt.url}")
-    private String openaiUrl;
-
-    @Value("${openai.gpt.key}")
-    private String openaiApiKey;
+    OpenAIProperties openAiProperties;
 
     @Bean
     public GptClient gptClient() {
         WebClient webClient = WebClient.builder()
-                .baseUrl(openaiUrl)
-                .defaultHeader(HttpHeaders.AUTHORIZATION, BearerTokenUtil.bearerOf(openaiApiKey))
+                .baseUrl(openAiProperties.getGpt().getUrl())
+                .defaultHeader(
+                        HttpHeaders.AUTHORIZATION,
+                        BearerTokenUtil.bearerOf(openAiProperties.getGpt().getKey()))
                 .build();
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient))

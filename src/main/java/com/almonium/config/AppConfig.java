@@ -2,6 +2,7 @@ package com.almonium.config;
 
 import com.almonium.config.properties.AppProperties;
 import com.almonium.config.properties.GoogleProperties;
+import com.almonium.config.properties.OpenAIProperties;
 import com.almonium.config.properties.StripeProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableConfigurationProperties({
     AppProperties.class,
     GoogleProperties.class,
+    OpenAIProperties.class,
     StripeProperties.class,
 })
 public class AppConfig {}
