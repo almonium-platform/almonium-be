@@ -107,7 +107,7 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                token, TokenType.EMAIL_VERIFICATION))
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Verification token has expired");
 
@@ -124,7 +124,7 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                token, TokenType.EMAIL_VERIFICATION))
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Token is invalid or has been used");
 
@@ -143,7 +143,7 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
         // Act & Assert
         assertThatThrownBy(() -> verificationTokenManagementService.validateAndDeleteTokenOrThrow(
-                token, TokenType.EMAIL_VERIFICATION))
+                        token, TokenType.EMAIL_VERIFICATION))
                 .isInstanceOf(InvalidVerificationTokenException.class)
                 .hasMessage("Invalid token type: should be EMAIL_VERIFICATION but got PASSWORD_RESET instead");
 

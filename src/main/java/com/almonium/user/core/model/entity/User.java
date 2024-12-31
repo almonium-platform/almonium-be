@@ -44,9 +44,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NamedEntityGraph(
         name = "graph.User.details",
         attributeNodes = {
-                @NamedAttributeNode("profile"),
-                @NamedAttributeNode("planSubscriptions"),
-                @NamedAttributeNode("fluentLangs")
+            @NamedAttributeNode("profile"),
+            @NamedAttributeNode("planSubscriptions"),
+            @NamedAttributeNode("fluentLangs")
         })
 @Entity
 @Table(name = "user_core")

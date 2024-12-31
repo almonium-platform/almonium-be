@@ -47,8 +47,7 @@ public class OnboardingService {
     }
 
     public void completeSimpleStep(User user, SetupStep step) {
-        processStep(user, step, () -> {
-        });
+        processStep(user, step, () -> {});
     }
 
     private <T> void processStep(User user, SetupStep step, T data, Consumer<T> action) {

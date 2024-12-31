@@ -63,11 +63,10 @@ spring:
 google:
   project-id: google_project_id_dummy
   parent-location: global
-
-firebase:
-  service-account-key-base64: firebase_service_account_key_dummy
-  storage:
-    bucket: almonium-dummy.appspot.com
+  firebase:
+    service-account-key-base64: firebase_service_account_key_dummy
+    storage:
+      bucket: almonium-dummy.appspot.com
 
 app:
   name: Almonium

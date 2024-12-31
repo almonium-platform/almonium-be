@@ -9,5 +9,4 @@ import java.util.Set;
 
 public record LanguageSetupRequest(
         @NotEmpty @Size(max = PlanLimits.MAX_FLUENT_LANGS) Set<Language> fluentLangs,
-        @NotEmpty List<TargetLanguageWithProficiency> targetLangsData) {
-}
+        @NotEmpty List<TargetLanguageWithProficiency> targetLangsData) {}

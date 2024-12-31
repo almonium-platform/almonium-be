@@ -260,10 +260,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .deletedExamplesIds(deletedExamplesIds)
-                .deletedTranslationsIds(new int[]{})
-                .tags(new TagDto[]{})
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
+                .deletedTranslationsIds(new int[] {})
+                .tags(new TagDto[] {})
+                .translations(new TranslationDto[] {})
+                .examples(new ExampleDto[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -304,10 +304,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .deletedTranslationsIds(deletedTranslationsIds)
-                .deletedExamplesIds(new int[]{})
-                .tags(new TagDto[]{})
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
+                .deletedExamplesIds(new int[] {})
+                .tags(new TagDto[] {})
+                .translations(new TranslationDto[] {})
+                .examples(new ExampleDto[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -332,7 +332,7 @@ class CardServiceTest {
 
         Long cardId = 1L;
         TranslationDto[] updatedTranslations = {
-                new TranslationDto(1L, "updatedTranslation1"), new TranslationDto(2L, "updatedTranslation2")
+            new TranslationDto(1L, "updatedTranslation1"), new TranslationDto(2L, "updatedTranslation2")
         };
 
         List<Translation> originalTranslations = new ArrayList<>();
@@ -351,10 +351,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .translations(updatedTranslations)
-                .examples(new ExampleDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .examples(new ExampleDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -390,8 +390,8 @@ class CardServiceTest {
 
         Long cardId = 1L;
         ExampleDto[] updatedExamples = {
-                new ExampleDto(1L, "updatedExample1", "updatedTranslation1"),
-                new ExampleDto(2L, "updatedExample2", "updatedTranslation2")
+            new ExampleDto(1L, "updatedExample1", "updatedTranslation1"),
+            new ExampleDto(2L, "updatedExample2", "updatedTranslation2")
         };
 
         List<Example> originalExamples = new ArrayList<>();
@@ -416,10 +416,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .examples(updatedExamples)
-                .translations(new TranslationDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .translations(new TranslationDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -457,7 +457,7 @@ class CardServiceTest {
 
         Long cardId = 1L;
         TranslationDto[] newTranslations = {
-                new TranslationDto(null, "newTranslation1"), new TranslationDto(null, "newTranslation2")
+            new TranslationDto(null, "newTranslation1"), new TranslationDto(null, "newTranslation2")
         };
 
         Card card = Card.builder()
@@ -470,10 +470,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .translations(newTranslations)
-                .examples(new ExampleDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .examples(new ExampleDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -500,8 +500,8 @@ class CardServiceTest {
 
         Long cardId = 1L;
         ExampleDto[] newExamples = {
-                new ExampleDto(null, "newExample1", "newTranslation1"),
-                new ExampleDto(null, "newExample2", "newTranslation2")
+            new ExampleDto(null, "newExample1", "newTranslation1"),
+            new ExampleDto(null, "newExample2", "newTranslation2")
         };
 
         Card card = Card.builder()
@@ -514,10 +514,10 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .examples(newExamples)
-                .translations(new TranslationDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .translations(new TranslationDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -549,11 +549,11 @@ class CardServiceTest {
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
                 .language(language)
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .translations(new TranslationDto[] {})
+                .examples(new ExampleDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -580,11 +580,11 @@ class CardServiceTest {
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
                 .language(language)
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
-                .tags(new TagDto[]{})
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .translations(new TranslationDto[] {})
+                .examples(new ExampleDto[] {})
+                .tags(new TagDto[] {})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -654,8 +654,8 @@ class CardServiceTest {
         List<Translation> mockTranslations = Collections.singletonList(mock(Translation.class));
 
         TagDto[] mockTags = {
-                TagDto.builder().text("text1").build(),
-                TagDto.builder().text("text2").build()
+            TagDto.builder().text("text1").build(),
+            TagDto.builder().text("text2").build()
         };
 
         // We must also specify the language, as required by the new createCard(User, CardCreationDto)
@@ -732,11 +732,11 @@ class CardServiceTest {
         return CardUpdateDto.builder()
                 .id(cardId)
                 .language(language)
-                .translations(new TranslationDto[]{})
-                .examples(new ExampleDto[]{})
+                .translations(new TranslationDto[] {})
+                .examples(new ExampleDto[] {})
                 .tags(tagDtos)
-                .deletedTranslationsIds(new int[]{})
-                .deletedExamplesIds(new int[]{})
+                .deletedTranslationsIds(new int[] {})
+                .deletedExamplesIds(new int[] {})
                 .build();
     }
 
@@ -755,7 +755,7 @@ class CardServiceTest {
         when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
 
         existingCardTags.forEach(cardTag -> when(cardTagRepository.getByCardAndText(
-                card, cardTag.getTag().getText()))
+                        card, cardTag.getTag().getText()))
                 .thenReturn(cardTag));
     }
 }

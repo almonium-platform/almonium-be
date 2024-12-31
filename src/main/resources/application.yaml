@@ -112,11 +112,10 @@ app:
 google:
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
-
-firebase:
-  service-account-key-base64: ${FIREBASE_SERVICE_ACCOUNT_KEY_BASE64}
-  storage:
-    bucket: ${FIREBASE_STORAGE_BUCKET}
+  firebase:
+    service-account-key-base64: ${FIREBASE_SERVICE_ACCOUNT_KEY_BASE64}
+    storage:
+      bucket: ${FIREBASE_STORAGE_BUCKET}
 
 openai:
   gpt:

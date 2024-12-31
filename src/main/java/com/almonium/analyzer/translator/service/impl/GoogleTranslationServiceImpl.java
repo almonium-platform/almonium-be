@@ -18,24 +18,15 @@ import com.google.protobuf.ByteString;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class GoogleTranslationServiceImpl implements TranslationService {
-
-    @Value("${google.project-id}")
-    String projectId;
-
-    @Value("${google.parent-location}")
-    String parentLocation;
-
-    LocationName parent;
-
     TranslationServiceClient translationClient;
     TextToSpeechClient textToSpeechClient;
+    LocationName parent;
 
     @SneakyThrows
     public GoogleTranslationServiceImpl() {
