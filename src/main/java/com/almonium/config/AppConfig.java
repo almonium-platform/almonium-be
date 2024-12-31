@@ -4,6 +4,7 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.config.properties.AppleOAuthProperties;
 import com.almonium.config.properties.ExternalApiProperties;
 import com.almonium.config.properties.GoogleProperties;
+import com.almonium.config.properties.MailProperties;
 import com.almonium.config.properties.OpenAIProperties;
 import com.almonium.config.properties.StripeProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
     AppleOAuthProperties.class,
     ExternalApiProperties.class,
     GoogleProperties.class,
+    MailProperties.class,
     OpenAIProperties.class,
     StripeProperties.class,
 })

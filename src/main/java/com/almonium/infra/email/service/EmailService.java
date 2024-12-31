@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 import com.almonium.config.properties.AppProperties;
+import com.almonium.config.properties.MailProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.util.HtmlFileWriter;
@@ -12,9 +13,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -35,10 +34,7 @@ public class EmailService {
     JavaMailSender mailSender;
     HtmlFileWriter htmlFileWriter;
     AppProperties appProperties;
-
-    @NonFinal
-    @Value("${spring.mail.username}")
-    String from;
+    MailProperties mailProperties;
 
     public void sendEmail(EmailDto emailDto) {
         try {
@@ -61,7 +57,7 @@ public class EmailService {
 
         mimeMessageHelper.setSubject(emailDto.subject());
         mimeMessageHelper.setTo(emailDto.recipient());
-        mimeMessageHelper.setFrom(String.format(ALMONIUM_FROM_FORMAT, from));
+        mimeMessageHelper.setFrom(String.format(ALMONIUM_FROM_FORMAT, mailProperties.getUsername()));
         mimeMessageHelper.setText(emailDto.body(), true);
 
         addAssetsToEmail(mimeMessageHelper);
