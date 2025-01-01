@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(uses = {LearnerMapper.class})
+@Mapper(uses = {LearnerMapper.class, InterestMapper.class})
 public interface UserMapper {
     @Mapping(source = "profile.avatarUrl", target = "avatarUrl")
     @Mapping(target = "streak", ignore = true)

@@ -31,6 +31,7 @@ public class UserInfo {
     Collection<Language> targetLangs; // todo remove
     Collection<LearnerDto> learners;
     Collection<Language> fluentLangs;
+    Collection<InterestDto> interests;
 
     SetupStep setupStep;
     SubscriptionInfoDto subscription;
