@@ -16,6 +16,7 @@ import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.InterestRepository;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
@@ -43,6 +44,7 @@ public class UserService implements UserDetailsService {
     PlanSubscriptionService planSubscriptionService;
     PlanService planService;
     UserMapper userMapper;
+    InterestRepository interestRepository;
     PlanSubscriptionMapper planSubscriptionMapper;
 
     public UserInfo buildUserInfoFromUser(User user) {
@@ -89,6 +91,12 @@ public class UserService implements UserDetailsService {
         }
         user.setUsername(username);
         userRepository.save(user);
+    }
+
+    public void updateInterests(User user, List<Long> ids) {
+        user.setInterests(interestRepository.findAllById(ids));
+        userRepository.save(user);
+        log.info("User {} updated interests: {}", user.getId(), ids);
     }
 
     public boolean isUsernameAvailable(String username) {

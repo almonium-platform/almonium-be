@@ -28,6 +28,7 @@ public class OnboardingService {
     UserRepository userRepository;
     LearnerService learnerService;
     InterestMapper interestMapper;
+    UserService userService;
     InterestRepository interestRepository;
 
     public List<InterestDto> getInterests() {
@@ -35,8 +36,7 @@ public class OnboardingService {
     }
 
     public void saveInterests(User user, List<Long> interests) {
-        processStep(
-                user, SetupStep.INTERESTS, interests, data -> user.setInterests(interestRepository.findAllById(data)));
+        processStep(user, SetupStep.INTERESTS, interests, data -> userService.updateInterests(user, data));
     }
 
     public void setupLanguages(User user, LanguageSetupRequest request) {

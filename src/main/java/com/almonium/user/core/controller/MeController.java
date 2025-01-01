@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.user.core.dto.LanguageUpdateRequest;
+import com.almonium.user.core.dto.SaveInterestsRequest;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.dto.UsernameUpdateRequest;
@@ -41,6 +42,12 @@ public class MeController {
     @PatchMapping("/username")
     public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @Auth User user) {
         userService.changeUsernameById(request.username(), user.getId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/interests")
+    public ResponseEntity<?> saveInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
+        userService.updateInterests(user, interests.ids());
         return ResponseEntity.noContent().build();
     }
 

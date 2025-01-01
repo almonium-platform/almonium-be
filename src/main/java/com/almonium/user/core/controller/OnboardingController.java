@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.user.core.dto.InterestDto;
 import com.almonium.user.core.dto.LanguageSetupRequest;
+import com.almonium.user.core.dto.SaveInterestsRequest;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.service.OnboardingService;
@@ -35,8 +36,8 @@ public class OnboardingController {
     }
 
     @PostMapping("/interests")
-    public ResponseEntity<?> saveInterests(@Auth User user, @Valid @RequestBody List<Long> interests) {
-        onboardingService.saveInterests(user, interests);
+    public ResponseEntity<?> saveInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
+        onboardingService.saveInterests(user, interests.ids());
         return ResponseEntity.ok().build();
     }
 
