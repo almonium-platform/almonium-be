@@ -79,6 +79,7 @@ public class AppProperties {
             public static class RefreshToken {
                 int lifetime;
                 String url;
+                String fullUrl;
             }
         }
 

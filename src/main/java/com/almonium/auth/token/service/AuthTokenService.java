@@ -65,7 +65,7 @@ public class AuthTokenService {
         CookieUtil.deleteCookie(
                 response,
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
-                appProperties.getAuth().getJwt().getRefreshToken().getUrl(),
+                appProperties.getAuth().getJwt().getRefreshToken().getFullUrl(),
                 getCleanBackendDomain()); // Refresh token cleared with path
     }
 
@@ -104,7 +104,7 @@ public class AuthTokenService {
                 response,
                 CookieUtil.REFRESH_TOKEN_COOKIE_NAME,
                 refreshToken,
-                appProperties.getAuth().getJwt().getRefreshToken().getUrl(),
+                appProperties.getAuth().getJwt().getRefreshToken().getFullUrl(),
                 appProperties.getAuth().getJwt().getRefreshToken().getLifetime(),
                 getCleanBackendDomain());
 
