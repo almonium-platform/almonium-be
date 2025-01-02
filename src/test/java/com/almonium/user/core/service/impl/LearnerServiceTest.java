@@ -3,7 +3,6 @@ package com.almonium.user.core.service.impl;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.argThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -54,50 +53,92 @@ class LearnerServiceTest {
     @InjectMocks
     LearnerService learnerService;
 
-    @DisplayName("Should add a new target language when user does not already have it")
+    @DisplayName("Should add multiple target languages when replacing existing ones")
     @Test
-    void givenUserAndLanguageData_whenAddTargetLanguage_thenLearnerIsCreated() {
+    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithReplace_thenLearnersAreCreated() {
         // Arrange
         User user = User.builder().id(10L).build();
-        // Suppose we want to add French with some CEFR level
-        TargetLanguageWithProficiency languageData = new TargetLanguageWithProficiency(CEFR.A1, Language.FR);
+        List<TargetLanguageWithProficiency> languages = List.of(
+                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
+                new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
 
-        // No existing Learner with (userId=10, language=FR)
-        when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
-                .thenReturn(Optional.empty());
-
-        // Suppose user already has 1 target language, so we pass '1' to planValidationService
-        when(learnerRepository.countLearnersByUserId(10L)).thenReturn(1);
+        when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(0);
 
         // Act
-        learnerService.addTargetLanguage(languageData, user);
+        learnerService.addTargetLanguages(languages, user, true);
 
         // Assert
-        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, /* new total */ 2);
-        // We expect a new Learner to be saved
+        verify(learnerRepository).deleteAllByUserId(user.getId());
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 2);
         verify(learnerRepository)
-                .save(argThat(learner -> learner.getLanguage().equals(Language.FR)
+                .save(argThat(learner -> learner.getLanguage() == Language.FR
+                        && learner.getUser().equals(user)));
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.DE
                         && learner.getUser().equals(user)));
     }
 
-    @DisplayName("Should throw exception if user already has that target language")
+    @DisplayName("Should add multiple target languages without replacing existing ones")
     @Test
-    void givenExistingTargetLanguage_whenAddTargetLanguage_thenThrowsException() {
+    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithoutReplace_thenLearnersAreCreated() {
         // Arrange
-        User user = User.builder().id(11L).build();
-        TargetLanguageWithProficiency languageData = new TargetLanguageWithProficiency(CEFR.C2, Language.DE);
+        User user = User.builder().id(10L).build();
+        List<TargetLanguageWithProficiency> languages = List.of(
+                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
+                new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
 
-        // Mock that user already has a Learner for DE
-        Learner existingLearner =
-                Learner.builder().user(user).language(Language.DE).build();
-        when(learnerRepository.findByUserIdAndLanguage(11L, Language.DE)).thenReturn(Optional.of(existingLearner));
+        when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(1);
+
+        // Act
+        learnerService.addTargetLanguages(languages, user, false);
+
+        // Assert
+        verify(learnerRepository, never()).deleteAllByUserId(user.getId());
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 3);
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.FR
+                        && learner.getUser().equals(user)));
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.DE
+                        && learner.getUser().equals(user)));
+    }
+
+    @DisplayName("Should throw exception if a target language already exists")
+    @Test
+    void givenExistingTargetLanguage_whenAddTargetLanguages_thenThrowsException() {
+        // Arrange
+        User user = User.builder().id(10L).build();
+        List<TargetLanguageWithProficiency> languages =
+                List.of(new TargetLanguageWithProficiency(CEFR.A1, Language.FR));
+
+        when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
+                .thenReturn(Optional.of(
+                        Learner.builder().user(user).language(Language.FR).build()));
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.addTargetLanguage(languageData, user))
+        assertThatThrownBy(() -> learnerService.addTargetLanguages(languages, user, false))
                 .isInstanceOf(BadUserRequestActionException.class)
                 .hasMessageContaining("You already have this target language");
-        verify(planValidationService, never()).validatePlanFeature(any(), any(), anyInt());
         verify(learnerRepository, never()).save(any(Learner.class));
+    }
+
+    @DisplayName("Should replace all existing target languages")
+    @Test
+    void givenReplaceFlag_whenAddTargetLanguages_thenDeletesAndAddsLearners() {
+        // Arrange
+        User user = User.builder().id(10L).build();
+        List<TargetLanguageWithProficiency> languages = List.of(
+                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
+                new TargetLanguageWithProficiency(CEFR.B2, Language.DE));
+
+        // Act
+        learnerService.addTargetLanguages(languages, user, true);
+
+        // Assert
+        verify(learnerRepository).deleteAllByUserId(user.getId());
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 2);
+        verify(learnerRepository).save(argThat(learner -> learner.getLanguage() == Language.FR));
+        verify(learnerRepository).save(argThat(learner -> learner.getLanguage() == Language.DE));
     }
 
     @DisplayName("Should remove target language when user has multiple learners")

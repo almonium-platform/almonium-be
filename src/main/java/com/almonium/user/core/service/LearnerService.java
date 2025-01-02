@@ -13,6 +13,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -31,18 +32,23 @@ public class LearnerService {
     CardService cardService;
     UserRepository userRepository;
 
-    public void addTargetLanguage(TargetLanguageWithProficiency languageData, User user) {
+    public void addTargetLanguages(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
+        if (replace) {
+            learnerRepository.deleteAllByUserId(user.getId());
+        }
         long userId = user.getId();
-        Language code = languageData.language();
-        learnerRepository.findByUserIdAndLanguage(userId, code).ifPresent(existingLearner -> {
-            log.warn("User {} already has target language {}.", userId, code);
-            throw new BadUserRequestActionException("You already have this target language.");
-        });
-
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
+        planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
+        data.forEach(targetLanguageWithProficiency -> {
+            Language code = targetLanguageWithProficiency.language();
+            learnerRepository.findByUserIdAndLanguage(userId, code).ifPresent(existingLearner -> {
+                log.warn("User {} already has target language {}.", userId, code);
+                throw new BadUserRequestActionException("You already have this target language.");
+            });
 
-        planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + 1);
-        learnerRepository.save(new Learner(user, code, languageData.cefrLevel()));
+            learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
+            log.info("User {} added target language {}.", userId, code);
+        });
     }
 
     public void removeTargetLanguage(Language code, long userId) {

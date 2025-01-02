@@ -46,11 +46,12 @@ public class OnboardingService {
 
     public List<LearnerDto> setupLanguages(User user, LanguageSetupRequest request) {
         processStep(user, SetupStep.LANGUAGES, request, data -> {
-            data.targetLangsData().forEach(learnerData -> learnerService.addTargetLanguage(learnerData, user));
+            learnerService.addTargetLanguages(data.targetLangsData(), user, true);
             user.setFluentLangs(new HashSet<>(data.fluentLangs()));
         });
 
-        return learnerMapper.toDto(learnerService.getUserWithLearners(user.getId()).getLearners());
+        return learnerMapper.toDto(
+                learnerService.getUserWithLearners(user.getId()).getLearners());
     }
 
     public void completeSimpleStep(User user, SetupStep step) {
@@ -80,6 +81,8 @@ public class OnboardingService {
     }
 
     private void goToNextStepIfNeededAndSaveUser(User user, SetupStep step) {
+        userRepository.save(user); // user should be saved even if the step is not changed
+
         if (step != user.getSetupStep()) {
             log.info("User {} is already further along than step {}", user.getEmail(), step);
             return;
@@ -87,7 +90,6 @@ public class OnboardingService {
 
         SetupStep nextStep = user.getSetupStep().nextStep();
         user.setSetupStep(nextStep);
-        userRepository.save(user);
         log.info("User {} has moved to step {}", user.getEmail(), nextStep);
     }
 }

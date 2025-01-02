@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface LearnerRepository extends JpaRepository<Learner, Long> {
+    void deleteAllByUserId(long userId);
+
     Optional<Learner> findByUserIdAndLanguage(long userId, Language language);
 
     @Query("select count(l) from Learner l where l.user.id = :userId")

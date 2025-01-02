@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.LanguageUpdateRequest;
+import com.almonium.user.core.dto.FluentLanguagesUpdateRequest;
 import com.almonium.user.core.dto.SaveInterestsRequest;
-import com.almonium.user.core.dto.TargetLanguageWithProficiency;
+import com.almonium.user.core.dto.TargetLanguagesSetupRequest;
 import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.dto.UsernameUpdateRequest;
 import com.almonium.user.core.model.entity.User;
@@ -52,9 +52,9 @@ public class MeController {
     }
 
     @PostMapping("/langs/target")
-    public ResponseEntity<Void> addTargetLanguage(
-            @Valid @RequestBody TargetLanguageWithProficiency dto, @Auth User user) {
-        learnerService.addTargetLanguage(dto, user);
+    public ResponseEntity<Void> addTargetLanguages(
+            @Valid @RequestBody TargetLanguagesSetupRequest request, @Auth User user) {
+        learnerService.addTargetLanguages(request.data(), user, false);
         return ResponseEntity.noContent().build();
     }
 
@@ -66,7 +66,7 @@ public class MeController {
 
     @PutMapping("/langs/fluent")
     public ResponseEntity<Void> updateFluentLanguages(
-            @Valid @RequestBody LanguageUpdateRequest request, @Auth User user) {
+            @Valid @RequestBody FluentLanguagesUpdateRequest request, @Auth User user) {
         userService.updateFluentLanguages(request.langCodes(), user);
         return ResponseEntity.noContent().build();
     }
