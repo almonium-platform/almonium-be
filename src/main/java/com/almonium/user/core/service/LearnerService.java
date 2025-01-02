@@ -46,7 +46,7 @@ public class LearnerService {
     }
 
     public void removeTargetLanguage(Language code, long userId) {
-        var user = getUserWithTargetLangs(userId);
+        var user = getUserWithLearners(userId);
 
         findLearner(user, code)
                 .ifPresentOrElse(
@@ -72,7 +72,7 @@ public class LearnerService {
                 .findFirst();
     }
 
-    private User getUserWithTargetLangs(long id) {
+    public User getUserWithLearners(long id) {
         return userRepository
                 .findUserWithLearners(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));

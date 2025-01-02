@@ -4,8 +4,10 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.core.dto.InterestDto;
 import com.almonium.user.core.dto.LanguageSetupRequest;
+import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.InterestMapper;
+import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.repository.InterestRepository;
@@ -25,11 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Transactional
 public class OnboardingService {
-    UserRepository userRepository;
     LearnerService learnerService;
-    InterestMapper interestMapper;
     UserService userService;
+
     InterestRepository interestRepository;
+    UserRepository userRepository;
+
+    InterestMapper interestMapper;
+    LearnerMapper learnerMapper;
 
     public List<InterestDto> getInterests() {
         return interestMapper.toDto(interestRepository.findAll());
@@ -39,11 +44,13 @@ public class OnboardingService {
         processStep(user, SetupStep.INTERESTS, interests, data -> userService.updateInterests(user, data));
     }
 
-    public void setupLanguages(User user, LanguageSetupRequest request) {
+    public List<LearnerDto> setupLanguages(User user, LanguageSetupRequest request) {
         processStep(user, SetupStep.LANGUAGES, request, data -> {
             data.targetLangsData().forEach(learnerData -> learnerService.addTargetLanguage(learnerData, user));
             user.setFluentLangs(new HashSet<>(data.fluentLangs()));
         });
+
+        return learnerMapper.toDto(learnerService.getUserWithLearners(user.getId()).getLearners());
     }
 
     public void completeSimpleStep(User user, SetupStep step) {
