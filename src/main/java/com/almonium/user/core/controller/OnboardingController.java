@@ -3,7 +3,6 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.InterestDto;
 import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.dto.SaveInterestsRequest;
@@ -15,7 +14,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,20 +29,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class OnboardingController {
     OnboardingService onboardingService;
 
-    @GetMapping("/interests")
-    public ResponseEntity<List<InterestDto>> getInterests() {
-        return ResponseEntity.ok(onboardingService.getInterests());
-    }
-
-    @PostMapping("/interests")
-    public ResponseEntity<?> saveInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
-        onboardingService.saveInterests(user, interests.ids());
+    @PatchMapping("/step/{step}")
+    public ResponseEntity<?> completeSimpleStep(@Auth User user, @PathVariable SetupStep step) {
+        onboardingService.completeSimpleStep(user, step);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/step/{step}")
-    public ResponseEntity<?> completeStep(@Auth User user, @PathVariable SetupStep step) {
-        onboardingService.completeSimpleStep(user, step);
+    // steps with updating user data
+    @PostMapping("/interests")
+    public ResponseEntity<?> setupInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
+        onboardingService.setupInterests(user, interests.ids());
         return ResponseEntity.ok().build();
     }
 
