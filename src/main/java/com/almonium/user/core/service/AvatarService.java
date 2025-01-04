@@ -56,7 +56,9 @@ public class AvatarService {
     }
 
     public void cleanUpAvatars(Long id) {
-        avatarRepository.findAllByProfileId(id).forEach(avatar -> firebaseStorageService.deleteFile(avatar.getUrl()));
+        avatarRepository
+                .findAllByProfileId(id)
+                .forEach(avatar -> firebaseStorageService.deleteFile(extractPathFromUrl(avatar.getUrl())));
         avatarRepository.deleteAllByProfileId(id);
     }
 
