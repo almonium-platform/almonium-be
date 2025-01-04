@@ -72,15 +72,14 @@ public class OnboardingService {
     }
 
     private void goToNextStepIfNeededAndSaveUser(User user, SetupStep step) {
-        userRepository.save(user); // user should be saved even if the step is not changed
-
-        if (step != user.getSetupStep()) {
+        if (step == user.getSetupStep()) {
+            SetupStep nextStep = user.getSetupStep().nextStep();
+            user.setSetupStep(nextStep);
+            log.info("User {} has moved to step {}", user.getEmail(), nextStep);
+        } else {
             log.info("User {} is already further along than step {}", user.getEmail(), step);
-            return;
         }
 
-        SetupStep nextStep = user.getSetupStep().nextStep();
-        user.setSetupStep(nextStep);
-        log.info("User {} has moved to step {}", user.getEmail(), nextStep);
+        userRepository.save(user);
     }
 }
