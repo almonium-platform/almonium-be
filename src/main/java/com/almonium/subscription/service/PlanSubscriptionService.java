@@ -15,6 +15,7 @@ import com.almonium.subscription.repository.PlanRepository;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.PlanService;
 import jakarta.transaction.Transactional;
@@ -243,6 +244,12 @@ public class PlanSubscriptionService {
 
     private void replaceCurrentPlanSubWithNewPremium(
             User user, Plan plan, String stripeSubscriptionId, Instant startDate, Instant endDate) {
+
+        if (SetupStep.PLAN.equals(user.getSetupStep())) {
+            user.setSetupStep(SetupStep.PLAN.nextStep());
+            userRepository.save(user);
+        }
+
         deactivateCurrentSub(user);
         createPremiumPlanSubAndNotify(user, plan, stripeSubscriptionId, startDate, endDate);
     }
