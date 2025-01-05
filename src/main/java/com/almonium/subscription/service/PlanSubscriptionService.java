@@ -65,7 +65,8 @@ public class PlanSubscriptionService {
         PlanSubscription activeSubscription = getActiveSub(user);
         if (isPlanDefault(activeSubscription.getPlan())) {
             throw new BadUserRequestActionException("User is already on the default plan");
-        } else if (planService.isPlanInsider(activeSubscription.getPlan().getId())) {
+        }
+        if (planService.isPlanInsider(activeSubscription.getPlan().getId())) {
             updatePlanSubStatusAndSave(activeSubscription, PlanSubscription.Status.INACTIVE);
             findAndActivateDefaultPlan(activeSubscription.getUser());
         } else {
