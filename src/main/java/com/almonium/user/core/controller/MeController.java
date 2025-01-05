@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.user.core.dto.FluentLanguagesUpdateRequest;
+import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.dto.SaveInterestsRequest;
 import com.almonium.user.core.dto.TargetLanguagesSetupRequest;
 import com.almonium.user.core.dto.UserInfo;
@@ -13,6 +14,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.LearnerService;
 import com.almonium.user.core.service.UserService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -52,10 +54,9 @@ public class MeController {
     }
 
     @PostMapping("/langs/target")
-    public ResponseEntity<Void> addTargetLanguages(
+    public ResponseEntity<List<LearnerDto>> addTargetLanguages(
             @Valid @RequestBody TargetLanguagesSetupRequest request, @Auth User user) {
-        learnerService.addTargetLanguages(request.data(), user, false);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(learnerService.addTargetLanguages(request.data(), user, false));
     }
 
     @DeleteMapping("/langs/target/{code}")

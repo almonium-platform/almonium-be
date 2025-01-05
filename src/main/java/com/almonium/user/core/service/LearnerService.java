@@ -6,8 +6,10 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.CardService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
+import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.exception.BadUserRequestActionException;
+import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
@@ -31,8 +33,9 @@ public class LearnerService {
     PlanValidationService planValidationService;
     CardService cardService;
     UserRepository userRepository;
+    LearnerMapper learnerMapper;
 
-    public void addTargetLanguages(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
+    public List<LearnerDto> addTargetLanguages(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
         if (replace) {
             learnerRepository.deleteAllByUserId(user.getId());
         }
@@ -49,6 +52,8 @@ public class LearnerService {
             learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
             log.info("User {} added target language {}.", userId, code);
         });
+
+        return learnerMapper.toDto(getUserWithLearners(user.getId()).getLearners());
     }
 
     public void removeTargetLanguage(Language code, long userId) {
