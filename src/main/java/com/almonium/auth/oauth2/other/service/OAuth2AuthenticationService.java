@@ -84,8 +84,8 @@ public class OAuth2AuthenticationService {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
         User user = userFactory.createUserWithDefaultPlan(userInfo.getEmail(), true);
         if (userInfo.getAvatarUrl() != null) {
-            // TODO first upload to firebase and get URL
-            //            avatarService.addAndSetNewCustomAvatar(user.getProfile().getId(), userInfo.getAvatarUrl());
+            avatarService.doAvatarUpload(
+                    userInfo.getAvatarUrl(), user.getProfile().getId());
         }
         return createAndSaveNewPrincipalForExistingUser(user, userInfo);
     }

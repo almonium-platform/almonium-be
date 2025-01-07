@@ -12,14 +12,18 @@ import com.almonium.user.core.model.entity.Avatar;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.AvatarRepository;
 import com.almonium.user.core.repository.ProfileRepository;
+import java.io.InputStream;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +36,7 @@ public class AvatarService {
     private static final String AVATAR_PREFIX = "avatars/";
     private static final String DEFAULT_AVATAR_PREFIX = AVATAR_PREFIX + "default";
     private static final Pattern AVATAR_URL_PATTERN = Pattern.compile(".*/o/" + AVATAR_PREFIX + "([^/?]+).*");
+    private static final String PATH_FORMAT = "%s%s";
 
     AvatarRepository avatarRepository;
     FirebaseStorageService firebaseStorageService;
@@ -92,6 +97,24 @@ public class AvatarService {
         updateProfileAvatarUrl(url, profile);
     }
 
+    @Transactional
+    public void doAvatarUpload(String remoteUrl, Long profileId) {
+        if (remoteUrl == null) {
+            return;
+        }
+        try (InputStream in = new URL(remoteUrl).openStream()) {
+            byte[] avatarBytes = in.readAllBytes();
+
+            String filePath = generateFilePath(UUID.randomUUID());
+
+            String uploadedUrl = firebaseStorageService.upload(avatarBytes, MediaType.IMAGE_JPEG_VALUE, filePath);
+
+            addAndSetNewCustomAvatar(profileId, uploadedUrl);
+        } catch (Exception e) {
+            log.error("Failed to upload avatar from remote url: {}", remoteUrl, e);
+        }
+    }
+
     private void updateProfileAvatarUrl(String url, Profile profile) {
         profile.setAvatarUrl(url);
         profileRepository.save(profile);
@@ -113,10 +136,14 @@ public class AvatarService {
         Matcher matcher = AVATAR_URL_PATTERN.matcher(decodedUrl);
 
         if (matcher.matches()) {
-            String uuid = matcher.group(1); // Extract UUID directly
-            return AVATAR_PREFIX + uuid; // Concatenate with prefix
+            String uuid = matcher.group(1);
+            return generateFilePath(UUID.fromString(uuid));
         }
         throw new FirebaseIntegrationException("Invalid avatar URL format");
+    }
+
+    private String generateFilePath(UUID uuid) {
+        return String.format(PATH_FORMAT, AVATAR_PREFIX, uuid);
     }
 
     private void resetCurrentAvatar(Long id, Profile profile) {
