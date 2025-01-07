@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,10 +41,10 @@ public class HtmlFileWriter {
                 // Recursive call to handle nested multipart
                 MimeMultipart nestedMultipart = (MimeMultipart) bodyPart.getContent();
                 htmlContent.append(parseMultipart(nestedMultipart));
-            } else if (bodyPart.isMimeType("text/html")) {
+            } else if (bodyPart.isMimeType(MediaType.TEXT_HTML_VALUE)) {
                 htmlContent.append((String) bodyPart.getContent());
-            } else if (bodyPart.isMimeType("image/png")
-                    || bodyPart.isMimeType("image/jpeg")
+            } else if (bodyPart.isMimeType(MediaType.IMAGE_PNG_VALUE)
+                    || bodyPart.isMimeType(MediaType.IMAGE_JPEG_VALUE)
                     || bodyPart.isMimeType("image/svg+xml")) {
                 String contentId = bodyPart.getHeader("Content-ID")[0];
                 if (contentId != null) {
