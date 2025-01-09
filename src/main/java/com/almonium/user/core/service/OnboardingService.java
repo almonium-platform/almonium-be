@@ -60,7 +60,7 @@ public class OnboardingService {
     }
 
     private void validateActionAllowed(User user, SetupStep step) {
-        if (step == SetupStep.COMPLETED) {
+        if (user.getSetupStep() == SetupStep.COMPLETED) {
             throw new BadUserRequestActionException("User has already completed the onboarding");
         }
 
