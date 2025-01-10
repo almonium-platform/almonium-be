@@ -2,6 +2,7 @@ package com.almonium.user.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.argThat;
 import static org.mockito.Mockito.never;
@@ -15,6 +16,7 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.exception.BadUserRequestActionException;
+import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
@@ -42,6 +44,9 @@ class LearnerServiceTest {
     LearnerRepository learnerRepository;
 
     @Mock
+    LearnerMapper learnerMapper;
+
+    @Mock
     PlanValidationService planValidationService;
 
     @Mock
@@ -55,51 +60,82 @@ class LearnerServiceTest {
 
     @DisplayName("Should add multiple target languages when replacing existing ones")
     @Test
-    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithReplace_thenLearnersAreCreated() {
+    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithReplace_thenLearnersAreDeletedAndCreated() {
         // Arrange
-        User user = User.builder().id(10L).build();
+        User user = User.builder()
+                .id(10L)
+                .learners(List.of(Learner.builder().id(1L).language(Language.EN).build()))
+                .build();
+
         List<TargetLanguageWithProficiency> languages = List.of(
                 new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
                 new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
 
         when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(0);
+        when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
 
         // Act
         learnerService.addTargetLanguages(languages, user, true);
 
         // Assert
+        // Ensure all previous learners are deleted
         verify(learnerRepository).deleteAllByUserId(user.getId());
+
+        // Validate plan feature for the new count of target languages
         verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 2);
+
+        // Ensure new learners are saved with correct languages and CEFR levels
         verify(learnerRepository)
                 .save(argThat(learner -> learner.getLanguage() == Language.FR
+                        && learner.getSelfReportedLevel() == CEFR.A1
                         && learner.getUser().equals(user)));
         verify(learnerRepository)
                 .save(argThat(learner -> learner.getLanguage() == Language.DE
+                        && learner.getSelfReportedLevel() == CEFR.B1
                         && learner.getUser().equals(user)));
+
+        // Optionally, verify the mapper is called if needed for toDto
+        verify(learnerMapper).toDto(anyList());
     }
 
     @DisplayName("Should add multiple target languages without replacing existing ones")
     @Test
     void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithoutReplace_thenLearnersAreCreated() {
         // Arrange
-        User user = User.builder().id(10L).build();
+        User user = User.builder()
+                .id(10L)
+                .learners(List.of(Learner.builder().id(1L).language(Language.EN).build()))
+                .build();
+
         List<TargetLanguageWithProficiency> languages = List.of(
                 new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
                 new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
 
         when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(1);
+        when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
+                .thenReturn(Optional.empty());
+        when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.DE))
+                .thenReturn(Optional.empty());
+        when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
 
         // Act
         learnerService.addTargetLanguages(languages, user, false);
 
         // Assert
+        // Ensure existing learners are not deleted
         verify(learnerRepository, never()).deleteAllByUserId(user.getId());
+
+        // Validate plan feature for the new count of target languages
         verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 3);
+
+        // Ensure new learners are saved with correct languages and CEFR levels
         verify(learnerRepository)
                 .save(argThat(learner -> learner.getLanguage() == Language.FR
+                        && learner.getSelfReportedLevel() == CEFR.A1
                         && learner.getUser().equals(user)));
         verify(learnerRepository)
                 .save(argThat(learner -> learner.getLanguage() == Language.DE
+                        && learner.getSelfReportedLevel() == CEFR.B1
                         && learner.getUser().equals(user)));
     }
 
@@ -120,25 +156,6 @@ class LearnerServiceTest {
                 .isInstanceOf(BadUserRequestActionException.class)
                 .hasMessageContaining("You already have this target language");
         verify(learnerRepository, never()).save(any(Learner.class));
-    }
-
-    @DisplayName("Should replace all existing target languages")
-    @Test
-    void givenReplaceFlag_whenAddTargetLanguages_thenDeletesAndAddsLearners() {
-        // Arrange
-        User user = User.builder().id(10L).build();
-        List<TargetLanguageWithProficiency> languages = List.of(
-                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
-                new TargetLanguageWithProficiency(CEFR.B2, Language.DE));
-
-        // Act
-        learnerService.addTargetLanguages(languages, user, true);
-
-        // Assert
-        verify(learnerRepository).deleteAllByUserId(user.getId());
-        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 2);
-        verify(learnerRepository).save(argThat(learner -> learner.getLanguage() == Language.FR));
-        verify(learnerRepository).save(argThat(learner -> learner.getLanguage() == Language.DE));
     }
 
     @DisplayName("Should remove target language when user has multiple learners")
