@@ -6,9 +6,13 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.PrincipalDto;
 import com.almonium.auth.common.service.AuthMethodManagementService;
+import com.almonium.auth.common.service.UserAuthenticationService;
+import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.AuthTokenService;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.util.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthManagementController {
     AuthMethodManagementService authMethodManagementService;
     AuthTokenService authTokenService;
+    UserAuthenticationService userAuthenticationService;
+
+    @PostMapping("/reauth")
+    public ResponseEntity<?> reauthenticate(
+            @Valid @RequestBody PasswordRequestDto request, @Auth User user, HttpServletResponse response) {
+        userAuthenticationService.localLogin(user.getEmail(), request.password(), response);
+        return ResponseEntity.ok(new ApiResponse(true, "Reauthenticated successfully"));
+    }
 
     @GetMapping("/providers")
     public ResponseEntity<List<PrincipalDto>> getAuthProviders(@Auth User user) {

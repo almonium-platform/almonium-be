@@ -1,4 +1,4 @@
-package com.almonium.auth.common.service.impl;
+package com.almonium.auth.common.service;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -14,8 +14,6 @@ import com.almonium.auth.common.factory.PrincipalFactory;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.service.SensitiveAuthActionsService;
-import com.almonium.auth.common.service.VerificationTokenManagementService;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.service.PasswordEncoderService;
 import com.almonium.user.core.model.entity.User;

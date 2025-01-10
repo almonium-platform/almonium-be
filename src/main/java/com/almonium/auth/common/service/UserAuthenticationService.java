@@ -2,13 +2,17 @@ package com.almonium.auth.common.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.token.dto.response.JwtTokenResponse;
+import com.almonium.auth.local.exception.EmailNotVerifiedException;
 import com.almonium.auth.token.service.AuthTokenService;
+import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -28,12 +32,37 @@ import org.springframework.stereotype.Service;
 public class UserAuthenticationService {
     AuthTokenService authTokenService;
     ProfileService profileService;
+    AuthenticationManager authenticationManager;
+    UserRepository userRepository;
+    AppProperties appProperties;
 
-    public JwtTokenResponse authenticateUser(User user, HttpServletResponse response, Authentication authentication) {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public void localLogin(String email, String password, HttpServletResponse response) {
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+
+        User user = validateAndGetLocalPrincipal(email);
+
+        authenticateUser(user, response, authentication);
+    }
+
+    public void authenticateUser(User user, HttpServletResponse response, Authentication authentication) {
         profileService.updateLoginStreak(user.getProfile());
-        String accessToken = authTokenService.createAndSetAccessTokenForLiveLogin(authentication, response);
-        String refreshToken = authTokenService.createAndSetRefreshToken(authentication, response);
-        return new JwtTokenResponse(accessToken, refreshToken);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        authTokenService.createAndSetAccessTokenForLiveLogin(authentication, response);
+        authTokenService.createAndSetRefreshToken(authentication, response);
+    }
+
+    private User validateAndGetLocalPrincipal(String email) {
+        // loadUserByUsername is executed prior to this, thus IllegalState - it should always return a user
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("User with email " + email + " not found"));
+
+        if (appProperties.getAuth().isEmailVerificationRequired() && !user.isEmailVerified()) {
+            throw new EmailNotVerifiedException("Email needs to be verified before logging in.");
+        }
+        return user;
     }
 }

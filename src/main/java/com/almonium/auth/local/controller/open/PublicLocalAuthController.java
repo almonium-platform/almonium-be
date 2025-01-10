@@ -3,8 +3,8 @@ package com.almonium.auth.local.controller.open;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.dto.request.EmailRequestDto;
+import com.almonium.auth.common.service.UserAuthenticationService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
-import com.almonium.auth.local.dto.response.JwtAuthResponse;
 import com.almonium.auth.local.service.PublicLocalAuthService;
 import com.almonium.util.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PublicLocalAuthController {
     PublicLocalAuthService publicLocalAuthService;
+    UserAuthenticationService userAuthenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(
+    public ResponseEntity<Void> login(
             @Valid @RequestBody LocalAuthRequest localAuthRequest, HttpServletResponse response) {
-        return ResponseEntity.ok(publicLocalAuthService.login(localAuthRequest, response));
+        userAuthenticationService.localLogin(localAuthRequest.email(), localAuthRequest.password(), response);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
