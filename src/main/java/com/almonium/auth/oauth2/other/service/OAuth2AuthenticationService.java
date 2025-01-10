@@ -3,8 +3,9 @@ package com.almonium.auth.oauth2.other.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.exception.EmailMismatchException;
+import com.almonium.auth.local.exception.ReauthException;
+import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
-import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
 import com.almonium.user.core.factory.UserFactory;
@@ -30,14 +31,49 @@ public class OAuth2AuthenticationService {
     AvatarService avatarService;
 
     @Transactional
-    public OAuth2Principal authenticate(OAuth2UserInfo userInfo, OAuth2Intent intent) {
+    public OAuth2Principal reauthenticate(OAuth2UserInfo userInfo, long userId) {
+        log.debug("Starting reauthentication process for email: {}", userInfo.getEmail());
+        User user = userRepository
+                .findById(userId)
+                .orElseThrow(() -> new ReauthException("User not found by id: " + userId));
+
+        if (!user.getEmail().equals(userInfo.getEmail())) {
+            throw new ReauthException(String.format(
+                    "Can't reauthenticate user with email: %s using provider with email: %s",
+                    user.getEmail(), userInfo.getEmail()));
+        }
+
+        return principalRepository
+                .findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId())
+                .orElseThrow(() -> new ReauthException("Can't reauthenticate via provider account not linked to user"));
+    }
+
+    @Transactional
+    public OAuth2Principal authenticate(OAuth2UserInfo userInfo) {
         log.debug("Starting authentication process for email: {}", userInfo.getEmail());
 
         // check if we have this provider account
         return principalRepository
                 .findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId())
                 .map(existingPrincipal -> updateExistingPrincipal(existingPrincipal, userInfo))
-                .orElseGet(() -> handleNewProviderAccount(userInfo, intent));
+                .orElseGet(() -> handleNewProviderAccount(userInfo));
+    }
+
+    @Transactional
+    public OAuth2Principal linkAuthMethod(OAuth2UserInfo userInfo) {
+        if (principalRepository
+                .findByProviderAndProviderUserId(userInfo.getProvider(), userInfo.getId())
+                .isPresent()) {
+            throw new OAuth2AuthenticationException("Provider account already linked to user");
+        }
+
+        var user = userRepository
+                .findByEmail(userInfo.getEmail())
+                .orElseThrow(
+                        () -> new OAuth2AuthenticationException("User not found by email: " + userInfo.getEmail()));
+
+        log.debug("Linking provider account to user: {}", userInfo.getEmail());
+        return principalRepository.save(createAndSaveNewPrincipalForExistingUser(user, userInfo));
     }
 
     private OAuth2Principal updateExistingPrincipal(OAuth2Principal existingPrincipal, OAuth2UserInfo userInfo) {
@@ -58,7 +94,7 @@ public class OAuth2AuthenticationService {
         return principalRepository.save(existingPrincipal);
     }
 
-    private OAuth2Principal handleNewProviderAccount(OAuth2UserInfo userInfo, OAuth2Intent intent) {
+    private OAuth2Principal handleNewProviderAccount(OAuth2UserInfo userInfo) {
         log.debug(
                 "We don't recognize this provider account. Provider: {}, providerUserId: {}",
                 userInfo.getProvider(),
@@ -72,11 +108,6 @@ public class OAuth2AuthenticationService {
         }
 
         log.debug("New provider account for new user: {}", userInfo.getEmail());
-        if (intent != OAuth2Intent.SIGN_IN) {
-            log.error("Can't link/reauth account registered with email: {}", userInfo.getEmail());
-            throw new EmailMismatchException("We don't have an account with email: " + userInfo.getEmail());
-        }
-
         return createNewUserAndPrincipal(userInfo);
     }
 

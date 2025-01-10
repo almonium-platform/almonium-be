@@ -2,6 +2,7 @@ package com.almonium.auth.oauth2.other.repository;
 
 import static com.almonium.auth.common.util.CookieUtil.INTENT_PARAM_COOKIE_NAME;
 import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.almonium.auth.common.util.CookieUtil.USER_ID_PARAM_COOKIE_NAME;
 
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.common.util.UrlUtil;
@@ -47,7 +48,10 @@ public class OAuth2CookieRequestRepository implements AuthorizationRequestReposi
 
         if (intent != null) {
             CookieUtil.addCookie(response, INTENT_PARAM_COOKIE_NAME, intentParam, COOKIE_EXPIRE_SECONDS);
-            // Front-end will use this to show an appropriate success message
+            if (intent == OAuth2Intent.REAUTH) {
+                String userIdParam = request.getParameter(USER_ID_PARAM_COOKIE_NAME);
+                CookieUtil.addCookie(response, USER_ID_PARAM_COOKIE_NAME, userIdParam, COOKIE_EXPIRE_SECONDS);
+            }
             redirectUriAfterLogin = UrlUtil.addQueryParam(
                     redirectUriAfterLogin,
                     INTENT_PARAM_COOKIE_NAME,

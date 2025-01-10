@@ -18,6 +18,7 @@ public class CookieUtil {
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refreshToken";
     public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
     public static final String INTENT_PARAM_COOKIE_NAME = "intent";
+    public static final String USER_ID_PARAM_COOKIE_NAME = "userId";
     private static final String EMPTY_PATH = "/";
 
     public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {

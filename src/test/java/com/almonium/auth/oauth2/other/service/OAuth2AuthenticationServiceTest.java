@@ -3,18 +3,14 @@ package com.almonium.auth.oauth2.other.service;
 import static java.util.Map.entry;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
-import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
 import com.almonium.auth.oauth2.other.model.userinfo.GoogleOAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
@@ -92,7 +88,7 @@ class OAuth2AuthenticationServiceTest {
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(newPrincipal);
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo);
 
         // Assert
         verify(oAuth2PrincipalRepository).save(newPrincipal);
@@ -127,7 +123,7 @@ class OAuth2AuthenticationServiceTest {
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenReturn(principal);
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo);
 
         // Assert
         verify(oAuth2PrincipalRepository).save(any());
@@ -164,7 +160,7 @@ class OAuth2AuthenticationServiceTest {
                         .build());
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo);
 
         // Assert
         verify(userFactory).createUserWithDefaultPlan(eq(email), eq(true));
@@ -198,7 +194,7 @@ class OAuth2AuthenticationServiceTest {
         when(userFactory.createUserWithDefaultPlan(mail, true)).thenReturn(newUser);
 
         // Act
-        Principal result = authService.authenticate(oAuth2UserInfo, OAuth2Intent.SIGN_IN);
+        Principal result = authService.authenticate(oAuth2UserInfo);
 
         // Assert
         verify(userRepository).findByEmail(mail);
@@ -206,26 +202,6 @@ class OAuth2AuthenticationServiceTest {
         verify(userFactory).createUserWithDefaultPlan(mail, true);
         verify(oAuth2PrincipalRepository).save(principal);
         assertThat(result).isEqualTo(principal);
-    }
-
-    @DisplayName("Should throw EmailMismatchException when linking account and user is not found")
-    @Test
-    void givenOAuth2IntentLinkAndUserNotFound_whenAuthenticate_thenThrowEmailMismatchException() {
-        // Arrange
-        String email = "johnwick@gmail.com";
-        String userId = "101868015518714862283";
-        Map<String, Object> attributes = createAttributes(email, userId);
-        OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
-
-        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.authenticate(oAuth2UserInfo, OAuth2Intent.LINK))
-                .isInstanceOf(EmailMismatchException.class)
-                .hasMessageContaining("We don't have an account with email: " + email);
-
-        verify(userRepository).findByEmail(email);
-        verify(oAuth2PrincipalRepository, never()).save(any(OAuth2Principal.class));
     }
 
     private Map<String, Object> createAttributes(String email, String userId) {

@@ -6,6 +6,7 @@ import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.local.exception.EmailMismatchException;
 import com.almonium.auth.local.exception.EmailNotVerifiedException;
+import com.almonium.auth.local.exception.ReauthException;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
 import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.enums.OAuth2Intent;
@@ -46,8 +47,15 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
         validateProviderUserInfo(userInfo);
 
         try {
-            return authService.authenticate(userInfo, getIntent());
-        } catch (EmailNotVerifiedException | EmailMismatchException ex) {
+            return switch (getIntent()) {
+                case SIGN_IN -> authService.authenticate(userInfo);
+                case REAUTH -> authService.reauthenticate(userInfo, getUserId());
+                case LINK -> authService.linkAuthMethod(userInfo);
+            };
+        } catch (EmailNotVerifiedException
+                | EmailMismatchException
+                | ReauthException
+                | OAuth2AuthenticationException ex) {
             throw new OAuth2AuthenticationException(ex.getMessage(), ex);
         } catch (Exception ex) {
             log.error("Authentication failed with unknown error", ex);
@@ -56,12 +64,25 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     }
 
     private OAuth2Intent getIntent() {
-        HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-
-        return CookieUtil.getCookie(request, CookieUtil.INTENT_PARAM_COOKIE_NAME)
+        return CookieUtil.getCookie(getHttpServletRequest(), CookieUtil.INTENT_PARAM_COOKIE_NAME)
                 .map(cookie -> OAuth2Intent.valueOf(cookie.getValue().toUpperCase()))
                 .orElse(OAuth2Intent.SIGN_IN);
+    }
+
+    private long getUserId() {
+        return CookieUtil.getCookie(getHttpServletRequest(), CookieUtil.USER_ID_PARAM_COOKIE_NAME)
+                .map(cookie -> {
+                    String value = cookie.getValue();
+                    if (value != null && value.matches("\\d+")) {
+                        return Long.parseLong(value);
+                    }
+                    throw new OAuth2AuthenticationException("Invalid user ID format in request");
+                })
+                .orElseThrow(() -> new OAuth2AuthenticationException("User ID not found in request"));
+    }
+
+    private HttpServletRequest getHttpServletRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
     private void validateProviderUserInfo(OAuth2UserInfo userInfo) {
