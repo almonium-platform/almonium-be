@@ -3,7 +3,7 @@ package com.almonium.auth.oauth2.other.handler;
 import static com.almonium.auth.common.util.CookieUtil.REDIRECT_URI_PARAM_COOKIE_NAME;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.service.UserAuthenticationService;
+import com.almonium.auth.common.service.AuthenticationService;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
@@ -30,7 +30,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     OAuth2CookieRequestRepository requestRepository;
-    UserAuthenticationService userAuthenticationServiceImpl;
+    AuthenticationService authenticationService;
     AppProperties appProperties;
 
     @Override
@@ -64,7 +64,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
         OAuth2Principal principal = (OAuth2Principal) authentication.getPrincipal();
-        userAuthenticationServiceImpl.authenticateUser(principal.getUser(), response, authentication);
+        authenticationService.authenticateUser(principal.getUser(), response, authentication);
 
         return UriComponentsBuilder.fromUriString(targetUrl).build().toUriString();
     }

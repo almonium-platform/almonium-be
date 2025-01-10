@@ -29,8 +29,8 @@ import org.springframework.security.core.Authentication;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class UserAuthenticationServiceTest extends AppConfigPropertiesTest {
-    UserAuthenticationService userAuthenticationService;
+class AuthenticationServiceTest extends AppConfigPropertiesTest {
+    AuthenticationService authenticationService;
 
     @Mock
     AuthTokenService authTokenService;
@@ -49,7 +49,7 @@ class UserAuthenticationServiceTest extends AppConfigPropertiesTest {
 
     @BeforeEach
     void setUp() {
-        userAuthenticationService = new UserAuthenticationService(
+        authenticationService = new AuthenticationService(
                 authTokenService, profileService, authenticationManager, userRepository, appProperties);
     }
 
@@ -68,7 +68,7 @@ class UserAuthenticationServiceTest extends AppConfigPropertiesTest {
         appProperties.getAuth().setEmailVerificationRequired(false);
 
         // Act
-        userAuthenticationService.localLogin(email, password, mockResponse);
+        authenticationService.localLogin(email, password, mockResponse);
 
         // Assert
         verify(authenticationManager).authenticate(any(Authentication.class));
@@ -89,7 +89,7 @@ class UserAuthenticationServiceTest extends AppConfigPropertiesTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
         // Act & Assert
-        assertThatThrownBy(() -> userAuthenticationService.localLogin(email, password, mockResponse))
+        assertThatThrownBy(() -> authenticationService.localLogin(email, password, mockResponse))
                 .isInstanceOf(EmailNotVerifiedException.class)
                 .hasMessage("Email needs to be verified before logging in.");
 

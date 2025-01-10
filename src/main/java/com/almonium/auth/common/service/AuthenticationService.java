@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UserAuthenticationService {
+public class AuthenticationService {
     AuthTokenService authTokenService;
     ProfileService profileService;
     AuthenticationManager authenticationManager;

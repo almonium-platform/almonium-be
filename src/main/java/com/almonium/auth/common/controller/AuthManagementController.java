@@ -6,7 +6,7 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.PrincipalDto;
 import com.almonium.auth.common.service.AuthMethodManagementService;
-import com.almonium.auth.common.service.UserAuthenticationService;
+import com.almonium.auth.common.service.AuthenticationService;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.AuthTokenService;
 import com.almonium.user.core.model.entity.User;
@@ -30,12 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthManagementController {
     AuthMethodManagementService authMethodManagementService;
     AuthTokenService authTokenService;
-    UserAuthenticationService userAuthenticationService;
+    AuthenticationService authenticationService;
 
     @PostMapping("/reauth")
     public ResponseEntity<?> reauthenticate(
             @Valid @RequestBody PasswordRequestDto request, @Auth User user, HttpServletResponse response) {
-        userAuthenticationService.localLogin(user.getEmail(), request.password(), response);
+        authenticationService.localLogin(user.getEmail(), request.password(), response);
         return ResponseEntity.ok(new ApiResponse(true, "Reauthenticated successfully"));
     }
 

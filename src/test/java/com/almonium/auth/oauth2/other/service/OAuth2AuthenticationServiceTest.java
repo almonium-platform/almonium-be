@@ -37,7 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class OAuth2UserAuthenticationServiceTest {
+class OAuth2AuthenticationServiceTest {
     private static final String PROFILE_PIC_LINK =
             "https://lh3.googleusercontent.com/a/AAcHTtdmMGFI1asVb1fp_pQ1ypkJqEHmI6Ug67ntQfLHYNqapw=s94-c";
 
