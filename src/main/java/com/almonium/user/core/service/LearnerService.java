@@ -35,7 +35,23 @@ public class LearnerService {
     UserRepository userRepository;
     LearnerMapper learnerMapper;
 
-    public List<LearnerDto> addTargetLanguages(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
+    @Transactional
+    public void updateLearnerActivity(Long userId, Language code, boolean active) {
+        var learner = learnerRepository
+                .findByUserIdAndLanguage(userId, code)
+                .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
+
+        long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
+        if (!active && activeLearners == 1) {
+            throw new BadUserRequestActionException("At least one target language must be active.");
+        }
+
+        learner.setActive(active);
+        learnerRepository.save(learner);
+        log.info("Learner {} is now {}.", learner.getId(), active ? "active" : "inactive");
+    }
+
+    public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
         if (replace) {
             learnerRepository.deleteAllByUserId(user.getId());
         }
@@ -56,7 +72,7 @@ public class LearnerService {
         return learnerMapper.toDto(getUserWithLearners(user.getId()).getLearners());
     }
 
-    public void removeTargetLanguage(Language code, long userId) {
+    public void deleteLearner(Language code, long userId) {
         var user = getUserWithLearners(userId);
 
         findLearner(user, code)

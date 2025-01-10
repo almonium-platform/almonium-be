@@ -27,6 +27,12 @@ databaseChangeLog:
                   type: varchar(10)
                   constraints:
                     nullable: false
+              - column:
+                  name: active
+                  type: boolean
+                  defaultValue: "true"
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: learner
             baseColumnNames: user_id

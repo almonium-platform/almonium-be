@@ -60,6 +60,9 @@ public class Learner {
     @OneToMany(mappedBy = "recipient")
     List<CardSuggestion> incomingSuggestions = new ArrayList<>();
 
+    @Builder.Default
+    boolean active = true;
+
     public void addCard(Card card) {
         if (card != null) {
             this.cards.add(card);
@@ -71,5 +74,6 @@ public class Learner {
         this.user = user;
         this.language = language;
         this.selfReportedLevel = selfReportedLevel;
+        this.active = true;
     }
 }

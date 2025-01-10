@@ -13,4 +13,7 @@ public interface LearnerRepository extends JpaRepository<Learner, Long> {
 
     @Query("select count(l) from Learner l where l.user.id = :userId")
     int countLearnersByUserId(long userId);
+
+    @Query("select count(l) from Learner l where l.user.id = :userId and l.active = true")
+    int countActiveLearnersByUserId(long userId);
 }

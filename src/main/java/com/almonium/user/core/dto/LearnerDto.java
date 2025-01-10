@@ -19,4 +19,5 @@ public class LearnerDto {
     Long id;
     Language language;
     CEFR selfReportedLevel;
+    boolean active;
 }

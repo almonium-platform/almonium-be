@@ -60,7 +60,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should add multiple target languages when replacing existing ones")
     @Test
-    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithReplace_thenLearnersAreDeletedAndCreated() {
+    void givenUserAndMultipleLanguages_whenCreateLearnersWithReplace_thenLearnersAreDeletedAndCreated() {
         // Arrange
         User user = User.builder()
                 .id(10L)
@@ -75,7 +75,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
 
         // Act
-        learnerService.addTargetLanguages(languages, user, true);
+        learnerService.createLearners(languages, user, true);
 
         // Assert
         // Ensure all previous learners are deleted
@@ -100,7 +100,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should add multiple target languages without replacing existing ones")
     @Test
-    void givenUserAndMultipleLanguages_whenAddTargetLanguagesWithoutReplace_thenLearnersAreCreated() {
+    void givenUserAndMultipleLanguages_whenCreateLearnersWithoutReplace_thenLearnersAreCreated() {
         // Arrange
         User user = User.builder()
                 .id(10L)
@@ -119,7 +119,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
 
         // Act
-        learnerService.addTargetLanguages(languages, user, false);
+        learnerService.createLearners(languages, user, false);
 
         // Assert
         // Ensure existing learners are not deleted
@@ -141,7 +141,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should throw exception if a target language already exists")
     @Test
-    void givenExistingTargetLanguage_whenAddTargetLanguages_thenThrowsException() {
+    void givenExistingTargetLanguage_whenCreateLearners_thenThrowsException() {
         // Arrange
         User user = User.builder().id(10L).build();
         List<TargetLanguageWithProficiency> languages =
@@ -152,7 +152,7 @@ class LearnerServiceTest {
                         Learner.builder().user(user).language(Language.FR).build()));
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.addTargetLanguages(languages, user, false))
+        assertThatThrownBy(() -> learnerService.createLearners(languages, user, false))
                 .isInstanceOf(BadUserRequestActionException.class)
                 .hasMessageContaining("You already have this target language");
         verify(learnerRepository, never()).save(any(Learner.class));
@@ -160,7 +160,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should remove target language when user has multiple learners")
     @Test
-    void givenUserWithMultipleLangs_whenRemoveTargetLanguage_thenDeletesLearner() {
+    void givenUserWithMultipleLangs_whenDeleteLearner_thenDeletesLearner() {
         // Arrange
         long userId = 20L;
         User user = User.builder().id(userId).build();
@@ -176,7 +176,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
         // Act
-        learnerService.removeTargetLanguage(Language.FR, userId);
+        learnerService.deleteLearner(Language.FR, userId);
 
         // Assert
         // Should call cardService.deleteByLanguage(...) for the FR learner
@@ -187,7 +187,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should throw exception if user tries to remove sole target language")
     @Test
-    void givenUserWithSingleLearner_whenRemoveTargetLanguage_thenThrowsException() {
+    void givenUserWithSingleLearner_whenDeleteLearner_thenThrowsException() {
         // Arrange
         long userId = 21L;
         User user = User.builder().id(userId).build();
@@ -199,7 +199,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.removeTargetLanguage(Language.EN, userId))
+        assertThatThrownBy(() -> learnerService.deleteLearner(Language.EN, userId))
                 .isInstanceOf(BadUserRequestActionException.class)
                 .hasMessageContaining("You must have at least one target language");
 
@@ -209,7 +209,7 @@ class LearnerServiceTest {
 
     @DisplayName("Should throw exception if user does not have that language to remove")
     @Test
-    void givenUserWithoutThatLang_whenRemoveTargetLanguage_thenThrowsException() {
+    void givenUserWithoutThatLang_whenDeleteLearner_thenThrowsException() {
         // Arrange
         long userId = 22L;
         User user = User.builder().id(userId).build();
@@ -221,7 +221,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.removeTargetLanguage(Language.FR, userId))
+        assertThatThrownBy(() -> learnerService.deleteLearner(Language.FR, userId))
                 .isInstanceOf(BadUserRequestActionException.class)
                 .hasMessageContaining("Language FR is not in your target languages");
 
@@ -231,13 +231,13 @@ class LearnerServiceTest {
 
     @DisplayName("Should throw EntityNotFoundException if user not found in removeTargetLanguage")
     @Test
-    void givenNonExistentUserId_whenRemoveTargetLanguage_thenThrowException() {
+    void givenNonExistentUserId_whenDeleteLearner_thenThrowException() {
         // Arrange
         long userId = 999L;
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.removeTargetLanguage(Language.EN, userId))
+        assertThatThrownBy(() -> learnerService.deleteLearner(Language.EN, userId))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("User not found: 999");
     }

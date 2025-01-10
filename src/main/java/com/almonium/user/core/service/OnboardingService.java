@@ -37,7 +37,7 @@ public class OnboardingService {
 
     public List<LearnerDto> setupLanguages(User user, LanguageSetupRequest request) {
         processStep(user, SetupStep.LANGUAGES, request, data -> {
-            learnerService.addTargetLanguages(data.targetLangsData(), user, true);
+            learnerService.createLearners(data.targetLangsData(), user, true);
             user.setFluentLangs(new HashSet<>(data.fluentLangs()));
         });
 
