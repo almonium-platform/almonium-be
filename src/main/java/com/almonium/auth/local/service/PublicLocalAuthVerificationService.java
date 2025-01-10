@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class LocalAuthPublicVerificationService {
+public class PublicLocalAuthVerificationService {
 
     UserService userService;
     VerificationTokenManagementService tokenService;
