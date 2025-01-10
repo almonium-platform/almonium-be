@@ -52,7 +52,7 @@ public class LanguageProcessor {
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
-    CoreNLPServiceImpl coreNLPServiceImpl = null;
+    CoreNLPService coreNLPService = null;
     TranslationService googleService;
     LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
@@ -176,12 +176,12 @@ public class LanguageProcessor {
     public AnalysisDto getReport(String entry, Language sourceLang, User user) {
         Learner learner = learnerFinder.findLearner(user, sourceLang);
         AnalysisDto analysisDto = new AnalysisDto();
-        List<String> lemmas = coreNLPServiceImpl.lemmatize(entry);
+        List<String> lemmas = coreNLPService.lemmatize(entry);
         analysisDto.setLemmas(lemmas.stream().map(String::new).toArray(String[]::new));
 
         Language fluentLanguage = learner.getUser().getFluentLangs().iterator().next();
 
-        List<POS> posTags = coreNLPServiceImpl.posTagging(entry);
+        List<POS> posTags = coreNLPService.posTagging(entry);
         analysisDto.setPosTags(posTags.stream().map(POS::toString).toArray(String[]::new));
         Double freq = getFrequency(entry, sourceLang);
         if (freq != null) {

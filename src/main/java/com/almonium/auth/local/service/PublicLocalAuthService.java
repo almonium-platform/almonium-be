@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PublicLocalAuthService {
     // services
     AuthenticationManager authenticationManager;
-    UserAuthenticationService userAuthenticationServiceImpl;
+    UserAuthenticationService userAuthenticationService;
     VerificationTokenManagementService verificationTokenManagementService;
     UserService userService;
 
@@ -57,7 +57,7 @@ public class PublicLocalAuthService {
 
         User user = validateAndGetLocalPrincipal(request);
 
-        JwtTokenResponse tokenResponse = userAuthenticationServiceImpl.authenticateUser(user, response, authentication);
+        JwtTokenResponse tokenResponse = userAuthenticationService.authenticateUser(user, response, authentication);
 
         return new JwtAuthResponse(
                 tokenResponse.accessToken(), tokenResponse.refreshToken(), userService.buildUserInfoFromUser(user));

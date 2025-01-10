@@ -20,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CoreNLPServiceImpl {
+public class CoreNLPService {
     private StanfordCoreNLP pipeline;
 
-    public CoreNLPServiceImpl() {
+    public CoreNLPService() {
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
         this.pipeline = new StanfordCoreNLP(props);

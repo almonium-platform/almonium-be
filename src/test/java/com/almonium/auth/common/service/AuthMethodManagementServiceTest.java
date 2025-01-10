@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
-class AuthMethodManagementServiceImplTest {
+class AuthMethodManagementServiceTest {
     @InjectMocks
     AuthMethodManagementService authService;
 
