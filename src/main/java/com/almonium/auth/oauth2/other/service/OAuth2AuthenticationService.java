@@ -72,8 +72,8 @@ public class OAuth2AuthenticationService {
         }
 
         log.debug("New provider account for new user: {}", userInfo.getEmail());
-        if (intent == OAuth2Intent.LINK) {
-            log.error("Can't link account registered with email: {}", userInfo.getEmail());
+        if (intent != OAuth2Intent.SIGN_IN) {
+            log.error("Can't link/reauth account registered with email: {}", userInfo.getEmail());
             throw new EmailMismatchException("We don't have an account with email: " + userInfo.getEmail());
         }
 
