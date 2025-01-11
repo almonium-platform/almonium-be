@@ -21,6 +21,7 @@ import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -155,6 +156,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlanValidationException.class)
     public ResponseEntity<ApiResponse> handlePlanValidationException(PlanValidationException ex) {
         return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).body(new ApiResponse(false, ex.getMessage())); // 402
+    }
+
+    // basic exceptions
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 
     // // other custom exceptions
