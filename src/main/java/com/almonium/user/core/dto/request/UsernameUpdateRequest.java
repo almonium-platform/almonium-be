@@ -1,4 +1,4 @@
-package com.almonium.user.core.dto;
+package com.almonium.user.core.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

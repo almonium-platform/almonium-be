@@ -1,4 +1,4 @@
-package com.almonium.user.core.dto;
+package com.almonium.user.core.dto.request;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.validation.constraints.NotEmpty;

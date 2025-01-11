@@ -3,9 +3,9 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LearnerDto;
-import com.almonium.user.core.dto.SaveInterestsRequest;
+import com.almonium.user.core.dto.request.LanguageSetupRequest;
+import com.almonium.user.core.dto.request.SaveInterestsRequest;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.service.OnboardingService;

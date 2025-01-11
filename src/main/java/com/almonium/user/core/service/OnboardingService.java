@@ -2,8 +2,8 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.user.core.dto.LanguageSetupRequest;
 import com.almonium.user.core.dto.LearnerDto;
+import com.almonium.user.core.dto.request.LanguageSetupRequest;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.User;
