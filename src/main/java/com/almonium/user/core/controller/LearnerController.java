@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.ActivityRequest;
 import com.almonium.user.core.dto.LearnerDto;
-import com.almonium.user.core.dto.TargetLanguagesSetupRequest;
+import com.almonium.user.core.dto.request.TargetLanguagesSetupRequest;
+import com.almonium.user.core.dto.request.UpdateLearnerRequest;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.LearnerService;
 import jakarta.validation.Valid;
@@ -35,10 +35,10 @@ public class LearnerController {
         return ResponseEntity.ok(learnerService.createLearners(request.data(), user, false));
     }
 
-    @PatchMapping("/{code}/activity")
-    public ResponseEntity<Void> updateLearnerActivity(
-            @PathVariable Language code, @Auth Long userId, @RequestBody ActivityRequest request) {
-        learnerService.updateLearnerActivity(userId, code, request.active());
+    @PatchMapping("/{code}")
+    public ResponseEntity<Void> updateLearner(
+            @PathVariable Language code, @Auth Long userId, @RequestBody UpdateLearnerRequest request) {
+        learnerService.updateLearner(userId, code, request);
         return ResponseEntity.noContent().build();
     }
 

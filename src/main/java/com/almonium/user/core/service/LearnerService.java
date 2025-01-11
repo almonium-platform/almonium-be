@@ -8,6 +8,7 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
+import com.almonium.user.core.dto.request.UpdateLearnerRequest;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
@@ -36,19 +37,27 @@ public class LearnerService {
     LearnerMapper learnerMapper;
 
     @Transactional
-    public void updateLearnerActivity(Long userId, Language code, boolean active) {
+    public void updateLearner(Long userId, Language code, UpdateLearnerRequest request) {
         var learner = learnerRepository
                 .findByUserIdAndLanguage(userId, code)
                 .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
 
-        long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
-        if (!active && activeLearners == 1) {
-            throw new BadUserRequestActionException("At least one target language must be active.");
+        if (request.active() != null) {
+            long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
+            if (!request.active() && activeLearners == 1) {
+                throw new BadUserRequestActionException("At least one target language must be active.");
+            }
+
+            learner.setActive(request.active());
+            log.info("Learner {} is now {}.", learner.getId(), request.active() ? "active" : "inactive");
         }
 
-        learner.setActive(active);
+        if (request.level() != null) {
+            learner.setSelfReportedLevel(request.level());
+            log.info("Learner {} CEFR level updated to {}.", learner.getId(), request.level());
+        }
+
         learnerRepository.save(learner);
-        log.info("Learner {} is now {}.", learner.getId(), active ? "active" : "inactive");
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
