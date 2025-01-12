@@ -32,7 +32,7 @@ spring:
           google:
             client-id: ${google.oauth2.client-id}
             client-secret: ${google.oauth2.client-secret}
-            scope: email # add `profile` if needed
+            scope: email,profile
           facebook:
             client-id: ${FACEBOOK_ID}
             client-secret: ${FACEBOOK_SECRET}
