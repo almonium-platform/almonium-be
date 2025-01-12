@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UsernameGeneratorImpl implements UsernameGenerator {
     private static final int MAX_ATTEMPTS = 5;
     private static final String SANITIZING_REGEX = "[^a-zA-Z0-9_]";

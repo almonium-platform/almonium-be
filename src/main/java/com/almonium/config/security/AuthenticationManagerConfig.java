@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthenticationManagerConfig {
     UserDetailsService userDetailsService;
     PasswordEncoder passwordEncoder;

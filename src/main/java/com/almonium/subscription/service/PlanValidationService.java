@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanValidationService {
     PlanSubscriptionService subscriptionService;
 

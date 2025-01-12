@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = PRIVATE)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class UserFactory {
     PlanSubscriptionService planSubscriptionService;
     UsernameGenerator usernameGenerator;
