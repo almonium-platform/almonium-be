@@ -9,7 +9,7 @@
 
 <div class="email-container">
     <div class="email-content">
-        <p>Hello,</p>
+        <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
         <p>We encountered an issue while processing your payment for the <b
                 th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan.</b></p>
 

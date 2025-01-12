@@ -74,13 +74,14 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
     void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
         // Arrange
         LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
+        String username = localPrincipal.getUser().getUsername();
         String token = "1234567890abcd1234567890";
         EmailDto emailDto = TestDataGenerator.createEmailDto();
 
         when(tokenGenerator.generateOTP(anyInt())).thenReturn(token);
         var emailContext = new EmailContext<>(
                 TokenType.EMAIL_VERIFICATION, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
-        when(emailComposerService.composeEmail(localPrincipal.getEmail(), emailContext))
+        when(emailComposerService.composeEmail(username, localPrincipal.getEmail(), emailContext))
                 .thenReturn(emailDto);
 
         // Act

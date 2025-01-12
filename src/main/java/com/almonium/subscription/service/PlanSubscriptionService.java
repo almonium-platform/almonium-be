@@ -320,7 +320,7 @@ public class PlanSubscriptionService {
                 Map.of(
                         SubscriptionEmailComposerService.PLAN_NAME,
                         planSubscription.getPlan().getName()));
-        EmailDto emailDto = emailComposerService.composeEmail(user.getEmail(), emailContext);
+        EmailDto emailDto = emailComposerService.composeEmail(user.getUsername(), user.getEmail(), emailContext);
         emailService.sendEmail(emailDto);
     }
 

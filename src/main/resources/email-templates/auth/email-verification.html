@@ -9,7 +9,7 @@
 
 <div class="email-container">
     <div class="email-content">
-        <p>Hello,</p>
+        <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
         <p>Please verify your email by clicking the button below:</p>
         <p class="button-p">
             <a th:href="${url}" class="button">

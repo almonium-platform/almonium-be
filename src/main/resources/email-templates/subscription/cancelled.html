@@ -9,7 +9,7 @@
 
 <div class="email-container">
     <div class="email-content">
-        <p>Hello,</p>
+        <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
         <p>We're sorry to see you go! Your subscription to the <b
                 th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan has been successfully
             cancelled.</b></p>

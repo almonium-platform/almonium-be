@@ -73,7 +73,8 @@ public class VerificationTokenManagementService {
                 appProperties.getAuth().getVerificationToken().getLifetime());
         verificationTokenRepository.save(verificationToken);
         var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
-        EmailDto emailDto = emailComposerService.composeEmail(localPrincipal.getEmail(), emailContext);
+        String username = localPrincipal.getUser().getUsername();
+        EmailDto emailDto = emailComposerService.composeEmail(username, localPrincipal.getEmail(), emailContext);
         emailService.sendEmail(emailDto);
         log.info("Verification token sent to {}", localPrincipal.getEmail());
     }

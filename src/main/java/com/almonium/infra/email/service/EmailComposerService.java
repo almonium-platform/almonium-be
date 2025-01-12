@@ -24,11 +24,11 @@ public abstract class EmailComposerService<T> {
     SpringTemplateEngine templateEngine;
     AppProperties appProperties;
 
-    public EmailDto composeEmail(String recipientEmail, EmailContext<T> emailContext) {
+    public EmailDto composeEmail(String username, String recipientEmail, EmailContext<T> emailContext) {
         Context context = new Context();
         T templateType = emailContext.templateType();
         getCustomPlaceholders(emailContext).forEach(context::setVariable);
-        buildUniversalPlaceholders().forEach(context::setVariable);
+        buildUniversalPlaceholders(username).forEach(context::setVariable);
 
         EmailSubjectTemplate dto = getTemplateTypeConfigMap().get(templateType);
         if (dto == null) {
@@ -51,11 +51,13 @@ public abstract class EmailComposerService<T> {
         return appProperties.getWebDomain() + path;
     }
 
-    private Map<String, String> buildUniversalPlaceholders() {
+    private Map<String, String> buildUniversalPlaceholders(String username) {
         return Map.of(
                 "footerText",
                 String.format("© %d %s. All rights reserved.", Year.now().getValue(), appProperties.getName()),
                 "headerText",
-                appProperties.getName());
+                appProperties.getName(),
+                "username",
+                username);
     }
 }
