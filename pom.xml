@@ -37,6 +37,7 @@
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
         <version.stripe>28.2.0</version.stripe>
+        <version.zxing>3.5.3</version.zxing>
     </properties>
 
     <dependencies>
@@ -214,6 +215,11 @@
 
         <!--        Google-->
         <!--        com.google.common-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${version.zxing}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

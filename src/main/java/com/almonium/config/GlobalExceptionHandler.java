@@ -11,6 +11,7 @@ import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.exception.ReauthException;
 import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
+import com.almonium.infra.qr.exception.QRCodeGenerationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.PlanValidationException;
 import com.almonium.subscription.exception.StripeIntegrationException;
@@ -165,6 +166,11 @@ public class GlobalExceptionHandler {
     }
 
     // // other custom exceptions
+    @ExceptionHandler
+    public ResponseEntity<ApiResponse> handleQRCodeGenerationException(QRCodeGenerationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
     @ExceptionHandler(FriendshipNotAllowedException.class)
     public ResponseEntity<ApiResponse> handleFriendshipNotAllowedException(FriendshipNotAllowedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
