@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/public/util")
+@RequestMapping("/public")
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UtilController {
+public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
