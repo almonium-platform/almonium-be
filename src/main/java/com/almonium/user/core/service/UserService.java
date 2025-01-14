@@ -59,7 +59,6 @@ public class UserService implements UserDetailsService {
         userInfo.getSubscription().setLimits(limits);
         userInfo.setPremium(
                 planService.isPlanPremium(activePlanSubscription.getPlan().getId()));
-        userInfo.setTargetLangs(getTargetLanguages(fetchedUser));
         return userInfo;
     }
 

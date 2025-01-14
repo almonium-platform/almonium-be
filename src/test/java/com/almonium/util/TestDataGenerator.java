@@ -222,7 +222,6 @@ public class TestDataGenerator {
                 .isPremium(false)
                 .streak(profile.getStreak())
                 .tags(List.of("tag1", "tag2"))
-                .targetLangs(Set.of(Language.EN, Language.ES))
                 .fluentLangs(Set.of(Language.FR, Language.DE))
                 .subscription(subscriptionInfo)
                 .build();

@@ -28,7 +28,6 @@ public class UserInfo {
     Integer streak;
 
     Collection<String> tags;
-    Collection<Language> targetLangs; // todo remove
     Collection<LearnerDto> learners;
     Collection<Language> fluentLangs;
     Collection<InterestDto> interests;

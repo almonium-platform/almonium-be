@@ -16,7 +16,6 @@ public interface UserMapper {
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "subscription", ignore = true)
     @Mapping(target = "isPremium", ignore = true)
-    @Mapping(target = "targetLangs", ignore = true)
     UserInfo userToUserInfo(User user);
 
     @Mapping(target = "providerUserId", source = "id")
