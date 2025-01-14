@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.enums.SetupStep;
 import java.util.Collection;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,4 +35,5 @@ public class UserInfo {
 
     SetupStep setupStep;
     SubscriptionInfoDto subscription;
+    Map<String, Object> uiPreferences;
 }

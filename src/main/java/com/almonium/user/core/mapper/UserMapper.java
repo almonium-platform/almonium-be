@@ -12,6 +12,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(uses = {LearnerMapper.class, InterestMapper.class})
 public interface UserMapper {
     @Mapping(source = "profile.avatarUrl", target = "avatarUrl")
+    @Mapping(source = "profile.uiPreferences", target = "uiPreferences")
     @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "subscription", ignore = true)
