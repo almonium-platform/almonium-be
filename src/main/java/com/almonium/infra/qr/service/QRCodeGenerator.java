@@ -84,9 +84,13 @@ public class QRCodeGenerator {
         int centerY = inputHeight / 2;
 
         // Step 1: Remove dots within the exclusion zone
-        for (int y = 0; y < inputHeight; y++) {
-            for (int x = 0; x < inputWidth; x++) {
-                // Calculate distance from center
+        int startX = Math.max(0, centerX - EXCLUSION_RADIUS);
+        int endX = Math.min(inputWidth - 1, centerX + EXCLUSION_RADIUS);
+        int startY = Math.max(0, centerY - EXCLUSION_RADIUS);
+        int endY = Math.min(inputHeight - 1, centerY + EXCLUSION_RADIUS);
+
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
                 double distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
                 if (distanceFromCenter <= EXCLUSION_RADIUS) {
                     input.set(x, y, 0); // Clear the dot
