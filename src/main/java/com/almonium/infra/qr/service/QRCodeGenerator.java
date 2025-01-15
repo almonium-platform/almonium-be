@@ -13,6 +13,9 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -94,17 +97,54 @@ public class QRCodeGenerator {
         // Step 2: Draw the QR code with modified data
         for (int inputY = 0, outputY = topPadding; inputY < inputHeight; inputY++, outputY += moduleSize) {
             for (int inputX = 0, outputX = leftPadding; inputX < inputWidth; inputX++, outputX += moduleSize) {
+
+                // Apply rounding logic to corners and edges
+                boolean topWhite = inputY == 0 || input.get(inputX, inputY - 1) == 0;
+                boolean bottomWhite = inputY == inputHeight - 1 || input.get(inputX, inputY + 1) == 0;
+                boolean leftWhite = inputX == 0 || input.get(inputX - 1, inputY) == 0;
+                boolean rightWhite = inputX == inputWidth - 1 || input.get(inputX + 1, inputY) == 0;
+
+                boolean bottomBlack = !bottomWhite;
+                boolean topBlack = !topWhite;
+                boolean leftBlack = !leftWhite;
+                boolean rightBlack = !rightWhite;
+
+                boolean topLeftWhite = (inputX == 0 || inputY == 0) || input.get(inputX - 1, inputY - 1) == 0;
+                boolean topRightWhite =
+                        (inputX == inputWidth - 1 || inputY == 0) || input.get(inputX + 1, inputY - 1) == 0;
+                boolean bottomLeftWhite =
+                        (inputX == 0 || inputY == inputHeight - 1) || input.get(inputX - 1, inputY + 1) == 0;
+                boolean bottomRightWhite = (inputX == inputWidth - 1 || inputY == inputHeight - 1)
+                        || input.get(inputX + 1, inputY + 1) == 0;
+
+                boolean topLeftBlack = !topLeftWhite;
+                boolean topRightBlack = !topRightWhite;
+                boolean bottomLeftBlack = !bottomLeftWhite;
+                boolean bottomRightBlack = !bottomRightWhite;
+
+                int arcSize = moduleSize / 2; // Radius for rounding
+
+                if (input.get(inputX, inputY) == 0) {
+                    if (leftBlack && topBlack && topLeftBlack) {
+                        fillTopLeftQuarterMinusArc(graphics, outputX, outputY, moduleSize, arcSize);
+                    }
+
+                    if (rightBlack && topBlack && topRightBlack) {
+                        fillTopRightQuarterMinusArc(graphics, outputX, outputY, moduleSize, arcSize);
+                    }
+
+                    if (leftBlack && bottomBlack && bottomLeftBlack) {
+                        fillBottomLeftQuarterMinusArc(graphics, outputX, outputY, moduleSize, arcSize);
+                    }
+
+                    if (rightBlack && bottomBlack && bottomRightBlack) {
+                        fillBottomRightQuarterMinusArc(graphics, outputX, outputY, moduleSize, arcSize);
+                    }
+                }
+
                 if (input.get(inputX, inputY) == 1) {
-                    graphics.setColor(COLOR); // Explicitly set to black
+                    graphics.setColor(COLOR);
                     graphics.fillRect(outputX, outputY, moduleSize, moduleSize);
-
-                    int arcSize = moduleSize / 2; // Radius for rounding
-
-                    // Apply rounding logic to corners and edges
-                    boolean topWhite = inputY == 0 || input.get(inputX, inputY - 1) == 0;
-                    boolean bottomWhite = inputY == inputHeight - 1 || input.get(inputX, inputY + 1) == 0;
-                    boolean leftWhite = inputX == 0 || input.get(inputX - 1, inputY) == 0;
-                    boolean rightWhite = inputX == inputWidth - 1 || input.get(inputX + 1, inputY) == 0;
 
                     if (topWhite && leftWhite) {
                         graphics.clearRect(outputX, outputY, arcSize, arcSize);
@@ -142,6 +182,56 @@ public class QRCodeGenerator {
                 graphics, leftPadding, topPadding + (inputHeight - 7) * moduleSize, finderPatternSize);
 
         return image;
+    }
+
+    private void fillTopLeftQuarterMinusArc(Graphics2D g, int x, int y, int moduleSize, int arcSize) {
+        // Create shape for the top-left quarter only
+        Area shape = new Area(new Rectangle2D.Double(x, y, moduleSize / 2.0 - 1, moduleSize / 2.0 - 1));
+
+        // Subtract the arc from that quarter
+        Arc2D arc = new Arc2D.Double(x, y, arcSize * 2.0, arcSize * 2.0, 90, 90, Arc2D.PIE);
+        shape.subtract(new Area(arc));
+
+        // Fill only that quarter minus the arc
+        g.fill(shape);
+    }
+
+    private void fillTopRightQuarterMinusArc(Graphics2D g, int x, int y, int moduleSize, int arcSize) {
+        Area shape = new Area(
+                new Rectangle2D.Double(x + moduleSize / 2.0 + 1, y, moduleSize / 2.0 - 1, moduleSize / 2.0 - 1));
+
+        Arc2D arc = new Arc2D.Double(x + moduleSize - arcSize * 2.0, y, arcSize * 2.0, arcSize * 2.0, 0, 90, Arc2D.PIE);
+        shape.subtract(new Area(arc));
+
+        g.fill(shape);
+    }
+
+    private void fillBottomLeftQuarterMinusArc(Graphics2D g, int x, int y, int moduleSize, int arcSize) {
+        Area shape = new Area(
+                new Rectangle2D.Double(x, y + moduleSize / 2.0 + 1, moduleSize / 2.0 - 1, moduleSize / 2.0 - 1));
+
+        Arc2D arc =
+                new Arc2D.Double(x, y + moduleSize - arcSize * 2.0, arcSize * 2.0, arcSize * 2.0, 180, 90, Arc2D.PIE);
+        shape.subtract(new Area(arc));
+
+        g.fill(shape);
+    }
+
+    private void fillBottomRightQuarterMinusArc(Graphics2D g, int x, int y, int moduleSize, int arcSize) {
+        Area shape = new Area(new Rectangle2D.Double(
+                x + moduleSize / 2.0 + 1, y + moduleSize / 2.0 + 1, moduleSize / 2.0 - 1, moduleSize / 2.0 - 1));
+
+        Arc2D arc = new Arc2D.Double(
+                x + moduleSize - arcSize * 2.0,
+                y + moduleSize - arcSize * 2.0,
+                arcSize * 2.0,
+                arcSize * 2.0,
+                270,
+                90,
+                Arc2D.PIE);
+        shape.subtract(new Area(arc));
+
+        g.fill(shape);
     }
 
     private void drawFinderPatternRoundedStyle(Graphics2D graphics, int x, int y, int squareSize) {
