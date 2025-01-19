@@ -390,7 +390,7 @@ public class TestDataGenerator {
         return array;
     }
 
-    public static UserToFriendProjection buildTestUserToFriendProjection(long id, String username, String email) {
+    public static UserToFriendProjection buildTestUserToFriendProjection(long id, String username) {
         return new UserToFriendProjection() {
             @Override
             public long getId() {
@@ -401,11 +401,6 @@ public class TestDataGenerator {
             public String getUsername() {
                 return username;
             }
-
-            @Override
-            public String getEmail() {
-                return email;
-            }
         };
     }
 
@@ -414,7 +409,6 @@ public class TestDataGenerator {
         friendDto.setStatus(FriendStatus.FRIENDS);
         friendDto.setId(1L);
         friendDto.setUsername("testuser");
-        friendDto.setEmail("test@example.com");
         return friendDto;
     }
 

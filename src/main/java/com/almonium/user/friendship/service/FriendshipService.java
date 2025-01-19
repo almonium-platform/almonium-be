@@ -40,8 +40,8 @@ public class FriendshipService {
     UserRepository userRepository;
     UserService userService;
 
-    public Optional<FriendDto> findFriendByEmail(String email) {
-        Optional<UserToFriendProjection> friendOptional = userRepository.findFriendByEmail(email);
+    public Optional<FriendDto> findFriendByUsername(String username) {
+        Optional<UserToFriendProjection> friendOptional = userRepository.findFriendByUsername(username);
         return friendOptional.map(FriendDto::new);
     }
 

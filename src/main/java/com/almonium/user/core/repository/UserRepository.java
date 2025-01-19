@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("select u.id as id, u.username as username, u.email as email from User u where u.email = :email")
-    Optional<UserToFriendProjection> findFriendByEmail(String email);
+    @Query("select u.id as id, u.username as username from User u where u.username = :username")
+    Optional<UserToFriendProjection> findFriendByUsername(String username);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     Optional<User> findByEmail(String email);

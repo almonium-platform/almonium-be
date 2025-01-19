@@ -30,7 +30,7 @@ class UserRepositoryTest {
     @DisplayName("Should find friend by email")
     @Test
     void givenEmail_whenFindFriendByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<UserToFriendProjection> friend = userRepository.findFriendByEmail(JOHN_EMAIL);
+        Optional<UserToFriendProjection> friend = userRepository.findFriendByUsername(JOHN_EMAIL);
         assertThat(friend).isPresent();
         assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }

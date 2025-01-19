@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
  * Data Transfer Object (DTO) for friend information.
  *
  * <p>This class is used to transfer friend data to the frontend.
- * It includes the friend's ID, username, email, and the status of the friendship.</p>
+ * It includes the friend's ID, username, and the status of the friendship.</p>
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,6 @@ import lombok.experimental.FieldDefaults;
 public class FriendDto {
     long id;
     String username;
-    String email;
     FriendStatus status;
 
     public FriendDto(UserToFriendProjection userToFriendProjection) {
@@ -36,7 +35,6 @@ public class FriendDto {
 
     private void initCommonFields(UserToFriendProjection userToFriendProjection) {
         id = userToFriendProjection.getId();
-        email = userToFriendProjection.getEmail();
         username = userToFriendProjection.getUsername();
     }
 

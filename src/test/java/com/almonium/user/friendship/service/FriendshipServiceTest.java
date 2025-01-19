@@ -78,29 +78,27 @@ class FriendshipServiceTest {
         // Arrange
         String email = "test@example.com";
         String username = "username";
-        UserToFriendProjection projection =
-                TestDataGenerator.buildTestUserToFriendProjection(REQUESTER_ID, username, email);
-        when(userRepository.findFriendByEmail(email)).thenReturn(Optional.of(projection));
+        UserToFriendProjection projection = TestDataGenerator.buildTestUserToFriendProjection(REQUESTER_ID, username);
+        when(userRepository.findFriendByUsername(email)).thenReturn(Optional.of(projection));
 
         // Act
-        Optional<FriendDto> result = friendshipService.findFriendByEmail(email);
+        Optional<FriendDto> result = friendshipService.findFriendByUsername(email);
 
         // Assert
         assertThat(result).isPresent();
         assertThat(result.get().getId()).isEqualTo(REQUESTER_ID);
-        assertThat(result.get().getEmail()).isEqualTo(email);
         assertThat(result.get().getUsername()).isEqualTo(username);
     }
 
     @DisplayName("Should return empty when friend not found by email")
     @Test
-    void givenNonExistingEmail_whenFindFriendByEmail_thenReturnEmpty() {
+    void givenNonExistingEmail_whenFindFriendByUsername_thenReturnEmpty() {
         // Arrange
         String email = "nonexistent@example.com";
-        when(userRepository.findFriendByEmail(email)).thenReturn(Optional.empty());
+        when(userRepository.findFriendByUsername(email)).thenReturn(Optional.empty());
 
         // Act
-        Optional<FriendDto> result = friendshipService.findFriendByEmail(email);
+        Optional<FriendDto> result = friendshipService.findFriendByUsername(email);
 
         // Assert
         assertThat(result).isEmpty();
@@ -114,7 +112,7 @@ class FriendshipServiceTest {
         String username = "friendUsername";
         String email = "friend@example.com";
         UserToFriendProjection friendProjection =
-                TestDataGenerator.buildTestUserToFriendProjection(RECIPIENT_ID, username, email);
+                TestDataGenerator.buildTestUserToFriendProjection(RECIPIENT_ID, username);
 
         when(friendshipRepository.getVisibleFriendships(REQUESTER_ID)).thenReturn(List.of(projection));
         when(userRepository.findUserById(RECIPIENT_ID)).thenReturn(Optional.of(friendProjection));
@@ -127,7 +125,6 @@ class FriendshipServiceTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getId()).isEqualTo(RECIPIENT_ID);
         assertThat(result.get(0).getUsername()).isEqualTo(username);
-        assertThat(result.get(0).getEmail()).isEqualTo(email);
         assertThat(result.get(0).getStatus()).isEqualTo(FriendStatus.FRIENDS);
     }
 

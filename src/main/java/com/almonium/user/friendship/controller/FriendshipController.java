@@ -37,9 +37,9 @@ public class FriendshipController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<FriendDto> searchFriendsByEmail(@RequestParam String email) {
+    public ResponseEntity<FriendDto> findFriendByUsername(@RequestParam String username) {
         return friendshipService
-                .findFriendByEmail(email)
+                .findFriendByUsername(username)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
