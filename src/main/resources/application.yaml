@@ -58,7 +58,7 @@ spring:
             user-name-attribute: sub
 
   mail:
-    host: smtppro.zoho.eu
+    host: smtp.zoho.eu
     port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
