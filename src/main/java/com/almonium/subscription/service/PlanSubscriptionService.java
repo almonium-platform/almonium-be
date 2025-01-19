@@ -321,7 +321,11 @@ public class PlanSubscriptionService {
                         SubscriptionEmailComposerService.PLAN_NAME,
                         planSubscription.getPlan().getName()));
         EmailDto emailDto = emailComposerService.composeEmail(user.getUsername(), user.getEmail(), emailContext);
-        emailService.sendEmail(emailDto);
+        try {
+            emailService.sendEmail(emailDto);
+        } catch (Exception e) {
+            log.error("Failed to send email for event {}", planSubEvent, e);
+        }
     }
 
     private void updatePlanSubStatusAndSave(PlanSubscription planSubscription, PlanSubscription.Status status) {
