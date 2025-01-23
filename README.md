@@ -3,7 +3,7 @@
   <img src="src/main/resources/static/title-white.png" alt="Almonium title.png"/>
 </p>
 
-[Try online](http://almonium.com)
+[Try online](https://almonium.com)
 
 [Frontend project](https://github.com/okuzan/almonium-fe)
 
