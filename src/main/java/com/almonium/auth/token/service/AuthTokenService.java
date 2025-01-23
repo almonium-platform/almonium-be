@@ -149,7 +149,7 @@ public class AuthTokenService {
 
     private String getCleanBackendDomain() {
         String backendDomain = appProperties.getApiDomain();
-        return backendDomain.contains(LOCALHOST) ? LOCALHOST : backendDomain;
+        return backendDomain.replaceFirst("^(https?://)?([^:/]+)(:\\d+)?$", "$2");
     }
 
     private String createRefreshToken(Authentication authentication) {
