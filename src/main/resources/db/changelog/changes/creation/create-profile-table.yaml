@@ -26,7 +26,7 @@ databaseChangeLog:
                   name: avatar_url
                   type: varchar(2048)
               - column:
-                  name: friendship_requests_blocked
+                  name: hidden
                   type: boolean
                   defaultValueBoolean: false
                   constraints:

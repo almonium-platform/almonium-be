@@ -42,7 +42,7 @@ public class Profile {
 
     String avatarUrl;
 
-    boolean friendshipRequestsBlocked;
+    boolean hidden;
 
     @CreatedDate
     LocalDateTime lastLogin;
