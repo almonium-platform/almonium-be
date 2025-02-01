@@ -64,7 +64,7 @@ public class FriendshipService {
             throw new FriendshipNotAllowedException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
         User recipient = userService.getById(dto.recipientId());
-        if (recipient.getProfile().isFriendshipRequestsBlocked()) {
+        if (recipient.getProfile().isHidden()) {
             throw new FriendshipNotAllowedException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
         return friendshipRepository.save(new Friendship(user, recipient));

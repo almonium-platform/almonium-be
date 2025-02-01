@@ -184,7 +184,7 @@ class FriendshipServiceTest {
     void givenRecipientBlocksRequests_whenCreateFriendshipRequest_thenThrowException() {
         // Arrange
         FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
-        recipient.getProfile().setFriendshipRequestsBlocked(true);
+        recipient.getProfile().setHidden(true);
 
         when(friendshipRepository.getFriendshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
                 .thenReturn(Optional.empty());
