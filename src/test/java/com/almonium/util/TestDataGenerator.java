@@ -31,11 +31,9 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
-import com.almonium.user.friendship.dto.FriendDto;
+import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.enums.FriendStatus;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
-import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.google.protobuf.ByteString;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -390,37 +388,22 @@ public class TestDataGenerator {
         return array;
     }
 
-    public static UserToFriendProjection buildTestUserToFriendProjection(long id, String username) {
-        return new UserToFriendProjection() {
-            @Override
-            public long getId() {
-                return id;
-            }
-
-            @Override
-            public String getUsername() {
-                return username;
-            }
-        };
+    public PublicUserProfile generateFriendInfoDto() {
+        PublicUserProfile PublicUserProfile = new PublicUserProfile();
+        PublicUserProfile.setId(1L);
+        PublicUserProfile.setUsername("testuser");
+        return PublicUserProfile;
     }
 
-    public FriendDto generateFriendInfoDto() {
-        FriendDto friendDto = new FriendDto();
-        friendDto.setStatus(FriendStatus.FRIENDS);
-        friendDto.setId(1L);
-        friendDto.setUsername("testuser");
-        return friendDto;
-    }
-
-    public List<FriendDto> generateFriendInfoDtoList(int count) {
-        List<FriendDto> friendDtoList = new ArrayList<>();
+    public List<PublicUserProfile> generateFriendInfoDtoList(int count) {
+        List<PublicUserProfile> PublicUserProfileList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            FriendDto friendDto = generateFriendInfoDto();
-            friendDto.setId((long) (i + 1));
-            friendDto.setUsername("userInfo" + (i + 1));
-            friendDtoList.add(friendDto);
+            PublicUserProfile PublicUserProfile = generateFriendInfoDto();
+            PublicUserProfile.setId(i + 1);
+            PublicUserProfile.setUsername("userInfo" + (i + 1));
+            PublicUserProfileList.add(PublicUserProfile);
         }
-        return friendDtoList;
+        return PublicUserProfileList;
     }
 
     public Friendship generateFriendship(Long requesterId, Long requesteeId) {

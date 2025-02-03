@@ -1,9 +1,12 @@
 package com.almonium.user.friendship.model.projection;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  * A projection representing information about a user's friendships.
@@ -14,14 +17,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = PRIVATE)
 public class FriendshipToUserProjection {
-    private long userId;
-    private FriendshipStatus status;
-    private boolean isRequester;
+    long userId;
+    FriendshipStatus status;
+    boolean isRequester;
 
     public FriendshipToUserProjection(long userId, String status, boolean isRequester) {
         this.userId = userId;
-        this.status = FriendshipStatus.valueOf(status);
         this.isRequester = isRequester;
+        this.status = FriendshipStatus.valueOf(status);
     }
 }

@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -26,14 +25,6 @@ class UserRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
-
-    @DisplayName("Should find friend by email")
-    @Test
-    void givenEmail_whenFindFriendByEmail_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<UserToFriendProjection> friend = userRepository.findFriendByUsername(JOHN_EMAIL);
-        assertThat(friend).isPresent();
-        assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
-    }
 
     @DisplayName("Should find user by id")
     @Test
@@ -62,13 +53,5 @@ class UserRepositoryTest {
     void givenUsername_whenExistsByUsername_thenUserShouldExist() {
         boolean exists = userRepository.existsByUsername(JOHN_USERNAME);
         assertThat(exists).isTrue();
-    }
-
-    @DisplayName("Should find friend by id")
-    @Test
-    void givenId_whenFindAllById_thenFriendShouldBePresentAndUsernameShouldMatch() {
-        Optional<UserToFriendProjection> friend = userRepository.findUserById(JOHN_ID);
-        assertThat(friend).isPresent();
-        assertThat(friend.orElseThrow().getUsername()).isEqualTo(JOHN_USERNAME);
     }
 }

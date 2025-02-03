@@ -16,18 +16,15 @@ import static org.mockito.Mockito.when;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
-import com.almonium.user.friendship.dto.FriendDto;
-import com.almonium.user.friendship.dto.FriendshipRequestDto;
+import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
+import com.almonium.user.friendship.dto.response.PublicUserProfile;
+import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.enums.FriendStatus;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
-import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
-import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
@@ -72,70 +69,28 @@ class FriendshipServiceTest {
         friendship = new Friendship(FRIENDSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
     }
 
-    @DisplayName("Should find friend by email")
+    @DisplayName("Should return empty list when no friends match username substring")
     @Test
-    void givenEmail_whenFindFriendByEmail_thenReturnFriendDto() {
+    void givenNonMatchingUsernameSubstring_whenFindFriendsByUsername_thenReturnEmptyList() {
         // Arrange
-        String email = "test@example.com";
-        String username = "username";
-        UserToFriendProjection projection = TestDataGenerator.buildTestUserToFriendProjection(REQUESTER_ID, username);
-        when(userRepository.findFriendByUsername(email)).thenReturn(Optional.of(projection));
+        String usernameSubstring = "nonexistent";
+        long currentUserId = 3L; // ID of the current user to exclude
+
+        when(friendshipRepository.findNewFriendCandidates(currentUserId, usernameSubstring))
+                .thenReturn(List.of());
 
         // Act
-        Optional<FriendDto> result = friendshipService.findFriendByUsername(email);
-
-        // Assert
-        assertThat(result).isPresent();
-        assertThat(result.get().getId()).isEqualTo(REQUESTER_ID);
-        assertThat(result.get().getUsername()).isEqualTo(username);
-    }
-
-    @DisplayName("Should return empty when friend not found by email")
-    @Test
-    void givenNonExistingEmail_whenFindFriendByUsername_thenReturnEmpty() {
-        // Arrange
-        String email = "nonexistent@example.com";
-        when(userRepository.findFriendByUsername(email)).thenReturn(Optional.empty());
-
-        // Act
-        Optional<FriendDto> result = friendshipService.findFriendByUsername(email);
+        List<PublicUserProfile> result = friendshipService.findUsersByUsername(currentUserId, usernameSubstring);
 
         // Assert
         assertThat(result).isEmpty();
     }
 
-    @DisplayName("Should return friends for a user")
-    @Test
-    void givenUserId_whenGetFriends_thenReturnListOfFriends() {
-        // Arrange
-        FriendshipToUserProjection projection = new FriendshipToUserProjection(RECIPIENT_ID, FRIENDS, true);
-        String username = "friendUsername";
-        String email = "friend@example.com";
-        UserToFriendProjection friendProjection =
-                TestDataGenerator.buildTestUserToFriendProjection(RECIPIENT_ID, username);
-
-        when(friendshipRepository.getVisibleFriendships(REQUESTER_ID)).thenReturn(List.of(projection));
-        when(userRepository.findUserById(RECIPIENT_ID)).thenReturn(Optional.of(friendProjection));
-
-        // Act
-        List<FriendDto> result = friendshipService.getFriends(REQUESTER_ID);
-
-        // Assert
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getId()).isEqualTo(RECIPIENT_ID);
-        assertThat(result.get(0).getUsername()).isEqualTo(username);
-        assertThat(result.get(0).getStatus()).isEqualTo(FriendStatus.FRIENDS);
-    }
-
     @DisplayName("Should return empty list when no friends found for a user")
     @Test
     void givenUserId_whenGetFriends_thenReturnEmptyList() {
-        // Arrange
-        when(friendshipRepository.getVisibleFriendships(REQUESTER_ID)).thenReturn(Collections.emptyList());
-
         // Act
-        List<FriendDto> result = friendshipService.getFriends(REQUESTER_ID);
+        List<RelatedUserProfile> result = friendshipService.getFriends(REQUESTER_ID);
 
         // Assert
         assertThat(result).isEmpty();

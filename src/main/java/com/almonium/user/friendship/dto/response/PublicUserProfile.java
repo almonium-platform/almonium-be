@@ -1,0 +1,18 @@
+package com.almonium.user.friendship.dto.response;
+
+import static lombok.AccessLevel.PRIVATE;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@NoArgsConstructor
+@FieldDefaults(level = PRIVATE)
+@AllArgsConstructor
+public class PublicUserProfile {
+    long id;
+    String username;
+    String avatarUrl;
+}

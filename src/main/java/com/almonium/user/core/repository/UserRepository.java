@@ -1,15 +1,12 @@
 package com.almonium.user.core.repository;
 
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("select u.id as id, u.username as username from User u where u.username = :username")
-    Optional<UserToFriendProjection> findFriendByUsername(String username);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     Optional<User> findByEmail(String email);
@@ -17,8 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     boolean existsByUsername(String username);
-
-    Optional<UserToFriendProjection> findUserById(long id);
 
     @EntityGraph(attributePaths = {"principals"})
     Optional<User> findById(long id);

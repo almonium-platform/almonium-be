@@ -1,21 +1,71 @@
 package com.almonium.user.friendship.repository;
 
+import com.almonium.user.friendship.dto.response.PublicUserProfile;
+import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
+    @Query(
+            """
+            select new com.almonium.user.friendship.dto.response.PublicUserProfile(
+                u.id,
+                u.username,
+                case when p.hidden = true then null else p.avatarUrl end as avatarUrl
+            )
+            from User u
+            left join u.profile p
+            where u.username like CONCAT('%', :username, '%')
+              and u.id != :currentUserId
+              and not exists (
+                  select 1
+                  from Friendship f
+                  where (f.requester.id = :currentUserId and f.requestee.id = u.id)
+                     or (f.requestee.id = :currentUserId and f.requester.id = u.id)
+              )
+            """)
+    List<PublicUserProfile> findNewFriendCandidates(long currentUserId, String username);
+
+    @Query(
+            """
+            select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
+                f.requestee.id,
+                f.requestee.username,
+                case when p.hidden = true then null else p.avatarUrl end as avatarUrl,
+                f.id
+            )
+            from User u
+            join Friendship f on f.requester.id = u.id
+            join Profile p on f.requestee.id = p.id
+            where f.requester.id = :id and f.status = 'PENDING'
+            """)
+    List<RelatedUserProfile> getSentRequests(long id);
+
+    @Query(
+            """
+            select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
+                f.requester.id, f.requester.username,
+                case when p.hidden = true then null else p.avatarUrl end as avatarUrl,
+                f.id
+            )
+            from User u
+            join Friendship f on f.requestee.id = u.id
+            join Profile p on f.requester.id = p.id
+            where f.requestee.id = :id and f.status = 'PENDING'
+            """)
+    List<RelatedUserProfile> getReceivedRequests(long id);
+
     @Query(
             """
             select f from Friendship f
             where (f.requester.id = :id1 and f.requestee.id = :id2)
             or (f.requester.id = :id2 and f.requestee.id = :id1)
             """)
-    Optional<Friendship> getFriendshipByUsersIds(@Param("id1") long id1, @Param("id2") long id2);
+    Optional<Friendship> getFriendshipByUsersIds(long id1, long id2);
 
     /**
      * Retrieves a list of visible friendships for a given user.
@@ -37,14 +87,49 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
      */
     @Query(
             """
-                    select new com.almonium.user.friendship.model.projection.FriendshipToUserProjection(
-                                case when f.requester.id = :id then f.requestee.id else f.requester.id end,
-                                str(f.status),
-                                case when f.requester.id = :id then true else false end)
-                            from Friendship f
-                            where (f.requester.id = :id or f.requestee.id = :id)
-                    and not ((f.requester.id = :id and str(f.status) = 'SND_BLOCKED_FST')
-                                or (f.requestee.id = :id and str(f.status) = 'FST_BLOCKED_SND'))
-                    """)
+            select new com.almonium.user.friendship.model.projection.FriendshipToUserProjection(
+                        case when f.requester.id = :id then f.requestee.id else f.requester.id end,
+                        str(f.status),
+                        case when f.requester.id = :id then true else false end)
+                    from Friendship f
+                    where (f.requester.id = :id or f.requestee.id = :id)
+            and f.status = 'FRIENDS'
+            """)
     List<FriendshipToUserProjection> getVisibleFriendships(long id); // TODO avoid writing FQN in query
+
+    @Query(
+            """
+        select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
+            case
+                when f.requester.id = :id then f.requestee.id
+                else f.requester.id
+            end as userId,
+            case
+                when f.requester.id = :id then f.requestee.username
+                else f.requester.username
+            end as username,
+            case
+                when f.requester.id = :id then f.requestee.profile.avatarUrl
+                else f.requester.profile.avatarUrl
+            end as avatarUrl,
+            f.id
+        )
+        from Friendship f
+        where (f.requester.id = :id or f.requestee.id = :id) and f.status = 'FRIENDS'
+        """)
+    List<RelatedUserProfile> getFriendships(long id);
+
+    @Query(
+            """
+            select new com.almonium.user.friendship.model.projection.FriendshipToUserProjection(
+                case when f.requester.id = :id then f.requestee.id else f.requester.id end,
+                str(f.status),
+                case when f.requester.id = :id then true else false end)
+            from Friendship f
+            join User u on (f.requester.id = u.id or f.requestee.id = u.id)
+            where (f.requester.id = :id or f.requestee.id = :id)
+              and f.status = 'FRIENDS'
+              and u.username like CONCAT('%', :username, '%')
+            """)
+    List<FriendshipToUserProjection> searchFriendsByUsername(long id, String username);
 }

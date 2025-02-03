@@ -8,19 +8,17 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOC
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
-import com.almonium.user.friendship.dto.FriendDto;
-import com.almonium.user.friendship.dto.FriendshipRequestDto;
+import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
+import com.almonium.user.friendship.dto.response.PublicUserProfile;
+import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
-import com.almonium.user.friendship.model.projection.UserToFriendProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -36,24 +34,27 @@ public class FriendshipService {
     private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
 
-    FriendshipRepository friendshipRepository;
-    UserRepository userRepository;
     UserService userService;
+    FriendshipRepository friendshipRepository;
 
-    public Optional<FriendDto> findFriendByUsername(String username) {
-        Optional<UserToFriendProjection> friendOptional = userRepository.findFriendByUsername(username);
-        return friendOptional.map(FriendDto::new);
+    public List<PublicUserProfile> findUsersByUsername(long id, String username) {
+        return friendshipRepository.findNewFriendCandidates(id, username);
     }
 
-    public List<FriendDto> getFriends(long id) {
-        List<FriendshipToUserProjection> friendshipToUserProjections = friendshipRepository.getVisibleFriendships(id);
-        List<FriendDto> result = new ArrayList<>();
-        for (FriendshipToUserProjection friend : friendshipToUserProjections) {
-            Optional<UserToFriendProjection> friendProjectionOptional = userRepository.findUserById(friend.getUserId());
-            friendProjectionOptional.ifPresent(userToFriendProjection ->
-                    result.add(new FriendDto(userToFriendProjection, friend.getStatus(), friend.isRequester())));
-        }
-        return result;
+    public List<FriendshipToUserProjection> searchFriends(long id, String username) {
+        return friendshipRepository.searchFriendsByUsername(id, username);
+    }
+
+    public List<RelatedUserProfile> getSentRequests(long id) {
+        return friendshipRepository.getSentRequests(id);
+    }
+
+    public List<RelatedUserProfile> getReceivedRequests(long id) {
+        return friendshipRepository.getReceivedRequests(id);
+    }
+
+    public List<RelatedUserProfile> getFriends(long id) {
+        return friendshipRepository.getFriendships(id);
     }
 
     @Transactional
@@ -76,13 +77,13 @@ public class FriendshipService {
         validateUserIsPartOfFriendship(user, friendship);
 
         return switch (action) {
-            case ACCEPT -> befriend(user, friendship);
-            case CANCEL -> cancelOwnRequest(user, friendship);
-            case REJECT -> rejectIncomingRequest(user, friendship);
-            case UNFRIEND -> unfriend(friendship);
-            case BLOCK -> block(user, friendship);
-            case UNBLOCK -> unblock(user, friendship);
-        };
+                    case ACCEPT -> befriend(user, friendship);
+                    case CANCEL -> cancelOwnRequest(user, friendship);
+                    case REJECT -> rejectIncomingRequest(user, friendship);
+                    case UNFRIEND -> unfriend(friendship);
+                    case BLOCK -> block(user, friendship);
+                    case UNBLOCK -> unblock(user, friendship);
+                };
     }
 
     private Friendship befriend(User user, Friendship friendship) {
