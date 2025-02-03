@@ -33,7 +33,7 @@ public class MeController {
     }
 
     @PatchMapping("/username")
-    public ResponseEntity<Void> updateUsername(@RequestBody UsernameUpdateRequest request, @Auth User user) {
+    public ResponseEntity<Void> updateUsername(@Valid @RequestBody UsernameUpdateRequest request, @Auth User user) {
         userService.changeUsernameById(request.username(), user.getId());
         return ResponseEntity.noContent().build();
     }

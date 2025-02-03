@@ -3,6 +3,7 @@ package com.almonium.user.core.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.service.SecureRandomNumericGeneratorImpl;
+import com.almonium.subscription.constant.AppLimits;
 import com.almonium.user.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class UsernameGeneratorImpl implements UsernameGenerator {
     private static final int MAX_ATTEMPTS = 5;
     private static final String SANITIZING_REGEX = "[^a-zA-Z0-9_]";
-    private static final int MAX_USERNAME_LENGTH = 20;
     UserRepository userRepository;
     SecureRandomNumericGeneratorImpl randomNumericGenerator;
 
@@ -32,7 +32,7 @@ public class UsernameGeneratorImpl implements UsernameGenerator {
 
         if (attempts == MAX_ATTEMPTS) {
             log.error("Could not generate a unique username for email: {} in {} attempts", username, MAX_ATTEMPTS);
-            username = randomNumericGenerator.generateOTP(MAX_USERNAME_LENGTH);
+            username = randomNumericGenerator.generateOTP(AppLimits.MAX_USERNAME_LENGTH);
         }
 
         log.debug("Generated username: {} for email: {}", username, email);
