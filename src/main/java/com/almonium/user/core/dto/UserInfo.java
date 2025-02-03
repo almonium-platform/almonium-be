@@ -25,6 +25,7 @@ public class UserInfo {
 
     boolean emailVerified;
     boolean isPremium;
+    boolean hidden;
 
     Integer streak;
 

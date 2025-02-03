@@ -3,6 +3,7 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.user.core.dto.request.ProfileHiddenRequest;
 import com.almonium.user.core.service.ProfileService;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,12 @@ public class ProfileController {
     @PatchMapping("/ui-preferences")
     public ResponseEntity<Void> updateUIPreferences(@RequestBody Map<String, Object> uiPreferences, @Auth Long userId) {
         profileService.updateUIPreferences(userId, uiPreferences);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/hidden")
+    public ResponseEntity<Void> updateHidden(@RequestBody ProfileHiddenRequest request, @Auth Long userId) {
+        profileService.updateHidden(userId, request.hidden());
         return ResponseEntity.noContent().build();
     }
 }

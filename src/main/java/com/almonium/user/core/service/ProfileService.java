@@ -44,4 +44,11 @@ public class ProfileService {
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotAccessibleException("Profile not found with id: " + id));
     }
+
+    public void updateHidden(long userId, boolean hidden) {
+        Profile profile = getProfileById(userId);
+        profile.setHidden(hidden);
+        profileRepository.save(profile);
+        log.info("Hidden status updated for user: {}", userId);
+    }
 }
