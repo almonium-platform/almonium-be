@@ -3,21 +3,21 @@ package com.almonium.user.core.repository;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.almonium.config.PostgresContainer;
 import com.almonium.user.core.model.entity.User;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.testcontainers.context.ImportTestcontainers;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
 @FieldDefaults(level = PRIVATE)
-@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@DataJpaTest
+@ImportTestcontainers(PostgresContainer.class)
+@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
     private static final String JOHN_USERNAME = "john";

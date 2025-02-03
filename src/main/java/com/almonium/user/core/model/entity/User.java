@@ -28,6 +28,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -116,7 +117,8 @@ public class User {
     @PrePersist
     private void prePersist() {
         if (profile == null) {
-            profile = Profile.builder().user(this).build();
+            profile =
+                    Profile.builder().user(this).lastLogin(LocalDateTime.now()).build();
         }
     }
 }

@@ -230,6 +230,7 @@ public class TestDataGenerator {
         user.setUsername("john");
         user.setEmail("john@email.com");
         user.setRegistered(Instant.now());
+        user.setSetupStep(SetupStep.getInitial());
         return user;
     }
 
@@ -458,5 +459,13 @@ public class TestDataGenerator {
 
     public static EmailDto createEmailDto() {
         return new EmailDto("recipient@mail.com", "Subject", "Body");
+    }
+
+    public static Learner buildTestLearner() {
+        return Learner.builder()
+                .id(1L)
+                .selfReportedLevel(CEFR.A1)
+                .language(Language.EN)
+                .build();
     }
 }
