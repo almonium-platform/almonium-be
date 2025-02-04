@@ -72,6 +72,8 @@ public class User {
 
     String stripeCustomerId;
 
+    String streamChatToken;
+
     @Enumerated(EnumType.STRING)
     SetupStep setupStep;
 
@@ -119,6 +121,9 @@ public class User {
         if (profile == null) {
             profile =
                     Profile.builder().user(this).lastLogin(LocalDateTime.now()).build();
+        }
+        if (streamChatToken == null) {
+            streamChatToken = io.getstream.chat.java.models.User.createToken(String.valueOf(id), null, null);
         }
     }
 }

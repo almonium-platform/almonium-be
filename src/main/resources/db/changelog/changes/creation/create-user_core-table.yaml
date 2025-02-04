@@ -40,6 +40,11 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
+                  name: stream_chat_token
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
                   name: setup_step
                   type: varchar(255)
                   constraints:
