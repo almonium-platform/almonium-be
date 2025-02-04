@@ -36,6 +36,7 @@
         <version.springdoc>2.7.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
+        <version.stream>1.27.2</version.stream>
         <version.stripe>28.2.0</version.stripe>
         <version.zxing>3.5.3</version.zxing>
     </properties>
@@ -109,6 +110,11 @@
 
         <!--        for testing-->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
@@ -167,11 +173,6 @@
             <artifactId>stanford-corenlp</artifactId>
             <version>${version.stanford-corenlp}</version>
             <classifier>models</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-testcontainers</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -248,11 +249,17 @@
             <artifactId>google-cloud-texttospeech</artifactId>
         </dependency>
 
+        <!--        INTEGRATIONS-->
         <!--        Firebase-->
         <dependency>
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
             <version>${version.firebase}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.getstream</groupId>
+            <artifactId>stream-chat-java</artifactId>
+            <version>${version.stream}</version>
         </dependency>
 
         <!--        transitive dependencies-->
