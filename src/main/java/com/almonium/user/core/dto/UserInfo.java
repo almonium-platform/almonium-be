@@ -22,6 +22,7 @@ public class UserInfo {
     String username;
     String email;
     String avatarUrl;
+    String streamChatToken;
 
     boolean emailVerified;
     boolean isPremium;
