@@ -12,18 +12,9 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties(prefix = "spring.security.oauth2.client.registration.apple")
+@ConfigurationProperties(prefix = "spring.security.oauth2.client.provider.apple")
 @FieldDefaults(level = PRIVATE)
-public class AppleOAuthProperties {
+public class AppleOAuthProviderProperties {
     @NotBlank
-    String clientId;
-
-    @NotBlank
-    String clientSecret;
-
-    @NotBlank
-    String redirectUri;
-
-    @NotBlank
-    String authorizationGrantType;
+    String jwkSetUri;
 }
