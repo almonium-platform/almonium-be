@@ -129,6 +129,11 @@ openai:
     url: https://api.openai.com/v1/chat/completions
     key: ${OPENAI_KEY}
 
+stream:
+  api:
+    key: ${STREAM_KEY}
+    secret: ${STREAM_SECRET}
+
 stripe:
   webhook:
     secret: ${STRIPE_WEBHOOK_SECRET}

@@ -6,6 +6,7 @@ import com.almonium.config.properties.ExternalApiProperties;
 import com.almonium.config.properties.GoogleProperties;
 import com.almonium.config.properties.MailProperties;
 import com.almonium.config.properties.OpenAIProperties;
+import com.almonium.config.properties.StreamProperties;
 import com.almonium.config.properties.StripeProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -26,5 +27,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
     MailProperties.class,
     OpenAIProperties.class,
     StripeProperties.class,
+    StreamProperties.class,
 })
 public class AppConfig {}

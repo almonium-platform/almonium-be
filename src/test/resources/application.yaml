@@ -98,6 +98,11 @@ openai:
     url: https://api.openai.com/v1/chat/completions
     key: openai_key_dummy
 
+stream:
+  api:
+    key: dummy_stream_key
+    secret: dummy_stream_secret
+
 stripe:
   webhook:
     secret: whsec_dummy
