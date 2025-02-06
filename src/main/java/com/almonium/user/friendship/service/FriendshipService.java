@@ -77,13 +77,13 @@ public class FriendshipService {
         validateUserIsPartOfFriendship(user, friendship);
 
         return switch (action) {
-                    case ACCEPT -> befriend(user, friendship);
-                    case CANCEL -> cancelOwnRequest(user, friendship);
-                    case REJECT -> rejectIncomingRequest(user, friendship);
-                    case UNFRIEND -> unfriend(friendship);
-                    case BLOCK -> block(user, friendship);
-                    case UNBLOCK -> unblock(user, friendship);
-                };
+            case ACCEPT -> befriend(user, friendship);
+            case CANCEL -> cancelOwnRequest(user, friendship);
+            case REJECT -> rejectIncomingRequest(user, friendship);
+            case UNFRIEND -> unfriend(friendship);
+            case BLOCK -> block(user, friendship);
+            case UNBLOCK -> unblock(user, friendship);
+        };
     }
 
     private Friendship befriend(User user, Friendship friendship) {
