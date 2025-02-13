@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -72,7 +73,7 @@ public class Card {
 
     @Builder.Default
     @OneToMany(mappedBy = "card")
-    Set<CardTag> cardTags = Set.of();
+    Set<CardTag> cardTags = new HashSet<>();
 
     @Builder.Default
     int iteration = 0;

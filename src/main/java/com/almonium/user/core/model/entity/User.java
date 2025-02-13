@@ -30,6 +30,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -93,15 +94,15 @@ public class User {
 
     @Builder.Default
     @OneToMany(mappedBy = "requestee")
-    Set<Friendship> incomingFriendships = Set.of();
+    Set<Friendship> incomingFriendships = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "requester")
-    Set<Friendship> outgoingFriendships = Set.of();
+    Set<Friendship> outgoingFriendships = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    Set<PlanSubscription> planSubscriptions = Set.of();
+    Set<PlanSubscription> planSubscriptions = new HashSet<>();
 
     @ElementCollection(targetClass = Language.class)
     @CollectionTable(name = "user_fluent_lang", joinColumns = @JoinColumn(name = "user_id"))

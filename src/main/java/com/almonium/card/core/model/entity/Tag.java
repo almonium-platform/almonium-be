@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +41,7 @@ public class Tag {
 
     @Builder.Default
     @OneToMany(mappedBy = "tag")
-    Set<CardTag> cardTags = Set.of();
+    Set<CardTag> cardTags = new HashSet<>();
 
     public Tag(String proposedName) {
         text = normalizeText(proposedName);
