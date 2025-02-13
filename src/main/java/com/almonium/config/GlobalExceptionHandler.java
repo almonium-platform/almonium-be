@@ -96,7 +96,7 @@ public class GlobalExceptionHandler {
 
     private String extractExpectedValues(String message) {
         try {
-            return message.split("accepted for Enum class: \\[")[1].split("\\]")[0];
+            return message.split("accepted for Enum class: \\[")[1].split("]")[0];
         } catch (Exception e) {
             return "unknown values";
         }
