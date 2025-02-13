@@ -2,7 +2,7 @@ package com.almonium.subscription.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.subscription.dto.PlanDto;
+import com.almonium.subscription.dto.response.PlanDto;
 import com.almonium.user.core.service.PlanService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

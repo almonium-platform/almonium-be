@@ -3,7 +3,7 @@ package com.almonium.subscription.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.subscription.dto.SessionResponseDto;
+import com.almonium.subscription.dto.response.SessionResponseDto;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;

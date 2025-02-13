@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.oauth2.apple.client.AppleTokenClient;
-import com.almonium.auth.oauth2.apple.dto.AppleTokenResponse;
+import com.almonium.auth.oauth2.apple.dto.response.AppleTokenResponse;
 import com.almonium.auth.oauth2.apple.util.AppleJwtUtil;
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
 import com.almonium.config.properties.AppleOAuthProperties;

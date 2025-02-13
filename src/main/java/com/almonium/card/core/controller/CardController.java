@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.card.core.dto.CardCreationDto;
-import com.almonium.card.core.dto.CardDto;
-import com.almonium.card.core.dto.CardUpdateDto;
+import com.almonium.card.core.dto.request.CardCreationDto;
+import com.almonium.card.core.dto.request.CardUpdateDto;
+import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.service.CardService;
 import com.almonium.user.core.model.entity.User;
 import jakarta.validation.Valid;

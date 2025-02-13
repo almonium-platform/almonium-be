@@ -4,9 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.LearnerDto;
 import com.almonium.user.core.dto.request.TargetLanguagesSetupRequest;
 import com.almonium.user.core.dto.request.UpdateLearnerRequest;
+import com.almonium.user.core.dto.response.LearnerDto;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.LearnerService;
 import jakarta.validation.Valid;

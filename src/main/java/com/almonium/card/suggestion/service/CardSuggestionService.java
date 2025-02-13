@@ -3,7 +3,7 @@ package com.almonium.card.suggestion.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.card.core.dto.CardDto;
+import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.Example;
@@ -12,7 +12,7 @@ import com.almonium.card.core.repository.CardRepository;
 import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.card.core.service.LearnerFinder;
-import com.almonium.card.suggestion.dto.CardSuggestionDto;
+import com.almonium.card.suggestion.dto.request.CardSuggestionDto;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.card.suggestion.repository.CardSuggestionRepository;
 import com.almonium.user.core.model.entity.Learner;

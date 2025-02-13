@@ -3,10 +3,10 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.UserInfo;
 import com.almonium.user.core.dto.request.FluentLanguagesUpdateRequest;
 import com.almonium.user.core.dto.request.SaveInterestsRequest;
 import com.almonium.user.core.dto.request.UsernameUpdateRequest;
+import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.almonium.user.core.dto;
+package com.almonium.user.core.dto.request;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;

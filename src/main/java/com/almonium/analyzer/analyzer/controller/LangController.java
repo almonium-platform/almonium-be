@@ -2,14 +2,14 @@ package com.almonium.analyzer.analyzer.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.analyzer.dto.AnalysisDto;
+import com.almonium.analyzer.analyzer.dto.response.AnalysisDto;
 import com.almonium.analyzer.analyzer.service.LanguageProcessor;
 import com.almonium.analyzer.client.words.dto.WordsReportDto;
 import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.card.core.dto.CardDto;
+import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.service.CardService;
 import com.almonium.user.core.model.entity.User;
 import java.util.List;

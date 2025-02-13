@@ -3,7 +3,7 @@ package com.almonium.info.controller.open;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.user.core.dto.InterestDto;
+import com.almonium.user.core.dto.response.InterestDto;
 import com.almonium.user.core.service.InterestService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

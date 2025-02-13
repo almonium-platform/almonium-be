@@ -3,8 +3,8 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.AvatarDto;
-import com.almonium.user.core.dto.AvatarUrlDto;
+import com.almonium.user.core.dto.request.AvatarUrlDto;
+import com.almonium.user.core.dto.response.AvatarDto;
 import com.almonium.user.core.service.AvatarService;
 import jakarta.validation.Valid;
 import java.util.List;

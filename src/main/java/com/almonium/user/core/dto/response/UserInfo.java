@@ -1,4 +1,4 @@
-package com.almonium.user.core.dto;
+package com.almonium.user.core.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 

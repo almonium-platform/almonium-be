@@ -1,4 +1,4 @@
-package com.almonium.auth.oauth2.apple.dto;
+package com.almonium.auth.oauth2.apple.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

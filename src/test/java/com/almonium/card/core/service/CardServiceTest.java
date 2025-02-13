@@ -14,12 +14,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.card.core.dto.CardCreationDto;
-import com.almonium.card.core.dto.CardDto;
-import com.almonium.card.core.dto.CardUpdateDto;
 import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
+import com.almonium.card.core.dto.request.CardCreationDto;
+import com.almonium.card.core.dto.request.CardUpdateDto;
+import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
 import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.CardTag;

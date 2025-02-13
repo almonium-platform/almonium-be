@@ -3,7 +3,7 @@ package com.almonium.user.core.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.storage.service.FirebaseStorageService;
-import com.almonium.user.core.dto.AvatarDto;
+import com.almonium.user.core.dto.response.AvatarDto;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;

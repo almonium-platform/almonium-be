@@ -2,7 +2,7 @@ package com.almonium.user.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.user.core.dto.UsernameAvailability;
+import com.almonium.user.core.dto.response.UsernameAvailability;
 import com.almonium.user.core.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

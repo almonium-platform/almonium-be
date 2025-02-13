@@ -2,7 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.user.core.dto.InterestDto;
+import com.almonium.user.core.dto.response.InterestDto;
 import com.almonium.user.core.mapper.InterestMapper;
 import com.almonium.user.core.repository.InterestRepository;
 import java.util.List;

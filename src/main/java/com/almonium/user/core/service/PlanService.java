@@ -2,7 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.subscription.dto.PlanDto;
+import com.almonium.subscription.dto.response.PlanDto;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.enums.PlanFeature;

@@ -1,4 +1,4 @@
-package com.almonium.card.suggestion.dto;
+package com.almonium.card.suggestion.dto.request;
 
 import jakarta.validation.constraints.Positive;
 

@@ -1,9 +1,9 @@
 package com.almonium.subscription.mapper;
 
-import com.almonium.subscription.dto.PlanDto;
+import com.almonium.subscription.dto.response.PlanDto;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
-import com.almonium.user.core.dto.SubscriptionInfoDto;
+import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import java.util.List;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;

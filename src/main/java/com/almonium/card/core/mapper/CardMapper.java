@@ -1,8 +1,8 @@
 package com.almonium.card.core.mapper;
 
-import com.almonium.card.core.dto.CardCreationDto;
-import com.almonium.card.core.dto.CardDto;
-import com.almonium.card.core.dto.CardUpdateDto;
+import com.almonium.card.core.dto.request.CardCreationDto;
+import com.almonium.card.core.dto.request.CardUpdateDto;
+import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.model.entity.Card;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

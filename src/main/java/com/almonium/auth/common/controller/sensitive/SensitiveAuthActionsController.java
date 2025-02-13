@@ -55,7 +55,8 @@ public class SensitiveAuthActionsController {
     }
 
     @PostMapping("/local/link")
-    public ResponseEntity<Void> addLocalLogin(@Auth Long id, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
+    public ResponseEntity<Void> addLocalLogin(
+            @Auth Long id, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
         sensitiveAuthActionsService.linkLocal(id, passwordRequestDto.password());
         return ResponseEntity.ok().build();
     }

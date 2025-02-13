@@ -2,7 +2,7 @@ package com.almonium.analyzer.analyzer.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.analyzer.dto.AnalysisDto;
+import com.almonium.analyzer.analyzer.dto.response.AnalysisDto;
 import com.almonium.analyzer.analyzer.mapper.DictionaryDtoMapper;
 import com.almonium.analyzer.analyzer.model.enums.POS;
 import com.almonium.analyzer.client.datamuse.DatamuseClient;

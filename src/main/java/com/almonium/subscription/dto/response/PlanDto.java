@@ -1,4 +1,4 @@
-package com.almonium.subscription.dto;
+package com.almonium.subscription.dto.response;
 
 import com.almonium.subscription.model.entity.Plan;
 
