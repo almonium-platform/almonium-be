@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.token.dto.response.JwtTokenResponse;
 import com.almonium.auth.token.service.AuthTokenService;
-import com.almonium.util.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,12 +23,12 @@ public class RefreshTokenController {
     AuthTokenService tokenService;
 
     @PostMapping("${app.auth.jwt.refresh-token.url}")
-    public ResponseEntity<?> refreshToken(
+    public ResponseEntity<JwtTokenResponse> refreshToken(
             @CookieValue(value = CookieUtil.REFRESH_TOKEN_COOKIE_NAME, required = false) String refreshToken,
             HttpServletResponse response) {
 
         if (refreshToken == null || !tokenService.validateToken(refreshToken)) {
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "invalid_grant"));
+            return ResponseEntity.badRequest().build();
         }
 
         Authentication authentication = tokenService.getAuthenticationFromToken(refreshToken);

@@ -30,7 +30,7 @@ public class CardSuggestionController {
     CardSuggestionService cardSuggestionService;
 
     @PostMapping
-    public ResponseEntity<?> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @Auth User user) {
+    public ResponseEntity<Void> suggestCard(@Valid @RequestBody CardSuggestionDto dto, @Auth User user) {
         cardSuggestionService.suggestCard(dto, user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

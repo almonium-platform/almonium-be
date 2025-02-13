@@ -36,26 +36,26 @@ public class SensitiveAuthActionsController {
     AuthTokenService authTokenService;
 
     @PutMapping("/password")
-    public ResponseEntity<?> changePassword(@Auth Long id, @Valid @RequestBody PasswordRequestDto request) {
+    public ResponseEntity<Void> changePassword(@Auth Long id, @Valid @RequestBody PasswordRequestDto request) {
         sensitiveAuthActionsService.changePassword(id, request.password());
         return ResponseEntity.ok().build();
     }
 
     // used when the user doesn't have a local auth method
     @PostMapping("/local/migrate")
-    public ResponseEntity<?> linkLocalWithNewEmail(@Auth Long id, @Valid @RequestBody LocalAuthRequest request) {
+    public ResponseEntity<Void> linkLocalWithNewEmail(@Auth Long id, @Valid @RequestBody LocalAuthRequest request) {
         sensitiveAuthActionsService.linkLocalWithNewEmail(id, request);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/email/change")
-    public ResponseEntity<?> requestEmailChange(@Auth Long id, @Valid @RequestBody EmailRequestDto request) {
+    public ResponseEntity<Void> requestEmailChange(@Auth Long id, @Valid @RequestBody EmailRequestDto request) {
         sensitiveAuthActionsService.requestEmailChange(id, request.email());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/local/link")
-    public ResponseEntity<?> addLocalLogin(@Auth Long id, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
+    public ResponseEntity<Void> addLocalLogin(@Auth Long id, @Valid @RequestBody PasswordRequestDto passwordRequestDto) {
         sensitiveAuthActionsService.linkLocal(id, passwordRequestDto.password());
         return ResponseEntity.ok().build();
     }

@@ -19,7 +19,7 @@ public class LogoutController {
     AuthTokenService authTokenService;
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logoutPublic(HttpServletResponse response) {
+    public ResponseEntity<Void> logoutPublic(HttpServletResponse response) {
         authTokenService.clearTokenCookies(response);
         return ResponseEntity.ok().build();
     }

@@ -35,7 +35,7 @@ public class PublicLocalAuthVerificationController {
 
     // Confirm email change using a token
     @PostMapping("/emails/change")
-    public ResponseEntity<?> confirmEmailChange(@NotBlank @RequestParam String token) {
+    public ResponseEntity<Void> confirmEmailChange(@NotBlank @RequestParam String token) {
         publicLocalAuthVerificationService.changeEmail(token);
         return ResponseEntity.ok().build();
     }

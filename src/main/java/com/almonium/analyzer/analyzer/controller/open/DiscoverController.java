@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.translator.model.enums.Language;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class DiscoverController {
     FrequencyService frequencyService;
 
     @GetMapping("/freq/{lang}/")
-    public ResponseEntity<?> search(@PathVariable Language lang, @RequestParam String text) {
+    public ResponseEntity<Optional<Integer>> search(@PathVariable Language lang, @RequestParam String text) {
         return ResponseEntity.ok(frequencyService.getFrequency(lang, text));
     }
 }

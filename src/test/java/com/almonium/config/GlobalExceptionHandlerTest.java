@@ -33,11 +33,11 @@ class GlobalExceptionHandlerTest {
     void givenBadCredentialsException_whenHandleException_thenRespondWithUnauthorized() {
         BadCredentialsException ex = new BadCredentialsException("Bad credentials");
 
-        ResponseEntity<?> response = exceptionHandler.handleBadCredentialsException(ex);
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleBadCredentialsException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-        assertThat(((ApiResponse) response.getBody()).message()).isEqualTo(ex.getMessage());
-        assertThat(((ApiResponse) response.getBody()).success()).isFalse();
+        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
+        assertThat(response.getBody().success()).isFalse();
     }
 
     @DisplayName("Should handle NoResourceFoundException")
@@ -58,11 +58,11 @@ class GlobalExceptionHandlerTest {
     void givenUserAlreadyExistsException_whenHandleException_thenRespondWithBadRequest() {
         UserAlreadyExistsException ex = new UserAlreadyExistsException("User already exists");
 
-        ResponseEntity<?> response = exceptionHandler.handleUserAlreadyExistsException(ex);
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleUserAlreadyExistsException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-        assertThat(((ApiResponse) response.getBody()).message()).isEqualTo(ex.getMessage());
-        assertThat(((ApiResponse) response.getBody()).success()).isFalse();
+        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
+        assertThat(response.getBody().success()).isFalse();
     }
 
     @SuppressWarnings("unchecked")
@@ -85,11 +85,11 @@ class GlobalExceptionHandlerTest {
     void givenHttpRequestMethodNotSupportedException_whenHandleException_thenRespondWithMethodNotAllowed() {
         HttpRequestMethodNotSupportedException ex = new HttpRequestMethodNotSupportedException("POST");
 
-        ResponseEntity<?> response = exceptionHandler.handleHttpRequestMethodNotSupportedException(ex);
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleHttpRequestMethodNotSupportedException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
-        assertThat(((ApiResponse) response.getBody()).message()).isEqualTo(ex.getMessage());
-        assertThat(((ApiResponse) response.getBody()).success()).isFalse();
+        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
+        assertThat(response.getBody().success()).isFalse();
     }
 
     @DisplayName("Should handle general Exception")
@@ -97,10 +97,10 @@ class GlobalExceptionHandlerTest {
     void givenException_whenHandleException_thenRespondWithInternalServerError() {
         Exception ex = new Exception("Something went wrong");
 
-        ResponseEntity<?> response = exceptionHandler.handleGlobalException(ex);
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleGlobalException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-        assertThat(((ApiResponse) response.getBody()).message()).isEqualTo(ex.getMessage());
-        assertThat(((ApiResponse) response.getBody()).success()).isFalse();
+        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
+        assertThat(response.getBody().success()).isFalse();
     }
 }

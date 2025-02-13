@@ -41,7 +41,7 @@ public class EmailVerificationController {
      * @return - 200 OK if the email was sent successfully
      */
     @PostMapping
-    public ResponseEntity<?> requestEmailVerification(@Auth User user) {
+    public ResponseEntity<Void> requestEmailVerification(@Auth User user) {
         if (user.isEmailVerified()) {
             throw new BadAuthActionRequest("Email is already verified");
         }
@@ -52,14 +52,14 @@ public class EmailVerificationController {
 
     // either email_change or email_verification
     @PostMapping("/resend")
-    public ResponseEntity<?> resendEmailVerificationRequest(@Auth Long id) {
+    public ResponseEntity<Void> resendEmailVerificationRequest(@Auth Long id) {
         emailVerificationService.resendEmailVerificationRequest(id);
         return ResponseEntity.ok().build();
     }
 
     // either email_change or email_verification
     @DeleteMapping
-    public ResponseEntity<?> deleteEmailVerificationRequest(@Auth Long id) {
+    public ResponseEntity<Void> deleteEmailVerificationRequest(@Auth Long id) {
         emailVerificationService.cancelEmailChangeRequest(id);
         return ResponseEntity.ok().build();
     }

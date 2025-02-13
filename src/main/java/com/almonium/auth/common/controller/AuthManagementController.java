@@ -33,7 +33,7 @@ public class AuthManagementController {
     AuthenticationService authenticationService;
 
     @PostMapping("/reauth")
-    public ResponseEntity<?> reauthenticate(
+    public ResponseEntity<ApiResponse> reauthenticate(
             @Valid @RequestBody PasswordRequestDto request, @Auth User user, HttpServletResponse response) {
         authenticationService.localLogin(user.getEmail(), request.password(), response);
         return ResponseEntity.ok(new ApiResponse(true, "Reauthenticated successfully"));
@@ -51,7 +51,7 @@ public class AuthManagementController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@Auth User user, HttpServletResponse response) {
+    public ResponseEntity<Void> logout(@Auth User user, HttpServletResponse response) {
         authTokenService.revokeRefreshTokensByUser(user);
         authTokenService.clearTokenCookies(response);
         return ResponseEntity.ok().build();

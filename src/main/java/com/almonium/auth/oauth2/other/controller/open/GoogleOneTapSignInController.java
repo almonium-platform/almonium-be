@@ -42,7 +42,7 @@ public class GoogleOneTapSignInController {
     GoogleProperties googleProperties;
 
     @PostMapping("/google/one-tap")
-    public ResponseEntity<?> loginWithGoogle(
+    public ResponseEntity<ApiResponse> loginWithGoogle(
             @RequestBody Map<String, String> requestBody, HttpServletResponse response) {
         String idTokenString = requestBody.get("token");
 

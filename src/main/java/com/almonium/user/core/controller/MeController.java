@@ -39,7 +39,7 @@ public class MeController {
     }
 
     @PatchMapping("/interests")
-    public ResponseEntity<?> saveInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
+    public ResponseEntity<Void> saveInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
         userService.updateInterests(user, interests.ids());
         return ResponseEntity.noContent().build();
     }

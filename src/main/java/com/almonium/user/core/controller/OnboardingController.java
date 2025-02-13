@@ -30,14 +30,14 @@ public class OnboardingController {
     OnboardingService onboardingService;
 
     @PatchMapping("/step/{step}")
-    public ResponseEntity<?> completeSimpleStep(@Auth User user, @PathVariable SetupStep step) {
+    public ResponseEntity<Void> completeSimpleStep(@Auth User user, @PathVariable SetupStep step) {
         onboardingService.completeSimpleStep(user, step);
         return ResponseEntity.ok().build();
     }
 
     // steps with updating user data
     @PostMapping("/interests")
-    public ResponseEntity<?> setupInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
+    public ResponseEntity<Void> setupInterests(@Auth User user, @Valid @RequestBody SaveInterestsRequest interests) {
         onboardingService.setupInterests(user, interests.ids());
         return ResponseEntity.ok().build();
     }
