@@ -39,6 +39,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -117,14 +118,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "interest_id"))
     List<Interest> interests;
 
+    @SneakyThrows
     @PrePersist
     private void prePersist() {
         if (profile == null) {
             profile =
                     Profile.builder().user(this).lastLogin(LocalDateTime.now()).build();
         }
-        if (streamChatToken == null) {
-            streamChatToken = io.getstream.chat.java.models.User.createToken(String.valueOf(id), null, null);
-        }
+        if (streamChatToken == null) {}
     }
 }

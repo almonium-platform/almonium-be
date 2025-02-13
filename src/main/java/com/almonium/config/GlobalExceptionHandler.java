@@ -20,6 +20,7 @@ import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
+import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
 import com.almonium.util.dto.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -183,6 +184,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(FirebaseIntegrationException.class)
     public ResponseEntity<ApiResponse> handleFirebaseIntegrationException(FirebaseIntegrationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(StreamIntegrationException.class)
+    public ResponseEntity<ApiResponse> handleStreamIntegrationException(StreamIntegrationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 
