@@ -15,7 +15,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             select new com.almonium.user.friendship.dto.response.PublicUserProfile(
                 u.id,
                 u.username,
-                case when p.hidden = true then null else p.avatarUrl end as avatarUrl
+                case when p.hidden = true then null else p.avatarUrl end
             )
             from User u
             left join u.profile p
@@ -35,8 +35,9 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
                 f.requestee.id,
                 f.requestee.username,
-                case when p.hidden = true then null else p.avatarUrl end as avatarUrl,
-                f.id
+                case when p.hidden = true then null else p.avatarUrl end,
+                f.id,
+                f.status
             )
             from User u
             join Friendship f on f.requester.id = u.id
@@ -49,8 +50,9 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             """
             select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
                 f.requester.id, f.requester.username,
-                case when p.hidden = true then null else p.avatarUrl end as avatarUrl,
-                f.id
+                case when p.hidden = true then null else p.avatarUrl end,
+                f.id,
+                f.status
             )
             from User u
             join Friendship f on f.requestee.id = u.id
@@ -103,16 +105,17 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             case
                 when f.requester.id = :id then f.requestee.id
                 else f.requester.id
-            end as userId,
+            end,
             case
                 when f.requester.id = :id then f.requestee.username
                 else f.requester.username
-            end as username,
+            end,
             case
                 when f.requester.id = :id then f.requestee.profile.avatarUrl
                 else f.requester.profile.avatarUrl
-            end as avatarUrl,
-            f.id
+            end,
+            f.id,
+            f.status
         )
         from Friendship f
         where (f.requester.id = :id or f.requestee.id = :id) and f.status = 'FRIENDS'
