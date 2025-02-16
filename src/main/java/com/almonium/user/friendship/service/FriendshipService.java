@@ -144,7 +144,9 @@ public class FriendshipService {
         if (!friendshipDenier.get().equals(user.getId())) {
             throw new FriendshipNotAllowedException("User is not the denier of this friendship");
         }
-        return deleteFriendship(friendship);
+
+        friendship.setStatus(FRIENDS);
+        return friendshipRepository.save(friendship);
     }
 
     private Friendship deleteFriendship(Friendship friendship) {
