@@ -21,7 +21,7 @@ import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.core.exception.StreamIntegrationException;
-import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
+import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.util.dto.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashMap;
@@ -172,8 +172,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    @ExceptionHandler(FriendshipNotAllowedException.class)
-    public ResponseEntity<ApiResponse> handleFriendshipNotAllowedException(FriendshipNotAllowedException ex) {
+    @ExceptionHandler(FriendshipException.class)
+    public ResponseEntity<ApiResponse> handleFriendshipNotAllowedException(FriendshipException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
     }
 

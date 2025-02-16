@@ -2,7 +2,6 @@ package com.almonium.user.friendship.service;
 
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
-import static com.almonium.user.friendship.model.enums.FriendshipStatus.MUTUALLY_BLOCKED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
@@ -19,7 +18,7 @@ import com.almonium.user.core.service.UserService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
 import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.dto.response.RelatedUserProfile;
-import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
+import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
 import com.almonium.user.friendship.repository.FriendshipRepository;
@@ -128,7 +127,7 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.createFriendshipRequest(requester, dto))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage(FRIENDSHIP_CANT_BE_ESTABLISHED);
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
@@ -147,7 +146,7 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.createFriendshipRequest(requester, dto))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage(FRIENDSHIP_CANT_BE_ESTABLISHED);
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
@@ -181,7 +180,7 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
-                .isInstanceOf(FriendshipNotAllowedException.class);
+                .isInstanceOf(FriendshipException.class);
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
     }
@@ -213,7 +212,7 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL))
-                .isInstanceOf(FriendshipNotAllowedException.class);
+                .isInstanceOf(FriendshipException.class);
 
         verify(friendshipRepository, never()).delete(any(Friendship.class));
     }
@@ -284,42 +283,6 @@ class FriendshipServiceTest {
         verify(friendshipRepository).delete(friendship);
     }
 
-    @DisplayName("Should unblock a mutually blocked friendship")
-    @Test
-    void givenMutuallyBlockedFriendship_whenUnblock_thenStatusIsUpdated() {
-        // Arrange
-        friendship.setStatus(MUTUALLY_BLOCKED);
-        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
-        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
-
-        // Act
-        Friendship unblockedFriendship =
-                friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK);
-
-        // Assert
-        assertThat(unblockedFriendship).isNotNull();
-        assertThat(unblockedFriendship.getStatus()).isEqualTo(SND_BLOCKED_FST);
-        verify(friendshipRepository).save(friendship);
-    }
-
-    @DisplayName("Should unblock a mutually blocked friendship as requestee")
-    @Test
-    void givenMutuallyBlockedFriendshipAsRequestee_whenUnblock_thenStatusIsUpdated() {
-        // Arrange
-        friendship.setStatus(MUTUALLY_BLOCKED);
-        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
-        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
-
-        // Act
-        Friendship unblockedFriendship =
-                friendshipService.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK);
-
-        // Assert
-        assertThat(unblockedFriendship).isNotNull();
-        assertThat(unblockedFriendship.getStatus()).isEqualTo(FST_BLOCKED_SND);
-        verify(friendshipRepository).save(friendship);
-    }
-
     @DisplayName("Should throw exception when friendship is not blocked")
     @Test
     void givenNotBlockedFriendship_whenUnblock_thenThrowException() {
@@ -329,7 +292,7 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage("Friendship is not blocked");
 
         verify(friendshipRepository, never()).delete(any(Friendship.class));
@@ -344,25 +307,10 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.UNBLOCK))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage("User is not the denier of this friendship");
 
         verify(friendshipRepository, never()).delete(any(Friendship.class));
-    }
-
-    @DisplayName("Should not block a mutually blocked friendship")
-    @Test
-    void givenMutuallyBlockedFriendship_whenBlockFriend_thenThrowException() {
-        // Arrange
-        friendship.setStatus(MUTUALLY_BLOCKED);
-        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
-
-        // Act & Assert
-        assertThatThrownBy(() -> friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
-                .isInstanceOf(FriendshipNotAllowedException.class)
-                .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
-
-        verify(friendshipRepository, never()).save(any(Friendship.class));
     }
 
     @DisplayName("Should not block a friendship already blocked by the user")
@@ -374,28 +322,10 @@ class FriendshipServiceTest {
 
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage(FRIENDSHIP_IS_ALREADY_BLOCKED);
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
-    }
-
-    @DisplayName("Should set friendship status to MUTUALLY_BLOCKED when blocked by the other user")
-    @Test
-    void givenFriendshipBlockedByOtherUser_whenBlockFriend_thenStatusIsUpdatedToMutuallyBlocked() {
-        // Arrange
-        friendship.setStatus(SND_BLOCKED_FST);
-
-        when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
-        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
-
-        // Act
-        Friendship blockedFriendship =
-                friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.BLOCK);
-
-        // Assert
-        assertThat(blockedFriendship).isNotNull();
-        assertThat(blockedFriendship.getStatus()).isEqualTo(MUTUALLY_BLOCKED);
     }
 
     @DisplayName("Should block a friend by requestee")
@@ -425,7 +355,7 @@ class FriendshipServiceTest {
         // Act & Assert
         assertThatThrownBy(
                         () -> friendshipService.manageFriendship(invalidUser, FRIENDSHIP_ID, FriendshipAction.ACCEPT))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage("User is not part of this friendship");
 
         verify(friendshipRepository, never()).save(any(Friendship.class));
@@ -444,7 +374,7 @@ class FriendshipServiceTest {
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(
                         friendship.getRequestee(), FRIENDSHIP_ID, FriendshipAction.CANCEL))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage("User is not the requester of this friendship");
 
         verify(friendshipRepository, never()).delete(any(Friendship.class));
@@ -463,7 +393,7 @@ class FriendshipServiceTest {
         // Act & Assert
         assertThatThrownBy(() -> friendshipService.manageFriendship(
                         friendship.getRequester(), FRIENDSHIP_ID, FriendshipAction.ACCEPT))
-                .isInstanceOf(FriendshipNotAllowedException.class)
+                .isInstanceOf(FriendshipException.class)
                 .hasMessage("User is not the requestee of this friendship");
 
         verify(friendshipRepository, never()).save(any(Friendship.class));

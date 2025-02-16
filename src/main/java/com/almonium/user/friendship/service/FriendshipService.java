@@ -2,7 +2,6 @@ package com.almonium.user.friendship.service;
 
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
-import static com.almonium.user.friendship.model.enums.FriendshipStatus.MUTUALLY_BLOCKED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
@@ -12,7 +11,7 @@ import com.almonium.user.core.service.UserService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
 import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.dto.response.RelatedUserProfile;
-import com.almonium.user.friendship.exception.FriendshipNotAllowedException;
+import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
@@ -33,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FriendshipService {
     private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
+    private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
     UserService userService;
     FriendshipRepository friendshipRepository;
@@ -66,18 +66,19 @@ public class FriendshipService {
         Optional<Friendship> friendshipOptional =
                 friendshipRepository.getFriendshipByUsersIds(user.getId(), dto.recipientId());
         if (friendshipOptional.isPresent()) {
-            throw new FriendshipNotAllowedException(FRIENDSHIP_CANT_BE_ESTABLISHED);
+            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
         User recipient = userService.getById(dto.recipientId());
         if (recipient.getProfile().isHidden()) {
-            throw new FriendshipNotAllowedException(FRIENDSHIP_CANT_BE_ESTABLISHED);
+            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
         return friendshipRepository.save(new Friendship(user, recipient));
     }
 
     @Transactional
     public Friendship manageFriendship(User user, Long id, FriendshipAction action) {
-        Friendship friendship = friendshipRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Friendship friendship =
+                friendshipRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(FRIENDSHIP_NOT_FOUND));
         validateUserIsPartOfFriendship(user, friendship);
 
         return switch (action) {
@@ -115,15 +116,12 @@ public class FriendshipService {
     }
 
     private Friendship block(User user, Friendship friendship) {
-        if (friendship.getStatus() == MUTUALLY_BLOCKED) {
-            throw new FriendshipNotAllowedException(FRIENDSHIP_IS_ALREADY_BLOCKED);
-        }
         Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
         if (friendshipDenier.isPresent()) {
             if (friendshipDenier.get().equals(user.getId())) {
-                throw new FriendshipNotAllowedException(FRIENDSHIP_IS_ALREADY_BLOCKED);
+                throw new FriendshipException(FRIENDSHIP_IS_ALREADY_BLOCKED);
             }
-            friendship.setStatus(MUTUALLY_BLOCKED);
+            throw new FriendshipException(FRIENDSHIP_NOT_FOUND);
         } else {
             validateFriendshipStatus(friendship, FRIENDS, PENDING);
             friendship.setStatus(user.equals(friendship.getRequester()) ? FST_BLOCKED_SND : SND_BLOCKED_FST);
@@ -132,17 +130,12 @@ public class FriendshipService {
     }
 
     private Friendship unblock(User user, Friendship friendship) {
-        if (friendship.getStatus() == MUTUALLY_BLOCKED) {
-            friendship.setStatus(user.equals(friendship.getRequester()) ? SND_BLOCKED_FST : FST_BLOCKED_SND);
-            return friendshipRepository.save(friendship);
-        }
-
         Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
         if (friendshipDenier.isEmpty()) {
-            throw new FriendshipNotAllowedException("Friendship is not blocked");
+            throw new FriendshipException("Friendship is not blocked");
         }
         if (!friendshipDenier.get().equals(user.getId())) {
-            throw new FriendshipNotAllowedException("User is not the denier of this friendship");
+            throw new FriendshipException("User is not the denier of this friendship");
         }
 
         friendship.setStatus(FRIENDS);
@@ -156,22 +149,22 @@ public class FriendshipService {
 
     private void validateUserIsPartOfFriendship(User user, Friendship friendship) {
         if (!user.equals(friendship.getRequester()) && !user.equals(friendship.getRequestee())) {
-            throw new FriendshipNotAllowedException("User is not part of this friendship");
+            throw new FriendshipException("User is not part of this friendship");
         }
     }
 
     private void validateCorrectRole(User user, Friendship friendship, boolean requesterNotRequestee) {
         if (requesterNotRequestee && !user.equals(friendship.getRequester())) {
-            throw new FriendshipNotAllowedException("User is not the requester of this friendship");
+            throw new FriendshipException("User is not the requester of this friendship");
         }
         if (!requesterNotRequestee && !user.equals(friendship.getRequestee())) {
-            throw new FriendshipNotAllowedException("User is not the requestee of this friendship");
+            throw new FriendshipException("User is not the requestee of this friendship");
         }
     }
 
     private void validateFriendshipStatus(Friendship friendship, FriendshipStatus... allowedStatuses) {
         if (!List.of(allowedStatuses).contains(friendship.getStatus())) {
-            throw new FriendshipNotAllowedException("Friendship status must be one of " + List.of(allowedStatuses));
+            throw new FriendshipException("Friendship status must be one of " + List.of(allowedStatuses));
         }
     }
 }
