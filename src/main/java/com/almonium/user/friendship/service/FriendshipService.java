@@ -57,6 +57,10 @@ public class FriendshipService {
         return friendshipRepository.getFriendships(id);
     }
 
+    public List<RelatedUserProfile> getBlocked(long id) {
+        return friendshipRepository.getBlocked(id);
+    }
+
     @Transactional
     public Friendship createFriendshipRequest(User user, FriendshipRequestDto dto) {
         Optional<Friendship> friendshipOptional =

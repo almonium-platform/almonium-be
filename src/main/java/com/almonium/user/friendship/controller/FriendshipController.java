@@ -38,6 +38,11 @@ public class FriendshipController {
         return ResponseEntity.ok(friendshipService.getFriends(id));
     }
 
+    @GetMapping("/blocked")
+    public ResponseEntity<List<RelatedUserProfile>> getBlocked(@Auth Long id) {
+        return ResponseEntity.ok(friendshipService.getBlocked(id));
+    }
+
     @GetMapping("/requests/sent")
     public ResponseEntity<List<RelatedUserProfile>> getSentRequests(@Auth Long id) {
         return ResponseEntity.ok(friendshipService.getSentRequests(id));

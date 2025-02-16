@@ -49,7 +49,8 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
     @Query(
             """
             select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
-                f.requester.id, f.requester.username,
+                f.requester.id,
+                f.requester.username,
                 case when p.hidden = true then null else p.avatarUrl end,
                 f.id,
                 f.status
@@ -60,6 +61,24 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             where f.requestee.id = :id and f.status = 'PENDING'
             """)
     List<RelatedUserProfile> getReceivedRequests(long id);
+
+    @Query(
+            """
+        select new com.almonium.user.friendship.dto.response.RelatedUserProfile(
+            u.id,
+            u.username,
+            case when p.hidden = true then null else p.avatarUrl end,
+            f.id,
+            f.status
+        )
+        from Friendship f
+        join User u on
+            (f.requester.id = u.id and f.status = 'SND_BLOCKED_FST' and f.requestee.id = :id)
+            or
+            (f.requestee.id = u.id and f.status = 'FST_BLOCKED_SND' and f.requester.id = :id)
+        join Profile p on u.id = p.id
+        """)
+    List<RelatedUserProfile> getBlocked(long id);
 
     @Query(
             """
