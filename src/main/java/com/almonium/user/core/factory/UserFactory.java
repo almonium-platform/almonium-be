@@ -37,7 +37,7 @@ public class UserFactory {
         planSubscriptionService.assignDefaultPlanToUser(user);
         streamChatService.createSelfChat(user);
 
-        String token = streamChatService.setStreamChatToken(user);
+        String token = streamChatService.createStreamUserAndGenerateToken(user);
         user.setStreamChatToken(token);
 
         return userRepository.save(user);

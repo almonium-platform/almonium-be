@@ -2,6 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.user.core.dto.response.AvatarDto;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -43,6 +44,7 @@ public class AvatarService {
     AvatarMapper avatarMapper;
     ProfileService profileService;
     ProfileRepository profileRepository;
+    StreamChatService streamChatService;
 
     @Transactional
     public void addAndSetNewCustomAvatar(Long id, String url) {
@@ -118,6 +120,7 @@ public class AvatarService {
     private void updateProfileAvatarUrl(String url, Profile profile) {
         profile.setAvatarUrl(url);
         profileRepository.save(profile);
+        streamChatService.updateUser(profile.getUser());
     }
 
     private Avatar getMyAvatar(Long id, Long avatarId) {

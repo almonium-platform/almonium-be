@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
@@ -46,6 +47,7 @@ public class UserService implements UserDetailsService {
     UserMapper userMapper;
     InterestRepository interestRepository;
     PlanSubscriptionMapper planSubscriptionMapper;
+    StreamChatService streamChatService;
 
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
@@ -90,6 +92,8 @@ public class UserService implements UserDetailsService {
         }
         user.setUsername(username);
         userRepository.save(user);
+        streamChatService.updateUser(user);
+        log.info("User {} changed username to: {}", id, username);
     }
 
     public void updateInterests(User user, List<Long> ids) {

@@ -4,6 +4,7 @@ import static io.getstream.chat.java.models.User.createToken;
 import static io.getstream.chat.java.models.User.upsert;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
@@ -11,8 +12,10 @@ import io.getstream.chat.java.models.Channel;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -23,7 +26,15 @@ public class StreamChatService {
     private static final String SELF_CHAT_TYPE = "messaging";
     private static final String SELF_CHAT_ID_TEMPLATE = "self_%s";
 
-    public String setStreamChatToken(User user) {
+    private static final String DEFAULT_CHANNEL_TYPE = "broadcast";
+    private static final String DEFAULT_USER_ID = "almonium";
+    private static final String DEFAULT_CHANNEL_ID = "almonium";
+    private static final String DEFAULT_CHANNEL_AVATAR_URL =
+            "https://firebasestorage.googleapis.com/v0/b/almonium.firebasestorage.app/o/other%2Flogo.png?alt=media&token=06c7e01f-8f4f-4a8a-9a31-cfc49fc062d5";
+
+    AppProperties appProperties;
+
+    public String createStreamUserAndGenerateToken(User user) {
         try {
             upsert().user(io.getstream.chat.java.models.User.UserRequestObject.builder()
                             .id(user.getId().toString())
@@ -36,6 +47,65 @@ public class StreamChatService {
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     "Error while setting Stream Chat token for user with id: " + user.getId(), e);
+        }
+    }
+
+    public void createDefaultChannel() { // Fetch the channel details
+        try {
+            Channel.getOrCreate(DEFAULT_CHANNEL_TYPE, DEFAULT_CHANNEL_ID)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(DEFAULT_USER_ID)
+                                    .build())
+                            .additionalField("image", DEFAULT_CHANNEL_AVATAR_URL)
+                            .additionalField("name", appProperties.getName())
+                            .build())
+                    .request();
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while creating or retrieving default channel", e);
+        }
+    }
+
+    public void joinDefaultChannels(User user) {
+        try {
+            String defaultChannelId = appProperties.getName().toLowerCase();
+
+            Channel.getOrCreate(DEFAULT_CHANNEL_TYPE, defaultChannelId)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .member(Channel.ChannelMemberRequestObject.builder()
+                                    .user(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                            .id(user.getId().toString())
+                                            .name(user.getUsername())
+                                            .build())
+                                    .build())
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(DEFAULT_USER_ID)
+                                    .build())
+                            .build())
+                    .request();
+
+            log.info("✅ User {} joined the default Almonium channel.", user.getId());
+        } catch (StreamException e) {
+            throw new StreamIntegrationException(
+                    "❌ Error while joining default channels for user with id: " + user.getId(), e);
+        }
+    }
+
+    public void updateUser(User user) {
+        try {
+            io.getstream.chat.java.models.User.UserRequestObject userRequest =
+                    io.getstream.chat.java.models.User.UserRequestObject.builder()
+                            .id(String.valueOf(user.getId())) // User ID to update
+                            .name(user.getUsername()) // User name
+                            .additionalField("email", user.getEmail()) // User email
+                            .additionalField("image", user.getProfile().getAvatarUrl()) // New avatar URL
+                            .build();
+
+            // Upsert the user with the new avatar URL
+            upsert().user(userRequest).request();
+
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while updating the avatar URL for user with id");
         }
     }
 
