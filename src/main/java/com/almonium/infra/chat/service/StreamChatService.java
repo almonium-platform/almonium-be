@@ -4,6 +4,7 @@ import static io.getstream.chat.java.models.User.createToken;
 import static io.getstream.chat.java.models.User.upsert;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
@@ -26,7 +27,10 @@ public class StreamChatService {
     private static final String SELF_CHAT_ID_TEMPLATE = "self_%s";
 
     private static final String DEFAULT_CHANNEL_TYPE = "broadcast";
-    private static final String DEFAULT_CHANNEL_ID = "almonium";
+    private static final String DEFAULT_CHANNEL_AVATAR_URL =
+            "https://firebasestorage.googleapis.com/v0/b/almonium.firebasestorage.app/o/other%2Flogo.png?alt=media&token=06c7e01f-8f4f-4a8a-9a31-cfc49fc062d5";
+
+    AppProperties appProperties;
 
     public String setupNewUser(User user) {
         createStreamUser(user);
@@ -35,13 +39,33 @@ public class StreamChatService {
         return generateStreamToken(user);
     }
 
+    // should be run once, on project migration
+    @SuppressWarnings("unused")
+    public void createDefaultChannel() { // Fetch the channel details
+        try {
+            String defaultChannelId = appProperties.getName().toLowerCase();
+
+            Channel.getOrCreate(DEFAULT_CHANNEL_TYPE, defaultChannelId)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(defaultChannelId)
+                                    .build())
+                            .additionalField("image", DEFAULT_CHANNEL_AVATAR_URL)
+                            .additionalField("name", appProperties.getName())
+                            .build())
+                    .request();
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while creating or retrieving default channel", e);
+        }
+    }
+
     public void joinDefaultChannels(User user) {
         try {
-            Channel.update(DEFAULT_CHANNEL_TYPE, DEFAULT_CHANNEL_ID)
+            Channel.update(DEFAULT_CHANNEL_TYPE, appProperties.getName().toLowerCase())
                     .addMember(String.valueOf(user.getId()))
                     .request();
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while joining default channel", e);
+            throw new StreamIntegrationException("Error while joining default channel: " + e.getMessage(), e);
         }
     }
 
