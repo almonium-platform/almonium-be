@@ -20,15 +20,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StreamChatService {
-    private static final String SELF_CHAT_AVATAR_URL =
-            "https://firebasestorage.googleapis.com/v0/b/almonium.firebasestorage.app/o/other%2Fsaved.png?alt=media&token=cfd7709d-b73a-4441-b106-334878059a34";
     private static final String SELF_CHAT_NAME = "Saved Messages";
     private static final String SELF_CHAT_TYPE = "messaging";
     private static final String SELF_CHAT_ID_TEMPLATE = "self_%s";
 
-    private static final String DEFAULT_CHANNEL_TYPE = "broadcast";
-    private static final String DEFAULT_CHANNEL_AVATAR_URL =
-            "https://firebasestorage.googleapis.com/v0/b/almonium.firebasestorage.app/o/other%2Flogo.png?alt=media&token=06c7e01f-8f4f-4a8a-9a31-cfc49fc062d5";
+    private static final String READ_ONLY_CHAT_TYPE = "broadcast";
+
+    private static final String SHORT_LINK_DOMAIN = "go.almonium.com";
+    private static final String SHORT_LINK_TEMPLATE = "http://%s/%s";
 
     AppProperties appProperties;
 
@@ -39,29 +38,9 @@ public class StreamChatService {
         return generateStreamToken(user);
     }
 
-    // should be run once, on project migration
-    @SuppressWarnings("unused")
-    public void createDefaultChannel() { // Fetch the channel details
-        try {
-            String defaultChannelId = appProperties.getName().toLowerCase();
-
-            Channel.getOrCreate(DEFAULT_CHANNEL_TYPE, defaultChannelId)
-                    .data(Channel.ChannelRequestObject.builder()
-                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
-                                    .id(defaultChannelId)
-                                    .build())
-                            .additionalField("image", DEFAULT_CHANNEL_AVATAR_URL)
-                            .additionalField("name", appProperties.getName())
-                            .build())
-                    .request();
-        } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while creating or retrieving default channel", e);
-        }
-    }
-
     public void joinDefaultChannels(User user) {
         try {
-            Channel.update(DEFAULT_CHANNEL_TYPE, appProperties.getName().toLowerCase())
+            Channel.update(READ_ONLY_CHAT_TYPE, getDefaultChannelId())
                     .addMember(String.valueOf(user.getId()))
                     .request();
         } catch (StreamException e) {
@@ -79,7 +58,8 @@ public class StreamChatService {
                     .request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
-                    "Error while setting Stream Chat token for user with id: " + user.getId(), e);
+                    String.format("Error while creating user with id: %s, message: %s", user.getId(), e.getMessage()),
+                    e);
         }
     }
 
@@ -101,7 +81,8 @@ public class StreamChatService {
             upsert().user(userRequest).request();
 
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while updating the avatar URL for user with id");
+            throw new StreamIntegrationException(
+                    String.format("Error while updating user with id: %s, %s", user.getId(), e.getMessage()), e);
         }
     }
 
@@ -121,12 +102,40 @@ public class StreamChatService {
                                     .build())
                             .members(Collections.singletonList(selfMember))
                             .additionalField("name", SELF_CHAT_NAME)
-                            .additionalField("image", SELF_CHAT_AVATAR_URL)
+                            .additionalField("image", getShortLink("saved-messages"))
                             .build())
                     .request();
 
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while creating self-chat for user with id: " + user.getId(), e);
+            throw new StreamIntegrationException(
+                    String.format("Error while creating self chat for user: %s, %s", user.getId(), e.getMessage()), e);
+        }
+    }
+
+    private String getShortLink(String key) {
+        return String.format(SHORT_LINK_TEMPLATE, SHORT_LINK_DOMAIN, key);
+    }
+
+    private String getDefaultChannelId() {
+        return appProperties.getName().toLowerCase();
+    }
+    // should be run once, on project migration
+    @SuppressWarnings("unused")
+    private void createDefaultChannel() { // Fetch the channel details
+        try {
+            String defaultChannelId = getDefaultChannelId();
+
+            Channel.getOrCreate(READ_ONLY_CHAT_TYPE, defaultChannelId)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(defaultChannelId)
+                                    .build())
+                            .additionalField("image", getShortLink("logo"))
+                            .additionalField("name", appProperties.getName())
+                            .build())
+                    .request();
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while creating default channel: " + e.getMessage(), e);
         }
     }
 }
