@@ -24,8 +24,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StreamChatService {
     private static final String SELF_CHAT_NAME = "Saved Messages";
-    private static final String SELF_CHAT_TYPE = "messaging";
-    private static final String SELF_CHAT_ID_TEMPLATE = "self_%s";
+    private static final String SELF_CHAT_TYPE = "self";
 
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
@@ -128,13 +127,11 @@ public class StreamChatService {
 
     public void createSelfChat(User user) {
         try {
-            String selfChatId = String.format(SELF_CHAT_ID_TEMPLATE, user.getId());
-
             Channel.ChannelMemberRequestObject selfMember = Channel.ChannelMemberRequestObject.builder()
                     .userId(user.getId().toString())
                     .build();
 
-            Channel.getOrCreate(SELF_CHAT_TYPE, selfChatId)
+            Channel.getOrCreate(SELF_CHAT_TYPE, user.getId().toString())
                     .data(Channel.ChannelRequestObject.builder()
                             .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
                                     .id(user.getId().toString())
