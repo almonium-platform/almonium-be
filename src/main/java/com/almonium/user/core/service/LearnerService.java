@@ -96,6 +96,11 @@ public class LearnerService {
                                 throw new BadUserRequestActionException("You must have at least one target language.");
                             }
 
+                            long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
+                            if (activeLearners == 1) {
+                                throw new BadUserRequestActionException("At least one target language must be active.");
+                            }
+
                             cardService.deleteByLanguage(code, learner);
                             learnerRepository.delete(learner);
                             streamChatService.leaveLanguageSpecificChannelIfAvailable(user, code);
