@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.CardService;
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.request.TargetLanguageWithProficiency;
@@ -54,6 +55,9 @@ class LearnerServiceTest {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    StreamChatService streamChatService;
 
     @InjectMocks
     LearnerService learnerService;

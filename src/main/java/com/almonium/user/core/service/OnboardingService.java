@@ -2,7 +2,9 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.user.core.dto.request.LanguageSetupRequest;
+import com.almonium.user.core.dto.request.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.response.LearnerDto;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OnboardingService {
     LearnerService learnerService;
     UserService userService;
+    StreamChatService streamChatService;
 
     UserRepository userRepository;
 
@@ -39,6 +42,11 @@ public class OnboardingService {
         processStep(user, SetupStep.LANGUAGES, request, data -> {
             learnerService.createLearners(data.targetLangsData(), user, true);
             user.setFluentLangs(new HashSet<>(data.fluentLangs()));
+            streamChatService.joinLanguageSpecificChannelsIfAvailable(
+                    user,
+                    data.targetLangsData().stream()
+                            .map(TargetLanguageWithProficiency::language)
+                            .toList());
         });
 
         return learnerMapper.toDto(

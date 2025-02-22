@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.CardService;
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.request.TargetLanguageWithProficiency;
@@ -32,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LearnerService {
     LearnerRepository learnerRepository;
     PlanValidationService planValidationService;
+    StreamChatService streamChatService;
     CardService cardService;
     UserRepository userRepository;
     LearnerMapper learnerMapper;
@@ -67,6 +69,7 @@ public class LearnerService {
         long userId = user.getId();
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
         planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
+
         data.forEach(targetLanguageWithProficiency -> {
             Language code = targetLanguageWithProficiency.language();
             learnerRepository.findByUserIdAndLanguage(userId, code).ifPresent(existingLearner -> {
@@ -74,6 +77,7 @@ public class LearnerService {
                 throw new BadUserRequestActionException("You already have this target language.");
             });
 
+            streamChatService.joinLanguageSpecificChannelIfAvailable(user, code);
             learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
             log.info("User {} added target language {}.", userId, code);
         });
@@ -94,6 +98,7 @@ public class LearnerService {
 
                             cardService.deleteByLanguage(code, learner);
                             learnerRepository.delete(learner);
+                            streamChatService.leaveLanguageSpecificChannelIfAvailable(user, code);
                         },
                         () -> {
                             log.warn("Language {} was not found in user {}'s target languages.", code, userId);
