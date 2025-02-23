@@ -48,6 +48,8 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-interest-table.yaml
   - include:
       file: db/changelog/changes/creation/create-user-interest-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-fcm-token-table.yaml
   # Insertion
   - include:
       file: db/changelog/changes/insertion/populate-translators.yaml
