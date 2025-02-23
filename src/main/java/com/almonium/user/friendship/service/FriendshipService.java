@@ -8,6 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
+import com.almonium.infra.notification.service.FCMService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
@@ -39,6 +40,7 @@ public class FriendshipService {
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
     UserService userService;
+    FCMService fcmService;
     FriendshipEmailComposerService friendshipEmailComposerService;
     FriendshipRepository friendshipRepository;
 
@@ -81,6 +83,9 @@ public class FriendshipService {
         var emailContext = new EmailContext<>(
                 FriendshipEvent.INITIATED,
                 Map.of(FriendshipEmailComposerService.INITIATOR_USERNAME_PLACEHOLDER, user.getUsername()));
+
+        fcmService.sendNotificationToUser(
+                recipient.getId(), "Friendship request", user.getUsername() + " wants to be friends with you!");
 
         friendshipEmailComposerService.sendEmail(recipient.getUsername(), recipient.getEmail(), emailContext);
 

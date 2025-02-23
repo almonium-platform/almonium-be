@@ -14,8 +14,10 @@ import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -36,17 +38,23 @@ public class FCMService {
                         () -> fcmTokenRepository.save(new FCMToken(user, request.token(), request.deviceType())));
     }
 
-    public void sendNotificationToUser(Long userId, String title, String message) throws FirebaseMessagingException {
-        List<FCMToken> tokens = fcmTokenRepository.findByUserId(userId);
-        if (tokens.isEmpty()) return;
+    public void sendNotificationToUser(Long userId, String title, String message) {
+        try {
+            List<FCMToken> tokens = fcmTokenRepository.findByUserId(userId);
+            if (tokens.isEmpty()) return;
 
-        List<String> activeTokens = tokens.stream().map(FCMToken::getToken).toList();
-        MulticastMessage multicastMessage = MulticastMessage.builder()
-                .setNotification(
-                        Notification.builder().setTitle(title).setBody(message).build())
-                .addAllTokens(activeTokens)
-                .build();
+            List<String> activeTokens = tokens.stream().map(FCMToken::getToken).toList();
+            MulticastMessage multicastMessage = MulticastMessage.builder()
+                    .setNotification(Notification.builder()
+                            .setTitle(title)
+                            .setBody(message)
+                            .build())
+                    .addAllTokens(activeTokens)
+                    .build();
 
-        FirebaseMessaging.getInstance().sendEachForMulticast(multicastMessage);
+            FirebaseMessaging.getInstance().sendEachForMulticast(multicastMessage);
+        } catch (FirebaseMessagingException e) {
+            log.error("Error sending notification to user with id: {}. Error: {}", userId, e.getMessage());
+        }
     }
 }
