@@ -6,6 +6,10 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.infra.email.dto.EmailDto;
+import com.almonium.infra.email.model.dto.EmailContext;
+import com.almonium.infra.email.service.EmailService;
+import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
@@ -14,11 +18,13 @@ import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
+import com.almonium.user.friendship.model.enums.FriendshipEvent;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,6 +41,8 @@ public class FriendshipService {
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
     UserService userService;
+    EmailService emailService;
+    FriendshipEmailComposerService friendshipEmailComposerService;
     FriendshipRepository friendshipRepository;
 
     public List<PublicUserProfile> findUsersByUsername(long id, String username) {
@@ -72,6 +80,14 @@ public class FriendshipService {
         if (recipient.getProfile().isHidden()) {
             throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
+
+        var emailContext = new EmailContext<>(
+                FriendshipEvent.INITIATED,
+                Map.of(FriendshipEmailComposerService.INITIATOR_USERNAME_PLACEHOLDER, user.getUsername()));
+        EmailDto emailDto = friendshipEmailComposerService.composeEmail(
+                recipient.getUsername(), recipient.getEmail(), emailContext);
+        emailService.sendEmail(emailDto);
+
         return friendshipRepository.save(new Friendship(user, recipient));
     }
 

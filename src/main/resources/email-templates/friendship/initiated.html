@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hey <strong><span th:text="${username}"></span></strong>,</p>
+
+        <p>You’ve just received a friendship request from <strong><span th:text="${initiatorUsername}"></span></strong>!
+            This could be the beginning of something awesome – because learning is way more fun with friends! 🎉</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="button">
+                View Request
+            </a>
+        </p>
+
+        <p>If the button above doesn’t work, just copy and paste this link into your browser:</p>
+        <p>
+            <a th:href="${url}">
+                <span th:text="${url}"></span>
+            </a>
+        </p>
+
+        <br>
+
+        <p>Not sure who they are? No worries! You can ignore or reject the request.
+            Prefer to stay private? Just hide your profile in settings.</p>
+
+        <p>Enjoy your learning journey! 🚀</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

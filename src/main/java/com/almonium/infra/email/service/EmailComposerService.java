@@ -24,11 +24,11 @@ public abstract class EmailComposerService<T> {
     SpringTemplateEngine templateEngine;
     AppProperties appProperties;
 
-    public EmailDto composeEmail(String username, String recipientEmail, EmailContext<T> emailContext) {
+    public EmailDto composeEmail(String recipientUsername, String recipientEmail, EmailContext<T> emailContext) {
         Context context = new Context();
         T templateType = emailContext.templateType();
         getCustomPlaceholders(emailContext).forEach(context::setVariable);
-        buildUniversalPlaceholders(username).forEach(context::setVariable);
+        buildUniversalPlaceholders(recipientUsername).forEach(context::setVariable);
 
         EmailSubjectTemplate dto = getTemplateTypeConfigMap().get(templateType);
         if (dto == null) {
