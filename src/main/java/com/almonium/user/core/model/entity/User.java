@@ -125,6 +125,5 @@ public class User {
             profile =
                     Profile.builder().user(this).lastLogin(LocalDateTime.now()).build();
         }
-        if (streamChatToken == null) {}
     }
 }
