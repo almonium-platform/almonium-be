@@ -79,6 +79,13 @@ public class VerificationTokenManagementService {
     }
 
     public VerificationToken validateAndDeleteTokenOrThrow(String token, TokenType expectedType) {
+        VerificationToken verificationToken = verifyOrThrow(token, expectedType);
+
+        verificationTokenRepository.delete(verificationToken);
+        return verificationToken;
+    }
+
+    public VerificationToken verifyOrThrow(String token, TokenType expectedType) {
         VerificationToken verificationToken = verificationTokenRepository
                 .findByToken(token)
                 .orElseThrow(() -> new InvalidVerificationTokenException("Token is invalid or has been used"));
@@ -91,12 +98,19 @@ public class VerificationTokenManagementService {
             throw new InvalidVerificationTokenException("Invalid token type: should be " + expectedType + " but got "
                     + verificationToken.getTokenType() + " instead");
         }
-
-        verificationTokenRepository.delete(verificationToken);
         return verificationToken;
     }
 
     public void deleteToken(VerificationToken verificationToken) {
         verificationTokenRepository.delete(verificationToken);
+    }
+
+    public boolean isTokenValid(String token, TokenType expectedType) {
+        try {
+            verifyOrThrow(token, expectedType);
+            return true;
+        } catch (InvalidVerificationTokenException e) {
+            return false;
+        }
     }
 }

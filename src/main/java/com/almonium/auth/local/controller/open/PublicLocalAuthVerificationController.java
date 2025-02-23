@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,5 +48,10 @@ public class PublicLocalAuthVerificationController {
         publicLocalAuthVerificationService.resetPassword(
                 passwordResetConfirmRequest.token(), passwordResetConfirmRequest.newPassword());
         return ResponseEntity.ok(new ApiResponse(true, "Password reset successfully"));
+    }
+
+    @GetMapping("/passwords/tokens")
+    public ResponseEntity<Boolean> preemptivelyCheckResetPasswordToken(@NotBlank @RequestParam String token) {
+        return ResponseEntity.ok(publicLocalAuthVerificationService.validateResetPasswordToken(token));
     }
 }

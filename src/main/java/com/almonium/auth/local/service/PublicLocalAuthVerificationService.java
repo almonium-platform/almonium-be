@@ -12,6 +12,7 @@ import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -79,5 +80,9 @@ public class PublicLocalAuthVerificationService {
         principal.setPassword(passwordEncoderService.encodePassword(newPassword));
         principal.setLastPasswordResetDate(LocalDate.now());
         localPrincipalRepository.save(principal);
+    }
+
+    public boolean validateResetPasswordToken(@NotBlank String token) {
+        return tokenService.isTokenValid(token, TokenType.PASSWORD_RESET);
     }
 }
