@@ -23,8 +23,14 @@ public abstract class EmailComposerService<T> {
     private static final String TEMPLATE_PATH_FORMAT = "%s/%s.html";
     SpringTemplateEngine templateEngine;
     AppProperties appProperties;
+    EmailService emailService;
 
-    public EmailDto composeEmail(String recipientUsername, String recipientEmail, EmailContext<T> emailContext) {
+    public void sendEmail(String recipientUsername, String recipientEmail, EmailContext<T> emailContext) {
+        EmailDto emailDto = composeEmail(recipientUsername, recipientEmail, emailContext);
+        emailService.sendEmail(emailDto);
+    }
+
+    private EmailDto composeEmail(String recipientUsername, String recipientEmail, EmailContext<T> emailContext) {
         Context context = new Context();
         T templateType = emailContext.templateType();
         getCustomPlaceholders(emailContext).forEach(context::setVariable);

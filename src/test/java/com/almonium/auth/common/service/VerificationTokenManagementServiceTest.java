@@ -17,14 +17,12 @@ import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.ApacheAlphanumericGeneratorImpl;
 import com.almonium.infra.email.dto.EmailDto;
-import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.util.TestDataGenerator;
 import com.almonium.util.config.AppConfigPropertiesTest;
 import java.time.Instant;
-import java.util.Map;
 import java.util.Optional;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +58,6 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
     @BeforeEach
     void setUp() {
         verificationTokenManagementService = new VerificationTokenManagementService(
-                emailService,
                 emailComposerService,
                 userService,
                 tokenGenerator,
@@ -74,15 +71,10 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
     void givenLocalPrincipal_whenCreateAndSendVerificationToken_thenSuccess() {
         // Arrange
         LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
-        String username = localPrincipal.getUser().getUsername();
         String token = "1234567890abcd1234567890";
         EmailDto emailDto = TestDataGenerator.createEmailDto();
 
         when(tokenGenerator.generateOTP(anyInt())).thenReturn(token);
-        var emailContext = new EmailContext<>(
-                TokenType.EMAIL_VERIFICATION, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
-        when(emailComposerService.composeEmail(username, localPrincipal.getEmail(), emailContext))
-                .thenReturn(emailDto);
 
         // Act
         verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);

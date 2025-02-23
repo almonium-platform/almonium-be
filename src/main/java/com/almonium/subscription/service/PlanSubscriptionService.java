@@ -2,9 +2,7 @@ package com.almonium.subscription.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
@@ -34,7 +32,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanSubscriptionService {
-    EmailService emailService;
     SubscriptionEmailComposerService emailComposerService;
     StripeApiService stripeApiService;
     PlanSubscriptionRepository planSubRepository;
@@ -320,9 +317,9 @@ public class PlanSubscriptionService {
                 Map.of(
                         SubscriptionEmailComposerService.PLAN_NAME,
                         planSubscription.getPlan().getName()));
-        EmailDto emailDto = emailComposerService.composeEmail(user.getUsername(), user.getEmail(), emailContext);
+
         try {
-            emailService.sendEmail(emailDto);
+            emailComposerService.sendEmail(user.getUsername(), user.getEmail(), emailContext);
         } catch (Exception e) {
             log.error("Failed to send email for event {}", planSubEvent, e);
         }

@@ -18,8 +18,9 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
     private static final String SUBFOLDER = "friendship";
 
     // RequiredArgsConstructor not possible due to inheritance
-    public FriendshipEmailComposerService(SpringTemplateEngine templateEngine, AppProperties appProperties) {
-        super(templateEngine, appProperties);
+    public FriendshipEmailComposerService(
+            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
+        super(templateEngine, appProperties, emailService);
     }
 
     @Override

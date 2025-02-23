@@ -6,9 +6,7 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
@@ -41,7 +39,6 @@ public class FriendshipService {
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
     UserService userService;
-    EmailService emailService;
     FriendshipEmailComposerService friendshipEmailComposerService;
     FriendshipRepository friendshipRepository;
 
@@ -84,9 +81,8 @@ public class FriendshipService {
         var emailContext = new EmailContext<>(
                 FriendshipEvent.INITIATED,
                 Map.of(FriendshipEmailComposerService.INITIATOR_USERNAME_PLACEHOLDER, user.getUsername()));
-        EmailDto emailDto = friendshipEmailComposerService.composeEmail(
-                recipient.getUsername(), recipient.getEmail(), emailContext);
-        emailService.sendEmail(emailDto);
+
+        friendshipEmailComposerService.sendEmail(recipient.getUsername(), recipient.getEmail(), emailContext);
 
         return friendshipRepository.save(new Friendship(user, recipient));
     }

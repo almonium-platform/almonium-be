@@ -10,10 +10,8 @@ import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.config.properties.AppProperties;
-import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
-import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import java.time.Instant;
@@ -31,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementService {
-    EmailService emailService;
     AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     TokenGenerator tokenGenerator;
@@ -74,10 +71,10 @@ public class VerificationTokenManagementService {
                 tokenType,
                 appProperties.getAuth().getVerificationToken().getLifetime());
         verificationTokenRepository.save(verificationToken);
+
         var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
         String username = localPrincipal.getUser().getUsername();
-        EmailDto emailDto = emailComposerService.composeEmail(username, localPrincipal.getEmail(), emailContext);
-        emailService.sendEmail(emailDto);
+        emailComposerService.sendEmail(username, localPrincipal.getEmail(), emailContext);
         log.info("Verification token sent to {}", localPrincipal.getEmail());
     }
 

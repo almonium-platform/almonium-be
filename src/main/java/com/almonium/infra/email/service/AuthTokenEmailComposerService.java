@@ -27,8 +27,9 @@ public class AuthTokenEmailComposerService extends EmailComposerService<TokenTyp
     private static final String RESET_PASSWORD_URL = "/reset-password";
     private static final String CHANGE_EMAIL_URL = "/change-email";
 
-    public AuthTokenEmailComposerService(SpringTemplateEngine templateEngine, AppProperties appProperties) {
-        super(templateEngine, appProperties);
+    public AuthTokenEmailComposerService(
+            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
+        super(templateEngine, appProperties, emailService);
     }
 
     @Override

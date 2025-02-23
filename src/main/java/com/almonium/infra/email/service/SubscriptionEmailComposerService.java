@@ -28,8 +28,9 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
     private static final String SUBFOLDER = "subscription";
 
     // RequiredArgsConstructor not possible due to inheritance
-    public SubscriptionEmailComposerService(SpringTemplateEngine templateEngine, AppProperties appProperties) {
-        super(templateEngine, appProperties);
+    public SubscriptionEmailComposerService(
+            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
+        super(templateEngine, appProperties, emailService);
     }
 
     @Override
