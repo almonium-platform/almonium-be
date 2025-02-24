@@ -9,6 +9,7 @@ import com.almonium.user.core.dto.response.LearnerDto;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.service.OnboardingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "User & Profile")
 @RestController
 @RequestMapping("/onboarding")
 @RequiredArgsConstructor

@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.user.core.dto.request.ProfileHiddenRequest;
 import com.almonium.user.core.service.ProfileService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "User & Profile", description = "User profile management")
 @RestController
 @RequestMapping("/profile")
 @RequiredArgsConstructor
