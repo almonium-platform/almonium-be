@@ -8,6 +8,9 @@
 [Frontend project](https://github.com/okuzan/almonium-fe)
 
 [Chrome extension](https://github.com/okuzan/chrome-extension)
+
+[API Reference (Swagger UI)](https://api.almonium.com/api/v1/swagger-ui/index.html)
+
 # Friendships
 
 ## Scenarios
