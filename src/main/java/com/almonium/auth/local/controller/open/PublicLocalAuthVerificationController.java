@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.local.dto.request.PasswordResetConfirmRequest;
 import com.almonium.auth.local.service.PublicLocalAuthVerificationService;
 import com.almonium.util.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller for authentication actions supported by verification tokens.
  */
+@Tag(name = "Auth")
 @RestController
 @RequestMapping("/public/auth/verification")
 @RequiredArgsConstructor

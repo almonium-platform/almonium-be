@@ -11,6 +11,7 @@ import com.almonium.auth.local.dto.request.PasswordRequestDto;
 import com.almonium.auth.token.service.AuthTokenService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Auth", description = "Authentication, security and user account management")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
