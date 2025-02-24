@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "App Info")
+@Tag(name = "App Info", description = "Static information about the application")
 @RestController
 @RequestMapping("/public/info")
 @RequiredArgsConstructor
