@@ -19,4 +19,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy New Version
-        run: ssh -o StrictHostKeyChecking=no kuzanoleg@34.135.218.215 "DEPLOY_VERSION=$(date +%Y%m%d%H%M) bash ~/update_almonium.sh"
+        run: ssh -o StrictHostKeyChecking=no kuzanoleg@34.135.218.215 "bash ~/update_almonium.sh"
