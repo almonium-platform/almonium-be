@@ -6,14 +6,16 @@ git reset --hard
 git clean -fd
 git pull
 
-# Build new version
+# Generate a unique deploy version (timestamp-based)
+export DEPLOY_VERSION=$(date +%Y%m%d%H%M)
+echo "Deploying version: $DEPLOY_VERSION"
+
+# Build and start with the new version
 docker-compose build --no-cache
+docker-compose up -d --no-deps --build
 
-# Start new version before stopping the old one
-docker-compose up -d --no-deps
-
-# Wait a few seconds to ensure the new version is running
-sleep 5
+# Wait for the new version to start
+sleep 10
 
 # Remove old container
-docker system prune -f
+docker image prune -f

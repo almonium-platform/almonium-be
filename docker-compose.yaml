@@ -1,6 +1,6 @@
 services:
   app:
-    image: almonium
+    image: almonium:${DEPLOY_VERSION}
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,3 +15,7 @@ services:
       - ./service-account.json:/app/service-account.json
     env_file:
       - ./.env
+    deploy:
+      update_config:
+        parallelism: 1
+        order: start-first
