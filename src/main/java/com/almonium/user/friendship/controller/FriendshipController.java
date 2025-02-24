@@ -11,6 +11,7 @@ import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import com.almonium.user.friendship.service.FriendshipService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "User & Profile")
 @RestController
 @RequestMapping("/friendships")
 @RequiredArgsConstructor

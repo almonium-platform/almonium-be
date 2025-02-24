@@ -7,6 +7,7 @@ import com.almonium.infra.notification.dto.FCMTokenRequest;
 import com.almonium.infra.notification.service.FCMService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Infra")
 @RestController
 @RequestMapping("/fcm")
 @RequiredArgsConstructor

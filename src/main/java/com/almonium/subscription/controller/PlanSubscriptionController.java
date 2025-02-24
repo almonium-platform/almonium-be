@@ -7,6 +7,7 @@ import com.almonium.subscription.dto.response.SessionResponseDto;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "User & Profile")
 @RestController
 @RequestMapping("/subscriptions")
 @RequiredArgsConstructor

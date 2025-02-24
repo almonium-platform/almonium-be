@@ -2,6 +2,7 @@ package com.almonium.util.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "App Info")
 @RestController
 @RequestMapping("/public/util")
 @RequiredArgsConstructor
