@@ -29,7 +29,7 @@ public class StreamChatService {
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
     private static final String SHORT_LINK_DOMAIN = "go.almonium.com";
-    private static final String SHORT_LINK_TEMPLATE = "http://%s/%s";
+    private static final String SHORT_LINK_TEMPLATE = "https://%s/%s";
 
     AppProperties appProperties;
     List<Language> supportedLanguages = List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
