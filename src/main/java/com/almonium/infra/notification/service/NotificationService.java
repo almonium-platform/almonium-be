@@ -4,12 +4,15 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
+import com.almonium.infra.notification.dto.response.NotificationDto;
+import com.almonium.infra.notification.mapper.NotificationMapper;
 import com.almonium.infra.notification.model.entity.Notification;
 import com.almonium.infra.notification.model.enums.NotificationType;
 import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipEvent;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,6 +30,12 @@ public class NotificationService {
     NotificationRepository notificationRepository;
     FriendshipEmailComposerService friendshipEmailComposerService;
     FCMService fcmService;
+
+    NotificationMapper notificationMapper;
+
+    public List<NotificationDto> getNotificationsForUser(User user) {
+        return notificationMapper.toDto(notificationRepository.findByUserOrderByCreatedAtDesc(user));
+    }
 
     public void notifyOfFriendshipAcceptance(Friendship friendship) {
         String title = "Friendship request accepted";

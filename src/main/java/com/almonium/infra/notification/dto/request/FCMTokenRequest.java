@@ -1,4 +1,4 @@
-package com.almonium.infra.notification.dto;
+package com.almonium.infra.notification.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

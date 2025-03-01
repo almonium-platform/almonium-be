@@ -3,7 +3,7 @@ package com.almonium.infra.notification.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.infra.notification.dto.FCMTokenRequest;
+import com.almonium.infra.notification.dto.request.FCMTokenRequest;
 import com.almonium.infra.notification.service.FCMService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
