@@ -1,6 +1,6 @@
 package com.almonium.infra.notification.repository;
 
-import com.almonium.infra.notification.entity.FCMToken;
+import com.almonium.infra.notification.model.entity.FCMToken;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

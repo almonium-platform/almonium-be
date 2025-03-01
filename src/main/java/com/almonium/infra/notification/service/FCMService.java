@@ -3,7 +3,7 @@ package com.almonium.infra.notification.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.dto.FCMTokenRequest;
-import com.almonium.infra.notification.entity.FCMToken;
+import com.almonium.infra.notification.model.entity.FCMToken;
 import com.almonium.infra.notification.repository.FCMTokenRepository;
 import com.almonium.user.core.model.entity.User;
 import com.google.firebase.messaging.FirebaseMessaging;

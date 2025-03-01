@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<header th:replace="~{_fragments/header}"></header>
+
+<div class="email-container">
+    <div class="email-content">
+        <p>Hey <strong><span th:text="${username}"></span></strong>,</p>
+
+        <p>Great news! <strong><span th:text="${counterpartUsername}"></span></strong> just accepted your friendship
+            request! 🎉</p>
+
+        <p>Now you can start learning together, exchange ideas, and motivate each other along the way. Because
+            everything is better with a friend! 🚀</p>
+
+        <p class="button-p">
+            <a th:href="${url}" class="button">
+                View My Friends
+            </a>
+        </p>
+
+        <p>Cheers,
+            <br>The Almonium Team</p>
+    </div>
+</div>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.almonium.infra.notification.entity;
+package com.almonium.infra.notification.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 

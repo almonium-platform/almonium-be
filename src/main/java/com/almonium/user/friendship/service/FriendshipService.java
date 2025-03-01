@@ -6,9 +6,7 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.FriendshipEmailComposerService;
-import com.almonium.infra.notification.service.FCMService;
+import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
@@ -17,13 +15,11 @@ import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
-import com.almonium.user.friendship.model.enums.FriendshipEvent;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,8 +36,7 @@ public class FriendshipService {
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
     UserService userService;
-    FCMService fcmService;
-    FriendshipEmailComposerService friendshipEmailComposerService;
+    NotificationService notificationService;
     FriendshipRepository friendshipRepository;
 
     public List<PublicUserProfile> findUsersByUsername(long id, String username) {
@@ -75,21 +70,17 @@ public class FriendshipService {
         if (friendshipOptional.isPresent()) {
             throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
+
         User recipient = userService.getById(dto.recipientId());
         if (recipient.getProfile().isHidden()) {
             throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
 
-        var emailContext = new EmailContext<>(
-                FriendshipEvent.INITIATED,
-                Map.of(FriendshipEmailComposerService.INITIATOR_USERNAME_PLACEHOLDER, user.getUsername()));
+        Friendship friendship = friendshipRepository.save(new Friendship(user, recipient));
 
-        fcmService.sendNotificationToUser(
-                recipient.getId(), "Friendship request", user.getUsername() + " wants to be friends with you!");
+        notificationService.notifyFriendshipRequestRecipient(user, recipient, friendship);
 
-        friendshipEmailComposerService.sendEmail(recipient.getUsername(), recipient.getEmail(), emailContext);
-
-        return friendshipRepository.save(new Friendship(user, recipient));
+        return friendship;
     }
 
     @Transactional
@@ -108,11 +99,14 @@ public class FriendshipService {
         };
     }
 
-    private Friendship befriend(User user, Friendship friendship) {
+    private Friendship befriend(User currentUser, Friendship friendship) {
         validateFriendshipStatus(friendship, PENDING);
-        validateCorrectRole(user, friendship, false);
+        validateCorrectRole(currentUser, friendship, false);
         friendship.setStatus(FRIENDS);
-        return friendshipRepository.save(friendship);
+        friendshipRepository.save(friendship);
+
+        notificationService.notifyOfFriendshipAcceptance(friendship);
+        return friendship;
     }
 
     private Friendship cancelOwnRequest(User user, Friendship friendship) {
