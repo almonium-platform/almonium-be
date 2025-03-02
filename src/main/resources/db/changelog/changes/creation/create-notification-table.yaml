@@ -11,10 +11,14 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: user_id
                   type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:
@@ -29,27 +33,23 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: type
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
-              - column:
                   name: message
                   type: text
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: picture_url
                   type: varchar(255)
               - column:
-                  name: link
-                  type: varchar(255)
-              - column:
                   name: reference_id
                   type: bigint
+                  constraints:
+                    nullable: false
               - column:
                   name: read_at
                   type: timestamp
+                  constraints:
+                    nullable: true
         - addForeignKeyConstraint:
             baseTableName: notification
             baseColumnNames: user_id
