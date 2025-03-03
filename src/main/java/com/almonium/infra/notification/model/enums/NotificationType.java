@@ -1,5 +1,6 @@
 package com.almonium.infra.notification.model.enums;
 
 public enum NotificationType {
-    FRIEND_REQUEST,
+    FRIENDSHIP_REQUESTED,
+    FRIENDSHIP_ACCEPTED,
 }

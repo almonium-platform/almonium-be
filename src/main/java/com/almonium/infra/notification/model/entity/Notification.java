@@ -51,8 +51,6 @@ public class Notification {
 
     String pictureUrl;
 
-    String link;
-
     Long referenceId; // this effectively constraints all related entities to have Long id
 
     Instant readAt;

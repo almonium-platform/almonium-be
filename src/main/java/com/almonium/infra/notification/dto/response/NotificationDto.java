@@ -22,7 +22,6 @@ public class NotificationDto {
     NotificationType type;
     String message;
     String pictureUrl;
-    String link;
     Long referenceId;
     Instant createdAt;
     Instant readAt;

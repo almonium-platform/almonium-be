@@ -14,19 +14,18 @@ import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipEvent;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class NotificationService {
-    private static final String SOCIAL_REQUESTS_RECEIVED = "/social?requests=received";
-    private static final String SOCIAL_FRIENDS = "/social?tab=friends";
-
     NotificationRepository notificationRepository;
     FriendshipEmailComposerService friendshipEmailComposerService;
     FCMService fcmService;
@@ -34,7 +33,22 @@ public class NotificationService {
     NotificationMapper notificationMapper;
 
     public List<NotificationDto> getNotificationsForUser(User user) {
-        return notificationMapper.toDto(notificationRepository.findByUserOrderByCreatedAtDesc(user));
+        return notificationMapper.toDto(notificationRepository.findByUserOrderByReadAtDescCreatedAtDesc(user));
+    }
+
+    @Transactional
+    public void readAllNotifications(User user) {
+        notificationRepository.readAllUnreadNotifications(user);
+    }
+
+    @Transactional
+    public void readNotification(User user, UUID id) {
+        notificationRepository.readNotification(user, id);
+    }
+
+    @Transactional
+    public void unreadNotification(User user, UUID id) {
+        notificationRepository.unreadNotification(user, id);
     }
 
     public void notifyOfFriendshipAcceptance(Friendship friendship) {
@@ -46,8 +60,8 @@ public class NotificationService {
                 .user(friendship.getRequester())
                 .title(title)
                 .message(message)
-                .type(NotificationType.FRIEND_REQUEST)
-                .link(SOCIAL_FRIENDS)
+                .type(NotificationType.FRIENDSHIP_ACCEPTED)
+                .pictureUrl(friendship.getRequestee().getProfile().getAvatarUrl())
                 .referenceId(friendship.getId())
                 .build();
 
@@ -73,8 +87,8 @@ public class NotificationService {
                 .user(recipient)
                 .title(title)
                 .message(message)
-                .type(NotificationType.FRIEND_REQUEST)
-                .link(SOCIAL_REQUESTS_RECEIVED)
+                .type(NotificationType.FRIENDSHIP_REQUESTED)
+                .pictureUrl(initiator.getProfile().getAvatarUrl())
                 .referenceId(friendship.getId())
                 .build();
 
