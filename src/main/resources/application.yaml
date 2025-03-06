@@ -19,7 +19,7 @@ spring:
         format_sql: true
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?pgbouncer=true&connection_limit=1
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
