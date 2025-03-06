@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 public class Insider {
 
     @Id
-    Long id;
+    UUID id;
 
     @OneToOne
     @MapsId

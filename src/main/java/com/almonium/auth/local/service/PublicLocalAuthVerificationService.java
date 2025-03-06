@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class PublicLocalAuthVerificationService {
                 "Email changed for local authentication method of user: {}",
                 localPrincipal.getUser().getEmail());
 
-        long userId = localPrincipal.getUser().getId();
+        UUID userId = localPrincipal.getUser().getId();
         User user = userService.getUserWithPrincipals(userId);
         user.setEmail(localPrincipal.getEmail());
         user.setEmailVerified(true);

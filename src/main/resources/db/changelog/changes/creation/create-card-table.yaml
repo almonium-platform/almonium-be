@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: uuid
                   constraints:
                     primaryKey: true
               - column:
@@ -45,7 +44,7 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: owner_id
-                  type: bigint
+                  type: uuid
                   constraints:
                     nullable: false
               - column:

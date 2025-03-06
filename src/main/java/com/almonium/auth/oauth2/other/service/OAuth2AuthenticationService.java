@@ -13,6 +13,7 @@ import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.AvatarService;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class OAuth2AuthenticationService {
     AvatarService avatarService;
 
     @Transactional
-    public OAuth2Principal reauthenticate(OAuth2UserInfo userInfo, long userId) {
+    public OAuth2Principal reauthenticate(OAuth2UserInfo userInfo, UUID userId) {
         log.debug("Starting reauthentication process for email: {}", userInfo.getEmail());
         User user = userRepository
                 .findById(userId)

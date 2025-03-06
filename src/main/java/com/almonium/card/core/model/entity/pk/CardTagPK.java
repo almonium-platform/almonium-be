@@ -2,6 +2,7 @@ package com.almonium.card.core.model.entity.pk;
 
 import jakarta.persistence.Embeddable;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,8 @@ import lombok.Setter;
 @Setter
 @Embeddable
 public class CardTagPK {
-    private Long cardId;
-    private Long tagId;
+    private UUID cardId;
+    private UUID tagId;
 
     @Override
     public boolean equals(Object o) {

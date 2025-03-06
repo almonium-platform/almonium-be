@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -36,22 +37,22 @@ public class FriendshipController {
     FriendshipService friendshipService;
 
     @GetMapping
-    public ResponseEntity<List<RelatedUserProfile>> getMyFriends(@Auth Long id) {
+    public ResponseEntity<List<RelatedUserProfile>> getMyFriends(@Auth UUID id) {
         return ResponseEntity.ok(friendshipService.getFriends(id));
     }
 
     @GetMapping("/blocked")
-    public ResponseEntity<List<RelatedUserProfile>> getBlocked(@Auth Long id) {
+    public ResponseEntity<List<RelatedUserProfile>> getBlocked(@Auth UUID id) {
         return ResponseEntity.ok(friendshipService.getBlocked(id));
     }
 
     @GetMapping("/requests/sent")
-    public ResponseEntity<List<RelatedUserProfile>> getSentRequests(@Auth Long id) {
+    public ResponseEntity<List<RelatedUserProfile>> getSentRequests(@Auth UUID id) {
         return ResponseEntity.ok(friendshipService.getSentRequests(id));
     }
 
     @GetMapping("/requests/received")
-    public ResponseEntity<List<RelatedUserProfile>> getReceivedRequests(@Auth Long id) {
+    public ResponseEntity<List<RelatedUserProfile>> getReceivedRequests(@Auth UUID id) {
         return ResponseEntity.ok(friendshipService.getReceivedRequests(id));
     }
 
@@ -59,7 +60,7 @@ public class FriendshipController {
     public ResponseEntity<List<PublicUserProfile>> searchUsersByUsername(
             @RequestParam @Size(min = AppLimits.MIN_USERNAME_LENGTH, max = AppLimits.MAX_USERNAME_LENGTH)
                     String username,
-            @Auth Long id) {
+            @Auth UUID id) {
         return ResponseEntity.ok(friendshipService.findUsersByUsername(id, username));
     }
 
@@ -68,13 +69,13 @@ public class FriendshipController {
     public ResponseEntity<List<FriendshipToUserProjection>> searchFriends(
             @RequestParam @Size(min = AppLimits.MIN_USERNAME_LENGTH, max = AppLimits.MAX_USERNAME_LENGTH)
                     String username,
-            @Auth Long id) {
+            @Auth UUID id) {
         return ResponseEntity.ok(friendshipService.searchFriends(id, username));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> manageFriendship(
-            @Auth User user, @PathVariable Long id, @Valid @RequestBody FriendshipActionDto dto) {
+            @Auth User user, @PathVariable UUID id, @Valid @RequestBody FriendshipActionDto dto) {
         friendshipService.manageFriendship(user, id, dto.action());
         return ResponseEntity.ok().build();
     }

@@ -24,6 +24,7 @@ import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,7 +63,7 @@ class UserServiceTest {
     void givenUsername_whenChangeUsername_thenUsernameByIdChanged() {
         String username = "username";
         String newUsername = "new_username";
-        Long id = 1L;
+        UUID id = 1L;
         User user = User.builder().id(id).username(username).build();
 
         when(userRepository.existsByUsername(newUsername)).thenReturn(false);
@@ -79,7 +80,7 @@ class UserServiceTest {
     @DisplayName("Should return user optional for existing user")
     @Test
     void givenExistingUser_whenFindUserById_thenReturnUserOptional() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         User user = UserUtility.getUser();
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
@@ -92,7 +93,7 @@ class UserServiceTest {
     @DisplayName("Should return empty optional for non existing user")
     @Test
     void givenNonExistingUser_whenFindUserById_thenThrowEntityNotFoundException() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> userService.getById(userId)).isInstanceOf(EntityNotFoundException.class);
@@ -157,7 +158,7 @@ class UserServiceTest {
     void givenLocalUser_whenBuildUserInfo_thenMapFieldsAndCallNecessaryServices() {
         User user = UserUtility.getUser();
         user.setEmail("john@example.com");
-        user.setId(1L);
+        user.setId(UUID.randomUUID());
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 

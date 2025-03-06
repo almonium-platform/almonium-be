@@ -4,12 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -39,9 +39,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 public class Friendship {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     @ManyToOne
     @JoinColumn(name = "requester_id", referencedColumnName = "id")
@@ -66,12 +67,12 @@ public class Friendship {
         status = FriendshipStatus.PENDING;
     }
 
-    public Optional<Long> getFriendshipDenier() {
+    public Optional<UUID> getFriendshipDenier() {
         if (this.getStatus().equals(FriendshipStatus.FST_BLOCKED_SND)) {
-            return requester.getId().describeConstable();
+            return Optional.ofNullable(requester.getId());
         }
         if (this.getStatus().equals(FriendshipStatus.SND_BLOCKED_FST)) {
-            return requestee.getId().describeConstable();
+            return Optional.ofNullable(requestee.getId());
         }
         return Optional.empty();
     }

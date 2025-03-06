@@ -53,7 +53,7 @@ public class CardService {
     CardMapper cardMapper;
     LearnerFinder learnerFinder;
 
-    public CardDto getCardById(Long id) {
+    public CardDto getCardById(UUID id) {
         return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
     }
 
@@ -103,7 +103,7 @@ public class CardService {
     }
 
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         cardRepository.deleteById(id);
     }
 
@@ -155,12 +155,12 @@ public class CardService {
     private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(id -> translationRepository.deleteById((long) id));
+        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(id -> translationRepository.deleteById(id));
 
-        Arrays.stream(dto.getDeletedExamplesIds()).forEach(id -> exampleRepository.deleteById((long) id));
+        Arrays.stream(dto.getDeletedExamplesIds()).forEach(id -> exampleRepository.deleteById(id));
 
         Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
-            Long id = translationDto.getId();
+            UUID id = translationDto.getId();
             if (id != null) {
                 Translation translation = translationRepository.findById(id).orElseThrow();
                 translation.setTranslation(translationDto.getTranslation());
@@ -174,7 +174,7 @@ public class CardService {
         });
 
         Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
-            Long id = exampleDto.getId();
+            UUID id = exampleDto.getId();
             if (id != null) {
                 Example example = exampleRepository.findById(id).orElseThrow();
                 example.setExample(exampleDto.getExample());

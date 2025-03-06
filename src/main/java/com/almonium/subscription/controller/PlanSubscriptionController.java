@@ -31,7 +31,7 @@ public class PlanSubscriptionController {
     }
 
     @PostMapping("/plans/{id}")
-    public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable long id, @Auth User user) {
+    public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable Long id, @Auth User user) {
         String sessionUrl = planSubscriptionService.initiatePlanSubscribing(user, id);
         return ResponseEntity.ok(new SessionResponseDto(sessionUrl));
     }

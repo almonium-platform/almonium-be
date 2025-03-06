@@ -260,7 +260,7 @@ public class TestDataGenerator {
                 .build();
     }
 
-    public User buildTestUserWithId(long id) {
+    public User buildTestUserWithId(UUID id) {
         User user = new User();
         user.setId(id);
         user.setUsername("john");

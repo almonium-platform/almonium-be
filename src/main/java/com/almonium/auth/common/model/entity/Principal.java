@@ -4,13 +4,12 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -19,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -47,8 +47,8 @@ public abstract class Principal {
     public static final List<SimpleGrantedAuthority> ROLES = Collections.singletonList(DEFAULT_ROLE);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

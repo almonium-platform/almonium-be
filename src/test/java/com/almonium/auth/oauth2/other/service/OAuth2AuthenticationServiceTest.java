@@ -23,6 +23,7 @@ import com.almonium.user.core.service.AvatarService;
 import com.almonium.user.core.service.UserService;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -137,7 +138,7 @@ class OAuth2AuthenticationServiceTest {
         AuthProviderType provider = AuthProviderType.GOOGLE;
         String email = "johnwick@gmail.com";
         String providerId = "101868015518714862283";
-        Long userId = 10L;
+        UUID userId = 10L;
 
         Map<String, Object> attributes = createAttributes(email, providerId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);

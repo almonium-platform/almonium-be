@@ -12,6 +12,7 @@ import com.almonium.user.core.service.LearnerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class LearnerController {
 
     @PatchMapping("/{code}")
     public ResponseEntity<Void> updateLearner(
-            @PathVariable Language code, @Auth Long userId, @RequestBody UpdateLearnerRequest request) {
+            @PathVariable Language code, @Auth UUID userId, @RequestBody UpdateLearnerRequest request) {
         learnerService.updateLearner(userId, code, request);
         return ResponseEntity.noContent().build();
     }

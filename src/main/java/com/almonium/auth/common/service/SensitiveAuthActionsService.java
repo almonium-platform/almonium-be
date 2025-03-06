@@ -20,6 +20,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.AvatarService;
 import com.almonium.user.core.service.UserService;
 import java.time.LocalDate;
+import java.util.UUID;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -43,7 +44,7 @@ public class SensitiveAuthActionsService {
     UserRepository userRepository;
     PrincipalRepository principalRepository;
 
-    public void changePassword(long id, String newPassword) {
+    public void changePassword(UUID id, String newPassword) {
         User user = userService.getById(id);
         LocalPrincipal localPrincipal = userService
                 .getLocalPrincipal(user)
@@ -57,7 +58,7 @@ public class SensitiveAuthActionsService {
         log.info("Password changed for user: {}", user.getEmail());
     }
 
-    public void requestEmailChange(long id, String newEmail) {
+    public void requestEmailChange(UUID id, String newEmail) {
         User user = userService.getById(id);
         LocalPrincipal existingLocalPrincipal = userService
                 .getLocalPrincipal(user)
@@ -70,7 +71,7 @@ public class SensitiveAuthActionsService {
                 newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 
-    public void linkLocal(long userId, String password) {
+    public void linkLocal(UUID userId, String password) {
         User user = userService.getUserWithPrincipals(userId);
 
         if (userService.getLocalPrincipal(user).isPresent()) {
@@ -82,7 +83,7 @@ public class SensitiveAuthActionsService {
         log.info("Local auth for user {} waiting for verification", userId);
     }
 
-    public void linkLocalWithNewEmail(long id, LocalAuthRequest request) {
+    public void linkLocalWithNewEmail(UUID id, LocalAuthRequest request) {
         User user = userService.getById(id);
         if (user.getEmail().equals(request.email())) {
             throw new BadAuthActionRequest("You requested to change to the same email: " + user.getEmail());
@@ -99,7 +100,7 @@ public class SensitiveAuthActionsService {
                 newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 
-    public void unlinkAuthMethod(long userId, AuthProviderType providerType) {
+    public void unlinkAuthMethod(UUID userId, AuthProviderType providerType) {
         User user = userService.getUserWithPrincipals(userId);
         Principal principal = getProviderIfPossibleElseThrow(providerType, user);
         user.getPrincipals().remove(principal);
@@ -113,7 +114,7 @@ public class SensitiveAuthActionsService {
         userRepository.delete(user);
     }
 
-    public void handleEmailChangeRequest(long id, Consumer<VerificationToken> action) {
+    public void handleEmailChangeRequest(UUID id, Consumer<VerificationToken> action) {
         verificationTokenManagementService
                 .findValidEmailVerificationToken(id)
                 .ifPresentOrElse(

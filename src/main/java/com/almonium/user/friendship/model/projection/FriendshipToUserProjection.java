@@ -3,6 +3,7 @@ package com.almonium.user.friendship.model.projection;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +20,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class FriendshipToUserProjection {
-    long userId;
+    UUID userId;
     FriendshipStatus status;
     boolean isRequester;
 
-    public FriendshipToUserProjection(long userId, String status, boolean isRequester) {
+    public FriendshipToUserProjection(UUID userId, String status, boolean isRequester) {
         this.userId = userId;
         this.isRequester = isRequester;
         this.status = FriendshipStatus.valueOf(status);

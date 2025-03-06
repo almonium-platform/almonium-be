@@ -1,3 +1,5 @@
 package com.almonium.user.core.dto.response;
 
-public record AvatarDto(Long id, String url) {}
+import java.util.UUID;
+
+public record AvatarDto(UUID id, String url) {}

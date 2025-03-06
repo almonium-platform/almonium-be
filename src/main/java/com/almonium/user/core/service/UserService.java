@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -75,13 +76,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public User getById(Long id) {
+    public User getById(UUID id) {
         return userRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
-    public void changeUsernameById(String username, long id) {
+    public void changeUsernameById(String username, UUID id) {
         username = username.toLowerCase();
         User user = getById(id);
         if (user.getUsername().equals(username)) {
@@ -122,7 +123,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new BadCredentialsException("Email or password are incorrect"));
     }
 
-    public User getUserWithPrincipals(long id) {
+    public User getUserWithPrincipals(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
 

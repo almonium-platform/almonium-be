@@ -25,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 public class Interest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -3,6 +3,7 @@ package com.almonium.user.friendship.dto.response;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import java.util.UUID;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -12,8 +13,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class FriendshipDto {
-    long id;
-    long requesterId;
-    long requesteeId;
+    UUID id;
+    UUID requesterId;
+    UUID requesteeId;
     FriendshipStatus status;
 }

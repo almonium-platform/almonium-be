@@ -8,6 +8,7 @@ import com.almonium.auth.common.service.EmailVerificationService;
 import com.almonium.auth.local.dto.response.VerificationTokenDto;
 import com.almonium.user.core.model.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class EmailVerificationController {
     EmailVerificationService emailVerificationService;
 
     @GetMapping("/last/token")
-    public ResponseEntity<VerificationTokenDto> getLastEmailVerificationToken(@Auth Long id) {
+    public ResponseEntity<VerificationTokenDto> getLastEmailVerificationToken(@Auth UUID id) {
         return emailVerificationService
                 .getLastEmailVerificationToken(id)
                 .map(ResponseEntity::ok)
@@ -54,14 +55,14 @@ public class EmailVerificationController {
 
     // either email_change or email_verification
     @PostMapping("/resend")
-    public ResponseEntity<Void> resendEmailVerificationRequest(@Auth Long id) {
+    public ResponseEntity<Void> resendEmailVerificationRequest(@Auth UUID id) {
         emailVerificationService.resendEmailVerificationRequest(id);
         return ResponseEntity.ok().build();
     }
 
     // either email_change or email_verification
     @DeleteMapping
-    public ResponseEntity<Void> deleteEmailVerificationRequest(@Auth Long id) {
+    public ResponseEntity<Void> deleteEmailVerificationRequest(@Auth UUID id) {
         emailVerificationService.cancelEmailChangeRequest(id);
         return ResponseEntity.ok().build();
     }

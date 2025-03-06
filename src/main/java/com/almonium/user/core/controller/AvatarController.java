@@ -9,6 +9,7 @@ import com.almonium.user.core.service.AvatarService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -31,36 +32,36 @@ public class AvatarController {
     AvatarService avatarService;
 
     @PostMapping
-    public ResponseEntity<Void> addAndSetNewCustomAvatar(@Auth Long id, @Valid @RequestBody AvatarUrlDto avatarDto) {
+    public ResponseEntity<Void> addAndSetNewCustomAvatar(@Auth UUID id, @Valid @RequestBody AvatarUrlDto avatarDto) {
         avatarService.addAndSetNewCustomAvatar(id, avatarDto.avatarUrl());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<AvatarDto>> getAvatars(@Auth Long id) {
+    public ResponseEntity<List<AvatarDto>> getAvatars(@Auth UUID id) {
         return ResponseEntity.ok(avatarService.getAvatars(id));
     }
 
     @PatchMapping("/{avatarId}")
-    public ResponseEntity<Void> chooseExistingCustomAvatar(@Auth Long id, @PathVariable Long avatarId) {
+    public ResponseEntity<Void> chooseExistingCustomAvatar(@Auth UUID id, @PathVariable UUID avatarId) {
         avatarService.chooseExistingCustomAvatar(id, avatarId);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/default")
-    public ResponseEntity<Void> chooseDefaultAvatar(@Auth Long id, @Valid @RequestBody AvatarUrlDto avatarDto) {
+    public ResponseEntity<Void> chooseDefaultAvatar(@Auth UUID id, @Valid @RequestBody AvatarUrlDto avatarDto) {
         avatarService.chooseDefaultAvatar(id, avatarDto.avatarUrl());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{avatarId}")
-    public ResponseEntity<Void> deleteCustomAvatar(@Auth Long id, @PathVariable Long avatarId) {
+    public ResponseEntity<Void> deleteCustomAvatar(@Auth UUID id, @PathVariable UUID avatarId) {
         avatarService.deleteCustomAvatar(id, avatarId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PatchMapping("/current")
-    public ResponseEntity<Void> resetCurrentAvatar(@Auth Long id) {
+    public ResponseEntity<Void> resetCurrentAvatar(@Auth UUID id) {
         avatarService.resetCurrentAvatar(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -2,12 +2,12 @@ package com.almonium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -29,8 +29,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Avatar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     @ManyToOne
     Profile profile;

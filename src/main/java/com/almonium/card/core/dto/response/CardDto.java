@@ -8,6 +8,7 @@ import com.almonium.card.core.dto.TranslationDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,9 +21,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class CardDto {
-    Long id;
+    UUID id;
     String publicId;
-    Long userId;
+    UUID userId;
 
     @NotBlank
     String entry;

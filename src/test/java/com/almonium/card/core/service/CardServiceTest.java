@@ -136,7 +136,7 @@ class CardServiceTest {
     @Test
     void givenCardId_whenGetCardById_thenReturnCardDto() {
         // Arrange
-        Long id = 1L;
+        UUID id = 1L;
         Card card = Card.builder().id(id).build();
         CardDto expectedDto = CardDto.builder().id(1L).build();
 
@@ -215,13 +215,13 @@ class CardServiceTest {
     @Test
     void givenCardId_whenDeleteById_thenCardIsDeleted() {
         // Arrange
-        Long id = 1L;
+        UUID id = UUID.randomUUID();
 
         // Act
         cardService.deleteById(id);
 
         // Assert
-        verify(cardRepository, times(1)).deleteById(id);
+        verify(cardRepository).deleteById(id);
     }
 
     @DisplayName("Should delete specified examples")

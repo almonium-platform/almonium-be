@@ -8,6 +8,7 @@ import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 public class CardUpdateDto {
     @NotNull
-    Long id;
+    UUID id;
 
     String entry;
     TranslationDto[] translations;
@@ -31,10 +32,10 @@ public class CardUpdateDto {
     Instant createdAt;
     Instant lastRepeat;
     Integer iteration;
-    Long userId;
+    UUID userId;
     Integer priority;
-    int[] deletedTranslationsIds;
-    int[] deletedExamplesIds;
+    UUID[] deletedTranslationsIds;
+    UUID[] deletedExamplesIds;
     Instant updatedAt;
     Boolean activeLearning;
     Boolean falseFriend;

@@ -4,12 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.model.enums.NotificationType;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -35,7 +34,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Notification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidV7
     UUID id;
 
     @ManyToOne
@@ -51,7 +50,7 @@ public class Notification {
 
     String pictureUrl;
 
-    Long referenceId; // this effectively constraints all related entities to have Long id
+    UUID referenceId;
 
     Instant readAt;
 

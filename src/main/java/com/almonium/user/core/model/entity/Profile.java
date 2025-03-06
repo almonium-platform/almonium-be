@@ -10,6 +10,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,7 +34,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class Profile {
     @Id
-    Long id;
+    UUID id;
 
     @OneToOne
     @MapsId

@@ -6,10 +6,11 @@ import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
+public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
     @Query(
             """
             select new com.almonium.user.friendship.dto.response.PublicUserProfile(
@@ -28,7 +29,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
                      or (f.requestee.id = :currentUserId and f.requester.id = u.id)
               )
             """)
-    List<PublicUserProfile> findNewFriendCandidates(long currentUserId, String username);
+    List<PublicUserProfile> findNewFriendCandidates(UUID currentUserId, String username);
 
     @Query(
             """
@@ -44,7 +45,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             join Profile p on f.requestee.id = p.id
             where f.requester.id = :id and f.status = 'PENDING'
             """)
-    List<RelatedUserProfile> getSentRequests(long id);
+    List<RelatedUserProfile> getSentRequests(UUID id);
 
     @Query(
             """
@@ -60,7 +61,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             join Profile p on f.requester.id = p.id
             where f.requestee.id = :id and f.status = 'PENDING'
             """)
-    List<RelatedUserProfile> getReceivedRequests(long id);
+    List<RelatedUserProfile> getReceivedRequests(UUID id);
 
     @Query(
             """
@@ -78,7 +79,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             (f.requestee.id = u.id and f.status = 'FST_BLOCKED_SND' and f.requester.id = :id)
         join Profile p on u.id = p.id
         """)
-    List<RelatedUserProfile> getBlocked(long id);
+    List<RelatedUserProfile> getBlocked(UUID id);
 
     @Query(
             """
@@ -86,7 +87,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
             where (f.requester.id = :id1 and f.requestee.id = :id2)
             or (f.requester.id = :id2 and f.requestee.id = :id1)
             """)
-    Optional<Friendship> getFriendshipByUsersIds(long id1, long id2);
+    Optional<Friendship> getFriendshipByUsersIds(UUID id1, UUID id2);
 
     /**
      * Retrieves a list of visible friendships for a given user.
@@ -116,7 +117,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
                     where (f.requester.id = :id or f.requestee.id = :id)
             and f.status = 'FRIENDS'
             """)
-    List<FriendshipToUserProjection> getVisibleFriendships(long id); // TODO avoid writing FQN in query
+    List<FriendshipToUserProjection> getVisibleFriendships(UUID id); // TODO avoid writing FQN in query
 
     @Query(
             """
@@ -139,7 +140,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
         from Friendship f
         where (f.requester.id = :id or f.requestee.id = :id) and f.status = 'FRIENDS'
         """)
-    List<RelatedUserProfile> getFriendships(long id);
+    List<RelatedUserProfile> getFriendships(UUID id);
 
     @Query(
             """
@@ -153,5 +154,5 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
               and f.status = 'FRIENDS'
               and u.username like CONCAT('%', :username, '%')
             """)
-    List<FriendshipToUserProjection> searchFriendsByUsername(long id, String username);
+    List<FriendshipToUserProjection> searchFriendsByUsername(UUID id, String username);
 }

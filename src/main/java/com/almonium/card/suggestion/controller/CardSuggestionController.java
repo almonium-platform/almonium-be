@@ -11,6 +11,7 @@ import com.almonium.user.core.model.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -38,13 +39,13 @@ public class CardSuggestionController {
     }
 
     @PutMapping("/{id}/accept")
-    public ResponseEntity<Void> acceptCard(@PathVariable Long id, @Auth User user) {
+    public ResponseEntity<Void> acceptCard(@PathVariable UUID id, @Auth User user) {
         cardSuggestionService.acceptSuggestion(id, user);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/decline")
-    public ResponseEntity<Void> declineCard(@PathVariable Long id, @Auth User user) {
+    public ResponseEntity<Void> declineCard(@PathVariable UUID id, @Auth User user) {
         cardSuggestionService.declineSuggestion(id, user);
         return ResponseEntity.noContent().build();
     }

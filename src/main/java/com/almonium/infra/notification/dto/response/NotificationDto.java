@@ -22,7 +22,7 @@ public class NotificationDto {
     NotificationType type;
     String message;
     String pictureUrl;
-    Long referenceId;
+    UUID referenceId;
     Instant createdAt;
     Instant readAt;
 }

@@ -3,6 +3,7 @@ package com.almonium.card.core.dto;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.validation.constraints.NotBlank;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class ExampleDto {
-    Long id;
+    UUID id;
 
     @NotBlank
     String example;

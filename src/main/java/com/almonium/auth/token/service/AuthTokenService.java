@@ -140,7 +140,7 @@ public class AuthTokenService {
 
     private Principal getPrincipalFromAccessToken(String token) {
         Claims claims = extractClaims(token);
-        long id = Long.parseLong(claims.getSubject());
+        UUID id = UUID.fromString(claims.getSubject());
 
         return principalRepository
                 .findById(id)
@@ -177,7 +177,7 @@ public class AuthTokenService {
 
     private String generateToken(
             Authentication authentication, long tokenExpirationSeconds, boolean isReauthenticated) {
-        long id = ((Principal) (authentication.getPrincipal())).getId();
+        UUID id = ((Principal) (authentication.getPrincipal())).getId();
 
         Instant now = Instant.now();
         Date expiryDate = Date.from(now.plusSeconds(tokenExpirationSeconds)
@@ -188,7 +188,7 @@ public class AuthTokenService {
 
         return Jwts.builder()
                 .id(jti)
-                .subject(Long.toString(id))
+                .subject(id.toString())
                 .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
                 .issuedAt(Date.from(now))
                 .expiration(expiryDate)

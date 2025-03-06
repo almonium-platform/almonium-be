@@ -12,6 +12,7 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +31,7 @@ public class EmailVerificationService {
     VerificationTokenManagementService verificationTokenManagementService;
 
     @Transactional // TODO why it's needed?
-    public void sendEmailVerification(long id) {
+    public void sendEmailVerification(UUID id) {
         User user = userService.getById(id);
         LocalPrincipal localPrincipal = userService
                 .getLocalPrincipal(user)
@@ -40,11 +41,11 @@ public class EmailVerificationService {
         tokenService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
-    public Optional<VerificationTokenDto> getLastEmailVerificationToken(long id) {
+    public Optional<VerificationTokenDto> getLastEmailVerificationToken(UUID id) {
         return tokenService.findValidEmailVerificationToken(id).map(verificationTokenMapper::toDto);
     }
 
-    public void cancelEmailChangeRequest(long userId) {
+    public void cancelEmailChangeRequest(UUID userId) {
         Consumer<VerificationToken> action = token -> {
             if (TokenType.EMAIL_CHANGE_VERIFICATION.equals(token.getTokenType())) {
                 principalRepository.delete(token.getPrincipal());
@@ -53,7 +54,7 @@ public class EmailVerificationService {
         sensitiveAuthActionsService.handleEmailChangeRequest(userId, action);
     }
 
-    public void resendEmailVerificationRequest(long id) {
+    public void resendEmailVerificationRequest(UUID id) {
         sensitiveAuthActionsService.handleEmailChangeRequest(
                 id,
                 token -> verificationTokenManagementService.createAndSendVerificationToken(

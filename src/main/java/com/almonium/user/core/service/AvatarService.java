@@ -47,7 +47,7 @@ public class AvatarService {
     StreamChatService streamChatService;
 
     @Transactional
-    public void addAndSetNewCustomAvatar(Long id, String url) {
+    public void addAndSetNewCustomAvatar(UUID id, String url) {
         Profile profile = profileService.getProfileById(id);
         avatarRepository.findByProfileIdAndUrl(id, url).ifPresent(existingAvatar -> {
             throw new IllegalArgumentException("Avatar already exists");
@@ -56,30 +56,30 @@ public class AvatarService {
         updateProfileAvatarUrl(url, profile);
     }
 
-    public void chooseExistingCustomAvatar(Long id, Long avatarId) {
+    public void chooseExistingCustomAvatar(UUID id, UUID avatarId) {
         var avatar = getMyAvatar(id, avatarId);
         Profile profile = profileService.getProfileById(id);
         updateProfileAvatarUrl(avatar.getUrl(), profile);
     }
 
-    public void cleanUpAvatars(Long id) {
+    public void cleanUpAvatars(UUID id) {
         avatarRepository
                 .findAllByProfileId(id)
                 .forEach(avatar -> firebaseStorageService.deleteFile(extractPathFromUrl(avatar.getUrl())));
         avatarRepository.deleteAllByProfileId(id);
     }
 
-    public List<AvatarDto> getAvatars(Long id) {
+    public List<AvatarDto> getAvatars(UUID id) {
         return avatarMapper.toDto(avatarRepository.findAllByProfileId(id));
     }
 
-    public void resetCurrentAvatar(Long id) {
+    public void resetCurrentAvatar(UUID id) {
         Profile profile = profileService.getProfileById(id);
         resetCurrentAvatar(id, profile);
     }
 
     @Transactional
-    public void deleteCustomAvatar(Long id, Long avatarId) {
+    public void deleteCustomAvatar(UUID id, UUID avatarId) {
         var avatar = getMyAvatar(id, avatarId);
         var profile = profileService.getProfileById(id);
 
@@ -94,13 +94,13 @@ public class AvatarService {
         }
     }
 
-    public void chooseDefaultAvatar(Long id, String url) {
+    public void chooseDefaultAvatar(UUID id, String url) {
         Profile profile = profileService.getProfileById(id);
         updateProfileAvatarUrl(url, profile);
     }
 
     @Transactional
-    public void doAvatarUpload(String remoteUrl, Long profileId) {
+    public void doAvatarUpload(String remoteUrl, UUID profileId) {
         if (remoteUrl == null) {
             return;
         }
@@ -123,7 +123,7 @@ public class AvatarService {
         streamChatService.updateUser(profile.getUser());
     }
 
-    private Avatar getMyAvatar(Long id, Long avatarId) {
+    private Avatar getMyAvatar(UUID id, UUID avatarId) {
         return avatarRepository
                 .findById(avatarId)
                 .filter(avatar -> avatar.getProfile().getId().equals(id))
@@ -149,7 +149,7 @@ public class AvatarService {
         return String.format(PATH_FORMAT, AVATAR_PREFIX, uuid);
     }
 
-    private void resetCurrentAvatar(Long id, Profile profile) {
+    private void resetCurrentAvatar(UUID id, Profile profile) {
         profile.setAvatarUrl(null);
         profileRepository.save(profile);
         log.info("Deleted current avatar for profile with id: {}", id);

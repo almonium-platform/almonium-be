@@ -3,16 +3,16 @@ package com.almonium.auth.local.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.local.model.enums.TokenType;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import java.time.Instant;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,9 +27,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class VerificationToken {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     String token;
 

@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class VerificationTokenManagementService {
     AppProperties appProperties;
 
     @Transactional
-    public Optional<VerificationToken> findValidEmailVerificationToken(long userId) {
+    public Optional<VerificationToken> findValidEmailVerificationToken(UUID userId) {
         User user = userService.getUserWithPrincipals(userId);
 
         return userService

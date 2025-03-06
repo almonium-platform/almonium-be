@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: uuid
                   constraints:
                     primaryKey: true
               - column:
@@ -22,7 +21,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: card_id
-                  type: bigint
+                  type: uuid
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:

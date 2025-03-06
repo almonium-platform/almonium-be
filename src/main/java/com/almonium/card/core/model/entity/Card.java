@@ -4,12 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.Learner;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -41,9 +40,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class Card {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     @Builder.Default
     UUID publicId = UUID.randomUUID();

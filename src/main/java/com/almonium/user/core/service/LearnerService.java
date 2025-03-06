@@ -19,6 +19,7 @@ import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class LearnerService {
     LearnerMapper learnerMapper;
 
     @Transactional
-    public void updateLearner(Long userId, Language code, UpdateLearnerRequest request) {
+    public void updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
         var learner = learnerRepository
                 .findByUserIdAndLanguage(userId, code)
                 .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
@@ -66,7 +67,7 @@ public class LearnerService {
         if (replace) {
             learnerRepository.deleteAllByUserId(user.getId());
         }
-        long userId = user.getId();
+        UUID userId = user.getId();
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
         planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
 
@@ -85,7 +86,7 @@ public class LearnerService {
         return learnerMapper.toDto(getUserWithLearners(user.getId()).getLearners());
     }
 
-    public void deleteLearner(Language code, long userId) {
+    public void deleteLearner(Language code, UUID userId) {
         var user = getUserWithLearners(userId);
 
         findLearner(user, code)
@@ -118,7 +119,7 @@ public class LearnerService {
                 .findFirst();
     }
 
-    public User getUserWithLearners(long id) {
+    public User getUserWithLearners(UUID id) {
         return userRepository
                 .findUserWithLearners(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));

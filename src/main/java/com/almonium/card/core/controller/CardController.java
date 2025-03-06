@@ -12,6 +12,7 @@ import com.almonium.user.core.model.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class CardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CardDto> getCard(@PathVariable Long id) {
+    public ResponseEntity<CardDto> getCard(@PathVariable UUID id) {
         return ResponseEntity.ok(cardService.getCardById(id));
     }
 
@@ -61,7 +62,7 @@ public class CardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCard(@PathVariable UUID id) {
         cardService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

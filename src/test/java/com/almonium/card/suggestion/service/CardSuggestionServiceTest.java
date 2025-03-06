@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -135,7 +136,7 @@ class CardSuggestionServiceTest {
     void givenExistingSuggestionAndAuthorizedUser_whenDeclineSuggestion_thenSuggestionDeleted() throws Exception {
         // Arrange
         Long suggestionId = 3L;
-        Long userId = 4L;
+        UUID userId = 4L;
         // This is the user performing the action
         User actionExecutor = User.builder().id(userId).build();
 
@@ -187,7 +188,7 @@ class CardSuggestionServiceTest {
     void givenCardSuggestionAndAuthorizedUser_whenAcceptSuggestion_thenCloneCardAndSave() throws Exception {
         // Arrange
         Long suggestionId = 3L;
-        Long userId = 4L;
+        UUID userId = 4L;
         User actionExecutor = User.builder().id(userId).build();
 
         // The recipient Learner with that user

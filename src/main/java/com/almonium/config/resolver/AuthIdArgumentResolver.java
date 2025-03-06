@@ -3,6 +3,7 @@ package com.almonium.config.resolver;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
+import java.util.UUID;
 import lombok.NonNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,7 @@ public class AuthIdArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterAnnotation(Auth.class) != null
-                && parameter.getParameterType().equals(Long.class);
+                && parameter.getParameterType().equals(UUID.class);
     }
 
     @Override

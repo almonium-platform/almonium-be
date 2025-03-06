@@ -14,6 +14,7 @@ import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfoFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -69,12 +70,12 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
                 .orElse(OAuth2Intent.SIGN_IN);
     }
 
-    private long getUserId() {
+    private UUID getUserId() {
         return CookieUtil.getCookie(getHttpServletRequest(), CookieUtil.USER_ID_PARAM_COOKIE_NAME)
                 .map(cookie -> {
                     String value = cookie.getValue();
                     if (value != null && value.matches("\\d+")) {
-                        return Long.parseLong(value);
+                        return UUID.fromString(value);
                     }
                     throw new OAuth2AuthenticationException("Invalid user ID format in request");
                 })

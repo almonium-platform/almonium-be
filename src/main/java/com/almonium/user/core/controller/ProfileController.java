@@ -7,6 +7,7 @@ import com.almonium.user.core.dto.request.ProfileHiddenRequest;
 import com.almonium.user.core.service.ProfileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,13 @@ public class ProfileController {
     ProfileService profileService;
 
     @PatchMapping("/ui-preferences")
-    public ResponseEntity<Void> updateUIPreferences(@RequestBody Map<String, Object> uiPreferences, @Auth Long userId) {
+    public ResponseEntity<Void> updateUIPreferences(@RequestBody Map<String, Object> uiPreferences, @Auth UUID userId) {
         profileService.updateUIPreferences(userId, uiPreferences);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/hidden")
-    public ResponseEntity<Void> updateHidden(@RequestBody ProfileHiddenRequest request, @Auth Long userId) {
+    public ResponseEntity<Void> updateHidden(@RequestBody ProfileHiddenRequest request, @Auth UUID userId) {
         profileService.updateHidden(userId, request.hidden());
         return ResponseEntity.noContent().build();
     }

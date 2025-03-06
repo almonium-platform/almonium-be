@@ -26,6 +26,7 @@ import com.almonium.user.core.service.LearnerService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,9 +67,10 @@ class LearnerServiceTest {
     @Test
     void givenUserAndMultipleLanguages_whenCreateLearnersWithReplace_thenLearnersAreDeletedAndCreated() {
         // Arrange
+        UUID id = UUID.randomUUID();
         User user = User.builder()
-                .id(10L)
-                .learners(List.of(Learner.builder().id(1L).language(Language.EN).build()))
+                .id(id)
+                .learners(List.of(Learner.builder().id(id).language(Language.EN).build()))
                 .build();
 
         List<TargetLanguageWithProficiency> languages = List.of(
@@ -106,9 +108,13 @@ class LearnerServiceTest {
     @Test
     void givenUserAndMultipleLanguages_whenCreateLearnersWithoutReplace_thenLearnersAreCreated() {
         // Arrange
+        UUID id = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+
         User user = User.builder()
-                .id(10L)
-                .learners(List.of(Learner.builder().id(1L).language(Language.EN).build()))
+                .id(id)
+                .learners(List.of(
+                        Learner.builder().id(learnerId).language(Language.EN).build()))
                 .build();
 
         List<TargetLanguageWithProficiency> languages = List.of(
@@ -147,7 +153,7 @@ class LearnerServiceTest {
     @Test
     void givenExistingTargetLanguage_whenCreateLearners_thenThrowsException() {
         // Arrange
-        User user = User.builder().id(10L).build();
+        User user = User.builder().id(UUID.randomUUID()).build();
         List<TargetLanguageWithProficiency> languages =
                 List.of(new TargetLanguageWithProficiency(CEFR.A1, Language.FR));
 
@@ -166,14 +172,20 @@ class LearnerServiceTest {
     @Test
     void givenUserWithMultipleLangs_whenDeleteLearner_thenDeletesLearner() {
         // Arrange
-        long userId = 20L;
+        UUID userId = UUID.randomUUID();
         User user = User.builder().id(userId).build();
 
         // The user has, say, 2 learners: EN and FR
-        Learner enLearner =
-                Learner.builder().id(100L).user(user).language(Language.EN).build();
-        Learner frLearner =
-                Learner.builder().id(101L).user(user).language(Language.FR).build();
+        Learner enLearner = Learner.builder()
+                .id(UUID.randomUUID())
+                .user(user)
+                .language(Language.EN)
+                .build();
+        Learner frLearner = Learner.builder()
+                .id(UUID.randomUUID())
+                .user(user)
+                .language(Language.FR)
+                .build();
         user.setLearners(List.of(enLearner, frLearner));
 
         // The user is retrieved with all learners
@@ -193,11 +205,14 @@ class LearnerServiceTest {
     @Test
     void givenUserWithSingleLearner_whenDeleteLearner_thenThrowsException() {
         // Arrange
-        long userId = 21L;
+        UUID userId = UUID.randomUUID();
         User user = User.builder().id(userId).build();
 
-        Learner onlyLearner =
-                Learner.builder().id(200L).user(user).language(Language.EN).build();
+        Learner onlyLearner = Learner.builder()
+                .id(UUID.randomUUID())
+                .user(user)
+                .language(Language.EN)
+                .build();
         user.setLearners(List.of(onlyLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
@@ -215,11 +230,14 @@ class LearnerServiceTest {
     @Test
     void givenUserWithoutThatLang_whenDeleteLearner_thenThrowsException() {
         // Arrange
-        long userId = 22L;
+        UUID userId = UUID.randomUUID();
         User user = User.builder().id(userId).build();
 
-        Learner enLearner =
-                Learner.builder().id(300L).user(user).language(Language.EN).build();
+        Learner enLearner = Learner.builder()
+                .id(UUID.randomUUID())
+                .user(user)
+                .language(Language.EN)
+                .build();
         user.setLearners(List.of(enLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
@@ -237,11 +255,12 @@ class LearnerServiceTest {
     @Test
     void givenNonExistentUserId_whenDeleteLearner_thenThrowException() {
         // Arrange
-        long userId = 999L;
-        when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.empty());
+        UUID id = UUID.randomUUID();
+
+        when(userRepository.findUserWithLearners(id)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> learnerService.deleteLearner(Language.EN, userId))
+        assertThatThrownBy(() -> learnerService.deleteLearner(Language.EN, id))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("User not found: 999");
     }

@@ -21,6 +21,7 @@ import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -39,27 +40,27 @@ public class FriendshipService {
     NotificationService notificationService;
     FriendshipRepository friendshipRepository;
 
-    public List<PublicUserProfile> findUsersByUsername(long id, String username) {
+    public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
         return friendshipRepository.findNewFriendCandidates(id, username);
     }
 
-    public List<FriendshipToUserProjection> searchFriends(long id, String username) {
+    public List<FriendshipToUserProjection> searchFriends(UUID id, String username) {
         return friendshipRepository.searchFriendsByUsername(id, username);
     }
 
-    public List<RelatedUserProfile> getSentRequests(long id) {
+    public List<RelatedUserProfile> getSentRequests(UUID id) {
         return friendshipRepository.getSentRequests(id);
     }
 
-    public List<RelatedUserProfile> getReceivedRequests(long id) {
+    public List<RelatedUserProfile> getReceivedRequests(UUID id) {
         return friendshipRepository.getReceivedRequests(id);
     }
 
-    public List<RelatedUserProfile> getFriends(long id) {
+    public List<RelatedUserProfile> getFriends(UUID id) {
         return friendshipRepository.getFriendships(id);
     }
 
-    public List<RelatedUserProfile> getBlocked(long id) {
+    public List<RelatedUserProfile> getBlocked(UUID id) {
         return friendshipRepository.getBlocked(id);
     }
 
@@ -84,7 +85,7 @@ public class FriendshipService {
     }
 
     @Transactional
-    public Friendship manageFriendship(User user, Long id, FriendshipAction action) {
+    public Friendship manageFriendship(User user, UUID id, FriendshipAction action) {
         Friendship friendship =
                 friendshipRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(FRIENDSHIP_NOT_FOUND));
         validateUserIsPartOfFriendship(user, friendship);
@@ -127,7 +128,7 @@ public class FriendshipService {
     }
 
     private Friendship block(User user, Friendship friendship) {
-        Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
+        var friendshipDenier = friendship.getFriendshipDenier();
         if (friendshipDenier.isPresent()) {
             if (friendshipDenier.get().equals(user.getId())) {
                 throw new FriendshipException(FRIENDSHIP_IS_ALREADY_BLOCKED);
@@ -141,7 +142,7 @@ public class FriendshipService {
     }
 
     private Friendship unblock(User user, Friendship friendship) {
-        Optional<Long> friendshipDenier = friendship.getFriendshipDenier();
+        var friendshipDenier = friendship.getFriendshipDenier();
         if (friendshipDenier.isEmpty()) {
             throw new FriendshipException("Friendship is not blocked");
         }

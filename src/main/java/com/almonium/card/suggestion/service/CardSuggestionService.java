@@ -20,6 +20,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -54,14 +55,14 @@ public class CardSuggestionService {
                 .collect(Collectors.toList());
     }
 
-    public void declineSuggestion(Long id, User actionExecutor) {
+    public void declineSuggestion(UUID id, User actionExecutor) {
         CardSuggestion cardSuggestion = getCardSuggestion(id);
         User recipient = cardSuggestion.getRecipient().getUser();
         checkAuthorization(actionExecutor, recipient);
         cardSuggestionRepository.deleteById(id);
     }
 
-    public void acceptSuggestion(Long id, User actionExecutor) {
+    public void acceptSuggestion(UUID id, User actionExecutor) {
         CardSuggestion cardSuggestion = getCardSuggestion(id);
         User recipient = cardSuggestion.getRecipient().getUser();
         checkAuthorization(actionExecutor, recipient);
@@ -108,7 +109,7 @@ public class CardSuggestionService {
         }
     }
 
-    private CardSuggestion getCardSuggestion(Long id) {
+    private CardSuggestion getCardSuggestion(UUID id) {
         return cardSuggestionRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Card suggestion with ID " + id + " not found"));

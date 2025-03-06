@@ -13,7 +13,7 @@ databaseChangeLog:
                     primaryKey: true
               - column:
                   name: user_id
-                  type: bigint
+                  type: uuid
                   constraints:
                     nullable: false
               - column:
@@ -42,7 +42,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: reference_id
-                  type: bigint
+                  type: uuid
                   constraints:
                     nullable: false
               - column:

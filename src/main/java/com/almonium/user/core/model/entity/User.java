@@ -7,6 +7,7 @@ import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.friendship.model.entity.Friendship;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -15,8 +16,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -33,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -62,9 +62,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @UuidV7
+    UUID id;
 
     String email;
 

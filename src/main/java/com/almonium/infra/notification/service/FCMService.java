@@ -12,6 +12,7 @@ import com.google.firebase.messaging.MulticastMessage;
 import com.google.firebase.messaging.Notification;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class FCMService {
                         () -> fcmTokenRepository.save(new FCMToken(user, request.token(), request.deviceType())));
     }
 
-    public void sendNotificationToUser(Long userId, String title, String message) {
+    public void sendNotificationToUser(UUID userId, String title, String message) {
         try {
             List<FCMToken> tokens = fcmTokenRepository.findByUserId(userId);
             if (tokens.isEmpty()) return;
