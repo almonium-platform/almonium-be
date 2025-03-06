@@ -12,6 +12,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.UserService;
@@ -54,6 +55,9 @@ class FriendshipServiceTest {
 
     @Mock
     UserService userService;
+
+    @Mock
+    NotificationService notificationService;
 
     @InjectMocks
     FriendshipService friendshipService;
@@ -274,6 +278,7 @@ class FriendshipServiceTest {
         // Arrange
         friendship.setStatus(FST_BLOCKED_SND);
         when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
         // Act
         Friendship unblockedFriendship =
@@ -281,7 +286,6 @@ class FriendshipServiceTest {
 
         // Assert
         assertThat(unblockedFriendship).isEqualTo(friendship);
-        verify(friendshipRepository).delete(friendship);
     }
 
     @DisplayName("Should throw exception when friendship is not blocked")

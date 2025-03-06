@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
@@ -57,6 +58,9 @@ class UserServiceTest {
 
     @Mock
     UserMapper userMapper;
+
+    @Mock
+    StreamChatService streamChatService;
 
     @DisplayName("Should change username")
     @Test

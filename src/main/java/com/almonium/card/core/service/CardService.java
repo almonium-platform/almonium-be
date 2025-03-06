@@ -155,44 +155,50 @@ public class CardService {
     private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(translationRepository::deleteById);
+        Optional.ofNullable(dto.getDeletedTranslationsIds())
+                .ifPresent(ids -> Arrays.stream(ids).forEach(translationRepository::deleteById));
 
-        Arrays.stream(dto.getDeletedExamplesIds()).forEach(exampleRepository::deleteById);
+        Optional.ofNullable(dto.getDeletedExamplesIds())
+                .ifPresent(ids -> Arrays.stream(ids).forEach(exampleRepository::deleteById));
 
-        Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
-            UUID id = translationDto.getId();
-            if (id != null) {
-                Translation translation = translationRepository.findById(id).orElseThrow();
-                translation.setTranslation(translationDto.getTranslation());
-                translationRepository.save(translation);
-            } else {
-                translationRepository.save(Translation.builder()
-                        .card(entity)
-                        .translation(translationDto.getTranslation())
-                        .build());
-            }
-        });
+        Optional.ofNullable(dto.getTranslations())
+                .ifPresent(ids -> Arrays.stream(ids).forEach(translationDto -> {
+                    UUID id = translationDto.getId();
+                    if (id != null) {
+                        Translation translation =
+                                translationRepository.findById(id).orElseThrow();
+                        translation.setTranslation(translationDto.getTranslation());
+                        translationRepository.save(translation);
+                    } else {
+                        translationRepository.save(Translation.builder()
+                                .card(entity)
+                                .translation(translationDto.getTranslation())
+                                .build());
+                    }
+                }));
 
-        Arrays.stream(dto.getExamples()).forEach(exampleDto -> {
-            UUID id = exampleDto.getId();
-            if (id != null) {
-                Example example = exampleRepository.findById(id).orElseThrow();
-                example.setExample(exampleDto.getExample());
-                example.setTranslation(exampleDto.getTranslation());
-                exampleRepository.save(example);
-            } else {
-                exampleRepository.save(Example.builder()
-                        .card(entity)
-                        .example(exampleDto.getExample())
-                        .translation(exampleDto.getTranslation())
-                        .build());
-            }
-        });
+        Optional.ofNullable(dto.getExamples())
+                .ifPresent(ids -> Arrays.stream(ids).forEach(exampleDto -> {
+                    UUID id = exampleDto.getId();
+                    if (id != null) {
+                        Example example = exampleRepository.findById(id).orElseThrow();
+                        example.setExample(exampleDto.getExample());
+                        example.setTranslation(exampleDto.getTranslation());
+                        exampleRepository.save(example);
+                    } else {
+                        exampleRepository.save(Example.builder()
+                                .card(entity)
+                                .example(exampleDto.getExample())
+                                .translation(exampleDto.getTranslation())
+                                .build());
+                    }
+                }));
     }
 
     private void updateTags(Card entity, TagDto[] tagDtos, Learner learner) {
-        HashSet<String> dtoTagSet =
-                Arrays.stream(tagDtos).map(TagDto::getText).collect(Collectors.toCollection(HashSet::new));
+        HashSet<String> dtoTagSet = Optional.ofNullable(tagDtos)
+                .map(tags -> Arrays.stream(tags).map(TagDto::getText).collect(Collectors.toCollection(HashSet::new)))
+                .orElseGet(HashSet::new);
 
         HashSet<String> cardTagSet = entity.getCardTags().stream()
                 .map(cardTag -> cardTag.getTag().getText())

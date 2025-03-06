@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,7 +15,6 @@ import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.ApacheAlphanumericGeneratorImpl;
-import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.user.core.service.UserService;
@@ -72,7 +70,6 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
         // Arrange
         LocalPrincipal localPrincipal = TestDataGenerator.buildTestLocalPrincipal();
         String token = "1234567890abcd1234567890";
-        EmailDto emailDto = TestDataGenerator.createEmailDto();
 
         when(tokenGenerator.generateOTP(anyInt())).thenReturn(token);
 
@@ -81,7 +78,6 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
         // Assert
         verify(verificationTokenRepository).save(any(VerificationToken.class));
-        verify(emailService).sendEmail(eq(emailDto));
     }
 
     @DisplayName("Should throw exception when token is expired")

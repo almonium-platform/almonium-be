@@ -23,9 +23,8 @@ import org.springframework.test.context.jdbc.Sql;
 @FieldDefaults(level = PRIVATE)
 @Sql(scripts = "classpath:db/add-friendships.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class FriendshipRepositoryTest {
-    private static final UUID REQUESTER_ID = UUID.randomUUID();
-    private static final UUID REQUESTEE_ID = UUID.randomUUID();
-    private static final UUID USER_ID = UUID.randomUUID();
+    private static final UUID REQUESTER_ID = UUID.fromString("01956cde-a541-7ac1-8b32-2896d096ecdf");
+    private static final UUID REQUESTEE_ID = UUID.fromString("01956cde-d6dd-7aca-bd07-e5c29cadf093");
 
     @Autowired
     FriendshipRepository friendshipRepository;
@@ -41,7 +40,7 @@ class FriendshipRepositoryTest {
     @Test
     void givenUserId_whenGetVisibleFriendships_thenFriendInfoViewShouldBePresent() {
         List<FriendshipToUserProjection> friendshipToUserProjections =
-                friendshipRepository.getVisibleFriendships(USER_ID);
+                friendshipRepository.getVisibleFriendships(REQUESTER_ID);
         assertThat(friendshipToUserProjections).isNotEmpty();
     }
 }

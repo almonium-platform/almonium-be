@@ -22,7 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
     private static final String JOHN_USERNAME = "john";
-    private static final UUID JOHN_ID = UUID.randomUUID();
+    private static final UUID JOHN_ID = UUID.fromString("01956ce2-34fa-71f2-97b1-dacd41dbaba1");
 
     @Autowired
     UserRepository userRepository;
