@@ -155,9 +155,9 @@ public class CardService {
     private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(id -> translationRepository.deleteById(id));
+        Arrays.stream(dto.getDeletedTranslationsIds()).forEach(translationRepository::deleteById);
 
-        Arrays.stream(dto.getDeletedExamplesIds()).forEach(id -> exampleRepository.deleteById(id));
+        Arrays.stream(dto.getDeletedExamplesIds()).forEach(exampleRepository::deleteById);
 
         Arrays.stream(dto.getTranslations()).forEach(translationDto -> {
             UUID id = translationDto.getId();
