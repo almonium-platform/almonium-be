@@ -19,12 +19,13 @@ spring:
         format_sql: true
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?pgbouncer=true&connection_limit=1
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${SPRING_PROFILE}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
   liquibase:
-    contexts: ${spring.profiles.active}
+    contexts: ${SPRING_PROFILE}
+    default-schema: ${SPRING_PROFILE}
 
   security:
     oauth2:
