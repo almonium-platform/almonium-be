@@ -160,7 +160,7 @@ public class StreamChatService {
 
     // should be run once, on project migration
     @SuppressWarnings("unused")
-    private void createDefaultChannel() { // Fetch the channel details
+    public void createDefaultChannel() { // Fetch the channel details
         try {
             String defaultChannelId = getDefaultStreamId();
 
