@@ -63,7 +63,7 @@ class UserServiceTest {
     void givenUsername_whenChangeUsername_thenUsernameByIdChanged() {
         String username = "username";
         String newUsername = "new_username";
-        UUID id = 1L;
+        UUID id = UUID.randomUUID();
         User user = User.builder().id(id).username(username).build();
 
         when(userRepository.existsByUsername(newUsername)).thenReturn(false);

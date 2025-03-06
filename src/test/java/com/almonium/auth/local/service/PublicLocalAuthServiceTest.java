@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -23,6 +22,7 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.util.TestDataGenerator;
 import com.almonium.util.config.AppConfigPropertiesTest;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -98,7 +98,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
                 .isInstanceOf(UserAlreadyExistsException.class);
 
         verify(userRepository).existsByEmail(registrationRequest.email());
-        verify(userRepository, never()).existsById(anyLong());
+        verify(userRepository, never()).existsById(any(UUID.class));
         verify(userRepository, never()).existsByUsername(anyString());
         verify(userRepository, never()).save(any(User.class));
         verify(userRepository, never()).flush();

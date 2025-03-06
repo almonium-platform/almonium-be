@@ -138,13 +138,13 @@ class OAuth2AuthenticationServiceTest {
         AuthProviderType provider = AuthProviderType.GOOGLE;
         String email = "johnwick@gmail.com";
         String providerId = "101868015518714862283";
-        UUID userId = 10L;
+        UUID userId = UUID.randomUUID();
 
         Map<String, Object> attributes = createAttributes(email, providerId);
         OAuth2UserInfo oAuth2UserInfo = new GoogleOAuth2UserInfo(attributes);
         when(oAuth2PrincipalRepository.save(any(OAuth2Principal.class))).thenAnswer(invocation -> {
             Principal auth = invocation.getArgument(0);
-            auth.setId(1L);
+            auth.setId(UUID.randomUUID());
             return auth;
         });
         when(userRepository.findByEmail(eq(email))).thenReturn(Optional.empty());

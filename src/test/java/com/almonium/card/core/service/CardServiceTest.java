@@ -4,10 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.within;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,7 +15,6 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
-import com.almonium.card.core.dto.request.CardCreationDto;
 import com.almonium.card.core.dto.request.CardUpdateDto;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
@@ -35,13 +32,11 @@ import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
-import com.almonium.util.TestDataGenerator;
 import com.google.common.collect.Sets;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -103,14 +98,17 @@ class CardServiceTest {
         // Arrange
         Language language = Language.EN;
 
-        User user = User.builder().id(1L).build();
-        Learner learner = Learner.builder().id(1L).language(language).build();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).language(language).build();
 
-        // The new CardService calls: learnerFinder.findLearner(user, language)
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Card card1 = Card.builder().id(1L).entry("test1").build();
-        Card card2 = Card.builder().id(2L).entry("test2").build();
+        UUID cardId1 = UUID.randomUUID();
+        UUID cardId2 = UUID.randomUUID();
+        Card card1 = Card.builder().id(cardId1).entry("test1").build();
+        Card card2 = Card.builder().id(cardId2).entry("test2").build();
         List<Card> cards = Arrays.asList(card1, card2);
         String entry = "test";
 
@@ -118,9 +116,9 @@ class CardServiceTest {
                 .thenReturn(cards);
 
         when(cardMapper.cardEntityToDto(card1))
-                .thenReturn(CardDto.builder().id(1L).build());
+                .thenReturn(CardDto.builder().id(cardId1).build());
         when(cardMapper.cardEntityToDto(card2))
-                .thenReturn(CardDto.builder().id(2L).build());
+                .thenReturn(CardDto.builder().id(cardId2).build());
 
         // Act
         List<CardDto> result = cardService.searchByEntry(entry, language, user);
@@ -128,17 +126,17 @@ class CardServiceTest {
         // Assert
         assertThat(result).isNotNull();
         assertThat(result).hasSize(2);
-        assertThat(result.get(0).getId()).isEqualTo(1L);
-        assertThat(result.get(1).getId()).isEqualTo(2L);
+        assertThat(result.get(0).getId()).isEqualTo(cardId1);
+        assertThat(result.get(1).getId()).isEqualTo(cardId2);
     }
 
     @DisplayName("Should return CardDto when getCardById is called")
     @Test
     void givenCardId_whenGetCardById_thenReturnCardDto() {
         // Arrange
-        UUID id = 1L;
+        UUID id = UUID.randomUUID();
         Card card = Card.builder().id(id).build();
-        CardDto expectedDto = CardDto.builder().id(1L).build();
+        CardDto expectedDto = CardDto.builder().id(id).build();
 
         when(cardRepository.findById(id)).thenReturn(Optional.of(card));
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
@@ -150,13 +148,13 @@ class CardServiceTest {
         assertThat(result).isEqualTo(expectedDto);
     }
 
-    @DisplayName("Should return CardDto when getCardByHash is called")
     @Test
-    void givenCardHash_whenGetCardByHash_thenReturnCardDto() {
+    @DisplayName("Should return CardDto when getCardByPublicId is called")
+    void givenCardHash_whenGetCardByPublicId_thenReturnCardDto() {
         // Arrange
         UUID uuid = UUID.randomUUID();
         Card card = Card.builder().publicId(uuid).build();
-        CardDto expectedDto = CardDto.builder().id(999L).build();
+        CardDto expectedDto = CardDto.builder().id(uuid).build();
 
         when(cardRepository.getByPublicId(uuid)).thenReturn(Optional.of(card));
         when(cardMapper.cardEntityToDto(card)).thenReturn(expectedDto);
@@ -173,18 +171,22 @@ class CardServiceTest {
     void givenUserAndLanguage_whenGetUsersCardsOfLang_thenReturnListOfCardDto() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(100L).build();
-        Learner learner = Learner.builder().id(200L).build();
 
-        // The service calls: learnerFinder.findLearner(user, language)
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
+
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Card card1 = Card.builder().id(1L).build();
-        Card card2 = Card.builder().id(2L).build();
+        UUID cardId1 = UUID.randomUUID();
+        UUID cardId2 = UUID.randomUUID();
+        Card card1 = Card.builder().id(cardId1).build();
+        Card card2 = Card.builder().id(cardId2).build();
         List<Card> cards = Arrays.asList(card1, card2);
 
-        CardDto dto1 = CardDto.builder().id(1L).build();
-        CardDto dto2 = CardDto.builder().id(2L).build();
+        CardDto dto1 = CardDto.builder().id(cardId1).build();
+        CardDto dto2 = CardDto.builder().id(cardId2).build();
         List<CardDto> expectedDtos = Arrays.asList(dto1, dto2);
 
         when(cardRepository.findAllByOwner(learner)).thenReturn(cards);
@@ -198,9 +200,9 @@ class CardServiceTest {
         assertThat(result).isEqualTo(expectedDtos);
     }
 
-    @DisplayName("Should throw exception when getCardByHash is called with non-existent hash")
     @Test
-    void givenNonExistentCardHash_whenGetCardByHash_thenThrowException() {
+    @DisplayName("Should throw exception when getCardByPublicId is called with non-existent UUID")
+    void givenNonExistentCardHash_whenGetCardByPublicId_thenThrowException() {
         // Arrange
         UUID random = UUID.randomUUID();
 
@@ -224,56 +226,31 @@ class CardServiceTest {
         verify(cardRepository).deleteById(id);
     }
 
-    @DisplayName("Should delete specified examples")
     @Test
+    @DisplayName("Should delete specified examples")
     void givenCardUpdateDto_whenUpdateCard_thenExamplesDeleted() {
         // Arrange
-        Language language = Language.EN;
-        User user = User.builder().id(777L).build();
-        Learner learner = Learner.builder().id(888L).build();
-        when(learnerFinder.findLearner(user, language)).thenReturn(learner);
-
-        Long cardId = 1L;
-        int[] deletedExamplesIds = {4, 5}; // IDs of examples to be deleted
+        UUID cardId = UUID.randomUUID();
+        UUID[] deletedExamplesIds = {UUID.randomUUID(), UUID.randomUUID()};
 
         List<Example> examples = new ArrayList<>();
-        examples.add(Example.builder()
-                .id(4L)
-                .example("example1")
-                .translation("translation1")
-                .build());
-        examples.add(Example.builder()
-                .id(5L)
-                .example("example2")
-                .translation("translation2")
-                .build());
-        examples.add(Example.builder()
-                .id(6L)
-                .example("example3")
-                .translation("translation3")
-                .build());
+        examples.add(Example.builder().id(deletedExamplesIds[0]).build());
+        examples.add(Example.builder().id(deletedExamplesIds[1]).build());
 
-        Card card =
-                Card.builder().id(cardId).examples(examples).cardTags(Set.of()).build();
-
+        Card card = Card.builder().id(cardId).examples(examples).build();
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
-                .language(language)
                 .deletedExamplesIds(deletedExamplesIds)
-                .deletedTranslationsIds(new int[] {})
-                .tags(new TagDto[] {})
-                .translations(new TranslationDto[] {})
-                .examples(new ExampleDto[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardService.updateCard(user, dto);
+        cardService.updateCard(User.builder().id(UUID.randomUUID()).build(), dto);
 
         // Assert
-        for (int id : deletedExamplesIds) {
-            verify(exampleRepository).deleteById((long) id);
+        for (UUID id : deletedExamplesIds) {
+            verify(exampleRepository).deleteById(id);
         }
     }
 
@@ -282,17 +259,28 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenTranslationsDeleted() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(2L).build();
-        Learner learner = Learner.builder().id(99L).build();
+
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
+
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 1L;
-        int[] deletedTranslationsIds = {2, 3};
+        UUID cardId = UUID.randomUUID();
+        UUID translationId1 = UUID.randomUUID();
+        UUID translationId2 = UUID.randomUUID();
+        UUID translationId3 = UUID.randomUUID();
+
+        UUID[] deletedTranslationsIds = {translationId2, translationId3};
 
         List<Translation> translations = new ArrayList<>();
-        translations.add(Translation.builder().id(1L).translation("trans1").build());
-        translations.add(Translation.builder().id(2L).translation("trans2").build());
-        translations.add(Translation.builder().id(3L).translation("trans3").build());
+        translations.add(
+                Translation.builder().id(translationId1).translation("trans1").build());
+        translations.add(
+                Translation.builder().id(translationId2).translation("trans2").build());
+        translations.add(
+                Translation.builder().id(translationId3).translation("trans3").build());
 
         Card card = Card.builder()
                 .id(cardId)
@@ -304,7 +292,7 @@ class CardServiceTest {
                 .id(cardId)
                 .language(language)
                 .deletedTranslationsIds(deletedTranslationsIds)
-                .deletedExamplesIds(new int[] {})
+                .deletedExamplesIds(new UUID[] {})
                 .tags(new TagDto[] {})
                 .translations(new TranslationDto[] {})
                 .examples(new ExampleDto[] {})
@@ -316,50 +304,33 @@ class CardServiceTest {
         cardService.updateCard(user, dto);
 
         // Assert
-        for (int id : deletedTranslationsIds) {
-            verify(translationRepository).deleteById((long) id);
+        for (UUID id : deletedTranslationsIds) {
+            verify(translationRepository).deleteById(id);
         }
     }
 
-    @DisplayName("Should update existing translations")
     @Test
+    @DisplayName("Should update existing translations")
     void givenCardUpdateDto_whenUpdateCard_thenExistingTranslationsUpdated() {
         // Arrange
-        Language language = Language.EN;
-        User user = User.builder().id(11L).build();
-        Learner learner = Learner.builder().id(12L).build();
-        when(learnerFinder.findLearner(user, language)).thenReturn(learner);
-
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         TranslationDto[] updatedTranslations = {
-            new TranslationDto(1L, "updatedTranslation1"), new TranslationDto(2L, "updatedTranslation2")
+            new TranslationDto(UUID.randomUUID(), "updatedTranslation1"),
+            new TranslationDto(UUID.randomUUID(), "updatedTranslation2")
         };
 
         List<Translation> originalTranslations = new ArrayList<>();
-        originalTranslations.add(
-                Translation.builder().id(1L).translation("originalTranslation1").build());
-        originalTranslations.add(
-                Translation.builder().id(2L).translation("originalTranslation2").build());
+        for (TranslationDto t : updatedTranslations) {
+            originalTranslations.add(Translation.builder().id(t.getId()).build());
+        }
 
-        Card card = Card.builder()
-                .id(cardId)
-                .translations(originalTranslations)
-                .cardTags(Set.of())
-                .build();
-
+        Card card = Card.builder().id(cardId).translations(originalTranslations).build();
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
-                .language(language)
                 .translations(updatedTranslations)
-                .examples(new ExampleDto[] {})
-                .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
-
-        // Mocking the DB fetch of each translation
         for (TranslationDto t : updatedTranslations) {
             when(translationRepository.findById(t.getId()))
                     .thenReturn(Optional.of(Translation.builder()
@@ -369,13 +340,13 @@ class CardServiceTest {
         }
 
         // Act
-        cardService.updateCard(user, dto);
+        cardService.updateCard(User.builder().id(UUID.randomUUID()).build(), dto);
 
         // Assert
         for (TranslationDto updatedTranslation : updatedTranslations) {
             verify(translationRepository)
-                    .save(argThat(translation -> translation.getId().equals(updatedTranslation.getId())
-                            && translation.getTranslation().equals(updatedTranslation.getTranslation())));
+                    .save(argThat(tr -> tr.getId().equals(updatedTranslation.getId())
+                            && tr.getTranslation().equals(updatedTranslation.getTranslation())));
         }
     }
 
@@ -384,24 +355,31 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenExistingExamplesUpdated() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(22L).build();
-        Learner learner = Learner.builder().id(33L).build();
+
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
+
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
+        UUID exampleId1 = UUID.randomUUID();
+        UUID exampleId2 = UUID.randomUUID();
+
         ExampleDto[] updatedExamples = {
-            new ExampleDto(1L, "updatedExample1", "updatedTranslation1"),
-            new ExampleDto(2L, "updatedExample2", "updatedTranslation2")
+            new ExampleDto(exampleId1, "updatedExample1", "updatedTranslation1"),
+            new ExampleDto(exampleId2, "updatedExample2", "updatedTranslation2")
         };
 
         List<Example> originalExamples = new ArrayList<>();
         originalExamples.add(Example.builder()
-                .id(1L)
+                .id(exampleId1)
                 .example("originalExample1")
                 .translation("originalTranslation1")
                 .build());
         originalExamples.add(Example.builder()
-                .id(2L)
+                .id(exampleId2)
                 .example("originalExample2")
                 .translation("originalTranslation2")
                 .build());
@@ -418,13 +396,13 @@ class CardServiceTest {
                 .examples(updatedExamples)
                 .translations(new TranslationDto[] {})
                 .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
+                .deletedTranslationsIds(new UUID[] {})
+                .deletedExamplesIds(new UUID[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
-        // Mocking DB fetch
+        // Mocking DB fetch for each example update
         for (ExampleDto e : updatedExamples) {
             when(exampleRepository.findById(e.getId()))
                     .thenReturn(Optional.of(Example.builder()
@@ -446,40 +424,23 @@ class CardServiceTest {
         }
     }
 
-    @DisplayName("Should create new translations")
     @Test
+    @DisplayName("Should create new translations")
     void givenCardUpdateDto_whenUpdateCard_thenNewTranslationsCreated() {
         // Arrange
-        Language language = Language.EN;
-        User user = User.builder().id(45L).build();
-        Learner learner = Learner.builder().id(46L).build();
-        when(learnerFinder.findLearner(user, language)).thenReturn(learner);
-
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         TranslationDto[] newTranslations = {
             new TranslationDto(null, "newTranslation1"), new TranslationDto(null, "newTranslation2")
         };
 
-        Card card = Card.builder()
-                .id(cardId)
-                .translations(new ArrayList<>())
-                .cardTags(Set.of())
-                .build();
-
-        CardUpdateDto dto = CardUpdateDto.builder()
-                .id(cardId)
-                .language(language)
-                .translations(newTranslations)
-                .examples(new ExampleDto[] {})
-                .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
-                .build();
+        Card card = Card.builder().id(cardId).translations(new ArrayList<>()).build();
+        CardUpdateDto dto =
+                CardUpdateDto.builder().id(cardId).translations(newTranslations).build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
         // Act
-        cardService.updateCard(user, dto);
+        cardService.updateCard(User.builder().id(UUID.randomUUID()).build(), dto);
 
         // Assert
         for (TranslationDto t : newTranslations) {
@@ -494,11 +455,13 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenNewExamplesCreated() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(55L).build();
-        Learner learner = Learner.builder().id(56L).build();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         ExampleDto[] newExamples = {
             new ExampleDto(null, "newExample1", "newTranslation1"),
             new ExampleDto(null, "newExample2", "newTranslation2")
@@ -509,15 +472,10 @@ class CardServiceTest {
                 .examples(new ArrayList<>())
                 .cardTags(Set.of())
                 .build();
-
         CardUpdateDto dto = CardUpdateDto.builder()
                 .id(cardId)
                 .language(language)
                 .examples(newExamples)
-                .translations(new TranslationDto[] {})
-                .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
                 .build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
@@ -539,22 +497,16 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenTimestampUpdated() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(66L).build();
-        Learner learner = Learner.builder().id(67L).build();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
-
-        CardUpdateDto dto = CardUpdateDto.builder()
-                .id(cardId)
-                .language(language)
-                .translations(new TranslationDto[] {})
-                .examples(new ExampleDto[] {})
-                .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
-                .build();
+        CardUpdateDto dto =
+                CardUpdateDto.builder().id(cardId).language(language).build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
@@ -570,22 +522,16 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenCardSaved() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(77L).build();
-        Learner learner = Learner.builder().id(78L).build();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         Card card = Card.builder().id(cardId).cardTags(Set.of()).build();
-
-        CardUpdateDto dto = CardUpdateDto.builder()
-                .id(cardId)
-                .language(language)
-                .translations(new TranslationDto[] {})
-                .examples(new ExampleDto[] {})
-                .tags(new TagDto[] {})
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
-                .build();
+        CardUpdateDto dto =
+                CardUpdateDto.builder().id(cardId).language(language).build();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
 
@@ -601,18 +547,19 @@ class CardServiceTest {
     void givenCardUpdateDto_whenUpdateCard_thenTagsUpdated() {
         // Arrange
         Language language = Language.EN;
-        User user = User.builder().id(88L).build();
-        Learner learner = Learner.builder().id(99L).build();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
         when(learnerFinder.findLearner(user, language)).thenReturn(learner);
 
-        Long cardId = 7L;
+        UUID cardId = UUID.randomUUID();
         String tagToBeDeleted = "tagtobedeleted";
         String oldTag1 = "oldtag1";
         String oldTag2 = "oldtag2";
         String newTag = "newtag";
 
         CardUpdateDto dto = createCardUpdateDto(cardId, language, oldTag1, oldTag2, newTag);
-
         Card card = Card.builder().id(cardId).build();
 
         CardTag cardTagToBeDeleted = createCardTag(card, learner, tagToBeDeleted);
@@ -642,78 +589,28 @@ class CardServiceTest {
                 .containsExactlyInAnyOrder(newTag);
     }
 
-    @DisplayName("Should create a new card with all associated entities")
-    @Test
-    void givenCardCreationDtoAndUser_whenCreateCard_thenCardCreatedWithAllEntities() {
-        // Arrange
-        User user = mock(User.class);
-
-        CardCreationDto mockDto = mock(CardCreationDto.class);
-        Card mockCard = mock(Card.class);
-        List<Example> mockExamples = Collections.singletonList(mock(Example.class));
-        List<Translation> mockTranslations = Collections.singletonList(mock(Translation.class));
-
-        TagDto[] mockTags = {
-            TagDto.builder().text("text1").build(),
-            TagDto.builder().text("text2").build()
-        };
-
-        // We must also specify the language, as required by the new createCard(User, CardCreationDto)
-        when(mockDto.getLanguage()).thenReturn(Language.EN);
-
-        // The service will do: learnerFinder.findLearner(user, Language.EN)
-        Learner learner = Learner.builder().build();
-        when(learnerFinder.findLearner(user, Language.EN)).thenReturn(learner);
-
-        when(cardMapper.cardDtoToEntity(mockDto)).thenReturn(mockCard);
-
-        when(tagRepository.findByTextWithNormalization(eq("text1"))).thenReturn(Optional.empty());
-        when(tagRepository.findByTextWithNormalization(eq("text2")))
-                .thenReturn(Optional.of(Tag.builder().id(22L).text("text2").build()));
-
-        when(mockCard.getExamples()).thenReturn(mockExamples);
-        when(mockCard.getTranslations()).thenReturn(mockTranslations);
-        when(mockDto.getTags()).thenReturn(mockTags);
-
-        // Act
-        cardService.createCard(user, mockDto);
-
-        // Assert
-        verify(cardTagRepository).saveAll(captor.capture());
-        List<CardTag> capturedCardTags = captor.getValue();
-        assertThat(capturedCardTags.size()).isEqualTo(2);
-        assertThat(capturedCardTags.get(0).getTag().getText()).isEqualTo("text1");
-        assertThat(capturedCardTags.get(1).getTag().getText()).isEqualTo("text2");
-
-        verify(tagRepository).save(eq(new Tag("text1")));
-        verify(tagRepository).findByTextWithNormalization(eq("text1"));
-        verify(tagRepository).findByTextWithNormalization(eq("text2"));
-        verify(translationRepository).saveAll(mockTranslations);
-        verify(exampleRepository).saveAll(mockExamples);
-        verify(learnerRepository).save(learner);
-    }
-
     @DisplayName("Should return user's cards of the specified language")
     @Test
     void givenUserAndLanguageCode_whenGetUsersCardsOfLang_thenReturnRightCards() {
         // Arrange
         Language testLanguage = Language.DE;
-        User user = new User();
-        Learner learner = new Learner();
+        UUID userId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
+        Learner learner = Learner.builder().id(learnerId).build();
         when(learnerFinder.findLearner(user, testLanguage)).thenReturn(learner);
 
         List<Card> mockedCards = List.of(
-                Card.builder().id(1L).build(),
-                Card.builder().id(2L).build(),
-                Card.builder().id(3L).build());
+                Card.builder().id(UUID.randomUUID()).build(),
+                Card.builder().id(UUID.randomUUID()).build(),
+                Card.builder().id(UUID.randomUUID()).build());
         when(cardRepository.findAllByOwner(learner)).thenReturn(mockedCards);
 
-        List<CardDto> mockedCardDtos = List.of(
-                CardDto.builder().id(1L).build(),
-                CardDto.builder().id(2L).build(),
-                CardDto.builder().id(3L).build());
-        for (int i = 0; i < mockedCards.size(); i++) {
-            when(cardMapper.cardEntityToDto(eq(mockedCards.get(i)))).thenReturn(mockedCardDtos.get(i));
+        List<CardDto> mockedCardDtos = new ArrayList<>();
+        for (Card card : mockedCards) {
+            mockedCardDtos.add(CardDto.builder().id(card.getId()).build());
+            when(cardMapper.cardEntityToDto(card))
+                    .thenReturn(CardDto.builder().id(card.getId()).build());
         }
 
         // Act
@@ -722,12 +619,11 @@ class CardServiceTest {
         // Assert
         assertThat(result).hasSize(mockedCardDtos.size()).containsExactlyElementsOf(mockedCardDtos);
     }
-
     // -------------------------------------------------------------------------
     // Helper methods for building DTOs / mocks
     // -------------------------------------------------------------------------
 
-    private CardUpdateDto createCardUpdateDto(Long cardId, Language language, String... tags) {
+    private CardUpdateDto createCardUpdateDto(UUID cardId, Language language, String... tags) {
         TagDto[] tagDtos = Arrays.stream(tags).map(TagDto::new).toArray(TagDto[]::new);
         return CardUpdateDto.builder()
                 .id(cardId)
@@ -735,14 +631,14 @@ class CardServiceTest {
                 .translations(new TranslationDto[] {})
                 .examples(new ExampleDto[] {})
                 .tags(tagDtos)
-                .deletedTranslationsIds(new int[] {})
-                .deletedExamplesIds(new int[] {})
+                .deletedTranslationsIds(new UUID[] {})
+                .deletedExamplesIds(new UUID[] {})
                 .build();
     }
 
     private CardTag createCardTag(Card card, Learner learner, String tagText) {
         return CardTag.builder()
-                .id(new CardTagPK(card.getId(), TestDataGenerator.random().nextLong()))
+                .id(new CardTagPK(card.getId(), UUID.randomUUID()))
                 .card(card)
                 .tag(new Tag(tagText))
                 .learner(learner)
@@ -750,9 +646,9 @@ class CardServiceTest {
     }
 
     private void mockCardTagRepository(List<CardTag> existingCardTags) {
-        // We'll assume they all belong to the same card
+        // Assume all tags belong to the same card
         Card card = existingCardTags.iterator().next().getCard();
-        when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
+        when(cardRepository.findById(any(UUID.class))).thenReturn(Optional.of(card));
 
         existingCardTags.forEach(cardTag -> when(cardTagRepository.getByCardAndText(
                         card, cardTag.getTag().getText()))

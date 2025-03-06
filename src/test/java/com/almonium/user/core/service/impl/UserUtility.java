@@ -6,13 +6,14 @@ import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UserUtility {
     public User getUser() {
         User user = new User();
-        user.setId(1L);
+        user.setId(UUID.randomUUID());
         user.setUsername("john");
         user.setEmail("john@example.com");
         Profile profile = new Profile();

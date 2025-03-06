@@ -26,6 +26,7 @@ import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,9 +42,9 @@ class FriendshipServiceTest {
     private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
 
-    private static final long REQUESTER_ID = 1L;
-    private static final long RECIPIENT_ID = 2L;
-    private static final long FRIENDSHIP_ID = 1L;
+    private static final UUID REQUESTER_ID = UUID.randomUUID();
+    private static final UUID RECIPIENT_ID = UUID.randomUUID();
+    private static final UUID FRIENDSHIP_ID = UUID.randomUUID();
 
     @Mock
     FriendshipRepository friendshipRepository;
@@ -73,7 +74,7 @@ class FriendshipServiceTest {
     void givenNonMatchingUsernameSubstring_whenFindFriendsByUsername_thenReturnEmptyList() {
         // Arrange
         String usernameSubstring = "nonexistent";
-        long currentUserId = 3L; // ID of the current user to exclude
+        var currentUserId = UUID.randomUUID(); // ID of the current user to exclude
 
         when(friendshipRepository.findNewFriendCandidates(currentUserId, usernameSubstring))
                 .thenReturn(List.of());
@@ -349,7 +350,7 @@ class FriendshipServiceTest {
     @Test
     void givenInvalidUser_whenManageFriendship_thenThrowException() {
         // Arrange
-        User invalidUser = TestDataGenerator.buildTestUserWithId(999L);
+        User invalidUser = TestDataGenerator.buildTestUserWithId(UUID.randomUUID());
         when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
 
         // Act & Assert

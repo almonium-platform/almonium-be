@@ -9,6 +9,7 @@ import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,9 +23,9 @@ import org.springframework.test.context.jdbc.Sql;
 @FieldDefaults(level = PRIVATE)
 @Sql(scripts = "classpath:db/add-friendships.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class FriendshipRepositoryTest {
-    private static final Long REQUESTER_ID = 1L;
-    private static final Long REQUESTEE_ID = 2L;
-    private static final Long USER_ID = 1L;
+    private static final UUID REQUESTER_ID = UUID.randomUUID();
+    private static final UUID REQUESTEE_ID = UUID.randomUUID();
+    private static final UUID USER_ID = UUID.randomUUID();
 
     @Autowired
     FriendshipRepository friendshipRepository;

@@ -77,15 +77,18 @@ class CardSuggestionServiceTest {
     @Test
     void givenUserAndLanguage_whenGetSuggestedCards_thenReturnListOfCardDto() {
         // Arrange
-        User user = User.builder().id(101L).build();
+        UUID userId = UUID.randomUUID();
+        UUID recipientLearnerId = UUID.randomUUID();
+        UUID senderLearnerId = UUID.randomUUID();
+        UUID cardId = UUID.randomUUID();
+
+        User user = User.builder().id(userId).build();
         Language lang = Language.EN;
 
-        Learner recipientLearner = Learner.builder().id(201L).build();
-        // The service calls learnerFinder to find the recipient Learner
+        Learner recipientLearner = Learner.builder().id(recipientLearnerId).build();
         when(learnerFinder.findLearner(user, lang)).thenReturn(recipientLearner);
 
-        Long cardId = 1L;
-        Learner sender = Learner.builder().id(999L).build();
+        Learner sender = Learner.builder().id(senderLearnerId).build();
         Card card = Card.builder().id(cardId).build();
 
         // The CardSuggestion references the recipientLearner
@@ -108,10 +111,10 @@ class CardSuggestionServiceTest {
     @Test
     void givenUnauthorizedUserWhenAcceptSuggestionThenThrowIllegalAccessException() {
         // Arrange
-        Long suggestionId = 3L;
-        // We'll have two User objects:
-        Long executorId = 4L; // Action executor's ID
-        Long recipientId = 5L; // Recipient's user ID (different from the executor -> triggers illegal access)
+        UUID suggestionId = UUID.randomUUID();
+        UUID executorId = UUID.randomUUID(); // Action executor's ID
+        UUID recipientId =
+                UUID.randomUUID(); // Recipient's user ID (different from the executor -> triggers illegal access)
 
         User executorUser = User.builder().id(executorId).build();
         User recipientUser = User.builder().id(recipientId).build();
@@ -133,10 +136,11 @@ class CardSuggestionServiceTest {
 
     @DisplayName("Should decline and delete the suggestion")
     @Test
-    void givenExistingSuggestionAndAuthorizedUser_whenDeclineSuggestion_thenSuggestionDeleted() throws Exception {
+    void givenExistingSuggestionAndAuthorizedUser_whenDeclineSuggestion_thenSuggestionDeleted() {
         // Arrange
-        Long suggestionId = 3L;
-        UUID userId = 4L;
+        UUID suggestionId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+
         // This is the user performing the action
         User actionExecutor = User.builder().id(userId).build();
 
@@ -162,9 +166,9 @@ class CardSuggestionServiceTest {
     @Test
     void givenUnauthorizedUser_whenDeclineSuggestion_thenThrowIllegalAccessException() {
         // Arrange
-        Long suggestionId = 3L;
-        Long executorId = 4L; // Action executor's ID
-        Long recipientId = 5L; // Recipient's user ID
+        UUID suggestionId = UUID.randomUUID();
+        UUID executorId = UUID.randomUUID(); // Action executor's ID
+        UUID recipientId = UUID.randomUUID(); // Recipient's user ID
 
         User executorUser = User.builder().id(executorId).build();
         User recipientUser = User.builder().id(recipientId).build();
@@ -185,22 +189,24 @@ class CardSuggestionServiceTest {
 
     @DisplayName("Should clone a card and save it along with its examples, translations, and tags")
     @Test
-    void givenCardSuggestionAndAuthorizedUser_whenAcceptSuggestion_thenCloneCardAndSave() throws Exception {
+    void givenCardSuggestionAndAuthorizedUser_whenAcceptSuggestion_thenCloneCardAndSave() {
         // Arrange
-        Long suggestionId = 3L;
-        UUID userId = 4L;
-        User actionExecutor = User.builder().id(userId).build();
+        UUID suggestionId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        UUID originalCardId = UUID.randomUUID();
 
-        // The recipient Learner with that user
+        User actionExecutor = User.builder().id(userId).build();
         Learner recipientLearner = Learner.builder().user(actionExecutor).build();
 
-        // Card to clone
-        Card originalCard = Card.builder().id(999L).build();
+        // Original card to clone
+        Card originalCard = Card.builder().id(originalCardId).build();
         List<Example> examples = Arrays.asList(
-                new Example(1L, "example1", "translation1", originalCard),
-                new Example(2L, "example2", "translation2", originalCard));
+                new Example(UUID.randomUUID(), "example1", "translation1", originalCard),
+                new Example(UUID.randomUUID(), "example2", "translation2", originalCard));
         List<Translation> translations = Arrays.asList(
-                new Translation(3L, "translationA", originalCard), new Translation(4L, "translationB", originalCard));
+                new Translation(UUID.randomUUID(), "translationA", originalCard),
+                new Translation(UUID.randomUUID(), "translationB", originalCard));
+
         originalCard.setExamples(examples);
         originalCard.setTranslations(translations);
 
@@ -216,21 +222,19 @@ class CardSuggestionServiceTest {
         CardDto originalCardDto = new CardDto();
         when(cardMapper.cardEntityToDto(originalCard)).thenReturn(originalCardDto);
 
-        // We want the mapper to return a brand new Card entity with same data.
-        // For simplicity, let's just return the same "originalCard" reference or a new instance.
-        // Typically you'd want a deep copy, but let's keep it simple.
-        Card clonedCard = Card.builder().build();
+        // Cloned card with same data but new UUID
+        Card clonedCard = Card.builder().id(UUID.randomUUID()).build();
         clonedCard.setExamples(examples.stream()
-                .map(e -> new Example(e.getId(), e.getExample(), e.getTranslation(), clonedCard))
+                .map(e -> new Example(UUID.randomUUID(), e.getExample(), e.getTranslation(), clonedCard))
                 .collect(Collectors.toList()));
         clonedCard.setTranslations(translations.stream()
-                .map(t -> new Translation(t.getId(), t.getTranslation(), clonedCard))
+                .map(t -> new Translation(UUID.randomUUID(), t.getTranslation(), clonedCard))
                 .collect(Collectors.toList()));
 
         when(cardMapper.copyCardDtoToEntity(eq(originalCardDto))).thenReturn(clonedCard);
         when(learnerFinder.findLearner(actionExecutor, originalCard.getLanguage()))
                 .thenReturn(recipientLearner);
-        // The user is authorized
+
         // Act
         cardSuggestionService.acceptSuggestion(suggestionId, actionExecutor);
 
@@ -248,31 +252,29 @@ class CardSuggestionServiceTest {
     @Test
     void givenNewCardSuggestionDtoAndUser_whenSuggestCard_thenReturnTrueAndSaveIt() {
         // Arrange
-        // The new code expects (CardSuggestionDto dto, User user)
-        CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
-        User user = User.builder().id(101L).build();
+        UUID cardId = UUID.randomUUID();
+        UUID recipientId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
-        // Suppose the card has a language = EN, so we find the Learner for that user+lang
+        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        User user = User.builder().id(userId).build();
+
         Card card = Card.builder()
-                .id(2L)
+                .id(cardId)
                 .examples(new ArrayList<>())
                 .translations(new ArrayList<>())
                 .cardTags(Set.of())
                 .language(Language.EN)
                 .build();
 
-        // The findById for the card
         when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
 
-        // We mock the Learner returned for user & card.getLanguage()
-        Learner senderLearner = Learner.builder().id(300L).build();
+        Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
 
-        // The recipient learner from the DB
         Learner recipient = Learner.builder().id(dto.recipientId()).build();
         when(learnerRepository.findById(dto.recipientId())).thenReturn(Optional.of(recipient));
 
-        // If there's no existing suggestion, the repository returns null
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(senderLearner, recipient, card))
                 .thenReturn(null);
 
@@ -291,20 +293,22 @@ class CardSuggestionServiceTest {
     @Test
     void givenExistingCardSuggestionDtoAndUser_whenSuggestCard_thenReturnFalseAndDoNotSaveIt() {
         // Arrange
-        CardSuggestionDto dto = new CardSuggestionDto(1L, 2L);
-        User user = User.builder().id(202L).build();
+        UUID cardId = UUID.randomUUID();
+        UUID recipientId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
 
-        Card card = Card.builder().id(1L).language(Language.EN).build();
+        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        User user = User.builder().id(userId).build();
+
+        Card card = Card.builder().id(cardId).language(Language.EN).build();
         when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
 
-        // The learner corresponding to user+language
-        Learner senderLearner = Learner.builder().id(333L).build();
+        Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
 
         Learner recipient = Learner.builder().id(dto.recipientId()).build();
         when(learnerRepository.findById(dto.recipientId())).thenReturn(Optional.of(recipient));
 
-        // Existing suggestion
         CardSuggestion existingSuggestion = new CardSuggestion(senderLearner, recipient, card);
         when(cardSuggestionRepository.getBySenderAndRecipientAndCard(senderLearner, recipient, card))
                 .thenReturn(existingSuggestion);
@@ -321,8 +325,9 @@ class CardSuggestionServiceTest {
     @Test
     void givenNonExistingCardSuggestionId_whenAcceptSuggestion_thenThrowEntityNotFoundException() {
         // Arrange
-        Long nonExistingId = 99L;
-        User user = User.builder().id(42L).build();
+        UUID nonExistingId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        User user = User.builder().id(userId).build();
 
         when(cardSuggestionRepository.findById(nonExistingId)).thenReturn(Optional.empty());
 

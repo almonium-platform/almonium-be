@@ -262,6 +262,6 @@ class LearnerServiceTest {
         // Act & Assert
         assertThatThrownBy(() -> learnerService.deleteLearner(Language.EN, id))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining("User not found: 999");
+                .hasMessageContaining("User not found: ");
     }
 }

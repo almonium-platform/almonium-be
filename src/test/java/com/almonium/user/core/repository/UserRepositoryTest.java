@@ -6,6 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.almonium.config.PostgresContainer;
 import com.almonium.user.core.model.entity.User;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
     private static final String JOHN_USERNAME = "john";
-    private static final Long JOHN_ID = 1L;
+    private static final UUID JOHN_ID = UUID.randomUUID();
 
     @Autowired
     UserRepository userRepository;
