@@ -38,6 +38,7 @@
         <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
         <version.stream>1.27.2</version.stream>
         <version.stripe>28.2.0</version.stripe>
+        <version.uuid-creator>5.2.0</version.uuid-creator>
         <version.zxing>3.5.3</version.zxing>
     </properties>
 
@@ -160,6 +161,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
             <version>${version.commons-configuration2}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.f4b6a3</groupId>
+            <artifactId>uuid-creator</artifactId>
+            <version>${version.uuid-creator}</version>
         </dependency>
 
         <!--        language processing-->
