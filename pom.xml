@@ -36,7 +36,7 @@
         <version.springdoc>2.7.0</version.springdoc>
         <version.spotless>2.43.0</version.spotless>
         <version.stanford-corenlp>4.5.7</version.stanford-corenlp>
-        <version.stream>1.27.2</version.stream>
+        <version.stream>1.28.0</version.stream>
         <version.stripe>28.2.0</version.stripe>
         <version.uuid-creator>5.2.0</version.uuid-creator>
         <version.zxing>3.5.3</version.zxing>
