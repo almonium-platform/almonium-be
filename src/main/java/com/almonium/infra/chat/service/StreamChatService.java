@@ -31,8 +31,9 @@ public class StreamChatService {
     private static final String SHORT_LINK_DOMAIN = "go.almonium.com";
     private static final String SHORT_LINK_TEMPLATE = "https://%s/%s";
 
+    private static final List<Language> SUPPORTED_LANGUAGES =
+            List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
     AppProperties appProperties;
-    List<Language> supportedLanguages = List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
 
     public String setupNewUser(User user) {
         createStreamUser(user);
@@ -46,7 +47,7 @@ public class StreamChatService {
     }
 
     public void joinLanguageSpecificChannelIfAvailable(User user, Language language) {
-        if (!supportedLanguages.contains(language)) {
+        if (!SUPPORTED_LANGUAGES.contains(language)) {
             return;
         }
 
@@ -62,7 +63,7 @@ public class StreamChatService {
     }
 
     public void leaveLanguageSpecificChannelIfAvailable(User user, Language language) {
-        if (!supportedLanguages.contains(language)) {
+        if (!SUPPORTED_LANGUAGES.contains(language)) {
             return;
         }
 
@@ -149,6 +150,47 @@ public class StreamChatService {
         }
     }
 
+    public void cleanUpUserData(User user) {
+        cleanUpChannels(user);
+        deleteUserFromStream(user);
+    }
+
+    private void cleanUpChannels(User user) {
+        String userId = user.getId().toString();
+
+        SUPPORTED_LANGUAGES.stream()
+                .map(this::getSupportedLanguageChannelId)
+                .forEach(lang -> leavePublicChannel(lang, userId));
+
+        leavePublicChannel(getDefaultStreamId(), userId);
+        deleteSelfChat(userId);
+    }
+
+    private void deleteSelfChat(String userId) {
+        try {
+            Channel.delete(SELF_CHAT_TYPE, userId).request();
+        } catch (StreamException e) {
+            log.error("Error while deleting self chat for user: {}, {}", userId, e.getMessage());
+        }
+    }
+
+    private void leavePublicChannel(String channelId, String userId) {
+        try {
+            Channel.update(READ_ONLY_CHAT_TYPE, channelId).removeMember(userId).request();
+        } catch (StreamException e) {
+            log.error("Error while removing user from language specific channel: {}, {}", channelId, e.getMessage());
+        }
+    }
+
+    private void deleteUserFromStream(User user) {
+        try {
+            io.getstream.chat.java.models.User.delete(user.getId().toString()).request();
+        } catch (StreamException e) {
+            throw new StreamIntegrationException(
+                    String.format("Error while deleting user %s from Stream: %s", user.getId(), e.getMessage()), e);
+        }
+    }
+
     private String getShortLink(String key) {
         return String.format(SHORT_LINK_TEMPLATE, SHORT_LINK_DOMAIN, key);
     }
@@ -183,7 +225,7 @@ public class StreamChatService {
         try {
             String defaultChannelId = getDefaultStreamId();
 
-            for (var language : supportedLanguages) {
+            for (var language : SUPPORTED_LANGUAGES) {
                 Channel.getOrCreate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
                         .data(Channel.ChannelRequestObject.builder()
                                 .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()

@@ -14,6 +14,7 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.service.PasswordEncoderService;
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -40,6 +41,7 @@ public class SensitiveAuthActionsService {
     PlanSubscriptionService planSubscriptionService;
     VerificationTokenManagementService verificationTokenManagementService;
     AvatarService avatarService;
+    StreamChatService streamChatService;
 
     UserRepository userRepository;
     PrincipalRepository principalRepository;
@@ -111,6 +113,7 @@ public class SensitiveAuthActionsService {
     public void deleteAccount(User user) {
         planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
         avatarService.cleanUpAvatars(user.getId());
+        streamChatService.cleanUpUserData(user);
         userRepository.delete(user);
     }
 
