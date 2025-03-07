@@ -1,5 +1,7 @@
 package com.almonium.auth.local.cron;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -7,6 +9,7 @@ import com.almonium.auth.local.repository.VerificationTokenRepository;
 import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,9 +17,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 @RequiredArgsConstructor
 @Configuration
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenCleanupTask {
-    private final VerificationTokenRepository verificationTokenRepository;
-    private final PrincipalRepository principalRepository;
+    VerificationTokenRepository verificationTokenRepository;
+    PrincipalRepository principalRepository;
 
     @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
     public void purgeExpiredVerificationTokens() {
