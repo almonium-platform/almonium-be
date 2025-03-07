@@ -15,7 +15,6 @@ import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
-import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.InterestRepository;
 import com.almonium.user.core.repository.UserRepository;
@@ -142,10 +141,6 @@ public class UserService implements UserDetailsService {
                 .filter(principal -> !principal.getEmail().equals(user.getEmail()))
                 .map(principal -> (LocalPrincipal) principal)
                 .findFirst();
-    }
-
-    public List<Language> getTargetLanguages(User user) {
-        return user.getLearners().stream().map(Learner::getLanguage).toList();
     }
 
     public void updateFluentLanguages(Set<Language> langs, User user) {
