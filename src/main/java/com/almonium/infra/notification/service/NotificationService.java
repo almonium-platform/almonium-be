@@ -37,6 +37,11 @@ public class NotificationService {
     }
 
     @Transactional
+    public void deleteNotification(User user, UUID id) {
+        notificationRepository.deleteByIdAndUser(id, user);
+    }
+
+    @Transactional
     public void readAllNotifications(User user) {
         notificationRepository.readAllUnreadNotifications(user);
     }

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,20 +35,26 @@ public class NotificationController {
         return ResponseEntity.ok(notificationService.getNotificationsForUser(user));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNotification(@Auth User user, @NotNull @PathVariable UUID id) {
+        notificationService.deleteNotification(user, id);
+        return ResponseEntity.ok().build();
+    }
+
     @PatchMapping("/read")
-    public ResponseEntity<?> readAllNotifications(@Auth User user) {
+    public ResponseEntity<Void> readAllNotifications(@Auth User user) {
         notificationService.readAllNotifications(user);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/read")
-    public ResponseEntity<?> readNotification(@Auth User user, @NotNull @PathVariable UUID id) {
+    public ResponseEntity<Void> readNotification(@Auth User user, @NotNull @PathVariable UUID id) {
         notificationService.readNotification(user, id);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/unread")
-    public ResponseEntity<?> unreadNotification(@Auth User user, @NotNull @PathVariable UUID id) {
+    public ResponseEntity<Void> unreadNotification(@Auth User user, @NotNull @PathVariable UUID id) {
         notificationService.unreadNotification(user, id);
         return ResponseEntity.ok().build();
     }

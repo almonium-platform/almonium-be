@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface NotificationRepository extends JpaRepository<Notification, UUID> {
     List<Notification> findByUserOrderByReadAtDescCreatedAtDesc(User user);
 
+    void deleteByIdAndUser(UUID id, User user);
+
     @Modifying
     @Query("update Notification n set n.readAt = current_timestamp where n.user = :user and n.readAt is null")
     void readAllUnreadNotifications(User user);
