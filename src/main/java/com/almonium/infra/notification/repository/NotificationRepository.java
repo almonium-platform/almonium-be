@@ -2,6 +2,7 @@ package com.almonium.infra.notification.repository;
 
 import com.almonium.infra.notification.model.entity.Notification;
 import com.almonium.user.core.model.entity.User;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,8 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
     @Modifying
     @Query("update Notification n set n.readAt = null where n.user = :user and n.id = :id and n.readAt is not null")
     void unreadNotification(User user, UUID id);
+
+    @Modifying
+    @Query("delete from Notification n where n.readAt is not null and n.readAt < :cutoff")
+    void deleteOldReadNotifications(Instant cutoff);
 }
