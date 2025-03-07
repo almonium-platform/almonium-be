@@ -37,7 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AuthTokenService {
-    private static final String LOCALHOST = "localhost";
     private static final String IS_LIVE_TOKEN_CLAIM = "isLive";
 
     AppProperties appProperties;
