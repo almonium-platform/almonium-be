@@ -1,8 +1,10 @@
 package com.almonium.user.friendship.service;
 
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.CANCELLED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.REJECTED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
@@ -41,7 +43,7 @@ public class FriendshipService {
     FriendshipRepository friendshipRepository;
 
     public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
-        return friendshipRepository.findNewFriendCandidates(id, username);
+        return friendshipRepository.findNewFriendCandidates(id, username, FriendshipStatus.retryableStatuses());
     }
 
     public List<FriendshipToUserProjection> searchFriends(UUID id, String username) {
@@ -101,20 +103,18 @@ public class FriendshipService {
     }
 
     private Friendship reestablishFriendshipAndNotifyOrThrow(User requester, Friendship existingFriendship) {
-        if (FriendshipStatus.UNFRIENDED == existingFriendship.getStatus()) {
-            existingFriendship.setStatus(FriendshipStatus.PENDING);
-
-            if (existingFriendship.getRequestee().equals(requester)) {
-                existingFriendship.setRequestee(existingFriendship.getRequester());
-                existingFriendship.setRequester(requester);
-            }
-
-            friendshipRepository.save(existingFriendship);
-            notifyAboutFriendshipRequestReceival(existingFriendship);
-            return existingFriendship;
+        if (!existingFriendship.getStatus().isRetryable()) {
+            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
 
-        throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
+        if (existingFriendship.getRequestee().equals(requester)) {
+            existingFriendship.setRequestee(existingFriendship.getRequester());
+            existingFriendship.setRequester(requester);
+        }
+
+        setStatusAndSave(existingFriendship, PENDING);
+        notifyAboutFriendshipRequestReceival(existingFriendship);
+        return existingFriendship;
     }
 
     private void notifyAboutFriendshipRequestReceival(Friendship friendship) {
@@ -135,18 +135,22 @@ public class FriendshipService {
     private Friendship cancelOwnRequest(User user, Friendship friendship) {
         validateFriendshipStatus(friendship, PENDING);
         validateCorrectRole(user, friendship, true);
-        return deleteFriendship(friendship);
+        return setStatusAndSave(friendship, CANCELLED);
     }
 
     private Friendship rejectIncomingRequest(User user, Friendship friendship) {
         validateFriendshipStatus(friendship, PENDING);
         validateCorrectRole(user, friendship, false);
-        return deleteFriendship(friendship);
+        return setStatusAndSave(friendship, REJECTED);
     }
 
     private Friendship unfriend(Friendship friendship) {
         validateFriendshipStatus(friendship, FRIENDS);
-        friendship.setStatus(UNFRIENDED);
+        return setStatusAndSave(friendship, UNFRIENDED);
+    }
+
+    private Friendship setStatusAndSave(Friendship friendship, FriendshipStatus status) {
+        friendship.setStatus(status);
         return friendshipRepository.save(friendship);
     }
 
@@ -173,13 +177,7 @@ public class FriendshipService {
             throw new FriendshipException("User is not the denier of this friendship");
         }
 
-        friendship.setStatus(FRIENDS);
-        return friendshipRepository.save(friendship);
-    }
-
-    private Friendship deleteFriendship(Friendship friendship) {
-        friendshipRepository.delete(friendship);
-        return friendship;
+        return setStatusAndSave(friendship, FRIENDS);
     }
 
     private void validateUserIsPartOfFriendship(User user, Friendship friendship) {

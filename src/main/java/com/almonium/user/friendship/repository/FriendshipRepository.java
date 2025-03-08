@@ -3,6 +3,7 @@ package com.almonium.user.friendship.repository;
 import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.model.entity.Friendship;
+import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +28,11 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
                   from Friendship f
                   where ((f.requester.id = :currentUserId and f.requestee.id = u.id)
                      or (f.requestee.id = :currentUserId and f.requester.id = u.id))
-                     and f.status != 'UNFRIENDED'
+                     and f.status not in :retryableStatuses
               )
             """)
-    List<PublicUserProfile> findNewFriendCandidates(UUID currentUserId, String username);
+    List<PublicUserProfile> findNewFriendCandidates(
+            UUID currentUserId, String username, List<FriendshipStatus> retryableStatuses);
 
     @Query(
             """

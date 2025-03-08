@@ -1,8 +1,10 @@
 package com.almonium.user.friendship.service;
 
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.CANCELLED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.REJECTED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
@@ -23,6 +25,7 @@ import com.almonium.user.friendship.dto.response.RelatedUserProfile;
 import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
+import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
@@ -81,7 +84,8 @@ class FriendshipServiceTest {
         String usernameSubstring = "nonexistent";
         var currentUserId = UUID.randomUUID(); // ID of the current user to exclude
 
-        when(friendshipRepository.findNewFriendCandidates(currentUserId, usernameSubstring))
+        when(friendshipRepository.findNewFriendCandidates(
+                        currentUserId, usernameSubstring, FriendshipStatus.retryableStatuses()))
                 .thenReturn(List.of());
 
         // Act
@@ -198,14 +202,15 @@ class FriendshipServiceTest {
         friendship.setStatus(PENDING);
 
         when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
         // Act
-        Friendship deletedFriendship =
-                friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL);
+        Friendship result = friendshipService.manageFriendship(requester, FRIENDSHIP_ID, FriendshipAction.CANCEL);
 
         // Assert
-        assertThat(deletedFriendship).isNotNull();
-        verify(friendshipRepository).delete(any(Friendship.class));
+        assertThat(result).isNotNull();
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+        assertThat(friendship.getStatus()).isEqualTo(CANCELLED);
     }
 
     @DisplayName("Should not cancel a non-pending friendship request")
@@ -229,14 +234,15 @@ class FriendshipServiceTest {
         // Arrange
         friendship.setStatus(PENDING);
         when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
         // Act
-        Friendship deletedFriendship =
-                friendshipService.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.REJECT);
+        Friendship result = friendshipService.manageFriendship(recipient, FRIENDSHIP_ID, FriendshipAction.REJECT);
 
         // Assert
-        assertThat(deletedFriendship).isNotNull();
-        verify(friendshipRepository).delete(any(Friendship.class));
+        assertThat(result).isNotNull();
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
+        assertThat(friendship.getStatus()).isEqualTo(REJECTED);
     }
 
     @DisplayName("Should unfriend a friend")
