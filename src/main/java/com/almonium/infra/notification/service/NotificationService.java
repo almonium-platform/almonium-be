@@ -58,7 +58,7 @@ public class NotificationService {
 
     public void notifyOfFriendshipAcceptance(Friendship friendship) {
         String title = "Friendship request accepted";
-        String message = "%s accepted your friendship request!"
+        String message = "@%s accepted your friendship request!"
                 .formatted(friendship.getRequestee().getUsername());
 
         Notification notification = Notification.builder()
@@ -86,7 +86,7 @@ public class NotificationService {
 
     public void notifyFriendshipRequestRecipient(User initiator, User recipient, Friendship friendship) {
         String title = "Friendship request received";
-        String message = "%s wants to be friends with you!".formatted(initiator.getUsername());
+        String message = "@%s wants to be friends with you!".formatted(initiator.getUsername());
 
         Notification notification = Notification.builder()
                 .user(recipient)
