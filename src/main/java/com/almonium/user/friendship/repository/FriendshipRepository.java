@@ -21,7 +21,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
             )
             from User u
             left join u.profile p
-            where u.username like CONCAT('%', :username, '%')
+            where u.username like %:username%
               and u.id != :currentUserId
               and not exists (
                   select 1
@@ -155,7 +155,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
             join User u on (f.requester.id = u.id or f.requestee.id = u.id)
             where (f.requester.id = :id or f.requestee.id = :id)
               and f.status = 'FRIENDS'
-              and u.username like CONCAT('%', :username, '%')
+              and u.username like %:username%
             """)
     List<FriendshipToUserProjection> searchFriendsByUsername(UUID id, String username);
 }
