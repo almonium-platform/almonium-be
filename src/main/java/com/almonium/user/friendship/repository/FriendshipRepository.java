@@ -25,8 +25,8 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
               and not exists (
                   select 1
                   from Friendship f
-                  where (f.requester.id = :currentUserId and f.requestee.id = u.id)
-                     or (f.requestee.id = :currentUserId and f.requester.id = u.id)
+                  where ((f.requester.id = :currentUserId and f.requestee.id = u.id)
+                     or (f.requestee.id = :currentUserId and f.requester.id = u.id))
                      and f.status != 'UNFRIENDED'
               )
             """)
