@@ -2,6 +2,7 @@ package com.almonium.auth.local.cron;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
@@ -13,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 
 @EnableScheduling
 @RequiredArgsConstructor
@@ -22,7 +24,8 @@ public class VerificationTokenCleanupTask {
     VerificationTokenRepository verificationTokenRepository;
     PrincipalRepository principalRepository;
 
-    @Scheduled(cron = "0 0 0 * * ?") // Runs every day at midnight
+    @Scheduled(cron = "0 0 1 * * ?") // Runs every day at midnight
+    @Transactional
     public void purgeExpiredVerificationTokens() {
         Instant now = Instant.now();
 
@@ -30,8 +33,9 @@ public class VerificationTokenCleanupTask {
         List<VerificationToken> expiredEmailChangeTokens =
                 verificationTokenRepository.findByTokenTypeAndExpiresAtBefore(TokenType.EMAIL_CHANGE_VERIFICATION, now);
 
-        principalRepository.deleteAll(expiredEmailChangeTokens.stream()
+        principalRepository.deleteAllByIdInBatch(expiredEmailChangeTokens.stream()
                 .map(VerificationToken::getPrincipal)
+                .map(Principal::getId)
                 .toList());
 
         // Delete other expired tokens

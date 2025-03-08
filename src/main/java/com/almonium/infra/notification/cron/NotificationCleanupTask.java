@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 
 @EnableScheduling
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class NotificationCleanupTask {
     NotificationRepository notificationRepository;
 
     @Scheduled(cron = "0 0 3 * * ?") // Runs every day at 3 AM
+    @Transactional
     public void purgeOldReadNotifications() {
         Instant cutoff = Instant.now().minus(RETENTION_DAYS, ChronoUnit.DAYS);
         notificationRepository.deleteOldReadNotifications(cutoff);
