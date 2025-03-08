@@ -74,10 +74,14 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
         return CookieUtil.getCookie(getHttpServletRequest(), CookieUtil.USER_ID_PARAM_COOKIE_NAME)
                 .map(cookie -> {
                     String value = cookie.getValue();
-                    if (value != null && value.matches("\\d+")) {
-                        return UUID.fromString(value);
+                    if (value.isBlank()) {
+                        throw new OAuth2AuthenticationException("User ID is blank in request");
                     }
-                    throw new OAuth2AuthenticationException("Invalid user ID format in request");
+                    try {
+                        return UUID.fromString(value);
+                    } catch (IllegalArgumentException e) {
+                        throw new OAuth2AuthenticationException("Invalid user ID format in request", e);
+                    }
                 })
                 .orElseThrow(() -> new OAuth2AuthenticationException("User ID not found in request"));
     }
