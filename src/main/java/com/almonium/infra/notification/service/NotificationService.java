@@ -85,7 +85,7 @@ public class NotificationService {
     }
 
     public void notifyFriendshipRequestRecipient(User initiator, User recipient, Friendship friendship) {
-        String title = "Friendship request";
+        String title = "Friendship request received";
         String message = "%s wants to be friends with you!".formatted(initiator.getUsername());
 
         Notification notification = Notification.builder()

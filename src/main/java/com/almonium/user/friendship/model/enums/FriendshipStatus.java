@@ -6,4 +6,5 @@ public enum FriendshipStatus {
     FRIENDS,
     FST_BLOCKED_SND,
     SND_BLOCKED_FST,
+    UNFRIENDED,
 }

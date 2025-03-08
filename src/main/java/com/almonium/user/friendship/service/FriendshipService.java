@@ -4,6 +4,7 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.service.NotificationService;
@@ -20,7 +21,6 @@ import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Transactional(readOnly = true)
 public class FriendshipService {
-    private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
+    private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create or re-establish friendship";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
@@ -65,23 +65,11 @@ public class FriendshipService {
     }
 
     @Transactional
-    public Friendship createFriendshipRequest(User user, FriendshipRequestDto dto) {
-        Optional<Friendship> friendshipOptional =
-                friendshipRepository.getFriendshipByUsersIds(user.getId(), dto.recipientId());
-        if (friendshipOptional.isPresent()) {
-            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
-        }
-
-        User recipient = userService.getById(dto.recipientId());
-        if (recipient.getProfile().isHidden()) {
-            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
-        }
-
-        Friendship friendship = friendshipRepository.save(new Friendship(user, recipient));
-
-        notificationService.notifyFriendshipRequestRecipient(user, recipient, friendship);
-
-        return friendship;
+    public Friendship createFriendshipRequest(User requester, FriendshipRequestDto dto) {
+        return friendshipRepository
+                .getFriendshipByUsersIds(requester.getId(), dto.recipientId())
+                .map(friendship -> reestablishFriendshipOrThrow(requester, friendship))
+                .orElseGet(() -> createFriendshipAndNotify(requester, dto));
     }
 
     @Transactional
@@ -98,6 +86,34 @@ public class FriendshipService {
             case BLOCK -> block(user, friendship);
             case UNBLOCK -> unblock(user, friendship);
         };
+    }
+
+    private Friendship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
+        User recipient = userService.getById(dto.recipientId());
+
+        if (recipient.getProfile().isHidden()) {
+            throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
+        }
+
+        Friendship friendship = friendshipRepository.save(new Friendship(requester, recipient));
+        notificationService.notifyFriendshipRequestRecipient(requester, recipient, friendship);
+
+        return friendship;
+    }
+
+    private Friendship reestablishFriendshipOrThrow(User requester, Friendship existingFriendship) {
+        if (FriendshipStatus.UNFRIENDED == existingFriendship.getStatus()) {
+            existingFriendship.setStatus(FriendshipStatus.PENDING);
+
+            if (existingFriendship.getRequestee().equals(requester)) {
+                existingFriendship.setRequestee(existingFriendship.getRequester());
+                existingFriendship.setRequester(requester);
+            }
+
+            return friendshipRepository.save(existingFriendship);
+        }
+
+        throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
     }
 
     private Friendship befriend(User currentUser, Friendship friendship) {
@@ -124,7 +140,8 @@ public class FriendshipService {
 
     private Friendship unfriend(Friendship friendship) {
         validateFriendshipStatus(friendship, FRIENDS);
-        return deleteFriendship(friendship);
+        friendship.setStatus(UNFRIENDED);
+        return friendshipRepository.save(friendship);
     }
 
     private Friendship block(User user, Friendship friendship) {

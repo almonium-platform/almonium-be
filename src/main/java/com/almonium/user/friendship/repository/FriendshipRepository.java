@@ -27,6 +27,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
                   from Friendship f
                   where (f.requester.id = :currentUserId and f.requestee.id = u.id)
                      or (f.requestee.id = :currentUserId and f.requester.id = u.id)
+                     and f.status != 'UNFRIENDED'
               )
             """)
     List<PublicUserProfile> findNewFriendCandidates(UUID currentUserId, String username);

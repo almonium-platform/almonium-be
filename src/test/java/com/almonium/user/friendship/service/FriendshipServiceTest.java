@@ -4,6 +4,7 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -40,7 +41,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
 class FriendshipServiceTest {
-    private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create friendship request";
+    private static final String FRIENDSHIP_CANT_BE_ESTABLISHED = "Couldn't create or re-establish friendship";
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
 
     private static final UUID REQUESTER_ID = UUID.randomUUID();
@@ -244,6 +245,7 @@ class FriendshipServiceTest {
         // Arrange
         friendship.setStatus(FRIENDS);
         when(friendshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(friendship));
+        when(friendshipRepository.save(any(Friendship.class))).thenReturn(friendship);
 
         // Act
         Friendship deletedFriendship =
@@ -251,7 +253,8 @@ class FriendshipServiceTest {
 
         // Assert
         assertThat(deletedFriendship).isNotNull();
-        verify(friendshipRepository).delete(any(Friendship.class));
+        assertThat(deletedFriendship.getStatus()).isEqualTo(UNFRIENDED);
+        verify(friendshipRepository, never()).delete(any(Friendship.class));
     }
 
     @DisplayName("Should block a friend")
