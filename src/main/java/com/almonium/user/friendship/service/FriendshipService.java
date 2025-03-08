@@ -68,7 +68,7 @@ public class FriendshipService {
     public Friendship createFriendshipRequest(User requester, FriendshipRequestDto dto) {
         return friendshipRepository
                 .getFriendshipByUsersIds(requester.getId(), dto.recipientId())
-                .map(friendship -> reestablishFriendshipOrThrow(requester, friendship))
+                .map(friendship -> reestablishFriendshipAndNotifyOrThrow(requester, friendship))
                 .orElseGet(() -> createFriendshipAndNotify(requester, dto));
     }
 
@@ -96,12 +96,11 @@ public class FriendshipService {
         }
 
         Friendship friendship = friendshipRepository.save(new Friendship(requester, recipient));
-        notificationService.notifyFriendshipRequestRecipient(requester, recipient, friendship);
-
+        notifyAboutFriendshipRequestReceival(friendship);
         return friendship;
     }
 
-    private Friendship reestablishFriendshipOrThrow(User requester, Friendship existingFriendship) {
+    private Friendship reestablishFriendshipAndNotifyOrThrow(User requester, Friendship existingFriendship) {
         if (FriendshipStatus.UNFRIENDED == existingFriendship.getStatus()) {
             existingFriendship.setStatus(FriendshipStatus.PENDING);
 
@@ -110,10 +109,17 @@ public class FriendshipService {
                 existingFriendship.setRequester(requester);
             }
 
-            return friendshipRepository.save(existingFriendship);
+            friendshipRepository.save(existingFriendship);
+            notifyAboutFriendshipRequestReceival(existingFriendship);
+            return existingFriendship;
         }
 
         throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
+    }
+
+    private void notifyAboutFriendshipRequestReceival(Friendship friendship) {
+        notificationService.notifyFriendshipRequestRecipient(
+                friendship.getRequester(), friendship.getRequestee(), friendship);
     }
 
     private Friendship befriend(User currentUser, Friendship friendship) {
