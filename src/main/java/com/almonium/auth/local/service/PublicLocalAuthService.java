@@ -40,13 +40,14 @@ public class PublicLocalAuthService {
         User user = userFactory.createUserWithDefaultPlan(request.email(), false);
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         localPrincipalRepository.save(localPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
+                localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     public void requestPasswordReset(String email) {
         localPrincipalRepository
                 .findByEmail(email)
-                .ifPresent(principal -> verificationTokenManagementService.createAndSendVerificationToken(
+                .ifPresent(principal -> verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
                         principal, TokenType.PASSWORD_RESET));
     }
 

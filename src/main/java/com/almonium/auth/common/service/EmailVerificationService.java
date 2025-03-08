@@ -38,7 +38,7 @@ public class EmailVerificationService {
                 .orElseThrow(() -> new BadAuthActionRequest(
                         "Email verification is not available without local authentication method"));
 
-        tokenService.createAndSendVerificationToken(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        tokenService.createAndSendVerificationTokenIfAllowed(localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     public Optional<VerificationTokenDto> getLastEmailVerificationToken(UUID id) {
@@ -57,7 +57,7 @@ public class EmailVerificationService {
     public void resendEmailVerificationRequest(UUID id) {
         sensitiveAuthActionsService.handleEmailChangeRequest(
                 id,
-                token -> verificationTokenManagementService.createAndSendVerificationToken(
+                token -> verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
                         token.getPrincipal(), token.getTokenType()));
     }
 }

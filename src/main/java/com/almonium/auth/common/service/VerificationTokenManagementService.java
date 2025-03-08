@@ -12,8 +12,10 @@ import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.AuthTokenEmailComposerService;
+import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
@@ -30,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class VerificationTokenManagementService {
+    private static final int COOLDOWN_SECONDS = 60;
+
     AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     TokenGenerator tokenGenerator;
@@ -60,12 +64,25 @@ public class VerificationTokenManagementService {
                 });
     }
 
-    public void createAndSendVerificationToken(LocalPrincipal localPrincipal, TokenType tokenType) {
+    public void createAndSendVerificationTokenIfAllowed(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(
                 appProperties.getAuth().getVerificationToken().getLength());
+
         verificationTokenRepository
                 .findByPrincipalAndTokenTypeIn(localPrincipal, Set.of(tokenType))
-                .ifPresent(verificationTokenRepository::delete);
+                .ifPresent(existingToken -> {
+                    Instant cooldown = existingToken.getCreatedAt().plusSeconds(COOLDOWN_SECONDS);
+                    Instant now = Instant.now();
+                    if (now.isBefore(cooldown)) {
+                        log.info("Verification token cooldown for {}", localPrincipal.getEmail());
+                        Duration duration = Duration.between(now, cooldown);
+                        throw new BadUserRequestActionException("You can request a new verification token in %s seconds"
+                                .formatted(duration.getSeconds()));
+                    }
+                    verificationTokenRepository.delete(existingToken);
+                    log.info("Deleted old verification token for {}", localPrincipal.getEmail());
+                });
+
         VerificationToken verificationToken = new VerificationToken(
                 localPrincipal,
                 token,

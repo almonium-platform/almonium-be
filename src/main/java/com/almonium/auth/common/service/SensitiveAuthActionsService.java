@@ -69,7 +69,7 @@ public class SensitiveAuthActionsService {
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(existingLocalPrincipal, newEmail);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(
+        verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
                 newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 
@@ -98,7 +98,7 @@ public class SensitiveAuthActionsService {
 
         LocalPrincipal newLocalPrincipal = principalFactory.createLocalPrincipal(user, request);
         newLocalPrincipal = principalRepository.save(newLocalPrincipal);
-        verificationTokenManagementService.createAndSendVerificationToken(
+        verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
                 newLocalPrincipal, TokenType.EMAIL_CHANGE_VERIFICATION);
     }
 

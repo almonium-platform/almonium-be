@@ -84,7 +84,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
         verify(userFactory).createUserWithDefaultPlan(registrationRequest.email(), false);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
         verify(verificationTokenManagementService)
-                .createAndSendVerificationToken(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
+                .createAndSendVerificationTokenIfAllowed(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
     }
 
     @DisplayName("Should throw an exception when trying to register user with existing email")
@@ -117,6 +117,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
 
         // Assert
         verify(localPrincipalRepository).findByEmail(email);
-        verify(verificationTokenManagementService).createAndSendVerificationToken(principal, TokenType.PASSWORD_RESET);
+        verify(verificationTokenManagementService)
+                .createAndSendVerificationTokenIfAllowed(principal, TokenType.PASSWORD_RESET);
     }
 }

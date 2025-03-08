@@ -47,6 +47,9 @@ public class VerificationToken {
     TokenType tokenType;
 
     public VerificationToken(LocalPrincipal principal, String token, TokenType tokenType, long minutes) {
+        if (minutes <= 0) {
+            throw new IllegalArgumentException("minutes must be greater than 0");
+        }
         this.principal = principal;
         this.token = token;
         this.tokenType = tokenType;
