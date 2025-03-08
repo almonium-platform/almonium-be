@@ -33,7 +33,7 @@ public class QRCodeGenerator {
 
     private static final Color BACKGROUND = new Color(255, 255, 255, 0);
     private static final Color COLOR = Color.BLACK;
-    private static final int EXCLUSION_RADIUS = 5;
+    private static final int EXCLUSION_RADIUS = 6;
     private static final int SIZE = 500;
 
     public byte[] generateQRCode(String text) {
