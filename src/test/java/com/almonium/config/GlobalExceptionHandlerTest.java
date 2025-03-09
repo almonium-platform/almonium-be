@@ -48,7 +48,7 @@ class GlobalExceptionHandlerTest {
         String resourcePath = "/non-existent-resource";
         NoResourceFoundException ex = new NoResourceFoundException(method, resourcePath);
 
-        ResponseEntity<?> response = exceptionHandler.handleNoResourceFoundException(ex);
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleNoResourceFoundException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
