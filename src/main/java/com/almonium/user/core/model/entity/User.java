@@ -118,7 +118,7 @@ public class User {
             name = "user_interest",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id"))
-    List<Interest> interests;
+    Set<Interest> interests;
 
     @SneakyThrows
     @PrePersist

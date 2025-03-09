@@ -13,6 +13,7 @@ import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.repository.UserRepository;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,7 +35,7 @@ public class OnboardingService {
 
     LearnerMapper learnerMapper;
 
-    public void setupInterests(User user, List<Long> interests) {
+    public void setupInterests(User user, Set<Long> interests) {
         processStep(user, SetupStep.INTERESTS, interests, data -> userService.updateInterests(user, data));
     }
 

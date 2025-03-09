@@ -1,6 +1,6 @@
 package com.almonium.user.core.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
-public record SaveInterestsRequest(List<@NotNull Long> ids) {}
+public record SaveInterestsRequest(Set<@NotNull Long> ids) {}

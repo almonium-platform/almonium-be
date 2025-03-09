@@ -120,8 +120,8 @@ public class UserService implements UserDetailsService {
         log.info("User {} changed username to: {}", id, username);
     }
 
-    public void updateInterests(User user, List<Long> ids) {
-        user.setInterests(interestRepository.findAllById(ids));
+    public void updateInterests(User user, Set<Long> ids) {
+        user.setInterests(new HashSet<>(interestRepository.findAllById(ids)));
         userRepository.save(user);
         log.info("User {} updated interests: {}", user.getId(), ids);
     }
