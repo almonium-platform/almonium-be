@@ -35,13 +35,15 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Transactional
 public class CardSuggestionService {
+    LearnerFinder learnerFinder;
+
     CardRepository cardRepository;
     CardSuggestionRepository cardSuggestionRepository;
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
     LearnerRepository learnerRepository;
+
     CardMapper cardMapper;
-    LearnerFinder learnerFinder;
 
     public List<CardDto> getSuggestedCards(User user, Language lang) {
         Learner learner = learnerFinder.findLearner(user, lang);

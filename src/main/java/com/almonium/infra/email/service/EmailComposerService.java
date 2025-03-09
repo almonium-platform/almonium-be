@@ -21,9 +21,10 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public abstract class EmailComposerService<T> {
     private static final String TEMPLATE_PATH_FORMAT = "%s/%s.html";
-    SpringTemplateEngine templateEngine;
-    AppProperties appProperties;
     EmailService emailService;
+    SpringTemplateEngine templateEngine;
+
+    AppProperties appProperties;
 
     public void sendEmail(String recipientUsername, String recipientEmail, EmailContext<T> emailContext) {
         EmailDto emailDto = composeEmail(recipientUsername, recipientEmail, emailContext);

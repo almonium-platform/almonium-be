@@ -34,11 +34,12 @@ import org.springframework.stereotype.Service;
 public class PlanSubscriptionService {
     SubscriptionEmailComposerService emailComposerService;
     StripeApiService stripeApiService;
+    PlanService planService;
+
     PlanSubscriptionRepository planSubRepository;
+    InsiderRepository insiderRepository;
     PlanRepository planRepository;
     UserRepository userRepository;
-    PlanService planService;
-    InsiderRepository insiderRepository;
 
     public String initiatePlanSubscribing(User user, long planId) {
         Plan plan = getAndValidatePlanEligibility(user, planId);

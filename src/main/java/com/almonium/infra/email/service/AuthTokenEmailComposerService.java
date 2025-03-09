@@ -28,8 +28,8 @@ public class AuthTokenEmailComposerService extends EmailComposerService<TokenTyp
     private static final String CHANGE_EMAIL_URL = "/change-email";
 
     public AuthTokenEmailComposerService(
-            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
-        super(templateEngine, appProperties, emailService);
+            EmailService emailService, SpringTemplateEngine templateEngine, AppProperties appProperties) {
+        super(emailService, templateEngine, appProperties);
     }
 
     @Override

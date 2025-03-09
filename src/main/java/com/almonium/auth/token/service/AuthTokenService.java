@@ -39,9 +39,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthTokenService {
     private static final String IS_LIVE_TOKEN_CLAIM = "isLive";
 
-    AppProperties appProperties;
     PrincipalRepository principalRepository;
     RefreshTokenRepository refreshTokenRepository;
+
+    AppProperties appProperties;
 
     @Transactional
     public void revokeRefreshTokensByUser(User user) {

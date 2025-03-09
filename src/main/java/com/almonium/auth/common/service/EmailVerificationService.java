@@ -24,11 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EmailVerificationService {
     UserService userService;
-    VerificationTokenManagementService tokenService;
-    VerificationTokenMapper verificationTokenMapper;
-    PrincipalRepository principalRepository;
-    SensitiveAuthActionsService sensitiveAuthActionsService;
     VerificationTokenManagementService verificationTokenManagementService;
+    SensitiveAuthActionsService sensitiveAuthActionsService;
+
+    PrincipalRepository principalRepository;
+
+    VerificationTokenMapper verificationTokenMapper;
 
     @Transactional // TODO why it's needed?
     public void sendEmailVerification(UUID id) {
@@ -38,11 +39,14 @@ public class EmailVerificationService {
                 .orElseThrow(() -> new BadAuthActionRequest(
                         "Email verification is not available without local authentication method"));
 
-        tokenService.createAndSendVerificationTokenIfAllowed(localPrincipal, TokenType.EMAIL_VERIFICATION);
+        verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(
+                localPrincipal, TokenType.EMAIL_VERIFICATION);
     }
 
     public Optional<VerificationTokenDto> getLastEmailVerificationToken(UUID id) {
-        return tokenService.findValidEmailVerificationToken(id).map(verificationTokenMapper::toDto);
+        return verificationTokenManagementService
+                .findValidEmailVerificationToken(id)
+                .map(verificationTokenMapper::toDto);
     }
 
     public void cancelEmailChangeRequest(UUID userId) {

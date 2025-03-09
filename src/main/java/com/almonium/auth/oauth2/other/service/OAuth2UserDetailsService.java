@@ -32,7 +32,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
     OAuth2AuthenticationService authService;
+
     OAuth2UserInfoFactory userInfoFactory;
+
     ThreadLocalStore threadLocalStore;
 
     @Override

@@ -26,9 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class NotificationService {
-    NotificationRepository notificationRepository;
     FriendshipEmailComposerService friendshipEmailComposerService;
     FCMService fcmService;
+
+    NotificationRepository notificationRepository;
 
     NotificationMapper notificationMapper;
 

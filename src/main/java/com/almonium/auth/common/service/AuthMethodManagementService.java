@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthMethodManagementService {
     UserRepository userRepository;
     PrincipalRepository principalRepository;
+
     PrincipalMapper principalMapper;
 
     public List<PrincipalDto> getAuthProviders(String email) {

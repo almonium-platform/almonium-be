@@ -24,14 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PublicLocalAuthService {
-    // services
     VerificationTokenManagementService verificationTokenManagementService;
 
-    // factories
     UserFactory userFactory;
     PrincipalFactory principalFactory;
 
-    // repositories
     UserRepository userRepository;
     LocalPrincipalRepository localPrincipalRepository;
 

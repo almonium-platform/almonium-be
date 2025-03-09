@@ -32,9 +32,12 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     AuthTokenService authTokenService;
     ProfileService profileService;
-    AuthenticationManager authenticationManager;
+
     UserRepository userRepository;
+
     AppProperties appProperties;
+
+    AuthenticationManager authenticationManager;
 
     public void localLogin(String email, String password, HttpServletResponse response) {
         Authentication authentication =

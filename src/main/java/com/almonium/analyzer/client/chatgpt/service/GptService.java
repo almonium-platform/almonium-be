@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GptService {
     GptClient gptClient;
+
     OpenAIProperties openAiProperties;
 
     public String getChatResponse(String prompt) {

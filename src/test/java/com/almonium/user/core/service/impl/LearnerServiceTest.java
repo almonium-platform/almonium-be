@@ -74,8 +74,8 @@ class LearnerServiceTest {
                 .build();
 
         List<TargetLanguageWithProficiency> languages = List.of(
-                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
-                new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
+                new TargetLanguageWithProficiency(Language.FR, CEFR.A1),
+                new TargetLanguageWithProficiency(Language.DE, CEFR.B1));
 
         when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(0);
         when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
@@ -118,8 +118,8 @@ class LearnerServiceTest {
                 .build();
 
         List<TargetLanguageWithProficiency> languages = List.of(
-                new TargetLanguageWithProficiency(CEFR.A1, Language.FR),
-                new TargetLanguageWithProficiency(CEFR.B1, Language.DE));
+                new TargetLanguageWithProficiency(Language.FR, CEFR.A1),
+                new TargetLanguageWithProficiency(Language.DE, CEFR.B1));
 
         when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(1);
         when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
@@ -155,7 +155,7 @@ class LearnerServiceTest {
         // Arrange
         User user = User.builder().id(UUID.randomUUID()).build();
         List<TargetLanguageWithProficiency> languages =
-                List.of(new TargetLanguageWithProficiency(CEFR.A1, Language.FR));
+                List.of(new TargetLanguageWithProficiency(Language.FR, CEFR.A1));
 
         when(learnerRepository.findByUserIdAndLanguage(user.getId(), Language.FR))
                 .thenReturn(Optional.of(

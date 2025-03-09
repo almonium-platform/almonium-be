@@ -17,8 +17,10 @@ import org.springframework.stereotype.Service;
 public class UsernameGeneratorImpl implements UsernameGenerator {
     private static final int MAX_ATTEMPTS = 5;
     private static final String SANITIZING_REGEX = "[^a-zA-Z0-9_]";
-    UserRepository userRepository;
+
     SecureRandomNumericGeneratorImpl randomNumericGenerator;
+
+    UserRepository userRepository;
 
     @Override
     public String generateUsername(String email) {

@@ -44,14 +44,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CardService {
+    LearnerFinder learnerFinder;
+
     CardRepository cardRepository;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
     LearnerRepository learnerRepository;
+
     CardMapper cardMapper;
-    LearnerFinder learnerFinder;
 
     public CardDto getCardById(UUID id) {
         return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());

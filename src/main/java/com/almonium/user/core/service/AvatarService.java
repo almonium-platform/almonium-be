@@ -39,12 +39,14 @@ public class AvatarService {
     private static final Pattern AVATAR_URL_PATTERN = Pattern.compile(".*/o/" + AVATAR_PREFIX + "([^/?]+).*");
     private static final String PATH_FORMAT = "%s%s";
 
-    AvatarRepository avatarRepository;
     FirebaseStorageService firebaseStorageService;
-    AvatarMapper avatarMapper;
-    ProfileService profileService;
-    ProfileRepository profileRepository;
     StreamChatService streamChatService;
+    ProfileService profileService;
+
+    AvatarRepository avatarRepository;
+    ProfileRepository profileRepository;
+
+    AvatarMapper avatarMapper;
 
     @Transactional
     public void addAndSetNewCustomAvatar(UUID id, String url) {

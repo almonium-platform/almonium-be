@@ -29,8 +29,8 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
 
     // RequiredArgsConstructor not possible due to inheritance
     public SubscriptionEmailComposerService(
-            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
-        super(templateEngine, appProperties, emailService);
+            EmailService emailService, SpringTemplateEngine templateEngine, AppProperties appProperties) {
+        super(emailService, templateEngine, appProperties);
     }
 
     @Override

@@ -40,6 +40,7 @@ public class FriendshipService {
 
     UserService userService;
     NotificationService notificationService;
+
     FriendshipRepository friendshipRepository;
 
     public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {

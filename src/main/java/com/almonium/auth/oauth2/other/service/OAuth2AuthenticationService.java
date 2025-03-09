@@ -25,11 +25,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class OAuth2AuthenticationService {
-    UserRepository userRepository;
-    UserFactory userFactory;
-    UserMapper userMapper;
-    OAuth2PrincipalRepository principalRepository;
     AvatarService avatarService;
+
+    OAuth2PrincipalRepository principalRepository;
+    UserRepository userRepository;
+
+    UserFactory userFactory;
+
+    UserMapper userMapper;
 
     @Transactional
     public OAuth2Principal reauthenticate(OAuth2UserInfo userInfo, UUID userId) {

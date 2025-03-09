@@ -32,11 +32,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerService {
-    LearnerRepository learnerRepository;
     PlanValidationService planValidationService;
     StreamChatService streamChatService;
     CardService cardService;
+
+    LearnerRepository learnerRepository;
     UserRepository userRepository;
+
     LearnerMapper learnerMapper;
 
     @Transactional

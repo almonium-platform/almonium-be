@@ -37,8 +37,10 @@ public class VerificationTokenManagementService {
     AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     TokenGenerator tokenGenerator;
+
     VerificationTokenRepository verificationTokenRepository;
     LocalPrincipalRepository localPrincipalRepository;
+
     AppProperties appProperties;
 
     @Transactional

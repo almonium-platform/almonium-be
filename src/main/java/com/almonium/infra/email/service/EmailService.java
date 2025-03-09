@@ -33,6 +33,7 @@ public class EmailService {
 
     JavaMailSender mailSender;
     HtmlFileWriter htmlFileWriter;
+
     AppProperties appProperties;
     MailProperties mailProperties;
 

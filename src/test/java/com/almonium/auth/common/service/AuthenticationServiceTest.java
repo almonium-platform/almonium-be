@@ -50,7 +50,7 @@ class AuthenticationServiceTest extends AppConfigPropertiesTest {
     @BeforeEach
     void setUp() {
         authenticationService = new AuthenticationService(
-                authTokenService, profileService, authenticationManager, userRepository, appProperties);
+                authTokenService, profileService, userRepository, appProperties, authenticationManager);
     }
 
     @DisplayName("Should authenticate and update tokens when given valid credentials")

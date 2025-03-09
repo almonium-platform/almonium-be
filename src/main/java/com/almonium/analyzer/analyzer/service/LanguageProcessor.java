@@ -47,17 +47,20 @@ public class LanguageProcessor {
     private static final double OFFSET = 10;
     private static final double SCALE = 1.153315895823627;
 
+    CoreNLPService coreNLPService = null;
+    TranslationService googleService;
+    LearnerFinder learnerFinder;
+
     DatamuseClient datamuseClient;
     GoogleClient googleClient;
     WordnikClient wordnikClient;
     YandexClient yandexClient;
     WordsClient wordsClient;
-    CoreNLPService coreNLPService = null;
-    TranslationService googleService;
+
     LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
+
     DictionaryDtoMapper dictionaryDtoMapper;
-    LearnerFinder learnerFinder;
 
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
         // todo deepL

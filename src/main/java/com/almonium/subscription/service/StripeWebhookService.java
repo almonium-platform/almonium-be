@@ -24,8 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class StripeWebhookService {
-    StripeEventLogRepository stripeEventLogRepository;
     PlanSubscriptionService planSubscriptionService;
+
+    StripeEventLogRepository stripeEventLogRepository;
 
     private static final List<String> EXPECTED_EVENT_TYPES = List.of(
             "payment_intent.created",

@@ -20,8 +20,8 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
 
     // RequiredArgsConstructor not possible due to inheritance
     public FriendshipEmailComposerService(
-            SpringTemplateEngine templateEngine, AppProperties appProperties, EmailService emailService) {
-        super(templateEngine, appProperties, emailService);
+            EmailService emailService, SpringTemplateEngine templateEngine, AppProperties appProperties) {
+        super(emailService, templateEngine, appProperties);
     }
 
     @Override

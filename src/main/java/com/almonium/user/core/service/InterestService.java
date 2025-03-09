@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class InterestService {
     InterestRepository interestRepository;
+
     InterestMapper interestMapper;
 
     public List<InterestDto> getInterests() {

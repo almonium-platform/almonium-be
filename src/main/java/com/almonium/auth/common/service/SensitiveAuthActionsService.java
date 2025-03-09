@@ -35,13 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class SensitiveAuthActionsService {
-    PrincipalFactory principalFactory;
     UserService userService;
     PasswordEncoderService passwordEncoderService;
     PlanSubscriptionService planSubscriptionService;
     VerificationTokenManagementService verificationTokenManagementService;
     AvatarService avatarService;
     StreamChatService streamChatService;
+    PrincipalFactory principalFactory;
 
     UserRepository userRepository;
     PrincipalRepository principalRepository;
