@@ -2,9 +2,12 @@ package com.almonium.user.core.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.annotation.Auth;
+import com.almonium.user.core.dto.response.BaseUserInfo;
 import com.almonium.user.core.dto.response.UsernameAvailability;
 import com.almonium.user.core.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +28,10 @@ public class UserController {
     public ResponseEntity<UsernameAvailability> checkUsernameAvailability(@PathVariable String username) {
         boolean isAvailable = userService.isUsernameAvailable(username);
         return ResponseEntity.ok(new UsernameAvailability(isAvailable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseUserInfo> getUserProfile(@PathVariable UUID id, @Auth UUID viewer) {
+        return ResponseEntity.ok(userService.getUserProfileInfo(viewer, id));
     }
 }

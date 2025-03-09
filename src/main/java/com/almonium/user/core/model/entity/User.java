@@ -49,7 +49,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
         attributeNodes = {
             @NamedAttributeNode("profile"),
             @NamedAttributeNode("planSubscriptions"),
-            @NamedAttributeNode("fluentLangs")
+            @NamedAttributeNode("fluentLangs"),
+            @NamedAttributeNode("interests")
         })
 @Entity
 @Table(name = "user_core")

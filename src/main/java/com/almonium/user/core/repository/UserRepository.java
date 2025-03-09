@@ -10,6 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
+    Optional<User> findUserDetailsById(UUID id);
+
+    @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);

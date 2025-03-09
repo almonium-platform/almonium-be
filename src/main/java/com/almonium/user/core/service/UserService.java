@@ -10,14 +10,22 @@ import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.user.core.dto.TargetLanguageWithProficiency;
+import com.almonium.user.core.dto.response.BaseUserInfo;
+import com.almonium.user.core.dto.response.FullUserInfo;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
+import com.almonium.user.core.model.entity.Interest;
+import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.InterestRepository;
+import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
@@ -41,13 +49,29 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Transactional
 public class UserService implements UserDetailsService {
-    UserRepository userRepository;
     PlanSubscriptionService planSubscriptionService;
-    PlanService planService;
-    UserMapper userMapper;
-    InterestRepository interestRepository;
-    PlanSubscriptionMapper planSubscriptionMapper;
     StreamChatService streamChatService;
+    PlanService planService;
+
+    UserRepository userRepository;
+    ProfileRepository profileRepository;
+    InterestRepository interestRepository;
+    FriendshipRepository friendshipRepository;
+
+    PlanSubscriptionMapper planSubscriptionMapper;
+    UserMapper userMapper;
+
+    @Transactional
+    public BaseUserInfo getUserProfileInfo(UUID viewer, UUID profileId) {
+        User user = userRepository
+                .findUserDetailsById(profileId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
+
+        boolean isProfileVisible =
+                isProfileVisibleToViewer(profileRepository.findById(profileId).orElseThrow(), viewer);
+
+        return isProfileVisible ? getFullProfileInfo(user) : getPublicProfileInfo(user);
+    }
 
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
@@ -146,6 +170,57 @@ public class UserService implements UserDetailsService {
     public void updateFluentLanguages(Set<Language> langs, User user) {
         user.setFluentLangs(new HashSet<>(langs));
         userRepository.save(user);
+    }
+
+    private BaseUserInfo getPublicProfileInfo(User user) {
+        Profile profile = user.getProfile();
+
+        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
+        boolean isPremium =
+                planService.isPlanPremium(activePlanSubscription.getPlan().getId());
+
+        return BaseUserInfo.builder()
+                .id(user.getId().toString())
+                .username(user.getUsername())
+                .isPremium(isPremium)
+                .avatarUrl(profile.getAvatarUrl())
+                .registeredAt(user.getRegistered())
+                .build();
+    }
+
+    private FullUserInfo getFullProfileInfo(User user) {
+        Profile profile = user.getProfile();
+        BaseUserInfo baseUserInfo = getPublicProfileInfo(user);
+        List<String> interests =
+                user.getInterests().stream().map(Interest::getName).toList();
+
+        FullUserInfo fullUserInfo = new FullUserInfo(baseUserInfo);
+        fullUserInfo.setFluentLangs(user.getFluentLangs());
+        fullUserInfo.setTargetLangs(getUserTargetLangsWithProficiency(user));
+        fullUserInfo.setInterests(interests);
+        fullUserInfo.setLoginStreak(profile.getStreak());
+
+        return fullUserInfo;
+    }
+
+    private List<TargetLanguageWithProficiency> getUserTargetLangsWithProficiency(User user) {
+        return user.getLearners().stream()
+                .map(learner ->
+                        new TargetLanguageWithProficiency(learner.getLanguage(), learner.getSelfReportedLevel()))
+                .toList();
+    }
+
+    private boolean isProfileVisibleToViewer(Profile profile, UUID viewer) {
+        if (!profile.isHidden()) {
+            return true;
+        }
+
+        return friendshipRepository
+                .getFriendshipByUsersIds(viewer, profile.getId())
+                .map(friendship -> friendship.getStatus() == FriendshipStatus.FRIENDS
+                        || (friendship.getStatus() == FriendshipStatus.PENDING
+                                && friendship.getRequestee().getId().equals(viewer)))
+                .orElse(false);
     }
 
     private static String collectProvidersNames(User user) {
