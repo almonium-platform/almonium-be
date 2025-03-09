@@ -80,7 +80,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     SetupStep setupStep;
 
-    @CreatedDate
+    @CreatedDate // todo: add At
     Instant registered;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")

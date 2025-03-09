@@ -48,7 +48,7 @@ public class Profile {
     @CreatedDate
     LocalDateTime lastLogin;
 
-    @Builder.Default
+    @Builder.Default // todo: rename to loginStreak
     int streak = 0;
 
     @JdbcTypeCode(SqlTypes.JSON)
