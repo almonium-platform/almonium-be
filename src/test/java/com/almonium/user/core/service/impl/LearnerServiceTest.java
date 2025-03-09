@@ -15,7 +15,7 @@ import com.almonium.card.core.service.CardService;
 import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
-import com.almonium.user.core.dto.request.TargetLanguageWithProficiency;
+import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
