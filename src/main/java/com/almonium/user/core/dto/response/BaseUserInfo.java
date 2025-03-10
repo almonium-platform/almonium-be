@@ -20,5 +20,7 @@ public class BaseUserInfo {
     String avatarUrl;
     Instant registeredAt;
     boolean isPremium;
+
+    @Builder.Default
     boolean hidden = true;
 }
