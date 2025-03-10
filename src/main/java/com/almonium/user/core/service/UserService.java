@@ -24,6 +24,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.InterestRepository;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -67,10 +68,15 @@ public class UserService implements UserDetailsService {
                 .findUserDetailsById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
 
-        boolean isProfileVisible =
-                isProfileVisibleToViewer(profileRepository.findById(profileId).orElseThrow(), viewer);
+        Profile profile = profileRepository
+                .findById(profileId)
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
 
-        return isProfileVisible ? getFullProfileInfo(user) : getPublicProfileInfo(user);
+        ProfileVisibilityResult visibilityResult = checkProfileVisibility(profile, viewer);
+
+        return visibilityResult.isVisible()
+                ? getFullProfileInfo(user, visibilityResult.friendship())
+                : getPublicProfileInfo(user);
     }
 
     public UserInfo buildUserInfoFromUser(User user) {
@@ -188,7 +194,7 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    private FullUserInfo getFullProfileInfo(User user) {
+    private FullUserInfo getFullProfileInfo(User user, Optional<Friendship> friendship) {
         Profile profile = user.getProfile();
         BaseUserInfo baseUserInfo = getPublicProfileInfo(user);
         List<String> interests =
@@ -200,6 +206,8 @@ public class UserService implements UserDetailsService {
         fullUserInfo.setInterests(interests);
         fullUserInfo.setLoginStreak(profile.getStreak());
 
+        fullUserInfo.setFriendshipId(friendship.map(Friendship::getId).orElse(null));
+
         return fullUserInfo;
     }
 
@@ -210,17 +218,20 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 
-    private boolean isProfileVisibleToViewer(Profile profile, UUID viewer) {
-        if (!profile.isHidden()) {
-            return true;
+    private ProfileVisibilityResult checkProfileVisibility(Profile profile, UUID viewer) {
+        boolean isVisible = !profile.isHidden();
+
+        Optional<Friendship> friendship = friendshipRepository.getFriendshipByUsersIds(viewer, profile.getId());
+
+        if (!isVisible) {
+            isVisible = friendship
+                    .map(f -> f.getStatus() == FriendshipStatus.FRIENDS
+                            || (f.getStatus() == FriendshipStatus.PENDING
+                                    && f.getRequestee().getId().equals(viewer)))
+                    .orElse(false);
         }
 
-        return friendshipRepository
-                .getFriendshipByUsersIds(viewer, profile.getId())
-                .map(friendship -> friendship.getStatus() == FriendshipStatus.FRIENDS
-                        || (friendship.getStatus() == FriendshipStatus.PENDING
-                                && friendship.getRequestee().getId().equals(viewer)))
-                .orElse(false);
+        return new ProfileVisibilityResult(isVisible, friendship);
     }
 
     private static String collectProvidersNames(User user) {
@@ -231,4 +242,6 @@ public class UserService implements UserDetailsService {
                         + provider.substring(1).toLowerCase())
                 .collect(Collectors.joining(", "));
     }
+
+    private record ProfileVisibilityResult(boolean isVisible, Optional<Friendship> friendship) {}
 }

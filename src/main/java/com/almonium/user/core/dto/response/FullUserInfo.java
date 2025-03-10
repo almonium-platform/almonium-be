@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import java.util.Collection;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +22,7 @@ public class FullUserInfo extends BaseUserInfo {
     Collection<TargetLanguageWithProficiency> targetLangs;
     Collection<String> interests;
     int loginStreak;
+    UUID friendshipId;
 
     public FullUserInfo(BaseUserInfo fullUserInfo) {
         super(
