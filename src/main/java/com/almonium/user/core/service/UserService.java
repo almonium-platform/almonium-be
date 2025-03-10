@@ -26,6 +26,7 @@ import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import com.almonium.user.friendship.model.enums.RelationshipStatus;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
@@ -74,9 +75,7 @@ public class UserService implements UserDetailsService {
 
         ProfileVisibilityResult visibilityResult = checkProfileVisibility(profile, viewer);
 
-        return visibilityResult.isVisible()
-                ? getFullProfileInfo(user, visibilityResult.friendship())
-                : getPublicProfileInfo(user);
+        return visibilityResult.isVisible() ? getFullProfileInfo(user, visibilityResult) : getPublicProfileInfo(user);
     }
 
     public UserInfo buildUserInfoFromUser(User user) {
@@ -194,7 +193,7 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    private FullUserInfo getFullProfileInfo(User user, Optional<Friendship> friendship) {
+    private FullUserInfo getFullProfileInfo(User user, ProfileVisibilityResult visibilityResult) {
         Profile profile = user.getProfile();
         BaseUserInfo baseUserInfo = getPublicProfileInfo(user);
         List<String> interests =
@@ -206,7 +205,9 @@ public class UserService implements UserDetailsService {
         fullUserInfo.setInterests(interests);
         fullUserInfo.setLoginStreak(profile.getStreak());
 
-        fullUserInfo.setFriendshipId(friendship.map(Friendship::getId).orElse(null));
+        fullUserInfo.setFriendshipId(
+                visibilityResult.friendship().map(Friendship::getId).orElse(null));
+        fullUserInfo.setRelationshipStatus(visibilityResult.relationshipStatus());
 
         return fullUserInfo;
     }
@@ -221,17 +222,28 @@ public class UserService implements UserDetailsService {
     private ProfileVisibilityResult checkProfileVisibility(Profile profile, UUID viewer) {
         boolean isVisible = !profile.isHidden();
 
-        Optional<Friendship> friendship = friendshipRepository.getFriendshipByUsersIds(viewer, profile.getId());
+        RelationshipStatus relationshipStatus = RelationshipStatus.STRANGER;
 
-        if (!isVisible) {
-            isVisible = friendship
-                    .map(f -> f.getStatus() == FriendshipStatus.FRIENDS
-                            || (f.getStatus() == FriendshipStatus.PENDING
-                                    && f.getRequestee().getId().equals(viewer)))
-                    .orElse(false);
+        var friendshipOptional = friendshipRepository.getFriendshipByUsersIds(viewer, profile.getId());
+        if (friendshipOptional.isPresent()) {
+            var friendship = friendshipOptional.get();
+            FriendshipStatus status = friendship.getStatus();
+            boolean isRequester = viewer.equals(friendship.getRequester().getId());
+
+            relationshipStatus = switch (status) {
+                case FRIENDS -> RelationshipStatus.FRIENDS;
+                case PENDING -> isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
+                case FST_BLOCKED_SND, SND_BLOCKED_FST -> RelationshipStatus.BLOCKED;
+                case REJECTED, CANCELLED, UNFRIENDED -> RelationshipStatus.STRANGER;
+            };
+
+            if (!isVisible) {
+                isVisible = relationshipStatus == RelationshipStatus.FRIENDS
+                        || relationshipStatus == RelationshipStatus.PENDING_INCOMING;
+            }
         }
 
-        return new ProfileVisibilityResult(isVisible, friendship);
+        return new ProfileVisibilityResult(isVisible, friendshipOptional, relationshipStatus);
     }
 
     private static String collectProvidersNames(User user) {
@@ -243,5 +255,6 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.joining(", "));
     }
 
-    private record ProfileVisibilityResult(boolean isVisible, Optional<Friendship> friendship) {}
+    private record ProfileVisibilityResult(
+            boolean isVisible, Optional<Friendship> friendship, RelationshipStatus relationshipStatus) {}
 }

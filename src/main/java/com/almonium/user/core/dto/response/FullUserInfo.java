@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
+import com.almonium.user.friendship.model.enums.RelationshipStatus;
 import java.util.Collection;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class FullUserInfo extends BaseUserInfo {
     Collection<String> interests;
     int loginStreak;
     UUID friendshipId;
+    RelationshipStatus relationshipStatus;
 
     public FullUserInfo(BaseUserInfo fullUserInfo) {
         super(
@@ -32,5 +34,7 @@ public class FullUserInfo extends BaseUserInfo {
                 fullUserInfo.getRegisteredAt(),
                 fullUserInfo.isPremium(),
                 false);
+
+        relationshipStatus = RelationshipStatus.STRANGER;
     }
 }
