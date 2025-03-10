@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AvatarService {
     private static final String FIREBASE_STORAGE_DOMAIN = "https://firebasestorage.googleapis.com";
-    private static final String AVATAR_PREFIX = "avatars/";
+    private static final String AVATAR_PREFIX = "avatars/users/";
     private static final String DEFAULT_AVATAR_PREFIX = AVATAR_PREFIX + "default";
     private static final Pattern AVATAR_URL_PATTERN = Pattern.compile(".*/o/" + AVATAR_PREFIX + "([^/?]+).*");
     private static final String PATH_FORMAT = "%s%s";
