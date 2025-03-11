@@ -29,9 +29,11 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
@@ -84,7 +86,8 @@ public class FriendshipService {
             status = switch (friendship.getStatus()) {
                 case FRIENDS -> RelationshipStatus.FRIENDS;
                 case PENDING -> isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
-                case FST_BLOCKED_SND, SND_BLOCKED_FST -> RelationshipStatus.BLOCKED;
+                case FST_BLOCKED_SND -> isRequester ? RelationshipStatus.BLOCKED : RelationshipStatus.STRANGER;
+                case SND_BLOCKED_FST -> isRequester ? RelationshipStatus.STRANGER : RelationshipStatus.BLOCKED;
                 case REJECTED, CANCELLED, UNFRIENDED -> RelationshipStatus.STRANGER;
             };
         }
