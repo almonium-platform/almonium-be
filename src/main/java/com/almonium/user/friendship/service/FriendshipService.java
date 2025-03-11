@@ -10,8 +10,9 @@ import static com.almonium.user.friendship.model.enums.FriendshipStatus.UNFRIEND
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.service.NotificationService;
+import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.service.UserService;
+import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.friendship.dto.request.FriendshipRequestDto;
 import com.almonium.user.friendship.dto.response.PublicUserProfile;
 import com.almonium.user.friendship.dto.response.RelatedUserProfile;
@@ -19,7 +20,9 @@ import com.almonium.user.friendship.exception.FriendshipException;
 import com.almonium.user.friendship.model.entity.Friendship;
 import com.almonium.user.friendship.model.enums.FriendshipAction;
 import com.almonium.user.friendship.model.enums.FriendshipStatus;
+import com.almonium.user.friendship.model.enums.RelationshipStatus;
 import com.almonium.user.friendship.model.projection.FriendshipToUserProjection;
+import com.almonium.user.friendship.model.record.RelationshipInfo;
 import com.almonium.user.friendship.repository.FriendshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -38,7 +41,7 @@ public class FriendshipService {
     private static final String FRIENDSHIP_IS_ALREADY_BLOCKED = "Friendship is already blocked";
     private static final String FRIENDSHIP_NOT_FOUND = "Friendship not found";
 
-    UserService userService;
+    ProfileService profileService;
     NotificationService notificationService;
 
     FriendshipRepository friendshipRepository;
@@ -67,6 +70,28 @@ public class FriendshipService {
         return friendshipRepository.getBlocked(id);
     }
 
+    public RelationshipInfo getRelationshipInfo(UUID viewerId, UUID profileId) {
+        var friendshipOptional = friendshipRepository.getFriendshipByUsersIds(viewerId, profileId);
+
+        RelationshipStatus status = RelationshipStatus.STRANGER;
+        UUID friendshipId = null;
+
+        if (friendshipOptional.isPresent()) {
+            Friendship friendship = friendshipOptional.get();
+            friendshipId = friendship.getId();
+            boolean isRequester = viewerId.equals(friendship.getRequester().getId());
+
+            status = switch (friendship.getStatus()) {
+                case FRIENDS -> RelationshipStatus.FRIENDS;
+                case PENDING -> isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
+                case FST_BLOCKED_SND, SND_BLOCKED_FST -> RelationshipStatus.BLOCKED;
+                case REJECTED, CANCELLED, UNFRIENDED -> RelationshipStatus.STRANGER;
+            };
+        }
+
+        return new RelationshipInfo(friendshipOptional, status, friendshipId);
+    }
+
     @Transactional
     public Friendship createFriendshipRequest(User requester, FriendshipRequestDto dto) {
         return friendshipRepository
@@ -92,13 +117,13 @@ public class FriendshipService {
     }
 
     private Friendship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
-        User recipient = userService.getById(dto.recipientId());
+        Profile recipient = profileService.getProfileById(dto.recipientId());
 
-        if (recipient.getProfile().isHidden()) {
+        if (recipient.isHidden()) {
             throw new FriendshipException(FRIENDSHIP_CANT_BE_ESTABLISHED);
         }
 
-        Friendship friendship = friendshipRepository.save(new Friendship(requester, recipient));
+        Friendship friendship = friendshipRepository.save(new Friendship(requester, recipient.getUser()));
         notifyAboutFriendshipRequestReceival(friendship);
         return friendship;
     }

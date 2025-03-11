@@ -25,9 +25,8 @@ import com.almonium.user.core.repository.InterestRepository;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.enums.FriendshipStatus;
-import com.almonium.user.friendship.model.enums.RelationshipStatus;
-import com.almonium.user.friendship.repository.FriendshipRepository;
+import com.almonium.user.friendship.model.record.RelationshipInfo;
+import com.almonium.user.friendship.service.FriendshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
@@ -52,13 +51,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService implements UserDetailsService {
     PlanSubscriptionService planSubscriptionService;
+    FriendshipService friendshipService;
     StreamChatService streamChatService;
     PlanService planService;
 
     UserRepository userRepository;
     ProfileRepository profileRepository;
     InterestRepository interestRepository;
-    FriendshipRepository friendshipRepository;
 
     PlanSubscriptionMapper planSubscriptionMapper;
     UserMapper userMapper;
@@ -73,9 +72,19 @@ public class UserService implements UserDetailsService {
                 .findById(profileId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
 
-        ProfileVisibilityResult visibilityResult = checkProfileVisibility(profile, viewer);
+        RelationshipInfo relationshipInfo = friendshipService.getRelationshipInfo(viewer, profileId);
 
-        return visibilityResult.isVisible() ? getFullProfileInfo(user, visibilityResult) : getPublicProfileInfo(user);
+        boolean isVisible = relationshipInfo.canViewFullProfile(profile.isHidden());
+
+        if (!isVisible) {
+            return getPublicProfileInfo(user);
+        }
+
+        FullUserInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
+        fullUserInfo.setFriendshipId(relationshipInfo.friendshipId());
+        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
+
+        return fullUserInfo;
     }
 
     public UserInfo buildUserInfoFromUser(User user) {
@@ -193,7 +202,7 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    private FullUserInfo getFullProfileInfo(User user, ProfileVisibilityResult visibilityResult) {
+    private FullUserInfo getFullProfileInfo(User user, RelationshipInfo relationshipInfo) {
         Profile profile = user.getProfile();
         BaseUserInfo baseUserInfo = getPublicProfileInfo(user);
         List<String> interests =
@@ -206,8 +215,8 @@ public class UserService implements UserDetailsService {
         fullUserInfo.setLoginStreak(profile.getStreak());
 
         fullUserInfo.setFriendshipId(
-                visibilityResult.friendship().map(Friendship::getId).orElse(null));
-        fullUserInfo.setRelationshipStatus(visibilityResult.relationshipStatus());
+                relationshipInfo.friendship().map(Friendship::getId).orElse(null));
+        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
 
         return fullUserInfo;
     }
@@ -219,33 +228,6 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 
-    private ProfileVisibilityResult checkProfileVisibility(Profile profile, UUID viewer) {
-        boolean isVisible = !profile.isHidden();
-
-        RelationshipStatus relationshipStatus = RelationshipStatus.STRANGER;
-
-        var friendshipOptional = friendshipRepository.getFriendshipByUsersIds(viewer, profile.getId());
-        if (friendshipOptional.isPresent()) {
-            var friendship = friendshipOptional.get();
-            FriendshipStatus status = friendship.getStatus();
-            boolean isRequester = viewer.equals(friendship.getRequester().getId());
-
-            relationshipStatus = switch (status) {
-                case FRIENDS -> RelationshipStatus.FRIENDS;
-                case PENDING -> isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
-                case FST_BLOCKED_SND, SND_BLOCKED_FST -> RelationshipStatus.BLOCKED;
-                case REJECTED, CANCELLED, UNFRIENDED -> RelationshipStatus.STRANGER;
-            };
-
-            if (!isVisible) {
-                isVisible = relationshipStatus == RelationshipStatus.FRIENDS
-                        || relationshipStatus == RelationshipStatus.PENDING_INCOMING;
-            }
-        }
-
-        return new ProfileVisibilityResult(isVisible, friendshipOptional, relationshipStatus);
-    }
-
     private static String collectProvidersNames(User user) {
         return user.getPrincipals().stream()
                 .map(Principal::getProvider)
@@ -254,7 +236,4 @@ public class UserService implements UserDetailsService {
                         + provider.substring(1).toLowerCase())
                 .collect(Collectors.joining(", "));
     }
-
-    private record ProfileVisibilityResult(
-            boolean isVisible, Optional<Friendship> friendship, RelationshipStatus relationshipStatus) {}
 }
