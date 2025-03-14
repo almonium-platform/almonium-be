@@ -36,4 +36,9 @@ public class UserController {
     public ResponseEntity<BaseProfileInfo> blockUser(@Auth User user, @PathVariable UUID id) {
         return ResponseEntity.ok(userService.blockUser(user, id));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseProfileInfo> getUserProfile(@PathVariable UUID id, @Auth UUID viewer) {
+        return ResponseEntity.ok(userService.getUserProfileInfo(viewer, id));
+    }
 }
