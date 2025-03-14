@@ -80,6 +80,10 @@ public interface FriendshipRepository extends JpaRepository<Friendship, UUID> {
             (f.requester.id = u.id and f.status = 'SND_BLOCKED_FST' and f.requestee.id = :id)
             or
             (f.requestee.id = u.id and f.status = 'FST_BLOCKED_SND' and f.requester.id = :id)
+            or
+            (f.requester.id = u.id and f.status = 'MUTUAL_BLOCK' and f.requestee.id = :id)
+            or
+            (f.requestee.id = u.id and f.status = 'MUTUAL_BLOCK' and f.requester.id = :id)
         join Profile p on u.id = p.id
         """)
     List<RelatedUserProfile> getBlocked(UUID id);

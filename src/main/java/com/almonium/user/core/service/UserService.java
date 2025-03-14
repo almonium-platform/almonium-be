@@ -10,26 +10,18 @@ import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
-import com.almonium.user.core.dto.TargetLanguageWithProficiency;
-import com.almonium.user.core.dto.response.BaseUserInfo;
-import com.almonium.user.core.dto.response.FullUserInfo;
+import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
-import com.almonium.user.core.model.entity.Interest;
-import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.InterestRepository;
-import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.record.RelationshipInfo;
 import com.almonium.user.friendship.service.FriendshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -54,38 +46,13 @@ public class UserService implements UserDetailsService {
     FriendshipService friendshipService;
     StreamChatService streamChatService;
     PlanService planService;
+    ProfileService profileService;
 
     UserRepository userRepository;
-    ProfileRepository profileRepository;
     InterestRepository interestRepository;
 
     PlanSubscriptionMapper planSubscriptionMapper;
     UserMapper userMapper;
-
-    @Transactional
-    public BaseUserInfo getUserProfileInfo(UUID viewer, UUID profileId) {
-        User user = userRepository
-                .findUserDetailsById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
-
-        Profile profile = profileRepository
-                .findById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
-
-        RelationshipInfo relationshipInfo = friendshipService.getRelationshipInfo(viewer, profileId);
-
-        boolean isVisible = relationshipInfo.canViewFullProfile(profile.isHidden());
-
-        if (!isVisible) {
-            return getPublicProfileInfo(user);
-        }
-
-        FullUserInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
-        fullUserInfo.setFriendshipId(relationshipInfo.friendshipId());
-        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
-
-        return fullUserInfo;
-    }
 
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
@@ -186,46 +153,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    private BaseUserInfo getPublicProfileInfo(User user) {
-        Profile profile = user.getProfile();
-
-        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
-        boolean isPremium =
-                planService.isPlanPremium(activePlanSubscription.getPlan().getId());
-
-        return BaseUserInfo.builder()
-                .id(user.getId().toString())
-                .username(user.getUsername())
-                .isPremium(isPremium)
-                .avatarUrl(profile.getAvatarUrl())
-                .registeredAt(user.getRegistered())
-                .build();
-    }
-
-    private FullUserInfo getFullProfileInfo(User user, RelationshipInfo relationshipInfo) {
-        Profile profile = user.getProfile();
-        BaseUserInfo baseUserInfo = getPublicProfileInfo(user);
-        List<String> interests =
-                user.getInterests().stream().map(Interest::getName).toList();
-
-        FullUserInfo fullUserInfo = new FullUserInfo(baseUserInfo);
-        fullUserInfo.setFluentLangs(user.getFluentLangs());
-        fullUserInfo.setTargetLangs(getUserTargetLangsWithProficiency(user));
-        fullUserInfo.setInterests(interests);
-        fullUserInfo.setLoginStreak(profile.getStreak());
-
-        fullUserInfo.setFriendshipId(
-                relationshipInfo.friendship().map(Friendship::getId).orElse(null));
-        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
-
-        return fullUserInfo;
-    }
-
-    private List<TargetLanguageWithProficiency> getUserTargetLangsWithProficiency(User user) {
-        return user.getLearners().stream()
-                .map(learner ->
-                        new TargetLanguageWithProficiency(learner.getLanguage(), learner.getSelfReportedLevel()))
-                .toList();
+    public BaseProfileInfo blockUser(User user, UUID id) {
+        friendshipService.blockUser(user, id);
+        return profileService.getUserProfileInfo(user.getId(), id);
     }
 
     private static String collectProvidersNames(User user) {

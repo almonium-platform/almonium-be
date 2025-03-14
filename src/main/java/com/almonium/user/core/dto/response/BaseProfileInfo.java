@@ -2,6 +2,7 @@ package com.almonium.user.core.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.user.friendship.model.enums.RelationshipStatus;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,13 +15,15 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class BaseUserInfo {
+public class BaseProfileInfo {
     String id;
     String username;
     String avatarUrl;
     Instant registeredAt;
     boolean isPremium;
+    Boolean acceptsRequests;
+    RelationshipStatus relationshipStatus;
 
     @Builder.Default
-    boolean hidden = true;
+    final boolean hidden = true;
 }

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "User & Profile")
 @RestController
 @RequestMapping("/friendships")
-@RequiredArgsConstructor
+@RequiredArgsConstructor // TODO rename friendships to relationships
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FriendshipController {
     FriendshipService friendshipService;
@@ -56,6 +56,7 @@ public class FriendshipController {
         return ResponseEntity.ok(friendshipService.getReceivedRequests(id));
     }
 
+    // you won't be able to find people who you've blocked or who have blocked you
     @GetMapping("/search/all")
     public ResponseEntity<List<PublicUserProfile>> searchUsersByUsername(
             @RequestParam @Size(min = AppLimits.MIN_USERNAME_LENGTH, max = AppLimits.MAX_USERNAME_LENGTH)

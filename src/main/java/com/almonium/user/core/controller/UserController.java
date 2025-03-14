@@ -3,8 +3,9 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.user.core.dto.response.BaseUserInfo;
+import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.dto.response.UsernameAvailability;
+import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +32,8 @@ public class UserController {
         return ResponseEntity.ok(new UsernameAvailability(isAvailable));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BaseUserInfo> getUserProfile(@PathVariable UUID id, @Auth UUID viewer) {
-        return ResponseEntity.ok(userService.getUserProfileInfo(viewer, id));
+    @PostMapping("/block/{id}")
+    public ResponseEntity<BaseProfileInfo> blockUser(@Auth User user, @PathVariable UUID id) {
+        return ResponseEntity.ok(userService.blockUser(user, id));
     }
 }

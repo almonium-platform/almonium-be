@@ -5,10 +5,9 @@ import com.almonium.user.friendship.model.enums.RelationshipStatus;
 import java.util.Optional;
 import java.util.UUID;
 
-public record RelationshipInfo(Optional<Friendship> friendship, RelationshipStatus status, UUID friendshipId) {
-    public boolean canViewFullProfile(boolean isProfileHidden) {
-        return !isProfileHidden
-                || status == RelationshipStatus.FRIENDS
-                || status == RelationshipStatus.PENDING_INCOMING;
-    }
-}
+public record RelationshipInfo(
+        Optional<Friendship> friendship,
+        RelationshipStatus status,
+        UUID friendshipId,
+        Boolean acceptsRequests,
+        boolean profileVisible) {}

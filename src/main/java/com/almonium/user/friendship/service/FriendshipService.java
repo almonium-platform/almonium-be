@@ -3,6 +3,7 @@ package com.almonium.user.friendship.service;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.CANCELLED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FRIENDS;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.FST_BLOCKED_SND;
+import static com.almonium.user.friendship.model.enums.FriendshipStatus.MUTUAL_BLOCK;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.PENDING;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.REJECTED;
 import static com.almonium.user.friendship.model.enums.FriendshipStatus.SND_BLOCKED_FST;
@@ -72,27 +73,64 @@ public class FriendshipService {
         return friendshipRepository.getBlocked(id);
     }
 
-    public RelationshipInfo getRelationshipInfo(UUID viewerId, UUID profileId) {
+    /**
+     * If no active friendship is established, we must return acceptsFriendRequests and profileVisible
+     * You can see the friend's profile
+     * If you're blocked by the profile, you can't neither see the profile nor send friend requests
+     * If you blocked the profile unilaterally you can see the profile but can't send friend requests
+     * If you blocked each other, you can't see the profile nor send friend requests
+     * @param viewerId - the user who is viewing the profile
+     * @param profileId - the profile that is being viewed
+     * @param profileHidden - whether the profile is hidden
+     * @return - the relationship info between the viewer and the profile
+     */
+    public RelationshipInfo getRelationshipInfo(UUID viewerId, UUID profileId, boolean profileHidden) {
         var friendshipOptional = friendshipRepository.getFriendshipByUsersIds(viewerId, profileId);
 
         RelationshipStatus status = RelationshipStatus.STRANGER;
         UUID friendshipId = null;
+
+        Boolean acceptsFriendRequests = null; // only makes sense for STRANGER
+        boolean profileVisible = !profileHidden; // always relevant
 
         if (friendshipOptional.isPresent()) {
             Friendship friendship = friendshipOptional.get();
             friendshipId = friendship.getId();
             boolean isRequester = viewerId.equals(friendship.getRequester().getId());
 
-            status = switch (friendship.getStatus()) {
-                case FRIENDS -> RelationshipStatus.FRIENDS;
-                case PENDING -> isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
-                case FST_BLOCKED_SND -> isRequester ? RelationshipStatus.BLOCKED : RelationshipStatus.STRANGER;
-                case SND_BLOCKED_FST -> isRequester ? RelationshipStatus.STRANGER : RelationshipStatus.BLOCKED;
-                case REJECTED, CANCELLED, UNFRIENDED -> RelationshipStatus.STRANGER;
-            };
+            switch (friendship.getStatus()) {
+                case FRIENDS -> {
+                    status = RelationshipStatus.FRIENDS;
+                    profileVisible = true;
+                }
+                case PENDING ->
+                    status = isRequester ? RelationshipStatus.PENDING_OUTGOING : RelationshipStatus.PENDING_INCOMING;
+                case FST_BLOCKED_SND -> {
+                    if (isRequester) {
+                        status = RelationshipStatus.BLOCKED;
+                    } else {
+                        acceptsFriendRequests = false;
+                        profileVisible = false;
+                    }
+                }
+                case SND_BLOCKED_FST -> {
+                    if (isRequester) {
+                        acceptsFriendRequests = false;
+                        profileVisible = false;
+                    } else {
+                        status = RelationshipStatus.BLOCKED;
+                    }
+                }
+                case MUTUAL_BLOCK -> {
+                    status = RelationshipStatus.BLOCKED;
+                    profileVisible = false;
+                }
+                // same as if no friendship exists
+                case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = profileHidden;
+            }
         }
 
-        return new RelationshipInfo(friendshipOptional, status, friendshipId);
+        return new RelationshipInfo(friendshipOptional, status, friendshipId, acceptsFriendRequests, profileVisible);
     }
 
     @Transactional
@@ -117,6 +155,18 @@ public class FriendshipService {
             case BLOCK -> block(user, friendship);
             case UNBLOCK -> unblock(user, friendship);
         };
+    }
+
+    @Transactional
+    public void blockUser(User user, UUID targetUserId) {
+        friendshipRepository
+                .getFriendshipByUsersIds(user.getId(), targetUserId)
+                .ifPresentOrElse(friendship -> block(user, friendship), () -> {
+                    var friendship = new Friendship(
+                            user, profileService.getProfileById(targetUserId).getUser());
+                    friendshipRepository.save(friendship);
+                    block(user, friendship);
+                });
     }
 
     private Friendship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
@@ -183,30 +233,41 @@ public class FriendshipService {
         return friendshipRepository.save(friendship);
     }
 
+    /**
+     * You can block a friendship if it's not already blocked by you
+     * If the other user has already blocked you, it becomes a mutual block
+     */
     private Friendship block(User user, Friendship friendship) {
         var friendshipDenier = friendship.getFriendshipDenier();
-        if (friendshipDenier.isPresent()) {
-            if (friendshipDenier.get().equals(user.getId())) {
-                throw new FriendshipException(FRIENDSHIP_IS_ALREADY_BLOCKED);
-            }
-            throw new FriendshipException(FRIENDSHIP_NOT_FOUND);
-        } else {
-            validateFriendshipStatus(friendship, FRIENDS, PENDING);
-            friendship.setStatus(user.equals(friendship.getRequester()) ? FST_BLOCKED_SND : SND_BLOCKED_FST);
+        boolean alreadyBlocked = friendshipDenier.isPresent();
+        if (alreadyBlocked && friendshipDenier.get().equals(user.getId())) {
+            throw new FriendshipException(FRIENDSHIP_IS_ALREADY_BLOCKED);
         }
+
+        FriendshipStatus status = alreadyBlocked
+                ? MUTUAL_BLOCK
+                : user.equals(friendship.getRequester()) ? FST_BLOCKED_SND : SND_BLOCKED_FST;
+
+        friendship.setStatus(status);
         return friendshipRepository.save(friendship);
     }
 
     private Friendship unblock(User user, Friendship friendship) {
         var friendshipDenier = friendship.getFriendshipDenier();
-        if (friendshipDenier.isEmpty()) {
+        boolean alreadyBlocked = friendshipDenier.isPresent();
+        if (!alreadyBlocked) {
             throw new FriendshipException("Friendship is not blocked");
         }
+
         if (!friendshipDenier.get().equals(user.getId())) {
             throw new FriendshipException("User is not the denier of this friendship");
         }
 
-        return setStatusAndSave(friendship, FRIENDS);
+        var status = friendship.getStatus() == MUTUAL_BLOCK
+                ? user.equals(friendship.getRequester()) ? SND_BLOCKED_FST : FST_BLOCKED_SND
+                : FRIENDS;
+
+        return setStatusAndSave(friendship, status);
     }
 
     private void validateUserIsPartOfFriendship(User user, Friendship friendship) {
