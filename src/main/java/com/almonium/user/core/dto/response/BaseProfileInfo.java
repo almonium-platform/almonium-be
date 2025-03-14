@@ -2,7 +2,7 @@ package com.almonium.user.core.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.user.friendship.model.enums.RelationshipStatus;
+import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,7 @@ public class BaseProfileInfo {
     Instant registeredAt;
     boolean isPremium;
     Boolean acceptsRequests;
-    RelationshipStatus relationshipStatus;
+    RelativeRelationshipStatus relationshipStatus;
 
     @Builder.Default
     final boolean hidden = true;

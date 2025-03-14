@@ -11,7 +11,7 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/creation/create-learner-table.yaml
   - include:
-      file: db/changelog/changes/creation/create-friendship-table.yaml
+      file: db/changelog/changes/creation/create-relationship-table.yaml
   - include:
       file: db/changelog/changes/creation/create-card-table.yaml
   - include:

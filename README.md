@@ -39,7 +39,7 @@
 
 **Flow**: User B rejects the friend request from User A.
 
-**Status**: No friendship record.
+**Status**: No relationship record.
 
 **Checks**: The existing status must be `PENDING`.
 
@@ -47,7 +47,7 @@
 
 **Flow**: User A cancels the friend request sent to User B.
 
-**Status**: No friendship record.
+**Status**: No relationship record.
 
 **Checks**: The existing status must be `PENDING`.
 
@@ -67,7 +67,7 @@
 
 **Flow**: User A unblocks User B.
 
-**Status**: No friendship record.
+**Status**: No relationship record.
 
 **Checks**: The existing status must be either `FST_BLOCKED_SND` or `SND_BLOCKED_FST`.
 
@@ -75,7 +75,7 @@
 
 **Flow**: User A unfriends User B.
 
-**Status**: No friendship record.
+**Status**: No relationship record.
 
 **Checks**: The existing status must be `FRIENDS`.
 

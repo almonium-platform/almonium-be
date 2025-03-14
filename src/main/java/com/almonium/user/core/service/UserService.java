@@ -19,7 +19,7 @@ import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.InterestRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.friendship.service.FriendshipService;
+import com.almonium.user.relationship.service.RelationshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.Map;
@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService implements UserDetailsService {
     PlanSubscriptionService planSubscriptionService;
-    FriendshipService friendshipService;
+    RelationshipService relationshipService;
     StreamChatService streamChatService;
     PlanService planService;
     ProfileService profileService;
@@ -154,7 +154,7 @@ public class UserService implements UserDetailsService {
     }
 
     public BaseProfileInfo blockUser(User user, UUID id) {
-        friendshipService.blockUser(user, id);
+        relationshipService.blockUser(user, id);
         return profileService.getUserProfileInfo(user.getId(), id);
     }
 

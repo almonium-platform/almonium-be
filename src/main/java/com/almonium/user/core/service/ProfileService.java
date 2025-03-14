@@ -13,9 +13,9 @@ import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.record.RelationshipInfo;
-import com.almonium.user.friendship.service.FriendshipService;
+import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.record.RelationshipInfo;
+import com.almonium.user.relationship.service.RelationshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProfileService {
-    FriendshipService friendshipService;
+    RelationshipService relationshipService;
     PlanSubscriptionService planSubscriptionService;
 
     UserRepository userRepository;
@@ -83,7 +83,7 @@ public class ProfileService {
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
 
         RelationshipInfo relationshipInfo =
-                friendshipService.getRelationshipInfo(viewer, profileId, profile.isHidden());
+                relationshipService.getRelationshipInfo(viewer, profileId, profile.isHidden());
 
         if (!relationshipInfo.profileVisible()) {
             return getPublicProfileInfo(user, relationshipInfo);
@@ -109,7 +109,7 @@ public class ProfileService {
         fullUserInfo.setLoginStreak(profile.getStreak());
 
         fullUserInfo.setFriendshipId(
-                relationshipInfo.friendship().map(Friendship::getId).orElse(null));
+                relationshipInfo.friendship().map(Relationship::getId).orElse(null));
         fullUserInfo.setRelationshipStatus(relationshipInfo.status());
 
         return fullUserInfo;
@@ -119,7 +119,8 @@ public class ProfileService {
         Profile profile = user.getProfile();
 
         PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
-        boolean isPremium = planService.isPlanPremium(activePlanSubscription.getPlan().getId());
+        boolean isPremium =
+                planService.isPlanPremium(activePlanSubscription.getPlan().getId());
 
         return BaseProfileInfo.builder()
                 .id(user.getId().toString())

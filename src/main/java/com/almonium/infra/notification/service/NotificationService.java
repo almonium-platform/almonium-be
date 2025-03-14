@@ -10,8 +10,8 @@ import com.almonium.infra.notification.model.entity.Notification;
 import com.almonium.infra.notification.model.enums.NotificationType;
 import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.friendship.model.entity.Friendship;
-import com.almonium.user.friendship.model.enums.FriendshipEvent;
+import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -57,35 +57,35 @@ public class NotificationService {
         notificationRepository.unreadNotification(user, id);
     }
 
-    public void notifyOfFriendshipAcceptance(Friendship friendship) {
+    public void notifyOfFriendshipAcceptance(Relationship relationship) {
         String title = "Friendship request accepted";
         String message = "@%s accepted your friendship request!"
-                .formatted(friendship.getRequestee().getUsername());
+                .formatted(relationship.getRequestee().getUsername());
 
         Notification notification = Notification.builder()
-                .user(friendship.getRequester())
+                .user(relationship.getRequester())
                 .title(title)
                 .message(message)
                 .type(NotificationType.FRIENDSHIP_ACCEPTED)
-                .pictureUrl(friendship.getRequestee().getProfile().getAvatarUrl())
-                .referenceId(friendship.getId())
+                .pictureUrl(relationship.getRequestee().getProfile().getAvatarUrl())
+                .referenceId(relationship.getId())
                 .build();
 
         notificationRepository.save(notification);
 
-        fcmService.sendNotificationToUser(friendship.getRequester().getId(), title, message);
+        fcmService.sendNotificationToUser(relationship.getRequester().getId(), title, message);
 
         friendshipEmailComposerService.sendEmail(
-                friendship.getRequester().getUsername(),
-                friendship.getRequester().getEmail(),
+                relationship.getRequester().getUsername(),
+                relationship.getRequester().getEmail(),
                 new EmailContext<>(
                         FriendshipEvent.ACCEPTED,
                         Map.of(
                                 FriendshipEmailComposerService.COUNTERPART_USERNAME,
-                                friendship.getRequestee().getUsername())));
+                                relationship.getRequestee().getUsername())));
     }
 
-    public void notifyFriendshipRequestRecipient(User initiator, User recipient, Friendship friendship) {
+    public void notifyFriendshipRequestRecipient(User initiator, User recipient, Relationship relationship) {
         String title = "Friendship request received";
         String message = "@%s wants to be friends with you!".formatted(initiator.getUsername());
 
@@ -95,7 +95,7 @@ public class NotificationService {
                 .message(message)
                 .type(NotificationType.FRIENDSHIP_REQUESTED)
                 .pictureUrl(initiator.getProfile().getAvatarUrl())
-                .referenceId(friendship.getId())
+                .referenceId(relationship.getId())
                 .build();
 
         notificationRepository.save(notification);

@@ -3,7 +3,7 @@ package com.almonium.infra.email.service;
 import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
-import com.almonium.user.friendship.model.enums.FriendshipEvent;
+import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring6.SpringTemplateEngine;

@@ -6,7 +6,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.core.model.enums.SetupStep;
-import com.almonium.user.friendship.model.entity.Friendship;
+import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -97,11 +97,11 @@ public class User {
 
     @Builder.Default
     @OneToMany(mappedBy = "requestee")
-    Set<Friendship> incomingFriendships = new HashSet<>();
+    Set<Relationship> incomingRelationships = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "requester")
-    Set<Friendship> outgoingFriendships = new HashSet<>();
+    Set<Relationship> outgoingRelationships = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
