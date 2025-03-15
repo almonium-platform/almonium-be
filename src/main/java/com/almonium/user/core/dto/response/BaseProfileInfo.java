@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import java.time.Instant;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class BaseProfileInfo {
     boolean isPremium;
     Boolean acceptsRequests;
     RelativeRelationshipStatus relationshipStatus;
+    UUID relationshipId;
 
     @Builder.Default
     final boolean hidden = true;

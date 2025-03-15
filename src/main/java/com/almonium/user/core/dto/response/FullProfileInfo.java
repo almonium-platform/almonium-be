@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import java.util.Collection;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,6 @@ public class FullProfileInfo extends BaseProfileInfo {
     Collection<TargetLanguageWithProficiency> targetLangs;
     Collection<String> interests;
     int loginStreak;
-    UUID friendshipId;
 
     public FullProfileInfo(BaseProfileInfo baseProfileInfo) {
         super(
@@ -33,6 +31,7 @@ public class FullProfileInfo extends BaseProfileInfo {
                 baseProfileInfo.isPremium(),
                 baseProfileInfo.getAcceptsRequests(),
                 baseProfileInfo.getRelationshipStatus(),
+                baseProfileInfo.getRelationshipId(),
                 false);
     }
 }

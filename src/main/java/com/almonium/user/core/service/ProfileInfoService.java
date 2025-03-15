@@ -54,7 +54,6 @@ public class ProfileInfoService {
         }
 
         FullProfileInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
-        fullUserInfo.setFriendshipId(relationshipInfo.friendshipId());
         fullUserInfo.setRelationshipStatus(relationshipInfo.status());
 
         return fullUserInfo;
@@ -72,7 +71,7 @@ public class ProfileInfoService {
         fullUserInfo.setInterests(interests);
         fullUserInfo.setLoginStreak(profile.getStreak());
 
-        fullUserInfo.setFriendshipId(
+        fullUserInfo.setRelationshipId(
                 relationshipInfo.friendship().map(Relationship::getId).orElse(null));
         fullUserInfo.setRelationshipStatus(relationshipInfo.status());
 
@@ -94,6 +93,7 @@ public class ProfileInfoService {
                 .registeredAt(user.getRegistered())
                 .relationshipStatus(relationshipInfo.status())
                 .acceptsRequests(relationshipInfo.acceptsRequests())
+                .relationshipId(relationshipInfo.relationshipId())
                 .build();
     }
 

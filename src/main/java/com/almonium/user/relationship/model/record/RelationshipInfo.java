@@ -8,6 +8,6 @@ import java.util.UUID;
 public record RelationshipInfo(
         Optional<Relationship> friendship,
         RelativeRelationshipStatus status,
-        UUID friendshipId,
+        UUID relationshipId,
         Boolean acceptsRequests,
         boolean profileVisible) {}
