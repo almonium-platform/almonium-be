@@ -33,6 +33,6 @@ public class FullProfileInfo extends BaseProfileInfo {
                 baseProfileInfo.isPremium(),
                 baseProfileInfo.getAcceptsRequests(),
                 baseProfileInfo.getRelationshipStatus(),
-                baseProfileInfo.isHidden());
+                false);
     }
 }
