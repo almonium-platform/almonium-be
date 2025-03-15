@@ -4,7 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.subscription.constant.AppLimits;
+import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.service.RelationshipActionsFacade;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.request.RelationshipActionDto;
 import com.almonium.user.relationship.dto.response.PublicUserProfile;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RelationshipController {
     RelationshipService relationshipService;
+    RelationshipActionsFacade relationshipActionsFacade;
 
     @GetMapping
     public ResponseEntity<List<RelatedUserProfile>> getMyFriends(@Auth UUID id) {
@@ -75,21 +78,21 @@ public class RelationshipController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> manageFriendship(
+    public ResponseEntity<BaseProfileInfo> manageFriendship(
             @Auth User user, @PathVariable UUID id, @Valid @RequestBody RelationshipActionDto dto) {
-        relationshipService.manageFriendship(user, id, dto.action());
-        return ResponseEntity.ok().build();
+        BaseProfileInfo updatedProfile = relationshipActionsFacade.manageFriendship(user, id, dto.action());
+        return ResponseEntity.ok(updatedProfile);
+    }
+
+    @PostMapping("/block/{id}")
+    public ResponseEntity<BaseProfileInfo> blockUser(@Auth User user, @PathVariable UUID id) {
+        BaseProfileInfo updatedProfile = relationshipActionsFacade.blockUser(user, id);
+        return ResponseEntity.ok(updatedProfile);
     }
 
     @PostMapping
     public ResponseEntity<Void> createFriendshipRequest(@Auth User user, @Valid @RequestBody FriendshipRequestDto dto) {
         relationshipService.createFriendshipRequest(user, dto);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/block/{id}")
-    public ResponseEntity<Void> blockUser(@Auth User user, @PathVariable UUID id) {
-        relationshipService.blockUser(user, id);
         return ResponseEntity.ok().build();
     }
 }

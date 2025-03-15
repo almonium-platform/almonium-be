@@ -27,6 +27,7 @@ import com.almonium.user.relationship.model.record.RelationshipInfo;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -170,6 +171,10 @@ public class RelationshipService {
                     relationshipRepository.save(relationship);
                     block(user, relationship);
                 });
+    }
+
+    public Optional<Relationship> findById(UUID relationshipId) {
+        return relationshipRepository.findById(relationshipId);
     }
 
     private Relationship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
