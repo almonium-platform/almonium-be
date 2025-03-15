@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
 import com.almonium.user.relationship.service.RelationshipService;
@@ -17,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RelationshipActionsFacade {
     RelationshipService relationshipService;
     ProfileInfoService profileInfoService;
 
-    @Transactional
     public BaseProfileInfo manageFriendship(User user, UUID relationshipId, RelationshipAction action) {
         relationshipService.manageFriendship(user, relationshipId, action);
 
@@ -36,10 +37,15 @@ public class RelationshipActionsFacade {
         return profileInfoService.getUserProfileInfo(user.getId(), otherUser.getId());
     }
 
-    @Transactional
     public BaseProfileInfo blockUser(User user, UUID targetUserId) {
         relationshipService.blockUser(user, targetUserId);
 
         return profileInfoService.getUserProfileInfo(user.getId(), targetUserId);
+    }
+
+    public BaseProfileInfo createFriendshipRequest(User user, FriendshipRequestDto dto) {
+        Relationship relationship = relationshipService.createFriendshipRequest(user, dto);
+        User otherUser = relationship.getRequestee();
+        return profileInfoService.getUserProfileInfo(user.getId(), otherUser.getId());
     }
 }

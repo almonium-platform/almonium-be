@@ -80,19 +80,17 @@ public class RelationshipController {
     @PatchMapping("/{id}")
     public ResponseEntity<BaseProfileInfo> manageFriendship(
             @Auth User user, @PathVariable UUID id, @Valid @RequestBody RelationshipActionDto dto) {
-        BaseProfileInfo updatedProfile = relationshipActionsFacade.manageFriendship(user, id, dto.action());
-        return ResponseEntity.ok(updatedProfile);
+        return ResponseEntity.ok(relationshipActionsFacade.manageFriendship(user, id, dto.action()));
     }
 
     @PostMapping("/block/{id}")
     public ResponseEntity<BaseProfileInfo> blockUser(@Auth User user, @PathVariable UUID id) {
-        BaseProfileInfo updatedProfile = relationshipActionsFacade.blockUser(user, id);
-        return ResponseEntity.ok(updatedProfile);
+        return ResponseEntity.ok(relationshipActionsFacade.blockUser(user, id));
     }
 
     @PostMapping
-    public ResponseEntity<Void> createFriendshipRequest(@Auth User user, @Valid @RequestBody FriendshipRequestDto dto) {
-        relationshipService.createFriendshipRequest(user, dto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<BaseProfileInfo> createFriendshipRequest(
+            @Auth User user, @Valid @RequestBody FriendshipRequestDto dto) {
+        return ResponseEntity.ok(relationshipActionsFacade.createFriendshipRequest(user, dto));
     }
 }
