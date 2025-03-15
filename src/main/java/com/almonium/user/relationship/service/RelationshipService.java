@@ -77,7 +77,7 @@ public class RelationshipService {
      * If no active relationship is established, we must return acceptsFriendRequests and profileVisible
      * You can see the friend's profile
      * If you're blocked by the profile, you can't neither see the profile nor send friend requests
-     * If you blocked the profile unilaterally you can see the profile but can't send friend requests
+     * If you blocked the profile unilaterally you can see the profile if it's public but can't send friend requests
      * If you blocked each other, you can't see the profile nor send friend requests
      * @param viewerId - the user who is viewing the profile
      * @param profileId - the profile that is being viewed

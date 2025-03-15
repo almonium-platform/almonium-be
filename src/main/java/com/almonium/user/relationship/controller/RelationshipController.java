@@ -86,4 +86,10 @@ public class RelationshipController {
         relationshipService.createFriendshipRequest(user, dto);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/block/{id}")
+    public ResponseEntity<Void> blockUser(@Auth User user, @PathVariable UUID id) {
+        relationshipService.blockUser(user, id);
+        return ResponseEntity.ok().build();
+    }
 }
