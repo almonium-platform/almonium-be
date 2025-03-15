@@ -277,7 +277,7 @@ public class RelationshipService {
 
         var status = relationship.getStatus() == MUTUAL_BLOCK
                 ? user.equals(relationship.getRequester()) ? SND_BLOCKED_FST : FST_BLOCKED_SND
-                : FRIENDS;
+                : UNFRIENDED;
 
         return setStatusAndSave(relationship, status);
     }
