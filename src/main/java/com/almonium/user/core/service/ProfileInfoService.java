@@ -86,11 +86,7 @@ public class ProfileInfoService {
 
     private RelationshipInfo createStrangerRelationshipInfo(boolean isProfileHidden) {
         return new RelationshipInfo(
-                Optional.empty(),
-                RelativeRelationshipStatus.STRANGER,
-                null,
-                !isProfileHidden,
-                !isProfileHidden);
+                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !isProfileHidden, !isProfileHidden);
     }
 
     private BaseProfileInfo getProfileBasedOnVisibility(User user, RelationshipInfo relationshipInfo) {
