@@ -40,45 +40,23 @@ public class ProfileInfoService {
 
     @Transactional
     public BaseProfileInfo getUserProfileInfo(UUID viewer, UUID profileId) {
-        User user = userRepository
-                .findUserDetailsById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
-
-        Profile profile = profileRepository
-                .findById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
+        User user = findUserById(profileId);
+        Profile profile = findProfileById(profileId);
 
         RelationshipInfo relationshipInfo =
                 relationshipService.getRelationshipInfo(viewer, profileId, profile.isHidden());
 
-        if (!relationshipInfo.profileVisible()) {
-            return getPublicProfileInfo(user, relationshipInfo);
-        }
-
-        FullProfileInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
-        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
-
-        return fullUserInfo;
+        return getProfileBasedOnVisibility(user, relationshipInfo);
     }
 
     @Transactional
     public BaseProfileInfo getPublicProfileInfo(UUID profileId) {
-        User user = userRepository
-                .findUserDetailsById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
+        User user = findUserById(profileId);
+        Profile profile = findProfileById(profileId);
 
-        Profile profile = profileRepository
-                .findById(profileId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
+        RelationshipInfo relationshipInfo = createStrangerRelationshipInfo(profile.isHidden());
 
-        boolean profileHidden = profile.isHidden();
-
-        RelationshipInfo relationshipInfo = new RelationshipInfo(
-                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !profileHidden, !profileHidden);
-
-        return relationshipInfo.profileVisible()
-                ? getFullProfileInfo(user, relationshipInfo)
-                : getPublicProfileInfo(user, relationshipInfo);
+        return getProfileBasedOnVisibility(user, relationshipInfo);
     }
 
     @Transactional
@@ -87,18 +65,43 @@ public class ProfileInfoService {
                 .findUserDetailsByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
 
-        Profile profile = profileRepository
-                .findById(user.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + user.getId()));
+        Profile profile = findProfileById(user.getId());
 
-        boolean profileHidden = profile.isHidden();
+        RelationshipInfo relationshipInfo = createStrangerRelationshipInfo(profile.isHidden());
 
-        RelationshipInfo relationshipInfo = new RelationshipInfo(
-                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !profileHidden, !profileHidden);
+        return getProfileBasedOnVisibility(user, relationshipInfo);
+    }
 
-        return relationshipInfo.profileVisible()
-                ? getFullProfileInfo(user, relationshipInfo)
-                : getPublicProfileInfo(user, relationshipInfo);
+    private User findUserById(UUID userId) {
+        return userRepository
+                .findUserDetailsById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
+    }
+
+    private Profile findProfileById(UUID profileId) {
+        return profileRepository
+                .findById(profileId)
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
+    }
+
+    private RelationshipInfo createStrangerRelationshipInfo(boolean isProfileHidden) {
+        return new RelationshipInfo(
+                Optional.empty(),
+                RelativeRelationshipStatus.STRANGER,
+                null,
+                !isProfileHidden,
+                !isProfileHidden);
+    }
+
+    private BaseProfileInfo getProfileBasedOnVisibility(User user, RelationshipInfo relationshipInfo) {
+        if (!relationshipInfo.profileVisible()) {
+            return getPublicProfileInfo(user, relationshipInfo);
+        }
+
+        FullProfileInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
+        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
+
+        return fullUserInfo;
     }
 
     private FullProfileInfo getFullProfileInfo(User user, RelationshipInfo relationshipInfo) {
