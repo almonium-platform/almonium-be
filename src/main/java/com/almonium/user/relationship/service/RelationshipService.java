@@ -129,7 +129,7 @@ public class RelationshipService {
                     profileVisible = false;
                 }
                 // same as if no relationship exists
-                case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = profileHidden;
+                case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = !profileHidden;
             }
         }
 
