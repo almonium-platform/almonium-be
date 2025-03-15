@@ -10,21 +10,22 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface NotificationRepository extends JpaRepository<Notification, UUID> {
-    List<Notification> findByUserOrderByReadAtDescCreatedAtDesc(User user);
+    List<Notification> findByRecipientOrderByReadAtDescCreatedAtDesc(User user);
 
-    void deleteByIdAndUser(UUID id, User user);
+    void deleteByIdAndRecipient(UUID id, User user);
 
     @Modifying
-    @Query("update Notification n set n.readAt = current_timestamp where n.user = :user and n.readAt is null")
+    @Query("update Notification n set n.readAt = current_timestamp where n.recipient = :user and n.readAt is null")
     void readAllUnreadNotifications(User user);
 
     @Modifying
     @Query(
-            "update Notification n set n.readAt = current_timestamp where n.user = :user and n.id = :id and n.readAt is null")
+            "update Notification n set n.readAt = current_timestamp where n.recipient = :user and n.id = :id and n.readAt is null")
     void readNotification(User user, UUID id);
 
     @Modifying
-    @Query("update Notification n set n.readAt = null where n.user = :user and n.id = :id and n.readAt is not null")
+    @Query(
+            "update Notification n set n.readAt = null where n.recipient = :user and n.id = :id and n.readAt is not null")
     void unreadNotification(User user, UUID id);
 
     @Modifying

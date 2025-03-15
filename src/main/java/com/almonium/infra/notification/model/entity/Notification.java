@@ -38,8 +38,12 @@ public class Notification {
     UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    @JoinColumn(name = "recipient_id", nullable = false)
+    User recipient;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false)
+    User sender;
 
     String title;
 

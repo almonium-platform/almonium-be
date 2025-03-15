@@ -12,10 +12,15 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: user_id
+                  name: recipient_id
                   type: uuid
                   constraints:
                     nullable: false
+              - column:
+                  name: sender_id
+                  type: uuid
+                  constraints:
+                    nullable: true
               - column:
                   name: type
                   type: varchar(50)
@@ -52,8 +57,15 @@ databaseChangeLog:
                     nullable: true
         - addForeignKeyConstraint:
             baseTableName: notification
-            baseColumnNames: user_id
+            baseColumnNames: recipient_id
             referencedTableName: user_core
             referencedColumnNames: id
-            constraintName: fk_notification_user
+            constraintName: fk_notification_recipient
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: notification
+            baseColumnNames: sender_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_notification_sender
             onDelete: CASCADE

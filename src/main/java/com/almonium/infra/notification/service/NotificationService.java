@@ -34,12 +34,12 @@ public class NotificationService {
     NotificationMapper notificationMapper;
 
     public List<NotificationDto> getNotificationsForUser(User user) {
-        return notificationMapper.toDto(notificationRepository.findByUserOrderByReadAtDescCreatedAtDesc(user));
+        return notificationMapper.toDto(notificationRepository.findByRecipientOrderByReadAtDescCreatedAtDesc(user));
     }
 
     @Transactional
     public void deleteNotification(User user, UUID id) {
-        notificationRepository.deleteByIdAndUser(id, user);
+        notificationRepository.deleteByIdAndRecipient(id, user);
     }
 
     @Transactional
@@ -63,9 +63,10 @@ public class NotificationService {
                 .formatted(relationship.getRequestee().getUsername());
 
         Notification notification = Notification.builder()
-                .user(relationship.getRequester())
                 .title(title)
                 .message(message)
+                .recipient(relationship.getRequester())
+                .sender(relationship.getRequestee())
                 .type(NotificationType.FRIENDSHIP_ACCEPTED)
                 .pictureUrl(relationship.getRequestee().getProfile().getAvatarUrl())
                 .referenceId(relationship.getId())
@@ -90,7 +91,8 @@ public class NotificationService {
         String message = "@%s wants to be friends with you!".formatted(initiator.getUsername());
 
         Notification notification = Notification.builder()
-                .user(recipient)
+                .recipient(recipient)
+                .sender(initiator)
                 .title(title)
                 .message(message)
                 .type(NotificationType.FRIENDSHIP_REQUESTED)
