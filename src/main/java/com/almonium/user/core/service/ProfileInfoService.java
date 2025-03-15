@@ -13,10 +13,12 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import com.almonium.user.relationship.model.record.RelationshipInfo;
 import com.almonium.user.relationship.service.RelationshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -57,6 +59,46 @@ public class ProfileInfoService {
         fullUserInfo.setRelationshipStatus(relationshipInfo.status());
 
         return fullUserInfo;
+    }
+
+    @Transactional
+    public BaseProfileInfo getPublicProfileInfo(UUID profileId) {
+        User user = userRepository
+                .findUserDetailsById(profileId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + profileId));
+
+        Profile profile = profileRepository
+                .findById(profileId)
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
+
+        boolean profileHidden = profile.isHidden();
+
+        RelationshipInfo relationshipInfo = new RelationshipInfo(
+                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !profileHidden, !profileHidden);
+
+        return relationshipInfo.profileVisible()
+                ? getFullProfileInfo(user, relationshipInfo)
+                : getPublicProfileInfo(user, relationshipInfo);
+    }
+
+    @Transactional
+    public BaseProfileInfo getPublicProfileInfoByUsername(String username) {
+        User user = userRepository
+                .findUserDetailsByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Profile profile = profileRepository
+                .findById(user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + user.getId()));
+
+        boolean profileHidden = profile.isHidden();
+
+        RelationshipInfo relationshipInfo = new RelationshipInfo(
+                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !profileHidden, !profileHidden);
+
+        return relationshipInfo.profileVisible()
+                ? getFullProfileInfo(user, relationshipInfo)
+                : getPublicProfileInfo(user, relationshipInfo);
     }
 
     private FullProfileInfo getFullProfileInfo(User user, RelationshipInfo relationshipInfo) {

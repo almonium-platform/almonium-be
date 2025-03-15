@@ -13,6 +13,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findUserDetailsById(UUID id);
 
     @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
+    Optional<User> findUserDetailsByUsername(String username);
+
+    @EntityGraph(value = "graph.User.details", type = EntityGraph.EntityGraphType.LOAD)
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
