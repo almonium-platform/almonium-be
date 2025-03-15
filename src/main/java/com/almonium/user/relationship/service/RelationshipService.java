@@ -104,9 +104,10 @@ public class RelationshipService {
                     status = RelativeRelationshipStatus.FRIENDS;
                     profileVisible = true;
                 }
-                case PENDING -> status = isRequester
-                        ? RelativeRelationshipStatus.PENDING_OUTGOING
-                        : RelativeRelationshipStatus.PENDING_INCOMING;
+                case PENDING ->
+                    status = isRequester
+                            ? RelativeRelationshipStatus.PENDING_OUTGOING
+                            : RelativeRelationshipStatus.PENDING_INCOMING;
                 case FST_BLOCKED_SND -> {
                     if (isRequester) {
                         status = RelativeRelationshipStatus.BLOCKED;
@@ -127,7 +128,7 @@ public class RelationshipService {
                     status = RelativeRelationshipStatus.BLOCKED;
                     profileVisible = false;
                 }
-                    // same as if no relationship exists
+                // same as if no relationship exists
                 case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = !profileHidden;
             }
         }
