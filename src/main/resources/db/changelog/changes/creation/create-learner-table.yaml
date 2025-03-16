@@ -18,7 +18,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: self_reported_level
-                  type: varchar(3)
+                  type: cefr_level
                   constraints:
                     nullable: false
               - column:

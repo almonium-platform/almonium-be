@@ -1,6 +1,8 @@
 databaseChangeLog:
   # Creation
   - include:
+      file: db/changelog/changes/creation/create-cefr-level-enum.yaml
+  - include:
       file: db/changelog/changes/creation/create-user_core-table.yaml
   - include:
       file: db/changelog/changes/creation/create-principal-table.yaml

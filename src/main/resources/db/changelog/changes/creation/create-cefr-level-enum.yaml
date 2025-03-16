@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-cefr-level-enum
+      author: almoni
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: CREATE TYPE CEFR_LEVEL AS ENUM ('A1', 'A2', 'B1', 'B2', 'C1', 'C2');
