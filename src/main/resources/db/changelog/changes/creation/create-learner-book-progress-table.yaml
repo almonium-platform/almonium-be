@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-learner-book-progress-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: learner_book_progress
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: learner_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: book_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: progress_percentage
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: started_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_read_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: learner_book_progress
+            baseColumnNames: learner_id
+            referencedTableName: learner
+            referencedColumnNames: id
+            constraintName: fk_learner_book_progress_learner_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: learner_book_progress
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            constraintName: fk_learner_book_progress_book_id
+            onDelete: CASCADE

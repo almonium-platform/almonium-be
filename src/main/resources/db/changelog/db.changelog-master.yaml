@@ -54,6 +54,11 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-fcm-token-table.yaml
   - include:
       file: db/changelog/changes/creation/create-notification-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-book-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-learner-book-progress-table.yaml
+
   # Insertion
   - include:
       file: db/changelog/changes/insertion/populate-translators.yaml
@@ -63,3 +68,5 @@ databaseChangeLog:
       file: db/changelog/changes/insertion/populate-plan-limits.yaml
   - include:
       file: db/changelog/changes/insertion/populate-interests.yaml
+  - include:
+      file: db/changelog/changes/insertion/populate-books.yaml

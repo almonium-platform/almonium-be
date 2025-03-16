@@ -115,7 +115,7 @@ public class LearnerService {
                         });
     }
 
-    public Optional<Learner> findLearner(User user, Language language) {
+    private Optional<Learner> findLearner(User user, Language language) {
         return user.getLearners().stream()
                 .filter(learner -> learner.getLanguage().equals(language))
                 .findFirst();

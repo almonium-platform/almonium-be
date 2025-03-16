@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-book-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  defaultValueComputed: "gen_random_uuid()"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_year
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cover_image_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: word_count
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: numeric(3,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level_from
+                  type: CEFR_LEVEL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level_to
+                  type: CEFR_LEVEL
+                  constraints:
+                    nullable: false
