@@ -108,3 +108,6 @@ Plugins:
 palantir-java-format
 Editor -> General -> Console -> Use soft wraps in console
 Editor -> Code Style -> Java -> Imports
+
+Database:
+`CREATE CAST (varchar AS dev.cefr_level) WITH INOUT AS IMPLICIT;`
