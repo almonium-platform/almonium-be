@@ -2,6 +2,7 @@ package com.almonium.learning.book.controller;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.service.BookService;
 import com.almonium.user.core.model.entity.User;
@@ -22,6 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookController {
     BookService bookService;
+
+    @GetMapping("/language/{language}/{id}")
+    public ResponseEntity<BookDetails> getMyBooks(
+            @Auth User user, @PathVariable Language language, @PathVariable Long id) {
+        return ResponseEntity.ok(bookService.getBookById(user, language, id));
+    }
 
     @GetMapping("/language/{language}")
     public ResponseEntity<BookshelfViewDto> getMyBooks(

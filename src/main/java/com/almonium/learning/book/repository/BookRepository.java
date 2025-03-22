@@ -5,6 +5,7 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -69,4 +70,42 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     """)
     List<BookWithTranslationStatus> findAvailableBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
+
+    @Query(
+            """
+        select b.id as id,
+               b.title as title,
+               b.author as author,
+               b.publicationYear as publicationYear,
+               b.coverImageUrl as coverImageUrl,
+               b.wordCount as wordCount,
+               b.rating as rating,
+               b.language as language,
+               b.levelFrom as levelFrom,
+               b.levelTo as levelTo,
+               (select bp.progressPercentage from LearnerBookProgress bp
+                where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
+               case when exists (select 1 from Book t where t.originalBook.id = b.id)
+                    or b.originalBook is not null then true else false end as hasTranslation,
+               case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
+                    and t.language in :fluentLanguages) then true else false end as hasParallelTranslation,
+               case when b.originalBook is not null then true else false end as isTranslation
+        from Book b
+        where b.id = :bookId
+    """)
+    Optional<BookWithTranslationStatus> findBookDtoById(
+            Long bookId, UUID learnerId, Collection<Language> fluentLanguages);
+
+    @Query(
+            """
+            select distinct b.language
+            from Book b
+            where b.id = :bookId
+               or (b.originalBook is not null and b.originalBook.id = :bookId)
+               or (b.originalBook is null and exists (
+                    select 1 from Book t
+                    where t.originalBook.id = b.id and t.id = :bookId
+                  ))
+        """)
+    List<Language> findAvailableLanguagesForBook(Long bookId);
 }
