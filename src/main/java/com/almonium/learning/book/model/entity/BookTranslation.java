@@ -2,12 +2,15 @@ package com.almonium.learning.book.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,26 +25,22 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(of = {"id"})
-public class Book {
+@Table(name = "book_translation", uniqueConstraints = @UniqueConstraint(columnNames = {"book_id", "language"}))
+public class BookTranslation {
     @Id
     Long id;
 
-    String title;
-    String author;
-    int publicationYear;
-    String coverImageUrl;
-
-    int wordCount;
-    double rating;
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
+    Book book;
 
     @Enumerated(EnumType.STRING)
     Language language;
 
-    @Enumerated(EnumType.STRING)
-    CEFR levelFrom;
-
-    @Enumerated(EnumType.STRING)
-    CEFR levelTo;
-
+    String title;
+    String author;
     String description;
+    int wordCount;
+
+    String translator;
 }

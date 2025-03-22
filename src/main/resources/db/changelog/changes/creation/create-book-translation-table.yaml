@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-book-table
+      id: create-book-translation-table
       author: almoni
       changes:
         - createTable:
-            tableName: book
+            tableName: book_translation
             columns:
               - column:
                   name: id
@@ -12,6 +12,21 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translator
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
               - column:
                   name: title
                   type: varchar(255)
@@ -23,38 +38,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: publication_year
-                  type: int
-                  constraints:
-                    nullable: false
-              - column:
-                  name: cover_image_url
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: language
-                  type: varchar(10)
-                  constraints:
-                    nullable: false
-              - column:
                   name: word_count
                   type: int
-                  constraints:
-                    nullable: false
-              - column:
-                  name: rating
-                  type: numeric(3,2)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: level_from
-                  type: CEFR_LEVEL
-                  constraints:
-                    nullable: false
-              - column:
-                  name: level_to
-                  type: CEFR_LEVEL
                   constraints:
                     nullable: false
               - column:
@@ -62,3 +47,14 @@ databaseChangeLog:
                   type: varchar(1000)
                   constraints:
                     nullable: true
+        - addUniqueConstraint:
+            tableName: book_translation
+            columnNames: book_id, language
+            constraintName: uk_book_translation_book_id_language
+        - addForeignKeyConstraint:
+            baseTableName: book_translation
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            constraintName: fk_book_translation_book_id
+            onDelete: CASCADE

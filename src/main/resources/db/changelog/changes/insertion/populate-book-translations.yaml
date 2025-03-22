@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-book-translations
+      author: almoni
+      changes:
+        - loadData:
+            tableName: book_translation
+            file: db/data/book-translations.csv
+            separator: '|'

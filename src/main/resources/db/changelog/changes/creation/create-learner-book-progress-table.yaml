@@ -18,7 +18,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: book_id
-                  type: uuid
+                  type: bigint
                   constraints:
                     nullable: false
               - column:

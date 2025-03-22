@@ -38,13 +38,13 @@ public class BookService {
         return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
     }
 
-    public List<BookDto> getBooksWithProgressInLanguage(User user, Language language) {
+    public List<BookDto> getBooksInLanguage(User user, Language language, Boolean includeTranslations) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         return bookMapper.toBookDtosWithProgress(
                 bookRepository.findBooksWithProgressByLanguageAndLearnerId(language, learnerId));
     }
 
-    public void deleteBookProgress(User user, Language language, UUID bookId) {
+    public void deleteBookProgress(User user, Language language, Long bookId) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         learnerBookProgressRepository.deleteByLearnerIdAndBookId(learnerId, bookId);
     }
