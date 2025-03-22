@@ -11,6 +11,7 @@ import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.UserRepository;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class BookService {
     LearnerBookProgressRepository learnerBookProgressRepository;
 
     BookMapper bookMapper;
+    private final UserRepository userRepository;
 
     public List<BookDto> getBooks() {
         return bookMapper.toBookDtos(bookRepository.findAll());
@@ -43,7 +45,7 @@ public class BookService {
 
     public BookshelfViewDto getBooksInLanguage(User user, Language language, Boolean includeTranslations) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
-        Set<Language> fluentLanguages = user.getFluentLangs();
+        Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
         List<BookWithTranslationStatus> booksInProgress =
                 bookRepository.findBooksInProgressByLearner(learnerId, language, fluentLanguages);
