@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,11 +28,15 @@ public class Book {
     @Id
     Long id;
 
+    // Reference to original book (null if this IS the original)
+    @ManyToOne
+    @JoinColumn(name = "original_book_id")
+    Book originalBook;
+
     String title;
     String author;
     int publicationYear;
     String coverImageUrl;
-
     int wordCount;
     double rating;
 
@@ -44,4 +50,7 @@ public class Book {
     CEFR levelTo;
 
     String description;
+
+    // For translations
+    String translator;
 }

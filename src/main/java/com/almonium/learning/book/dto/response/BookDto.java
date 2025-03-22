@@ -7,11 +7,14 @@ public record BookDto(
         Long id,
         String title,
         String author,
-        int publicationYear,
+        Integer publicationYear,
         String coverImageUrl,
-        int wordCount,
-        double rating,
+        Integer wordCount,
+        Double rating,
         Language language,
         CEFR levelFrom,
         CEFR levelTo,
-        Integer progressPercentage) {}
+        Integer progressPercentage,
+        Boolean hasTranslation,
+        Boolean hasParallelTranslation,
+        Boolean isTranslation) {}

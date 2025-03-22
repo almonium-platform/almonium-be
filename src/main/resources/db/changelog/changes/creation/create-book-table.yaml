@@ -62,3 +62,15 @@ databaseChangeLog:
                   type: varchar(1000)
                   constraints:
                     nullable: true
+              - column:
+                  name: original_book_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_book_original
+                    references: book(id)
+              - column:
+                  name: translator
+                  type: varchar(255)
+                  constraints:
+                    nullable: true

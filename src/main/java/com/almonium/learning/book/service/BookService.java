@@ -5,11 +5,14 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.learning.book.dto.response.BookDto;
+import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
+import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
 import com.almonium.user.core.model.entity.User;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -38,10 +41,37 @@ public class BookService {
         return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
     }
 
-    public List<BookDto> getBooksInLanguage(User user, Language language, Boolean includeTranslations) {
+    public BookshelfViewDto getBooksInLanguage(User user, Language language, Boolean includeTranslations) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
-        return bookMapper.toBookDtosWithProgress(
-                bookRepository.findBooksWithProgressByLanguageAndLearnerId(language, learnerId));
+        Set<Language> fluentLanguages = user.getFluentLangs();
+
+        List<BookWithTranslationStatus> booksInProgress =
+                bookRepository.findBooksInProgressByLearner(learnerId, language, fluentLanguages);
+
+        List<BookWithTranslationStatus> availableBooks =
+                bookRepository.findAvailableBooks(language, learnerId, fluentLanguages, includeTranslations);
+
+        return new BookshelfViewDto(convertToBookDtos(booksInProgress), convertToBookDtos(availableBooks));
+    }
+
+    private List<BookDto> convertToBookDtos(List<BookWithTranslationStatus> books) {
+        return books.stream()
+                .map(book -> new BookDto(
+                        book.getId(),
+                        book.getTitle(),
+                        book.getAuthor(),
+                        book.getPublicationYear(),
+                        book.getCoverImageUrl(),
+                        book.getWordCount(),
+                        book.getRating(),
+                        book.getLanguage(),
+                        book.getLevelFrom(),
+                        book.getLevelTo(),
+                        book.getProgressPercentage(),
+                        book.getHasTranslation(),
+                        book.getHasParallelTranslation(),
+                        book.getIsTranslation()))
+                .toList();
     }
 
     public void deleteBookProgress(User user, Language language, Long bookId) {

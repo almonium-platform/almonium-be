@@ -27,6 +27,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
                   name: started_at
                   type: timestamp
                   constraints:

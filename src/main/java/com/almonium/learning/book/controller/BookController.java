@@ -2,10 +2,9 @@ package com.almonium.learning.book.controller;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.learning.book.dto.response.BookDto;
+import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.service.BookService;
 import com.almonium.user.core.model.entity.User;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +24,7 @@ public class BookController {
     BookService bookService;
 
     @GetMapping("/language/{language}")
-    public ResponseEntity<List<BookDto>> getMyBooks(
+    public ResponseEntity<BookshelfViewDto> getMyBooks(
             @Auth User user,
             @PathVariable Language language,
             @RequestParam(required = false) Boolean includeTranslations) {
