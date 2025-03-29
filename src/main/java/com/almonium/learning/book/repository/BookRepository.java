@@ -15,7 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(
             """
-        SELECT b.id as id,
+        select b.id as id,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
@@ -43,7 +43,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(
             """
-        SELECT b.id as id,
+        select b.id as id,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
