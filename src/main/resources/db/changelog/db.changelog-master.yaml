@@ -58,6 +58,8 @@ databaseChangeLog:
       file: db/changelog/changes/creation/create-book-table.yaml
   - include:
       file: db/changelog/changes/creation/create-learner-book-progress-table.yaml
+  - include:
+      file: db/changelog/changes/creation/create-translation-order-table.yaml
 
   # Insertion
   - include:

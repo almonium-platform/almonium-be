@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-translation-order-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: translation_order
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: translation_order
+            columnNames: user_id, book_id
+            constraintName: uc_translation_order_user_book_language
+        - addForeignKeyConstraint:
+            baseTableName: translation_order
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_translation_order_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: translation_order
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            constraintName: fk_translation_order_book
+            onDelete: CASCADE

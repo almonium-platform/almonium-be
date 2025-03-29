@@ -30,4 +30,5 @@ public class BookDetails {
     Boolean isTranslation;
     String description;
     List<Language> availableLanguages;
+    Language orderLanguage;
 }

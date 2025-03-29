@@ -8,13 +8,17 @@ import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
+import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
+import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
+import com.almonium.learning.book.repository.TranslationOrderRepository;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +37,7 @@ public class BookService {
 
     BookRepository bookRepository;
     UserRepository userRepository;
+    TranslationOrderRepository translationOrderRepository;
     LearnerBookProgressRepository learnerBookProgressRepository;
 
     BookMapper bookMapper;
@@ -43,6 +48,12 @@ public class BookService {
 
     public List<BookDto> getBooksInLanguage(Language language) {
         return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
+    }
+
+    public Book getBookById(Long bookId) {
+        return bookRepository
+                .findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + bookId));
     }
 
     public BookshelfViewDto getBooksInLanguage(User user, Language language, Boolean includeTranslations) {
@@ -67,6 +78,10 @@ public class BookService {
         learnerBookProgressRepository.deleteByLearnerIdAndBookId(learnerId, bookId);
     }
 
+    public List<Language> getAvailableLanguagesForBook(Long bookId) {
+        return bookRepository.findAvailableLanguagesForBook(bookId);
+    }
+
     public BookDetails getBookById(User user, Language language, Long bookId) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
@@ -75,8 +90,9 @@ public class BookService {
                 .findBookDtoById(bookId, learnerId, fluentLanguages)
                 .orElseThrow(EntityNotFoundException::new);
 
-        List<Language> langs = bookRepository.findAvailableLanguagesForBook(bookId);
+        List<Language> langs = getAvailableLanguagesForBook(bookId);
+        Optional<TranslationOrder> order = translationOrderRepository.findByUserIdAndBookId(user.getId(), bookId);
 
-        return bookMapper.toDetailsDto(projection, langs);
+        return bookMapper.toDetailsDto(projection, langs, order);
     }
 }
