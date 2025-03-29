@@ -28,5 +28,6 @@ public class BookDetails {
     Boolean hasTranslation;
     Boolean hasParallelTranslation;
     Boolean isTranslation;
+    String description;
     List<Language> availableLanguages;
 }

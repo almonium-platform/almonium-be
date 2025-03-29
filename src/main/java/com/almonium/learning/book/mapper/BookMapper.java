@@ -11,7 +11,10 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface BookMapper {
-    //    hasTranslation, hasParallelTranslation, isTranslation".
+    @Mapping(target = "hasTranslation", ignore = true)
+    @Mapping(target = "hasParallelTranslation", ignore = true)
+    @Mapping(target = "isTranslation", ignore = true)
+    @Mapping(target = "progressPercentage", ignore = true)
     BookDto toDto(Book book);
 
     BookDto toDto(BookWithTranslationStatus book);

@@ -31,4 +31,6 @@ public interface BookWithTranslationStatus {
     Boolean getHasParallelTranslation();
 
     Boolean getIsTranslation();
+
+    String getDescription();
 }

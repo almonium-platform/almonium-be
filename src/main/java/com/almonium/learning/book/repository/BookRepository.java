@@ -26,6 +26,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                b.levelFrom as levelFrom,
                b.levelTo as levelTo,
                bp.progressPercentage as progressPercentage,
+               b.description as description,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -53,6 +54,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                b.levelFrom as levelFrom,
                b.levelTo as levelTo,
                null as progressPercentage,
+               b.description as description,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -83,6 +85,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                b.language as language,
                b.levelFrom as levelFrom,
                b.levelTo as levelTo,
+               b.description as description,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
                case when exists (select 1 from Book t where t.originalBook.id = b.id)
