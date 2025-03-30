@@ -49,6 +49,11 @@ public class TranslationOrderService {
     }
 
     @Transactional
+    public boolean deleteTranslationOrder(UUID userId, Long bookId, Language language) {
+        return translationOrderRepository.deleteByUserIdAndBookIdAndLanguage(userId, bookId, language) > 0;
+    }
+
+    @Transactional
     public TranslationOrderDto createTranslationOrder(User user, Long bookId, Language language) {
         if (translationOrderRepository.existsByUserIdAndBookId(user.getId(), bookId)) {
             throw new ResourceConflictException("You already have a translation order for this book");
@@ -61,9 +66,11 @@ public class TranslationOrderService {
 
         bookService.getAvailableLanguagesForBook(book.getId()).stream()
                 .filter(availableLanguage -> availableLanguage.equals(language))
-                .findFirst()
-                .orElseThrow(() ->
-                        new BadUserRequestActionException("Book is already translated to %s".formatted(language)));
+                .findAny()
+                .ifPresent(existing -> {
+                    throw new BadUserRequestActionException(
+                            "%s is already available for this book".formatted(language));
+                });
 
         return bookMapper.toDto(translationOrderRepository.save(new TranslationOrder(user, book, language)));
     }
