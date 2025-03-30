@@ -5,6 +5,7 @@ import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.TranslationOrderDto;
 import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.book.model.entity.BookFavorite;
 import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import java.util.List;
@@ -31,10 +32,14 @@ public interface BookMapper {
 
     // New method that handles languages too
     default BookDetails toDetailsDto(
-            BookWithTranslationStatus book, List<Language> languages, Optional<TranslationOrder> orderLanguage) {
+            BookWithTranslationStatus book,
+            List<Language> languages,
+            Optional<TranslationOrder> orderLanguage,
+            Optional<BookFavorite> favorite) {
         BookDetails details = toDetailsDto(book);
         details.setAvailableLanguages(languages);
         orderLanguage.ifPresent(order -> details.setOrderLanguage(order.getLanguage()));
+        favorite.ifPresent(fav -> details.setFavorite(true));
         return details;
     }
 

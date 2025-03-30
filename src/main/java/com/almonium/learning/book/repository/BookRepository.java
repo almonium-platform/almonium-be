@@ -68,9 +68,43 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             where lbp.book.id = b.id
             and lbp.learner.id = :learnerId
         )
+        and not exists (
+            select 1 from BookFavorite bf
+            where bf.book.id = b.id
+            and bf.learner.id = :learnerId
+        )
         order by b.rating desc
     """)
     List<BookWithTranslationStatus> findAvailableBooks(
+            Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
+
+    @Query(
+            """
+        select b.id as id,
+               b.title as title,
+               b.author as author,
+               b.publicationYear as publicationYear,
+               b.coverImageUrl as coverImageUrl,
+               b.wordCount as wordCount,
+               b.rating as rating,
+               b.language as language,
+               b.levelFrom as levelFrom,
+               b.levelTo as levelTo,
+               null as progressPercentage,
+               b.description as description,
+               case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
+                    or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
+               case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
+                    and t.language in :fluentLanguages) then true else false end as hasParallelTranslation,
+               case when b.originalBook is not null then true else false end as isTranslation
+        from Book b
+        join BookFavorite bf on b.id = bf.book.id
+        where bf.learner.id = :learnerId
+        and b.language = :language
+        and ((:includeTranslations = true) or (b.originalBook is null))
+        order by b.rating desc
+    """)
+    List<BookWithTranslationStatus> findFavoriteBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
 
     @Query(

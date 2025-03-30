@@ -31,4 +31,5 @@ public class BookDetails {
     String description;
     List<Language> availableLanguages;
     Language orderLanguage;
+    boolean favorite;
 }

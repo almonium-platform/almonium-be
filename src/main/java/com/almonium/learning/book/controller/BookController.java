@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,23 @@ public class BookController {
     public ResponseEntity<BookDetails> getMyBooks(
             @Auth User user, @PathVariable Language language, @PathVariable Long id) {
         return ResponseEntity.ok(bookService.getBookById(user, language, id));
+    }
+
+    @PostMapping("/{bookId}/language/{language}/favorite")
+    public ResponseEntity<?> addToFavorites(
+            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+        bookService.addToFavorites(user, bookId, language);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{bookId}/language/{language}/favorite")
+    public ResponseEntity<Void> deleteFromFavorites(
+            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+        boolean deleted = bookService.deleteFromFavorites(user, bookId, language);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/language/{language}")

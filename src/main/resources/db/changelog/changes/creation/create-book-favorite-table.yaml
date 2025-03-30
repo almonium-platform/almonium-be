@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-book-favorite-table
+      author: almoni
+      changes:
+        - createTable:
+            tableName: book_favorite
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: learner_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: book_favorite
+            columnNames: learner_id, book_id
+            constraintName: uc_book_favorite_learner_book
+        - addForeignKeyConstraint:
+            baseTableName: book_favorite
+            baseColumnNames: learner_id
+            referencedTableName: learner
+            referencedColumnNames: id
+            constraintName: fk_book_favorite_learner
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: book_favorite
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            constraintName: fk_book_favorite_book
+            onDelete: CASCADE

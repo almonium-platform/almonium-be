@@ -9,11 +9,14 @@ import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.book.model.entity.BookFavorite;
 import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.model.entity.TranslationOrder;
+import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
 import com.almonium.learning.book.repository.TranslationOrderRepository;
+import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,6 +42,7 @@ public class BookService {
     UserRepository userRepository;
     TranslationOrderRepository translationOrderRepository;
     LearnerBookProgressRepository learnerBookProgressRepository;
+    BookFavoriteRepository bookFavoriteRepository;
 
     BookMapper bookMapper;
 
@@ -48,6 +52,19 @@ public class BookService {
 
     public List<BookDto> getBooksInLanguage(Language language) {
         return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
+    }
+
+    public void addToFavorites(User user, Long bookId, Language language) {
+        Learner learner = learnerFinder.findLearner(user, language);
+        Book book = getBookById(bookId);
+
+        BookFavorite bookFavorite = new BookFavorite(learner, book);
+        bookFavoriteRepository.save(bookFavorite);
+    }
+
+    public boolean deleteFromFavorites(User user, Long bookId, Language language) {
+        Learner learner = learnerFinder.findLearner(user, language);
+        return bookFavoriteRepository.deleteByLearnerIdAndBookId(learner.getId(), bookId) > 0;
     }
 
     public Book getBookById(Long bookId) {
@@ -66,7 +83,13 @@ public class BookService {
         List<BookWithTranslationStatus> availableBooks =
                 bookRepository.findAvailableBooks(language, learnerId, fluentLanguages, includeTranslations);
 
-        return new BookshelfViewDto(convertToBookDtos(booksInProgress), convertToBookDtos(availableBooks));
+        List<BookWithTranslationStatus> favoriteBooks =
+                bookRepository.findFavoriteBooks(language, learnerId, fluentLanguages, includeTranslations);
+
+        return new BookshelfViewDto(
+                convertToBookDtos(booksInProgress),
+                convertToBookDtos(availableBooks),
+                convertToBookDtos(favoriteBooks));
     }
 
     private List<BookDto> convertToBookDtos(List<BookWithTranslationStatus> books) {
@@ -92,7 +115,8 @@ public class BookService {
 
         List<Language> langs = getAvailableLanguagesForBook(bookId);
         Optional<TranslationOrder> order = translationOrderRepository.findByUserIdAndBookId(user.getId(), bookId);
+        Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
-        return bookMapper.toDetailsDto(projection, langs, order);
+        return bookMapper.toDetailsDto(projection, langs, order, favorite);
     }
 }
