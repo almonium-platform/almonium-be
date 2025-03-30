@@ -2,6 +2,7 @@ package com.almonium.infra.notification.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.infra.notification.dto.response.NotificationDto;
@@ -12,6 +13,7 @@ import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -55,6 +57,28 @@ public class NotificationService {
     @Transactional
     public void unreadNotification(User user, UUID id) {
         notificationRepository.unreadNotification(user, id);
+    }
+
+    public void notifyOfTranslationOrderCompletion(String bookTitle, Language language, List<User> users) {
+        String title = "Translation order completed";
+        String message = "%s has been translated to %s".formatted(bookTitle, language);
+
+        List<Notification> notifications = new ArrayList<>();
+
+        for (User user : users) {
+            Notification notification = Notification.builder()
+                    .title(title)
+                    .message(message)
+                    .recipient(user)
+                    .type(NotificationType.TRANSLATION_ORDER_COMPLETED)
+                    .build();
+
+            notifications.add(notification);
+        }
+
+        notificationRepository.saveAll(notifications);
+
+        fcmService.sendNotificationUsers(users, title, message);
     }
 
     public void notifyOfFriendshipAcceptance(Relationship relationship) {

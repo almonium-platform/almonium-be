@@ -1,6 +1,7 @@
 package com.almonium.learning.book.service;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.response.TranslationOrderDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
@@ -9,6 +10,9 @@ import com.almonium.learning.book.repository.TranslationOrderRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,9 +23,30 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TranslationOrderService {
-    TranslationOrderRepository translationOrderRepository;
     BookService bookService;
+    NotificationService notificationService;
+
+    TranslationOrderRepository translationOrderRepository;
+
     BookMapper bookMapper;
+
+    @SuppressWarnings("unused")
+    public void publishTranslation(Book book) {
+        List<TranslationOrder> translationOrders =
+                translationOrderRepository.findByBookIdAndLanguage(book.getId(), book.getLanguage());
+
+        List<UUID> ordersIds = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
+        translationOrders.forEach(translationOrder -> {
+            ordersIds.add(translationOrder.getId());
+            users.add(translationOrder.getUser());
+        });
+
+        notificationService.notifyOfTranslationOrderCompletion(book.getTitle(), book.getLanguage(), users);
+
+        translationOrderRepository.deleteAllByIdInBatch(ordersIds);
+    }
 
     @Transactional
     public TranslationOrderDto createTranslationOrder(User user, Long bookId, Language language) {
