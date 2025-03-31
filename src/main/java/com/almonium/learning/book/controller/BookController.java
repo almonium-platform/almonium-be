@@ -26,7 +26,7 @@ public class BookController {
     BookService bookService;
 
     @GetMapping("/language/{language}/{id}")
-    public ResponseEntity<BookDetails> getMyBooks(
+    public ResponseEntity<BookDetails> getMyBook(
             @Auth User user, @PathVariable Language language, @PathVariable Long id) {
         return ResponseEntity.ok(bookService.getBookById(user, language, id));
     }
