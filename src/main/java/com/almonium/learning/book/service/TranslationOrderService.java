@@ -48,7 +48,6 @@ public class TranslationOrderService {
         translationOrderRepository.deleteAllByIdInBatch(ordersIds);
     }
 
-    @Transactional
     public boolean deleteTranslationOrder(UUID userId, Long bookId, Language language) {
         return translationOrderRepository.deleteByUserIdAndBookIdAndLanguage(userId, bookId, language) > 0;
     }
