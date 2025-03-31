@@ -28,6 +28,8 @@ public interface BookMapper {
     BookDto toDto(BookWithTranslationStatus book);
 
     @Mapping(target = "availableLanguages", ignore = true)
+    @Mapping(target = "orderLanguage", ignore = true)
+    @Mapping(target = "favorite", ignore = true)
     BookDetails toDetailsDto(BookWithTranslationStatus book);
 
     // New method that handles languages too
