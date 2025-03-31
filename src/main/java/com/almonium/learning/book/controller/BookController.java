@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     BookService bookService;
 
-    @GetMapping("/language/{language}/{id}")
+    @GetMapping("/{bookId}/language/{language}")
     public ResponseEntity<BookDetails> getMyBook(
-            @Auth User user, @PathVariable Language language, @PathVariable Long id) {
-        return ResponseEntity.ok(bookService.getBookById(user, language, id));
+            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+        return ResponseEntity.ok(bookService.getBookById(user, language, bookId));
     }
 
     @PostMapping("/{bookId}/language/{language}/favorite")
