@@ -9,8 +9,8 @@ import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
-import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
@@ -77,13 +77,13 @@ public class BookService {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
-        List<BookWithTranslationStatus> booksInProgress =
+        List<BookDetailsProjection> booksInProgress =
                 bookRepository.findBooksInProgressByLearner(learnerId, language, fluentLanguages);
 
-        List<BookWithTranslationStatus> availableBooks =
+        List<BookDetailsProjection> availableBooks =
                 bookRepository.findAvailableBooks(language, learnerId, fluentLanguages, includeTranslations);
 
-        List<BookWithTranslationStatus> favoriteBooks =
+        List<BookDetailsProjection> favoriteBooks =
                 bookRepository.findFavoriteBooks(language, learnerId, fluentLanguages, includeTranslations);
 
         return new BookshelfViewDto(
@@ -92,7 +92,7 @@ public class BookService {
                 convertToBookDtos(favoriteBooks));
     }
 
-    private List<BookDto> convertToBookDtos(List<BookWithTranslationStatus> books) {
+    private List<BookDto> convertToBookDtos(List<BookDetailsProjection> books) {
         return bookMapper.toDto(books);
     }
 
@@ -109,7 +109,7 @@ public class BookService {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
-        BookWithTranslationStatus projection = bookRepository
+        BookDetailsProjection projection = bookRepository
                 .findBookDtoById(bookId, learnerId, fluentLanguages)
                 .orElseThrow(EntityNotFoundException::new);
 

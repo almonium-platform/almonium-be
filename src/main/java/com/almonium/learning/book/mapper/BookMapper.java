@@ -5,8 +5,8 @@ import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.TranslationOrderDto;
 import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
-import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +25,16 @@ public interface BookMapper {
     @Mapping(target = "progressPercentage", ignore = true)
     BookDto toDto(Book book);
 
-    BookDto toDto(BookWithTranslationStatus book);
+    BookDto toDto(BookDetailsProjection book);
 
     @Mapping(target = "availableLanguages", ignore = true)
     @Mapping(target = "orderLanguage", ignore = true)
     @Mapping(target = "favorite", ignore = true)
-    BookDetails toDetailsDto(BookWithTranslationStatus book);
+    BookDetails toDetailsDto(BookDetailsProjection book);
 
     // New method that handles languages too
     default BookDetails toDetailsDto(
-            BookWithTranslationStatus book,
+            BookDetailsProjection book,
             List<Language> languages,
             Optional<TranslationOrder> orderLanguage,
             Optional<BookFavorite> favorite) {
@@ -45,7 +45,7 @@ public interface BookMapper {
         return details;
     }
 
-    List<BookDto> toDto(List<BookWithTranslationStatus> book);
+    List<BookDto> toDto(List<BookDetailsProjection> book);
 
     List<BookDto> toBookDtos(List<Book> entities);
 }

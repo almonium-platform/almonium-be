@@ -2,7 +2,7 @@ package com.almonium.learning.book.repository;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.book.model.entity.Book;
-import com.almonium.learning.book.model.entity.BookWithTranslationStatus;
+import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +38,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         and b.language = :language
         order by bp.lastReadAt desc
     """)
-    List<BookWithTranslationStatus> findBooksInProgressByLearner(
+    List<BookDetailsProjection> findBooksInProgressByLearner(
             UUID learnerId, Language language, Collection<Language> fluentLanguages);
 
     @Query(
@@ -75,7 +75,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         )
         order by b.rating desc
     """)
-    List<BookWithTranslationStatus> findAvailableBooks(
+    List<BookDetailsProjection> findAvailableBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
 
     @Query(
@@ -104,7 +104,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         and ((:includeTranslations = true) or (b.originalBook is null))
         order by b.rating desc
     """)
-    List<BookWithTranslationStatus> findFavoriteBooks(
+    List<BookDetailsProjection> findFavoriteBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
 
     @Query(
@@ -130,7 +130,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         from Book b
         where b.id = :bookId
     """)
-    Optional<BookWithTranslationStatus> findBookDtoById(
+    Optional<BookDetailsProjection> findBookDtoById(
             Long bookId, UUID learnerId, Collection<Language> fluentLanguages);
 
     @Query(

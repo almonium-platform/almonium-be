@@ -3,7 +3,7 @@ package com.almonium.learning.book.model.entity;
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 
-public interface BookWithTranslationStatus {
+public interface BookDetailsProjection {
     Long getId();
 
     String getTitle();
