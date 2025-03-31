@@ -34,4 +34,5 @@ public class BookDetails {
     boolean favorite;
     Language originalLanguage;
     Long originalId;
+    String translator;
 }

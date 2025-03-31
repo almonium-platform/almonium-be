@@ -122,6 +122,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                case when ob.id is not null then ob.language else b.language end as originalLanguage,
                case when ob.id is not null then ob.id else b.id end as originalId,
                b.description as description,
+               b.translator as translator,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
                case when exists (select 1 from Book t where t.originalBook.id = b.id)

@@ -37,4 +37,6 @@ public interface BookDetailsProjection {
     Language getOriginalLanguage();
 
     Long getOriginalId();
+
+    String getTranslator();
 }
