@@ -64,6 +64,10 @@ public class TranslationOrderService {
             throw new BadUserRequestActionException("%s is original language".formatted(language));
         }
 
+        if (book.getOriginalBook() != null) {
+            throw new BadUserRequestActionException("You cannot order a translation for a translation");
+        }
+
         bookService.getAvailableLanguagesForBook(book.getId()).stream()
                 .filter(availableLanguage -> availableLanguage.equals(language))
                 .findAny()

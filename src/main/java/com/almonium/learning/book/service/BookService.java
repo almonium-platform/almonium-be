@@ -114,7 +114,9 @@ public class BookService {
                 .orElseThrow(EntityNotFoundException::new);
 
         List<Language> langs = getAvailableLanguagesForBook(bookId);
-        Optional<TranslationOrder> order = translationOrderRepository.findByUserIdAndBookId(user.getId(), bookId);
+        Long originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
+        Optional<TranslationOrder> order =
+                translationOrderRepository.findByUserIdAndBookId(user.getId(), originalBookId);
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
         return bookMapper.toDetailsDto(projection, langs, order, favorite);
