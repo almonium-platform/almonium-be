@@ -32,4 +32,6 @@ public class BookDetails {
     List<Language> availableLanguages;
     Language orderLanguage;
     boolean favorite;
+    Language originalLanguage;
+    Long originalId;
 }

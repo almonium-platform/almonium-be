@@ -119,6 +119,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                b.language as language,
                b.levelFrom as levelFrom,
                b.levelTo as levelTo,
+               case when ob.id is not null then ob.language else b.language end as originalLanguage,
+               case when ob.id is not null then ob.id else b.id end as originalId,
                b.description as description,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
@@ -128,10 +130,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                     and t.language in :fluentLanguages) then true else false end as hasParallelTranslation,
                case when b.originalBook is not null then true else false end as isTranslation
         from Book b
+        left join b.originalBook ob
         where b.id = :bookId
     """)
-    Optional<BookDetailsProjection> findBookDtoById(
-            Long bookId, UUID learnerId, Collection<Language> fluentLanguages);
+    Optional<BookDetailsProjection> findBookDtoById(Long bookId, UUID learnerId, Collection<Language> fluentLanguages);
 
     @Query(
             """
