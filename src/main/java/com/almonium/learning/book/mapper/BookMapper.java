@@ -1,12 +1,13 @@
 package com.almonium.learning.book.mapper;
 
-import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
+import com.almonium.learning.book.dto.response.BookMiniDetails;
 import com.almonium.learning.book.dto.response.TranslationOrderDto;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
+import com.almonium.learning.book.model.entity.BookMiniProjection;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,10 @@ public interface BookMapper {
 
     BookDto toDto(BookDetailsProjection book);
 
+    BookMiniDetails toDto(BookMiniProjection projection);
+
+    List<BookMiniDetails> toMiniDto(List<BookMiniProjection> projection);
+
     @Mapping(target = "availableLanguages", ignore = true)
     @Mapping(target = "orderLanguage", ignore = true)
     @Mapping(target = "favorite", ignore = true)
@@ -35,7 +40,7 @@ public interface BookMapper {
     // New method that handles languages too
     default BookDetails toDetailsDto(
             BookDetailsProjection book,
-            List<Language> languages,
+            List<BookMiniDetails> languages,
             Optional<TranslationOrder> orderLanguage,
             Optional<BookFavorite> favorite) {
         BookDetails details = toDetailsDto(book);

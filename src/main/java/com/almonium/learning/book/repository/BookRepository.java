@@ -3,6 +3,7 @@ package com.almonium.learning.book.repository;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
+import com.almonium.learning.book.model.entity.BookMiniProjection;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -138,7 +139,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(
             """
-            select distinct b.language
+            select b.id as id, b.language as language
             from Book b
             where b.id = :bookId
                or (b.originalBook is not null and b.originalBook.id = :bookId)
@@ -147,5 +148,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                     where t.originalBook.id = b.id and t.id = :bookId
                   ))
         """)
-    List<Language> findAvailableLanguagesForBook(Long bookId);
+    List<BookMiniProjection> findAvailableLanguagesForBook(Long bookId);
 }

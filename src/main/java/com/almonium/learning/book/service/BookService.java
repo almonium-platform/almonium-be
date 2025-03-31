@@ -6,11 +6,13 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
+import com.almonium.learning.book.dto.response.BookMiniDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
+import com.almonium.learning.book.model.entity.BookMiniProjection;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
@@ -102,7 +104,9 @@ public class BookService {
     }
 
     public List<Language> getAvailableLanguagesForBook(Long bookId) {
-        return bookRepository.findAvailableLanguagesForBook(bookId);
+        return bookRepository.findAvailableLanguagesForBook(bookId).stream()
+                .map(BookMiniProjection::getLanguage)
+                .toList();
     }
 
     public BookDetails getBookById(User user, Language language, Long bookId) {
@@ -113,12 +117,13 @@ public class BookService {
                 .findBookDtoById(bookId, learnerId, fluentLanguages)
                 .orElseThrow(EntityNotFoundException::new);
 
-        List<Language> langs = getAvailableLanguagesForBook(bookId);
+        List<BookMiniDetails> availableLanguages =
+                bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
         Long originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
         Optional<TranslationOrder> order =
                 translationOrderRepository.findByUserIdAndBookId(user.getId(), originalBookId);
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
-        return bookMapper.toDetailsDto(projection, langs, order, favorite);
+        return bookMapper.toDetailsDto(projection, availableLanguages, order, favorite);
     }
 }
