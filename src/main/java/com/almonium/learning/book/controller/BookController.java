@@ -31,6 +31,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBookById(user, language, bookId));
     }
 
+    @GetMapping("/{bookId}")
+    public ResponseEntity<byte[]> getText(@Auth User user, @PathVariable Long bookId) {
+        return ResponseEntity.ok(bookService.getText(user, bookId));
+    }
+
     @PostMapping("/{bookId}/language/{language}/favorite")
     public ResponseEntity<?> addToFavorites(
             @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {

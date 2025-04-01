@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
+import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookMiniDetails;
@@ -39,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BookService {
     LearnerFinder learnerFinder;
+    FirebaseStorageService firebaseStorageService;
 
     BookRepository bookRepository;
     UserRepository userRepository;
@@ -125,5 +127,9 @@ public class BookService {
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
         return bookMapper.toDetailsDto(projection, availableLanguages, order, favorite);
+    }
+
+    public byte[] getText(User user, Long bookId) {
+        return firebaseStorageService.getText(bookId);
     }
 }
