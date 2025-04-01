@@ -19,6 +19,7 @@ import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
 import com.almonium.learning.book.repository.TranslationOrderRepository;
+import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -130,6 +131,24 @@ public class BookService {
     }
 
     public byte[] getText(User user, Long bookId) {
-        return firebaseStorageService.getText(bookId);
+        return firebaseStorageService.getBook(bookId);
+    }
+
+    public byte[] getParallelBook(User user, Language language, Long bookId) {
+        List<BookMiniDetails> availableLanguages =
+                bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
+
+        BookMiniDetails miniDetails = availableLanguages.stream()
+                .filter(book -> book.getLanguage().equals(language))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
+
+        Long secondId = miniDetails.getId();
+
+        if (bookId.equals(secondId)) {
+            throw new BadUserRequestActionException("This book is already in this language");
+        }
+
+        return firebaseStorageService.getParallelText(bookId, secondId);
     }
 }
