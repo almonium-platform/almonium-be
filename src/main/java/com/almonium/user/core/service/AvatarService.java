@@ -2,9 +2,9 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.user.core.dto.response.AvatarDto;
+import com.almonium.user.core.events.UserProfileUpdatedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +41,13 @@ public class AvatarService {
     private static final String PATH_FORMAT = "%s%s";
 
     FirebaseStorageService firebaseStorageService;
-    StreamChatService streamChatService;
     ProfileService profileService;
 
     AvatarRepository avatarRepository;
     ProfileRepository profileRepository;
 
     AvatarMapper avatarMapper;
+    ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public void addAndSetNewCustomAvatar(UUID id, String url) {
@@ -58,6 +59,7 @@ public class AvatarService {
         updateProfileAvatarUrl(url, profile);
     }
 
+    @Transactional
     public void chooseExistingCustomAvatar(UUID id, UUID avatarId) {
         var avatar = getMyAvatar(id, avatarId);
         Profile profile = profileService.getProfileById(id);
@@ -75,6 +77,7 @@ public class AvatarService {
         return avatarMapper.toDto(avatarRepository.findAllByProfileId(id));
     }
 
+    @Transactional
     public void resetCurrentAvatar(UUID id) {
         Profile profile = profileService.getProfileById(id);
         resetCurrentAvatar(id, profile);
@@ -96,6 +99,7 @@ public class AvatarService {
         }
     }
 
+    @Transactional
     public void chooseDefaultAvatar(UUID id, String url) {
         Profile profile = profileService.getProfileById(id);
         updateProfileAvatarUrl(url, profile);
@@ -119,10 +123,16 @@ public class AvatarService {
         }
     }
 
-    private void updateProfileAvatarUrl(String url, Profile profile) {
+    @Transactional
+    public void updateProfileAvatarUrl(String url, Profile profile) {
         profile.setAvatarUrl(url);
-        profileRepository.save(profile);
-        streamChatService.updateUser(profile.getUser());
+        Profile savedProfile = profileRepository.save(profile);
+        eventPublisher.publishEvent(
+                new UserProfileUpdatedEvent(savedProfile.getUser().getId()));
+
+        log.info(
+                "Updated profile avatar URL for user {} and published UserProfileUpdatedEvent.",
+                savedProfile.getUser().getId());
     }
 
     private Avatar getMyAvatar(UUID id, UUID avatarId) {

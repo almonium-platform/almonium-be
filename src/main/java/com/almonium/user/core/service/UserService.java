@@ -11,7 +11,7 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
-import com.almonium.user.core.events.UsernameUpdatedEvent;
+import com.almonium.user.core.events.UserProfileUpdatedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
@@ -95,7 +95,7 @@ public class UserService implements UserDetailsService {
         }
         user.setUsername(username);
         userRepository.save(user);
-        eventPublisher.publishEvent(new UsernameUpdatedEvent(id, username));
+        eventPublisher.publishEvent(new UserProfileUpdatedEvent(id));
         log.info("User {} changed username to: {}", id, username);
     }
 

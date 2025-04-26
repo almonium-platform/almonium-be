@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.infra.messaging.exception.EventProcessingException;
-import com.almonium.user.core.events.UsernameUpdatedEvent;
+import com.almonium.user.core.events.UserProfileUpdatedEvent;
 import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -18,29 +18,18 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UsernameStreamUpdateListener {
+public class UserProfileStreamUpdateListener {
     StreamChatService streamChatService;
 
     UserRepository userRepository;
 
-    @RabbitListener(queues = "${rabbitmq.queue.username-updated.name}")
-    public void handleUsernameUpdate(UsernameUpdatedEvent event) {
-        log.info("Received username changed event for userId: {}", event.userId());
+    @RabbitListener(queues = "${rabbitmq.queue.user-profile-updated.name}")
+    public void handleUserProfileUpdated(UserProfileUpdatedEvent event) {
+        log.info("Received user profile updated event for userId: {}", event.userId());
 
         User user = userRepository.findById(event.userId()).orElse(null);
-
         if (user == null) {
-            log.warn("User with ID {} not found, skipping Stream username update.", event.userId());
-            return;
-        }
-
-        // Defensive check: Ensure username matches event (though unlikely to mismatch)
-        if (!user.getUsername().equals(event.username())) {
-            log.warn(
-                    "Username mismatch for userId {}. DB has '{}', event has '{}'. Skipping Stream update.",
-                    user.getId(),
-                    user.getUsername(),
-                    event.username());
+            log.warn("User {} not found, skipping Stream profile update.", event.userId());
             return;
         }
 

@@ -140,10 +140,10 @@ rabbitmq:
       name: q.user.languages.updated
       routing-key: user.languages.updated.v1
       dlq-name: q.user.languages.updated.dlq
-    username-updated:
-      name: q.username.updated
-      routing-key: username.updated.v1
-      dlq-name: q.username.updated.dlq
+    user-profile-updated:
+      name: q.user.profile.updated
+      routing-key: user.profile.updated.v1
+      dlq-name: q.user.profile.updated.dlq
     user-deleted:
       name: q.user.deleted
       routing-key: user.deleted.v1
