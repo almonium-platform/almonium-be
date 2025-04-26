@@ -13,6 +13,7 @@ import io.getstream.chat.java.models.Channel;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -150,14 +151,13 @@ public class StreamChatService {
         }
     }
 
-    public void cleanUpUserData(User user) {
-        cleanUpChannels(user);
-        deleteUserFromStream(user);
+    public void cleanUpUserData(UUID userId) {
+        String id = String.valueOf(userId);
+        cleanUpChannels(id);
+        deleteUserFromStream(id);
     }
 
-    private void cleanUpChannels(User user) {
-        String userId = user.getId().toString();
-
+    private void cleanUpChannels(String userId) {
         SUPPORTED_LANGUAGES.stream()
                 .map(this::getSupportedLanguageChannelId)
                 .forEach(lang -> leavePublicChannel(lang, userId));
@@ -182,12 +182,12 @@ public class StreamChatService {
         }
     }
 
-    private void deleteUserFromStream(User user) {
+    private void deleteUserFromStream(String userId) {
         try {
-            io.getstream.chat.java.models.User.delete(user.getId().toString()).request();
+            io.getstream.chat.java.models.User.delete(userId).request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
-                    String.format("Error while deleting user %s from Stream: %s", user.getId(), e.getMessage()), e);
+                    String.format("Error while deleting user %s from Stream: %s", userId, e.getMessage()), e);
         }
     }
 

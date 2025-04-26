@@ -144,6 +144,10 @@ rabbitmq:
       name: q.username.updated
       routing-key: username.updated.v1
       dlq-name: q.username.updated.dlq
+    user-deleted:
+      name: q.user.deleted
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}

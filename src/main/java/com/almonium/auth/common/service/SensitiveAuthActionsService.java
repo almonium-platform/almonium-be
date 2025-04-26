@@ -14,8 +14,8 @@ import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.service.PasswordEncoderService;
-import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.AvatarService;
@@ -26,6 +26,7 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,11 +41,12 @@ public class SensitiveAuthActionsService {
     PlanSubscriptionService planSubscriptionService;
     VerificationTokenManagementService verificationTokenManagementService;
     AvatarService avatarService;
-    StreamChatService streamChatService;
     PrincipalFactory principalFactory;
 
     UserRepository userRepository;
     PrincipalRepository principalRepository;
+
+    ApplicationEventPublisher eventPublisher;
 
     public void changePassword(UUID id, String newPassword) {
         User user = userService.getById(id);
@@ -113,7 +115,7 @@ public class SensitiveAuthActionsService {
     public void deleteAccount(User user) {
         planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
         avatarService.cleanUpAvatars(user.getId());
-        streamChatService.cleanUpUserData(user);
+        eventPublisher.publishEvent(new UserDeletedEvent(user.getId()));
         userRepository.delete(user);
     }
 
