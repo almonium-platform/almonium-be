@@ -134,7 +134,7 @@ rabbitmq:
   queue:
     user-stream-setup:
       name: q.user.stream.setup
-      routing-key: user.stream.setup.#
+      routing-key: user.stream.setup.v1
       dlq-name: q.user.stream.setup.dlq
     user-languages-updated:
       name: q.user.languages.updated
