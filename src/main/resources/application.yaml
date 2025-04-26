@@ -156,6 +156,10 @@ rabbitmq:
       name: q.user.target-language.removed
       routing-key: user.target-language.removed.v1
       dlq-name: q.user.target-language.removed.dlq
+    auth-verification-email:
+      name: q.auth.verification-email.requested
+      routing-key: auth.verification-email.requested.v1
+      dlq-name: q.auth.verification-email.requested.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}

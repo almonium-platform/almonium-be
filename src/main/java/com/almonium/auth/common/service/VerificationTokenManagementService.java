@@ -2,6 +2,7 @@ package com.almonium.auth.common.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.events.VerificationEmailRequestedEvent;
 import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
@@ -10,20 +11,18 @@ import com.almonium.auth.local.repository.LocalPrincipalRepository;
 import com.almonium.auth.local.repository.VerificationTokenRepository;
 import com.almonium.auth.local.service.TokenGenerator;
 import com.almonium.config.properties.AppProperties;
-import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.AuthTokenEmailComposerService;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class VerificationTokenManagementService {
     private static final int COOLDOWN_SECONDS = 60;
 
-    AuthTokenEmailComposerService emailComposerService;
     UserService userService;
     TokenGenerator tokenGenerator;
 
@@ -42,6 +40,7 @@ public class VerificationTokenManagementService {
     LocalPrincipalRepository localPrincipalRepository;
 
     AppProperties appProperties;
+    ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public Optional<VerificationToken> findValidEmailVerificationToken(UUID userId) {
@@ -66,6 +65,7 @@ public class VerificationTokenManagementService {
                 });
     }
 
+    @Transactional
     public void createAndSendVerificationTokenIfAllowed(LocalPrincipal localPrincipal, TokenType tokenType) {
         String token = tokenGenerator.generateOTP(
                 appProperties.getAuth().getVerificationToken().getLength());
@@ -91,11 +91,12 @@ public class VerificationTokenManagementService {
                 tokenType,
                 appProperties.getAuth().getVerificationToken().getLifetime());
         verificationTokenRepository.save(verificationToken);
+        log.info("Saved verification token for {}", localPrincipal.getEmail());
 
-        var emailContext = new EmailContext<>(tokenType, Map.of(AuthTokenEmailComposerService.TOKEN_ATTRIBUTE, token));
-        String username = localPrincipal.getUser().getUsername();
-        emailComposerService.sendEmail(username, localPrincipal.getEmail(), emailContext);
-        log.info("Verification token sent to {}", localPrincipal.getEmail());
+        eventPublisher.publishEvent(new VerificationEmailRequestedEvent(
+                localPrincipal.getUser().getId(), localPrincipal.getEmail(), token, tokenType));
+
+        log.info("Published verification email request for {}", localPrincipal.getEmail());
     }
 
     public VerificationToken validateAndDeleteTokenOrThrow(String token, TokenType expectedType) {
