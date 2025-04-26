@@ -164,6 +164,10 @@ rabbitmq:
       name: q.subscription.status.changed
       routing-key: subscription.status.changed.v1
       dlq-name: q.subscription.status.changed.dlq
+    friendship-email-requested:
+      name: q.friendship.email.requested
+      routing-key: friendship.email.requested.v1
+      dlq-name: q.friendship.email.requested.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}

@@ -3,23 +3,22 @@ package com.almonium.infra.notification.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.infra.notification.dto.response.NotificationDto;
 import com.almonium.infra.notification.mapper.NotificationMapper;
 import com.almonium.infra.notification.model.entity.Notification;
 import com.almonium.infra.notification.model.enums.NotificationType;
 import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.relationship.event.FriendshipEmailRequestedEvent;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +27,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 public class NotificationService {
-    FriendshipEmailComposerService friendshipEmailComposerService;
     FCMService fcmService;
 
     NotificationRepository notificationRepository;
 
     NotificationMapper notificationMapper;
+    ApplicationEventPublisher eventPublisher;
 
     public List<NotificationDto> getNotificationsForUser(User user) {
         return notificationMapper.toDto(notificationRepository.findByRecipientOrderByReadAtDescCreatedAtDesc(user));
@@ -100,14 +99,12 @@ public class NotificationService {
 
         fcmService.sendNotificationToUser(relationship.getRequester().getId(), title, message);
 
-        friendshipEmailComposerService.sendEmail(
-                relationship.getRequester().getUsername(),
+        eventPublisher.publishEvent(new FriendshipEmailRequestedEvent(
+                relationship.getRequester().getId(),
                 relationship.getRequester().getEmail(),
-                new EmailContext<>(
-                        FriendshipEvent.ACCEPTED,
-                        Map.of(
-                                FriendshipEmailComposerService.COUNTERPART_USERNAME,
-                                relationship.getRequestee().getUsername())));
+                relationship.getRequester().getUsername(),
+                relationship.getRequestee().getUsername(),
+                FriendshipEvent.ACCEPTED));
     }
 
     public void notifyFriendshipRequestRecipient(User initiator, User recipient, Relationship relationship) {
@@ -128,11 +125,11 @@ public class NotificationService {
 
         fcmService.sendNotificationToUser(recipient.getId(), title, message);
 
-        friendshipEmailComposerService.sendEmail(
-                recipient.getUsername(),
+        eventPublisher.publishEvent(new FriendshipEmailRequestedEvent(
+                recipient.getId(),
                 recipient.getEmail(),
-                new EmailContext<>(
-                        FriendshipEvent.INITIATED,
-                        Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, initiator.getUsername())));
+                recipient.getUsername(),
+                initiator.getUsername(),
+                FriendshipEvent.INITIATED));
     }
 }
