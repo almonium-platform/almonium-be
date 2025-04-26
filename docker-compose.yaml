@@ -1,4 +1,5 @@
 services:
+  # ───────────────────────────────────────────────────────── app ──
   app:
     container_name: app
     image: almonium
@@ -12,7 +13,28 @@ services:
       SPRING_PROFILES_ACTIVE: prod
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"
       GOOGLE_APPLICATION_CREDENTIALS: /app/service-account.json
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
     volumes:
       - ./service-account.json:/app/service-account.json
     env_file:
       - ./.env
+    depends_on:
+      - rabbitmq
+
+  # ──────────────────────────────────────────────── rabbitmq ──
+  rabbitmq:
+    image: rabbitmq:4.1.0-management
+    container_name: rabbitmq
+    ports:
+      - ${RABBITMQ_HOST_PORT:-5672}:5672
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq-data:

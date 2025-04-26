@@ -10,7 +10,20 @@ spring:
   config:
     import:
       - optional:file:.env[.properties]
-
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASS}
+    port: ${RABBITMQ_PORT}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          multiplier: 2.0
+          max-attempts: 5
+    publisher-confirm-type: correlated
+    publisher-returns: true
   jpa:
     open-in-view: false
     show-sql: true
@@ -113,6 +126,16 @@ app:
       authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
       apple-token-url: https://appleid.apple.com
       apple-service-id: com.almonium.auth
+
+rabbitmq:
+  exchange:
+    events: events.exchange
+    dlx: events.exchange.dlx
+  queue:
+    user-stream-setup:
+      name: q.user.stream.setup
+      routing-key: user.stream.setup.#
+      dlq-name: q.user.stream.setup.dlq
 
 google:
   oauth2:
