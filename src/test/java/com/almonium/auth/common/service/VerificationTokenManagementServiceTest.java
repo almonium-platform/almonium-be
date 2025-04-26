@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
@@ -61,15 +62,18 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
     @Mock
     LocalPrincipalRepository localPrincipalRepository;
 
+    @Mock
+    ApplicationEventPublisher applicationEventPublisher;
+
     @BeforeEach
     void setUp() {
         verificationTokenManagementService = new VerificationTokenManagementService(
-                emailComposerService,
                 userService,
                 tokenGenerator,
                 verificationTokenRepository,
                 localPrincipalRepository,
-                appProperties);
+                appProperties,
+                applicationEventPublisher);
     }
 
     @DisplayName("Should create and send verification token successfully")
