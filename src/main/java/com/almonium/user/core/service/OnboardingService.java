@@ -2,10 +2,11 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.chat.service.StreamChatService;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.request.LanguageSetupRequest;
 import com.almonium.user.core.dto.response.LearnerDto;
+import com.almonium.user.core.events.UserLanguagesUpdatedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.User;
@@ -18,6 +19,7 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,25 +31,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class OnboardingService {
     LearnerService learnerService;
     UserService userService;
-    StreamChatService streamChatService;
 
     UserRepository userRepository;
 
     LearnerMapper learnerMapper;
+    ApplicationEventPublisher eventPublisher;
 
     public void setupInterests(User user, Set<Long> interests) {
         processStep(user, SetupStep.INTERESTS, interests, data -> userService.updateInterests(user, data));
     }
 
     public List<LearnerDto> setupLanguages(User user, LanguageSetupRequest request) {
+        List<TargetLanguageWithProficiency> targetLangsData = request.targetLangsData();
+        List<Language> targetLanguages = targetLangsData.stream()
+                .map(TargetLanguageWithProficiency::language)
+                .toList();
+
         processStep(user, SetupStep.LANGUAGES, request, data -> {
-            learnerService.createLearners(data.targetLangsData(), user, true);
+            learnerService.createLearners(targetLangsData, user, true);
             user.setFluentLangs(new HashSet<>(data.fluentLangs()));
-            streamChatService.joinLanguageSpecificChannelsIfAvailable(
-                    user,
-                    data.targetLangsData().stream()
-                            .map(TargetLanguageWithProficiency::language)
-                            .toList());
+            eventPublisher.publishEvent(new UserLanguagesUpdatedEvent(user.getId(), targetLanguages));
         });
 
         return learnerMapper.toDto(

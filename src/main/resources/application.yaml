@@ -136,7 +136,10 @@ rabbitmq:
       name: q.user.stream.setup
       routing-key: user.stream.setup.#
       dlq-name: q.user.stream.setup.dlq
-
+    user-languages-updated:
+      name: q.user.languages.updated
+      routing-key: user.languages.updated.v1
+      dlq-name: q.user.languages.updated.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}
