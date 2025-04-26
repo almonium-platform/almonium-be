@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "rabbitmq")
 @FieldDefaults(level = PRIVATE)
 public class RabbitMQProperties {
+    public static final String EVENTS_EXCHANGE_NAME = "events.exchange";
 
     @NotNull
     @Valid
@@ -26,8 +28,7 @@ public class RabbitMQProperties {
 
     @NotNull
     @Valid
-    @NestedConfigurationProperty
-    Queue queue = new Queue(); // Contains properties for all queues
+    Map<String, QueueDetails> queue;
 
     @Getter
     @Setter
@@ -41,18 +42,6 @@ public class RabbitMQProperties {
         String dlx;
     }
 
-    @Getter
-    @Setter
-    @Validated
-    @FieldDefaults(level = PRIVATE)
-    public static class Queue {
-        @NotNull
-        @Valid
-        @NestedConfigurationProperty
-        QueueDetails userStreamSetup = new QueueDetails();
-    }
-
-    // Reusable structure for queue details
     @Getter
     @Setter
     @Validated
