@@ -2,8 +2,7 @@ package com.almonium.subscription.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.infra.email.model.dto.EmailContext;
-import com.almonium.infra.email.service.SubscriptionEmailComposerService;
+import com.almonium.subscription.event.SubscriptionStatusChangedEvent;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
@@ -19,11 +18,11 @@ import com.almonium.user.core.service.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -32,7 +31,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanSubscriptionService {
-    SubscriptionEmailComposerService emailComposerService;
     StripeApiService stripeApiService;
     PlanService planService;
 
@@ -40,6 +38,8 @@ public class PlanSubscriptionService {
     InsiderRepository insiderRepository;
     PlanRepository planRepository;
     UserRepository userRepository;
+
+    ApplicationEventPublisher eventPublisher;
 
     public String initiatePlanSubscribing(User user, long planId) {
         Plan plan = getAndValidatePlanEligibility(user, planId);
@@ -313,17 +313,13 @@ public class PlanSubscriptionService {
     }
 
     private void sendEmailForEvent(User user, PlanSubscription planSubscription, PlanSubscription.Event planSubEvent) {
-        var emailContext = new EmailContext<>(
-                planSubEvent,
-                Map.of(
-                        SubscriptionEmailComposerService.PLAN_NAME,
-                        planSubscription.getPlan().getName()));
-
-        try {
-            emailComposerService.sendEmail(user.getUsername(), user.getEmail(), emailContext);
-        } catch (Exception e) {
-            log.error("Failed to send email for event {}", planSubEvent, e);
-        }
+        log.debug("Publishing SubscriptionStatusChangedEvent for user {}, event {}", user.getId(), planSubEvent);
+        eventPublisher.publishEvent(new SubscriptionStatusChangedEvent(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername(),
+                planSubscription.getPlan().getName(),
+                planSubEvent));
     }
 
     private void updatePlanSubStatusAndSave(PlanSubscription planSubscription, PlanSubscription.Status status) {

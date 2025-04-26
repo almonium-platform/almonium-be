@@ -160,6 +160,10 @@ rabbitmq:
       name: q.auth.verification-email.requested
       routing-key: auth.verification-email.requested.v1
       dlq-name: q.auth.verification-email.requested.dlq
+    subscription-status-changed:
+      name: q.subscription.status.changed
+      routing-key: subscription.status.changed.v1
+      dlq-name: q.subscription.status.changed.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}
