@@ -148,6 +148,14 @@ rabbitmq:
       name: q.user.deleted
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.dlq
+    user-target-language-added:
+      name: q.user.target-language.added
+      routing-key: user.target-language.added.v1
+      dlq-name: q.user.target-language.added.dlq
+    user-target-language-removed:
+      name: q.user.target-language.removed
+      routing-key: user.target-language.removed.v1
+      dlq-name: q.user.target-language.removed.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}

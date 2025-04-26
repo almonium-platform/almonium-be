@@ -4,12 +4,13 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.CardService;
-import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.request.UpdateLearnerRequest;
 import com.almonium.user.core.dto.response.LearnerDto;
+import com.almonium.user.core.events.UserAddedTargetLanguageEvent;
+import com.almonium.user.core.events.UserRemovedTargetLanguageEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
@@ -23,6 +24,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,13 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerService {
     PlanValidationService planValidationService;
-    StreamChatService streamChatService;
     CardService cardService;
 
     LearnerRepository learnerRepository;
     UserRepository userRepository;
 
     LearnerMapper learnerMapper;
+    ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public void updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
@@ -66,30 +68,45 @@ public class LearnerService {
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
-        if (replace) {
-            learnerRepository.deleteAllByUserId(user.getId());
-        }
         UUID userId = user.getId();
+
+        if (replace) {
+            log.info("Replacing target languages for user {}", userId);
+            List<Language> languagesToRemove = learnerRepository.findAllLanguagesByUserId(userId);
+
+            languagesToRemove.forEach(lang -> {
+                log.debug("Publishing UserRemovedTargetLanguageEvent for user {}, lang {}", userId, lang);
+                eventPublisher.publishEvent(new UserRemovedTargetLanguageEvent(userId, lang));
+            });
+
+            if (!languagesToRemove.isEmpty()) {
+                learnerRepository.deleteAllByUserId(userId);
+                log.info("Deleted {} existing target languages for user {}", languagesToRemove.size(), userId);
+            }
+        }
+
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
         planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
 
         data.forEach(targetLanguageWithProficiency -> {
             Language code = targetLanguageWithProficiency.language();
-            learnerRepository.findByUserIdAndLanguage(userId, code).ifPresent(existingLearner -> {
-                log.warn("User {} already has target language {}.", userId, code);
-                throw new BadUserRequestActionException("You already have this target language.");
-            });
 
-            streamChatService.joinLanguageSpecificChannelIfAvailable(user, code);
+            if (!replace && learnerRepository.existsByUserIdAndLanguage(userId, code)) {
+                log.warn("User {} already has target language {}. Skipping addition.", userId, code);
+                return; // Skip this language
+            }
+
             learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
             log.info("User {} added target language {}.", userId, code);
+            log.debug("Publishing UserAddedTargetLanguageEvent for user {}, lang {}", userId, code);
+            eventPublisher.publishEvent(new UserAddedTargetLanguageEvent(userId, code));
         });
 
-        return learnerMapper.toDto(getUserWithLearners(user.getId()).getLearners());
+        return learnerMapper.toDto(getUserWithLearners(userId).getLearners());
     }
 
     public void deleteLearner(Language code, UUID userId) {
-        var user = getUserWithLearners(userId);
+        User user = getUserWithLearners(userId);
 
         findLearner(user, code)
                 .ifPresentOrElse(
@@ -99,14 +116,18 @@ public class LearnerService {
                                 throw new BadUserRequestActionException("You must have at least one target language.");
                             }
 
-                            long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
-                            if (activeLearners == 1) {
+                            long activeLearners = user.getLearners().stream()
+                                    .filter(Learner::isActive)
+                                    .count();
+                            if (learner.isActive() && activeLearners == 1) {
                                 throw new BadUserRequestActionException("At least one target language must be active.");
                             }
 
                             cardService.deleteByLanguage(code, learner);
                             learnerRepository.delete(learner);
-                            streamChatService.leaveLanguageSpecificChannelIfAvailable(user, code);
+                            log.info("Deleted learner for language {} for user {}", code, userId);
+
+                            eventPublisher.publishEvent(new UserRemovedTargetLanguageEvent(userId, code));
                         },
                         () -> {
                             log.warn("Language {} was not found in user {}'s target languages.", code, userId);
