@@ -43,7 +43,6 @@ public class LearnerService {
     LearnerMapper learnerMapper;
     ApplicationEventPublisher eventPublisher;
 
-    @Transactional
     public void updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
         var learner = learnerRepository
                 .findByUserIdAndLanguage(userId, code)
