@@ -5,13 +5,13 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
+import com.almonium.user.core.events.UsernameUpdatedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.mapper.UserMapper;
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,7 +42,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService implements UserDetailsService {
     PlanSubscriptionService planSubscriptionService;
-    StreamChatService streamChatService;
     PlanService planService;
 
     UserRepository userRepository;
@@ -49,6 +49,8 @@ public class UserService implements UserDetailsService {
 
     PlanSubscriptionMapper planSubscriptionMapper;
     UserMapper userMapper;
+
+    ApplicationEventPublisher eventPublisher;
 
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
@@ -93,7 +95,7 @@ public class UserService implements UserDetailsService {
         }
         user.setUsername(username);
         userRepository.save(user);
-        streamChatService.updateUser(user);
+        eventPublisher.publishEvent(new UsernameUpdatedEvent(id, username));
         log.info("User {} changed username to: {}", id, username);
     }
 

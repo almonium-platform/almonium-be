@@ -140,6 +140,10 @@ rabbitmq:
       name: q.user.languages.updated
       routing-key: user.languages.updated.v1
       dlq-name: q.user.languages.updated.dlq
+    username-updated:
+      name: q.username.updated
+      routing-key: username.updated.v1
+      dlq-name: q.username.updated.dlq
 google:
   oauth2:
     client-id: ${GOOGLE_ID}
