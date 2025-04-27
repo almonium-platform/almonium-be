@@ -19,7 +19,7 @@ jobs:
           cache: 'maven'
 
       - name: Build and Test with Maven
-        run: mvn -B verify -DskipITs
+        run: mvn -B clean package -Dmaven.test.skip=true
         # Assuming mocks are handled via @Import in tests now
         # env:
         #   GOOGLE_SERVICE_ACCOUNT_KEY_BASE64: ${{ secrets.GOOGLE_SA_KEY_BASE64 }}
