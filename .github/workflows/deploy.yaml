@@ -74,4 +74,4 @@ jobs:
           key: ${{ secrets.HTZ_KEY }}
           script: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-            sudo /home/almonium/infra/deploy.sh ${{ github.sha }}
+            /home/almonium/infra/deploy.sh ${{ github.sha }}
