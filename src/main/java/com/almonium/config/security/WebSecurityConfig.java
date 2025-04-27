@@ -59,6 +59,9 @@ public class WebSecurityConfig {
         "/oauth2/authorization/**",
         // Public endpoints
         "/public/**",
+        // Actuator
+        "/actuator/health/**",
+        "/actuator/info"
     };
 
     @Bean
