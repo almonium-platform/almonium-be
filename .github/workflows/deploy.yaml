@@ -13,7 +13,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: mvn -B verify -DskipITs
+      - run: mvn -B verify
 
       - uses: docker/login-action@v3
         with:
