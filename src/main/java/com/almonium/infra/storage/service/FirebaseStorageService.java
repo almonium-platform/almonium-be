@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.GoogleProperties;
 import com.almonium.user.core.exception.FirebaseIntegrationException;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -30,9 +32,12 @@ public class FirebaseStorageService {
     GoogleProperties googleProperties;
     Storage storage;
 
-    public FirebaseStorageService(GoogleProperties googleProperties) {
+    public FirebaseStorageService(
+            GoogleProperties googleProperties, @Qualifier("firebaseCredentials") GoogleCredentials credentials) {
         this.googleProperties = googleProperties;
-        this.storage = StorageOptions.getDefaultInstance().getService();
+        this.storage =
+                StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+        log.info("FirebaseStorageService initialized with specific credentials.");
     }
 
     public String upload(byte[] fileData, String contentType, String filePath) {
