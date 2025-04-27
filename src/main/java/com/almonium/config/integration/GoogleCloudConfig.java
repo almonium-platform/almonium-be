@@ -18,7 +18,6 @@ import java.util.Base64;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -39,8 +38,7 @@ public class GoogleCloudConfig {
     }
 
     @Bean
-    public CredentialsProvider googleCredentialsProvider(
-            @Qualifier("googleCredentials") GoogleCredentials credentials) {
+    public CredentialsProvider googleCredentialsProvider(GoogleCredentials credentials) {
         return FixedCredentialsProvider.create(credentials);
     }
 

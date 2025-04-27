@@ -174,10 +174,7 @@ google:
     client-secret: ${GOOGLE_SECRET}
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
-  firebase:
-    service-account-key-base64: ${FIREBASE_SERVICE_ACCOUNT_KEY_BASE64}
-    storage:
-      bucket: ${FIREBASE_STORAGE_BUCKET}
+  firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}
   service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
 
 openai:

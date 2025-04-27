@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -32,8 +31,7 @@ public class FirebaseStorageService {
     GoogleProperties googleProperties;
     Storage storage;
 
-    public FirebaseStorageService(
-            GoogleProperties googleProperties, @Qualifier("firebaseCredentials") GoogleCredentials credentials) {
+    public FirebaseStorageService(GoogleProperties googleProperties, GoogleCredentials credentials) {
         this.googleProperties = googleProperties;
         this.storage =
                 StorageOptions.newBuilder().setCredentials(credentials).build().getService();

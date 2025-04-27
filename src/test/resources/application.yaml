@@ -61,10 +61,7 @@ google:
     client-secret: google_client_secret_dummy
   project-id: google_project_id_dummy
   parent-location: global
-  firebase:
-    service-account-key-base64: firebase_service_account_key_dummy
-    storage:
-      bucket: almonium-dummy.appspot.com
+  firebase.storage.bucket: almonium-dummy.appspot.com
   service-account-key-base64: firebase_service_account_key_dummy
 
 app:

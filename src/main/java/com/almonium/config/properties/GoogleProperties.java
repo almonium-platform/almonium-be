@@ -47,9 +47,6 @@ public class GoogleProperties {
     @Setter
     @FieldDefaults(level = PRIVATE)
     public static class FirebaseProperties {
-        @NotBlank
-        String serviceAccountKeyBase64;
-
         @NotNull
         @Valid
         @NestedConfigurationProperty
