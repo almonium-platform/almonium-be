@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.auth.common.events.VerificationEmailRequestedEvent;
 import com.almonium.auth.local.exception.InvalidVerificationTokenException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.entity.VerificationToken;
@@ -102,8 +103,7 @@ class VerificationTokenManagementServiceTest extends AppConfigPropertiesTest {
 
         // Assert
         verify(verificationTokenRepository).save(any(VerificationToken.class));
-        verify(emailComposerService)
-                .sendEmail(anyString(), anyString(), any(EmailContext.class)); // Verifying email sending
+        verify(applicationEventPublisher).publishEvent(any(VerificationEmailRequestedEvent.class));
     }
 
     @DisplayName("Should throw BadUserRequestActionException if cooldown period is not over")

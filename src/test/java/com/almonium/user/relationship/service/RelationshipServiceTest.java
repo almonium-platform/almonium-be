@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.response.PublicUserProfile;
@@ -49,7 +50,7 @@ class RelationshipServiceTest {
 
     private static final UUID REQUESTER_ID = UUID.randomUUID();
     private static final UUID RECIPIENT_ID = UUID.randomUUID();
-    private static final UUID FRIENDSHIP_ID = UUID.randomUUID();
+    private static final UUID RELATIONSHIP_ID = UUID.randomUUID();
 
     @Mock
     RelationshipRepository relationshipRepository;
@@ -59,6 +60,9 @@ class RelationshipServiceTest {
 
     @Mock
     UserService userService;
+
+    @Mock
+    ProfileService profileService;
 
     @Mock
     NotificationService notificationService;
@@ -74,7 +78,7 @@ class RelationshipServiceTest {
     void setUp() {
         requester = TestDataGenerator.buildTestUserWithId(REQUESTER_ID);
         recipient = TestDataGenerator.buildTestUserWithId(RECIPIENT_ID);
-        relationship = new Relationship(FRIENDSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
+        relationship = new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
     }
 
     @DisplayName("Should return empty list when no friends match username substring")
@@ -105,21 +109,25 @@ class RelationshipServiceTest {
         assertThat(result).isEmpty();
     }
 
-    @DisplayName("Should create a new friendship request")
+    @DisplayName("Should create a new relationship request")
     @Test
-    void givenValidFriendshipRequestDto_whenCreateFriendshipRequest_thenFriendshipIsCreated() {
-        // Arrange
+    void givenValidRelationshipRequestDto_whenCreateFriendshipRequest_thenFriendshipIsCreated() {
+        // ─── Arrange ──────────────────────────────────────────────────────────────
         FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
 
         when(relationshipRepository.getRelationshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
                 .thenReturn(Optional.empty());
-        when(userService.getById(RECIPIENT_ID)).thenReturn(recipient);
-        when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
-        // Act
+        // stub the profile lookup used inside createFriendshipAndNotify(...)
+        when(profileService.getProfileById(RECIPIENT_ID)).thenReturn(recipient.getProfile());
+
+        when(relationshipRepository.save(any(Relationship.class)))
+                .thenAnswer(inv -> inv.getArgument(0)); // return the object just saved
+
+        // ─── Act ──────────────────────────────────────────────────────────────────
         Relationship createdRelationship = relationshipService.createFriendshipRequest(requester, dto);
 
-        // Assert
+        // ─── Assert ───────────────────────────────────────────────────────────────
         assertThat(createdRelationship).isNotNull();
         assertThat(createdRelationship.getRequester()).isEqualTo(requester);
         assertThat(createdRelationship.getRequestee()).isEqualTo(recipient);
@@ -148,16 +156,20 @@ class RelationshipServiceTest {
     void givenRecipientBlocksRequests_whenCreateFriendshipRequest_thenThrowException() {
         // Arrange
         FriendshipRequestDto dto = new FriendshipRequestDto(RECIPIENT_ID);
+
+        // mark profile as hidden → blocks friend-requests
         recipient.getProfile().setHidden(true);
 
         when(relationshipRepository.getRelationshipByUsersIds(REQUESTER_ID, RECIPIENT_ID))
                 .thenReturn(Optional.empty());
-        when(userService.getById(RECIPIENT_ID)).thenReturn(recipient);
+
+        // stub the *profile* lookup used by createFriendshipAndNotify(...)
+        when(profileService.getProfileById(RECIPIENT_ID)).thenReturn(recipient.getProfile());
 
         // Act & Assert
         assertThatThrownBy(() -> relationshipService.createFriendshipRequest(requester, dto))
                 .isInstanceOf(RelationshipException.class)
-                .hasMessage(RELATIONSHIP_CANT_BE_ESTABLISHED);
+                .hasMessage("Couldn't create or re-establish relationship");
 
         verify(relationshipRepository, never()).save(any(Relationship.class));
     }
@@ -168,12 +180,12 @@ class RelationshipServiceTest {
         // Arrange
         relationship.setStatus(PENDING);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
         Relationship updatedRelationship =
-                relationshipService.manageFriendship(recipient, FRIENDSHIP_ID, RelationshipAction.ACCEPT);
+                relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.ACCEPT);
 
         // Assert
         assertThat(updatedRelationship).isNotNull();
@@ -186,11 +198,11 @@ class RelationshipServiceTest {
         // Arrange
         relationship.setStatus(FRIENDS);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.ACCEPT))
+        assertThatThrownBy(() ->
+                        relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.ACCEPT))
                 .isInstanceOf(RelationshipException.class);
 
         verify(relationshipRepository, never()).save(any(Relationship.class));
@@ -202,11 +214,12 @@ class RelationshipServiceTest {
         // Arrange
         relationship.setStatus(PENDING);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
-        Relationship result = relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.CANCEL);
+        Relationship result =
+                relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.CANCEL);
 
         // Assert
         assertThat(result).isNotNull();
@@ -220,11 +233,11 @@ class RelationshipServiceTest {
         // Arrange
         relationship.setStatus(FRIENDS);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.CANCEL))
+        assertThatThrownBy(() ->
+                        relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.CANCEL))
                 .isInstanceOf(RelationshipException.class);
 
         verify(relationshipRepository, never()).delete(any(Relationship.class));
@@ -235,11 +248,12 @@ class RelationshipServiceTest {
     void givenPendingFriendship_whenRejectIncomingRequest_thenFriendshipIsDeleted() {
         // Arrange
         relationship.setStatus(PENDING);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
-        Relationship result = relationshipService.manageFriendship(recipient, FRIENDSHIP_ID, RelationshipAction.REJECT);
+        Relationship result =
+                relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.REJECT);
 
         // Assert
         assertThat(result).isNotNull();
@@ -252,12 +266,12 @@ class RelationshipServiceTest {
     void givenFriends_whenUnfriend_thenFriendshipIsDeleted() {
         // Arrange
         relationship.setStatus(FRIENDS);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
         Relationship deletedRelationship =
-                relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.UNFRIEND);
+                relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.UNFRIEND);
 
         // Assert
         assertThat(deletedRelationship).isNotNull();
@@ -271,12 +285,12 @@ class RelationshipServiceTest {
         // Arrange
         relationship.setStatus(FRIENDS);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
         Relationship blockedRelationship =
-                relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.BLOCK);
+                relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.BLOCK);
 
         // Assert
         assertThat(blockedRelationship).isNotNull();
@@ -288,12 +302,12 @@ class RelationshipServiceTest {
     void givenBlockedFriend_whenUnblock_thenFriendshipIsDeleted() {
         // Arrange
         relationship.setStatus(FST_BLOCKED_SND);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
         Relationship unblockedRelationship =
-                relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.UNBLOCK);
+                relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.UNBLOCK);
 
         // Assert
         assertThat(unblockedRelationship).isEqualTo(relationship);
@@ -304,29 +318,29 @@ class RelationshipServiceTest {
     void givenNotBlockedFriendship_whenUnblock_thenThrowException() {
         // Arrange
         relationship.setStatus(FRIENDS);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
         assertThatThrownBy(() ->
-                        relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.UNBLOCK))
+                        relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.UNBLOCK))
                 .isInstanceOf(RelationshipException.class)
                 .hasMessage("Friendship is not blocked");
 
         verify(relationshipRepository, never()).delete(any(Relationship.class));
     }
 
-    @DisplayName("Should throw exception when user is not the denier of the friendship")
+    @DisplayName("Should throw exception when user is not the denier of the relationship")
     @Test
     void givenBlockedFriendship_whenNotDenierUnblock_thenThrowException() {
         // Arrange
         relationship.setStatus(FST_BLOCKED_SND);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
         assertThatThrownBy(() ->
-                        relationshipService.manageFriendship(recipient, FRIENDSHIP_ID, RelationshipAction.UNBLOCK))
+                        relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.UNBLOCK))
                 .isInstanceOf(RelationshipException.class)
-                .hasMessage("User is not the denier of this friendship");
+                .hasMessage("User is not the denier of this relationship");
 
         verify(relationshipRepository, never()).delete(any(Relationship.class));
     }
@@ -336,11 +350,11 @@ class RelationshipServiceTest {
     void givenFriendshipAlreadyBlockedByUser_whenBlockFriend_thenThrowException() {
         // Arrange
         relationship.setStatus(FST_BLOCKED_SND);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
-        assertThatThrownBy(
-                        () -> relationshipService.manageFriendship(requester, FRIENDSHIP_ID, RelationshipAction.BLOCK))
+        assertThatThrownBy(() ->
+                        relationshipService.manageFriendship(requester, RELATIONSHIP_ID, RelationshipAction.BLOCK))
                 .isInstanceOf(RelationshipException.class)
                 .hasMessage(RELATIONSHIP_IS_ALREADY_BLOCKED);
 
@@ -352,12 +366,12 @@ class RelationshipServiceTest {
     void givenFriends_whenBlockAsRequestee_thenUpdateStatus() {
         // Arrange
         relationship.setStatus(FRIENDS);
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
         when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
 
         // Act
         Relationship blockedRelationship =
-                relationshipService.manageFriendship(recipient, FRIENDSHIP_ID, RelationshipAction.BLOCK);
+                relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.BLOCK);
 
         // Assert
         assertThat(blockedRelationship).isNotNull();
@@ -369,13 +383,13 @@ class RelationshipServiceTest {
     void givenInvalidUser_whenManageFriendship_thenThrowException() {
         // Arrange
         User invalidUser = TestDataGenerator.buildTestUserWithId(UUID.randomUUID());
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
         assertThatThrownBy(() ->
-                        relationshipService.manageFriendship(invalidUser, FRIENDSHIP_ID, RelationshipAction.ACCEPT))
+                        relationshipService.manageFriendship(invalidUser, RELATIONSHIP_ID, RelationshipAction.ACCEPT))
                 .isInstanceOf(RelationshipException.class)
-                .hasMessage("User is not part of this friendship");
+                .hasMessage("User is not part of this relationship");
 
         verify(relationshipRepository, never()).save(any(Relationship.class));
     }
@@ -388,13 +402,13 @@ class RelationshipServiceTest {
         relationship.setRequester(recipient);
         relationship.setRequestee(requester);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
         assertThatThrownBy(() -> relationshipService.manageFriendship(
-                        relationship.getRequestee(), FRIENDSHIP_ID, RelationshipAction.CANCEL))
+                        relationship.getRequestee(), RELATIONSHIP_ID, RelationshipAction.CANCEL))
                 .isInstanceOf(RelationshipException.class)
-                .hasMessage("User is not the requester of this friendship");
+                .hasMessage("User is not the requester of this relationship");
 
         verify(relationshipRepository, never()).delete(any(Relationship.class));
     }
@@ -407,13 +421,13 @@ class RelationshipServiceTest {
         relationship.setRequester(recipient);
         relationship.setRequestee(requester);
 
-        when(relationshipRepository.findById(FRIENDSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
 
         // Act & Assert
         assertThatThrownBy(() -> relationshipService.manageFriendship(
-                        relationship.getRequester(), FRIENDSHIP_ID, RelationshipAction.ACCEPT))
+                        relationship.getRequester(), RELATIONSHIP_ID, RelationshipAction.ACCEPT))
                 .isInstanceOf(RelationshipException.class)
-                .hasMessage("User is not the requestee of this friendship");
+                .hasMessage("User is not the requestee of this relationship");
 
         verify(relationshipRepository, never()).save(any(Relationship.class));
     }
