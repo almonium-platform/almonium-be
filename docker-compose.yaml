@@ -12,12 +12,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"
-      GOOGLE_APPLICATION_CREDENTIALS: /app/service-account.json
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
-    volumes:
-      - ./service-account.json:/app/service-account.json
     env_file:
       - ./.env
     depends_on:
