@@ -65,6 +65,7 @@ google:
     service-account-key-base64: firebase_service_account_key_dummy
     storage:
       bucket: almonium-dummy.appspot.com
+  service-account-key-base64: firebase_service_account_key_dummy
 
 app:
   name: Almonium

@@ -2,6 +2,7 @@ package com.almonium.config.properties;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.google.cloud.translate.v3.LocationName;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +26,9 @@ public class GoogleProperties {
     @NotBlank
     String parentLocation;
 
+    @NotBlank
+    String serviceAccountKeyBase64;
+
     @NotNull
     @Valid
     @NestedConfigurationProperty
@@ -34,6 +38,10 @@ public class GoogleProperties {
     @Valid
     @NestedConfigurationProperty
     Oauth2 oauth2 = new Oauth2();
+
+    public LocationName getLocationName() {
+        return LocationName.of(projectId, parentLocation);
+    }
 
     @Getter
     @Setter

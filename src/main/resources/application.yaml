@@ -178,6 +178,7 @@ google:
     service-account-key-base64: ${FIREBASE_SERVICE_ACCOUNT_KEY_BASE64}
     storage:
       bucket: ${FIREBASE_STORAGE_BUCKET}
+  service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
 
 openai:
   gpt:
