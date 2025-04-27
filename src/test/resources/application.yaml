@@ -10,8 +10,6 @@ spring:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
   jpa:
     open-in-view: false
-    hibernate:
-      ddl-auto: create-drop
   liquibase:
     contexts: ${spring.profiles.active}
 
