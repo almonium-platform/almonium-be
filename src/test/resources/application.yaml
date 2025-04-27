@@ -90,6 +90,48 @@ app:
       apple-token-url: https://appleid.apple.com
       apple-service-id: com.almonium.auth
 
+rabbitmq:
+  exchange:
+    events: events.exchange
+    dlx: events.exchange.dlx
+  queue:
+    user-stream-setup:
+      name: q.user.stream.setup
+      routing-key: user.stream.setup.v1
+      dlq-name: q.user.stream.setup.dlq
+    user-languages-updated:
+      name: q.user.languages.updated
+      routing-key: user.languages.updated.v1
+      dlq-name: q.user.languages.updated.dlq
+    user-profile-updated:
+      name: q.user.profile.updated
+      routing-key: user.profile.updated.v1
+      dlq-name: q.user.profile.updated.dlq
+    user-deleted:
+      name: q.user.deleted
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.dlq
+    user-target-language-added:
+      name: q.user.target-language.added
+      routing-key: user.target-language.added.v1
+      dlq-name: q.user.target-language.added.dlq
+    user-target-language-removed:
+      name: q.user.target-language.removed
+      routing-key: user.target-language.removed.v1
+      dlq-name: q.user.target-language.removed.dlq
+    auth-verification-email:
+      name: q.auth.verification-email.requested
+      routing-key: auth.verification-email.requested.v1
+      dlq-name: q.auth.verification-email.requested.dlq
+    subscription-status-changed:
+      name: q.subscription.status.changed
+      routing-key: subscription.status.changed.v1
+      dlq-name: q.subscription.status.changed.dlq
+    friendship-email-requested:
+      name: q.friendship.email.requested
+      routing-key: friendship.email.requested.v1
+      dlq-name: q.friendship.email.requested.dlq
+
 openai:
   gpt:
     model: gpt-3.5-turbo
