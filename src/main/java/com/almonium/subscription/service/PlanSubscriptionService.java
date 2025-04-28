@@ -68,7 +68,8 @@ public class PlanSubscriptionService {
             updatePlanSubStatusAndSave(activeSubscription, PlanSubscription.Status.INACTIVE);
             findAndActivateDefaultPlan(activeSubscription.getUser());
         } else {
-            cancelSubImmediately(activeSubscription);
+            assertStripeSubIdIsPresent(activeSubscription);
+            stripeApiService.cancelSubImmediately(activeSubscription.getStripeSubscriptionId());
         }
     }
 
@@ -86,11 +87,8 @@ public class PlanSubscriptionService {
     }
 
     // on account deletion
-    public void cleanUpPaidSubscriptionsIfAny(User user) {
-        PlanSubscription activeSubscription = getActiveSub(user);
-        if (activeSubscription.getStripeSubscriptionId() != null) {
-            cancelSubImmediately(activeSubscription);
-        }
+    public Optional<String> getPaidSubscriptionIdToCancel(User user) {
+        return Optional.ofNullable(getActiveSub(user).getStripeSubscriptionId());
     }
 
     // on user registration
@@ -188,11 +186,6 @@ public class PlanSubscriptionService {
 
     private boolean isInsider(User user) {
         return insiderRepository.existsById(user.getId());
-    }
-
-    private void cancelSubImmediately(PlanSubscription activeSubscription) {
-        assertStripeSubIdIsPresent(activeSubscription);
-        stripeApiService.cancelSubImmediately(activeSubscription.getStripeSubscriptionId());
     }
 
     private PlanSubscription getPlanSubFromStripeData(String stripeSubscriptionId) {

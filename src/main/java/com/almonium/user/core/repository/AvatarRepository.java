@@ -10,6 +10,4 @@ public interface AvatarRepository extends JpaRepository<Avatar, UUID> {
     List<Avatar> findAllByProfileId(UUID profileId);
 
     Optional<Avatar> findByProfileIdAndUrl(UUID profileId, String url);
-
-    void deleteAllByProfileId(UUID profileId);
 }

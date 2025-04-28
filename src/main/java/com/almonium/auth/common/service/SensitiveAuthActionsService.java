@@ -21,6 +21,8 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.AvatarService;
 import com.almonium.user.core.service.UserService;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
@@ -113,10 +115,13 @@ public class SensitiveAuthActionsService {
     }
 
     public void deleteAccount(User user) {
-        planSubscriptionService.cleanUpPaidSubscriptionsIfAny(user);
-        avatarService.cleanUpAvatars(user.getId());
-        eventPublisher.publishEvent(new UserDeletedEvent(user.getId()));
+        Optional<String> stripeSubId = planSubscriptionService.getPaidSubscriptionIdToCancel(user);
+        List<String> avatarPaths = avatarService.getAvatarPathsForUser(user.getId());
+
+        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), stripeSubId, avatarPaths));
+
         userRepository.delete(user);
+        log.info("User {} marked for deletion and UserDeletedEvent published.", user.getId());
     }
 
     public void handleEmailChangeRequest(UUID id, Consumer<VerificationToken> action) {

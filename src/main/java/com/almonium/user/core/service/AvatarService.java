@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -66,11 +67,11 @@ public class AvatarService {
         updateProfileAvatarUrl(avatar.getUrl(), profile);
     }
 
-    public void cleanUpAvatars(UUID id) {
-        avatarRepository
-                .findAllByProfileId(id)
-                .forEach(avatar -> firebaseStorageService.deleteFile(extractPathFromUrl(avatar.getUrl())));
-        avatarRepository.deleteAllByProfileId(id);
+    public List<String> getAvatarPathsForUser(UUID userId) {
+        return avatarRepository.findAllByProfileId(userId).stream()
+                .map(Avatar::getUrl)
+                .map(this::extractPathFromUrl)
+                .collect(Collectors.toList());
     }
 
     public List<AvatarDto> getAvatars(UUID id) {

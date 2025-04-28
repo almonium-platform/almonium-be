@@ -105,10 +105,6 @@ rabbitmq:
       name: q.user.profile.updated
       routing-key: user.profile.updated.v1
       dlq-name: q.user.profile.updated.dlq
-    user-deleted:
-      name: q.user.deleted
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.dlq
     user-target-language-added:
       name: q.user.target-language.added
       routing-key: user.target-language.added.v1
@@ -129,6 +125,18 @@ rabbitmq:
       name: q.friendship.email.requested
       routing-key: friendship.email.requested.v1
       dlq-name: q.friendship.email.requested.dlq
+    user-deleted-stream:
+      name: q.user.deleted.stream
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.stream.dlq
+    user-deleted-stripe:
+      name: q.user.deleted.stripe
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.stripe.dlq
+    user-deleted-firebase:
+      name: q.user.deleted.firebase
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.firebase.dlq
 
 openai:
   gpt:

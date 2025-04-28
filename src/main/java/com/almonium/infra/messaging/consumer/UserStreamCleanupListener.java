@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserStreamCleanupListener {
     private final StreamChatService streamChatService;
 
-    @RabbitListener(queues = "${rabbitmq.queue.user-deleted.name}")
+    @RabbitListener(queues = "${rabbitmq.queue.user-deleted-stream.name}")
     public void handleUserDeleted(UserDeletedEvent event) {
         log.info("Received user deleted event for userId: {}", event.userId());
 
