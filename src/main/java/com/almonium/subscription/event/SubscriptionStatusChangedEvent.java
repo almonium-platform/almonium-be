@@ -1,12 +1,13 @@
 package com.almonium.subscription.event;
 
+import com.almonium.config.properties.RabbitMQProperties;
 import com.almonium.infra.messaging.DomainEvent;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import java.time.Instant;
 import java.util.UUID;
 import org.springframework.modulith.events.Externalized;
 
-@Externalized("events.exchange::subscription.status.changed.v1")
+@Externalized(RabbitMQProperties.EVENTS_EXCHANGE_NAME + "::subscription.status.changed.v1")
 public record SubscriptionStatusChangedEvent(
         UUID userId,
         String recipientEmail,
