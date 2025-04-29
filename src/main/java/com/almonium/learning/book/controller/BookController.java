@@ -6,6 +6,7 @@ import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.service.BookService;
 import com.almonium.user.core.model.entity.User;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Books", description = "Operations related to discovering, managing, and interacting with books.")
 @RestController
 @RequestMapping("/books")
 @RequiredArgsConstructor
