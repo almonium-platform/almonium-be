@@ -29,7 +29,7 @@ public class BookDetails {
     Boolean hasParallelTranslation;
     Boolean isTranslation;
     String description;
-    List<BookMiniDetails> availableLanguages;
+    List<BookLanguageVariant> languageVariants;
     Language orderLanguage;
     boolean favorite;
     Language originalLanguage;

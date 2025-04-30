@@ -2,7 +2,7 @@ package com.almonium.learning.book.mapper;
 
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
-import com.almonium.learning.book.dto.response.BookMiniDetails;
+import com.almonium.learning.book.dto.response.BookLanguageVariant;
 import com.almonium.learning.book.dto.response.TranslationOrderDto;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
@@ -28,11 +28,11 @@ public interface BookMapper {
 
     BookDto toDto(BookDetailsProjection book);
 
-    BookMiniDetails toDto(BookMiniProjection projection);
+    BookLanguageVariant toDto(BookMiniProjection projection);
 
-    List<BookMiniDetails> toMiniDto(List<BookMiniProjection> projection);
+    List<BookLanguageVariant> toMiniDto(List<BookMiniProjection> projection);
 
-    @Mapping(target = "availableLanguages", ignore = true)
+    @Mapping(target = "languageVariants", ignore = true)
     @Mapping(target = "orderLanguage", ignore = true)
     @Mapping(target = "favorite", ignore = true)
     BookDetails toDetailsDto(BookDetailsProjection book);
@@ -40,11 +40,11 @@ public interface BookMapper {
     // New method that handles languages too
     default BookDetails toDetailsDto(
             BookDetailsProjection book,
-            List<BookMiniDetails> languages,
+            List<BookLanguageVariant> languageVariants,
             Optional<TranslationOrder> orderLanguage,
             Optional<BookFavorite> favorite) {
         BookDetails details = toDetailsDto(book);
-        details.setAvailableLanguages(languages);
+        details.setLanguageVariants(languageVariants);
         orderLanguage.ifPresent(order -> details.setOrderLanguage(order.getLanguage()));
         favorite.ifPresent(fav -> details.setFavorite(true));
         return details;

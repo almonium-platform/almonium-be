@@ -7,7 +7,7 @@ import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
-import com.almonium.learning.book.dto.response.BookMiniDetails;
+import com.almonium.learning.book.dto.response.BookLanguageVariant;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
@@ -137,6 +137,11 @@ public class BookService {
                 .toList();
     }
 
+    public Object getBookById(User user, Long bookId) {
+        //        List<BookAvailableLanguage> availableLanguages =
+        return bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
+    }
+
     public BookDetails getBookById(User user, Language language, Long bookId) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
@@ -145,7 +150,7 @@ public class BookService {
                 .findBookDtoById(bookId, learnerId, fluentLanguages)
                 .orElseThrow(EntityNotFoundException::new);
 
-        List<BookMiniDetails> availableLanguages =
+        List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
         Long originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
         Optional<TranslationOrder> order =
@@ -160,10 +165,10 @@ public class BookService {
     }
 
     public byte[] getParallelBook(User user, Language language, Long bookId) {
-        List<BookMiniDetails> availableLanguages =
+        List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
-        BookMiniDetails miniDetails = availableLanguages.stream()
+        BookLanguageVariant miniDetails = availableLanguages.stream()
                 .filter(book -> book.getLanguage().equals(language))
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
