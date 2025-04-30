@@ -75,4 +75,11 @@ public class BookController {
         bookService.deleteBookProgress(user, language, bookId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/language/{language}/{bookId}/progress")
+    public ResponseEntity<?> saveBookProgress(
+            @Auth User user, @PathVariable Language language, @PathVariable Long bookId, @RequestParam int percentage) {
+        bookService.saveBookProgress(user, language, bookId, percentage);
+        return ResponseEntity.noContent().build();
+    }
 }

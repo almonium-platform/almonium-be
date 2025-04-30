@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -16,6 +17,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
@@ -24,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(of = {"id"})
+@EntityListeners(AuditingEntityListener.class)
 public class LearnerBookProgress {
     @Id
     @UuidV7
@@ -39,6 +43,14 @@ public class LearnerBookProgress {
 
     int progressPercentage;
 
+    @CreatedDate
     Instant startedAt;
+
     Instant lastReadAt;
+
+    public LearnerBookProgress(Learner learner, Book book, int progressPercentage) {
+        this.learner = learner;
+        this.book = book;
+        this.progressPercentage = progressPercentage;
+    }
 }

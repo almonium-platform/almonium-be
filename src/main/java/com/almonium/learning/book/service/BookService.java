@@ -14,6 +14,7 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
 import com.almonium.learning.book.model.entity.BookMiniProjection;
+import com.almonium.learning.book.model.entity.LearnerBookProgress;
 import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
@@ -106,6 +107,24 @@ public class BookService {
         learnerBookProgressRepository.deleteByLearnerIdAndBookId(learnerId, bookId);
     }
 
+    public void saveBookProgress(User user, Language language, Long bookId, int progressPercentage) {
+        Learner learner = learnerFinder.findLearner(user, language);
+        Book book = getBookById(bookId);
+        Optional<LearnerBookProgress> progressOptional =
+                learnerBookProgressRepository.findByLearnerAndBook(learner, book);
+
+        if (progressOptional.isPresent()) {
+            LearnerBookProgress progress = progressOptional.get();
+            progress.setProgressPercentage(progressPercentage);
+            progress.setLastReadAt(java.time.Instant.now());
+            learnerBookProgressRepository.save(progress);
+        } else {
+            LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
+            learnerBookProgressRepository.save(newProgress);
+        }
+    }
+
+    // by other services
     public List<Language> getAvailableLanguagesForBook(Long bookId) {
         return bookRepository.findAvailableLanguagesForBook(bookId).stream()
                 .map(BookMiniProjection::getLanguage)
