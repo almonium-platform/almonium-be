@@ -25,8 +25,8 @@ import org.springframework.stereotype.Service;
 public class FirebaseStorageService {
     private static final String TOKEN_METADATA_KEY = "firebaseStorageDownloadTokens";
     private static final String URL_FORMAT = "https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media&token=%s";
-    private static final String BOOK_CONTENT_PATH_TEMPLATE = "books/%s.txt";
-    private static final String PARALLEL_BOOK_CONTENT_PATH_TEMPLATE = "books/%s-%s.txt";
+    private static final String BOOK_CONTENT_PATH_TEMPLATE = "books/%s.html";
+    private static final String PARALLEL_BOOK_CONTENT_PATH_TEMPLATE = "books/%s-%s.html";
 
     GoogleProperties googleProperties;
     Storage storage;
