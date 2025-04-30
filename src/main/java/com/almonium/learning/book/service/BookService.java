@@ -25,6 +25,7 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -102,24 +103,29 @@ public class BookService {
         return bookMapper.toDto(books);
     }
 
-    public void deleteBookProgress(User user, Language language, Long bookId) {
-        UUID learnerId = learnerFinder.findLearner(user, language).getId();
-        learnerBookProgressRepository.deleteByLearnerIdAndBookId(learnerId, bookId);
+    public boolean deleteBookProgress(User user, Long bookId) {
+        int deletedCount = learnerBookProgressRepository.deleteByUserIdAndBookId(user.getId(), bookId);
+        return deletedCount > 0;
     }
 
-    public void saveBookProgress(User user, Language language, Long bookId, int progressPercentage) {
-        Learner learner = learnerFinder.findLearner(user, language);
-        Book book = getBookById(bookId);
+    public void saveBookProgress(User user, Long bookId, int progressPercentage) {
         Optional<LearnerBookProgress> progressOptional =
-                learnerBookProgressRepository.findByLearnerAndBook(learner, book);
+                learnerBookProgressRepository.findByUserIdAndBookId(user.getId(), bookId);
 
         if (progressOptional.isPresent()) {
             LearnerBookProgress progress = progressOptional.get();
             progress.setProgressPercentage(progressPercentage);
-            progress.setLastReadAt(java.time.Instant.now());
+            progress.setLastReadAt(Instant.now());
             learnerBookProgressRepository.save(progress);
+            log.debug("Updated progress for user {} and book {}", user.getId(), bookId);
         } else {
+            log.debug("No existing progress found for user {} and book {}. Creating new record.", user.getId(), bookId);
+
+            Book book = getBookById(bookId);
+            Learner learner = learnerFinder.findLearner(user, book.getLanguage());
+
             LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
+            newProgress.setLastReadAt(Instant.now());
             learnerBookProgressRepository.save(newProgress);
         }
     }

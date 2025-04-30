@@ -69,17 +69,19 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBooksInLanguage(user, language, includeTranslations));
     }
 
-    @DeleteMapping("/language/{language}/{bookId}/progress")
-    public ResponseEntity<?> deleteBookProgress(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
-        bookService.deleteBookProgress(user, language, bookId);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{bookId}/progress")
+    public ResponseEntity<?> deleteBookProgress(@Auth User user, @PathVariable Long bookId) {
+        boolean success = bookService.deleteBookProgress(user, bookId);
+        if (success) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/language/{language}/{bookId}/progress")
+    @PostMapping("/{bookId}/progress")
     public ResponseEntity<?> saveBookProgress(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId, @RequestParam int percentage) {
-        bookService.saveBookProgress(user, language, bookId, percentage);
+            @Auth User user, @PathVariable Long bookId, @RequestParam int percentage) {
+        bookService.saveBookProgress(user, bookId, percentage);
         return ResponseEntity.noContent().build();
     }
 }

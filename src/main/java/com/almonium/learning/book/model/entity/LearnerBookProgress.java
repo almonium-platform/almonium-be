@@ -9,6 +9,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
+@Table(
+        name = "learner_book_progress",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"book_id", "learner_id"})})
 public class LearnerBookProgress {
     @Id
     @UuidV7

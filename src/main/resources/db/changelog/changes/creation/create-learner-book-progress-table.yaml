@@ -27,11 +27,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: language
-                  type: varchar(10)
-                  constraints:
-                    nullable: false
-              - column:
                   name: started_at
                   type: timestamp
                   constraints:
@@ -41,6 +36,10 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
+        - addUniqueConstraint:
+            tableName: learner_book_progress
+            columnNames: learner_id, book_id
+            constraintName: uc_learner_book_progress_learner_id_book_id
         - addForeignKeyConstraint:
             baseTableName: learner_book_progress
             baseColumnNames: learner_id
