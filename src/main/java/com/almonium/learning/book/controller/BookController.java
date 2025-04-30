@@ -3,10 +3,12 @@ package com.almonium.learning.book.controller;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.learning.book.dto.response.BookDetails;
+import com.almonium.learning.book.dto.response.BookMiniDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.service.BookService;
 import com.almonium.user.core.model.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,8 +36,8 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<?> getBookInfo(@Auth User user, @PathVariable Long bookId) {
-        return ResponseEntity.ok(bookService.getBookById(user, bookId));
+    public ResponseEntity<BookMiniDetails> getBookInfo(@Auth UUID userId, @PathVariable Long bookId) {
+        return ResponseEntity.ok(bookService.getBookById(userId, bookId));
     }
 
     @GetMapping("/{bookId}/parallel/{language}")
@@ -44,7 +46,7 @@ public class BookController {
         return ResponseEntity.ok(bookService.getParallelBook(user, language, bookId));
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("/{bookId}/text")
     public ResponseEntity<byte[]> getText(@Auth User user, @PathVariable Long bookId) {
         return ResponseEntity.ok(bookService.getText(user, bookId));
     }

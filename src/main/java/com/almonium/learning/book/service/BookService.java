@@ -8,6 +8,7 @@ import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookLanguageVariant;
+import com.almonium.learning.book.dto.response.BookMiniDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
@@ -137,9 +138,22 @@ public class BookService {
                 .toList();
     }
 
-    public Object getBookById(User user, Long bookId) {
-        //        List<BookAvailableLanguage> availableLanguages =
-        return bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
+    public BookMiniDetails getBookById(UUID userId, Long bookId) {
+        List<BookLanguageVariant> languageVariants =
+                bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
+
+        int progressPercentage = learnerBookProgressRepository
+                .findByUserIdAndBookId(userId, bookId)
+                .map(LearnerBookProgress::getProgressPercentage)
+                .orElse(0);
+
+        Language language = getBookById(bookId).getLanguage();
+
+        return BookMiniDetails.builder()
+                .languageVariants(languageVariants)
+                .language(language)
+                .progressPercentage(progressPercentage)
+                .build();
     }
 
     public BookDetails getBookById(User user, Language language, Long bookId) {
