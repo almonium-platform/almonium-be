@@ -44,9 +44,9 @@ jobs:
       - name: SSH deploy
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HTZ_HOST }}
+          host: ${{ secrets.CLOUD_HOST }}
           username: almonium
-          key: ${{ secrets.HTZ_KEY }}
+          key: ${{ secrets.CLOUD_KEY }}
           script: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             /home/almonium/infra/deploy.sh ${{ github.sha }}
