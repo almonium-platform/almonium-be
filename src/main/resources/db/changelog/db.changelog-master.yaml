@@ -74,5 +74,3 @@ databaseChangeLog:
       file: db/changelog/changes/insertion/populate-plan-limits.yaml
   - include:
       file: db/changelog/changes/insertion/populate-interests.yaml
-  - include:
-      file: db/changelog/changes/insertion/populate-books.yaml
