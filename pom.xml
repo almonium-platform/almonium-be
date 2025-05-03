@@ -13,9 +13,9 @@
     </parent>
 
     <groupId>com.almonium</groupId>
-    <artifactId>almonium</artifactId>
+    <artifactId>almonium-be</artifactId>
     <version>1.0.0</version>
-    <name>almonium</name>
+    <name>almonium-be</name>
     <description>language learning app</description>
 
     <properties>
