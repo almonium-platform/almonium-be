@@ -1,11 +1,15 @@
-FROM eclipse-temurin:17-jre-jammy
-WORKDIR /app
+# Builder stage
+FROM openjdk:17-jdk-slim AS builder
+WORKDIR app
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 
-ARG EXTRACTED_LAYERS_DIR=target/extracted
-
-COPY ${EXTRACTED_LAYERS_DIR}/dependencies/ ./
-COPY ${EXTRACTED_LAYERS_DIR}/spring-boot-loader/ ./
-COPY ${EXTRACTED_LAYERS_DIR}/snapshot-dependencies/ ./
-COPY ${EXTRACTED_LAYERS_DIR}/application/ ./
-
+# Final stage
+FROM openjdk:17-jdk-slim
+WORKDIR app
+COPY --from=builder app/dependencies/ ./
+COPY --from=builder app/spring-boot-loader/ ./
+COPY --from=builder app/snapshot-dependencies/ ./
+COPY --from=builder app/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
