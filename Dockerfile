@@ -2,7 +2,7 @@
 FROM openjdk:17-jdk-slim AS layertools-extractor
 WORKDIR /app
 COPY target/*.jar app.jar
-RUN java -Djarmode=layertools -jar app.jar extract
+RUN java -Djarmode=tools -jar app.jar extract --launcher org.springframework.boot.loader.launch.JarLauncher
 
 # ---- Runtime Stage ----
 FROM eclipse-temurin:17-jre-jammy
