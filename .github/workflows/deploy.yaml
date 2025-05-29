@@ -94,6 +94,10 @@ jobs:
             export CONF_FACEBOOK_SECRET="${{ secrets.FACEBOOK_SECRET }}"
             export CONF_APPLE_ID="${{ vars.APPLE_ID }}"
             export CONF_APPLE_SECRET="${{ secrets.APPLE_SECRET }}"
+            export CONF_RABBITMQ_HOST="${{ vars.RABBITMQ_HOST }}"
+            export CONF_RABBITMQ_USER="${{ secrets.RABBITMQ_USER }}"
+            export CONF_RABBITMQ_PASS="${{ secrets.RABBITMQ_PASS }}"
+            export CONF_RABBITMQ_PORT="${{ vars.RABBITMQ_PORT }}"
             export CONF_MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}"
             export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
             
