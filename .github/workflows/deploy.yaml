@@ -95,6 +95,8 @@ jobs:
             export CONF_RABBITMQ_PASS="${{ secrets.RABBITMQ_PASS }}"
             export CONF_RABBITMQ_PORT="${{ vars.RABBITMQ_PORT }}"
             export CONF_MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}"
-            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"            
+            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
+
+            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
 
             /home/almonium/infra/deploy.sh "$DEPLOY_IMAGE_TAG"
