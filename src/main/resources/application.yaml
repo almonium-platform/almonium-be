@@ -218,7 +218,7 @@ external:
     ngrams: # free/non-rated
       url: https://api.ngrams.dev
     key:
-      urban: ${URBAN_KEY}
+      urban: ${RAPID_API_KEY}
+      words: ${RAPID_API_KEY}
       wordnik: ${WORDNIK_KEY}
       yandex: ${YANDEX_KEY}
-      words: ${WORDS_KEY}

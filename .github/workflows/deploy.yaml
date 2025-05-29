@@ -6,7 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,8 +44,8 @@ jobs:
           platforms: linux/amd64,linux/arm64 # Multi-arch build: x86_64 and ARM
           push: true
           tags: |
-            ghcr.io/okuzan/almonium-backend:${{ github.sha }}
-            ghcr.io/okuzan/almonium-backend:latest
+            ghcr.io/almonium-platform/almonium-be:${{ github.sha }}
+            ghcr.io/almonium-platform/almonium-be:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           builder: ${{ steps.buildx.outputs.name }}
@@ -51,6 +53,8 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: SSH deploy
         uses: appleboy/ssh-action@v1
@@ -58,6 +62,55 @@ jobs:
           host: ${{ secrets.CLOUD_HOST }}
           username: almonium
           key: ${{ secrets.CLOUD_KEY }}
+          envs: |
+            # Server Configuration (using vars and secrets)
+            CONF_LOCAL_PORT=${{ vars.LOCAL_PORT }}
+            CONF_DEBUG_PORT=${{ vars.DEBUG_PORT }}
+            CONF_SPRING_PROFILE=${{ vars.SPRING_PROFILE }}
+
+            # JWT Configuration
+            CONF_JWT_SECRET=${{ secrets.JWT_SECRET }}
+
+            # Database Configuration
+            CONF_DB_NAME=${{ vars.DB_NAME }}
+            CONF_DB_HOST=${{ vars.DB_HOST }}
+            CONF_DB_PORT=${{ vars.DB_PORT }}
+            CONF_DB_USERNAME=${{ secrets.DB_USERNAME }}
+            CONF_DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+
+            # API Keys
+            CONF_RAPID_API_KEY=${{ secrets.RAPID_API_KEY }}
+            CONF_WORDNIK_KEY=${{ secrets.WORDNIK_KEY }}
+            CONF_YANDEX_KEY=${{ secrets.YANDEX_KEY }}
+            CONF_OPENAI_KEY=${{ secrets.OPENAI_KEY }}
+
+            # Stripe Configuration
+            CONF_STRIPE_KEY=${{ secrets.STRIPE_KEY }}
+            CONF_STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
+
+            # Stream Configuration
+            CONF_STREAM_KEY=${{ secrets.STREAM_KEY }}
+            CONF_STREAM_SECRET=${{ secrets.STREAM_SECRET }}
+
+            # Google Cloud Configuration
+            CONF_GOOGLE_PROJECT_ID=${{ vars.GOOGLE_PROJECT_ID }}
+            CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64=${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}
+
+            # Firebase Configuration
+            CONF_FIREBASE_STORAGE_BUCKET=${{ vars.FIREBASE_STORAGE_BUCKET }}
+
+            # OAuth2 Configuration
+            CONF_GOOGLE_ID=${{ vars.GOOGLE_ID }}
+            CONF_GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}
+            CONF_FACEBOOK_ID=${{ vars.FACEBOOK_ID }}
+            CONF_FACEBOOK_SECRET=${{ secrets.FACEBOOK_SECRET }}
+            CONF_APPLE_ID=${{ vars.APPLE_ID }}
+            CONF_APPLE_SECRET=${{ secrets.APPLE_SECRET }}
+
+            # Mail Configuration
+            CONF_MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
+            CONF_MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
           script: |
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-            /home/almonium/infra/deploy.sh ${{ github.sha }}
+            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
+
+            /home/almonium/infra/deploy.sh "$DEPLOY_IMAGE_TAG"
