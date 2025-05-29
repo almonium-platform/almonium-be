@@ -64,9 +64,9 @@ jobs:
           key: ${{ secrets.CLOUD_KEY }}
           envs: |
             # Deployment specific 
-            DEPLOY_IMAGE_TAG=${{ github.sha }}
-            DEPLOY_GH_ACTOR=${{ github.actor }}
-            DEPLOY_GH_TOKEN=${{ secrets.GITHUB_TOKEN }} 
+            DEPLOY_IMAGE_TAG="${{ github.sha }}"
+            DEPLOY_GH_ACTOR="${{ github.actor }}"
+            DEPLOY_GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" 
 
             # Server Configuration (using vars and secrets)
             CONF_LOCAL_PORT=${{ vars.LOCAL_PORT }}
