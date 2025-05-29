@@ -59,77 +59,57 @@ jobs:
           host: ${{ secrets.CLOUD_HOST }}
           username: almonium
           key: ${{ secrets.CLOUD_KEY }}
-          envs: |
-            # Deployment specific 
-            DEPLOY_IMAGE_TAG="${{ github.sha }}"
-            DEPLOY_GH_ACTOR="${{ github.actor }}"
-            DEPLOY_GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" 
-
-            # Server Configuration (using vars and secrets)
-            CONF_LOCAL_PORT=${{ vars.LOCAL_PORT }}
-            CONF_DEBUG_PORT=${{ vars.DEBUG_PORT }}
-            CONF_SPRING_PROFILE=${{ vars.SPRING_PROFILE }}
-
-            # JWT Configuration
-            CONF_JWT_SECRET=${{ secrets.JWT_SECRET }}
-
-            # Database Configuration
-            CONF_DB_NAME=${{ vars.DB_NAME }}
-            CONF_DB_HOST=${{ vars.DB_HOST }}
-            CONF_DB_PORT=${{ vars.DB_PORT }}
-            CONF_DB_USERNAME=${{ secrets.DB_USERNAME }}
-            CONF_DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-
-            # API Keys
-            CONF_RAPID_API_KEY=${{ secrets.RAPID_API_KEY }}
-            CONF_WORDNIK_KEY=${{ secrets.WORDNIK_KEY }}
-            CONF_YANDEX_KEY=${{ secrets.YANDEX_KEY }}
-            CONF_OPENAI_KEY=${{ secrets.OPENAI_KEY }}
-
-            # Stripe Configuration
-            CONF_STRIPE_KEY=${{ secrets.STRIPE_KEY }}
-            CONF_STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
-
-            # Stream Configuration
-            CONF_STREAM_KEY=${{ secrets.STREAM_KEY }}
-            CONF_STREAM_SECRET=${{ secrets.STREAM_SECRET }}
-
-            # Google Cloud Configuration
-            CONF_GOOGLE_PROJECT_ID=${{ vars.GOOGLE_PROJECT_ID }}
-            CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64=${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}
-
-            # Firebase Configuration
-            CONF_FIREBASE_STORAGE_BUCKET=${{ vars.FIREBASE_STORAGE_BUCKET }}
-
-            # OAuth2 Configuration
-            CONF_GOOGLE_ID=${{ vars.GOOGLE_ID }}
-            CONF_GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}
-            CONF_FACEBOOK_ID=${{ vars.FACEBOOK_ID }}
-            CONF_FACEBOOK_SECRET=${{ secrets.FACEBOOK_SECRET }}
-            CONF_APPLE_ID=${{ vars.APPLE_ID }}
-            CONF_APPLE_SECRET=${{ secrets.APPLE_SECRET }}
-
-            # Mail Configuration
-            CONF_MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
-            CONF_MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
           script: |
-            echo "--- STARTING DEBUG IN SCRIPT BLOCK ---"
-            echo "1. Value of github.sha directly from context: '${{ github.sha }}'"
-            echo "2. Value of DEPLOY_IMAGE_TAG env var: '$DEPLOY_IMAGE_TAG'" # THIS IS THE CRITICAL ONE
+            echo "--- STARTING DEPLOYMENT ---"
+            
+            # Set deployment variables directly
+            export DEPLOY_IMAGE_TAG="${{ github.sha }}"
+            export DEPLOY_GH_ACTOR="${{ github.actor }}"
+            export DEPLOY_GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+            
+            # Set configuration variables directly
+            export CONF_LOCAL_PORT="${{ vars.LOCAL_PORT }}"
+            export CONF_DEBUG_PORT="${{ vars.DEBUG_PORT }}"
+            export CONF_SPRING_PROFILE="${{ vars.SPRING_PROFILE }}"
+            export CONF_JWT_SECRET="${{ secrets.JWT_SECRET }}"
+            export CONF_DB_NAME="${{ vars.DB_NAME }}"
+            export CONF_DB_HOST="${{ vars.DB_HOST }}"
+            export CONF_DB_PORT="${{ vars.DB_PORT }}"
+            export CONF_DB_USERNAME="${{ secrets.DB_USERNAME }}"
+            export CONF_DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+            export CONF_RAPID_API_KEY="${{ secrets.RAPID_API_KEY }}"
+            export CONF_WORDNIK_KEY="${{ secrets.WORDNIK_KEY }}"
+            export CONF_YANDEX_KEY="${{ secrets.YANDEX_KEY }}"
+            export CONF_OPENAI_KEY="${{ secrets.OPENAI_KEY }}"
+            export CONF_STRIPE_KEY="${{ secrets.STRIPE_KEY }}"
+            export CONF_STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
+            export CONF_STREAM_KEY="${{ secrets.STREAM_KEY }}"
+            export CONF_STREAM_SECRET="${{ secrets.STREAM_SECRET }}"
+            export CONF_GOOGLE_PROJECT_ID="${{ vars.GOOGLE_PROJECT_ID }}"
+            export CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64="${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}"
+            export CONF_FIREBASE_STORAGE_BUCKET="${{ vars.FIREBASE_STORAGE_BUCKET }}"
+            export CONF_GOOGLE_ID="${{ vars.GOOGLE_ID }}"
+            export CONF_GOOGLE_SECRET="${{ secrets.GOOGLE_SECRET }}"
+            export CONF_FACEBOOK_ID="${{ vars.FACEBOOK_ID }}"
+            export CONF_FACEBOOK_SECRET="${{ secrets.FACEBOOK_SECRET }}"
+            export CONF_APPLE_ID="${{ vars.APPLE_ID }}"
+            export CONF_APPLE_SECRET="${{ secrets.APPLE_SECRET }}"
+            export CONF_MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}"
+            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
+            
+            echo "1. Value of github.sha: '${{ github.sha }}'"
+            echo "2. Value of DEPLOY_IMAGE_TAG env var: '$DEPLOY_IMAGE_TAG'"
             echo "3. Value of DEPLOY_GH_ACTOR env var: '$DEPLOY_GH_ACTOR'"
-            echo "4. Value of DEPLOY_GH_TOKEN env var (first 5 chars for check): '${DEPLOY_GH_TOKEN:0:5}'"
+            echo "4. Value of DEPLOY_GH_TOKEN env var (first 5 chars): '${DEPLOY_GH_TOKEN:0:5}'"
 
-            if [ -z "$DEPLOY_IMAGE_TAG" ]; then # Check if it's empty *before* calling deploy.sh
-              echo "ERROR_DEBUG: DEPLOY_IMAGE_TAG is indeed empty or not set within the script block when trying to pass it to deploy.sh!"
-              exit 1 # Fail fast if it's empty here, proves the issue is before deploy.sh
-            else
-              echo "INFO_DEBUG: DEPLOY_IMAGE_TAG is set to '$DEPLOY_IMAGE_TAG'. Attempting to call deploy.sh."
+            if [ -z "$DEPLOY_IMAGE_TAG" ]; then
+              echo "ERROR: DEPLOY_IMAGE_TAG is empty!"
+              exit 1
             fi
 
-            echo "Attempting docker login..." # This might also fail if DEPLOY_GH_ACTOR or _TOKEN are empty
+            echo "Attempting docker login..."
             echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
-            echo "Docker login command executed."
-
-            echo "Attempting to call deploy.sh with argument: '$DEPLOY_IMAGE_TAG'"
+            
+            echo "Calling deploy.sh with tag: '$DEPLOY_IMAGE_TAG'"
             /home/almonium/infra/deploy.sh "$DEPLOY_IMAGE_TAG"
-            echo "--- FINISHED DEBUG IN SCRIPT BLOCK ---"
+            echo "--- DEPLOYMENT COMPLETED ---"
