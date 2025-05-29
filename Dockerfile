@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM eclipse-temurin:17-jdk-jammy AS builder
+FROM maven:3.9-eclipse-temurin-17-jammy AS builder
 WORKDIR /app
 
 # 1. Copy only pom.xml
