@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64 # Multi-arch build: x86_64 and ARM
+          platforms: linux/arm64
           push: true
           tags: |
             ghcr.io/almonium-platform/almonium-be:${{ github.sha }}
