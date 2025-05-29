@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM openjdk:17-jdk-slim AS builder
+FROM eclipse-temurin:17-jdk-jammy AS builder
 WORKDIR /app
 
 # 1. Copy only pom.xml
@@ -19,7 +19,7 @@ COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 # ---- Runtime Stage ----
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 COPY --from=builder app/dependencies/ ./
 COPY --from=builder app/spring-boot-loader/ ./
