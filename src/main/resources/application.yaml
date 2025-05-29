@@ -5,32 +5,27 @@ server:
   forward-headers-strategy: framework
 
 spring:
-  profiles:
-    active: ${SPRING_PROFILE}
-  config:
-    import:
-      - optional:file:.env[.properties]
+  profiles.active: ${SPRING_PROFILE}
+  config.import:
+    - optional:file:.env[.properties]
   rabbitmq:
     host: ${RABBITMQ_HOST}
     username: ${RABBITMQ_USER}
     password: ${RABBITMQ_PASS}
     port: ${RABBITMQ_PORT}
-    listener:
-      simple:
-        retry:
-          enabled: true
-          initial-interval: 1s
-          multiplier: 2.0
-          max-attempts: 5
+    listener.simple.retry:
+      enabled: true
+      initial-interval: 1s
+      multiplier: 2.0
+      max-attempts: 5
     publisher-confirm-type: correlated
     publisher-returns: true
   jpa:
     open-in-view: false
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        default_schema: ${SPRING_PROFILE}
+    properties.hibernate:
+      format_sql: true
+      default_schema: ${SPRING_PROFILE}
 
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${SPRING_PROFILE}
@@ -48,51 +43,46 @@ spring:
     contexts: ${SPRING_PROFILE}
     default-schema: ${SPRING_PROFILE}
 
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${google.oauth2.client-id}
-            client-secret: ${google.oauth2.client-secret}
-            scope: email,profile
-            redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/google
-          facebook:
-            client-id: ${FACEBOOK_ID}
-            client-secret: ${FACEBOOK_SECRET}
-          apple:
-            client-id: ${APPLE_ID}
-            client-secret: ${APPLE_SECRET}
-            authorization-grant-type: authorization_code
-            client-name: Apple
-            client-authentication-method: client_secret_post
-            redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/apple
-            scope: email # add `name` if needed
+  security.oauth2.client:
+    registration:
+      google:
+        client-id: ${google.oauth2.client-id}
+        client-secret: ${google.oauth2.client-secret}
+        scope: email,profile
+        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/google
+      facebook:
+        client-id: ${FACEBOOK_ID}
+        client-secret: ${FACEBOOK_SECRET}
+      apple:
+        client-id: ${APPLE_ID}
+        client-secret: ${APPLE_SECRET}
+        authorization-grant-type: authorization_code
+        client-name: Apple
+        client-authentication-method: client_secret_post
+        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/apple
+        scope: email # add `name` if needed
 
-        provider:
-          google:
-            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-          facebook:
-            user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
-          apple:
-            token-uri: https://appleid.apple.com/auth/token
-            authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
-            user-info-uri: https://appleid.apple.com/auth/userinfo
-            jwk-set-uri: https://appleid.apple.com/auth/keys
-            user-name-attribute: sub
+    provider:
+      google:
+        user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+      facebook:
+        user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
+      apple:
+        token-uri: https://appleid.apple.com/auth/token
+        authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
+        user-info-uri: https://appleid.apple.com/auth/userinfo
+        jwk-set-uri: https://appleid.apple.com/auth/keys
+        user-name-attribute: sub
 
   mail:
     host: smtp.zoho.eu
     port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-          timeout: 3000
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      timeout: 3000
 
 logging:
   level:
@@ -101,17 +91,15 @@ logging:
     org.springframework.transaction.interceptor: INFO
     com.almonium: DEBUG
     root: INFO
-    org:
-      hibernate:
-        info: info
-        SQL: debug
-        orm.jdbc.bind: trace
-        stat: debug
-        SQL_SLOW: info
-        cache: debug
-        type.descriptor.sql.BasicBinder: trace
-  pattern:
-    console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
+    org.hibernate:
+      info: info
+      SQL: debug
+      orm.jdbc.bind: trace
+      stat: debug
+      SQL_SLOW: info
+      cache: debug
+      type.descriptor.sql.BasicBinder: trace
+  pattern.console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
 
 
 # Custom Configurations
@@ -123,8 +111,7 @@ app:
       length: 24
     jwt:
       secret: ${JWT_SECRET}
-      access-token:
-        lifetime: 900 # 15 minutes
+      access-token.lifetime: 900 # 15 minutes
       refresh-token:
         lifetime: 1209600 # 14 days
         url: /public/auth/refresh-token
@@ -192,33 +179,28 @@ google:
   firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}
   service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
 
-openai:
-  gpt:
-    model: gpt-3.5-turbo
-    url: https://api.openai.com/v1/chat/completions
-    key: ${OPENAI_KEY}
+openai.gpt:
+  model: gpt-3.5-turbo
+  url: https://api.openai.com/v1/chat/completions
+  key: ${OPENAI_KEY}
 
-stream:
-  api:
-    key: ${STREAM_KEY}
-    secret: ${STREAM_SECRET}
+stream.api:
+  key: ${STREAM_KEY}
+  secret: ${STREAM_SECRET}
 
 stripe:
-  webhook:
-    secret: ${STRIPE_WEBHOOK_SECRET}
-  api:
-    key: ${STRIPE_KEY}
+  webhook.secret: ${STRIPE_WEBHOOK_SECRET}
+  api.key: ${STRIPE_KEY}
   checkout:
     success-url: ${app.web-domain}/payment/success
     cancel-url: ${app.web-domain}/pricing?canceled=true
   return-url: ${app.web-domain}/settings/me?portal=from
 
-external:
-  api:
-    ngrams: # free/non-rated
-      url: https://api.ngrams.dev
-    key:
-      urban: ${RAPID_API_KEY}
-      words: ${RAPID_API_KEY}
-      wordnik: ${WORDNIK_KEY}
-      yandex: ${YANDEX_KEY}
+external.api:
+  # free/non-rated
+  ngrams.url: https://api.ngrams.dev
+  key:
+    urban: ${RAPID_API_KEY}
+    words: ${RAPID_API_KEY}
+    wordnik: ${WORDNIK_KEY}
+    yandex: ${YANDEX_KEY}
