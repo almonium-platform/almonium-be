@@ -51,7 +51,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      packages: read
     steps:
       - name: SSH deploy
         uses: appleboy/ssh-action@v1
