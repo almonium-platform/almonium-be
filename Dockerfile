@@ -16,8 +16,7 @@ RUN mvn package -B -Dmaven.test.skip=true # This creates target/*.jar INSIDE thi
 # 5. Extract layers for the final image
 # The ARG JAR_FILE might not be strictly necessary if your target/*.jar path is consistent
 # from the mvn package command. You can directly use the path.
-COPY target/*.jar app.jar
-RUN java -Djarmode=layertools -jar app.jar extract
+RUN java -Djarmode=layertools -jar target/*.jar extract
 
 # ---- Runtime Stage ----
 # Using eclipse-temurin:17-jre-jammy for the runtime stage is good for size
