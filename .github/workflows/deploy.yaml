@@ -20,6 +20,14 @@ jobs:
           java-version: 17
           cache: 'maven'
 
+      - name: Build JAR with Maven
+        run: mvn -B package -Dmaven.test.skip=true
+
+      - name: Extract Spring Boot Layers
+        run: |
+          mkdir -p target/extracted
+          java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
