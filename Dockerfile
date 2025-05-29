@@ -1,5 +1,5 @@
 # ---- Builder Stage ----
-FROM maven:3.9.6-eclipse-temurin-17-jammy AS builder # CORRECTED TAG
+FROM maven:3.9.6-eclipse-temurin-17-jammy AS builder
 WORKDIR /app
 
 # 1. Copy only pom.xml
@@ -16,12 +16,12 @@ RUN mvn package -B -Dmaven.test.skip=true # This creates target/*.jar INSIDE thi
 # 5. Extract layers for the final image
 # The ARG JAR_FILE might not be strictly necessary if your target/*.jar path is consistent
 # from the mvn package command. You can directly use the path.
-COPY target/*.jar app.jar # Assumes mvn package outputs one JAR to target/
+COPY target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 # ---- Runtime Stage ----
 # Using eclipse-temurin:17-jre-jammy for the runtime stage is good for size
-FROM eclipse-temurin:17-jre-jammy # CHANGED to JRE and specified -jammy for consistency
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=builder app/dependencies/ ./
 COPY --from=builder app/spring-boot-loader/ ./
