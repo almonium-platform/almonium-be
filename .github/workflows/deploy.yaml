@@ -60,14 +60,10 @@ jobs:
           username: almonium
           key: ${{ secrets.CLOUD_KEY }}
           script: |
-            echo "--- STARTING DEPLOYMENT ---"
-            
-            # Set deployment variables directly
             export DEPLOY_IMAGE_TAG="${{ github.sha }}"
             export DEPLOY_GH_ACTOR="${{ github.actor }}"
             export DEPLOY_GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
             
-            # Set configuration variables directly
             export CONF_LOCAL_PORT="${{ vars.LOCAL_PORT }}"
             export CONF_DEBUG_PORT="${{ vars.DEBUG_PORT }}"
             export CONF_SPRING_PROFILE="${{ vars.SPRING_PROFILE }}"
@@ -99,21 +95,6 @@ jobs:
             export CONF_RABBITMQ_PASS="${{ secrets.RABBITMQ_PASS }}"
             export CONF_RABBITMQ_PORT="${{ vars.RABBITMQ_PORT }}"
             export CONF_MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}"
-            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
-            
-            echo "1. Value of github.sha: '${{ github.sha }}'"
-            echo "2. Value of DEPLOY_IMAGE_TAG env var: '$DEPLOY_IMAGE_TAG'"
-            echo "3. Value of DEPLOY_GH_ACTOR env var: '$DEPLOY_GH_ACTOR'"
-            echo "4. Value of DEPLOY_GH_TOKEN env var (first 5 chars): '${DEPLOY_GH_TOKEN:0:5}'"
+            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"            
 
-            if [ -z "$DEPLOY_IMAGE_TAG" ]; then
-              echo "ERROR: DEPLOY_IMAGE_TAG is empty!"
-              exit 1
-            fi
-
-            echo "Attempting docker login..."
-            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
-            
-            echo "Calling deploy.sh with tag: '$DEPLOY_IMAGE_TAG'"
             /home/almonium/infra/deploy.sh "$DEPLOY_IMAGE_TAG"
-            echo "--- DEPLOYMENT COMPLETED ---"
