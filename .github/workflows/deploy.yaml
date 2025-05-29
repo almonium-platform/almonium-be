@@ -116,6 +116,23 @@ jobs:
             CONF_MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
             CONF_MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
           script: |
-            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
+            echo "--- STARTING DEBUG IN SCRIPT BLOCK ---"
+            echo "1. Value of github.sha directly from context: '${{ github.sha }}'"
+            echo "2. Value of DEPLOY_IMAGE_TAG env var: '$DEPLOY_IMAGE_TAG'" # THIS IS THE CRITICAL ONE
+            echo "3. Value of DEPLOY_GH_ACTOR env var: '$DEPLOY_GH_ACTOR'"
+            echo "4. Value of DEPLOY_GH_TOKEN env var (first 5 chars for check): '${DEPLOY_GH_TOKEN:0:5}'"
 
+            if [ -z "$DEPLOY_IMAGE_TAG" ]; then # Check if it's empty *before* calling deploy.sh
+              echo "ERROR_DEBUG: DEPLOY_IMAGE_TAG is indeed empty or not set within the script block when trying to pass it to deploy.sh!"
+              exit 1 # Fail fast if it's empty here, proves the issue is before deploy.sh
+            else
+              echo "INFO_DEBUG: DEPLOY_IMAGE_TAG is set to '$DEPLOY_IMAGE_TAG'. Attempting to call deploy.sh."
+            fi
+
+            echo "Attempting docker login..." # This might also fail if DEPLOY_GH_ACTOR or _TOKEN are empty
+            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
+            echo "Docker login command executed."
+
+            echo "Attempting to call deploy.sh with argument: '$DEPLOY_IMAGE_TAG'"
             /home/almonium/infra/deploy.sh "$DEPLOY_IMAGE_TAG"
+            echo "--- FINISHED DEBUG IN SCRIPT BLOCK ---"
