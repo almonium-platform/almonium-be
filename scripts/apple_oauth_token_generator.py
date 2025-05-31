@@ -1,21 +1,31 @@
 import jwt
 import os
 import time
-from dotenv import load_dotenv
-
-load_dotenv()
 
 TEAM_ID = os.getenv("APPLE_TEAM_ID")
 CLIENT_ID = os.getenv("APPLE_CLIENT_ID")
 KEY_ID = os.getenv("APPLE_KEY_ID")
-PRIVATE_KEY_PATH = os.getenv("APPLE_PRIVATE_KEY_PATH")
 
+PRIVATE_KEY_CONTENT = os.getenv("APPLE_PRIVATE_KEY_CONTENT")
 
 def generate_token():
-    with open(PRIVATE_KEY_PATH, "r") as f:
-        private_key = f.read()
+    if not all([TEAM_ID, CLIENT_ID, KEY_ID, PRIVATE_KEY_CONTENT]):
+        missing = [
+            var_name for var_name, var_val in [
+                ("APPLE_TEAM_ID", TEAM_ID),
+                ("APPLE_CLIENT_ID", CLIENT_ID),
+                ("APPLE_KEY_ID", KEY_ID),
+                ("APPLE_PRIVATE_KEY_CONTENT", PRIVATE_KEY_CONTENT)
+            ] if not var_val
+        ]
+        print(f"Error: Missing environment variables: {', '.join(missing)}")
+        return
+
+    private_key = PRIVATE_KEY_CONTENT
+
     timestamp_now = int(time.time())
-    timestamp_exp = timestamp_now + 15777000  # ~6 months
+    timestamp_exp = timestamp_now + 15777000  # ~6 months (Apple max is 6 months)
+
     data = {
         "iss": TEAM_ID,
         "iat": timestamp_now,
@@ -23,13 +33,18 @@ def generate_token():
         "aud": "https://appleid.apple.com",
         "sub": CLIENT_ID,
     }
-    token = jwt.encode(
-        payload=data,
-        key=private_key.encode('utf-8'),
-        algorithm="ES256",
-        headers={"kid": KEY_ID}
-    )
-    print(token)
+
+    try:
+        token = jwt.encode(
+            payload=data,
+            key=private_key,
+            algorithm="ES256",
+            headers={"kid": KEY_ID}
+        )
+        print("Successfully generated Apple Client Secret (JWT):")
+        print(token)
+    except Exception as e:
+        print(f"Error generating token: {e}")
 
 
 if __name__ == "__main__":

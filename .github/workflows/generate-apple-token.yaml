@@ -1,0 +1,32 @@
+name: Generate Apple Client Secret (JWT)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate_token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyjwt[crypto]
+
+      - name: Run script to generate Apple Client Secret
+        env:
+          APPLE_TEAM_ID: ${{ secrets.SCRIPT_APPLE_TEAM_ID }}
+          APPLE_CLIENT_ID: ${{ secrets.SCRIPT_APPLE_CLIENT_ID }}
+          APPLE_KEY_ID: ${{ secrets.SCRIPT_APPLE_KEY_ID }}
+          APPLE_PRIVATE_KEY_CONTENT: ${{ secrets.SCRIPT_APPLE_PRIVATE_KEY_CONTENT }}
+        run: |
+          echo "Generating Apple Client Secret..."
+          python ./scripts/apple_oauth_token_generator.py
