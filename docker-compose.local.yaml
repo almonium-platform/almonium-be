@@ -10,7 +10,6 @@ services:
       - ${LOCAL_PORT}:${LOCAL_PORT}
       - ${DEBUG_PORT}:${DEBUG_PORT}
     environment:
-      SPRING_PROFILES_ACTIVE: prod
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"
       RABBITMQ_HOST: ${RABBITMQ_HOST}
       RABBITMQ_USER: ${RABBITMQ_USER}
