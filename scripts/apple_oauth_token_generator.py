@@ -1,11 +1,11 @@
 import jwt
 import os
 import time
+import base64
 
 TEAM_ID = os.getenv("APPLE_TEAM_ID")
 CLIENT_ID = os.getenv("APPLE_CLIENT_ID")
 KEY_ID = os.getenv("APPLE_KEY_ID")
-
 PRIVATE_KEY_CONTENT = os.getenv("APPLE_PRIVATE_KEY_CONTENT")
 
 def generate_token():
@@ -22,9 +22,8 @@ def generate_token():
         return
 
     private_key = PRIVATE_KEY_CONTENT
-
     timestamp_now = int(time.time())
-    timestamp_exp = timestamp_now + 15777000  # ~6 months (Apple max is 6 months)
+    timestamp_exp = timestamp_now + 15777000  # ~6 months
 
     data = {
         "iss": TEAM_ID,
@@ -41,11 +40,13 @@ def generate_token():
             algorithm="ES256",
             headers={"kid": KEY_ID}
         )
-        print("Successfully generated Apple Client Secret (JWT):")
-        print(token)
+        encoded_token = base64.b64encode(token.encode('utf-8')).decode('utf-8')
+
+        print("Successfully generated Apple Client Secret (JWT).")
+        print("Copy the Base64 encoded token below and decode it locally:")
+        print(encoded_token)
     except Exception as e:
         print(f"Error generating token: {e}")
-
 
 if __name__ == "__main__":
     generate_token()
