@@ -60,7 +60,7 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.CLOUD_HOST }}
-          username: almonium
+          username: ${{ secrets.CLOUD_USERNAME }}
           key: ${{ secrets.CLOUD_KEY }}
           script: |
             export DEPLOY_IMAGE_TAG="${{ github.sha }}"
