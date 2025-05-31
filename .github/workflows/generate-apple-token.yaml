@@ -23,10 +23,10 @@ jobs:
 
       - name: Run script to generate Apple Client Secret
         env:
-          APPLE_TEAM_ID: ${{vars.APPLE_TEAM_ID}}
-          APPLE_CLIENT_ID: ${{ vars.APPLE_CLIENT_ID}}
-          APPLE_KEY_ID: ${{vars.APPLE_KEY_ID}}
-          APPLE_PRIVATE_KEY_CONTENT: ${{secrets.APPLE_PRIVATE_KEY_CONTENT}}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          APPLE_CLIENT_ID: ${{ vars.APPLE_CLIENT_ID }}
+          APPLE_KEY_ID: ${{ vars.APPLE_KEY_ID }}
+          APPLE_PRIVATE_KEY_CONTENT: ${{ secrets.APPLE_PRIVATE_KEY_CONTENT }}
         run: |
           echo "Generating Apple Client Secret..."
           python ./scripts/apple_oauth_token_generator.py
