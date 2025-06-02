@@ -107,4 +107,4 @@ jobs:
 
             echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
 
-            /home/almonium/infra/almonium-be/deploy.sh "$DEPLOY_IMAGE_TAG"
+            /home/almonium/infra/almonium-be/deploy.sh
