@@ -79,6 +79,7 @@ jobs:
             export CONF_DB_NAME="${{ vars.DB_NAME }}"
             export CONF_DB_HOST="${{ vars.DB_HOST }}"
             export CONF_DB_PORT="${{ vars.DB_PORT }}"
+            export CONF_DB_SCHEMA="${{ vars.DB_SCHEMA }}"
             export CONF_DB_USERNAME="${{ secrets.DB_USERNAME }}"
             export CONF_DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
             export CONF_RAPID_API_KEY="${{ secrets.RAPID_API_KEY }}"
