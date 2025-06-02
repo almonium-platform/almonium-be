@@ -1,0 +1,5 @@
+app:
+  web-domain: http://localhost:9999
+  api-domain: http://localhost:${server.port}
+  email.dry-run: true
+  auth.email-verification-required: false
