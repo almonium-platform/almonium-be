@@ -106,5 +106,5 @@ jobs:
             export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
 
             echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
-
+            echo "DEBUG: Value of DEPLOY_IMAGE_TAG in GitHub Action script is [${DEPLOY_IMAGE_TAG}]"
             /home/almonium/infra/almonium-be/deploy.sh "$DEPLOY_IMAGE_TAG"
