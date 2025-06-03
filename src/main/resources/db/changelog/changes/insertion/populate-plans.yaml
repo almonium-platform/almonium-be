@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: populate-initial-plans-dev
+      id: populate-initial-plans-staging
       author: almoni
-      context: dev, test
+      context: staging, test
       changes:
         - loadData:
             tableName: plan
-            file: db/data/plans-dev.csv
+            file: db/data/plans-staging.csv
             separator: ','
   - changeSet:
       id: populate-initial-plans-prod
