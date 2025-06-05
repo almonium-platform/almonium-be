@@ -86,6 +86,7 @@ jobs:
             export CONF_WORDNIK_KEY="${{ secrets.WORDNIK_KEY }}"
             export CONF_YANDEX_KEY="${{ secrets.YANDEX_KEY }}"
             export CONF_OPENAI_KEY="${{ secrets.OPENAI_KEY }}"
+            export CONF_GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY }}"
             export CONF_STRIPE_KEY="${{ secrets.STRIPE_KEY }}"
             export CONF_STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
             export CONF_STREAM_KEY="${{ secrets.STREAM_KEY }}"

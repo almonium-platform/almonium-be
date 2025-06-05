@@ -1,7 +1,6 @@
-package com.almonium.analyzer.client.chatgpt.config
+package com.almonium.analyzer.client.gemini.config
 
-import com.almonium.analyzer.client.chatgpt.client.GptClient
-import com.almonium.auth.token.util.BearerTokenUtil.bearerOf
+import com.almonium.analyzer.client.gemini.client.GeminiClient
 import com.almonium.config.properties.AiProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,18 +11,17 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory
 
 @Configuration
-class GptClientConfig(private val aiProperties: AiProperties) {
+class GeminiClientConfig(private val aiProperties: AiProperties) {
     @Bean
-    fun gptClient(): GptClient {
-        val gptProps = aiProperties.gpt
+    fun geminiClient(): GeminiClient {
+        val geminiProps = aiProperties.gemini
         val webClient =
             WebClient.builder()
-                .baseUrl(gptProps.url)
+                .baseUrl(geminiProps.url)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .defaultHeader(HttpHeaders.AUTHORIZATION, bearerOf(gptProps.key))
                 .build()
 
         val factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient)).build()
-        return factory.createClient(GptClient::class.java)
+        return factory.createClient(GeminiClient::class.java)
     }
 }
