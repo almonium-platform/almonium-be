@@ -5,7 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.client.chatgpt.client.GptClient;
 import com.almonium.analyzer.client.chatgpt.dto.request.GptRequest;
 import com.almonium.analyzer.client.chatgpt.dto.response.GptResponse;
-import com.almonium.config.properties.OpenAIProperties;
+import com.almonium.config.properties.AiProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class GptService {
     GptClient gptClient;
 
-    OpenAIProperties openAiProperties;
+    AiProperties aiProperties;
 
     public String getChatResponse(String prompt) {
-        GptRequest gptRequest = new GptRequest(openAiProperties.getGpt().getModel(), prompt);
+        GptRequest gptRequest = new GptRequest(aiProperties.getGpt().getModel(), prompt);
         GptResponse gptResponse = gptClient.chat(gptRequest);
 
         if (gptResponse.choices().isEmpty()) {

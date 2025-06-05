@@ -1,25 +1,28 @@
-package com.almonium.auth.token.util;
+package com.almonium.auth.token.util
 
-import static com.google.auth.http.AuthHttpConstants.AUTHORIZATION;
-import static com.google.auth.http.AuthHttpConstants.BEARER;
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.HttpHeaders
+import org.springframework.util.StringUtils
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.experimental.UtilityClass;
-import org.springframework.util.StringUtils;
+object BearerTokenUtil {
+    private const val BEARER_TOKEN_PREFIX = "Bearer "
 
-@UtilityClass
-public class BearerTokenUtil {
-    private static final String BEARER_TOKEN_PREFIX = "Bearer ";
-
-    public String bearerOf(String token) {
-        return BEARER_TOKEN_PREFIX + token;
+    @JvmStatic
+    fun bearerOf(token: String?): String? {
+        return token?.let { "$BEARER_TOKEN_PREFIX$it" }
     }
 
-    public String getBearerTokenFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
-            return bearerToken.substring(BEARER_TOKEN_PREFIX.length());
+    @JvmStatic
+    fun getBearerTokenFromRequest(request: HttpServletRequest): String? {
+        val bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION)
+        if (StringUtils.hasText(bearerToken) &&
+            bearerToken.startsWith(
+                BEARER_TOKEN_PREFIX,
+                ignoreCase = true,
+            )
+        ) {
+            return bearerToken.substring(BEARER_TOKEN_PREFIX.length)
         }
-        return null;
+        return null
     }
 }
