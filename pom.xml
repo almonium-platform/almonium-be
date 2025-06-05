@@ -28,7 +28,7 @@
         <version.jjwt>0.12.6</version.jjwt>
         <version.java-jwt>4.4.0</version.java-jwt>
         <version.json-path>2.9.0</version.json-path>
-        <version.kotlin>1.9.23</version.kotlin>
+        <version.kotlin>2.1.21</version.kotlin>
         <version.logback>1.5.12</version.logback>
         <version.lombok>1.18.36</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
@@ -373,7 +373,6 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
@@ -397,6 +396,8 @@
                     <compilerPlugins>
                         <!-- Enable all-open for Spring annotations -->
                         <plugin>spring</plugin>
+                        <plugin>all-open</plugin>
+                        <plugin>no-arg</plugin>
                         <!-- Enable no-arg for JPA entities -->
                         <plugin>jpa</plugin>
                     </compilerPlugins>
