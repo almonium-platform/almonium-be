@@ -6,8 +6,6 @@ server:
 
 spring:
   profiles.active: ${SPRING_PROFILE}
-  config.import:
-    - optional:file:.env[.properties]
   rabbitmq:
     host: ${RABBITMQ_HOST}
     username: ${RABBITMQ_USER}

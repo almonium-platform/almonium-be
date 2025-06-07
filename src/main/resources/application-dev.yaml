@@ -3,3 +3,5 @@ app:
   api-domain: http://localhost:${server.port}
   email.dry-run: true
   auth.email-verification-required: false
+spring.config.import:
+  - optional:file:.env[.properties]
