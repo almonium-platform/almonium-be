@@ -82,7 +82,6 @@ jobs:
       - name: Run Ansible Playbook for Prod Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          RESOLVED_TARGET_HOST_GROUP: ${{ vars.TARGET_HOST_GROUP || format('{0}_servers', github.environment) }}
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
