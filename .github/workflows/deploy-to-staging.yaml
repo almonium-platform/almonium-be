@@ -94,7 +94,7 @@ jobs:
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "${ ANSIBLE_TARGET_GROUP }" \
+            --limit "$ANSIBLE_TARGET_GROUP}" \
             --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
             --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
             --extra-vars "DEPLOY_IMAGE_TAG='${{ github.sha }}'" \
