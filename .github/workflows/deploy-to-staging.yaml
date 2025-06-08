@@ -68,7 +68,7 @@ jobs:
       - name: Set up SSH Agent for Ansible to connect to VM
         uses: webfactory/ssh-agent@v0.9.1
         with:
-          ssh-private-key: ${{ secrets.CLOUD_KEY }}¶
+          ssh-private-key: ${{ secrets.CLOUD_KEY }}
 
       - name: Install Ansible
         run: |
