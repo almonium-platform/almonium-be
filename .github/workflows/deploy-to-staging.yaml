@@ -92,7 +92,7 @@ jobs:
           cd almonium-infra/ansible
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "{{ vars.STAGING_HOST_GROUP | default('staging_servers') }}" \ # Define STAGING_HOST_GROUP in GH env vars
+            --limit "{{ vars.STAGING_HOST_GROUP | default('staging_servers') }}"
             --extra-vars "DEPLOY_IMAGE_TAG=${{ github.sha }}" \
             --extra-vars "DEPLOY_ENVIRONMENT=staging" \
             --extra-vars "API_HOSTNAME='staging.api.almonium.com'" \
