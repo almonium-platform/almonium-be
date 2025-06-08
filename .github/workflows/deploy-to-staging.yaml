@@ -10,6 +10,10 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   # JOB 1: The Brain. It decides the tag and if a build is needed.
   resolve-image:
