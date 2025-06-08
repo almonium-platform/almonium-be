@@ -1,59 +1,48 @@
-name: Build & Deploy BE to Staging
+name: Deploy BE to Staging
 
 on:
   push:
     branches: [ develop ]
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Specify the image tag (git SHA) to deploy. Leave blank to build from the latest `develop` branch commit.'
+        required: false
+        type: string
 
 jobs:
-  build:
+  # JOB 1: The Brain. It decides the tag and if a build is needed.
+  resolve-image:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
+      build_needed: ${{ steps.get_tag.outputs.build_needed }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - id: get_tag
+        run: |
+          if [[ -n "${{ inputs.image_tag }}" ]]; then
+            echo "Manual Run: Re-deploying specified tag."
+            echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
+            echo "build_needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Push or Manual Run w/o tag: Building latest commit."
+            echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
+            echo "build_needed=true" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-          cache: 'maven'
+  # JOB 2: The Builder. It only runs when the brain tells it to.
+  build:
+    needs: resolve-image
+    if: needs.resolve-image.outputs.build_needed == 'true'
+    uses: ./.github/workflows/build.yaml
+    with:
+      image_tag: ${{ needs.resolve-image.outputs.tag }}
+    secrets: inherit
 
-      - name: Build JAR with Maven
-        run: mvn -B package -Dmaven.test.skip=true
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          platforms: linux/arm64
-          push: true
-          tags: |
-            ghcr.io/almonium-platform/almonium-be:${{ github.sha }}
-            ghcr.io/almonium-platform/almonium-be:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          builder: ${{ steps.buildx.outputs.name }}
-
-  deploy-staging:
-    needs: build
+  # JOB 3: The Deployer. It always runs and gets its tag from the brain.
+  deploy:
+    needs: [ resolve-image, build ]
+    if: always()
     runs-on: ubuntu-latest
     environment: staging
     permissions:
