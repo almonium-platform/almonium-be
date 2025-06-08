@@ -87,13 +87,20 @@ jobs:
       - name: Run Ansible Playbook for Staging Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
+          RESOLVED_TARGET_HOST_GROUP: ${{ vars.TARGET_HOST_GROUP || 'staging_servers' }}
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
+
+          echo "--- DEBUG ---"
+          echo "GitHub Environment var TARGET_HOST_GROUP: [${{ vars.TARGET_HOST_GROUP }}]"
+          echo "Resolved TARGET_HOST_GROUP for Ansible: [${RESOLVED_TARGET_HOST_GROUP}]"
+          echo "--- END DEBUG ---"
+
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "{{ vars.TARGET_HOST_GROUP | default('staging_servers') }}" \
-            --extra-vars "target_host_group={{ vars.TARGET_HOST_GROUP | default('staging_servers') }}" \
+            --limit "${RESOLVED_TARGET_HOST_GROUP}" \ # Use the resolved value
+            --extra-vars "target_host_group=${RESOLVED_TARGET_HOST_GROUP}" \ # Use the resolved value
             --extra-vars "DEPLOY_IMAGE_TAG=${{ github.sha }}" \
             --extra-vars "DEPLOY_ENVIRONMENT=staging" \
             --extra-vars "API_HOSTNAME='${{ vars.API_HOSTNAME }}'" \
