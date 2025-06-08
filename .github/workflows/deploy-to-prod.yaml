@@ -90,11 +90,9 @@ jobs:
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
 
-          TARGET_GROUP="${{ github.environment }}_servers"
-
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "${TARGET_GROUP}" \
+            --limit "${{ github.environment }}_servers" \
             --extra-vars "target_host_group=${TARGET_GROUP}" \
             --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
             --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
