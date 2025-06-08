@@ -84,17 +84,10 @@ jobs:
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
-          # 1. Define the target group directly in a shell variable.
-          #    GitHub Actions will pre-process this line and replace the expression.
-          TARGET_GROUP="${{ github.environment }}_servers"
+          
+          DEPLOY_ENV="staging"
+          TARGET_GROUP="${DEPLOY_ENV}_servers"
 
-          # 2. DEBUGGING: Print the variables to the log so you can see what the shell sees.
-          echo "--- ANSIBLE DEBUG ---"
-          echo "GitHub Environment Name: ${{ github.environment }}"
-          echo "Calculated Target Group: ${TARGET_GROUP}"
-          echo "--- END DEBUG ---"
-
-          # 3. Run the command using the shell variable.
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
             --limit "${TARGET_GROUP}" \
