@@ -64,6 +64,7 @@ jobs:
         with:
           repository: almonium-platform/almonium-infra
           path: almonium-infra
+          ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
 
       - name: Set up SSH Agent for Ansible to connect to VM
         uses: webfactory/ssh-agent@v0.9.1
