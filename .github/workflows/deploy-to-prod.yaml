@@ -82,27 +82,24 @@ jobs:
           echo "Verifying docker modules are available (optional check)..."
           ansible-doc -t module -l | grep docker_compose
 
-      - name: Run Ansible Playbook for Staging Deployment
+      - name: Run Ansible Playbook for Prod Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          RESOLVED_TARGET_HOST_GROUP: ${{ vars.TARGET_HOST_GROUP || 'staging_servers' }}
+          RESOLVED_TARGET_HOST_GROUP: ${{ vars.TARGET_HOST_GROUP || format('{0}_servers', github.environment) }}
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
 
-          echo "--- DEBUG ---"
-          echo "GitHub Environment var TARGET_HOST_GROUP: [${{ vars.TARGET_HOST_GROUP }}]"
-          echo "Resolved TARGET_HOST_GROUP for Ansible: [${RESOLVED_TARGET_HOST_GROUP}]"
-          echo "--- END DEBUG ---"
+          TARGET_GROUP="${{ github.environment }}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "${RESOLVED_TARGET_HOST_GROUP}" \
-            --extra-vars "target_host_group=${RESOLVED_TARGET_HOST_GROUP}" \
+            --limit "${TARGET_GROUP}" \
+            --extra-vars "target_host_group=${TARGET_GROUP}" \
             --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
             --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
             --extra-vars "DEPLOY_IMAGE_TAG='${{ github.sha }}'" \
-            --extra-vars "DEPLOY_ENVIRONMENT=staging" \
+            --extra-vars "DEPLOY_ENVIRONMENT=${{ github.environment }}" \
             --extra-vars "API_HOSTNAME='${{ vars.API_HOSTNAME }}'" \
             --extra-vars "CONF_LOCAL_PORT='${{ vars.LOCAL_PORT }}'" \
             --extra-vars "CONF_DEBUG_PORT='${{ vars.DEBUG_PORT }}'" \
