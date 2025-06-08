@@ -99,8 +99,8 @@ jobs:
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "${RESOLVED_TARGET_HOST_GROUP}" \ # Use the resolved value
-            --extra-vars "target_host_group=${RESOLVED_TARGET_HOST_GROUP}" \ # Use the resolved value
+            --limit "${RESOLVED_TARGET_HOST_GROUP}" \
+            --extra-vars "target_host_group=${RESOLVED_TARGET_HOST_GROUP}" \
             --extra-vars "DEPLOY_IMAGE_TAG=${{ github.sha }}" \
             --extra-vars "DEPLOY_ENVIRONMENT=staging" \
             --extra-vars "API_HOSTNAME='${{ vars.API_HOSTNAME }}'" \
