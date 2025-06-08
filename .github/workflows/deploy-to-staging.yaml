@@ -87,14 +87,14 @@ jobs:
       - name: Run Ansible Playbook for Staging Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          RESOLVED_TARGET_HOST_GROUP: ${{ vars.TARGET_HOST_GROUP || format('{0}_servers', github.environment) }}
+          ANSIBLE_TARGET_GROUP: "${{ github.environment }}_servers"
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
-            --limit "${{ github.environment }}_servers" \
+            --limit "${ ANSIBLE_TARGET_GROUP }" \
             --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
             --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
             --extra-vars "DEPLOY_IMAGE_TAG='${{ github.sha }}'" \
