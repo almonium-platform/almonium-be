@@ -13,4 +13,4 @@ COPY --from=layertools-extractor /app/spring-boot-loader/ ./
 COPY --from=layertools-extractor /app/snapshot-dependencies/ ./
 COPY --from=layertools-extractor /app/application/ ./
 
-ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true", "-Dsun.net.inetaddr.negative.ttl=0", "org.springframework.boot.loader.launch.JarLauncher"]
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
