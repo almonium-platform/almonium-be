@@ -59,54 +59,67 @@ jobs:
     permissions:
       packages: read
     steps:
-      - name: SSH deploy
-        uses: appleboy/ssh-action@v1
+      - name: Checkout almonium-infra repository
+        uses: actions/checkout@v4
         with:
-          host: ${{ secrets.CLOUD_HOST }}
-          username: ${{ secrets.CLOUD_USERNAME }}
-          key: ${{ secrets.CLOUD_KEY }}
-          script: |
-            export DEPLOY_IMAGE_TAG="${{ github.sha }}"
-            export DEPLOY_GH_ACTOR="${{ github.actor }}"
-            export DEPLOY_GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-            export DEPLOY_ENVIRONMENT="staging"
-            export API_HOSTNAME="staging.api.almonium.com"
+          repository: almonium-platform/almonium-infra
+          path: almonium-infra
 
-            export CONF_LOCAL_PORT="${{ vars.LOCAL_PORT }}"
-            export CONF_DEBUG_PORT="${{ vars.DEBUG_PORT }}"
-            export CONF_SPRING_PROFILE="${{ vars.SPRING_PROFILE }}"
-            export CONF_JWT_SECRET="${{ secrets.JWT_SECRET }}"
-            export CONF_DB_NAME="${{ vars.DB_NAME }}"
-            export CONF_DB_HOST="${{ vars.DB_HOST }}"
-            export CONF_DB_PORT="${{ vars.DB_PORT }}"
-            export CONF_DB_SCHEMA="${{ vars.DB_SCHEMA }}"
-            export CONF_DB_USERNAME="${{ secrets.DB_USERNAME }}"
-            export CONF_DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
-            export CONF_RAPID_API_KEY="${{ secrets.RAPID_API_KEY }}"
-            export CONF_WORDNIK_KEY="${{ secrets.WORDNIK_KEY }}"
-            export CONF_YANDEX_KEY="${{ secrets.YANDEX_KEY }}"
-            export CONF_OPENAI_KEY="${{ secrets.OPENAI_KEY }}"
-            export CONF_GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY }}"
-            export CONF_STRIPE_KEY="${{ secrets.STRIPE_KEY }}"
-            export CONF_STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
-            export CONF_STREAM_KEY="${{ secrets.STREAM_KEY }}"
-            export CONF_STREAM_SECRET="${{ secrets.STREAM_SECRET }}"
-            export CONF_GOOGLE_PROJECT_ID="${{ vars.GOOGLE_PROJECT_ID }}"
-            export CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64="${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}"
-            export CONF_FIREBASE_STORAGE_BUCKET="${{ vars.FIREBASE_STORAGE_BUCKET }}"
-            export CONF_GOOGLE_ID="${{ vars.GOOGLE_ID }}"
-            export CONF_GOOGLE_SECRET="${{ secrets.GOOGLE_SECRET }}"
-            export CONF_FACEBOOK_ID="${{ vars.FACEBOOK_ID }}"
-            export CONF_FACEBOOK_SECRET="${{ secrets.FACEBOOK_SECRET }}"
-            export CONF_APPLE_ID="${{ vars.APPLE_ID }}"
-            export CONF_APPLE_SECRET="${{ secrets.APPLE_SECRET }}"
-            export CONF_RABBITMQ_HOST="${{ vars.RABBITMQ_HOST }}"
-            export CONF_RABBITMQ_USER="${{ secrets.RABBITMQ_USER }}"
-            export CONF_RABBITMQ_PASS="${{ secrets.RABBITMQ_PASS }}"
-            export CONF_RABBITMQ_PORT="${{ vars.RABBITMQ_PORT }}"
-            export CONF_MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}"
-            export CONF_MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}"
+      - name: Set up SSH Agent for Ansible to connect to VM
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.CLOUD_KEY }}¶
 
-            echo "$DEPLOY_GH_TOKEN" | docker login ghcr.io -u "$DEPLOY_GH_ACTOR" --password-stdin
+      - name: Install Ansible
+        run: |
+          python -m venv ansible_venv
+          source ansible_venv/bin/activate
+          pip install ansible community.docker # For docker_compose_v2 and docker_image modules
+          ansible --version
 
-            /home/almonium/infra/almonium-be/deploy.sh
+      - name: Run Ansible Playbook for Staging Deployment
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
+        run: |
+          source ansible_venv/bin/activate
+          cd almonium-infra/ansible
+          ansible-playbook playbook-deploy-almonium-be.yaml \
+            -i inventory/hosts.ini \
+            --limit "{{ vars.STAGING_HOST_GROUP | default('staging_servers') }}" \ # Define STAGING_HOST_GROUP in GH env vars
+            --extra-vars "DEPLOY_IMAGE_TAG=${{ github.sha }}" \
+            --extra-vars "DEPLOY_ENVIRONMENT=staging" \
+            --extra-vars "API_HOSTNAME='staging.api.almonium.com'" \
+            --extra-vars "CONF_LOCAL_PORT='${{ vars.LOCAL_PORT }}'" \
+            --extra-vars "CONF_DEBUG_PORT='${{ vars.DEBUG_PORT }}'" \
+            --extra-vars "CONF_SPRING_PROFILE='${{ vars.SPRING_PROFILE }}'" \
+            --extra-vars "CONF_JWT_SECRET='${{ secrets.JWT_SECRET }}'" \
+            --extra-vars "CONF_DB_NAME='${{ vars.DB_NAME }}'" \
+            --extra-vars "CONF_DB_HOST='${{ secrets.DB_HOST }}'" \
+            --extra-vars "CONF_DB_PORT='${{ vars.DB_PORT }}'" \
+            --extra-vars "CONF_DB_SCHEMA='${{ vars.DB_SCHEMA }}'" \
+            --extra-vars "CONF_DB_USERNAME='${{ secrets.DB_USERNAME }}'" \
+            --extra-vars "CONF_DB_PASSWORD='${{ secrets.DB_PASSWORD }}'" \
+            --extra-vars "CONF_RAPID_API_KEY='${{ secrets.RAPID_API_KEY }}'" \
+            --extra-vars "CONF_WORDNIK_KEY='${{ secrets.WORDNIK_KEY }}'" \
+            --extra-vars "CONF_YANDEX_KEY='${{ secrets.YANDEX_KEY }}'" \
+            --extra-vars "CONF_OPENAI_KEY='${{ secrets.OPENAI_KEY }}'" \
+            --extra-vars "CONF_GEMINI_API_KEY='${{ secrets.GEMINI_API_KEY }}'" \
+            --extra-vars "CONF_STRIPE_KEY='${{ secrets.STRIPE_KEY }}'" \
+            --extra-vars "CONF_STRIPE_WEBHOOK_SECRET='${{ secrets.STRIPE_WEBHOOK_SECRET }}'" \
+            --extra-vars "CONF_STREAM_KEY='${{ secrets.STREAM_KEY }}'" \
+            --extra-vars "CONF_STREAM_SECRET='${{ secrets.STREAM_SECRET }}'" \
+            --extra-vars "CONF_GOOGLE_PROJECT_ID='${{ vars.GOOGLE_PROJECT_ID }}'" \
+            --extra-vars "CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64='${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}'" \
+            --extra-vars "CONF_FIREBASE_STORAGE_BUCKET='${{ vars.FIREBASE_STORAGE_BUCKET }}'" \
+            --extra-vars "CONF_GOOGLE_ID='${{ vars.GOOGLE_ID }}'" \
+            --extra-vars "CONF_GOOGLE_SECRET='${{ secrets.GOOGLE_SECRET }}'" \
+            --extra-vars "CONF_FACEBOOK_ID='${{ vars.FACEBOOK_ID }}'" \
+            --extra-vars "CONF_FACEBOOK_SECRET='${{ secrets.FACEBOOK_SECRET }}'" \
+            --extra-vars "CONF_APPLE_ID='${{ vars.APPLE_ID }}'" \
+            --extra-vars "CONF_APPLE_SECRET='${{ secrets.APPLE_SECRET }}'" \
+            --extra-vars "CONF_RABBITMQ_HOST='${{ vars.RABBITMQ_HOST }}'" \
+            --extra-vars "CONF_RABBITMQ_USER='${{ secrets.RABBITMQ_USER }}'" \
+            --extra-vars "CONF_RABBITMQ_PASS='${{ secrets.RABBITMQ_PASS }}'" \
+            --extra-vars "CONF_RABBITMQ_PORT='${{ vars.RABBITMQ_PORT }}'" \
+            --extra-vars "CONF_MAIL_USERNAME='${{ secrets.MAIL_USERNAME }}'" \
+            --extra-vars "CONF_MAIL_PASSWORD='${{ secrets.MAIL_PASSWORD }}'"
