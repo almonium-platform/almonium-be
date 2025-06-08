@@ -71,12 +71,18 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.CLOUD_KEY }}
 
-      - name: Install Ansible
+      - name: Install Ansible and Docker collection
         run: |
           python -m venv ansible_venv
           source ansible_venv/bin/activate
-          pip install ansible community.docker # For docker_compose_v2 and docker_image modules
+          echo "Installing Ansible core..."
+          pip install ansible
+          echo "Ansible core version:"
           ansible --version
+          echo "Installing community.docker collection..."
+          ansible-galaxy collection install community.docker
+          echo "Verifying docker modules are available (optional check)..."
+          ansible-doc -t module -l | grep docker_compose
 
       - name: Run Ansible Playbook for Staging Deployment
         env:
