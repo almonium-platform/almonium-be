@@ -24,6 +24,10 @@ on:
       ANSIBLE_VAULT_PASSWORD:
         required: true
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build_or_resolve:
     uses: ./.github/workflows/reusable-build-pipeline.yaml
