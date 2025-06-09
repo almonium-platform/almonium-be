@@ -18,15 +18,6 @@ on:
         description: "The final image tag that should be deployed."
         value: ${{ jobs.resolve-image.outputs.tag }}
 
-    # FIX: This needs to list all secrets it might receive and need to pass on.
-    secrets:
-      INFRA_REPO_CHECKOUT_KEY:
-        required: true
-      CLOUD_KEY:
-        required: true
-      ANSIBLE_VAULT_PASSWORD:
-        required: true
-
 jobs:
   resolve-image:
     # ... this job is fine ...
@@ -56,16 +47,3 @@ jobs:
     uses: ./.github/workflows/build.yaml
     with:
       image_tag: ${{ needs.resolve-image.outputs.tag }}
-    # FIX: Explicitly pass any secrets that build.yaml needs.
-    # Assuming build.yaml doesn't need any secrets from this list for now.
-    # If it DID, you would add them here. For example:
-    # secrets:
-    #   SOME_BUILD_SECRET: ${{ secrets.SOME_BUILD_SECRET }}
-    secrets:
-      # Pass whatever secrets build.yaml declares in its workflow_call
-      # e.g. DOCKER_REGISTRY_TOKEN: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
-      # Since your original build job used secrets: inherit, we will assume
-      # it needs all of them for now.
-      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
-      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
-      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
