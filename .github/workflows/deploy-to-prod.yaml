@@ -13,45 +13,18 @@ permissions:
   packages: write
 
 jobs:
-  # JOB 1: The Brain. Decides the tag and if a build is needed.
-  resolve-image:
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.get_tag.outputs.tag }}
-      build_needed: ${{ steps.get_tag.outputs.build_needed }}
-    steps:
-      - uses: actions/checkout@v4
-        if: inputs.image_tag == ''
-        with:
-          ref: main
-      - id: get_tag
-        run: |
-          if [[ -n "${{ inputs.image_tag }}" ]]; then
-            echo "Manual Run: Re-deploying specified tag."
-            echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
-            echo "build_needed=false" >> $GITHUB_OUTPUT
-          else
-            echo "Manual Run w/o tag: Building latest commit from main."
-            echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
-            echo "build_needed=true" >> $GITHUB_OUTPUT
-          fi
-
-  # JOB 2: The Builder. Only runs when the brain tells it to.
-  build:
-    needs: resolve-image
-    if: needs.resolve-image.outputs.build_needed == 'true'
-    uses: ./.github/workflows/build.yaml
+  build_or_resolve:
+    uses: ./.github/workflows/reusable-build-pipeline.yaml
     with:
-      image_tag: ${{ needs.resolve-image.outputs.tag }}
+      image_tag: ${{ inputs.image_tag }}
+      source_branch: main
     secrets: inherit
 
-  # JOB 3: The Deployer. Calls the reusable deploy workflow with prod-specific values.
   deploy:
-    needs: [ resolve-image, build ]
-    if: always()
+    needs: build_or_resolve
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment_name: prod
       ansible_target_group: prod_servers
-      image_tag: ${{ needs.resolve-image.outputs.tag }}
+      image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
     secrets: inherit
