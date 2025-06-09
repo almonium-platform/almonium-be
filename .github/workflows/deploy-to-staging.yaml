@@ -85,6 +85,9 @@ jobs:
           cd almonium-infra/ansible
           
           DEPLOY_ENV="staging"
+          
+          echo "My environment is: ${{ github.environment }}"
+          
           TARGET_GROUP="${DEPLOY_ENV}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
