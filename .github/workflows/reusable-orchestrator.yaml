@@ -6,7 +6,6 @@ name: Reusable Orchestrator
 on:
   workflow_call:
     inputs:
-      # --- Parameters that differ between environments ---
       environment_name:
         description: 'The target environment name (e.g., "staging", "prod"). Used for GitHub Environments.'
         required: true
@@ -24,7 +23,14 @@ on:
         description: 'Optional specific image tag to deploy. If blank, a new one is built.'
         required: false
         type: string
-    secrets: inherit
+
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY:
+        required: true
+      CLOUD_KEY:
+        required: true
+      ANSIBLE_VAULT_PASSWORD:
+        required: true
 
 jobs:
   # STEP 1: Decide on a tag and build it if needed.
@@ -42,6 +48,8 @@ jobs:
     with:
       environment_name: ${{ inputs.environment_name }}
       ansible_target_group: ${{ inputs.ansible_target_group }}
-      # This output comes from the `build_or_resolve` job defined *within this file*.
       image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
-    secrets: inherit
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
+      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
