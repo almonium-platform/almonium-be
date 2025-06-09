@@ -1,0 +1,61 @@
+name: Reusable Deploy BE
+
+on:
+  workflow_call:
+    inputs:
+      environment_name:
+        required: true
+        type: string
+      ansible_target_group:
+        required: true
+        type: string
+      image_tag:
+        required: true
+        type: string
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY:
+        required: true
+      CLOUD_KEY:
+        required: true
+      ANSIBLE_VAULT_PASSWORD:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment_name }}
+    permissions:
+      packages: read # This job only needs to read from GHCR
+    steps:
+      - name: Checkout almonium-infra repository
+        uses: actions/checkout@v4
+        with:
+          repository: almonium-platform/almonium-infra
+          path: almonium-infra
+          ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
+      # ... rest of deploy steps are the same as in your orchestrator ...
+      - name: Set up SSH Agent for Ansible to connect to VM
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.CLOUD_KEY }}
+      - name: Install Ansible and Docker collection
+        run: |
+          python -m venv ansible_venv
+          source ansible_venv/bin/activate
+          pip install ansible
+          ansible-galaxy collection install community.docker
+      - name: Run Ansible Playbook
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
+          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+        run: |
+          source ansible_venv/bin/activate
+          cd almonium-infra/ansible
+          ansible-playbook playbook-deploy-almonium-be.yaml \
+            -i inventory/hosts.ini \
+            --limit "${{ inputs.ansible_target_group }}" \
+            --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
+            --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
+            --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
+            --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+            --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"

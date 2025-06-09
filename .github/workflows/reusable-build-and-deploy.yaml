@@ -1,0 +1,74 @@
+name: Reusable Build and Deploy Orchestrator
+
+on:
+  workflow_call:
+    inputs:
+      environment_name:
+        required: true
+        type: string
+      source_branch:
+        required: true
+        type: string
+      ansible_target_group:
+        required: true
+        type: string
+      image_tag:
+        required: false
+        type: string
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY:
+        required: true
+      CLOUD_KEY:
+        required: true
+      ANSIBLE_VAULT_PASSWORD:
+        required: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # JOB 1: The Brain. Decides the tag and if a build is needed.
+  resolve-image:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
+      build_needed: ${{ steps.get_tag.outputs.build_needed }}
+    steps:
+      - uses: actions/checkout@v4
+        if: inputs.image_tag == ''
+        with:
+          ref: ${{ inputs.source_branch }}
+      - id: get_tag
+        run: |
+          if [[ -n "${{ inputs.image_tag }}" ]]; then
+            echo "Re-deploying specified tag: ${{ inputs.image_tag }}"
+            echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
+            echo "build_needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Building latest commit from '${{ inputs.source_branch }}'."
+            echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
+            echo "build_needed=true" >> $GITHUB_OUTPUT
+          fi
+
+  # JOB 2: Call the reusable build workflow if needed.
+  build:
+    needs: resolve-image
+    if: needs.resolve-image.outputs.build_needed == 'true'
+    uses: ./.github/workflows/reusable-build.yaml
+    with:
+      image_tag: ${{ needs.resolve-image.outputs.tag }}
+
+  # JOB 3: Call the reusable deploy workflow.
+  deploy:
+    needs: [ resolve-image, build ]
+    if: always()
+    uses: ./.github/workflows/reusable-deploy.yaml
+    with:
+      environment_name: ${{ inputs.environment_name }}
+      ansible_target_group: ${{ inputs.ansible_target_group }}
+      image_tag: ${{ needs.resolve-image.outputs.tag }}
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
+      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}

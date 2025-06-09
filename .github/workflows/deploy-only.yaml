@@ -1,0 +1,28 @@
+name: Deploy Only
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'The image tag (git SHA) to deploy.'
+        required: true
+      environment:
+        description: 'The environment to deploy to.'
+        required: true
+        type: choice
+        options:
+          - staging
+          - prod
+
+permissions:
+  contents: read
+  packages: read # Only needs read permission
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/reusable-deploy.yaml
+    with:
+      environment_name: ${{ inputs.environment }}
+      ansible_target_group: ${{ inputs.environment }}_servers
+      image_tag: ${{ inputs.image_tag }}
+    secrets: inherit

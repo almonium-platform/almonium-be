@@ -1,4 +1,4 @@
-name: Deploy BE to Staging
+name: Deploy to Staging
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: 'Specify the image tag (git SHA) to deploy. Leave blank to build from the latest `develop` branch commit.'
+        description: 'OPTIONAL: Specify an existing image tag to re-deploy.'
         required: false
         type: string
 
@@ -15,8 +15,8 @@ permissions:
   packages: write
 
 jobs:
-  run-staging-pipeline:
-    uses: ./.github/workflows/reusable-orchestrator.yaml
+  run-pipeline:
+    uses: ./.github/workflows/reusable-build-and-deploy.yaml
     with:
       environment_name: staging
       source_branch: develop

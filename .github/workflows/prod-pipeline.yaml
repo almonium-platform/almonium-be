@@ -1,16 +1,19 @@
-name: Deploy BE to Production
+name: Deploy to Production
 
 on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: 'Specify image tag (git SHA) to deploy. Leave blank to build from the latest `main` branch commit.'
+        description: 'OPTIONAL: Specify an existing image tag to re-deploy.'
         required: false
-        type: string
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  run-prod-pipeline:
-    uses: ./.github/workflows/reusable-orchestrator.yaml
+  run-pipeline:
+    uses: ./.github/workflows/reusable-build-and-deploy.yaml
     with:
       environment_name: prod
       source_branch: main
