@@ -77,60 +77,55 @@ jobs:
           echo "Verifying docker modules are available (optional check)..."
           ansible-doc -t module -l | grep docker_compose
 
-      - name: Run Ansible Playbook for Prod Deployment
+      - name: Run Ansible Playbook for Staging Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-
-          GHA_DEPLOY_ENV: "${{ vars.ENVIRONMENT_NAME }}"
-          GHA_IMAGE_TAG: "${{ needs.resolve-image.outputs.tag }}"
-          GHA_ACTOR: "${{ github.actor }}"
-          GHA_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-          GHA_API_HOSTNAME: "${{ vars.API_HOSTNAME }}"
-          GHA_LOCAL_PORT: "${{ vars.LOCAL_PORT }}"
-          GHA_DEBUG_PORT: "${{ vars.DEBUG_PORT }}"
-          GHA_SPRING_PROFILE: "${{ vars.SPRING_PROFILE }}"
-          GHA_JWT_SECRET: "${{ secrets.JWT_SECRET }}"
-          GHA_DB_NAME: "${{ vars.DB_NAME }}"
-          GHA_DB_HOST: "${{ secrets.DB_HOST }}"
-          GHA_DB_PORT: "${{ vars.DB_PORT }}"
-          GHA_DB_SCHEMA: "${{ vars.DB_SCHEMA }}"
-          GHA_DB_USERNAME: "${{ secrets.DB_USERNAME }}"
-          GHA_DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
-          GHA_RAPID_API_KEY: "${{ secrets.RAPID_API_KEY }}"
-          GHA_WORDNIK_KEY: "${{ secrets.WORDNIK_KEY }}"
-          GHA_YANDEX_KEY: "${{ secrets.YANDEX_KEY }}"
-          GHA_OPENAI_KEY: "${{ secrets.OPENAI_KEY }}"
-          GHA_GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"
-          GHA_STRIPE_KEY: "${{ secrets.STRIPE_KEY }}"
-          GHA_STRIPE_WEBHOOK_SECRET: "${{ secrets.STRIPE_WEBHOOK_SECRET }}"
-          GHA_STREAM_KEY: "${{ secrets.STREAM_KEY }}"
-          GHA_STREAM_SECRET: "${{ secrets.STREAM_SECRET }}"
-          GHA_GOOGLE_PROJECT_ID: "${{ vars.GOOGLE_PROJECT_ID }}"
-          GHA_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64: "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}"
-          GHA_FIREBASE_STORAGE_BUCKET: "${{ vars.FIREBASE_STORAGE_BUCKET }}"
-          GHA_GOOGLE_ID: "${{ vars.GOOGLE_ID }}"
-          GHA_GOOGLE_SECRET: "${{ secrets.GOOGLE_SECRET }}"
-          GHA_FACEBOOK_ID: "${{ vars.FACEBOOK_ID }}"
-          GHA_FACEBOOK_SECRET: "${{ secrets.FACEBOOK_SECRET }}"
-          GHA_APPLE_ID: "${{ vars.APPLE_ID }}"
-          GHA_APPLE_SECRET: "${{ secrets.APPLE_SECRET }}"
-          GHA_RABBITMQ_HOST: "${{ vars.RABBITMQ_HOST }}"
-          GHA_RABBITMQ_USER: "${{ secrets.RABBITMQ_USER }}"
-          GHA_RABBITMQ_PASS: "${{ secrets.RABBITMQ_PASS }}"
-          GHA_RABBITMQ_PORT: "${{ vars.RABBITMQ_PORT }}"
-          GHA_MAIL_USERNAME: "${{ secrets.MAIL_USERNAME }}"
-          GHA_MAIL_PASSWORD: "${{ secrets.MAIL_PASSWORD }}"
-
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           
-          TARGET_GROUP="${GHA_DEPLOY_ENV}_servers"
+          DEPLOY_ENV="${{ vars.ENVIRONMENT_NAME }}"
+          TARGET_GROUP="${DEPLOY_ENV}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
             --limit "${TARGET_GROUP}" \
-            --extra-vars "DEPLOY_IMAGE_TAG=${GHA_IMAGE_TAG}" \
-            --extra-vars "DEPLOY_GH_ACTOR=${GHA_ACTOR}" \
-            --extra-vars "DEPLOY_GH_TOKEN=${GHA_TOKEN}"
+            --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
+            --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
+            --extra-vars "DEPLOY_ENVIRONMENT=${DEPLOY_ENV}" \
+            --extra-vars "DEPLOY_IMAGE_TAG=${{ needs.resolve-image.outputs.tag }}" \
+            --extra-vars "API_HOSTNAME='${{ vars.API_HOSTNAME }}'" \
+            --extra-vars "CONF_LOCAL_PORT='${{ vars.LOCAL_PORT }}'" \
+            --extra-vars "CONF_DEBUG_PORT='${{ vars.DEBUG_PORT }}'" \
+            --extra-vars "CONF_SPRING_PROFILE='${{ vars.SPRING_PROFILE }}'" \
+            --extra-vars "CONF_JWT_SECRET='${{ secrets.JWT_SECRET }}'" \
+            --extra-vars "CONF_DB_NAME='${{ vars.DB_NAME }}'" \
+            --extra-vars "CONF_DB_HOST='${{ secrets.DB_HOST }}'" \
+            --extra-vars "CONF_DB_PORT='${{ vars.DB_PORT }}'" \
+            --extra-vars "CONF_DB_SCHEMA='${{ vars.DB_SCHEMA }}'" \
+            --extra-vars "CONF_DB_USERNAME='${{ secrets.DB_USERNAME }}'" \
+            --extra-vars "CONF_DB_PASSWORD='${{ secrets.DB_PASSWORD }}'" \
+            --extra-vars "CONF_RAPID_API_KEY='${{ secrets.RAPID_API_KEY }}'" \
+            --extra-vars "CONF_WORDNIK_KEY='${{ secrets.WORDNIK_KEY }}'" \
+            --extra-vars "CONF_YANDEX_KEY='${{ secrets.YANDEX_KEY }}'" \
+            --extra-vars "CONF_OPENAI_KEY='${{ secrets.OPENAI_KEY }}'" \
+            --extra-vars "CONF_GEMINI_API_KEY='${{ secrets.GEMINI_API_KEY }}'" \
+            --extra-vars "CONF_STRIPE_KEY='${{ secrets.STRIPE_KEY }}'" \
+            --extra-vars "CONF_STRIPE_WEBHOOK_SECRET='${{ secrets.STRIPE_WEBHOOK_SECRET }}'" \
+            --extra-vars "CONF_STREAM_KEY='${{ secrets.STREAM_KEY }}'" \
+            --extra-vars "CONF_STREAM_SECRET='${{ secrets.STREAM_SECRET }}'" \
+            --extra-vars "CONF_GOOGLE_PROJECT_ID='${{ vars.GOOGLE_PROJECT_ID }}'" \
+            --extra-vars "CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64='${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}'" \
+            --extra-vars "CONF_FIREBASE_STORAGE_BUCKET='${{ vars.FIREBASE_STORAGE_BUCKET }}'" \
+            --extra-vars "CONF_GOOGLE_ID='${{ vars.GOOGLE_ID }}'" \
+            --extra-vars "CONF_GOOGLE_SECRET='${{ secrets.GOOGLE_SECRET }}'" \
+            --extra-vars "CONF_FACEBOOK_ID='${{ vars.FACEBOOK_ID }}'" \
+            --extra-vars "CONF_FACEBOOK_SECRET='${{ secrets.FACEBOOK_SECRET }}'" \
+            --extra-vars "CONF_APPLE_ID='${{ vars.APPLE_ID }}'" \
+            --extra-vars "CONF_APPLE_SECRET='${{ secrets.APPLE_SECRET }}'" \
+            --extra-vars "CONF_RABBITMQ_HOST='${{ vars.RABBITMQ_HOST }}'" \
+            --extra-vars "CONF_RABBITMQ_USER='${{ secrets.RABBITMQ_USER }}'" \
+            --extra-vars "CONF_RABBITMQ_PASS='${{ secrets.RABBITMQ_PASS }}'" \
+            --extra-vars "CONF_RABBITMQ_PORT='${{ vars.RABBITMQ_PORT }}'" \
+            --extra-vars "CONF_MAIL_USERNAME='${{ secrets.MAIL_USERNAME }}'" \
+            --extra-vars "CONF_MAIL_PASSWORD='${{ secrets.MAIL_PASSWORD }}'"
