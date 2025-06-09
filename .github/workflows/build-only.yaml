@@ -10,18 +10,25 @@ on:
 
 permissions:
   contents: read
-  packages: write # Needs write permission
+  packages: write
 
 jobs:
-  build:
+  get-sha:
     runs-on: ubuntu-latest
+    outputs:
+      commit_sha: ${{ steps.sha_step.outputs.sha }}
     steps:
       - name: Checkout the specified branch to get its SHA
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
 
-      - name: Call Reusable Build Workflow
-        uses: ./.github/workflows/reusable-build.yaml
-        with:
-          image_tag: ${{ github.sha }}
+      - name: Get the commit SHA
+        id: sha_step
+        run: echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+
+  build:
+    needs: get-sha
+    uses: ./.github/workflows/reusable-build.yaml
+    with:
+      image_tag: ${{ needs.get-sha.outputs.commit_sha }}
