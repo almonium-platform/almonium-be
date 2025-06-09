@@ -10,23 +10,12 @@ on:
         required: false
         type: string
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
-  build_or_resolve:
-    uses: ./.github/workflows/reusable-build-pipeline.yaml
-    with:
-      image_tag: ${{ inputs.image_tag }}
-      source_branch: develop
-    secrets: inherit
-
-  deploy:
-    needs: build_or_resolve
-    uses: ./.github/workflows/reusable-deploy.yaml
+  run-staging-pipeline:
+    uses: ./.github/workflows/reusable-orchestrator.yaml
     with:
       environment_name: staging
+      source_branch: develop
       ansible_target_group: staging_servers
-      image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
+      image_tag: ${{ inputs.image_tag }}
     secrets: inherit

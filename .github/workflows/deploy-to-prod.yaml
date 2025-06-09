@@ -8,23 +8,12 @@ on:
         required: false
         type: string
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
-  build_or_resolve:
-    uses: ./.github/workflows/reusable-build-pipeline.yaml
-    with:
-      image_tag: ${{ inputs.image_tag }}
-      source_branch: main
-    secrets: inherit
-
-  deploy:
-    needs: build_or_resolve
-    uses: ./.github/workflows/reusable-deploy.yaml
+  run-prod-pipeline:
+    uses: ./.github/workflows/reusable-orchestrator.yaml
     with:
       environment_name: prod
+      source_branch: main
       ansible_target_group: prod_servers
-      image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
+      image_tag: ${{ inputs.image_tag }}
     secrets: inherit
