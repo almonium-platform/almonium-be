@@ -1,29 +1,25 @@
-# This is a reusable workflow that orchestrates the build and deploy steps.
-# It takes the environment-specific parameters as direct inputs.
+# FILE: .github/workflows/reusable-orchestrator.yaml
 
 name: Reusable Orchestrator
 
 on:
   workflow_call:
     inputs:
+      # ... inputs ...
       environment_name:
-        description: 'The target environment name (e.g., "staging", "prod"). Used for GitHub Environments.'
         required: true
         type: string
       source_branch:
-        description: 'The branch to build from if no image_tag is provided (e.g., "develop", "main").'
         required: true
         type: string
       ansible_target_group:
-        description: 'The Ansible inventory group to target (e.g., "staging_servers", "prod_servers").'
         required: true
         type: string
-      # --- Common parameters ---
       image_tag:
-        description: 'Optional specific image tag to deploy. If blank, a new one is built.'
         required: false
         type: string
 
+    # This part is correct. It declares which secrets the orchestrator needs.
     secrets:
       INFRA_REPO_CHECKOUT_KEY:
         required: true
@@ -31,6 +27,10 @@ on:
         required: true
       ANSIBLE_VAULT_PASSWORD:
         required: true
+      # Add any other secrets needed by the build workflow here.
+      # For example, if build.yaml needs a private key:
+      # SOME_BUILD_SECRET:
+      #   required: false
 
 jobs:
   # STEP 1: Decide on a tag and build it if needed.
@@ -39,7 +39,14 @@ jobs:
     with:
       image_tag: ${{ inputs.image_tag }}
       source_branch: ${{ inputs.source_branch }}
-    secrets: inherit
+    # FIX: Explicitly pass down all secrets that the build pipeline might need.
+    # Since we don't know exactly what build.yaml needs, we can pass everything
+    # this orchestrator received.
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
+      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+      # SOME_BUILD_SECRET: ${{ secrets.SOME_BUILD_SECRET }}
 
   # STEP 2: Deploy the resulting image.
   deploy:
@@ -49,6 +56,7 @@ jobs:
       environment_name: ${{ inputs.environment_name }}
       ansible_target_group: ${{ inputs.ansible_target_group }}
       image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
+    # This part was already correct. It passes secrets explicitly.
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}

@@ -1,3 +1,5 @@
+# FILE: .github/workflows/reusable-build-pipeline.yaml
+
 name: Reusable Build Pipeline
 
 on:
@@ -15,36 +17,55 @@ on:
       image_tag_to_deploy:
         description: "The final image tag that should be deployed."
         value: ${{ jobs.resolve-image.outputs.tag }}
-    secrets: inherit
+
+    # FIX: This needs to list all secrets it might receive and need to pass on.
+    secrets:
+      INFRA_REPO_CHECKOUT_KEY:
+        required: true
+      CLOUD_KEY:
+        required: true
+      ANSIBLE_VAULT_PASSWORD:
+        required: true
 
 jobs:
   resolve-image:
+    # ... this job is fine ...
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.get_tag.outputs.tag }}
       build_needed: ${{ steps.get_tag.outputs.build_needed }}
     steps:
-      - name: Checkout source branch for SHA
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         if: inputs.image_tag == ''
         with:
           ref: ${{ inputs.source_branch }}
       - id: get_tag
         run: |
           if [[ -n "${{ inputs.image_tag }}" ]]; then
-            echo "Re-deploying specified tag: ${{ inputs.image_tag }}"
+            echo "Manual Run: Re-deploying specified tag."
             echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
             echo "build_needed=false" >> $GITHUB_OUTPUT
           else
-            echo "Building latest commit from '${{ inputs.source_branch }}' branch."
+            echo "Manual Run w/o tag: Building latest commit from main."
             echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
             echo "build_needed=true" >> $GITHUB_OUTPUT
           fi
-
   build:
     needs: resolve-image
     if: needs.resolve-image.outputs.build_needed == 'true'
     uses: ./.github/workflows/build.yaml
     with:
       image_tag: ${{ needs.resolve-image.outputs.tag }}
-    secrets: inherit
+    # FIX: Explicitly pass any secrets that build.yaml needs.
+    # Assuming build.yaml doesn't need any secrets from this list for now.
+    # If it DID, you would add them here. For example:
+    # secrets:
+    #   SOME_BUILD_SECRET: ${{ secrets.SOME_BUILD_SECRET }}
+    secrets:
+      # Pass whatever secrets build.yaml declares in its workflow_call
+      # e.g. DOCKER_REGISTRY_TOKEN: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+      # Since your original build job used secrets: inherit, we will assume
+      # it needs all of them for now.
+      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
+      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
