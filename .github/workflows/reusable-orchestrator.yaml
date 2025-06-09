@@ -1,11 +1,8 @@
-# FILE: .github/workflows/reusable-orchestrator.yaml
-
 name: Reusable Orchestrator
 
 on:
   workflow_call:
     inputs:
-      # ... inputs ...
       environment_name:
         required: true
         type: string
@@ -19,7 +16,6 @@ on:
         required: false
         type: string
 
-    # This part is correct. It declares which secrets the orchestrator needs.
     secrets:
       INFRA_REPO_CHECKOUT_KEY:
         required: true
@@ -27,28 +23,15 @@ on:
         required: true
       ANSIBLE_VAULT_PASSWORD:
         required: true
-      # Add any other secrets needed by the build workflow here.
-      # For example, if build.yaml needs a private key:
-      # SOME_BUILD_SECRET:
-      #   required: false
 
 jobs:
-  # STEP 1: Decide on a tag and build it if needed.
   build_or_resolve:
     uses: ./.github/workflows/reusable-build-pipeline.yaml
     with:
       image_tag: ${{ inputs.image_tag }}
       source_branch: ${{ inputs.source_branch }}
-    # FIX: Explicitly pass down all secrets that the build pipeline might need.
-    # Since we don't know exactly what build.yaml needs, we can pass everything
-    # this orchestrator received.
-    secrets:
-      INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
-      CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
-      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-      # SOME_BUILD_SECRET: ${{ secrets.SOME_BUILD_SECRET }}
 
-  # STEP 2: Deploy the resulting image.
+  # This job correctly passes the secrets it received on to the deploy workflow.
   deploy:
     needs: build_or_resolve
     uses: ./.github/workflows/reusable-deploy.yaml
@@ -56,7 +39,6 @@ jobs:
       environment_name: ${{ inputs.environment_name }}
       ansible_target_group: ${{ inputs.ansible_target_group }}
       image_tag: ${{ needs.build_or_resolve.outputs.image_tag_to_deploy }}
-    # This part was already correct. It passes secrets explicitly.
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
