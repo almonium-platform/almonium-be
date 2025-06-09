@@ -82,52 +82,19 @@ jobs:
       - name: Run Ansible Playbook for Prod Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
+          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           
-          DEPLOY_ENV="${{ vars.ENVIRONMENT_NAME }}"
+          DEPLOY_ENV="prod"
           TARGET_GROUP="${DEPLOY_ENV}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
             --limit "${TARGET_GROUP}" \
-            --extra-vars "DEPLOY_GH_ACTOR='${{ github.actor }}'" \
-            --extra-vars "DEPLOY_GH_TOKEN='${{ secrets.GITHUB_TOKEN }}'" \
-            --extra-vars "DEPLOY_ENVIRONMENT=${DEPLOY_ENV}" \
-            --extra-vars "DEPLOY_IMAGE_TAG=${{ needs.resolve-image.outputs.tag }}" \
-            --extra-vars "API_HOSTNAME='${{ vars.API_HOSTNAME }}'" \
-            --extra-vars "CONF_LOCAL_PORT='${{ vars.LOCAL_PORT }}'" \
-            --extra-vars "CONF_DEBUG_PORT='${{ vars.DEBUG_PORT }}'" \
-            --extra-vars "CONF_SPRING_PROFILE='${{ vars.SPRING_PROFILE }}'" \
-            --extra-vars "CONF_JWT_SECRET='${{ secrets.JWT_SECRET }}'" \
-            --extra-vars "CONF_DB_NAME='${{ vars.DB_NAME }}'" \
-            --extra-vars "CONF_DB_HOST='${{ secrets.DB_HOST }}'" \
-            --extra-vars "CONF_DB_PORT='${{ vars.DB_PORT }}'" \
-            --extra-vars "CONF_DB_SCHEMA='${{ vars.DB_SCHEMA }}'" \
-            --extra-vars "CONF_DB_USERNAME='${{ secrets.DB_USERNAME }}'" \
-            --extra-vars "CONF_DB_PASSWORD='${{ secrets.DB_PASSWORD }}'" \
-            --extra-vars "CONF_RAPID_API_KEY='${{ secrets.RAPID_API_KEY }}'" \
-            --extra-vars "CONF_WORDNIK_KEY='${{ secrets.WORDNIK_KEY }}'" \
-            --extra-vars "CONF_YANDEX_KEY='${{ secrets.YANDEX_KEY }}'" \
-            --extra-vars "CONF_OPENAI_KEY='${{ secrets.OPENAI_KEY }}'" \
-            --extra-vars "CONF_GEMINI_API_KEY='${{ secrets.GEMINI_API_KEY }}'" \
-            --extra-vars "CONF_STRIPE_KEY='${{ secrets.STRIPE_KEY }}'" \
-            --extra-vars "CONF_STRIPE_WEBHOOK_SECRET='${{ secrets.STRIPE_WEBHOOK_SECRET }}'" \
-            --extra-vars "CONF_STREAM_KEY='${{ secrets.STREAM_KEY }}'" \
-            --extra-vars "CONF_STREAM_SECRET='${{ secrets.STREAM_SECRET }}'" \
-            --extra-vars "CONF_GOOGLE_PROJECT_ID='${{ vars.GOOGLE_PROJECT_ID }}'" \
-            --extra-vars "CONF_GOOGLE_SERVICE_ACCOUNT_KEY_BASE64='${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 }}'" \
-            --extra-vars "CONF_FIREBASE_STORAGE_BUCKET='${{ vars.FIREBASE_STORAGE_BUCKET }}'" \
-            --extra-vars "CONF_GOOGLE_ID='${{ vars.GOOGLE_ID }}'" \
-            --extra-vars "CONF_GOOGLE_SECRET='${{ secrets.GOOGLE_SECRET }}'" \
-            --extra-vars "CONF_FACEBOOK_ID='${{ vars.FACEBOOK_ID }}'" \
-            --extra-vars "CONF_FACEBOOK_SECRET='${{ secrets.FACEBOOK_SECRET }}'" \
-            --extra-vars "CONF_APPLE_ID='${{ vars.APPLE_ID }}'" \
-            --extra-vars "CONF_APPLE_SECRET='${{ secrets.APPLE_SECRET }}'" \
-            --extra-vars "CONF_RABBITMQ_HOST='${{ vars.RABBITMQ_HOST }}'" \
-            --extra-vars "CONF_RABBITMQ_USER='${{ secrets.RABBITMQ_USER }}'" \
-            --extra-vars "CONF_RABBITMQ_PASS='${{ secrets.RABBITMQ_PASS }}'" \
-            --extra-vars "CONF_RABBITMQ_PORT='${{ vars.RABBITMQ_PORT }}'" \
-            --extra-vars "CONF_MAIL_USERNAME='${{ secrets.MAIL_USERNAME }}'" \
-            --extra-vars "CONF_MAIL_PASSWORD='${{ secrets.MAIL_PASSWORD }}'"
+            --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
+            --extra-vars "deploy_environment=${DEPLOY_ENV}" \
+            --extra-vars "deploy_image_tag=${{ needs.resolve-image.outputs.tag }}" \
+            --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+            --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"

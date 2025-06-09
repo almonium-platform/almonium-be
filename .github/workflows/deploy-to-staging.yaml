@@ -86,7 +86,7 @@ jobs:
           cd almonium-infra/ansible
           
           DEPLOY_ENV="staging"
-          TARGET_GROUP="staging_servers"
+          TARGET_GROUP="${DEPLOY_ENV}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
