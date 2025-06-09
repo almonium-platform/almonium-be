@@ -80,14 +80,13 @@ jobs:
       - name: Run Ansible Playbook for Staging Deployment
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          MY_DEPLOY_ENV: "${{ github.environment }}"
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           
           DEPLOY_ENV="staging"
           
-          echo "My environment is: ${MY_DEPLOY_ENV}"
+          echo "My environment is: ${{ github.environment }}"
           
           TARGET_GROUP="${DEPLOY_ENV}_servers"
 
