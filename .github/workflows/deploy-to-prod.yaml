@@ -86,7 +86,7 @@ jobs:
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           
-          DEPLOY_ENV="prod"
+          DEPLOY_ENV="${{ vars.ENVIRONMENT_NAME }}"
           TARGET_GROUP="${DEPLOY_ENV}_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
