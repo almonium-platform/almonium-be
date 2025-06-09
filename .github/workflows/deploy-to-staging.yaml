@@ -15,13 +15,18 @@ permissions:
   packages: write
 
 jobs:
-  # JOB 1: The Brain. It decides the tag and if a build is needed.
+  # JOB 1: The Brain. Decides the tag and if a build is needed.
   resolve-image:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.get_tag.outputs.tag }}
       build_needed: ${{ steps.get_tag.outputs.build_needed }}
     steps:
+      # NOTE: Added checkout step for consistency and correctness when run manually
+      - uses: actions/checkout@v4
+        if: inputs.image_tag == ''
+        with:
+          ref: develop # Explicitly check out develop for the SHA
       - id: get_tag
         run: |
           if [[ -n "${{ inputs.image_tag }}" ]]; then
@@ -29,12 +34,14 @@ jobs:
             echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
             echo "build_needed=false" >> $GITHUB_OUTPUT
           else
+            # On a push event, github.sha is already the correct commit.
+            # On a manual run, we checked out 'develop' to get the correct sha.
             echo "Push or Manual Run w/o tag: Building latest commit."
             echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
             echo "build_needed=true" >> $GITHUB_OUTPUT
           fi
 
-  # JOB 2: The Builder. It only runs when the brain tells it to.
+  # JOB 2: The Builder. Only runs when the brain tells it to.
   build:
     needs: resolve-image
     if: needs.resolve-image.outputs.build_needed == 'true'
@@ -43,56 +50,13 @@ jobs:
       image_tag: ${{ needs.resolve-image.outputs.tag }}
     secrets: inherit
 
-  # JOB 3: The Deployer. It always runs and gets its tag from the brain.
+  # JOB 3: The Deployer. Calls the reusable deploy workflow with staging-specific values.
   deploy:
     needs: [ resolve-image, build ]
-    if: always()
-    runs-on: ubuntu-latest
-    environment: staging
-    permissions:
-      packages: read
-    steps:
-      - name: Checkout almonium-infra repository
-        uses: actions/checkout@v4
-        with:
-          repository: almonium-platform/almonium-infra
-          path: almonium-infra
-          ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
-
-      - name: Set up SSH Agent for Ansible to connect to VM
-        uses: webfactory/ssh-agent@v0.9.1
-        with:
-          ssh-private-key: ${{ secrets.CLOUD_KEY }}
-
-      - name: Install Ansible and Docker collection
-        run: |
-          python -m venv ansible_venv
-          source ansible_venv/bin/activate
-          echo "Installing Ansible core..."
-          pip install ansible
-          echo "Ansible core version:"
-          ansible --version
-          echo "Installing community.docker collection..."
-          ansible-galaxy collection install community.docker
-          echo "Verifying docker modules are available (optional check)..."
-          ansible-doc -t module -l | grep docker_compose
-
-      - name: Run Ansible Playbook for Staging Deployment
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: "False"
-          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-        run: |
-          source ansible_venv/bin/activate
-          cd almonium-infra/ansible
-          
-          DEPLOY_ENV="staging"
-          TARGET_GROUP="${DEPLOY_ENV}_servers"
-
-          ansible-playbook playbook-deploy-almonium-be.yaml \
-            -i inventory/hosts.ini \
-            --limit "${TARGET_GROUP}" \
-            --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
-            --extra-vars "deploy_environment=${DEPLOY_ENV}" \
-            --extra-vars "deploy_image_tag=${{ needs.resolve-image.outputs.tag }}" \
-            --extra-vars "deploy_gh_actor=${{ github.actor }}" \
-            --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
+    if: always() # Continue to deploy even if build was skipped
+    uses: ./.github/workflows/reusable-deploy.yaml
+    with:
+      environment_name: staging
+      ansible_target_group: staging_servers
+      image_tag: ${{ needs.resolve-image.outputs.tag }}
+    secrets: inherit # This securely passes all required secrets to the reusable workflow
