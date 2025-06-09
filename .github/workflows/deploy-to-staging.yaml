@@ -85,12 +85,14 @@ jobs:
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           
+          DEPLOY_ENV="staging"
           TARGET_GROUP="staging_servers"
 
           ansible-playbook playbook-deploy-almonium-be.yaml \
             -i inventory/hosts.ini \
             --limit "${TARGET_GROUP}" \
             --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
-            --extra-vars "DEPLOY_IMAGE_TAG=${{ needs.resolve-image.outputs.tag }}" \
-            --extra-vars "DEPLOY_GH_ACTOR=${{ github.actor }}" \
-            --extra-vars "DEPLOY_GH_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+            --extra-vars "deploy_environment=${DEPLOY_ENV}" \
+            --extra-vars "deploy_image_tag=${{ needs.resolve-image.outputs.tag }}" \
+            --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+            --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
