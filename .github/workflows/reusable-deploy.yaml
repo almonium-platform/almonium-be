@@ -52,7 +52,7 @@ jobs:
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           ansible-playbook playbook-deploy-almonium-be.yaml \
-            -i inventory/hosts.ini \
+            -i "inventory/${{ inputs.environment_name }}.ini" \
             --limit "${{ inputs.ansible_target_group }}" \
             --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
             --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
