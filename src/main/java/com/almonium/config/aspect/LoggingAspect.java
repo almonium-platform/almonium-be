@@ -18,13 +18,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class LoggingAspect {
-    private static final String BASE_PACKAGE = "com.almonium";
-    private static final String FILTER_PATH = BASE_PACKAGE + ".auth.token.filter.TokenAuthenticationFilter";
-    private static final String POINTCUT = "within(" + BASE_PACKAGE + "..*) && !within(" + FILTER_PATH + ")";
 
-    @Pointcut(POINTCUT)
+    @Pointcut("@within(com.almonium.config.aspect.SkipLogging) "
+            + "|| @annotation(com.almonium.config.aspect.SkipLogging)")
+    public void skipLogging() {
+    }
+
+    @Pointcut("within(com.almonium..*) && !skipLogging()")
     public void publicMethod() {
-        // Pointcut for public methods in com.almonium package and sub-packages, excluding TokenAuthenticationFilter
     }
 
     @Before("publicMethod()")
