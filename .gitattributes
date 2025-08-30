@@ -1,0 +1,25 @@
+# Default: treat text as text and keep LF in repo + working tree
+* text=auto eol=lf
+
+# Shell & scripts (force LF)
+*.sh    text eol=lf
+*.ps1   text eol=lf
+
+# Windows batch (keep CRLF so they run on Windows)
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Don’t touch binaries
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz  binary
+*.jar binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.keystore binary
