@@ -24,7 +24,7 @@
         <version.google-guava>33.3.1-jre</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
         <version.firebase>9.4.2</version.firebase>
-        <version.java>17</version.java>
+        <version.java>21</version.java>
         <version.jjwt>0.12.6</version.jjwt>
         <version.java-jwt>4.4.0</version.java-jwt>
         <version.json-path>2.9.0</version.json-path>

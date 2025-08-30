@@ -13,15 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write # This job needs write permission to GHCR
+      packages: write # This job needs `write` permission to GHCR
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Set up JDK 17 and Maven
+      - name: Set up JDK 21 and Maven
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'maven'
       - name: Build JAR with Maven
         run: mvn -B package -Dmaven.test.skip=true
