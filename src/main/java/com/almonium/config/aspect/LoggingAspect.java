@@ -21,12 +21,10 @@ public class LoggingAspect {
 
     @Pointcut("@within(com.almonium.config.aspect.SkipLogging) "
             + "|| @annotation(com.almonium.config.aspect.SkipLogging)")
-    public void skipLogging() {
-    }
+    public void skipLogging() {}
 
     @Pointcut("within(com.almonium..*) && !skipLogging()")
-    public void publicMethod() {
-    }
+    public void publicMethod() {}
 
     @Before("publicMethod()")
     public void logMethodEntry(JoinPoint joinPoint) {

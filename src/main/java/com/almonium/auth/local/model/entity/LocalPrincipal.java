@@ -3,6 +3,7 @@ package com.almonium.auth.local.model.entity;
 import static com.almonium.auth.common.model.enums.AuthProviderType.LOCAL;
 
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -36,7 +37,7 @@ public class LocalPrincipal extends Principal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Principal.ROLES;
+        return SecurityRoles.USER;
     }
 
     @Override

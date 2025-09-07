@@ -2,8 +2,8 @@ package com.almonium.auth.oauth2.other.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
+import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.auth.common.service.AuthenticationService;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
@@ -57,7 +57,8 @@ public class GoogleOneTapSignInController {
             OAuth2UserInfo userInfo = userInfoFactory.getOAuth2UserInfo(AuthProviderType.GOOGLE, idToken.getPayload());
             OAuth2Principal principal = authService.authenticate(userInfo);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
+            Authentication authentication =
+                    new UsernamePasswordAuthenticationToken(principal, null, SecurityRoles.USER);
 
             authenticationServiceImpl.authenticateUser(principal.getUser(), response, authentication);
 

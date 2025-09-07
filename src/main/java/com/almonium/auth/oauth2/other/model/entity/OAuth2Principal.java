@@ -1,6 +1,7 @@
 package com.almonium.auth.oauth2.other.model.entity;
 
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.security.SecurityRoles;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
@@ -49,6 +50,6 @@ public class OAuth2Principal extends Principal implements OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Principal.ROLES;
+        return SecurityRoles.USER;
     }
 }

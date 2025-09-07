@@ -1,10 +1,12 @@
 package com.almonium.config.resolver;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.model.entity.User;
-import lombok.NonNull;
+import com.almonium.user.core.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.UUID;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -12,7 +14,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
+public record AuthUserArgumentResolver(UserRepository userRepository) implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -22,17 +24,27 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(
-            @NonNull MethodParameter parameter,
+            @NotNull MethodParameter parameter,
             ModelAndViewContainer mavContainer,
-            @NonNull NativeWebRequest webRequest,
+            @NotNull NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof Principal principal) {
-            if (principal.getUser() != null) {
-                return principal.getUser();
-            }
-            throw new IllegalStateException("Authenticated principal does not have an associated user.");
+
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) throw new NoPrincipalFoundException("No authentication.");
+
+        var principal = auth.getPrincipal();
+        UUID userId;
+
+        if (principal instanceof com.almonium.auth.common.security.SecurityPrincipal sp) {
+            userId = sp.userId();
+        } else if (principal instanceof com.almonium.auth.common.model.entity.Principal jpa && jpa.getUser() != null) {
+            userId = jpa.getUser().getId();
+        } else {
+            throw new NoPrincipalFoundException("Authenticated principal not found.");
         }
-        throw new NoPrincipalFoundException("Authenticated principal not found.");
+
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
     }
 }

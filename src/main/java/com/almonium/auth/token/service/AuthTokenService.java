@@ -5,11 +5,14 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.repository.PrincipalRepository;
+import com.almonium.auth.common.security.SecurityPrincipal;
+import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.token.model.entity.RefreshToken;
 import com.almonium.auth.token.repository.RefreshTokenRepository;
 import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -41,6 +44,7 @@ public class AuthTokenService {
 
     PrincipalRepository principalRepository;
     RefreshTokenRepository refreshTokenRepository;
+    UserRepository userRepository;
 
     AppProperties appProperties;
 
@@ -92,9 +96,13 @@ public class AuthTokenService {
     }
 
     public Authentication getAuthenticationFromToken(String token) {
-        Principal principal = getPrincipalFromAccessToken(token);
+        Claims claims = extractClaims(token);
+        UUID principalId = UUID.fromString(claims.getSubject());
+        UUID userId = UUID.fromString((String) claims.get("uid"));
+        String email = (String) claims.get("email");
 
-        return new UsernamePasswordAuthenticationToken(principal, null, Principal.ROLES);
+        SecurityPrincipal principal = new SecurityPrincipal(principalId, userId, email, null);
+        return new UsernamePasswordAuthenticationToken(principal, null, SecurityRoles.USER);
     }
 
     public String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
@@ -161,9 +169,12 @@ public class AuthTokenService {
         Instant issueDate = claims.getIssuedAt().toInstant();
         Instant expiryDate = claims.getExpiration().toInstant();
         UUID id = UUID.fromString(claims.getId());
-        Principal principal = getPrincipalFromAccessToken(token);
-        RefreshToken refreshToken = new RefreshToken(id, principal.getUser(), issueDate, expiryDate);
+        UUID userId = UUID.fromString((String) claims.get("uid"));
+
+        User userRef = userRepository.getReferenceById(userId); // no select until accessed
+        RefreshToken refreshToken = new RefreshToken(id, userRef, issueDate, expiryDate);
         refreshTokenRepository.save(refreshToken);
+
         return token;
     }
 
@@ -177,7 +188,10 @@ public class AuthTokenService {
 
     private String generateToken(
             Authentication authentication, long tokenExpirationSeconds, boolean isReauthenticated) {
-        UUID id = ((Principal) (authentication.getPrincipal())).getId();
+        var jpaPrincipal = (Principal) authentication.getPrincipal();
+        UUID principalId = jpaPrincipal.getId();
+        UUID userId = jpaPrincipal.getUser().getId();
+        String email = jpaPrincipal.getEmail();
 
         Instant now = Instant.now();
         Date expiryDate = Date.from(now.plusSeconds(tokenExpirationSeconds)
@@ -188,8 +202,10 @@ public class AuthTokenService {
 
         return Jwts.builder()
                 .id(jti)
-                .subject(id.toString())
+                .subject(principalId.toString())
                 .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
+                .claim("uid", userId.toString())
+                .claim("email", email)
                 .issuedAt(Date.from(now))
                 .expiration(expiryDate)
                 .signWith(key)

@@ -1,5 +1,6 @@
 package com.almonium.auth.common.util;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,10 +9,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 
 public class CookieUtil {
     public static final String ACCESS_TOKEN_COOKIE_NAME = "accessToken";
@@ -36,14 +39,21 @@ public class CookieUtil {
     }
 
     public static void addCookieWithPath(
-            HttpServletResponse response, String name, String value, String path, int maxAge, String domain) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setPath(path);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setDomain(domain);
-        cookie.setMaxAge(maxAge);
-        response.addCookie(cookie);
+            HttpServletResponse resp,
+            String name,
+            String value,
+            String path,
+            int maxAgeSeconds,
+            @Nullable String domain) {
+        ResponseCookie.ResponseCookieBuilder b = ResponseCookie.from(name, value)
+                .httpOnly(true)
+                .secure(true)
+                .path(path)
+                .maxAge(Duration.ofSeconds(maxAgeSeconds))
+                .sameSite("Lax");
+
+        if (domain != null) b.domain(domain);
+        resp.addHeader(HttpHeaders.SET_COOKIE, b.build().toString());
     }
 
     public static void deleteCookie(HttpServletResponse response, String name, String domain) {
@@ -55,13 +65,15 @@ public class CookieUtil {
     }
 
     public static void deleteCookie(HttpServletResponse response, String name, String path, String domain) {
-        Cookie cookie = new Cookie(name, StringUtils.EMPTY);
-        cookie.setPath(path); // Set the path to where the cookie was created
-        cookie.setMaxAge(0); // Set maxAge to 0 to remove the cookie
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setDomain(domain);
-        response.addCookie(cookie);
+        ResponseCookie.ResponseCookieBuilder b = ResponseCookie.from(name, "")
+                .httpOnly(true)
+                .secure(true)
+                .path(path)
+                .maxAge(Duration.ZERO)
+                .sameSite("Lax");
+
+        if (domain != null) b.domain(domain);
+        response.addHeader(HttpHeaders.SET_COOKIE, b.build().toString());
     }
 
     public static String serialize(Object object) {
