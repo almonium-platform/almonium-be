@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.exception.AuthMethodNotFoundException;
 import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.security.SecurityPrincipal;
 import com.almonium.auth.common.security.SecurityRoles;
@@ -100,9 +101,10 @@ public class AuthTokenService {
         UUID principalId = UUID.fromString(claims.getSubject());
         UUID userId = UUID.fromString((String) claims.get("uid"));
         String email = (String) claims.get("email");
+        AuthProviderType provider = AuthProviderType.valueOf((String) claims.get("provider"));
 
-        SecurityPrincipal principal = new SecurityPrincipal(principalId, userId, email, null);
-        return new UsernamePasswordAuthenticationToken(principal, null, SecurityRoles.USER);
+        var securityPrincipal = new SecurityPrincipal(principalId, userId, email, provider);
+        return new UsernamePasswordAuthenticationToken(securityPrincipal, null, SecurityRoles.USER);
     }
 
     public String createAndSetRefreshToken(Authentication authentication, HttpServletResponse response) {
@@ -203,9 +205,14 @@ public class AuthTokenService {
         return Jwts.builder()
                 .id(jti)
                 .subject(principalId.toString())
-                .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
                 .claim("uid", userId.toString())
                 .claim("email", email)
+                .claim(
+                        "provider",
+                        ((com.almonium.auth.common.model.entity.Principal) authentication.getPrincipal())
+                                .getProvider()
+                                .name())
+                .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
                 .issuedAt(Date.from(now))
                 .expiration(expiryDate)
                 .signWith(key)

@@ -6,8 +6,8 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.common.dto.request.EmailRequestDto;
 import com.almonium.auth.common.dto.response.UnlinkProviderResponse;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.auth.common.model.enums.AuthProviderType;
+import com.almonium.auth.common.security.SecurityPrincipal;
 import com.almonium.auth.common.service.SensitiveAuthActionsService;
 import com.almonium.auth.local.dto.request.LocalAuthRequest;
 import com.almonium.auth.local.dto.request.PasswordRequestDto;
@@ -66,10 +66,12 @@ public class SensitiveAuthActionsController {
 
     @DeleteMapping("/providers/{provider}")
     public ResponseEntity<UnlinkProviderResponse> unlinkProvider(
-            @Auth Principal principal, @PathVariable AuthProviderType provider) {
-        sensitiveAuthActionsService.unlinkAuthMethod(principal.getUser().getId(), provider);
-        boolean isCurrentPrincipalBeingUnlinked = provider == principal.getProvider();
-        return ResponseEntity.ok(new UnlinkProviderResponse(isCurrentPrincipalBeingUnlinked));
+            @Auth SecurityPrincipal auth, @PathVariable AuthProviderType provider) {
+
+        sensitiveAuthActionsService.unlinkAuthMethod(auth.userId(), provider);
+        boolean isCurrent = provider == auth.provider();
+
+        return ResponseEntity.ok(new UnlinkProviderResponse(isCurrent));
     }
 
     @DeleteMapping("/me")
