@@ -61,7 +61,7 @@ public class LoggingAspect {
     }
 
     @Before("controller()")
-    public void logRequest(JoinPoint joinPoint) {
+    public void logRequest() {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         log.info(
@@ -72,7 +72,7 @@ public class LoggingAspect {
     }
 
     @AfterReturning("controller()")
-    public void logResponse(JoinPoint joinPoint) {
+    public void logResponse() {
         HttpServletResponse response =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
         if (response != null) {
