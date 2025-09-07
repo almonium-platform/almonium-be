@@ -1,6 +1,7 @@
 package com.almonium.auth.oauth2.apple.filter;
 
 import com.almonium.auth.oauth2.apple.util.ThreadLocalStore;
+import com.almonium.config.aspect.SkipLogging;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
+@SkipLogging
 public class AppleOidcUserFilter implements Filter {
     private final ObjectMapper objectMapper;
 
