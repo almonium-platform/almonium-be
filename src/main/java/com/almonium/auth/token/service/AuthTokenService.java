@@ -2,11 +2,10 @@ package com.almonium.auth.token.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.auth.common.exception.AuthMethodNotFoundException;
-import com.almonium.auth.common.model.entity.Principal;
+import com.almonium.auth.common.model.PrincipalDetails;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.common.security.SecurityPrincipal;
+import com.almonium.auth.common.security.JwtPrincipal;
 import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.auth.common.util.CookieUtil;
 import com.almonium.auth.token.model.entity.RefreshToken;
@@ -103,7 +102,7 @@ public class AuthTokenService {
         String email = (String) claims.get("email");
         AuthProviderType provider = AuthProviderType.valueOf((String) claims.get("provider"));
 
-        var securityPrincipal = new SecurityPrincipal(principalId, userId, email, provider);
+        var securityPrincipal = new JwtPrincipal(principalId, userId, email, provider);
         return new UsernamePasswordAuthenticationToken(securityPrincipal, null, SecurityRoles.USER);
     }
 
@@ -148,15 +147,6 @@ public class AuthTokenService {
                 false);
     }
 
-    private Principal getPrincipalFromAccessToken(String token) {
-        Claims claims = extractClaims(token);
-        UUID id = UUID.fromString(claims.getSubject());
-
-        return principalRepository
-                .findById(id)
-                .orElseThrow(() -> new AuthMethodNotFoundException("Principal not found by id: " + id));
-    }
-
     private String getCleanBackendDomain() {
         String backendDomain = appProperties.getApiDomain();
         return backendDomain.replaceFirst("^(https?://)?([^:/]+)(:\\d+)?$", "$2");
@@ -190,10 +180,11 @@ public class AuthTokenService {
 
     private String generateToken(
             Authentication authentication, long tokenExpirationSeconds, boolean isReauthenticated) {
-        var jpaPrincipal = (Principal) authentication.getPrincipal();
-        UUID principalId = jpaPrincipal.getId();
-        UUID userId = jpaPrincipal.getUser().getId();
-        String email = jpaPrincipal.getEmail();
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        UUID principalId = principalDetails.getPrincipalId();
+        UUID userId = principalDetails.getUserId();
+        String email = principalDetails.getEmail();
+        AuthProviderType provider = principalDetails.getProvider();
 
         Instant now = Instant.now();
         Date expiryDate = Date.from(now.plusSeconds(tokenExpirationSeconds)
@@ -207,11 +198,7 @@ public class AuthTokenService {
                 .subject(principalId.toString())
                 .claim("uid", userId.toString())
                 .claim("email", email)
-                .claim(
-                        "provider",
-                        ((com.almonium.auth.common.model.entity.Principal) authentication.getPrincipal())
-                                .getProvider()
-                                .name())
+                .claim("provider", provider.name())
                 .claim(IS_LIVE_TOKEN_CLAIM, isReauthenticated)
                 .issuedAt(Date.from(now))
                 .expiration(expiryDate)

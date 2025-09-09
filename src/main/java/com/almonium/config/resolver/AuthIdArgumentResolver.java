@@ -1,7 +1,7 @@
 package com.almonium.config.resolver;
 
 import com.almonium.auth.common.annotation.Auth;
-import com.almonium.auth.common.security.SecurityPrincipal;
+import com.almonium.auth.common.model.PrincipalDetails;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import java.util.UUID;
 import lombok.NonNull;
@@ -27,16 +27,11 @@ public class AuthIdArgumentResolver implements HandlerMethodArgumentResolver {
             @NonNull NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            Object p = authentication.getPrincipal();
-            if (p instanceof SecurityPrincipal sp) {
-                return sp.userId();
-            }
-            if (p instanceof com.almonium.auth.common.model.entity.Principal jpa) {
-                if (jpa.getUser() != null) return jpa.getUser().getId();
-                throw new IllegalStateException("Authenticated principal does not have an associated user.");
-            }
+
+        if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails pd) {
+            return pd.getUserId();
         }
-        throw new NoPrincipalFoundException("Authenticated principal not found.");
+
+        throw new NoPrincipalFoundException("Authenticated principal not found or is of an unsupported type.");
     }
 }

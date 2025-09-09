@@ -19,9 +19,9 @@ import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
 import com.almonium.auth.token.filter.TokenAuthenticationFilter;
 import com.almonium.config.properties.AppProperties;
+import com.almonium.config.security.filter.CsrfCookieFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +34,9 @@ import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationF
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -44,10 +47,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class WebSecurityConfig {
     OAuth2UserDetailsService OAuth2UserDetailsService;
+
     TokenAuthenticationFilter tokenAuthenticationFilter;
+    CsrfCookieFilter csrfCookieFilter;
     AppleOidcUserFilter appleOidcUserFilter;
+
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
     OAuth2CookieRequestRepository authorizationRequestRepository;
     AppProperties appProperties;
 
@@ -71,7 +78,7 @@ public class WebSecurityConfig {
                 appProperties.getWebDomain(),
                 appProperties.getAuth().getOauth2().getAppleTokenUrl()));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
-        configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL));
+        configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN"));
         configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -79,10 +86,14 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    @SneakyThrows
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        var repo = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        repo.setCookieCustomizer(b -> b.path("/"));
 
-        return http.csrf(AbstractHttpConfigurer::disable) // to enable
+        var requestHandler = new CsrfTokenRequestAttributeHandler();
+        requestHandler.setCsrfRequestAttributeName("_csrf");
+
+        return http.csrf(csrf -> csrf.csrfTokenRepository(repo).csrfTokenRequestHandler(requestHandler))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
@@ -95,6 +106,7 @@ public class WebSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(appleOidcUserFilter, OAuth2LoginAuthenticationFilter.class)
+                .addFilterAfter(csrfCookieFilter, CsrfFilter.class)
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(OAuth2UserDetailsService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)

@@ -1,6 +1,7 @@
 package com.almonium.config.resolver;
 
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.auth.common.model.PrincipalDetails;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -32,19 +33,13 @@ public record AuthUserArgumentResolver(UserRepository userRepository) implements
         var auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) throw new NoPrincipalFoundException("No authentication.");
 
-        var principal = auth.getPrincipal();
-        UUID userId;
-
-        if (principal instanceof com.almonium.auth.common.security.SecurityPrincipal sp) {
-            userId = sp.userId();
-        } else if (principal instanceof com.almonium.auth.common.model.entity.Principal jpa && jpa.getUser() != null) {
-            userId = jpa.getUser().getId();
-        } else {
-            throw new NoPrincipalFoundException("Authenticated principal not found.");
+        if (auth.getPrincipal() instanceof PrincipalDetails pd) {
+            UUID userId = pd.getUserId();
+            return userRepository
+                    .findById(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
         }
 
-        return userRepository
-                .findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
+        throw new NoPrincipalFoundException("Authenticated principal not found or is of an unsupported type.");
     }
 }

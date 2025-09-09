@@ -2,6 +2,7 @@ package com.almonium.auth.common.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.auth.common.model.PrincipalDetails;
 import com.almonium.auth.common.model.enums.AuthProviderType;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.uuid.UuidV7;
@@ -39,7 +40,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = {"id"})
 @FieldDefaults(level = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Principal {
+public abstract class Principal implements PrincipalDetails {
 
     @Id
     @UuidV7
@@ -59,6 +60,19 @@ public abstract class Principal {
 
     @Enumerated(EnumType.STRING)
     AuthProviderType provider;
+
+    @Override
+    public UUID getPrincipalId() {
+        return this.id;
+    }
+
+    @Override
+    public UUID getUserId() {
+        if (this.user == null) {
+            throw new IllegalStateException("User is not associated with this Principal entity.");
+        }
+        return this.user.getId();
+    }
 
     public Principal(User user, String email, AuthProviderType provider) {
         this.user = user;
