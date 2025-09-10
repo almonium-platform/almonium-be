@@ -19,7 +19,6 @@ import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
 import com.almonium.auth.token.filter.TokenAuthenticationFilter;
 import com.almonium.config.properties.AppProperties;
-import com.almonium.config.security.filter.CsrfCookieFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +34,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -49,7 +47,6 @@ public class WebSecurityConfig {
     OAuth2UserDetailsService OAuth2UserDetailsService;
 
     TokenAuthenticationFilter tokenAuthenticationFilter;
-    CsrfCookieFilter csrfCookieFilter;
     AppleOidcUserFilter appleOidcUserFilter;
 
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
@@ -106,7 +103,6 @@ public class WebSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(appleOidcUserFilter, OAuth2LoginAuthenticationFilter.class)
-                .addFilterAfter(csrfCookieFilter, CsrfFilter.class)
                 .oauth2Login(loginConfigurer -> loginConfigurer
                         .userInfoEndpoint(endpointConfig -> endpointConfig.userService(OAuth2UserDetailsService))
                         .successHandler(oAuth2AuthenticationSuccessHandler)
