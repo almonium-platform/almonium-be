@@ -38,7 +38,7 @@ spring:
       connection-test-query: SELECT 1
 
   liquibase:
-    contexts: ${DB_SCHEMA}
+    contexts: ${SPRING_PROFILE}
     default-schema: ${DB_SCHEMA}
 
   security.oauth2.client:
