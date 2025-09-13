@@ -19,6 +19,7 @@ import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
 import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
 import com.almonium.auth.token.filter.TokenAuthenticationFilter;
 import com.almonium.config.properties.AppProperties;
+import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -77,7 +78,7 @@ public class WebSecurityConfig {
                 appProperties.getWebDomain(),
                 appProperties.getAuth().getOauth2().getAppleTokenUrl()));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
-        configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN"));
+        configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN", "ngsw-bypass"));
         configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -87,7 +88,15 @@ public class WebSecurityConfig {
     @Bean
     public CsrfTokenRepository csrfTokenRepository() {
         CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        repository.setCookieCustomizer(customizer -> customizer.path("/"));
+        repository.setCookieCustomizer(b -> {
+            b.path("/");
+            String host = URI.create(appProperties.getApiDomain()).getHost();
+            if (host != null && !host.equalsIgnoreCase("localhost")) {
+                b.domain("almonium.com");
+                b.secure(true);
+                b.sameSite("Lax");
+            }
+        });
         return repository;
     }
 
