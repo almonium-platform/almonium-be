@@ -33,7 +33,6 @@ jobs:
           repository: almonium-platform/almonium-infra
           path: almonium-infra
           ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
-      # ... rest of deploy steps are the same as in your orchestrator ...
       - name: Set up SSH Agent for Ansible to connect to VM
         uses: webfactory/ssh-agent@v0.9.1
         with:
@@ -44,18 +43,29 @@ jobs:
           source ansible_venv/bin/activate
           pip install ansible
           ansible-galaxy collection install community.docker
+      - name: Set Environment-Specific Vault Password
+        id: set_vault_password
+        run: |
+         if [ "${{ inputs.environment_name }}" == "prod" ]; then
+           echo "ANSIBLE_VAULT_PASSWORD_ENV=${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}" >> $GITHUB_ENV
+         else
+           echo "ANSIBLE_VAULT_PASSWORD_ENV=${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}" >> $GITHUB_ENV
+         fi
+
       - name: Run Ansible Playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+          ANSIBLE_VAULT_PASSWORD_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
+          ANSIBLE_VAULT_PASSWORD_ENV: ${{ env.ANSIBLE_VAULT_PASSWORD_ENV }}
         run: |
           source ansible_venv/bin/activate
           cd almonium-infra/ansible
           ansible-playbook playbook-deploy-almonium-be.yaml \
-            -i "inventory/${{ inputs.environment_name }}.ini" \
-            --limit "${{ inputs.ansible_target_group }}" \
-            --vault-password-file <(echo "$ANSIBLE_VAULT_PASSWORD") \
-            --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
-            --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
-            --extra-vars "deploy_gh_actor=${{ github.actor }}" \
-            --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
+           -i "inventory/${{ inputs.environment_name }}.ini" \
+           --limit "${{ inputs.ansible_target_group }}" \
+           --vault-id "all@env:ANSIBLE_VAULT_PASSWORD_ALL" \
+           --vault-id "${{ inputs.environment_name }}@env:ANSIBLE_VAULT_PASSWORD_ENV" \
+           --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
+           --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
+           --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+           --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
