@@ -57,6 +57,13 @@ jobs:
             source ansible_venv/bin/activate
             cd almonium-infra/ansible
             
+            # --- START NEW DEBUG BLOCK ---
+            echo "--- Verifying the checked-out vault file ---"
+            echo "Header of group_vars/all/vault.yaml:"
+            head -n 1 group_vars/all/vault.yaml
+            echo "-------------------------------------------"
+            # --- END NEW DEBUG BLOCK ---
+
             # --- START: NEW ROBUST PASSWORD HANDLING ---
             # Create temporary password files from the secrets
             echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
