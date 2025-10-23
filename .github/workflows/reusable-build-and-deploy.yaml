@@ -20,8 +20,12 @@ on:
         required: true
       CLOUD_KEY:
         required: true
-      ANSIBLE_VAULT_PASSWORD:
-        required: true
+      ANSIBLE_VAULT_PASSWORD_ALL:
+          required: true
+      ANSIBLE_VAULT_PASSWORD_STAGING:
+          required: true
+      ANSIBLE_VAULT_PASSWORD_PROD:
+          required: true
 
 permissions:
   contents: read
@@ -71,4 +75,6 @@ jobs:
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
-      ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+      ANSIBLE_VAULT_PASSWORD_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
+      ANSIBLE_VAULT_PASSWORD_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
+      ANSIBLE_VAULT_PASSWORD_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
