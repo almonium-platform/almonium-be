@@ -47,15 +47,6 @@ jobs:
           source ansible_venv/bin/activate
           pip install ansible
           ansible-galaxy collection install community.docker
-      - name: Set Environment-Specific Vault Password
-        id: set_vault_password
-        run: |
-         if [ "${{ inputs.environment_name }}" == "prod" ]; then
-           echo "ANSIBLE_VAULT_PASSWORD_ENV=${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}" >> $GITHUB_ENV
-         else
-           echo "ANSIBLE_VAULT_PASSWORD_ENV=${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}" >> $GITHUB_ENV
-         fi
-
       - name: Run Ansible Playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
