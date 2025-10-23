@@ -17,7 +17,11 @@ on:
         required: true
       CLOUD_KEY:
         required: true
-      ANSIBLE_VAULT_PASSWORD:
+      ANSIBLE_VAULT_PASSWORD_ALL:
+        required: true
+      ANSIBLE_VAULT_PASSWORD_STAGING:
+        required: true
+      ANSIBLE_VAULT_PASSWORD_PROD:
         required: true
 
 jobs:
