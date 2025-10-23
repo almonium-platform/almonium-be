@@ -70,8 +70,11 @@ jobs:
             
             # Set secure permissions
             chmod 600 vault_pass_*.txt
-            # --- END: NEW ROBUST PASSWORD HANDLING ---
-            
+
+            echo "Checking password file for 'all':"
+            ls -l vault_pass_all.txt
+            echo "Character count: $(wc -c < vault_pass_all.txt)"
+
             ansible-playbook playbook-deploy-almonium-be.yaml \
               -i "inventory/${{ inputs.environment_name }}.ini" \
               --limit "${{ inputs.ansible_target_group }}" \
