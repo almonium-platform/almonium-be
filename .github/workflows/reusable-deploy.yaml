@@ -59,17 +59,34 @@ jobs:
       - name: Run Ansible Playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
-          ANSIBLE_VAULT_PASSWORD_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
-          ANSIBLE_VAULT_PASSWORD_ENV: ${{ env.ANSIBLE_VAULT_PASSWORD_ENV }}
+          VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
+          VAULT_PASS_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
+          VAULT_PASS_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
         run: |
-          source ansible_venv/bin/activate
-          cd almonium-infra/ansible
-          ansible-playbook playbook-deploy-almonium-be.yaml \
-           -i "inventory/${{ inputs.environment_name }}.ini" \
-           --limit "${{ inputs.ansible_target_group }}" \
-           --vault-id "all@env:ANSIBLE_VAULT_PASSWORD_ALL" \
-           --vault-id "${{ inputs.environment_name }}@env:ANSIBLE_VAULT_PASSWORD_ENV" \
-           --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
-           --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
-           --extra-vars "deploy_gh_actor=${{ github.actor }}" \
-           --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
+            source ansible_venv/bin/activate
+            cd almonium-infra/ansible
+            
+            # --- START: NEW ROBUST PASSWORD HANDLING ---
+            # Create temporary password files from the secrets
+            echo "$VAULT_PASS_ALL" > vault_pass_all.txt
+            
+            # Logic to create the environment-specific password file
+            if [ "${{ inputs.environment_name }}" == "prod" ]; then
+              echo "$VAULT_PASS_PROD" > vault_pass_env.txt
+            else
+              echo "$VAULT_PASS_STAGING" > vault_pass_env.txt
+            fi
+            
+            # Set secure permissions
+            chmod 600 vault_pass_*.txt
+            # --- END: NEW ROBUST PASSWORD HANDLING ---
+            
+            ansible-playbook playbook-deploy-almonium-be.yaml \
+              -i "inventory/${{ inputs.environment_name }}.ini" \
+              --limit "${{ inputs.ansible_target_group }}" \
+              --vault-id "all@vault_pass_all.txt" \
+              --vault-id "${{ inputs.environment_name }}@vault_pass_env.txt" \
+              --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
+              --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
+              --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+              --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
