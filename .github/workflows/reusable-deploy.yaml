@@ -59,13 +59,13 @@ jobs:
             
             # --- START: NEW ROBUST PASSWORD HANDLING ---
             # Create temporary password files from the secrets
-            echo "$VAULT_PASS_ALL" > vault_pass_all.txt
+            echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
             
             # Logic to create the environment-specific password file
             if [ "${{ inputs.environment_name }}" == "prod" ]; then
-              echo "$VAULT_PASS_PROD" > vault_pass_env.txt
+              echo -n "$VAULT_PASS_PROD" > vault_pass_env.txt
             else
-              echo "$VAULT_PASS_STAGING" > vault_pass_env.txt
+              echo -n "$VAULT_PASS_STAGING" > vault_pass_env.txt
             fi
             
             # Set secure permissions
