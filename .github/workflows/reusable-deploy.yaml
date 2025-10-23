@@ -1,93 +1,83 @@
 name: Reusable Deploy BE
 
 on:
-  workflow_call:
-    inputs:
-      environment_name:
-        required: true
-        type: string
-      ansible_target_group:
-        required: true
-        type: string
-      image_tag:
-        required: true
-        type: string
-    secrets:
-      INFRA_REPO_CHECKOUT_KEY:
-        required: true
-      CLOUD_KEY:
-        required: true
-      ANSIBLE_VAULT_PASSWORD_ALL:
-        required: true
-      ANSIBLE_VAULT_PASSWORD_STAGING:
-        required: true
-      ANSIBLE_VAULT_PASSWORD_PROD:
-        required: true
+    workflow_call:
+        inputs:
+            environment_name:
+                required: true
+                type: string
+            ansible_target_group:
+                required: true
+                type: string
+            image_tag:
+                required: true
+                type: string
+        secrets:
+            INFRA_REPO_CHECKOUT_KEY:
+                required: true
+            CLOUD_KEY:
+                required: true
+            ANSIBLE_VAULT_PASSWORD_ALL:
+                required: true
+            ANSIBLE_VAULT_PASSWORD_STAGING:
+                required: true
+            ANSIBLE_VAULT_PASSWORD_PROD:
+                required: true
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment_name }}
-    permissions:
-      packages: read # This job only needs to read from GHCR
-    steps:
-      - name: Checkout almonium-infra repository
-        uses: actions/checkout@v4
-        with:
-          repository: almonium-platform/almonium-infra
-          path: almonium-infra
-          ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
-      - name: Set up SSH Agent for Ansible to connect to VM
-        uses: webfactory/ssh-agent@v0.9.1
-        with:
-          ssh-private-key: ${{ secrets.CLOUD_KEY }}
-      - name: Install Ansible and Docker collection
-        run: |
-          python -m venv ansible_venv
-          source ansible_venv/bin/activate
-          pip install ansible
-          ansible-galaxy collection install community.docker
-      - name: Run Ansible Playbook
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: "False"
-          VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
-          VAULT_PASS_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
-          VAULT_PASS_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
-        run: |
-            source ansible_venv/bin/activate
-            cd almonium-infra/ansible
-            
-            # --- START NEW DEBUG BLOCK ---
-            echo "--- Verifying the checked-out vault file ---"
-            echo "Header of group_vars/all/vault.yaml:"
-            head -n 1 group_vars/all/vault.yaml
-            echo "-------------------------------------------"
-            # --- END NEW DEBUG BLOCK ---
+    deploy:
+        runs-on: ubuntu-latest
+        environment: ${{ inputs.environment_name }}
+        permissions:
+            packages: read # This job only needs to read from GHCR
+        steps:
+            - name: Checkout almonium-infra repository
+              uses: actions/checkout@v4
+              with:
+                  repository: almonium-platform/almonium-infra
+                  path: almonium-infra
+                  ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
 
-            # --- START: NEW ROBUST PASSWORD HANDLING ---
-            # Create temporary password files from the secrets
-            echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
-            
-            # Logic to create the environment-specific password file
-            if [ "${{ inputs.environment_name }}" == "prod" ]; then
-              echo -n "$VAULT_PASS_PROD" > vault_pass_env.txt
-            else
-              echo -n "$VAULT_PASS_STAGING" > vault_pass_env.txt
-            fi
-            
-            # Set secure permissions
-            chmod 600 vault_pass_*.txt
+            - name: Set up SSH Agent for Ansible to connect to VM
+              uses: webfactory/ssh-agent@v0.9.1
+              with:
+                  ssh-private-key: ${{ secrets.CLOUD_KEY }}
 
-            echo "Checking password file for 'all':"
-            ls -l vault_pass_all.txt
-            echo "Character count: $(wc -c < vault_pass_all.txt)"
+            - name: Install Ansible and Docker collection
+              run: |
+                  python -m venv ansible_venv
+                  source ansible_venv/bin/activate
+                  pip install ansible
+                  ansible-galaxy collection install community.docker
 
-            ansible-playbook playbook-deploy-almonium-be.yaml \
-              -i "inventory/${{ inputs.environment_name }}.ini" \
-              --limit "${{ inputs.ansible_target_group }}" \
-              --vault-id "all@vault_pass_all.txt" \
-              --vault-id "${{ inputs.environment_name }}@vault_pass_env.txt" \
-              --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
-              --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
-              --extra-vars "deploy_gh_actor=${{ github.actor }}" \
-              --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
+            - name: Run Ansible Playbook
+              env:
+                  ANSIBLE_HOST_KEY_CHECKING: "False"
+                  VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
+                  VAULT_PASS_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
+                  VAULT_PASS_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
+              run: |
+                  source ansible_venv/bin/activate
+                  cd almonium-infra/ansible
+                  
+                  # Create temporary password files from secrets, preventing extra newlines
+                  echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
+                  
+                  if [ "${{ inputs.environment_name }}" == "prod" ]; then
+                    echo -n "$VAULT_PASS_PROD" > vault_pass_env.txt
+                  else
+                    echo -n "$VAULT_PASS_STAGING" > vault_pass_env.txt
+                  fi
+                  
+                  # Set secure permissions for the password files
+                  chmod 600 vault_pass_*.txt
+                  
+                  ansible-playbook playbook-deploy-almonium-be.yaml \
+                    -i "inventory/${{ inputs.environment_name }}.ini" \
+                    --limit "${{ inputs.ansible_target_group }}" \
+                    --vault-id "all@vault_pass_all.txt" \
+                    --vault-id "${{ inputs.environment_name }}@vault_pass_env.txt" \
+                    --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
+                    --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
+                    --extra-vars "deploy_gh_actor=${{ github.actor }}" \
+                    --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
