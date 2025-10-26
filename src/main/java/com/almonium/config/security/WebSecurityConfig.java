@@ -38,6 +38,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -117,7 +118,10 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf
                     .csrfTokenRepository(csrfTokenRepository)
                     .csrfTokenRequestHandler(csrfTokenRequestHandler)
-                )
+                    .ignoringRequestMatchers(
+                        new AntPathRequestMatcher("/public/**"),
+                        new AntPathRequestMatcher("/actuator/**")
+                    ))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
