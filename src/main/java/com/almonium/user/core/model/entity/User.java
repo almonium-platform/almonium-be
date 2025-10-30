@@ -88,12 +88,12 @@ public class User {
     Profile profile;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
-    List<Principal> principals = new ArrayList<>();
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    Set<Principal> principals = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
-    List<Learner> learners = new ArrayList<>();
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    Set<Learner> learners = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "requestee")
