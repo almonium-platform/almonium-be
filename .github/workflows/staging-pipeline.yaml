@@ -20,6 +20,5 @@ jobs:
     with:
       environment_name: staging
       source_branch: develop
-      ansible_target_group: staging_servers
       image_tag: ${{ inputs.image_tag }}
     secrets: inherit

@@ -9,9 +9,6 @@ on:
       source_branch:
         required: true
         type: string
-      ansible_target_group:
-        required: true
-        type: string
       image_tag:
         required: false
         type: string
@@ -68,7 +65,6 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment_name: ${{ inputs.environment_name }}
-      ansible_target_group: ${{ inputs.ansible_target_group }}
       image_tag: ${{ needs.resolve-image.outputs.tag }}
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}

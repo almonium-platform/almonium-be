@@ -17,6 +17,5 @@ jobs:
     with:
       environment_name: prod
       source_branch: main
-      ansible_target_group: prod_servers
       image_tag: ${{ inputs.image_tag }}
     secrets: inherit
