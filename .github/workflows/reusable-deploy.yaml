@@ -6,9 +6,6 @@ on:
             environment_name:
                 required: true
                 type: string
-            ansible_target_group:
-                required: true
-                type: string
             image_tag:
                 required: true
                 type: string
@@ -80,7 +77,6 @@ jobs:
                   
                   ansible-playbook playbook-deploy-almonium-be.yaml \
                     -i inventory/oci.ini \
-                    --limit "${{ inputs.ansible_target_group }}" \
                     --vault-id all@vault_pass_all.txt \
                     --vault-id almonium_shared@vault_pass_almonium_shared.txt \
                     --vault-id "${ALMONIUM_ENV_VAULT_ID}"@vault_pass_almonium_env.txt \

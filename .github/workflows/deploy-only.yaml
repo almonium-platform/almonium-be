@@ -23,6 +23,5 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment_name: ${{ inputs.environment }}
-      ansible_target_group: ${{ inputs.environment }}_servers
       image_tag: ${{ inputs.image_tag }}
     secrets: inherit
