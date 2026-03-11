@@ -21,18 +21,19 @@ on:
       CLOUD_KEY:
         required: true
       ANSIBLE_VAULT_PASSWORD_ALL:
-          required: true
-      ANSIBLE_VAULT_PASSWORD_STAGING:
-          required: true
-      ANSIBLE_VAULT_PASSWORD_PROD:
-          required: true
+        required: true
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED:
+        required: true
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD:
+        required: true
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING:
+        required: true
 
 permissions:
   contents: read
   packages: write
 
 jobs:
-  # JOB 1: The Brain. Decides the tag and if a build is needed.
   resolve-image:
     runs-on: ubuntu-latest
     outputs:
@@ -43,19 +44,17 @@ jobs:
         if: inputs.image_tag == ''
         with:
           ref: ${{ inputs.source_branch }}
+
       - id: get_tag
         run: |
           if [[ -n "${{ inputs.image_tag }}" ]]; then
-            echo "Re-deploying specified tag: ${{ inputs.image_tag }}"
-            echo "tag=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
-            echo "build_needed=false" >> $GITHUB_OUTPUT
+            echo "tag=${{ inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+            echo "build_needed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "Building latest commit from '${{ inputs.source_branch }}'."
-            echo "tag=${{ github.sha }}" >> $GITHUB_OUTPUT
-            echo "build_needed=true" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            echo "build_needed=true" >> "$GITHUB_OUTPUT"
           fi
 
-  # JOB 2: Call the reusable build workflow if needed.
   build:
     needs: resolve-image
     if: needs.resolve-image.outputs.build_needed == 'true'
@@ -63,9 +62,8 @@ jobs:
     with:
       image_tag: ${{ needs.resolve-image.outputs.tag }}
 
-  # JOB 3: Call the reusable deploy workflow.
   deploy:
-    needs: [ resolve-image, build ]
+    needs: [resolve-image, build]
     if: always()
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
@@ -76,5 +74,6 @@ jobs:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
       ANSIBLE_VAULT_PASSWORD_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
-      ANSIBLE_VAULT_PASSWORD_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
-      ANSIBLE_VAULT_PASSWORD_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}
+      ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING }}
