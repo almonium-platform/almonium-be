@@ -19,9 +19,11 @@ on:
                 required: true
             ANSIBLE_VAULT_PASSWORD_ALL:
                 required: true
-            ANSIBLE_VAULT_PASSWORD_STAGING:
+            ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED:
                 required: true
-            ANSIBLE_VAULT_PASSWORD_PROD:
+            ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD:
+                required: true
+            ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING:
                 required: true
 
 jobs:
@@ -29,7 +31,7 @@ jobs:
         runs-on: ubuntu-latest
         environment: ${{ inputs.environment_name }}
         permissions:
-            packages: read # This job only needs to read from GHCR
+            packages: read
         steps:
             - name: Checkout almonium-infra repository
               uses: actions/checkout@v4
@@ -54,29 +56,34 @@ jobs:
               env:
                   ANSIBLE_HOST_KEY_CHECKING: "False"
                   VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
-                  VAULT_PASS_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_PROD }}
-                  VAULT_PASS_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_STAGING }}
+                  VAULT_PASS_ALMONIUM_SHARED: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}
+                  VAULT_PASS_ALMONIUM_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}
+                  VAULT_PASS_ALMONIUM_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING }}
               run: |
+                  set -euo pipefail
+                  
                   source ansible_venv/bin/activate
                   cd almonium-infra/ansible
                   
-                  # Create temporary password files from secrets, preventing extra newlines
                   echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
+                  echo -n "$VAULT_PASS_ALMONIUM_SHARED" > vault_pass_almonium_shared.txt
                   
-                  if [ "${{ inputs.environment_name }}" == "prod" ]; then
-                    echo -n "$VAULT_PASS_PROD" > vault_pass_env.txt
+                  if [ "${{ inputs.environment_name }}" = "prod" ]; then
+                    echo -n "$VAULT_PASS_ALMONIUM_PROD" > vault_pass_almonium_env.txt
+                    ALMONIUM_ENV_VAULT_ID="almonium_prod"
                   else
-                    echo -n "$VAULT_PASS_STAGING" > vault_pass_env.txt
+                    echo -n "$VAULT_PASS_ALMONIUM_STAGING" > vault_pass_almonium_env.txt
+                    ALMONIUM_ENV_VAULT_ID="almonium_staging"
                   fi
                   
-                  # Set secure permissions for the password files
                   chmod 600 vault_pass_*.txt
                   
                   ansible-playbook playbook-deploy-almonium-be.yaml \
-                    -i "inventory/${{ inputs.environment_name }}.ini" \
+                    -i inventory/oci.ini \
                     --limit "${{ inputs.ansible_target_group }}" \
-                    --vault-id "all@vault_pass_all.txt" \
-                    --vault-id "${{ inputs.environment_name }}@vault_pass_env.txt" \
+                    --vault-id all@vault_pass_all.txt \
+                    --vault-id almonium_shared@vault_pass_almonium_shared.txt \
+                    --vault-id "${ALMONIUM_ENV_VAULT_ID}"@vault_pass_almonium_env.txt \
                     --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
                     --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
                     --extra-vars "deploy_gh_actor=${{ github.actor }}" \
