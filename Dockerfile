@@ -1,5 +1,5 @@
 # ---- Builder Stage (Only for layertools extraction) ----
-FROM openjdk:21-jdk-slim AS layertools-extractor
+FROM eclipse-temurin:21-jdk-alpine AS layertools-extractor
 WORKDIR /app
 COPY target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
