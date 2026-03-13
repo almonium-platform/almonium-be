@@ -76,7 +76,7 @@ jobs:
                   chmod 600 vault_pass_*.txt
                   
                   ansible-playbook playbook-deploy-almonium-be.yaml \
-                    -i inventory/oci.ini \
+                    -i inventory/hosts.ini \
                     --vault-id all@vault_pass_all.txt \
                     --vault-id almonium_shared@vault_pass_almonium_shared.txt \
                     --vault-id "${ALMONIUM_ENV_VAULT_ID}"@vault_pass_almonium_env.txt \
