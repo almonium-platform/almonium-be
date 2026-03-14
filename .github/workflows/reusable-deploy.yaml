@@ -31,56 +31,44 @@ jobs:
             packages: read
         steps:
             - name: Checkout almonium-infra repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
               with:
                   repository: almonium-platform/almonium-infra
                   path: almonium-infra
                   ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
 
-            - name: Set up SSH Agent for Ansible to connect to VM
-              uses: webfactory/ssh-agent@v0.9.1
-              with:
-                  ssh-private-key: ${{ secrets.CLOUD_KEY }}
+            -   name: Prepare vault password files
+                shell: bash
+                run: |
+                    set -euo pipefail
+                    
+                    mkdir -p ~/.ansible
+                    umask 077
+                    
+                    printf "%s" "${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}" > ~/.ansible/vault-all
+                    printf "%s" "${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}" > ~/.ansible/vault-almonium-shared
+                    
+                    if [ "${{ inputs.environment_name }}" = "prod" ]; then
+                      printf "%s" "${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}" > ~/.ansible/vault-almonium-env
+                      echo "ALMONIUM_ENV_VAULT_ID=almonium_prod" >> "$GITHUB_ENV"
+                    else
+                      printf "%s" "${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING }}" > ~/.ansible/vault-almonium-env
+                      echo "ALMONIUM_ENV_VAULT_ID=almonium_staging" >> "$GITHUB_ENV"
+                    fi
 
-            - name: Install Ansible and Docker collection
-              run: |
-                  python -m venv ansible_venv
-                  source ansible_venv/bin/activate
-                  pip install ansible
-                  ansible-galaxy collection install community.docker
-
-            - name: Run Ansible Playbook
-              env:
-                  VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
-                  VAULT_PASS_ALMONIUM_SHARED: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}
-                  VAULT_PASS_ALMONIUM_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}
-                  VAULT_PASS_ALMONIUM_STAGING: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_STAGING }}
-              run: |
-                  set -euo pipefail
-                  
-                  source ansible_venv/bin/activate
-                  cd almonium-infra/ansible
-                  
-                  echo -n "$VAULT_PASS_ALL" > vault_pass_all.txt
-                  echo -n "$VAULT_PASS_ALMONIUM_SHARED" > vault_pass_almonium_shared.txt
-                  
-                  if [ "${{ inputs.environment_name }}" = "prod" ]; then
-                    echo -n "$VAULT_PASS_ALMONIUM_PROD" > vault_pass_almonium_env.txt
-                    ALMONIUM_ENV_VAULT_ID="almonium_prod"
-                  else
-                    echo -n "$VAULT_PASS_ALMONIUM_STAGING" > vault_pass_almonium_env.txt
-                    ALMONIUM_ENV_VAULT_ID="almonium_staging"
-                  fi
-                  
-                  chmod 600 vault_pass_*.txt
-                  
-                  ansible-playbook playbook-deploy-almonium-be.yaml \
-                    -i inventory/hosts.ini \
-                    --limit almonium \
-                    --vault-id all@vault_pass_all.txt \
-                    --vault-id almonium_shared@vault_pass_almonium_shared.txt \
-                    --vault-id "${ALMONIUM_ENV_VAULT_ID}"@vault_pass_almonium_env.txt \
-                    --extra-vars "deploy_environment=${{ inputs.environment_name }}" \
-                    --extra-vars "deploy_image_tag=${{ inputs.image_tag }}" \
-                    --extra-vars "deploy_gh_actor=${{ github.actor }}" \
-                    --extra-vars "deploy_gh_token=${{ secrets.GITHUB_TOKEN }}"
+            -   name: Run Ansible Playbook
+                uses: dawidd6/action-ansible-playbook@v3
+                with:
+                    playbook: playbook-deploy-almonium-be.yaml
+                    directory: almonium-infra/ansible
+                    key: ${{ secrets.CLOUD_KEY }}
+                    options: |
+                        -i inventory/hosts.ini
+                        --limit almonium
+                        --vault-id all@/home/runner/.ansible/vault-all
+                        --vault-id almonium_shared@/home/runner/.ansible/vault-almonium-shared
+                        --vault-id ${{ env.ALMONIUM_ENV_VAULT_ID }}@/home/runner/.ansible/vault-almonium-env
+                        --extra-vars deploy_environment=${{ inputs.environment_name }}
+                        --extra-vars deploy_image_tag=${{ inputs.image_tag }}
+                        --extra-vars deploy_gh_actor=${{ github.actor }}
+                        --extra-vars deploy_gh_token=${{ secrets.GITHUB_TOKEN }}
