@@ -31,14 +31,14 @@ jobs:
             packages: read
         steps:
             - name: Checkout almonium-infra repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
               with:
                   repository: almonium-platform/almonium-infra
                   path: almonium-infra
                   ssh-key: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
 
             - name: Set up SSH Agent for Ansible to connect to VM
-              uses: webfactory/ssh-agent@v0.9.1
+              uses: webfactory/ssh-agent@v0.10.0
               with:
                   ssh-private-key: ${{ secrets.CLOUD_KEY }}
 

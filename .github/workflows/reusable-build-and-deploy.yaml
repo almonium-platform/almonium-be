@@ -37,7 +37,7 @@ jobs:
       tag: ${{ steps.get_tag.outputs.tag }}
       build_needed: ${{ steps.get_tag.outputs.build_needed }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         if: inputs.image_tag == ''
         with:
           ref: ${{ inputs.source_branch }}
