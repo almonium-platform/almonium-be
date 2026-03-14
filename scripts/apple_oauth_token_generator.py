@@ -4,7 +4,7 @@ import time
 import base64
 
 TEAM_ID = os.getenv("APPLE_TEAM_ID")
-CLIENT_ID = os.getenv("APPLE_CLIENT_ID")
+CLIENT_ID = os.getenv("APPLE_SERVICES_ID")
 KEY_ID = os.getenv("APPLE_KEY_ID")
 PRIVATE_KEY_CONTENT = os.getenv("APPLE_PRIVATE_KEY_CONTENT")
 
@@ -13,7 +13,7 @@ def generate_token():
         missing = [
             var_name for var_name, var_val in [
                 ("APPLE_TEAM_ID", TEAM_ID),
-                ("APPLE_CLIENT_ID", CLIENT_ID),
+                ("APPLE_SERVICES_ID", CLIENT_ID),
                 ("APPLE_KEY_ID", KEY_ID),
                 ("APPLE_PRIVATE_KEY_CONTENT", PRIVATE_KEY_CONTENT)
             ] if not var_val
