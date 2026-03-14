@@ -50,11 +50,11 @@ spring:
         scope: email,profile
         redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/google
       facebook:
-        client-id: ${FACEBOOK_ID}
-        client-secret: ${FACEBOOK_SECRET}
+        client-id: ${FACEBOOK_CLIENT_ID}
+        client-secret: ${FACEBOOK_CLIENT_SECRET}
       apple:
         client-id: ${APPLE_ID}
-        client-secret: ${APPLE_SECRET}
+        client-secret: ${APPLE_CLIENT_SECRET}
         authorization-grant-type: authorization_code
         client-name: Apple
         client-authentication-method: client_secret_post
@@ -171,8 +171,8 @@ rabbitmq:
       dlq-name: q.user.deleted.firebase.dlq
 google:
   oauth2:
-    client-id: ${GOOGLE_ID}
-    client-secret: ${GOOGLE_SECRET}
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
   firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}
