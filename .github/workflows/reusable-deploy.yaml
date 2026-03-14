@@ -51,7 +51,6 @@ jobs:
 
             - name: Run Ansible Playbook
               env:
-                  ANSIBLE_HOST_KEY_CHECKING: "False"
                   VAULT_PASS_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
                   VAULT_PASS_ALMONIUM_SHARED: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}
                   VAULT_PASS_ALMONIUM_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}
