@@ -79,7 +79,8 @@ public class WebSecurityConfig {
                 appProperties.getWebDomain(),
                 appProperties.getAuth().getOauth2().getAppleTokenUrl()));
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
-        configuration.setAllowedHeaders(List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN", "ngsw-bypass"));
+        configuration.setAllowedHeaders(
+                List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN", "ngsw-bypass"));
         configuration.setAllowCredentials(true); // `withCredentials: true` won't work without this
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -110,18 +111,13 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            CsrfTokenRepository csrfTokenRepository,
-            CsrfTokenRequestHandler csrfTokenRequestHandler) throws Exception {
+            HttpSecurity http, CsrfTokenRepository csrfTokenRepository, CsrfTokenRequestHandler csrfTokenRequestHandler)
+            throws Exception {
 
-        return http
-                .csrf(csrf -> csrf
-                    .csrfTokenRepository(csrfTokenRepository)
-                    .csrfTokenRequestHandler(csrfTokenRequestHandler)
-                    .ignoringRequestMatchers(
-                        new AntPathRequestMatcher("/public/**"),
-                        new AntPathRequestMatcher("/actuator/**")
-                    ))
+        return http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository)
+                        .csrfTokenRequestHandler(csrfTokenRequestHandler)
+                        .ignoringRequestMatchers(
+                                new AntPathRequestMatcher("/public/**"), new AntPathRequestMatcher("/actuator/**")))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
