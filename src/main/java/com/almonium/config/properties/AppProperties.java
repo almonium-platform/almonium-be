@@ -46,6 +46,18 @@ public class AppProperties {
     @FieldDefaults(level = PRIVATE)
     public static class Email {
         boolean dryRun;
+
+        @NotBlank
+        String apiUrl;
+
+        @NotBlank
+        String apiKey;
+
+        @NotBlank
+        String fromAddress;
+
+        @NotBlank
+        String fromName;
     }
 
     @Getter
