@@ -1,74 +1,70 @@
 package com.almonium.infra.email.service;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 import com.almonium.config.properties.AppProperties;
-import com.almonium.config.properties.MailProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.util.HtmlFileWriter;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.jspecify.annotations.NonNull;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EmailService {
-    private static final String ALMONIUM_FROM_FORMAT = "Almonium <%s>";
-    private static final String STATIC_LOGO_IMG = "static/logo-white-2.png";
-    private static final String STATIC_TITLE_IMG = "static/title-white.png";
-    private static final Map<String, String> EMAIL_ASSETS = Map.of(
-            "logoHeader", STATIC_LOGO_IMG,
-            "titleHeader", STATIC_TITLE_IMG);
-
-    JavaMailSender mailSender;
+    RestTemplate restTemplate = new RestTemplate();
     HtmlFileWriter htmlFileWriter;
-
     AppProperties appProperties;
-    MailProperties mailProperties;
 
     public void sendEmail(EmailDto emailDto) {
+        if (appProperties.getEmail().isDryRun()) {
+            log.info("Email sending is disabled. Skipping sending email to {}", emailDto.recipient());
+            htmlFileWriter.saveEmailToFile(emailDto);
+            return;
+        }
+
         try {
-            MimeMessage mimeMessage = createMimeMessage(emailDto);
-            if (appProperties.getEmail().isDryRun()) {
-                log.info("Email sending is disabled. Skipping sending email to {}", emailDto.recipient());
-                htmlFileWriter.saveMimeMessageToFile(mimeMessage);
-            } else {
-                mailSender.send(mimeMessage);
-            }
-        } catch (MessagingException e) {
+            AppProperties.Email emailProps = appProperties.getEmail();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+            headers.set("Authorization", "Zoho-enczapikey " + emailProps.getApiKey());
+
+            HttpEntity<Map<String, Object>> request = getMapHttpEntity(emailDto, emailProps, headers);
+            ResponseEntity<String> response =
+                    restTemplate.exchange(emailProps.getApiUrl(), HttpMethod.POST, request, String.class);
+
+            log.debug("ZeptoMail response: {}", response.getBody());
+        } catch (RestClientException e) {
             log.error("Failed to send email to {}: {}", emailDto.recipient(), e.getMessage());
             throw new EmailConfigurationException("Failed to send email: " + e.getMessage(), e);
         }
     }
 
-    private MimeMessage createMimeMessage(EmailDto emailDto) throws MessagingException {
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, UTF_8);
+    private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
+        Map<String, Object> body = Map.of(
+                "from",
+                        Map.of(
+                                "address", emailProps.getFromAddress(),
+                                "name", emailProps.getFromName()),
+                "to", List.of(Map.of("email_address", Map.of("address", emailDto.recipient()))),
+                "subject", emailDto.subject(),
+                "htmlbody", emailDto.body());
 
-        mimeMessageHelper.setSubject(emailDto.subject());
-        mimeMessageHelper.setTo(emailDto.recipient());
-        mimeMessageHelper.setFrom(String.format(ALMONIUM_FROM_FORMAT, mailProperties.getUsername()));
-        mimeMessageHelper.setText(emailDto.body(), true);
-
-        addAssetsToEmail(mimeMessageHelper);
-        return mimeMessage;
-    }
-
-    private void addAssetsToEmail(MimeMessageHelper mimeMessageHelper) throws MessagingException {
-        for (Map.Entry<String, String> entry : EMAIL_ASSETS.entrySet()) {
-            ClassPathResource asset = new ClassPathResource(entry.getValue());
-            mimeMessageHelper.addInline(entry.getKey(), asset);
-        }
+        return new HttpEntity<>(body, headers);
     }
 }

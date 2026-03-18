@@ -6,7 +6,6 @@ import com.almonium.config.properties.AppleOAuthProperties
 import com.almonium.config.properties.AppleOAuthProviderProperties
 import com.almonium.config.properties.ExternalApiProperties
 import com.almonium.config.properties.GoogleProperties
-import com.almonium.config.properties.MailProperties
 import com.almonium.config.properties.RabbitMQProperties
 import com.almonium.config.properties.StreamProperties
 import com.almonium.config.properties.StripeProperties
@@ -27,7 +26,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
     AppleOAuthProviderProperties::class,
     ExternalApiProperties::class,
     GoogleProperties::class,
-    MailProperties::class,
     RabbitMQProperties::class,
     StripeProperties::class,
     StreamProperties::class,

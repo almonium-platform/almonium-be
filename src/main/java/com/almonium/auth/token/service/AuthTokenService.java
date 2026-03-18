@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.model.PrincipalDetails;
 import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.repository.PrincipalRepository;
 import com.almonium.auth.common.security.JwtPrincipal;
 import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.auth.common.util.CookieUtil;

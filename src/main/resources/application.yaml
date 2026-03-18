@@ -73,16 +73,6 @@ spring:
         jwk-set-uri: https://appleid.apple.com/auth/keys
         user-name-attribute: sub
 
-  mail:
-    host: smtp.zoho.eu
-    port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      timeout: 3000
-
 logging:
   level:
     org.springframework.security: DEBUG
@@ -104,6 +94,11 @@ logging:
 # Custom Configurations
 app:
   name: Almonium
+  email:
+    api-url: https://api.zeptomail.eu/v1.1/email
+    api-key: ${ZEPTO_API_KEY}
+    from-address: noreply@almonium.com
+    from-name: Almonium
   auth:
     verification-token:
       lifetime: 60
