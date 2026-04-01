@@ -26,6 +26,7 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        timeout-minutes: 10
         environment: ${{ inputs.environment_name }}
         permissions:
             packages: read
