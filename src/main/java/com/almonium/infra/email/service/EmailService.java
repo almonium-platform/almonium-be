@@ -55,7 +55,8 @@ public class EmailService {
         }
     }
 
-    private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
+    private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(
+            EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
         Map<String, Object> body = Map.of(
                 "from",
                         Map.of(
