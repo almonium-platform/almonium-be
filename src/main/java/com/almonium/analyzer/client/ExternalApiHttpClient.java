@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,43 +15,46 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
+@RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public abstract class AbstractClient {
-    RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper objectMapper = new ObjectMapper();
+public class ExternalApiHttpClient {
+    RestTemplate restTemplate;
+    ObjectMapper objectMapper;
 
-    protected <T> ResponseEntity<List<T>> requestList(String url, Map<String, String> params, Class<T> clazz) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
+    public <T> ResponseEntity<List<T>> getList(String url, Map<String, String> params, Class<T> responseType) {
+        HttpHeaders headers = jsonHeaders();
         String urlTemplate = GeneralUtils.queryBuilder(url, params.keySet());
 
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
                 urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
 
         if (response.getBody() == null) {
-            throw new RuntimeException("Body of response is null!");
+            throw new IllegalStateException("Body of response is null");
         }
 
-        List<T> resultList = new ArrayList<>();
+        List<T> result = new ArrayList<>();
         for (Map<String, Object> item : response.getBody()) {
-            T resultItem = objectMapper.convertValue(item, clazz);
-            resultList.add(resultItem);
+            result.add(objectMapper.convertValue(item, responseType));
         }
 
         return ResponseEntity.status(response.getStatusCode())
                 .headers(response.getHeaders())
-                .body(resultList);
+                .body(result);
     }
 
-    protected <T> ResponseEntity<T> request(String url, Map<String, String> params, Class<T> clazz) {
+    public <T> ResponseEntity<T> get(String url, Map<String, String> params, Class<T> responseType) {
+        String urlTemplate = GeneralUtils.queryBuilder(url, params.keySet());
+        return restTemplate.exchange(
+                urlTemplate, HttpMethod.GET, new HttpEntity<>(jsonHeaders()), responseType, params);
+    }
+
+    private HttpHeaders jsonHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
-        String urlTemplate = GeneralUtils.queryBuilder(url, params.keySet());
-
-        return restTemplate.exchange(urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), clazz, params);
+        return headers;
     }
 }

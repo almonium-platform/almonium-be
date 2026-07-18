@@ -2,7 +2,6 @@ package com.almonium.analyzer.client.words;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.words.dto.WordsReportDto;
 import com.almonium.config.properties.ExternalApiProperties;
@@ -22,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @Client
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class WordsClient extends AbstractClient {
+public class WordsClient {
     private static final String API_ID_HEADER_NAME = "X-RapidAPI-Host";
     private static final String API_ID_HEADER_VALUE = "wordsapiv1.p.rapidapi.com";
     private static final String API_KEY_HEADER_NAME = "X-RapidAPI-Key";

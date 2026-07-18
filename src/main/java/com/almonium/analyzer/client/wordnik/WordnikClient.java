@@ -2,7 +2,6 @@ package com.almonium.analyzer.client.wordnik;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.wordnik.dto.WordnikAudioDto;
 import com.almonium.analyzer.client.wordnik.dto.WordnikRandomWordDto;
@@ -24,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 @Client
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class WordnikClient extends AbstractClient {
+public class WordnikClient {
     private static final int START_YEAR_VALUE = 1950;
     private static final int END_YEAR_VALUE = 2022;
     private static final String APIKEY_HEADER_NAME = "api_key";

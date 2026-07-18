@@ -2,8 +2,8 @@ package com.almonium.analyzer.client.google;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
+import com.almonium.analyzer.client.ExternalApiHttpClient;
 import com.almonium.analyzer.client.google.dto.GoogleDto;
 import com.almonium.analyzer.translator.model.enums.Language;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
-public class GoogleClient extends AbstractClient {
+public class GoogleClient {
     static String CASE_INSENSITIVE = "case_insensitive";
     static String URL = "https://books.google.com/ngrams/json";
     static String CONTENT = "content";
@@ -39,6 +39,8 @@ public class GoogleClient extends AbstractClient {
             Language.ES, "es-2019",
             Language.RU, "ru-2019");
 
+    ExternalApiHttpClient httpClient;
+
     public ResponseEntity<List<GoogleDto>> get(String entry, Language language) {
         Map<String, String> params = Map.of(
                 CONTENT, entry,
@@ -47,6 +49,6 @@ public class GoogleClient extends AbstractClient {
                 END_YEAR, String.valueOf(END_YEAR_VALUE),
                 SMOOTHING, String.valueOf(SMOOTHING_VALUE),
                 CASE_INSENSITIVE, String.valueOf(IS_CASE_INSENSITIVE));
-        return super.requestList(URL, params, GoogleDto.class);
+        return httpClient.getList(URL, params, GoogleDto.class);
     }
 }

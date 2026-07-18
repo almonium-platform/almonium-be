@@ -2,7 +2,6 @@ package com.almonium.analyzer.client.datamuse;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.datamuse.dto.DatamuseEntryDto;
 import com.almonium.util.GeneralUtils;
@@ -24,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
-public class DatamuseClient extends AbstractClient {
+public class DatamuseClient {
     static String BASE_URL = "https://api.datamuse.com";
     static String ENDPOINT = "/words";
     static String HOMOPHONES = "rel_hom";
