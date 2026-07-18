@@ -27,8 +27,8 @@ public class TranslationEngine {
             return null;
         }
 
-        List<String> providerNames = langPairTranslatorRepository.findProviderNames(
-                sourceLanguage.name(), targetLanguage.name());
+        List<String> providerNames =
+                langPairTranslatorRepository.findProviderNames(sourceLanguage.name(), targetLanguage.name());
         for (String providerName : providerNames) {
             TranslationProvider provider = providerRegistry.find(providerName).orElse(null);
             if (provider == null) {
@@ -39,7 +39,8 @@ public class TranslationEngine {
             try {
                 return provider.translate(entry, sourceLanguage, targetLanguage);
             } catch (ApiIntegrationException exception) {
-                log.warn("Translation provider {} failed; trying the next configured provider", providerName, exception);
+                log.warn(
+                        "Translation provider {} failed; trying the next configured provider", providerName, exception);
             }
         }
         return null;

@@ -45,8 +45,7 @@ public class RelationshipStateMachine {
         if (currentStatus == PENDING && action == RelationshipAction.CANCEL) {
             throw new RelationshipException("User is not the requester of this relationship");
         }
-        if (currentStatus == PENDING
-                && (action == RelationshipAction.ACCEPT || action == RelationshipAction.REJECT)) {
+        if (currentStatus == PENDING && (action == RelationshipAction.ACCEPT || action == RelationshipAction.REJECT)) {
             throw new RelationshipException("User is not the requestee of this relationship");
         }
         throw new RelationshipException("Invalid relationship transition: " + currentStatus + " + " + action);

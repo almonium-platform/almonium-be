@@ -16,6 +16,5 @@ public interface LangPairTranslatorRepository extends JpaRepository<LangPairTran
             and l.targetLang = :targetLang
             order by l.priority
             """)
-    List<String> findProviderNames(
-            @Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
+    List<String> findProviderNames(@Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
 }

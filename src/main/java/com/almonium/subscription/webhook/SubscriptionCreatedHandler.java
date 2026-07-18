@@ -21,7 +21,8 @@ public class SubscriptionCreatedHandler implements StripeEventHandler {
     @Override
     public void handle(Event event) {
         Subscription subscription = extractor.extract(event, Subscription.class);
-        String stripePriceId = subscription.getItems().getData().get(0).getPrice().getId();
+        String stripePriceId =
+                subscription.getItems().getData().get(0).getPrice().getId();
         planSubscriptionService.replaceCurrentPlanSubWithNewPremium(
                 subscription.getCustomer(),
                 stripePriceId,

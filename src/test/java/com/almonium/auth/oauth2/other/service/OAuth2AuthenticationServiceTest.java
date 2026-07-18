@@ -148,11 +148,12 @@ class OAuth2AuthenticationServiceTest {
             return auth;
         });
         when(userRepository.findByEmail(eq(email))).thenReturn(Optional.empty());
-        when(userRegistrationService.createUserWithDefaultPlan(any(String.class), eq(true))).thenAnswer(invocation -> User.builder()
-                .id(userId)
-                .email(invocation.getArgument(0))
-                .profile(Profile.builder().id(userId).build())
-                .build());
+        when(userRegistrationService.createUserWithDefaultPlan(any(String.class), eq(true)))
+                .thenAnswer(invocation -> User.builder()
+                        .id(userId)
+                        .email(invocation.getArgument(0))
+                        .profile(Profile.builder().id(userId).build())
+                        .build());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo)))
                 .thenReturn(OAuth2Principal.builder()
                         .email(email)
