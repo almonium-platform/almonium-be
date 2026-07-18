@@ -11,6 +11,21 @@
 
 [API Reference (Swagger UI)](https://api.almonium.com/api/v1/swagger-ui/index.html)
 
+## Development build
+
+Use JDK 21 and the checked-in Maven wrapper so local development and CI use the
+same Maven version:
+
+```bash
+./mvnw clean compile -DskipTests
+./mvnw verify
+```
+
+On Windows, use `mvnw.cmd` instead. The full verification suite uses
+Testcontainers, so Docker must be running and accessible to the current user.
+Spotless checks formatting during the build; apply intentional formatting with
+`./mvnw spotless:apply`.
+
 # Friendships
 
 ## Scenarios

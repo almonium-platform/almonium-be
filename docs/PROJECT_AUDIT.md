@@ -122,29 +122,30 @@ debug/SQL logging only in a local profile.
 ## Build and IDE health
 
 The IntelliJ warnings are not evidence that Java/Kotlin interoperation is
-fundamentally wrong. The project does, however, give the IDE and Maven
-conflicting signals:
+fundamentally wrong. The initial build review found several conflicting Maven
+and IDE signals. The 2026-07-18 stabilization repaired the reproducibility
+issues:
 
-- The Maven wrapper has Windows line endings and does not run normally on
-  Linux.
-- A clean production compile succeeds with system Maven.
+- The Maven wrapper and its metadata use LF, `mvnw` is executable in Git, and
+  `mvnw.cmd` retains CRLF for Windows.
+- A clean production compile succeeds through the pinned Maven wrapper.
 - Test compilation initially failed because learner fixtures passed `List`
   values where the production API expects `Set` values. This review repaired
-  those fixtures; keep compilation in CI to prevent recurrence.
-- Java release/target configuration and Kotlin JVM target configuration have
-  not always used the same property. Use one explicit Java version for both.
+  those fixtures, and test compilation now passes.
+- Java and Kotlin both use the standard `java.version` property and target JVM
+  21.
 - Kotlin sources live under `src/main/java`, which can work but is surprising
   to IDEs and contributors; either document it or migrate them together to
   `src/main/kotlin`.
-- CI skips tests, so its green status does not mean the test suite is healthy.
-- Spotless applies formatting during the build instead of merely checking it,
-  which can silently modify unrelated work.
+- CI runs `./mvnw -B verify`; integration tests require a Docker-capable runner.
+- Spotless checks formatting during `validate` and only mutates files when
+  `spotless:apply` is invoked explicitly.
 - Review workflow checkout/deploy conditions so builds test the intended SHA
   and deployment does not run after an invalid verification path.
 
-Repair the wrapper, align the JVM targets, repair test compilation, change CI
-to run `verify`, and make formatting a check in CI. Those changes will probably
-clear most module/IDE symptoms before any source-set redesign is needed.
+The remaining build work is to confirm the full Testcontainers suite in CI and
+review workflow checkout/deploy conditions. These repairs should clear most
+module/IDE symptoms before any source-set redesign is needed.
 
 ## Authentication assessment
 

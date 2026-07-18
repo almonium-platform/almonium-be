@@ -28,23 +28,22 @@ known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 
 ## Verification
 
-The repository was reviewed on 2026-07-18 with these known baseline issues:
+The repository was reviewed on 2026-07-18 with this build baseline:
 
-- `mvnw` has line-ending problems on Linux.
-- Production compilation works with the system Maven installation.
-- The `List`/`Set` test-fixture mismatches found during the audit were repaired;
-  test compilation is expected to pass.
-- Spotless is configured to apply changes during the build, so avoid allowing
-  it to rewrite unrelated user files during focused work.
+- The Maven wrapper is the canonical Maven entry point on every platform.
+- Java and Kotlin compile for JVM 21.
+- Test compilation passes. Integration tests use Testcontainers and therefore
+  require access to a working Docker daemon.
+- Spotless checks formatting during the build; run `spotless:apply` explicitly
+  when formatting changes are intended.
 
 For a focused production compile, use:
 
 ```bash
-mvn clean compile -DskipTests -Dspotless.apply.skip=true
+./mvnw clean compile -DskipTests
 ```
 
-Run the narrowest relevant test set during refactors. Once the test baseline
-and wrapper are repaired, the canonical check should become:
+Run the narrowest relevant test set during refactors. The canonical check is:
 
 ```bash
 ./mvnw verify
