@@ -13,10 +13,11 @@ reauthentication, email workflows, JWT cookies, persisted refresh-token
 metadata, and account lifecycle operations. The separation between local,
 OAuth, common identity, and token packages is mostly understandable.
 
-The design should not be trusted in production unchanged. Three issues are
-urgent:
+The design should not be trusted in production unchanged. Three issues were
+urgent at review time:
 
-1. A client cookie is decoded with native Java deserialization.
+1. ~~A client cookie is decoded with native Java deserialization.~~ Remediated
+   on 2026-07-18.
 2. Access and refresh JWTs are indistinguishable, so a refresh JWT can be
    accepted as a bearer credential by the general authentication filter.
 3. Refresh JWT validity does not consult the persisted refresh-token record, so
@@ -195,11 +196,17 @@ even if identity is outsourced.
 
 ### P0: remove native Java deserialization from OAuth cookies
 
-`CookieUtil.deserialize` runs `ObjectInputStream.readObject()` on bytes supplied
-by the browser. The OAuth authorization-request cookie is not authenticated by
-the application before parsing. Native Java deserialization is an unsafe input
-boundary and can become code execution when a usable gadget exists on the
-classpath.
+**Remediated 2026-07-18.** The authorization request is now held in a
+three-minute, one-use server-side HTTP session entry and matched against the
+callback `state`. The browser no longer receives a serialized Spring
+`OAuth2AuthorizationRequest`, and the native Java serialization helpers were
+removed from `CookieUtil`.
+
+Previously, `CookieUtil.deserialize` ran `ObjectInputStream.readObject()` on
+bytes supplied by the browser. The OAuth authorization-request cookie was not
+authenticated by the application before parsing. Native Java deserialization
+is an unsafe input boundary and can become code execution when a usable gadget
+exists on the classpath.
 
 Replace it immediately with one of:
 
@@ -536,7 +543,7 @@ Firebase's lower integration/cost burden and Clerk's richer managed session UX.
 
 The minimum safe sequence is:
 
-1. Remove OAuth Java deserialization.
+1. ~~Remove OAuth Java deserialization.~~ Completed 2026-07-18.
 2. Introduce strict token types/audiences/issuers and prevent refresh-as-access.
 3. Implement persisted refresh rotation, replay detection, and effective
    logout/revocation.
