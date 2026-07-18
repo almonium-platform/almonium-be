@@ -31,7 +31,8 @@ The repository was reviewed on 2026-07-18 with these known baseline issues:
 
 - `mvnw` has line-ending problems on Linux.
 - Production compilation works with the system Maven installation.
-- Test compilation has pre-existing `List`/`Set` fixture mismatches.
+- The `List`/`Set` test-fixture mismatches found during the audit were repaired;
+  test compilation is expected to pass.
 - Spotless is configured to apply changes during the build, so avoid allowing
   it to rewrite unrelated user files during focused work.
 

@@ -128,8 +128,9 @@ conflicting signals:
 - The Maven wrapper has Windows line endings and does not run normally on
   Linux.
 - A clean production compile succeeds with system Maven.
-- Test compilation currently fails in existing learner tests because fixtures
-  pass `List` values where the production API expects `Set` values.
+- Test compilation initially failed because learner fixtures passed `List`
+  values where the production API expects `Set` values. This review repaired
+  those fixtures; keep compilation in CI to prevent recurrence.
 - Java release/target configuration and Kotlin JVM target configuration have
   not always used the same property. Use one explicit Java version for both.
 - Kotlin sources live under `src/main/java`, which can work but is surprising

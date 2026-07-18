@@ -9,7 +9,7 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
 
@@ -24,7 +24,7 @@ public class TestDataGenerator {
         user.setEmailVerified(true);
         user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
-        user.setLearners(List.of(Learner.builder().user(user).build()));
+        user.setLearners(Set.of(Learner.builder().user(user).build()));
         return user;
     }
 
@@ -44,7 +44,7 @@ public class TestDataGenerator {
         user.setEmail("john@email.com");
         user.setRegistered(Instant.now());
         user.setProfile(Profile.builder().user(user).build());
-        user.setLearners(List.of(Learner.builder().user(user).build()));
+        user.setLearners(Set.of(Learner.builder().user(user).build()));
         return user;
     }
 

@@ -27,6 +27,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -73,7 +74,7 @@ class LearnerServiceTest {
         UUID userId = UUID.randomUUID();
         User user = User.builder()
                 .id(userId)
-                .learners(List.of(Learner.builder()
+                .learners(Set.of(Learner.builder()
                         .id(UUID.randomUUID())
                         .language(Language.EN)
                         .build()))
@@ -91,7 +92,7 @@ class LearnerServiceTest {
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
         // mapper stub (method returns something, we don't care what)
-        when(learnerMapper.toDto(Mockito.<List<Learner>>any())).thenReturn(Collections.emptyList());
+        when(learnerMapper.toDto(Mockito.<Set<Learner>>any())).thenReturn(Collections.emptyList());
 
         // ─── Act ──────────────────────────────────────────────────────────────────
         learnerService.createLearners(languages, user, true);
@@ -115,7 +116,7 @@ class LearnerServiceTest {
                         && l.getUser().equals(user)));
 
         // 4. mapper called
-        verify(learnerMapper).toDto(Mockito.<List<Learner>>any());
+        verify(learnerMapper).toDto(Mockito.<Set<Learner>>any());
     }
 
     @DisplayName("Should add multiple target languages without replacing existing ones")
@@ -127,7 +128,7 @@ class LearnerServiceTest {
 
         User user = User.builder()
                 .id(id)
-                .learners(List.of(
+                .learners(Set.of(
                         Learner.builder().id(learnerId).language(Language.EN).build()))
                 .build();
 
@@ -172,10 +173,10 @@ class LearnerServiceTest {
 
         // stub look-up used by getUserWithLearners(…)
         User userWithLearners =
-                User.builder().id(userId).learners(Collections.emptyList()).build();
+                User.builder().id(userId).learners(Collections.emptySet()).build();
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(userWithLearners));
 
-        when(learnerMapper.toDto(Mockito.<List<Learner>>any())).thenReturn(Collections.emptyList());
+        when(learnerMapper.toDto(Mockito.<Set<Learner>>any())).thenReturn(Collections.emptyList());
         // act
         List<LearnerDto> result = learnerService.createLearners(languages, user, false);
 
@@ -203,7 +204,7 @@ class LearnerServiceTest {
                 .user(user)
                 .language(Language.FR)
                 .build();
-        user.setLearners(List.of(enLearner, frLearner));
+        user.setLearners(Set.of(enLearner, frLearner));
 
         // The user is retrieved with all learners
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
@@ -230,7 +231,7 @@ class LearnerServiceTest {
                 .user(user)
                 .language(Language.EN)
                 .build();
-        user.setLearners(List.of(onlyLearner));
+        user.setLearners(Set.of(onlyLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
@@ -255,7 +256,7 @@ class LearnerServiceTest {
                 .user(user)
                 .language(Language.EN)
                 .build();
-        user.setLearners(List.of(enLearner));
+        user.setLearners(Set.of(enLearner));
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
