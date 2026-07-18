@@ -146,7 +146,7 @@ module/IDE symptoms before any source-set redesign is needed.
 ## Authentication assessment
 
 Firebase Authentication now owns credentials, verification/reset emails,
-Google sign-in, provider linking, and token issuance. Almonium maps Firebase UID
+Google and Apple sign-in, provider linking, and token issuance. Almonium maps Firebase UID
 to its product user, exchanges recent ID tokens for HttpOnly cookies, performs
 local signature verification on ordinary requests, and performs revocation-aware
 verification for sensitive actions. Email collisions are rejected and never

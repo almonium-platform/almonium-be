@@ -11,8 +11,8 @@ The managed-auth migration described later in this document was implemented on
 2026-07-18. The sections below remain as the historical audit of the removed
 custom authentication platform.
 
-- Angular uses Firebase Authentication for email/password and Google; Apple is
-  intentionally deferred.
+- Angular uses Firebase Authentication for email/password, Google, and Apple.
+  Facebook remains disabled until its provider and business requirements are ready.
 - `POST /auth/session` exchanges a recently authenticated, verified Firebase ID
   token for a seven-day Secure, HttpOnly `firebaseSession` cookie.
 - The Spring filter verifies session-cookie signatures and resolves the
