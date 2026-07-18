@@ -3,7 +3,6 @@ package com.almonium.analyzer.analyzer.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.dto.response.AnalysisDto;
-import com.almonium.analyzer.analyzer.mapper.DictionaryDtoMapper;
 import com.almonium.analyzer.analyzer.model.enums.POS;
 import com.almonium.analyzer.client.datamuse.DatamuseClient;
 import com.almonium.analyzer.client.datamuse.dto.DatamuseEntryDto;
@@ -13,13 +12,11 @@ import com.almonium.analyzer.client.wordnik.WordnikClient;
 import com.almonium.analyzer.client.wordnik.dto.WordnikAudioDto;
 import com.almonium.analyzer.client.words.WordsClient;
 import com.almonium.analyzer.client.words.dto.WordsReportDto;
-import com.almonium.analyzer.client.yandex.YandexClient;
-import com.almonium.analyzer.client.yandex.dto.YandexDto;
 import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.analyzer.translator.repository.LangPairTranslatorRepository;
 import com.almonium.analyzer.translator.repository.TranslatorRepository;
+import com.almonium.analyzer.translator.service.TranslationEngine;
 import com.almonium.analyzer.translator.service.TranslationService;
 import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.user.core.model.entity.Learner;
@@ -30,11 +27,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -54,13 +49,10 @@ public class LanguageProcessor {
     DatamuseClient datamuseClient;
     GoogleClient googleClient;
     WordnikClient wordnikClient;
-    YandexClient yandexClient;
     WordsClient wordsClient;
 
-    LangPairTranslatorRepository langPairTranslatorRepository;
     TranslatorRepository translatorRepository;
-
-    DictionaryDtoMapper dictionaryDtoMapper;
+    TranslationEngine translationEngine;
 
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
         // todo deepL
@@ -68,48 +60,8 @@ public class LanguageProcessor {
                 translatorRepository.getGoogle().getName(), googleService.bulkTranslateText(text, targetLang.name()));
     }
 
-    @SneakyThrows
     public TranslationCardDto translate(String entry, Language sourceLang, Language targetLang) {
-
-        if (sourceLang == null || targetLang == null) {
-            return null;
-        }
-
-        List<Long> translatorsIds =
-                langPairTranslatorRepository.getBySourceLangAndTargetLang(sourceLang.name(), targetLang.name());
-
-        if (translatorsIds.size() == 0) {
-            return null;
-        } else if (translatorsIds.size() == 1) {
-            if (translatorsIds.get(0).equals(translatorRepository.getYandex().getId())) {
-                ResponseEntity<YandexDto> responseEntity = yandexClient.translate(entry, sourceLang, targetLang);
-
-                if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                    TranslationCardDto card = dictionaryDtoMapper.yandexToGeneral(responseEntity.getBody());
-                    card.setProvider(translatorRepository.getYandex().getName());
-                    return card;
-                }
-                if (responseEntity.getStatusCode() == HttpStatus.FORBIDDEN) {
-                    log.error("LIMIT EXCEEDED");
-                    return null;
-                } else if (responseEntity.getStatusCode() == HttpStatus.NOT_IMPLEMENTED) {
-                    log.error("Language pair not supported: probably, langPairTranslator table is out of date");
-                    throw new Exception("Unexpectedly not supported lang pair in this provider");
-                } else if (responseEntity.getStatusCode().is4xxClientError()) {
-                    log.error(responseEntity.getBody().toString());
-                    return null;
-                } else {
-                    return null;
-                }
-
-            } else {
-                log.error("Cannot recognize translator");
-                return null;
-            }
-        } else {
-            // TODO if multiple => which engines?
-            return null;
-        }
+        return translationEngine.translate(entry, sourceLang, targetLang);
     }
 
     public List<String> getAudioLink(String word) {
