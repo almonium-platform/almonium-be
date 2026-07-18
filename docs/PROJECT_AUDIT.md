@@ -71,7 +71,7 @@ microservices would add operational cost without solving the current risks.
 
 ## Fix-first findings
 
-### 1. Enforce card ownership and access policy
+### 1. ~~Enforce card ownership and access policy~~ Remediated
 
 Card operations appear able to load, update, or delete records by supplied ID
 without consistently proving that the authenticated user owns the card. Related
@@ -79,9 +79,10 @@ translation/example IDs and card suggestions need the same review. This is an
 IDOR-style authorization risk: authentication alone does not establish access
 to a particular object.
 
-The preferred repair is an explicit user-scoped query or policy boundary, for
-example `findByIdAndOwnerId`, followed by integration tests in which user A
-cannot read or mutate user B's data. Apply the rule to nested objects too.
+Card reads, updates, deletes, and suggestions now resolve cards through a
+user-scoped repository query. Translation and example mutations are constrained
+to children of that owned card. Public-ID reads remain the explicit sharing
+boundary; cross-user tests cover the private operations.
 
 ### 2. ~~Remove native Java deserialization from OAuth cookies~~ Remediated
 
@@ -242,7 +243,7 @@ and learner-facing factual content.
 ## Recommended restart sequence
 
 1. Repair wrapper, JVM target alignment, test compilation, and CI verification.
-2. Fix card ownership/access checks and add cross-user integration tests.
+2. ~~Fix card ownership/access checks and add cross-user policy tests.~~
 3. replace OAuth native cookie deserialization and repair refresh-token
    revocation/rotation.
 4. Move sensitive debug logging out of production and protect paid endpoints.

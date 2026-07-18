@@ -17,5 +17,7 @@ public interface CardRepository extends JpaRepository<Card, UUID> {
 
     List<Card> findAllByOwnerAndEntryLikeIgnoreCase(Learner owner, String entry);
 
+    Optional<Card> findByIdAndOwnerUserId(UUID id, UUID userId);
+
     Optional<Card> getByPublicId(UUID id);
 }

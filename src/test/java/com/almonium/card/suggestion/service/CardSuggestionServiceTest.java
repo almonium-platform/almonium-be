@@ -256,7 +256,7 @@ class CardSuggestionServiceTest {
         UUID recipientId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
         User user = User.builder().id(userId).build();
 
         Card card = Card.builder()
@@ -267,7 +267,7 @@ class CardSuggestionServiceTest {
                 .language(Language.EN)
                 .build();
 
-        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        when(cardRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId())).thenReturn(Optional.of(card));
 
         Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
@@ -297,11 +297,11 @@ class CardSuggestionServiceTest {
         UUID recipientId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
         User user = User.builder().id(userId).build();
 
         Card card = Card.builder().id(cardId).language(Language.EN).build();
-        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        when(cardRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId())).thenReturn(Optional.of(card));
 
         Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
@@ -319,6 +319,20 @@ class CardSuggestionServiceTest {
         // Assert
         assertThat(result).isFalse();
         verify(cardSuggestionRepository, never()).save(any(CardSuggestion.class));
+    }
+
+    @Test
+    @DisplayName("Should not suggest another user's card")
+    void givenAnotherUsersCard_whenSuggestCard_thenThrowNotFound() {
+        User user = User.builder().id(UUID.randomUUID()).build();
+        UUID recipientId = UUID.randomUUID();
+        UUID cardId = UUID.randomUUID();
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
+        when(cardRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> cardSuggestionService.suggestCard(dto, user))
+                .isInstanceOf(EntityNotFoundException.class);
+        verify(cardSuggestionRepository, never()).save(any());
     }
 
     @DisplayName("Should throw EntityNotFoundException when CardSuggestion not found")

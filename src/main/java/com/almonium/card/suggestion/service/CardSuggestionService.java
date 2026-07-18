@@ -75,7 +75,9 @@ public class CardSuggestionService {
     }
 
     public boolean suggestCard(CardSuggestionDto dto, User user) {
-        Card card = cardRepository.findById(dto.cardId()).orElseThrow();
+        Card card = cardRepository
+                .findByIdAndOwnerUserId(dto.cardId(), user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Card not found: " + dto.cardId()));
         Learner sender = learnerFinder.findLearner(user, card.getLanguage());
         Learner recipient = learnerRepository.findById(dto.recipientId()).orElseThrow();
         // TODO  notifications

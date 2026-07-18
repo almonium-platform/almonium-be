@@ -23,6 +23,7 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.google.common.collect.Sets;
+import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +56,8 @@ public class CardService {
 
     CardMapper cardMapper;
 
-    public CardDto getCardById(UUID id) {
-        return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
+    public CardDto getCardById(User user, UUID id) {
+        return cardMapper.cardEntityToDto(findOwnedCard(user, id));
     }
 
     public CardDto getCardByPublicId(String hash) {
@@ -97,7 +98,7 @@ public class CardService {
     public void updateCard(User user, CardUpdateDto dto) {
         Language language = dto.getLanguage();
         Learner learner = learnerFinder.findLearner(user, language);
-        Card entity = cardRepository.findById(dto.getId()).orElseThrow();
+        Card entity = findOwnedCard(user, dto.getId());
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
         entity.setUpdatedAt(Instant.now());
@@ -105,8 +106,8 @@ public class CardService {
     }
 
     @Transactional
-    public void deleteById(UUID id) {
-        cardRepository.deleteById(id);
+    public void deleteById(User user, UUID id) {
+        cardRepository.delete(findOwnedCard(user, id));
     }
 
     public void deleteByLanguage(Language code, Learner learner) {
@@ -157,18 +158,19 @@ public class CardService {
     private void updateCardDetails(Card entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
 
-        Optional.ofNullable(dto.getDeletedTranslationsIds())
-                .ifPresent(ids -> Arrays.stream(ids).forEach(translationRepository::deleteById));
+        Optional.ofNullable(dto.getDeletedTranslationsIds()).ifPresent(ids -> Arrays.stream(ids)
+                .map(id -> findTranslation(entity, id))
+                .forEach(translationRepository::delete));
 
         Optional.ofNullable(dto.getDeletedExamplesIds())
-                .ifPresent(ids -> Arrays.stream(ids).forEach(exampleRepository::deleteById));
+                .ifPresent(ids ->
+                        Arrays.stream(ids).map(id -> findExample(entity, id)).forEach(exampleRepository::delete));
 
         Optional.ofNullable(dto.getTranslations())
                 .ifPresent(ids -> Arrays.stream(ids).forEach(translationDto -> {
                     UUID id = translationDto.getId();
                     if (id != null) {
-                        Translation translation =
-                                translationRepository.findById(id).orElseThrow();
+                        Translation translation = findTranslation(entity, id);
                         translation.setTranslation(translationDto.getTranslation());
                         translationRepository.save(translation);
                     } else {
@@ -183,7 +185,7 @@ public class CardService {
                 .ifPresent(ids -> Arrays.stream(ids).forEach(exampleDto -> {
                     UUID id = exampleDto.getId();
                     if (id != null) {
-                        Example example = exampleRepository.findById(id).orElseThrow();
+                        Example example = findExample(entity, id);
                         example.setExample(exampleDto.getExample());
                         example.setTranslation(exampleDto.getTranslation());
                         exampleRepository.save(example);
@@ -195,6 +197,26 @@ public class CardService {
                                 .build());
                     }
                 }));
+    }
+
+    private Card findOwnedCard(User user, UUID cardId) {
+        return cardRepository
+                .findByIdAndOwnerUserId(cardId, user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Card not found: " + cardId));
+    }
+
+    private Translation findTranslation(Card card, UUID translationId) {
+        return card.getTranslations().stream()
+                .filter(translation -> translationId.equals(translation.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Translation not found on card: " + translationId));
+    }
+
+    private Example findExample(Card card, UUID exampleId) {
+        return card.getExamples().stream()
+                .filter(example -> exampleId.equals(example.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Example not found on card: " + exampleId));
     }
 
     private void updateTags(Card entity, TagDto[] tagDtos, Learner learner) {
