@@ -1,0 +1,35 @@
+package com.almonium.auth.firebase.gateway;
+
+import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.model.FirebaseIdentity;
+import java.time.Duration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+@Component
+@Profile("test")
+public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
+    private FirebaseAuthenticationException unavailable() {
+        return new FirebaseAuthenticationException("Firebase is unavailable in the test profile");
+    }
+
+    @Override
+    public FirebaseIdentity verifyIdToken(String idToken, boolean checkRevoked) {
+        throw unavailable();
+    }
+
+    @Override
+    public String createSessionCookie(String idToken, Duration lifetime) {
+        throw unavailable();
+    }
+
+    @Override
+    public FirebaseIdentity verifySessionCookie(String sessionCookie, boolean checkRevoked) {
+        throw unavailable();
+    }
+
+    @Override
+    public void deleteUser(String firebaseUid) {
+        throw unavailable();
+    }
+}

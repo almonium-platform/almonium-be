@@ -13,36 +13,6 @@ spring:
   liquibase:
     contexts: ${spring.profiles.active}
 
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${google.oauth2.client-id}
-            client-secret: ${google.oauth2.client-secret}
-            scope: email
-          facebook:
-            client-id: facebook_id_dummy
-            client-secret: facebook_secret_dummy
-          apple:
-            client-id: apple_id_dummy
-            client-secret: apple_secret_dummy
-            authorization-grant-type: authorization_code
-            client-name: Apple
-            client-authentication-method: client_secret_post
-            redirect-uri: https://backend.com/api/v3/login/oauth2/code/apple
-            scope: email
-
-        provider:
-          facebook:
-            user-info-uri: https://dummy.url
-          apple:
-            token-uri: https://appleid.apple.com/auth/token
-            authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
-            user-info-uri: https://appleid.apple.com/auth/userinfo
-            jwk-set-uri: https://appleid.apple.com/auth/keys
-            user-name-attribute: sub
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -56,9 +26,6 @@ spring:
             enable: true
 
 google:
-  oauth2:
-    client-id: google_client_id_dummy
-    client-secret: google_client_secret_dummy
   project-id: google_project_id_dummy
   parent-location: global
   firebase.storage.bucket: almonium-dummy.appspot.com
@@ -71,22 +38,9 @@ app:
   email:
     dry-run: true
   auth:
-    email-verification-required: true
-    verification-token:
-      lifetime: 60
-      length: 24
-    jwt:
-      secret: token_signing_secret_dummy
-      access-token:
-        lifetime: 900 # 15 minutes | Should be in sync with the FE recent login cache
-      refresh-token:
-        lifetime: 1209600 # 14 days
-        url: /public/auth/refresh-token
-        full-url: ${server.servlet.context-path}${app.auth.jwt.refresh-token.url}
-    oauth2:
-      authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
-      apple-token-url: https://appleid.apple.com
-      apple-service-id: com.almonium.auth
+    firebase:
+      session-lifetime-seconds: 604800
+      recent-login-seconds: 300
 
 rabbitmq:
   exchange:
@@ -113,10 +67,6 @@ rabbitmq:
       name: q.user.target-language.removed
       routing-key: user.target-language.removed.v1
       dlq-name: q.user.target-language.removed.dlq
-    auth-verification-email:
-      name: q.auth.verification-email.requested
-      routing-key: auth.verification-email.requested.v1
-      dlq-name: q.auth.verification-email.requested.dlq
     subscription-status-changed:
       name: q.subscription.status.changed
       routing-key: subscription.status.changed.v1

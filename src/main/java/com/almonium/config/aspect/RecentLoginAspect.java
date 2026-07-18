@@ -3,10 +3,12 @@ package com.almonium.config.aspect;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.exception.RecentLoginRequiredException;
-import com.almonium.auth.common.util.CookieUtil;
-import com.almonium.auth.token.service.AuthTokenService;
+import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.auth.firebase.model.FirebaseIdentity;
+import com.almonium.auth.firebase.security.FirebasePrincipal;
+import com.almonium.auth.firebase.service.FirebaseSessionCookieService;
 import com.almonium.config.properties.AppProperties;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RecentLoginAspect {
-    AuthTokenService authTokenService;
+    FirebaseAuthGateway firebaseAuthGateway;
+    FirebaseSessionCookieService cookieService;
     AppProperties appProperties;
 
     @Around(
@@ -36,16 +39,25 @@ public class RecentLoginAspect {
                         Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
                 .getRequest();
 
-        String accessToken = CookieUtil.getCookie(request, CookieUtil.ACCESS_TOKEN_COOKIE_NAME)
-                .map(Cookie::getValue)
-                .orElse(null);
-
-        if (accessToken == null
-                || !authTokenService.validateToken(accessToken)
-                || authTokenService.isAccessTokenRefreshed(accessToken)) {
+        String sessionCookie = cookieService.read(request).orElse(null);
+        try {
+            var authentication = org.springframework.security.core.context.SecurityContextHolder.getContext()
+                    .getAuthentication();
+            Object principal = authentication == null ? null : authentication.getPrincipal();
+            if (sessionCookie == null || !(principal instanceof FirebasePrincipal firebasePrincipal)) {
+                throw new FirebaseAuthenticationException("Firebase session is missing");
+            }
+            FirebaseIdentity identity = firebaseAuthGateway.verifySessionCookie(sessionCookie, true);
+            long recentLoginSeconds = appProperties.getAuth().getFirebase().getRecentLoginSeconds();
+            boolean stale =
+                    identity.authenticatedAt().isBefore(java.time.Instant.now().minusSeconds(recentLoginSeconds));
+            if (stale || !identity.uid().equals(firebasePrincipal.firebaseUid())) {
+                throw new FirebaseAuthenticationException("Recent Firebase sign-in required");
+            }
+        } catch (FirebaseAuthenticationException exception) {
             throw new RecentLoginRequiredException(String.format(
-                    "User must have logged in manually within the last %d minutes.",
-                    appProperties.getAuth().getJwt().getAccessToken().getLifetime() / 60));
+                    "User must have signed in with Firebase within the last %d minutes.",
+                    appProperties.getAuth().getFirebase().getRecentLoginSeconds() / 60));
         }
         return joinPoint.proceed();
     }

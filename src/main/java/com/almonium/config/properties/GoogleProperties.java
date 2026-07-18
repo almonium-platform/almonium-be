@@ -34,11 +34,6 @@ public class GoogleProperties {
     @NestedConfigurationProperty
     FirebaseProperties firebase = new FirebaseProperties();
 
-    @NotNull
-    @Valid
-    @NestedConfigurationProperty
-    Oauth2 oauth2 = new Oauth2();
-
     public LocationName getLocationName() {
         return LocationName.of(projectId, parentLocation);
     }
@@ -59,16 +54,5 @@ public class GoogleProperties {
     public static class StorageProperties {
         @NotBlank
         String bucket;
-    }
-
-    @Getter
-    @Setter
-    @FieldDefaults(level = PRIVATE)
-    public static class Oauth2 {
-        @NotBlank
-        String clientId;
-
-        @NotBlank
-        String clientSecret;
     }
 }

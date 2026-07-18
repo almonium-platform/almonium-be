@@ -18,17 +18,13 @@ collaborators instead.
 
 ### Strategy
 
-Token generator implementations encapsulate interchangeable token-generation
-behavior behind a common contract. OAuth provider information handling also
-selects provider-specific behavior at runtime.
+Translation provider implementations encapsulate interchangeable external
+behavior behind common contracts.
 
 Interview framing: "Strategy replaces a growing provider/type conditional with
 an interface whose implementations can be tested and selected independently."
 
 ### Factory
-
-`PrincipalFactory` and `OAuth2UserInfoFactory` centralize construction/selection
-when the concrete result depends on authentication input.
 
 The old `UserFactory` was correctly renamed to `UserRegistrationService`. It
 does not merely construct an object; it orchestrates validation, persistence,
@@ -39,7 +35,9 @@ transactional/application-service responsibility.
 
 External dictionary/translation response types are converted to internal DTOs,
 and MapStruct mappers adapt persistence/domain shapes to API shapes. The n-gram
-integration is another adapter-like boundary.
+integration is another adapter-like boundary. `FirebaseAuthGateway` similarly
+keeps Admin SDK token/session details outside application services and provides
+a fakeable test seam.
 
 The important property is not the suffix `Adapter`; it is that provider schema,
 transport errors, and terminology stop at the boundary.
@@ -47,8 +45,7 @@ transport errors, and terminology stop at the boundary.
 ### Facade
 
 `RelationshipActionsFacade` presents a small use-case-oriented surface over
-several relationship operations. Authentication services similarly provide a
-cohesive entry point over repositories, token services, events, and providers.
+several relationship operations.
 
 ### Observer / publish-subscribe and transactional outbox
 

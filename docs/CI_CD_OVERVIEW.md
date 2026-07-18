@@ -105,7 +105,6 @@ the same verified SHA tag to production rather than rebuild equivalent source.
 | `reusable-deploy.yaml` | Selects GitHub environment, checks out infra, prepares vault credentials, and runs Ansible |
 | `build-only.yaml` | Manually publishes an image without deployment |
 | `deploy-only.yaml` | Manually deploys a supplied image tag to staging or production |
-| `generate-apple-token.yaml` | Runs the separate Apple OAuth client-secret generator; it is an operational utility, not part of application delivery |
 
 The reusable workflows avoid duplicating staging and production mechanics.
 `build-only` and `deploy-only` are useful for recovery, promotion, and testing
@@ -245,8 +244,8 @@ Traefik labels from template --------+--> public routing and TLS
 ```
 
 Plain vars hold non-secret topology such as hostnames, Spring profiles,
-database names/users, RabbitMQ vhosts/users, OAuth client IDs, and service
-names. Vaults hold passwords, JWT signing material, OAuth client secrets,
+database names/users, RabbitMQ vhosts/users, Firebase project IDs, and service
+names. Vaults hold passwords, the Google service-account credential,
 third-party API keys, mail credentials, and service-account material.
 
 The application receives configuration through environment variables and

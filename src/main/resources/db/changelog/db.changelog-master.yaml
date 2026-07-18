@@ -74,3 +74,9 @@ databaseChangeLog:
       file: db/changelog/changes/insertion/populate-plan-limits.yaml
   - include:
       file: db/changelog/changes/insertion/populate-interests.yaml
+
+  # Patches
+  - include:
+      file: db/changelog/changes/patches/20260718-add-firebase-uid.yaml
+  - include:
+      file: db/changelog/changes/patches/20260718-drop-legacy-auth-tables.yaml

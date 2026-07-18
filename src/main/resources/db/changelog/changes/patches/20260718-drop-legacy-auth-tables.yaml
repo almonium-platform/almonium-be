@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260718-drop-legacy-auth-tables
+      author: codex
+      changes:
+        - dropTable:
+            tableName: refresh_token
+            cascadeConstraints: true
+        - dropTable:
+            tableName: verification_token
+            cascadeConstraints: true
+        - dropTable:
+            tableName: principal
+            cascadeConstraints: true

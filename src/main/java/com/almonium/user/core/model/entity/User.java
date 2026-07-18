@@ -3,7 +3,6 @@ package com.almonium.user.core.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.auth.common.model.entity.Principal;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.relationship.model.entity.Relationship;
@@ -66,6 +65,9 @@ public class User {
     @UuidV7
     UUID id;
 
+    @Column(unique = true)
+    String firebaseUid;
+
     String email;
 
     boolean emailVerified;
@@ -84,10 +86,6 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     Profile profile;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    Set<Principal> principals = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "user", orphanRemoval = true)

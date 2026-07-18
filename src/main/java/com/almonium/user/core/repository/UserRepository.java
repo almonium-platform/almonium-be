@@ -27,10 +27,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     boolean existsByUsername(String username);
 
-    @EntityGraph(attributePaths = {"principals"})
-    Optional<User> findById(UUID id);
-
     Optional<User> findByStripeCustomerId(String stripeCustomerId);
+
+    Optional<User> findByFirebaseUid(String firebaseUid);
 
     @Query("select u from User u join Learner l on u.id = l.user.id where u.id = :id")
     Optional<User> findUserWithLearners(UUID id);

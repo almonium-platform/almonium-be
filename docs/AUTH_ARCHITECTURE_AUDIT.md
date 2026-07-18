@@ -5,6 +5,32 @@ authentication, sessions, and sensitive account actions. Authorization of
 domain objects such as cards is covered by `PROJECT_AUDIT.md` and still needs a
 separate implementation pass.
 
+## Current baseline: Firebase Authentication
+
+The managed-auth migration described later in this document was implemented on
+2026-07-18. The sections below remain as the historical audit of the removed
+custom authentication platform.
+
+- Angular uses Firebase Authentication for email/password and Google; Apple is
+  intentionally deferred.
+- `POST /auth/session` exchanges a recently authenticated, verified Firebase ID
+  token for a seven-day Secure, HttpOnly `firebaseSession` cookie.
+- The Spring filter verifies session-cookie signatures and resolves the
+  immutable Firebase UID to the Almonium `User`; it never links by email.
+- `@RequireRecentLogin` performs revocation-aware verification and enforces a
+  five-minute `auth_time` window. Ordinary requests use cached public-key
+  verification and avoid a Firebase network request per API call.
+- Firebase owns credentials, verification/reset emails, provider linking, and
+  identity lifecycle. Almonium retains product-user provisioning, login streak,
+  authorization, subscriptions, and deletion cleanup.
+- The existing Firebase service account is reused for Admin Auth and
+  `GOOGLE_PROJECT_ID` is configured explicitly; no provider secret is stored in
+  this backend.
+
+New Liquibase changesets add `user_core.firebase_uid` and remove the legacy
+principal, verification-token, and refresh-token tables. Existing creation
+changesets remain immutable.
+
 ## Executive verdict
 
 The authentication subsystem is not a toy. It is a small identity platform

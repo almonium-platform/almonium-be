@@ -15,7 +15,7 @@ notifications, chat, and several language APIs.
 
 The code is generally conscientious: domain packages are recognizable,
 database changes are versioned, DTO mapping is usually explicit, tests cover
-important relationship and authentication flows, and the event/outbox work is
+important relationship and Firebase-session flows, and the event/outbox work is
 more mature than is typical for a side project. It does not need a rewrite.
 
 Do not immediately resume feature development, though. Spend a short
@@ -35,7 +35,7 @@ The backend currently contains these broad areas:
 
 | Area | Responsibilities | Approximate production footprint |
 | --- | --- | ---: |
-| Authentication | Local login, OAuth2, Google One Tap, JWTs, refresh tokens, email verification and password recovery | 20% |
+| Authentication | Firebase ID-token exchange, HttpOnly sessions, UID mapping and recent-login enforcement | 5% |
 | User domain | Profile, onboarding/setup, languages, interests, avatars, relationships and privacy | 19% |
 | Infrastructure/integrations | Email, events, messaging, storage, external clients and utilities | 15% |
 | Analyzer | Dictionaries, translation, word frequency, NLP and TTS | 14% |
@@ -56,8 +56,8 @@ The project is best described as a package-oriented modular monolith:
   client work.
 - Spring Data JPA and PostgreSQL model the durable domain.
 - Liquibase owns schema and seed evolution.
-- Spring Security, OAuth2 Client, JJWT, Nimbus, and Auth0 JWT support the custom
-  identity flows.
+- Spring Security and Firebase Admin verify managed identities and HttpOnly
+  sessions.
 - Spring Modulith persists application events and externalizes selected events
   to RabbitMQ, giving the project an outbox-like reliability boundary.
 - MapStruct and Lombok remove mapping/boilerplate code.
@@ -83,7 +83,7 @@ The preferred repair is an explicit user-scoped query or policy boundary, for
 example `findByIdAndOwnerId`, followed by integration tests in which user A
 cannot read or mutate user B's data. Apply the rule to nested objects too.
 
-### 2. Remove native Java deserialization from OAuth cookies
+### 2. ~~Remove native Java deserialization from OAuth cookies~~ Remediated
 
 The OAuth request cookie path uses Java object deserialization. A client-held
 cookie is untrusted input, and native deserialization has a long history of
@@ -94,16 +94,12 @@ Store a server-side opaque handle, or serialize a deliberately small JSON DTO
 with authenticated encryption/signing and strict field validation. Do not
 deserialize arbitrary object graphs from a request cookie.
 
-### 3. Make refresh-token revocation real
+### 3. ~~Make refresh-token revocation real~~ Removed
 
-The refresh flow validates token cryptography and expiry but does not appear to
-require a live persisted token record on every refresh. Deleting/revoking the
-database record therefore may not stop replay until JWT expiry. Access and
-refresh tokens also need an unambiguous token-type claim.
-
-Require a persisted, active JTI/session, rotate refresh tokens, revoke the old
-token atomically, detect reuse, and test logout, replay, concurrent refresh,
-expiry, and account disablement.
+The custom JWT and refresh-token implementation was removed during the Firebase
+Authentication migration. Firebase owns token refresh and revocation;
+Almonium verifies managed session cookies and checks revocation for sensitive
+actions.
 
 ### 4. Protect paid or abusable public integrations
 
@@ -149,33 +145,19 @@ module/IDE symptoms before any source-set redesign is needed.
 
 ## Authentication assessment
 
-The custom auth system is substantial and shows care. It covers local and
-social identities, email verification, password recovery, access and refresh
-tokens, account linking/onboarding, cookies, and multiple OAuth providers. The
-code has recognizable services and provider-specific adapters rather than one
-giant authentication controller.
-
-It should nevertheless be treated as a security product inside the product.
-The refresh-token and OAuth-cookie findings above are serious. The next auth
-review should also threat-model:
-
-- account linking and email-collision/takeover behavior;
-- OAuth `state`, nonce, PKCE, redirect allowlists, and cookie attributes;
-- password hashing parameters and credential enumeration;
-- rate limits for login, registration, verification, reset, and token refresh;
-- secret/key rotation and issuer/audience validation;
-- session inventory, global logout, and compromised-token recovery;
-- sensitive-data redaction in logs and exception payloads.
-
-Keeping custom auth is defensible if it is a learning/product requirement, but
-its ongoing maintenance cost is high—roughly a fifth of the code plus a larger
-share of security review. If identity is not differentiating, a managed
-identity provider would reduce risk and maintenance.
+Firebase Authentication now owns credentials, verification/reset emails,
+Google sign-in, provider linking, and token issuance. Almonium maps Firebase UID
+to its product user, exchanges recent ID tokens for HttpOnly cookies, performs
+local signature verification on ordinary requests, and performs revocation-aware
+verification for sensitive actions. Email collisions are rejected and never
+used to merge identities. Remaining review areas are cookie/CSRF behavior,
+Firebase IAM, session-lifetime policy, account-deletion failure handling, and
+object-level authorization.
 
 ## Technology and integration inventory
 
 Core technologies include Java 21, Kotlin, Spring Boot 3.4, Spring MVC/WebFlux,
-Spring Security/OAuth2, Spring Data JPA, PostgreSQL, Liquibase, RabbitMQ, Spring
+Spring Security, Firebase Admin, Spring Data JPA, PostgreSQL, Liquibase, RabbitMQ, Spring
 Modulith, Maven, JUnit/Mockito/Testcontainers, Lombok, and MapStruct.
 
 External systems visible in the code/dependencies include:

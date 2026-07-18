@@ -1,15 +1,8 @@
 package com.almonium.config;
 
-import com.almonium.auth.common.exception.AuthMethodNotFoundException;
-import com.almonium.auth.common.exception.BadAuthActionRequest;
-import com.almonium.auth.common.exception.LastAuthMethodException;
 import com.almonium.auth.common.exception.RecentLoginRequiredException;
-import com.almonium.auth.local.exception.EmailMismatchException;
-import com.almonium.auth.local.exception.EmailNotFoundException;
-import com.almonium.auth.local.exception.EmailNotVerifiedException;
-import com.almonium.auth.local.exception.InvalidVerificationTokenException;
-import com.almonium.auth.local.exception.ReauthException;
-import com.almonium.auth.local.exception.UserAlreadyExistsException;
+import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.qr.exception.QRCodeGenerationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
@@ -48,6 +41,17 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 public class GlobalExceptionHandler {
     // // spring exceptions
     // auth exceptions
+    @ExceptionHandler(FirebaseAuthenticationException.class)
+    public ResponseEntity<ApiResponse> handleFirebaseAuthenticationException(FirebaseAuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(FirebaseIdentityManagementException.class)
+    public ResponseEntity<ApiResponse> handleFirebaseIdentityManagementException(
+            FirebaseIdentityManagementException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ApiResponse(false, ex.getMessage()));
+    }
+
     @ExceptionHandler(RecentLoginRequiredException.class)
     public ResponseEntity<ApiResponse> handleRecentLoginRequiredException(RecentLoginRequiredException ex) {
         ApiResponse response = new ApiResponse(false, ex.getMessage());
@@ -58,11 +62,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> handleInternalAuthenticationServiceException(
             InternalAuthenticationServiceException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler({BadAuthActionRequest.class})
-    public ResponseEntity<ApiResponse> handleBadAuthActionRequest(BadAuthActionRequest ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler({BadCredentialsException.class, IllegalAccessException.class})
@@ -220,49 +219,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
     }
 
-    // auth
-    @ExceptionHandler(ReauthException.class)
-    public ResponseEntity<ApiResponse> handleReauthException(ReauthException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(EmailNotVerifiedException.class)
-    public ResponseEntity<ApiResponse> handleEmailNotVerifiedException(EmailNotVerifiedException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(InvalidVerificationTokenException.class)
-    public ResponseEntity<ApiResponse> handleInvalidTokenException(InvalidVerificationTokenException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(EmailNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleEmailNotFoundException(EmailNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ApiResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(EmailMismatchException.class)
-    public ResponseEntity<Object> handleEmailMismatchException(EmailMismatchException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
-    }
-
     @ExceptionHandler(NoPrincipalFoundException.class)
     public ResponseEntity<Object> handleNoPrincipalsFoundException(NoPrincipalFoundException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(AuthMethodNotFoundException.class)
-    public ResponseEntity<Object> handleAuthMethodNotFound(AuthMethodNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
-    }
-
-    @ExceptionHandler(LastAuthMethodException.class)
-    public ResponseEntity<ApiResponse> handleLastAuthMethodException(LastAuthMethodException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, ex.getMessage()));
     }
 }

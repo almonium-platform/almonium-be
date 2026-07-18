@@ -2,7 +2,6 @@ package com.almonium.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.util.dto.ApiResponse;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,18 +50,6 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<ApiResponse> response = exceptionHandler.handleNoResourceFoundException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    @DisplayName("Should handle UserAlreadyExistsAuthenticationException")
-    @Test
-    void givenUserAlreadyExistsException_whenHandleException_thenRespondWithBadRequest() {
-        UserAlreadyExistsException ex = new UserAlreadyExistsException("User already exists");
-
-        ResponseEntity<ApiResponse> response = exceptionHandler.handleUserAlreadyExistsException(ex);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
-        assertThat(response.getBody().success()).isFalse();
     }
 
     @SuppressWarnings("unchecked")

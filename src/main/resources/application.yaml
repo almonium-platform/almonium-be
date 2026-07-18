@@ -42,37 +42,6 @@ spring:
     contexts: ${SPRING_PROFILE}
     default-schema: ${DB_SCHEMA}
 
-  security.oauth2.client:
-    registration:
-      google:
-        client-id: ${google.oauth2.client-id}
-        client-secret: ${google.oauth2.client-secret}
-        scope: email,profile
-        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/google
-      facebook:
-        client-id: ${FACEBOOK_CLIENT_ID}
-        client-secret: ${FACEBOOK_CLIENT_SECRET}
-      apple:
-        client-id: ${APPLE_ID}
-        client-secret: ${APPLE_CLIENT_SECRET}
-        authorization-grant-type: authorization_code
-        client-name: Apple
-        client-authentication-method: client_secret_post
-        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/apple
-        scope: email # add `name` if needed
-
-    provider:
-      google:
-        user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-      facebook:
-        user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
-      apple:
-        token-uri: https://appleid.apple.com/auth/token
-        authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
-        user-info-uri: https://appleid.apple.com/auth/userinfo
-        jwk-set-uri: https://appleid.apple.com/auth/keys
-        user-name-attribute: sub
-
 logging:
   level:
     org.springframework.security: DEBUG
@@ -100,20 +69,9 @@ app:
     from-address: noreply@almonium.com
     from-name: Almonium
   auth:
-    verification-token:
-      lifetime: 60
-      length: 24
-    jwt:
-      secret: ${JWT_SECRET}
-      access-token.lifetime: 900 # 15 minutes
-      refresh-token:
-        lifetime: 1209600 # 14 days
-        url: /public/auth/refresh-token
-        full-url: ${server.servlet.context-path}${app.auth.jwt.refresh-token.url}
-    oauth2:
-      authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
-      apple-token-url: https://appleid.apple.com
-      apple-service-id: com.almonium.auth
+    firebase:
+      session-lifetime-seconds: 604800 # 7 days
+      recent-login-seconds: 300 # 5 minutes
 
 rabbitmq:
   exchange:
@@ -140,10 +98,6 @@ rabbitmq:
       name: q.user.target-language.removed
       routing-key: user.target-language.removed.v1
       dlq-name: q.user.target-language.removed.dlq
-    auth-verification-email:
-      name: q.auth.verification-email.requested
-      routing-key: auth.verification-email.requested.v1
-      dlq-name: q.auth.verification-email.requested.dlq
     subscription-status-changed:
       name: q.subscription.status.changed
       routing-key: subscription.status.changed.v1
@@ -165,9 +119,6 @@ rabbitmq:
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.firebase.dlq
 google:
-  oauth2:
-    client-id: ${GOOGLE_CLIENT_ID}
-    client-secret: ${GOOGLE_CLIENT_SECRET}
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
   firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}

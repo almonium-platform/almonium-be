@@ -1,8 +1,8 @@
 package com.almonium.analyzer.client.chatgpt.config
 
 import com.almonium.analyzer.client.chatgpt.client.GptClient
-import com.almonium.auth.token.util.BearerTokenUtil.bearerOf
 import com.almonium.config.properties.AiProperties
+import com.almonium.util.http.BearerTokenUtil.bearerOf
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders

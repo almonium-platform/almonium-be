@@ -28,10 +28,16 @@ public class UserRegistrationService {
 
     @Transactional
     public User createUserWithDefaultPlan(String email, boolean emailVerified) {
+        return createUserWithDefaultPlan(email, emailVerified, null);
+    }
+
+    @Transactional
+    public User createUserWithDefaultPlan(String email, boolean emailVerified, String firebaseUid) {
         String username = usernameGenerator.generateUsername(email);
 
         User user = User.builder()
                 .email(email)
+                .firebaseUid(firebaseUid)
                 .username(username)
                 .emailVerified(emailVerified)
                 .planSubscriptions(new HashSet<>())
