@@ -275,6 +275,56 @@ For manual linking, require a current session plus recent authentication, and
 prove control of both identities. Do not make a cross-account link merely
 because emails match.
 
+#### Planned authorization-attempt design
+
+The immediate Java-deserialization remediation uses a short-lived HTTP session
+entry for the Spring authorization request. The preferred complete design is a
+short-lived PostgreSQL `OAuthAuthorizationAttempt` addressed by the random
+OAuth `state`. This preserves stateless JWT authentication, works across
+backend instances, and does not depend on a same-site session cookie for
+Apple's cross-site `form_post` callback.
+
+The persisted attempt should contain only a strict application DTO:
+
+- a hash of the OAuth `state` used as the lookup key;
+- provider/registration ID and a minimal representation of the Spring
+  authorization request, including PKCE verifier and nonce when applicable;
+- `SIGN_IN`, `LINK`, or `REAUTH` intent;
+- initiating product-user ID, nullable only for `SIGN_IN`;
+- a server-defined post-login return-target identifier;
+- created, expiry, and consumption timestamps.
+
+The browser should carry only the normal OAuth `state` and provider callback
+parameters. Remove the separate `intent`, `userId`, and redirect cookies. On a
+callback, atomically load and consume the unexpired attempt by the hash of
+`state`, validate that it matches the callback provider and redirect, and use
+its server-held context throughout user loading and the success/failure
+handlers. A missing, expired, mismatched, or consumed attempt must fail closed.
+
+Apply these intent invariants:
+
+- `SIGN_IN` may begin anonymously and has no initiating user. Existing
+  `(provider, provider subject)` identifies an account; a new provider identity
+  must not be silently linked by email.
+- `LINK` requires a current user and recent/live authentication when the attempt
+  begins. Derive the target user ID from the authenticated `JwtPrincipal`, not
+  from a query parameter or provider email. On callback, attach the provider
+  only to that exact user after proving it is not linked elsewhere.
+- `REAUTH` requires a current user when the attempt begins. On callback, require
+  the returned `(provider, provider subject)` principal to already belong to
+  that exact user. Email equality is not identity ownership proof.
+
+Do not accept an arbitrary post-login URI. Accept a small return-target ID such
+as `LOGIN_COMPLETE` or `SECURITY_SETTINGS`, map it to an exact configured URI
+on the server, and store only the ID in the attempt. Both success and failure
+must use that mapping and expose stable public error codes rather than localized
+exception messages.
+
+Consume the attempt transactionally before executing its intent. Concurrent or
+replayed callbacks must observe it as already consumed. Expired attempts should
+be removed on access and by periodic cleanup. Do not store provider tokens,
+authorization codes, raw state values, or other bearer secrets in logs.
+
 ### P1: define a provider-assurance account-linking policy
 
 New social identities are automatically linked to an existing user by email.
