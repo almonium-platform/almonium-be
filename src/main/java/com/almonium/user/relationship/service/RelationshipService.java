@@ -1,13 +1,7 @@
 package com.almonium.user.relationship.service;
 
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.CANCELLED;
 import static com.almonium.user.relationship.model.enums.RelationshipStatus.FRIENDS;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.FST_BLOCKED_SND;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.MUTUAL_BLOCK;
 import static com.almonium.user.relationship.model.enums.RelationshipStatus.PENDING;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.REJECTED;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.SND_BLOCKED_FST;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.service.NotificationService;
@@ -25,6 +19,7 @@ import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.model.record.RelationshipInfo;
 import com.almonium.user.relationship.repository.RelationshipRepository;
+import com.almonium.user.relationship.service.RelationshipStateMachine.ActorRole;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -42,13 +37,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class RelationshipService {
     private static final String RELATIONSHIP_CANT_BE_ESTABLISHED = "Couldn't create or re-establish relationship";
-    private static final String RELATIONSHIP_IS_ALREADY_BLOCKED = "Relationship is already blocked";
     private static final String RELATIONSHIP_NOT_FOUND = "Relationship not found";
 
     ProfileService profileService;
     NotificationService notificationService;
 
     RelationshipRepository relationshipRepository;
+    RelationshipStateMachine stateMachine;
 
     public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
         return relationshipRepository.findNewFriendCandidates(id, username, RelationshipStatus.retryableStatuses());
@@ -148,27 +143,24 @@ public class RelationshipService {
         Relationship relationship = relationshipRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RELATIONSHIP_NOT_FOUND));
-        validateUserIsPartOfFriendship(user, relationship);
-
-        return switch (action) {
-            case ACCEPT -> befriend(user, relationship);
-            case CANCEL -> cancelOwnRequest(user, relationship);
-            case REJECT -> rejectIncomingRequest(user, relationship);
-            case UNFRIEND -> unfriend(relationship);
-            case BLOCK -> block(user, relationship);
-            case UNBLOCK -> unblock(user, relationship);
-        };
+        ActorRole actorRole = actorRole(user, relationship);
+        RelationshipStatus nextStatus = stateMachine.transition(relationship.getStatus(), action, actorRole);
+        Relationship updatedRelationship = setStatusAndSave(relationship, nextStatus);
+        if (action == RelationshipAction.ACCEPT) {
+            notificationService.notifyOfFriendshipAcceptance(updatedRelationship);
+        }
+        return updatedRelationship;
     }
 
     @Transactional
     public void blockUser(User user, UUID targetUserId) {
         relationshipRepository
                 .getRelationshipByUsersIds(user.getId(), targetUserId)
-                .ifPresentOrElse(relationship -> block(user, relationship), () -> {
+                .ifPresentOrElse(relationship -> applyBlock(user, relationship), () -> {
                     var relationship = new Relationship(
                             user, profileService.getProfileById(targetUserId).getUser());
                     relationshipRepository.save(relationship);
-                    block(user, relationship);
+                    applyBlock(user, relationship);
                 });
     }
 
@@ -208,97 +200,25 @@ public class RelationshipService {
                 relationship.getRequester(), relationship.getRequestee(), relationship);
     }
 
-    private Relationship befriend(User currentUser, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(currentUser, relationship, false);
-        relationship.setStatus(FRIENDS);
-        relationshipRepository.save(relationship);
-
-        notificationService.notifyOfFriendshipAcceptance(relationship);
-        return relationship;
-    }
-
-    private Relationship cancelOwnRequest(User user, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(user, relationship, true);
-        return setStatusAndSave(relationship, CANCELLED);
-    }
-
-    private Relationship rejectIncomingRequest(User user, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(user, relationship, false);
-        return setStatusAndSave(relationship, REJECTED);
-    }
-
-    private Relationship unfriend(Relationship relationship) {
-        validateFriendshipStatus(relationship, FRIENDS);
-        return setStatusAndSave(relationship, UNFRIENDED);
-    }
-
     private Relationship setStatusAndSave(Relationship relationship, RelationshipStatus status) {
         relationship.setStatus(status);
         return relationshipRepository.save(relationship);
     }
 
-    /**
-     * You can block a relationship if it's not already blocked by you
-     * If the other user has already blocked you, it becomes a mutual block
-     */
-    private Relationship block(User user, Relationship relationship) {
-        if (relationship.getStatus() == MUTUAL_BLOCK) {
-            throw new RelationshipException(RELATIONSHIP_IS_ALREADY_BLOCKED);
-        }
-
-        var friendshipDenier = relationship.getRelationshipDenier();
-        boolean alreadyBlocked = friendshipDenier.isPresent();
-        if (alreadyBlocked && friendshipDenier.get().equals(user.getId())) {
-            throw new RelationshipException(RELATIONSHIP_IS_ALREADY_BLOCKED);
-        }
-
-        RelationshipStatus status = alreadyBlocked
-                ? MUTUAL_BLOCK
-                : user.equals(relationship.getRequester()) ? FST_BLOCKED_SND : SND_BLOCKED_FST;
-
-        relationship.setStatus(status);
-        return relationshipRepository.save(relationship);
+    private Relationship applyBlock(User user, Relationship relationship) {
+        ActorRole actorRole = actorRole(user, relationship);
+        RelationshipStatus nextStatus =
+                stateMachine.transition(relationship.getStatus(), RelationshipAction.BLOCK, actorRole);
+        return setStatusAndSave(relationship, nextStatus);
     }
 
-    private Relationship unblock(User user, Relationship relationship) {
-        var friendshipDenier = relationship.getRelationshipDenier();
-        boolean alreadyBlocked = friendshipDenier.isPresent();
-        if (!alreadyBlocked) {
-            throw new RelationshipException("Friendship is not blocked");
+    private ActorRole actorRole(User user, Relationship relationship) {
+        if (user.equals(relationship.getRequester())) {
+            return ActorRole.REQUESTER;
         }
-
-        if (!friendshipDenier.get().equals(user.getId())) {
-            throw new RelationshipException("User is not the denier of this relationship");
+        if (user.equals(relationship.getRequestee())) {
+            return ActorRole.REQUESTEE;
         }
-
-        var status = relationship.getStatus() == MUTUAL_BLOCK
-                ? user.equals(relationship.getRequester()) ? SND_BLOCKED_FST : FST_BLOCKED_SND
-                : UNFRIENDED;
-
-        return setStatusAndSave(relationship, status);
-    }
-
-    private void validateUserIsPartOfFriendship(User user, Relationship relationship) {
-        if (!user.equals(relationship.getRequester()) && !user.equals(relationship.getRequestee())) {
-            throw new RelationshipException("User is not part of this relationship");
-        }
-    }
-
-    private void validateCorrectRole(User user, Relationship relationship, boolean requesterNotRequestee) {
-        if (requesterNotRequestee && !user.equals(relationship.getRequester())) {
-            throw new RelationshipException("User is not the requester of this relationship");
-        }
-        if (!requesterNotRequestee && !user.equals(relationship.getRequestee())) {
-            throw new RelationshipException("User is not the requestee of this relationship");
-        }
-    }
-
-    private void validateFriendshipStatus(Relationship relationship, RelationshipStatus... allowedStatuses) {
-        if (!List.of(allowedStatuses).contains(relationship.getStatus())) {
-            throw new RelationshipException("Friendship status must be one of " + List.of(allowedStatuses));
-        }
+        throw new RelationshipException("User is not part of this relationship");
     }
 }

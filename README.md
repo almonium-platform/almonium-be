@@ -39,7 +39,7 @@
 
 **Flow**: User B rejects the friend request from User A.
 
-**Status**: No relationship record.
+**Status**: `REJECTED` (retained so a later request can re-establish the relationship).
 
 **Checks**: The existing status must be `PENDING`.
 
@@ -47,7 +47,7 @@
 
 **Flow**: User A cancels the friend request sent to User B.
 
-**Status**: No relationship record.
+**Status**: `CANCELLED` (retained so a later request can re-establish the relationship).
 
 **Checks**: The existing status must be `PENDING`.
 
@@ -57,9 +57,8 @@
 
 **Status**: `FST_BLOCKED_SND` or `SND_BLOCKED_FST` depending on who initiated the action.
 
-**Checks**:
-
-- The existing status must be either `FRIENDS` or `PENDING`.
+**Checks**: The same user cannot block twice. If the other user has already
+blocked, the status becomes `MUTUAL_BLOCK`.
 
 **Note**: Blocking prevents the blocked user from sending friend requests.
 
@@ -67,15 +66,16 @@
 
 **Flow**: User A unblocks User B.
 
-**Status**: No relationship record.
+**Status**: `UNFRIENDED` after a unilateral block is removed. Removing one side
+of a mutual block preserves the other user's one-sided block.
 
-**Checks**: The existing status must be either `FST_BLOCKED_SND` or `SND_BLOCKED_FST`.
+**Checks**: Only a user who currently blocks the other user can unblock.
 
 ### Unfriending a User
 
 **Flow**: User A unfriends User B.
 
-**Status**: No relationship record.
+**Status**: `UNFRIENDED` (retained so a later request can re-establish the relationship).
 
 **Checks**: The existing status must be `FRIENDS`.
 
@@ -87,6 +87,10 @@
 - `PENDING`: A friend request has been sent but not yet accepted.
 - `FST_BLOCKED_SND`: The first user has blocked the second user.
 - `SND_BLOCKED_FST`: The second user has blocked the first user.
+- `MUTUAL_BLOCK`: Both users have blocked each other.
+- `REJECTED`: The recipient rejected a request; the relationship may be retried.
+- `CANCELLED`: The requester canceled a request; the relationship may be retried.
+- `UNFRIENDED`: A friendship or unilateral block ended; the relationship may be retried.
 
 ### Friendship Actions
 

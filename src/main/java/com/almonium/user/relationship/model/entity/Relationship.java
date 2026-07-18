@@ -15,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -65,15 +64,5 @@ public class Relationship {
         this.requester = requester;
         this.requestee = requestee;
         status = RelationshipStatus.PENDING;
-    }
-
-    public Optional<UUID> getRelationshipDenier() {
-        if (this.getStatus().equals(RelationshipStatus.FST_BLOCKED_SND)) {
-            return Optional.ofNullable(requester.getId());
-        }
-        if (this.getStatus().equals(RelationshipStatus.SND_BLOCKED_FST)) {
-            return Optional.ofNullable(requestee.getId());
-        }
-        return Optional.empty();
     }
 }

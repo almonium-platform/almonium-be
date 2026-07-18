@@ -164,9 +164,9 @@ A transition matrix makes omissions visible:
 | mutual block | unblock / either | other user's one-sided block remains |
 | one-sided block | unblock / blocker | relationship removed/unfriended |
 
-The persisted model and README must agree on whether cancellation/rejection/
-unfriending delete the row or retain terminal states. Pick one lifecycle model
-deliberately and test the full state/event/actor matrix.
+Almonium retains `CANCELLED`, `REJECTED`, and `UNFRIENDED` rows so the same row
+can later be re-established. The explicit transition component and its tests
+are the canonical lifecycle rules; keep this matrix and the README in sync.
 
 ## Good next pattern refactors
 
