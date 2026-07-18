@@ -1,6 +1,5 @@
 package com.almonium.config
 
-import com.almonium.config.properties.AiProperties
 import com.almonium.config.properties.AppProperties
 import com.almonium.config.properties.ExternalApiProperties
 import com.almonium.config.properties.GoogleProperties
@@ -18,7 +17,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableAspectJAutoProxy
 @EnableScheduling
 @EnableConfigurationProperties(
-    AiProperties::class,
     AppProperties::class,
     ExternalApiProperties::class,
     GoogleProperties::class,

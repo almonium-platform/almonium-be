@@ -166,8 +166,7 @@ External systems visible in the code/dependencies include:
 - Stripe for plans, checkout, subscriptions, invoices, and webhooks;
 - Google Translate and Text-to-Speech;
 - Yandex dictionary/translation;
-- Wordnik, WordsAPI, Free Dictionary, Urban Dictionary, and Datamuse;
-- OpenAI and Google Gemini-style AI endpoints;
+- Free Dictionary and Urban Dictionary;
 - Firebase push notifications;
 - Stream Chat;
 - email delivery (including ZeptoMail);
@@ -177,9 +176,10 @@ Each outbound client should have explicit connect/read timeouts, bounded
 retries only where safe, observability, rate-limit handling, and a provider
 adapter that prevents transport DTOs from spreading through the domain.
 
-One NLP service currently returns `null`, while Stanford CoreNLP and large model
-artifacts add hundreds of megabytes. Either finish and test that capability or
-remove/lazily isolate the dependency until it has a user-facing path.
+The unregistered CoreNLP implementation, its broken report route, and the
+Stanford CoreNLP model dependency were removed. The old unintegrated OpenAI and
+Gemini clients were removed as well; introduce AI only behind a bounded,
+tested product capability.
 
 ## Dependency strategy
 
@@ -247,7 +247,8 @@ and learner-facing factual content.
 3. replace OAuth native cookie deserialization and repair refresh-token
    revocation/rotation.
 4. Move sensitive debug logging out of production and protect paid endpoints.
-5. Add external-client timeouts/telemetry and remove or isolate dead heavy code.
+5. Add external-client timeouts/telemetry. Dead CoreNLP and unintegrated AI code
+   were removed during the 2026-07-19 cleanup.
 6. Upgrade dependencies in small, tested groups.
 7. Re-read the domain tests and resume product features from a stable baseline.
 

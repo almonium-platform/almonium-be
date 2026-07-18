@@ -2,9 +2,7 @@ package com.almonium.analyzer.analyzer.controller;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.analyzer.dto.response.AnalysisDto;
 import com.almonium.analyzer.analyzer.service.LanguageProcessor;
-import com.almonium.analyzer.client.words.dto.WordsReportDto;
 import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
@@ -55,16 +53,6 @@ public class LangController {
         return ResponseEntity.ok(languageProcessor.bulkTranslate(text, Language.valueOf(langTo)));
     }
 
-    @GetMapping("/words/random")
-    public ResponseEntity<WordsReportDto> random() {
-        return ResponseEntity.ok(languageProcessor.getRandom());
-    }
-
-    @GetMapping("/words/{word}/audio")
-    public ResponseEntity<List<String>> audio(@PathVariable String word) {
-        return ResponseEntity.ok(languageProcessor.getAudioLink(word));
-    }
-
     @GetMapping("/words/{text}/audio/{lang}")
     public ResponseEntity<Resource> bulkPronounce(@PathVariable String lang, @PathVariable String text) {
         byte[] bytes = languageProcessor.textToSpeech(lang, text).toByteArray();
@@ -74,12 +62,6 @@ public class LangController {
                 .contentLength(bytes.length)
                 .contentType(MediaType.parseMediaType("audio/mpeg"))
                 .body(new ByteArrayResource(bytes));
-    }
-
-    @GetMapping("/words/{text}/{lang}/report")
-    public ResponseEntity<AnalysisDto> getReport(
-            @PathVariable String text, @PathVariable Language lang, @Auth User user) {
-        return ResponseEntity.ok(languageProcessor.getReport(text, lang, user));
     }
 
     private HttpHeaders createAudioHeaders() {
