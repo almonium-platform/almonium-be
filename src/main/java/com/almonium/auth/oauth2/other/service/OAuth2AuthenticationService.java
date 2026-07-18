@@ -8,7 +8,7 @@ import com.almonium.auth.oauth2.other.exception.OAuth2AuthenticationException;
 import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
-import com.almonium.user.core.factory.UserFactory;
+import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
@@ -30,7 +30,7 @@ public class OAuth2AuthenticationService {
     OAuth2PrincipalRepository principalRepository;
     UserRepository userRepository;
 
-    UserFactory userFactory;
+    UserRegistrationService userRegistrationService;
 
     UserMapper userMapper;
 
@@ -117,7 +117,7 @@ public class OAuth2AuthenticationService {
 
     private OAuth2Principal createNewUserAndPrincipal(OAuth2UserInfo userInfo) {
         log.debug("Creating new user for email: {}", userInfo.getEmail());
-        User user = userFactory.createUserWithDefaultPlan(userInfo.getEmail(), true);
+        User user = userRegistrationService.createUserWithDefaultPlan(userInfo.getEmail(), true);
         if (userInfo.getAvatarUrl() != null) {
             avatarService.doAvatarUpload(
                     userInfo.getAvatarUrl(), user.getProfile().getId());

@@ -14,7 +14,7 @@ import com.almonium.auth.oauth2.other.model.entity.OAuth2Principal;
 import com.almonium.auth.oauth2.other.model.userinfo.GoogleOAuth2UserInfo;
 import com.almonium.auth.oauth2.other.model.userinfo.OAuth2UserInfo;
 import com.almonium.auth.oauth2.other.repository.OAuth2PrincipalRepository;
-import com.almonium.user.core.factory.UserFactory;
+import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.mapper.UserMapper;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
@@ -57,7 +57,7 @@ class OAuth2AuthenticationServiceTest {
     OAuth2PrincipalRepository oAuth2PrincipalRepository;
 
     @Mock
-    UserFactory userFactory;
+    UserRegistrationService userRegistrationService;
 
     @DisplayName("Should create new principal if user exists but principal is not found")
     @Test
@@ -148,7 +148,7 @@ class OAuth2AuthenticationServiceTest {
             return auth;
         });
         when(userRepository.findByEmail(eq(email))).thenReturn(Optional.empty());
-        when(userFactory.createUserWithDefaultPlan(any(String.class), eq(true))).thenAnswer(invocation -> User.builder()
+        when(userRegistrationService.createUserWithDefaultPlan(any(String.class), eq(true))).thenAnswer(invocation -> User.builder()
                 .id(userId)
                 .email(invocation.getArgument(0))
                 .profile(Profile.builder().id(userId).build())
@@ -164,7 +164,7 @@ class OAuth2AuthenticationServiceTest {
         Principal result = authService.authenticate(oAuth2UserInfo);
 
         // Assert
-        verify(userFactory).createUserWithDefaultPlan(eq(email), eq(true));
+        verify(userRegistrationService).createUserWithDefaultPlan(eq(email), eq(true));
         assertThat(result.getEmail()).isEqualTo(email);
     }
 
@@ -192,7 +192,7 @@ class OAuth2AuthenticationServiceTest {
         when(userRepository.findByEmail(mail)).thenReturn(Optional.empty());
         when(userMapper.providerUserInfoToPrincipal(eq(oAuth2UserInfo))).thenReturn(principal);
         when(oAuth2PrincipalRepository.save(principal)).thenReturn(principal);
-        when(userFactory.createUserWithDefaultPlan(mail, true)).thenReturn(newUser);
+        when(userRegistrationService.createUserWithDefaultPlan(mail, true)).thenReturn(newUser);
 
         // Act
         Principal result = authService.authenticate(oAuth2UserInfo);
@@ -200,7 +200,7 @@ class OAuth2AuthenticationServiceTest {
         // Assert
         verify(userRepository).findByEmail(mail);
         verify(userMapper).providerUserInfoToPrincipal(eq(oAuth2UserInfo));
-        verify(userFactory).createUserWithDefaultPlan(mail, true);
+        verify(userRegistrationService).createUserWithDefaultPlan(mail, true);
         verify(oAuth2PrincipalRepository).save(principal);
         assertThat(result).isEqualTo(principal);
     }

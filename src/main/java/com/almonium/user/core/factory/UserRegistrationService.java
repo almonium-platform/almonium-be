@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UserFactory {
+public class UserRegistrationService {
     PlanSubscriptionService planSubscriptionService;
 
     UserRepository userRepository;

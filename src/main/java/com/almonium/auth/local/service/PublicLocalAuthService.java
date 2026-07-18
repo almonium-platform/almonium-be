@@ -9,7 +9,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.user.core.factory.UserFactory;
+import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PublicLocalAuthService {
     VerificationTokenManagementService verificationTokenManagementService;
 
-    UserFactory userFactory;
+    UserRegistrationService userRegistrationService;
     PrincipalFactory principalFactory;
 
     UserRepository userRepository;
@@ -34,7 +34,7 @@ public class PublicLocalAuthService {
 
     public void register(LocalAuthRequest request) {
         validateRegisterRequest(request);
-        User user = userFactory.createUserWithDefaultPlan(request.email(), false);
+        User user = userRegistrationService.createUserWithDefaultPlan(request.email(), false);
         LocalPrincipal localPrincipal = principalFactory.createLocalPrincipal(user, request);
         localPrincipalRepository.save(localPrincipal);
         verificationTokenManagementService.createAndSendVerificationTokenIfAllowed(

@@ -16,7 +16,7 @@ import com.almonium.auth.local.exception.UserAlreadyExistsException;
 import com.almonium.auth.local.model.entity.LocalPrincipal;
 import com.almonium.auth.local.model.enums.TokenType;
 import com.almonium.auth.local.repository.LocalPrincipalRepository;
-import com.almonium.user.core.factory.UserFactory;
+import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.util.TestDataGenerator;
@@ -42,7 +42,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
 
     // factories
     @Mock
-    UserFactory userFactory;
+    UserRegistrationService userRegistrationService;
 
     @Mock
     PrincipalFactory principalFactory;
@@ -58,7 +58,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
     void setUp() {
         authService = new PublicLocalAuthService(
                 verificationTokenManagementService,
-                userFactory,
+                userRegistrationService,
                 principalFactory,
                 userRepository,
                 localPrincipalRepository);
@@ -73,7 +73,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
 
         when(principalFactory.createLocalPrincipal(user, registrationRequest))
                 .thenReturn(new LocalPrincipal(user, registrationRequest.email(), "encodedPassword"));
-        when(userFactory.createUserWithDefaultPlan(registrationRequest.email(), false))
+        when(userRegistrationService.createUserWithDefaultPlan(registrationRequest.email(), false))
                 .thenReturn(user);
 
         // Act
@@ -81,7 +81,7 @@ class PublicLocalAuthServiceTest extends AppConfigPropertiesTest {
 
         // Assert
         verify(principalFactory).createLocalPrincipal(user, registrationRequest);
-        verify(userFactory).createUserWithDefaultPlan(registrationRequest.email(), false);
+        verify(userRegistrationService).createUserWithDefaultPlan(registrationRequest.email(), false);
         verify(localPrincipalRepository).save(any(LocalPrincipal.class));
         verify(verificationTokenManagementService)
                 .createAndSendVerificationTokenIfAllowed(any(LocalPrincipal.class), eq(TokenType.EMAIL_VERIFICATION));
