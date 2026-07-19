@@ -131,5 +131,8 @@ Editor -> Code Style -> Java -> Imports
 Database:
 `CREATE CAST (varchar AS dev.cefr_level) WITH INOUT AS IMPLICIT;`
 
+Start Docker locally (Linux, snap)
+`sudo systemctl status snap.docker.dockerd`
+
 Start RabbitMQ locally
 `docker compose -f docker-compose.local.yaml up -d rabbitmq`
