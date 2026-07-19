@@ -24,20 +24,12 @@ public class CustomTomcatErrorValve extends ErrorReportValve {
         try {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            String jsonResponse = String.format(
-                    """
-                    {
-                        "success": false,
-                        "message": "%s",
-                    }
-                            """,
-                    reasonPhrase);
+            String jsonResponse =
+                    ("{%n" + "    \"success\": false,%n" + "    \"message\": \"%s\"%n" + "}%n").formatted(reasonPhrase);
             response.getWriter().write(jsonResponse);
             response.getWriter().flush();
 
-            log.error(
-                    String.format("Error reported: %d %s - URI: %s", statusCode, reasonPhrase, request.getRequestURI()),
-                    throwable);
+            log.error("Error reported: {} {} - URI: {}", statusCode, reasonPhrase, request.getRequestURI(), throwable);
         } catch (IOException e) {
             log.error("Failed to write custom error response", e);
         }

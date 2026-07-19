@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.subscription.constant.AppLimits;
 import com.almonium.user.core.repository.UserRepository;
 import java.security.SecureRandom;
+import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +24,16 @@ public class UsernameGeneratorImpl implements UsernameGenerator {
 
     @Override
     public String generateUsername(String email) {
-        String username = email.split("@")[0].replaceAll(SANITIZING_REGEX, "").toLowerCase();
+        StringBuilder candidate = new StringBuilder(
+                email.split("@")[0].replaceAll(SANITIZING_REGEX, "").toLowerCase(Locale.ROOT));
 
         int attempts = 0;
-        while (userRepository.existsByUsername(username) && attempts < MAX_ATTEMPTS) {
-            username += secureRandom.nextInt(10);
+        while (userRepository.existsByUsername(candidate.toString()) && attempts < MAX_ATTEMPTS) {
+            candidate.append(secureRandom.nextInt(10));
             attempts++;
         }
 
+        String username = candidate.toString();
         if (attempts == MAX_ATTEMPTS) {
             log.error("Could not generate a unique username for email: {} in {} attempts", username, MAX_ATTEMPTS);
             username = secureRandom

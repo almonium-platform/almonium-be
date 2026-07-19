@@ -80,16 +80,16 @@ public class OnboardingService {
             throw new BadUserRequestActionException("User not at the required step");
         }
 
-        log.info("Action for step {} is available to user {}", step, user.getEmail());
+        log.info("Action for step {} is available to user {}", step, user.getId());
     }
 
     private void goToNextStepIfNeededAndSaveUser(User user, SetupStep step) {
         if (step == user.getSetupStep()) {
             SetupStep nextStep = user.getSetupStep().nextStep();
             user.setSetupStep(nextStep);
-            log.info("User {} has moved to step {}", user.getEmail(), nextStep);
+            log.info("User {} has moved to step {}", user.getId(), nextStep);
         } else {
-            log.info("User {} is already further along than step {}", user.getEmail(), step);
+            log.info("User {} is already further along than step {}", user.getId(), step);
         }
 
         userRepository.save(user);

@@ -18,7 +18,10 @@ public class HtmlFileWriter {
         String content = emailDto.body();
         // create temp directory if not exists
         Path path = Paths.get(TEMP_EMAIL_PATH);
-        Files.createDirectories(path.getParent());
+        Path parent = path.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
         Files.writeString(path, content);
     }
 }

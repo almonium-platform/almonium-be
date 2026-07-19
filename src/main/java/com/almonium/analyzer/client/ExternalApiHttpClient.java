@@ -32,12 +32,13 @@ public class ExternalApiHttpClient {
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
                 urlTemplate, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<>() {}, params);
 
-        if (response.getBody() == null) {
+        List<Map<String, Object>> responseBody = response.getBody();
+        if (responseBody == null) {
             throw new IllegalStateException("Body of response is null");
         }
 
         List<T> result = new ArrayList<>();
-        for (Map<String, Object> item : response.getBody()) {
+        for (Map<String, Object> item : responseBody) {
             result.add(objectMapper.convertValue(item, responseType));
         }
 

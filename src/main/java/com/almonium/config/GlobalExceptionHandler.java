@@ -132,8 +132,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ApiResponse> handleMethodArgumentTypeMismatchException(
             MethodArgumentTypeMismatchException ex) {
-        String requiredType =
-                ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "Unknown";
+        Class<?> requiredTypeClass = ex.getRequiredType();
+        String requiredType = requiredTypeClass != null ? requiredTypeClass.getSimpleName() : "Unknown";
         String errorMessage =
                 String.format("Failed to convert value '%s' to required type '%s'.", ex.getValue(), requiredType);
 
