@@ -2,7 +2,7 @@ package com.almonium.user.relationship.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
+import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,12 +15,21 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 public class RelatedUserProfile extends PublicUserProfile {
     UUID relationshipId;
-    RelationshipStatus relationshipStatus;
+    RelativeRelationshipStatus relationshipStatus;
 
     public RelatedUserProfile(
-            UUID id, String username, String avatarUrl, UUID relationshipId, RelationshipStatus relationshipStatus) {
+            UUID id,
+            String username,
+            String avatarUrl,
+            UUID relationshipId,
+            RelativeRelationshipStatus relationshipStatus) {
         super(id, username, avatarUrl);
         this.relationshipId = relationshipId;
         this.relationshipStatus = relationshipStatus;
+    }
+
+    public RelatedUserProfile(
+            UUID id, String username, String avatarUrl, UUID relationshipId, String relationshipStatus) {
+        this(id, username, avatarUrl, relationshipId, RelativeRelationshipStatus.valueOf(relationshipStatus));
     }
 }

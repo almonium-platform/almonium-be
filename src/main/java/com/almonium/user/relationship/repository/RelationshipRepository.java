@@ -41,7 +41,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 r.requestee.username,
                 case when p.hidden = true then null else p.avatarUrl end,
                 r.id,
-                r.status
+                'PENDING_OUTGOING'
             )
             from User u
             join Relationship r on r.requester.id = u.id
@@ -57,7 +57,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 r.requester.username,
                 case when p.hidden = true then null else p.avatarUrl end,
                 r.id,
-                r.status
+                'PENDING_INCOMING'
             )
             from User u
             join Relationship r on r.requestee.id = u.id
@@ -73,7 +73,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             u.username,
             case when p.hidden = true then null else p.avatarUrl end,
             r.id,
-            r.status
+            'BLOCKED'
         )
         from Relationship r
         join User u on
@@ -142,7 +142,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 else r.requester.profile.avatarUrl
             end,
             r.id,
-            r.status
+            'FRIENDS'
         )
         from Relationship r
         where (r.requester.id = :id or r.requestee.id = :id) and r.status = 'FRIENDS'

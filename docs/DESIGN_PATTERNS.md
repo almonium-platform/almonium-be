@@ -47,6 +47,12 @@ transport errors, and terminology stop at the boundary.
 `RelationshipActionsFacade` presents a small use-case-oriented surface over
 several relationship operations.
 
+`RelationshipPerspectiveResolver` provides the viewer-relative domain view of
+one persisted relationship. It is the single place that translates positional
+requester/requestee state into counterpart, incoming/outgoing status,
+capabilities, and profile visibility. API and profile code should consume that
+view rather than interpret `FST_BLOCKED_SND` or `SND_BLOCKED_FST` directly.
+
 ### Observer / publish-subscribe and transactional outbox
 
 Spring application events decouple producers from listeners. Spring Modulith's

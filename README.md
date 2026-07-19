@@ -122,6 +122,10 @@ of a mutual block preserves the other user's one-sided block.
 - `UNBLOCK`: Unblock a user.
 - `UNFRIEND`: Remove a user from the friend list.
 
+Relationship list responses expose status relative to the authenticated user:
+`PENDING_OUTGOING`, `PENDING_INCOMING`, `FRIENDS`, or `BLOCKED`. The positional
+`FST_BLOCKED_SND` and `SND_BLOCKED_FST` values remain persistence details.
+
 IDEA Setup.
 Imports:
 static

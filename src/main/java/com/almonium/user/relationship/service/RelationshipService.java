@@ -1,6 +1,5 @@
 package com.almonium.user.relationship.service;
 
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.FRIENDS;
 import static com.almonium.user.relationship.model.enums.RelationshipStatus.PENDING;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -15,14 +14,12 @@ import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
 import com.almonium.user.relationship.model.enums.RelationshipStatus;
-import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
-import com.almonium.user.relationship.model.record.RelationshipInfo;
+import com.almonium.user.relationship.model.record.RelationshipPerspective;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.user.relationship.service.RelationshipStateMachine.ActorRole;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -44,6 +41,7 @@ public class RelationshipService {
 
     RelationshipRepository relationshipRepository;
     RelationshipStateMachine stateMachine;
+    RelationshipPerspectiveResolver perspectiveResolver;
 
     public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
         return relationshipRepository.findNewFriendCandidates(id, username, RelationshipStatus.retryableStatuses());
@@ -80,54 +78,9 @@ public class RelationshipService {
      * @param profileHidden - whether the profile is hidden
      * @return - the relationship info between the viewer and the profile
      */
-    public RelationshipInfo getRelationshipInfo(UUID viewerId, UUID profileId, boolean profileHidden) {
-        var friendshipOptional = relationshipRepository.getRelationshipByUsersIds(viewerId, profileId);
-
-        RelativeRelationshipStatus status = RelativeRelationshipStatus.STRANGER;
-        UUID friendshipId = null;
-
-        Boolean acceptsFriendRequests = null; // only makes sense for STRANGER
-        boolean profileVisible = !profileHidden; // always relevant
-
-        if (friendshipOptional.isPresent()) {
-            Relationship relationship = friendshipOptional.get();
-            friendshipId = relationship.getId();
-            boolean isRequester = viewerId.equals(relationship.getRequester().getId());
-
-            switch (relationship.getStatus()) {
-                case FRIENDS -> {
-                    status = RelativeRelationshipStatus.FRIENDS;
-                    profileVisible = true;
-                }
-                case PENDING -> status = isRequester
-                        ? RelativeRelationshipStatus.PENDING_OUTGOING
-                        : RelativeRelationshipStatus.PENDING_INCOMING;
-                case FST_BLOCKED_SND -> {
-                    if (isRequester) {
-                        status = RelativeRelationshipStatus.BLOCKED;
-                    } else {
-                        acceptsFriendRequests = false;
-                        profileVisible = false;
-                    }
-                }
-                case SND_BLOCKED_FST -> {
-                    if (isRequester) {
-                        acceptsFriendRequests = false;
-                        profileVisible = false;
-                    } else {
-                        status = RelativeRelationshipStatus.BLOCKED;
-                    }
-                }
-                case MUTUAL_BLOCK -> {
-                    status = RelativeRelationshipStatus.BLOCKED;
-                    profileVisible = false;
-                }
-                    // same as if no relationship exists
-                case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = !profileHidden;
-            }
-        }
-
-        return new RelationshipInfo(friendshipOptional, status, friendshipId, acceptsFriendRequests, profileVisible);
+    public RelationshipPerspective getRelationshipPerspective(UUID viewerId, User profileUser, boolean profileHidden) {
+        var relationship = relationshipRepository.getRelationshipByUsersIds(viewerId, profileUser.getId());
+        return perspectiveResolver.resolve(viewerId, profileUser, relationship, profileHidden);
     }
 
     @Transactional
@@ -164,10 +117,6 @@ public class RelationshipService {
                     relationshipRepository.save(relationship);
                     applyBlock(user, relationship);
                 });
-    }
-
-    public Optional<Relationship> findById(UUID relationshipId) {
-        return relationshipRepository.findById(relationshipId);
     }
 
     private Relationship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
