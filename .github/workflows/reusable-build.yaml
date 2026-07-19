@@ -42,3 +42,23 @@ jobs:
           tags: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Report application and container vulnerabilities
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
+          format: table
+          exit-code: '0'
+          ignore-unfixed: true
+          scanners: vuln
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+      - name: Enforce container base-image vulnerability policy
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          scanners: vuln
+          vuln-type: os
+          severity: CRITICAL,HIGH

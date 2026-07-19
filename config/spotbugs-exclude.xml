@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Spring injects these collaborators and JPA owns these entity associations. -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!--
+      FindSecBugs treats the server-resolved @Auth User as request mass assignment.
+      ArchitectureTest rejects untrusted User parameters and all other JPA entities in controllers.
+    -->
+    <Match>
+        <Bug pattern="ENTITY_MASS_ASSIGNMENT"/>
+    </Match>
+
+    <!-- Spring/JPA classes do not expose finalizers, so constructor validation cannot enable a finalizer attack. -->
+    <Match>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+
+    <!-- Both logged values are strongly typed identifiers (UUID and Long), not raw request text. -->
+    <Match>
+        <Class name="com.almonium.learning.book.service.BookService"/>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+
+    <!-- Logged onboarding values are a UUID and a closed enum, not raw request text. -->
+    <Match>
+        <Class name="com.almonium.user.core.service.OnboardingService"/>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+
+    <!-- Stripe's current SDK configuration is process-global by design. -->
+    <Match>
+        <Class name="com.almonium.subscription.config.StripeConfig"/>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+    </Match>
+
+    <!-- These fields are read by JPA/auditing even though application bytecode does not call their getters. -->
+    <Match>
+        <Class name="com.almonium.subscription.model.entity.StripeEventLog"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+</FindBugsFilter>

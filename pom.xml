@@ -19,11 +19,13 @@
     <description>language learning app</description>
 
     <properties>
+        <version.archunit>1.4.2</version.archunit>
         <version.commons-configuration2>2.11.0</version.commons-configuration2>
         <version.google-cloud>26.50.0</version.google-cloud>
         <version.google-guava>33.3.1-jre</version.google-guava>
         <version.jakarta>10.0.0</version.jakarta>
         <version.firebase>9.4.2</version.firebase>
+        <version.findsecbugs>1.14.0</version.findsecbugs>
         <java.version>21</java.version>
         <version.json-path>2.9.0</version.json-path>
         <version.kotlin>2.1.21</version.kotlin>
@@ -34,6 +36,7 @@
         <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
         <version.modulith>1.3.4</version.modulith>
         <version.springdoc>2.7.0</version.springdoc>
+        <version.spotbugs-maven-plugin>4.10.3.0</version.spotbugs-maven-plugin>
         <version.spotless>2.43.0</version.spotless>
         <version.stream>1.28.0</version.stream>
         <version.stripe>28.2.0</version.stripe>
@@ -277,6 +280,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${version.archunit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
@@ -414,6 +423,36 @@
                 </executions>
             </plugin>
 
+            <!-- Static bug and security analysis -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${version.spotbugs-maven-plugin}</version>
+                <executions>
+                    <execution>
+                        <id>spotbugs-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Medium</threshold>
+                    <failOnError>true</failOnError>
+                    <includeTests>false</includeTests>
+                    <excludeFilterFile>${project.basedir}/config/spotbugs-exclude.xml</excludeFilterFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h3xstream.findsecbugs</groupId>
+                        <artifactId>findsecbugs-plugin</artifactId>
+                        <version>${version.findsecbugs}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <!-- Spotless formatting -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
@@ -466,6 +505,10 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>com.tngtech.archunit</groupId>
+                            <artifactId>archunit</artifactId>
                         </exclude>
                     </excludes>
                 </configuration>

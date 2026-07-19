@@ -209,11 +209,19 @@ Prioritized additions:
 3. Rate limiting and cost/abuse controls.
 4. External-client timeouts, retry policy, metrics, and failure mapping.
 5. Security-focused refresh/OAuth/account-linking tests.
-6. Dependency and container scanning plus automated update PRs.
+6. ~~Dependency and container vulnerability scanning plus automated update
+   PRs.~~ SpotBugs with FindSecBugs blocks medium-or-higher source findings in
+   `verify`; Trivy reports high/critical application and image findings on each
+   build and blocks vulnerable base-image packages. Dependabot opens bounded
+   weekly update PRs for Maven, GitHub Actions, and Docker dependencies. The
+   application-library Trivy gate remains reporting-only until the existing
+   dependency upgrade backlog is cleared.
 7. Production-ready health/readiness checks and integration telemetry.
 8. API pagination and hard result-size limits where collections can grow.
-9. Architecture tests or Spring Modulith verification to keep package
-   dependencies intentional.
+9. ~~Architecture tests or Spring Modulith verification to keep package
+   dependencies intentional.~~ ArchUnit now protects the dependency direction
+   between controllers, services, and repositories; expand the rules as module
+   boundaries become more explicit.
 10. A short local-development runbook and environment-variable catalogue.
 
 ## How AI can help this product
