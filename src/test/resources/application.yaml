@@ -36,6 +36,10 @@ app:
   web-domain: almonium-dummy.com
   api-domain: api.almonium-dummy.com
   email:
+    api-url: https://email.example.test
+    api-key: dummy-email-api-key
+    from-address: noreply@example.test
+    from-name: Almonium Test
     dry-run: true
   auth:
     firebase:

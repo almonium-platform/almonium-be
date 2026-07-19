@@ -1,5 +1,6 @@
 package com.almonium.config;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.translate.v3.LocationName;
 import com.google.cloud.translate.v3.TranslateTextResponse;
@@ -60,7 +61,9 @@ public class GoogleCloudTestConfig {
         return LocationName.of("test-project", "global"); // Or return a dummy instance
     }
 
-    // --- NO Credentials Beans Needed ---
-    // You don't need to provide mock GoogleCredentials or CredentialsProvider
-    // because the mock clients don't use them.
+    @Bean
+    @Primary
+    public GoogleCredentials mockGoogleCredentials() {
+        return Mockito.mock(GoogleCredentials.class);
+    }
 }

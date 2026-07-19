@@ -25,7 +25,7 @@ import org.springframework.test.context.jdbc.Sql;
 @FieldDefaults(level = PRIVATE)
 @Sql(scripts = "classpath:db/add-relationships.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class RelationshipRepositoryTest {
-    private static final UUID REQUESTER_ID = UUID.fromString("01956cde-a541-7ac1-8b32-2896d096ecdf");
+    private static final UUID REQUESTER_ID = UUID.fromString("01956cde-a541-7ac1-8b32-2896d096ec01");
     private static final UUID REQUESTEE_ID = UUID.fromString("01956cde-d6dd-7aca-bd07-e5c29cadf093");
 
     @Autowired
