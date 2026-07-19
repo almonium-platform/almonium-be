@@ -13,8 +13,6 @@ import com.almonium.user.core.model.entity.Avatar;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.AvatarRepository;
 import com.almonium.user.core.repository.ProfileRepository;
-import java.io.InputStream;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -26,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -104,24 +101,6 @@ public class AvatarService {
     public void chooseDefaultAvatar(UUID id, String url) {
         Profile profile = profileService.getProfileById(id);
         updateProfileAvatarUrl(url, profile);
-    }
-
-    @Transactional
-    public void doAvatarUpload(String remoteUrl, UUID profileId) {
-        if (remoteUrl == null) {
-            return;
-        }
-        try (InputStream in = new URL(remoteUrl).openStream()) {
-            byte[] avatarBytes = in.readAllBytes();
-
-            String filePath = generateFilePath(UUID.randomUUID());
-
-            String uploadedUrl = firebaseStorageService.upload(avatarBytes, MediaType.IMAGE_JPEG_VALUE, filePath);
-
-            addAndSetNewCustomAvatar(profileId, uploadedUrl);
-        } catch (Exception e) {
-            log.error("Failed to upload avatar from remote url: {}", remoteUrl, e);
-        }
     }
 
     @Transactional
