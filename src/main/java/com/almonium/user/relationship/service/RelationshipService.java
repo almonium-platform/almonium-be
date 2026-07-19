@@ -132,6 +132,7 @@ public class RelationshipService {
 
     @Transactional
     public Relationship createFriendshipRequest(User requester, FriendshipRequestDto dto) {
+        validateDistinctUsers(requester.getId(), dto.recipientId());
         return relationshipRepository
                 .getRelationshipByUsersIds(requester.getId(), dto.recipientId())
                 .map(relationship -> reestablishFriendshipAndNotifyOrThrow(requester, relationship))
@@ -154,6 +155,7 @@ public class RelationshipService {
 
     @Transactional
     public void blockUser(User user, UUID targetUserId) {
+        validateDistinctUsers(user.getId(), targetUserId);
         relationshipRepository
                 .getRelationshipByUsersIds(user.getId(), targetUserId)
                 .ifPresentOrElse(relationship -> applyBlock(user, relationship), () -> {
@@ -190,6 +192,12 @@ public class RelationshipService {
             existingRelationship.setRequester(requester);
         }
 
+        if (profileService
+                .getProfileById(existingRelationship.getRequestee().getId())
+                .isHidden()) {
+            throw new RelationshipException(RELATIONSHIP_CANT_BE_ESTABLISHED);
+        }
+
         setStatusAndSave(existingRelationship, PENDING);
         notifyAboutFriendshipRequestReceival(existingRelationship);
         return existingRelationship;
@@ -220,5 +228,11 @@ public class RelationshipService {
             return ActorRole.REQUESTEE;
         }
         throw new RelationshipException("User is not part of this relationship");
+    }
+
+    private void validateDistinctUsers(UUID firstUserId, UUID secondUserId) {
+        if (firstUserId.equals(secondUserId)) {
+            throw new RelationshipException("A user cannot have a relationship with themselves");
+        }
     }
 }

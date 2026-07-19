@@ -7,6 +7,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +77,17 @@ class GlobalExceptionHandlerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
         assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
+        assertThat(response.getBody().success()).isFalse();
+    }
+
+    @DisplayName("Should handle an optimistic locking conflict")
+    @Test
+    void givenOptimisticLockingFailure_whenHandleException_thenRespondWithConflict() {
+        var ex = new OptimisticLockingFailureException("stale relationship");
+
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleDataConflictException(ex);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
         assertThat(response.getBody().success()).isFalse();
     }
 

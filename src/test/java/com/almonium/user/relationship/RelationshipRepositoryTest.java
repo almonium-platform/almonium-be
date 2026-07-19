@@ -2,6 +2,7 @@ package com.almonium.user.relationship;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.almonium.config.PostgresContainer;
 import com.almonium.user.relationship.model.entity.Relationship;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.testcontainers.context.ImportTestcontainers;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
@@ -43,5 +45,29 @@ class RelationshipRepositoryTest {
         List<RelationshipToUserProjection> relationshipToUserProjections =
                 relationshipRepository.getVisibleFriendships(REQUESTER_ID);
         assertThat(relationshipToUserProjections).isNotEmpty();
+    }
+
+    @DisplayName("Should reject a second relationship with reversed users")
+    @Test
+    void givenExistingRelationship_whenSavingReversedPair_thenConstraintRejectsIt() {
+        Relationship existing = relationshipRepository
+                .getRelationshipByUsersIds(REQUESTER_ID, REQUESTEE_ID)
+                .orElseThrow();
+        Relationship reversed = new Relationship(existing.getRequestee(), existing.getRequester());
+
+        assertThatThrownBy(() -> relationshipRepository.saveAndFlush(reversed))
+                .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @DisplayName("Should reject a relationship from a user to themselves")
+    @Test
+    void givenSameUserAtBothEnds_whenSavingRelationship_thenConstraintRejectsIt() {
+        Relationship existing = relationshipRepository
+                .getRelationshipByUsersIds(REQUESTER_ID, REQUESTEE_ID)
+                .orElseThrow();
+        Relationship selfRelationship = new Relationship(existing.getRequester(), existing.getRequester());
+
+        assertThatThrownBy(() -> relationshipRepository.saveAndFlush(selfRelationship))
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 }

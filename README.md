@@ -33,6 +33,11 @@ Spotless checks formatting during the build; apply intentional formatting with
 #### Everywhere:
 
 - Both User A and User B must be different.
+- At most one relationship row may exist for an unordered user pair. In other
+  words, `(A, B)` and `(B, A)` identify the same relationship.
+- Relationship updates use optimistic locking. Concurrent actions against a
+  stale relationship, and concurrent attempts to create the same pair, return
+  a conflict response instead of silently overwriting state.
 
 ### Sending a Friend Request
 

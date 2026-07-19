@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -176,6 +178,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class, OptimisticLockingFailureException.class})
+    public ResponseEntity<ApiResponse> handleDataConflictException(RuntimeException ex) {
+        log.warn("Conflicting concurrent or integrity-constrained request: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiResponse(false, "The request conflicts with the current resource state"));
     }
 
     // // other custom exceptions

@@ -82,7 +82,8 @@ class RelationshipServiceTest {
     void setUp() {
         requester = TestDataGenerator.buildTestUserWithId(REQUESTER_ID);
         recipient = TestDataGenerator.buildTestUserWithId(RECIPIENT_ID);
-        relationship = new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
+        relationship =
+                new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING, 0);
     }
 
     @DisplayName("Should return empty list when no friends match username substring")
@@ -176,6 +177,46 @@ class RelationshipServiceTest {
                 .hasMessage("Couldn't create or re-establish relationship");
 
         verify(relationshipRepository, never()).save(any(Relationship.class));
+    }
+
+    @DisplayName("Should not create a relationship with oneself")
+    @Test
+    void givenSelfAsRecipient_whenCreateFriendshipRequest_thenThrowException() {
+        FriendshipRequestDto dto = new FriendshipRequestDto(REQUESTER_ID);
+
+        assertThatThrownBy(() -> relationshipService.createFriendshipRequest(requester, dto))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage("A user cannot have a relationship with themselves");
+
+        verify(relationshipRepository, never()).save(any(Relationship.class));
+    }
+
+    @DisplayName("Should recheck recipient privacy when re-establishing a relationship")
+    @Test
+    void givenHiddenRecipientAndRetryableRelationship_whenReestablishing_thenThrowException() {
+        relationship.setStatus(UNFRIENDED);
+        requester.getProfile().setHidden(true);
+        FriendshipRequestDto dto = new FriendshipRequestDto(REQUESTER_ID);
+
+        when(relationshipRepository.getRelationshipByUsersIds(RECIPIENT_ID, REQUESTER_ID))
+                .thenReturn(Optional.of(relationship));
+        when(profileService.getProfileById(REQUESTER_ID)).thenReturn(requester.getProfile());
+
+        assertThatThrownBy(() -> relationshipService.createFriendshipRequest(recipient, dto))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage(RELATIONSHIP_CANT_BE_ESTABLISHED);
+
+        verify(relationshipRepository, never()).save(any(Relationship.class));
+    }
+
+    @DisplayName("Should not block oneself")
+    @Test
+    void givenSelfAsTarget_whenBlockingUser_thenThrowException() {
+        assertThatThrownBy(() -> relationshipService.blockUser(requester, REQUESTER_ID))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage("A user cannot have a relationship with themselves");
+
+        verify(relationshipRepository, never()).getRelationshipByUsersIds(REQUESTER_ID, REQUESTER_ID);
     }
 
     @DisplayName("Should accept a pending friendship request")
