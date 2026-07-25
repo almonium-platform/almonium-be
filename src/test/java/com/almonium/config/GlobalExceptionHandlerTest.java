@@ -2,6 +2,7 @@ package com.almonium.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.util.dto.ApiResponse;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,6 +90,16 @@ class GlobalExceptionHandlerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
         assertThat(response.getBody().success()).isFalse();
+    }
+
+    @DisplayName("Should map an external API failure without exposing provider details")
+    @Test
+    void givenApiIntegrationFailure_whenHandleException_thenRespondWithBadGateway() {
+        ResponseEntity<ApiResponse> response =
+                exceptionHandler.handleApiIntegrationException(new ApiIntegrationException("provider response body"));
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_GATEWAY);
+        assertThat(response.getBody().message()).isEqualTo("An external service is temporarily unavailable");
     }
 
     @DisplayName("Should handle general Exception")

@@ -1,5 +1,6 @@
 package com.almonium.config;
 
+import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
@@ -200,7 +201,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailConfigurationException.class)
     public ResponseEntity<ApiResponse> handleEmailConfigurationException(EmailConfigurationException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+        log.warn("Email provider is unavailable", ex);
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(new ApiResponse(false, "Email delivery is temporarily unavailable"));
+    }
+
+    @ExceptionHandler(ApiIntegrationException.class)
+    public ResponseEntity<ApiResponse> handleApiIntegrationException(ApiIntegrationException ex) {
+        log.warn("External API integration failed", ex);
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(new ApiResponse(false, "An external service is temporarily unavailable"));
     }
 
     @ExceptionHandler(FirebaseIntegrationException.class)

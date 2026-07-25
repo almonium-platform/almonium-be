@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EmailService {
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate;
     HtmlFileWriter htmlFileWriter;
     AppProperties appProperties;
 
@@ -50,8 +50,8 @@ public class EmailService {
 
             log.debug("ZeptoMail response: {}", response.getBody());
         } catch (RestClientException e) {
-            log.error("Failed to send email to {}: {}", emailDto.recipient(), e.getMessage());
-            throw new EmailConfigurationException("Failed to send email: " + e.getMessage(), e);
+            log.error("Email provider request failed for recipient {}", emailDto.recipient(), e);
+            throw new EmailConfigurationException("Email provider is temporarily unavailable", e);
         }
     }
 
