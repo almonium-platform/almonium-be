@@ -1,3 +1,23 @@
+spring:
+  jpa:
+    show-sql: true
+    properties.hibernate:
+      format_sql: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    com.almonium: DEBUG
+    org.hibernate:
+      info: info
+      SQL: debug
+      orm.jdbc.bind: trace
+      stat: debug
+      SQL_SLOW: info
+      cache: debug
+      type.descriptor.sql.BasicBinder: trace
+
 app:
   web-domain: http://localhost:9999
   api-domain: http://localhost:${server.port}

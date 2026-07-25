@@ -21,9 +21,7 @@ spring:
     publisher-returns: true
   jpa:
     open-in-view: false
-    show-sql: true
     properties.hibernate:
-      format_sql: true
       default_schema: ${DB_SCHEMA}
 
   datasource:
@@ -44,19 +42,8 @@ spring:
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
     org.springframework.transaction.interceptor: INFO
-    com.almonium: DEBUG
     root: INFO
-    org.hibernate:
-      info: info
-      SQL: debug
-      orm.jdbc.bind: trace
-      stat: debug
-      SQL_SLOW: info
-      cache: debug
-      type.descriptor.sql.BasicBinder: trace
   pattern.console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
 
 
