@@ -131,8 +131,9 @@ The resolver and build jobs run on GitHub-hosted Ubuntu runners:
    `ghcr.io/almonium-platform/almonium-be:<commit_sha>`.
 6. Capture Buildx's registry digest, attach BuildKit SBOM and max-mode
    provenance attestations to the image index, record the SHA/tag/digest in the
-   workflow summary, scan the image by digest, and return the digest to
-   deployment.
+   workflow summary, scan the ARM64 image by digest, and return the digest to
+   deployment. Trivy is explicitly configured for ARM64 because GitHub-hosted
+   build runners are AMD64 while the published artifact targets ARM64.
 
 `verify` is the quality gate. It includes compilation, test execution, Spring
 Boot packaging, and the Spotless check bound to Maven's `validate` phase. The
