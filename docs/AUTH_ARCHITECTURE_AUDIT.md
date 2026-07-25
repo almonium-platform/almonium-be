@@ -20,6 +20,10 @@ custom authentication platform.
 - `@RequireRecentLogin` performs revocation-aware verification and enforces a
   five-minute `auth_time` window. Ordinary requests use cached public-key
   verification and avoid a Firebase network request per API call.
+- Security integration tests exercise the real Spring filter chain for CSRF,
+  session-cookie attributes, logout clearing, revoked and stale sensitive
+  sessions, and provisioning conflicts. Account-deletion tests cover local
+  preflight and Firebase deletion failures.
 - Firebase owns credentials, verification/reset emails, provider linking, and
   identity lifecycle. Almonium retains product-user provisioning, login streak,
   authorization, subscriptions, and deletion cleanup.

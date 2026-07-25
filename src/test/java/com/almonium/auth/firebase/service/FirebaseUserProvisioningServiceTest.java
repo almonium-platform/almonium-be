@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @ExtendWith(MockitoExtension.class)
 class FirebaseUserProvisioningServiceTest {
@@ -80,6 +81,35 @@ class FirebaseUserProvisioningServiceTest {
 
         assertThat(result.getEmail()).isEqualTo("changed@example.com");
         verify(userRepository).save(existing);
+    }
+
+    @Test
+    void concurrentProvisioningOfSameUidReturnsWinningUser() {
+        FirebaseIdentity identity = identity("new@example.com", true);
+        User winningUser = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email(identity.email())
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.empty(), Optional.of(winningUser));
+        when(userRepository.existsByEmail(identity.email())).thenReturn(false);
+        when(registrationService.createUserWithDefaultPlan(identity.email(), true, identity.uid()))
+                .thenThrow(new DataIntegrityViolationException("duplicate uid"));
+
+        assertThat(service.resolveOrCreate(identity)).isSameAs(winningUser);
+    }
+
+    @Test
+    void concurrentProvisioningOfConflictingIdentityReturnsConflict() {
+        FirebaseIdentity identity = identity("new@example.com", true);
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.empty());
+        when(userRepository.existsByEmail(identity.email())).thenReturn(false);
+        when(registrationService.createUserWithDefaultPlan(identity.email(), true, identity.uid()))
+                .thenThrow(new DataIntegrityViolationException("different unique constraint"));
+
+        assertThatThrownBy(() -> service.resolveOrCreate(identity))
+                .isInstanceOf(ResourceConflictException.class)
+                .hasMessageContaining("conflicts");
     }
 
     @Test

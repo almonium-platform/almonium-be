@@ -30,9 +30,9 @@ public class SensitiveAuthActionsService {
         if (user.getFirebaseUid() == null) {
             throw new BadUserRequestActionException("User is not linked to Firebase Authentication");
         }
-        firebaseAuthGateway.deleteUser(user.getFirebaseUid());
         Optional<String> stripeSubscriptionId = planSubscriptionService.getPaidSubscriptionIdToCancel(user);
         List<String> avatarPaths = avatarService.getAvatarPathsForUser(user.getId());
+        firebaseAuthGateway.deleteUser(user.getFirebaseUid());
         eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), stripeSubscriptionId, avatarPaths));
         userRepository.delete(user);
         log.info("Deleted Almonium and Firebase identities for user {}", user.getId());
