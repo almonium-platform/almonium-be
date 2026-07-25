@@ -67,7 +67,8 @@ volumes.
 
 ## Profiles and Liquibase contexts
 
-Runtime profiles explicitly select their matching Liquibase context:
+`application.yaml` uses `SPRING_PROFILE` for both the active Spring profile and
+the Liquibase context. This is an intentional naming convention:
 
 | Spring profile | Liquibase context | Database |
 | --- | --- | --- |
@@ -76,13 +77,15 @@ Runtime profiles explicitly select their matching Liquibase context:
 | `prod` | `prod` | Deployed `almonium_prod` |
 | `test` | `test` | Testcontainers PostgreSQL |
 
-`dev` is retained only as a compatibility alias for `local`, so older IDE run
-configurations activate the same local configuration. New local configuration
-should use `local` directly.
+Local IDE run configurations must therefore set `SPRING_PROFILE=local` (or
+otherwise activate the `local` profile while keeping `SPRING_PROFILE`
+consistent). There is no `dev` alias.
 
 Contexts filter environment-specific data changesets; they do not define the
 database connection. Connection settings remain profile-specific. Changesets
-without a context run in every environment.
+without a context run in every environment. When adding an environment, use
+the same name for its Spring profile and Liquibase context rather than adding a
+second mapping in an environment-specific configuration file.
 
 ## Start and verify the backend
 

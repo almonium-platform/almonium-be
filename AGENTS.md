@@ -73,9 +73,12 @@ executable source of truth when documentation differs.
   do not add them to backend templates.
 - Keep Java and Kotlin on the same JVM target. Kotlin currently lives under
   `src/main/java`; preserve that layout until it is migrated deliberately.
-- Keep runtime Spring profiles and Liquibase contexts explicit and aligned:
-  `local`, `staging`, `prod`, and `test`. The legacy `dev` profile is only a
-  compatibility alias for `local`.
+- Keep Spring profile and Liquibase context names aligned: `local`, `staging`,
+  `prod`, and `test`. Both are selected from `SPRING_PROFILE`; do not duplicate
+  that mapping across profile files.
+- Do not add runtime aliases or fallback behavior to accommodate stale personal
+  IDE or shell configuration unless the user explicitly requests compatibility.
+  State the required local configuration change instead.
 - Update the relevant document when an architectural convention or known
   baseline changes.
 

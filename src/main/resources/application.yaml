@@ -7,10 +7,7 @@ server:
 spring:
   config:
     import: optional:file:.env[.properties]
-  profiles:
-    active: ${SPRING_PROFILE}
-    group:
-      dev: local
+  profiles.active: ${SPRING_PROFILE}
   rabbitmq:
     host: ${RABBITMQ_HOST}
     username: ${RABBITMQ_USER}
@@ -42,6 +39,7 @@ spring:
       connection-test-query: SELECT 1
 
   liquibase:
+    contexts: ${SPRING_PROFILE}
     default-schema: ${DB_SCHEMA}
 
 logging:

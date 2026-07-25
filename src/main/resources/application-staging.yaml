@@ -1,7 +1,3 @@
-spring:
-  liquibase:
-    contexts: staging
-
 app:
   web-domain: https://staging.almonium.com
   api-domain: https://staging.api.almonium.com
