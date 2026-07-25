@@ -222,7 +222,11 @@ Prioritized additions:
    dependencies intentional.~~ ArchUnit now protects the dependency direction
    between controllers, services, and repositories; expand the rules as module
    boundaries become more explicit.
-10. A short local-development runbook and environment-variable catalogue.
+10. ~~A short local-development runbook and environment-variable catalogue.~~
+    `docs/LOCAL_DEVELOPMENT.md` now documents the normal local-code/remote-
+    staging-services workflow, SSH tunnels, verification, environment
+    ownership, troubleshooting, and every supported environment variable;
+    `.env.template` remains the canonical copyable template.
 
 ## How AI can help this product
 

@@ -26,6 +26,10 @@ Testcontainers, so Docker must be running and accessible to the current user.
 Spotless checks formatting during the build; apply intentional formatting with
 `./mvnw spotless:apply`.
 
+See the [development-environment runbook](docs/LOCAL_DEVELOPMENT.md) for the
+normal local-code/staging-services workflow, SSH tunnels, application startup,
+troubleshooting, and the complete environment-variable catalogue.
+
 # Friendships
 
 ## Scenarios
@@ -136,12 +140,3 @@ Plugins:
 palantir-java-format
 Editor -> General -> Console -> Use soft wraps in console
 Editor -> Code Style -> Java -> Imports
-
-Database:
-`CREATE CAST (varchar AS dev.cefr_level) WITH INOUT AS IMPLICIT;`
-
-Start Docker locally (Linux, snap)
-`sudo systemctl status snap.docker.dockerd`
-
-Start RabbitMQ locally
-`docker compose -f docker-compose.local.yaml up -d rabbitmq`
