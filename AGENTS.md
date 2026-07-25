@@ -9,9 +9,14 @@ known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 
 - Preserve pre-existing worktree changes. Never stage or rewrite changes that
   belong to the user unless the task explicitly includes them.
-- When commits are requested, make separate logical commits. Stage every file
-  deliberately, including new files, with explicit paths; do not use
-  `git add .`. Review `git diff --cached` before each commit.
+- After completing a requested implementation and relevant verification, stage
+  only the files changed for that task and create focused logical commits.
+  Stage every file deliberately, including new files, with explicit paths; do
+  not use `git add .`. Review `git diff --cached` before each commit.
+- Leave changes uncommitted only when the user explicitly asks for that, or
+  when the work is blocked or awaiting a material user decision. Do not amend
+  an existing commit unless explicitly asked; report every new commit hash in
+  the handoff.
 - Keep refactors separate from behavior changes and security fixes. Add or
   adjust tests for every behavior change.
 - Prefer small, domain-named components and composition. Do not introduce a
