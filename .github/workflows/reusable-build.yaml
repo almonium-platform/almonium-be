@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ inputs.commit_sha }}
+          fetch-depth: 2
           persist-credentials: false
       - name: Verify checked-out commit
         env:
@@ -33,6 +34,17 @@ jobs:
           set -euo pipefail
           actual_commit_sha="$(git rev-parse HEAD)"
           test "$actual_commit_sha" = "$EXPECTED_COMMIT_SHA"
+      - name: Reject changes to existing Liquibase changelogs
+        run: |
+          set -euo pipefail
+          if git rev-parse --verify --quiet HEAD^ >/dev/null; then
+            changed_changelogs="$(git diff --name-only --diff-filter=MDCR HEAD^ HEAD -- src/main/resources/db/changelog)"
+            if test -n "$changed_changelogs"; then
+              echo "Existing Liquibase changelog files are immutable. Add a new patch instead:"
+              echo "$changed_changelogs"
+              exit 1
+            fi
+          fi
       - name: Set up JDK 21 and Maven
         uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
         with:

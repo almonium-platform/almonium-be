@@ -1,4 +1,8 @@
 spring:
+  liquibase:
+    # Local development uses the shared staging database. Schema changes are
+    # applied only by the reviewed staging deployment artifact.
+    enabled: false
   jpa:
     show-sql: true
     properties.hibernate:

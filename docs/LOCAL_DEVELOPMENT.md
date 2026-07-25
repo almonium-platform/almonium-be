@@ -65,10 +65,12 @@ The staging defaults in `.env.template` then connect to:
 Passwords remain in the appropriate encrypted infra vault and must be copied
 into the untracked `.env` through the normal secret-handling workflow.
 
-Starting a local application can run pending Liquibase changes against the
-selected database. Review migrations and confirm `DB_NAME`,
-`DB_USERNAME`, and `RABBITMQ_VHOST` before startup. In particular, do not
-switch those values to production merely to obtain realistic data.
+The `dev` profile disables Liquibase because its normal target is the shared
+staging database. Pending migrations are applied only by the reviewed staging
+deployment artifact. Do not enable Liquibase locally against staging; use an
+isolated database when developing or rehearsing a migration. Review
+`DB_NAME`, `DB_USERNAME`, and `RABBITMQ_VHOST` before startup. In particular,
+do not switch those values to production merely to obtain realistic data.
 
 ## Start and verify the backend
 
