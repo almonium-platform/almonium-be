@@ -29,10 +29,13 @@ public class FirebaseStorageService {
     private static final String PARALLEL_BOOK_CONTENT_PATH_TEMPLATE = "books/%s-%s.html";
 
     GoogleProperties googleProperties;
+    BookHtmlSanitizer bookHtmlSanitizer;
     Storage storage;
 
-    public FirebaseStorageService(GoogleProperties googleProperties, GoogleCredentials credentials) {
+    public FirebaseStorageService(
+            GoogleProperties googleProperties, GoogleCredentials credentials, BookHtmlSanitizer bookHtmlSanitizer) {
         this.googleProperties = googleProperties;
+        this.bookHtmlSanitizer = bookHtmlSanitizer;
         this.storage =
                 StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         log.info("FirebaseStorageService initialized with specific credentials.");
@@ -40,6 +43,7 @@ public class FirebaseStorageService {
 
     public String upload(byte[] fileData, String contentType, String filePath) {
         String bucketName = googleProperties.getFirebase().getStorage().getBucket();
+        byte[] sanitizedFileData = bookHtmlSanitizer.sanitizeIfBookHtml(fileData, filePath);
 
         String token = UUID.randomUUID().toString();
 
@@ -54,7 +58,7 @@ public class FirebaseStorageService {
                 .build();
 
         try {
-            storage.create(blobInfo, fileData);
+            storage.create(blobInfo, sanitizedFileData);
 
             log.info("File uploaded to bucket {} at path: {}", bucketName, filePath);
 
@@ -104,7 +108,7 @@ public class FirebaseStorageService {
         log.debug("Attempting to download text content from: {}", filePath);
 
         try {
-            byte[] content = storage.readAllBytes(blobId);
+            byte[] content = bookHtmlSanitizer.sanitizeIfBookHtml(storage.readAllBytes(blobId), filePath);
             log.info("Successfully downloaded text content from: {}, size: {} bytes", filePath, content.length);
             return content;
         } catch (StorageException e) {
