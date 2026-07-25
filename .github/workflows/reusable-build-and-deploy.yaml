@@ -9,9 +9,13 @@ on:
       source_branch:
         required: true
         type: string
-      image_tag:
+      image_digest:
         required: false
         type: string
+    outputs:
+      deployed_image_digest:
+        description: 'The immutable image digest passed to deployment.'
+        value: ${{ jobs.deploy.outputs.deployed_image_digest }}
     secrets:
       INFRA_REPO_CHECKOUT_KEY:
         required: true
@@ -34,21 +38,38 @@ jobs:
   resolve-image:
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.get_tag.outputs.tag }}
-      build_needed: ${{ steps.get_tag.outputs.build_needed }}
+      commit_sha: ${{ steps.resolve.outputs.commit_sha }}
+      image_digest: ${{ steps.resolve.outputs.image_digest }}
+      build_needed: ${{ steps.resolve.outputs.build_needed }}
     steps:
       - uses: actions/checkout@v6
-        if: inputs.image_tag == ''
+        if: inputs.image_digest == ''
         with:
           ref: ${{ inputs.source_branch }}
+          persist-credentials: false
 
-      - id: get_tag
+      - id: resolve
+        env:
+          REQUESTED_IMAGE_DIGEST: ${{ inputs.image_digest }}
         run: |
-          if [[ -n "${{ inputs.image_tag }}" ]]; then
-            echo "tag=${{ inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+
+          if [[ -n "$REQUESTED_IMAGE_DIGEST" ]]; then
+            if [[ ! "$REQUESTED_IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+              echo "image_digest must have the form sha256:<64 lowercase hex characters>" >&2
+              exit 1
+            fi
+            echo "commit_sha=" >> "$GITHUB_OUTPUT"
+            echo "image_digest=$REQUESTED_IMAGE_DIGEST" >> "$GITHUB_OUTPUT"
             echo "build_needed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            commit_sha="$(git rev-parse HEAD)"
+            if [[ ! "$commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "Resolved commit is not a full git SHA: $commit_sha" >&2
+              exit 1
+            fi
+            echo "commit_sha=$commit_sha" >> "$GITHUB_OUTPUT"
+            echo "image_digest=" >> "$GITHUB_OUTPUT"
             echo "build_needed=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -57,7 +78,7 @@ jobs:
     if: needs.resolve-image.outputs.build_needed == 'true'
     uses: ./.github/workflows/reusable-build.yaml
     with:
-      image_tag: ${{ needs.resolve-image.outputs.tag }}
+      commit_sha: ${{ needs.resolve-image.outputs.commit_sha }}
 
   deploy:
     needs: [resolve-image, build]
@@ -65,7 +86,7 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment_name: ${{ inputs.environment_name }}
-      image_tag: ${{ needs.resolve-image.outputs.tag }}
+      image_digest: ${{ needs.resolve-image.outputs.image_digest || needs.build.outputs.image_digest }}
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}

@@ -3,20 +3,36 @@ name: Reusable Build BE
 on:
   workflow_call:
     inputs:
-      image_tag:
-        description: 'The tag for the Docker image (e.g., the git SHA)'
+      commit_sha:
+        description: 'The exact git commit to check out, build, and use as the image tag.'
         required: true
         type: string
+    outputs:
+      image_digest:
+        description: 'The immutable digest of the pushed image.'
+        value: ${{ jobs.build.outputs.image_digest }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      image_digest: ${{ steps.build_image.outputs.digest }}
     permissions:
       contents: read
       packages: write # This job needs `write` permission to GHCR
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.commit_sha }}
+          persist-credentials: false
+      - name: Verify checked-out commit
+        env:
+          EXPECTED_COMMIT_SHA: ${{ inputs.commit_sha }}
+        run: |
+          set -euo pipefail
+          actual_commit_sha="$(git rev-parse HEAD)"
+          test "$actual_commit_sha" = "$EXPECTED_COMMIT_SHA"
       - name: Set up JDK 21 and Maven
         uses: actions/setup-java@v5
         with:
@@ -34,18 +50,33 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push Docker image
+        id: build_image
         uses: docker/build-push-action@v7
         with:
           context: .
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
+          tags: ghcr.io/almonium-platform/almonium-be:${{ inputs.commit_sha }}
+          labels: org.opencontainers.image.revision=${{ inputs.commit_sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Record built artifact
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+          IMAGE_DIGEST: ${{ steps.build_image.outputs.digest }}
+        run: |
+          {
+            echo "### Built backend image"
+            echo
+            echo "- Commit: \`$COMMIT_SHA\`"
+            echo "- Tag: \`ghcr.io/almonium-platform/almonium-be:$COMMIT_SHA\`"
+            echo "- Digest: \`$IMAGE_DIGEST\`"
+            echo "- Deploy reference: \`ghcr.io/almonium-platform/almonium-be@$IMAGE_DIGEST\`"
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Report application and container vulnerabilities
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
+          image-ref: ghcr.io/almonium-platform/almonium-be@${{ steps.build_image.outputs.digest }}
           format: table
           exit-code: '0'
           ignore-unfixed: true
@@ -55,7 +86,7 @@ jobs:
       - name: Enforce container base-image vulnerability policy
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: ghcr.io/almonium-platform/almonium-be:${{ inputs.image_tag }}
+          image-ref: ghcr.io/almonium-platform/almonium-be@${{ steps.build_image.outputs.digest }}
           format: table
           exit-code: '1'
           ignore-unfixed: true

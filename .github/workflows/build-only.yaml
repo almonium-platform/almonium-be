@@ -13,22 +13,30 @@ permissions:
   packages: write
 
 jobs:
-  get-sha:
+  resolve-commit:
     runs-on: ubuntu-latest
     outputs:
-      commit_sha: ${{ steps.sha_step.outputs.sha }}
+      commit_sha: ${{ steps.resolve.outputs.commit_sha }}
     steps:
-      - name: Checkout the specified branch to get its SHA
+      - name: Checkout the specified branch
         uses: actions/checkout@v6
         with:
           ref: ${{ inputs.branch }}
+          persist-credentials: false
 
-      - name: Get the commit SHA
-        id: sha_step
-        run: echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+      - name: Resolve exact commit
+        id: resolve
+        run: |
+          set -euo pipefail
+          commit_sha="$(git rev-parse HEAD)"
+          if [[ ! "$commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Resolved commit is not a full git SHA: $commit_sha" >&2
+            exit 1
+          fi
+          echo "commit_sha=$commit_sha" >> "$GITHUB_OUTPUT"
 
   build:
-    needs: get-sha
+    needs: resolve-commit
     uses: ./.github/workflows/reusable-build.yaml
     with:
-      image_tag: ${{ needs.get-sha.outputs.commit_sha }}
+      commit_sha: ${{ needs.resolve-commit.outputs.commit_sha }}

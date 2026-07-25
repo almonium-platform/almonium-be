@@ -6,9 +6,13 @@ on:
             environment_name:
                 required: true
                 type: string
-            image_tag:
+            image_digest:
                 required: true
                 type: string
+        outputs:
+            deployed_image_digest:
+                description: 'The immutable image digest passed to Ansible.'
+                value: ${{ jobs.deploy.outputs.deployed_image_digest }}
         secrets:
             INFRA_REPO_CHECKOUT_KEY:
                 required: true
@@ -28,9 +32,22 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 10
         environment: ${{ inputs.environment_name }}
+        outputs:
+            deployed_image_digest: ${{ inputs.image_digest }}
         permissions:
             packages: read
         steps:
+            - name: Validate immutable image digest
+              shell: bash
+              env:
+                  IMAGE_DIGEST: ${{ inputs.image_digest }}
+              run: |
+                  set -euo pipefail
+                  if [[ ! "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+                    echo "image_digest must have the form sha256:<64 lowercase hex characters>" >&2
+                    exit 1
+                  fi
+
             - name: Checkout almonium-infra repository
               uses: actions/checkout@v6
               with:
@@ -70,6 +87,20 @@ jobs:
                         --vault-id almonium_shared@/home/runner/.ansible/vault-almonium-shared
                         --vault-id ${{ env.ALMONIUM_ENV_VAULT_ID }}@/home/runner/.ansible/vault-almonium-env
                         --extra-vars deploy_environment=${{ inputs.environment_name }}
-                        --extra-vars deploy_image_tag=${{ inputs.image_tag }}
+                        --extra-vars deploy_image_digest=${{ inputs.image_digest }}
                         --extra-vars deploy_gh_actor=${{ github.actor }}
                         --extra-vars deploy_gh_token=${{ secrets.GITHUB_TOKEN }}
+
+            - name: Record deployed artifact
+              shell: bash
+              env:
+                  DEPLOY_ENVIRONMENT: ${{ inputs.environment_name }}
+                  IMAGE_DIGEST: ${{ inputs.image_digest }}
+              run: |
+                  {
+                    echo "### Deployed backend image"
+                    echo
+                    echo "- Environment: \`$DEPLOY_ENVIRONMENT\`"
+                    echo "- Digest: \`$IMAGE_DIGEST\`"
+                    echo "- Reference: \`ghcr.io/almonium-platform/almonium-be@$IMAGE_DIGEST\`"
+                  } >> "$GITHUB_STEP_SUMMARY"

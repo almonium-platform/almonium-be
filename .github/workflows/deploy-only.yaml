@@ -3,8 +3,8 @@ name: Deploy Only
 on:
   workflow_dispatch:
     inputs:
-      image_tag:
-        description: 'The image tag (git SHA) to deploy.'
+      image_digest:
+        description: 'The immutable image digest (sha256:...).'
         required: true
       environment:
         description: 'The environment to deploy to.'
@@ -23,5 +23,5 @@ jobs:
     uses: ./.github/workflows/reusable-deploy.yaml
     with:
       environment_name: ${{ inputs.environment }}
-      image_tag: ${{ inputs.image_tag }}
+      image_digest: ${{ inputs.image_digest }}
     secrets: inherit

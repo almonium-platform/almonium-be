@@ -13,11 +13,13 @@ Almonium uses a deliberately small, self-managed delivery platform:
 - GitHub Actions is the CI/CD control plane.
 - Maven Wrapper on Java 21 verifies and packages the Spring Boot application.
 - Docker Buildx creates one `linux/arm64` image and pushes it to GitHub
-  Container Registry (GHCR), tagged with a Git commit SHA.
+  Container Registry (GHCR), tagged with the exact checked-out Git commit SHA.
+- The pushed image digest is recorded and is the immutable reference passed to
+  deployment and promotion.
 - The backend workflow checks out `almonium-infra` and runs its Ansible backend
   playbook over SSH.
 - Ansible renders an environment-specific Compose file, pulls the exact image
-  tag, starts the next blue/green slot, and polls Spring Boot Actuator.
+  digest, starts the next blue/green slot, and polls Spring Boot Actuator.
 - Traefik discovers the container through Docker labels and provides HTTPS with
   Porkbun DNS-01 certificates. Once the new slot is healthy, Ansible retires
   the previous slot.
@@ -42,7 +44,7 @@ developer pushes develop                         operator dispatches prod
                                  |
                                  v
                  reusable-build-and-deploy.yaml
-                    resolve SHA / existing tag
+                   resolve SHA / existing digest
                          |              |
                     build needed?       | redeploy
                          v              |
@@ -50,7 +52,8 @@ developer pushes develop                         operator dispatches prod
                          v              |
                    layered ARM64 image  |
                          v              |
-             ghcr.io/.../almonium-be:<SHA>
+        tag: ghcr.io/.../almonium-be:<SHA>
+      deploy: ghcr.io/.../almonium-be@sha256:<digest>
                                  |
                                  v
                     reusable-deploy.yaml
@@ -68,7 +71,9 @@ developer pushes develop                         operator dispatches prod
 ```
 
 The artifact is the contract between CI and CD. Build and deployment are
-separable: a known image tag can be deployed again without rebuilding source.
+separable: a recorded image digest can be deployed again without rebuilding
+source. The commit tag makes the image discoverable; the digest makes the
+deployment immutable even if a registry tag is later moved.
 
 ## Repository responsibilities
 
@@ -88,23 +93,23 @@ deploy, while the infrastructure repository decides **how and where it runs**.
 
 | Workflow | Trigger | Source/environment | Result |
 | --- | --- | --- | --- |
-| `staging-pipeline.yaml` | Push to `develop`, or manual dispatch | `develop` / `staging` | Builds a new SHA image unless an existing tag is supplied, then deploys staging |
-| `prod-pipeline.yaml` | Manual dispatch only | `main` / `prod` | Builds and deploys, or redeploys a supplied existing image tag |
+| `staging-pipeline.yaml` | Push to `develop`, or manual dispatch | `develop` / `staging` | Builds an exact-SHA image unless an existing digest is supplied, then deploys staging by digest |
+| `prod-pipeline.yaml` | Manual dispatch only | `main` / `prod` | Builds and deploys, or promotes/redeploys a supplied existing image digest |
 
 Production is deliberately not deployed automatically on a push. Promotion is
-an operator decision, and the optional `image_tag` supports deploying an
-already-built artifact. In practice, the safest promotion model is to deploy
-the same verified SHA tag to production rather than rebuild equivalent source.
+an operator decision, and the optional `image_digest` deploys an already-built
+artifact. Production promotion uses the exact digest tested in staging rather
+than resolving a mutable tag or rebuilding equivalent source.
 
 ### Utility and reusable workflows
 
 | Workflow | Purpose |
 | --- | --- |
-| `reusable-build-and-deploy.yaml` | Resolves whether to build or reuse an image, then composes the reusable build and deploy workflows |
-| `reusable-build.yaml` | Verifies source, builds the container, and publishes it to GHCR |
+| `reusable-build-and-deploy.yaml` | Resolves one commit SHA or accepts an existing digest, then composes the reusable build and deploy workflows |
+| `reusable-build.yaml` | Checks out the resolved SHA, verifies source, publishes the SHA-tagged container, and returns its digest |
 | `reusable-deploy.yaml` | Selects GitHub environment, checks out infra, prepares vault credentials, and runs Ansible |
 | `build-only.yaml` | Manually publishes an image without deployment |
-| `deploy-only.yaml` | Manually deploys a supplied image tag to staging or production |
+| `deploy-only.yaml` | Manually deploys a supplied image digest to staging or production |
 
 The reusable workflows avoid duplicating staging and production mechanics.
 `build-only` and `deploy-only` are useful for recovery, promotion, and testing
@@ -112,15 +117,20 @@ the two halves independently.
 
 ## CI: source to immutable application artifact
 
-The build job runs on a GitHub-hosted Ubuntu runner:
+The resolver and build jobs run on GitHub-hosted Ubuntu runners:
 
-1. Check out application source.
-2. Install Temurin JDK 21 and enable the Maven dependency cache.
-3. Run `./mvnw -B verify`.
-4. Configure Docker Buildx.
-5. Authenticate to GHCR with the workflow's short-lived `GITHUB_TOKEN`.
-6. Build for `linux/arm64`, use the GitHub Actions layer cache, and push
-   `ghcr.io/almonium-platform/almonium-be:<image_tag>`.
+1. Check out the requested source branch and resolve `git rev-parse HEAD` to one
+   full 40-character commit SHA.
+2. Pass that SHA to the reusable build, check out exactly that revision, and
+   verify that the resulting `HEAD` equals the requested SHA.
+3. Install Temurin JDK 21, enable the Maven dependency cache, and run
+   `./mvnw -B verify`.
+4. Configure Docker Buildx and authenticate to GHCR with the workflow's
+   short-lived `GITHUB_TOKEN`.
+5. Build for `linux/arm64`, use the GitHub Actions layer cache, and push
+   `ghcr.io/almonium-platform/almonium-be:<commit_sha>`.
+6. Capture Buildx's registry digest, record the SHA/tag/digest in the workflow
+   summary, scan the image by digest, and return the digest to deployment.
 
 `verify` is the quality gate. It includes compilation, test execution, Spring
 Boot packaging, and the Spotless check bound to Maven's `validate` phase. The
@@ -151,7 +161,7 @@ or `prod` environment. It:
 4. Runs `playbook-deploy-almonium-be.yaml`, limited to the `almonium` inventory
    host, using the cloud SSH key.
 5. Passes only deployment coordinates as extra variables: environment, image
-   tag, GHCR actor, and a package-read token.
+   digest, GHCR actor, and a package-read token.
 
 The playbook loads three configuration layers:
 
@@ -176,16 +186,23 @@ directory under `/home/almonium/deploy_slots` and a loopback-only health port:
 | staging | `127.0.0.1:9978` | `127.0.0.1:9979` | `staging.api.almonium.com` |
 | production | `127.0.0.1:9988` | `127.0.0.1:9989` | `api.almonium.com` |
 
-For the target slot, the role ensures Docker/Compose are available, renders
-the Compose file, retries the GHCR pull, recreates the application container,
-and polls `/api/v1/actuator/health` every three seconds for up to roughly three
-minutes. The endpoint is publicly permitted by Spring Security, but the slot
-check itself uses a host-loopback port.
+For the target slot, the role validates the digest, ensures Docker/Compose are
+available, renders the Compose file with
+`ghcr.io/almonium-platform/almonium-be@sha256:<digest>`, retries that immutable
+GHCR pull, recreates the application container, and polls
+`/api/v1/actuator/health` every three seconds for up to roughly three minutes.
+The endpoint is publicly permitted by Spring Security, but the slot check
+itself uses a host-loopback port.
+
+The infra playbook temporarily retains `deploy_image_tag` as a compatibility
+fallback so the infra commit can roll out before the coordinated backend
+workflow commit. Current backend workflows expose and pass only
+`deploy_image_digest`; the legacy variable is not a supported operator input.
 
 If Actuator reports `UP`, the playbook attempts to stop/remove the previous
 slot and advances the color file. If the check fails, Ansible fails before
 those two steps, so the previous container remains. A rollback is a manual
-redeployment of the previous known-good image tag; there is no automatic
+redeployment of the previous known-good image digest; there is no automatic
 post-cutover rollback controller. The current cleanup command has an
 implementation defect described below, so removal is intended but not fully
 enforced.
@@ -239,7 +256,7 @@ The rendered Compose template is the final configuration junction:
 plain infra vars --------------------+
 shared encrypted Ansible vault ------+--> Compose environment --> Spring Boot
 prod/staging encrypted vault --------+
-image tag from backend workflow -----+--> Compose image
+image digest from backend workflow --+--> immutable Compose image
 Traefik labels from template --------+--> public routing and TLS
 ```
 
@@ -264,7 +281,7 @@ The adjacent repository has its own GitHub Actions lifecycle:
 - a path-filtered workflow updates and applies Traefik over SSH;
 - other path-filtered workflows manage personal/static stacks;
 - application backend/frontend playbooks are normally invoked from the
-  respective application repositories with a concrete image tag.
+  respective application repositories with a concrete image reference.
 
 The server is bootstrapped once with Ansible. Bootstrap installs Docker,
 Compose, Git, creates the `almonium` user and state directories, and creates
@@ -283,20 +300,24 @@ the backend deploy transaction.
 1. Merge or push the intended commit to `develop`.
 2. Watch `Deploy to Staging`: Maven verification must pass, then the SHA image
    must publish, then Ansible must report the target slot healthy.
-3. Confirm the deployed SHA and perform behavior-level smoke tests against the
-   staging hostname.
+3. Record the built digest from the workflow summary, confirm that digest was
+   deployed, and perform behavior-level smoke tests against the staging
+   hostname.
 
 ### Promote to production
 
 1. Ensure the intended commit is on `main` and has passed the relevant checks.
-2. Prefer a known, already-tested SHA image tag when provenance is confirmed.
-3. Manually dispatch `Deploy to Production` with that tag.
+2. Copy the exact digest of the image already tested in staging.
+3. Manually dispatch `Deploy to Production` with that digest; leave the input
+   empty only when intentionally building the current `main` commit.
 4. Confirm Actuator health and run a user-facing smoke test.
 
 ### Roll back or redeploy
 
-1. Identify the last known-good GHCR SHA tag.
-2. Run `Deploy Only`, or the environment pipeline with `image_tag` populated.
+1. Identify the last known-good GHCR image digest from its build/deployment
+   record.
+2. Run `Deploy Only`, or the environment pipeline with `image_digest`
+   populated.
 3. The normal slot and health-check process deploys that artifact; no source
    revert or rebuild is required.
 
@@ -314,7 +335,8 @@ the backend deploy transaction.
 Automated:
 
 - formatting gate, compilation, tests, and JAR packaging;
-- ARM64 container build, cache, authentication, and GHCR publication;
+- exact-commit checkout, ARM64 container build, digest recording, cache,
+  authentication, and GHCR publication;
 - environment config rendering and secret selection;
 - image pull, slot recreation, Actuator polling, and old-slot retirement;
 - HTTPS routing/certificate management and selected shared-stack convergence;
@@ -323,7 +345,7 @@ Automated:
 Manual or external to the repository:
 
 - production approval/dispatch and behavior-level smoke testing;
-- rollback decision and previous-tag selection;
+- rollback decision and previous-digest selection;
 - GitHub branch/environment/package policy administration;
 - first host bootstrap, DNS/cloud provisioning, vault password custody, and
   disaster recovery;
@@ -341,18 +363,14 @@ The deploy job now runs only when image resolution succeeds and the build
 either succeeds or is intentionally skipped for an existing image. A failed
 verification/build no longer reaches deployment.
 
-### P0: bind image tags to the exact checked-out source
+### P0: ~~bind image tags to the exact checked-out source~~ Remediated
 
-Tag resolution uses the workflow-context `github.sha`, while reusable build
-jobs perform their own default checkout. Checking out `source_branch` in an
-earlier job does not change `github.sha` or the later job's checkout. This can
-mislabel images when a manual workflow is launched from a different ref.
-`build-only` has the same risk: it reads a selected branch SHA in one job, then
-the reusable build checks out its default ref in another job.
-
-Resolve an explicit commit SHA, pass it into the build workflow, check out that
-exact SHA there, and tag the resulting image with the same SHA. Record the
-digest as deployment output. This is the core provenance invariant.
+The resolver now derives a full SHA from the requested branch's checked-out
+`HEAD`; the reusable build checks out and verifies that exact SHA, tags the
+image with it, records Buildx's pushed digest, and passes the digest to Ansible.
+Existing-artifact deployment accepts only a `sha256:` digest. Compose therefore
+pulls `repository@digest`, closing both the source/tag mismatch and mutable-tag
+promotion gaps.
 
 ### P1: serialize deployments per environment
 
@@ -385,10 +403,9 @@ checked results.
 
 There is no repository-defined `pull_request` workflow; the main automatic
 backend workflow is a staging deployment after a push to `develop`. Add a
-non-deploying PR workflow that runs the Maven gate. Consider image digest
-promotion, OCI labels, SBOM/provenance attestations, vulnerability scanning,
-and signed images. SHA-shaped tags are a good convention but tags remain
-mutable registry references.
+non-deploying PR workflow that runs the Maven gate. Consider SBOM/provenance
+attestations and signed images. Vulnerability scanning, revision labels, and
+digest promotion are already present.
 
 ### P1: harden automation trust boundaries
 
@@ -413,20 +430,21 @@ requirements justify the operational cost.
 A concise way to explain the design is:
 
 > I split application delivery from infrastructure ownership. GitHub Actions
-> verifies the Spring Boot service with the Maven Wrapper, packages a layered
-> ARM64 image, and publishes a commit-tagged artifact to GHCR. The backend then
+> resolves one exact Git commit, verifies the Spring Boot service with the
+> Maven Wrapper, packages a layered ARM64 image, and publishes a commit-tagged
+> artifact to GHCR. It records and deploys the pushed digest. The backend then
 > invokes a versioned Ansible playbook from a separate infrastructure repo.
 > Ansible selects environment-specific vaults, renders Compose, deploys the next
 > blue/green slot on an Oracle ARM host, waits for Actuator, and only then
 > removes the old slot. Traefik discovers the container and handles HTTPS. The
-> same artifact can be promoted or rolled back without rebuilding, while
+> same digest can be promoted or rolled back without rebuilding, while
 > PostgreSQL, RabbitMQ, networks, TLS, and backups have independent infra
 > lifecycles.
 
 The follow-up engineering discussion is equally important: this setup is
-reproducible and understandable, but current work should tighten source/image
-provenance, deployment gating and concurrency, explicit traffic switching,
-supply-chain pinning, and single-host recovery.
+reproducible and understandable, but current work should tighten deployment
+concurrency, explicit traffic switching, supply-chain pinning, and single-host
+recovery.
 
 ## Source map
 

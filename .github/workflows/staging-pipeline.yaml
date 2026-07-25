@@ -5,8 +5,8 @@ on:
     branches: [ develop ]
   workflow_dispatch:
     inputs:
-      image_tag:
-        description: 'OPTIONAL: Specify an existing image tag to re-deploy.'
+      image_digest:
+        description: 'OPTIONAL: Re-deploy an existing immutable image digest.'
         required: false
         type: string
 
@@ -20,5 +20,5 @@ jobs:
     with:
       environment_name: staging
       source_branch: develop
-      image_tag: ${{ inputs.image_tag }}
+      image_digest: ${{ inputs.image_digest }}
     secrets: inherit
