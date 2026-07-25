@@ -82,7 +82,10 @@ to a particular object.
 Card reads, updates, deletes, and suggestions now resolve cards through a
 user-scoped repository query. Translation and example mutations are constrained
 to children of that owned card. Public-ID reads remain the explicit sharing
-boundary; cross-user tests cover the private operations.
+boundary; cross-user tests cover the private operations. HTTP-to-service
+authorization tests also cover foreign avatar selection/deletion,
+recipient-scoped notification mutations, and attempts by unrelated users to
+mutate relationships.
 
 ### 2. ~~Remove native Java deserialization from OAuth cookies~~ Remediated
 
@@ -206,7 +209,9 @@ code.
 
 Prioritized additions:
 
-1. Object-level authorization integration tests.
+1. Continue expanding object-level authorization integration tests. Cards,
+   avatars, notifications, and relationships now have cross-user coverage;
+   apply the same matrix when adding ID-addressed resources to other domains.
 2. A reproducible `verify` build in CI, including Testcontainers where needed.
 3. Rate limiting and cost/abuse controls.
 4. External-client timeouts, retry policy, metrics, and failure mapping.
