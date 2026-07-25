@@ -138,13 +138,13 @@ issues:
 - Spotless checks formatting during `validate` and only mutates files when
   `spotless:apply` is invoked explicitly.
 - Deployment is now gated on successful image resolution and a successful or
-  intentionally skipped build. Exact checkout/tag provenance still needs to be
-  bound to one explicitly resolved commit SHA.
+  intentionally skipped build. Reusable-workflow checkout, the image tag,
+  revision metadata, digest, SBOM, and provenance evidence are bound to one
+  explicitly resolved commit SHA.
 
-The remaining build work is to confirm the full Testcontainers suite in CI and
-bind reusable-workflow checkout, image tag, and digest evidence to the same
-resolved commit. These repairs should clear most module/IDE symptoms before any
-source-set redesign is needed.
+The remaining build work is to keep the full Testcontainers suite green in CI.
+These repairs should clear most module/IDE symptoms before any source-set
+redesign is needed.
 
 ## Authentication assessment
 

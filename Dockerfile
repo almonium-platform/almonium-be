@@ -8,6 +8,10 @@ RUN java -Djarmode=layertools -jar app.jar extract
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=layertools-extractor /app/dependencies/ ./
 COPY --from=layertools-extractor /app/spring-boot-loader/ ./
 COPY --from=layertools-extractor /app/snapshot-dependencies/ ./

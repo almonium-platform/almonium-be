@@ -18,6 +18,8 @@ on:
                 required: true
             CLOUD_KEY:
                 required: true
+            CLOUD_KNOWN_HOSTS:
+                required: true
             ANSIBLE_VAULT_PASSWORD_ALL:
                 required: true
             ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED:
@@ -32,6 +34,9 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 10
         environment: ${{ inputs.environment_name }}
+        concurrency:
+            group: deploy-almonium-be-${{ inputs.environment_name }}
+            cancel-in-progress: false
         outputs:
             deployed_image_digest: ${{ inputs.image_digest }}
         permissions:
@@ -49,7 +54,7 @@ jobs:
                   fi
 
             - name: Checkout almonium-infra repository
-              uses: actions/checkout@v6
+              uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
               with:
                   repository: almonium-platform/almonium-infra
                   path: almonium-infra
@@ -75,11 +80,12 @@ jobs:
                     fi
 
             -   name: Run Ansible Playbook
-                uses: dawidd6/action-ansible-playbook@v4
+                uses: dawidd6/action-ansible-playbook@93764e7048f4dd16117d134dadb4b36e8ee73227 # v4
                 with:
                     playbook: playbook-deploy-almonium-be.yaml
                     directory: almonium-infra/ansible
                     key: ${{ secrets.CLOUD_KEY }}
+                    known_hosts: ${{ secrets.CLOUD_KNOWN_HOSTS }}
                     options: |
                         -i inventory/hosts.ini
                         --limit almonium

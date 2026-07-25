@@ -21,6 +21,8 @@ on:
         required: true
       CLOUD_KEY:
         required: true
+      CLOUD_KNOWN_HOSTS:
+        required: true
       ANSIBLE_VAULT_PASSWORD_ALL:
         required: true
       ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED:
@@ -42,7 +44,7 @@ jobs:
       image_digest: ${{ steps.resolve.outputs.image_digest }}
       build_needed: ${{ steps.resolve.outputs.build_needed }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         if: inputs.image_digest == ''
         with:
           ref: ${{ inputs.source_branch }}
@@ -90,6 +92,7 @@ jobs:
     secrets:
       INFRA_REPO_CHECKOUT_KEY: ${{ secrets.INFRA_REPO_CHECKOUT_KEY }}
       CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+      CLOUD_KNOWN_HOSTS: ${{ secrets.CLOUD_KNOWN_HOSTS }}
       ANSIBLE_VAULT_PASSWORD_ALL: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALL }}
       ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_SHARED }}
       ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD: ${{ secrets.ANSIBLE_VAULT_PASSWORD_ALMONIUM_PROD }}

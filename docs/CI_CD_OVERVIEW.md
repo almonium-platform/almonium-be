@@ -1,6 +1,6 @@
 # CI/CD Architecture Overview
 
-Review date: 2026-07-18. This document explains how the Almonium backend moves
+Review date: 2026-07-25. This document explains how the Almonium backend moves
 from a Git commit to the running production or staging service. It covers both
 this repository and the adjacent `almonium-infra` repository. It is intended as
 an onboarding map, an interview-ready explanation, and an operational outline;
@@ -20,9 +20,9 @@ Almonium uses a deliberately small, self-managed delivery platform:
   playbook over SSH.
 - Ansible renders an environment-specific Compose file, pulls the exact image
   digest, starts the next blue/green slot, and polls Spring Boot Actuator.
-- Traefik discovers the container through Docker labels and provides HTTPS with
-  Porkbun DNS-01 certificates. Once the new slot is healthy, Ansible retires
-  the previous slot.
+- Ansible atomically updates Traefik's dynamic file-provider route after the
+  new slot is healthy. Once an external HTTPS check confirms that exact slot,
+  Ansible retires the previous slot.
 - Production and staging share one Oracle Cloud host and the platform-level
   PostgreSQL/PgBouncer, RabbitMQ, Traefik, and Docker networks, while using
   separate application containers, databases/users, RabbitMQ vhosts/users,
@@ -65,7 +65,7 @@ developer pushes develop                         operator dispatches prod
               Oracle Cloud host / Docker Compose
              render next slot -> pull -> start -> health
                                  |
-                   Traefik route + TLS discovery
+                   explicit Traefik route + TLS
                                  |
                     retire previous healthy slot
 ```
@@ -129,8 +129,10 @@ The resolver and build jobs run on GitHub-hosted Ubuntu runners:
    short-lived `GITHUB_TOKEN`.
 5. Build for `linux/arm64`, use the GitHub Actions layer cache, and push
    `ghcr.io/almonium-platform/almonium-be:<commit_sha>`.
-6. Capture Buildx's registry digest, record the SHA/tag/digest in the workflow
-   summary, scan the image by digest, and return the digest to deployment.
+6. Capture Buildx's registry digest, attach BuildKit SBOM and max-mode
+   provenance attestations to the image index, record the SHA/tag/digest in the
+   workflow summary, scan the image by digest, and return the digest to
+   deployment.
 
 `verify` is the quality gate. It includes compilation, test execution, Spring
 Boot packaging, and the Spotless check bound to Maven's `validate` phase. The
@@ -159,7 +161,7 @@ or `prod` environment. It:
    temporary files on the runner.
 3. Selects the `almonium_prod` or `almonium_staging` vault ID.
 4. Runs `playbook-deploy-almonium-be.yaml`, limited to the `almonium` inventory
-   host, using the cloud SSH key.
+   host, using the cloud SSH key and a reviewed `CLOUD_KNOWN_HOSTS` entry.
 5. Passes only deployment coordinates as extra variables: environment, image
    digest, GHCR actor, and a package-read token.
 
@@ -181,6 +183,9 @@ The host keeps a small `.next_color_<environment>` file that tells the next run
 which slot to replace. Each environment/slot has its own rendered Compose
 directory under `/home/almonium/deploy_slots` and a loopback-only health port:
 
+Deploy jobs share an environment-specific concurrency group, so overlapping
+runs queue instead of racing on slot state.
+
 | Environment | Blue check | Green check | Public host |
 | --- | ---: | ---: | --- |
 | staging | `127.0.0.1:9978` | `127.0.0.1:9979` | `staging.api.almonium.com` |
@@ -192,25 +197,20 @@ available, renders the Compose file with
 GHCR pull, recreates the application container, and polls
 `/api/v1/actuator/health` every three seconds for up to roughly three minutes.
 The endpoint is publicly permitted by Spring Security, but the slot check
-itself uses a host-loopback port.
+itself uses a host-loopback port. The Compose health check uses the `curl`
+binary installed in the application runtime image.
 
-The infra playbook temporarily retains `deploy_image_tag` as a compatibility
-fallback so the infra commit can roll out before the coordinated backend
-workflow commit. Current backend workflows expose and pass only
-`deploy_image_digest`; the legacy variable is not a supported operator input.
+If Actuator reports `UP`, Ansible atomically renders one environment router in
+Traefik's watched dynamic directory, pointing it at the target container. A
+response-header middleware identifies the selected slot. An HTTPS request from
+the GitHub runner must receive a valid certificate, report application status
+`UP`, and return the expected slot header. If verification fails and an old
+slot exists, the rescue path restores its route and fails the deployment. Only
+after a successful routed check does Ansible idempotently remove the old
+container and advance the color file.
 
-If Actuator reports `UP`, the playbook attempts to stop/remove the previous
-slot and advances the color file. If the check fails, Ansible fails before
-those two steps, so the previous container remains. A rollback is a manual
-redeployment of the previous known-good image digest; there is no automatic
-post-cutover rollback controller. The current cleanup command has an
-implementation defect described below, so removal is intended but not fully
-enforced.
-
-This is blue/green-inspired rather than a fully atomic load-balancer switch.
-Both slots can temporarily advertise equivalent Traefik router rules while the
-new one is checked, and traffic selection is driven by Docker discovery and
-container health rather than an explicit router pointer.
+A later rollback is a manual redeployment of the previous known-good image
+digest; the route switch itself has an automatic failure rollback.
 
 ## Runtime topology
 
@@ -221,7 +221,7 @@ Internet
 Traefik :80/:443
   - redirects HTTP to HTTPS
   - obtains/renews certificates with Porkbun DNS-01
-  - discovers opted-in Docker containers
+  - watches the explicit Almonium backend route
    |
    +--> almonium_prod_blue OR almonium_prod_green
    |        Spring profile: prod
@@ -257,7 +257,7 @@ plain infra vars --------------------+
 shared encrypted Ansible vault ------+--> Compose environment --> Spring Boot
 prod/staging encrypted vault --------+
 image digest from backend workflow --+--> immutable Compose image
-Traefik labels from template --------+--> public routing and TLS
+Ansible route template --------------+--> explicit public routing and TLS
 ```
 
 Plain vars hold non-secret topology such as hostnames, Spring profiles,
@@ -334,11 +334,14 @@ the backend deploy transaction.
 
 Automated:
 
+- pull-request Maven verification without deployment;
 - formatting gate, compilation, tests, and JAR packaging;
-- exact-commit checkout, ARM64 container build, digest recording, cache,
-  authentication, and GHCR publication;
+- exact-commit checkout, ARM64 container build, digest recording, attached
+  SBOM/provenance, cache, authentication, and GHCR publication;
 - environment config rendering and secret selection;
-- image pull, slot recreation, Actuator polling, and old-slot retirement;
+- serialized image deployment, slot recreation, Actuator polling, explicit
+  route switch, routed HTTPS verification, failure rollback, and old-slot
+  retirement;
 - HTTPS routing/certificate management and selected shared-stack convergence;
 - repeatable deployment of an existing artifact.
 
@@ -372,48 +375,38 @@ Existing-artifact deployment accepts only a `sha256:` digest. Compose therefore
 pulls `repository@digest`, closing both the source/tag mismatch and mutable-tag
 promotion gaps.
 
-### P1: serialize deployments per environment
+### P1: ~~serialize deployments per environment~~ Remediated
 
-No workflow defines a concurrency group. Two staging or production runs can
-race on the next-color file, the same slot directory/container, and removal of
-the previous slot. Add an environment-specific concurrency group and decide
-whether a newer run should cancel or queue behind an active deployment.
+The reusable deployment job queues runs in an environment-specific concurrency
+group and never cancels an in-progress rollout.
 
-### P1: make traffic cutover and health semantics explicit
+### P1: ~~make traffic cutover and health semantics explicit~~ Remediated
 
-The new and old containers temporarily expose equivalent host rules with equal
-priority. Use an explicit active-router/service switch, or document and test
-Traefik's behavior for simultaneous routers and unhealthy containers. The
-Compose health check invokes `curl`, but the application Dockerfile does not
-install it; use a health-check mechanism guaranteed to exist in the runtime
-image. Keep the independent Ansible poll, and add a post-route HTTPS smoke test
-before declaring success.
+The runtime image contains the command used by its Compose health check.
+Ansible verifies the target on loopback, atomically switches a single dynamic
+Traefik router, and then verifies HTTPS, certificate validity, application
+health, and exact slot identity from the runner. A failed routed check restores
+the old route when possible.
 
-### P1: fix previous-slot cleanup
+### P1: ~~fix previous-slot cleanup~~ Remediated
 
-The playbook passes `docker stop ... && docker rm ...` to
-`ansible.builtin.command`. That module does not interpret shell operators, and
-the task also suppresses failure. The valid container can be stopped while the
-`&& docker rm` tokens are treated as extra `docker stop` arguments, leaving a
-stopped container instead of removing it. Replace this with idempotent
-`community.docker` tasks (preferred), or two explicit command tasks with
-checked results.
+The playbook now removes the previous container with the idempotent
+`community.docker.docker_container` module after routed verification succeeds.
 
-### P1: add pull-request CI and stronger release evidence
+### P1: ~~add pull-request CI and stronger release evidence~~ Remediated
 
-There is no repository-defined `pull_request` workflow; the main automatic
-backend workflow is a staging deployment after a push to `develop`. Add a
-non-deploying PR workflow that runs the Maven gate. Consider SBOM/provenance
-attestations and signed images. Vulnerability scanning, revision labels, and
-digest promotion are already present.
+A non-deploying pull-request workflow runs the Maven gate. Published images
+retain revision labels and digest promotion, are scanned by digest, and now
+carry BuildKit SBOM and max-mode provenance attestations.
 
-### P1: harden automation trust boundaries
+### P1: ~~harden automation trust boundaries~~ Substantially remediated
 
-Third-party actions are version-tag pinned rather than commit-SHA pinned, and
-Ansible disables SSH host-key checking. Pin actions to reviewed commits, enable
-host verification with a managed `known_hosts`, minimize token lifetime and
-scope, avoid exposing tokens in process arguments, and periodically rotate the
-infra checkout key, cloud key, and vault passwords.
+All backend and infra workflow actions are pinned to reviewed commit SHAs.
+Ansible host-key checking is enabled and workflows consume a managed
+`CLOUD_KNOWN_HOSTS`; the direct Traefik SSH workflow consumes a managed
+`CLOUD_HOST_FINGERPRINT`. Repository administrators must populate and rotate
+those values through a trusted channel. Key/password rotation and further token
+lifetime reduction remain operational work.
 
 ### P2: reduce single-host and shared-service blast radius
 
@@ -435,16 +428,16 @@ A concise way to explain the design is:
 > artifact to GHCR. It records and deploys the pushed digest. The backend then
 > invokes a versioned Ansible playbook from a separate infrastructure repo.
 > Ansible selects environment-specific vaults, renders Compose, deploys the next
-> blue/green slot on an Oracle ARM host, waits for Actuator, and only then
-> removes the old slot. Traefik discovers the container and handles HTTPS. The
+> blue/green slot on an Oracle ARM host, waits for Actuator, atomically switches
+> Traefik's route, verifies that exact slot over HTTPS, and only then removes
+> the old slot. The
 > same digest can be promoted or rolled back without rebuilding, while
 > PostgreSQL, RabbitMQ, networks, TLS, and backups have independent infra
 > lifecycles.
 
 The follow-up engineering discussion is equally important: this setup is
-reproducible and understandable, but current work should tighten deployment
-concurrency, explicit traffic switching, supply-chain pinning, and single-host
-recovery.
+reproducible and understandable, but single-host recovery, secret rotation,
+monitoring, and resource isolation remain meaningful operational concerns.
 
 ## Source map
 
