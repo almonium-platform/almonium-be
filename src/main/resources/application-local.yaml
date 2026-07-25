@@ -4,6 +4,7 @@ spring:
     username: almonium
     password: almonium-local
   liquibase:
+    contexts: local
     enabled: true
   rabbitmq:
     host: 127.0.0.1

@@ -242,8 +242,9 @@ Only the two health ports bind to host loopback. The Traefik dashboard,
 RabbitMQ management UI, and RabbitMQ's direct AMQP troubleshooting port are
 also loopback-only and are intended to be reached through SSH tunnels.
 
-Liquibase runs with the active Spring profile/context when the application
-starts. Database changes therefore ride with the application artifact, while
+Liquibase runs with an explicit context matching the runtime Spring profile:
+`local`, `staging`, `prod`, or `test` (with legacy `dev` grouped into `local`).
+Database changes therefore ride with the application artifact, while
 database server provisioning, users, PgBouncer, persistence, and backups are
 owned by the infrastructure repository. This makes backward-compatible schema
 changes especially important during a two-slot rollout.

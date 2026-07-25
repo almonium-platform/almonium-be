@@ -34,13 +34,13 @@ jobs:
           set -euo pipefail
           actual_commit_sha="$(git rev-parse HEAD)"
           test "$actual_commit_sha" = "$EXPECTED_COMMIT_SHA"
-      - name: Reject changes to existing Liquibase changelogs
+      - name: Reject changes to existing Liquibase patches
         run: |
           set -euo pipefail
           if git rev-parse --verify --quiet HEAD^ >/dev/null; then
-            changed_changelogs="$(git diff --name-only --diff-filter=MDCR HEAD^ HEAD -- src/main/resources/db/changelog/changes)"
+            changed_changelogs="$(git diff --name-only --diff-filter=MDCR HEAD^ HEAD -- src/main/resources/db/changelog/changes/patches)"
             if test -n "$changed_changelogs"; then
-              echo "Existing Liquibase changelog files are immutable. Add a new patch instead:"
+              echo "Existing Liquibase patch files are immutable. Add a new patch instead:"
               echo "$changed_changelogs"
               exit 1
             fi

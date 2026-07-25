@@ -65,6 +65,25 @@ The credentials are intentionally local-only and match `.env.template`.
 PostgreSQL data and RabbitMQ state survive container recreation in named
 volumes.
 
+## Profiles and Liquibase contexts
+
+Runtime profiles explicitly select their matching Liquibase context:
+
+| Spring profile | Liquibase context | Database |
+| --- | --- | --- |
+| `local` | `local` | Docker `almonium_local` |
+| `staging` | `staging` | Deployed `almonium_staging` |
+| `prod` | `prod` | Deployed `almonium_prod` |
+| `test` | `test` | Testcontainers PostgreSQL |
+
+`dev` is retained only as a compatibility alias for `local`, so older IDE run
+configurations activate the same local configuration. New local configuration
+should use `local` directly.
+
+Contexts filter environment-specific data changesets; they do not define the
+database connection. Connection settings remain profile-specific. Changesets
+without a context run in every environment.
+
 ## Start and verify the backend
 
 Start the application after both containers report healthy:
@@ -97,8 +116,9 @@ and broker state.
 
 - Develop and test new changesets with the `local` profile and local
   PostgreSQL.
-- Once a changeset is committed, treat its file, ID, author, and contents as
-  immutable. Corrections go into a new patch.
+- Once a schema patch is committed, treat its file, ID, author, and contents as
+  immutable. Corrections go into a new patch. Context-only seed configuration
+  can be extended deliberately when a new environment reuses the same data.
 - Pushes to `develop` deploy the `staging` profile; that deployment applies
   reviewed migrations to `almonium_staging`.
 - Production applies the same committed migration chain through the manual
