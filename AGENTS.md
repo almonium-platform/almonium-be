@@ -5,6 +5,42 @@ language-learning product. Read `docs/PROJECT_AUDIT.md` for a system map and
 known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 `docs/DESIGN_PATTERNS.md` for the project's pattern catalogue.
 
+## Repository ecosystem and operations
+
+This checkout is one part of a coordinated product workspace. Neighboring
+repositories are available at:
+
+- `../almonium-fe`: the Angular client. Treat API DTO, route, error-contract,
+  cookie/CSRF/CORS, Firebase-authentication, and user-flow changes as
+  cross-client work: inspect and update the frontend when the requested change
+  affects it, and verify the flow end to end.
+- `../almonium-infra`: the source of truth for deployed topology, Ansible,
+  Compose templates, Traefik, PostgreSQL/PgBouncer, RabbitMQ, encrypted runtime
+  configuration, and deployment playbooks. Read its `AGENTS.md` before making
+  changes there and commit coordinated changes separately in each repository.
+
+Read `docs/LOCAL_DEVELOPMENT.md` before changing environment configuration,
+database/broker connectivity, or local startup behavior. Read
+`docs/CI_CD_OVERVIEW.md` before changing Docker, GitHub Actions, deployment, or
+runtime infrastructure behavior. The workflow/Ansible files remain the
+executable source of truth when documentation differs.
+
+- Routine local development targets staging services through the `oci` SSH host
+  alias and loopback tunnels for PgBouncer (`6432`) and RabbitMQ (`5672`). Do
+  not point a local process at production without an explicit incident or
+  debugging decision; startup can run Liquibase migrations.
+- CI builds a Java 21 `linux/arm64` image tagged by Git SHA, then invokes the
+  infra repository's Ansible deployment. Pushes to `develop` deploy staging;
+  production deployment from `main` is a manual operator action. Do not treat
+  SSH access as permission to bypass this path or perform an ad-hoc production
+  deployment.
+- Deployment uses two application slots on one Oracle Cloud ARM host. Keep
+  Liquibase changes backward-compatible across old and new application
+  versions; use additive/expand-contract migrations rather than assuming an
+  immediate, single-container schema cutover.
+- Never copy decrypted Ansible vault material, production credentials, or
+  GitHub Actions secrets into this repository, logs, commits, or tickets.
+
 ## Working agreement
 
 - Preserve pre-existing worktree changes. Never stage or rewrite changes that
@@ -26,6 +62,14 @@ known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 - Treat authorization as an invariant: loading an entity by ID is not enough;
   verify that the authenticated user owns or may access it.
 - Update Liquibase rather than editing an already-applied database change set.
+- Treat changes to `.env` variables as cross-repository changes: propagate the
+  corresponding configuration updates to the `almonium-infra` repository and
+  keep the application and infrastructure definitions in sync.
+- For a configuration-key change, reconcile the application binding and
+  validation, `.env.template`, the deployed Compose/Ansible variable mapping,
+  the applicable vault schema and encrypted values, and any frontend contract
+  that consumes the setting. Keep secret values in the appropriate infra vault;
+  do not add them to backend templates.
 - Keep Java and Kotlin on the same JVM target. Kotlin currently lives under
   `src/main/java`; preserve that layout until it is migrated deliberately.
 - Update the relevant document when an architectural convention or known
