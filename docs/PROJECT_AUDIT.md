@@ -137,12 +137,14 @@ issues:
 - CI runs `./mvnw -B verify`; integration tests require a Docker-capable runner.
 - Spotless checks formatting during `validate` and only mutates files when
   `spotless:apply` is invoked explicitly.
-- Review workflow checkout/deploy conditions so builds test the intended SHA
-  and deployment does not run after an invalid verification path.
+- Deployment is now gated on successful image resolution and a successful or
+  intentionally skipped build. Exact checkout/tag provenance still needs to be
+  bound to one explicitly resolved commit SHA.
 
 The remaining build work is to confirm the full Testcontainers suite in CI and
-review workflow checkout/deploy conditions. These repairs should clear most
-module/IDE symptoms before any source-set redesign is needed.
+bind reusable-workflow checkout, image tag, and digest evidence to the same
+resolved commit. These repairs should clear most module/IDE symptoms before any
+source-set redesign is needed.
 
 ## Authentication assessment
 

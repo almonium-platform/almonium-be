@@ -335,13 +335,11 @@ Manual or external to the repository:
 These are important distinctions between the intended design and the guarantees
 currently enforced by code.
 
-### P0: make build success a hard deployment prerequisite
+### P0: ~~make build success a hard deployment prerequisite~~ Remediated
 
-The orchestrator's deploy job uses `if: always()`. That is necessary when the
-build is intentionally skipped for an existing image, but it also attempts CD
-after a failed build. For a new SHA the image pull will normally fail, yet the
-pipeline should express the invariant directly: deploy only when resolution
-succeeded and either the build succeeded or `build_needed == false`.
+The deploy job now runs only when image resolution succeeds and the build
+either succeeds or is intentionally skipped for an existing image. A failed
+verification/build no longer reaches deployment.
 
 ### P0: bind image tags to the exact checked-out source
 
