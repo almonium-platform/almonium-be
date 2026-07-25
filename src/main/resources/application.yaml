@@ -5,6 +5,8 @@ server:
   forward-headers-strategy: framework
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   profiles.active: ${SPRING_PROFILE}
   rabbitmq:
     host: ${RABBITMQ_HOST}

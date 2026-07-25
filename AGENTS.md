@@ -25,10 +25,11 @@ database/broker connectivity, or local startup behavior. Read
 runtime infrastructure behavior. The workflow/Ansible files remain the
 executable source of truth when documentation differs.
 
-- Routine local development targets staging services through the `oci` SSH host
-  alias and loopback tunnels for PgBouncer (`6432`) and RabbitMQ (`5672`). Do
-  not point a local process at production without an explicit incident or
-  debugging decision; startup can run Liquibase migrations.
+- Routine local development uses the `local` Spring profile with PostgreSQL
+  and RabbitMQ from `docker-compose.local.yaml`. Local startup runs Liquibase
+  only against the disposable local database. Staging migrations run through
+  the reviewed deployment artifact; do not point a local process at staging or
+  production without an explicit incident or debugging decision.
 - CI builds a Java 21 `linux/arm64` image tagged by Git SHA, then invokes the
   infra repository's Ansible deployment. Pushes to `develop` deploy staging;
   production deployment from `main` is a manual operator action. Do not treat

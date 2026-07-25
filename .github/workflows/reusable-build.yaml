@@ -38,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           if git rev-parse --verify --quiet HEAD^ >/dev/null; then
-            changed_changelogs="$(git diff --name-only --diff-filter=MDCR HEAD^ HEAD -- src/main/resources/db/changelog)"
+            changed_changelogs="$(git diff --name-only --diff-filter=MDCR HEAD^ HEAD -- src/main/resources/db/changelog/changes)"
             if test -n "$changed_changelogs"; then
               echo "Existing Liquibase changelog files are immutable. Add a new patch instead:"
               echo "$changed_changelogs"

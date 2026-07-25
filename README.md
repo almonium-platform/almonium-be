@@ -27,7 +27,7 @@ Spotless checks formatting during the build; apply intentional formatting with
 `./mvnw spotless:apply`.
 
 See the [development-environment runbook](docs/LOCAL_DEVELOPMENT.md) for the
-normal local-code/staging-services workflow, SSH tunnels, application startup,
+local PostgreSQL/RabbitMQ startup command, application startup,
 troubleshooting, and the complete environment-variable catalogue.
 
 # Friendships

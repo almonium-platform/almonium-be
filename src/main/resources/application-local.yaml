@@ -1,8 +1,16 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/almonium_local
+    username: almonium
+    password: almonium-local
   liquibase:
-    # Local development uses the shared staging database. Schema changes are
-    # applied only by the reviewed staging deployment artifact.
-    enabled: false
+    enabled: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: almonium
+    password: almonium-local
+    virtual-host: /almonium_local
   jpa:
     show-sql: true
     properties.hibernate:
@@ -27,5 +35,3 @@ app:
   api-domain: http://localhost:${server.port}
   email.dry-run: true
   auth.email-verification-required: false
-spring.config.import:
-  - optional:file:.env[.properties]

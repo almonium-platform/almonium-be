@@ -71,6 +71,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/insertion/populate-plans.yaml
   - include:
+      file: db/changelog/changes/insertion/populate-plans-local.yaml
+  - include:
       file: db/changelog/changes/insertion/populate-plan-limits.yaml
   - include:
       file: db/changelog/changes/insertion/populate-interests.yaml

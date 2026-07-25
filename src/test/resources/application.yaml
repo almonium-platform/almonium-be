@@ -5,6 +5,12 @@ server:
 spring:
   profiles:
     active: test
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: almonium
+    password: almonium-local
+    virtual-host: /almonium_local
   datasource:
     url: jdbc:tc:postgresql:///
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver

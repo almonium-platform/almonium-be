@@ -2,12 +2,13 @@
 
 ## Actual topology
 
-Routine backend development uses local source code against the existing
-staging PostgreSQL and RabbitMQ services on the Almonium server. A separately
-installed local database is not the normal workflow.
+Routine backend development runs source code on the developer machine with the
+`local` Spring profile. PostgreSQL and RabbitMQ run in Docker Compose and keep
+their state in named local volumes. Liquibase is enabled and applies changes
+only to the local PostgreSQL database.
 
 The neighboring `almonium-infra` repository is the source of truth for
-deployed topology and credentials:
+deployed staging and production topology and credentials:
 
 - `ansible/vars/apps/almonium/vars.yaml` defines the production and staging
   database names/users and RabbitMQ users/vhosts;
@@ -19,17 +20,17 @@ deployed topology and credentials:
   `ansible/playbook-deploy-almonium-be.yaml`.
 
 Production and staging are isolated by database credentials and RabbitMQ
-vhosts, but they share one server. Use staging for routine development.
-Connecting a local process to production should be an explicit,
-incident/debugging-only decision.
+vhosts, but they share one server. Their migrations are applied by the
+reviewed deployment artifact. Connecting a local process to either deployed
+database should be an explicit incident/debugging decision, not the normal
+development workflow.
 
 ## First-time setup
 
 Requirements:
 
 - JDK 21;
-- Docker with Docker Compose for Testcontainers and an optional local RabbitMQ;
-- SSH access configured under the `oci` host alias;
+- Docker with Docker Compose for PostgreSQL, RabbitMQ, and Testcontainers;
 - development credentials for the external providers initialized at startup.
 
 Copy the tracked template and fill its placeholders:
@@ -39,49 +40,72 @@ cp .env.template .env
 ```
 
 `.env` and other `.env*` working files are ignored. Never commit their secrets.
-The `dev` Spring profile imports `.env` and keeps application email delivery in
-dry-run mode.
+The base Spring configuration imports `.env`; the template selects the `local`
+profile and keeps application email delivery in dry-run mode.
 
-## Connect to staging services
+If `.env` predates the local database workflow, change `SPRING_PROFILE` to
+`local`. The local profile pins its database and broker connection to the
+matching Compose services, so stale staging connection values in an older
+`.env` cannot redirect local Liquibase.
 
-The infra repository binds PgBouncer and RabbitMQ to server loopback rather
-than exposing them to the Internet. Open both tunnels before starting the
-backend:
+## Start local infrastructure
+
+Start PostgreSQL and RabbitMQ together with:
 
 ```bash
-ssh -N \
-  -L 6432:127.0.0.1:6432 \
-  -L 5672:127.0.0.1:5672 \
-  oci
+docker compose -f docker-compose.local.yaml up -d --wait postgres rabbitmq
 ```
 
-The staging defaults in `.env.template` then connect to:
-
-| Service | Local endpoint | Staging identity |
+| Service | Local endpoint | Local identity |
 | --- | --- | --- |
-| PostgreSQL via PgBouncer | `127.0.0.1:6432` | database/user `almonium_staging` |
-| RabbitMQ | `127.0.0.1:5672` | user `almonium_staging`, vhost `/almonium_staging` |
+| PostgreSQL | `127.0.0.1:5432` | database `almonium_local`, user `almonium` |
+| RabbitMQ | `127.0.0.1:5672` | user `almonium`, vhost `/almonium_local` |
 
-Passwords remain in the appropriate encrypted infra vault and must be copied
-into the untracked `.env` through the normal secret-handling workflow.
-
-The `dev` profile disables Liquibase because its normal target is the shared
-staging database. Pending migrations are applied only by the reviewed staging
-deployment artifact. Do not enable Liquibase locally against staging; use an
-isolated database when developing or rehearsing a migration. Review
-`DB_NAME`, `DB_USERNAME`, and `RABBITMQ_VHOST` before startup. In particular,
-do not switch those values to production merely to obtain realistic data.
+The credentials are intentionally local-only and match `.env.template`.
+PostgreSQL data and RabbitMQ state survive container recreation in named
+volumes.
 
 ## Start and verify the backend
 
-Start the application after the tunnels are established:
+Start the application after both containers report healthy:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
 With the template defaults, the API is available at
-`http://localhost:8080/api/v1`.
+`http://localhost:8080/api/v1`. Liquibase applies pending changes to
+`almonium_local` during startup.
+
+Stop the local services without deleting their data:
+
+```bash
+docker compose -f docker-compose.local.yaml down
+```
+
+To rebuild both disposable services from empty local volumes:
+
+```bash
+docker compose -f docker-compose.local.yaml down --volumes
+docker compose -f docker-compose.local.yaml up -d --wait postgres rabbitmq
+```
+
+The `--volumes` command permanently deletes only the local Compose database
+and broker state.
+
+## Migration policy
+
+- Develop and test new changesets with the `local` profile and local
+  PostgreSQL.
+- Once a changeset is committed, treat its file, ID, author, and contents as
+  immutable. Corrections go into a new patch.
+- Pushes to `develop` deploy the `staging` profile; that deployment applies
+  reviewed migrations to `almonium_staging`.
+- Production applies the same committed migration chain through the manual
+  `main` deployment.
+- Do not run uncommitted migrations against staging or production. A local
+  process connecting to either deployed database must explicitly disable
+  Liquibase.
 
 The full verification suite uses isolated Testcontainers PostgreSQL rather
 than either deployed database:
@@ -91,19 +115,8 @@ than either deployed database:
 ```
 
 Docker must be available to the Maven process. The application-context test
-also expects RabbitMQ on `localhost:5672`; either keep the staging tunnel open
-or start the disposable local broker:
-
-```bash
-docker compose -f docker-compose.local.yaml up -d rabbitmq
-```
-
-Do not run the local broker and the RabbitMQ SSH tunnel on port `5672` at the
-same time. Stop the local broker with:
-
-```bash
-docker compose -f docker-compose.local.yaml down
-```
+also expects RabbitMQ on `localhost:5672`, so keep the local Compose broker
+running during `verify`.
 
 Spotless, SpotBugs/FindSecBugs, and ArchUnit are part of `verify`. Apply
 intentional formatting with `./mvnw spotless:apply`.
@@ -151,16 +164,17 @@ developer template unless current application configuration consumes them.
 
 ## Common failures
 
-- PostgreSQL or RabbitMQ connection refused: confirm the SSH process is still
-  running and the local ports are listening.
-- Authentication failure: confirm the staging database user/password or
-  RabbitMQ user/password/vhost combination from the infra configuration.
+- PostgreSQL or RabbitMQ connection refused: run the combined Compose startup
+  command and inspect `docker compose -f docker-compose.local.yaml ps`.
+- Authentication failure: confirm the containers were created from the current
+  Compose file; the local profile and Compose use the same local-only
+  credentials.
 - Google credential decoding/parsing failure: Base64-encode the complete
   service-account JSON as one line.
 - Testcontainers cannot find Docker: verify `docker info` succeeds for the same
   user running Maven.
-- Port already allocated: stop the conflicting tunnel/local container or use
-  different local tunnel ports and update `.env`.
+- Port already allocated: stop the process using local port `5432` or `5672`
+  before starting the Compose services.
 - PostgreSQL reports that `varchar` cannot be cast to `cefr_level`: after
   Liquibase creates the enum, add the cast once in the selected schema:
 

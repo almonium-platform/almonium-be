@@ -11,26 +11,59 @@ services:
       - ${DEBUG_PORT}:${DEBUG_PORT}
     environment:
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"
-      RABBITMQ_HOST: ${RABBITMQ_HOST}
-      RABBITMQ_USER: ${RABBITMQ_USER}
-      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: almonium_local
+      DB_USERNAME: almonium
+      DB_PASSWORD: almonium-local
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: almonium
+      RABBITMQ_PASS: almonium-local
+      RABBITMQ_VHOST: /almonium_local
     env_file:
       - ./.env
     depends_on:
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
-  # ──────────────────────────────────────────────── rabbitmq ──
+  postgres:
+    image: postgres:16
+    container_name: almonium-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: almonium_local
+      POSTGRES_USER: almonium
+      POSTGRES_PASSWORD: almonium-local
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U almonium -d almonium_local"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
   rabbitmq:
     image: rabbitmq:4.1.0-management
-    container_name: rabbitmq
+    container_name: almonium-rabbitmq
     ports:
       - ${RABBITMQ_HOST_PORT:-5672}:5672
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+      RABBITMQ_DEFAULT_USER: almonium
+      RABBITMQ_DEFAULT_PASS: almonium-local
+      RABBITMQ_DEFAULT_VHOST: /almonium_local
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
 volumes:
+  postgres-data:
   rabbitmq-data:
