@@ -15,6 +15,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
+import com.almonium.card.core.dto.request.CardCreationDto;
 import com.almonium.card.core.dto.request.CardUpdateDto;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
@@ -129,6 +130,38 @@ class CardServiceTest {
         assertThat(result).hasSize(2);
         assertThat(result.get(0).getId()).isEqualTo(cardId1);
         assertThat(result.get(1).getId()).isEqualTo(cardId2);
+    }
+
+    @Test
+    @DisplayName("Should attach created translations and examples to their card")
+    void givenCardCreationDto_whenCreateCard_thenChildrenOwnTheCard() {
+        User user = User.builder().id(UUID.randomUUID()).build();
+        Learner learner =
+                Learner.builder().id(UUID.randomUUID()).language(Language.FR).build();
+        Translation translation = Translation.builder().translation("hello").build();
+        Example example =
+                Example.builder().example("Bonjour!").translation("Hello!").build();
+        Card mappedCard = Card.builder()
+                .language(Language.FR)
+                .translations(new ArrayList<>(List.of(translation)))
+                .examples(new ArrayList<>(List.of(example)))
+                .build();
+        CardCreationDto dto = CardCreationDto.builder()
+                .entry("bonjour")
+                .language(Language.FR)
+                .translations(new TranslationDto[] {new TranslationDto(null, "hello")})
+                .examples(new ExampleDto[] {new ExampleDto(null, "Bonjour!", "Hello!")})
+                .build();
+        when(learnerFinder.findLearner(user, Language.FR)).thenReturn(learner);
+        when(cardMapper.cardDtoToEntity(dto)).thenReturn(mappedCard);
+
+        cardService.createCard(user, dto);
+
+        assertThat(translation.getCard()).isSameAs(mappedCard);
+        assertThat(example.getCard()).isSameAs(mappedCard);
+        assertThat(mappedCard.getOwner()).isSameAs(learner);
+        verify(translationRepository).saveAll(List.of(translation));
+        verify(exampleRepository).saveAll(List.of(example));
     }
 
     @DisplayName("Should return CardDto when getCardById is called")

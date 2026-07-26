@@ -116,14 +116,22 @@ public class CardService {
 
     private Card initializeCard(Learner learner, CardCreationDto dto) {
         Card card = cardMapper.cardDtoToEntity(dto);
+        if (card.getExamples() == null) {
+            card.setExamples(new ArrayList<>());
+        }
         card.setCreatedAt(Instant.now());
         card.setUpdatedAt(Instant.now());
         learner.addCard(card);
+        card.getTranslations().forEach(translation -> translation.setCard(card));
+        card.getExamples().forEach(example -> example.setCard(card));
         return card;
     }
 
     private List<CardTag> createCardTags(Card card, TagDto[] tagDtos) {
         List<CardTag> cardTags = new ArrayList<>();
+        if (tagDtos == null) {
+            return cardTags;
+        }
         for (TagDto tagDto : tagDtos) {
             CardTag cardTag = new CardTag();
             cardTag.setCard(card);
