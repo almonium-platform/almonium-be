@@ -33,6 +33,12 @@ Requirements:
 - Docker with Docker Compose for PostgreSQL, RabbitMQ, and Testcontainers;
 - development credentials for the external providers initialized at startup.
 
+The Docker CLI must be connected to a running daemon before any Compose or
+Testcontainers command will work. Starting a package-managed Docker service is
+not enough if your shell is pointed at a different Docker context or socket.
+Check `docker info` first; if it fails, fix the Docker daemon/context before
+starting local services.
+
 Copy the tracked template and fill its placeholders:
 
 ```bash
@@ -55,6 +61,12 @@ Start PostgreSQL and RabbitMQ together with:
 ```bash
 docker compose -f docker-compose.local.yaml up -d --wait postgres rabbitmq
 ```
+
+If this fails with a socket error such as
+`Cannot connect to the Docker daemon at unix:///home/ok/.docker/desktop/docker.sock`,
+the CLI is pointing at Docker Desktop while the daemon is not running. Start
+the matching Docker runtime for your current context, or switch the CLI back to
+a working context, then rerun the Compose command.
 
 | Service | Local endpoint | Local identity |
 | --- | --- | --- |
@@ -196,6 +208,9 @@ developer template unless current application configuration consumes them.
   service-account JSON as one line.
 - Testcontainers cannot find Docker: verify `docker info` succeeds for the same
   user running Maven.
+- `docker compose` cannot connect to the daemon: verify the active Docker
+  context and socket match the runtime you started; starting `snap docker`
+  alone does not help if the CLI still targets Docker Desktop.
 - Port already allocated: stop the process using local port `5432` or `5672`
   before starting the Compose services.
 - PostgreSQL reports that `varchar` cannot be cast to `cefr_level`: after
