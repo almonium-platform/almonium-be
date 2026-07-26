@@ -7,9 +7,18 @@
 
 [Frontend project](https://github.com/okuzan/almonium-fe)
 
+[Mobile project](https://github.com/okuzan/almonium-mobile)
+
+[Infrastructure project](https://github.com/okuzan/almonium-infra)
+
 [Chrome extension](https://github.com/okuzan/chrome-extension)
 
 [API Reference (Swagger UI)](https://api.almonium.com/api/v1/swagger-ui/index.html)
+
+The Angular frontend uses the browser session-cookie flow. The Expo/React
+Native mobile client uses Firebase ID-token bearer authentication and is
+distributed as native apps; both clients consume this API and must be considered
+when changing DTOs, errors, authorization, or user flows.
 
 ## Development build
 

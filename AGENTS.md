@@ -18,6 +18,12 @@ repositories are available at:
   Compose templates, Traefik, PostgreSQL/PgBouncer, RabbitMQ, encrypted runtime
   configuration, and deployment playbooks. Read its `AGENTS.md` before making
   changes there and commit coordinated changes separately in each repository.
+- `../almonium-mobile`: the Expo SDK 54 React Native client for iOS and
+  Android. It consumes this API with Firebase ID-token bearer authentication,
+  while the Angular browser client uses the Secure, HttpOnly session-cookie
+  flow. Treat API DTO, error-contract, authorization, and user-flow changes as
+  cross-client work, and preserve the distinct browser-cookie and native-bearer
+  security boundaries.
 
 Read `docs/LOCAL_DEVELOPMENT.md` before changing environment configuration,
 database/broker connectivity, or local startup behavior. Read
