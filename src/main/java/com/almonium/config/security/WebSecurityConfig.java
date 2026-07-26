@@ -13,6 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import com.almonium.auth.firebase.filter.FirebaseSessionAuthenticationFilter;
+import com.almonium.auth.firebase.security.FirebaseBearerToken;
 import com.almonium.config.properties.AppProperties;
 import java.net.URI;
 import java.util.List;
@@ -99,7 +100,9 @@ public class WebSecurityConfig {
         return http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository)
                         .csrfTokenRequestHandler(csrfTokenRequestHandler)
                         .ignoringRequestMatchers(
-                                new AntPathRequestMatcher("/public/**"), new AntPathRequestMatcher("/actuator/**")))
+                                new AntPathRequestMatcher("/public/**"),
+                                new AntPathRequestMatcher("/actuator/**"),
+                                request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

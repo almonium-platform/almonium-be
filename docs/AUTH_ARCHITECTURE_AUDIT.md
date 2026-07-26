@@ -15,6 +15,11 @@ custom authentication platform.
   Facebook remains disabled until its provider and business requirements are ready.
 - `POST /auth/session` exchanges a recently authenticated, verified Firebase ID
   token for a seven-day Secure, HttpOnly `firebaseSession` cookie.
+- Native clients send their short-lived Firebase ID token as an
+  `Authorization: Bearer` credential. Bearer requests are authenticated
+  independently of browser cookies and are exempt from cookie-based CSRF
+  checks; sensitive actions still perform revocation-aware verification and
+  enforce the same five-minute `auth_time` window.
 - The Spring filter verifies session-cookie signatures and resolves the
   immutable Firebase UID to the Almonium `User`; it never links by email.
 - `@RequireRecentLogin` performs revocation-aware verification and enforces a

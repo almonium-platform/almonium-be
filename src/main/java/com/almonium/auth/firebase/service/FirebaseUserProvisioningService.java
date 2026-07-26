@@ -40,7 +40,8 @@ public class FirebaseUserProvisioningService {
     }
 
     private User synchronizeIdentity(User user, FirebaseIdentity identity, String email) {
-        if (!user.getEmail().equalsIgnoreCase(email)) {
+        boolean emailChanged = !user.getEmail().equalsIgnoreCase(email);
+        if (emailChanged) {
             userRepository
                     .findByEmail(email)
                     .filter(other -> !other.getId().equals(user.getId()))
@@ -49,8 +50,11 @@ public class FirebaseUserProvisioningService {
                     });
             user.setEmail(email);
         }
-        user.setEmailVerified(identity.emailVerified());
-        return userRepository.save(user);
+        boolean verificationChanged = user.isEmailVerified() != identity.emailVerified();
+        if (verificationChanged) {
+            user.setEmailVerified(identity.emailVerified());
+        }
+        return emailChanged || verificationChanged ? userRepository.save(user) : user;
     }
 
     private String normalizeAndValidateEmail(FirebaseIdentity identity) {

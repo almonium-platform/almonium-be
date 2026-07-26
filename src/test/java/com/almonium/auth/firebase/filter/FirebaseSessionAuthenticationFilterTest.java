@@ -9,6 +9,8 @@ import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.almonium.auth.firebase.service.FirebaseSessionCookieService;
 import com.almonium.auth.firebase.service.FirebaseSessionService;
+import com.almonium.auth.firebase.service.FirebaseUserProvisioningService;
+import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.servlet.FilterChain;
@@ -35,6 +37,9 @@ class FirebaseSessionAuthenticationFilterTest {
 
     @Mock
     FirebaseSessionService sessionService;
+
+    @Mock
+    FirebaseUserProvisioningService provisioningService;
 
     @Mock
     UserRepository userRepository;
@@ -82,8 +87,44 @@ class FirebaseSessionAuthenticationFilterTest {
         verify(chain).doFilter(request, response);
     }
 
+    @Test
+    void authenticatesFirebaseIdTokenFromBearerHeader() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("Authorization", "Bearer id-token");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        FirebaseIdentity identity = identity();
+        User user =
+                User.builder().id(UUID.randomUUID()).firebaseUid(identity.uid()).build();
+        var authentication =
+                new org.springframework.security.authentication.UsernamePasswordAuthenticationToken("principal", null);
+        when(gateway.verifyIdToken("id-token", false)).thenReturn(identity);
+        when(provisioningService.resolveOrCreate(identity)).thenReturn(user);
+        when(sessionService.authentication(identity, user)).thenReturn(authentication);
+
+        filter().doFilter(request, response, chain);
+
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isSameAs(authentication);
+        verify(chain).doFilter(request, response);
+    }
+
+    @Test
+    void provisioningConflictContinuesUnauthenticated() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addHeader("Authorization", "Bearer id-token");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        FirebaseIdentity identity = identity();
+        when(gateway.verifyIdToken("id-token", false)).thenReturn(identity);
+        when(provisioningService.resolveOrCreate(identity)).thenThrow(new ResourceConflictException("email conflict"));
+
+        filter().doFilter(request, response, chain);
+
+        assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
+        verify(chain).doFilter(request, response);
+    }
+
     private FirebaseSessionAuthenticationFilter filter() {
-        return new FirebaseSessionAuthenticationFilter(gateway, cookieService, sessionService, userRepository);
+        return new FirebaseSessionAuthenticationFilter(
+                gateway, cookieService, sessionService, provisioningService, userRepository);
     }
 
     private FirebaseIdentity identity() {

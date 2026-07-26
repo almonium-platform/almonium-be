@@ -64,6 +64,7 @@ class FirebaseSecurityIntegrationTest {
     private static final String UID = "firebase-uid";
     private static final String EMAIL = "user@example.com";
     private static final String SESSION_COOKIE = "verified-session";
+    private static final String ID_TOKEN = "verified-id-token";
 
     @Autowired
     MockMvc mockMvc;
@@ -92,6 +93,7 @@ class FirebaseSecurityIntegrationTest {
                 .id(UUID.randomUUID())
                 .firebaseUid(UID)
                 .email(EMAIL)
+                .emailVerified(true)
                 .profile(profile)
                 .build();
     }
@@ -157,6 +159,29 @@ class FirebaseSecurityIntegrationTest {
     }
 
     @Test
+    void mutatingBearerRequestDoesNotRequireBrowserCsrfToken() throws Exception {
+        stubSuccessfulBearerAuthentication(Instant.now());
+
+        mockMvc.perform(post("/auth/session/logout").header(HttpHeaders.AUTHORIZATION, "Bearer " + ID_TOKEN))
+                .andExpect(status().isNoContent());
+
+        verify(firebaseAuthGateway).verifyIdToken(ID_TOKEN, false);
+    }
+
+    @Test
+    void recentLoginAcceptsRevocationCheckedBearerToken() throws Exception {
+        stubSuccessfulBearerAuthentication(Instant.now());
+        when(firebaseAuthGateway.verifyIdToken(ID_TOKEN, true)).thenReturn(identity(Instant.now()));
+
+        mockMvc.perform(get("/auth/session/recent").header(HttpHeaders.AUTHORIZATION, "Bearer " + ID_TOKEN))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+
+        verify(firebaseAuthGateway).verifyIdToken(ID_TOKEN, false);
+        verify(firebaseAuthGateway).verifyIdToken(ID_TOKEN, true);
+    }
+
+    @Test
     void revokedSessionCannotPassRecentLoginEnforcement() throws Exception {
         FirebaseIdentity identity = identity(Instant.now());
         when(firebaseAuthGateway.verifySessionCookie(SESSION_COOKIE, false)).thenReturn(identity);
@@ -214,6 +239,12 @@ class FirebaseSecurityIntegrationTest {
         when(userRepository.save(user)).thenReturn(user);
         when(firebaseAuthGateway.createSessionCookie("id-token", Duration.ofDays(7)))
                 .thenReturn(SESSION_COOKIE);
+    }
+
+    private void stubSuccessfulBearerAuthentication(Instant authenticatedAt) {
+        FirebaseIdentity identity = identity(authenticatedAt);
+        when(firebaseAuthGateway.verifyIdToken(ID_TOKEN, false)).thenReturn(identity);
+        when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(user));
     }
 
     private FirebaseIdentity identity(Instant authenticatedAt) {

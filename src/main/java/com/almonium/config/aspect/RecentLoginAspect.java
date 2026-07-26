@@ -6,6 +6,7 @@ import com.almonium.auth.common.exception.RecentLoginRequiredException;
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
+import com.almonium.auth.firebase.security.FirebaseBearerToken;
 import com.almonium.auth.firebase.security.FirebasePrincipal;
 import com.almonium.auth.firebase.service.FirebaseSessionCookieService;
 import com.almonium.config.properties.AppProperties;
@@ -39,15 +40,14 @@ public class RecentLoginAspect {
                         Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
                 .getRequest();
 
-        String sessionCookie = cookieService.read(request).orElse(null);
         try {
             var authentication = org.springframework.security.core.context.SecurityContextHolder.getContext()
                     .getAuthentication();
             Object principal = authentication == null ? null : authentication.getPrincipal();
-            if (sessionCookie == null || !(principal instanceof FirebasePrincipal firebasePrincipal)) {
+            if (!(principal instanceof FirebasePrincipal firebasePrincipal)) {
                 throw new FirebaseAuthenticationException("Firebase session is missing");
             }
-            FirebaseIdentity identity = firebaseAuthGateway.verifySessionCookie(sessionCookie, true);
+            FirebaseIdentity identity = verifyCredential(request);
             long recentLoginSeconds = appProperties.getAuth().getFirebase().getRecentLoginSeconds();
             boolean stale =
                     identity.authenticatedAt().isBefore(java.time.Instant.now().minusSeconds(recentLoginSeconds));
@@ -60,5 +60,16 @@ public class RecentLoginAspect {
                     appProperties.getAuth().getFirebase().getRecentLoginSeconds() / 60));
         }
         return joinPoint.proceed();
+    }
+
+    private FirebaseIdentity verifyCredential(HttpServletRequest request) {
+        var bearerToken = FirebaseBearerToken.from(request);
+        if (bearerToken.isPresent()) {
+            return firebaseAuthGateway.verifyIdToken(bearerToken.get(), true);
+        }
+        String sessionCookie = cookieService
+                .read(request)
+                .orElseThrow(() -> new FirebaseAuthenticationException("Firebase session is missing"));
+        return firebaseAuthGateway.verifySessionCookie(sessionCookie, true);
     }
 }
