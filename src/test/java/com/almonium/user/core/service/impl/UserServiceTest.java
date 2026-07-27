@@ -167,6 +167,7 @@ class UserServiceTest {
         User user = UserUtility.getUser();
         user.setEmail("john@example.com");
         user.setId(UUID.randomUUID());
+        user.setStreamChatToken(null);
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
@@ -186,6 +187,7 @@ class UserServiceTest {
         when(planSubscriptionService.getActiveSub(user)).thenReturn(planSubscription);
         when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
         when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
+        when(streamChatService.generateStreamToken(user)).thenReturn("fresh-stream-token");
         when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
                 .thenReturn(subscriptionInfoDto);
         when(planService.isPlanPremium(eq(planId))).thenReturn(true);
@@ -193,11 +195,13 @@ class UserServiceTest {
         UserInfo result = userService.buildUserInfoFromUser(user);
 
         verify(userMapper).userToUserInfo(user);
+        verify(streamChatService).generateStreamToken(user);
         verify(planSubscriptionMapper).planSubscriptionToPlanDto(planSubscription);
         verify(planService).getPlanLimits(planId);
         verify(planService).isPlanPremium(planId);
 
         assertThat(result.getEmail()).isEqualTo("john@example.com");
+        assertThat(result.getStreamChatToken()).isEqualTo("fresh-stream-token");
         assertThat(result.getSubscription().getName()).isEqualTo("Premium Plan");
         assertThat(result.getSubscription().getLimits()).containsEntry(PlanFeature.MAX_TARGET_LANGS, 3);
         assertThat(result.isPremium()).isTrue();

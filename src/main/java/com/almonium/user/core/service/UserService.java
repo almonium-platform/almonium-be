@@ -3,6 +3,7 @@ package com.almonium.user.core.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
@@ -42,6 +43,7 @@ public class UserService {
 
     PlanSubscriptionMapper planSubscriptionMapper;
     UserMapper userMapper;
+    StreamChatService streamChatService;
 
     ApplicationEventPublisher eventPublisher;
 
@@ -51,6 +53,7 @@ public class UserService {
         Map<PlanFeature, Integer> limits =
                 planService.getPlanLimits(activePlanSubscription.getPlan().getId());
         var userInfo = userMapper.userToUserInfo(fetchedUser);
+        userInfo.setStreamChatToken(streamChatService.generateStreamToken(fetchedUser));
         SubscriptionInfoDto subscriptionInfoDto =
                 planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
         userInfo.setSubscription(subscriptionInfoDto);
