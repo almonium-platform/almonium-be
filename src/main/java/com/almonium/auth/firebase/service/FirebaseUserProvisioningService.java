@@ -18,7 +18,7 @@ public class FirebaseUserProvisioningService {
     private final UserRegistrationService userRegistrationService;
 
     public User resolveOrCreate(FirebaseIdentity identity) {
-        String email = normalizeAndValidateEmail(identity);
+        String email = normalizeEmail(identity);
         return userRepository
                 .findByFirebaseUid(identity.uid())
                 .map(user -> synchronizeIdentity(user, identity, email))
@@ -26,6 +26,7 @@ public class FirebaseUserProvisioningService {
     }
 
     private User createUser(FirebaseIdentity identity, String email) {
+        requireVerifiedEmail(identity);
         if (userRepository.existsByEmail(email)) {
             throw new ResourceConflictException("An Almonium account already uses this email");
         }
@@ -41,6 +42,9 @@ public class FirebaseUserProvisioningService {
 
     private User synchronizeIdentity(User user, FirebaseIdentity identity, String email) {
         boolean emailChanged = !user.getEmail().equalsIgnoreCase(email);
+        if (!identity.emailVerified() && (emailChanged || !user.isEmailVerified())) {
+            throw new FirebaseAuthenticationException("Verify your email with Firebase before signing in");
+        }
         if (emailChanged) {
             userRepository
                     .findByEmail(email)
@@ -50,20 +54,23 @@ public class FirebaseUserProvisioningService {
                     });
             user.setEmail(email);
         }
-        boolean verificationChanged = user.isEmailVerified() != identity.emailVerified();
+        boolean verificationChanged = !user.isEmailVerified() && identity.emailVerified();
         if (verificationChanged) {
-            user.setEmailVerified(identity.emailVerified());
+            user.setEmailVerified(true);
         }
         return emailChanged || verificationChanged ? userRepository.save(user) : user;
     }
 
-    private String normalizeAndValidateEmail(FirebaseIdentity identity) {
-        if (!identity.emailVerified()) {
-            throw new FirebaseAuthenticationException("Verify your email with Firebase before signing in");
-        }
+    private String normalizeEmail(FirebaseIdentity identity) {
         if (identity.email() == null || identity.email().isBlank()) {
             throw new FirebaseAuthenticationException("Firebase account does not provide an email address");
         }
         return identity.email().trim().toLowerCase(Locale.ROOT);
+    }
+
+    private void requireVerifiedEmail(FirebaseIdentity identity) {
+        if (!identity.emailVerified()) {
+            throw new FirebaseAuthenticationException("Verify your email with Firebase before signing in");
+        }
     }
 }

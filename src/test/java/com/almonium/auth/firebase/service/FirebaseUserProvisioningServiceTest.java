@@ -84,6 +84,53 @@ class FirebaseUserProvisioningServiceTest {
     }
 
     @Test
+    void acceptsPreviouslyVerifiedUnchangedEmailWhenFirebaseFlagTurnsFalse() {
+        FirebaseIdentity identity = identity("existing@example.com", false);
+        User existing = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email(identity.email())
+                .emailVerified(true)
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.of(existing));
+
+        assertThat(service.resolveOrCreate(identity)).isSameAs(existing);
+        assertThat(existing.isEmailVerified()).isTrue();
+    }
+
+    @Test
+    void rejectsUnverifiedChangedEmailForExistingUser() {
+        FirebaseIdentity identity = identity("changed@example.com", false);
+        User existing = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email("verified@example.com")
+                .emailVerified(true)
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.of(existing));
+
+        assertThatThrownBy(() -> service.resolveOrCreate(identity))
+                .isInstanceOf(FirebaseAuthenticationException.class)
+                .hasMessageContaining("Verify");
+    }
+
+    @Test
+    void rejectsUnverifiedEmailForExistingUnverifiedUser() {
+        FirebaseIdentity identity = identity("existing@example.com", false);
+        User existing = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email(identity.email())
+                .emailVerified(false)
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.of(existing));
+
+        assertThatThrownBy(() -> service.resolveOrCreate(identity))
+                .isInstanceOf(FirebaseAuthenticationException.class)
+                .hasMessageContaining("Verify");
+    }
+
+    @Test
     void concurrentProvisioningOfSameUidReturnsWinningUser() {
         FirebaseIdentity identity = identity("new@example.com", true);
         User winningUser = User.builder()
@@ -113,14 +160,15 @@ class FirebaseUserProvisioningServiceTest {
     }
 
     @Test
-    void rejectsUnverifiedEmail() {
+    void rejectsUnverifiedEmailForNewUser() {
         FirebaseIdentity identity = identity("new@example.com", false);
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.resolveOrCreate(identity))
                 .isInstanceOf(FirebaseAuthenticationException.class)
                 .hasMessageContaining("Verify");
 
-        verifyNoInteractions(userRepository, registrationService);
+        verifyNoInteractions(registrationService);
     }
 
     private FirebaseIdentity identity(String email, boolean verified) {
