@@ -1,8 +1,10 @@
 package com.almonium.auth.firebase.gateway;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import java.time.Duration;
+import java.util.List;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,11 @@ public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
 
     @Override
     public FirebaseIdentity verifySessionCookie(String sessionCookie, boolean checkRevoked) {
+        throw unavailable();
+    }
+
+    @Override
+    public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {
         throw unavailable();
     }
 

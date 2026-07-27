@@ -3,6 +3,7 @@ package com.almonium.auth.firebase.service;
 import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.almonium.auth.firebase.security.FirebasePrincipal;
 import com.almonium.config.properties.AppProperties;
@@ -11,6 +12,7 @@ import com.almonium.user.core.service.ProfileService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,10 @@ public class FirebaseSessionService {
         FirebasePrincipal principal = new FirebasePrincipal(
                 identity.uid(), user.getId(), identity.email(), identity.authenticatedAt(), identity.signInProvider());
         return new UsernamePasswordAuthenticationToken(principal, null, SecurityRoles.USER);
+    }
+
+    public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {
+        return firebaseAuthGateway.getAuthProviders(firebaseUid);
     }
 
     private void requireRecentAuthentication(FirebaseIdentity identity) {

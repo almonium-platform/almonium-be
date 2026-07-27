@@ -2,13 +2,18 @@ package com.almonium.auth.firebase.gateway;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.SessionCookieOptions;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserRecord;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -53,6 +58,23 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
     }
 
     @Override
+    public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {
+        try {
+            UserRecord user = firebaseAuth.getUser(firebaseUid);
+            String createdAt = Instant.ofEpochMilli(user.getUserMetadata().getCreationTimestamp())
+                    .toString();
+            String updatedAt = Instant.ofEpochMilli(user.getUserMetadata().getLastSignInTimestamp())
+                    .toString();
+            return Arrays.stream(user.getProviderData())
+                    .map(provider -> toAuthProvider(provider, createdAt, updatedAt))
+                    .toList();
+        } catch (FirebaseAuthException | IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException(
+                    "Unable to load Firebase authentication providers", exception);
+        }
+    }
+
+    @Override
     public void deleteUser(String firebaseUid) {
         try {
             firebaseAuth.deleteUser(firebaseUid);
@@ -81,5 +103,11 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
                 token.isEmailVerified(),
                 Instant.ofEpochSecond(authTimeSeconds.longValue()),
                 signInProvider);
+    }
+
+    private FirebaseAuthProvider toAuthProvider(UserInfo provider, String createdAt, String updatedAt) {
+        String providerId = provider.getProviderId();
+        String normalizedProvider = "password".equals(providerId) ? "local" : providerId.replace(".com", "");
+        return new FirebaseAuthProvider(normalizedProvider, provider.getEmail(), createdAt, updatedAt);
     }
 }

@@ -3,6 +3,7 @@ package com.almonium.auth.firebase.controller;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.firebase.dto.FirebaseSessionRequest;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.security.FirebasePrincipal;
 import com.almonium.auth.firebase.service.FirebaseSessionCookieService;
 import com.almonium.auth.firebase.service.FirebaseSessionService;
@@ -13,6 +14,7 @@ import com.almonium.user.core.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.time.Instant;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +43,11 @@ public class FirebaseSessionController {
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         cookieService.clear(response);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/providers")
+    public ResponseEntity<List<FirebaseAuthProvider>> providers(@Auth FirebasePrincipal principal) {
+        return ResponseEntity.ok(firebaseSessionService.getAuthProviders(principal.firebaseUid()));
     }
 
     @RequireRecentLogin

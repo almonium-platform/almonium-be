@@ -18,6 +18,7 @@ import com.almonium.auth.firebase.controller.FirebaseSessionController;
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.filter.FirebaseSessionAuthenticationFilter;
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.almonium.auth.firebase.service.FirebaseSessionCookieService;
 import com.almonium.auth.firebase.service.FirebaseSessionService;
@@ -35,6 +36,7 @@ import com.almonium.util.config.TestConfig;
 import jakarta.servlet.http.Cookie;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -208,6 +210,21 @@ class FirebaseSecurityIntegrationTest {
         mockMvc.perform(get("/auth/session/recent").cookie(new Cookie(COOKIE_NAME, SESSION_COOKIE)))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @Test
+    void staleAuthenticatedSessionCanListItsReauthenticationProviders() throws Exception {
+        FirebaseIdentity staleIdentity = identity(Instant.now().minusSeconds(301));
+        when(firebaseAuthGateway.verifySessionCookie(SESSION_COOKIE, false)).thenReturn(staleIdentity);
+        when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(user));
+        when(firebaseAuthGateway.getAuthProviders(UID))
+                .thenReturn(List.of(
+                        new FirebaseAuthProvider("google", EMAIL, "2026-01-01T00:00:00Z", "2026-07-01T00:00:00Z")));
+
+        mockMvc.perform(get("/auth/session/providers").cookie(new Cookie(COOKIE_NAME, SESSION_COOKIE)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].provider").value("google"))
+                .andExpect(jsonPath("$[0].email").value(EMAIL));
     }
 
     @Test
