@@ -1,9 +1,10 @@
 package com.almonium.learning.book.model.entity;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import java.util.UUID;
 
 public interface BookMiniProjection {
-    Long getId();
+    UUID getId();
 
     Language getLanguage();
 }

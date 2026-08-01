@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, UUID> {
     List<Book> findByLanguage(Language language);
 
     @Query(
@@ -135,7 +135,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         left join b.originalBook ob
         where b.id = :bookId
     """)
-    Optional<BookDetailsProjection> findBookDtoById(Long bookId, UUID learnerId, Collection<Language> fluentLanguages);
+    Optional<BookDetailsProjection> findBookDtoById(UUID bookId, UUID learnerId, Collection<Language> fluentLanguages);
 
     @Query(
             """
@@ -148,5 +148,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                     where t.originalBook.id = b.id and t.id = :bookId
                   ))
         """)
-    List<BookMiniProjection> findAvailableLanguagesForBook(Long bookId);
+    List<BookMiniProjection> findAvailableLanguagesForBook(UUID bookId);
 }

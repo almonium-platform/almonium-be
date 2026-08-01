@@ -62,7 +62,7 @@ public class BookService {
         return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
     }
 
-    public void addToFavorites(User user, Long bookId, Language language) {
+    public void addToFavorites(User user, UUID bookId, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
         Book book = getBookById(bookId);
 
@@ -70,12 +70,12 @@ public class BookService {
         bookFavoriteRepository.save(bookFavorite);
     }
 
-    public boolean deleteFromFavorites(User user, Long bookId, Language language) {
+    public boolean deleteFromFavorites(User user, UUID bookId, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
         return bookFavoriteRepository.deleteByLearnerIdAndBookId(learner.getId(), bookId) > 0;
     }
 
-    public Book getBookById(Long bookId) {
+    public Book getBookById(UUID bookId) {
         return bookRepository
                 .findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + bookId));
@@ -104,12 +104,12 @@ public class BookService {
         return bookMapper.toDto(books);
     }
 
-    public boolean deleteBookProgress(User user, Long bookId) {
+    public boolean deleteBookProgress(User user, UUID bookId) {
         int deletedCount = learnerBookProgressRepository.deleteByUserIdAndBookId(user.getId(), bookId);
         return deletedCount > 0;
     }
 
-    public void saveBookProgress(User user, Long bookId, int progressPercentage) {
+    public void saveBookProgress(User user, UUID bookId, int progressPercentage) {
         Optional<LearnerBookProgress> progressOptional =
                 learnerBookProgressRepository.findByUserIdAndBookId(user.getId(), bookId);
 
@@ -132,13 +132,13 @@ public class BookService {
     }
 
     // by other services
-    public List<Language> getAvailableLanguagesForBook(Long bookId) {
+    public List<Language> getAvailableLanguagesForBook(UUID bookId) {
         return bookRepository.findAvailableLanguagesForBook(bookId).stream()
                 .map(BookMiniProjection::getLanguage)
                 .toList();
     }
 
-    public BookMiniDetails getBookById(UUID userId, Long bookId) {
+    public BookMiniDetails getBookById(UUID userId, UUID bookId) {
         List<BookLanguageVariant> languageVariants =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
@@ -156,7 +156,7 @@ public class BookService {
                 .build();
     }
 
-    public BookDetails getBookById(User user, Language language, Long bookId) {
+    public BookDetails getBookById(User user, Language language, UUID bookId) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
@@ -166,7 +166,7 @@ public class BookService {
 
         List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
-        Long originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
+        UUID originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
         Optional<TranslationOrder> order =
                 translationOrderRepository.findByUserIdAndBookId(user.getId(), originalBookId);
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
@@ -174,11 +174,11 @@ public class BookService {
         return bookMapper.toDetailsDto(projection, availableLanguages, order, favorite);
     }
 
-    public byte[] getText(User user, Long bookId) {
+    public byte[] getText(User user, UUID bookId) {
         return firebaseStorageService.getBook(bookId);
     }
 
-    public byte[] getParallelBook(User user, Language language, Long bookId) {
+    public byte[] getParallelBook(User user, Language language, UUID bookId) {
         List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
@@ -187,7 +187,7 @@ public class BookService {
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
 
-        Long secondId = miniDetails.getId();
+        UUID secondId = miniDetails.getId();
 
         if (bookId.equals(secondId)) {
             throw new BadUserRequestActionException("This book is already in this language");

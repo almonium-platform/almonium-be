@@ -48,12 +48,12 @@ public class TranslationOrderService {
         translationOrderRepository.deleteAllByIdInBatch(ordersIds);
     }
 
-    public boolean deleteTranslationOrder(UUID userId, Long bookId, Language language) {
+    public boolean deleteTranslationOrder(UUID userId, UUID bookId, Language language) {
         return translationOrderRepository.deleteByUserIdAndBookIdAndLanguage(userId, bookId, language) > 0;
     }
 
     @Transactional
-    public TranslationOrderDto createTranslationOrder(User user, Long bookId, Language language) {
+    public TranslationOrderDto createTranslationOrder(User user, UUID bookId, Language language) {
         if (translationOrderRepository.existsByUserIdAndBookId(user.getId(), bookId)) {
             throw new ResourceConflictException("You already have a translation order for this book");
         }

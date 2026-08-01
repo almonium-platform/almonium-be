@@ -11,8 +11,8 @@ public interface LearnerBookProgressRepository extends JpaRepository<LearnerBook
 
     @Modifying
     @Query("delete from LearnerBookProgress p where p.book.id = :bookId and p.learner.user.id = :userId")
-    int deleteByUserIdAndBookId(UUID userId, Long bookId);
+    int deleteByUserIdAndBookId(UUID userId, UUID bookId);
 
     @Query("select p from LearnerBookProgress p where p.book.id = :bookId and p.learner.user.id = :userId")
-    Optional<LearnerBookProgress> findByUserIdAndBookId(UUID userId, Long bookId);
+    Optional<LearnerBookProgress> findByUserIdAndBookId(UUID userId, UUID bookId);
 }

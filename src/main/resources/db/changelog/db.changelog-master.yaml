@@ -82,3 +82,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260718-drop-legacy-auth-tables.yaml
   - include:
       file: db/changelog/changes/patches/20260719-harden-relationship-invariants.yaml
+  - include:
+      file: db/changelog/changes/patches/20260801-recreate-book-domain-with-uuid.yaml

@@ -29,7 +29,7 @@ public class TranslationOrderController {
 
     @PostMapping
     public ResponseEntity<TranslationOrderDto> createTranslationOrder(
-            @Auth User user, @PathVariable Long bookId, @PathVariable Language language) {
+            @Auth User user, @PathVariable UUID bookId, @PathVariable Language language) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(translationOrderService.createTranslationOrder(user, bookId, language));
@@ -37,7 +37,7 @@ public class TranslationOrderController {
 
     @DeleteMapping
     public ResponseEntity<Void> cancelTranslationOrder(
-            @Auth UUID userId, @PathVariable Long bookId, @PathVariable Language language) {
+            @Auth UUID userId, @PathVariable UUID bookId, @PathVariable Language language) {
 
         boolean deleted = translationOrderService.deleteTranslationOrder(userId, bookId, language);
         return deleted

@@ -10,13 +10,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface TranslationOrderRepository extends JpaRepository<TranslationOrder, UUID> {
-    boolean existsByUserIdAndBookId(UUID userId, Long bookId);
+    boolean existsByUserIdAndBookId(UUID userId, UUID bookId);
 
-    Optional<TranslationOrder> findByUserIdAndBookId(UUID userId, Long bookId);
+    Optional<TranslationOrder> findByUserIdAndBookId(UUID userId, UUID bookId);
 
-    List<TranslationOrder> findByBookIdAndLanguage(Long bookId, Language language);
+    List<TranslationOrder> findByBookIdAndLanguage(UUID bookId, Language language);
 
     @Modifying
     @Transactional
-    int deleteByUserIdAndBookIdAndLanguage(UUID id, Long bookId, Language language);
+    int deleteByUserIdAndBookIdAndLanguage(UUID id, UUID bookId, Language language);
 }

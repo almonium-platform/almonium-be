@@ -81,14 +81,14 @@ public class FirebaseStorageService {
         log.info("File deleted: {}", filePath);
     }
 
-    public byte[] getParallelText(Long bookId, Long secondId) {
-        String path = bookId < secondId
+    public byte[] getParallelText(UUID bookId, UUID secondId) {
+        String path = bookId.compareTo(secondId) < 0
                 ? PARALLEL_BOOK_CONTENT_PATH_TEMPLATE.formatted(bookId, secondId)
                 : PARALLEL_BOOK_CONTENT_PATH_TEMPLATE.formatted(secondId, bookId);
         return getFile(path);
     }
 
-    public byte[] getBook(Long bookId) {
+    public byte[] getBook(UUID bookId) {
         String filePath = BOOK_CONTENT_PATH_TEMPLATE.formatted(bookId);
         return getFile(filePath);
     }
