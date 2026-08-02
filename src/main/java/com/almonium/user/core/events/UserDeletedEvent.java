@@ -11,10 +11,10 @@ import org.springframework.modulith.events.Externalized;
 
 @Externalized(RabbitMQProperties.EVENTS_EXCHANGE_NAME + "::user.deleted.v1")
 public record UserDeletedEvent(
-        UUID userId, Optional<String> stripeSubscriptionId, List<String> avatarFilePaths, Instant occurredAt)
+        UUID userId, Optional<String> paddleSubscriptionId, List<String> avatarFilePaths, Instant occurredAt)
         implements DomainEvent {
 
-    public UserDeletedEvent(UUID userId, @NonNull Optional<String> stripeSubscriptionId, List<String> avatarFilePaths) {
-        this(userId, stripeSubscriptionId, avatarFilePaths, Instant.now());
+    public UserDeletedEvent(UUID userId, @NonNull Optional<String> paddleSubscriptionId, List<String> avatarFilePaths) {
+        this(userId, paddleSubscriptionId, avatarFilePaths, Instant.now());
     }
 }

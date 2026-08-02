@@ -1,7 +1,6 @@
 package com.almonium.auth.common.service;
 
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
-import com.almonium.subscription.event.PaddleUserCleanupRequestedEvent;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -34,8 +33,7 @@ public class SensitiveAuthActionsService {
         Optional<String> billingSubscriptionId = planSubscriptionService.getPaidSubscriptionIdToCancel(user);
         List<String> avatarPaths = avatarService.getAvatarPathsForUser(user.getId());
         firebaseAuthGateway.deleteUser(user.getFirebaseUid());
-        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), Optional.empty(), avatarPaths));
-        eventPublisher.publishEvent(new PaddleUserCleanupRequestedEvent(user.getId(), billingSubscriptionId));
+        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), billingSubscriptionId, avatarPaths));
         userRepository.delete(user);
         log.info("Deleted Almonium and Firebase identities for user {}", user.getId());
     }

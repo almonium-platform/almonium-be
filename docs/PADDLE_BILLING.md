@@ -81,9 +81,5 @@ timestamps, and logs event IDs transactionally for idempotency.
 
 ## Rollout note
 
-The first Paddle migration is expand-only: it adds Paddle identifiers and
-event storage without dropping the legacy Stripe columns. This allows old and
-new blue/green slots to overlap. It does not migrate active Stripe customers or
-subscriptions into Paddle; if any exist at cutover, handle their commercial
-and customer migration as a separate reviewed operation before removing the
-legacy columns in a later contract migration.
+The Paddle cutover removes the unused legacy provider columns and event log.
+It assumes there are no existing paid customers or subscriptions to migrate.

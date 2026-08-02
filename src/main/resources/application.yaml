@@ -108,7 +108,7 @@ rabbitmq:
       dlq-name: q.user.deleted.stream.dlq
     user-deleted-paddle:
       name: q.user.deleted.paddle
-      routing-key: user.deleted.paddle.v1
+      routing-key: user.deleted.v1
       dlq-name: q.user.deleted.paddle.dlq
     user-deleted-firebase:
       name: q.user.deleted.firebase

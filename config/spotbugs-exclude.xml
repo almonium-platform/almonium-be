@@ -37,15 +37,4 @@
         <Bug pattern="CRLF_INJECTION_LOGS"/>
     </Match>
 
-    <!-- Stripe's current SDK configuration is process-global by design. -->
-    <Match>
-        <Class name="com.almonium.subscription.config.StripeConfig"/>
-        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
-    </Match>
-
-    <!-- These fields are read by JPA/auditing even though application bytecode does not call their getters. -->
-    <Match>
-        <Class name="com.almonium.subscription.model.entity.StripeEventLog"/>
-        <Bug pattern="URF_UNREAD_FIELD"/>
-    </Match>
 </FindBugsFilter>

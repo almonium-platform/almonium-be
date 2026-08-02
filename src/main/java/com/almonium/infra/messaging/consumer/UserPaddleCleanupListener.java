@@ -1,9 +1,9 @@
 package com.almonium.infra.messaging.consumer;
 
 import com.almonium.infra.messaging.exception.EventProcessingException;
-import com.almonium.subscription.event.PaddleUserCleanupRequestedEvent;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.service.PaddleApiService;
+import com.almonium.user.core.events.UserDeletedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -16,14 +16,14 @@ public class UserPaddleCleanupListener {
     private final PaddleApiService paddleApiService;
 
     @RabbitListener(queues = "${rabbitmq.queue.user-deleted-paddle.name}")
-    public void handleUserDeletedForPaddle(PaddleUserCleanupRequestedEvent event) {
-        event.subscriptionId()
+    public void handleUserDeletedForPaddle(UserDeletedEvent event) {
+        event.paddleSubscriptionId()
                 .ifPresentOrElse(
                         subscriptionId -> cancelSubscription(subscriptionId, event),
                         () -> log.info("No Paddle subscription for deleted user {}, skipping cleanup", event.userId()));
     }
 
-    private void cancelSubscription(String subscriptionId, PaddleUserCleanupRequestedEvent event) {
+    private void cancelSubscription(String subscriptionId, UserDeletedEvent event) {
         try {
             paddleApiService.cancelSubscriptionImmediately(subscriptionId);
             log.info("Canceled Paddle subscription for deleted user {}", event.userId());
