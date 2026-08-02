@@ -1,5 +1,6 @@
 package com.almonium.learning.book.service;
 
+import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Objects;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,8 +57,15 @@ public class BookProcessorClient {
 
         HttpHeaders headers = internalHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        restTemplate.exchange(
-                processorUrl + "/internal/imports/", HttpMethod.POST, new HttpEntity<>(body, headers), JsonNode.class);
+        try {
+            restTemplate.exchange(
+                    processorUrl + "/internal/imports/",
+                    HttpMethod.POST,
+                    new HttpEntity<>(body, headers),
+                    JsonNode.class);
+        } catch (RestClientException exception) {
+            throw new ApiIntegrationException("Book processor request failed", exception);
+        }
     }
 
     public JsonNode[] privateBlocks(UUID importId, UUID ownerId) {
