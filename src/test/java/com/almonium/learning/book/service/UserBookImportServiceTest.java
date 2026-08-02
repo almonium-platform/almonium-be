@@ -10,11 +10,18 @@ import static org.mockito.Mockito.when;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.response.BookImportDto;
+import com.almonium.learning.book.dto.response.BookImportQuotaDto;
 import com.almonium.learning.book.model.entity.UserBookImport;
 import com.almonium.learning.book.repository.UserBookImportRepository;
+import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.PlanLimit;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +39,9 @@ class UserBookImportServiceTest {
     PlanValidationService planValidationService;
 
     @Mock
+    PlanSubscriptionService subscriptionService;
+
+    @Mock
     BookProcessorClient processorClient;
 
     @Mock
@@ -47,8 +57,10 @@ class UserBookImportServiceTest {
     void enforcesMonthlyPlanLimitAndQueuesProcessorImport() {
         User user = new User();
         user.setId(UUID.randomUUID());
-        when(repository.countByUserIdAndCreatedAtGreaterThanEqual(eq(user.getId()), any(Instant.class)))
+        when(repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                        eq(user.getId()), any(Instant.class), any(Instant.class)))
                 .thenReturn(2L);
+        when(subscriptionService.getActiveSub(user)).thenReturn(subscriptionWithImportLimit(3));
         when(repository.save(any(UserBookImport.class))).thenAnswer(invocation -> invocation.getArgument(0));
         MockMultipartFile source =
                 new MockMultipartFile("file", "book.epub", "application/epub+zip", new byte[] {1, 2, 3});
@@ -67,5 +79,36 @@ class UserBookImportServiceTest {
                         eq(Language.EN),
                         eq(1920));
         assertThat(result.status().name()).isEqualTo("QUEUED");
+    }
+
+    @Test
+    void reportsUsageForTheSubscriberAnchoredMonth() {
+        User user = new User();
+        user.setId(UUID.randomUUID());
+        when(subscriptionService.getActiveSub(user)).thenReturn(subscriptionWithImportLimit(3));
+        when(repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                        eq(user.getId()), any(Instant.class), any(Instant.class)))
+                .thenReturn(1L);
+
+        BookImportQuotaDto quota = service.quota(user);
+
+        assertThat(quota.limit()).isEqualTo(3);
+        assertThat(quota.used()).isEqualTo(1);
+        assertThat(quota.periodEndsAt()).isAfter(quota.periodStartsAt());
+        assertThat(quota.periodEndsAt()).isBeforeOrEqualTo(Instant.now().plus(32, ChronoUnit.DAYS));
+    }
+
+    private PlanSubscription subscriptionWithImportLimit(int limit) {
+        Plan plan = new Plan();
+        PlanLimit planLimit = new PlanLimit();
+        planLimit.setFeatureKey(MAX_BOOK_IMPORTS_PER_MONTH);
+        planLimit.setLimitValue(limit);
+        plan.setLimits(List.of(planLimit));
+
+        PlanSubscription subscription = new PlanSubscription();
+        subscription.setPlan(plan);
+        subscription.setStartDate(Instant.now().minus(10, ChronoUnit.DAYS));
+        subscription.setEndDate(Instant.now().plus(20, ChronoUnit.DAYS));
+        return subscription;
     }
 }

@@ -6,14 +6,19 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.request.BookImportEventRequest;
 import com.almonium.learning.book.dto.response.BookImportDto;
+import com.almonium.learning.book.dto.response.BookImportQuotaDto;
 import com.almonium.learning.book.model.entity.UserBookImport;
 import com.almonium.learning.book.model.enums.BookImportStatus;
 import com.almonium.learning.book.repository.UserBookImportRepository;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.EntityNotFoundException;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -30,6 +35,7 @@ public class UserBookImportService {
 
     private final UserBookImportRepository repository;
     private final PlanValidationService planValidationService;
+    private final PlanSubscriptionService subscriptionService;
     private final BookProcessorClient processorClient;
     private final PublishedBookContentService contentService;
     private final NotificationService notificationService;
@@ -43,10 +49,8 @@ public class UserBookImportService {
             Language language,
             Integer publicationYear) {
         validateSource(source);
-        long usedThisMonth = repository.countByUserIdAndCreatedAtGreaterThanEqual(
-                user.getId(),
-                LocalDate.now(ZoneOffset.UTC).withDayOfMonth(1).atStartOfDay().toInstant(ZoneOffset.UTC));
-        planValidationService.validatePlanFeature(user, MAX_BOOK_IMPORTS_PER_MONTH, Math.toIntExact(usedThisMonth + 1));
+        BookImportQuotaDto quota = quota(user);
+        planValidationService.validatePlanFeature(user, MAX_BOOK_IMPORTS_PER_MONTH, quota.used() + 1);
 
         UserBookImport bookImport = new UserBookImport();
         bookImport.setId(UUID.randomUUID());
@@ -63,6 +67,7 @@ public class UserBookImportService {
         processorClient.createPrivateImport(
                 bookImport.getId(),
                 user.getId(),
+                user.getUsername(),
                 source,
                 bookImport.getTitle(),
                 bookImport.getAuthor(),
@@ -77,6 +82,20 @@ public class UserBookImportService {
         return repository.findByUserIdOrderByCreatedAtDesc(user.getId()).stream()
                 .map(this::toDto)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public BookImportQuotaDto quota(User user) {
+        PlanSubscription subscription = subscriptionService.getActiveSub(user);
+        ImportPeriod period = currentImportPeriod(subscription, Instant.now());
+        int limit = subscription.getPlan().getLimits().stream()
+                .filter(planLimit -> planLimit.getFeatureKey() == MAX_BOOK_IMPORTS_PER_MONTH)
+                .mapToInt(planLimit -> planLimit.getLimitValue())
+                .findFirst()
+                .orElse(0);
+        long used = repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                user.getId(), period.startsAt(), period.endsAt());
+        return new BookImportQuotaDto(limit, Math.toIntExact(used), period.startsAt(), period.endsAt());
     }
 
     @Transactional(readOnly = true)
@@ -138,4 +157,28 @@ public class UserBookImportService {
                 bookImport.getCreatedAt(),
                 bookImport.getUpdatedAt());
     }
+
+    /**
+     * Usage resets on the subscriber's billing-day anniversary, rather than on the
+     * calendar first. This keeps monthly and annual plans predictable while still
+     * granting an annual subscriber a fresh allowance each month.
+     */
+    private ImportPeriod currentImportPeriod(PlanSubscription subscription, Instant now) {
+        Instant anchor = subscription.getStartDate() == null ? now : subscription.getStartDate();
+        ZonedDateTime anchoredAt = anchor.atZone(ZoneOffset.UTC);
+        ZonedDateTime nowAt = now.atZone(ZoneOffset.UTC);
+        long elapsedMonths = Math.max(0, ChronoUnit.MONTHS.between(anchoredAt, nowAt));
+        ZonedDateTime startsAt = anchoredAt.plusMonths(elapsedMonths);
+        if (startsAt.isAfter(nowAt)) {
+            startsAt = startsAt.minusMonths(1);
+        }
+        ZonedDateTime endsAt = startsAt.plusMonths(1);
+        Instant subscriptionEnd = subscription.getEndDate();
+        if (subscriptionEnd != null && subscriptionEnd.isBefore(endsAt.toInstant())) {
+            endsAt = subscriptionEnd.atZone(ZoneOffset.UTC);
+        }
+        return new ImportPeriod(startsAt.toInstant(), endsAt.toInstant());
+    }
+
+    private record ImportPeriod(Instant startsAt, Instant endsAt) {}
 }

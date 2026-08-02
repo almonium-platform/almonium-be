@@ -3,6 +3,7 @@ package com.almonium.learning.book.controller;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.learning.book.dto.response.BookImportDto;
+import com.almonium.learning.book.dto.response.BookImportQuotaDto;
 import com.almonium.learning.book.service.UserBookImportService;
 import com.almonium.user.core.model.entity.User;
 import jakarta.validation.constraints.Max;
@@ -46,6 +47,11 @@ public class BookImportController {
     @GetMapping
     public ResponseEntity<List<BookImportDto>> list(@Auth User user) {
         return ResponseEntity.ok(importService.list(user));
+    }
+
+    @GetMapping("/quota")
+    public ResponseEntity<BookImportQuotaDto> quota(@Auth User user) {
+        return ResponseEntity.ok(importService.quota(user));
     }
 
     @GetMapping("/{id}")

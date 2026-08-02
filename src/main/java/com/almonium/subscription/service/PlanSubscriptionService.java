@@ -122,6 +122,14 @@ public class PlanSubscriptionService {
         sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.RENEWED);
     }
 
+    /** Keeps the local billing anchor current when Stripe advances a subscription period. */
+    public void syncBillingPeriod(String stripeSubscriptionId, Instant startDate, Instant endDate) {
+        PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
+        planSubscription.setStartDate(startDate);
+        planSubscription.setEndDate(endDate);
+        planSubRepository.save(planSubscription);
+    }
+
     public void putSubscriptionOnHold(String stripeSubscriptionId) {
         PlanSubscription planSubscription = getPlanSubFromStripeData(stripeSubscriptionId);
         sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.PAYMENT_FAILED);

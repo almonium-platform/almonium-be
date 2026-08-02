@@ -3,6 +3,7 @@ package com.almonium.subscription.webhook;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.stripe.model.Event;
 import com.stripe.model.Subscription;
+import java.time.Instant;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,10 @@ public class SubscriptionUpdatedHandler implements StripeEventHandler {
         Subscription subscription = extractor.extract(event, Subscription.class);
         String subscriptionId = subscription.getId();
         log.info("Subscription updated: ID {}", subscriptionId);
+        planSubscriptionService.syncBillingPeriod(
+                subscriptionId,
+                Instant.ofEpochSecond(subscription.getCurrentPeriodStart()),
+                Instant.ofEpochSecond(subscription.getCurrentPeriodEnd()));
 
         Map<String, Object> previousAttributes = event.getData().getPreviousAttributes();
         if (previousAttributes == null || previousAttributes.isEmpty()) {

@@ -8,7 +8,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserBookImportRepository extends JpaRepository<UserBookImport, UUID> {
-    long countByUserIdAndCreatedAtGreaterThanEqual(UUID userId, Instant createdAt);
+    long countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+            UUID userId, Instant periodStart, Instant periodEnd);
 
     List<UserBookImport> findByUserIdOrderByCreatedAtDesc(UUID userId);
 
