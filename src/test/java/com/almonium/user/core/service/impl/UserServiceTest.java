@@ -8,12 +8,14 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
@@ -25,6 +27,7 @@ import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -50,6 +53,9 @@ class UserServiceTest {
 
     @Mock
     PlanService planService;
+
+    @Mock
+    PlanValidationService planValidationService;
 
     @Mock
     PlanSubscriptionMapper planSubscriptionMapper;
@@ -233,5 +239,18 @@ class UserServiceTest {
 
         // Assert
         assertThat(result).isFalse();
+    }
+
+    @DisplayName("Should validate the fluent language count against the active plan")
+    @Test
+    void givenFluentLanguages_whenUpdateFluentLanguages_thenValidatesPlanLimitAndSaves() {
+        User user = UserUtility.getUser();
+        Set<Language> fluentLanguages = Set.of(Language.EN, Language.DE);
+
+        userService.updateFluentLanguages(fluentLanguages, user);
+
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_FLUENT_LANGS, fluentLanguages.size());
+        verify(userRepository).save(user);
+        assertThat(user.getFluentLangs()).containsExactlyInAnyOrderElementsOf(fluentLanguages);
     }
 }

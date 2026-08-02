@@ -12,7 +12,6 @@ import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.model.enums.SetupStep;
 import com.almonium.user.core.repository.UserRepository;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -48,8 +47,8 @@ public class OnboardingService {
                 .toList();
 
         processStep(user, SetupStep.LANGUAGES, request, data -> {
+            userService.updateFluentLanguages(data.fluentLangs(), user);
             learnerService.createLearners(targetLangsData, user, true);
-            user.setFluentLangs(new HashSet<>(data.fluentLangs()));
             eventPublisher.publishEvent(new UserLanguagesUpdatedEvent(user.getId(), targetLanguages));
         });
 

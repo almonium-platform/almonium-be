@@ -8,6 +8,7 @@ import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.events.UserProfileUpdatedEvent;
@@ -37,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     PlanSubscriptionService planSubscriptionService;
     PlanService planService;
+    PlanValidationService planValidationService;
 
     UserRepository userRepository;
     InterestRepository interestRepository;
@@ -106,6 +108,7 @@ public class UserService {
     }
 
     public void updateFluentLanguages(Set<Language> langs, User user) {
+        planValidationService.validatePlanFeature(user, PlanFeature.MAX_FLUENT_LANGS, langs.size());
         user.setFluentLangs(new HashSet<>(langs));
         userRepository.save(user);
     }

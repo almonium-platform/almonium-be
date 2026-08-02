@@ -90,3 +90,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260803-project-processor-book-catalog.yaml
   - include:
       file: db/changelog/changes/patches/20260804-add-private-book-imports.yaml
+  - include:
+      file: db/changelog/changes/patches/20260805-add-free-fluent-language-limit.yaml

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-free-fluent-language-limit
+      author: almoni
+      changes:
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column:
+                  name: plan_id
+                  valueNumeric: 1
+              - column:
+                  name: feature_key
+                  value: MAX_FLUENT_LANGS
+              - column:
+                  name: limit_value
+                  valueNumeric: 1
