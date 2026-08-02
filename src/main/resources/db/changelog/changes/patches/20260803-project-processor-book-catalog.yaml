@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260803-project-processor-book-catalog
+      author: codex
+      comment: Replace the unused legacy catalog fields with the processor-owned publication projection.
+      changes:
+        - sql:
+            sql: |
+              ALTER TABLE book RENAME COLUMN processor_edition_slug TO edition_slug;
+
+              ALTER TABLE book
+                  ADD COLUMN work_slug varchar(160) NOT NULL,
+                  ADD COLUMN source_hash varchar(64) NOT NULL,
+                  ADD COLUMN cover_url varchar(1000),
+                  ADD COLUMN original_language varchar(10) NOT NULL,
+                  ADD COLUMN cefr_level CEFR_LEVEL NOT NULL,
+                  ADD COLUMN edition_type varchar(32) NOT NULL,
+                  ALTER COLUMN edition_slug SET NOT NULL,
+                  DROP COLUMN cover_image_url,
+                  DROP COLUMN rating,
+                  DROP COLUMN level_from,
+                  DROP COLUMN level_to,
+                  DROP COLUMN description;

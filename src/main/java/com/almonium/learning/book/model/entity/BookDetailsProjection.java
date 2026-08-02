@@ -7,23 +7,21 @@ import java.util.UUID;
 public interface BookDetailsProjection {
     UUID getId();
 
+    String getWorkSlug();
+
     String getTitle();
 
     String getAuthor();
 
     Integer getPublicationYear();
 
-    String getCoverImageUrl();
+    String getCoverUrl();
 
     Integer getWordCount();
 
-    Double getRating();
-
     Language getLanguage();
 
-    CEFR getLevelFrom();
-
-    CEFR getLevelTo();
+    CEFR getCefrLevel();
 
     Integer getProgressPercentage();
 
@@ -32,8 +30,6 @@ public interface BookDetailsProjection {
     Boolean getHasParallelTranslation();
 
     Boolean getIsTranslation();
-
-    String getDescription();
 
     Language getOriginalLanguage();
 

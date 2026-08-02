@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
-import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookLanguageVariant;
@@ -44,7 +43,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BookService {
     LearnerFinder learnerFinder;
-    FirebaseStorageService firebaseStorageService;
     PublishedBookContentService publishedBookContentService;
 
     BookRepository bookRepository;
@@ -177,9 +175,7 @@ public class BookService {
 
     public byte[] getText(User user, UUID bookId) {
         Book book = getBookById(bookId);
-        return book.getProcessorEditionSlug() == null
-                ? firebaseStorageService.getBook(bookId)
-                : publishedBookContentService.textFor(book);
+        return publishedBookContentService.textFor(book);
     }
 
     public byte[] getParallelBook(User user, Language language, UUID bookId) {
@@ -197,6 +193,6 @@ public class BookService {
             throw new BadUserRequestActionException("This book is already in this language");
         }
 
-        return firebaseStorageService.getParallelText(bookId, secondId);
+        return publishedBookContentService.parallelTextFor(getBookById(bookId), getBookById(secondId));
     }
 }

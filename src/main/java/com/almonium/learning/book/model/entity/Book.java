@@ -33,7 +33,9 @@ public class Book {
     @UuidV7
     UUID id;
 
-    String processorEditionSlug;
+    String editionSlug;
+    String workSlug;
+    String sourceHash;
 
     // Reference to original book (null if this IS the original)
     @ManyToOne
@@ -43,23 +45,19 @@ public class Book {
     String title;
     String author;
     int publicationYear;
-    String coverImageUrl;
+    String coverUrl;
     int wordCount;
-    double rating;
 
     @Enumerated(EnumType.STRING)
     Language language;
 
     @Enumerated(EnumType.STRING)
-    @JdbcType(PostgreSQLEnumJdbcType.class)
-    CEFR levelFrom;
+    Language originalLanguage;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
-    CEFR levelTo;
+    CEFR cefrLevel;
 
-    String description;
-
-    // For translations
+    String editionType;
     String translator;
 }

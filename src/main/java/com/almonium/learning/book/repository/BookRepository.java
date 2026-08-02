@@ -12,24 +12,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface BookRepository extends JpaRepository<Book, UUID> {
-    Optional<Book> findByProcessorEditionSlug(String processorEditionSlug);
+    Optional<Book> findByEditionSlug(String editionSlug);
 
     List<Book> findByLanguage(Language language);
 
     @Query(
             """
         select b.id as id,
+               b.workSlug as workSlug,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
-               b.coverImageUrl as coverImageUrl,
+               b.coverUrl as coverUrl,
                b.wordCount as wordCount,
-               b.rating as rating,
                b.language as language,
-               b.levelFrom as levelFrom,
-               b.levelTo as levelTo,
+               b.cefrLevel as cefrLevel,
                bp.progressPercentage as progressPercentage,
-               b.description as description,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -47,17 +45,15 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.workSlug as workSlug,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
-               b.coverImageUrl as coverImageUrl,
+               b.coverUrl as coverUrl,
                b.wordCount as wordCount,
-               b.rating as rating,
                b.language as language,
-               b.levelFrom as levelFrom,
-               b.levelTo as levelTo,
+               b.cefrLevel as cefrLevel,
                null as progressPercentage,
-               b.description as description,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -76,7 +72,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
             where bf.book.id = b.id
             and bf.learner.id = :learnerId
         )
-        order by b.rating desc
+        order by b.title asc
     """)
     List<BookDetailsProjection> findAvailableBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
@@ -84,17 +80,15 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.workSlug as workSlug,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
-               b.coverImageUrl as coverImageUrl,
+               b.coverUrl as coverUrl,
                b.wordCount as wordCount,
-               b.rating as rating,
                b.language as language,
-               b.levelFrom as levelFrom,
-               b.levelTo as levelTo,
+               b.cefrLevel as cefrLevel,
                null as progressPercentage,
-               b.description as description,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -105,7 +99,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
         where bf.learner.id = :learnerId
         and b.language = :language
         and ((:includeTranslations = true) or (b.originalBook is null))
-        order by b.rating desc
+        order by b.title asc
     """)
     List<BookDetailsProjection> findFavoriteBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
@@ -113,18 +107,16 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.workSlug as workSlug,
                b.title as title,
                b.author as author,
                b.publicationYear as publicationYear,
-               b.coverImageUrl as coverImageUrl,
+               b.coverUrl as coverUrl,
                b.wordCount as wordCount,
-               b.rating as rating,
                b.language as language,
-               b.levelFrom as levelFrom,
-               b.levelTo as levelTo,
+               b.cefrLevel as cefrLevel,
                case when ob.id is not null then ob.language else b.language end as originalLanguage,
                case when ob.id is not null then ob.id else b.id end as originalId,
-               b.description as description,
                b.translator as translator,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,

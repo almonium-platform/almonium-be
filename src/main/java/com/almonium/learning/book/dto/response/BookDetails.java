@@ -16,20 +16,18 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookDetails {
     UUID id;
+    String workSlug;
     String title;
     String author;
     Integer publicationYear;
-    String coverImageUrl;
+    String coverUrl;
     Integer wordCount;
-    Double rating;
     Language language;
-    CEFR levelFrom;
-    CEFR levelTo;
+    CEFR cefrLevel;
     Integer progressPercentage;
     Boolean hasTranslation;
     Boolean hasParallelTranslation;
     Boolean isTranslation;
-    String description;
     List<BookLanguageVariant> languageVariants;
     Language orderLanguage;
     boolean favorite;

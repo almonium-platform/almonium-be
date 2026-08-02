@@ -86,3 +86,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260801-recreate-book-domain-with-uuid.yaml
   - include:
       file: db/changelog/changes/patches/20260802-add-processor-edition-slug.yaml
+  - include:
+      file: db/changelog/changes/patches/20260803-project-processor-book-catalog.yaml

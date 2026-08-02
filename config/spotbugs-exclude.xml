@@ -24,6 +24,13 @@
         <Bug pattern="CRLF_INJECTION_LOGS"/>
     </Match>
 
+    <!-- The method builds reader markup only from values escaped with Spring's HtmlUtils. -->
+    <Match>
+        <Class name="com.almonium.learning.book.service.PublishedBookContentService"/>
+        <Method name="appendParallelBlock"/>
+        <Bug pattern="POTENTIAL_XML_INJECTION"/>
+    </Match>
+
     <!-- Logged onboarding values are a UUID and a closed enum, not raw request text. -->
     <Match>
         <Class name="com.almonium.user.core.service.OnboardingService"/>

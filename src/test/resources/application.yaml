@@ -51,6 +51,9 @@ app:
     firebase:
       session-lifetime-seconds: 604800
       recent-login-seconds: 300
+  books:
+    publisher-secret: test-books-publisher-secret
+    processor-url: https://books.example.test/api/v1
 
 rabbitmq:
   exchange:
