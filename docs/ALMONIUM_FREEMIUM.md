@@ -49,7 +49,7 @@ it costs money.
 | Cross-device sync | ✗ |
 | Shared packs | Receive and import; cannot create |
 
-### Premium — $12/month or $96/year
+### Premium — $12/month or $120/year
 
 Everything above, unlimited, plus:
 
@@ -63,7 +63,7 @@ Everything above, unlimited, plus:
 - Create and share packs
 - Encounter history and statistics
 
-### Founding member — $8/month, first 100 subscribers, locked while subscribed
+### Founding member — $8/month or $80/year, first 50 subscribers, locked while subscribed
 
 Same as Premium. Say the number publicly and count down. This is not a fake
 countdown; it is a real, honest scarcity that converts the exact people you
@@ -73,7 +73,7 @@ price if they return.
 
 The $8 offer is a distinct Stripe recurring Price that grants the same
 `PREMIUM` entitlement as the public $12 offer. The application reserves one of
-the one hundred durable founding-member slots before opening checkout, then
+the fifty durable founding-member slots before opening checkout, then
 confirms it from Stripe's paid webhook. This is a launch requirement; keep
 those records permanently as the evidence for the promise, not disposable
 launch data.

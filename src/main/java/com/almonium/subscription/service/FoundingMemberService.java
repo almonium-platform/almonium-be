@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FoundingMemberService {
-    public static final int CAPACITY = 100;
+    public static final int CAPACITY = 50;
 
     FoundingMemberRepository foundingMemberRepository;
 

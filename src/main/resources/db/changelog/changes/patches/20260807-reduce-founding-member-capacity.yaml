@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: reduce-founding-member-capacity-to-fifty
+      author: codex
+      changes:
+        - delete:
+            tableName: founding_member
+            where: slot_number > 50 AND status = 'AVAILABLE'
