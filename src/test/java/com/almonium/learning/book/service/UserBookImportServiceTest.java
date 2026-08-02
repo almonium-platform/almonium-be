@@ -57,6 +57,7 @@ class UserBookImportServiceTest {
     void enforcesMonthlyPlanLimitAndQueuesProcessorImport() {
         User user = new User();
         user.setId(UUID.randomUUID());
+        user.setUsername("private-reader");
         when(repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
                         eq(user.getId()), any(Instant.class), any(Instant.class)))
                 .thenReturn(2L);
@@ -72,6 +73,7 @@ class UserBookImportServiceTest {
                 .createPrivateImport(
                         eq(result.id()),
                         eq(user.getId()),
+                        eq("private-reader"),
                         eq(source),
                         eq("My Book"),
                         eq("An Author"),

@@ -51,6 +51,7 @@ class BookProcessorClientTest {
             client.createPrivateImport(
                     java.util.UUID.randomUUID(),
                     java.util.UUID.randomUUID(),
+                    "private-reader",
                     new MockMultipartFile("file", "book.xml", "text/xml", "<TEI/>".getBytes(StandardCharsets.UTF_8)),
                     "Title",
                     "Author",
@@ -77,6 +78,7 @@ class BookProcessorClientTest {
         assertThatThrownBy(() -> client.createPrivateImport(
                         java.util.UUID.randomUUID(),
                         java.util.UUID.randomUUID(),
+                        "private-reader",
                         new MockMultipartFile(
                                 "file", "book.xml", "text/xml", "<TEI/>".getBytes(StandardCharsets.UTF_8)),
                         "Title",

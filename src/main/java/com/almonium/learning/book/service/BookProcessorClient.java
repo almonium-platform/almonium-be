@@ -35,6 +35,7 @@ public class BookProcessorClient {
     public void createPrivateImport(
             UUID importId,
             UUID ownerId,
+            String ownerLabel,
             MultipartFile source,
             String title,
             String author,
@@ -44,6 +45,7 @@ public class BookProcessorClient {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("import_id", importId.toString());
         body.add("owner_id", ownerId.toString());
+        body.add("owner_label", ownerLabel == null ? "" : ownerLabel);
         body.add("title", title);
         body.add("author", author);
         body.add("description", description == null ? "" : description);

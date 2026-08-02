@@ -67,6 +67,7 @@ public class UserBookImportService {
         processorClient.createPrivateImport(
                 bookImport.getId(),
                 user.getId(),
+                user.getUsername(),
                 source,
                 bookImport.getTitle(),
                 bookImport.getAuthor(),
