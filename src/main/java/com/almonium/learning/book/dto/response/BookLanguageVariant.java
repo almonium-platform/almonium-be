@@ -14,5 +14,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookLanguageVariant {
     UUID id;
+    String editionSlug;
     Language language;
 }

@@ -11,6 +11,7 @@ public record BookPublicationRequest(
         @NotBlank String workSlug,
         @NotBlank String title,
         @NotBlank String author,
+        String description,
         @NotNull Language originalLanguage,
         @NotNull Language language,
         @NotBlank String editionType,

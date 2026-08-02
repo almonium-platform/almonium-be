@@ -6,15 +6,17 @@ import java.util.UUID;
 
 public record BookDto(
         UUID id,
+        String editionSlug,
         String workSlug,
         String title,
         String author,
+        String description,
         Integer publicationYear,
         String coverUrl,
         Integer wordCount,
         Language language,
         CEFR cefrLevel,
         Integer progressPercentage,
-        Boolean hasTranslation,
-        Boolean hasParallelTranslation,
-        Boolean isTranslation) {}
+        boolean hasTranslation,
+        boolean hasParallelTranslation,
+        boolean isTranslation) {}

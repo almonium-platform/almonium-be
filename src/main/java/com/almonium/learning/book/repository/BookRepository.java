@@ -19,9 +19,11 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.editionSlug as editionSlug,
                b.workSlug as workSlug,
                b.title as title,
                b.author as author,
+               b.description as description,
                b.publicationYear as publicationYear,
                b.coverUrl as coverUrl,
                b.wordCount as wordCount,
@@ -45,9 +47,11 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.editionSlug as editionSlug,
                b.workSlug as workSlug,
                b.title as title,
                b.author as author,
+               b.description as description,
                b.publicationYear as publicationYear,
                b.coverUrl as coverUrl,
                b.wordCount as wordCount,
@@ -80,9 +84,11 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.editionSlug as editionSlug,
                b.workSlug as workSlug,
                b.title as title,
                b.author as author,
+               b.description as description,
                b.publicationYear as publicationYear,
                b.coverUrl as coverUrl,
                b.wordCount as wordCount,
@@ -107,9 +113,11 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(
             """
         select b.id as id,
+               b.editionSlug as editionSlug,
                b.workSlug as workSlug,
                b.title as title,
                b.author as author,
+               b.description as description,
                b.publicationYear as publicationYear,
                b.coverUrl as coverUrl,
                b.wordCount as wordCount,
@@ -133,7 +141,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     @Query(
             """
-            select b.id as id, b.language as language
+            select b.id as id, b.editionSlug as editionSlug, b.language as language
             from Book b
             where b.id = :bookId
                or (b.originalBook is not null and b.originalBook.id = :bookId)

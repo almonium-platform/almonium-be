@@ -102,6 +102,7 @@ public class WebSecurityConfig {
                         .ignoringRequestMatchers(
                                 new AntPathRequestMatcher("/public/**"),
                                 new AntPathRequestMatcher("/internal/books/publications"),
+                                new AntPathRequestMatcher("/internal/books/import-events"),
                                 new AntPathRequestMatcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
@@ -109,7 +110,7 @@ public class WebSecurityConfig {
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
                         .permitAll()
-                        .requestMatchers("/internal/books/publications")
+                        .requestMatchers("/internal/books/publications", "/internal/books/import-events")
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")
                         .permitAll()

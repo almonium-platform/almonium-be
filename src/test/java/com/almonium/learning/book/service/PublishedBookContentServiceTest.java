@@ -23,12 +23,15 @@ class PublishedBookContentServiceTest {
     @Mock
     RestTemplate restTemplate;
 
+    @Mock
+    BookProcessorClient processorClient;
+
     PublishedBookContentService service;
     ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
-        service = new PublishedBookContentService(restTemplate);
+        service = new PublishedBookContentService(restTemplate, processorClient);
         ReflectionTestUtils.setField(service, "processorUrl", "https://books.example/api/v1");
         objectMapper = new ObjectMapper();
     }
@@ -37,8 +40,8 @@ class PublishedBookContentServiceTest {
     void rendersEscapedBlocksFromProcessorStorage() throws Exception {
         JsonNode[] blocks = objectMapper.readValue(
                 """
-                [{"chapter":1,"block_type":"heading","text":"One & <Two>"},
-                 {"chapter":1,"block_type":"paragraph","text":"Stored text."}]
+                [{"chapter":1,"chapter_title":"One & <Two>","block_type":"heading","text":"One & <Two>"},
+                 {"chapter":1,"chapter_title":"One & <Two>","block_type":"paragraph","text":"Stored text."}]
                 """,
                 JsonNode[].class);
         when(restTemplate.getForObject(anyString(), eq(JsonNode[].class), any(Object[].class)))
@@ -49,7 +52,8 @@ class PublishedBookContentServiceTest {
         String html = new String(service.textFor(book), StandardCharsets.UTF_8);
 
         assertThat(html)
-                .isEqualTo("<section class=\"chapter\"><h2 id=\"chapter-1\">One &amp; &lt;Two&gt;</h2>"
-                        + "<p>Stored text.</p></section>");
+                .isEqualTo(
+                        "<section class=\"chapter\"><h2 class=\"chapter-title\" id=\"chapter-1\">One &amp; &lt;Two&gt;</h2>"
+                                + "<p>Stored text.</p></section>");
     }
 }

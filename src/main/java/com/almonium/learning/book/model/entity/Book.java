@@ -44,6 +44,7 @@ public class Book {
 
     String title;
     String author;
+    String description;
     int publicationYear;
     String coverUrl;
     int wordCount;

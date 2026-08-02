@@ -16,9 +16,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookDetails {
     UUID id;
+    String editionSlug;
     String workSlug;
     String title;
     String author;
+    String description;
     Integer publicationYear;
     String coverUrl;
     Integer wordCount;

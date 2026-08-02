@@ -13,6 +13,7 @@ import org.springframework.web.util.HtmlUtils;
 @RequiredArgsConstructor
 public class PublishedBookContentService {
     private final RestTemplate restTemplate;
+    private final BookProcessorClient processorClient;
 
     @Value("${app.books.processor-url}")
     private String processorUrl;
@@ -23,17 +24,41 @@ public class PublishedBookContentService {
         if (blocks == null) {
             throw new IllegalStateException("Published edition has no content");
         }
+        return renderBlocks(blocks);
+    }
+
+    public byte[] privateTextFor(java.util.UUID importId, java.util.UUID ownerId) {
+        JsonNode[] blocks = processorClient.privateBlocks(importId, ownerId);
+        if (blocks == null) {
+            throw new IllegalStateException("Private edition has no content");
+        }
+        return renderBlocks(blocks);
+    }
+
+    private byte[] renderBlocks(JsonNode[] blocks) {
         StringBuilder html = new StringBuilder();
         int chapter = -1;
         for (JsonNode block : blocks) {
             int currentChapter = block.path("chapter").asInt();
+            String chapterTitle = block.path("chapter_title").asText();
             if (currentChapter != chapter) {
                 if (chapter >= 0) html.append("</section>");
                 chapter = currentChapter;
                 html.append("<section class=\"chapter\">");
+                appendChapterHeading(
+                        html,
+                        chapter,
+                        chapterTitle.isBlank()
+                                        && "heading"
+                                                .equals(block.path("block_type").asText())
+                                ? block.path("text").asText()
+                                : chapterTitle);
             }
-            appendBlock(
-                    html, block.path("block_type").asText(), block.path("text").asText(), chapter);
+            String blockType = block.path("block_type").asText();
+            String blockText = block.path("text").asText();
+            if (!("heading".equals(blockType) && blockText.equals(chapterTitle))) {
+                appendBlock(html, blockType, blockText);
+            }
         }
         if (chapter >= 0) html.append("</section>");
         return html.toString().getBytes(StandardCharsets.UTF_8);
@@ -53,10 +78,12 @@ public class PublishedBookContentService {
         int chapter = -1;
         for (JsonNode block : payload.path("blocks")) {
             int currentChapter = block.path("chapter").asInt();
+            String chapterTitle = block.path("chapter_title").asText();
             if (currentChapter != chapter) {
                 if (chapter >= 0) html.append("</section>");
                 chapter = currentChapter;
                 html.append("<section class=\"chapter\">");
+                appendChapterHeading(html, chapter, chapterTitle);
             }
             appendParallelBlock(
                     html,
@@ -65,20 +92,24 @@ public class PublishedBookContentService {
                     payload.path("secondary_language").asText(),
                     block.path("primary_text").asText(),
                     block.path("secondary_text").asText(),
-                    chapter);
+                    chapterTitle);
         }
         if (chapter >= 0) html.append("</section>");
         return html.toString().getBytes(StandardCharsets.UTF_8);
     }
 
-    private void appendBlock(StringBuilder html, String type, String text, int chapter) {
+    private void appendChapterHeading(StringBuilder html, int chapter, String title) {
+        String displayTitle = title.isBlank() ? "Chapter " + (chapter + 1) : title;
+        html.append("<h2 class=\"chapter-title\" id=\"chapter-")
+                .append(chapter)
+                .append("\">")
+                .append(escapedText(displayTitle))
+                .append("</h2>");
+    }
+
+    private void appendBlock(StringBuilder html, String type, String text) {
         String escapedText = escapedText(text);
-        if ("heading".equals(type))
-            html.append("<h2 id=\"chapter-")
-                    .append(chapter)
-                    .append("\">")
-                    .append(escapedText)
-                    .append("</h2>");
+        if ("heading".equals(type)) html.append("<h3>").append(escapedText).append("</h3>");
         else if ("blockquote".equals(type))
             html.append("<blockquote>").append(escapedText).append("</blockquote>");
         else if ("separator".equals(type)) html.append("<hr>");
@@ -96,7 +127,7 @@ public class PublishedBookContentService {
             String secondaryLanguage,
             String primaryText,
             String secondaryText,
-            int chapter) {
+            String chapterTitle) {
         String segments = "<span class=\"seg-pair\"><span class=\"segment\" lang=\""
                 + HtmlUtils.htmlEscape(primaryLanguage)
                 + "\">"
@@ -106,13 +137,11 @@ public class PublishedBookContentService {
                 + "\">"
                 + escapedText(secondaryText)
                 + "</span></span>";
-        if ("heading".equals(type))
-            html.append("<h2 id=\"chapter-")
-                    .append(chapter)
-                    .append("\">")
-                    .append(segments)
-                    .append("</h2>");
-        else if ("blockquote".equals(type))
+        if ("heading".equals(type)) {
+            if (!primaryText.equals(chapterTitle)) {
+                html.append("<h3>").append(segments).append("</h3>");
+            }
+        } else if ("blockquote".equals(type))
             html.append("<blockquote>").append(segments).append("</blockquote>");
         else if ("separator".equals(type)) html.append("<hr>");
         else if (!"image".equals(type)) html.append("<p>").append(segments).append("</p>");

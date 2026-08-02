@@ -23,6 +23,9 @@ class BookPublicationServiceTest {
     @Mock
     BookRepository bookRepository;
 
+    @Mock
+    TranslationOrderService translationOrderService;
+
     @InjectMocks
     BookPublicationService service;
 
@@ -34,6 +37,7 @@ class BookPublicationServiceTest {
                 "frankenstein",
                 "Frankenstein",
                 "Mary Shelley",
+                "A scientist creates life.",
                 Language.EN,
                 Language.EN,
                 "original",
@@ -53,6 +57,7 @@ class BookPublicationServiceTest {
         Book book = captor.getValue();
         assertThat(book.getSourceHash()).isEqualTo("a".repeat(64));
         assertThat(book.getPublicationYear()).isEqualTo(1818);
+        assertThat(book.getDescription()).isEqualTo("A scientist creates life.");
         assertThat(book.getCefrLevel()).isEqualTo(CEFR.C1);
         assertThat(book.getCoverUrl()).isNull();
     }

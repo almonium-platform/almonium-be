@@ -5,6 +5,10 @@ server:
   forward-headers-strategy: framework
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 52MB
   config:
     import: optional:file:.env[.properties]
   profiles.active: ${SPRING_PROFILE}

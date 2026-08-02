@@ -88,3 +88,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260802-add-processor-edition-slug.yaml
   - include:
       file: db/changelog/changes/patches/20260803-project-processor-book-catalog.yaml
+  - include:
+      file: db/changelog/changes/patches/20260804-add-private-book-imports.yaml

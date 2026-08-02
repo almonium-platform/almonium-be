@@ -80,6 +80,21 @@ public class NotificationService {
         fcmService.sendNotificationUsers(users, title, message);
     }
 
+    public void notifyOfBookImport(User user, UUID importId, String bookTitle, boolean ready) {
+        String title = ready ? "Your book is ready" : "Book import failed";
+        String message =
+                ready ? "%s is ready to read".formatted(bookTitle) : "We could not process %s".formatted(bookTitle);
+        Notification notification = Notification.builder()
+                .title(title)
+                .message(message)
+                .recipient(user)
+                .type(ready ? NotificationType.BOOK_IMPORT_READY : NotificationType.BOOK_IMPORT_FAILED)
+                .referenceId(importId)
+                .build();
+        notificationRepository.save(notification);
+        fcmService.sendNotificationToUser(user.getId(), title, message);
+    }
+
     public void notifyOfFriendshipAcceptance(Relationship relationship) {
         String title = "Friendship request accepted";
         String message = "@%s accepted your friendship request!"

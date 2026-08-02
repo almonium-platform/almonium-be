@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BookPublicationService {
     private final BookRepository bookRepository;
+    private final TranslationOrderService translationOrderService;
 
     public BookPublicationResponse publish(BookPublicationRequest request) {
         Book book = bookRepository.findByEditionSlug(request.editionSlug()).orElseGet(Book::new);
@@ -22,6 +23,7 @@ public class BookPublicationService {
         book.setSourceHash(request.sourceHash());
         book.setTitle(request.title());
         book.setAuthor(request.author());
+        book.setDescription(request.description());
         book.setLanguage(request.language());
         book.setWordCount(request.wordCount());
         book.setPublicationYear(request.publicationYear());
@@ -37,6 +39,10 @@ public class BookPublicationService {
         } else {
             book.setOriginalBook(null);
         }
-        return new BookPublicationResponse(bookRepository.save(book).getId());
+        Book saved = bookRepository.save(book);
+        if (saved.getOriginalBook() != null) {
+            translationOrderService.publishTranslation(saved);
+        }
+        return new BookPublicationResponse(saved.getId());
     }
 }

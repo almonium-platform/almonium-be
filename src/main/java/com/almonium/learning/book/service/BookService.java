@@ -54,11 +54,86 @@ public class BookService {
     BookMapper bookMapper;
 
     public List<BookDto> getBooks() {
-        return bookMapper.toBookDtos(bookRepository.findAll());
+        return bookRepository.findAll().stream().map(this::toPublicBookDto).toList();
     }
 
     public List<BookDto> getBooksInLanguage(Language language) {
-        return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
+        return bookRepository.findByLanguage(language).stream()
+                .map(this::toPublicBookDto)
+                .toList();
+    }
+
+    private BookDto toPublicBookDto(Book book) {
+        boolean hasVariant =
+                bookRepository.findAvailableLanguagesForBook(book.getId()).size() > 1;
+        return new BookDto(
+                book.getId(),
+                book.getEditionSlug(),
+                book.getWorkSlug(),
+                book.getTitle(),
+                book.getAuthor(),
+                book.getDescription(),
+                book.getPublicationYear(),
+                book.getCoverUrl(),
+                book.getWordCount(),
+                book.getLanguage(),
+                book.getCefrLevel(),
+                null,
+                hasVariant,
+                hasVariant,
+                book.getOriginalBook() != null);
+    }
+
+    public BookDetails getPublicBook(String editionSlug) {
+        Book book = getBookBySlug(editionSlug);
+        List<BookLanguageVariant> variants =
+                bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(book.getId()));
+        BookDetails details = new BookDetails();
+        details.setId(book.getId());
+        details.setEditionSlug(book.getEditionSlug());
+        details.setWorkSlug(book.getWorkSlug());
+        details.setTitle(book.getTitle());
+        details.setAuthor(book.getAuthor());
+        details.setDescription(book.getDescription());
+        details.setPublicationYear(book.getPublicationYear());
+        details.setCoverUrl(book.getCoverUrl());
+        details.setWordCount(book.getWordCount());
+        details.setLanguage(book.getLanguage());
+        details.setCefrLevel(book.getCefrLevel());
+        details.setIsTranslation(book.getOriginalBook() != null);
+        details.setHasTranslation(variants.size() > 1);
+        details.setHasParallelTranslation(variants.size() > 1);
+        details.setLanguageVariants(variants);
+        details.setOriginalLanguage(book.getOriginalLanguage());
+        details.setOriginalId(
+                book.getOriginalBook() == null
+                        ? book.getId()
+                        : book.getOriginalBook().getId());
+        details.setTranslator(book.getTranslator());
+        return details;
+    }
+
+    public byte[] getPublicText(String editionSlug) {
+        return publishedBookContentService.textFor(getBookBySlug(editionSlug));
+    }
+
+    public byte[] getPublicParallelBook(String editionSlug, Language language) {
+        Book primary = getBookBySlug(editionSlug);
+        Book secondary = bookRepository.findAvailableLanguagesForBook(primary.getId()).stream()
+                .filter(variant -> variant.getLanguage().equals(language))
+                .map(variant -> getBookById(variant.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
+        if (primary.getId().equals(secondary.getId())) {
+            throw new BadUserRequestActionException("This book is already in this language");
+        }
+        return publishedBookContentService.parallelTextFor(primary, secondary);
+    }
+
+    private Book getBookBySlug(String editionSlug) {
+        return bookRepository
+                .findByEditionSlug(editionSlug)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with slug: " + editionSlug));
     }
 
     public void addToFavorites(User user, UUID bookId, Language language) {

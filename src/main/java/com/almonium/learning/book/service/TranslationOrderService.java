@@ -32,8 +32,11 @@ public class TranslationOrderService {
 
     @SuppressWarnings("unused")
     public void publishTranslation(Book book) {
-        List<TranslationOrder> translationOrders =
-                translationOrderRepository.findByBookIdAndLanguage(book.getId(), book.getLanguage());
+        List<TranslationOrder> translationOrders = translationOrderRepository.findByBookIdAndLanguage(
+                book.getOriginalBook() == null
+                        ? book.getId()
+                        : book.getOriginalBook().getId(),
+                book.getLanguage());
 
         List<UUID> ordersIds = new ArrayList<>();
         List<User> users = new ArrayList<>();

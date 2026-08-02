@@ -7,11 +7,15 @@ import java.util.UUID;
 public interface BookDetailsProjection {
     UUID getId();
 
+    String getEditionSlug();
+
     String getWorkSlug();
 
     String getTitle();
 
     String getAuthor();
+
+    String getDescription();
 
     Integer getPublicationYear();
 
