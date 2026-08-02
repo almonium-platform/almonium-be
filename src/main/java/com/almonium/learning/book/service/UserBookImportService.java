@@ -7,8 +7,10 @@ import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.request.BookImportEventRequest;
 import com.almonium.learning.book.dto.response.BookImportDto;
 import com.almonium.learning.book.dto.response.BookImportQuotaDto;
+import com.almonium.learning.book.model.entity.BookImportQuotaAdjustment;
 import com.almonium.learning.book.model.entity.UserBookImport;
 import com.almonium.learning.book.model.enums.BookImportStatus;
+import com.almonium.learning.book.repository.BookImportQuotaAdjustmentRepository;
 import com.almonium.learning.book.repository.UserBookImportRepository;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.service.PlanSubscriptionService;
@@ -34,6 +36,7 @@ public class UserBookImportService {
     private static final List<String> SUPPORTED_EXTENSIONS = List.of(".epub", ".xml");
 
     private final UserBookImportRepository repository;
+    private final BookImportQuotaAdjustmentRepository quotaAdjustmentRepository;
     private final PlanValidationService planValidationService;
     private final PlanSubscriptionService subscriptionService;
     private final BookProcessorClient processorClient;
@@ -88,14 +91,33 @@ public class UserBookImportService {
     public BookImportQuotaDto quota(User user) {
         PlanSubscription subscription = subscriptionService.getActiveSub(user);
         ImportPeriod period = currentImportPeriod(subscription, Instant.now());
-        int limit = subscription.getPlan().getLimits().stream()
-                .filter(planLimit -> planLimit.getFeatureKey() == MAX_BOOK_IMPORTS_PER_MONTH)
-                .mapToInt(planLimit -> planLimit.getLimitValue())
-                .findFirst()
-                .orElse(0);
-        long used = repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+        int limit = planValidationService.effectiveLimit(user, MAX_BOOK_IMPORTS_PER_MONTH);
+        long imported = repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
                 user.getId(), period.startsAt(), period.endsAt());
+        long adjustment =
+                quotaAdjustmentRepository.totalForPeriod(user.getId(), MAX_BOOK_IMPORTS_PER_MONTH, period.startsAt());
+        long used = Math.max(0, imported + adjustment);
         return new BookImportQuotaDto(limit, Math.toIntExact(used), period.startsAt(), period.endsAt());
+    }
+
+    /** Grants enough credit to make the current-period effective usage zero without deleting imports. */
+    public void resetCurrentPeriodQuota(User user, User operator, String reason) {
+        if (reason == null || reason.isBlank()) {
+            throw new IllegalArgumentException("An operator reason is required");
+        }
+        BookImportQuotaDto quota = quota(user);
+        if (quota.used() == 0) {
+            return;
+        }
+        BookImportQuotaAdjustment adjustment = new BookImportQuotaAdjustment();
+        adjustment.setId(UUID.randomUUID());
+        adjustment.setUser(user);
+        adjustment.setPerformedBy(operator);
+        adjustment.setFeatureKey(MAX_BOOK_IMPORTS_PER_MONTH);
+        adjustment.setPeriodStartsAt(quota.periodStartsAt());
+        adjustment.setAdjustment(-quota.used());
+        adjustment.setReason(reason.trim());
+        quotaAdjustmentRepository.save(adjustment);
     }
 
     @Transactional(readOnly = true)

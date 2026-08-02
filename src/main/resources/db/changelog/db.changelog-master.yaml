@@ -92,3 +92,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260804-add-private-book-imports.yaml
   - include:
       file: db/changelog/changes/patches/20260805-add-free-fluent-language-limit.yaml
+  - include:
+      file: db/changelog/changes/patches/20260806-add-entitlements-and-operations.yaml

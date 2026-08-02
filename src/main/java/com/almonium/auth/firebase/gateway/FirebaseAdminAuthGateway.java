@@ -102,7 +102,8 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
                 token.getEmail(),
                 token.isEmailVerified(),
                 Instant.ofEpochSecond(authTimeSeconds.longValue()),
-                signInProvider);
+                signInProvider,
+                Boolean.TRUE.equals(claims.get("admin")));
     }
 
     private FirebaseAuthProvider toAuthProvider(UserInfo provider, String createdAt, String updatedAt) {

@@ -63,12 +63,20 @@ Everything above, unlimited, plus:
 - Create and share packs
 - Encounter history and statistics
 
-### Founding member — $8/month, first 200 subscribers, locked forever
+### Founding member — $8/month, first 100 subscribers, locked while subscribed
 
 Same as Premium. Say the number publicly and count down. This is not a fake
 countdown; it is a real, honest scarcity that converts the exact people you
 want, and it lets you launch at the right price without punishing the people
-who took a chance first.
+who took a chance first. A founder who cancels moves to the current public
+price if they return.
+
+The $8 offer is a distinct Stripe recurring Price that grants the same
+`PREMIUM` entitlement as the public $12 offer. The application reserves one of
+the one hundred durable founding-member slots before opening checkout, then
+confirms it from Stripe's paid webhook. This is a launch requirement; keep
+those records permanently as the evidence for the promise, not disposable
+launch data.
 
 ### Regional pricing
 
@@ -148,6 +156,15 @@ retrofitting them is miserable:
 The pricing page must describe only limits the backend actually enforces. Right
 now it promises five things that do not exist, which is the one thing on this
 list that can genuinely hurt you.
+
+### Internal access and support operations
+
+Internal and QA accounts use an audited access grant (`FREE`, `PREMIUM`, or
+`UNLIMITED`) rather than a fake Stripe subscription. The grant overrides the
+effective entitlement only; it never changes a customer's billing record.
+Operator actions require an authenticated admin and a reason. For support
+resets, use a quota-adjustment ledger so imported books remain part of the
+user's history.
 
 ---
 

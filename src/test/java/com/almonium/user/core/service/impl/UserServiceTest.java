@@ -13,7 +13,9 @@ import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.subscription.service.StripeApiService;
@@ -56,6 +58,9 @@ class UserServiceTest {
 
     @Mock
     PlanValidationService planValidationService;
+
+    @Mock
+    EffectiveAccessService effectiveAccessService;
 
     @Mock
     PlanSubscriptionMapper planSubscriptionMapper;
@@ -191,20 +196,19 @@ class UserServiceTest {
         subscriptionInfoDto.setName(plan.getName());
 
         when(planSubscriptionService.getActiveSub(user)).thenReturn(planSubscription);
-        when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
+        when(effectiveAccessService.entitlementFor(user)).thenReturn(Entitlement.PREMIUM);
+        when(planService.getPlanLimits(Entitlement.PREMIUM)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
         when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
         when(streamChatService.generateStreamToken(user)).thenReturn("fresh-stream-token");
         when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
                 .thenReturn(subscriptionInfoDto);
-        when(planService.isPlanPremium(eq(planId))).thenReturn(true);
 
         UserInfo result = userService.buildUserInfoFromUser(user);
 
         verify(userMapper).userToUserInfo(user);
         verify(streamChatService).generateStreamToken(user);
         verify(planSubscriptionMapper).planSubscriptionToPlanDto(planSubscription);
-        verify(planService).getPlanLimits(planId);
-        verify(planService).isPlanPremium(planId);
+        verify(planService).getPlanLimits(Entitlement.PREMIUM);
 
         assertThat(result.getEmail()).isEqualTo("john@example.com");
         assertThat(result.getStreamChatToken()).isEqualTo("fresh-stream-token");

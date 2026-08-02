@@ -52,7 +52,8 @@ public class FirebaseSessionService {
     public UsernamePasswordAuthenticationToken authentication(FirebaseIdentity identity, User user) {
         FirebasePrincipal principal = new FirebasePrincipal(
                 identity.uid(), user.getId(), identity.email(), identity.authenticatedAt(), identity.signInProvider());
-        return new UsernamePasswordAuthenticationToken(principal, null, SecurityRoles.USER);
+        return new UsernamePasswordAuthenticationToken(
+                principal, null, identity.admin() ? SecurityRoles.ADMIN : SecurityRoles.USER);
     }
 
     public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {

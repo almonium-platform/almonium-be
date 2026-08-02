@@ -7,7 +7,6 @@ import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
-import com.almonium.subscription.repository.InsiderRepository;
 import com.almonium.subscription.repository.PlanRepository;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -35,7 +34,6 @@ public class PlanSubscriptionService {
     PlanService planService;
 
     PlanSubscriptionRepository planSubRepository;
-    InsiderRepository insiderRepository;
     PlanRepository planRepository;
     UserRepository userRepository;
 
@@ -44,10 +42,6 @@ public class PlanSubscriptionService {
     public String initiatePlanSubscribing(User user, long planId) {
         Plan plan = getAndValidatePlanEligibility(user, planId);
         setCustomerIdIfNeeded(user);
-        plan = isInsider(user)
-                ? planService.getInsiderPlan()
-                : plan; // backdoor for insiders, they can't subscribe to regular plans
-
         return stripeApiService.createPaymentSession(user, plan);
     }
 
@@ -64,7 +58,7 @@ public class PlanSubscriptionService {
         if (isPlanDefault(activeSubscription.getPlan())) {
             throw new BadUserRequestActionException("User is already on the default plan");
         }
-        if (planService.isPlanInsider(activeSubscription.getPlan().getId())) {
+        if (activeSubscription.getPlan().getType() == Plan.Type.LIFETIME) {
             updatePlanSubStatusAndSave(activeSubscription, PlanSubscription.Status.INACTIVE);
             findAndActivateDefaultPlan(activeSubscription.getUser());
         } else {
@@ -94,20 +88,6 @@ public class PlanSubscriptionService {
     // on user registration
     public void assignDefaultPlanToUser(User user) {
         createNewPlanSub(user, planService.getDefaultPlan(), null, Instant.now(), null);
-    }
-
-    // For StripeWebhookService
-    public void assignInsiderPlanToCustomer(String customerId) {
-        User user = getUserByStripeCustomerIdOrThrow(customerId);
-
-        getInsiderPlanSub(user)
-                .ifPresentOrElse(
-                        insiderPlanSub -> {
-                            deactivateCurrentSub(user);
-                            activateLifetimePlan(insiderPlanSub);
-                        },
-                        () -> replaceCurrentPlanSubWithNewPremium(
-                                user, planService.getInsiderPlan(), null, Instant.now(), null));
     }
 
     public void disableSubscriptionRenewal(String stripeSubscriptionId) {
@@ -172,13 +152,6 @@ public class PlanSubscriptionService {
                 .orElseThrow(() -> new PlanSubscriptionException("No default plan found for user " + user.getId()));
     }
 
-    private Optional<PlanSubscription> getInsiderPlanSub(User user) {
-        return user.getPlanSubscriptions().stream()
-                .filter(planSubscription ->
-                        planService.isPlanInsider(planSubscription.getPlan().getId()))
-                .findFirst();
-    }
-
     // unexpected - we normally don't delete stripe customers
     public void removeCustomer(String customerId) {
         userRepository
@@ -190,10 +163,6 @@ public class PlanSubscriptionService {
                             log.warn("Removed Stripe customer ID from user {}", user.getId());
                         },
                         () -> log.warn("No user found with Stripe customer ID {}", customerId));
-    }
-
-    private boolean isInsider(User user) {
-        return insiderRepository.existsById(user.getId());
     }
 
     private PlanSubscription getPlanSubFromStripeData(String stripeSubscriptionId) {

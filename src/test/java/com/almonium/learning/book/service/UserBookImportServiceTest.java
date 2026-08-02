@@ -12,6 +12,7 @@ import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.response.BookImportDto;
 import com.almonium.learning.book.dto.response.BookImportQuotaDto;
 import com.almonium.learning.book.model.entity.UserBookImport;
+import com.almonium.learning.book.repository.BookImportQuotaAdjustmentRepository;
 import com.almonium.learning.book.repository.UserBookImportRepository;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanLimit;
@@ -34,6 +35,9 @@ import org.springframework.mock.web.MockMultipartFile;
 class UserBookImportServiceTest {
     @Mock
     UserBookImportRepository repository;
+
+    @Mock
+    BookImportQuotaAdjustmentRepository quotaAdjustmentRepository;
 
     @Mock
     PlanValidationService planValidationService;
@@ -61,6 +65,11 @@ class UserBookImportServiceTest {
         when(repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
                         eq(user.getId()), any(Instant.class), any(Instant.class)))
                 .thenReturn(2L);
+        when(quotaAdjustmentRepository.totalForPeriod(
+                        eq(user.getId()), eq(MAX_BOOK_IMPORTS_PER_MONTH), any(Instant.class)))
+                .thenReturn(0L);
+        when(planValidationService.effectiveLimit(user, MAX_BOOK_IMPORTS_PER_MONTH))
+                .thenReturn(3);
         when(subscriptionService.getActiveSub(user)).thenReturn(subscriptionWithImportLimit(3));
         when(repository.save(any(UserBookImport.class))).thenAnswer(invocation -> invocation.getArgument(0));
         MockMultipartFile source =
@@ -91,6 +100,11 @@ class UserBookImportServiceTest {
         when(repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
                         eq(user.getId()), any(Instant.class), any(Instant.class)))
                 .thenReturn(1L);
+        when(quotaAdjustmentRepository.totalForPeriod(
+                        eq(user.getId()), eq(MAX_BOOK_IMPORTS_PER_MONTH), any(Instant.class)))
+                .thenReturn(0L);
+        when(planValidationService.effectiveLimit(user, MAX_BOOK_IMPORTS_PER_MONTH))
+                .thenReturn(3);
 
         BookImportQuotaDto quota = service.quota(user);
 

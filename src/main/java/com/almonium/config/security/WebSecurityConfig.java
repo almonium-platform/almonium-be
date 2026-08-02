@@ -114,6 +114,8 @@ public class WebSecurityConfig {
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")
                         .permitAll()
+                        .requestMatchers("/ops/**")
+                        .hasRole("ADMIN")
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

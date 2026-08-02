@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.subscription.dto.response.PlanDto;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.repository.PlanFeatureLimit;
 import com.almonium.subscription.repository.PlanLimitRepository;
@@ -37,9 +38,17 @@ public class PlanService {
                 planRepository.findAllByTypeInAndActiveTrue(List.of(Plan.Type.MONTHLY, Plan.Type.YEARLY)));
     }
 
-    public Map<PlanFeature, Integer> getPlanLimits(long planId) {
-        return planLimitRepository.findByPlanId(planId).stream()
+    public Map<PlanFeature, Integer> getPlanLimits(Entitlement entitlement) {
+        Plan canonicalPlan = planRepository
+                .findFirstByEntitlementOrderById(entitlement)
+                .orElseThrow(() -> new IllegalStateException("No canonical plan for entitlement " + entitlement));
+        return planLimitRepository.findByPlanId(canonicalPlan.getId()).stream()
                 .collect(Collectors.toMap(PlanFeatureLimit::featureKey, PlanFeatureLimit::limitValue));
+    }
+
+    public Map<PlanFeature, Integer> getPlanLimits(long planId) {
+        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalArgumentException("Plan not found"));
+        return getPlanLimits(plan.getEntitlement());
     }
 
     public boolean isPlanDefault(long planId) {
@@ -51,7 +60,10 @@ public class PlanService {
     }
 
     public boolean isPlanPremium(Long id) {
-        return !isPlanDefault(id); // another option is to check if name is PREMIUM. This one is true for insider plan
+        return planRepository
+                .findById(id)
+                .map(plan -> plan.getEntitlement() != Entitlement.FREE)
+                .orElse(false);
     }
 
     public Plan getInsiderPlan() {

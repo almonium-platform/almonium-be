@@ -7,6 +7,7 @@ import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
@@ -37,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService {
     PlanSubscriptionService planSubscriptionService;
+    EffectiveAccessService effectiveAccessService;
     PlanService planService;
     PlanValidationService planValidationService;
 
@@ -52,16 +54,15 @@ public class UserService {
     public UserInfo buildUserInfoFromUser(User user) {
         User fetchedUser = getByEmail(user.getEmail());
         PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
-        Map<PlanFeature, Integer> limits =
-                planService.getPlanLimits(activePlanSubscription.getPlan().getId());
+        Map<PlanFeature, Integer> limits = planService.getPlanLimits(effectiveAccessService.entitlementFor(user));
         var userInfo = userMapper.userToUserInfo(fetchedUser);
         userInfo.setStreamChatToken(streamChatService.generateStreamToken(fetchedUser));
         SubscriptionInfoDto subscriptionInfoDto =
                 planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
         userInfo.setSubscription(subscriptionInfoDto);
         userInfo.getSubscription().setLimits(limits);
-        userInfo.setPremium(
-                planService.isPlanPremium(activePlanSubscription.getPlan().getId()));
+        userInfo.setPremium(effectiveAccessService.entitlementFor(user)
+                != com.almonium.subscription.model.entity.enums.Entitlement.FREE);
         return userInfo;
     }
 

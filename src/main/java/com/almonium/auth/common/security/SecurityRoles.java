@@ -6,7 +6,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public final class SecurityRoles {
     private static final SimpleGrantedAuthority DEFAULT_ROLE = new SimpleGrantedAuthority("ROLE_USER");
+    private static final SimpleGrantedAuthority ADMIN_ROLE = new SimpleGrantedAuthority("ROLE_ADMIN");
     public static final List<GrantedAuthority> USER = List.of(DEFAULT_ROLE);
+    public static final List<GrantedAuthority> ADMIN = List.of(DEFAULT_ROLE, ADMIN_ROLE);
 
     private SecurityRoles() {}
 }

@@ -33,8 +33,5 @@ public class CheckoutSessionCompletedHandler implements StripeEventHandler {
         if (customerDetails != null) {
             log.info("Customer Email: {}, Name: {}", customerDetails.getEmail(), customerDetails.getName());
         }
-        if (session.getAmountTotal() == 0 && session.getSubscription() == null) {
-            planSubscriptionService.assignInsiderPlanToCustomer(session.getCustomer());
-        }
     }
 }
