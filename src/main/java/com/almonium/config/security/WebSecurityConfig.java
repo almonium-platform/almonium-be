@@ -101,12 +101,15 @@ public class WebSecurityConfig {
                         .csrfTokenRequestHandler(csrfTokenRequestHandler)
                         .ignoringRequestMatchers(
                                 new AntPathRequestMatcher("/public/**"),
+                                new AntPathRequestMatcher("/internal/books/publications"),
                                 new AntPathRequestMatcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
+                        .permitAll()
+                        .requestMatchers("/internal/books/publications")
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")
                         .permitAll()

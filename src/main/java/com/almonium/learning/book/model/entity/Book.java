@@ -33,6 +33,8 @@ public class Book {
     @UuidV7
     UUID id;
 
+    String processorEditionSlug;
+
     // Reference to original book (null if this IS the original)
     @ManyToOne
     @JoinColumn(name = "original_book_id")

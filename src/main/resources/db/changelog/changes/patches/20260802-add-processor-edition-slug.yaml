@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260802-add-processor-edition-slug
+      author: codex
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: processor_edition_slug
+                  type: varchar(180)
+        - addUniqueConstraint:
+            tableName: book
+            columnNames: processor_edition_slug
+            constraintName: uc_book_processor_edition_slug

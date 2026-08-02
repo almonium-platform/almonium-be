@@ -45,6 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService {
     LearnerFinder learnerFinder;
     FirebaseStorageService firebaseStorageService;
+    PublishedBookContentService publishedBookContentService;
 
     BookRepository bookRepository;
     UserRepository userRepository;
@@ -175,7 +176,10 @@ public class BookService {
     }
 
     public byte[] getText(User user, UUID bookId) {
-        return firebaseStorageService.getBook(bookId);
+        Book book = getBookById(bookId);
+        return book.getProcessorEditionSlug() == null
+                ? firebaseStorageService.getBook(bookId)
+                : publishedBookContentService.textFor(book);
     }
 
     public byte[] getParallelBook(User user, Language language, UUID bookId) {

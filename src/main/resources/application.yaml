@@ -61,6 +61,9 @@ app:
     firebase:
       session-lifetime-seconds: 604800 # 7 days
       recent-login-seconds: 300 # 5 minutes
+  books:
+    publisher-secret: ${ALMONIUM_BOOKS_PUBLISHER_SECRET}
+    processor-url: ${ALMONIUM_BOOKS_PROCESSOR_URL}
 
 rabbitmq:
   exchange:
