@@ -1,22 +1,21 @@
 package com.almonium.subscription.model.entity;
 
-import static lombok.AccessLevel.PRIVATE;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 
 @Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = PRIVATE)
-public class StripeEventLog {
+public class PaddleEventLog {
     @Id
     String eventId;
 
     String eventType;
-    Instant createdAt;
+    Instant occurredAt;
+    Instant receivedAt;
 }

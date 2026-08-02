@@ -47,7 +47,7 @@ public class PlanSubscription {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    String stripeSubscriptionId;
+    String paddleSubscriptionId;
 
     Instant startDate;
 

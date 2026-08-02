@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlanSubscriptionRepository extends JpaRepository<PlanSubscription, UUID> {
-    Optional<PlanSubscription> findByStripeSubscriptionId(String stripeSubscriptionId);
+    Optional<PlanSubscription> findByPaddleSubscriptionId(String paddleSubscriptionId);
 
     Optional<PlanSubscription> findByUserAndStatusIn(User user, List<PlanSubscription.Status> statuses);
 }

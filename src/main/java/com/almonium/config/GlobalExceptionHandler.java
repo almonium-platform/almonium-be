@@ -6,9 +6,10 @@ import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.qr.exception.QRCodeGenerationException;
+import com.almonium.subscription.exception.InvalidPaddleWebhookException;
+import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.exception.PlanValidationException;
-import com.almonium.subscription.exception.StripeIntegrationException;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.FirebaseIntegrationException;
 import com.almonium.user.core.exception.NoPrincipalFoundException;
@@ -160,9 +161,17 @@ public class GlobalExceptionHandler {
     }
 
     // // subscription exceptions
-    @ExceptionHandler(StripeIntegrationException.class)
-    public ResponseEntity<ApiResponse> handleStripeIntegrationException(StripeIntegrationException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    @ExceptionHandler(PaddleIntegrationException.class)
+    public ResponseEntity<ApiResponse> handlePaddleIntegrationException(PaddleIntegrationException ex) {
+        log.warn("Paddle integration failed", ex);
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(new ApiResponse(false, "Billing is temporarily unavailable"));
+    }
+
+    @ExceptionHandler(InvalidPaddleWebhookException.class)
+    public ResponseEntity<ApiResponse> handleInvalidPaddleWebhookException(InvalidPaddleWebhookException ex) {
+        log.warn("Rejected Paddle webhook: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, "Invalid webhook signature"));
     }
 
     @ExceptionHandler(PlanSubscriptionException.class)

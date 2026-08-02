@@ -92,10 +92,10 @@ rabbitmq:
       name: q.user.deleted.stream
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.stream.dlq
-    user-deleted-stripe:
-      name: q.user.deleted.stripe
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.stripe.dlq
+    user-deleted-paddle:
+      name: q.user.deleted.paddle
+      routing-key: user.deleted.paddle.v1
+      dlq-name: q.user.deleted.paddle.dlq
     user-deleted-firebase:
       name: q.user.deleted.firebase
       routing-key: user.deleted.v1
@@ -112,15 +112,19 @@ stream:
     key: dummy_stream_key
     secret: dummy_stream_secret
 
-stripe:
-  webhook:
-    secret: whsec_dummy
+paddle:
+  environment: sandbox
+  client-token: test_dummy_client_token
   api:
-    key: sk_live_dummy
-  checkout:
-    success-url: ${app.web-domain}/success
-    cancel-url: ${app.web-domain}/cancel
-  return-url: ${app.web-domain}/return
+    key: test_dummy_api_key
+  webhook:
+    secret: test_dummy_webhook_secret
+  checkout-url: ${app.web-domain}/payment/checkout
+  prices:
+    premium-monthly: pri_00000000000000000000000001
+    premium-annual: pri_00000000000000000000000002
+    founder-monthly: pri_00000000000000000000000003
+    founder-annual: pri_00000000000000000000000004
 
 external:
   api:

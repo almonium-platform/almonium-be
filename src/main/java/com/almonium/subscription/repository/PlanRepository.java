@@ -10,7 +10,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     List<Plan> findAllByTypeInAndActiveTrue(List<Plan.Type> types);
 
-    Optional<Plan> findByStripePriceId(String stripePlanId);
+    Optional<Plan> findByNameAndType(String name, Plan.Type type);
 
     Optional<Plan> findByName(String defaultPlanName);
 

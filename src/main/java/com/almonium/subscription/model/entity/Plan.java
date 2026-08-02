@@ -47,8 +47,6 @@ public class Plan {
     @Enumerated(EnumType.STRING)
     Entitlement entitlement;
 
-    String stripePriceId;
-
     boolean active;
 
     @Builder.Default

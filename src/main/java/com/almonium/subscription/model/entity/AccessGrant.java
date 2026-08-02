@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-/** An operator-issued access override. It never creates or changes a Stripe subscription. */
+/** An operator-issued access override. It never creates or changes a billing-provider subscription. */
 @Getter
 @Setter
 @Entity

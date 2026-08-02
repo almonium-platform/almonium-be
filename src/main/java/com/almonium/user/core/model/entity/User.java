@@ -74,7 +74,7 @@ public class User {
 
     String username;
 
-    String stripeCustomerId;
+    String paddleCustomerId;
 
     String streamChatToken;
 

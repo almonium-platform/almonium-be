@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "User & Profile")
@@ -31,8 +32,9 @@ public class PlanSubscriptionController {
     }
 
     @PostMapping("/plans/{id}")
-    public ResponseEntity<SessionResponseDto> buySubscription(@PathVariable Long id, @Auth User user) {
-        String sessionUrl = planSubscriptionService.initiatePlanSubscribing(user, id);
+    public ResponseEntity<SessionResponseDto> buySubscription(
+            @PathVariable Long id, @RequestParam(defaultValue = "false") boolean founder, @Auth User user) {
+        String sessionUrl = planSubscriptionService.initiatePlanSubscribing(user, id, founder);
         return ResponseEntity.ok(new SessionResponseDto(sessionUrl));
     }
 

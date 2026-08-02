@@ -201,7 +201,7 @@ live access-token cookie.
 
 Authenticated logout deletes all persisted refresh-token records for the user
 and clears cookies. A separate public logout only clears cookies. Account
-deletion requires recent login, publishes cleanup information for Stripe,
+deletion requires recent login, publishes cleanup information for Paddle,
 avatars, Stream/Firebase-related consumers, deletes the product user, and
 clears cookies.
 
@@ -503,7 +503,7 @@ still own:
 - login streak and onboarding side effects;
 - avatar import policy;
 - authorization to cards and other domain objects;
-- Stripe/Stream/Firebase/avatar cleanup during account deletion;
+- Paddle/Stream/Firebase/avatar cleanup during account deletion;
 - business policy around the final login method and email changes.
 
 ### Recommendation: Firebase Authentication

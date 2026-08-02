@@ -41,7 +41,7 @@
    POST /books/{bookId}/language/{language}/orders    Potentially large asynchronous translation workload             Very low per-user creation rate plus one active order per
                                                                                                                       book/language
   ─────────────────────────────────────────────────  ──────────────────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────
-   Stripe portal/checkout creation                    External sessions can be repeatedly created                     Per-user and idempotency/cooldown
+   Paddle portal/checkout creation                    External sessions can be repeatedly created                     Per-user and idempotency/cooldown
 
   The translation and audio routes currently take unbounded raw strings in path variables or the request body in src/main/java/com/almonium/analyzer/analyzer/controller/
   LangController.java:44. The session DTO only checks that the ID token is nonblank before the Firebase call in src/main/java/com/almonium/auth/firebase/controller/
@@ -59,7 +59,7 @@
   - Public profile lookups: enumeration/scraping limits and bounded output.
   - FCM registration: low priority, but tokens/device records should have per-user cardinality limits.
 
-  Do not put a tight limiter on Stripe webhooks. Protect those with signature verification, request-body bounds, idempotency, a generous edge ceiling, and monitoring; Stripe
+  Do not put a tight limiter on Paddle webhooks. Protect those with signature verification, request-body bounds, idempotency, a generous edge ceiling, and monitoring; Paddle
   legitimately retries deliveries.
 
   ## Redis: yes eventually, but not immediately required
@@ -177,7 +177,7 @@
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
    Translation orders                   2/hour/user and one active order per book/language
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
-   Stripe portal/checkout               5 per 10 minutes/user
+   Paddle portal/checkout               5 per 10 minutes/user
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
    User/card search                     60/minute/user, minimum query length 2, maximum 64, result limit 20
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@
   - Replace text-bearing GET path variables with POST DTOs where text may contain spaces, Unicode, or substantial content.
   - Add @Size or custom code-point/UTF-8-byte validators to every provider-bound string.
   - Add @Size(max = 16384) or another measured safe cap to idToken.
-  - Add a global request-body ceiling at Traefik/server level, with explicit exceptions for endpoints such as Stripe webhooks if necessary.
+  - Add a global request-body ceiling at Traefik/server level, with explicit exceptions for endpoints such as Paddle webhooks if necessary.
   - Add pagination or SQL-level limits to searches and list endpoints.
   - Bound generated audio response size.
   - Normalize text before calculating quota cost so equivalent requests are charged consistently.
@@ -238,7 +238,7 @@
   1. Add input/result bounds first.
   2. Add Traefik per-IP limits for session creation, public discovery, and a generous global ceiling.
   3. Add the annotation, interceptor, local bounded Bucket4j store, 429 contract, metrics, and tests.
-  4. Apply policies to translation, TTS, session, orders, Stripe sessions, searches, and social writes.
+  4. Apply policies to translation, TTS, session, orders, Paddle sessions, searches, and social writes.
   5. Add weighted character quotas and provider concurrency limits.
   6. Observe for at least a week and adjust limits from actual percentiles.
   7. Add Redis/Valkey when enabling concurrent slots, or sooner if deployment-persistent rate state is required.

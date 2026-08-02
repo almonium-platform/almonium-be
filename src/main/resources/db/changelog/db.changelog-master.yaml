@@ -96,3 +96,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260806-add-entitlements-and-operations.yaml
   - include:
       file: db/changelog/changes/patches/20260807-reduce-founding-member-capacity.yaml
+  - include:
+      file: db/changelog/changes/patches/20260808-add-paddle-billing.yaml

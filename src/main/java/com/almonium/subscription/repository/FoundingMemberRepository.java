@@ -13,6 +13,11 @@ public interface FoundingMemberRepository extends JpaRepository<FoundingMember, 
 
     Optional<FoundingMember> findByUserId(UUID userId);
 
+    Optional<FoundingMember> findByPaddleTransactionId(String paddleTransactionId);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<FoundingMember> findFirstByStatusOrderBySlotNumber(FoundingMember.Status status);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Optional<FoundingMember> findLockedBySlotNumber(Integer slotNumber);
 }

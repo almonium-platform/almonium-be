@@ -106,10 +106,10 @@ rabbitmq:
       name: q.user.deleted.stream
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.stream.dlq
-    user-deleted-stripe:
-      name: q.user.deleted.stripe
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.stripe.dlq
+    user-deleted-paddle:
+      name: q.user.deleted.paddle
+      routing-key: user.deleted.paddle.v1
+      dlq-name: q.user.deleted.paddle.dlq
     user-deleted-firebase:
       name: q.user.deleted.firebase
       routing-key: user.deleted.v1
@@ -124,13 +124,17 @@ stream.api:
   key: ${STREAM_KEY}
   secret: ${STREAM_SECRET}
 
-stripe:
-  webhook.secret: ${STRIPE_WEBHOOK_SECRET}
-  api.key: ${STRIPE_KEY}
-  checkout:
-    success-url: ${app.web-domain}/payment/success
-    cancel-url: ${app.web-domain}/pricing?canceled=true
-  return-url: ${app.web-domain}/settings/me?portal=from
+paddle:
+  environment: ${PADDLE_ENVIRONMENT}
+  client-token: ${PADDLE_CLIENT_TOKEN}
+  api.key: ${PADDLE_API_KEY}
+  webhook.secret: ${PADDLE_WEBHOOK_SECRET}
+  checkout-url: ${app.web-domain}/payment/checkout
+  prices:
+    premium-monthly: ${PADDLE_PRICE_PREMIUM_MONTHLY}
+    premium-annual: ${PADDLE_PRICE_PREMIUM_ANNUAL}
+    founder-monthly: ${PADDLE_PRICE_FOUNDER_MONTHLY}
+    founder-annual: ${PADDLE_PRICE_FOUNDER_ANNUAL}
 
 external.api:
   # free/non-rated

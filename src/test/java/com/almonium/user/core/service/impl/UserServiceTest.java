@@ -18,7 +18,6 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
-import com.almonium.subscription.service.StripeApiService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.mapper.UserMapper;
@@ -64,9 +63,6 @@ class UserServiceTest {
 
     @Mock
     PlanSubscriptionMapper planSubscriptionMapper;
-
-    @Mock
-    StripeApiService stripeApiService;
 
     @Mock
     UserMapper userMapper;
@@ -137,12 +133,12 @@ class UserServiceTest {
     //        String subscriptionId = "sub_123";
     //        when(planSubscriptionService.findActiveSubscription(user))
     //                .thenReturn(Optional.of(PlanSubscription.builder()
-    //                        .stripeSubscriptionId(subscriptionId)
+    //                        .paddleSubscriptionId(subscriptionId)
     //                        .user(user)
     //                        .build()));
     //        userService.deleteAccount(user);
     //
-    //        verify(stripeApiService).cancelSubscription(subscriptionId);
+    //        verify(paddleApiService).cancelSubscription(subscriptionId);
     //        verify(userRepository).delete(user);
     //    }
 

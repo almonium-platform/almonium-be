@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-paddle-billing-identifiers
+      author: codex
+      changes:
+        - addColumn:
+            tableName: user_core
+            columns:
+              - column:
+                  name: paddle_customer_id
+                  type: varchar(255)
+        - addUniqueConstraint:
+            tableName: user_core
+            columnNames: paddle_customer_id
+            constraintName: uq_user_core_paddle_customer_id
+        - addColumn:
+            tableName: plan_subscription
+            columns:
+              - column:
+                  name: paddle_subscription_id
+                  type: varchar(255)
+        - addUniqueConstraint:
+            tableName: plan_subscription
+            columnNames: paddle_subscription_id
+            constraintName: uq_plan_subscription_paddle_id
+        - addColumn:
+            tableName: founding_member
+            columns:
+              - column:
+                  name: paddle_transaction_id
+                  type: varchar(255)
+              - column:
+                  name: paddle_subscription_id
+                  type: varchar(255)
+        - addUniqueConstraint:
+            tableName: founding_member
+            columnNames: paddle_transaction_id
+            constraintName: uq_founding_member_paddle_transaction
+        - addUniqueConstraint:
+            tableName: founding_member
+            columnNames: paddle_subscription_id
+            constraintName: uq_founding_member_paddle_subscription
+  - changeSet:
+      id: create-paddle-event-log
+      author: codex
+      changes:
+        - createTable:
+            tableName: paddle_event_log
+            columns:
+              - column:
+                  name: event_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: event_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: occurred_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: received_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: align-premium-plan-prices-with-paddle-catalog
+      author: codex
+      changes:
+        - update:
+            tableName: plan
+            columns:
+              - column:
+                  name: price
+                  valueNumeric: 12.00
+              - column:
+                  name: description
+                  value: Almonium Premium
+            where: name = 'PREMIUM' AND type = 'MONTHLY'
+        - update:
+            tableName: plan
+            columns:
+              - column:
+                  name: price
+                  valueNumeric: 120.00
+              - column:
+                  name: description
+                  value: Almonium Premium
+            where: name = 'PREMIUM' AND type = 'YEARLY'

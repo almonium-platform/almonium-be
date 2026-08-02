@@ -112,7 +112,7 @@ diagnose → re-encounter.
 | 2.11 | AI translation of PD originals into modern DE/UA | M | Solves the scarcity of public-domain modern translations. Label honestly as machine-assisted. |
 | 2.12 | Push notifications for due reviews | M | The single biggest retention lever in SRS apps and the thing Readlang cannot do without native apps. |
 | 2.13 | Extension: highlight learning items on any page | M | Turns the web into a re-encounter engine. Your "Hunt" concept, minimum version. |
-| 2.14 | Localized (PPP) pricing tiers in Stripe | S | UA/CEE at 40–60% of EU/US. |
+| 2.14 | Localized (PPP) price overrides in Paddle | S | UA/CEE at 40–60% of EU/US. |
 | 2.15 | Fair-use limits expressed in user-visible units | M | Lookups, imports, story generations. Not tokens. |
 | 2.16 | Credit-gated custom book import | L | The only genuinely expensive per-user feature. Client-side EPUB parsing (epub.js), user rights attestation, private-only, no sharing, takedown process. |
 

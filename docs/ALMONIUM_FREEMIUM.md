@@ -71,17 +71,17 @@ want, and it lets you launch at the right price without punishing the people
 who took a chance first. A founder who cancels moves to the current public
 price if they return.
 
-The $8 offer is a distinct Stripe recurring Price that grants the same
+The $8 offer is a distinct Paddle recurring Price that grants the same
 `PREMIUM` entitlement as the public $12 offer. The application reserves one of
 the fifty durable founding-member slots before opening checkout, then
-confirms it from Stripe's paid webhook. This is a launch requirement; keep
+confirms it from Paddle's subscription webhook. This is a launch requirement; keep
 those records permanently as the evidence for the promise, not disposable
 launch data.
 
 ### Regional pricing
 
-Ukraine, CEE, LATAM, SEA at 40–60% of the list price via Stripe's regional
-pricing. Note that Ukrainians living in Germany bill in the EU band, so your
+Ukraine, CEE, LATAM, SEA at 40–60% of the list price via Paddle price
+overrides. Note that Ukrainians living in Germany bill in the EU band, so your
 wedge audience splits across both.
 
 ---
@@ -131,7 +131,7 @@ Not at first. Reasons:
 
 1. A generous free tier already does the job of a trial, and does it
    indefinitely rather than for fourteen days.
-2. Trials add Stripe webhook complexity, trial-abuse handling, and a churn
+2. Trials add Paddle webhook complexity, trial-abuse handling, and a churn
    spike at day fifteen that will make your early retention numbers unreadable.
 3. With fewer than a few hundred users you need clean signal, not a funnel with
    an extra stage.
@@ -160,7 +160,7 @@ list that can genuinely hurt you.
 ### Internal access and support operations
 
 Internal and QA accounts use an audited access grant (`FREE`, `PREMIUM`, or
-`UNLIMITED`) rather than a fake Stripe subscription. The grant overrides the
+`UNLIMITED`) rather than a fake Paddle subscription. The grant overrides the
 effective entitlement only; it never changes a customer's billing record.
 Operator actions require an authenticated admin and a reason. For support
 resets, use a quota-adjustment ledger so imported books remain part of the

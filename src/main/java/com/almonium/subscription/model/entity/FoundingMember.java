@@ -29,8 +29,8 @@ public class FoundingMember {
     @JoinColumn(name = "user_id", unique = true)
     User user;
 
-    String checkoutSessionId;
-    String stripeSubscriptionId;
+    String paddleTransactionId;
+    String paddleSubscriptionId;
 
     @Enumerated(EnumType.STRING)
     Status status;

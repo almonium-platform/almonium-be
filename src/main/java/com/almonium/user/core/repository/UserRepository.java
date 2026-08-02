@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     boolean existsByUsername(String username);
 
-    Optional<User> findByStripeCustomerId(String stripeCustomerId);
+    Optional<User> findByPaddleCustomerId(String paddleCustomerId);
 
     Optional<User> findByFirebaseUid(String firebaseUid);
 

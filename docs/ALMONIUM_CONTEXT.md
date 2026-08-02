@@ -49,7 +49,7 @@ English speakers. The founder has native access to those communities.
 Real, substantial, and not yet closing its own loop.
 
 Built: Spring/Java backend, Angular web, React Native mobile (in progress),
-Postgres (self-hosted), Stripe, Stream Chat, Firebase, custom auth, a Chrome
+Postgres (self-hosted), Paddle Billing, Stream Chat, Firebase, custom auth, a Chrome
 extension, a Python book processor run manually, parallel reader, cards with
 device-local review, social graph, four game shells.
 

@@ -40,7 +40,7 @@ The backend currently contains these broad areas:
 | Infrastructure/integrations | Email, events, messaging, storage, external clients and utilities | 15% |
 | Analyzer | Dictionaries, translation, word frequency, NLP and TTS | 14% |
 | Configuration | Security, OpenAPI, persistence, messaging and provider configuration | 9% |
-| Subscription | Stripe checkout, plans and webhook processing | 7% |
+| Subscription | Paddle checkout, plans and webhook processing | 7% |
 | Cards | Vocabulary cards, translations, examples, sharing and suggestions | 7% |
 | Learning/content | Books, progress and related learning features | 7% |
 
@@ -168,7 +168,7 @@ Modulith, Maven, JUnit/Mockito/Testcontainers, Lombok, and MapStruct.
 
 External systems visible in the code/dependencies include:
 
-- Stripe for plans, checkout, subscriptions, invoices, and webhooks;
+- Paddle Billing for plans, checkout, subscriptions, the customer portal, and webhooks;
 - Google Translate and Text-to-Speech;
 - Yandex dictionary/translation;
 - Free Dictionary and Urban Dictionary;

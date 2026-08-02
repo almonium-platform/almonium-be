@@ -15,16 +15,17 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties(prefix = "stripe")
+@ConfigurationProperties(prefix = "paddle")
 @FieldDefaults(level = PRIVATE)
-public class StripeProperties {
-    @NotBlank
-    String returnUrl;
-
+public class PaddleProperties {
     @NotNull
-    @Valid
-    @NestedConfigurationProperty
-    Webhook webhook = new Webhook();
+    Environment environment;
+
+    @NotBlank
+    String clientToken;
+
+    @NotBlank
+    String checkoutUrl;
 
     @NotNull
     @Valid
@@ -34,14 +35,20 @@ public class StripeProperties {
     @NotNull
     @Valid
     @NestedConfigurationProperty
-    Checkout checkout = new Checkout();
+    Webhook webhook = new Webhook();
 
-    @Getter
-    @Setter
-    @FieldDefaults(level = PRIVATE)
-    public static class Webhook {
-        @NotBlank
-        String secret;
+    @NotNull
+    @Valid
+    @NestedConfigurationProperty
+    Prices prices = new Prices();
+
+    public String apiBaseUrl() {
+        return environment == Environment.SANDBOX ? "https://sandbox-api.paddle.com" : "https://api.paddle.com";
+    }
+
+    public enum Environment {
+        SANDBOX,
+        LIVE
     }
 
     @Getter
@@ -55,11 +62,25 @@ public class StripeProperties {
     @Getter
     @Setter
     @FieldDefaults(level = PRIVATE)
-    public static class Checkout {
+    public static class Webhook {
         @NotBlank
-        String successUrl;
+        String secret;
+    }
+
+    @Getter
+    @Setter
+    @FieldDefaults(level = PRIVATE)
+    public static class Prices {
+        @NotBlank
+        String premiumMonthly;
 
         @NotBlank
-        String cancelUrl;
+        String premiumAnnual;
+
+        @NotBlank
+        String founderMonthly;
+
+        @NotBlank
+        String founderAnnual;
     }
 }

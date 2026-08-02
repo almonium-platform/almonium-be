@@ -186,10 +186,10 @@ invalid configuration, and malformed internal requests should fail loudly;
 timeouts, quota exhaustion, or provider unavailability may be eligible for a
 controlled fallback.
 
-### Stripe webhooks: Command handlers + registry
+### Paddle webhooks: Command handlers + registry
 
 The webhook entry point should verify signatures and idempotency, then dispatch
-each event to a small `StripeEventHandler`. Each handler represents a command
+each event to a small `PaddleEventHandler`. Each handler represents a command
 such as subscription updated or invoice paid. A registry maps event type to
 handler and rejects duplicates. This shortens the central switch and gives each
 event an isolated unit-test seam.
