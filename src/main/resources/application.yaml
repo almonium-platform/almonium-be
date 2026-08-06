@@ -129,7 +129,6 @@ paddle:
   client-token: ${PADDLE_CLIENT_TOKEN}
   api.key: ${PADDLE_API_KEY}
   webhook.secret: ${PADDLE_WEBHOOK_SECRET}
-  checkout-url: ${app.web-domain}/payment/checkout
   prices:
     premium-monthly: ${PADDLE_PRICE_PREMIUM_MONTHLY}
     premium-annual: ${PADDLE_PRICE_PREMIUM_ANNUAL}

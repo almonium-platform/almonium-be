@@ -60,7 +60,8 @@ Set the Paddle default payment link to a page that loads Paddle.js:
 - local sandbox when needed: `http://localhost:9999/payment/checkout`
 
 The live domains must be approved in Paddle before checkout works. The backend
-also passes its environment-specific checkout URL when creating a transaction.
+uses Paddle's account default payment link when creating a transaction, so set
+the correct default link separately in each Paddle environment.
 
 Create a notification destination using API version 1:
 

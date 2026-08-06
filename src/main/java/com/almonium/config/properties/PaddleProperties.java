@@ -24,9 +24,6 @@ public class PaddleProperties {
     @NotBlank
     String clientToken;
 
-    @NotBlank
-    String checkoutUrl;
-
     @NotNull
     @Valid
     @NestedConfigurationProperty

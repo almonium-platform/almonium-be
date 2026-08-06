@@ -1,6 +1,5 @@
 package com.almonium.subscription.service;
 
-import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.user.core.model.entity.User;
@@ -23,7 +22,6 @@ import org.springframework.web.client.RestClientException;
 @RequiredArgsConstructor
 public class PaddleApiService {
     private final RestClient paddleRestClient;
-    private final PaddleProperties properties;
     private final PaddlePriceCatalog priceCatalog;
     private final ObjectMapper objectMapper;
 
@@ -54,8 +52,7 @@ public class PaddleApiService {
         Map<String, Object> request = Map.of(
                 "items", List.of(Map.of("price_id", priceId, "quantity", 1)),
                 "customer_id", user.getPaddleCustomerId(),
-                "custom_data", customData,
-                "checkout", Map.of("url", properties.getCheckoutUrl()));
+                "custom_data", customData);
 
         JsonNode response = post("/transactions", request, "create checkout transaction");
         return new CheckoutTransaction(

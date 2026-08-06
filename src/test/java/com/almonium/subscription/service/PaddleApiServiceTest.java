@@ -37,7 +37,7 @@ class PaddleApiServiceTest {
                 .defaultHeader("Authorization", "Bearer api-key")
                 .defaultHeader("Paddle-Version", "1");
         server = MockRestServiceServer.bindTo(builder).build();
-        service = new PaddleApiService(builder.build(), properties, priceCatalog, new ObjectMapper());
+        service = new PaddleApiService(builder.build(), priceCatalog, new ObjectMapper());
     }
 
     @Test
@@ -88,8 +88,7 @@ class PaddleApiServiceTest {
                             "user_id": "01989ef4-f02f-7000-8000-000000000001",
                             "plan_id": 2,
                             "founding_member_slot": 7
-                          },
-                          "checkout": {"url": "https://almonium.com/payment/checkout"}
+                          }
                         }
                         """))
                 .andRespond(withSuccess(
@@ -107,7 +106,6 @@ class PaddleApiServiceTest {
 
     private PaddleProperties properties() {
         PaddleProperties properties = new PaddleProperties();
-        properties.setCheckoutUrl("https://almonium.com/payment/checkout");
         properties.getPrices().setPremiumMonthly("pri_regular_monthly");
         properties.getPrices().setPremiumAnnual("pri_regular_annual");
         properties.getPrices().setFounderMonthly("pri_founder_monthly");

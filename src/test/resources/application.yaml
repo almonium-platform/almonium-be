@@ -119,7 +119,6 @@ paddle:
     key: test_dummy_api_key
   webhook:
     secret: test_dummy_webhook_secret
-  checkout-url: ${app.web-domain}/payment/checkout
   prices:
     premium-monthly: pri_00000000000000000000000001
     premium-annual: pri_00000000000000000000000002
