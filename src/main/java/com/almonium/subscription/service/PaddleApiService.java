@@ -4,13 +4,17 @@ import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.user.core.model.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
@@ -21,12 +25,21 @@ public class PaddleApiService {
     private final RestClient paddleRestClient;
     private final PaddleProperties properties;
     private final PaddlePriceCatalog priceCatalog;
+    private final ObjectMapper objectMapper;
 
     public String createCustomerIdForUser(User user) {
         Map<String, Object> request = Map.of(
                 "email", user.getEmail(),
                 "custom_data", Map.of("user_id", user.getId().toString()));
-        return postForRequiredText("/customers", request, "/data/id", "create customer");
+        try {
+            return postForRequiredText("/customers", request, "/data/id", "create customer");
+        } catch (PaddleIntegrationException exception) {
+            if (!isCustomerAlreadyExists(exception)) {
+                throw exception;
+            }
+            log.info("Paddle customer already exists for user {}; reconciling by email", user.getId());
+            return findCustomerIdByEmail(user.getEmail());
+        }
     }
 
     public CheckoutTransaction createPaymentTransaction(User user, Plan plan, Optional<Integer> foundingMemberSlot) {
@@ -74,6 +87,41 @@ public class PaddleApiService {
         return requiredText(post(path, request, operation), pointer, operation + " response");
     }
 
+    private String findCustomerIdByEmail(String email) {
+        try {
+            JsonNode response = paddleRestClient
+                    .get()
+                    .uri(uriBuilder -> uriBuilder.path("/customers").queryParam("email", email).build())
+                    .retrieve()
+                    .body(JsonNode.class);
+            if (response == null) {
+                throw new PaddleIntegrationException("Paddle returned an empty response while looking up customer");
+            }
+            return requiredText(response, "/data/0/id", "existing customer ID");
+        } catch (RestClientException exception) {
+            log.error("Failed to look up existing Paddle customer", exception);
+            throw new PaddleIntegrationException("Failed to look up existing Paddle customer", exception);
+        }
+    }
+
+    private boolean isCustomerAlreadyExists(PaddleIntegrationException exception) {
+        return exception.getCause() instanceof HttpClientErrorException httpException
+                && isCustomerAlreadyExists(httpException);
+    }
+
+    private boolean isCustomerAlreadyExists(HttpClientErrorException exception) {
+        if (exception.getStatusCode() != HttpStatus.CONFLICT) {
+            return false;
+        }
+        try {
+            JsonNode response = objectMapper.readTree(exception.getResponseBodyAsString());
+            return "customer_already_exists".equals(response.at("/error/code").textValue());
+        } catch (JsonProcessingException parsingException) {
+            log.warn("Could not parse Paddle customer conflict response", parsingException);
+            return false;
+        }
+    }
+
     private JsonNode post(String path, Object request, String operation) {
         try {
             JsonNode response =
@@ -84,7 +132,12 @@ public class PaddleApiService {
             }
             return response;
         } catch (RestClientException exception) {
-            log.error("Failed to {} through Paddle", operation, exception);
+            if (exception instanceof HttpClientErrorException httpException
+                    && isCustomerAlreadyExists(httpException)) {
+                log.debug("Paddle customer already exists while attempting to {}", operation);
+            } else {
+                log.error("Failed to {} through Paddle", operation, exception);
+            }
             throw new PaddleIntegrationException("Failed to " + operation, exception);
         }
     }
