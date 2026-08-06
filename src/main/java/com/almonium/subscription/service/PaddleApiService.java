@@ -88,7 +88,10 @@ public class PaddleApiService {
         try {
             JsonNode response = paddleRestClient
                     .get()
-                    .uri(uriBuilder -> uriBuilder.path("/customers").queryParam("email", email).build())
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/customers")
+                            .queryParam("email", email)
+                            .build())
                     .retrieve()
                     .body(JsonNode.class);
             if (response == null) {
@@ -129,8 +132,7 @@ public class PaddleApiService {
             }
             return response;
         } catch (RestClientException exception) {
-            if (exception instanceof HttpClientErrorException httpException
-                    && isCustomerAlreadyExists(httpException)) {
+            if (exception instanceof HttpClientErrorException httpException && isCustomerAlreadyExists(httpException)) {
                 log.debug("Paddle customer already exists while attempting to {}", operation);
             } else {
                 log.error("Failed to {} through Paddle", operation, exception);

@@ -42,13 +42,17 @@ class PaddleApiServiceTest {
 
     @Test
     void reusesExistingCustomerAfterCreateConflict() {
-        User user = User.builder().id(UUID.randomUUID()).email("existing@example.com").build();
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .email("existing@example.com")
+                .build();
         server.expect(requestTo("https://sandbox-api.paddle.com/customers"))
                 .andExpect(method(POST))
-                .andRespond(withStatus(HttpStatus.CONFLICT)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(
-                                """
+                .andRespond(
+                        withStatus(HttpStatus.CONFLICT)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(
+                                        """
                                 {"error":{"code":"customer_already_exists"}}
                                 """));
         server.expect(requestTo("https://sandbox-api.paddle.com/customers?email=existing@example.com"))
