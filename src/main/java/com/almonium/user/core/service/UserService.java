@@ -3,6 +3,7 @@ package com.almonium.user.core.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.auth.common.security.SecurityRoles;
 import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +65,8 @@ public class UserService {
         userInfo.getSubscription().setLimits(limits);
         userInfo.setPremium(effectiveAccessService.entitlementFor(user)
                 != com.almonium.subscription.model.entity.enums.Entitlement.FREE);
+        userInfo.setAdmin(
+                SecurityRoles.isAdmin(SecurityContextHolder.getContext().getAuthentication()));
         return userInfo;
     }
 
