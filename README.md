@@ -39,6 +39,39 @@ See the [development-environment runbook](docs/LOCAL_DEVELOPMENT.md) for the
 local PostgreSQL/RabbitMQ startup command, application startup,
 troubleshooting, and the complete environment-variable catalogue.
 
+## Operator scripts
+
+`scripts/` holds one-off Python utilities that sit outside the Java build —
+they are not part of `./mvnw` and are run manually, on demand. This is a
+separate toolchain from the Spring Boot app; run these commands from the
+`scripts/` directory using a virtualenv so the dependency doesn't leak into
+your system Python install:
+
+```bash
+cd scripts
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+python set_firebase_admin_claim.py you@example.com
+
+deactivate
+```
+
+`.venv/` and `__pycache__/` under `scripts/` are gitignored; `requirements.txt`
+is the only file that needs to be committed when a script's dependencies
+change.
+
+`set_firebase_admin_claim.py` grants or revokes the Firebase `admin` custom
+claim, which is the only source of `ROLE_ADMIN` in this backend (see
+`FirebaseSessionService`/`SecurityRoles`) — nothing in Postgres represents
+adminhood. It reads the same service-account credential the app itself uses
+locally (`GOOGLE_SERVICE_ACCOUNT_KEY_BASE64` in `.env`), or accepts
+`--key-file path/to/service-account.json` to target a different Firebase
+project (e.g. prod) without touching your local `.env`. Run it once per
+Firebase project, not once per local Docker reset — the claim lives in
+Firebase, not the disposable local database.
+
 # Friendships
 
 ## Scenarios

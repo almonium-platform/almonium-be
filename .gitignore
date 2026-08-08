@@ -2,8 +2,11 @@
 target
 temp
 .idea
+scripts/.venv
+scripts/__pycache__
 
 # files
 *.iml
 .env*
 *.json
+*.pyc
