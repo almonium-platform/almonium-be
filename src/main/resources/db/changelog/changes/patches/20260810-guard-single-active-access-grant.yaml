@@ -5,22 +5,6 @@ databaseChangeLog:
       changes:
         - sql:
             dbms: postgresql
-            comment: >-
-              A prior select-then-save race could have left more than one active grant
-              for the same user; keep only the most recently started one before the
-              unique index below makes that state impossible going forward.
-            sql: >-
-              UPDATE access_grant
-              SET revoked_at = now()
-              WHERE revoked_at IS NULL
-                AND id NOT IN (
-                  SELECT DISTINCT ON (user_id) id
-                  FROM access_grant
-                  WHERE revoked_at IS NULL
-                  ORDER BY user_id, starts_at DESC
-                )
-        - sql:
-            dbms: postgresql
             sql: >-
               CREATE UNIQUE INDEX ux_access_grant_active_user
               ON access_grant (user_id)
