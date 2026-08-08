@@ -100,3 +100,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260808-add-paddle-billing.yaml
   - include:
       file: db/changelog/changes/patches/20260809-drop-legacy-stripe-billing.yaml
+  - include:
+      file: db/changelog/changes/patches/20260810-guard-single-active-access-grant.yaml

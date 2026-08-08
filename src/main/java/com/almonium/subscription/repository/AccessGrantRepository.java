@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> {
@@ -19,4 +20,18 @@ public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> 
             order by grant.startsAt desc
             """)
     Optional<AccessGrant> findActiveByUserId(UUID userId, Instant now);
+
+    /**
+     * Revokes whatever is currently active for the user in a single statement, instead of a
+     * select-then-save round trip that races under concurrent operator requests.
+     */
+    @Modifying(clearAutomatically = true)
+    @Query(
+            """
+            update AccessGrant grant
+            set grant.revokedAt = :now
+            where grant.user.id = :userId
+              and grant.revokedAt is null
+            """)
+    int revokeActiveByUserId(UUID userId, Instant now);
 }
