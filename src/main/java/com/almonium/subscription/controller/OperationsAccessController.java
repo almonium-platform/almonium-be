@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ops/users/{userId}/access-grant")
 @RequiredArgsConstructor
+@RequireRecentLogin
 public class OperationsAccessController {
     private final AccessGrantService accessGrantService;
     private final UserService userService;
 
     @PostMapping
-    @RequireRecentLogin
     public ResponseEntity<ApiResponse> replace(
             @PathVariable UUID userId, @Valid @RequestBody AccessGrantRequest request, @Auth User operator) {
         accessGrantService.replace(
@@ -35,7 +35,6 @@ public class OperationsAccessController {
     }
 
     @DeleteMapping
-    @RequireRecentLogin
     public ResponseEntity<ApiResponse> revoke(@PathVariable UUID userId) {
         accessGrantService.revoke(userService.getById(userId));
         return ResponseEntity.ok(new ApiResponse(true, "Access grant revoked"));
