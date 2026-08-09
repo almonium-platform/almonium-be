@@ -39,6 +39,9 @@ See the [development-environment runbook](docs/LOCAL_DEVELOPMENT.md) for the
 local PostgreSQL/RabbitMQ startup command, application startup,
 troubleshooting, and the complete environment-variable catalogue.
 
+See the [Short.io link guide](docs/SHORT_LINKS.md) for the `go.almonium.com`
+public-link contract, current aliases, and safe usage boundaries.
+
 ## Operator scripts
 
 `scripts/` holds one-off Python utilities that sit outside the Java build —
