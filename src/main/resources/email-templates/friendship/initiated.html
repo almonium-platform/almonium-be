@@ -4,35 +4,32 @@
 
 <header th:replace="~{_fragments/header}"></header>
 
-<div class="email-container">
-    <div class="email-content">
-        <p>Hey <strong><span th:text="${username}"></span></strong>,</p>
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+    <tr>
+        <td class="email-content">
+            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
 
-        <p>You’ve just received a friendship request from <strong><span
-                th:text="${counterpartUsername}"></span></strong>!
-            This could be the beginning of something awesome – because learning is way more fun with friends! 🎉</p>
+            <p><strong>@<span th:text="${counterpartUsername}"></span></strong> would like to connect with you on
+                Almonium.</p>
 
-        <p class="button-p">
-            <a th:href="${url}" class="button">
-                View Request
-            </a>
-        </p>
+            <div class="button-p">
+                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                        <td class="button-cell" bgcolor="#5A1A74" align="center">
+                            <a th:href="${url}" class="button">View request</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <p>If the button above doesn’t work, just copy and paste this link into your browser:</p>
-        <p>
-            <a th:href="${url}">
-                <span th:text="${url}"></span>
-            </a>
-        </p>
+            <p class="muted">You can accept, ignore, or hide your profile entirely — ignoring sends no notification.</p>
 
-        <br>
-
-        <p>Not sure who they are? No worries! You can ignore or reject the request.
-            Prefer to stay private? Just hide your profile in settings.</p>
-
-        <p>Enjoy your learning journey! 🚀</p>
-    </div>
-</div>
+            <div class="rule">
+                <p class="muted">Don't want these? Turn off social notifications in Settings.</p>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <th:block th:replace="~{_fragments/footer}"></th:block>
 

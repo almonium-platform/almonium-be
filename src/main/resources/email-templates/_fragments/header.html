@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <th:block th:replace="~{_fragments/styles}"></th:block>
-    <title></title>
-</head>
-<body>
-<div class="header">
-    <img th:src="${logoUrl}" class="header-wordmark" alt="Almonium"/>
-</div>
-</body>
-</html>
+<th:block xmlns:th="http://www.thymeleaf.org" th:replace="~{_fragments/styles}"></th:block>
+<table xmlns:th="http://www.thymeleaf.org" role="presentation" class="header" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2C2530">
+    <tr>
+        <td class="header-cell" align="center">
+            <img th:src="${logoUrl}" class="header-wordmark" alt="Almonium" width="168"/>
+        </td>
+    </tr>
+</table>

@@ -4,39 +4,43 @@
 
 <header th:replace="~{_fragments/header}"></header>
 
-<div class="email-container">
-    <div class="email-content">
-        <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
-        <p>Congratulations! Your account has been successfully upgraded to our exclusive
-            <b th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></b>
-            <b> Plan</b>
-        </p>
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+    <tr>
+        <td class="email-content">
+            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
 
-        <p>As a premium subscriber, you now have access to all the top-tier features and benefits our service has to
-            offer.</p>
+            <p>You're a member. Thank you — this is what keeps Almonium independent.</p>
 
-        <p class="button-p">
-            <a th:href="${url}" class="premium-btn">
-                Go to App
-            </a>
-        </p>
+            <table role="presentation" class="plan-panel" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="plan-panel-cell">
+                        <p class="plan-label">Your plan</p>
+                        <p class="plan-name"><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span>
+                            membership</p>
+                        <p class="plan-detail">Your subscription is active now. Billing, payment method, and
+                            cancellation all live in Settings.</p>
+                    </td>
+                </tr>
+            </table>
 
-        <p>You can manage your subscription and view your billing details anytime from your account settings.</p>
+            <div class="button-p">
+                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                        <td class="premium-cell" bgcolor="#5A1A74" align="center">
+                            <a th:href="${url}" class="premium-btn">Open Almonium</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <p>Here’s what you can do in your account:</p>
-        <ul>
-            <li>View your next billing date and payment history</li>
-            <li>Update your payment method</li>
-            <li>Cancel renewal or downgrade immediately (if you ever decide to - but we hope you don't!)</li>
-        </ul>
+            <p>Unlimited languages, private imports, and the full library are open to you now.</p>
 
-        <p>If you have any questions or need assistance, our support team is here to help. Don’t hesitate to reach
-            out!</p>
-
-        <br>
-        <p>Thank you for choosing our Premium Plan. We’re excited to have you on board!</p>
-    </div>
-</div>
+            <div class="rule">
+                <p class="muted">Billing, payment method and cancellation all live in Settings. Reply to this email if anything is wrong.</p>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <th:block th:replace="~{_fragments/footer}"></th:block>
 

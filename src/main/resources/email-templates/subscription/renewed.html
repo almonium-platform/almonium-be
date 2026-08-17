@@ -4,32 +4,32 @@
 
 <header th:replace="~{_fragments/header}"></header>
 
-<div class="email-container">
-    <div class="email-content">
-        <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
-        <p>Thank you for renewing your subscription to the <b
-                th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"> </b><b> Plan!</b></p>
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+    <tr>
+        <td class="email-content">
+            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
 
-        <p>We’re thrilled to have you back as a premium subscriber. You now have full access to all the top-tier
-            features and benefits our service has to offer.</p>
+            <p>Your <strong><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span></strong>
+                subscription is active again.</p>
 
-        <p>Your subscription is active again, and you can start enjoying all the premium content right away.</p>
+            <div class="button-p">
+                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                        <td class="premium-cell" bgcolor="#5A1A74" align="center">
+                            <a th:href="${url}" class="premium-btn">Open Almonium</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <p class="button-p">
-            <a th:href="${url}" class="premium-btn">
-                Go to App
-            </a>
-        </p>
+            <p>Unlimited languages, private imports, and the full library are open to you again.</p>
 
-        <p>If you’d like to manage your subscription settings or view billing information, you can always visit your
-            account settings.</p>
-
-        <p>If you have any questions or need assistance, feel free to reach out to our support team. We’re here to
-            help!</p>
-
-        <p>Thank you once again for choosing to continue with us. Enjoy all the great benefits of your premium plan!</p>
-    </div>
-</div>
+            <div class="rule">
+                <p class="muted">Billing, payment method, and cancellation all live in Settings.</p>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <th:block th:replace="~{_fragments/footer}"></th:block>
 

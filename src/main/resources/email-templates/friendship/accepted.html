@@ -4,26 +4,27 @@
 
 <header th:replace="~{_fragments/header}"></header>
 
-<div class="email-container">
-    <div class="email-content">
-        <p>Hey <strong><span th:text="${username}"></span></strong>,</p>
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+    <tr>
+        <td class="email-content">
+            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
 
-        <p>Great news! <strong><span th:text="${counterpartUsername}"></span></strong> just accepted your friendship
-            request! 🎉</p>
+            <p><strong>@<span th:text="${counterpartUsername}"></span></strong> accepted your connection request.</p>
 
-        <p>Now you can start learning together, exchange ideas, and motivate each other along the way. Because
-            everything is better with a friend! 🚀</p>
+            <div class="button-p">
+                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                        <td class="button-cell" bgcolor="#5A1A74" align="center">
+                            <a th:href="${url}" class="button">View friends</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <p class="button-p">
-            <a th:href="${url}" class="button">
-                View My Friends
-            </a>
-        </p>
-
-        <p>Cheers,
-            <br>The Almonium Team</p>
-    </div>
-</div>
+            <p class="muted">You can find your friends and continue learning together in Almonium.</p>
+        </td>
+    </tr>
+</table>
 
 <th:block th:replace="~{_fragments/footer}"></th:block>
 
