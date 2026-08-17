@@ -2,4 +2,3 @@ app:
   web-domain: https://staging.almonium.com
   api-domain: https://staging.api.almonium.com
   email.dry-run: false
-  auth.email-verification-required: false

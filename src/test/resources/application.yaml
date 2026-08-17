@@ -19,18 +19,6 @@ spring:
   liquibase:
     contexts: ${spring.profiles.active}
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: dummy@test.com
-    password: dummy-password
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
 google:
   project-id: google_project_id_dummy
   parent-location: global

@@ -2,13 +2,11 @@ package com.almonium.infra.email;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.config.ThymeleafConfig;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
-import com.almonium.infra.email.util.CssInliner;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import com.almonium.util.HtmlFileWriter;
@@ -26,8 +24,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 /**
  * Not named *Test on purpose: runs the real composer/Thymeleaf/CssInliner pipeline (dry-run,
@@ -61,12 +57,6 @@ class EmailTemplatePreviewGenerator {
     @Autowired
     SubscriptionEmailComposerService subscriptionEmailComposerService;
 
-    @Autowired
-    SpringTemplateEngine templateEngine;
-
-    @Autowired
-    AppProperties appProperties;
-
     @MockBean
     RestTemplate restTemplate;
 
@@ -87,12 +77,6 @@ class EmailTemplatePreviewGenerator {
             subscriptionEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
             capture("subscription-" + event.name().toLowerCase() + ".html");
         }
-
-        // No composer is wired to these (nothing in src/main/java references them - dead
-        // templates, likely superseded by Firebase Auth's own emails), so render them directly.
-        renderAuthTemplate("password-reset");
-        renderAuthTemplate("email-verification");
-        renderAuthTemplate("email-change");
 
         writeIndex();
     }
@@ -126,18 +110,5 @@ class EmailTemplatePreviewGenerator {
 
     private void capture(String filename) throws IOException {
         Files.move(RENDERED_EMAIL_PATH, OUTPUT_DIR.resolve(filename), REPLACE_EXISTING);
-    }
-
-    private void renderAuthTemplate(String templateName) throws IOException {
-        Context context = new Context();
-        context.setVariable("username", "kuzanoleg");
-        context.setVariable("url", "https://almonium.com/preview-link?token=abc123");
-        context.setVariable("headerText", appProperties.getName());
-        context.setVariable("footerText", "© 2026 " + appProperties.getName() + ". All rights reserved.");
-        context.setVariable("logoUrl", appProperties.getWebDomain() + "/email/wordmark-white.png");
-
-        String html = templateEngine.process("auth/" + templateName, context);
-        html = CssInliner.inlineCss(html);
-        Files.writeString(OUTPUT_DIR.resolve("auth-" + templateName + ".html"), html);
     }
 }
