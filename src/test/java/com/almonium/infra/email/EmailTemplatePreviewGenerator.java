@@ -1,0 +1,143 @@
+package com.almonium.infra.email;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import com.almonium.config.properties.AppProperties;
+import com.almonium.infra.email.config.ThymeleafConfig;
+import com.almonium.infra.email.model.dto.EmailContext;
+import com.almonium.infra.email.service.EmailService;
+import com.almonium.infra.email.service.FriendshipEmailComposerService;
+import com.almonium.infra.email.service.SubscriptionEmailComposerService;
+import com.almonium.infra.email.util.CssInliner;
+import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.user.relationship.model.enums.FriendshipEvent;
+import com.almonium.util.HtmlFileWriter;
+import com.almonium.util.config.TestConfig;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.client.RestTemplate;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
+/**
+ * Not named *Test on purpose: runs the real composer/Thymeleaf/CssInliner pipeline (dry-run,
+ * no network, no DB/Kafka/Firebase) to render every email template to disk for a quick look in a
+ * browser, so it must stay out of `mvn test`/CI. Run explicitly:
+ *   ./mvnw test -Dtest=EmailTemplatePreviewGenerator
+ * Output: temp/previews/*.html (gitignored).
+ */
+@SpringBootTest
+@ContextConfiguration(
+        classes = {
+            TestConfig.class,
+            ThymeleafConfig.class,
+            EmailService.class,
+            HtmlFileWriter.class,
+            FriendshipEmailComposerService.class,
+            SubscriptionEmailComposerService.class
+        })
+@TestPropertySource(
+        locations = "classpath:application.yaml",
+        // real domain so the rendered wordmark/links actually resolve when opened in a browser
+        properties = "app.web-domain=https://almonium.com")
+class EmailTemplatePreviewGenerator {
+
+    private static final Path RENDERED_EMAIL_PATH = Path.of("temp/rendered_email.html");
+    private static final Path OUTPUT_DIR = Path.of("temp/previews");
+
+    @Autowired
+    FriendshipEmailComposerService friendshipEmailComposerService;
+
+    @Autowired
+    SubscriptionEmailComposerService subscriptionEmailComposerService;
+
+    @Autowired
+    SpringTemplateEngine templateEngine;
+
+    @Autowired
+    AppProperties appProperties;
+
+    @MockBean
+    RestTemplate restTemplate;
+
+    @Test
+    void generateAllPreviews() throws IOException {
+        Files.createDirectories(OUTPUT_DIR);
+
+        for (FriendshipEvent event : FriendshipEvent.values()) {
+            EmailContext<FriendshipEvent> context = new EmailContext<>(
+                    event, Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, "martazielinska"));
+            friendshipEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
+            capture("friendship-" + event.name().toLowerCase() + ".html");
+        }
+
+        for (PlanSubscription.Event event : PlanSubscription.Event.values()) {
+            EmailContext<PlanSubscription.Event> context =
+                    new EmailContext<>(event, Map.of(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM"));
+            subscriptionEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
+            capture("subscription-" + event.name().toLowerCase() + ".html");
+        }
+
+        // No composer is wired to these (nothing in src/main/java references them - dead
+        // templates, likely superseded by Firebase Auth's own emails), so render them directly.
+        renderAuthTemplate("password-reset");
+        renderAuthTemplate("email-verification");
+        renderAuthTemplate("email-change");
+
+        writeIndex();
+    }
+
+    private void writeIndex() throws IOException {
+        List<String> files;
+        try (var stream = Files.list(OUTPUT_DIR)) {
+            files = stream.map(p -> p.getFileName().toString())
+                    .filter(name -> name.endsWith(".html") && !name.equals("index.html"))
+                    .sorted()
+                    .toList();
+        }
+        String rows = files.stream()
+                .map(f -> "<tr><td style=\"padding:6px 12px;font-family:monospace;\">" + f
+                        + "</td><td style=\"padding:6px 12px;\"><a href=\"" + f
+                        + "\" target=\"preview\">open</a></td></tr>")
+                .collect(Collectors.joining("\n"));
+        String html =
+                """
+                <!DOCTYPE html>
+                <html><head><meta charset="utf-8"><title>Email previews</title></head>
+                <body style="margin:0;font-family:sans-serif;display:flex;height:100vh;">
+                <div style="width:260px;overflow:auto;border-right:1px solid #ddd;padding:8px;">
+                <table>%s</table>
+                </div>
+                <iframe name="preview" style="flex:1;border:0;" src="%s"></iframe>
+                </body></html>"""
+                        .formatted(rows, files.isEmpty() ? "" : files.get(0));
+        Files.writeString(OUTPUT_DIR.resolve("index.html"), html);
+    }
+
+    private void capture(String filename) throws IOException {
+        Files.move(RENDERED_EMAIL_PATH, OUTPUT_DIR.resolve(filename), REPLACE_EXISTING);
+    }
+
+    private void renderAuthTemplate(String templateName) throws IOException {
+        Context context = new Context();
+        context.setVariable("username", "kuzanoleg");
+        context.setVariable("url", "https://almonium.com/preview-link?token=abc123");
+        context.setVariable("headerText", appProperties.getName());
+        context.setVariable("footerText", "© 2026 " + appProperties.getName() + ". All rights reserved.");
+        context.setVariable("logoUrl", appProperties.getWebDomain() + "/email/wordmark-white.png");
+
+        String html = templateEngine.process("auth/" + templateName, context);
+        html = CssInliner.inlineCss(html);
+        Files.writeString(OUTPUT_DIR.resolve("auth-" + templateName + ".html"), html);
+    }
+}
