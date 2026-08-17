@@ -65,6 +65,8 @@ public abstract class EmailComposerService<T> {
                 "headerText",
                 appProperties.getName(),
                 "username",
-                username);
+                username,
+                "logoUrl",
+                appProperties.getWebDomain() + "/email/wordmark-white.png");
     }
 }
