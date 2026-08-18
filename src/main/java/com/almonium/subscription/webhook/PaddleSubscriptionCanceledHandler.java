@@ -17,6 +17,6 @@ public class PaddleSubscriptionCanceledHandler implements PaddleEventHandler {
 
     @Override
     public void handle(PaddleEvent event) {
-        planSubscriptionService.cancelSubscription(eventData.requiredText(event.data(), "/id"));
+        planSubscriptionService.cancelSubscription(eventData.requiredText(event.data(), "/id"), event.occurredAt());
     }
 }

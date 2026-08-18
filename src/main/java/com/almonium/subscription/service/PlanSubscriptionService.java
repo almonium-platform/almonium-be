@@ -111,38 +111,60 @@ public class PlanSubscriptionService {
             String transactionId,
             Instant startDate,
             Instant endDate,
-            Optional<Integer> foundingMemberSlot) {
-        Plan plan = planRepository
-                .findByNameAndType("PREMIUM", paddlePriceCatalog.planTypeFor(priceId))
-                .orElseThrow(() -> new PaddleIntegrationException("Plan not found for Paddle price"));
+            Optional<Integer> foundingMemberSlot,
+            Instant occurredAt) {
+        Plan plan = getPlanForPaddlePrice(priceId);
         User user = getUserByPaddleCustomerIdOrThrow(customerId);
-        Optional<PlanSubscription> existing = planSubRepository.findByPaddleSubscriptionId(subscriptionId);
+        Optional<PlanSubscription> existing = planSubRepository.findForUpdateByPaddleSubscriptionId(subscriptionId);
         if (existing.isPresent()) {
             PlanSubscription subscription = existing.orElseThrow();
-            subscription.setStartDate(startDate);
-            subscription.setEndDate(endDate);
-            if (subscription.getStatus() == PlanSubscription.Status.ACTIVE_TILL_CYCLE_END) {
-                subscription.setStatus(PlanSubscription.Status.ACTIVE);
+            if (isNewerPaddleLifecycleEvent(subscription, occurredAt)) {
+                subscription.setPlan(plan);
+                subscription.setStartDate(startDate);
+                subscription.setEndDate(endDate);
+                subscription.setLatestPaddleEventOccurredAt(occurredAt);
+                planSubRepository.save(subscription);
             }
-            planSubRepository.save(subscription);
         } else {
-            replaceCurrentPlanSubWithNewPremium(user, plan, subscriptionId, startDate, endDate);
+            replaceCurrentPlanSubWithNewPremium(user, plan, subscriptionId, startDate, endDate, occurredAt);
         }
         foundingMemberSlot.ifPresent(
                 slot -> foundingMemberService.confirm(slot, user.getId(), transactionId, subscriptionId));
     }
 
     public void reconcileSubscription(
-            String subscriptionId, String status, boolean cancellationScheduled, Instant startDate, Instant endDate) {
-        PlanSubscription subscription = getPlanSubFromPaddleData(subscriptionId);
-        subscription.setStartDate(startDate);
-        subscription.setEndDate(endDate);
-
-        if ("canceled".equals(status)) {
-            cancelSubscription(subscriptionId);
+            String subscriptionId,
+            String priceId,
+            String status,
+            Optional<String> scheduledChangeAction,
+            Optional<Instant> startDate,
+            Optional<Instant> endDate,
+            Instant occurredAt) {
+        PlanSubscription subscription = getPlanSubFromPaddleDataForUpdate(subscriptionId);
+        if (!isNewerPaddleLifecycleEvent(subscription, occurredAt)) {
             return;
         }
-        if ("active".equals(status) && cancellationScheduled) {
+        PlanSubscription.Status previousStatus = subscription.getStatus();
+        subscription.setPlan(getPlanForPaddlePrice(priceId));
+        if (!List.of("canceled", "paused").contains(status) && (startDate.isEmpty() || endDate.isEmpty())) {
+            throw new PaddleIntegrationException("Active Paddle subscription is missing its current billing period");
+        }
+        startDate.ifPresent(subscription::setStartDate);
+        endDate.ifPresent(subscription::setEndDate);
+        subscription.setLatestPaddleEventOccurredAt(occurredAt);
+
+        if ("canceled".equals(status)) {
+            cancelSubscription(subscription);
+            return;
+        }
+        if ("paused".equals(status)) {
+            pauseSubscription(subscription);
+            return;
+        }
+        if (!List.of("active", "trialing", "past_due").contains(status)) {
+            throw new PaddleIntegrationException("Unsupported Paddle subscription status: " + status);
+        }
+        if (scheduledChangeAction.filter("cancel"::equals).isPresent()) {
             if (subscription.getStatus() != PlanSubscription.Status.ACTIVE_TILL_CYCLE_END) {
                 updatePlanSubStatusAndSave(subscription, PlanSubscription.Status.ACTIVE_TILL_CYCLE_END);
                 sendEmailForEvent(subscription.getUser(), subscription, PlanSubscription.Event.CANCELED);
@@ -151,23 +173,48 @@ public class PlanSubscriptionService {
             }
             return;
         }
-        if ("active".equals(status) && subscription.getStatus() == PlanSubscription.Status.ACTIVE_TILL_CYCLE_END) {
+        if (previousStatus == PlanSubscription.Status.PAUSED) {
+            deactivateCurrentSub(subscription.getUser());
             updatePlanSubStatusAndSave(subscription, PlanSubscription.Status.ACTIVE);
-            sendEmailForEvent(subscription.getUser(), subscription, PlanSubscription.Event.RENEWED);
+            return;
+        }
+        if (previousStatus == PlanSubscription.Status.ACTIVE_TILL_CYCLE_END) {
+            updatePlanSubStatusAndSave(subscription, PlanSubscription.Status.ACTIVE);
+            sendEmailForEvent(subscription.getUser(), subscription, PlanSubscription.Event.REACTIVATED);
             return;
         }
         planSubRepository.save(subscription);
     }
 
-    public void putSubscriptionOnHold(String subscriptionId) {
-        PlanSubscription planSubscription = getPlanSubFromPaddleData(subscriptionId);
+    public void notifyPaymentFailed(String subscriptionId) {
+        PlanSubscription planSubscription = getPlanSubFromPaddleDataForUpdate(subscriptionId);
+        if (planSubscription.getStatus() == PlanSubscription.Status.CANCELED) {
+            return;
+        }
         sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.PAYMENT_FAILED);
     }
 
-    public void cancelSubscription(String subscriptionId) {
-        PlanSubscription targetedPlanSub = getPlanSubFromPaddleData(subscriptionId);
+    public void notifyRenewed(String subscriptionId) {
+        PlanSubscription planSubscription = getPlanSubFromPaddleDataForUpdate(subscriptionId);
+        if (planSubscription.getStatus() == PlanSubscription.Status.CANCELED) {
+            return;
+        }
+        sendEmailForEvent(planSubscription.getUser(), planSubscription, PlanSubscription.Event.RENEWED);
+    }
+
+    public void cancelSubscription(String subscriptionId, Instant occurredAt) {
+        PlanSubscription targetedPlanSub = getPlanSubFromPaddleDataForUpdate(subscriptionId);
+        if (!isNewerPaddleLifecycleEvent(targetedPlanSub, occurredAt)) {
+            return;
+        }
+        targetedPlanSub.setLatestPaddleEventOccurredAt(occurredAt);
+        cancelSubscription(targetedPlanSub);
+    }
+
+    private void cancelSubscription(PlanSubscription targetedPlanSub) {
         if (targetedPlanSub.getStatus() == PlanSubscription.Status.CANCELED) {
             log.info("Subscription {} is already canceled", targetedPlanSub.getId());
+            planSubRepository.save(targetedPlanSub);
             return;
         }
         updatePlanSubStatusAndSave(targetedPlanSub, PlanSubscription.Status.CANCELED);
@@ -214,13 +261,13 @@ public class PlanSubscriptionService {
     }
 
     private void replaceCurrentPlanSubWithNewPremium(
-            User user, Plan plan, String subscriptionId, Instant startDate, Instant endDate) {
+            User user, Plan plan, String subscriptionId, Instant startDate, Instant endDate, Instant occurredAt) {
         if (SetupStep.PLAN.equals(user.getSetupStep())) {
             user.setSetupStep(SetupStep.PLAN.nextStep());
             userRepository.save(user);
         }
         deactivateCurrentSub(user);
-        createNewPlanSub(user, plan, subscriptionId, startDate, endDate);
+        createNewPlanSub(user, plan, subscriptionId, startDate, endDate, occurredAt);
         sendEmailForEvent(user, getActiveSub(user), PlanSubscription.Event.CREATED);
     }
 
@@ -246,6 +293,16 @@ public class PlanSubscriptionService {
 
     private void createNewPlanSub(
             User user, Plan plan, String paddleSubscriptionId, Instant startDate, Instant endDate) {
+        createNewPlanSub(user, plan, paddleSubscriptionId, startDate, endDate, null);
+    }
+
+    private void createNewPlanSub(
+            User user,
+            Plan plan,
+            String paddleSubscriptionId,
+            Instant startDate,
+            Instant endDate,
+            Instant latestPaddleEventOccurredAt) {
         PlanSubscription planSubscription = PlanSubscription.builder()
                 .user(user)
                 .plan(plan)
@@ -253,17 +310,46 @@ public class PlanSubscriptionService {
                 .paddleSubscriptionId(paddleSubscriptionId)
                 .startDate(startDate)
                 .endDate(endDate)
+                .latestPaddleEventOccurredAt(latestPaddleEventOccurredAt)
                 .build();
         user.getPlanSubscriptions().add(planSubscription);
         planSubRepository.save(planSubscription);
         log.info("Assigned plan {} to user {}", plan.getName(), user.getId());
     }
 
-    private PlanSubscription getPlanSubFromPaddleData(String subscriptionId) {
+    private PlanSubscription getPlanSubFromPaddleDataForUpdate(String subscriptionId) {
         return planSubRepository
-                .findByPaddleSubscriptionId(subscriptionId)
+                .findForUpdateByPaddleSubscriptionId(subscriptionId)
                 .orElseThrow(
                         () -> new PaddleIntegrationException("Plan subscription not found for Paddle subscription"));
+    }
+
+    private Plan getPlanForPaddlePrice(String priceId) {
+        return planRepository
+                .findByNameAndType("PREMIUM", paddlePriceCatalog.planTypeFor(priceId))
+                .orElseThrow(() -> new PaddleIntegrationException("Plan not found for Paddle price"));
+    }
+
+    private boolean isNewerPaddleLifecycleEvent(PlanSubscription subscription, Instant occurredAt) {
+        Instant latest = subscription.getLatestPaddleEventOccurredAt();
+        if (latest == null || occurredAt.isAfter(latest)) {
+            return true;
+        }
+        log.info(
+                "Ignoring stale Paddle lifecycle event for subscription {}; occurred at {}, latest is {}",
+                subscription.getPaddleSubscriptionId(),
+                occurredAt,
+                latest);
+        return false;
+    }
+
+    private void pauseSubscription(PlanSubscription subscription) {
+        if (subscription.getStatus() == PlanSubscription.Status.PAUSED) {
+            planSubRepository.save(subscription);
+            return;
+        }
+        updatePlanSubStatusAndSave(subscription, PlanSubscription.Status.PAUSED);
+        findAndActivateDefaultPlan(subscription.getUser());
     }
 
     private boolean isPlanDefault(Plan activePlan) {

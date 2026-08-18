@@ -1,7 +1,6 @@
 package com.almonium.subscription.webhook;
 
 import com.almonium.subscription.service.PlanSubscriptionService;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +17,14 @@ public class PaddleSubscriptionUpdatedHandler implements PaddleEventHandler {
 
     @Override
     public void handle(PaddleEvent event) {
-        JsonNode scheduledAction = event.data().at("/scheduled_change/action");
+        String status = eventData.requiredText(event.data(), "/status");
         planSubscriptionService.reconcileSubscription(
                 eventData.requiredText(event.data(), "/id"),
-                eventData.requiredText(event.data(), "/status"),
-                scheduledAction.isTextual() && "cancel".equals(scheduledAction.textValue()),
-                eventData.requiredInstant(event.data(), "/current_billing_period/starts_at"),
-                eventData.requiredInstant(event.data(), "/current_billing_period/ends_at"));
+                eventData.requiredText(event.data(), "/items/0/price/id"),
+                status,
+                eventData.scheduledChangeAction(event.data()),
+                eventData.optionalInstant(event.data(), "/current_billing_period/starts_at"),
+                eventData.optionalInstant(event.data(), "/current_billing_period/ends_at"),
+                event.occurredAt());
     }
 }

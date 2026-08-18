@@ -20,7 +20,9 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
             PlanSubscription.Event.ENDED,
             new EmailSubjectTemplate("Your Subscription Has Ended", "ended"),
             PlanSubscription.Event.RENEWED,
-            new EmailSubjectTemplate("Welcome Back!", "renewed"),
+            new EmailSubjectTemplate("Subscription renewed", "renewed"),
+            PlanSubscription.Event.REACTIVATED,
+            new EmailSubjectTemplate("Welcome Back!", "reactivated"),
             PlanSubscription.Event.PAYMENT_FAILED,
             new EmailSubjectTemplate("Payment Failed", "payment-failed"));
 
@@ -52,7 +54,7 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
     private String getButtonUrl(PlanSubscription.Event event) {
         String url =
                 switch (event) {
-                    case CREATED, RENEWED -> "/home";
+                    case CREATED, RENEWED, REACTIVATED -> "/home";
                     case CANCELED, PAYMENT_FAILED -> "/settings/me?portal=to";
                     case ENDED -> "/pricing";
                 };

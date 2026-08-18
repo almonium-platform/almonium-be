@@ -53,6 +53,8 @@ public class PlanSubscription {
 
     Instant endDate;
 
+    Instant latestPaddleEventOccurredAt;
+
     @LastModifiedDate
     Instant updatedAt;
 
@@ -63,6 +65,7 @@ public class PlanSubscription {
         ACTIVE, // premium plan active and not canceled
         ACTIVE_TILL_CYCLE_END, // premium plan active but canceled by user
         CANCELED, // premium plan canceled by user, plan expired
+        PAUSED, // premium plan paused in Paddle; free-plan access is active locally
         INACTIVE, // lifetime plan is inactive
     }
 
@@ -72,6 +75,7 @@ public class PlanSubscription {
         CANCELED, // premium plan canceled by user, plan is still active till the end of the billing cycle
         ENDED, // plan expired
         RENEWED,
+        REACTIVATED,
         PAYMENT_FAILED,
     }
 }

@@ -24,6 +24,6 @@ public class PaddleTransactionPaymentFailedHandler implements PaddleEventHandler
             log.info("Ignoring Paddle payment failure without a subscription ID");
             return;
         }
-        planSubscriptionService.putSubscriptionOnHold(subscriptionId.textValue());
+        planSubscriptionService.notifyPaymentFailed(subscriptionId.textValue());
     }
 }

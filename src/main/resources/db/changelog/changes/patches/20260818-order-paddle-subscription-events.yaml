@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: order-paddle-subscription-events
+      author: codex
+      changes:
+        - addColumn:
+            tableName: plan_subscription
+            columns:
+              - column:
+                  name: latest_paddle_event_occurred_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropColumn:
+            tableName: plan_subscription
+            columnName: latest_paddle_event_occurred_at

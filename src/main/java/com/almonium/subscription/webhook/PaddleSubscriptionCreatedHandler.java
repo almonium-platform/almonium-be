@@ -24,6 +24,7 @@ public class PaddleSubscriptionCreatedHandler implements PaddleEventHandler {
                 eventData.requiredText(event.data(), "/transaction_id"),
                 eventData.requiredInstant(event.data(), "/current_billing_period/starts_at"),
                 eventData.requiredInstant(event.data(), "/current_billing_period/ends_at"),
-                eventData.foundingMemberSlot(event.data()));
+                eventData.foundingMemberSlot(event.data()),
+                event.occurredAt());
     }
 }

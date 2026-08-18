@@ -6,6 +6,7 @@ import com.almonium.user.core.model.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -71,6 +72,29 @@ public class PaddleApiService {
 
     public void scheduleSubscriptionCancellation(String subscriptionId) {
         cancelSubscription(subscriptionId, "next_billing_period");
+    }
+
+    public SubscriptionSnapshot getSubscription(String subscriptionId) {
+        try {
+            JsonNode response = paddleRestClient
+                    .get()
+                    .uri("/subscriptions/" + subscriptionId)
+                    .retrieve()
+                    .body(JsonNode.class);
+            if (response == null) {
+                throw new PaddleIntegrationException("Paddle returned an empty subscription response");
+            }
+            return new SubscriptionSnapshot(
+                    requiredText(response, "/data/id", "subscription ID"),
+                    requiredText(response, "/data/items/0/price/id", "subscription price ID"),
+                    requiredText(response, "/data/status", "subscription status"),
+                    optionalText(response, "/data/scheduled_change/action"),
+                    optionalInstant(response, "/data/current_billing_period/starts_at"),
+                    optionalInstant(response, "/data/current_billing_period/ends_at"));
+        } catch (RestClientException exception) {
+            log.error("Failed to get Paddle subscription {}", subscriptionId, exception);
+            throw new PaddleIntegrationException("Failed to get Paddle subscription", exception);
+        }
     }
 
     private void cancelSubscription(String subscriptionId, String effectiveFrom) {
@@ -149,5 +173,35 @@ public class PaddleApiService {
         return value.textValue();
     }
 
+    private Optional<String> optionalText(JsonNode response, String pointer) {
+        JsonNode value = response.at(pointer);
+        if (value.isMissingNode() || value.isNull()) {
+            return Optional.empty();
+        }
+        if (!value.isTextual() || value.textValue().isBlank()) {
+            throw new PaddleIntegrationException("Paddle response has an invalid value at " + pointer);
+        }
+        return Optional.of(value.textValue());
+    }
+
+    private Optional<Instant> optionalInstant(JsonNode response, String pointer) {
+        return optionalText(response, pointer).map(value -> {
+            try {
+                return Instant.parse(value);
+            } catch (RuntimeException exception) {
+                throw new PaddleIntegrationException(
+                        "Paddle response has an invalid timestamp at " + pointer, exception);
+            }
+        });
+    }
+
     public record CheckoutTransaction(String id, String checkoutUrl) {}
+
+    public record SubscriptionSnapshot(
+            String id,
+            String priceId,
+            String status,
+            Optional<String> scheduledChangeAction,
+            Optional<Instant> billingPeriodStartsAt,
+            Optional<Instant> billingPeriodEndsAt) {}
 }

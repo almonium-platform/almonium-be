@@ -14,6 +14,7 @@ import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.user.core.model.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,6 +106,35 @@ class PaddleApiServiceTest {
 
         assertThat(transaction.id()).isEqualTo("txn_01test");
         assertThat(transaction.checkoutUrl()).endsWith("_ptxn=txn_01test");
+        server.verify();
+    }
+
+    @Test
+    void readsSubscriptionSnapshotForReconciliation() {
+        server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test"))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(
+                        """
+                        {
+                          "data": {
+                            "id": "sub_01test",
+                            "status": "active",
+                            "items": [{"price": {"id": "pri_regular_monthly"}}],
+                            "scheduled_change": {"action": "cancel"},
+                            "current_billing_period": {
+                              "starts_at": "2026-08-01T00:00:00Z",
+                              "ends_at": "2026-09-01T00:00:00Z"
+                            }
+                          }
+                        }
+                        """,
+                        MediaType.APPLICATION_JSON));
+
+        PaddleApiService.SubscriptionSnapshot snapshot = service.getSubscription("sub_01test");
+
+        assertThat(snapshot.status()).isEqualTo("active");
+        assertThat(snapshot.scheduledChangeAction()).contains("cancel");
+        assertThat(snapshot.billingPeriodEndsAt()).contains(Instant.parse("2026-09-01T00:00:00Z"));
         server.verify();
     }
 

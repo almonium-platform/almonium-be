@@ -69,16 +69,65 @@ Create a notification destination using API version 1:
 https://<api-host>/api/v1/public/webhooks/paddle
 ```
 
-Subscribe it to:
+Enable exactly these events on the notification destination:
 
-- `subscription.created`
-- `subscription.updated`
-- `subscription.canceled`
-- `transaction.payment_failed`
+| Dashboard event | Required behavior |
+| --- | --- |
+| `subscription.created` | Records the Paddle subscription, grants Premium, confirms a founding-member reservation, and sends the welcome email. |
+| `subscription.updated` | Authoritatively synchronizes status, scheduled changes, billing dates, and monthly/annual plan changes. It covers renewal-period updates, payment recovery, cancellation scheduling/reversal, pause/resume, and terminal cancellation. |
+| `subscription.canceled` | Provides a dedicated terminal-cancellation signal. This overlaps the canceled `subscription.updated` payload intentionally; event ordering and state idempotency prevent duplicate effects. |
+| `transaction.completed` | Sends the renewal email only when `origin=subscription_recurring`, after Paddle has successfully collected and completed the renewal payment. Initial checkout and other transaction origins are ignored by this handler. |
+| `transaction.payment_failed` | Sends the payment-recovery email when the failed transaction belongs to a subscription. Paddle may emit this for each failed attempt. |
+
+Dedicated `subscription.activated`, `subscription.past_due`,
+`subscription.paused`, and `subscription.resumed` events are not required. The
+complete subscription payload delivered by `subscription.updated` is the
+authoritative input for those states. Do not replace `subscription.updated`
+with only the dedicated events.
 
 Copy that destination's endpoint secret into `PADDLE_WEBHOOK_SECRET`. The
 backend validates `Paddle-Signature` against the exact raw body, rejects stale
 timestamps, and logs event IDs transactionally for idempotency.
+
+## Lifecycle and email behavior
+
+Paddle delivers webhooks at least once and may deliver them out of order. The
+backend therefore applies two separate guards:
+
+1. `paddle_event_log.event_id` deduplicates delivery of the same event.
+2. `plan_subscription.latest_paddle_event_occurred_at` rejects an older
+   lifecycle snapshot after a newer one. A pessimistic row lock serializes
+   concurrent updates for the same subscription.
+
+`subscription.created` never changes the lifecycle status of an already-known
+subscription. A full `subscription.updated` payload with `status=active`, a
+previous local status of `ACTIVE_TILL_CYCLE_END`, and no `cancel` scheduled
+change means the scheduled cancellation was removed. That transition is
+`REACTIVATED`, not `RENEWED`.
+
+| Paddle state or event | Local result | Email event |
+| --- | --- | --- |
+| New subscription | Premium `ACTIVE` | `CREATED` |
+| Active with `scheduled_change.action=cancel` | `ACTIVE_TILL_CYCLE_END`; Premium remains available | `CANCELED` once per transition |
+| Scheduled cancellation removed | Premium `ACTIVE` | `REACTIVATED` |
+| Successful recurring `transaction.completed` | No lifecycle mutation | `RENEWED` |
+| `past_due` | Premium remains available during Paddle recovery | `PAYMENT_FAILED` comes from each failed payment attempt |
+| `paused` | Paid subscription `PAUSED`; the local free plan becomes active | None |
+| Active after pause | Paid subscription `ACTIVE`; the local free plan becomes inactive | Renewal payment may produce `RENEWED` |
+| `canceled` | Paid subscription `CANCELED`; the local free plan becomes active | `ENDED` once |
+| Price changed between configured monthly/annual prices | Local Premium plan is updated | None |
+
+A daily 03:15 UTC reconciliation reads every locally tracked,
+nonterminal Paddle subscription through the API and applies the same state
+machine. This repairs missed or exhausted webhook deliveries for known
+subscriptions. It cannot discover a subscription whose `subscription.created`
+event never created a local Paddle subscription ID; investigate repeated
+creation-webhook failures from the notification delivery log.
+
+The supported catalog invariant is one recurring item per subscription. The
+integration reads `items[0]` and rejects unknown price IDs. Refund/adjustment
+notifications, one-off subscription charges, invoice-specific workflows, and
+multiple recurring items are not currently product flows and have no handlers.
 
 ## Rollout note
 
