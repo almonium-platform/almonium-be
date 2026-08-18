@@ -62,7 +62,7 @@ class EmailTemplatePreviewGenerator {
     @Autowired
     SubscriptionEmailComposerService subscriptionEmailComposerService;
 
-    @MockBean
+    @MockitoBean
     RestTemplate restTemplate;
 
     @Test

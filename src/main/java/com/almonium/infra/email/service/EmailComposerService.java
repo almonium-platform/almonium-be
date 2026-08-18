@@ -68,6 +68,6 @@ public abstract class EmailComposerService<T> {
                 "username",
                 username,
                 "logoUrl",
-                appProperties.getWebDomain() + "/email/title-purple@2x.png");
+                appProperties.getWebDomain() + "/email/wordmark-white.png");
     }
 }
