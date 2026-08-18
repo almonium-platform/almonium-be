@@ -15,9 +15,13 @@ public class PlainTextEmailBody {
                 .replaceAll("\\n{3,}", "\n\n")
                 .trim();
         String links = document.select("a[href]").stream()
-                .map(link -> link.text() + ": " + link.attr("href"))
+                .map(link -> link.text() + ": " + withoutHttpsScheme(link.attr("href")))
                 .collect(Collectors.joining("\n"));
 
         return links.isBlank() ? text : text + "\n\nLinks:\n" + links;
+    }
+
+    public String withoutHttpsScheme(String url) {
+        return url.replaceFirst("^https://", "");
     }
 }

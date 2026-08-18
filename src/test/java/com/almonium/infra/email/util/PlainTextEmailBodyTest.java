@@ -11,6 +11,8 @@ class PlainTextEmailBodyTest {
         String plainText =
                 PlainTextEmailBody.fromHtml("<p>Hello</p><a href=\"https://example.com/profile\">View profile</a>");
 
-        assertThat(plainText).contains("Hello", "View profile: https://example.com/profile", "Links:");
+        assertThat(plainText)
+                .contains("Hello", "View profile: example.com/profile", "Links:")
+                .doesNotContain("https://example.com/profile");
     }
 }
