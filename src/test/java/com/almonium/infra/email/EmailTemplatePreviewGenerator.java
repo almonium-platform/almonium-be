@@ -4,6 +4,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import com.almonium.infra.email.config.ThymeleafConfig;
 import com.almonium.infra.email.model.dto.EmailContext;
+import com.almonium.infra.email.service.AuthEmailComposerService;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.infra.email.service.SubscriptionEmailComposerService;
@@ -38,6 +39,7 @@ import org.springframework.web.client.RestTemplate;
             TestConfig.class,
             ThymeleafConfig.class,
             EmailService.class,
+            AuthEmailComposerService.class,
             HtmlFileWriter.class,
             FriendshipEmailComposerService.class,
             SubscriptionEmailComposerService.class
@@ -53,6 +55,9 @@ class EmailTemplatePreviewGenerator {
 
     @Autowired
     FriendshipEmailComposerService friendshipEmailComposerService;
+
+    @Autowired
+    AuthEmailComposerService authEmailComposerService;
 
     @Autowired
     SubscriptionEmailComposerService subscriptionEmailComposerService;
@@ -76,6 +81,19 @@ class EmailTemplatePreviewGenerator {
                     new EmailContext<>(event, Map.of(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM"));
             subscriptionEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
             capture("subscription-" + event.name().toLowerCase() + ".html");
+        }
+
+        for (com.almonium.infra.email.model.enums.AuthEmailTemplateType type :
+                com.almonium.infra.email.model.enums.AuthEmailTemplateType.values()) {
+            authEmailComposerService.sendEmail(
+                    "there",
+                    "preview@example.com",
+                    new EmailContext<>(
+                            type,
+                            Map.of(
+                                    AuthEmailComposerService.ACTION_URL,
+                                    "https://almonium.com/preview-link?oobCode=abc123")));
+            capture("auth-" + type.name().toLowerCase() + ".html");
         }
 
         writeIndex();

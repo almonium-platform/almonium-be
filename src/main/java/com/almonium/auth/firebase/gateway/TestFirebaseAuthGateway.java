@@ -5,6 +5,7 @@ import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,21 @@ public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
 
     @Override
     public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {
+        throw unavailable();
+    }
+
+    @Override
+    public Optional<String> generatePasswordResetLink(String email, String continueUrl) {
+        throw unavailable();
+    }
+
+    @Override
+    public String generateEmailVerificationLink(String email, String continueUrl) {
+        throw unavailable();
+    }
+
+    @Override
+    public void updateEmail(String firebaseUid, String email) {
         throw unavailable();
     }
 

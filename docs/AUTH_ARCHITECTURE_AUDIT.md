@@ -29,9 +29,12 @@ custom authentication platform.
   session-cookie attributes, logout clearing, revoked and stale sensitive
   sessions, and provisioning conflicts. Account-deletion tests cover local
   preflight and Firebase deletion failures.
-- Firebase owns credentials, verification/reset emails, provider linking, and
-  identity lifecycle. Almonium retains product-user provisioning, login streak,
-  authorization, subscriptions, and deletion cleanup.
+- Firebase owns credentials, action-code generation and validation, provider linking,
+  and identity lifecycle. Almonium sends verification, password-reset, and email-change
+  messages through ZeptoMail using branded templates. Verification and reset links carry
+  Firebase one-time codes to Almonium's custom action pages; email changes use an
+  Almonium one-time pending-address token because Firebase Admin has no equivalent
+  server-side verify-before-change link generator.
 - The existing Firebase service account is reused for Admin Auth and
   `GOOGLE_PROJECT_ID` is configured explicitly; no provider secret is stored in
   this backend.
