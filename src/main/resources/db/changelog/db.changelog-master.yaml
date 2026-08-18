@@ -105,6 +105,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/patches/20260818-order-paddle-subscription-events.yaml
   - include:
-      file: db/changelog/changes/patches/20260818-cascade-delete-founding-member.yaml
-  - include:
       file: db/changelog/changes/patches/20260818-add-pending-email-changes.yaml
