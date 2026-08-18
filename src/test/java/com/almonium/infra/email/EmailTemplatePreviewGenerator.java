@@ -66,12 +66,7 @@ class EmailTemplatePreviewGenerator {
 
         for (FriendshipEvent event : FriendshipEvent.values()) {
             EmailContext<FriendshipEvent> context = new EmailContext<>(
-                    event,
-                    Map.of(
-                            FriendshipEmailComposerService.COUNTERPART_USERNAME,
-                            "martazielinska",
-                            FriendshipEmailComposerService.OCCURRED_AT,
-                            "18 Aug 2026"));
+                    event, Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, "martazielinska"));
             friendshipEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
             capture("friendship-" + event.name().toLowerCase() + ".html");
         }

@@ -8,6 +8,7 @@ import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.dto.EmailSubjectTemplate;
 import com.almonium.infra.email.util.CssInliner;
+import com.almonium.infra.email.util.PlainTextEmailBody;
 import java.time.Year;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public abstract class EmailComposerService<T> {
         String templatePath = String.format(TEMPLATE_PATH_FORMAT, getSubfolder(), dto.template());
         String body = templateEngine.process(templatePath, context);
         body = CssInliner.inlineCss(body);
-        return new EmailDto(recipientEmail, dto.subject(), body);
+        return new EmailDto(recipientEmail, dto.subject(), body, PlainTextEmailBody.fromHtml(body));
     }
 
     public abstract Map<T, EmailSubjectTemplate> getTemplateTypeConfigMap();
@@ -67,6 +68,6 @@ public abstract class EmailComposerService<T> {
                 "username",
                 username,
                 "logoUrl",
-                appProperties.getWebDomain() + "/email/wordmark-white.png");
+                appProperties.getWebDomain() + "/email/title-purple@2x.png");
     }
 }

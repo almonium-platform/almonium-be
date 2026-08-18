@@ -11,11 +11,10 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 @Service
 public class FriendshipEmailComposerService extends EmailComposerService<FriendshipEvent> {
     private static final Map<FriendshipEvent, EmailSubjectTemplate> TYPE_EMAIL_SUBJECT_TEMPLATE_MAP = Map.of(
-            FriendshipEvent.INITIATED, new EmailSubjectTemplate("You've Got a New Friendship Request!", "initiated"),
-            FriendshipEvent.ACCEPTED, new EmailSubjectTemplate("Your Friendship Request Was Accepted!", "accepted"));
+            FriendshipEvent.INITIATED, new EmailSubjectTemplate("New friendship request", "initiated"),
+            FriendshipEvent.ACCEPTED, new EmailSubjectTemplate("Friendship request accepted", "accepted"));
 
     public static final String COUNTERPART_USERNAME = "counterpartUsername";
-    public static final String OCCURRED_AT = "occurredAt";
     private static final String BUTTON_URL_PLACEHOLDER = "url";
     private static final String SUBFOLDER = "friendship";
 
@@ -34,11 +33,9 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
     public Map<String, String> getCustomPlaceholders(EmailContext<FriendshipEvent> emailContext) {
         return Map.of(
                 BUTTON_URL_PLACEHOLDER,
-                getButtonUrl(emailContext.templateType()),
+                getButtonUrl(emailContext.getValue(COUNTERPART_USERNAME)),
                 COUNTERPART_USERNAME,
-                emailContext.getValue(COUNTERPART_USERNAME),
-                OCCURRED_AT,
-                emailContext.getValue(OCCURRED_AT));
+                emailContext.getValue(COUNTERPART_USERNAME));
     }
 
     @Override
@@ -46,12 +43,7 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
         return SUBFOLDER;
     }
 
-    private String getButtonUrl(FriendshipEvent event) {
-        String url =
-                switch (event) {
-                    case INITIATED -> "/social?requests=received";
-                    case ACCEPTED -> "/social?tab=friends";
-                };
-        return buildActionUrl(url);
+    private String getButtonUrl(String counterpartUsername) {
+        return buildActionUrl("/users/" + counterpartUsername);
     }
 }

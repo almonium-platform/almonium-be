@@ -6,6 +6,7 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.util.HtmlFileWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -57,14 +58,17 @@ public class EmailService {
 
     private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(
             EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
-        Map<String, Object> body = Map.of(
+        Map<String, Object> body = new HashMap<>(Map.of(
                 "from",
                         Map.of(
                                 "address", emailProps.getFromAddress(),
                                 "name", emailProps.getFromName()),
                 "to", List.of(Map.of("email_address", Map.of("address", emailDto.recipient()))),
                 "subject", emailDto.subject(),
-                "htmlbody", emailDto.body());
+                "htmlbody", emailDto.body()));
+        if (emailDto.textBody() != null && !emailDto.textBody().isBlank()) {
+            body.put("textbody", emailDto.textBody());
+        }
 
         return new HttpEntity<>(body, headers);
     }

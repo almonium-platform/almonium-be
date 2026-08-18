@@ -12,13 +12,11 @@
             <p class="email-headline"><strong>@<span th:text="${counterpartUsername}"></span> accepted your connection
                 request.</strong></p>
 
-            <p class="muted">Accepted on <span th:text="${occurredAt}"></span></p>
-
             <div class="button-p">
                 <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
                     <tr>
                         <td class="button-cell" bgcolor="#5A1A74" align="center">
-                            <a th:href="${url}" class="button">Open your friends list</a>
+                            <a th:href="${url}" class="button">View @<span th:text="${counterpartUsername}"></span>'s profile</a>
                         </td>
                     </tr>
                 </table>
