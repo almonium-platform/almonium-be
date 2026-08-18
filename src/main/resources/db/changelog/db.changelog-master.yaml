@@ -106,3 +106,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260818-order-paddle-subscription-events.yaml
   - include:
       file: db/changelog/changes/patches/20260818-add-pending-email-changes.yaml
+  - include:
+      file: db/changelog/changes/patches/20260818-redesign-onboarding-steps.yaml

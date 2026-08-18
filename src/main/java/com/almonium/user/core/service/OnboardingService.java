@@ -56,6 +56,17 @@ public class OnboardingService {
                 learnerService.getUserWithLearners(user.getId()).getLearners());
     }
 
+    public void setupLevels(User user, List<TargetLanguageWithProficiency> levels) {
+        processStep(
+                user,
+                SetupStep.LEVEL,
+                levels,
+                data -> data.forEach(level -> learnerService.updateLearner(
+                        user.getId(),
+                        level.language(),
+                        new com.almonium.user.core.dto.request.UpdateLearnerRequest(null, level.cefrLevel()))));
+    }
+
     public void completeSimpleStep(User user, SetupStep step) {
         processStep(user, step, () -> {});
     }

@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: redesign-onboarding-steps
+      author: codex
+      changes:
+        - update:
+            tableName: user_core
+            columns:
+              - column:
+                  name: setup_step
+                  value: LANGUAGES
+            where: setup_step = 'PLAN'
+        - update:
+            tableName: user_core
+            columns:
+              - column:
+                  name: setup_step
+                  value: MIGRATING_PROFILE
+            where: setup_step = 'PROFILE'
+        - update:
+            tableName: user_core
+            columns:
+              - column:
+                  name: setup_step
+                  value: PROFILE
+            where: setup_step = 'INTERESTS'
+        - update:
+            tableName: user_core
+            columns:
+              - column:
+                  name: setup_step
+                  value: INTERESTS
+            where: setup_step = 'MIGRATING_PROFILE'
+      rollback:
+        - update:
+            tableName: user_core
+            columns:
+              - column:
+                  name: setup_step
+                  value: PLAN
+            where: setup_step = 'LANGUAGES'

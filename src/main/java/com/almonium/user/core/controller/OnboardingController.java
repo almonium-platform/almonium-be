@@ -3,6 +3,7 @@ package com.almonium.user.core.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.request.LanguageSetupRequest;
 import com.almonium.user.core.dto.request.SaveInterestsRequest;
 import com.almonium.user.core.dto.response.LearnerDto;
@@ -48,5 +49,12 @@ public class OnboardingController {
     public ResponseEntity<List<LearnerDto>> setupLanguages(
             @Valid @RequestBody LanguageSetupRequest request, @Auth User user) {
         return ResponseEntity.ok(onboardingService.setupLanguages(user, request));
+    }
+
+    @PutMapping("/levels")
+    public ResponseEntity<Void> setupLevels(
+            @Valid @RequestBody List<@Valid TargetLanguageWithProficiency> levels, @Auth User user) {
+        onboardingService.setupLevels(user, levels);
+        return ResponseEntity.ok().build();
     }
 }
