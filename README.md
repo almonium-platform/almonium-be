@@ -42,6 +42,20 @@ troubleshooting, and the complete environment-variable catalogue.
 See the [Short.io link guide](docs/SHORT_LINKS.md) for the `go.almonium.com`
 public-link contract, current aliases, and safe usage boundaries.
 
+## Email template previews
+
+Render every live friendship and subscription email through the real
+Thymeleaf/CSS-inlining pipeline with:
+
+```bash
+./mvnw test -Dtest=EmailTemplatePreviewGenerator
+```
+
+The generator is a dry run: it does not send mail or require the application
+to be running. Open `temp/previews/index.html` in a browser after the command
+to inspect the generated stubs. The `temp/` directory is gitignored, so rerun
+the command whenever a template or email fragment changes.
+
 ## Operator scripts
 
 `scripts/` holds one-off Python utilities that sit outside the Java build —

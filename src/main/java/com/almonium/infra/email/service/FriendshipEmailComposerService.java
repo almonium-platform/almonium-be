@@ -15,6 +15,7 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
             FriendshipEvent.ACCEPTED, new EmailSubjectTemplate("Your Friendship Request Was Accepted!", "accepted"));
 
     public static final String COUNTERPART_USERNAME = "counterpartUsername";
+    public static final String OCCURRED_AT = "occurredAt";
     private static final String BUTTON_URL_PLACEHOLDER = "url";
     private static final String SUBFOLDER = "friendship";
 
@@ -35,7 +36,9 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
                 BUTTON_URL_PLACEHOLDER,
                 getButtonUrl(emailContext.templateType()),
                 COUNTERPART_USERNAME,
-                emailContext.getValue(COUNTERPART_USERNAME));
+                emailContext.getValue(COUNTERPART_USERNAME),
+                OCCURRED_AT,
+                emailContext.getValue(OCCURRED_AT));
     }
 
     @Override

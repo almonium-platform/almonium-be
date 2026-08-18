@@ -5,6 +5,10 @@ import com.almonium.infra.email.service.FriendshipEmailComposerService;
 import com.almonium.infra.messaging.exception.EventProcessingException;
 import com.almonium.user.relationship.event.FriendshipEmailRequestedEvent;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +19,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class FriendshipEmailListener {
+    private static final DateTimeFormatter EMAIL_DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH).withZone(ZoneOffset.UTC);
+
     private final FriendshipEmailComposerService emailComposerService;
 
     @RabbitListener(queues = "${rabbitmq.queue.friendship-email-requested.name}")
@@ -27,7 +34,11 @@ public class FriendshipEmailListener {
         try {
             EmailContext<FriendshipEvent> emailContext = new EmailContext<>(
                     event.friendshipEvent(),
-                    Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, event.counterpartUsername()));
+                    Map.of(
+                            FriendshipEmailComposerService.COUNTERPART_USERNAME,
+                            event.counterpartUsername(),
+                            FriendshipEmailComposerService.OCCURRED_AT,
+                            formatOccurredAt(event.occurredAt())));
 
             emailComposerService.sendEmail(event.recipientUsername(), event.recipientEmail(), emailContext);
 
@@ -41,5 +52,9 @@ public class FriendshipEmailListener {
                     e);
             throw new EventProcessingException("Friendship email processing failed for " + event.recipientEmail(), e);
         }
+    }
+
+    private String formatOccurredAt(Instant occurredAt) {
+        return occurredAt == null ? "" : EMAIL_DATE_FORMATTER.format(occurredAt);
     }
 }
