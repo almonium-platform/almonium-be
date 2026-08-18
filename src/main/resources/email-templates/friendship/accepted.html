@@ -9,14 +9,14 @@
         <td class="email-content">
             <p>Hello @<span th:text="${username}"></span>,</p>
 
-            <p class="email-headline"><strong>@<span th:text="${counterpartUsername}"></span> accepted your connection
-                request.</strong></p>
+            <p class="email-headline"><strong>@<span th:text="${counterpartUsername}"></span></strong> accepted your connection
+                request.</p>
 
             <div class="button-p">
                 <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
                     <tr>
                         <td class="button-cell" bgcolor="#5A1A74" align="center">
-                            <a th:href="${url}" class="button">View @<span th:text="${counterpartUsername}"></span>'s profile</a>
+                            <a th:href="${url}" class="button">View profile</a>
                         </td>
                     </tr>
                 </table>
