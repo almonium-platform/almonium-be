@@ -21,15 +21,21 @@ public class RelatedUserProfile extends PublicUserProfile {
             UUID id,
             String username,
             String avatarUrl,
+            boolean premium,
             UUID relationshipId,
             RelativeRelationshipStatus relationshipStatus) {
-        super(id, username, avatarUrl);
+        super(id, username, avatarUrl, premium);
         this.relationshipId = relationshipId;
         this.relationshipStatus = relationshipStatus;
     }
 
     public RelatedUserProfile(
-            UUID id, String username, String avatarUrl, UUID relationshipId, String relationshipStatus) {
-        this(id, username, avatarUrl, relationshipId, RelativeRelationshipStatus.valueOf(relationshipStatus));
+            UUID id,
+            String username,
+            String avatarUrl,
+            boolean premium,
+            UUID relationshipId,
+            String relationshipStatus) {
+        this(id, username, avatarUrl, premium, relationshipId, RelativeRelationshipStatus.valueOf(relationshipStatus));
     }
 }

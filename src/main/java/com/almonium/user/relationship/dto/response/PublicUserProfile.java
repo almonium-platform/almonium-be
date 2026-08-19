@@ -16,4 +16,5 @@ public class PublicUserProfile {
     UUID id;
     String username;
     String avatarUrl;
+    boolean premium;
 }

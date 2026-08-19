@@ -17,7 +17,13 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             select new com.almonium.user.relationship.dto.response.PublicUserProfile(
                 u.id,
                 u.username,
-                case when p.hidden = true then null else p.avatarUrl end
+                case when p.hidden = true then null else p.avatarUrl end,
+                case when exists (
+                    select ps.id from PlanSubscription ps
+                    where ps.user.id = u.id
+                      and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                      and ps.plan.entitlement <> 'FREE'
+                ) then true else false end
             )
             from User u
             left join u.profile p
@@ -40,6 +46,12 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 r.requestee.id,
                 r.requestee.username,
                 case when p.hidden = true then null else p.avatarUrl end,
+                case when exists (
+                    select ps.id from PlanSubscription ps
+                    where ps.user.id = r.requestee.id
+                      and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                      and ps.plan.entitlement <> 'FREE'
+                ) then true else false end,
                 r.id,
                 'PENDING_OUTGOING'
             )
@@ -56,6 +68,12 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 r.requester.id,
                 r.requester.username,
                 case when p.hidden = true then null else p.avatarUrl end,
+                case when exists (
+                    select ps.id from PlanSubscription ps
+                    where ps.user.id = r.requester.id
+                      and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                      and ps.plan.entitlement <> 'FREE'
+                ) then true else false end,
                 r.id,
                 'PENDING_INCOMING'
             )
@@ -72,6 +90,12 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             u.id,
             u.username,
             case when p.hidden = true then null else p.avatarUrl end,
+            case when exists (
+                select ps.id from PlanSubscription ps
+                where ps.user.id = u.id
+                  and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                  and ps.plan.entitlement <> 'FREE'
+            ) then true else false end,
             r.id,
             'BLOCKED'
         )
@@ -141,6 +165,15 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 when r.requester.id = :id then r.requestee.profile.avatarUrl
                 else r.requester.profile.avatarUrl
             end,
+            case when exists (
+                select ps.id from PlanSubscription ps
+                where ps.user.id = case
+                    when r.requester.id = :id then r.requestee.id
+                    else r.requester.id
+                end
+                  and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                  and ps.plan.entitlement <> 'FREE'
+            ) then true else false end,
             r.id,
             'FRIENDS'
         )

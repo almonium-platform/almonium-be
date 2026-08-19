@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.almonium.config.PostgresContainer;
+import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.repository.RelationshipRepository;
@@ -45,6 +46,17 @@ class RelationshipRepositoryTest {
         List<RelationshipToUserProjection> relationshipToUserProjections =
                 relationshipRepository.getVisibleFriendships(REQUESTER_ID);
         assertThat(relationshipToUserProjections).isNotEmpty();
+    }
+
+    @DisplayName("Should include the friend's premium avatar tier")
+    @Test
+    void givenPremiumFriend_whenGetFriendships_thenPremiumShouldBeTrue() {
+        List<RelatedUserProfile> friends = relationshipRepository.getFriendships(REQUESTER_ID);
+
+        assertThat(friends)
+                .singleElement()
+                .extracting(RelatedUserProfile::isPremium)
+                .isEqualTo(true);
     }
 
     @DisplayName("Should reject a second relationship with reversed users")
