@@ -35,9 +35,8 @@ public class CardController {
     CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
-        cardService.createCard(user, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CardDto> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(user, dto));
     }
 
     @PutMapping

@@ -155,11 +155,16 @@ class CardServiceTest {
         when(learnerFinder.findLearner(user, Language.FR)).thenReturn(learner);
         when(cardMapper.cardDtoToEntity(dto)).thenReturn(mappedCard);
 
-        cardService.createCard(user, dto);
+        CardDto createdDto =
+                CardDto.builder().id(UUID.randomUUID()).entry("bonjour").build();
+        when(cardMapper.cardEntityToDto(mappedCard)).thenReturn(createdDto);
+
+        CardDto result = cardService.createCard(user, dto);
 
         assertThat(translation.getCard()).isSameAs(mappedCard);
         assertThat(example.getCard()).isSameAs(mappedCard);
         assertThat(mappedCard.getOwner()).isSameAs(learner);
+        assertThat(result).isSameAs(createdDto);
         verify(translationRepository).saveAll(List.of(translation));
         verify(exampleRepository).saveAll(List.of(example));
     }
