@@ -55,8 +55,8 @@ public class SubscriptionEmailComposerService extends EmailComposerService<PlanS
         String url =
                 switch (event) {
                     case CREATED, RENEWED, REACTIVATED -> "/home";
-                    case CANCELED, PAYMENT_FAILED -> "/settings/me?portal=to";
-                    case ENDED -> "/pricing";
+                    case CANCELED, PAYMENT_FAILED -> "/membership?portal=to";
+                    case ENDED -> "/membership";
                 };
         return buildActionUrl(url);
     }
