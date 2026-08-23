@@ -187,6 +187,9 @@ public class ReviewService {
         updateLeechState(item, prompt.getPromptType(), correct);
         learningItemRepository.save(item);
 
+        if (confusedWith != null) {
+            coScheduleConfusedItem(confusedWith, item.getDueAt());
+        }
         ConfusionEdge edge = confusedWith == null ? null : recordConfusion(user, item, confusedWith, reviewedAt);
         UUID eventId = UUID.randomUUID();
         ReviewEvent event = eventRepository.save(ReviewEvent.builder()
@@ -437,6 +440,17 @@ public class ReviewService {
                         .lastConfusedAt(now)
                         .build());
         return confusionEdgeRepository.save(edge);
+    }
+
+    private void coScheduleConfusedItem(LearningItem confusedItem, Instant pairDueAt) {
+        if (confusedItem.getDueAt() != null && confusedItem.getDueAt().isBefore(pairDueAt)) {
+            return;
+        }
+        Card memory = fsrsCard(confusedItem);
+        memory.setDue(pairDueAt);
+        confusedItem.setDueAt(pairDueAt);
+        confusedItem.setFsrsCardJson(memory.toJson());
+        learningItemRepository.save(confusedItem);
     }
 
     private ConfusedItemResponse confusionResponse(LearningItem item, ConfusionEdge edge) {

@@ -151,6 +151,8 @@ class ReviewServiceTest {
 
         assertThat(response.outcome()).isEqualTo(ReviewOutcome.CONFUSED);
         assertThat(response.confusedWith().itemId()).isEqualTo(confused.getId());
+        assertThat(confused.getDueAt()).isEqualTo(item.getDueAt());
+        assertThat(confused.getFsrsCardJson()).isNotBlank();
         ArgumentCaptor<ConfusionEdge> edge = ArgumentCaptor.forClass(ConfusionEdge.class);
         verify(confusionEdgeRepository).save(edge.capture());
         assertThat(edge.getValue().getSourceItem()).isSameAs(item);

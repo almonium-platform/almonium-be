@@ -71,6 +71,12 @@ An LLM is not called per review. When semantic grading is added, it must be an
 adapter that returns evidence into this same outcome model; it must not own the
 schedule or erase the deterministic confusion lookup.
 
+A confusion co-schedules the produced item no later than the asked item's next
+due time. Its FSRS state is not graded—the due timestamp alone is moved—because
+the event is evidence about the asked retrieval, not proof that the produced
+item was remembered correctly. The directional edge and review event retain
+the reason for this early return.
+
 ## ADR-006: Prompts are stored artifacts and hints are priced evidence
 
 `ReviewPrompt` stores prompt variants by learning item and intent. Existing
