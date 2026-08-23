@@ -26,6 +26,7 @@
         <version.jakarta>10.0.0</version.jakarta>
         <version.firebase>9.4.2</version.firebase>
         <version.findsecbugs>1.14.0</version.findsecbugs>
+        <version.fsrs>1.0.0</version.fsrs>
         <java.version>21</java.version>
         <version.json-path>2.9.0</version.json-path>
         <version.kotlin>2.1.21</version.kotlin>
@@ -187,6 +188,21 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.18.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.open-spaced-repetition</groupId>
+            <artifactId>fsrs</artifactId>
+            <version>${version.fsrs}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.datatype</groupId>
+                    <artifactId>jackson-datatype-jsr310</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--        transitive dependencies-->
         <dependency>

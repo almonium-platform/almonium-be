@@ -5,11 +5,11 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
-import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.Example;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.core.model.entity.Translation;
-import com.almonium.card.core.repository.CardRepository;
 import com.almonium.card.core.repository.ExampleRepository;
+import com.almonium.card.core.repository.LearningItemRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.card.suggestion.dto.request.CardSuggestionDto;
@@ -19,6 +19,7 @@ import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CardSuggestionService {
     LearnerFinder learnerFinder;
 
-    CardRepository cardRepository;
+    LearningItemRepository learningItemRepository;
     CardSuggestionRepository cardSuggestionRepository;
     ExampleRepository exampleRepository;
     TranslationRepository translationRepository;
@@ -75,7 +76,7 @@ public class CardSuggestionService {
     }
 
     public boolean suggestCard(CardSuggestionDto dto, User user) {
-        Card card = cardRepository
+        LearningItem card = learningItemRepository
                 .findByIdAndOwnerUserId(dto.cardId(), user.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Card not found: " + dto.cardId()));
         Learner sender = learnerFinder.findLearner(user, card.getLanguage());
@@ -89,17 +90,30 @@ public class CardSuggestionService {
         return true;
     }
 
-    private void cloneCard(Card entity, Learner user) {
-        Card card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
+    private void cloneCard(LearningItem entity, Learner user) {
+        LearningItem card = cardMapper.copyCardDtoToEntity(cardMapper.cardEntityToDto(entity));
+        Instant now = Instant.now();
+        card.setPublicId(UUID.randomUUID());
+        card.setCreatedAt(now);
+        card.setUpdatedAt(now);
+        card.setDueAt(now);
+        card.setFsrsCardJson(null);
+        card.setTotalReviews(0);
+        card.setConsecutiveFailures(0);
+        card.setFailurePromptType(null);
+        card.setLeech(false);
 
-        user.addCard(card);
+        user.addLearningItem(card);
+        if (user.getUser() != null) {
+            card.setLegacyOwnerId(user.getUser().getId());
+        }
 
         List<Example> examples = card.getExamples();
         examples.forEach(example -> example.setCard(card));
 
         List<Translation> translations = card.getTranslations();
 
-        cardRepository.save(card);
+        learningItemRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
         learnerRepository.save(user);
@@ -116,6 +130,7 @@ public class CardSuggestionService {
     private CardSuggestion getCardSuggestion(UUID id) {
         return cardSuggestionRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Card suggestion with ID " + id + " not found"));
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Learning item suggestion with ID " + id + " not found"));
     }
 }

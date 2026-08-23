@@ -6,9 +6,9 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.request.CardUpdateDto;
 import com.almonium.card.core.dto.response.CardDto;
-import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.CardTag;
 import com.almonium.card.core.model.entity.Example;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.core.model.entity.Tag;
 import com.almonium.card.core.model.entity.Translation;
 import java.time.Instant;
@@ -24,7 +24,7 @@ class CardMapperTest {
     @Test
     void mapsTagTextIntoTheCardContract() {
         CardTag cardTag = CardTag.builder().tag(new Tag("travel")).build();
-        Card card = Card.builder().cardTags(new HashSet<>()).build();
+        LearningItem card = LearningItem.builder().cardTags(new HashSet<>()).build();
         card.getCardTags().add(cardTag);
 
         CardDto result = mapper.cardEntityToDto(card);
@@ -40,7 +40,7 @@ class CardMapperTest {
                 java.util.List.of(Translation.builder().translation("hello").build()));
         ArrayList<Example> examples = new ArrayList<>(
                 java.util.List.of(Example.builder().example("Bonjour!").build()));
-        Card card = Card.builder()
+        LearningItem card = LearningItem.builder()
                 .id(id)
                 .entry("bonjour")
                 .language(Language.FR)

@@ -5,9 +5,12 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
+import com.almonium.card.core.model.enums.LearningIntent;
+import com.almonium.card.core.model.enums.LearningItemType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +30,14 @@ public class CardDto {
 
     @NotBlank
     String entry;
+
+    String normalizedForm;
+    String lemma;
+    LearningItemType itemType;
+    String partOfSpeech;
+    String selectedSense;
+    String sourceContext;
+    Set<LearningIntent> learningIntents;
 
     @NotBlank
     String language;

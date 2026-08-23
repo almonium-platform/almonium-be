@@ -34,7 +34,7 @@ public class CardTag {
     @ManyToOne
     @MapsId("cardId")
     @JoinColumn(name = "card_id", referencedColumnName = "id")
-    Card card;
+    LearningItem card;
 
     @ManyToOne
     @MapsId("tagId")

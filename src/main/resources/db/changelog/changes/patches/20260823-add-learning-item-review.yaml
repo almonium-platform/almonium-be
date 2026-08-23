@@ -1,0 +1,239 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260823-add-learning-item-review
+      author: codex
+      changes:
+        - addColumn:
+            tableName: card
+            columns:
+              - column: { name: learner_id, type: uuid }
+              - column: { name: normalized_form, type: varchar(255) }
+              - column: { name: lemma, type: varchar(255) }
+              - column: { name: item_type, type: varchar(32), defaultValue: WORD, constraints: { nullable: false } }
+              - column: { name: part_of_speech, type: varchar(64) }
+              - column: { name: selected_sense, type: text }
+              - column: { name: source_context, type: text }
+              - column: { name: fsrs_card_json, type: text }
+              - column: { name: due_at, type: timestamp with time zone }
+              - column: { name: last_reviewed_at, type: timestamp with time zone }
+              - column: { name: total_reviews, type: int, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: consecutive_failures, type: int, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: failure_prompt_type, type: varchar(32) }
+              - column: { name: leech, type: boolean, defaultValueBoolean: false, constraints: { nullable: false } }
+        - sql:
+            splitStatements: false
+            sql: |
+              CREATE OR REPLACE FUNCTION sync_card_learner_owner() RETURNS trigger AS $$
+              BEGIN
+                  IF NEW.learner_id IS NULL THEN
+                      SELECT learner.id INTO NEW.learner_id
+                      FROM learner
+                      WHERE learner.user_id = NEW.owner_id AND learner.language = NEW.language
+                      LIMIT 1;
+                  END IF;
+                  IF NEW.owner_id IS NULL THEN
+                      SELECT learner.user_id INTO NEW.owner_id
+                      FROM learner
+                      WHERE learner.id = NEW.learner_id;
+                  END IF;
+                  RETURN NEW;
+              END;
+              $$ LANGUAGE plpgsql;
+              CREATE TRIGGER trg_sync_card_learner_owner
+              BEFORE INSERT OR UPDATE OF owner_id, learner_id, language ON card
+              FOR EACH ROW EXECUTE FUNCTION sync_card_learner_owner();
+              UPDATE card
+              SET learner_id = learner.id
+              FROM learner
+              WHERE learner.user_id = card.owner_id
+                AND learner.language = card.language
+                AND card.learner_id IS NULL;
+        - addNotNullConstraint:
+            tableName: card
+            columnName: learner_id
+            columnDataType: uuid
+        - addForeignKeyConstraint:
+            baseTableName: card
+            baseColumnNames: learner_id
+            referencedTableName: learner
+            referencedColumnNames: id
+            constraintName: fk_card_learner
+            onDelete: CASCADE
+        - sql:
+            sql: >-
+              UPDATE card
+              SET normalized_form = lower(trim(entry)), due_at = created_at
+              WHERE normalized_form IS NULL OR due_at IS NULL
+        - addNotNullConstraint:
+            tableName: card
+            columnName: normalized_form
+            columnDataType: varchar(255)
+        - addNotNullConstraint:
+            tableName: card
+            columnName: due_at
+            columnDataType: timestamp with time zone
+        - createIndex:
+            tableName: card
+            indexName: idx_card_review_queue
+            columns:
+              - column: { name: learner_id }
+              - column: { name: language }
+              - column: { name: leech }
+              - column: { name: due_at }
+        - createTable:
+            tableName: learning_item_intent
+            columns:
+              - column: { name: learning_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: intent, type: varchar(32), constraints: { nullable: false } }
+        - addPrimaryKey:
+            tableName: learning_item_intent
+            columnNames: learning_item_id, intent
+            constraintName: pk_learning_item_intent
+        - addForeignKeyConstraint:
+            baseTableName: learning_item_intent
+            baseColumnNames: learning_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_learning_item_intent_item
+            onDelete: CASCADE
+        - sql:
+            sql: >-
+              INSERT INTO learning_item_intent (learning_item_id, intent)
+              SELECT id, 'UNDERSTAND' FROM card
+              ON CONFLICT DO NOTHING
+        - createTable:
+            tableName: review_prompt
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: learning_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: intent, type: varchar(32), constraints: { nullable: false } }
+              - column: { name: prompt_type, type: varchar(32), constraints: { nullable: false } }
+              - column: { name: prompt_text, type: text, constraints: { nullable: false } }
+              - column: { name: expected_answer, type: text, constraints: { nullable: false } }
+              - column: { name: position, type: int, constraints: { nullable: false } }
+              - column: { name: active, type: boolean, defaultValueBoolean: true, constraints: { nullable: false } }
+        - addForeignKeyConstraint:
+            baseTableName: review_prompt
+            baseColumnNames: learning_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_review_prompt_item
+            onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: review_prompt
+            columnNames: learning_item_id, intent, prompt_type, position
+            constraintName: uq_review_prompt_rotation
+        - createTable:
+            tableName: confusion_edge
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: owner_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: source_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: target_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: confusion_count, type: int, defaultValueNumeric: 1, constraints: { nullable: false } }
+              - column: { name: resolved_count, type: int, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: last_confused_at, type: timestamp with time zone, constraints: { nullable: false } }
+        - addUniqueConstraint:
+            tableName: confusion_edge
+            columnNames: owner_id, source_item_id, target_item_id
+            constraintName: uq_confusion_edge_direction
+        - addForeignKeyConstraint:
+            baseTableName: confusion_edge
+            baseColumnNames: owner_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_confusion_edge_owner
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: confusion_edge
+            baseColumnNames: source_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_confusion_edge_source
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: confusion_edge
+            baseColumnNames: target_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_confusion_edge_target
+            onDelete: CASCADE
+        - createTable:
+            tableName: review_session
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: owner_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: language, type: varchar(10), constraints: { nullable: false } }
+              - column: { name: created_at, type: timestamp with time zone, constraints: { nullable: false } }
+              - column: { name: completed_at, type: timestamp with time zone }
+        - addForeignKeyConstraint:
+            baseTableName: review_session
+            baseColumnNames: owner_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_review_session_owner
+            onDelete: CASCADE
+        - createTable:
+            tableName: review_session_item
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: session_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: learning_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: position, type: int, constraints: { nullable: false } }
+              - column: { name: completed_at, type: timestamp with time zone }
+              - column: { name: review_event_id, type: uuid }
+        - addUniqueConstraint:
+            tableName: review_session_item
+            columnNames: session_id, learning_item_id
+            constraintName: uq_review_session_item
+        - addForeignKeyConstraint:
+            baseTableName: review_session_item
+            baseColumnNames: session_id
+            referencedTableName: review_session
+            referencedColumnNames: id
+            constraintName: fk_review_session_item_session
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: review_session_item
+            baseColumnNames: learning_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_review_session_item_item
+            onDelete: CASCADE
+        - sql:
+            splitStatements: false
+            sql: |
+              CREATE TABLE review_event (
+                  id uuid NOT NULL,
+                  reviewed_at timestamptz NOT NULL,
+                  learning_item_id uuid NOT NULL REFERENCES card(id) ON DELETE CASCADE,
+                  owner_id uuid NOT NULL REFERENCES user_core(id) ON DELETE CASCADE,
+                  session_id uuid REFERENCES review_session(id) ON DELETE SET NULL,
+                  intent varchar(32) NOT NULL,
+                  prompt_type varchar(32) NOT NULL,
+                  prompt_id uuid REFERENCES review_prompt(id) ON DELETE SET NULL,
+                  answer text NOT NULL,
+                  expected_answer text NOT NULL,
+                  outcome varchar(32) NOT NULL,
+                  hints_opened varchar(255) NOT NULL DEFAULT '',
+                  confused_with_item_id uuid REFERENCES card(id) ON DELETE SET NULL,
+                  corrects_event_id uuid,
+                  fsrs_card_before text,
+                  fsrs_card_after text,
+                  due_before timestamptz NOT NULL,
+                  due_after timestamptz NOT NULL,
+                  PRIMARY KEY (id, reviewed_at)
+              ) PARTITION BY RANGE (reviewed_at);
+              CREATE TABLE review_event_default PARTITION OF review_event DEFAULT;
+              CREATE INDEX idx_review_event_item_time ON review_event (learning_item_id, reviewed_at DESC);
+              CREATE INDEX idx_review_event_owner_time ON review_event (owner_id, reviewed_at DESC);
+              CREATE UNIQUE INDEX uq_review_event_identity ON review_event (id, reviewed_at);
+  - changeSet:
+      id: 20260823-learning-item-review-event-comments
+      author: codex
+      changes:
+        - sql:
+            splitStatements: false
+            sql: |
+              COMMENT ON TABLE card IS 'Physical compatibility table for the LearningItem aggregate during expand/contract migration';
+              COMMENT ON TABLE review_event IS 'Append-only review evidence, range partitioned by reviewed_at';

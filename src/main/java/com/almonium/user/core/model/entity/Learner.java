@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.card.core.model.entity.Card;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
 import com.almonium.util.uuid.UuidV7;
@@ -55,7 +55,7 @@ public class Learner {
 
     @Builder.Default
     @OneToMany(mappedBy = "owner")
-    List<Card> cards = new ArrayList<>();
+    List<LearningItem> learningItems = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "learner")
@@ -72,10 +72,10 @@ public class Learner {
     @Builder.Default
     boolean active = true;
 
-    public void addCard(Card card) {
-        if (card != null) {
-            this.cards.add(card);
-            card.setOwner(this);
+    public void addLearningItem(LearningItem learningItem) {
+        if (learningItem != null) {
+            this.learningItems.add(learningItem);
+            learningItem.setOwner(this);
         }
     }
 
