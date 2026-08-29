@@ -101,7 +101,7 @@ diagnose → re-encounter.
 |---|------|--------|-------|
 | 2.1 | Server-rendered public parallel-text pages | L | An Angular SPA will not rank. Static-generate or SSR these. One page per book, one per chapter. Full text, no login wall. This is your only acquisition channel that scales without you. |
 | 2.2 | Sitemap, canonical URLs, schema.org Book markup | S | |
-| 2.3 | Auto-generated "N most useful words in *Book*" pages | M | Falls out of your pipeline for free. Separate long-tail SEO surface, shareable artifact. |
+| 2.3 | Auto-generated “50 useful words from *Book*” pages | M | The Python processor publishes a versioned artifact containing ranked lemmas, counts, chapter dispersion, `wordfreq` provenance, and source occurrences. The backend stores/serves the projection and owns the SSR SEO route; it must not independently tokenize the book or recalculate frequency. |
 | 2.4 | Shareable/forkable word packs with public preview | M | Recipient previews without an account, imports selected items. Acquisition loop that needs no social graph. |
 | 2.5 | Study-buddy pairing on top of existing chat | M | Two people learning the same language, sharing packs, seeing each other's progress. Highest-retention social configuration and it needs density of two, not thousands. |
 | 2.6 | Book pipeline: switch source to Standard Ebooks where available | M | Consistently structured, modern typography, US public domain. Far less per-book special-casing than raw Gutenberg HTML. |
@@ -115,6 +115,27 @@ diagnose → re-encounter.
 | 2.14 | Localized (PPP) price overrides in Paddle | S | UA/CEE at 40–60% of EU/US. |
 | 2.15 | Fair-use limits expressed in user-visible units | M | Lookups, imports, story generations. Not tokens. |
 | 2.16 | Credit-gated custom book import | L | The only genuinely expensive per-user feature. Client-side EPUB parsing (epub.js), user rights attestation, private-only, no sharing, takedown process. |
+
+### Book-derived artifact boundary
+
+A normalized original book is independently readable and publishable. It does
+not wait for translations, alignment, summaries, quizzes, or lexical
+enrichment. Those arrive asynchronously as separately versioned artifacts or
+derived editions.
+
+The Python book processor owns book-wide tokenization, lemmatization,
+`wordfreq` lookup, source-text QA, difficulty estimation, and generation. This
+backend owns authorization, the reader-facing projection, public API, and SSR
+SEO pages. Integration is an explicit HTTP or messaging contract carrying
+artifact kind, schema version, normalized-content input hash, processor/model
+version, prompt version where applicable, and structured payload. Do not send
+raw Python model objects across this boundary and do not implement a second
+lexical pipeline in Java.
+
+The first published artifact is `useful_words`: up to 50 recurring,
+learner-useful, moderately uncommon lemmas with evidence from the book. The
+literal rarest strings are intentionally excluded because they are dominated
+by names, OCR/import defects, obsolete one-offs, and poor learning targets.
 
 ---
 
