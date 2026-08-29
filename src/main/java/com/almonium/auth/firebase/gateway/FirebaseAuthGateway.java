@@ -15,6 +15,8 @@ public interface FirebaseAuthGateway {
 
     List<FirebaseAuthProvider> getAuthProviders(String firebaseUid);
 
+    boolean accountExistsByEmail(String email);
+
     Optional<String> generatePasswordResetLink(String email, String continueUrl);
 
     String generateEmailVerificationLink(String email, String continueUrl);

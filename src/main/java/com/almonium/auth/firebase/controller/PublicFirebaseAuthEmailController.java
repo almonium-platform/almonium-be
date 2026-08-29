@@ -1,12 +1,17 @@
 package com.almonium.auth.firebase.controller;
 
+import com.almonium.auth.firebase.dto.EmailAccountResponse;
 import com.almonium.auth.firebase.dto.EmailAddressRequest;
 import com.almonium.auth.firebase.dto.FirebaseSessionRequest;
+import com.almonium.auth.firebase.service.AccountLookupRateLimiter;
+import com.almonium.auth.firebase.service.FirebaseAccountLookupService;
 import com.almonium.auth.firebase.service.FirebaseAuthEmailService;
 import com.almonium.auth.firebase.service.PendingEmailChangeService;
 import com.almonium.util.dto.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class PublicFirebaseAuthEmailController {
     private final FirebaseAuthEmailService firebaseAuthEmailService;
     private final PendingEmailChangeService pendingEmailChangeService;
+    private final FirebaseAccountLookupService firebaseAccountLookupService;
+    private final AccountLookupRateLimiter accountLookupRateLimiter;
+
+    @PostMapping("/email-accounts")
+    public ResponseEntity<EmailAccountResponse> lookupEmailAccount(
+            @Valid @RequestBody EmailAddressRequest request, HttpServletRequest httpRequest) {
+        if (!accountLookupRateLimiter.tryAcquire(httpRequest.getRemoteAddr())) {
+            return ResponseEntity.status(429).header("Retry-After", "60").build();
+        }
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.noStore())
+                .body(new EmailAccountResponse(firebaseAccountLookupService.accountExists(request.email())));
+    }
 
     @PostMapping("/email-verification")
     public ResponseEntity<Void> sendEmailVerification(@Valid @RequestBody FirebaseSessionRequest request) {

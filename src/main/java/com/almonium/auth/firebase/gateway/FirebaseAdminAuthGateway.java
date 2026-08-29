@@ -78,6 +78,21 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
     }
 
     @Override
+    public boolean accountExistsByEmail(String email) {
+        try {
+            firebaseAuth.getUserByEmail(email);
+            return true;
+        } catch (FirebaseAuthException exception) {
+            if (exception.getAuthErrorCode() == AuthErrorCode.USER_NOT_FOUND) {
+                return false;
+            }
+            throw new FirebaseIdentityManagementException("Unable to look up Firebase account", exception);
+        } catch (IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException("Unable to look up Firebase account", exception);
+        }
+    }
+
+    @Override
     public Optional<String> generatePasswordResetLink(String email, String continueUrl) {
         try {
             return Optional.of(firebaseAuth.generatePasswordResetLink(email, actionCodeSettings(continueUrl)));

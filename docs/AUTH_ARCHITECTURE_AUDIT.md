@@ -35,6 +35,10 @@ custom authentication platform.
   Firebase one-time codes to Almonium's custom action pages; email changes use an
   Almonium one-time pending-address token because Firebase Admin has no equivalent
   server-side verify-before-change link generator.
+- The browser's email-first login flow uses `POST /public/auth/email-accounts`
+  to choose between password sign-in and account creation. Because the response
+  necessarily reveals account existence, the endpoint is limited to ten lookups
+  per client address per rolling minute and its in-memory limiter is bounded.
 - The existing Firebase service account is reused for Admin Auth and
   `GOOGLE_PROJECT_ID` is configured explicitly; no provider secret is stored in
   this backend.

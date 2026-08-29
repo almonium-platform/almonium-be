@@ -37,6 +37,11 @@ public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
     }
 
     @Override
+    public boolean accountExistsByEmail(String email) {
+        throw unavailable();
+    }
+
+    @Override
     public Optional<String> generatePasswordResetLink(String email, String continueUrl) {
         throw unavailable();
     }
