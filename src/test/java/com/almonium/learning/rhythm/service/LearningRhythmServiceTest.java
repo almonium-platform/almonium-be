@@ -54,7 +54,7 @@ class LearningRhythmServiceTest {
     @DisplayName("Should return fourteen Monday-aligned weeks ending with the week in progress")
     @Test
     void givenNoActivity_whenGetRhythm_thenBandCoversFourteenWeeksEndingToday() {
-        givenLearners(learner(Language.DE, 3, true));
+        givenLearners(learner(Language.DE, 2, true));
         givenActivity();
 
         List<RhythmWeek> weeks =
@@ -89,7 +89,7 @@ class LearningRhythmServiceTest {
     @DisplayName("Should judge each language against its own bar")
     @Test
     void givenDifferentTargetsPerLanguage_whenGetRhythm_thenEachIsJudgedSeparately() {
-        givenLearners(learner(Language.DE, 2, true), learner(Language.ES, 5, true));
+        givenLearners(learner(Language.DE, 2, true), learner(Language.ES, 4, true));
         givenActivity(
                 day(Language.DE, MONDAY, 900),
                 day(Language.DE, MONDAY.plusDays(1), 900),
@@ -107,7 +107,7 @@ class LearningRhythmServiceTest {
     @DisplayName("Should report when a language was taken up, so its weeks are counted from there")
     @Test
     void givenALanguageTakenUpRecently_whenGetRhythm_thenItsStartDateIsReported() {
-        Learner recent = learner(Language.DE, 3, true);
+        Learner recent = learner(Language.DE, 2, true);
         recent.setCreatedAt(TODAY.minusWeeks(4).atStartOfDay(ZoneOffset.UTC).toInstant());
         givenLearners(recent);
         givenActivity();
@@ -119,13 +119,59 @@ class LearningRhythmServiceTest {
     @DisplayName("Should keep a set-aside language's record, read-only")
     @Test
     void givenInactiveLearner_whenGetRhythm_thenTargetSurvivesButIsNotEditable() {
-        givenLearners(learner(Language.DE, 3, false));
+        givenLearners(learner(Language.DE, 2, false));
         givenActivity(day(Language.DE, MONDAY, 900));
 
         LanguageRhythm rhythm = onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY));
 
-        assertThat(rhythm.target()).isEqualTo(3);
+        assertThat(rhythm.target()).isEqualTo(2);
         assertThat(rhythm.editable()).isFalse();
+    }
+
+    @DisplayName("Should freeze the weeks since a language was set aside rather than count them as missed")
+    @Test
+    void givenALanguageSetAsideTwoWeeksAgo_whenGetRhythm_thenThoseWeeksAreFrozenNotMissed() {
+        Learner setAside = learner(Language.DE, 2, false);
+        setAside.setSetAsideAt(MONDAY.minusWeeks(2).atStartOfDay(ZoneOffset.UTC).toInstant());
+        givenLearners(setAside);
+        givenActivity(
+                day(Language.DE, MONDAY.minusWeeks(3), 900),
+                day(Language.DE, MONDAY.minusWeeks(3).plusDays(1), 900));
+
+        List<RhythmWeek> weeks =
+                onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).weeks();
+        RhythmWeek beforeSetAside = weeks.get(weeks.size() - 4);
+        RhythmWeek afterSetAside = weeks.getLast();
+
+        assertThat(beforeSetAside.frozen()).isFalse();
+        assertThat(beforeSetAside.met()).isTrue();
+        assertThat(afterSetAside.frozen()).isTrue();
+        assertThat(afterSetAside.met()).isFalse();
+    }
+
+    @DisplayName("Should report when a language was set aside, so the copy can name the date")
+    @Test
+    void givenASetAsideLanguage_whenGetRhythm_thenTheDateIsReported() {
+        Learner setAside = learner(Language.DE, 2, false);
+        setAside.setSetAsideAt(MONDAY.minusWeeks(2).atStartOfDay(ZoneOffset.UTC).toInstant());
+        givenLearners(setAside);
+        givenActivity();
+
+        assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).setAsideAt())
+                .isEqualTo(MONDAY.minusWeeks(2));
+    }
+
+    @DisplayName("Should stop accruing learning days once a language is set aside")
+    @Test
+    void givenASetAsideLanguage_whenRecordActivity_thenNothingIsWritten() {
+        Learner setAside = learner(Language.DE, 2, false);
+        when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.DE)).thenReturn(Optional.of(setAside));
+
+        learningRhythmService.recordActivity(
+                USER_ID, new LearningActivityRequest(ActivitySource.READ, Language.DE, 600, TODAY, false));
+
+        verify(learningDayRepository, never())
+                .accumulate(any(), any(), any(), anyString(), anyInt(), any(Boolean.class), anyInt());
     }
 
     @DisplayName("Should never judge a week when no target is set")
@@ -237,7 +283,7 @@ class LearningRhythmServiceTest {
 
     private void givenLearner(Language language) {
         when(learnerRepository.findByUserIdAndLanguage(USER_ID, language))
-                .thenReturn(Optional.of(learner(language, 3, true)));
+                .thenReturn(Optional.of(learner(language, 2, true)));
     }
 
     private void givenActivity(LearningDay... days) {

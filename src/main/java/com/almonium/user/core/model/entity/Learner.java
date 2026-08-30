@@ -79,8 +79,14 @@ public class Learner {
     Instant createdAt;
 
     /**
+     * When this language was set aside, so the weeks since can be frozen rather than counted as missed. Null while
+     * the language is active.
+     */
+    Instant setAsideAt;
+
+    /**
      * Days per week the learner asks of themselves in this language: {@code null} until they choose, {@code 0} for
-     * the deliberate "no target", otherwise 2, 3, 5 or 7.
+     * the deliberate "no target", otherwise 1, 2 or 4.
      */
     Integer weeklyTarget;
 

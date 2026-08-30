@@ -18,6 +18,7 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,6 +55,10 @@ public class LearnerService {
                 throw new BadUserRequestActionException("At least one target language must be active.");
             }
 
+            // The record freezes from the moment a language is set aside, and resumes when it is taken up again.
+            if (learner.isActive() != request.active()) {
+                learner.setSetAsideAt(request.active() ? null : Instant.now());
+            }
             learner.setActive(request.active());
             log.info("Learner {} is now {}.", learner.getId(), request.active() ? "active" : "inactive");
         }

@@ -60,7 +60,11 @@ public class LearningRhythmService {
         if (!met) {
             return;
         }
-        requireLearner(userId, request.language());
+        // A set-aside language stops accruing: due counts are facts about the deck, learning days are judgements
+        // about the person, and nothing is asked of a language with no editable target.
+        if (!requireLearner(userId, request.language()).isActive()) {
+            return;
+        }
         learningDayRepository.accumulate(
                 UuidCreator.getTimeOrderedEpoch(),
                 userId,
@@ -97,17 +101,22 @@ public class LearningRhythmService {
     private LanguageRhythm buildLanguageRhythm(
             Learner learner, Map<LocalDate, LearningDay> activity, LocalDate bandStart) {
         Integer target = learner.getWeeklyTarget();
+        LocalDate setAsideAt =
+                learner.getSetAsideAt() == null ? null : LocalDate.ofInstant(learner.getSetAsideAt(), ZoneOffset.UTC);
+        LocalDate frozenFrom = setAsideAt == null ? null : setAsideAt.with(DayOfWeek.MONDAY);
+
         List<RhythmWeek> weeks = new ArrayList<>(BAND_WEEKS);
         for (int week = 0; week < BAND_WEEKS; week++) {
-            weeks.add(buildWeek(bandStart.plusWeeks(week), activity, target));
+            weeks.add(buildWeek(bandStart.plusWeeks(week), activity, target, frozenFrom));
         }
         LocalDate startedAt = learner.getCreatedAt() == null
                 ? bandStart
                 : LocalDate.ofInstant(learner.getCreatedAt(), ZoneOffset.UTC);
-        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), startedAt, weeks);
+        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), startedAt, setAsideAt, weeks);
     }
 
-    private RhythmWeek buildWeek(LocalDate weekStart, Map<LocalDate, LearningDay> activity, Integer target) {
+    private RhythmWeek buildWeek(
+            LocalDate weekStart, Map<LocalDate, LearningDay> activity, Integer target, LocalDate frozenFrom) {
         List<RhythmDay> days = new ArrayList<>(7);
         int daysMet = 0;
         for (int offset = 0; offset < 7; offset++) {
@@ -119,8 +128,10 @@ public class LearningRhythmService {
             }
             days.add(new RhythmDay(date, day == null ? 0 : day.getSecondsLearned() / 60, met));
         }
-        boolean weekMet = target != null && target > 0 && daysMet >= target;
-        return new RhythmWeek(weekStart, daysMet, weekMet, days);
+        // A week the language was set aside for is neither met nor missed: nothing was asked of it.
+        boolean frozen = frozenFrom != null && !weekStart.isBefore(frozenFrom);
+        boolean weekMet = !frozen && target != null && target > 0 && daysMet >= target;
+        return new RhythmWeek(weekStart, daysMet, weekMet, frozen, days);
     }
 
     /**
