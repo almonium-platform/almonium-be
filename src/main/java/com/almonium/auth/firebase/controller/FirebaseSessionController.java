@@ -39,6 +39,16 @@ public class FirebaseSessionController {
         return ResponseEntity.ok(userService.buildUserInfoFromUser(user));
     }
 
+    @PostMapping("/reauth")
+    public ResponseEntity<UserInfo> reauthenticateSession(
+            @Valid @RequestBody FirebaseSessionRequest request,
+            @Auth FirebasePrincipal principal,
+            HttpServletResponse response) {
+        User user = userService.getById(principal.userId());
+        firebaseSessionService.reauthenticateSession(request.idToken(), principal, user, response);
+        return ResponseEntity.ok(userService.buildUserInfoFromUser(user));
+    }
+
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         cookieService.clear(response);

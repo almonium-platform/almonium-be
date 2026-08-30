@@ -49,6 +49,19 @@ public class FirebaseSessionService {
         return user;
     }
 
+    public void reauthenticateSession(
+            String idToken, FirebasePrincipal currentPrincipal, User currentUser, HttpServletResponse response) {
+        FirebaseIdentity identity = firebaseAuthGateway.verifyIdToken(idToken, true);
+        requireRecentAuthentication(identity);
+        if (!currentPrincipal.firebaseUid().equals(identity.uid())) {
+            throw new FirebaseAuthenticationException("Reauthentication must use the currently signed-in account");
+        }
+
+        String sessionCookie = firebaseAuthGateway.createSessionCookie(idToken, sessionLifetime());
+        cookieService.write(response, sessionCookie);
+        SecurityContextHolder.getContext().setAuthentication(authentication(identity, currentUser));
+    }
+
     public UsernamePasswordAuthenticationToken authentication(FirebaseIdentity identity, User user) {
         FirebasePrincipal principal = new FirebasePrincipal(
                 identity.uid(), user.getId(), identity.email(), identity.authenticatedAt(), identity.signInProvider());

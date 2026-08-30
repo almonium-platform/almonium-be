@@ -228,6 +228,52 @@ class FirebaseSecurityIntegrationTest {
     }
 
     @Test
+    void reauthenticationRefreshesOnlyTheCurrentUsersSession() throws Exception {
+        FirebaseIdentity staleIdentity = identity(Instant.now().minusSeconds(301));
+        FirebaseIdentity freshIdentity = identity(Instant.now());
+        when(firebaseAuthGateway.verifySessionCookie(SESSION_COOKIE, false)).thenReturn(staleIdentity);
+        when(firebaseAuthGateway.verifyIdToken(ID_TOKEN, true)).thenReturn(freshIdentity);
+        when(firebaseAuthGateway.createSessionCookie(ID_TOKEN, Duration.ofDays(7)))
+                .thenReturn(SESSION_COOKIE);
+        when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(user));
+        when(userService.getById(user.getId())).thenReturn(user);
+
+        mockMvc.perform(
+                        post("/auth/session/reauth")
+                                .with(org.springframework.security.test.web.servlet.request
+                                        .SecurityMockMvcRequestPostProcessors.csrf())
+                                .cookie(new Cookie(COOKIE_NAME, SESSION_COOKIE))
+                                .contentType("application/json")
+                                .content("{\"idToken\":\"" + ID_TOKEN + "\"}"))
+                .andExpect(status().isOk());
+
+        verify(firebaseAuthGateway).verifyIdToken(ID_TOKEN, true);
+        verify(firebaseAuthGateway).createSessionCookie(ID_TOKEN, Duration.ofDays(7));
+    }
+
+    @Test
+    void reauthenticationRejectsADifferentFirebaseIdentity() throws Exception {
+        FirebaseIdentity staleIdentity = identity(Instant.now().minusSeconds(301));
+        FirebaseIdentity otherIdentity =
+                new FirebaseIdentity("other-uid", "other@example.com", true, Instant.now(), "google.com");
+        when(firebaseAuthGateway.verifySessionCookie(SESSION_COOKIE, false)).thenReturn(staleIdentity);
+        when(firebaseAuthGateway.verifyIdToken(ID_TOKEN, true)).thenReturn(otherIdentity);
+        when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(user));
+        when(userService.getById(user.getId())).thenReturn(user);
+
+        mockMvc.perform(
+                        post("/auth/session/reauth")
+                                .with(org.springframework.security.test.web.servlet.request
+                                        .SecurityMockMvcRequestPostProcessors.csrf())
+                                .cookie(new Cookie(COOKIE_NAME, SESSION_COOKIE))
+                                .contentType("application/json")
+                                .content("{\"idToken\":\"" + ID_TOKEN + "\"}"))
+                .andExpect(status().isUnauthorized());
+
+        verify(firebaseAuthGateway, never()).createSessionCookie(any(), any(Duration.class));
+    }
+
+    @Test
     void provisioningCollisionReturnsConflictWithoutCreatingSessionCookie() throws Exception {
         FirebaseIdentity identity = identity(Instant.now());
         when(firebaseAuthGateway.verifyIdToken("id-token", true)).thenReturn(identity);

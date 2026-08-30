@@ -1,6 +1,7 @@
 package com.almonium.auth.firebase.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -73,6 +74,39 @@ class FirebaseSessionServiceTest {
                 .hasMessageContaining("Recent");
 
         verifyNoInteractions(provisioningService, cookieService, profileService);
+    }
+
+    @Test
+    void refreshesSessionOnlyForTheCurrentFirebaseIdentity() {
+        FirebaseIdentity identity = identity(Instant.now());
+        User user = User.builder().id(UUID.randomUUID()).build();
+        var principal = new com.almonium.auth.firebase.security.FirebasePrincipal(
+                "firebase-uid", user.getId(), "user@example.com", Instant.now().minusSeconds(600), "google.com");
+        when(gateway.verifyIdToken("id-token", true)).thenReturn(identity);
+        when(gateway.createSessionCookie("id-token", Duration.ofDays(7))).thenReturn("session-cookie");
+
+        service.reauthenticateSession("id-token", principal, user, response);
+
+        verify(cookieService).write(response, "session-cookie");
+        verifyNoInteractions(provisioningService, profileService);
+    }
+
+    @Test
+    void rejectsReauthenticationAsAnotherFirebaseIdentity() {
+        FirebaseIdentity identity =
+                new FirebaseIdentity("other-firebase-uid", "other@example.com", true, Instant.now(), "google.com");
+        User user = User.builder().id(UUID.randomUUID()).build();
+        var principal = new com.almonium.auth.firebase.security.FirebasePrincipal(
+                "firebase-uid", user.getId(), "user@example.com", Instant.now().minusSeconds(600), "google.com");
+        when(gateway.verifyIdToken("id-token", true)).thenReturn(identity);
+
+        assertThatThrownBy(() -> service.reauthenticateSession("id-token", principal, user, response))
+                .isInstanceOf(FirebaseAuthenticationException.class)
+                .hasMessageContaining("currently signed-in account");
+
+        verify(gateway, never())
+                .createSessionCookie(org.mockito.ArgumentMatchers.any(), org.mockito.ArgumentMatchers.any());
+        verifyNoInteractions(cookieService, provisioningService, profileService);
     }
 
     private FirebaseIdentity identity(Instant authTime) {

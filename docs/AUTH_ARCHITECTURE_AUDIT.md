@@ -15,6 +15,10 @@ custom authentication platform.
   Facebook remains disabled until its provider and business requirements are ready.
 - `POST /auth/session` exchanges a recently authenticated, verified Firebase ID
   token for a seven-day Secure, HttpOnly `firebaseSession` cookie.
+- `POST /auth/session/reauth` refreshes that cookie only when a fresh Firebase
+  ID token belongs to the same Firebase UID as the existing browser session.
+  This prevents a provider popup from switching identities while a sensitive
+  action is pending.
 - Native clients send their short-lived Firebase ID token as an
   `Authorization: Bearer` credential. Bearer requests are authenticated
   independently of browser cookies and are exempt from cookie-based CSRF
