@@ -2,10 +2,13 @@ package com.almonium.learning.rhythm.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,8 +27,9 @@ import lombok.experimental.FieldDefaults;
 /**
  * One calendar day, in the learner's own time zone, on which any learning happened.
  *
- * <p>A row exists only for days with activity. {@code met} is set by any completed learning event; the accumulated
- * seconds are texture for the rhythm band and never a threshold for whether the day counts.
+ * <p>A row exists only for days with activity, one per language, so the band can say which commitment was kept.
+ * {@code met} is set by any completed learning event; the accumulated seconds are texture for the rhythm band and
+ * never a threshold for whether the day counts.
  */
 @Entity
 @Getter
@@ -37,7 +41,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = PRIVATE)
 @Table(
         name = "learning_day",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "activity_date"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "activity_date", "language"})})
 public class LearningDay {
     @Id
     @UuidV7
@@ -49,6 +53,10 @@ public class LearningDay {
 
     @Column(name = "activity_date", nullable = false)
     LocalDate day;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    Language language;
 
     @Column(name = "seconds_learned", nullable = false)
     int secondsLearned;

@@ -1,17 +1,19 @@
 package com.almonium.learning.rhythm.service;
 
-import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.rhythm.dto.request.LearningActivityRequest;
+import com.almonium.learning.rhythm.dto.response.LanguageRhythm;
 import com.almonium.learning.rhythm.dto.response.RhythmDay;
 import com.almonium.learning.rhythm.dto.response.RhythmResponse;
 import com.almonium.learning.rhythm.dto.response.RhythmWeek;
 import com.almonium.learning.rhythm.model.LearningDay;
 import com.almonium.learning.rhythm.repository.LearningDayRepository;
-import com.almonium.user.core.model.entity.Profile;
-import com.almonium.user.core.repository.ProfileRepository;
+import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.repository.LearnerRepository;
 import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.DayOfWeek;
@@ -21,16 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * The harness: whether the learner cleared the bar they set for themselves, week by week.
+ * The harness: whether the learner cleared the bar they set for themselves, week by week, in one language.
  *
  * <p>Weeks are the unit, so a missed Tuesday is not a failure and nothing can be lost. A day counts as met on any
- * completed learning event, whatever it was; the minutes accumulated alongside are texture for the band's tint only.
+ * completed learning event, whatever it was; the accumulated seconds are texture for the band's tint only. The bar
+ * belongs to a language rather than to the account, so the band says which commitment was kept.
  */
 @Service
 @RequiredArgsConstructor
@@ -43,10 +47,11 @@ public class LearningRhythmService {
     /** A single report cannot claim more than this, however long a tab was left open. */
     static final int MAX_SECONDS_PER_REPORT = 600;
 
+    /** Spent across the whole account, so several languages do not buy several days' worth of hours. */
     static final int MAX_SECONDS_PER_DAY = 12 * 60 * 60;
 
     LearningDayRepository learningDayRepository;
-    ProfileRepository profileRepository;
+    LearnerRepository learnerRepository;
 
     @Transactional
     public void recordActivity(UUID userId, LearningActivityRequest request) {
@@ -55,10 +60,12 @@ public class LearningRhythmService {
         if (!met) {
             return;
         }
+        requireLearner(userId, request.language());
         learningDayRepository.accumulate(
                 UuidCreator.getTimeOrderedEpoch(),
                 userId,
                 resolveLocalDate(request.localDate()),
+                request.language().name(),
                 seconds,
                 true,
                 MAX_SECONDS_PER_DAY);
@@ -69,23 +76,32 @@ public class LearningRhythmService {
         LocalDate from = currentWeekStart.minusWeeks(BAND_WEEKS - 1L);
         LocalDate to = currentWeekStart.plusDays(6);
 
-        Map<LocalDate, LearningDay> activity =
+        Map<Language, Map<LocalDate, LearningDay>> activity =
                 learningDayRepository.findAllByUserIdAndDayBetweenOrderByDayAsc(userId, from, to).stream()
-                        .collect(toMap(LearningDay::getDay, identity()));
+                        .collect(groupingBy(LearningDay::getLanguage, toMap(LearningDay::getDay, Function.identity())));
 
-        Integer target = findProfile(userId).getWeeklyTarget();
-        List<RhythmWeek> weeks = new ArrayList<>(BAND_WEEKS);
-        for (int week = 0; week < BAND_WEEKS; week++) {
-            weeks.add(buildWeek(from.plusWeeks(week), activity, target));
-        }
-        return new RhythmResponse(target, weeks);
+        List<LanguageRhythm> languages = learnerRepository.findAllByUserIdOrderByLanguage(userId).stream()
+                .map(learner ->
+                        buildLanguageRhythm(learner, activity.getOrDefault(learner.getLanguage(), Map.of()), from))
+                .toList();
+        return new RhythmResponse(languages);
     }
 
     @Transactional
-    public void updateTarget(UUID userId, Integer target) {
-        Profile profile = findProfile(userId);
-        profile.setWeeklyTarget(target);
-        profileRepository.save(profile);
+    public void updateTarget(UUID userId, Language language, Integer target) {
+        Learner learner = requireLearner(userId, language);
+        learner.setWeeklyTarget(target);
+        learnerRepository.save(learner);
+    }
+
+    private LanguageRhythm buildLanguageRhythm(
+            Learner learner, Map<LocalDate, LearningDay> activity, LocalDate bandStart) {
+        Integer target = learner.getWeeklyTarget();
+        List<RhythmWeek> weeks = new ArrayList<>(BAND_WEEKS);
+        for (int week = 0; week < BAND_WEEKS; week++) {
+            weeks.add(buildWeek(bandStart.plusWeeks(week), activity, target));
+        }
+        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), weeks);
     }
 
     private RhythmWeek buildWeek(LocalDate weekStart, Map<LocalDate, LearningDay> activity, Integer target) {
@@ -116,9 +132,10 @@ public class LearningRhythmService {
         return claimed;
     }
 
-    private Profile findProfile(UUID userId) {
-        return profileRepository
-                .findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + userId));
+    /** A learner may only record time against a language they actually study. */
+    private Learner requireLearner(UUID userId, Language language) {
+        return learnerRepository
+                .findByUserIdAndLanguage(userId, language)
+                .orElseThrow(() -> new EntityNotFoundException("Learner not found for language: " + language));
     }
 }

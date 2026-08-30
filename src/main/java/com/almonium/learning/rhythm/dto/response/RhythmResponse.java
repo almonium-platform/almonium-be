@@ -3,7 +3,6 @@ package com.almonium.learning.rhythm.dto.response;
 import java.util.List;
 
 /**
- * @param target days per week the learner set: {@code null} when never chosen, {@code 0} for "no target"
- * @param weeks oldest first, ending with the week in progress
+ * @param languages one harness per language the learner studies, in language order
  */
-public record RhythmResponse(Integer target, List<RhythmWeek> weeks) {}
+public record RhythmResponse(List<LanguageRhythm> languages) {}

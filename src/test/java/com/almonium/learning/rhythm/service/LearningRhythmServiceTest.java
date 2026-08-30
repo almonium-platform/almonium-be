@@ -4,19 +4,22 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.rhythm.dto.request.LearningActivityRequest;
+import com.almonium.learning.rhythm.dto.response.LanguageRhythm;
 import com.almonium.learning.rhythm.dto.response.RhythmResponse;
 import com.almonium.learning.rhythm.dto.response.RhythmWeek;
 import com.almonium.learning.rhythm.model.ActivitySource;
 import com.almonium.learning.rhythm.model.LearningDay;
 import com.almonium.learning.rhythm.repository.LearningDayRepository;
-import com.almonium.user.core.model.entity.Profile;
-import com.almonium.user.core.repository.ProfileRepository;
+import com.almonium.user.core.model.entity.Learner;
+import com.almonium.user.core.repository.LearnerRepository;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -43,7 +46,7 @@ class LearningRhythmServiceTest {
     LearningDayRepository learningDayRepository;
 
     @Mock
-    ProfileRepository profileRepository;
+    LearnerRepository learnerRepository;
 
     @InjectMocks
     LearningRhythmService learningRhythmService;
@@ -51,62 +54,98 @@ class LearningRhythmServiceTest {
     @DisplayName("Should return fourteen Monday-aligned weeks ending with the week in progress")
     @Test
     void givenNoActivity_whenGetRhythm_thenBandCoversFourteenWeeksEndingToday() {
-        givenTarget(3);
+        givenLearners(learner(Language.DE, 3, true));
         givenActivity();
 
-        RhythmResponse rhythm = learningRhythmService.getRhythm(USER_ID, TODAY);
+        List<RhythmWeek> weeks =
+                onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).weeks();
 
-        assertThat(rhythm.weeks()).hasSize(14);
-        assertThat(rhythm.weeks()).allSatisfy(week -> {
+        assertThat(weeks).hasSize(14);
+        assertThat(weeks).allSatisfy(week -> {
             assertThat(week.weekStart().getDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
             assertThat(week.days()).hasSize(7);
         });
-        assertThat(rhythm.weeks().getLast().weekStart()).isEqualTo(MONDAY);
-        assertThat(rhythm.weeks().getFirst().weekStart()).isEqualTo(MONDAY.minusWeeks(13));
+        assertThat(weeks.getLast().weekStart()).isEqualTo(MONDAY);
+        assertThat(weeks.getFirst().weekStart()).isEqualTo(MONDAY.minusWeeks(13));
     }
 
-    @DisplayName("Should clear the week once the learner's own bar is reached")
+    @DisplayName("Should keep each language's days to its own band")
     @Test
-    void givenThreeDaysMetAgainstTargetOfThree_whenGetRhythm_thenWeekIsMet() {
-        givenTarget(3);
-        givenActivity(day(MONDAY, 1500), day(MONDAY.plusDays(1), 600), day(MONDAY.plusDays(2), 30));
+    void givenTwoLanguages_whenGetRhythm_thenDaysAreNotSharedBetweenThem() {
+        givenLearners(learner(Language.DE, 2, true), learner(Language.ES, 2, true));
+        givenActivity(
+                day(Language.DE, MONDAY, 1500),
+                day(Language.DE, MONDAY.plusDays(1), 900),
+                day(Language.ES, MONDAY, 600));
 
-        RhythmWeek week = currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY));
+        RhythmResponse rhythm = learningRhythmService.getRhythm(USER_ID, TODAY);
 
-        assertThat(week.daysMet()).isEqualTo(3);
-        assertThat(week.met()).isTrue();
+        assertThat(currentWeek(rhythm, Language.DE).daysMet()).isEqualTo(2);
+        assertThat(currentWeek(rhythm, Language.DE).met()).isTrue();
+        assertThat(currentWeek(rhythm, Language.ES).daysMet()).isEqualTo(1);
+        assertThat(currentWeek(rhythm, Language.ES).met()).isFalse();
+    }
+
+    @DisplayName("Should judge each language against its own bar")
+    @Test
+    void givenDifferentTargetsPerLanguage_whenGetRhythm_thenEachIsJudgedSeparately() {
+        givenLearners(learner(Language.DE, 2, true), learner(Language.ES, 5, true));
+        givenActivity(
+                day(Language.DE, MONDAY, 900),
+                day(Language.DE, MONDAY.plusDays(1), 900),
+                day(Language.ES, MONDAY, 900),
+                day(Language.ES, MONDAY.plusDays(1), 900));
+
+        assertThat(currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY), Language.DE)
+                        .met())
+                .isTrue();
+        assertThat(currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY), Language.ES)
+                        .met())
+                .isFalse();
+    }
+
+    @DisplayName("Should keep a set-aside language's record, read-only")
+    @Test
+    void givenInactiveLearner_whenGetRhythm_thenTargetSurvivesButIsNotEditable() {
+        givenLearners(learner(Language.DE, 3, false));
+        givenActivity(day(Language.DE, MONDAY, 900));
+
+        LanguageRhythm rhythm = onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY));
+
+        assertThat(rhythm.target()).isEqualTo(3);
+        assertThat(rhythm.editable()).isFalse();
     }
 
     @DisplayName("Should never judge a week when no target is set")
     @Test
     void givenNoTarget_whenGetRhythm_thenWeekIsNeverMet() {
-        givenTarget(null);
-        givenActivity(day(MONDAY, 1500), day(MONDAY.plusDays(1), 600), day(MONDAY.plusDays(2), 900));
+        givenLearners(learner(Language.DE, null, true));
+        givenActivity(day(Language.DE, MONDAY, 1500), day(Language.DE, MONDAY.plusDays(1), 600));
 
-        RhythmWeek week = currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY));
+        RhythmWeek week = currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY), Language.DE);
 
-        assertThat(week.daysMet()).isEqualTo(3);
+        assertThat(week.daysMet()).isEqualTo(2);
         assertThat(week.met()).isFalse();
     }
 
     @DisplayName("Should treat an explicit no-target as a legitimate choice rather than an unreachable bar")
     @Test
     void givenNoTargetChosen_whenGetRhythm_thenWeekIsNotMet() {
-        givenTarget(0);
-        givenActivity(day(MONDAY, 1500));
+        givenLearners(learner(Language.DE, 0, true));
+        givenActivity(day(Language.DE, MONDAY, 1500));
 
-        assertThat(currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY)).met())
+        assertThat(currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY), Language.DE)
+                        .met())
                 .isFalse();
     }
 
     @DisplayName("Should report minutes as texture, leaving a sub-minute day met all the same")
     @Test
     void givenShortAndLongDays_whenGetRhythm_thenMinutesAreReportedWithoutAffectingMet() {
-        givenTarget(2);
-        givenActivity(day(MONDAY, 30), day(MONDAY.plusDays(1), 1500));
+        givenLearners(learner(Language.DE, 2, true));
+        givenActivity(day(Language.DE, MONDAY, 30), day(Language.DE, MONDAY.plusDays(1), 1500));
 
-        List<RhythmWeek> weeks = learningRhythmService.getRhythm(USER_ID, TODAY).weeks();
-        RhythmWeek week = weeks.getLast();
+        RhythmWeek week = currentWeek(learningRhythmService.getRhythm(USER_ID, TODAY), Language.DE);
 
         assertThat(week.days().getFirst().minutes()).isZero();
         assertThat(week.days().getFirst().met()).isTrue();
@@ -117,45 +156,76 @@ class LearningRhythmServiceTest {
     @DisplayName("Should cap a single report so a forgotten tab cannot claim a deep day")
     @Test
     void givenAnImplausiblyLongReport_whenRecordActivity_thenSecondsAreCapped() {
+        givenLearner(Language.DE);
+
         learningRhythmService.recordActivity(
-                USER_ID, new LearningActivityRequest(ActivitySource.READ, 3600, TODAY, false));
+                USER_ID, new LearningActivityRequest(ActivitySource.READ, Language.DE, 3600, TODAY, false));
 
         ArgumentCaptor<Integer> seconds = ArgumentCaptor.forClass(Integer.class);
-        verify(learningDayRepository).accumulate(any(), eq(USER_ID), eq(TODAY), seconds.capture(), eq(true), anyInt());
+        verify(learningDayRepository)
+                .accumulate(any(), eq(USER_ID), eq(TODAY), eq("DE"), seconds.capture(), eq(true), anyInt());
         assertThat(seconds.getValue()).isEqualTo(LearningRhythmService.MAX_SECONDS_PER_REPORT);
+    }
+
+    @DisplayName("Should spend the daily cap across the account rather than per language")
+    @Test
+    void whenRecordActivity_thenTheDailyCapIsTheAccountWideOne() {
+        givenLearner(Language.DE);
+
+        learningRhythmService.recordActivity(
+                USER_ID, new LearningActivityRequest(ActivitySource.READ, Language.DE, 60, TODAY, false));
+
+        verify(learningDayRepository)
+                .accumulate(
+                        any(),
+                        eq(USER_ID),
+                        eq(TODAY),
+                        eq("DE"),
+                        eq(60),
+                        eq(true),
+                        eq(LearningRhythmService.MAX_SECONDS_PER_DAY));
     }
 
     @DisplayName("Should mark the day met on a completed event that carried no measured time")
     @Test
     void givenCompletedEventWithoutSeconds_whenRecordActivity_thenDayIsMarkedMet() {
-        learningRhythmService.recordActivity(
-                USER_ID, new LearningActivityRequest(ActivitySource.REVIEW, 0, TODAY, true));
+        givenLearner(Language.DE);
 
-        verify(learningDayRepository).accumulate(any(), eq(USER_ID), eq(TODAY), eq(0), eq(true), anyInt());
+        learningRhythmService.recordActivity(
+                USER_ID, new LearningActivityRequest(ActivitySource.REVIEW, Language.DE, 0, TODAY, true));
+
+        verify(learningDayRepository).accumulate(any(), eq(USER_ID), eq(TODAY), eq("DE"), eq(0), eq(true), anyInt());
     }
 
     @DisplayName("Should ignore a report that carries neither time nor a completed event")
     @Test
     void givenEmptyReport_whenRecordActivity_thenNothingIsWritten() {
         learningRhythmService.recordActivity(
-                USER_ID, new LearningActivityRequest(ActivitySource.PLAY, 0, TODAY, false));
+                USER_ID, new LearningActivityRequest(ActivitySource.PLAY, Language.DE, 0, TODAY, false));
 
-        verify(learningDayRepository, never()).accumulate(any(), any(), any(), anyInt(), any(Boolean.class), anyInt());
+        verify(learningDayRepository, never())
+                .accumulate(any(), any(), any(), anyString(), anyInt(), any(Boolean.class), anyInt());
     }
 
     @DisplayName("Should fall back to the server's date when the client claims one no time zone could produce")
     @Test
     void givenImplausibleClientDate_whenRecordActivity_thenServerDateIsUsed() {
-        learningRhythmService.recordActivity(
-                USER_ID, new LearningActivityRequest(ActivitySource.READ, 60, LocalDate.of(2020, 1, 1), false));
+        givenLearner(Language.DE);
 
-        verify(learningDayRepository).accumulate(any(), eq(USER_ID), eq(TODAY), eq(60), eq(true), anyInt());
+        learningRhythmService.recordActivity(
+                USER_ID,
+                new LearningActivityRequest(ActivitySource.READ, Language.DE, 60, LocalDate.of(2020, 1, 1), false));
+
+        verify(learningDayRepository).accumulate(any(), eq(USER_ID), eq(TODAY), eq("DE"), eq(60), eq(true), anyInt());
     }
 
-    private void givenTarget(Integer target) {
-        Profile profile = new Profile();
-        profile.setWeeklyTarget(target);
-        when(profileRepository.findById(USER_ID)).thenReturn(Optional.of(profile));
+    private void givenLearners(Learner... learners) {
+        when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID)).thenReturn(List.of(learners));
+    }
+
+    private void givenLearner(Language language) {
+        when(learnerRepository.findByUserIdAndLanguage(USER_ID, language))
+                .thenReturn(Optional.of(learner(language, 3, true)));
     }
 
     private void givenActivity(LearningDay... days) {
@@ -163,16 +233,35 @@ class LearningRhythmServiceTest {
                 .thenReturn(List.of(days));
     }
 
-    private LearningDay day(LocalDate date, int seconds) {
+    private Learner learner(Language language, Integer target, boolean active) {
+        Learner learner = new Learner();
+        learner.setLanguage(language);
+        learner.setWeeklyTarget(target);
+        learner.setActive(active);
+        return learner;
+    }
+
+    private LearningDay day(Language language, LocalDate date, int seconds) {
         return LearningDay.builder()
                 .id(UUID.randomUUID())
+                .language(language)
                 .day(date)
                 .secondsLearned(seconds)
                 .met(true)
                 .build();
     }
 
-    private RhythmWeek currentWeek(RhythmResponse rhythm) {
-        return rhythm.weeks().getLast();
+    private LanguageRhythm onlyLanguage(RhythmResponse rhythm) {
+        assertThat(rhythm.languages()).hasSize(1);
+        return rhythm.languages().getFirst();
+    }
+
+    private RhythmWeek currentWeek(RhythmResponse rhythm, Language language) {
+        return rhythm.languages().stream()
+                .filter(entry -> entry.language() == language)
+                .findFirst()
+                .orElseThrow()
+                .weeks()
+                .getLast();
     }
 }

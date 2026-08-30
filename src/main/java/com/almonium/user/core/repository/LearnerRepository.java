@@ -16,6 +16,8 @@ public interface LearnerRepository extends JpaRepository<Learner, UUID> {
 
     Optional<Learner> findByUserIdAndLanguage(UUID userId, Language language);
 
+    List<Learner> findAllByUserIdOrderByLanguage(UUID userId);
+
     @Query("select count(l) from Learner l where l.user.id = :userId")
     int countLearnersByUserId(UUID userId);
 

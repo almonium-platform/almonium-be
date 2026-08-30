@@ -40,7 +40,7 @@ public class LearningRhythmController {
 
     @PutMapping("/rhythm/target")
     public ResponseEntity<Void> updateTarget(@Valid @RequestBody RhythmTargetRequest request, @Auth UUID userId) {
-        learningRhythmService.updateTarget(userId, request.target());
+        learningRhythmService.updateTarget(userId, request.language(), request.target());
         return ResponseEntity.noContent().build();
     }
 

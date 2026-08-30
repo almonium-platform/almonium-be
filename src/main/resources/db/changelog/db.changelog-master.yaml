@@ -112,3 +112,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260823-add-learning-item-review.yaml
   - include:
       file: db/changelog/changes/patches/20260830-add-learning-rhythm.yaml
+  - include:
+      file: db/changelog/changes/patches/20260830-scope-rhythm-per-language.yaml

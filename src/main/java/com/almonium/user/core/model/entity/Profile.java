@@ -57,12 +57,6 @@ public class Profile {
     @Builder.Default // todo: rename to loginStreak
     int streak = 0;
 
-    /**
-     * Days per week the learner asks of themselves: {@code null} until they choose, {@code 0} for the deliberate
-     * "no target", otherwise 2, 3, 5 or 7.
-     */
-    Integer weeklyTarget;
-
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> uiPreferences;
 }

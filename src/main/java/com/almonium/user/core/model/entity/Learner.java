@@ -69,6 +69,12 @@ public class Learner {
     @OneToMany(mappedBy = "recipient")
     List<CardSuggestion> incomingSuggestions = new ArrayList<>();
 
+    /**
+     * Days per week the learner asks of themselves in this language: {@code null} until they choose, {@code 0} for
+     * the deliberate "no target", otherwise 2, 3, 5 or 7.
+     */
+    Integer weeklyTarget;
+
     @Builder.Default
     boolean active = true;
 
