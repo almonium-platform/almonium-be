@@ -104,6 +104,18 @@ class LearningRhythmServiceTest {
                 .isFalse();
     }
 
+    @DisplayName("Should report when a language was taken up, so its weeks are counted from there")
+    @Test
+    void givenALanguageTakenUpRecently_whenGetRhythm_thenItsStartDateIsReported() {
+        Learner recent = learner(Language.DE, 3, true);
+        recent.setCreatedAt(TODAY.minusWeeks(4).atStartOfDay(ZoneOffset.UTC).toInstant());
+        givenLearners(recent);
+        givenActivity();
+
+        assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).startedAt())
+                .isEqualTo(TODAY.minusWeeks(4));
+    }
+
     @DisplayName("Should keep a set-aside language's record, read-only")
     @Test
     void givenInactiveLearner_whenGetRhythm_thenTargetSurvivesButIsNotEditable() {
@@ -238,6 +250,7 @@ class LearningRhythmServiceTest {
         learner.setLanguage(language);
         learner.setWeeklyTarget(target);
         learner.setActive(active);
+        learner.setCreatedAt(TODAY.minusWeeks(30).atStartOfDay(ZoneOffset.UTC).toInstant());
         return learner;
     }
 

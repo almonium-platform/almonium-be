@@ -101,7 +101,10 @@ public class LearningRhythmService {
         for (int week = 0; week < BAND_WEEKS; week++) {
             weeks.add(buildWeek(bandStart.plusWeeks(week), activity, target));
         }
-        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), weeks);
+        LocalDate startedAt = learner.getCreatedAt() == null
+                ? bandStart
+                : LocalDate.ofInstant(learner.getCreatedAt(), ZoneOffset.UTC);
+        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), startedAt, weeks);
     }
 
     private RhythmWeek buildWeek(LocalDate weekStart, Map<LocalDate, LearningDay> activity, Integer target) {

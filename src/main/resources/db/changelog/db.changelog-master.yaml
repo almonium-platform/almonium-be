@@ -114,3 +114,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260830-add-learning-rhythm.yaml
   - include:
       file: db/changelog/changes/patches/20260830-scope-rhythm-per-language.yaml
+  - include:
+      file: db/changelog/changes/patches/20260830-record-learner-start.yaml
