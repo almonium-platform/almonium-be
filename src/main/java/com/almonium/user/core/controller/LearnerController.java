@@ -39,10 +39,9 @@ public class LearnerController {
     }
 
     @PatchMapping("/{code}")
-    public ResponseEntity<Void> updateLearner(
+    public ResponseEntity<LearnerDto> updateLearner(
             @PathVariable Language code, @Auth UUID userId, @RequestBody UpdateLearnerRequest request) {
-        learnerService.updateLearner(userId, code, request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(learnerService.updateLearner(userId, code, request));
     }
 
     @DeleteMapping("/{code}")

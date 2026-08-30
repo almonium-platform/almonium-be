@@ -15,6 +15,7 @@ import com.almonium.card.core.service.CardService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
+import com.almonium.user.core.dto.request.UpdateLearnerRequest;
 import com.almonium.user.core.dto.response.LearnerDto;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
@@ -66,6 +67,34 @@ class LearnerServiceTest {
 
     @InjectMocks
     LearnerService learnerService;
+
+    @DisplayName("Returns the persisted learner after updating its CEFR level")
+    @Test
+    void givenLearner_whenUpdateLevel_thenReturnsPersistedLearner() {
+        UUID userId = UUID.randomUUID();
+        Learner learner = Learner.builder()
+                .id(UUID.randomUUID())
+                .language(Language.DE)
+                .selfReportedLevel(CEFR.A1)
+                .active(true)
+                .build();
+        LearnerDto savedLearner = LearnerDto.builder()
+                .id(learner.getId())
+                .language(Language.DE)
+                .selfReportedLevel(CEFR.B2)
+                .active(true)
+                .build();
+
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.DE)).thenReturn(Optional.of(learner));
+        when(learnerRepository.save(learner)).thenReturn(learner);
+        when(learnerMapper.toDto(learner)).thenReturn(savedLearner);
+
+        LearnerDto result = learnerService.updateLearner(userId, Language.DE, new UpdateLearnerRequest(null, CEFR.B2));
+
+        assertThat(learner.getSelfReportedLevel()).isEqualTo(CEFR.B2);
+        assertThat(result).isEqualTo(savedLearner);
+        verify(learnerRepository).save(learner);
+    }
 
     @DisplayName("Should add multiple target languages when replacing existing ones")
     @Test

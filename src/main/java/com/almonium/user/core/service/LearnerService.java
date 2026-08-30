@@ -43,7 +43,7 @@ public class LearnerService {
     LearnerMapper learnerMapper;
     ApplicationEventPublisher eventPublisher;
 
-    public void updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
+    public LearnerDto updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
         var learner = learnerRepository
                 .findByUserIdAndLanguage(userId, code)
                 .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
@@ -63,7 +63,7 @@ public class LearnerService {
             log.info("Learner {} CEFR level updated to {}.", learner.getId(), request.level());
         }
 
-        learnerRepository.save(learner);
+        return learnerMapper.toDto(learnerRepository.save(learner));
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
