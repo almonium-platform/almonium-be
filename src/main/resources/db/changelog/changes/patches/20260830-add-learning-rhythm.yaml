@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260830-add-learning-rhythm
+      author: claude
+      changes:
+        - addColumn:
+            tableName: profile
+            columns:
+              - column: { name: weekly_target, type: int }
+        - createTable:
+            tableName: learning_day
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: user_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: activity_date, type: date, constraints: { nullable: false } }
+              - column: { name: seconds_learned, type: int, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: met, type: boolean, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addForeignKeyConstraint:
+            baseTableName: learning_day
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_learning_day_user
+            onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: learning_day
+            columnNames: user_id, activity_date
+            constraintName: uq_learning_day_user_date

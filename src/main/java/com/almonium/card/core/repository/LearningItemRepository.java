@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LearningItemRepository extends JpaRepository<LearningItem, UUID> {
     List<LearningItem> findAllByOwner(Learner owner);
 
+    long countByOwner(Learner owner);
+
     List<LearningItem> findAllByOwnerAndLanguage(Learner owner, Language language);
 
     void deleteAllByOwnerAndLanguage(Learner owner, Language language);

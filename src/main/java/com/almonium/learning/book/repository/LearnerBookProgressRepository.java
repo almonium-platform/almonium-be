@@ -15,4 +15,6 @@ public interface LearnerBookProgressRepository extends JpaRepository<LearnerBook
 
     @Query("select p from LearnerBookProgress p where p.book.id = :bookId and p.learner.user.id = :userId")
     Optional<LearnerBookProgress> findByUserIdAndBookId(UUID userId, UUID bookId);
+
+    long countByLearnerIdAndProgressPercentageGreaterThanEqual(UUID learnerId, int progressPercentage);
 }

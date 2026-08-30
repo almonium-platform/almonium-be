@@ -97,7 +97,6 @@ public class ProfileInfoService {
     }
 
     private FullProfileInfo getFullProfileInfo(User user, RelationshipPerspective relationshipPerspective) {
-        Profile profile = user.getProfile();
         BaseProfileInfo baseProfileInfo = getPublicProfileInfo(user, relationshipPerspective);
         List<String> interests =
                 user.getInterests().stream().map(Interest::getName).toList();
@@ -106,7 +105,6 @@ public class ProfileInfoService {
         fullUserInfo.setFluentLangs(user.getFluentLangs());
         fullUserInfo.setTargetLangs(getUserTargetLangsWithProficiency(user));
         fullUserInfo.setInterests(interests);
-        fullUserInfo.setLoginStreak(profile.getStreak());
 
         fullUserInfo.setRelationshipId(relationshipPerspective.relationshipId());
         fullUserInfo.setRelationshipStatus(relationshipPerspective.status());
