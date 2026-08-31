@@ -7,28 +7,24 @@ an alias, while the redirect targets are managed in the Short.io dashboard.
 
 ## Current usage
 
-`StreamChatService` supplies Short.io links to Stream Chat for images that need
-to be reachable by a third-party service:
+Nothing in the backend builds a short link any more.
 
-| Alias | Current purpose | Redirect target |
-| --- | --- | --- |
-| `/logo` | Default Almonium channel image | Firebase Storage object `avatars/channels/logo.png` |
-| `/logo-en`, `/logo-de`, `/logo-es`, `/logo-fr`, `/logo-it` | Language-channel images | Public Firebase Storage channel-logo assets |
-| `/saved-messages` | Image for each user's self-chat channel | A stable public asset |
+Chat channel artwork used to go through `/logo`, `/logo-en`, `/logo-de`,
+`/logo-es`, `/logo-fr`, `/logo-it` and `/saved-messages`. It is now served from
+the web client's own domain (`{web-domain}/chat/logo-de.png`, the same way
+`{web-domain}/email/wordmark-white.png` already worked), and each file lives in
+`almonium-fe/public/chat/`. Stream only ever stores that URL and hands it back
+to a client, so the redirect bought two external dependencies, a Firebase
+download token that would silently kill the artwork if rotated, and readability
+that no human was ever going to see. Saved Messages carries no image at all now
+- the client draws its own emblem.
 
-The aliases are currently generated in
-`src/main/java/com/almonium/infra/chat/service/StreamChatService.java`. Keep
-these aliases stable: existing Stream Chat channel records and caches may
-retain the URLs.
+The aliases still exist in Short.io and still resolve; no code depends on them.
+Delete them when you are satisfied the new URLs are live, along with the
+`avatars/channels/*` Firebase objects behind them.
 
-For example, `https://go.almonium.com/logo` is the readable public alias for
-the `avatars/channels/logo.png` object. The tokenized Firebase target is not
-copied here because it is a bearer-style download URL.
-
-Do not commit Firebase download tokens or full tokenized Firebase URLs to this
-repository. A Short.io redirect hides an unwieldy URL, but it does not make the
-target private. Anyone who obtains the short URL can follow it, and a Firebase
-download URL contains a bearer-style download token.
+The guidance below stands for the next link that genuinely wants to be public,
+readable, and redirectable.
 
 ## Good uses
 
