@@ -55,15 +55,7 @@ public class StreamChatService {
             return;
         }
 
-        try {
-            Channel.update(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
-                    .addMember(String.valueOf(user.getId()))
-                    .request();
-        } catch (StreamException e) {
-            throw new StreamIntegrationException(
-                    String.format("Error while joining language specific channel: %s, %s", language, e.getMessage()),
-                    e);
-        }
+        joinBroadcastChannel(getSupportedLanguageChannelId(language), user, () -> createLanguageChannel(language));
     }
 
     public void leaveLanguageSpecificChannelIfAvailable(User user, Language language) {
@@ -83,13 +75,34 @@ public class StreamChatService {
     }
 
     public void joinDefaultChannels(User user) {
+        joinBroadcastChannel(getDefaultStreamId(), user, this::createDefaultChannel);
+    }
+
+    /**
+     * The system channels are created once, by hand, and can simply not be there: a fresh Stream
+     * app, a purged one, a project nobody bootstrapped. A signup that dies on that leaves the user
+     * with no chat at all - not even their own Saved Messages, which is created afterwards - so a
+     * missing channel is rebuilt rather than raised.
+     */
+    private void joinBroadcastChannel(String channelId, User user, Runnable recreate) {
         try {
-            Channel.update(READ_ONLY_CHAT_TYPE, getDefaultStreamId())
-                    .addMember(String.valueOf(user.getId()))
-                    .request();
-        } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while joining default channel: " + e.getMessage(), e);
+            addMember(channelId, user);
+        } catch (StreamException first) {
+            log.warn("Broadcast channel {} would not take a member, rebuilding it: {}", channelId, first.getMessage());
+            recreate.run();
+            try {
+                addMember(channelId, user);
+            } catch (StreamException second) {
+                throw new StreamIntegrationException(
+                        String.format("Error while joining channel %s: %s", channelId, second.getMessage()), second);
+            }
         }
+    }
+
+    private void addMember(String channelId, User user) throws StreamException {
+        Channel.update(READ_ONLY_CHAT_TYPE, channelId)
+                .addMember(String.valueOf(user.getId()))
+                .request();
     }
 
     /**
@@ -273,22 +286,23 @@ public class StreamChatService {
     }
 
     public void createChannelsForSpecificLanguages() {
-        try {
-            String defaultChannelId = getDefaultStreamId();
+        SUPPORTED_LANGUAGES.forEach(this::createLanguageChannel);
+    }
 
-            for (var language : SUPPORTED_LANGUAGES) {
-                Channel.getOrCreate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
-                        .data(Channel.ChannelRequestObject.builder()
-                                .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
-                                        .id(defaultChannelId)
-                                        .build())
-                                .additionalField("image", getLogoForLanguageChannel(language))
-                                .additionalField("name", getLanguageChannelName(language))
-                                .build())
-                        .request();
-            }
+    public void createLanguageChannel(Language language) {
+        try {
+            Channel.getOrCreate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(getDefaultStreamId())
+                                    .build())
+                            .additionalField("image", getLogoForLanguageChannel(language))
+                            .additionalField("name", getLanguageChannelName(language))
+                            .build())
+                    .request();
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while creating default channel: " + e.getMessage(), e);
+            throw new StreamIntegrationException(
+                    String.format("Error while creating the %s channel: %s", language, e.getMessage()), e);
         }
     }
 

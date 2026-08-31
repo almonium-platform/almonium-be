@@ -61,7 +61,13 @@ public class StreamPurgeService {
         List<String> cids = listAllCids();
         deleteChannels(cids);
 
-        List<String> userIds = userDirectory.listAllIds();
+        // The app's own account is not a user; it owns the broadcast channels and has no row to
+        // reconcile against, which is why the orphan pass skips it too. Deleting it would also start
+        // an asynchronous sweep of everything it created - including the channels rebuilt below.
+        String systemUserId = appProperties.getName().toLowerCase();
+        List<String> userIds = userDirectory.listAllIds().stream()
+                .filter(id -> !systemUserId.equals(id))
+                .toList();
         userDirectory.deleteAll(userIds);
 
         streamChatService.createDefaultChannel();
