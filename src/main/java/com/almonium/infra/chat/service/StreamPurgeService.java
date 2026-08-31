@@ -106,6 +106,12 @@ public class StreamPurgeService {
         try {
             List<Channel.ChannelGetResponse> channels = Channel.list()
                     .filterCondition("type", type)
+                    // A channel query hauls each channel's recent messages and members back with it
+                    // by default. All we want is the cid, and asking for the rest is what makes this
+                    // time out on a type with any history behind it.
+                    .messageLimit(0)
+                    .memberLimit(0)
+                    .state(false)
                     .limit(PAGE_SIZE)
                     .offset(offset)
                     .request()
