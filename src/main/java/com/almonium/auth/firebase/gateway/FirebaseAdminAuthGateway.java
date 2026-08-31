@@ -64,12 +64,8 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
     public List<FirebaseAuthProvider> getAuthProviders(String firebaseUid) {
         try {
             UserRecord user = firebaseAuth.getUser(firebaseUid);
-            String createdAt = Instant.ofEpochMilli(user.getUserMetadata().getCreationTimestamp())
-                    .toString();
-            String updatedAt = Instant.ofEpochMilli(user.getUserMetadata().getLastSignInTimestamp())
-                    .toString();
             return Arrays.stream(user.getProviderData())
-                    .map(provider -> toAuthProvider(provider, createdAt, updatedAt))
+                    .map(this::toAuthProvider)
                     .toList();
         } catch (FirebaseAuthException | IllegalArgumentException exception) {
             throw new FirebaseIdentityManagementException(
@@ -158,10 +154,10 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
                 Boolean.TRUE.equals(claims.get("admin")));
     }
 
-    private FirebaseAuthProvider toAuthProvider(UserInfo provider, String createdAt, String updatedAt) {
+    private FirebaseAuthProvider toAuthProvider(UserInfo provider) {
         String providerId = provider.getProviderId();
         String normalizedProvider = "password".equals(providerId) ? "local" : providerId.replace(".com", "");
-        return new FirebaseAuthProvider(normalizedProvider, provider.getEmail(), createdAt, updatedAt);
+        return new FirebaseAuthProvider(normalizedProvider, provider.getEmail());
     }
 
     private ActionCodeSettings actionCodeSettings(String continueUrl) {

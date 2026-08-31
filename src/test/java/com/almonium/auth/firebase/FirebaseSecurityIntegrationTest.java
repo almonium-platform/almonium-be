@@ -217,9 +217,7 @@ class FirebaseSecurityIntegrationTest {
         FirebaseIdentity staleIdentity = identity(Instant.now().minusSeconds(301));
         when(firebaseAuthGateway.verifySessionCookie(SESSION_COOKIE, false)).thenReturn(staleIdentity);
         when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(user));
-        when(firebaseAuthGateway.getAuthProviders(UID))
-                .thenReturn(List.of(
-                        new FirebaseAuthProvider("google", EMAIL, "2026-01-01T00:00:00Z", "2026-07-01T00:00:00Z")));
+        when(firebaseAuthGateway.getAuthProviders(UID)).thenReturn(List.of(new FirebaseAuthProvider("google", EMAIL)));
 
         mockMvc.perform(get("/auth/session/providers").cookie(new Cookie(COOKIE_NAME, SESSION_COOKIE)))
                 .andExpect(status().isOk())
