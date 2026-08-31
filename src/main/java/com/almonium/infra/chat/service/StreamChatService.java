@@ -29,8 +29,9 @@ public class StreamChatService {
 
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
-    private static final String SHORT_LINK_DOMAIN = "go.almonium.com";
-    private static final String SHORT_LINK_TEMPLATE = "https://%s/%s";
+    // Channel artwork ships with the web client, like the email assets do; no third-party shortener
+    // in front of a URL only Stream ever reads.
+    private static final String CHANNEL_IMAGE_TEMPLATE = "%s/chat/%s.png";
 
     private static final List<Language> SUPPORTED_LANGUAGES =
             List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
@@ -141,7 +142,6 @@ public class StreamChatService {
                                     .build())
                             .members(Collections.singletonList(selfMember))
                             .additionalField("name", SELF_CHAT_NAME)
-                            .additionalField("image", getShortLink("saved-messages"))
                             .build())
                     .request();
 
@@ -191,13 +191,31 @@ public class StreamChatService {
         }
     }
 
-    private String getShortLink(String key) {
-        return String.format(SHORT_LINK_TEMPLATE, SHORT_LINK_DOMAIN, key);
+    private String getChannelImage(String key) {
+        return String.format(CHANNEL_IMAGE_TEMPLATE, appProperties.getWebDomain(), key);
     }
 
     // both default channel and default user id are based on the app name
     private String getDefaultStreamId() {
         return appProperties.getName().toLowerCase();
+    }
+
+    // Re-stamps the artwork on the system channels; run after the asset URLs move. Safe to re-run.
+    @SuppressWarnings("unused")
+    public void syncSystemChannelImages() {
+        try {
+            Channel.partialUpdate(READ_ONLY_CHAT_TYPE, getDefaultStreamId())
+                    .setValue("image", getChannelImage("logo"))
+                    .request();
+
+            for (var language : SUPPORTED_LANGUAGES) {
+                Channel.partialUpdate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
+                        .setValue("image", getLogoForLanguageChannel(language))
+                        .request();
+            }
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while syncing system channel images: " + e.getMessage(), e);
+        }
     }
 
     // should be run once, on project migration
@@ -211,7 +229,7 @@ public class StreamChatService {
                             .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
                                     .id(defaultChannelId)
                                     .build())
-                            .additionalField("image", getShortLink("logo"))
+                            .additionalField("image", getChannelImage("logo"))
                             .additionalField("name", appProperties.getName())
                             .build())
                     .request();
@@ -250,7 +268,7 @@ public class StreamChatService {
     }
 
     private String getLogoForLanguageChannel(Language language) {
-        return getShortLink("logo-" + language.name().toLowerCase());
+        return getChannelImage("logo-" + language.name().toLowerCase());
     }
 
     private String getSupportedLanguageChannelId(Language language) {
