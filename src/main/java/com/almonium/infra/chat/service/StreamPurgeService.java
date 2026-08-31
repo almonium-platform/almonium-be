@@ -7,11 +7,11 @@ import com.almonium.user.core.exception.StreamIntegrationException;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
-import io.getstream.chat.java.models.Sort;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -77,11 +77,19 @@ public class StreamPurgeService {
         return new PurgeSummary(cids.size(), userIds.size());
     }
 
+    // One type at a time, on Stream's own default ordering. A `$in` across types, or a sort Stream
+    // does not index, turns this into a scan that times out before it returns a single page.
     private List<String> listAllCids() {
+        Set<String> cids = new LinkedHashSet<>();
+        OUR_CHANNEL_TYPES.forEach(type -> cids.addAll(listCidsOfType(type)));
+        return List.copyOf(cids);
+    }
+
+    private List<String> listCidsOfType(String type) {
         List<String> cids = new ArrayList<>();
 
         for (int offset = 0; offset <= MAX_OFFSET; offset += PAGE_SIZE) {
-            List<Channel> page = listPage(offset);
+            List<Channel> page = listPage(type, offset);
             page.stream().map(Channel::getCId).filter(Objects::nonNull).forEach(cids::add);
 
             if (page.size() < PAGE_SIZE) {
@@ -89,18 +97,15 @@ public class StreamPurgeService {
             }
         }
 
-        log.warn("Stopped at Stream's paging limit of {} channels; re-run once this batch is gone", MAX_OFFSET);
+        log.warn(
+                "Stopped at Stream's paging limit of {} {} channels; re-run once this batch is gone", MAX_OFFSET, type);
         return cids;
     }
 
-    private List<Channel> listPage(int offset) {
+    private List<Channel> listPage(String type, int offset) {
         try {
             List<Channel.ChannelGetResponse> channels = Channel.list()
-                    .filterCondition("type", Map.of("$in", OUR_CHANNEL_TYPES))
-                    .sort(Sort.builder()
-                            .field("created_at")
-                            .direction(Sort.Direction.ASC)
-                            .build())
+                    .filterCondition("type", type)
                     .limit(PAGE_SIZE)
                     .offset(offset)
                     .request()
@@ -114,7 +119,7 @@ public class StreamPurgeService {
                             .toList();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
-                    String.format("Error while listing Stream channels at offset %d: %s", offset, e.getMessage()), e);
+                    String.format("Error while listing %s channels at offset %d: %s", type, offset, e.getMessage()), e);
         }
     }
 
