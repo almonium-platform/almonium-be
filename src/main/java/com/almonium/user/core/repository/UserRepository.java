@@ -33,4 +33,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("select u from User u join Learner l on u.id = l.user.id where u.id = :id")
     Optional<User> findUserWithLearners(UUID id);
+
+    @Query("select u.id from User u")
+    Set<UUID> findAllIds();
 }
