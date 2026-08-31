@@ -17,6 +17,7 @@ import com.almonium.learning.book.repository.UserBookImportRepository;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanLimit;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.service.BillingPeriodService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.model.entity.User;
@@ -28,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -44,6 +46,9 @@ class UserBookImportServiceTest {
 
     @Mock
     PlanSubscriptionService subscriptionService;
+
+    @Spy
+    BillingPeriodService billingPeriodService = new BillingPeriodService();
 
     @Mock
     BookProcessorClient processorClient;
