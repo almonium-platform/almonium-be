@@ -3,10 +3,12 @@ package com.almonium.user.relationship;
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
 
 import com.almonium.config.PostgresContainer;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import java.util.List;
@@ -57,6 +59,24 @@ class RelationshipRepositoryTest {
                 .singleElement()
                 .extracting(RelatedUserProfile::isPremium)
                 .isEqualTo(true);
+    }
+
+    @DisplayName("Should return every matching account, each with how the searcher stands with it")
+    @Test
+    void givenUsernameSubstring_whenSearchUsersByUsername_thenFriendsAndStrangersAreBothReturned() {
+        List<RelatedUserProfile> results = relationshipRepository.searchUsersByUsername(REQUESTER_ID, "user");
+
+        assertThat(results)
+                .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::getRelationshipStatus)
+                .containsExactlyInAnyOrder(
+                        tuple("user2", RelativeRelationshipStatus.FRIENDS),
+                        tuple("user3", RelativeRelationshipStatus.STRANGER));
+
+        assertThat(results)
+                .filteredOn(profile -> profile.getUsername().equals("user3"))
+                .singleElement()
+                .extracting(RelatedUserProfile::getRelationshipId)
+                .isNull();
     }
 
     @DisplayName("Should reject a second relationship with reversed users")

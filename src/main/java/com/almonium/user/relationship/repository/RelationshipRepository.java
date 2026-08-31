@@ -1,9 +1,7 @@
 package com.almonium.user.relationship.repository;
 
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +10,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface RelationshipRepository extends JpaRepository<Relationship, UUID> {
+    /**
+     * Every account whose handle matches, friends included: a search that hides the people you
+     * already know looks broken. The relative status is what the caller renders its one control
+     * from, so it is resolved here rather than guessed at from separate lists.
+     */
     @Query(
             """
-            select new com.almonium.user.relationship.dto.response.PublicUserProfile(
+            select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 u.id,
                 u.username,
                 case when p.hidden = true then null else p.avatarUrl end,
@@ -23,22 +26,25 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                     where ps.user.id = u.id
                       and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
                       and ps.plan.entitlement <> 'FREE'
-                ) then true else false end
+                ) then true else false end,
+                r.id,
+                case
+                    when r.status = 'FRIENDS' then 'FRIENDS'
+                    when r.status = 'PENDING' and r.requester.id = :currentUserId then 'PENDING_OUTGOING'
+                    when r.status = 'PENDING' then 'PENDING_INCOMING'
+                    when r.status in ('FST_BLOCKED_SND', 'SND_BLOCKED_FST', 'MUTUAL_BLOCK') then 'BLOCKED'
+                    else 'STRANGER'
+                end
             )
             from User u
             left join u.profile p
+            left join Relationship r
+                on (r.requester.id = :currentUserId and r.requestee.id = u.id)
+                or (r.requestee.id = :currentUserId and r.requester.id = u.id)
             where u.username like %:username%
               and u.id != :currentUserId
-              and not exists (
-                  select 1
-                  from Relationship r
-                  where ((r.requester.id = :currentUserId and r.requestee.id = u.id)
-                     or (r.requestee.id = :currentUserId and r.requester.id = u.id))
-                     and r.status not in :retryableStatuses
-              )
             """)
-    List<PublicUserProfile> findNewFriendCandidates(
-            UUID currentUserId, String username, List<RelationshipStatus> retryableStatuses);
+    List<RelatedUserProfile> searchUsersByUsername(UUID currentUserId, String username);
 
     @Query(
             """

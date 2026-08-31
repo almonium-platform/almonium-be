@@ -21,12 +21,10 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
@@ -86,19 +84,18 @@ class RelationshipServiceTest {
                 new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING, 0);
     }
 
-    @DisplayName("Should return empty list when no friends match username substring")
+    @DisplayName("Should return empty list when no account matches the username substring")
     @Test
     void givenNonMatchingUsernameSubstring_whenFindFriendsByUsername_thenReturnEmptyList() {
         // Arrange
         String usernameSubstring = "nonexistent";
         var currentUserId = UUID.randomUUID(); // ID of the current user to exclude
 
-        when(relationshipRepository.findNewFriendCandidates(
-                        currentUserId, usernameSubstring, RelationshipStatus.retryableStatuses()))
+        when(relationshipRepository.searchUsersByUsername(currentUserId, usernameSubstring))
                 .thenReturn(List.of());
 
         // Act
-        List<PublicUserProfile> result = relationshipService.findUsersByUsername(currentUserId, usernameSubstring);
+        List<RelatedUserProfile> result = relationshipService.findUsersByUsername(currentUserId, usernameSubstring);
 
         // Assert
         assertThat(result).isEmpty();

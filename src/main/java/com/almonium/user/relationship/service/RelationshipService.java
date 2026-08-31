@@ -8,7 +8,6 @@ import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
@@ -43,8 +42,8 @@ public class RelationshipService {
     RelationshipStateMachine stateMachine;
     RelationshipPerspectiveResolver perspectiveResolver;
 
-    public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
-        return relationshipRepository.findNewFriendCandidates(id, username, RelationshipStatus.retryableStatuses());
+    public List<RelatedUserProfile> findUsersByUsername(UUID id, String username) {
+        return relationshipRepository.searchUsersByUsername(id, username);
     }
 
     public List<RelationshipToUserProjection> searchFriends(UUID id, String username) {
