@@ -10,6 +10,8 @@ import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Message;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -87,6 +89,28 @@ public class StreamChatService {
                     .request();
         } catch (StreamException e) {
             throw new StreamIntegrationException("Error while joining default channel: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Posts to a broadcast channel as the app itself. Members cannot write to those channels, so
+     * this server-side path is the only way anything is published there.
+     */
+    public String publishAnnouncement(Language language, String text) {
+        String channelId = getBroadcastChannelId(language);
+
+        try {
+            return Message.send(READ_ONLY_CHAT_TYPE, channelId)
+                    .message(Message.MessageRequestObject.builder()
+                            .text(text)
+                            .userId(getDefaultStreamId())
+                            .build())
+                    .request()
+                    .getMessage()
+                    .getId();
+        } catch (StreamException e) {
+            throw new StreamIntegrationException(
+                    String.format("Error while publishing to channel %s: %s", channelId, e.getMessage()), e);
         }
     }
 
@@ -193,6 +217,19 @@ public class StreamChatService {
 
     private String getChannelImage(String key) {
         return String.format(CHANNEL_IMAGE_TEMPLATE, appProperties.getWebDomain(), key);
+    }
+
+    // No language means the app-wide channel; anything else has to be a room we actually run.
+    private String getBroadcastChannelId(Language language) {
+        if (language == null) {
+            return getDefaultStreamId();
+        }
+
+        if (!SUPPORTED_LANGUAGES.contains(language)) {
+            throw new EntityNotFoundException("No broadcast channel for language: " + language);
+        }
+
+        return getSupportedLanguageChannelId(language);
     }
 
     // both default channel and default user id are based on the app name
