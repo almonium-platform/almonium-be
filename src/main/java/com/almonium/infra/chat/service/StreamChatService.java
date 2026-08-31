@@ -238,7 +238,6 @@ public class StreamChatService {
     }
 
     // Re-stamps the artwork on the system channels; run after the asset URLs move. Safe to re-run.
-    @SuppressWarnings("unused")
     public void syncSystemChannelImages() {
         try {
             Channel.partialUpdate(READ_ONLY_CHAT_TYPE, getDefaultStreamId())
