@@ -55,7 +55,7 @@ public class LearningRhythmService {
 
     @Transactional
     public void recordActivity(UUID userId, LearningActivityRequest request) {
-        int seconds = Math.min(Math.max(request.seconds(), 0), MAX_SECONDS_PER_REPORT);
+        int seconds = Math.clamp(request.seconds(), 0, MAX_SECONDS_PER_REPORT);
         boolean met = request.completed() || seconds > 0;
         if (!met) {
             return;
@@ -84,9 +84,17 @@ public class LearningRhythmService {
                 learningDayRepository.findAllByUserIdAndDayBetweenOrderByDayAsc(userId, from, to).stream()
                         .collect(groupingBy(LearningDay::getLanguage, toMap(LearningDay::getDay, Function.identity())));
 
+        Map<Language, LocalDate> firstDays = learningDayRepository.findFirstDays(userId).stream()
+                .collect(toMap(
+                        LearningDayRepository.LanguageFirstDay::getLanguage,
+                        LearningDayRepository.LanguageFirstDay::getFirstDay));
+
         List<LanguageRhythm> languages = learnerRepository.findAllByUserIdOrderByLanguage(userId).stream()
-                .map(learner ->
-                        buildLanguageRhythm(learner, activity.getOrDefault(learner.getLanguage(), Map.of()), from))
+                .map(learner -> buildLanguageRhythm(
+                        learner,
+                        activity.getOrDefault(learner.getLanguage(), Map.of()),
+                        firstDays.get(learner.getLanguage()),
+                        from))
                 .toList();
         return new RhythmResponse(languages);
     }
@@ -99,7 +107,7 @@ public class LearningRhythmService {
     }
 
     private LanguageRhythm buildLanguageRhythm(
-            Learner learner, Map<LocalDate, LearningDay> activity, LocalDate bandStart) {
+            Learner learner, Map<LocalDate, LearningDay> activity, LocalDate firstSessionAt, LocalDate bandStart) {
         Integer target = learner.getWeeklyTarget();
         LocalDate setAsideAt =
                 learner.getSetAsideAt() == null ? null : LocalDate.ofInstant(learner.getSetAsideAt(), ZoneOffset.UTC);
@@ -112,7 +120,8 @@ public class LearningRhythmService {
         LocalDate startedAt = learner.getCreatedAt() == null
                 ? bandStart
                 : LocalDate.ofInstant(learner.getCreatedAt(), ZoneOffset.UTC);
-        return new LanguageRhythm(learner.getLanguage(), target, learner.isActive(), startedAt, setAsideAt, weeks);
+        return new LanguageRhythm(
+                learner.getLanguage(), target, learner.isActive(), startedAt, setAsideAt, firstSessionAt, weeks);
     }
 
     private RhythmWeek buildWeek(

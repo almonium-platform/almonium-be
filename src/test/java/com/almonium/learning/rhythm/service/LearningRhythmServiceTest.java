@@ -24,6 +24,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
@@ -147,6 +148,26 @@ class LearningRhythmServiceTest {
         assertThat(beforeSetAside.met()).isTrue();
         assertThat(afterSetAside.frozen()).isTrue();
         assertThat(afterSetAside.met()).isFalse();
+    }
+
+    @DisplayName("Should report the first day a language was ever learned, where its weeks start counting")
+    @Test
+    void givenActivity_whenGetRhythm_thenTheFirstSessionIsReported() {
+        givenLearners(learner(Language.DE, 2, true));
+        givenActivity(day(Language.DE, MONDAY.minusWeeks(2), 900), day(Language.DE, MONDAY, 900));
+
+        assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).firstSessionAt())
+                .isEqualTo(MONDAY.minusWeeks(2));
+    }
+
+    @DisplayName("Should report no first session for a language never learned in")
+    @Test
+    void givenNoActivityEver_whenGetRhythm_thenNoFirstSessionIsReported() {
+        givenLearners(learner(Language.DE, 2, true));
+        givenActivity();
+
+        assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).firstSessionAt())
+                .isNull();
     }
 
     @DisplayName("Should report when a language was set aside, so the copy can name the date")
@@ -289,6 +310,27 @@ class LearningRhythmServiceTest {
     private void givenActivity(LearningDay... days) {
         when(learningDayRepository.findAllByUserIdAndDayBetweenOrderByDayAsc(eq(USER_ID), any(), any()))
                 .thenReturn(List.of(days));
+        when(learningDayRepository.findFirstDays(USER_ID)).thenReturn(firstDays(days));
+    }
+
+    private List<LearningDayRepository.LanguageFirstDay> firstDays(LearningDay... days) {
+        Map<Language, LocalDate> earliest = new java.util.EnumMap<>(Language.class);
+        for (LearningDay day : days) {
+            earliest.merge(day.getLanguage(), day.getDay(), (a, b) -> a.isBefore(b) ? a : b);
+        }
+        return earliest.entrySet().stream()
+                .map(entry -> (LearningDayRepository.LanguageFirstDay) new LearningDayRepository.LanguageFirstDay() {
+                    @Override
+                    public Language getLanguage() {
+                        return entry.getKey();
+                    }
+
+                    @Override
+                    public LocalDate getFirstDay() {
+                        return entry.getValue();
+                    }
+                })
+                .toList();
     }
 
     private Learner learner(Language language, Integer target, boolean active) {

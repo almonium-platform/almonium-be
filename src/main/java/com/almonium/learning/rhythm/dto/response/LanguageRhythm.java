@@ -11,6 +11,8 @@ import java.util.List;
  * @param editable whether the bar can still be moved; a set-aside language keeps its record, read-only
  * @param startedAt when the language was taken up, so weeks at pace count only the weeks it has existed
  * @param setAsideAt when the language was set aside, or null while it is active
+ * @param firstSessionAt the first day ever learned in this language, where its weeks start counting; null until
+ *     there has been one
  * @param weeks oldest first, ending with the week in progress
  */
 public record LanguageRhythm(
@@ -19,4 +21,5 @@ public record LanguageRhythm(
         boolean editable,
         LocalDate startedAt,
         LocalDate setAsideAt,
+        LocalDate firstSessionAt,
         List<RhythmWeek> weeks) {}

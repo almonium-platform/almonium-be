@@ -1,5 +1,6 @@
 package com.almonium.learning.rhythm.repository;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.rhythm.model.LearningDay;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +13,20 @@ import org.springframework.data.repository.query.Param;
 public interface LearningDayRepository extends JpaRepository<LearningDay, UUID> {
 
     List<LearningDay> findAllByUserIdAndDayBetweenOrderByDayAsc(UUID userId, LocalDate from, LocalDate to);
+
+    /**
+     * The first day each language was ever learned on, which is where its weeks start counting. A learner three
+     * weeks old must not read as having missed the nine weeks before it existed.
+     */
+    @Query("select d.language as language, min(d.day) as firstDay from LearningDay d "
+            + "where d.user.id = :userId group by d.language")
+    List<LanguageFirstDay> findFirstDays(@Param("userId") UUID userId);
+
+    interface LanguageFirstDay {
+        Language getLanguage();
+
+        LocalDate getFirstDay();
+    }
 
     /**
      * Adds activity to one language's day, creating it when absent. Concurrent heartbeats from several tabs are
