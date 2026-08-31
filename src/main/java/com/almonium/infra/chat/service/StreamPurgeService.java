@@ -33,8 +33,11 @@ public class StreamPurgeService {
     private static final int MAX_OFFSET = 1000;
     private static final int DELETE_BATCH_SIZE = 100;
 
-    // Every type we have ever put a channel in, legacy `messaging` DMs included.
-    private static final List<String> OUR_CHANNEL_TYPES = List.of("broadcast", "private", "self", "messaging");
+    // The types this app creates channels in. `messaging` held the DMs before they moved to their
+    // own type; those are gone, and querying that type times out on this application even when it
+    // holds nothing at all, so the sweep does not ask about it. Anything left there is legacy and
+    // deleted by hand.
+    private static final List<String> OUR_CHANNEL_TYPES = List.of("broadcast", "private", "self");
 
     StreamChatService streamChatService;
     StreamUserDirectory userDirectory;
