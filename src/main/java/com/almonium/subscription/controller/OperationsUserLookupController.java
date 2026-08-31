@@ -1,12 +1,10 @@
 package com.almonium.subscription.controller;
 
 import com.almonium.subscription.dto.response.OpsUserSummary;
-import com.almonium.subscription.repository.AccessGrantRepository;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class OperationsUserLookupController {
     private final UserService userService;
     private final EffectiveAccessService effectiveAccessService;
-    private final AccessGrantRepository accessGrantRepository;
 
     @GetMapping
     public ResponseEntity<OpsUserSummary> findByEmail(@RequestParam String email) {
@@ -28,8 +25,8 @@ public class OperationsUserLookupController {
                 .findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("No user with email: " + email));
 
-        OpsUserSummary.ActiveGrant activeGrant = accessGrantRepository
-                .findActiveByUserId(user.getId(), Instant.now())
+        OpsUserSummary.ActiveGrant activeGrant = effectiveAccessService
+                .activeGrantFor(user)
                 .map(grant ->
                         new OpsUserSummary.ActiveGrant(grant.getEntitlement(), grant.getExpiresAt(), grant.getReason()))
                 .orElse(null);
