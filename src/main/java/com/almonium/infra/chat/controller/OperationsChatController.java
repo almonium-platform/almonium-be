@@ -82,7 +82,10 @@ public class OperationsChatController {
         return ResponseEntity.ok(new ApiResponse(
                 true,
                 String.format(
-                        "Deleted %d channels and %d users; broadcast channels recreated",
-                        summary.channelsDeleted(), summary.usersDeleted())));
+                        "Deleted %d channels and %d users; rebuilt the broadcast channels and %d account%s",
+                        summary.channelsDeleted(),
+                        summary.usersDeleted(),
+                        summary.usersRestored(),
+                        summary.usersRestored() == 1 ? "" : "s")));
     }
 }

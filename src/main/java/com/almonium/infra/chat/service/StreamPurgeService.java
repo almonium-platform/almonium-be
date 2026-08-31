@@ -4,6 +4,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.exception.StreamIntegrationException;
+import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.repository.LearnerRepository;
+import com.almonium.user.core.repository.UserRepository;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
@@ -41,6 +44,8 @@ public class StreamPurgeService {
 
     StreamChatService streamChatService;
     StreamUserDirectory userDirectory;
+    UserRepository userRepository;
+    LearnerRepository learnerRepository;
     AppProperties appProperties;
     Environment environment;
 
@@ -57,8 +62,11 @@ public class StreamPurgeService {
     }
 
     /**
-     * Deletes every channel and every user, then recreates the broadcast channels, leaving Stream as
-     * a fresh install finds it. Users and their self chats come back on their next sign-in.
+     * Deletes every channel and every user, then rebuilds what the database says should be there:
+     * the broadcast rooms, and an account with its own Saved Messages for everyone we still have a
+     * row for. Signing in does not rebuild any of that - provisioning only runs for a user we have
+     * never seen - so a purge that skipped this step would leave every existing account staring at
+     * a chat that cannot load.
      */
     public PurgeSummary purgeEverything() {
         List<String> cids = listAllCids();
@@ -76,8 +84,26 @@ public class StreamPurgeService {
         streamChatService.createDefaultChannel();
         streamChatService.createChannelsForSpecificLanguages();
 
-        log.warn("Purged the Stream application: {} channels, {} users", cids.size(), userIds.size());
-        return new PurgeSummary(cids.size(), userIds.size());
+        int restored = restoreKnownUsers();
+
+        log.warn(
+                "Purged the Stream application: {} channels, {} users deleted, {} users restored",
+                cids.size(),
+                userIds.size(),
+                restored);
+        return new PurgeSummary(cids.size(), userIds.size(), restored);
+    }
+
+    private int restoreKnownUsers() {
+        List<User> users = userRepository.findAll();
+
+        users.forEach(user -> {
+            streamChatService.setupNewUser(user);
+            streamChatService.joinLanguageSpecificChannelsIfAvailable(
+                    user, learnerRepository.findAllLanguagesByUserId(user.getId()));
+        });
+
+        return users.size();
     }
 
     // One type at a time, on Stream's own default ordering. A `$in` across types, or a sort Stream
@@ -144,5 +170,5 @@ public class StreamPurgeService {
         }
     }
 
-    public record PurgeSummary(int channelsDeleted, int usersDeleted) {}
+    public record PurgeSummary(int channelsDeleted, int usersDeleted, int usersRestored) {}
 }
