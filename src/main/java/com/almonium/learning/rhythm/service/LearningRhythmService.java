@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.rhythm.dto.request.LearningActivityRequest;
 import com.almonium.learning.rhythm.dto.response.LanguageRhythm;
+import com.almonium.learning.rhythm.dto.response.PaceSnapshot;
 import com.almonium.learning.rhythm.dto.response.RhythmDay;
 import com.almonium.learning.rhythm.dto.response.RhythmResponse;
 import com.almonium.learning.rhythm.dto.response.RhythmWeek;
@@ -43,6 +44,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LearningRhythmService {
     /** Weeks in the band: thirteen finished weeks plus the one in progress. */
     static final int BAND_WEEKS = 14;
+
+    /** Weeks every surface talks about; the extra band weeks are slack for partial-week edges. */
+    static final int WEEKS_SHOWN = 12;
 
     /** A single report cannot claim more than this, however long a tab was left open. */
     static final int MAX_SECONDS_PER_REPORT = 600;
@@ -120,8 +124,48 @@ public class LearningRhythmService {
         LocalDate startedAt = learner.getCreatedAt() == null
                 ? bandStart
                 : LocalDate.ofInstant(learner.getCreatedAt(), ZoneOffset.UTC);
+        PaceSnapshot frozenPace = frozenPace(learner, setAsideAt, firstSessionAt, target);
         return new LanguageRhythm(
-                learner.getLanguage(), target, learner.isActive(), startedAt, setAsideAt, firstSessionAt, weeks);
+                learner.getLanguage(),
+                target,
+                learner.isActive(),
+                startedAt,
+                setAsideAt,
+                firstSessionAt,
+                frozenPace,
+                weeks);
+    }
+
+    /**
+     * The fraction as it stood on the day the language was put down. The rolling window would carry the set-aside
+     * date out of range and decay to 0/0, which reads as a fault rather than a record.
+     */
+    private PaceSnapshot frozenPace(Learner learner, LocalDate setAsideAt, LocalDate firstSessionAt, Integer target) {
+        if (setAsideAt == null || firstSessionAt == null) {
+            return null;
+        }
+        LocalDate lastWeek = setAsideAt.with(DayOfWeek.MONDAY);
+        LocalDate from = lastWeek.minusWeeks(WEEKS_SHOWN - 1L);
+        Map<LocalDate, LearningDay> activity = learningDayRepository
+                .findAllByUserIdAndLanguageAndDayBetweenOrderByDayAsc(
+                        learner.getUser().getId(), learner.getLanguage(), from, lastWeek.plusDays(6))
+                .stream()
+                .collect(toMap(LearningDay::getDay, Function.identity()));
+
+        LocalDate countFrom = firstSessionAt.with(DayOfWeek.MONDAY);
+        int met = 0;
+        int counted = 0;
+        for (int week = 0; week < WEEKS_SHOWN; week++) {
+            LocalDate weekStart = from.plusWeeks(week);
+            if (weekStart.isBefore(countFrom)) {
+                continue;
+            }
+            counted++;
+            if (buildWeek(weekStart, activity, target, null).met()) {
+                met++;
+            }
+        }
+        return new PaceSnapshot(met, counted);
     }
 
     private RhythmWeek buildWeek(

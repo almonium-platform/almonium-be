@@ -13,6 +13,7 @@ import java.util.List;
  * @param setAsideAt when the language was set aside, or null while it is active
  * @param firstSessionAt the first day ever learned in this language, where its weeks start counting; null until
  *     there has been one
+ * @param frozenPace the fraction as it stood on the day the language was set aside, or null while it is active
  * @param weeks oldest first, ending with the week in progress
  */
 public record LanguageRhythm(
@@ -22,4 +23,5 @@ public record LanguageRhythm(
         LocalDate startedAt,
         LocalDate setAsideAt,
         LocalDate firstSessionAt,
+        PaceSnapshot frozenPace,
         List<RhythmWeek> weeks) {}

@@ -14,6 +14,9 @@ public interface LearningDayRepository extends JpaRepository<LearningDay, UUID> 
 
     List<LearningDay> findAllByUserIdAndDayBetweenOrderByDayAsc(UUID userId, LocalDate from, LocalDate to);
 
+    List<LearningDay> findAllByUserIdAndLanguageAndDayBetweenOrderByDayAsc(
+            UUID userId, Language language, LocalDate from, LocalDate to);
+
     /**
      * The first day each language was ever learned on, which is where its weeks start counting. A learner three
      * weeks old must not read as having missed the nine weeks before it existed.

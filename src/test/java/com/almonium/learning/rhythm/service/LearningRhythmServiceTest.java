@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.rhythm.dto.request.LearningActivityRequest;
 import com.almonium.learning.rhythm.dto.response.LanguageRhythm;
+import com.almonium.learning.rhythm.dto.response.PaceSnapshot;
 import com.almonium.learning.rhythm.dto.response.RhythmResponse;
 import com.almonium.learning.rhythm.dto.response.RhythmWeek;
 import com.almonium.learning.rhythm.model.ActivitySource;
@@ -167,6 +168,40 @@ class LearningRhythmServiceTest {
         givenActivity();
 
         assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).firstSessionAt())
+                .isNull();
+    }
+
+    @DisplayName("Should freeze the fraction at the set-aside date rather than let it decay to nothing")
+    @Test
+    void givenALanguageLongSetAside_whenGetRhythm_thenTheFractionIsTheOneItHadWhenPutDown() {
+        Learner setAside = learner(Language.DE, 2, false);
+        setAside.setSetAsideAt(MONDAY.minusWeeks(2).atStartOfDay(ZoneOffset.UTC).toInstant());
+        givenLearners(setAside);
+        givenActivity(
+                day(Language.DE, MONDAY.minusWeeks(3), 900),
+                day(Language.DE, MONDAY.minusWeeks(3).plusDays(1), 900));
+        when(learningDayRepository.findAllByUserIdAndLanguageAndDayBetweenOrderByDayAsc(
+                        any(), eq(Language.DE), any(), any()))
+                .thenReturn(List.of(
+                        day(Language.DE, MONDAY.minusWeeks(3), 900),
+                        day(Language.DE, MONDAY.minusWeeks(3).plusDays(1), 900)));
+
+        PaceSnapshot frozen =
+                onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).frozenPace();
+
+        assertThat(frozen).isNotNull();
+        // one week kept, out of the two the language was alive for before it was put down
+        assertThat(frozen.met()).isEqualTo(1);
+        assertThat(frozen.counted()).isEqualTo(2);
+    }
+
+    @DisplayName("Should leave an active language without a frozen fraction")
+    @Test
+    void givenAnActiveLanguage_whenGetRhythm_thenThereIsNoFrozenFraction() {
+        givenLearners(learner(Language.DE, 2, true));
+        givenActivity(day(Language.DE, MONDAY, 900));
+
+        assertThat(onlyLanguage(learningRhythmService.getRhythm(USER_ID, TODAY)).frozenPace())
                 .isNull();
     }
 
@@ -335,6 +370,8 @@ class LearningRhythmServiceTest {
 
     private Learner learner(Language language, Integer target, boolean active) {
         Learner learner = new Learner();
+        learner.setUser(
+                com.almonium.user.core.model.entity.User.builder().id(USER_ID).build());
         learner.setLanguage(language);
         learner.setWeeklyTarget(target);
         learner.setActive(active);
