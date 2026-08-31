@@ -2,17 +2,21 @@ package com.almonium.auth.firebase.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +34,14 @@ class FirebaseUserProvisioningServiceTest {
     @Mock
     UserRegistrationService registrationService;
 
+    @Mock
+    FirebaseAuthGateway firebaseAuthGateway;
+
     FirebaseUserProvisioningService service;
 
     @BeforeEach
     void setUp() {
-        service = new FirebaseUserProvisioningService(userRepository, registrationService);
+        service = new FirebaseUserProvisioningService(userRepository, registrationService, firebaseAuthGateway);
     }
 
     @Test
@@ -163,6 +170,59 @@ class FirebaseUserProvisioningServiceTest {
     void rejectsUnverifiedEmailForNewUser() {
         FirebaseIdentity identity = identity("new@example.com", false);
         when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.resolveOrCreate(identity))
+                .isInstanceOf(FirebaseAuthenticationException.class)
+                .hasMessageContaining("Verify");
+
+        verifyNoInteractions(registrationService);
+    }
+
+    @Test
+    void acceptsUnverifiedFlagWhenASelfVerifyingProviderVouchesForTheAddress() {
+        FirebaseIdentity identity = identity("linked@example.com", false);
+        User existing = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email(identity.email())
+                .emailVerified(false)
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.of(existing));
+        when(firebaseAuthGateway.getAuthProviders(identity.uid()))
+                .thenReturn(List.of(new FirebaseAuthProvider("google", "Linked@Example.com")));
+        when(userRepository.save(existing)).thenReturn(existing);
+
+        assertThat(service.resolveOrCreate(identity)).isSameAs(existing);
+        assertThat(existing.isEmailVerified()).isTrue();
+        verify(firebaseAuthGateway).markEmailVerified(identity.uid());
+    }
+
+    @Test
+    void rejectsAProviderVouchingForADifferentAddress() {
+        FirebaseIdentity identity = identity("changed@example.com", false);
+        User existing = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid(identity.uid())
+                .email("old@example.com")
+                .emailVerified(true)
+                .build();
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.of(existing));
+        when(firebaseAuthGateway.getAuthProviders(identity.uid()))
+                .thenReturn(List.of(new FirebaseAuthProvider("google", "someone-else@example.com")));
+
+        assertThatThrownBy(() -> service.resolveOrCreate(identity))
+                .isInstanceOf(FirebaseAuthenticationException.class)
+                .hasMessageContaining("Verify");
+
+        verify(firebaseAuthGateway, never()).markEmailVerified(identity.uid());
+    }
+
+    @Test
+    void rejectsASelfAssertedPasswordAddress() {
+        FirebaseIdentity identity = identity("password-only@example.com", false);
+        when(userRepository.findByFirebaseUid(identity.uid())).thenReturn(Optional.empty());
+        when(firebaseAuthGateway.getAuthProviders(identity.uid()))
+                .thenReturn(List.of(new FirebaseAuthProvider("password", identity.email())));
 
         assertThatThrownBy(() -> service.resolveOrCreate(identity))
                 .isInstanceOf(FirebaseAuthenticationException.class)
