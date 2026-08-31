@@ -254,8 +254,6 @@ public class StreamChatService {
         }
     }
 
-    // should be run once, on project migration
-    @SuppressWarnings("unused")
     public void createDefaultChannel() { // Fetch the channel details
         try {
             String defaultChannelId = getDefaultStreamId();
@@ -274,7 +272,6 @@ public class StreamChatService {
         }
     }
 
-    @SuppressWarnings("unused")
     public void createChannelsForSpecificLanguages() {
         try {
             String defaultChannelId = getDefaultStreamId();
