@@ -60,4 +60,19 @@ public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
     public void deleteUser(String firebaseUid) {
         throw unavailable();
     }
+
+    @Override
+    public String projectId() {
+        throw unavailable();
+    }
+
+    @Override
+    public List<String> listAllUserIds() {
+        throw unavailable();
+    }
+
+    @Override
+    public void deleteUsers(List<String> firebaseUids) {
+        throw unavailable();
+    }
 }

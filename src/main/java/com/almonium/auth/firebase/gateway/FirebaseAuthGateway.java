@@ -24,4 +24,11 @@ public interface FirebaseAuthGateway {
     void updateEmail(String firebaseUid, String email);
 
     void deleteUser(String firebaseUid);
+
+    /** The Firebase project these credentials point at: the blast radius of anything destructive. */
+    String projectId();
+
+    List<String> listAllUserIds();
+
+    void deleteUsers(List<String> firebaseUids);
 }

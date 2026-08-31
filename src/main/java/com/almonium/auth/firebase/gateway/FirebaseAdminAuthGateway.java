@@ -4,8 +4,10 @@ import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
 import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthErrorCode;
+import com.google.firebase.auth.DeleteUsersResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -14,20 +16,28 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserRecord;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @Profile("!test")
 public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
-    private final FirebaseAuth firebaseAuth;
+    // Firebase deletes at most 1000 accounts per call.
+    private static final int DELETE_BATCH_SIZE = 1000;
 
-    public FirebaseAdminAuthGateway(FirebaseAuth firebaseAuth) {
+    private final FirebaseAuth firebaseAuth;
+    private final FirebaseApp firebaseApp;
+
+    public FirebaseAdminAuthGateway(FirebaseAuth firebaseAuth, FirebaseApp firebaseApp) {
         this.firebaseAuth = firebaseAuth;
+        this.firebaseApp = firebaseApp;
     }
 
     @Override
@@ -128,6 +138,42 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
             firebaseAuth.deleteUser(firebaseUid);
         } catch (FirebaseAuthException | IllegalArgumentException exception) {
             throw new FirebaseIdentityManagementException("Unable to delete Firebase user", exception);
+        }
+    }
+
+    @Override
+    public String projectId() {
+        String projectId = firebaseApp.getOptions().getProjectId();
+        if (projectId == null || projectId.isBlank()) {
+            throw new FirebaseIdentityManagementException("Firebase credentials do not name a project", null);
+        }
+        return projectId;
+    }
+
+    @Override
+    public List<String> listAllUserIds() {
+        try {
+            List<String> uids = new ArrayList<>();
+            firebaseAuth.listUsers(null).iterateAll().forEach(user -> uids.add(user.getUid()));
+            return uids;
+        } catch (FirebaseAuthException | IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException("Unable to list Firebase users", exception);
+        }
+    }
+
+    @Override
+    public void deleteUsers(List<String> firebaseUids) {
+        try {
+            for (int from = 0; from < firebaseUids.size(); from += DELETE_BATCH_SIZE) {
+                List<String> batch =
+                        firebaseUids.subList(from, Math.min(from + DELETE_BATCH_SIZE, firebaseUids.size()));
+                DeleteUsersResult result = firebaseAuth.deleteUsers(batch);
+                result.getErrors()
+                        .forEach(error -> log.error(
+                                "Firebase refused to delete {}: {}", batch.get(error.getIndex()), error.getReason()));
+            }
+        } catch (FirebaseAuthException | IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException("Unable to delete Firebase users", exception);
         }
     }
 
