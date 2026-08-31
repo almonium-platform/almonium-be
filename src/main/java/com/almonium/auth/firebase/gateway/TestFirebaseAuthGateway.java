@@ -1,6 +1,7 @@
 package com.almonium.auth.firebase.gateway;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
+import com.almonium.auth.firebase.model.FirebaseAccountSummary;
 import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import java.time.Duration;
@@ -58,6 +59,16 @@ public class TestFirebaseAuthGateway implements FirebaseAuthGateway {
 
     @Override
     public void deleteUser(String firebaseUid) {
+        throw unavailable();
+    }
+
+    @Override
+    public void markEmailVerified(String firebaseUid) {
+        throw unavailable();
+    }
+
+    @Override
+    public Optional<FirebaseAccountSummary> findAccountByEmail(String email) {
         throw unavailable();
     }
 

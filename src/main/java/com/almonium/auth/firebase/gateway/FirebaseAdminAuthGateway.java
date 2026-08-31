@@ -2,6 +2,7 @@ package com.almonium.auth.firebase.gateway;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
+import com.almonium.auth.firebase.model.FirebaseAccountSummary;
 import com.almonium.auth.firebase.model.FirebaseAuthProvider;
 import com.almonium.auth.firebase.model.FirebaseIdentity;
 import com.google.firebase.FirebaseApp;
@@ -138,6 +139,37 @@ public class FirebaseAdminAuthGateway implements FirebaseAuthGateway {
             firebaseAuth.deleteUser(firebaseUid);
         } catch (FirebaseAuthException | IllegalArgumentException exception) {
             throw new FirebaseIdentityManagementException("Unable to delete Firebase user", exception);
+        }
+    }
+
+    @Override
+    public void markEmailVerified(String firebaseUid) {
+        try {
+            firebaseAuth.updateUser(new UserRecord.UpdateRequest(firebaseUid).setEmailVerified(true));
+            log.info("Marked Firebase user {} as email-verified on a linked provider's word", firebaseUid);
+        } catch (FirebaseAuthException | IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException("Unable to mark the Firebase email verified", exception);
+        }
+    }
+
+    @Override
+    public Optional<FirebaseAccountSummary> findAccountByEmail(String email) {
+        try {
+            UserRecord user = firebaseAuth.getUserByEmail(email);
+            return Optional.of(new FirebaseAccountSummary(
+                    user.getUid(),
+                    user.getEmail(),
+                    user.isEmailVerified(),
+                    Arrays.stream(user.getProviderData())
+                            .map(this::toAuthProvider)
+                            .toList()));
+        } catch (FirebaseAuthException exception) {
+            if (exception.getAuthErrorCode() == AuthErrorCode.USER_NOT_FOUND) {
+                return Optional.empty();
+            }
+            throw new FirebaseIdentityManagementException("Unable to look up Firebase account", exception);
+        } catch (IllegalArgumentException exception) {
+            throw new FirebaseIdentityManagementException("Unable to look up Firebase account", exception);
         }
     }
 

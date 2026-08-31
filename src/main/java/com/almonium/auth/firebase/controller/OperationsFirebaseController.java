@@ -3,9 +3,12 @@ package com.almonium.auth.firebase.controller;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.auth.firebase.dto.request.FirebasePurgeRequest;
+import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.auth.firebase.model.FirebaseAccountSummary;
 import com.almonium.auth.firebase.service.FirebaseUserPurgeService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.dto.ApiResponse;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,6 +30,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OperationsFirebaseController {
     private final FirebaseUserPurgeService purgeService;
+    private final FirebaseAuthGateway firebaseAuthGateway;
+
+    /**
+     * What Firebase itself believes about an account. Worth having, because our row and Firebase can
+     * disagree for months without anything noticing.
+     */
+    @GetMapping
+    public ResponseEntity<FirebaseAccountSummary> findByEmail(@RequestParam String email) {
+        return ResponseEntity.ok(firebaseAuthGateway
+                .findAccountByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("No Firebase account with email: " + email)));
+    }
 
     /** What the purge will demand, and how many accounts it is looking at. */
     @GetMapping("/purge")
