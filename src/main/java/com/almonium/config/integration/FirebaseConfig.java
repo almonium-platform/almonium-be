@@ -4,9 +4,11 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.GoogleProperties;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +26,16 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp firebaseApp(GoogleCredentials credentials) {
-        FirebaseOptions options = FirebaseOptions.builder()
+        FirebaseOptions.Builder builder = FirebaseOptions.builder()
                 .setCredentials(credentials)
-                .setStorageBucket(googleProperties.getFirebase().getStorage().getBucket())
-                .build();
+                .setStorageBucket(googleProperties.getFirebase().getStorage().getBucket());
+
+        // The SDK resolves a project id from the credentials for its own calls but never writes it
+        // back, so FirebaseOptions reports only what was set here. Anything that needs to know which
+        // project it is talking to - naming it before a destructive action, say - reads it from the
+        // options and would otherwise find nothing.
+        projectIdOf(credentials).ifPresent(builder::setProjectId);
+        FirebaseOptions options = builder.build();
 
         if (FirebaseApp.getApps().isEmpty()) {
             log.info("Initializing FirebaseApp...");
@@ -40,5 +48,11 @@ public class FirebaseConfig {
     @Bean
     public FirebaseAuth firebaseAuth(FirebaseApp firebaseApp) {
         return FirebaseAuth.getInstance(firebaseApp);
+    }
+
+    private Optional<String> projectIdOf(GoogleCredentials credentials) {
+        return credentials instanceof ServiceAccountCredentials serviceAccount
+                ? Optional.ofNullable(serviceAccount.getProjectId())
+                : Optional.empty();
     }
 }
