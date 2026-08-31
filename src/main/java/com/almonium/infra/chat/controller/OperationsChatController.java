@@ -59,6 +59,15 @@ public class OperationsChatController {
         return ResponseEntity.ok(new ApiResponse(true, "Deleted " + deleted.size() + " orphaned Stream users"));
     }
 
+    /** Repairs accounts whose Stream side is missing or incomplete, without deleting anything. */
+    @PostMapping("/users/provision")
+    @RequireRecentLogin
+    public ResponseEntity<ApiResponse> provisionUsers() {
+        int provisioned = purgeService.provisionKnownUsers();
+        return ResponseEntity.ok(new ApiResponse(
+                true, String.format("Rebuilt %d account%s in Stream", provisioned, provisioned == 1 ? "" : "s")));
+    }
+
     /** The phrase the purge demands, so the console can show an operator what they have to type. */
     @GetMapping("/purge")
     public ResponseEntity<Map<String, String>> purgeConfirmation() {

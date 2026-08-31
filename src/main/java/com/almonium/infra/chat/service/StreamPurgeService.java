@@ -84,7 +84,7 @@ public class StreamPurgeService {
         streamChatService.createDefaultChannel();
         streamChatService.createChannelsForSpecificLanguages();
 
-        int restored = restoreKnownUsers();
+        int restored = provisionKnownUsers();
 
         log.warn(
                 "Purged the Stream application: {} channels, {} users deleted, {} users restored",
@@ -94,7 +94,13 @@ public class StreamPurgeService {
         return new PurgeSummary(cids.size(), userIds.size(), restored);
     }
 
-    private int restoreKnownUsers() {
+    /**
+     * Gives every account we hold a row for its Stream user, its broadcast memberships and its own
+     * Saved Messages. Every step is idempotent, so this repairs a half-provisioned account without
+     * touching a healthy one - and registration can leave accounts that way, since Stream setup
+     * runs on an event after the row is already committed.
+     */
+    public int provisionKnownUsers() {
         List<User> users = userRepository.findAll();
 
         users.forEach(user -> {
