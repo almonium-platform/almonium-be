@@ -117,4 +117,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/patches/20260830-record-learner-start.yaml
   - include:
+      file: db/changelog/changes/patches/20260830-scope-translation-requests.yaml
+  - include:
       file: db/changelog/changes/patches/20260831-freeze-set-aside-record.yaml

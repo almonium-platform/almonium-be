@@ -31,7 +31,6 @@ public class BookDetails {
     Boolean hasParallelTranslation;
     Boolean isTranslation;
     List<BookLanguageVariant> languageVariants;
-    Language orderLanguage;
     boolean favorite;
     Language originalLanguage;
     UUID originalId;

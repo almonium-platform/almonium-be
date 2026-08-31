@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260830-scope-translation-requests
+      author: claude
+      changes:
+        # The constraint was already named for the language it did not include, so a
+        # reader could only ever hold one request per book across every language.
+        - dropUniqueConstraint:
+            tableName: translation_order
+            constraintName: uc_translation_order_user_book_language
+        - addUniqueConstraint:
+            tableName: translation_order
+            constraintName: uc_translation_order_user_book_language
+            columnNames: user_id, book_id, language
+        - addColumn:
+            tableName: translation_order
+            columns:
+              - column:
+                  name: status
+                  type: varchar(20)
+                  defaultValue: ASKED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fulfilled_book_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_translation_order_fulfilled_book
+                    references: book(id)
+              - column:
+                  name: resolved_at
+                  type: timestamp
+        - createIndex:
+            tableName: translation_order
+            indexName: ix_translation_order_user_status_created
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: status
+              - column:
+                  name: created_at
+        - createIndex:
+            tableName: translation_order
+            indexName: ix_translation_order_book_language_status
+            columns:
+              - column:
+                  name: book_id
+              - column:
+                  name: language
+              - column:
+                  name: status
+        - sql:
+            sql: |
+              INSERT INTO plan_limit (plan_id, feature_key, limit_value)
+              VALUES
+                  (1, 'MAX_TRANSLATION_REQUESTS_PER_MONTH', 1),
+                  (2, 'MAX_TRANSLATION_REQUESTS_PER_MONTH', 3),
+                  (3, 'MAX_TRANSLATION_REQUESTS_PER_MONTH', 3),
+                  (4, 'MAX_TRANSLATION_REQUESTS_PER_MONTH', 3);

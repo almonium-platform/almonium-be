@@ -15,11 +15,9 @@ import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
 import com.almonium.learning.book.model.entity.BookMiniProjection;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
-import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
-import com.almonium.learning.book.repository.TranslationOrderRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
@@ -47,7 +45,6 @@ public class BookService {
 
     BookRepository bookRepository;
     UserRepository userRepository;
-    TranslationOrderRepository translationOrderRepository;
     LearnerBookProgressRepository learnerBookProgressRepository;
     BookFavoriteRepository bookFavoriteRepository;
 
@@ -240,12 +237,9 @@ public class BookService {
 
         List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
-        UUID originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
-        Optional<TranslationOrder> order =
-                translationOrderRepository.findByUserIdAndBookId(user.getId(), originalBookId);
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
-        return bookMapper.toDetailsDto(projection, availableLanguages, order, favorite);
+        return bookMapper.toDetailsDto(projection, availableLanguages, favorite);
     }
 
     public byte[] getText(User user, UUID bookId) {

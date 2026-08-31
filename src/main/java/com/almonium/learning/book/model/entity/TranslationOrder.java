@@ -3,6 +3,7 @@ package com.almonium.learning.book.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.learning.book.model.enums.TranslationOrderStatus;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
@@ -33,7 +34,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "translation_order", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "book_id"}))
+@Table(
+        name = "translation_order",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "book_id", "language"}))
 public class TranslationOrder {
 
     @Id
@@ -51,6 +54,16 @@ public class TranslationOrder {
     @Enumerated(EnumType.STRING)
     Language language;
 
+    @Enumerated(EnumType.STRING)
+    TranslationOrderStatus status;
+
+    /** The published translation this request was settled by, so the caller can open it. */
+    @ManyToOne
+    @JoinColumn(name = "fulfilled_book_id", referencedColumnName = "id")
+    Book fulfilledBook;
+
+    Instant resolvedAt;
+
     @CreatedDate
     Instant createdAt;
 
@@ -58,5 +71,6 @@ public class TranslationOrder {
         this.user = user;
         this.book = book;
         this.language = language;
+        this.status = TranslationOrderStatus.ASKED;
     }
 }
