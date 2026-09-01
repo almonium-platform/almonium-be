@@ -44,7 +44,7 @@ public class FirebaseSessionService {
         User user = provisioningService.resolveOrCreate(identity);
         String sessionCookie = firebaseAuthGateway.createSessionCookie(idToken, sessionLifetime());
         cookieService.write(response, sessionCookie);
-        profileService.updateLoginStreak(user.getProfile());
+        profileService.updateLastLogin(user.getProfile());
         SecurityContextHolder.getContext().setAuthentication(authentication(identity, user));
         return user;
     }

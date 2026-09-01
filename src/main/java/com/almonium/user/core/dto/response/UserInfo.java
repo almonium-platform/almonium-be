@@ -29,8 +29,6 @@ public class UserInfo {
     boolean isAdmin;
     boolean hidden;
 
-    Integer streak;
-
     Collection<String> tags;
     Collection<LearnerDto> learners;
     Collection<Language> fluentLangs;

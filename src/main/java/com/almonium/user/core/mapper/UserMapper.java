@@ -10,7 +10,6 @@ public interface UserMapper {
     @Mapping(source = "profile.avatarUrl", target = "avatarUrl")
     @Mapping(source = "profile.uiPreferences", target = "uiPreferences")
     @Mapping(source = "profile.hidden", target = "hidden")
-    @Mapping(target = "streak", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "subscription", ignore = true)
     @Mapping(target = "isPremium", ignore = true)

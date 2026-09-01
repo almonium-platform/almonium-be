@@ -61,7 +61,7 @@ class FirebaseSessionServiceTest {
         service.createSession("id-token", response);
 
         verify(cookieService).write(response, "session-cookie");
-        verify(profileService).updateLoginStreak(user.getProfile());
+        verify(profileService).updateLastLogin(user.getProfile());
     }
 
     @Test

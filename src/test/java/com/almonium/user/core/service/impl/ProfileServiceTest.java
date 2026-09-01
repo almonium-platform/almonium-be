@@ -2,6 +2,7 @@ package com.almonium.user.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.ProfileRepository;
@@ -26,30 +27,15 @@ class ProfileServiceTest {
     @InjectMocks
     ProfileService profileService;
 
-    @DisplayName("Should increase streak if last login is on the previous day")
+    @DisplayName("Should stamp the current time as the last login")
     @Test
-    void givenLastLoginIsPreviousDay_whenUpdateLoginStreak_thenStreakIsIncreased() {
+    void givenStaleLastLogin_whenUpdateLastLogin_thenLastLoginIsStampedNow() {
         Profile profile = new Profile();
-        LocalDateTime lastLogin = LocalDateTime.now().minusDays(1);
-        profile.setLastLogin(lastLogin);
-        profile.setStreak(5);
-        profileService.updateLoginStreak(profile);
+        profile.setLastLogin(LocalDateTime.now().minusDays(2));
 
-        assertThat(profile.getStreak()).isEqualTo(6);
+        profileService.updateLastLogin(profile);
+
         assertThat(profile.getLastLogin().toLocalDate()).isEqualTo(LocalDate.now());
-    }
-
-    @DisplayName("Should reset streak if last login is not on the previous day")
-    @Test
-    void givenLastLoginNotPreviousDay_whenUpdateLoginStreak_thenStreakIsReset() {
-        Profile profile = new Profile();
-        LocalDateTime lastLogin = LocalDateTime.now().minusDays(2);
-        profile.setLastLogin(lastLogin);
-        profile.setStreak(5);
-
-        profileService.updateLoginStreak(profile);
-
-        assertThat(profile.getStreak()).isEqualTo(1);
-        assertThat(profile.getLastLogin().toLocalDate()).isEqualTo(LocalDate.now());
+        verify(profileRepository).save(profile);
     }
 }

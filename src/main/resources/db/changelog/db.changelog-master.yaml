@@ -120,3 +120,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260830-scope-translation-requests.yaml
   - include:
       file: db/changelog/changes/patches/20260831-freeze-set-aside-record.yaml
+  - include:
+      file: db/changelog/changes/patches/20260902-drop-login-streak.yaml
