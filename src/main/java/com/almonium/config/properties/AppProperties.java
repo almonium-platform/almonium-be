@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -38,6 +39,23 @@ public class AppProperties {
     @Valid
     @NestedConfigurationProperty
     Auth auth = new Auth();
+
+    @NotNull
+    @Valid
+    @NestedConfigurationProperty
+    Cors cors = new Cors();
+
+    @Getter
+    @Setter
+    @FieldDefaults(level = PRIVATE)
+    public static class Cors {
+        /**
+         * Origins allowed in addition to the web domain, as Spring origin patterns. Empty everywhere but locally,
+         * where a browser tab on any port has to be able to talk to the API.
+         */
+        @NotNull
+        List<String> allowedOriginPatterns = List.of();
+    }
 
     @Getter
     @Setter

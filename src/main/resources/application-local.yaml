@@ -33,4 +33,11 @@ logging:
 app:
   web-domain: http://localhost:9999
   api-domain: http://localhost:${server.port}
+  # Any local origin, whatever port the dev server, a preview build or a browser-driving agent lands on.
+  cors.allowed-origin-patterns:
+    - http://localhost:[*]
+    - https://localhost:[*]
+    - http://127.0.0.1:[*]
+    - https://127.0.0.1:[*]
+    - http://[::1]:[*]
   email.dry-run: true

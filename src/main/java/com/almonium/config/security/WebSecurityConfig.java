@@ -61,6 +61,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(appProperties.getWebDomain()));
+        configuration.setAllowedOriginPatterns(appProperties.getCors().getAllowedOriginPatterns());
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
         configuration.setAllowedHeaders(
                 List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN", "ngsw-bypass"));
