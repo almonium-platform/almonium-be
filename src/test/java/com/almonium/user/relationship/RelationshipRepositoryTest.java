@@ -5,10 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.PostgresContainer;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import java.util.List;
@@ -79,6 +81,20 @@ class RelationshipRepositoryTest {
                 .singleElement()
                 .extracting(RelatedUserProfile::getRelationshipId)
                 .isNull();
+    }
+
+    @DisplayName("Should answer with the languages a batch of people are actively studying")
+    @Test
+    void givenUserIds_whenFindActiveLanguagesOf_thenOnlyActiveLearnersAreReturned() {
+        UUID strangerId = UUID.fromString("01956cde-e7c1-7b0a-9f21-3b41f0a5c0d3");
+
+        List<LearnerLanguageProjection> languages =
+                relationshipRepository.findActiveLanguagesOf(List.of(REQUESTER_ID, REQUESTEE_ID, strangerId));
+
+        // user3's only language is set aside, so it never reaches a row.
+        assertThat(languages)
+                .extracting(LearnerLanguageProjection::getUserId, LearnerLanguageProjection::getLanguage)
+                .containsExactlyInAnyOrder(tuple(REQUESTEE_ID, Language.DE), tuple(REQUESTEE_ID, Language.ES));
     }
 
     @DisplayName("Should reject a second relationship with reversed users")

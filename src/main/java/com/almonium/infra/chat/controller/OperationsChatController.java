@@ -34,7 +34,7 @@ public class OperationsChatController {
     @PostMapping("/announcements")
     @RequireRecentLogin
     public ResponseEntity<ApiResponse> publish(@Valid @RequestBody AnnouncementRequest request) {
-        String messageId = streamChatService.publishAnnouncement(request.language(), request.text());
+        String messageId = streamChatService.publishAnnouncement(request);
         return ResponseEntity.ok(new ApiResponse(true, "Published message " + messageId));
     }
 

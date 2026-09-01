@@ -16,6 +16,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.User;
@@ -27,6 +28,7 @@ import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
@@ -123,6 +125,27 @@ class RelationshipServiceTest {
         assertThat(friends)
                 .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::isPremium)
                 .containsExactly(tuple("member", true), tuple("free", false));
+    }
+
+    @DisplayName("Should stamp each person with the languages they study, and leave the rest empty")
+    @Test
+    void givenLearners_whenGetFriends_thenEachRowCarriesItsOwnLanguages() {
+        UUID studentId = UUID.randomUUID();
+        UUID quietId = UUID.randomUUID();
+        RelatedUserProfile student = new RelatedUserProfile(studentId, "student", null, RELATIONSHIP_ID, "FRIENDS");
+        RelatedUserProfile quiet = new RelatedUserProfile(quietId, "quiet", null, RELATIONSHIP_ID, "FRIENDS");
+
+        when(relationshipRepository.getFriendships(REQUESTER_ID)).thenReturn(List.of(student, quiet));
+        when(relationshipRepository.findActiveLanguagesOf(List.of(studentId, quietId)))
+                .thenReturn(List.of(
+                        new LearnerLanguageProjection(studentId, Language.ES),
+                        new LearnerLanguageProjection(studentId, Language.DE)));
+
+        List<RelatedUserProfile> friends = relationshipService.getFriends(REQUESTER_ID);
+
+        assertThat(friends)
+                .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::getLearning)
+                .containsExactly(tuple("student", List.of(Language.ES, Language.DE)), tuple("quiet", List.of()));
     }
 
     @DisplayName("Should return empty list when no friends found for a user")

@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.properties.AppProperties;
+import com.almonium.infra.chat.dto.request.AnnouncementRequest;
 import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
@@ -109,15 +110,18 @@ public class StreamChatService {
      * Posts to a broadcast channel as the app itself. Members cannot write to those channels, so
      * this server-side path is the only way anything is published there.
      */
-    public String publishAnnouncement(Language language, String text) {
-        String channelId = getBroadcastChannelId(language);
+    public String publishAnnouncement(AnnouncementRequest request) {
+        String channelId = getBroadcastChannelId(request.language());
 
         try {
+            var message =
+                    Message.MessageRequestObject.builder().text(request.text()).userId(getDefaultStreamId());
+            // The client draws the footer action from these; a post without them is text alone.
+            if (request.hasCta()) {
+                message.additionalField("ctaLabel", request.ctaLabel()).additionalField("ctaUrl", request.ctaUrl());
+            }
             return Message.send(READ_ONLY_CHAT_TYPE, channelId)
-                    .message(Message.MessageRequestObject.builder()
-                            .text(text)
-                            .userId(getDefaultStreamId())
-                            .build())
+                    .message(message.build())
                     .request()
                     .getMessage()
                     .getId();

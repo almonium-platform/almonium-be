@@ -2,7 +2,9 @@ package com.almonium.user.relationship.repository;
 
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -93,6 +95,24 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
         join Profile p on u.id = p.id
         """)
     List<RelatedUserProfile> getBlocked(UUID id);
+
+    /**
+     * The languages a batch of people are studying, in one query rather than one per row. A hidden profile is left
+     * out here rather than filtered later: what it studies is as private as its avatar.
+     */
+    @Query(
+            """
+            select new com.almonium.user.relationship.model.projection.LearnerLanguageProjection(
+                u.id,
+                l.language
+            )
+            from Learner l
+            join l.user u
+            join Profile p on p.id = u.id
+            where u.id in :ids and l.active = true and p.hidden = false
+            order by l.language
+            """)
+    List<LearnerLanguageProjection> findActiveLanguagesOf(Collection<UUID> ids);
 
     @Query(
             """

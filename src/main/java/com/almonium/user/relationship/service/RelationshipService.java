@@ -3,6 +3,7 @@ package com.almonium.user.relationship.service;
 import static com.almonium.user.relationship.model.enums.RelationshipStatus.PENDING;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.Profile;
@@ -15,14 +16,17 @@ import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
 import com.almonium.user.relationship.model.enums.RelationshipStatus;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.model.record.RelationshipPerspective;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.user.relationship.service.RelationshipStateMachine.ActorRole;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +51,7 @@ public class RelationshipService {
     RelationshipPerspectiveResolver perspectiveResolver;
 
     public List<RelatedUserProfile> findUsersByUsername(UUID id, String username) {
-        return withMembership(relationshipRepository.searchUsersByUsername(id, username));
+        return describe(relationshipRepository.searchUsersByUsername(id, username));
     }
 
     public List<RelationshipToUserProjection> searchFriends(UUID id, String username) {
@@ -55,19 +59,44 @@ public class RelationshipService {
     }
 
     public List<RelatedUserProfile> getSentRequests(UUID id) {
-        return withMembership(relationshipRepository.getSentRequests(id));
+        return describe(relationshipRepository.getSentRequests(id));
     }
 
     public List<RelatedUserProfile> getReceivedRequests(UUID id) {
-        return withMembership(relationshipRepository.getReceivedRequests(id));
+        return describe(relationshipRepository.getReceivedRequests(id));
     }
 
     public List<RelatedUserProfile> getFriends(UUID id) {
-        return withMembership(relationshipRepository.getFriendships(id));
+        return describe(relationshipRepository.getFriendships(id));
     }
 
     public List<RelatedUserProfile> getBlocked(UUID id) {
-        return withMembership(relationshipRepository.getBlocked(id));
+        return describe(relationshipRepository.getBlocked(id));
+    }
+
+    /** Everything a row needs beyond a name, filled in one pass over the whole list. */
+    private List<RelatedUserProfile> describe(List<RelatedUserProfile> profiles) {
+        return withLearning(withMembership(profiles));
+    }
+
+    /**
+     * Stamps the languages each person studies, so a row can say who they are rather than only what they are called.
+     * A hidden profile brings nothing back from the query and so keeps its empty list.
+     */
+    private List<RelatedUserProfile> withLearning(List<RelatedUserProfile> profiles) {
+        if (profiles.isEmpty()) {
+            return profiles;
+        }
+        Map<UUID, List<Language>> byUser =
+                relationshipRepository
+                        .findActiveLanguagesOf(
+                                profiles.stream().map(PublicUserProfile::getId).toList())
+                        .stream()
+                        .collect(Collectors.groupingBy(
+                                LearnerLanguageProjection::getUserId,
+                                Collectors.mapping(LearnerLanguageProjection::getLanguage, Collectors.toList())));
+        profiles.forEach(profile -> profile.setLearning(byUser.getOrDefault(profile.getId(), List.of())));
+        return profiles;
     }
 
     /**
