@@ -10,12 +10,14 @@ import static com.almonium.user.relationship.model.enums.RelationshipStatus.UNFR
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.infra.notification.service.NotificationService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
@@ -30,6 +32,7 @@ import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,6 +69,9 @@ class RelationshipServiceTest {
     @Mock
     NotificationService notificationService;
 
+    @Mock
+    EffectiveAccessService effectiveAccessService;
+
     @Spy
     RelationshipStateMachine stateMachine = new RelationshipStateMachine();
 
@@ -99,6 +105,24 @@ class RelationshipServiceTest {
 
         // Assert
         assertThat(result).isEmpty();
+    }
+
+    @DisplayName("Should stamp membership from the access service, not from what the query returned")
+    @Test
+    void givenGrantedMember_whenGetFriends_thenTheAccessServiceDecidesWhoIsAMember() {
+        UUID memberId = UUID.randomUUID();
+        UUID freeId = UUID.randomUUID();
+        RelatedUserProfile member = new RelatedUserProfile(memberId, "member", null, RELATIONSHIP_ID, "FRIENDS");
+        RelatedUserProfile free = new RelatedUserProfile(freeId, "free", null, RELATIONSHIP_ID, "FRIENDS");
+
+        when(relationshipRepository.getFriendships(REQUESTER_ID)).thenReturn(List.of(member, free));
+        when(effectiveAccessService.premiumAmong(List.of(memberId, freeId))).thenReturn(Set.of(memberId));
+
+        List<RelatedUserProfile> friends = relationshipService.getFriends(REQUESTER_ID);
+
+        assertThat(friends)
+                .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::isPremium)
+                .containsExactly(tuple("member", true), tuple("free", false));
     }
 
     @DisplayName("Should return empty list when no friends found for a user")

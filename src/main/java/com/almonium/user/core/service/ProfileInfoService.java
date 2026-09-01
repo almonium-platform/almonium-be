@@ -2,7 +2,6 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.response.BaseProfileInfo;
@@ -114,9 +113,9 @@ public class ProfileInfoService {
     private BaseProfileInfo getPublicProfileInfo(User user, RelationshipPerspective relationshipPerspective) {
         Profile profile = user.getProfile();
 
-        // Read the effective entitlement, not the plan: an operator grant makes a member of someone whose
-        // plan row is still FREE, and reading the plan alone showed them to everyone else as free.
-        boolean isPremium = effectiveAccessService.entitlementFor(user) != Entitlement.FREE;
+        // Ask the funnel, not the plan: an operator grant makes a member of someone whose plan row is still FREE,
+        // and reading the plan alone showed them to everyone else as free.
+        boolean isPremium = effectiveAccessService.isPremium(user);
 
         return BaseProfileInfo.builder()
                 .id(user.getId().toString())

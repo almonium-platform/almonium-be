@@ -63,8 +63,7 @@ public class UserService {
                 planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
         userInfo.setSubscription(subscriptionInfoDto);
         userInfo.getSubscription().setLimits(limits);
-        userInfo.setPremium(effectiveAccessService.entitlementFor(user)
-                != com.almonium.subscription.model.entity.enums.Entitlement.FREE);
+        userInfo.setPremium(effectiveAccessService.isPremium(user));
         userInfo.setAdmin(
                 SecurityRoles.isAdmin(SecurityContextHolder.getContext().getAuthentication()));
         return userInfo;

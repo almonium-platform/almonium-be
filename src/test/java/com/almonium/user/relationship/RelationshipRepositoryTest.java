@@ -50,15 +50,17 @@ class RelationshipRepositoryTest {
         assertThat(relationshipToUserProjections).isNotEmpty();
     }
 
-    @DisplayName("Should include the friend's premium avatar tier")
+    @DisplayName("Should leave membership to the service, not re-derive it from plan rows")
     @Test
-    void givenPremiumFriend_whenGetFriendships_thenPremiumShouldBeTrue() {
+    void givenPremiumFriend_whenGetFriendships_thenPremiumIsLeftUnset() {
         List<RelatedUserProfile> friends = relationshipRepository.getFriendships(REQUESTER_ID);
 
+        // user2 pays for a premium plan in the fixture, and the query still must not answer this: only
+        // EffectiveAccessService knows, because an operator grant is a membership no plan row records.
         assertThat(friends)
                 .singleElement()
                 .extracting(RelatedUserProfile::isPremium)
-                .isEqualTo(true);
+                .isEqualTo(false);
     }
 
     @DisplayName("Should return every matching account, each with how the searcher stands with it")

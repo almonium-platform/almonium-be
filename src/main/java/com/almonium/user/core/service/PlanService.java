@@ -59,13 +59,6 @@ public class PlanService {
         return getInsiderPlan().getId() == planId;
     }
 
-    public boolean isPlanPremium(Long id) {
-        return planRepository
-                .findById(id)
-                .map(plan -> plan.getEntitlement() != Entitlement.FREE)
-                .orElse(false);
-    }
-
     public Plan getInsiderPlan() {
         Plan insiderPlan = cachedInsiderPlan.get();
         if (insiderPlan == null) {

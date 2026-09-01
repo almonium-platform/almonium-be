@@ -193,6 +193,7 @@ class UserServiceTest {
 
         when(planSubscriptionService.getActiveSub(user)).thenReturn(planSubscription);
         when(effectiveAccessService.entitlementFor(user)).thenReturn(Entitlement.PREMIUM);
+        when(effectiveAccessService.isPremium(user)).thenReturn(true);
         when(planService.getPlanLimits(Entitlement.PREMIUM)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
         when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
         when(streamChatService.generateStreamToken(user)).thenReturn("fresh-stream-token");

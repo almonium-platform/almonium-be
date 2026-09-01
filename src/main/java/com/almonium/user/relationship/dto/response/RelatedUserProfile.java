@@ -38,4 +38,13 @@ public class RelatedUserProfile extends PublicUserProfile {
             String relationshipStatus) {
         this(id, username, avatarUrl, premium, relationshipId, RelativeRelationshipStatus.valueOf(relationshipStatus));
     }
+
+    /**
+     * The shape a query builds. Membership is left false here on purpose: only EffectiveAccessService knows whether a
+     * person is a member, so the service fills it in rather than every query re-deriving it from plan rows.
+     */
+    public RelatedUserProfile(
+            UUID id, String username, String avatarUrl, UUID relationshipId, String relationshipStatus) {
+        this(id, username, avatarUrl, false, relationshipId, relationshipStatus);
+    }
 }

@@ -7,6 +7,7 @@ import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.record.UserEntitlement;
 import com.almonium.subscription.repository.PlanRepository;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -15,8 +16,10 @@ import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.PlanService;
 import jakarta.transaction.Transactional;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -93,6 +96,11 @@ public class PlanSubscriptionService {
 
     public Plan getActivePlan(User user) {
         return getActiveSub(user).getPlan();
+    }
+
+    /** Plan-derived entitlements for a list of users, in one query. */
+    public List<UserEntitlement> getActiveEntitlements(Collection<UUID> userIds) {
+        return planSubRepository.findActiveEntitlementsByUserIds(userIds);
     }
 
     public Optional<String> getPaidSubscriptionIdToCancel(User user) {

@@ -4,10 +4,12 @@ import static com.almonium.user.relationship.model.enums.RelationshipStatus.PEND
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.infra.notification.service.NotificationService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
+import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
@@ -19,6 +21,7 @@ import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.user.relationship.service.RelationshipStateMachine.ActorRole;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -37,13 +40,14 @@ public class RelationshipService {
 
     ProfileService profileService;
     NotificationService notificationService;
+    EffectiveAccessService effectiveAccessService;
 
     RelationshipRepository relationshipRepository;
     RelationshipStateMachine stateMachine;
     RelationshipPerspectiveResolver perspectiveResolver;
 
     public List<RelatedUserProfile> findUsersByUsername(UUID id, String username) {
-        return relationshipRepository.searchUsersByUsername(id, username);
+        return withMembership(relationshipRepository.searchUsersByUsername(id, username));
     }
 
     public List<RelationshipToUserProjection> searchFriends(UUID id, String username) {
@@ -51,19 +55,30 @@ public class RelationshipService {
     }
 
     public List<RelatedUserProfile> getSentRequests(UUID id) {
-        return relationshipRepository.getSentRequests(id);
+        return withMembership(relationshipRepository.getSentRequests(id));
     }
 
     public List<RelatedUserProfile> getReceivedRequests(UUID id) {
-        return relationshipRepository.getReceivedRequests(id);
+        return withMembership(relationshipRepository.getReceivedRequests(id));
     }
 
     public List<RelatedUserProfile> getFriends(UUID id) {
-        return relationshipRepository.getFriendships(id);
+        return withMembership(relationshipRepository.getFriendships(id));
     }
 
     public List<RelatedUserProfile> getBlocked(UUID id) {
-        return relationshipRepository.getBlocked(id);
+        return withMembership(relationshipRepository.getBlocked(id));
+    }
+
+    /**
+     * Stamps membership on a list of people from the one service that knows it, in one pass rather than one lookup
+     * each. A grant and a paid plan are the same thing here, which is exactly why no query decides this for itself.
+     */
+    private List<RelatedUserProfile> withMembership(List<RelatedUserProfile> profiles) {
+        Set<UUID> members = effectiveAccessService.premiumAmong(
+                profiles.stream().map(PublicUserProfile::getId).toList());
+        profiles.forEach(profile -> profile.setPremium(members.contains(profile.getId())));
+        return profiles;
     }
 
     /**

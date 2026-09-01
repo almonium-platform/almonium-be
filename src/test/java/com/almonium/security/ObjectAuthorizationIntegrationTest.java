@@ -25,6 +25,7 @@ import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.infra.notification.service.FCMService;
 import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.infra.storage.service.FirebaseStorageService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.controller.AvatarController;
 import com.almonium.user.core.mapper.AvatarMapper;
 import com.almonium.user.core.model.entity.Avatar;
@@ -118,6 +119,9 @@ class ObjectAuthorizationIntegrationTest {
 
     @MockitoBean
     RelationshipRepository relationshipRepository;
+
+    @MockitoBean
+    EffectiveAccessService effectiveAccessService;
 
     private User currentUser;
 
