@@ -71,7 +71,7 @@ class ActiveLanguageServiceTest {
     void givenDowngradePick_whenEnforceAllowance_thenPickSurvivesAndRestAreSystemSetAside() {
         profile.setDowngradeKeepLanguage(Language.IT);
         List<Learner> learners = List.of(active(Language.DE), active(Language.EN), active(Language.IT));
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID)).thenReturn(learners);
 
@@ -93,7 +93,7 @@ class ActiveLanguageServiceTest {
     @Test
     void givenNoPick_whenEnforceAllowance_thenMostRecentlyReadSurvives() {
         List<Learner> learners = List.of(active(Language.DE), active(Language.EN));
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID)).thenReturn(learners);
         when(learningDayRepository.findLastDays(USER_ID))
@@ -112,7 +112,7 @@ class ActiveLanguageServiceTest {
     @Test
     void givenUnlimitedAllowance_whenEnforceAllowance_thenNothingIsSetAside() {
         List<Learner> learners = List.of(active(Language.DE), active(Language.EN));
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(-1);
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID)).thenReturn(learners);
 
@@ -126,7 +126,7 @@ class ActiveLanguageServiceTest {
     void givenBothKindsOfSetAside_whenRestoring_thenOnlySystemOnesComeBack() {
         Learner takenByDowngrade = setAside(Language.EN, SetAsideBy.SYSTEM, Instant.now());
         Learner putDownByUser = setAside(Language.IT, SetAsideBy.USER, Instant.now());
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(-1);
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID))
                 .thenReturn(List.of(active(Language.DE), takenByDowngrade, putDownByUser));
@@ -143,7 +143,7 @@ class ActiveLanguageServiceTest {
     void givenOneAllowed_whenSwitching_thenTheOtherIsSetAsideAndTheSwitchIsSpent() {
         Learner current = active(Language.DE);
         Learner wanted = setAside(Language.EN, SetAsideBy.SYSTEM, Instant.now());
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
         when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.EN)).thenReturn(java.util.Optional.of(wanted));
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID)).thenReturn(List.of(current, wanted));
@@ -161,7 +161,7 @@ class ActiveLanguageServiceTest {
     void givenSwitchAlreadySpentThisMonth_whenSwitchingAgain_thenItIsRefused() {
         profile.setLastActiveSwitchAt(Instant.now());
         Learner wanted = setAside(Language.EN, SetAsideBy.USER, Instant.now());
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
         when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.EN)).thenReturn(java.util.Optional.of(wanted));
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID))
@@ -178,7 +178,7 @@ class ActiveLanguageServiceTest {
     void givenLastSwitchLastMonth_whenSwitching_thenItIsAllowed() {
         profile.setLastActiveSwitchAt(Instant.now().minus(70, ChronoUnit.DAYS));
         Learner wanted = setAside(Language.EN, SetAsideBy.USER, Instant.now());
-        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS))
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
         when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.EN)).thenReturn(java.util.Optional.of(wanted));
         when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID))

@@ -124,3 +124,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260901-enforce-one-active-language.yaml
   - include:
       file: db/changelog/changes/patches/20260902-drop-login-streak.yaml
+  - include:
+      file: db/changelog/changes/patches/20260903-split-active-and-creation-language-caps.yaml

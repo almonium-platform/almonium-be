@@ -86,14 +86,14 @@ public class ActiveLanguageService {
                 allowance(user), defaultAllowance(), nextSwitchAllowedAt(user).orElse(null), choices);
     }
 
-    /** How many languages this account may keep active, or {@link #UNLIMITED}. */
+    /** How many languages this account may keep active, or {@link #UNLIMITED}. Moves when the plan does. */
     public int allowance(User user) {
-        return planValidationService.effectiveLimit(user, PlanFeature.MAX_TARGET_LANGS);
+        return planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS);
     }
 
     /** How many survive once no plan is paying for them: what the downgrade sheet is actually asking about. */
     public int defaultAllowance() {
-        return planService.getPlanLimits(Entitlement.FREE).getOrDefault(PlanFeature.MAX_TARGET_LANGS, UNLIMITED);
+        return planService.getPlanLimits(Entitlement.FREE).getOrDefault(PlanFeature.MAX_ACTIVE_LANGS, UNLIMITED);
     }
 
     /**
