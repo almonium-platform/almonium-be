@@ -32,6 +32,20 @@ public interface LearningDayRepository extends JpaRepository<LearningDay, UUID> 
     }
 
     /**
+     * The most recent day each language was learned on. It orders the downgrade pick — the language you have been
+     * reading is the one offered to keep — and answers "last read" on the sheet.
+     */
+    @Query("select d.language as language, max(d.day) as lastDay from LearningDay d "
+            + "where d.user.id = :userId group by d.language")
+    List<LanguageLastDay> findLastDays(@Param("userId") UUID userId);
+
+    interface LanguageLastDay {
+        Language getLanguage();
+
+        LocalDate getLastDay();
+    }
+
+    /**
      * Adds activity to one language's day, creating it when absent. Concurrent heartbeats from several tabs are
      * common, so the accumulation happens in the database rather than in a read-modify-write.
      *

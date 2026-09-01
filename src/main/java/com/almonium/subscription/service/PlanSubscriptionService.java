@@ -2,6 +2,7 @@ package com.almonium.subscription.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.subscription.event.EntitlementChangedEvent;
 import com.almonium.subscription.event.SubscriptionStatusChangedEvent;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
@@ -183,6 +184,8 @@ public class PlanSubscriptionService {
         if (previousStatus == PlanSubscription.Status.PAUSED) {
             deactivateCurrentSub(subscription.getUser());
             updatePlanSubStatusAndSave(subscription, PlanSubscription.Status.ACTIVE);
+            eventPublisher.publishEvent(
+                    new EntitlementChangedEvent(subscription.getUser().getId()));
             return;
         }
         if (previousStatus == PlanSubscription.Status.ACTIVE_TILL_CYCLE_END) {
@@ -271,6 +274,7 @@ public class PlanSubscriptionService {
             User user, Plan plan, String subscriptionId, Instant startDate, Instant endDate, Instant occurredAt) {
         deactivateCurrentSub(user);
         createNewPlanSub(user, plan, subscriptionId, startDate, endDate, occurredAt);
+        eventPublisher.publishEvent(new EntitlementChangedEvent(user.getId()));
         sendEmailForEvent(user, getActiveSub(user), PlanSubscription.Event.CREATED);
     }
 
@@ -379,5 +383,6 @@ public class PlanSubscriptionService {
         defaultPlanSub.setStartDate(Instant.now());
         defaultPlanSub.setEndDate(null);
         updatePlanSubStatusAndSave(defaultPlanSub, PlanSubscription.Status.ACTIVE);
+        eventPublisher.publishEvent(new EntitlementChangedEvent(user.getId()));
     }
 }

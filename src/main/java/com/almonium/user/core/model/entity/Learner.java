@@ -7,6 +7,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
+import com.almonium.user.core.model.enums.SetAsideBy;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -89,6 +90,10 @@ public class Learner {
      * the deliberate "no target", otherwise 1, 2 or 4.
      */
     Integer weeklyTarget;
+
+    /** Who set it aside, so a re-upgrade returns what the downgrade took and nothing the user chose to put down. */
+    @Enumerated(EnumType.STRING)
+    SetAsideBy setAsideBy;
 
     @Builder.Default
     boolean active = true;

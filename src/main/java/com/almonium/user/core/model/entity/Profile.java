@@ -2,14 +2,18 @@ package com.almonium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +57,16 @@ public class Profile {
 
     @CreatedDate
     LocalDateTime lastLogin;
+
+    /**
+     * When the account last swapped which language is active. The downgrade pick does not stamp this: choosing what
+     * to keep is not the same as spending a switch.
+     */
+    Instant lastActiveSwitchAt;
+
+    /** Which language the user asked to keep when the plan ends. Consumed and cleared the moment it is honoured. */
+    @Enumerated(EnumType.STRING)
+    Language downgradeKeepLanguage;
 
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> uiPreferences;

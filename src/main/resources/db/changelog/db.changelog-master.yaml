@@ -121,4 +121,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/patches/20260831-freeze-set-aside-record.yaml
   - include:
+      file: db/changelog/changes/patches/20260901-enforce-one-active-language.yaml
+  - include:
       file: db/changelog/changes/patches/20260902-drop-login-streak.yaml

@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260901-enforce-one-active-language
+      author: claude
+      comment: >-
+        A downgrade takes the languages, never the record. Recording who set a language aside lets a re-upgrade
+        bring back only what the downgrade took, and leave alone what the user put down deliberately. Existing
+        set-aside learners are attributed to the user, since nothing else has ever set one aside.
+      changes:
+        - addColumn:
+            tableName: learner
+            columns:
+              - column: { name: set_aside_by, type: varchar(16) }
+        - sql:
+            sql: UPDATE learner SET set_aside_by = 'USER' WHERE active = false AND set_aside_by IS NULL
+        - addColumn:
+            tableName: profile
+            columns:
+              - column: { name: last_active_switch_at, type: timestamp with time zone }
+              - column: { name: downgrade_keep_language, type: varchar(16) }

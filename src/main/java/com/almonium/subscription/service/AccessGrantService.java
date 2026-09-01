@@ -2,6 +2,7 @@ package com.almonium.subscription.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.subscription.event.EntitlementChangedEvent;
 import com.almonium.subscription.model.entity.AccessGrant;
 import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.repository.AccessGrantRepository;
@@ -9,6 +10,7 @@ import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class AccessGrantService {
     AccessGrantRepository accessGrantRepository;
+    ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public AccessGrant replace(User target, User operator, Entitlement entitlement, Instant expiresAt, String reason) {
@@ -36,11 +39,14 @@ public class AccessGrantService {
         grant.setReason(reason.trim());
         grant.setStartsAt(now);
         grant.setExpiresAt(expiresAt);
-        return accessGrantRepository.save(grant);
+        AccessGrant saved = accessGrantRepository.save(grant);
+        eventPublisher.publishEvent(new EntitlementChangedEvent(target.getId()));
+        return saved;
     }
 
     @Transactional
     public void revoke(User target) {
         accessGrantRepository.revokeActiveByUserId(target.getId(), Instant.now());
+        eventPublisher.publishEvent(new EntitlementChangedEvent(target.getId()));
     }
 }

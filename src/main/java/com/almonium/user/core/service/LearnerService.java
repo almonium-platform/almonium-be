@@ -15,6 +15,7 @@ import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetAsideBy;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerService {
     PlanValidationService planValidationService;
+    ActiveLanguageService activeLanguageService;
     CardService cardService;
 
     LearnerRepository learnerRepository;
@@ -49,18 +51,22 @@ public class LearnerService {
                 .findByUserIdAndLanguage(userId, code)
                 .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
 
-        if (request.active() != null) {
+        if (Boolean.TRUE.equals(request.active()) && !learner.isActive()) {
+            // Taking one up may mean putting another down, and at the allowance it may only be done once a month.
+            activeLanguageService.switchActiveTo(learner.getUser(), code);
+        } else if (Boolean.FALSE.equals(request.active())) {
             long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
-            if (!request.active() && activeLearners == 1) {
+            if (activeLearners == 1) {
                 throw new BadUserRequestActionException("At least one target language must be active.");
             }
 
             // The record freezes from the moment a language is set aside, and resumes when it is taken up again.
-            if (learner.isActive() != request.active()) {
-                learner.setSetAsideAt(request.active() ? null : Instant.now());
+            if (learner.isActive()) {
+                learner.setSetAsideAt(Instant.now());
+                learner.setSetAsideBy(SetAsideBy.USER);
             }
-            learner.setActive(request.active());
-            log.info("Learner {} is now {}.", learner.getId(), request.active() ? "active" : "inactive");
+            learner.setActive(false);
+            log.info("Learner {} is now inactive.", learner.getId());
         }
 
         if (request.level() != null) {
