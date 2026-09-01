@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.chat.dto.request.AnnouncementRequest;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
@@ -32,6 +33,10 @@ public class StreamChatService {
 
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
+    // Membership travels with the user record so the clients can mark a member without asking us
+    // who is one. Only the flag: what it entitles someone to is ours to decide, not Stream's.
+    private static final String PREMIUM_FIELD = "premium";
+
     // Channel artwork ships with the web client, like the email assets do; no third-party shortener
     // in front of a URL only Stream ever reads.
     private static final String CHANNEL_IMAGE_TEMPLATE = "%s/chat/%s.png";
@@ -39,6 +44,7 @@ public class StreamChatService {
     private static final List<Language> SUPPORTED_LANGUAGES =
             List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
     AppProperties appProperties;
+    EffectiveAccessService effectiveAccessService;
 
     public String setupNewUser(User user) {
         createStreamUser(user);
@@ -137,6 +143,7 @@ public class StreamChatService {
                             .id(user.getId().toString())
                             .name(user.getUsername())
                             .additionalField("email", user.getEmail())
+                            .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
                             .build())
                     .request();
         } catch (StreamException e) {
@@ -158,6 +165,7 @@ public class StreamChatService {
                             .name(user.getUsername()) // User name
                             .additionalField("email", user.getEmail()) // User email
                             .additionalField("image", user.getProfile().getAvatarUrl()) // New avatar URL
+                            .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
                             .build();
 
             // Upsert the user with the new avatar URL
