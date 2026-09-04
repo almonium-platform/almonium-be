@@ -126,3 +126,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260902-drop-login-streak.yaml
   - include:
       file: db/changelog/changes/patches/20260903-split-active-and-creation-language-caps.yaml
+  - include:
+      file: db/changelog/changes/patches/20260904-record-founder-price-on-plan.yaml

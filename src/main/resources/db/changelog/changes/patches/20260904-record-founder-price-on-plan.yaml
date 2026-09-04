@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260904-record-founder-price-on-plan
+      author: claude
+      comment: >-
+        The founding-member price existed nowhere but the Angular client, as the literals 8 and 80 repeated in two
+        components. Nothing tied them to the Paddle price a founder is actually charged, so a live catalog built at
+        any other amount would advertise one number and bill another without a single failing check. The discounted
+        amount now sits beside the public price it replaces and reaches the client by the same route.
+      changes:
+        - addColumn:
+            tableName: plan
+            columns:
+              - column:
+                  name: founder_price
+                  type: DOUBLE PRECISION
+                  constraints:
+                    nullable: true
+        - update:
+            tableName: plan
+            columns:
+              - column: { name: founder_price, valueNumeric: 8.00 }
+            where: name = 'PREMIUM' AND type = 'MONTHLY'
+        - update:
+            tableName: plan
+            columns:
+              - column: { name: founder_price, valueNumeric: 80.00 }
+            where: name = 'PREMIUM' AND type = 'YEARLY'

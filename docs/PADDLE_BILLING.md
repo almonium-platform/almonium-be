@@ -17,6 +17,15 @@ live. Create four recurring USD prices against that product:
 | `founder_monthly` | $8 | monthly | application-controlled |
 | `founder_annual` | $80 | annual | application-controlled |
 
+The application never reads amounts from Paddle. It stores its own copy in the
+`plan` table — `price` for the public amount, `founder_price` for the
+discounted one — and serves both to the client through `/public/plans`. Only
+the `pri_` IDs are configured, so an amount that disagrees with the Paddle
+catalog is not detected anywhere: the page advertises the local number and
+Paddle charges its own. Verify all four amounts by hand when creating a
+catalog, and update the `plan` rows through Liquibase whenever a Paddle price
+changes.
+
 Paddle price IDs start with `pri_`. Paddle Billing does not have Stripe's
 `lookup_key` field. The names in this table are Almonium configuration keys;
 putting the same value in each Paddle price's `custom_data.lookup_key` is useful

@@ -214,7 +214,7 @@ class PlanSubscriptionServiceTest {
     private void stubCheckoutEligibility() {
         when(planRepository.findById(2L)).thenReturn(Optional.of(premium));
         when(planService.getAvailableRecurringPremiumPlans())
-                .thenReturn(List.of(new PlanDto(2L, "PREMIUM", Plan.Type.MONTHLY, "Premium", 12.0)));
+                .thenReturn(List.of(new PlanDto(2L, "PREMIUM", Plan.Type.MONTHLY, "Premium", 12.0, 8.0)));
         when(subscriptionRepository.findByUserAndStatusIn(
                         user, List.of(PlanSubscription.Status.ACTIVE, PlanSubscription.Status.ACTIVE_TILL_CYCLE_END)))
                 .thenReturn(user.getPlanSubscriptions().stream().findFirst());

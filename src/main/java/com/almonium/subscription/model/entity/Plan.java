@@ -41,6 +41,8 @@ public class Plan {
     String description;
     double price;
 
+    Double founderPrice;
+
     @Enumerated(EnumType.STRING)
     Type type;
 
