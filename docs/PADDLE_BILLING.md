@@ -5,37 +5,136 @@ creates a Paddle customer and transaction, the browser opens the returned
 transaction link through Paddle.js, and signed webhooks remain the source of
 truth for entitlement changes.
 
-## Catalog
+## Catalog and pricing
 
 Create one standard product named `Almonium Premium` in both Paddle sandbox and
-live. Create four recurring USD prices against that product:
+live, and three recurring USD prices against it:
 
-| Application key | Amount | Billing cycle | Visibility |
+| Application key | Base amount | Billing cycle | Visibility |
 | --- | ---: | --- | --- |
 | `premium_monthly` | $12 | monthly | public |
 | `premium_annual` | $120 | annual | public |
-| `founder_monthly` | $8 | monthly | application-controlled |
 | `founder_annual` | $80 | annual | application-controlled |
 
+There is no founder monthly price. The founder tier is annual-only; the
+reasoning is below, and the retirement of the monthly founder price is listed
+under "Decided, not yet implemented".
+
+### Regional bands
+
+The base amount is the United States price. It is not a global price. Each
+public price carries country overrides — `unit_price_overrides` on the one
+price object for that billing cycle, not a separate price per region — so the
+`pri_` IDs and the backend configuration stay exactly as they are:
+
+| Band | Monthly | Annual |
+| --- | ---: | ---: |
+| United States and anywhere unlisted | $12 | $120 |
+| European Union and United Kingdom | $14 | $140 |
+| Ukraine, CEE, LATAM, SEA | $6–7 | $60–70 |
+
+The EU band is not opportunistic. Prices are tax-inclusive, so $14 in a 19% VAT
+country nets $11.76 — the US $12, after the VAT the higher sticker absorbs. The
+discount band is priced to what those markets bear rather than to what serving
+them costs, which is the point: the marginal cost of a reader there is the same
+as anywhere, and the alternative to $6 is not $12, it is nothing.
+
+Note that a Ukrainian living in Germany bills in the EU band. The wedge audience
+splits across both, and no configuration can fix that — Paddle bands on the
+buyer's location, not their nationality.
+
+The founder price is a single global $80 with no country overrides. It is a
+customer-development budget rather than a revenue line, and banding it would add
+per-region complexity to a fifty-slot promise that will never be material.
+
+### Tax
+
+Set the account tax setting to **prices include tax**, and leave every price on
+**account default** so there is one lever rather than four. Displayed prices are
+final: the number on the page is the number charged, in every country.
+
+Do not use "automatic based on location". It adds tax on top of the price in the
+United States, which would make the displayed amount wrong in the market the
+base price is built for, and it would double-count the VAT that the EU band
+already absorbs.
+
+What that costs, per subscription, at Paddle's standard 5% + $0.50:
+
+| Buyer | Charged | Tax | Paddle fee | Net |
+| --- | ---: | ---: | ---: | ---: |
+| US monthly, no nexus | $12.00 | $0.00 | $1.10 | $10.90 |
+| EU monthly, 19% VAT | $14.00 | $2.24 | $1.20 | $10.56 |
+| Founder annual, US | $80.00 | $0.00 | $4.50 | $75.50 |
+| Founder annual, 19% VAT | $80.00 | $12.77 | $4.50 | $62.73 |
+
+### The founder tier is annual-only
+
+At $8 a month the fixed $0.50 is 6.25% of the charge, so the deepest discount is
+also where the fee structure hurts most: a German founder nets $5.82 a month.
+The fix is the shape, not the price. One $80 annual charge nets $62.73 in the
+same country, today, in a single transaction.
+
+Twelve monthly charges would net $69.84 — but only from someone who stays a full
+year, and most will not. The comparison is not two payment schedules for one
+person. Prepaying a year selects a more committed cohort, removes eleven monthly
+cancel decisions, saves eleven fixed fees, and puts the cash in the account now.
+
+Fifty founders is roughly $3,100 up front. It was never going to matter
+financially. It buys fifty people who will answer your emails, which is what the
+tier is actually for.
+
+### Lead with annual
+
+Annual is the default on the pricing page. Monthly is the option someone has to
+look for. This follows from the same arithmetic — eleven fewer fixed fees and
+materially lower churn, because an annual subscriber never faces a monthly
+cancel decision — and it applies to the public tier, not only to founders.
+
+### The application's local copy of prices
+
 The application never reads amounts from Paddle. It stores its own copy in the
-`plan` table — `price` for the public amount, `founder_price` for the
-discounted one — and serves both to the client through `/public/plans`. Only
-the `pri_` IDs are configured, so an amount that disagrees with the Paddle
-catalog is not detected anywhere: the page advertises the local number and
-Paddle charges its own. Verify all four amounts by hand when creating a
-catalog, and update the `plan` rows through Liquibase whenever a Paddle price
-changes.
+`plan` table — `price` for the public amount, `founder_price` for the discounted
+one — and serves both to the client through `/public/plans`. Only the `pri_` IDs
+are configured, so an amount that disagrees with the Paddle catalog is not
+detected anywhere: the page advertises the local number and Paddle charges its
+own.
+
+Those columns hold the **US base amounts**. They cannot express regional bands,
+and they are not a substitute for asking Paddle what this visitor pays. Treat
+them as the pre-load fallback and the record of the base price. Verify all
+amounts by hand when creating a catalog, and update the `plan` rows through
+Liquibase whenever a base price changes.
+
+### Decided, not yet implemented
+
+Both items below are settled product decisions that the code does not yet
+reflect. Until they land, the deployed behavior is the old behavior.
+
+1. **Localized price display.** The pricing page shows one number to every
+   visitor, so a German sees $12 and is charged $14 at the Paddle overlay. The
+   fix is `Paddle.PricePreview()` in the client, which returns the visitor's
+   localized formatted price for a set of price IDs and needs only the
+   client-side token the backend already serves — no API key scope, no backend
+   call. Regional bands should not be switched on in the live catalog before
+   this lands, or every EU visitor meets a higher number at checkout than the
+   page promised.
+2. **Founder monthly retirement.** `PADDLE_PRICE_FOUNDER_MONTHLY` is still
+   `@NotBlank` in `PaddleProperties`, `PaddlePriceCatalog.priceIdFor` still
+   resolves a founder monthly price, and the `plan` row for PREMIUM/MONTHLY
+   still carries `founder_price` 8.00. Retiring the tier means dropping the
+   configuration key across this repository and the infra vaults, rejecting a
+   founder reservation on a monthly checkout, and nulling that column.
 
 Paddle price IDs start with `pri_`. Paddle Billing does not have Stripe's
-`lookup_key` field. The names in this table are Almonium configuration keys;
-putting the same value in each Paddle price's `custom_data.lookup_key` is useful
-for dashboard readability but is not required by the application.
+`lookup_key` field. The names in the table above are Almonium configuration
+keys; putting the same value in each Paddle price's `custom_data.lookup_key` is
+useful for dashboard readability but is not required by the application.
 
-Sandbox and live catalogs are separate. Copy each environment's four `pri_`
-IDs into that environment's backend configuration. The founder prices are
-never returned as public plan records. The backend selects one only after it
-durably reserves a founder slot, and rejects a stale founder checkout request
-instead of silently charging the regular price.
+Sandbox and live catalogs are separate. Copy each environment's `pri_` IDs into
+that environment's backend configuration. The founder price is never returned as
+a public plan record. The backend selects it only after it durably reserves a
+founder slot, and rejects a stale founder checkout request instead of silently
+charging the regular price.
 
 ## Credentials and environment variables
 
@@ -59,6 +158,39 @@ PADDLE_PRICE_FOUNDER_ANNUAL=pri_...
 
 Local development should use only sandbox values. Staging is `SANDBOX`; prod
 is `LIVE`. Deployment values live in the corresponding encrypted infra vault.
+
+### API key scopes
+
+The backend calls six endpoints. Grant exactly the scopes they need and nothing
+else:
+
+| Scope | Read | Write | Used by |
+| --- | :--: | :--: | --- |
+| Customers | yes | yes | `POST /customers`, and `GET /customers?email=` on the already-exists reconcile path |
+| Transactions | no | yes | `POST /transactions` for checkout |
+| Customer portal sessions | — | yes | `POST /customers/{id}/portal-sessions` |
+| Subscriptions | yes | yes | `GET /subscriptions/{id}` for reconciliation, `POST /subscriptions/{id}/cancel` |
+
+Products, prices, adjustments, discounts, reports, and notification settings stay
+off. Notification destinations are configured in the dashboard, not through the
+API. Add prices read only when the amount-verification gap above is closed.
+
+### API key expiry
+
+The prod key is created without an expiry and marked rotatable, and is rotated
+on a calendar reminder or immediately on suspicion.
+
+A short expiry does not improve the control that matters here. The key exists
+only in the encrypted prod vault and can be revoked from the dashboard in one
+click, which is total and immediate. What a quarterly expiry does add is a
+scheduled outage: rotation means editing the vault, redeploying both slots, and
+re-verifying checkout, and the failure mode when it is missed is that new
+subscriptions, cancellations, and portal sessions start failing while webhooks
+keep flowing — so existing subscribers look healthy and the first signal is a
+user who could not pay. Nothing alerts on `PaddleIntegrationException` today.
+
+Marking the key rotatable costs nothing and makes a deliberate rotation an
+overlap rather than a hard cutover against a redeploy.
 
 ## Checkout and webhooks
 
