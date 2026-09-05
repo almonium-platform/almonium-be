@@ -19,27 +19,27 @@
     <description>language learning app</description>
 
     <properties>
-        <version.archunit>1.4.2</version.archunit>
-        <version.commons-configuration2>2.11.0</version.commons-configuration2>
-        <version.google-cloud>26.50.0</version.google-cloud>
-        <version.google-guava>33.3.1-jre</version.google-guava>
+        <version.archunit>1.5.0</version.archunit>
+        <version.commons-configuration2>2.15.1</version.commons-configuration2>
+        <version.google-cloud>26.88.0</version.google-cloud>
+        <version.google-guava>33.7.1-jre</version.google-guava>
         <version.jakarta>11.0.0</version.jakarta>
-        <version.firebase>9.4.2</version.firebase>
+        <version.firebase>9.10.0</version.firebase>
         <version.findsecbugs>1.14.0</version.findsecbugs>
         <version.fsrs>1.0.0</version.fsrs>
         <java.version>25</java.version>
-        <version.kotlin>2.3.21</version.kotlin>
+        <version.kotlin>2.4.10</version.kotlin>
         <version.lombok>1.18.48</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
-        <version.mapstruct>1.5.5.Final</version.mapstruct>
+        <version.mapstruct>1.6.3</version.mapstruct>
         <version.maven-compiler-plugin>3.16.0</version.maven-compiler-plugin>
         <version.modulith>2.1.1</version.modulith>
         <version.springdoc>3.1.0</version.springdoc>
         <version.spotbugs-maven-plugin>4.10.4.1</version.spotbugs-maven-plugin>
         <version.spotless>3.10.2</version.spotless>
-        <version.stream>1.28.0</version.stream>
-        <version.uuid-creator>5.2.0</version.uuid-creator>
-        <version.zxing>3.5.3</version.zxing>
+        <version.stream>1.47.0</version.stream>
+        <version.uuid-creator>6.1.1</version.uuid-creator>
+        <version.zxing>3.5.4</version.zxing>
     </properties>
 
     <dependencyManagement>
@@ -180,7 +180,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.18.1</version>
+            <version>1.23.2</version>
         </dependency>
         <dependency>
             <groupId>io.github.open-spaced-repetition</groupId>
