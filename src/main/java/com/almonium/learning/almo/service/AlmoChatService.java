@@ -205,8 +205,8 @@ public class AlmoChatService {
         for (Message message : messages) {
             String text = message.getText();
             if (text != null && !text.isBlank()) {
-                boolean fromAlmo = message.getUser() != null
-                        && stream.almoUserId().equals(message.getUser().getId());
+                var author = message.getUser();
+                boolean fromAlmo = author != null && stream.almoUserId().equals(author.getId());
                 turns.add(new OpenAiChatClient.Turn(fromAlmo ? ASSISTANT : LEARNER, text.trim()));
             }
             if (userMessageId.equals(message.getId())) {

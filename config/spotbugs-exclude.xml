@@ -31,6 +31,18 @@
         <Bug pattern="POTENTIAL_XML_INJECTION"/>
     </Match>
 
+    <!-- The typed entry is stripped of line breaks in loggable() before it reaches the log; the rest is an enum and an exception message. -->
+    <Match>
+        <Class name="com.almonium.analyzer.analyzer.service.DiscoverLookupService"/>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+
+    <!-- Logged Almo values are a UUID and a closed enum, not raw request text. -->
+    <Match>
+        <Class name="com.almonium.learning.almo.service.AlmoChatService"/>
+        <Bug pattern="CRLF_INJECTION_LOGS"/>
+    </Match>
+
     <!-- Logged onboarding values are a UUID and a closed enum, not raw request text. -->
     <Match>
         <Class name="com.almonium.user.core.service.OnboardingService"/>

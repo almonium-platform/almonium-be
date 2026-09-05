@@ -42,7 +42,11 @@ public class DiscoverLookupService {
         try {
             return languageProcessor.translate(entry, language, translationLanguage);
         } catch (RuntimeException exception) {
-            log.warn("Discover translation unavailable for {} in {}: {}", entry, language, exception.getMessage());
+            log.warn(
+                    "Discover translation unavailable for {} in {}: {}",
+                    loggable(entry),
+                    language,
+                    exception.getMessage());
             return null;
         }
     }
@@ -51,9 +55,18 @@ public class DiscoverLookupService {
         try {
             return frequencyService.getFrequency(language, entry).orElse(null);
         } catch (RuntimeException exception) {
-            log.warn("Discover frequency unavailable for {} in {}: {}", entry, language, exception.getMessage());
+            log.warn(
+                    "Discover frequency unavailable for {} in {}: {}",
+                    loggable(entry),
+                    language,
+                    exception.getMessage());
             return null;
         }
+    }
+
+    /** The entry is typed by the visitor; a line break in it must not forge a second log line. */
+    private static String loggable(String entry) {
+        return entry.replaceAll("[\\r\\n]", " ");
     }
 
     private List<DiscoverSenseResponse> mapSenses(String entry, TranslationCardDto translation) {
