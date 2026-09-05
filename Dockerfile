@@ -1,11 +1,11 @@
 # ---- Builder Stage (Only for layer extraction) ----
-FROM eclipse-temurin:21-jdk-alpine AS extractor
+FROM eclipse-temurin:25-jdk-alpine AS extractor
 WORKDIR /app
 COPY target/*.jar app.jar
 RUN java -Djarmode=tools -jar app.jar extract --layers --launcher --destination extracted
 
 # ---- Runtime Stage ----
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:25-jre-jammy
 WORKDIR /app
 
 RUN apt-get update \

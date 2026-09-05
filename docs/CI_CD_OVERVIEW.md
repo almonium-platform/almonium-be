@@ -11,7 +11,7 @@ the workflow and infrastructure files remain the executable source of truth.
 Almonium uses a deliberately small, self-managed delivery platform:
 
 - GitHub Actions is the CI/CD control plane.
-- Maven Wrapper on Java 21 verifies and packages the Spring Boot application.
+- Maven Wrapper on Java 25 verifies and packages the Spring Boot application.
 - Docker Buildx creates one `linux/arm64` image and pushes it to GitHub
   Container Registry (GHCR), tagged with the exact checked-out Git commit SHA.
 - The pushed image digest is recorded and is the immutable reference passed to
@@ -123,7 +123,7 @@ The resolver and build jobs run on GitHub-hosted Ubuntu runners:
    full 40-character commit SHA.
 2. Pass that SHA to the reusable build, check out exactly that revision, and
    verify that the resulting `HEAD` equals the requested SHA.
-3. Install Temurin JDK 21, enable the Maven dependency cache, and run
+3. Install Temurin JDK 25, enable the Maven dependency cache, and run
    `./mvnw -B verify`.
 4. Configure Docker Buildx and authenticate to GHCR with the workflow's
    short-lived `GITHUB_TOKEN`.
@@ -144,7 +144,7 @@ available on the runner.
 The Dockerfile expects the JAR to exist before the container build. Its first
 stage extracts Spring Boot layers from `target/*.jar`; its runtime stage copies
 dependencies, loader, snapshot dependencies, and application classes into a
-Temurin 21 JRE image. This gives Docker reusable layers without compiling the
+Temurin 25 JRE image. This gives Docker reusable layers without compiling the
 project inside Docker.
 
 Only ARM64 is published because the current Oracle host is ARM-based. Supporting

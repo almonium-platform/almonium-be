@@ -52,7 +52,7 @@ executable source of truth when documentation differs.
   only against the disposable local database. Staging migrations run through
   the reviewed deployment artifact; do not point a local process at staging or
   production without an explicit incident or debugging decision.
-- CI builds a Java 21 `linux/arm64` image tagged by Git SHA, then invokes the
+- CI builds a Java 25 `linux/arm64` image tagged by Git SHA, then invokes the
   infra repository's Ansible deployment. Pushes to `develop` deploy staging;
   production deployment from `main` is a manual operator action. Do not treat
   SSH access as permission to bypass this path or perform an ad-hoc production
@@ -109,7 +109,7 @@ executable source of truth when documentation differs.
 The repository was reviewed on 2026-07-18 with this build baseline:
 
 - The Maven wrapper is the canonical Maven entry point on every platform.
-- Java and Kotlin compile for JVM 21.
+- Java and Kotlin compile for JVM 25.
 - Test compilation passes. Integration tests use Testcontainers and therefore
   require access to a working Docker daemon.
 - Spotless checks formatting during the build; run `spotless:apply` explicitly

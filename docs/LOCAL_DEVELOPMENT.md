@@ -29,7 +29,7 @@ development workflow.
 
 Requirements:
 
-- JDK 21;
+- JDK 25;
 - Docker with Docker Compose for PostgreSQL, RabbitMQ, and Testcontainers;
 - development credentials for the external providers initialized at startup.
 

@@ -27,7 +27,7 @@
         <version.firebase>9.4.2</version.firebase>
         <version.findsecbugs>1.14.0</version.findsecbugs>
         <version.fsrs>1.0.0</version.fsrs>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <version.kotlin>2.3.21</version.kotlin>
         <version.lombok>1.18.48</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
