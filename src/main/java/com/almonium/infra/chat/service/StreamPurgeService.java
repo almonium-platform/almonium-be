@@ -7,9 +7,6 @@ import com.almonium.user.core.exception.StreamIntegrationException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.relationship.model.entity.Relationship;
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
-import com.almonium.user.relationship.repository.RelationshipRepository;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
 import io.getstream.chat.java.models.DeleteStrategy;
@@ -49,7 +46,6 @@ public class StreamPurgeService {
     StreamUserDirectory userDirectory;
     UserRepository userRepository;
     LearnerRepository learnerRepository;
-    RelationshipRepository relationshipRepository;
     AppProperties appProperties;
     Environment environment;
 
@@ -89,15 +85,13 @@ public class StreamPurgeService {
         streamChatService.createChannelsForSpecificLanguages();
 
         int restored = provisionKnownUsers();
-        int chats = provisionPrivateChats();
 
         log.warn(
-                "Purged the Stream application: {} channels, {} users deleted, {} users and {} private chats restored",
+                "Purged the Stream application: {} channels, {} users deleted, {} users restored",
                 cids.size(),
                 userIds.size(),
-                restored,
-                chats);
-        return new PurgeSummary(cids.size(), userIds.size(), restored, chats);
+                restored);
+        return new PurgeSummary(cids.size(), userIds.size(), restored);
     }
 
     /**
@@ -116,21 +110,6 @@ public class StreamPurgeService {
         });
 
         return users.size();
-    }
-
-    /**
-     * Gives every established friendship the private chat it owns. Friendships older than the event that creates one
-     * have no chat at all, and a purge takes the rest with it; getOrCreate leaves a healthy chat exactly as it is.
-     */
-    public int provisionPrivateChats() {
-        List<Relationship> friendships = relationshipRepository.findAllByStatus(RelationshipStatus.FRIENDS);
-
-        friendships.forEach(friendship -> streamChatService.createPrivateChat(
-                friendship.getId(),
-                friendship.getRequestee().getId(),
-                friendship.getRequester().getId()));
-
-        return friendships.size();
     }
 
     // One type at a time, on Stream's own default ordering. A `$in` across types, or a sort Stream
@@ -197,5 +176,5 @@ public class StreamPurgeService {
         }
     }
 
-    public record PurgeSummary(int channelsDeleted, int usersDeleted, int usersRestored, int privateChatsRestored) {}
+    public record PurgeSummary(int channelsDeleted, int usersDeleted, int usersRestored) {}
 }

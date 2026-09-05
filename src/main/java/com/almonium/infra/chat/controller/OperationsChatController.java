@@ -68,15 +68,6 @@ public class OperationsChatController {
                 true, String.format("Rebuilt %d account%s in Stream", provisioned, provisioned == 1 ? "" : "s")));
     }
 
-    /** Gives every established friendship its private chat, for the ones older than the event that creates one. */
-    @PostMapping("/private-chats/provision")
-    @RequireRecentLogin
-    public ResponseEntity<ApiResponse> provisionPrivateChats() {
-        int provisioned = purgeService.provisionPrivateChats();
-        return ResponseEntity.ok(new ApiResponse(
-                true, String.format("Rebuilt %d private chat%s", provisioned, provisioned == 1 ? "" : "s")));
-    }
-
     /** The phrase the purge demands, so the console can show an operator what they have to type. */
     @GetMapping("/purge")
     public ResponseEntity<Map<String, String>> purgeConfirmation() {
@@ -100,12 +91,10 @@ public class OperationsChatController {
         return ResponseEntity.ok(new ApiResponse(
                 true,
                 String.format(
-                        "Deleted %d channels and %d users; rebuilt the broadcast channels, %d account%s and %d private chat%s",
+                        "Deleted %d channels and %d users; rebuilt the broadcast channels and %d account%s",
                         summary.channelsDeleted(),
                         summary.usersDeleted(),
                         summary.usersRestored(),
-                        summary.usersRestored() == 1 ? "" : "s",
-                        summary.privateChatsRestored(),
-                        summary.privateChatsRestored() == 1 ? "" : "s")));
+                        summary.usersRestored() == 1 ? "" : "s")));
     }
 }

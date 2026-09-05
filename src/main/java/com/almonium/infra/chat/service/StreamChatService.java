@@ -184,8 +184,8 @@ public class StreamChatService {
     }
 
     /**
-     * The private chat a friendship owns. Idempotent, so a redelivered event or a backfill over old friendships costs
-     * nothing; the members arrive with the channel, which is what puts it on both clients' screens.
+     * The private chat a friendship owns. Idempotent, so a redelivered event costs nothing; the members arrive with the
+     * channel, which is what puts it on both clients' screens.
      */
     public void createPrivateChat(UUID relationshipId, UUID accepterId, UUID counterpartId) {
         String channelId = getPrivateChannelId(relationshipId);
