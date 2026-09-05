@@ -37,4 +37,5 @@ public class UserInfo {
     SetupStep setupStep;
     SubscriptionInfoDto subscription;
     Map<String, Object> uiPreferences;
+    NotificationPreferencesDto notifications;
 }

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260906-add-social-email-notifications
+      author: claude
+      comment: >-
+        The connection emails promise "turn off social notifications in Settings" and link to /settings/app, and the
+        footer's Unsubscribe points at the same place. Until now nothing there could be turned off. One flag per
+        profile, on by default; the in-app bell and push are unaffected, only the two connection emails read it.
+      changes:
+        - addColumn:
+            tableName: profile
+            columns:
+              - column:
+                  name: social_email_notifications
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropColumn:
+            tableName: profile
+            columnName: social_email_notifications

@@ -114,12 +114,8 @@ public class NotificationService {
 
         fcmService.sendNotificationToUser(relationship.getRequester().getId(), title, message);
 
-        eventPublisher.publishEvent(new FriendshipEmailRequestedEvent(
-                relationship.getRequester().getId(),
-                relationship.getRequester().getEmail(),
-                relationship.getRequester().getUsername(),
-                relationship.getRequestee().getUsername(),
-                FriendshipEvent.ACCEPTED));
+        requestConnectionEmail(
+                relationship.getRequester(), relationship.getRequestee().getUsername(), FriendshipEvent.ACCEPTED);
     }
 
     public void notifyFriendshipRequestRecipient(User initiator, User recipient, Relationship relationship) {
@@ -140,11 +136,19 @@ public class NotificationService {
 
         fcmService.sendNotificationToUser(recipient.getId(), title, message);
 
+        requestConnectionEmail(recipient, initiator.getUsername(), FriendshipEvent.INITIATED);
+    }
+
+    /**
+     * The bell and push above always fire; only the email honours the profile switch, because email is the one
+     * channel a member cannot dismiss from inside the product.
+     */
+    private void requestConnectionEmail(User recipient, String counterpartUsername, FriendshipEvent event) {
+        if (!recipient.getProfile().isSocialEmailNotifications()) {
+            log.info("Skipping {} connection email for user {}: social emails are off", event, recipient.getId());
+            return;
+        }
         eventPublisher.publishEvent(new FriendshipEmailRequestedEvent(
-                recipient.getId(),
-                recipient.getEmail(),
-                recipient.getUsername(),
-                initiator.getUsername(),
-                FriendshipEvent.INITIATED));
+                recipient.getId(), recipient.getEmail(), recipient.getUsername(), counterpartUsername, event));
     }
 }

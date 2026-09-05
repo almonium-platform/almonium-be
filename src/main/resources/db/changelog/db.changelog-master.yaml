@@ -140,3 +140,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260905-drop-insider-table.yaml
   - include:
       file: db/changelog/changes/patches/20260905-widen-event-publication-for-modulith-2.yaml
+  - include:
+      file: db/changelog/changes/patches/20260906-add-social-email-notifications.yaml

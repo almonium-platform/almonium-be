@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.user.core.dto.request.ProfileHiddenRequest;
+import com.almonium.user.core.dto.request.ProfileNotificationsRequest;
 import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.service.ProfileInfoService;
 import com.almonium.user.core.service.ProfileService;
@@ -38,6 +39,13 @@ public class ProfileController {
     @PatchMapping("/hidden")
     public ResponseEntity<Void> updateHidden(@RequestBody ProfileHiddenRequest request, @Auth UUID userId) {
         profileService.updateHidden(userId, request.hidden());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/notifications")
+    public ResponseEntity<Void> updateNotifications(
+            @RequestBody ProfileNotificationsRequest request, @Auth UUID userId) {
+        profileService.updateSocialEmailNotifications(userId, request.socialEmails());
         return ResponseEntity.noContent().build();
     }
 

@@ -55,6 +55,13 @@ public class Profile {
 
     boolean hidden;
 
+    /**
+     * Whether the two connection emails (request received, request accepted) are sent. The in-app bell and push
+     * notifications do not read this; a member who turns it off still sees the request in the product.
+     */
+    @Builder.Default
+    boolean socialEmailNotifications = true;
+
     @CreatedDate
     LocalDateTime lastLogin;
 

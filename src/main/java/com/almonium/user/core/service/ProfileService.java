@@ -45,4 +45,11 @@ public class ProfileService {
         profileRepository.save(profile);
         log.info("Hidden status updated for user: {}", userId);
     }
+
+    public void updateSocialEmailNotifications(UUID userId, boolean enabled) {
+        Profile profile = getProfileById(userId);
+        profile.setSocialEmailNotifications(enabled);
+        profileRepository.save(profile);
+        log.info("Social email notifications {} for user: {}", enabled ? "enabled" : "disabled", userId);
+    }
 }
