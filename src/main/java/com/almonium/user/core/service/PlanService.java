@@ -10,6 +10,7 @@ import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.repository.PlanFeatureLimit;
 import com.almonium.subscription.repository.PlanLimitRepository;
 import com.almonium.subscription.repository.PlanRepository;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -34,8 +35,17 @@ public class PlanService {
     PlanSubscriptionMapper planSubscriptionMapper;
 
     public List<PlanDto> getAvailableRecurringPremiumPlans() {
-        return planSubscriptionMapper.toDto(
-                planRepository.findAllByTypeInAndActiveTrue(List.of(Plan.Type.MONTHLY, Plan.Type.YEARLY)));
+        Map<Entitlement, Map<PlanFeature, Integer>> limitsByEntitlement = new EnumMap<>(Entitlement.class);
+        return planRepository.findAllByTypeInAndActiveTrue(List.of(Plan.Type.MONTHLY, Plan.Type.YEARLY)).stream()
+                .map(plan -> withLimits(
+                        planSubscriptionMapper.toDto(plan),
+                        limitsByEntitlement.computeIfAbsent(plan.getEntitlement(), this::getPlanLimits)))
+                .toList();
+    }
+
+    private PlanDto withLimits(PlanDto plan, Map<PlanFeature, Integer> limits) {
+        return new PlanDto(
+                plan.id(), plan.name(), plan.type(), plan.description(), plan.price(), plan.founderPrice(), limits);
     }
 
     public Map<PlanFeature, Integer> getPlanLimits(Entitlement entitlement) {

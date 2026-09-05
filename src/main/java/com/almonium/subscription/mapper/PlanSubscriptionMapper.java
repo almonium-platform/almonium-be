@@ -40,6 +40,8 @@ public interface PlanSubscriptionMapper {
                 planSubscription.getScheduledPlan().getType(), planSubscription.getScheduledChangeAt()));
     }
 
+    /** Limits are resolved per entitlement by the service; the plan's own rows are not the answer on their own. */
+    @Mapping(target = "limits", ignore = true)
     PlanDto toDto(Plan planSubscription);
 
     List<PlanDto> toDto(List<Plan> planSubscriptions);
