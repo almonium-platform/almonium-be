@@ -128,3 +128,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260903-split-active-and-creation-language-caps.yaml
   - include:
       file: db/changelog/changes/patches/20260904-record-founder-price-on-plan.yaml
+  - include:
+      file: db/changelog/changes/patches/20260905-reduce-founding-member-capacity-to-twenty.yaml

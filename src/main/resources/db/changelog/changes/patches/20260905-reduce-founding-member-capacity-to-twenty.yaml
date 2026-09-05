@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260905-reduce-founding-member-capacity-to-twenty
+      author: claude
+      comment: >-
+        The founding-member offer is now twenty places, not fifty. Capacity is asserted in two places that have to
+        agree: the constant the status endpoint reports, and the rows the reservation actually draws from. Trimming
+        only the constant would leave thirty unreachable rows that a reservation could still hand out, so the
+        unclaimed rows above twenty go with it. Reserved and confirmed slots are never touched - a member who already
+        holds a place keeps it, whatever the new ceiling says.
+      changes:
+        - delete:
+            tableName: founding_member
+            where: slot_number > 20 AND status = 'AVAILABLE'
