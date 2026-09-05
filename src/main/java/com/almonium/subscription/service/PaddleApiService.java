@@ -5,9 +5,6 @@ import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
 import com.almonium.user.core.model.entity.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 @Service
@@ -157,7 +157,7 @@ public class PaddleApiService {
             if (response == null) {
                 throw new PaddleIntegrationException("Paddle returned an empty transaction list");
             }
-            if (!response.at("/data/0/id").isTextual()) {
+            if (!response.at("/data/0/id").isString()) {
                 return Optional.empty();
             }
             return Optional.of(new PaidTransaction(
@@ -220,8 +220,8 @@ public class PaddleApiService {
         }
         try {
             JsonNode response = objectMapper.readTree(exception.getResponseBodyAsString());
-            return "customer_already_exists".equals(response.at("/error/code").textValue());
-        } catch (JsonProcessingException parsingException) {
+            return "customer_already_exists".equals(response.at("/error/code").stringValue(null));
+        } catch (JacksonException parsingException) {
             log.warn("Could not parse Paddle customer conflict response", parsingException);
             return false;
         }
@@ -263,10 +263,10 @@ public class PaddleApiService {
 
     private String requiredText(JsonNode response, String pointer, String label) {
         JsonNode value = response.at(pointer);
-        if (!value.isTextual() || value.textValue().isBlank()) {
+        if (!value.isString() || value.stringValue().isBlank()) {
             throw new PaddleIntegrationException("Paddle response did not include " + label);
         }
-        return value.textValue();
+        return value.stringValue();
     }
 
     private Optional<String> optionalText(JsonNode response, String pointer) {
@@ -274,10 +274,10 @@ public class PaddleApiService {
         if (value.isMissingNode() || value.isNull()) {
             return Optional.empty();
         }
-        if (!value.isTextual() || value.textValue().isBlank()) {
+        if (!value.isString() || value.stringValue().isBlank()) {
             throw new PaddleIntegrationException("Paddle response has an invalid value at " + pointer);
         }
-        return Optional.of(value.textValue());
+        return Optional.of(value.stringValue());
     }
 
     private Optional<Instant> optionalInstant(JsonNode response, String pointer) {
@@ -300,7 +300,7 @@ public class PaddleApiService {
         if (amount.isMissingNode() || amount.isNull()) {
             return new Money(0L, optionalText(response, currencyPointer).orElse("USD"));
         }
-        String raw = amount.isTextual() ? amount.textValue() : amount.asText();
+        String raw = amount.isString() ? amount.stringValue() : amount.asString();
         try {
             return new Money(Long.parseLong(raw), requiredText(response, currencyPointer, "currency code"));
         } catch (NumberFormatException exception) {

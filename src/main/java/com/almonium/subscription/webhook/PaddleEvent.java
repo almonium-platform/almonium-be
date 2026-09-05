@@ -1,8 +1,8 @@
 package com.almonium.subscription.webhook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import java.time.Instant;
+import tools.jackson.databind.JsonNode;
 
 public record PaddleEvent(
         @JsonProperty("event_id") String eventId,

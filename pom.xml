@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.16</version>
+        <version>4.1.1</version>
     </parent>
 
     <groupId>com.almonium</groupId>
@@ -23,18 +23,18 @@
         <version.commons-configuration2>2.11.0</version.commons-configuration2>
         <version.google-cloud>26.50.0</version.google-cloud>
         <version.google-guava>33.3.1-jre</version.google-guava>
-        <version.jakarta>10.0.0</version.jakarta>
+        <version.jakarta>11.0.0</version.jakarta>
         <version.firebase>9.4.2</version.firebase>
         <version.findsecbugs>1.14.0</version.findsecbugs>
         <version.fsrs>1.0.0</version.fsrs>
         <java.version>21</java.version>
-        <version.kotlin>2.1.21</version.kotlin>
-        <version.lombok>1.18.36</version.lombok>
+        <version.kotlin>2.3.21</version.kotlin>
+        <version.lombok>1.18.48</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
         <version.mapstruct>1.5.5.Final</version.mapstruct>
         <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
-        <version.modulith>1.4.13</version.modulith>
-        <version.springdoc>2.8.17</version.springdoc>
+        <version.modulith>2.1.1</version.modulith>
+        <version.springdoc>3.1.0</version.springdoc>
         <version.spotbugs-maven-plugin>4.10.3.0</version.spotbugs-maven-plugin>
         <version.spotless>2.43.0</version.spotless>
         <version.stream>1.28.0</version.stream>
@@ -44,14 +44,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- import Testcontainers BOM -->
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-bom</artifactId>
-                <version>${testcontainers.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
             <!-- import Google Cloud libraries BOM -->
             <dependency>
                 <groupId>com.google.cloud</groupId>
@@ -76,7 +68,11 @@
         <!-- Spring Boot and starters-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -106,7 +102,7 @@
         <!--        for AOP logging-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>spring-boot-starter-aspectj</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -177,8 +173,8 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-liquibase</artifactId>
         </dependency>
         <!--        to inline csv in email templates-->
         <dependency>
@@ -190,16 +186,6 @@
             <groupId>io.github.open-spaced-repetition</groupId>
             <artifactId>fsrs</artifactId>
             <version>${version.fsrs}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jsr310</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--        transitive dependencies-->
         <dependency>
@@ -210,14 +196,14 @@
         <!-- NEW: Kotlin Language Support -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
+            <groupId>tools.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
 
@@ -274,6 +260,21 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
@@ -295,12 +296,12 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
+            <artifactId>testcontainers-postgresql</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 

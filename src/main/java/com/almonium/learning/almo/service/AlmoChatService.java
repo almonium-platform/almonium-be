@@ -22,8 +22,6 @@ import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.models.Message;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.Duration;
@@ -40,6 +38,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * 11: chat with Almo. Premium, one channel per target language, and a reply generated on request from the words in
@@ -223,7 +223,7 @@ public class AlmoChatService {
     private AlmoDraft parse(String content) {
         try {
             return objectMapper.readValue(content, AlmoDraft.class).normalized();
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new ApiIntegrationException("The model answered with something other than a turn", e);
         }
     }

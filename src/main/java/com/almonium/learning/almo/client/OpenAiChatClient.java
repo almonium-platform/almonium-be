@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.config.properties.AlmoProperties;
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import tools.jackson.databind.JsonNode;
 
 /**
  * The one call that costs money. Chat Completions, JSON mode, no SDK: the request is four fields and the answer is
@@ -66,8 +66,8 @@ public class OpenAiChatClient {
                 throw new ApiIntegrationException("The model answered without a message");
             }
             return new Completion(
-                    response.at("/choices/0/message/content").asText(),
-                    response.path("model").asText(openAi.getModel()),
+                    response.at("/choices/0/message/content").asString(),
+                    response.path("model").asString(openAi.getModel()),
                     response.at("/usage/prompt_tokens").asInt(0),
                     response.at("/usage/completion_tokens").asInt(0));
         } catch (RestClientException e) {

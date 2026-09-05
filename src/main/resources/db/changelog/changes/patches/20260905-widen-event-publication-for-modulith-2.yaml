@@ -1,0 +1,19 @@
+databaseChangeLog:
+  # Spring Modulith 2 tracks a publication's lifecycle on the row itself (its v2 registry schema).
+  # Additive so the Modulith 1 container still running during a rollout keeps working.
+  - changeSet:
+      id: widen-event-publication-for-modulith-2
+      author: almoni
+      changes:
+        - addColumn:
+            tableName: event_publication
+            columns:
+              - column:
+                  name: status
+                  type: TEXT
+              - column:
+                  name: completion_attempts
+                  type: INT
+              - column:
+                  name: last_resubmission_date
+                  type: TIMESTAMP WITH TIME ZONE

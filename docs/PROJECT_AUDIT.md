@@ -162,7 +162,7 @@ object-level authorization.
 
 ## Technology and integration inventory
 
-Core technologies include Java 21, Kotlin, Spring Boot 3.4, Spring MVC/WebFlux,
+Core technologies include Java 21, Kotlin, Spring Boot 4.1, Spring MVC/WebFlux,
 Spring Security, Firebase Admin, Spring Data JPA, PostgreSQL, Liquibase, RabbitMQ, Spring
 Modulith, Maven, JUnit/Mockito/Testcontainers, Lombok, and MapStruct.
 

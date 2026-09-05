@@ -15,7 +15,6 @@ import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
 import com.almonium.user.core.model.entity.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
+import tools.jackson.databind.ObjectMapper;
 
 class PaddleApiServiceTest {
     private static final String LATEST_TRANSACTION_URI = "https://sandbox-api.paddle.com/transactions"

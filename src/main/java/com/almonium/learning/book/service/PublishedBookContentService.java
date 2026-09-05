@@ -1,13 +1,13 @@
 package com.almonium.learning.book.service;
 
 import com.almonium.learning.book.model.entity.Book;
-import com.fasterxml.jackson.databind.JsonNode;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.HtmlUtils;
+import tools.jackson.databind.JsonNode;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +39,8 @@ public class PublishedBookContentService {
         StringBuilder html = new StringBuilder();
         int chapter = -1;
         for (JsonNode block : blocks) {
-            int currentChapter = block.path("chapter").asInt();
-            String chapterTitle = block.path("chapter_title").asText();
+            int currentChapter = block.path("chapter").asInt(0);
+            String chapterTitle = block.path("chapter_title").asString();
             if (currentChapter != chapter) {
                 if (chapter >= 0) html.append("</section>");
                 chapter = currentChapter;
@@ -50,12 +50,12 @@ public class PublishedBookContentService {
                         chapter,
                         chapterTitle.isBlank()
                                         && "heading"
-                                                .equals(block.path("block_type").asText())
-                                ? block.path("text").asText()
+                                                .equals(block.path("block_type").asString())
+                                ? block.path("text").asString()
                                 : chapterTitle);
             }
-            String blockType = block.path("block_type").asText();
-            String blockText = block.path("text").asText();
+            String blockType = block.path("block_type").asString();
+            String blockText = block.path("text").asString();
             if (!("heading".equals(blockType) && blockText.equals(chapterTitle))) {
                 appendBlock(html, blockType, blockText);
             }
@@ -77,8 +77,8 @@ public class PublishedBookContentService {
         StringBuilder html = new StringBuilder();
         int chapter = -1;
         for (JsonNode block : payload.path("blocks")) {
-            int currentChapter = block.path("chapter").asInt();
-            String chapterTitle = block.path("chapter_title").asText();
+            int currentChapter = block.path("chapter").asInt(0);
+            String chapterTitle = block.path("chapter_title").asString();
             if (currentChapter != chapter) {
                 if (chapter >= 0) html.append("</section>");
                 chapter = currentChapter;
@@ -87,11 +87,11 @@ public class PublishedBookContentService {
             }
             appendParallelBlock(
                     html,
-                    block.path("block_type").asText(),
-                    payload.path("primary_language").asText(),
-                    payload.path("secondary_language").asText(),
-                    block.path("primary_text").asText(),
-                    block.path("secondary_text").asText(),
+                    block.path("block_type").asString(),
+                    payload.path("primary_language").asString(),
+                    payload.path("secondary_language").asString(),
+                    block.path("primary_text").asString(),
+                    block.path("secondary_text").asString(),
                     chapterTitle);
         }
         if (chapter >= 0) html.append("</section>");

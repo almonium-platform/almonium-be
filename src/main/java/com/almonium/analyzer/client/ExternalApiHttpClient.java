@@ -3,7 +3,6 @@ package com.almonium.analyzer.client;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.util.GeneralUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor

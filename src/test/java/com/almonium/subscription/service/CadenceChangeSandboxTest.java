@@ -61,8 +61,8 @@ class CadenceChangeSandboxTest {
                 .defaultHeader("Paddle-Version", "1")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
-        paddleApiService = new PaddleApiService(
-                restClient, priceCatalog, new com.fasterxml.jackson.databind.ObjectMapper(), properties);
+        paddleApiService =
+                new PaddleApiService(restClient, priceCatalog, new tools.jackson.databind.ObjectMapper(), properties);
         planSubRepository = mock(PlanSubscriptionRepository.class);
         service = new CadenceChangeService(
                 paddleApiService,

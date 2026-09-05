@@ -3,7 +3,6 @@ package com.almonium.learning.book.controller.internal;
 import com.almonium.learning.book.dto.request.BookPublicationRequest;
 import com.almonium.learning.book.dto.response.BookPublicationResponse;
 import com.almonium.learning.book.service.BookPublicationService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import javax.crypto.Mac;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/internal/books/publications")

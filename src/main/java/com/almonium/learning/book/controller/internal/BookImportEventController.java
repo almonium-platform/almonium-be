@@ -2,7 +2,6 @@ package com.almonium.learning.book.controller.internal;
 
 import com.almonium.learning.book.dto.request.BookImportEventRequest;
 import com.almonium.learning.book.service.UserBookImportService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import javax.crypto.Mac;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/internal/books/import-events")

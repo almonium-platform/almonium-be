@@ -1,10 +1,10 @@
 package com.almonium.subscription.webhook;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Watches the outcome of a refund we asked for.
@@ -30,12 +30,12 @@ public class PaddleAdjustmentUpdatedHandler implements PaddleEventHandler {
     @Override
     public void handle(PaddleEvent event) {
         JsonNode data = event.data();
-        if (!"refund".equals(data.path("action").textValue())) {
+        if (!"refund".equals(data.path("action").stringValue(null))) {
             return;
         }
-        String status = data.path("status").textValue();
-        String transactionId = data.path("transaction_id").textValue();
-        String subscriptionId = data.path("subscription_id").textValue();
+        String status = data.path("status").stringValue(null);
+        String transactionId = data.path("transaction_id").stringValue(null);
+        String subscriptionId = data.path("subscription_id").stringValue(null);
         if (FAILED_STATUSES.contains(status)) {
             log.error(
                     "Paddle {} a refund on transaction {} (subscription {}). If this was a guarantee switch the "

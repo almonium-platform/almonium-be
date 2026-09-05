@@ -47,7 +47,7 @@ class GlobalExceptionHandlerTest {
         // Arrange
         HttpMethod method = HttpMethod.GET;
         String resourcePath = "/non-existent-resource";
-        NoResourceFoundException ex = new NoResourceFoundException(method, resourcePath);
+        NoResourceFoundException ex = new NoResourceFoundException(method, resourcePath, null);
 
         ResponseEntity<ApiResponse> response = exceptionHandler.handleNoResourceFoundException(ex);
 

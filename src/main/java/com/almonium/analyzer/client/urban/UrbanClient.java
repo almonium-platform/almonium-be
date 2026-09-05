@@ -36,7 +36,7 @@ public class UrbanClient {
         headers.set(URBAN_API_AUTH_HEADER_KEY, externalApiProperties.getKey().getUrban());
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(BASE_URL + ENDPOINT)
+        String urlTemplate = UriComponentsBuilder.fromUriString(BASE_URL + ENDPOINT)
                 .queryParam("term", "{term}")
                 .encode()
                 .toUriString();

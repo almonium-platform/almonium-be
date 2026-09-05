@@ -2,7 +2,6 @@ package com.almonium.learning.book.service;
 
 import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
+import tools.jackson.databind.JsonNode;
 
 @Service
 @RequiredArgsConstructor

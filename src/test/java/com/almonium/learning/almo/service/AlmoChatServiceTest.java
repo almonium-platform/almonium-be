@@ -33,7 +33,6 @@ import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.getstream.chat.java.models.Message;
 import java.time.Instant;
 import java.util.List;
@@ -46,6 +45,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class AlmoChatServiceTest {

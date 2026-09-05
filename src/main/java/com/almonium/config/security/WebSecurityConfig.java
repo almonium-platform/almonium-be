@@ -33,7 +33,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -101,10 +101,10 @@ public class WebSecurityConfig {
         return http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository)
                         .csrfTokenRequestHandler(csrfTokenRequestHandler)
                         .ignoringRequestMatchers(
-                                new AntPathRequestMatcher("/public/**"),
-                                new AntPathRequestMatcher("/internal/books/publications"),
-                                new AntPathRequestMatcher("/internal/books/import-events"),
-                                new AntPathRequestMatcher("/actuator/**"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/public/**"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/books/publications"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
