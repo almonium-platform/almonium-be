@@ -2,6 +2,7 @@ package com.almonium.infra.chat.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.AlmoProperties;
 import com.almonium.config.properties.AppProperties;
 import com.almonium.user.core.repository.UserRepository;
 import java.util.List;
@@ -27,18 +28,21 @@ public class StreamUserReconciliationService {
     UserRepository userRepository;
     StreamUserDirectory userDirectory;
     AppProperties appProperties;
+    AlmoProperties almoProperties;
 
     /**
      * Stream users with no matching row in our database. The app's own system account, which owns
-     * the broadcast channels and has no row by design, is never reported.
+     * the broadcast channels and has no row by design, is never reported - and neither is Almo, who
+     * is a member of the channels he talks in and has no row for the same reason.
      */
     public List<String> findOrphans() {
         Set<String> known =
                 userRepository.findAllIds().stream().map(UUID::toString).collect(Collectors.toSet());
         String systemUserId = appProperties.getName().toLowerCase();
+        String almoUserId = almoProperties.getUserId();
 
         return userDirectory.listAllIds().stream()
-                .filter(id -> !known.contains(id) && !systemUserId.equals(id))
+                .filter(id -> !known.contains(id) && !systemUserId.equals(id) && !almoUserId.equals(id))
                 .toList();
     }
 

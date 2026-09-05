@@ -39,6 +39,7 @@ import java.text.Normalizer;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -300,6 +301,44 @@ public class ReviewService {
                 .limit(4)
                 .toList();
         return new ReviewSessionResultResponse(events.size(), straight, hinted, confused, stillDue, dessert);
+    }
+
+    /**
+     * 11: production is evidence. A queue word the learner wrote correctly in a sentence of their own is retrieval
+     * without a prompt - the thing a review card only approximates - so it is fed to the scheduler as a stronger
+     * signal than a passed card, and pushes the next review further out than a review pass does.
+     */
+    @Transactional
+    public void recordProduction(Collection<LearningItem> items) {
+        Instant now = Instant.now();
+        for (LearningItem item : items) {
+            CardAndReviewLog scheduled = scheduler.reviewCard(fsrsCard(item), Rating.EASY, now);
+            item.setFsrsCardJson(scheduled.card().toJson());
+            item.setDueAt(scheduled.card().getDue());
+            item.setLastReviewedAt(now);
+            item.setTotalReviews(item.getTotalReviews() + 1);
+            item.setConsecutiveFailures(0);
+            item.setFailurePromptType(null);
+            learningItemRepository.save(item);
+        }
+    }
+
+    /**
+     * 11: misuse is evidence too. Writing one member of a pair where the other was meant is the same confusion a
+     * review answer records, and it is written down the same way: the intended word comes due again, the misused
+     * one is pulled alongside it, and the pair's edge is counted.
+     */
+    @Transactional
+    public void recordMisuse(User user, LearningItem intended, LearningItem misused) {
+        Instant now = Instant.now();
+        CardAndReviewLog scheduled = scheduler.reviewCard(fsrsCard(intended), Rating.AGAIN, now);
+        intended.setFsrsCardJson(scheduled.card().toJson());
+        intended.setDueAt(scheduled.card().getDue());
+        intended.setLastReviewedAt(now);
+        intended.setTotalReviews(intended.getTotalReviews() + 1);
+        learningItemRepository.save(intended);
+        coScheduleConfusedItem(misused, intended.getDueAt());
+        recordConfusion(user, intended, misused, now);
     }
 
     private ReviewSession ownedSession(User user, UUID sessionId) {

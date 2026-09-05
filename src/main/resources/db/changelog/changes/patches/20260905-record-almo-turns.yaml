@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260905-record-almo-turns
+      author: claude
+      comment: >-
+        Every reply Almo generates is a paid model call. This row is what the daily ceiling counts and what the cost
+        ledger itemises, keyed by the learner's message so a redelivered request cannot buy a second reply.
+      changes:
+        - createTable:
+            tableName: almo_turn
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_almo_turn_user
+                    references: user_core(id)
+                    deleteCascade: true
+              - column:
+                  name: language
+                  type: VARCHAR(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_message_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_almo_turn_user_message
+              - column:
+                  name: reply_message_id
+                  type: VARCHAR(255)
+              - column:
+                  name: model
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: prompt_tokens
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completion_tokens
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: almo_turn
+            indexName: idx_almo_turn_user_time
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: created_at
