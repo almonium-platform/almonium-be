@@ -106,7 +106,7 @@ executable source of truth when documentation differs.
 
 ## Verification
 
-The repository was reviewed on 2026-07-18 with this build baseline:
+The repository was reviewed on 2026-09-06 with this build baseline:
 
 - The Maven wrapper is the canonical Maven entry point on every platform.
 - Java and Kotlin compile for JVM 25.
