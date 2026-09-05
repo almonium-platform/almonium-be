@@ -389,7 +389,8 @@ public class PlanSubscriptionService {
                 user.getEmail(),
                 user.getUsername(),
                 planSubscription.getPlan().getName(),
-                event));
+                event,
+                planSubscription.getEndDate()));
     }
 
     private void updatePlanSubStatusAndSave(PlanSubscription planSubscription, PlanSubscription.Status status) {

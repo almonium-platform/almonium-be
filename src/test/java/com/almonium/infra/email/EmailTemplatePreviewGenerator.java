@@ -15,6 +15,8 @@ import com.almonium.util.config.TestConfig;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -77,8 +79,13 @@ class EmailTemplatePreviewGenerator {
         }
 
         for (PlanSubscription.Event event : PlanSubscription.Event.values()) {
-            EmailContext<PlanSubscription.Event> context =
-                    new EmailContext<>(event, Map.of(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM"));
+            EmailContext<PlanSubscription.Event> context = new EmailContext<>(
+                    event,
+                    Map.of(
+                            SubscriptionEmailComposerService.PLAN_NAME,
+                            "PREMIUM",
+                            SubscriptionEmailComposerService.PERIOD_ENDS_AT,
+                            Instant.now().plus(30, ChronoUnit.DAYS).toString()));
             subscriptionEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
             capture("subscription-" + event.name().toLowerCase() + ".html");
         }

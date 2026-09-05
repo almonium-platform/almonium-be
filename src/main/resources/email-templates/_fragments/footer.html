@@ -2,7 +2,12 @@
     <tr>
         <td class="footer-cell" align="center">
             <p class="footer-brand">Almonium &middot; a place of nourishment</p>
-            <p class="footer-links">Unsubscribe &middot; Settings</p>
+            <!-- Only social sends are unsubscribable. Auth and billing mail carry nothing to opt out of. -->
+            <p class="footer-links" th:if="${unsubscribe}">
+                <a th:href="${unsubscribeUrl}" class="footer-link">Unsubscribe</a>
+                <span class="footer-separator">&middot;</span>
+                <a th:href="${settingsUrl}" class="footer-link">Settings</a>
+            </p>
         </td>
     </tr>
 </table>

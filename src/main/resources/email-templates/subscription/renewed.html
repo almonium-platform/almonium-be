@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
 
+<th:block th:replace="~{_fragments/preheader}"></th:block>
 <header th:replace="~{_fragments/header}"></header>
 
 <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
     <tr>
         <td class="email-content">
-            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
-
             <p>Your <strong><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span></strong>
-                subscription has renewed successfully.</p>
+                subscription has renewed. Nothing to do.</p>
+
+            <table role="presentation" class="plan-panel" width="100%" cellpadding="0" cellspacing="0" border="0" th:if="${periodEndDate}">
+                <tr>
+                    <td class="plan-panel-cell">
+                        <p class="plan-label">Next renewal</p>
+                        <p class="plan-name"><span th:text="${periodEndDate}"></span></p>
+                        <p class="plan-detail"><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span>
+                            membership</p>
+                    </td>
+                </tr>
+            </table>
 
             <div class="button-p">
                 <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
@@ -22,10 +35,9 @@
                 </table>
             </div>
 
-            <p>Thank you for continuing to support Almonium. Your premium access remains active.</p>
-
             <div class="rule">
-                <p class="muted">Billing, payment method, and cancellation all live in Settings.</p>
+                <p class="muted">Billing, payment method, and cancellation all live in
+                    <a th:href="${settingsUrl}">Settings</a>.</p>
             </div>
         </td>
     </tr>

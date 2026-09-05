@@ -16,11 +16,20 @@ public class AuthEmailComposerService extends EmailComposerService<AuthEmailTemp
 
     private static final Map<AuthEmailTemplateType, EmailSubjectTemplate> TEMPLATES = Map.of(
             AuthEmailTemplateType.EMAIL_VERIFICATION,
-            new EmailSubjectTemplate("Verify your email address", "email-verification"),
+            new EmailSubjectTemplate(
+                    "Verify your email address",
+                    "Confirm this address to finish setting up your account.",
+                    "email-verification"),
             AuthEmailTemplateType.PASSWORD_RESET,
-            new EmailSubjectTemplate("Reset your password", "password-reset"),
+            new EmailSubjectTemplate(
+                    "Reset your password",
+                    "If you didn't ask for this, ignore it — nothing changes.",
+                    "password-reset"),
             AuthEmailTemplateType.EMAIL_CHANGE,
-            new EmailSubjectTemplate("Confirm your email change", "email-change"));
+            new EmailSubjectTemplate(
+                    "Confirm your email change",
+                    "Your current sign-in keeps working until you confirm.",
+                    "email-change"));
 
     public AuthEmailComposerService(
             EmailService emailService, SpringTemplateEngine templateEngine, AppProperties appProperties) {

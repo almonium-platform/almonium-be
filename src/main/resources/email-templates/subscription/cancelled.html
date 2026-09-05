@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
 
+<th:block th:replace="~{_fragments/preheader}"></th:block>
 <header th:replace="~{_fragments/header}"></header>
 
 <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
     <tr>
         <td class="email-content">
-            <p>Hello <strong>@<span th:text="${username}"></span></strong>,</p>
-
             <p>Your <strong><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span></strong>
-                subscription has been cancelled.</p>
+                subscription is cancelled.</p>
 
-            <p>Your access remains active until the end of the current billing period. You can renew from Settings
-                before then.</p>
+            <p th:if="${periodEndDate}">Premium access continues until <strong><span th:text="${periodEndDate}"></span></strong>.
+                Renewing before then is one click in Settings.</p>
+            <p th:unless="${periodEndDate}">Premium access continues to the end of the current billing period.
+                Renewing before then is one click in Settings.</p>
 
             <div class="button-p">
                 <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">

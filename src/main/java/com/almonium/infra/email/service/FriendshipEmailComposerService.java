@@ -10,9 +10,14 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Service
 public class FriendshipEmailComposerService extends EmailComposerService<FriendshipEvent> {
+    /** Subjects name the counterpart; {@code %s} is their username. The product word is connection, never friendship. */
     private static final Map<FriendshipEvent, EmailSubjectTemplate> TYPE_EMAIL_SUBJECT_TEMPLATE_MAP = Map.of(
-            FriendshipEvent.INITIATED, new EmailSubjectTemplate("New friendship request", "initiated"),
-            FriendshipEvent.ACCEPTED, new EmailSubjectTemplate("Friendship request accepted", "accepted"));
+            FriendshipEvent.INITIATED,
+            new EmailSubjectTemplate(
+                    "@%s wants to connect",
+                    "Accept, ignore, or hide your profile. Ignoring sends no notification.", "initiated"),
+            FriendshipEvent.ACCEPTED,
+            new EmailSubjectTemplate("@%s accepted your request", "Their profile is open to you now.", "accepted"));
 
     public static final String COUNTERPART_USERNAME = "counterpartUsername";
     private static final String BUTTON_URL_PLACEHOLDER = "url";
@@ -36,6 +41,16 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
                 getButtonUrl(emailContext.getValue(COUNTERPART_USERNAME)),
                 COUNTERPART_USERNAME,
                 emailContext.getValue(COUNTERPART_USERNAME));
+    }
+
+    @Override
+    protected String buildSubject(EmailSubjectTemplate template, EmailContext<FriendshipEvent> emailContext) {
+        return String.format(template.subject(), emailContext.getValue(COUNTERPART_USERNAME));
+    }
+
+    @Override
+    protected boolean includesUnsubscribe() {
+        return true;
     }
 
     @Override

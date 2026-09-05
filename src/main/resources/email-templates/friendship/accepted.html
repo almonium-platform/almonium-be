@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
 
+<th:block th:replace="~{_fragments/preheader}"></th:block>
 <header th:replace="~{_fragments/header}"></header>
 
 <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
     <tr>
         <td class="email-content">
-            <p>Hello @<span th:text="${username}"></span>,</p>
-
-            <p class="email-headline"><strong>@<span th:text="${counterpartUsername}"></span></strong> accepted your connection
-                request.</p>
+            <p class="email-headline"><strong>@<span th:text="${counterpartUsername}"></span></strong> accepted your
+                connection request.</p>
 
             <div class="button-p">
                 <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
@@ -21,7 +23,6 @@
                     </tr>
                 </table>
             </div>
-
         </td>
     </tr>
 </table>

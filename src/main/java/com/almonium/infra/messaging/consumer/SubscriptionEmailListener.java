@@ -5,6 +5,7 @@ import com.almonium.infra.email.service.SubscriptionEmailComposerService;
 import com.almonium.infra.messaging.exception.EventProcessingException;
 import com.almonium.subscription.event.SubscriptionStatusChangedEvent;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,8 @@ public class SubscriptionEmailListener {
                 event.subscriptionEvent());
 
         try {
-            EmailContext<PlanSubscription.Event> emailContext = new EmailContext<>(
-                    event.subscriptionEvent(), Map.of(SubscriptionEmailComposerService.PLAN_NAME, event.planName()));
+            EmailContext<PlanSubscription.Event> emailContext =
+                    new EmailContext<>(event.subscriptionEvent(), attributes(event));
 
             emailComposerService.sendEmail(event.recipientUsername(), event.recipientEmail(), emailContext);
 
@@ -40,5 +41,16 @@ public class SubscriptionEmailListener {
                     e);
             throw new EventProcessingException("Subscription email processing failed for " + event.recipientEmail(), e);
         }
+    }
+
+    private static Map<String, String> attributes(SubscriptionStatusChangedEvent event) {
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put(SubscriptionEmailComposerService.PLAN_NAME, event.planName());
+        if (event.periodEndsAt() != null) {
+            attributes.put(
+                    SubscriptionEmailComposerService.PERIOD_ENDS_AT,
+                    event.periodEndsAt().toString());
+        }
+        return attributes;
     }
 }
