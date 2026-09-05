@@ -176,12 +176,14 @@ Products, prices, discounts, reports, and notification settings stay off.
 Notification destinations are configured in the dashboard, not through the API.
 Add prices read only when the amount-verification gap above is closed.
 
-Transactions read and adjustments write were both off before the guarantee
-refund existed, and neither failure is visible until someone takes that path:
-the key is accepted, checkout keeps working, and the refund comes back
-`forbidden` after the member has already been switched to monthly and charged.
-Grant them in every environment, in the same change as the deploy that carries
-the flow.
+Paddle grants read with write on a resource, so the read column above describes
+what the code depends on rather than a box to tick separately.
+
+Adjustments write is the one that has to be granted deliberately, and its
+failure is invisible until a member takes the guarantee path: the key is
+accepted, checkout keeps working, and the refund comes back `forbidden` after
+they have already been switched to monthly and charged. Grant it in every
+environment, in the same change as the deploy that carries the flow.
 
 ### API key expiry
 
