@@ -45,7 +45,7 @@ buyer's location, not their nationality.
 
 The founder price is a single global $80 with no country overrides. It is a
 customer-development budget rather than a revenue line, and banding it would add
-per-region complexity to a fifty-slot promise that will never be material.
+per-region complexity to a twenty-slot promise that will never be material.
 
 ### Tax
 
@@ -79,9 +79,9 @@ year, and most will not. The comparison is not two payment schedules for one
 person. Prepaying a year selects a more committed cohort, removes eleven monthly
 cancel decisions, saves eleven fixed fees, and puts the cash in the account now.
 
-Fifty founders is roughly $3,100 up front. It was never going to matter
-financially. It buys fifty people who will answer your emails, which is what the
-tier is actually for.
+Twenty founders is roughly $1,250 up front. It was never going to matter
+financially. It buys twenty people who will answer your emails, which is what
+the tier is actually for.
 
 ### Lead with annual
 

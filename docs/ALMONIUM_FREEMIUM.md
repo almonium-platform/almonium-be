@@ -63,7 +63,7 @@ Everything above, unlimited, plus:
 - Create and share packs
 - Encounter history and statistics
 
-### Founding member — $80/year, annual only, first 50 subscribers, locked while subscribed
+### Founding member — $80/year, annual only, first 20 subscribers, locked while subscribed
 
 Same as Premium. Say the number publicly and count down. This is not a fake
 countdown; it is a real, honest scarcity that converts the exact people you
@@ -77,14 +77,15 @@ a German founder would net $5.82. Annual fixes the shape rather than the price:
 one $80 charge nets $62.73 in the same country, in one transaction, today.
 
 It also selects better. Someone who prepays a year is someone who will answer
-your emails, and that is what this tier is for. Fifty founders is roughly $3,100
-up front — a customer-development budget, not a revenue line. It was never going
-to matter financially, so optimize it for the quality of the fifty people rather
-than the total.
+your emails, and that is what this tier is for. Twenty founders is roughly
+$1,250 up front — a customer-development budget, not a revenue line. It was
+never going to matter financially, so optimize it for the quality of the twenty
+people rather than the total. Twenty is also the number one person can actually
+talk to.
 
 The $80 offer is a distinct Paddle recurring Price that grants the same
 `PREMIUM` entitlement as the public offer. The application reserves one of the
-fifty durable founding-member slots before opening checkout, then confirms it
+twenty durable founding-member slots before opening checkout, then confirms it
 from Paddle's subscription webhook. This is a launch requirement; keep those
 records permanently as the evidence for the promise, not disposable launch data.
 
@@ -103,7 +104,7 @@ is not $12, it is nothing.
 Note that Ukrainians living in Germany bill in the EU band, so your wedge
 audience splits across both.
 
-The founder price is global $80 with no overrides — fifty slots do not justify
+The founder price is global $80 with no overrides — twenty slots do not justify
 per-region complexity.
 
 ### Lead with annual
