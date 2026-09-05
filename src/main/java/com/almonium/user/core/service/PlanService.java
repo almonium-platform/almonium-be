@@ -24,10 +24,8 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PlanService {
     private static final String DEFAULT_PLAN_NAME = "FREE";
-    private static final String INSIDER_PLAN_NAME = "INSIDER";
 
     AtomicReference<Plan> cachedDefaultPlan = new AtomicReference<>();
-    AtomicReference<Plan> cachedInsiderPlan = new AtomicReference<>();
 
     PlanRepository planRepository;
     PlanLimitRepository planLimitRepository;
@@ -63,21 +61,6 @@ public class PlanService {
 
     public boolean isPlanDefault(long planId) {
         return getDefaultPlan().getId() == planId;
-    }
-
-    public boolean isPlanInsider(long planId) {
-        return getInsiderPlan().getId() == planId;
-    }
-
-    public Plan getInsiderPlan() {
-        Plan insiderPlan = cachedInsiderPlan.get();
-        if (insiderPlan == null) {
-            insiderPlan = planRepository
-                    .findByName(INSIDER_PLAN_NAME)
-                    .orElseThrow(() -> new IllegalStateException("Insider plan not found"));
-            cachedInsiderPlan.set(insiderPlan);
-        }
-        return insiderPlan;
     }
 
     public Plan getDefaultPlan() {

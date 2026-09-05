@@ -136,3 +136,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260905-add-decks.yaml
   - include:
       file: db/changelog/changes/patches/20260905-record-almo-turns.yaml
+  - include:
+      file: db/changelog/changes/patches/20260905-drop-insider-table.yaml

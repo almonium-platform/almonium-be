@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260905-drop-insider-table
+      author: claude
+      comment: >-
+        The insider table predates operator grants and was never written: nothing in the application inserted a row,
+        and the entity and repository that mapped it had no callers. Insiders are made through /ops as an access
+        grant, which carries its own entitlement, reason and expiry. The INSIDER plan row stays, because it is the
+        canonical plan the UNLIMITED entitlement resolves its limits through.
+      changes:
+        - dropTable:
+            tableName: insider
