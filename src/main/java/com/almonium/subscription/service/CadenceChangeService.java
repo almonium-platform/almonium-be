@@ -193,8 +193,15 @@ public class CadenceChangeService {
         return magnitude > 0 ? magnitude : null;
     }
 
+    /**
+     * The plan moves here rather than waiting for the webhook that confirms it. An immediate change is already true
+     * the moment Paddle answers, and `subscription.updated` arrives seconds later - long enough for the member to be
+     * shown the cadence they just left. Reconciliation sets the same value again from the same source, and the dates
+     * that only Paddle knows come with it.
+     */
     private void applyImmediately(Change change, ProrationBillingMode mode) {
         paddleApiService.changeCadence(change.subscriptionId, change.targetPriceId, mode);
+        change.subscription.setPlan(change.targetPlan);
         clearScheduledChange(change.subscription);
     }
 
