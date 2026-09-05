@@ -240,10 +240,12 @@ Enable exactly these events on the notification destination:
 | `transaction.completed` | Sends the renewal email only when `origin=subscription_recurring`, after Paddle has successfully collected and completed the renewal payment. Initial checkout and other transaction origins are ignored by this handler. |
 | `transaction.payment_failed` | Sends the payment-recovery email when the failed transaction belongs to a subscription. Paddle may emit this for each failed attempt. |
 
-Not yet enabled, and the one gap worth closing: `adjustment.updated`. A card
-refund is created as `pending_approval` and Paddle can reject it later. Nothing
-watches for that, so a guarantee refund that fails after the member has already
-been switched to monthly and charged is silent on both sides.
+Enable `adjustment.updated` alongside them. A card refund is created as
+`pending_approval` and Paddle may reject it afterwards; without this, a
+guarantee refund that fails after the member has already been switched to
+monthly and charged is silent on both sides. The handler reports it rather than
+reversing anything — unwinding a subscription from a webhook turns one bad
+refund into two bad states, so it is settled by hand.
 
 Dedicated `subscription.activated`, `subscription.past_due`,
 `subscription.paused`, and `subscription.resumed` events are not required. The

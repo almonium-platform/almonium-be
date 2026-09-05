@@ -1,8 +1,13 @@
 package com.almonium.subscription.webhook;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
@@ -11,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.LoggerFactory;
 
 @ExtendWith(MockitoExtension.class)
 class PaddleWebhookHandlersTest {
@@ -76,6 +82,46 @@ class PaddleWebhookHandlersTest {
                         Optional.empty(),
                         Optional.empty(),
                         OCCURRED_AT);
+    }
+
+    @Test
+    void aRejectedRefundIsReportedRatherThanSwallowed() throws Exception {
+        ListAppender<ILoggingEvent> appender = captureLogsOf(PaddleAdjustmentUpdatedHandler.class);
+
+        new PaddleAdjustmentUpdatedHandler()
+                .handle(
+                        event(
+                                "adjustment.updated",
+                                """
+                        {"action":"refund","status":"rejected","transaction_id":"txn_01test","subscription_id":"sub_01test"}
+                        """));
+
+        assertThat(appender.list).singleElement().satisfies(logged -> {
+            assertThat(logged.getLevel()).isEqualTo(Level.ERROR);
+            assertThat(logged.getFormattedMessage()).contains("txn_01test", "sub_01test", "rejected");
+        });
+    }
+
+    @Test
+    void anAdjustmentThatIsNotARefundIsIgnored() throws Exception {
+        ListAppender<ILoggingEvent> appender = captureLogsOf(PaddleAdjustmentUpdatedHandler.class);
+
+        new PaddleAdjustmentUpdatedHandler()
+                .handle(
+                        event(
+                                "adjustment.updated",
+                                """
+                        {"action":"credit","status":"approved","transaction_id":"txn_01test"}
+                        """));
+
+        assertThat(appender.list).isEmpty();
+    }
+
+    private ListAppender<ILoggingEvent> captureLogsOf(Class<?> type) {
+        ListAppender<ILoggingEvent> appender = new ListAppender<>();
+        appender.start();
+        ((Logger) LoggerFactory.getLogger(type)).addAppender(appender);
+        return appender;
     }
 
     private PaddleEvent event(String eventType, String data) throws Exception {
