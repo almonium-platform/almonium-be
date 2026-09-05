@@ -5,6 +5,22 @@ language-learning product. Read `docs/PROJECT_AUDIT.md` for a system map and
 known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 `docs/DESIGN_PATTERNS.md` for the project's pattern catalogue.
 
+## Product stage: pre-launch
+
+Almonium has no live users. The owner drops and reseeds state whenever it is
+convenient - the database, the Stream application, Firebase, all of it - so
+nothing stored is worth preserving for its own sake.
+
+- Do not write code, migrations, or endpoints whose only purpose is to carry
+  existing rows across a change: backfills, dual-write phases, compatibility
+  branches for an old record shape. Change the shape and start clean.
+- Prefer the destructive migration when it is the simpler one. Say plainly in
+  the handoff that it drops data, and let the owner reseed.
+- This concerns stored state, not deploys. The two application slots still run
+  side by side for the length of a rollout, so a schema the running container
+  cannot read is still a broken deploy.
+- Revisit this section the moment the product has real users.
+
 ## Repository ecosystem and operations
 
 This checkout is one part of a coordinated product workspace. Neighboring
