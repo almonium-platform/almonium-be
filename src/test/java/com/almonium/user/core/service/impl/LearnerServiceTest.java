@@ -21,8 +21,10 @@ import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetAsideBy;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.ActiveLanguageService;
 import com.almonium.user.core.service.LearnerService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;
@@ -64,6 +66,9 @@ class LearnerServiceTest {
 
     @Mock
     ApplicationEventPublisher applicationEventPublisher;
+
+    @Mock
+    ActiveLanguageService activeLanguageService;
 
     @InjectMocks
     LearnerService learnerService;
@@ -117,6 +122,7 @@ class LearnerServiceTest {
         when(learnerRepository.findAllLanguagesByUserId(userId)).thenReturn(List.of(Language.EN));
 
         when(learnerRepository.countLearnersByUserId(userId)).thenReturn(0);
+        when(activeLanguageService.allowance(user)).thenReturn(-1); // unlimited
 
         when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
 
@@ -166,6 +172,7 @@ class LearnerServiceTest {
                 new TargetLanguageWithProficiency(Language.DE, CEFR.B1));
 
         when(learnerRepository.countLearnersByUserId(user.getId())).thenReturn(1);
+        when(activeLanguageService.allowance(user)).thenReturn(-1); // unlimited
         when(userRepository.findUserWithLearners(user.getId())).thenReturn(Optional.of(user));
 
         // Act
@@ -185,6 +192,66 @@ class LearnerServiceTest {
                 .save(argThat(learner -> learner.getLanguage() == Language.DE
                         && learner.getSelfReportedLevel() == CEFR.B1
                         && learner.getUser().equals(user)));
+    }
+
+    @DisplayName("Creates every language asked for, but only the allowance starts active")
+    @Test
+    void givenMoreLanguagesThanTheAllowance_whenCreateLearners_thenSurplusIsSetAsideBySystem() {
+        UUID userId = UUID.randomUUID();
+        User user = User.builder().id(userId).learners(Set.of()).build();
+
+        List<TargetLanguageWithProficiency> languages = List.of(
+                new TargetLanguageWithProficiency(Language.ES, CEFR.A1),
+                new TargetLanguageWithProficiency(Language.FR, CEFR.A2),
+                new TargetLanguageWithProficiency(Language.DE, CEFR.B1));
+
+        when(learnerRepository.countLearnersByUserId(userId)).thenReturn(0);
+        when(learnerRepository.countActiveLearnersByUserId(userId)).thenReturn(0);
+        when(activeLanguageService.allowance(user)).thenReturn(1);
+        when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
+
+        learnerService.createLearners(languages, user, false);
+
+        // Nothing is refused: the creation ceiling is a different number from the active allowance.
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, 3);
+
+        // The first pick is the one the user sees running, and it is the one the backend activates.
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.ES
+                        && learner.isActive()
+                        && learner.getSetAsideBy() == null
+                        && learner.getSetAsideAt() == null));
+
+        // The rest arrive set aside, attributed to the system so an upgrade hands them back.
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.FR
+                        && !learner.isActive()
+                        && learner.getSetAsideBy() == SetAsideBy.SYSTEM
+                        && learner.getSetAsideAt() != null));
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.DE
+                        && !learner.isActive()
+                        && learner.getSetAsideBy() == SetAsideBy.SYSTEM
+                        && learner.getSetAsideAt() != null));
+    }
+
+    @DisplayName("A language added while already at the allowance arrives set aside")
+    @Test
+    void givenAccountAlreadyAtItsAllowance_whenCreateLearner_thenTheNewOneIsSetAside() {
+        UUID userId = UUID.randomUUID();
+        User user = User.builder().id(userId).learners(Set.of()).build();
+
+        when(learnerRepository.countLearnersByUserId(userId)).thenReturn(1);
+        when(learnerRepository.countActiveLearnersByUserId(userId)).thenReturn(1);
+        when(activeLanguageService.allowance(user)).thenReturn(1);
+        when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
+
+        learnerService.createLearners(List.of(new TargetLanguageWithProficiency(Language.DE, CEFR.B1)), user, false);
+
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.DE
+                        && !learner.isActive()
+                        && learner.getSetAsideBy() == SetAsideBy.SYSTEM));
     }
 
     @DisplayName("Skips saving if target language already exists")

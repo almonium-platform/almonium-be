@@ -98,19 +98,36 @@ public class LearnerService {
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
         planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
 
-        data.forEach(targetLanguageWithProficiency -> {
+        // The creation ceiling and the active allowance are different numbers, so everything asked for is created and
+        // anything past what the plan keeps active is set aside at birth rather than refused. Offering a choice and
+        // then silently ignoring it is worse than any wall; SYSTEM attribution means an upgrade hands these back
+        // through the very path a downgrade's languages return on.
+        int allowance = activeLanguageService.allowance(user);
+        int activeSoFar = learnerRepository.countActiveLearnersByUserId(userId);
+
+        for (TargetLanguageWithProficiency targetLanguageWithProficiency : data) {
             Language code = targetLanguageWithProficiency.language();
 
             if (!replace && learnerRepository.existsByUserIdAndLanguage(userId, code)) {
                 log.warn("User {} already has target language {}. Skipping addition.", userId, code);
-                return; // Skip this language
+                continue;
             }
 
-            learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
-            log.info("User {} added target language {}.", userId, code);
+            Learner learner = new Learner(user, code, targetLanguageWithProficiency.cefrLevel());
+            if (allowance != ActiveLanguageService.UNLIMITED && activeSoFar >= allowance) {
+                learner.setActive(false);
+                learner.setSetAsideAt(Instant.now());
+                learner.setSetAsideBy(SetAsideBy.SYSTEM);
+                log.info("User {} added target language {}, set aside: outside the plan's allowance", userId, code);
+            } else {
+                activeSoFar++;
+                log.info("User {} added target language {}.", userId, code);
+            }
+
+            learnerRepository.save(learner);
             log.debug("Publishing UserAddedTargetLanguageEvent for user {}, lang {}", userId, code);
             eventPublisher.publishEvent(new UserAddedTargetLanguageEvent(userId, code));
-        });
+        }
 
         return learnerMapper.toDto(getUserWithLearners(userId).getLearners());
     }
