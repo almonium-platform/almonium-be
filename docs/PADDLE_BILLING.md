@@ -167,13 +167,21 @@ else:
 | Scope | Read | Write | Used by |
 | --- | :--: | :--: | --- |
 | Customers | yes | yes | `POST /customers`, and `GET /customers?email=` on the already-exists reconcile path |
-| Transactions | no | yes | `POST /transactions` for checkout |
+| Transactions | yes | yes | `POST /transactions` for checkout; `GET /transactions?subscription_id=` to find the payment a guarantee refund targets |
 | Customer portal sessions | — | yes | `POST /customers/{id}/portal-sessions` |
-| Subscriptions | yes | yes | `GET /subscriptions/{id}` for reconciliation, `POST /subscriptions/{id}/cancel` |
+| Subscriptions | yes | yes | `GET /subscriptions/{id}` for reconciliation, `POST /subscriptions/{id}/cancel`, `PATCH /subscriptions/{id}` and its `/preview` for cadence changes |
+| Adjustments | — | yes | `POST /adjustments`, to refund an annual payment when a member switches to monthly inside the guarantee |
 
-Products, prices, adjustments, discounts, reports, and notification settings stay
-off. Notification destinations are configured in the dashboard, not through the
-API. Add prices read only when the amount-verification gap above is closed.
+Products, prices, discounts, reports, and notification settings stay off.
+Notification destinations are configured in the dashboard, not through the API.
+Add prices read only when the amount-verification gap above is closed.
+
+Transactions read and adjustments write were both off before the guarantee
+refund existed, and neither failure is visible until someone takes that path:
+the key is accepted, checkout keeps working, and the refund comes back
+`forbidden` after the member has already been switched to monthly and charged.
+Grant them in every environment, in the same change as the deploy that carries
+the flow.
 
 ### API key expiry
 
@@ -204,6 +212,18 @@ The live domains must be approved in Paddle before checkout works. The backend
 uses Paddle's account default payment link when creating a transaction, so set
 the correct default link separately in each Paddle environment.
 
+A sandbox account has one default link and it is shared, so a developer running
+locally is sent to staging by it. `PADDLE_CHECKOUT_URL` overrides the link for
+one transaction and leaves the account default alone; blank, which is the
+default, keeps the old behaviour exactly.
+
+It is not a free-form URL. Paddle enforces its approved-domains list against a
+URL stated on a transaction, but **not** against the account default link — so
+the default may point somewhere the override cannot, and setting the override to
+that same address is rejected with
+`transaction_checkout_url_domain_is_not_approved`. Add the domain under Checkout
+settings, approved domains, before setting the variable.
+
 Create a notification destination using API version 1:
 
 ```text
@@ -219,6 +239,11 @@ Enable exactly these events on the notification destination:
 | `subscription.canceled` | Provides a dedicated terminal-cancellation signal. This overlaps the canceled `subscription.updated` payload intentionally; event ordering and state idempotency prevent duplicate effects. |
 | `transaction.completed` | Sends the renewal email only when `origin=subscription_recurring`, after Paddle has successfully collected and completed the renewal payment. Initial checkout and other transaction origins are ignored by this handler. |
 | `transaction.payment_failed` | Sends the payment-recovery email when the failed transaction belongs to a subscription. Paddle may emit this for each failed attempt. |
+
+Not yet enabled, and the one gap worth closing: `adjustment.updated`. A card
+refund is created as `pending_approval` and Paddle can reject it later. Nothing
+watches for that, so a guarantee refund that fails after the member has already
+been switched to monthly and charged is silent on both sides.
 
 Dedicated `subscription.activated`, `subscription.past_due`,
 `subscription.paused`, and `subscription.resumed` events are not required. The

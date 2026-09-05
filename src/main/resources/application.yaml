@@ -127,6 +127,8 @@ stream.api:
 paddle:
   environment: ${PADDLE_ENVIRONMENT}
   client-token: ${PADDLE_CLIENT_TOKEN}
+  # Empty means Paddle's own default payment link. Set it only to a domain approved in the Paddle dashboard.
+  checkout-url: ${PADDLE_CHECKOUT_URL:}
   api.key: ${PADDLE_API_KEY}
   webhook.secret: ${PADDLE_WEBHOOK_SECRET}
   prices:

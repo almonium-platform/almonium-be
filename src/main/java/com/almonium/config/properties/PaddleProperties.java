@@ -24,6 +24,17 @@ public class PaddleProperties {
     @NotBlank
     String clientToken;
 
+    /**
+     * Where Paddle sends the buyer to complete a transaction, overriding the account's default payment link.
+     *
+     * <p>Blank by default, and blank means the account default - which is the only thing that works out of the box,
+     * because Paddle applies its approved-domains check to a URL stated on a transaction but not to the default link
+     * itself. Set it only to a domain listed under the dashboard's approved domains. Its reason to exist is local
+     * development: a sandbox account has one default link shared with staging, so without an override a developer is
+     * either sent to staging or has to repoint the link and break staging for everyone else.
+     */
+    String checkoutUrl = "";
+
     @NotNull
     @Valid
     @NestedConfigurationProperty

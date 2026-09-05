@@ -11,7 +11,6 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-import com.almonium.config.properties.AppProperties;
 import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
@@ -44,9 +43,7 @@ class PaddleApiServiceTest {
                 .defaultHeader("Authorization", "Bearer api-key")
                 .defaultHeader("Paddle-Version", "1");
         server = MockRestServiceServer.bindTo(builder).build();
-        AppProperties appProperties = new AppProperties();
-        appProperties.setWebDomain("http://localhost:9999");
-        service = new PaddleApiService(builder.build(), priceCatalog, new ObjectMapper(), appProperties);
+        service = new PaddleApiService(builder.build(), priceCatalog, new ObjectMapper(), properties);
     }
 
     @Test
@@ -97,7 +94,6 @@ class PaddleApiServiceTest {
                         {
                           "items": [{"price_id": "pri_founder_monthly", "quantity": 1}],
                           "customer_id": "ctm_01founder",
-                          "checkout": {"url": "http://localhost:9999/payment/checkout"},
                           "custom_data": {
                             "user_id": "01989ef4-f02f-7000-8000-000000000001",
                             "plan_id": 2,
