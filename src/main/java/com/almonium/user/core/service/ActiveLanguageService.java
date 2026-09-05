@@ -18,7 +18,6 @@ import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.ProfileRepository;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.ZoneOffset;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * <p>A downgrade takes the languages, never the record: the surplus goes read-only and keeps every word. The user
  * picks which one stays; if they never answer, the one they have been reading stays. Afterwards the active language
- * can be changed once a calendar month, and the downgrade pick is not one of those changes.
+ * can be changed once a month, and the downgrade pick is not one of those changes.
  */
 @Slf4j
 @Service
@@ -164,7 +163,7 @@ public class ActiveLanguageService {
 
     /**
      * Makes one language active. At the allowance the switcher is a swap, not an addition, and it may be used once a
-     * calendar month — an unlimited switcher would sell serial access to everything the plan withholds.
+     * month — an unlimited switcher would sell serial access to everything the plan withholds.
      */
     public void switchActiveTo(User user, Language language) {
         Learner target = learnerRepository
@@ -211,12 +210,10 @@ public class ActiveLanguageService {
         if (last == null) {
             return Optional.empty();
         }
-        Instant nextMonth = YearMonth.from(last.atZone(ZoneOffset.UTC))
-                .plusMonths(1)
-                .atDay(1)
-                .atStartOfDay(ZoneOffset.UTC)
-                .toInstant();
-        return nextMonth.isAfter(Instant.now()) ? Optional.of(nextMonth) : Optional.empty();
+        // A month from the switch itself, not from the month it fell in: the boundary version let a switch on the
+        // 31st come back on the 1st, which is one Reddit comment away from being a known trick.
+        Instant nextAllowed = last.atZone(ZoneOffset.UTC).plusMonths(1).toInstant();
+        return nextAllowed.isAfter(Instant.now()) ? Optional.of(nextAllowed) : Optional.empty();
     }
 
     private List<Learner> activeLearners(java.util.UUID userId) {

@@ -156,10 +156,29 @@ class ActiveLanguageServiceTest {
         assertThat(profile.getLastActiveSwitchAt()).isNotNull();
     }
 
-    @DisplayName("Should refuse a second switch inside the same calendar month")
+    @DisplayName("Should refuse a second switch inside a month of the last one")
     @Test
     void givenSwitchAlreadySpentThisMonth_whenSwitchingAgain_thenItIsRefused() {
         profile.setLastActiveSwitchAt(Instant.now());
+        Learner wanted = setAside(Language.EN, SetAsideBy.USER, Instant.now());
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
+                .thenReturn(1);
+        when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.EN)).thenReturn(java.util.Optional.of(wanted));
+        when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID))
+                .thenReturn(List.of(active(Language.DE), wanted));
+
+        assertThatThrownBy(() -> activeLanguageService.switchActiveTo(user, Language.EN))
+                .isInstanceOf(BadUserRequestActionException.class)
+                .hasMessageContaining("again on");
+        assertThat(wanted.isActive()).isFalse();
+    }
+
+    @DisplayName("Should still refuse a switch 25 days on, whatever the calendar did in between")
+    @Test
+    void givenSwitchSpentTwentyFiveDaysAgo_whenSwitchingAgain_thenItIsRefused() {
+        // The month-boundary version handed back a switch on the 1st to anyone who spent one on the 31st. A month
+        // is counted from the switch itself, so this holds on every date rather than most of them.
+        profile.setLastActiveSwitchAt(Instant.now().minus(25, ChronoUnit.DAYS));
         Learner wanted = setAside(Language.EN, SetAsideBy.USER, Instant.now());
         when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
                 .thenReturn(1);
