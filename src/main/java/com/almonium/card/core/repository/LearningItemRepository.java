@@ -4,6 +4,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.user.core.model.entity.Learner;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,6 +24,8 @@ public interface LearningItemRepository extends JpaRepository<LearningItem, UUID
     Optional<LearningItem> findByIdAndOwnerUserId(UUID id, UUID userId);
 
     Optional<LearningItem> getByPublicId(UUID id);
+
+    List<LearningItem> findAllByOwnerAndNormalizedFormIn(Learner owner, Collection<String> normalizedForms);
 
     List<LearningItem> findTop10ByOwnerAndLeechFalseAndDueAtLessThanEqualOrderByDueAtAsc(Learner owner, Instant dueAt);
 
