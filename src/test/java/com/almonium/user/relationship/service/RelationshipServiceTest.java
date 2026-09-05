@@ -25,6 +25,7 @@ import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
+import com.almonium.user.relationship.event.FriendshipAcceptedEvent;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
@@ -41,10 +42,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
@@ -73,6 +76,9 @@ class RelationshipServiceTest {
 
     @Mock
     EffectiveAccessService effectiveAccessService;
+
+    @Mock
+    ApplicationEventPublisher eventPublisher;
 
     @Spy
     RelationshipStateMachine stateMachine = new RelationshipStateMachine();
@@ -279,6 +285,29 @@ class RelationshipServiceTest {
         // Assert
         assertThat(updatedRelationship).isNotNull();
         assertThat(updatedRelationship.getStatus()).isEqualTo(FRIENDS);
+    }
+
+    @DisplayName("Should announce an accepted friendship, so its private chat is created for both sides")
+    @Test
+    void givenPendingFriendship_whenAcceptFriendshipRequest_thenAcceptanceIsAnnounced() {
+        // Arrange
+        relationship.setStatus(PENDING);
+
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
+
+        // Act
+        relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.ACCEPT);
+
+        // Assert
+        ArgumentCaptor<FriendshipAcceptedEvent> captor = ArgumentCaptor.forClass(FriendshipAcceptedEvent.class);
+        verify(eventPublisher).publishEvent(captor.capture());
+        assertThat(captor.getValue())
+                .extracting(
+                        FriendshipAcceptedEvent::relationshipId,
+                        FriendshipAcceptedEvent::accepterId,
+                        FriendshipAcceptedEvent::counterpartId)
+                .containsExactly(RELATIONSHIP_ID, RECIPIENT_ID, REQUESTER_ID);
     }
 
     @DisplayName("Should not accept a non-pending friendship request")

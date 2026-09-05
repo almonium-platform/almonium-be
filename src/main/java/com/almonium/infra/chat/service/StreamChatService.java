@@ -33,6 +33,12 @@ public class StreamChatService {
 
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
+    private static final String PRIVATE_CHAT_TYPE = "private";
+
+    // A DM is addressed by the friendship it belongs to, so both clients can name the channel before
+    // it exists - and a friendship can never end up with two of them.
+    private static final String PRIVATE_CHANNEL_ID_TEMPLATE = "private_%s";
+
     // Membership travels with the user record so the clients can mark a member without asking us
     // who is one. Only the flag: what it entitles someone to is ours to decide, not Stream's.
     private static final String PREMIUM_FIELD = "premium";
@@ -175,6 +181,39 @@ public class StreamChatService {
             throw new StreamIntegrationException(
                     String.format("Error while updating user with id: %s, %s", user.getId(), e.getMessage()), e);
         }
+    }
+
+    /**
+     * The private chat a friendship owns. Idempotent, so a redelivered event or a backfill over old friendships costs
+     * nothing; the members arrive with the channel, which is what puts it on both clients' screens.
+     */
+    public void createPrivateChat(UUID relationshipId, UUID accepterId, UUID counterpartId) {
+        String channelId = getPrivateChannelId(relationshipId);
+
+        try {
+            Channel.getOrCreate(PRIVATE_CHAT_TYPE, channelId)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(accepterId.toString())
+                                    .build())
+                            .members(List.of(asMember(accepterId), asMember(counterpartId)))
+                            .build())
+                    .request();
+
+        } catch (StreamException e) {
+            throw new StreamIntegrationException(
+                    String.format("Error while creating private chat %s: %s", channelId, e.getMessage()), e);
+        }
+    }
+
+    private Channel.ChannelMemberRequestObject asMember(UUID userId) {
+        return Channel.ChannelMemberRequestObject.builder()
+                .userId(userId.toString())
+                .build();
+    }
+
+    private String getPrivateChannelId(UUID relationshipId) {
+        return String.format(PRIVATE_CHANNEL_ID_TEMPLATE, relationshipId);
     }
 
     public void createSelfChat(User user) {

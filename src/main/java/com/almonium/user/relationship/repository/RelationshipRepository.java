@@ -2,6 +2,7 @@ package com.almonium.user.relationship.repository;
 
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
+import com.almonium.user.relationship.model.enums.RelationshipStatus;
 import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import java.util.Collection;
@@ -12,6 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface RelationshipRepository extends JpaRepository<Relationship, UUID> {
+    List<Relationship> findAllByStatus(RelationshipStatus status);
+
     /**
      * Every account whose handle matches, friends included: a search that hides the people you
      * already know looks broken. The relative status is what the caller renders its one control

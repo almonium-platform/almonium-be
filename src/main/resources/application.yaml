@@ -102,6 +102,10 @@ rabbitmq:
       name: q.friendship.email.requested
       routing-key: friendship.email.requested.v1
       dlq-name: q.friendship.email.requested.dlq
+    friendship-accepted:
+      name: q.friendship.accepted
+      routing-key: friendship.accepted.v1
+      dlq-name: q.friendship.accepted.dlq
     user-deleted-stream:
       name: q.user.deleted.stream
       routing-key: user.deleted.v1

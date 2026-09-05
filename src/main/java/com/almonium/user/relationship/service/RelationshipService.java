@@ -12,6 +12,7 @@ import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
+import com.almonium.user.relationship.event.FriendshipAcceptedEvent;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,7 @@ public class RelationshipService {
 
     ProfileService profileService;
     NotificationService notificationService;
+    ApplicationEventPublisher eventPublisher;
     EffectiveAccessService effectiveAccessService;
 
     RelationshipRepository relationshipRepository;
@@ -145,6 +148,14 @@ public class RelationshipService {
         Relationship updatedRelationship = setStatusAndSave(relationship, nextStatus);
         if (action == RelationshipAction.ACCEPT) {
             notificationService.notifyOfFriendshipAcceptance(updatedRelationship);
+
+            // The chat belongs to the friendship, not to the client that answered the request: it has
+            // to exist whether Accept was pressed on the social page, on a profile card, or in the
+            // notification bell, and for the requester, who is not here to create anything.
+            eventPublisher.publishEvent(new FriendshipAcceptedEvent(
+                    updatedRelationship.getId(),
+                    updatedRelationship.getRequestee().getId(),
+                    updatedRelationship.getRequester().getId()));
         }
         return updatedRelationship;
     }
