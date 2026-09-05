@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.repository.PlanSubscriptionRepository;
+import com.almonium.subscription.service.CadenceChangeService;
 import com.almonium.subscription.service.PaddleApiService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import java.time.Clock;
@@ -31,6 +32,9 @@ class PaddleSubscriptionReconciliationTaskTest {
     @Mock
     PlanSubscriptionService planSubscriptionService;
 
+    @Mock
+    CadenceChangeService cadenceChangeService;
+
     Clock clock = Clock.fixed(OBSERVED_AT, ZoneOffset.UTC);
 
     PaddleSubscriptionReconciliationTask task;
@@ -38,7 +42,7 @@ class PaddleSubscriptionReconciliationTaskTest {
     @BeforeEach
     void setUp() {
         task = new PaddleSubscriptionReconciliationTask(
-                planSubscriptionRepository, paddleApiService, planSubscriptionService, clock);
+                planSubscriptionRepository, paddleApiService, planSubscriptionService, cadenceChangeService, clock);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.almonium.subscription.service;
 
+import com.almonium.config.properties.AppProperties;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
@@ -23,9 +24,13 @@ import org.springframework.web.client.RestClientException;
 @Service
 @RequiredArgsConstructor
 public class PaddleApiService {
+    /** The page that loads Paddle.js and opens the checkout for a transaction. */
+    private static final String CHECKOUT_PATH = "/payment/checkout";
+
     private final RestClient paddleRestClient;
     private final PaddlePriceCatalog priceCatalog;
     private final ObjectMapper objectMapper;
+    private final AppProperties appProperties;
 
     public String createCustomerIdForUser(User user) {
         Map<String, Object> request = Map.of(
@@ -51,9 +56,13 @@ public class PaddleApiService {
                         "plan_id", plan.getId(),
                         "founding_member_slot", foundingMemberSlot.orElseThrow())
                 : Map.of("user_id", user.getId().toString(), "plan_id", plan.getId());
+        // The checkout URL is stated per transaction rather than left to the Paddle account's default payment link.
+        // A sandbox account has one default, shared by staging and every developer using it, so relying on it sends a
+        // localhost checkout to staging - and pointing the default at localhost breaks staging for everyone else.
         Map<String, Object> request = Map.of(
                 "items", List.of(Map.of("price_id", priceId, "quantity", 1)),
                 "customer_id", user.getPaddleCustomerId(),
+                "checkout", Map.of("url", appProperties.getWebDomain() + CHECKOUT_PATH),
                 "custom_data", customData);
 
         JsonNode response = post("/transactions", request, "create checkout transaction");

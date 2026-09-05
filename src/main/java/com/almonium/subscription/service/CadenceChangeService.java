@@ -5,7 +5,6 @@ import static com.almonium.subscription.model.entity.enums.CadenceChangeOption.R
 import static com.almonium.subscription.model.entity.enums.CadenceChangeOption.SCHEDULED;
 import static com.almonium.subscription.model.entity.enums.ProrationBillingMode.DO_NOT_BILL;
 import static com.almonium.subscription.model.entity.enums.ProrationBillingMode.FULL_IMMEDIATELY;
-import static com.almonium.subscription.model.entity.enums.ProrationBillingMode.FULL_NEXT_BILLING_PERIOD;
 import static com.almonium.subscription.model.entity.enums.ProrationBillingMode.PRORATED_IMMEDIATELY;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -51,6 +50,12 @@ import org.springframework.stereotype.Service;
  * still inside the guarantee window. Then it can be undone properly: refund the payment, start monthly today, leave no
  * balance behind. Telling a six-day-old subscriber their switch lands in three hundred and fifty-nine days is the worst
  * version of this flow, and it reaches the most enthusiastic buyers first.
+ *
+ * <p>Scheduling is ours rather than Paddle's, which was not the original plan. Paddle refuses a next-billing-period
+ * billing mode whenever the new price changes the billing interval - verified against the sandbox, which answers
+ * {@code subscription_new_items_not_valid} - and accepts it only for a price on the same cycle. Its {@code
+ * scheduled_change} covers cancel, pause and resume, never an item swap. A pending cadence change is therefore held
+ * locally, told to Paddle nowhere, and applied as the period closes.
  */
 @Slf4j
 @Service
@@ -119,19 +124,15 @@ public class CadenceChangeService {
         return new AnnualNudgeDto(eligible, completed, SESSIONS_BEFORE_ANNUAL_OFFER);
     }
 
-    /** Undoing a pending change costs nothing and refunds nothing, because nothing has been billed yet. */
+    /**
+     * Undoing a pending change is a local delete. Paddle was never told about it, nothing was billed, and the
+     * subscription has been on its original cadence the whole time.
+     */
     public void undo(User user) {
         PlanSubscription subscription = planSubscriptionService.getActiveSub(user);
         if (subscription.getScheduledPlan() == null) {
             throw new BadUserRequestActionException("There is no scheduled billing change to undo");
         }
-        String subscriptionId = requirePaddleSubscriptionId(subscription);
-        boolean founder = paddlePriceCatalog.isFounderPrice(
-                paddleApiService.getSubscription(subscriptionId).priceId());
-        paddleApiService.changeCadence(
-                subscriptionId,
-                paddlePriceCatalog.priceIdFor(subscription.getPlan().getType(), founder),
-                DO_NOT_BILL);
         clearScheduledChange(subscription);
     }
 
@@ -145,7 +146,7 @@ public class CadenceChangeService {
                 PRORATED_NOW,
                 true,
                 preview.dueNow().minorUnits(),
-                positiveOrNull(preview.credit().minorUnits()),
+                creditOrNull(preview.credit().minorUnits()),
                 null,
                 clock.instant(),
                 change.nextBilledAt(preview)));
@@ -167,22 +168,29 @@ public class CadenceChangeService {
                     clock.instant(),
                     change.nextBilledAt(preview)));
         });
-        CadenceChangePreview scheduled = change.previewOf(SCHEDULED);
-        Instant effectiveAt = change.scheduledEffectiveAt(scheduled);
+        // Nothing is due and nothing is deferred, so there is no immediate transaction to read. The preview is asked
+        // only what the new cadence costs in this member's currency; the dates come from the subscription itself,
+        // since a preview reports the dates a change made *today* would produce.
+        change.previewOf(SCHEDULED);
         options.add(new CadenceChangeOptionDto(
                 SCHEDULED,
                 refundable.isEmpty(),
-                scheduled.dueNow().minorUnits(),
+                0L,
                 null,
                 null,
-                effectiveAt,
-                effectiveAt));
+                change.currentPeriodEndsAt,
+                change.currentPeriodEndsAt));
         return options;
     }
 
-    /** Zero is not a credit. A row reading "Credit for this month  $0.00" is noise on a confirmation screen. */
-    private static Long positiveOrNull(long minorUnits) {
-        return minorUnits > 0 ? minorUnits : null;
+    /**
+     * Paddle states a proration credit as a negative amount, being money owed back. Screens print it with their own
+     * minus sign beside a "Credit" label, so the magnitude is what travels. Zero is not a credit at all: a row reading
+     * "Credit for this month $0.00" is noise on a confirmation screen.
+     */
+    private static Long creditOrNull(long minorUnits) {
+        long magnitude = Math.abs(minorUnits);
+        return magnitude > 0 ? magnitude : null;
     }
 
     private void applyImmediately(Change change, ProrationBillingMode mode) {
@@ -190,13 +198,46 @@ public class CadenceChangeService {
         clearScheduledChange(change.subscription);
     }
 
+    /**
+     * Scheduling touches Paddle not at all.
+     *
+     * <p>The obvious implementation was to hand Paddle the new price with next-billing-period behaviour and let it
+     * defer the charge. Paddle rejects that outright for a change of billing interval - {@code
+     * subscription_new_items_not_valid} - and only accepts deferred billing when the new price keeps the same cycle.
+     * There is no scheduled item change to fall back on either; {@code scheduled_change} covers cancel, pause and
+     * resume and nothing else.
+     *
+     * <p>So the intent is ours to hold. The annual subscription runs to its term untouched, which is exactly what the
+     * screen promises: nothing due, no credit, no refund, no balance. {@link #applyDueChange} performs the switch as
+     * the period closes, and until then the record here is the only thing that knows about it.
+     */
     private void schedule(Change change) {
-        Instant effectiveAt = change.scheduledEffectiveAt(change.previewOf(SCHEDULED));
-        paddleApiService.changeCadence(change.subscriptionId, change.targetPriceId, FULL_NEXT_BILLING_PERIOD);
         PlanSubscription subscription = change.subscription;
         subscription.setScheduledPlan(change.targetPlan);
-        subscription.setScheduledChangeAt(effectiveAt);
+        subscription.setScheduledChangeAt(change.currentPeriodEndsAt);
         planSubRepository.save(subscription);
+    }
+
+    /**
+     * Switches a subscription whose scheduled date has arrived.
+     *
+     * <p>Run shortly before the period closes rather than after: the change has to land before Paddle renews the
+     * annual subscription for another year. Proration at that point covers whatever sliver of the period is left,
+     * which is why this is billed immediately - there is nothing meaningful left to defer.
+     */
+    public void applyDueChange(PlanSubscription subscription) {
+        if (subscription.getScheduledPlan() == null || subscription.getScheduledChangeAt() == null) {
+            return;
+        }
+        String subscriptionId = requirePaddleSubscriptionId(subscription);
+        boolean founder = paddlePriceCatalog.isFounderPrice(
+                paddleApiService.getSubscription(subscriptionId).priceId());
+        Plan targetPlan = subscription.getScheduledPlan();
+        paddleApiService.changeCadence(
+                subscriptionId, paddlePriceCatalog.priceIdFor(targetPlan.getType(), founder), PRORATED_IMMEDIATELY);
+        subscription.setPlan(targetPlan);
+        clearScheduledChange(subscription);
+        log.info("Applied scheduled cadence change to {} for subscription {}", targetPlan.getType(), subscriptionId);
     }
 
     private void refundAndSwitch(Change change) {
@@ -311,10 +352,6 @@ public class CadenceChangeService {
                     mode -> paddleApiService.previewCadenceChange(subscriptionId, targetPriceId, mode));
         }
 
-        private Instant scheduledEffectiveAt(CadenceChangePreview preview) {
-            return preview.nextBilledAt().orElse(currentPeriodEndsAt);
-        }
-
         private Instant nextBilledAt(CadenceChangePreview preview) {
             return preview.nextBilledAt().orElse(currentPeriodEndsAt);
         }
@@ -335,7 +372,7 @@ public class CadenceChangeService {
         private ProrationBillingMode modeFor(CadenceChangeOption option) {
             return switch (option) {
                 case PRORATED_NOW -> PRORATED_IMMEDIATELY;
-                case SCHEDULED -> FULL_NEXT_BILLING_PERIOD;
+                case SCHEDULED -> DO_NOT_BILL;
                 case REFUND_AND_SWITCH -> FULL_IMMEDIATELY;
             };
         }

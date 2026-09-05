@@ -140,8 +140,9 @@ class CadenceChangeServiceTest {
 
         service.apply(user, Plan.Type.MONTHLY, CadenceChangeOption.SCHEDULED);
 
-        verify(paddleApiService)
-                .changeCadence(SUBSCRIPTION_ID, FOUNDER_MONTHLY, ProrationBillingMode.FULL_NEXT_BILLING_PERIOD);
+        // Paddle rejects a next-billing-period mode across a change of interval, so it is told nothing at all
+        // until the period closes. Until then the annual subscription is untouched.
+        verify(paddleApiService, never()).changeCadence(any(), any(), any());
         assertThat(subscription.getScheduledPlan()).isEqualTo(monthly);
         assertThat(subscription.getScheduledChangeAt()).isEqualTo(PERIOD_ENDS);
         // The plan they paid for is untouched: the member is annual until the date above.
@@ -247,15 +248,36 @@ class CadenceChangeServiceTest {
         subscription.setScheduledPlan(monthly);
         subscription.setScheduledChangeAt(PERIOD_ENDS);
         when(planSubscriptionService.getActiveSub(user)).thenReturn(subscription);
-        when(paddleApiService.getSubscription(SUBSCRIPTION_ID)).thenReturn(snapshot(FOUNDER_ANNUAL));
-        when(paddlePriceCatalog.isFounderPrice(FOUNDER_ANNUAL)).thenReturn(true);
-        when(paddlePriceCatalog.priceIdFor(Plan.Type.YEARLY, true)).thenReturn(FOUNDER_ANNUAL);
 
         service.undo(user);
 
-        verify(paddleApiService).changeCadence(SUBSCRIPTION_ID, FOUNDER_ANNUAL, ProrationBillingMode.DO_NOT_BILL);
+        // Nothing was ever billed and Paddle was never told, so undoing is a local delete.
+        verify(paddleApiService, never()).changeCadence(any(), any(), any());
         assertThat(subscription.getScheduledPlan()).isNull();
         assertThat(subscription.getScheduledChangeAt()).isNull();
+    }
+
+    @Test
+    void appliesTheScheduledChangeWhenItsDateArrives() {
+        subscription.setScheduledPlan(monthly);
+        subscription.setScheduledChangeAt(PERIOD_ENDS);
+        when(paddleApiService.getSubscription(SUBSCRIPTION_ID)).thenReturn(snapshot(FOUNDER_ANNUAL));
+        when(paddlePriceCatalog.isFounderPrice(FOUNDER_ANNUAL)).thenReturn(true);
+        when(paddlePriceCatalog.priceIdFor(Plan.Type.MONTHLY, true)).thenReturn(FOUNDER_MONTHLY);
+
+        service.applyDueChange(subscription);
+
+        verify(paddleApiService)
+                .changeCadence(SUBSCRIPTION_ID, FOUNDER_MONTHLY, ProrationBillingMode.PRORATED_IMMEDIATELY);
+        assertThat(subscription.getPlan()).isEqualTo(monthly);
+        assertThat(subscription.getScheduledPlan()).isNull();
+    }
+
+    @Test
+    void ignoresASubscriptionWithNothingScheduled() {
+        service.applyDueChange(subscription);
+
+        verify(paddleApiService, never()).changeCadence(any(), any(), any());
     }
 
     @Test
@@ -273,7 +295,7 @@ class CadenceChangeServiceTest {
         when(planRepository.findByNameAndType("PREMIUM", Plan.Type.MONTHLY)).thenReturn(Optional.of(monthly));
         lenient()
                 .when(paddleApiService.previewCadenceChange(
-                        SUBSCRIPTION_ID, FOUNDER_MONTHLY, ProrationBillingMode.FULL_NEXT_BILLING_PERIOD))
+                        SUBSCRIPTION_ID, FOUNDER_MONTHLY, ProrationBillingMode.DO_NOT_BILL))
                 .thenReturn(new CadenceChangePreview(
                         new Money(0L, "USD"),
                         new Money(800L, "USD"),
