@@ -30,8 +30,7 @@ public class RecentLoginAspect {
     FirebaseSessionCookieService cookieService;
     AppProperties appProperties;
 
-    @Around(
-            """
+    @Around("""
             @annotation(com.almonium.auth.common.annotation.RequireRecentLogin)
             || within(@com.almonium.auth.common.annotation.RequireRecentLogin *)
             """)

@@ -15,8 +15,6 @@ import com.almonium.util.config.TestConfig;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,13 +77,8 @@ class EmailTemplatePreviewGenerator {
         }
 
         for (PlanSubscription.Event event : PlanSubscription.Event.values()) {
-            EmailContext<PlanSubscription.Event> context = new EmailContext<>(
-                    event,
-                    Map.of(
-                            SubscriptionEmailComposerService.PLAN_NAME,
-                            "PREMIUM",
-                            SubscriptionEmailComposerService.PERIOD_ENDS_AT,
-                            Instant.now().plus(30, ChronoUnit.DAYS).toString()));
+            EmailContext<PlanSubscription.Event> context =
+                    new EmailContext<>(event, Map.of(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM"));
             subscriptionEmailComposerService.sendEmail("kuzanoleg", "preview@example.com", context);
             capture("subscription-" + event.name().toLowerCase() + ".html");
         }
@@ -119,8 +112,7 @@ class EmailTemplatePreviewGenerator {
                         + "</td><td style=\"padding:6px 12px;\"><a href=\"" + f
                         + "\" target=\"preview\">open</a></td></tr>")
                 .collect(Collectors.joining("\n"));
-        String html =
-                """
+        String html = """
                 <!DOCTYPE html>
                 <html><head><meta charset="utf-8"><title>Email previews</title></head>
                 <body style="margin:0;font-family:sans-serif;display:flex;height:100vh;">
@@ -128,8 +120,7 @@ class EmailTemplatePreviewGenerator {
                 <table>%s</table>
                 </div>
                 <iframe name="preview" style="flex:1;border:0;" src="%s"></iframe>
-                </body></html>"""
-                        .formatted(rows, files.isEmpty() ? "" : files.get(0));
+                </body></html>""".formatted(rows, files.isEmpty() ? "" : files.get(0));
         Files.writeString(OUTPUT_DIR.resolve("index.html"), html);
     }
 

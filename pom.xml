@@ -32,11 +32,11 @@
         <version.lombok>1.18.48</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
         <version.mapstruct>1.5.5.Final</version.mapstruct>
-        <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
+        <version.maven-compiler-plugin>3.16.0</version.maven-compiler-plugin>
         <version.modulith>2.1.1</version.modulith>
         <version.springdoc>3.1.0</version.springdoc>
-        <version.spotbugs-maven-plugin>4.10.3.0</version.spotbugs-maven-plugin>
-        <version.spotless>2.43.0</version.spotless>
+        <version.spotbugs-maven-plugin>4.10.4.1</version.spotbugs-maven-plugin>
+        <version.spotless>3.10.2</version.spotless>
         <version.stream>1.28.0</version.stream>
         <version.uuid-creator>5.2.0</version.uuid-creator>
         <version.zxing>3.5.3</version.zxing>
@@ -485,13 +485,13 @@
                     </formats>
                     <java>
                         <palantirJavaFormat>
-                            <version>2.40.0</version>
+                            <version>2.97.0</version>
                             <style>PALANTIR</style>
                         </palantirJavaFormat>
                     </java>
                     <kotlin>
                         <ktlint>
-                            <version>1.2.1</version>
+                            <version>1.8.0</version>
                         </ktlint>
                         <includes>
                             <include>src/**/*.kt</include>

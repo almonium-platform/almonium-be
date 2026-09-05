@@ -53,10 +53,7 @@ public interface LearningDayRepository extends JpaRepository<LearningDay, UUID> 
      * buy seven days' worth of hours.
      */
     @Modifying
-    @Query(
-            nativeQuery = true,
-            value =
-                    """
+    @Query(nativeQuery = true, value = """
                     INSERT INTO learning_day (id, user_id, activity_date, language, seconds_learned, met)
                     VALUES (:id, :userId, :day, :language,
                             LEAST(:seconds, GREATEST(:dailyCap - COALESCE(

@@ -17,8 +17,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
      * already know looks broken. The relative status is what the caller renders its one control
      * from, so it is resolved here rather than guessed at from separate lists.
      */
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 u.id,
                 u.username,
@@ -42,8 +41,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelatedUserProfile> searchUsersByUsername(UUID currentUserId, String username);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 r.requestee.id,
                 r.requestee.username,
@@ -58,8 +56,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelatedUserProfile> getSentRequests(UUID id);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 r.requester.id,
                 r.requester.username,
@@ -74,8 +71,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelatedUserProfile> getReceivedRequests(UUID id);
 
-    @Query(
-            """
+    @Query("""
         select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
             u.id,
             u.username,
@@ -100,8 +96,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
      * The languages a batch of people are studying, in one query rather than one per row. A hidden profile is left
      * out here rather than filtered later: what it studies is as private as its avatar.
      */
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.model.projection.LearnerLanguageProjection(
                 u.id,
                 l.language
@@ -114,8 +109,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<LearnerLanguageProjection> findActiveLanguagesOf(Collection<UUID> ids);
 
-    @Query(
-            """
+    @Query("""
             select r from Relationship r
             where (r.requester.id = :id1 and r.requestee.id = :id2)
             or (r.requester.id = :id2 and r.requestee.id = :id1)
@@ -140,8 +134,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
      * @param id The ID of the user for whom to retrieve visible friendships.
      * @return A list of FriendshipToUserProjection objects representing the visible friendships for the given user.
      */
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.model.projection.RelationshipToUserProjection(
                         case when r.requester.id = :id then r.requestee.id else r.requester.id end,
                         str(r.status),
@@ -152,8 +145,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelationshipToUserProjection> getVisibleFriendships(UUID id); // TODO avoid writing FQN in query
 
-    @Query(
-            """
+    @Query("""
         select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
             case
                 when r.requester.id = :id then r.requestee.id
@@ -175,8 +167,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
         """)
     List<RelatedUserProfile> getFriendships(UUID id);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.model.projection.RelationshipToUserProjection(
                 case when r.requester.id = :id then r.requestee.id else r.requester.id end,
                 str(r.status),

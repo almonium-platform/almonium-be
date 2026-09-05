@@ -38,12 +38,10 @@ class PublishedBookContentServiceTest {
 
     @Test
     void rendersEscapedBlocksFromProcessorStorage() throws Exception {
-        JsonNode[] blocks = objectMapper.readValue(
-                """
+        JsonNode[] blocks = objectMapper.readValue("""
                 [{"chapter":1,"chapter_title":"One & <Two>","block_type":"heading","text":"One & <Two>"},
                  {"chapter":1,"chapter_title":"One & <Two>","block_type":"paragraph","text":"Stored text."}]
-                """,
-                JsonNode[].class);
+                """, JsonNode[].class);
         when(restTemplate.getForObject(anyString(), eq(JsonNode[].class), any(Object[].class)))
                 .thenReturn(blocks);
         Book book = new Book();

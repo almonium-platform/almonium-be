@@ -31,38 +31,60 @@ public class RelationshipPerspectiveResolver {
         }
 
         return switch (existing.getStatus()) {
-            case FRIENDS -> perspective(
-                    existing, counterpart, RelativeRelationshipStatus.FRIENDS, null, true, false, false, true, false);
-            case PENDING -> perspective(
-                    existing,
-                    counterpart,
-                    viewerIsRequester
-                            ? RelativeRelationshipStatus.PENDING_OUTGOING
-                            : RelativeRelationshipStatus.PENDING_INCOMING,
-                    null,
-                    !profileHidden,
-                    false,
-                    viewerIsRequestee,
-                    true,
-                    false);
-            case FST_BLOCKED_SND -> viewerIsRequester
-                    ? blockedByViewer(existing, counterpart, profileHidden)
-                    : blockedByCounterpart(existing, counterpart);
-            case SND_BLOCKED_FST -> viewerIsRequestee
-                    ? blockedByViewer(existing, counterpart, profileHidden)
-                    : blockedByCounterpart(existing, counterpart);
-            case MUTUAL_BLOCK -> perspective(
-                    existing, counterpart, RelativeRelationshipStatus.BLOCKED, null, false, false, false, false, true);
-            case REJECTED, CANCELLED, UNFRIENDED -> perspective(
-                    existing,
-                    counterpart,
-                    RelativeRelationshipStatus.STRANGER,
-                    !profileHidden,
-                    !profileHidden,
-                    !profileHidden,
-                    false,
-                    true,
-                    false);
+            case FRIENDS ->
+                perspective(
+                        existing,
+                        counterpart,
+                        RelativeRelationshipStatus.FRIENDS,
+                        null,
+                        true,
+                        false,
+                        false,
+                        true,
+                        false);
+            case PENDING ->
+                perspective(
+                        existing,
+                        counterpart,
+                        viewerIsRequester
+                                ? RelativeRelationshipStatus.PENDING_OUTGOING
+                                : RelativeRelationshipStatus.PENDING_INCOMING,
+                        null,
+                        !profileHidden,
+                        false,
+                        viewerIsRequestee,
+                        true,
+                        false);
+            case FST_BLOCKED_SND ->
+                viewerIsRequester
+                        ? blockedByViewer(existing, counterpart, profileHidden)
+                        : blockedByCounterpart(existing, counterpart);
+            case SND_BLOCKED_FST ->
+                viewerIsRequestee
+                        ? blockedByViewer(existing, counterpart, profileHidden)
+                        : blockedByCounterpart(existing, counterpart);
+            case MUTUAL_BLOCK ->
+                perspective(
+                        existing,
+                        counterpart,
+                        RelativeRelationshipStatus.BLOCKED,
+                        null,
+                        false,
+                        false,
+                        false,
+                        false,
+                        true);
+            case REJECTED, CANCELLED, UNFRIENDED ->
+                perspective(
+                        existing,
+                        counterpart,
+                        RelativeRelationshipStatus.STRANGER,
+                        !profileHidden,
+                        !profileHidden,
+                        !profileHidden,
+                        false,
+                        true,
+                        false);
         };
     }
 

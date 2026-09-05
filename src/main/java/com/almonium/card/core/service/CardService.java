@@ -187,9 +187,10 @@ public class CardService {
             entity.setNormalizedForm(normalize(dto.getEntry()));
         }
 
-        Optional.ofNullable(dto.getDeletedTranslationsIds()).ifPresent(ids -> Arrays.stream(ids)
-                .map(id -> findTranslation(entity, id))
-                .forEach(translationRepository::delete));
+        Optional.ofNullable(dto.getDeletedTranslationsIds())
+                .ifPresent(ids -> Arrays.stream(ids)
+                        .map(id -> findTranslation(entity, id))
+                        .forEach(translationRepository::delete));
 
         Optional.ofNullable(dto.getDeletedExamplesIds())
                 .ifPresent(ids ->

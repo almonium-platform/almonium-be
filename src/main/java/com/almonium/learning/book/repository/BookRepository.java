@@ -16,8 +16,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     List<Book> findByLanguage(Language language);
 
-    @Query(
-            """
+    @Query("""
         select b.id as id,
                b.editionSlug as editionSlug,
                b.workSlug as workSlug,
@@ -44,8 +43,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     List<BookDetailsProjection> findBooksInProgressByLearner(
             UUID learnerId, Language language, Collection<Language> fluentLanguages);
 
-    @Query(
-            """
+    @Query("""
         select b.id as id,
                b.editionSlug as editionSlug,
                b.workSlug as workSlug,
@@ -81,8 +79,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     List<BookDetailsProjection> findAvailableBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
 
-    @Query(
-            """
+    @Query("""
         select b.id as id,
                b.editionSlug as editionSlug,
                b.workSlug as workSlug,
@@ -110,8 +107,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     List<BookDetailsProjection> findFavoriteBooks(
             Language language, UUID learnerId, Collection<Language> fluentLanguages, boolean includeTranslations);
 
-    @Query(
-            """
+    @Query("""
         select b.id as id,
                b.editionSlug as editionSlug,
                b.workSlug as workSlug,
@@ -139,8 +135,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     """)
     Optional<BookDetailsProjection> findBookDtoById(UUID bookId, UUID learnerId, Collection<Language> fluentLanguages);
 
-    @Query(
-            """
+    @Query("""
             select b.id as id, b.editionSlug as editionSlug, b.language as language
             from Book b
             where b.id = :bookId

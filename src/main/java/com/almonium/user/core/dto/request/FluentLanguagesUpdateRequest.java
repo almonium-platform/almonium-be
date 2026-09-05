@@ -6,4 +6,5 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
-public record FluentLanguagesUpdateRequest(@NotEmpty @Size(max = AppLimits.MAX_FLUENT_LANGS) Set<Language> langCodes) {}
+public record FluentLanguagesUpdateRequest(
+        @NotEmpty @Size(max = AppLimits.MAX_FLUENT_LANGS) Set<Language> langCodes) {}

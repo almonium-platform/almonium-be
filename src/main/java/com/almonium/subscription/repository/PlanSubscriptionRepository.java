@@ -21,8 +21,7 @@ public interface PlanSubscriptionRepository extends JpaRepository<PlanSubscripti
     List<PlanSubscription> findAllByPaddleSubscriptionIdIsNotNullAndStatusIn(List<PlanSubscription.Status> statuses);
 
     /** Plan-derived entitlements for a whole list, so a page of people costs one query instead of one per person. */
-    @Query(
-            """
+    @Query("""
             select new com.almonium.subscription.model.record.UserEntitlement(ps.user.id, ps.plan.entitlement)
             from PlanSubscription ps
             where ps.user.id in :userIds

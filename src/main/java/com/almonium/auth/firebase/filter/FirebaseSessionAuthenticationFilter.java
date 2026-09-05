@@ -49,9 +49,10 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        FirebaseBearerToken.from(request).ifPresentOrElse(this::authenticateBearer, () -> cookieService
-                .read(request)
-                .ifPresent(cookie -> authenticateCookie(cookie, response)));
+        FirebaseBearerToken.from(request)
+                .ifPresentOrElse(
+                        this::authenticateBearer,
+                        () -> cookieService.read(request).ifPresent(cookie -> authenticateCookie(cookie, response)));
         filterChain.doFilter(request, response);
     }
 

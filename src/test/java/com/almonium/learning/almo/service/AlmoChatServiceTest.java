@@ -199,18 +199,14 @@ class AlmoChatServiceTest {
                         user.getId().toString(),
                         "Ja, ich habe es geschafft. Michael besitzt die Sprache jetzt."));
         when(model.complete(anyString(), anyList()))
-                .thenReturn(new OpenAiChatClient.Completion(
-                        """
+                .thenReturn(new OpenAiChatClient.Completion("""
                         {"reply": "Fast. Besitzen ist für Dinge. Eine Sprache beherrscht man. Was hat dabei geholfen?",
                          "translation": "Almost. Owning is for things. A language is mastered. What helped?",
                          "reply_words": [{"entry": "dabei", "surface": "dabei"}],
                          "learner_words": [{"entry": "sich vornehmen", "surface": "geschafft"}],
                          "contrast": ["Besitzen", "beherrscht"],
                          "confusion": {"misused": "besitzen", "intended": "beherrschen"}}
-                        """,
-                        "gpt-test",
-                        321,
-                        45));
+                        """, "gpt-test", 321, 45));
         when(stream.sendReply(eq("almo_" + user.getId() + "_de"), anyString(), any()))
                 .thenReturn("reply-9");
 

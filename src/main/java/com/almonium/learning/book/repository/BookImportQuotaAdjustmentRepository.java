@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface BookImportQuotaAdjustmentRepository extends JpaRepository<BookImportQuotaAdjustment, UUID> {
 
-    @Query(
-            """
+    @Query("""
             select coalesce(sum(adjustment.adjustment), 0)
             from BookImportQuotaAdjustment adjustment
             where adjustment.user.id = :userId

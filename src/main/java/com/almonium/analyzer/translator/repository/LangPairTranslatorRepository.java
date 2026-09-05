@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface LangPairTranslatorRepository extends JpaRepository<LangPairTranslatorMapping, TranslatorMappingKey> {
-    @Query(
-            """
+    @Query("""
             select l.translator.name
             from LangPairTranslatorMapping l
             where l.sourceLang = :sourceLang

@@ -39,17 +39,19 @@ public class SharedWordMapper {
                 .build();
         copy.setOwner(learner);
         copy.setLegacyOwnerId(learner.getUser().getId());
-        source.getTranslations().forEach(translation -> copy.getTranslations()
-                .add(Translation.builder()
-                        .translation(translation.getTranslation())
-                        .card(copy)
-                        .build()));
-        source.getExamples().forEach(example -> copy.getExamples()
-                .add(Example.builder()
-                        .example(example.getExample())
-                        .translation(example.getTranslation())
-                        .card(copy)
-                        .build()));
+        source.getTranslations()
+                .forEach(translation -> copy.getTranslations()
+                        .add(Translation.builder()
+                                .translation(translation.getTranslation())
+                                .card(copy)
+                                .build()));
+        source.getExamples()
+                .forEach(example -> copy.getExamples()
+                        .add(Example.builder()
+                                .example(example.getExample())
+                                .translation(example.getTranslation())
+                                .card(copy)
+                                .build()));
         return copy;
     }
 }

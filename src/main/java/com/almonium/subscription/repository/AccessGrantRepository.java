@@ -12,8 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> {
 
-    @Query(
-            """
+    @Query("""
             select grant from AccessGrant grant
             where grant.user.id = :userId
               and grant.revokedAt is null
@@ -24,8 +23,7 @@ public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> 
     Optional<AccessGrant> findActiveByUserId(UUID userId, Instant now);
 
     /** The same rule for a whole list, so a page of people costs one query instead of one per person. */
-    @Query(
-            """
+    @Query("""
             select grant from AccessGrant grant
             where grant.user.id in :userIds
               and grant.revokedAt is null
@@ -40,8 +38,7 @@ public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> 
      * select-then-save round trip that races under concurrent operator requests.
      */
     @Modifying(clearAutomatically = true)
-    @Query(
-            """
+    @Query("""
             update AccessGrant grant
             set grant.revokedAt = :now
             where grant.user.id = :userId

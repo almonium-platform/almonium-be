@@ -54,20 +54,16 @@ class PaddleApiServiceTest {
                 .build();
         server.expect(requestTo("https://sandbox-api.paddle.com/customers"))
                 .andExpect(method(POST))
-                .andRespond(
-                        withStatus(HttpStatus.CONFLICT)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(
-                                        """
+                .andRespond(withStatus(HttpStatus.CONFLICT)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body("""
                                 {"error":{"code":"customer_already_exists"}}
                                 """));
         server.expect(requestTo("https://sandbox-api.paddle.com/customers?email=existing@example.com"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {"data":[{"id":"ctm_01existing"}]}
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         assertThat(service.createCustomerIdForUser(user)).isEqualTo("ctm_01existing");
         server.verify();
@@ -87,10 +83,7 @@ class PaddleApiServiceTest {
                 .andExpect(method(POST))
                 .andExpect(header("Authorization", "Bearer api-key"))
                 .andExpect(header("Paddle-Version", "1"))
-                .andExpect(
-                        content()
-                                .json(
-                                        """
+                .andExpect(content().json("""
                         {
                           "items": [{"price_id": "pri_founder_monthly", "quantity": 1}],
                           "customer_id": "ctm_01founder",
@@ -101,11 +94,9 @@ class PaddleApiServiceTest {
                           }
                         }
                         """))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {"data":{"id":"txn_01test","checkout":{"url":"https://almonium.com/payment/checkout?_ptxn=txn_01test"}}}
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         PaddleApiService.CheckoutTransaction transaction = service.createPaymentTransaction(user, plan, Optional.of(7));
 
@@ -118,8 +109,7 @@ class PaddleApiServiceTest {
     void readsSubscriptionSnapshotForReconciliation() {
         server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {
                           "data": {
                             "id": "sub_01test",
@@ -132,8 +122,7 @@ class PaddleApiServiceTest {
                             }
                           }
                         }
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         PaddleApiService.SubscriptionSnapshot snapshot = service.getSubscription("sub_01test");
 
@@ -147,17 +136,13 @@ class PaddleApiServiceTest {
     void previewsACadenceChangeWithoutCommittingToIt() {
         server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test/preview"))
                 .andExpect(method(PATCH))
-                .andExpect(
-                        content()
-                                .json(
-                                        """
+                .andExpect(content().json("""
                                 {
                                   "items": [{"price_id": "pri_founder_monthly", "quantity": 1}],
                                   "proration_billing_mode": "full_next_billing_period"
                                 }
                                 """))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {
                           "data": {
                             "currency_code": "USD",
@@ -167,8 +152,7 @@ class PaddleApiServiceTest {
                             "next_billed_at": "2027-09-04T00:00:00Z"
                           }
                         }
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         PaddleApiService.CadenceChangePreview preview = service.previewCadenceChange(
                 "sub_01test", "pri_founder_monthly", ProrationBillingMode.FULL_NEXT_BILLING_PERIOD);
@@ -184,8 +168,7 @@ class PaddleApiServiceTest {
     void readsNothingDueWhenPaddleReturnsNoImmediateTransaction() {
         server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test/preview"))
                 .andExpect(method(PATCH))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {
                           "data": {
                             "currency_code": "EUR",
@@ -193,8 +176,7 @@ class PaddleApiServiceTest {
                             "current_billing_period": {"ends_at": "2027-09-04T00:00:00Z"}
                           }
                         }
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         PaddleApiService.CadenceChangePreview preview = service.previewCadenceChange(
                 "sub_01test", "pri_founder_monthly", ProrationBillingMode.FULL_NEXT_BILLING_PERIOD);
@@ -209,8 +191,7 @@ class PaddleApiServiceTest {
     void findsTheLatestPaymentAGuaranteeRefundWouldTarget() {
         server.expect(requestTo(LATEST_TRANSACTION_URI))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(
-                        """
+                .andRespond(withSuccess("""
                         {
                           "data": [{
                             "id": "txn_01annual",
@@ -219,8 +200,7 @@ class PaddleApiServiceTest {
                             "details": {"totals": {"grand_total": "8000"}}
                           }]
                         }
-                        """,
-                        MediaType.APPLICATION_JSON));
+                        """, MediaType.APPLICATION_JSON));
 
         PaddleApiService.PaidTransaction transaction =
                 service.latestPaidTransaction("sub_01test").orElseThrow();

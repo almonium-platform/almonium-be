@@ -31,9 +31,7 @@ class PaddleWebhookHandlersTest {
     @Test
     void completedRecurringTransactionEmitsTrueRenewal() throws Exception {
         PaddleTransactionCompletedHandler handler = new PaddleTransactionCompletedHandler(planSubscriptionService);
-        PaddleEvent event = event(
-                "transaction.completed",
-                """
+        PaddleEvent event = event("transaction.completed", """
                 {"origin":"subscription_recurring","subscription_id":"sub_01test"}
                 """);
 
@@ -46,9 +44,7 @@ class PaddleWebhookHandlersTest {
     void completedCheckoutTransactionIsNotTreatedAsRenewal() throws Exception {
         PaddleTransactionCompletedHandler handler = new PaddleTransactionCompletedHandler(planSubscriptionService);
 
-        handler.handle(event(
-                "transaction.completed",
-                """
+        handler.handle(event("transaction.completed", """
                 {"origin":"web","subscription_id":"sub_01test"}
                 """));
 
@@ -60,10 +56,7 @@ class PaddleWebhookHandlersTest {
         PaddleSubscriptionUpdatedHandler handler =
                 new PaddleSubscriptionUpdatedHandler(eventData, planSubscriptionService);
 
-        handler.handle(
-                event(
-                        "subscription.updated",
-                        """
+        handler.handle(event("subscription.updated", """
                 {
                   "id":"sub_01test",
                   "status":"canceled",
@@ -88,11 +81,7 @@ class PaddleWebhookHandlersTest {
     void aRejectedRefundIsReportedRatherThanSwallowed() throws Exception {
         ListAppender<ILoggingEvent> appender = captureLogsOf(PaddleAdjustmentUpdatedHandler.class);
 
-        new PaddleAdjustmentUpdatedHandler()
-                .handle(
-                        event(
-                                "adjustment.updated",
-                                """
+        new PaddleAdjustmentUpdatedHandler().handle(event("adjustment.updated", """
                         {"action":"refund","status":"rejected","transaction_id":"txn_01test","subscription_id":"sub_01test"}
                         """));
 
@@ -106,11 +95,7 @@ class PaddleWebhookHandlersTest {
     void anAdjustmentThatIsNotARefundIsIgnored() throws Exception {
         ListAppender<ILoggingEvent> appender = captureLogsOf(PaddleAdjustmentUpdatedHandler.class);
 
-        new PaddleAdjustmentUpdatedHandler()
-                .handle(
-                        event(
-                                "adjustment.updated",
-                                """
+        new PaddleAdjustmentUpdatedHandler().handle(event("adjustment.updated", """
                         {"action":"credit","status":"approved","transaction_id":"txn_01test"}
                         """));
 
