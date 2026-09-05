@@ -83,7 +83,11 @@ public class PlanSubscriptionService {
             findAndActivateDefaultPlan(activeSubscription.getUser());
         } else {
             assertPaddleSubscriptionIdIsPresent(activeSubscription);
-            paddleApiService.cancelSubscriptionImmediately(activeSubscription.getPaddleSubscriptionId());
+            // Cancelling at the end of the cycle rather than on the spot. The member has paid through the period, the
+            // confirmation step tells them they keep everything until it ends, and taking access away the moment they
+            // confirm would make that a lie. Paddle reports the pending cancellation as a scheduled change, which
+            // reconciliation already turns into ACTIVE_TILL_CYCLE_END.
+            paddleApiService.scheduleSubscriptionCancellation(activeSubscription.getPaddleSubscriptionId());
         }
     }
 
@@ -153,7 +157,7 @@ public class PlanSubscriptionService {
             return;
         }
         PlanSubscription.Status previousStatus = subscription.getStatus();
-        subscription.setPlan(getPlanForPaddlePrice(priceId));
+        applyPaddlePriceToPlan(subscription, priceId, occurredAt);
         if (!List.of("canceled", "paused").contains(status) && (startDate.isEmpty() || endDate.isEmpty())) {
             throw new PaddleIntegrationException("Active Paddle subscription is missing its current billing period");
         }
@@ -329,6 +333,22 @@ public class PlanSubscriptionService {
                 .findForUpdateByPaddleSubscriptionId(subscriptionId)
                 .orElseThrow(
                         () -> new PaddleIntegrationException("Plan subscription not found for Paddle subscription"));
+    }
+
+    /**
+     * A scheduled cadence change reads as already made. Paddle swaps the subscription item the moment the change is
+     * requested and defers only the billing, so an annual member who schedules monthly is reported to us as monthly
+     * while they are still eleven months from their next bill. Until the change lands, the plan they paid for is the
+     * plan they keep; once it does, the price becomes the truth again and the pending record goes.
+     */
+    private void applyPaddlePriceToPlan(PlanSubscription subscription, String priceId, Instant occurredAt) {
+        Instant scheduledChangeAt = subscription.getScheduledChangeAt();
+        if (scheduledChangeAt != null && occurredAt.isBefore(scheduledChangeAt)) {
+            return;
+        }
+        subscription.setPlan(getPlanForPaddlePrice(priceId));
+        subscription.setScheduledPlan(null);
+        subscription.setScheduledChangeAt(null);
     }
 
     private Plan getPlanForPaddlePrice(String priceId) {

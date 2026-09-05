@@ -2,6 +2,7 @@ package com.almonium.subscription.service;
 
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
 import com.almonium.user.core.model.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -104,6 +105,76 @@ public class PaddleApiService {
                 "cancel subscription");
     }
 
+    /**
+     * What the cadence change would cost, without committing to it. Every figure the confirmation screen prints comes
+     * from here rather than from arithmetic of our own: whatever Paddle actually does with a billing mode, the member
+     * is shown the truth about it before they confirm.
+     */
+    public CadenceChangePreview previewCadenceChange(String subscriptionId, String priceId, ProrationBillingMode mode) {
+        JsonNode response = patch(
+                "/subscriptions/" + subscriptionId + "/preview",
+                cadenceChangeRequest(priceId, mode),
+                "preview subscription cadence change");
+        return new CadenceChangePreview(
+                money(response, "/data/immediate_transaction/details/totals/grand_total", "/data/currency_code"),
+                money(response, "/data/recurring_transaction_details/totals/total", "/data/currency_code"),
+                money(response, "/data/update_summary/credit/amount", "/data/currency_code"),
+                optionalInstant(response, "/data/current_billing_period/ends_at"),
+                optionalInstant(response, "/data/next_billed_at"));
+    }
+
+    public void changeCadence(String subscriptionId, String priceId, ProrationBillingMode mode) {
+        patch("/subscriptions/" + subscriptionId, cadenceChangeRequest(priceId, mode), "change subscription cadence");
+    }
+
+    /**
+     * The most recent payment on this subscription, which is the one a guarantee refund targets. Paddle orders newest
+     * first, so a single page of one is enough.
+     */
+    public Optional<PaidTransaction> latestPaidTransaction(String subscriptionId) {
+        try {
+            JsonNode response = paddleRestClient
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/transactions")
+                            .queryParam("subscription_id", subscriptionId)
+                            .queryParam("status", "completed")
+                            .queryParam("order_by", "billed_at[DESC]")
+                            .queryParam("per_page", 1)
+                            .build())
+                    .retrieve()
+                    .body(JsonNode.class);
+            if (response == null) {
+                throw new PaddleIntegrationException("Paddle returned an empty transaction list");
+            }
+            if (!response.at("/data/0/id").isTextual()) {
+                return Optional.empty();
+            }
+            return Optional.of(new PaidTransaction(
+                    requiredText(response, "/data/0/id", "transaction ID"),
+                    money(response, "/data/0/details/totals/grand_total", "/data/0/currency_code"),
+                    optionalInstant(response, "/data/0/billed_at")
+                            .orElseThrow(() ->
+                                    new PaddleIntegrationException("Paddle transaction is missing its billing date"))));
+        } catch (RestClientException exception) {
+            log.error("Failed to list Paddle transactions for subscription {}", subscriptionId, exception);
+            throw new PaddleIntegrationException("Failed to list Paddle transactions", exception);
+        }
+    }
+
+    public void refundTransactionInFull(String transactionId, String reason) {
+        post(
+                "/adjustments",
+                Map.of("action", "refund", "type", "full", "transaction_id", transactionId, "reason", reason),
+                "refund transaction");
+    }
+
+    private Map<String, Object> cadenceChangeRequest(String priceId, ProrationBillingMode mode) {
+        return Map.of(
+                "items", List.of(Map.of("price_id", priceId, "quantity", 1)),
+                "proration_billing_mode", mode.wireValue());
+    }
+
     private String postForRequiredText(String path, Object request, String pointer, String operation) {
         return requiredText(post(path, request, operation), pointer, operation + " response");
     }
@@ -143,6 +214,21 @@ public class PaddleApiService {
         } catch (JsonProcessingException parsingException) {
             log.warn("Could not parse Paddle customer conflict response", parsingException);
             return false;
+        }
+    }
+
+    private JsonNode patch(String path, Object request, String operation) {
+        try {
+            JsonNode response =
+                    paddleRestClient.patch().uri(path).body(request).retrieve().body(JsonNode.class);
+            if (response == null) {
+                throw new PaddleIntegrationException(
+                        "Paddle returned an empty response while attempting to " + operation);
+            }
+            return response;
+        } catch (RestClientException exception) {
+            log.error("Failed to {} through Paddle", operation, exception);
+            throw new PaddleIntegrationException("Failed to " + operation, exception);
         }
     }
 
@@ -194,6 +280,38 @@ public class PaddleApiService {
             }
         });
     }
+
+    /**
+     * Paddle states every amount as a minor-unit string beside a currency code. It stays that way through our own
+     * layers: rounding a currency we do not know the exponent of is how a screen ends up disagreeing with an invoice.
+     */
+    private Money money(JsonNode response, String amountPointer, String currencyPointer) {
+        JsonNode amount = response.at(amountPointer);
+        if (amount.isMissingNode() || amount.isNull()) {
+            return new Money(0L, optionalText(response, currencyPointer).orElse("USD"));
+        }
+        String raw = amount.isTextual() ? amount.textValue() : amount.asText();
+        try {
+            return new Money(Long.parseLong(raw), requiredText(response, currencyPointer, "currency code"));
+        } catch (NumberFormatException exception) {
+            throw new PaddleIntegrationException("Paddle response has a non-numeric amount at " + amountPointer);
+        }
+    }
+
+    public record Money(long minorUnits, String currencyCode) {}
+
+    /**
+     * @param recurring what the subscription costs every period once the change has landed. Taken from Paddle rather
+     *     than from the plan table, which holds list prices in USD and knows nothing of the member's own currency.
+     */
+    public record CadenceChangePreview(
+            Money dueNow,
+            Money recurring,
+            Money credit,
+            Optional<Instant> currentPeriodEndsAt,
+            Optional<Instant> nextBilledAt) {}
+
+    public record PaidTransaction(String id, Money total, Instant billedAt) {}
 
     public record CheckoutTransaction(String id, String checkoutUrl) {}
 

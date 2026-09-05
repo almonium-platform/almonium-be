@@ -31,6 +31,15 @@ public class FoundingMemberService {
         return new FoundingMemberStatusDto(CAPACITY, claimed);
     }
 
+    /** Whether this account holds a place. A reservation is not one yet - only a confirmed slot is. */
+    @Transactional(readOnly = true)
+    public boolean holdsPlace(UUID userId) {
+        return foundingMemberRepository
+                .findByUserId(userId)
+                .filter(slot -> slot.getStatus() == FoundingMember.Status.CONFIRMED)
+                .isPresent();
+    }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Optional<Integer> reserveForCheckout(User user) {
         Optional<FoundingMember> existing = foundingMemberRepository.findByUserId(user.getId());

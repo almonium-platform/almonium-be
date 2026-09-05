@@ -49,6 +49,17 @@ public class PlanSubscription {
 
     String paddleSubscriptionId;
 
+    /**
+     * The cadence this subscription moves to at the end of the current period, and when. Paddle has no scheduled plan
+     * change: a downgrade swaps the item immediately and only defers the billing, so without this pair a member would
+     * be shown monthly pricing the moment they scheduled it, having already paid through the year.
+     */
+    @ManyToOne
+    @JoinColumn(name = "scheduled_plan_id")
+    Plan scheduledPlan;
+
+    Instant scheduledChangeAt;
+
     Instant startDate;
 
     Instant endDate;

@@ -17,6 +17,8 @@ public interface PlanSubscriptionMapper {
     @Mapping(target = "type", source = "plan.type")
     @Mapping(target = "limits", ignore = true)
     @Mapping(target = "autoRenewal", ignore = true)
+    @Mapping(target = "scheduledChange", ignore = true)
+    @Mapping(target = "founder", ignore = true)
     SubscriptionInfoDto planSubscriptionToPlanDto(PlanSubscription planSubscription);
 
     @AfterMapping
@@ -24,6 +26,18 @@ public interface PlanSubscriptionMapper {
             @MappingTarget SubscriptionInfoDto.SubscriptionInfoDtoBuilder dtoBuilder,
             PlanSubscription planSubscription) {
         dtoBuilder.autoRenewal(planSubscription.getStatus() == PlanSubscription.Status.ACTIVE);
+    }
+
+    /** Both halves have to be there. A pending cadence with no date is a row the client cannot render honestly. */
+    @AfterMapping
+    default void setScheduledChange(
+            @MappingTarget SubscriptionInfoDto.SubscriptionInfoDtoBuilder dtoBuilder,
+            PlanSubscription planSubscription) {
+        if (planSubscription.getScheduledPlan() == null || planSubscription.getScheduledChangeAt() == null) {
+            return;
+        }
+        dtoBuilder.scheduledChange(new SubscriptionInfoDto.ScheduledCadenceChange(
+                planSubscription.getScheduledPlan().getType(), planSubscription.getScheduledChangeAt()));
     }
 
     PlanDto toDto(Plan planSubscription);

@@ -16,6 +16,7 @@ import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.EffectiveAccessService;
+import com.almonium.subscription.service.FoundingMemberService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
@@ -51,6 +52,9 @@ class UserServiceTest {
 
     @Mock
     PlanSubscriptionService planSubscriptionService;
+
+    @Mock
+    FoundingMemberService foundingMemberService;
 
     @Mock
     PlanService planService;

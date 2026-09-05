@@ -130,3 +130,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260904-record-founder-price-on-plan.yaml
   - include:
       file: db/changelog/changes/patches/20260905-reduce-founding-member-capacity-to-twenty.yaml
+  - include:
+      file: db/changelog/changes/patches/20260905-record-scheduled-cadence-change.yaml

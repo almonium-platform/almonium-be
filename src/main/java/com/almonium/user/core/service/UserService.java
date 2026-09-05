@@ -9,6 +9,7 @@ import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.EffectiveAccessService;
+import com.almonium.subscription.service.FoundingMemberService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
@@ -40,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService {
     PlanSubscriptionService planSubscriptionService;
+    FoundingMemberService foundingMemberService;
     EffectiveAccessService effectiveAccessService;
     PlanService planService;
     PlanValidationService planValidationService;
@@ -63,6 +65,7 @@ public class UserService {
                 planSubscriptionMapper.planSubscriptionToPlanDto(activePlanSubscription);
         userInfo.setSubscription(subscriptionInfoDto);
         userInfo.getSubscription().setLimits(limits);
+        userInfo.getSubscription().setFounder(foundingMemberService.holdsPlace(fetchedUser.getId()));
         userInfo.setPremium(effectiveAccessService.isPremium(user));
         userInfo.setAdmin(
                 SecurityRoles.isAdmin(SecurityContextHolder.getContext().getAuthentication()));

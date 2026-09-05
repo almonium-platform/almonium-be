@@ -6,13 +6,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
 @Configuration
 public class PaddleConfig {
+    /**
+     * The request factory is pinned rather than detected because cadence changes go out as PATCH, and the
+     * HttpURLConnection-backed factory detection can fall back to cannot send one. That would fail at runtime, on the
+     * subscription update, and nowhere earlier.
+     */
     @Bean
     RestClient paddleRestClient(RestClient.Builder builder, PaddleProperties properties) {
-        return builder.baseUrl(properties.apiBaseUrl())
+        return builder.requestFactory(new JdkClientHttpRequestFactory())
+                .baseUrl(properties.apiBaseUrl())
                 .defaultHeader(
                         HttpHeaders.AUTHORIZATION,
                         "Bearer " + properties.getApi().getKey())

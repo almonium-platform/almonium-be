@@ -2,6 +2,7 @@ package com.almonium.subscription.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
@@ -12,6 +13,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import com.almonium.config.properties.PaddleProperties;
 import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.enums.ProrationBillingMode;
 import com.almonium.user.core.model.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
@@ -25,6 +27,9 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
 class PaddleApiServiceTest {
+    private static final String LATEST_TRANSACTION_URI = "https://sandbox-api.paddle.com/transactions"
+            + "?subscription_id=sub_01test&status=completed&order_by=billed_at%5BDESC%5D&per_page=1";
+
     private MockRestServiceServer server;
     private PaddleApiService service;
 
@@ -135,6 +140,104 @@ class PaddleApiServiceTest {
         assertThat(snapshot.status()).isEqualTo("active");
         assertThat(snapshot.scheduledChangeAction()).contains("cancel");
         assertThat(snapshot.billingPeriodEndsAt()).contains(Instant.parse("2026-09-01T00:00:00Z"));
+        server.verify();
+    }
+
+    @Test
+    void previewsACadenceChangeWithoutCommittingToIt() {
+        server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test/preview"))
+                .andExpect(method(PATCH))
+                .andExpect(
+                        content()
+                                .json(
+                                        """
+                                {
+                                  "items": [{"price_id": "pri_founder_monthly", "quantity": 1}],
+                                  "proration_billing_mode": "full_next_billing_period"
+                                }
+                                """))
+                .andRespond(withSuccess(
+                        """
+                        {
+                          "data": {
+                            "currency_code": "USD",
+                            "immediate_transaction": {"details": {"totals": {"grand_total": "0"}}},
+                            "recurring_transaction_details": {"totals": {"total": "800"}},
+                            "current_billing_period": {"ends_at": "2027-09-04T00:00:00Z"},
+                            "next_billed_at": "2027-09-04T00:00:00Z"
+                          }
+                        }
+                        """,
+                        MediaType.APPLICATION_JSON));
+
+        PaddleApiService.CadenceChangePreview preview = service.previewCadenceChange(
+                "sub_01test", "pri_founder_monthly", ProrationBillingMode.FULL_NEXT_BILLING_PERIOD);
+
+        assertThat(preview.dueNow().minorUnits()).isZero();
+        assertThat(preview.recurring().minorUnits()).isEqualTo(800L);
+        assertThat(preview.recurring().currencyCode()).isEqualTo("USD");
+        assertThat(preview.nextBilledAt()).contains(Instant.parse("2027-09-04T00:00:00Z"));
+        server.verify();
+    }
+
+    @Test
+    void readsNothingDueWhenPaddleReturnsNoImmediateTransaction() {
+        server.expect(requestTo("https://sandbox-api.paddle.com/subscriptions/sub_01test/preview"))
+                .andExpect(method(PATCH))
+                .andRespond(withSuccess(
+                        """
+                        {
+                          "data": {
+                            "currency_code": "EUR",
+                            "recurring_transaction_details": {"totals": {"total": "900"}},
+                            "current_billing_period": {"ends_at": "2027-09-04T00:00:00Z"}
+                          }
+                        }
+                        """,
+                        MediaType.APPLICATION_JSON));
+
+        PaddleApiService.CadenceChangePreview preview = service.previewCadenceChange(
+                "sub_01test", "pri_founder_monthly", ProrationBillingMode.FULL_NEXT_BILLING_PERIOD);
+
+        assertThat(preview.dueNow().minorUnits()).isZero();
+        assertThat(preview.dueNow().currencyCode()).isEqualTo("EUR");
+        assertThat(preview.nextBilledAt()).isEmpty();
+        server.verify();
+    }
+
+    @Test
+    void findsTheLatestPaymentAGuaranteeRefundWouldTarget() {
+        server.expect(requestTo(LATEST_TRANSACTION_URI))
+                .andExpect(method(GET))
+                .andRespond(withSuccess(
+                        """
+                        {
+                          "data": [{
+                            "id": "txn_01annual",
+                            "currency_code": "USD",
+                            "billed_at": "2026-08-30T09:00:00Z",
+                            "details": {"totals": {"grand_total": "8000"}}
+                          }]
+                        }
+                        """,
+                        MediaType.APPLICATION_JSON));
+
+        PaddleApiService.PaidTransaction transaction =
+                service.latestPaidTransaction("sub_01test").orElseThrow();
+
+        assertThat(transaction.id()).isEqualTo("txn_01annual");
+        assertThat(transaction.total().minorUnits()).isEqualTo(8000L);
+        assertThat(transaction.billedAt()).isEqualTo(Instant.parse("2026-08-30T09:00:00Z"));
+        server.verify();
+    }
+
+    @Test
+    void reportsNoRefundableTransactionWhenTheSubscriptionHasNoneYet() {
+        server.expect(requestTo(LATEST_TRANSACTION_URI))
+                .andExpect(method(GET))
+                .andRespond(withSuccess("{\"data\": []}", MediaType.APPLICATION_JSON));
+
+        assertThat(service.latestPaidTransaction("sub_01test")).isEmpty();
         server.verify();
     }
 
