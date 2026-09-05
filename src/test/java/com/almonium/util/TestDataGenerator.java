@@ -7,12 +7,11 @@ import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
-public class TestDataGenerator {
+public final class TestDataGenerator {
+    private TestDataGenerator() {}
 
-    public User buildTestUserWithId() {
+    public static User buildTestUserWithId() {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setUsername("john");
@@ -24,7 +23,7 @@ public class TestDataGenerator {
         return user;
     }
 
-    public User buildTestUserWithId(UUID id) {
+    public static User buildTestUserWithId(UUID id) {
         User user = new User();
         user.setId(id);
         user.setUsername("john");

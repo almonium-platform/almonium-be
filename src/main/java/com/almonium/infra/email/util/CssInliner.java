@@ -2,17 +2,16 @@ package com.almonium.infra.email.util;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.StringTokenizer;
-import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-@UtilityClass
-public class CssInliner {
+public final class CssInliner {
+    private CssInliner() {}
 
-    public String inlineCss(String html) {
+    public static String inlineCss(String html) {
         final String style = "style";
         Document doc = Jsoup.parse(html);
         Elements els = doc.select(style); // to get all the style elements
@@ -43,7 +42,7 @@ public class CssInliner {
         return doc.toString();
     }
 
-    private String concatenateProperties(String oldProp, @NotNull String newProp) {
+    private static String concatenateProperties(String oldProp, @NotNull String newProp) {
         oldProp = oldProp.trim();
         if (!oldProp.endsWith(";")) oldProp += ";";
         return oldProp + newProp.replaceAll("\\s{2,}", " ");
