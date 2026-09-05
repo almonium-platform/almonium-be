@@ -23,7 +23,7 @@ build cost.
 | **High-density generated rehearsal texts** | Some AI lesson generators; density targeting is rare | 3 | 4 | cents | Needs validation before you invest |
 | **Frequency as learning priority (0–100)** | Migaku ships frequency lists, LingQ counts known words, Clozemaster orders by frequency | 2 | 3 | ~0 with `wordfreq` | Presentation edge only. Do not claim invention |
 | **Paragraph-aligned parallel reading** | **Beelinguapp**, LingQ dual text, Doppeltext, farkastranslations, Lute | 2 | 4 | one-time, cheap | Demo asset, not a moat. See below |
-| **Dessert story from the words you just failed** | **Langua** generates stories featuring your saved words, and drills the words you struggled with after a chat | 2 | 4 | fractions of a cent | Still worth shipping. No longer a claim |
+| **Dessert story from the words you just failed** | **Langua** generates stories featuring your saved words, and drills the words you struggled with after a chat | 2 | 4 | fractions of a cent | Ship it, your trigger is better. But it is no longer a claim |
 | **Sharing cards and packs with friends** | Anki shared decks, Quizlet, Memrise community | 2 | 4 | ~0 | Valuable as an acquisition loop, weak as a novelty claim |
 | **Custom EPUB / text import** | Readlang, LingQ, Migaku | 2 | 5 | $1–5 per book | Table stakes. Credit-gate it |
 | **Native mobile apps** | LingQ, Beelinguapp, Clozemaster have them. **Readlang does not** | 2 | 5 | dev time | Genuine gap against Readlang specifically |
@@ -80,6 +80,17 @@ includes, shipped today:
 That is the dessert story, the due-queue-seeded conversation, and
 save-from-context capture. Three things this document previously scored as
 nobody-does-it are somebody-does-it, and that somebody is one product.
+
+One distinction is worth keeping, because it is real. Langua generates stories
+from your **saved** words. The dessert story generates from the words you **just
+failed, in this session** — the loop closes minutes after the failure that
+opened it, and the learner can feel it close. That is a better trigger, and you
+should describe it exactly that precisely in the product.
+
+It is still not a landing-page headline, because the one-sentence version of
+both products is "it makes stories out of your words," and that sentence is
+taken. A trigger difference is something a user discovers and likes on day
+three. It is not something that wins an argument in a comment thread on day one.
 
 It is not that the category has figured this out. A reviewer who tested five AI
 speaking apps rates Langua's review system the deepest of the group, notes that
@@ -187,6 +198,48 @@ the lesson before you promise unlimited audio.
 
 ---
 
+## What the category charges
+
+Verified September 2026. Monthly figures are the month-to-month price; annual
+figures are what a year actually costs.
+
+| Product | Monthly | Annual | Notes |
+|---|---|---|---|
+| Anki | free | free | One-time purchase on iOS only. The floor everything here is priced against |
+| Readlang | $6, or $15 premium | $48, or $120 premium | The headline difference between tiers is which model answers your questions |
+| Beelinguapp | ~$8 | ~$49 | Plus perpetual "lifetime" deals through discount marketplaces |
+| Clozemaster | $8 | — | Small US LLC |
+| Migaku | $10, or $15 early access | $96, or $499 lifetime | Ten-day trial |
+| LingQ | $14.99 | $120 ($10/mo), or $8.99/mo on 24 months | Premium Plus is $39.99 and includes human tutor credits |
+| **Almonium (planned)** | **$12 US, $14 EU/UK, $6–7 discount band** | **10× monthly, or $80 founding** | See `ALMONIUM_FREEMIUM.md` |
+| Langua | $19.99, or $29.99 unlimited | $149.99, or $199.99 unlimited | Card-required 5–7 day trial |
+
+**Four things this table says.**
+
+1. **There are two price clusters, and marginal cost draws the line.** Reading
+   and SRS products sit at $6–15. Voice-AI products sit at $20–30. Nobody
+   charges $20 for text; nobody charges $8 for real-time speech. You are
+   text-shaped with a TTS line item, so $12 is the correct side of that line —
+   the top of the reading cluster rather than the bottom of the voice one.
+2. **Your annual discount is the shallowest in the category.** Everyone else
+   takes a third to a half off for a year up front: Readlang $48 against $72,
+   LingQ $120 against $180, Langua $150 against $240 and $200 against $360. Ten
+   times monthly is 17% off. If annual is genuinely the default and monthly is
+   the option someone has to hunt for, that is defensible — but you are asking
+   for more commitment than the category in exchange for less discount than the
+   category, and that tension is worth naming before launch rather than after.
+3. **Lifetime pricing is a distress signal, not a strategy.** Migaku sells $499
+   lifetime; Beelinguapp runs endless lifetime deals through discount
+   marketplaces. Both trade all future revenue for cash today, and the
+   marketplace version usually means paid acquisition that needs feeding. You
+   have a per-user TTS cost that never stops. Never sell lifetime.
+4. **Langua clearing $20 raises your ceiling.** Readlang's $6 is one solo
+   founder's 2012 instinct, never revisited, and this document previously
+   treated it as the category anchor. It is not. Learners in 2026 pay $20 a
+   month for a language product when they can feel what the money buys.
+
+---
+
 ## What competitors make
 
 Treat all of these as models rather than facts. None of these companies
@@ -206,13 +259,10 @@ employees. Note the ratio: fifteen years and a co-founder with a million
 YouTube subscribers produced a company with two dozen staff, not a unicorn.
 That is the ceiling of this category.
 
-**Langua.** Built by LanguaTalk. Twenty-three languages, some in beta.
-$19.99/month or $149.99/year standard, $29.99/month or $199.99/year unlimited,
-behind a card-required five-to-seven-day trial. Look hard at that price. It is
-three to five times Readlang's entry tier, for a product whose marginal cost —
-real-time voice — is genuinely expensive, and the market is paying it. Readlang's
-$6 is not the ceiling of this category; it is one solo founder's 2012 instinct,
-never revisited.
+**Langua.** Built by LanguaTalk. Twenty-three languages, some in beta, priced
+as in the table above. Three to five times Readlang's entry tier, for a product
+whose marginal cost — real-time voice — is genuinely expensive, and the market
+is paying it anyway.
 
 **Clozemaster.** $8/month, run by a small US LLC.
 
