@@ -9,6 +9,7 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.chat.dto.request.AnnouncementRequest;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.exception.StreamIntegrationException;
+import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
@@ -145,13 +146,7 @@ public class StreamChatService {
 
     public void createStreamUser(User user) {
         try {
-            upsert().user(io.getstream.chat.java.models.User.UserRequestObject.builder()
-                            .id(user.getId().toString())
-                            .name(user.getUsername())
-                            .additionalField("email", user.getEmail())
-                            .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
-                            .build())
-                    .request();
+            upsert().user(asStreamUser(user)).request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while creating user with id: %s, message: %s", user.getId(), e.getMessage()),
@@ -165,22 +160,32 @@ public class StreamChatService {
 
     public void updateUser(User user) {
         try {
-            io.getstream.chat.java.models.User.UserRequestObject userRequest =
-                    io.getstream.chat.java.models.User.UserRequestObject.builder()
-                            .id(String.valueOf(user.getId())) // User ID to update
-                            .name(user.getUsername()) // User name
-                            .additionalField("email", user.getEmail()) // User email
-                            .additionalField("image", user.getProfile().getAvatarUrl()) // New avatar URL
-                            .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
-                            .build();
-
-            // Upsert the user with the new avatar URL
-            upsert().user(userRequest).request();
-
+            upsert().user(asStreamUser(user)).request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while updating user with id: %s, %s", user.getId(), e.getMessage()), e);
         }
+    }
+
+    /**
+     * The whole Stream-visible profile, so creating and updating a user can never disagree about what
+     * Stream is told: the chat list reads the picture from here, and a record written without one
+     * leaves the interlocutor as a letter next to a card that shows their face.
+     *
+     * <p>A hidden profile keeps its avatar to itself, exactly as it does everywhere else another
+     * person can see it.
+     */
+    private io.getstream.chat.java.models.User.UserRequestObject asStreamUser(User user) {
+        Profile profile = user.getProfile();
+        String avatarUrl = profile == null || profile.isHidden() ? null : profile.getAvatarUrl();
+
+        return io.getstream.chat.java.models.User.UserRequestObject.builder()
+                .id(user.getId().toString())
+                .name(user.getUsername())
+                .additionalField("email", user.getEmail())
+                .additionalField("image", avatarUrl)
+                .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
+                .build();
     }
 
     /**
