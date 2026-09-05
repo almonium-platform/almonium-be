@@ -1,17 +1,17 @@
 package com.almonium.infra.email.util;
 
 import java.util.stream.Collectors;
-import lombok.experimental.UtilityClass;
 import org.jsoup.Jsoup;
 
-@UtilityClass
-public class PlainTextEmailBody {
+public final class PlainTextEmailBody {
+    private PlainTextEmailBody() {}
+
     /** The hidden inbox-preview block; see {@code _fragments/preheader.html}. */
     private static final String PREHEADER_SELECTOR = ".preheader";
 
     private static final String ZERO_WIDTH_SPACE = "\u200B";
 
-    public String fromHtml(String html) {
+    public static String fromHtml(String html) {
         var document = Jsoup.parse(html);
         // The preheader exists for the HTML preview only; a text-only reader would open on a wall of blank characters.
         document.select(PREHEADER_SELECTOR).remove();
@@ -28,7 +28,7 @@ public class PlainTextEmailBody {
         return links.isBlank() ? text : text + "\n\nLinks:\n" + links;
     }
 
-    public String withoutHttpsScheme(String url) {
+    public static String withoutHttpsScheme(String url) {
         return url.replaceFirst("^https://", "");
     }
 }
