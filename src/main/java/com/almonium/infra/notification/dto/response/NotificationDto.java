@@ -24,6 +24,7 @@ public class NotificationDto {
     String pictureUrl;
     UUID referenceId;
     UUID senderId;
+    String senderUsername;
     Instant createdAt;
     Instant readAt;
 }
