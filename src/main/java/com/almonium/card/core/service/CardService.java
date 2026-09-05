@@ -93,7 +93,7 @@ public class CardService {
     @Transactional
     public CardDto createCard(User user, CardCreationDto dto) {
         Language language = dto.getLanguage();
-        Learner learner = learnerFinder.findLearner(user, language);
+        Learner learner = learnerFinder.findActiveLearner(user, language);
         LearningItem card = initializeCard(learner, dto);
         List<CardTag> cardTags = createCardTags(card, dto.getTags());
         saveEntities(card, card.getTranslations(), card.getExamples(), cardTags, learner);

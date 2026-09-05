@@ -232,7 +232,7 @@ class CardSuggestionServiceTest {
                 .collect(Collectors.toList()));
 
         when(cardMapper.copyCardDtoToEntity(eq(originalCardDto))).thenReturn(clonedCard);
-        when(learnerFinder.findLearner(actionExecutor, originalCard.getLanguage()))
+        when(learnerFinder.findActiveLearner(actionExecutor, originalCard.getLanguage()))
                 .thenReturn(recipientLearner);
 
         // Act

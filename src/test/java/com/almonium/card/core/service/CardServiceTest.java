@@ -152,7 +152,7 @@ class CardServiceTest {
                 .translations(new TranslationDto[] {new TranslationDto(null, "hello")})
                 .examples(new ExampleDto[] {new ExampleDto(null, "Bonjour!", "Hello!")})
                 .build();
-        when(learnerFinder.findLearner(user, Language.FR)).thenReturn(learner);
+        when(learnerFinder.findActiveLearner(user, Language.FR)).thenReturn(learner);
         when(cardMapper.cardDtoToEntity(dto)).thenReturn(mappedCard);
 
         CardDto createdDto =

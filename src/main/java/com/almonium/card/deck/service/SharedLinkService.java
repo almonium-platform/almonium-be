@@ -7,6 +7,7 @@ import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.LearningItemRepository;
 import com.almonium.card.core.repository.TranslationRepository;
+import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.card.deck.dto.response.AddedWordsResult;
 import com.almonium.card.deck.dto.response.SharedCardView;
 import com.almonium.card.deck.dto.response.SharedDeckView;
@@ -53,6 +54,7 @@ public class SharedLinkService {
     TranslationRepository translationRepository;
     ExampleRepository exampleRepository;
     LearnerRepository learnerRepository;
+    LearnerFinder learnerFinder;
     EffectiveAccessService effectiveAccessService;
     SharedWordMapper sharedWordMapper;
 
@@ -116,6 +118,7 @@ public class SharedLinkService {
                 .findByUserIdAndLanguage(viewer.getId(), language)
                 .orElseThrow(() -> new BadUserRequestActionException(
                         "Add " + language + " to your languages before keeping these words."));
+        learnerFinder.requireActive(learner);
         Map<String, LearningItem> held = heldByForm(learner, words);
         int added = 0;
         int alreadyHeld = 0;

@@ -16,6 +16,7 @@ import com.almonium.card.core.model.entity.Translation;
 import com.almonium.card.core.repository.ExampleRepository;
 import com.almonium.card.core.repository.LearningItemRepository;
 import com.almonium.card.core.repository.TranslationRepository;
+import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.card.deck.dto.response.AddedWordsResult;
 import com.almonium.card.deck.dto.response.SharedDeckView;
 import com.almonium.card.deck.dto.response.SharedLinkViewerStatus;
@@ -65,6 +66,9 @@ class SharedLinkServiceTest {
 
     @Mock
     LearnerRepository learnerRepository;
+
+    @Mock
+    LearnerFinder learnerFinder;
 
     @Mock
     EffectiveAccessService effectiveAccessService;

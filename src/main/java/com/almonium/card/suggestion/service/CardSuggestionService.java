@@ -69,8 +69,8 @@ public class CardSuggestionService {
         CardSuggestion cardSuggestion = getCardSuggestion(id);
         User recipient = cardSuggestion.getRecipient().getUser();
         checkAuthorization(actionExecutor, recipient);
-        Learner recipientLearner =
-                learnerFinder.findLearner(recipient, cardSuggestion.getCard().getLanguage());
+        Learner recipientLearner = learnerFinder.findActiveLearner(
+                recipient, cardSuggestion.getCard().getLanguage());
         cloneCard(cardSuggestion.getCard(), recipientLearner);
         cardSuggestionRepository.delete(cardSuggestion);
     }
