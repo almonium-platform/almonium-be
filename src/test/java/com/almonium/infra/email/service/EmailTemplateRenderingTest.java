@@ -176,18 +176,20 @@ class EmailTemplateRenderingTest {
         String subfolder = parts[0];
         String template = parts[1];
         switch (subfolder) {
-            case "auth" -> authComposer.sendEmail(
-                    "there",
-                    "new@example.com",
-                    new EmailContext<>(
-                            authType(template),
-                            Map.of(AuthEmailComposerService.ACTION_URL, WEB_DOMAIN + "/verify-email?oobCode=abc")));
-            case "friendship" -> friendshipComposer.sendEmail(
-                    "oleg",
-                    "oleg@example.com",
-                    new EmailContext<>(
-                            FriendshipEvent.valueOf(template.toUpperCase()),
-                            Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, COUNTERPART)));
+            case "auth" ->
+                authComposer.sendEmail(
+                        "there",
+                        "new@example.com",
+                        new EmailContext<>(
+                                authType(template),
+                                Map.of(AuthEmailComposerService.ACTION_URL, WEB_DOMAIN + "/verify-email?oobCode=abc")));
+            case "friendship" ->
+                friendshipComposer.sendEmail(
+                        "oleg",
+                        "oleg@example.com",
+                        new EmailContext<>(
+                                FriendshipEvent.valueOf(template.toUpperCase()),
+                                Map.of(FriendshipEmailComposerService.COUNTERPART_USERNAME, COUNTERPART)));
             case "subscription" -> {
                 Map<String, String> attributes = new java.util.HashMap<>(extraAttributes);
                 attributes.put(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM");

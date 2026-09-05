@@ -18,8 +18,7 @@ class PlainTextEmailBodyTest {
 
     @Test
     void dropsTheHiddenPreheaderAndItsZeroWidthPadding() {
-        String plainText = PlainTextEmailBody.fromHtml(
-                """
+        String plainText = PlainTextEmailBody.fromHtml("""
                 <body>
                 <div class="preheader" style="display:none"><span>Preview only.</span>&#8203;&#8203;&#8203;</div>
                 <p>Body text.</p>
