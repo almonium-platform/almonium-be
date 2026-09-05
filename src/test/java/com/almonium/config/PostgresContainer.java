@@ -7,7 +7,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 @Testcontainers
 public interface PostgresContainer {
-    String POSTGRES_VERSION = "13";
+    String POSTGRES_VERSION = "16";
 
     @Container
     @ServiceConnection
