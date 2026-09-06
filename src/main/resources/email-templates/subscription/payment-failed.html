@@ -14,15 +14,7 @@
 
             <p>Your premium access is still active. Update your payment method to prevent an interruption.</p>
 
-            <div class="button-p">
-                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
-                    <tr>
-                        <td class="button-cell" bgcolor="#5A1A74" align="center">
-                            <a th:href="${url}" class="button">Update payment details</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <div th:replace="~{_fragments/button :: button(${url}, 'Update payment details', 228, false)}"></div>
 
             <div class="rule">
                 <p class="muted">If the payment keeps failing, the subscription ends and premium access stops. Your

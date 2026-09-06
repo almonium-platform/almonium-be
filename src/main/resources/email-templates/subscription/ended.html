@@ -14,15 +14,7 @@
 
             <p>Level-adapted editions and private imports are closed. Your saved words, decks and progress are kept.</p>
 
-            <div class="button-p">
-                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
-                    <tr>
-                        <td class="premium-cell" bgcolor="#5A1A74" align="center">
-                            <a th:href="${url}" class="premium-btn">Upgrade now</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <div th:replace="~{_fragments/button :: button(${url}, 'Upgrade now', 160, true)}"></div>
 
             <p class="muted">You can upgrade again whenever you're ready.</p>
         </td>

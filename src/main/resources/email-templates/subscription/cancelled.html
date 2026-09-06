@@ -17,15 +17,7 @@
             <p th:unless="${periodEndDate}">Premium access continues to the end of the current billing period.
                 Renewing before then is one click in Settings.</p>
 
-            <div class="button-p">
-                <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
-                    <tr>
-                        <td class="button-cell" bgcolor="#5A1A74" align="center">
-                            <a th:href="${url}" class="button">Open Settings</a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <div th:replace="~{_fragments/button :: button(${url}, 'Open Settings', 164, false)}"></div>
         </td>
     </tr>
 </table>

@@ -12,6 +12,7 @@ import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -186,6 +187,35 @@ class EmailTemplateRenderingTest {
         assertThat(html.select("[style]").stream().map(e -> e.attr("style")))
                 .as("the inliner strips CSS comments instead of pasting them into style attributes")
                 .noneMatch(style -> style.contains("/*"));
+    }
+
+    /**
+     * Outlook for Windows lays out with Word, which ignores border-radius, so the pill needs VML drawn for it alone.
+     * Nobody can open that client from here, which is exactly why the contract is asserted: one shape per send, sized,
+     * pointing where the real button points, and shown to Outlook instead of the CSS pill rather than beside it.
+     */
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("sends")
+    void everyActionDrawsItsPillInOutlookForWindows(String send, String subject, String preheader, String action) {
+        String body = render(send, Map.of()).body();
+        String href = Jsoup.parse(body).select("td[bgcolor=#5A1A74] a").attr("href");
+
+        String vml = StringUtils.substringBetween(body, "<!--[if mso]>", "<![endif]-->");
+        assertThat(vml).as("Outlook gets no pill at all").isNotNull();
+        assertThat(vml)
+                .contains("<v:roundrect", "arcsize=\"50%\"", "fillcolor=\"#5A1A74\"", "v-text-anchor:middle")
+                .contains(action)
+                .contains(href)
+                .containsPattern("width:\\d+px");
+
+        // Word cannot measure text, so a pill with no width collapses around the label.
+        assertThat(StringUtils.countMatches(body, "<v:roundrect")).isOne();
+
+        // The CSS pill is revealed to everyone else, so Outlook draws the shape once instead of twice.
+        assertThat(body.indexOf("<!--[if !mso]><!-->"))
+                .as("the real button follows the VML and is hidden from Outlook")
+                .isGreaterThan(body.indexOf("<![endif]-->"));
+        assertThat(body.indexOf("<!--<![endif]-->")).isGreaterThan(body.indexOf("class=\"button-table\""));
     }
 
     @Test
