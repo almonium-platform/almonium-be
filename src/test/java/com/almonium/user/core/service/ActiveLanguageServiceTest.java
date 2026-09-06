@@ -208,6 +208,24 @@ class ActiveLanguageServiceTest {
         assertThat(wanted.isActive()).isTrue();
     }
 
+    @DisplayName("Should hand the switch back when an operator clears the cooldown")
+    @Test
+    void givenSwitchSpentThisMonth_whenOperatorResetsCooldown_thenSwitchingIsAllowedAgain() {
+        profile.setLastActiveSwitchAt(Instant.now());
+        Learner wanted = setAside(Language.EN, SetAsideBy.USER, Instant.now());
+        when(planValidationService.effectiveLimit(user, PlanFeature.MAX_ACTIVE_LANGS))
+                .thenReturn(1);
+        when(learnerRepository.findByUserIdAndLanguage(USER_ID, Language.EN)).thenReturn(java.util.Optional.of(wanted));
+        when(learnerRepository.findAllByUserIdOrderByLanguage(USER_ID))
+                .thenReturn(List.of(active(Language.DE), wanted));
+
+        activeLanguageService.resetSwitchCooldown(user, TestDataGenerator.buildTestUserWithId(UUID.randomUUID()));
+        activeLanguageService.switchActiveTo(user, Language.EN);
+
+        assertThat(profile.getLastActiveSwitchAt()).isNotNull();
+        assertThat(wanted.isActive()).isTrue();
+    }
+
     @DisplayName("Should not let a language the user does not have be kept")
     @Test
     void givenForeignLanguage_whenChoosingWhatToKeep_thenItIsRejected() {

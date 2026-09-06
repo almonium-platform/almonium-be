@@ -204,6 +204,20 @@ public class ActiveLanguageService {
         }
     }
 
+    /**
+     * Gives the monthly switch back, whatever the calendar says: an operator action for support and for testing a
+     * flow whose cooldown otherwise outlasts the session.
+     */
+    public void resetSwitchCooldown(User user, User operator) {
+        Profile profile = user.getProfile();
+        if (profile.getLastActiveSwitchAt() == null) {
+            return;
+        }
+        profile.setLastActiveSwitchAt(null);
+        profileRepository.save(profile);
+        log.info("Operator {} cleared the active-language switch cooldown for user {}", operator.getId(), user.getId());
+    }
+
     /** When the next switch becomes available, or empty when one is available now. */
     public Optional<Instant> nextSwitchAllowedAt(User user) {
         Instant last = user.getProfile().getLastActiveSwitchAt();
