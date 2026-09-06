@@ -42,6 +42,9 @@ troubleshooting, and the complete environment-variable catalogue.
 See the [Short.io link guide](docs/SHORT_LINKS.md) for the `go.almonium.com`
 public-link contract, current aliases, and safe usage boundaries.
 
+See the [email-address list](docs/EMAIL_ADDRESSES.md) for every alias on
+`almonium.com`, what each one is for, and where it is already used.
+
 ## Email template previews
 
 Render every live friendship and subscription email through the real
