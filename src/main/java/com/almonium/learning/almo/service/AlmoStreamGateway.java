@@ -93,13 +93,19 @@ public class AlmoStreamGateway {
         }
     }
 
-    /** The tail of the thread, oldest first, as Stream returns it. */
+    /**
+     * The tail of the thread, oldest first, as Stream returns it. A channel query hands back the channel alone unless
+     * it is asked for the state; without {@code state} the message list is empty and every message is "not in this
+     * chat".
+     */
     public List<Message> recentMessages(String channelId, int limit) {
         try {
-            return Channel.getOrCreate(CHANNEL_TYPE, channelId)
+            List<Message> messages = Channel.getOrCreate(CHANNEL_TYPE, channelId)
+                    .state(true)
                     .messages(MessagePaginationParameters.builder().limit(limit).build())
                     .request()
                     .getMessages();
+            return messages == null ? List.of() : messages;
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while reading Almo channel %s: %s", channelId, e.getMessage()), e);
