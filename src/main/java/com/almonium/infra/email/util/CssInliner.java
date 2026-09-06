@@ -2,6 +2,7 @@ package com.almonium.infra.email.util;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,16 +10,25 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public final class CssInliner {
+    /**
+     * A {@code <style data-embed>} block is left alone: it carries the rules that cannot be inlined - {@code :root},
+     * media queries, and Outlook's {@code data-ogsb}/{@code data-ogsc} dark-mode hooks, which select elements that do
+     * not exist yet at render time.
+     */
+    private static final String KEEP_MARKER = "data-embed";
+
+    private static final Pattern CSS_COMMENT = Pattern.compile("/\\*.*?\\*/", Pattern.DOTALL);
+
     private CssInliner() {}
 
     public static String inlineCss(String html) {
         final String style = "style";
         Document doc = Jsoup.parse(html);
-        Elements els = doc.select(style); // to get all the style elements
+        Elements els = doc.select(style + ":not([" + KEEP_MARKER + "])");
         for (Element e : els) {
-            String styleRules = e.getAllElements()
-                    .get(0)
-                    .data()
+            String styleRules = CSS_COMMENT
+                    .matcher(e.getAllElements().get(0).data())
+                    .replaceAll(StringUtils.EMPTY)
                     .replaceAll("\n", StringUtils.EMPTY)
                     .trim();
             String delims = "{}";

@@ -32,6 +32,8 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 class EmailTemplateRenderingTest {
     private static final String WEB_DOMAIN = "https://almonium.example";
     private static final String COUNTERPART = "marta";
+    private static final String SHELL = "#2C2530";
+    private static final String CARD = "#F9F6F5";
 
     private final EmailService emailService = mock(EmailService.class);
     private final AppProperties properties = properties();
@@ -145,6 +147,45 @@ class EmailTemplateRenderingTest {
                 .doesNotStartWith(preheader)
                 .doesNotContain("\u200B")
                 .contains(action);
+    }
+
+    /**
+     * Outlook's dark mode recolours an email it believes is a light document, which turned the shell mauve and the card
+     * charcoal. The declared colour scheme asks it not to, and the surviving stylesheet takes the colours back from the
+     * older rewriter that recolours anyway.
+     */
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("sends")
+    void everySendHoldsItsColoursInOutlookDarkMode(String send) {
+        String body = render(send, Map.of()).body();
+        Document html = Jsoup.parse(body);
+
+        assertThat(html.select("meta[name=color-scheme]").attr("content")).isEqualTo("light dark");
+        assertThat(html.select("meta[name=supported-color-schemes]").attr("content"))
+                .isEqualTo("light dark");
+
+        Element embedded = html.selectFirst("head style[data-embed]");
+        assertThat(embedded)
+                .as("the dark-mode rules select elements that do not exist at render time, so they cannot be inlined")
+                .isNotNull();
+        assertThat(embedded.data()).contains(":root", "color-scheme: light dark", "[data-ogsb]", "[data-ogsc]");
+        assertThat(html.select("style:not([data-embed])"))
+                .as("every other block is inlined and dropped")
+                .isEmpty();
+
+        // Clients that strip CSS still need the ground painted, so the shell and the card carry it as an attribute.
+        assertThat(html.body().attr("bgcolor")).isEqualTo(SHELL);
+        assertThat(html.select(".header-cell").attr("bgcolor")).isEqualTo(SHELL);
+        assertThat(html.select(".footer-cell").attr("bgcolor")).isEqualTo(SHELL);
+        assertThat(html.select(".email-container").attr("bgcolor")).isEqualTo(CARD);
+        assertThat(html.select(".email-content").attr("bgcolor")).isEqualTo(CARD);
+
+        // A blocked wordmark falls back to alt text, which sits on the dark shell and has to be light.
+        assertThat(html.select("img.header-wordmark").attr("style")).contains("color: #F9F6F5");
+
+        assertThat(html.select("[style]").stream().map(e -> e.attr("style")))
+                .as("the inliner strips CSS comments instead of pasting them into style attributes")
+                .noneMatch(style -> style.contains("/*"));
     }
 
     @Test
