@@ -2,7 +2,12 @@ package com.almonium.learning.book.service;
 
 import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.learning.book.dto.response.BooksSpendLine;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -114,6 +119,37 @@ public class BookProcessorClient {
         ResponseEntity<JsonNode[]> response =
                 restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(internalHeaders()), JsonNode[].class);
         return response.getBody();
+    }
+
+    /** The processor's AI run ledger summed per purpose and model; the processor prices its own runs. */
+    public List<BooksSpendLine> aiSpend(Instant since, Instant until) {
+        String url = UriComponentsBuilder.fromUriString(processorUrl + "/internal/ai-spend/")
+                .queryParam("since", since.toString())
+                .queryParam("until", until.toString())
+                .toUriString();
+        JsonNode body;
+        try {
+            body = restTemplate
+                    .exchange(url, HttpMethod.GET, new HttpEntity<>(internalHeaders()), JsonNode.class)
+                    .getBody();
+        } catch (RestClientException exception) {
+            throw new ApiIntegrationException("Book processor request failed", exception);
+        }
+        if (body == null) {
+            throw new ApiIntegrationException("Book processor answered the spend request with nothing");
+        }
+        List<BooksSpendLine> lines = new ArrayList<>();
+        body.path("lines")
+                .forEach(line -> lines.add(new BooksSpendLine(
+                        line.path("purpose").asString(""),
+                        line.path("model").asString(""),
+                        line.path("runs").asLong(0),
+                        line.path("input_tokens").asLong(0),
+                        line.path("cached_input_tokens").asLong(0),
+                        line.path("output_tokens").asLong(0),
+                        line.path("reasoning_tokens").asLong(0),
+                        new BigDecimal(line.path("estimated_cost_usd").asString("0")))));
+        return lines;
     }
 
     private HttpHeaders internalHeaders() {

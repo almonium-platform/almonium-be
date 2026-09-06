@@ -97,6 +97,9 @@ almo:
   open-ai:
     api-key: openai_key_dummy
 
+openai:
+  admin-key: openai_admin_key_dummy
+
 stream:
   api:
     key: dummy_stream_key

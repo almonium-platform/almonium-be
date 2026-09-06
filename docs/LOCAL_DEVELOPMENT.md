@@ -176,6 +176,7 @@ docker build -t almonium-be:local .
 | Stream | `STREAM_KEY`, `STREAM_SECRET` | Stream Chat server integration. |
 | Paddle Billing | `PADDLE_ENVIRONMENT`, `PADDLE_CLIENT_TOKEN`, `PADDLE_API_KEY`, `PADDLE_WEBHOOK_SECRET`, `PADDLE_PRICE_PREMIUM_MONTHLY`, `PADDLE_PRICE_PREMIUM_ANNUAL`, `PADDLE_PRICE_FOUNDER_MONTHLY`, `PADDLE_PRICE_FOUNDER_ANNUAL` | Paddle API, Paddle.js, webhook verification, and environment-specific catalog price IDs. |
 | Email/dictionaries | `ZEPTO_API_KEY`, `RAPID_API_KEY`, `WORDNIK_KEY`, `YANDEX_KEY` | Email delivery and dictionary providers. |
+| OpenAI | `OPENAI_API_KEY`, `OPENAI_ADMIN_KEY`, `ALMO_MODEL` | Chat with Almo, and the organisation Admin key the ops spend page reads the bill with. |
 
 Google/Firebase clients are initialized eagerly, so
 `GOOGLE_SERVICE_ACCOUNT_KEY_BASE64` must contain a valid Base64-encoded service

@@ -138,6 +138,16 @@ almo:
     api-key: ${OPENAI_API_KEY}
     model: ${ALMO_MODEL:gpt-4.1-mini}
 
+# 12: the organisation side of OpenAI. The admin key reads the bill for the ops spend page; the price list turns our
+# own token ledger into dollars, since OpenAI publishes no pricing endpoint. Dollars per million tokens.
+openai:
+  admin-key: ${OPENAI_ADMIN_KEY}
+  pricing:
+    "[gpt-4.1-mini]":
+      input: 0.40
+      cached-input: 0.10
+      output: 1.60
+
 paddle:
   environment: ${PADDLE_ENVIRONMENT}
   client-token: ${PADDLE_CLIENT_TOKEN}

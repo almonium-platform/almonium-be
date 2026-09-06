@@ -4,6 +4,7 @@ import com.almonium.config.properties.AlmoProperties
 import com.almonium.config.properties.AppProperties
 import com.almonium.config.properties.ExternalApiProperties
 import com.almonium.config.properties.GoogleProperties
+import com.almonium.config.properties.OpenAiProperties
 import com.almonium.config.properties.PaddleProperties
 import com.almonium.config.properties.RabbitMQProperties
 import com.almonium.config.properties.StreamProperties
@@ -22,6 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
     AppProperties::class,
     ExternalApiProperties::class,
     GoogleProperties::class,
+    OpenAiProperties::class,
     PaddleProperties::class,
     RabbitMQProperties::class,
     StreamProperties::class,
