@@ -26,9 +26,7 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp firebaseApp(GoogleCredentials credentials) {
-        FirebaseOptions.Builder builder = FirebaseOptions.builder()
-                .setCredentials(credentials)
-                .setStorageBucket(googleProperties.getFirebase().getStorage().getBucket());
+        FirebaseOptions.Builder builder = FirebaseOptions.builder().setCredentials(credentials);
 
         // The SDK resolves a project id from the credentials for its own calls but never writes it
         // back, so FirebaseOptions reports only what was set here. Anything that needs to know which

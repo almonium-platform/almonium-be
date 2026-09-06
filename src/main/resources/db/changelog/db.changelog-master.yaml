@@ -144,3 +144,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260906-add-social-email-notifications.yaml
   - include:
       file: db/changelog/changes/patches/20260906-optional-book-import-metadata.yaml
+  - include:
+      file: db/changelog/changes/patches/20260906-drop-avatar-table.yaml

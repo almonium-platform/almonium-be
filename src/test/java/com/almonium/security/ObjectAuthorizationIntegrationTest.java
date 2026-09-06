@@ -24,17 +24,9 @@ import com.almonium.infra.notification.mapper.NotificationMapper;
 import com.almonium.infra.notification.repository.NotificationRepository;
 import com.almonium.infra.notification.service.FCMService;
 import com.almonium.infra.notification.service.NotificationService;
-import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.subscription.service.EffectiveAccessService;
-import com.almonium.user.core.controller.AvatarController;
-import com.almonium.user.core.mapper.AvatarMapper;
-import com.almonium.user.core.model.entity.Avatar;
-import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.repository.AvatarRepository;
-import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.AvatarService;
 import com.almonium.user.core.service.ProfileInfoService;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.RelationshipActionsFacade;
@@ -59,14 +51,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = {AvatarController.class, NotificationController.class, RelationshipController.class})
+@WebMvcTest(controllers = {NotificationController.class, RelationshipController.class})
 @Import({
     WebSecurityConfig.class,
     WebMvcConfig.class,
     FirebaseSessionAuthenticationFilter.class,
     FirebaseSessionCookieService.class,
     FirebaseSessionService.class,
-    AvatarService.class,
     NotificationService.class,
     RelationshipService.class,
     RelationshipActionsFacade.class,
@@ -97,18 +88,6 @@ class ObjectAuthorizationIntegrationTest {
     ProfileInfoService profileInfoService;
 
     @MockitoBean
-    AvatarRepository avatarRepository;
-
-    @MockitoBean
-    ProfileRepository profileRepository;
-
-    @MockitoBean
-    AvatarMapper avatarMapper;
-
-    @MockitoBean
-    FirebaseStorageService firebaseStorageService;
-
-    @MockitoBean
     NotificationRepository notificationRepository;
 
     @MockitoBean
@@ -136,37 +115,6 @@ class ObjectAuthorizationIntegrationTest {
         when(firebaseAuthGateway.verifySessionCookie(SESSION, false)).thenReturn(identity);
         when(userRepository.findByFirebaseUid(UID)).thenReturn(Optional.of(currentUser));
         when(userRepository.findById(currentUser.getId())).thenReturn(Optional.of(currentUser));
-    }
-
-    @Test
-    void currentUserCannotChooseAnotherUsersAvatar() throws Exception {
-        UUID avatarId = UUID.randomUUID();
-        Avatar foreignAvatar = foreignAvatar(avatarId);
-        when(avatarRepository.findById(avatarId)).thenReturn(Optional.of(foreignAvatar));
-
-        mockMvc.perform(patch("/profiles/me/avatars/{avatarId}", avatarId)
-                        .cookie(sessionCookie())
-                        .with(csrf()))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.success").value(false));
-
-        verify(profileService, never()).getProfileById(currentUser.getId());
-        verify(profileRepository, never()).save(any());
-    }
-
-    @Test
-    void currentUserCannotDeleteAnotherUsersAvatar() throws Exception {
-        UUID avatarId = UUID.randomUUID();
-        Avatar foreignAvatar = foreignAvatar(avatarId);
-        when(avatarRepository.findById(avatarId)).thenReturn(Optional.of(foreignAvatar));
-
-        mockMvc.perform(delete("/profiles/me/avatars/{avatarId}", avatarId)
-                        .cookie(sessionCookie())
-                        .with(csrf()))
-                .andExpect(status().isNotFound());
-
-        verify(firebaseStorageService, never()).deleteFile(any());
-        verify(avatarRepository, never()).delete(any());
     }
 
     @Test
@@ -220,17 +168,6 @@ class ObjectAuthorizationIntegrationTest {
                 .andExpect(jsonPath("$.message").value("User is not part of this relationship"));
 
         verify(relationshipRepository, never()).save(any());
-    }
-
-    private Avatar foreignAvatar(UUID avatarId) {
-        User foreignUser = User.builder().id(UUID.randomUUID()).build();
-        Profile foreignProfile =
-                Profile.builder().id(foreignUser.getId()).user(foreignUser).build();
-        return Avatar.builder()
-                .id(avatarId)
-                .profile(foreignProfile)
-                .url("https://example.test/avatar.png")
-                .build();
     }
 
     private Cookie sessionCookie() {

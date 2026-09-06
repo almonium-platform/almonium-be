@@ -22,7 +22,6 @@ spring:
 google:
   project-id: google_project_id_dummy
   parent-location: global
-  firebase.storage.bucket: almonium-dummy.appspot.com
   service-account-key-base64: firebase_service_account_key_dummy
 
 app:
@@ -88,10 +87,6 @@ rabbitmq:
       name: q.user.deleted.paddle
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.paddle.dlq
-    user-deleted-firebase:
-      name: q.user.deleted.firebase
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.firebase.dlq
 
 almo:
   open-ai:

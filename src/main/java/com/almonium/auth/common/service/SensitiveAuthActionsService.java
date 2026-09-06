@@ -6,8 +6,6 @@ import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.AvatarService;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SensitiveAuthActionsService {
     private final PlanSubscriptionService planSubscriptionService;
-    private final AvatarService avatarService;
     private final FirebaseAuthGateway firebaseAuthGateway;
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
@@ -31,9 +28,8 @@ public class SensitiveAuthActionsService {
             throw new BadUserRequestActionException("User is not linked to Firebase Authentication");
         }
         Optional<String> billingSubscriptionId = planSubscriptionService.getPaidSubscriptionIdToCancel(user);
-        List<String> avatarPaths = avatarService.getAvatarPathsForUser(user.getId());
         firebaseAuthGateway.deleteUser(user.getFirebaseUid());
-        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), billingSubscriptionId, avatarPaths));
+        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), billingSubscriptionId));
         userRepository.delete(user);
         log.info("Deleted Almonium and Firebase identities for user {}", user.getId());
     }

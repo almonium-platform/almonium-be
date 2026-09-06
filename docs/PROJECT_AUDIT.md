@@ -83,7 +83,7 @@ Card reads, updates, deletes, and suggestions now resolve cards through a
 user-scoped repository query. Translation and example mutations are constrained
 to children of that owned card. Public-ID reads remain the explicit sharing
 boundary; cross-user tests cover the private operations. HTTP-to-service
-authorization tests also cover foreign avatar selection/deletion,
+authorization tests also cover
 recipient-scoped notification mutations, and attempts by unrelated users to
 mutate relationships.
 

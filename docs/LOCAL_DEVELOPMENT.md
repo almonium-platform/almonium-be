@@ -172,7 +172,7 @@ docker build -t almonium-be:local .
 | Application | `SPRING_PROFILE`, `LOCAL_PORT`, `CONTEXT_PATH`, `DEBUG_PORT` | Spring profile, HTTP context, and local/debug ports. |
 | PostgreSQL | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_SCHEMA`, `DB_USERNAME`, `DB_PASSWORD` | JDBC connection and Liquibase/Hibernate schema. |
 | RabbitMQ | `RABBITMQ_HOST`, `RABBITMQ_PORT`, `RABBITMQ_HOST_PORT`, `RABBITMQ_USER`, `RABBITMQ_PASS`, `RABBITMQ_VHOST` | Broker connection; `RABBITMQ_HOST_PORT` is used only by local Compose. |
-| Google/Firebase | `GOOGLE_PROJECT_ID`, `FIREBASE_STORAGE_BUCKET`, `GOOGLE_SERVICE_ACCOUNT_KEY_BASE64` | Firebase Auth/storage and Google Translation/Text-to-Speech. |
+| Google/Firebase | `GOOGLE_PROJECT_ID`, `GOOGLE_SERVICE_ACCOUNT_KEY_BASE64` | Firebase Auth and Google Translation/Text-to-Speech. |
 | Stream | `STREAM_KEY`, `STREAM_SECRET` | Stream Chat server integration. |
 | Paddle Billing | `PADDLE_ENVIRONMENT`, `PADDLE_CLIENT_TOKEN`, `PADDLE_API_KEY`, `PADDLE_WEBHOOK_SECRET`, `PADDLE_PRICE_PREMIUM_MONTHLY`, `PADDLE_PRICE_PREMIUM_ANNUAL`, `PADDLE_PRICE_FOUNDER_MONTHLY`, `PADDLE_PRICE_FOUNDER_ANNUAL` | Paddle API, Paddle.js, webhook verification, and environment-specific catalog price IDs. |
 | Email/dictionaries | `ZEPTO_API_KEY`, `RAPID_API_KEY`, `WORDNIK_KEY`, `YANDEX_KEY` | Email delivery and dictionary providers. |

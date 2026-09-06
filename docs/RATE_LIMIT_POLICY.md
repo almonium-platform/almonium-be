@@ -54,7 +54,6 @@
 
   - Card and relationship searches: limit request rate, query length, and result count. Card search uses %term% and currently returns the complete match list.
   - Friendship requests and card suggestions: protect against notification/social spam. Rate limiting alone is insufficient; add per-recipient cooldowns.
-  - Avatar deletion: calls Firebase Storage.
   - Account deletion: calls Firebase and Stream-related cleanup, although recent-login checks already reduce exposure.
   - Public profile lookups: enumeration/scraping limits and bounded output.
   - FCM registration: low priority, but tokens/device records should have per-user cardinality limits.
@@ -183,7 +182,6 @@
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
    Friendship/card suggestions          20/hour/user plus target-specific cooldown
   ───────────────────────────────────  ─────────────────────────────────────────────────────────────────────
-   Avatar external-storage mutations    20/hour/user
 
   Google recommends keeping synchronous translation requests around 5,000 code points even though some APIs permit larger requests, and translation cost is character-based. Google
   Translation quotas (https://docs.cloud.google.com/translate/quotas) document both facts. Google TTS has a hard 5,000-byte request-content limit, but the product’s “word audio”

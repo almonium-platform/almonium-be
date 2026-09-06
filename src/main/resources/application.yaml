@@ -114,14 +114,9 @@ rabbitmq:
       name: q.user.deleted.paddle
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.paddle.dlq
-    user-deleted-firebase:
-      name: q.user.deleted.firebase
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.firebase.dlq
 google:
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
-  firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}
   service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
 
 stream.api:

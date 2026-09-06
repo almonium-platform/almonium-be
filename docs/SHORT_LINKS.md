@@ -20,8 +20,7 @@ that no human was ever going to see. Saved Messages carries no image at all now
 - the client draws its own emblem.
 
 The aliases still exist in Short.io and still resolve; no code depends on them.
-Delete them when you are satisfied the new URLs are live, along with the
-`avatars/channels/*` Firebase objects behind them.
+Delete them when you are satisfied the new URLs are live.
 
 The guidance below stands for the next link that genuinely wants to be public,
 readable, and redirectable.
@@ -57,9 +56,8 @@ permissions.
 - API endpoints or internal service-to-service traffic.
 
 For those cases, keep the object private and authorize access through the
-backend, Firebase Storage Rules, or a short-lived signed URL. User avatars are
-currently stored under Firebase Storage `avatars/users/...`; they should remain
-normal Firebase URLs unless a specific public integration needs a stable alias.
+backend or a short-lived signed URL. User avatars are pictures the clients
+ship, not stored files.
 
 ## Naming and operations
 

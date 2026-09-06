@@ -14,8 +14,6 @@ import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.core.service.AvatarService;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,9 +31,6 @@ class SensitiveAuthActionsServiceTest {
     PlanSubscriptionService planSubscriptionService;
 
     @Mock
-    AvatarService avatarService;
-
-    @Mock
     FirebaseAuthGateway firebaseAuthGateway;
 
     @Mock
@@ -50,7 +45,7 @@ class SensitiveAuthActionsServiceTest {
     @BeforeEach
     void setUp() {
         service = new SensitiveAuthActionsService(
-                planSubscriptionService, avatarService, firebaseAuthGateway, userRepository, eventPublisher);
+                planSubscriptionService, firebaseAuthGateway, userRepository, eventPublisher);
         user = User.builder().id(UUID.randomUUID()).firebaseUid("firebase-uid").build();
     }
 
@@ -61,17 +56,6 @@ class SensitiveAuthActionsServiceTest {
 
         assertThatThrownBy(() -> service.deleteAccount(user)).isInstanceOf(PlanSubscriptionException.class);
 
-        verifyNoInteractions(avatarService, firebaseAuthGateway, eventPublisher, userRepository);
-    }
-
-    @Test
-    void avatarPreflightFailureKeepsFirebaseAndLocalIdentitiesIntact() {
-        when(planSubscriptionService.getPaidSubscriptionIdToCancel(user)).thenReturn(Optional.empty());
-        when(avatarService.getAvatarPathsForUser(user.getId()))
-                .thenThrow(new IllegalStateException("avatar lookup failed"));
-
-        assertThatThrownBy(() -> service.deleteAccount(user)).isInstanceOf(IllegalStateException.class);
-
         verifyNoInteractions(firebaseAuthGateway, eventPublisher, userRepository);
     }
 
@@ -79,7 +63,6 @@ class SensitiveAuthActionsServiceTest {
     void firebaseDeletionFailureDoesNotPublishCleanupOrDeleteLocalUser() {
         when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
                 .thenReturn(Optional.of("paddle-subscription"));
-        when(avatarService.getAvatarPathsForUser(user.getId())).thenReturn(List.of("avatars/users/avatar"));
         org.mockito.Mockito.doThrow(
                         new FirebaseIdentityManagementException("Firebase unavailable", new IllegalStateException()))
                 .when(firebaseAuthGateway)
@@ -95,7 +78,6 @@ class SensitiveAuthActionsServiceTest {
     void successfulDeletionPublishesPreparedCleanupBeforeDeletingLocalUser() {
         when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
                 .thenReturn(Optional.of("paddle-subscription"));
-        when(avatarService.getAvatarPathsForUser(user.getId())).thenReturn(List.of("avatars/users/avatar"));
 
         service.deleteAccount(user);
 
@@ -108,6 +90,5 @@ class SensitiveAuthActionsServiceTest {
         UserDeletedEvent event = eventCaptor.getValue();
         org.assertj.core.api.Assertions.assertThat(event.userId()).isEqualTo(user.getId());
         org.assertj.core.api.Assertions.assertThat(event.paddleSubscriptionId()).contains("paddle-subscription");
-        org.assertj.core.api.Assertions.assertThat(event.avatarFilePaths()).containsExactly("avatars/users/avatar");
     }
 }
