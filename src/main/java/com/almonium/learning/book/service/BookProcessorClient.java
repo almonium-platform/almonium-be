@@ -2,6 +2,8 @@ package com.almonium.learning.book.service;
 
 import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.analyzer.translator.model.enums.Language;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -46,10 +48,11 @@ public class BookProcessorClient {
         body.add("import_id", importId.toString());
         body.add("owner_id", ownerId.toString());
         body.add("owner_label", ownerLabel == null ? "" : ownerLabel);
-        body.add("title", title);
-        body.add("author", author);
+        // Whatever the owner left blank is detected from the file after ingestion.
+        if (title != null && !title.isBlank()) body.add("title", title);
+        if (author != null && !author.isBlank()) body.add("author", author);
         body.add("description", description == null ? "" : description);
-        body.add("language", language.name().toLowerCase());
+        if (language != null) body.add("language", processorCode(language));
         if (publicationYear != null) body.add("publication_year", publicationYear.toString());
         try {
             body.add("source_file", new NamedByteArrayResource(source.getBytes(), source.getOriginalFilename()));
@@ -68,6 +71,39 @@ public class BookProcessorClient {
         } catch (RestClientException exception) {
             throw new ApiIntegrationException("Book processor request failed", exception);
         }
+    }
+
+    /** Replaces the processor's copy of the owner's confirmed details. */
+    public void updatePrivateImportMetadata(
+            UUID importId,
+            UUID ownerId,
+            String title,
+            String author,
+            String description,
+            Language language,
+            Integer publicationYear) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("title", title);
+        body.put("author", author);
+        body.put("description", description == null ? "" : description);
+        body.put("language", processorCode(language));
+        body.put("publication_year", publicationYear);
+        String url = UriComponentsBuilder.fromUriString(processorUrl + "/internal/imports/{id}/metadata/")
+                .queryParam("owner_id", ownerId)
+                .buildAndExpand(importId)
+                .toUriString();
+        HttpHeaders headers = internalHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(body, headers), JsonNode.class);
+        } catch (RestClientException exception) {
+            throw new ApiIntegrationException("Book processor request failed", exception);
+        }
+    }
+
+    /** The processor speaks lower-case ISO 639-1 codes. */
+    static String processorCode(Language language) {
+        return language.name().toLowerCase(java.util.Locale.ROOT);
     }
 
     public JsonNode[] privateBlocks(UUID importId, UUID ownerId) {

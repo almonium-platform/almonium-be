@@ -69,6 +69,53 @@ class BookProcessorClientTest {
     }
 
     @Test
+    void sendsConfirmedMetadataAsJsonPut() throws Exception {
+        AtomicReference<String> requestMethod = new AtomicReference<>();
+        AtomicReference<String> requestUri = new AtomicReference<>();
+        AtomicReference<byte[]> requestBody = new AtomicReference<>();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/api/v1/internal/imports/", exchange -> {
+            requestMethod.set(exchange.getRequestMethod());
+            requestUri.set(exchange.getRequestURI().toString());
+            requestBody.set(exchange.getRequestBody().readAllBytes());
+            byte[] response = "{}".getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+            exchange.sendResponseHeaders(200, response.length);
+            try (var output = exchange.getResponseBody()) {
+                output.write(response);
+            }
+        });
+        server.start();
+        java.util.UUID importId = java.util.UUID.randomUUID();
+        java.util.UUID ownerId = java.util.UUID.randomUUID();
+
+        try {
+            RestTemplate restTemplate =
+                    new com.almonium.config.RestTemplateConfig().restTemplate(new RestTemplateBuilder());
+            BookProcessorClient client = new BookProcessorClient(restTemplate);
+            ReflectionTestUtils.setField(
+                    client,
+                    "processorUrl",
+                    "http://127.0.0.1:" + server.getAddress().getPort() + "/api/v1");
+            ReflectionTestUtils.setField(client, "sharedSecret", "test-secret");
+
+            client.updatePrivateImportMetadata(importId, ownerId, "Title", "Author", null, Language.DE, null);
+        } finally {
+            server.stop(0);
+        }
+
+        assertThat(requestMethod.get()).isEqualTo("PUT");
+        assertThat(requestUri.get())
+                .isEqualTo("/api/v1/internal/imports/" + importId + "/metadata/?owner_id=" + ownerId);
+        assertThat(new String(requestBody.get(), StandardCharsets.UTF_8))
+                .contains(
+                        "\"title\":\"Title\"",
+                        "\"language\":\"de\"",
+                        "\"description\":\"\"",
+                        "\"publication_year\":null");
+    }
+
+    @Test
     void wrapsProcessorHttpFailuresAsApiIntegrationException() {
         RestTemplate restTemplate = new RestTemplate();
         BookProcessorClient client = new BookProcessorClient(restTemplate);

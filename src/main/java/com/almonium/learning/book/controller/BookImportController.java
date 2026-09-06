@@ -2,13 +2,14 @@ package com.almonium.learning.book.controller;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
+import com.almonium.learning.book.dto.request.BookImportMetadataRequest;
 import com.almonium.learning.book.dto.response.BookImportDto;
 import com.almonium.learning.book.dto.response.BookImportQuotaDto;
 import com.almonium.learning.book.service.UserBookImportService;
 import com.almonium.user.core.model.entity.User;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -35,10 +38,10 @@ public class BookImportController {
     public ResponseEntity<BookImportDto> create(
             @Auth User user,
             @RequestPart("file") MultipartFile file,
-            @RequestParam @NotBlank String title,
-            @RequestParam @NotBlank String author,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
             @RequestParam(defaultValue = "") String description,
-            @RequestParam Language language,
+            @RequestParam(required = false) Language language,
             @RequestParam(required = false) @Min(1) @Max(9999) Integer publicationYear) {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(importService.create(user, file, title, author, description, language, publicationYear));
@@ -57,6 +60,12 @@ public class BookImportController {
     @GetMapping("/{id}")
     public ResponseEntity<BookImportDto> get(@Auth User user, @PathVariable UUID id) {
         return ResponseEntity.ok(importService.get(user, id));
+    }
+
+    @PutMapping("/{id}/metadata")
+    public ResponseEntity<BookImportDto> confirmMetadata(
+            @Auth User user, @PathVariable UUID id, @Valid @RequestBody BookImportMetadataRequest request) {
+        return ResponseEntity.ok(importService.confirmMetadata(user, id, request));
     }
 
     @GetMapping("/{id}/text")

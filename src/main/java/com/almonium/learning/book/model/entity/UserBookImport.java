@@ -3,6 +3,7 @@ package com.almonium.learning.book.model.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.learning.book.model.enums.BookImportMetadataStatus;
 import com.almonium.learning.book.model.enums.BookImportStatus;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.Column;
@@ -14,12 +15,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -55,6 +59,13 @@ public class UserBookImport {
 
     @Enumerated(EnumType.STRING)
     BookImportStatus status;
+
+    @Enumerated(EnumType.STRING)
+    BookImportMetadataStatus metadataStatus;
+
+    /** Who supplied each bibliographic field: "user", "source" (the file header), or "ai". */
+    @JdbcTypeCode(SqlTypes.JSON)
+    Map<String, String> metadataProvenance;
 
     int progress;
     int wordCount;
