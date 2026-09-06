@@ -181,6 +181,10 @@ public class BookService {
     }
 
     public void saveBookProgress(User user, UUID bookId, int progressPercentage) {
+        // Resolve the book first: a withdrawn one is not readable any more, and
+        // the reader should be told that rather than have its progress row load
+        // an association that no longer resolves.
+        Book book = getBookById(bookId);
         Optional<LearnerBookProgress> progressOptional =
                 learnerBookProgressRepository.findByUserIdAndBookId(user.getId(), bookId);
 
@@ -193,7 +197,6 @@ public class BookService {
         } else {
             log.debug("No existing progress found for user {} and book {}. Creating new record.", user.getId(), bookId);
 
-            Book book = getBookById(bookId);
             Learner learner = learnerFinder.findLearner(user, book.getLanguage());
 
             LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
@@ -210,6 +213,8 @@ public class BookService {
     }
 
     public BookMiniDetails getBookById(UUID userId, UUID bookId) {
+        Language language = getBookById(bookId).getLanguage();
+
         List<BookLanguageVariant> languageVariants =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
@@ -217,8 +222,6 @@ public class BookService {
                 .findByUserIdAndBookId(userId, bookId)
                 .map(LearnerBookProgress::getProgressPercentage)
                 .orElse(0);
-
-        Language language = getBookById(bookId).getLanguage();
 
         return BookMiniDetails.builder()
                 .languageVariants(languageVariants)

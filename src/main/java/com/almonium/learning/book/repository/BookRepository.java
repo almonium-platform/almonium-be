@@ -14,7 +14,17 @@ import org.springframework.data.jpa.repository.Query;
 public interface BookRepository extends JpaRepository<Book, UUID> {
     Optional<Book> findByEditionSlug(String editionSlug);
 
+    // Native, so it sees withdrawn rows too: publishing an edition again must
+    // revive the book readers already have progress on, not duplicate it.
+    @Query(value = "select * from book where edition_slug = :editionSlug", nativeQuery = true)
+    Optional<Book> findAnyByEditionSlug(String editionSlug);
+
     List<Book> findByLanguage(Language language);
+
+    // Withdrawn translations are already invisible here, so this counts only the
+    // ones that would be left pointing at a book nobody can read.
+    @Query("select count(t) from Book t where t.originalBook.id = :bookId")
+    long countTranslationsOf(UUID bookId);
 
     @Query("""
         select b.id as id,

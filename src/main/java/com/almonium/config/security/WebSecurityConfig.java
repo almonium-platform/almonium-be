@@ -103,6 +103,8 @@ public class WebSecurityConfig {
                         .ignoringRequestMatchers(
                                 PathPatternRequestMatcher.withDefaults().matcher("/public/**"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/publications"),
+                                PathPatternRequestMatcher.withDefaults()
+                                        .matcher("/internal/books/publications/withdrawals"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
@@ -111,7 +113,10 @@ public class WebSecurityConfig {
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
                         .permitAll()
-                        .requestMatchers("/internal/books/publications", "/internal/books/import-events")
+                        .requestMatchers(
+                                "/internal/books/publications",
+                                "/internal/books/publications/withdrawals",
+                                "/internal/books/import-events")
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")
                         .permitAll()

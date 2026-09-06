@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260906-withdraw-published-books
+      author: claude
+      comment: >-
+        A book can be taken off the catalogue without erasing what readers did
+        with it. The book processor withdraws a publication when an edition is
+        purged there, and the row stays so learner progress, favourites and
+        translation orders survive; republishing the same edition slug clears
+        the stamp.
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: withdrawn_at
+                  type: timestamp

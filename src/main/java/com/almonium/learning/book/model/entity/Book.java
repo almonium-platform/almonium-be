@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -19,9 +20,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 @Entity
+// A withdrawn book is invisible to every catalogue and reader query, including
+// the language-variant subselects, but its row stays: learner progress,
+// favourites and translation orders reference it and must survive a takedown.
+@SQLRestriction("withdrawn_at is null")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -61,4 +67,6 @@ public class Book {
 
     String editionType;
     String translator;
+
+    Instant withdrawnAt;
 }

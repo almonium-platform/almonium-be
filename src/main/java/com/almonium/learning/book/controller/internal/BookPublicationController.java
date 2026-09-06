@@ -1,7 +1,9 @@
 package com.almonium.learning.book.controller.internal;
 
 import com.almonium.learning.book.dto.request.BookPublicationRequest;
+import com.almonium.learning.book.dto.request.BookWithdrawalRequest;
 import com.almonium.learning.book.dto.response.BookPublicationResponse;
+import com.almonium.learning.book.dto.response.BookWithdrawalResponse;
 import com.almonium.learning.book.service.BookPublicationService;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -35,17 +37,35 @@ public class BookPublicationController {
             @RequestHeader("X-Almonium-Books-Timestamp") long timestamp,
             @RequestHeader("X-Almonium-Books-Signature") String signature,
             @RequestBody byte[] body) {
-        if (Math.abs(System.currentTimeMillis() / 1000 - timestamp) > MAX_SIGNATURE_AGE_SECONDS
-                || !MessageDigest.isEqual(
-                        hex(hmac(timestamp + ".", body)).getBytes(StandardCharsets.UTF_8),
-                        signature.getBytes(StandardCharsets.UTF_8))) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
+        verify(timestamp, signature, body);
         try {
             return ResponseEntity.ok(
                     publicationService.publish(objectMapper.readValue(body, BookPublicationRequest.class)));
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid publication request", exception);
+        }
+    }
+
+    @PostMapping("/withdrawals")
+    public ResponseEntity<BookWithdrawalResponse> withdraw(
+            @RequestHeader("X-Almonium-Books-Timestamp") long timestamp,
+            @RequestHeader("X-Almonium-Books-Signature") String signature,
+            @RequestBody byte[] body) {
+        verify(timestamp, signature, body);
+        try {
+            return ResponseEntity.ok(
+                    publicationService.withdraw(objectMapper.readValue(body, BookWithdrawalRequest.class)));
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid withdrawal request", exception);
+        }
+    }
+
+    private void verify(long timestamp, String signature, byte[] body) {
+        if (Math.abs(System.currentTimeMillis() / 1000 - timestamp) > MAX_SIGNATURE_AGE_SECONDS
+                || !MessageDigest.isEqual(
+                        hex(hmac(timestamp + ".", body)).getBytes(StandardCharsets.UTF_8),
+                        signature.getBytes(StandardCharsets.UTF_8))) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 
