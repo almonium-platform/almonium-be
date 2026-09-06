@@ -18,7 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 @FieldDefaults(level = PRIVATE)
 @DataJpaTest
 @ImportTestcontainers(PostgresContainer.class)
-@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
     private static final String JOHN_USERNAME = "john";
