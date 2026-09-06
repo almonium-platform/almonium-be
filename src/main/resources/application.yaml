@@ -128,14 +128,14 @@ stream.api:
   key: ${STREAM_KEY}
   secret: ${STREAM_SECRET}
 
-# 11: chat with Almo. The key is optional so the app boots without it; the channel then exists but cannot answer.
+# 11: chat with Almo.
 almo:
   user-id: almo
   prompt-words: 40
   history-size: 20
   daily-message-ceiling: 60
   open-ai:
-    api-key: ${OPENAI_API_KEY:}
+    api-key: ${OPENAI_API_KEY}
     model: ${ALMO_MODEL:gpt-4.1-mini}
 
 paddle:

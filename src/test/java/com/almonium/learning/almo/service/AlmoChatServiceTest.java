@@ -163,7 +163,6 @@ class AlmoChatServiceTest {
     @Test
     void aMessageAlreadyAnsweredIsNotAnsweredTwice() {
         when(effectiveAccessService.isPremium(user)).thenReturn(true);
-        when(model.isConfigured()).thenReturn(true);
         when(turnRepository.findByUserMessageId(USER_MESSAGE))
                 .thenReturn(
                         Optional.of(AlmoTurn.builder().replyMessageId("reply-1").build()));
@@ -177,7 +176,6 @@ class AlmoChatServiceTest {
     @Test
     void ceilingReachedAnswersNothingAndSaysSoOnlyToTheClient() {
         when(effectiveAccessService.isPremium(user)).thenReturn(true);
-        when(model.isConfigured()).thenReturn(true);
         when(turnRepository.findByUserMessageId(USER_MESSAGE)).thenReturn(Optional.empty());
         when(turnRepository.countByUserIdAndCreatedAtAfter(eq(user.getId()), any()))
                 .thenReturn((long) properties.getDailyMessageCeiling());
@@ -269,7 +267,6 @@ class AlmoChatServiceTest {
 
     private void openThread(Message... messages) {
         when(effectiveAccessService.isPremium(user)).thenReturn(true);
-        when(model.isConfigured()).thenReturn(true);
         when(turnRepository.findByUserMessageId(USER_MESSAGE)).thenReturn(Optional.empty());
         when(turnRepository.countByUserIdAndCreatedAtAfter(eq(user.getId()), any()))
                 .thenReturn(0L);

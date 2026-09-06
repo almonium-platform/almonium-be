@@ -93,11 +93,9 @@ rabbitmq:
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.firebase.dlq
 
-openai:
-  gpt:
-    model: gpt-3.5-turbo
-    url: https://api.openai.com/v1/chat/completions
-    key: openai_key_dummy
+almo:
+  open-ai:
+    api-key: openai_key_dummy
 
 stream:
   api:

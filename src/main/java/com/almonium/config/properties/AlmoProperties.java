@@ -48,7 +48,7 @@ public class AlmoProperties {
     @Setter
     @FieldDefaults(level = PRIVATE)
     public static class OpenAi {
-        /** Absent means the channel exists but cannot answer; the app still boots. */
+        @NotBlank
         String apiKey;
 
         @NotBlank

@@ -109,10 +109,6 @@ public class AlmoChatService {
         if (!effectiveAccessService.isPremium(user)) {
             throw new ResourceNotAccessibleException("Almo talks with members only");
         }
-        if (!model.isConfigured()) {
-            throw new ApiIntegrationException("Almo has no model to speak with on this server");
-        }
-
         Optional<AlmoTurn> answered = turnRepository.findByUserMessageId(userMessageId);
         if (answered.isPresent()) {
             return new AlmoReplyDto(answered.get().getReplyMessageId(), false);

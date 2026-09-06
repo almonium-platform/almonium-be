@@ -34,16 +34,7 @@ public class OpenAiChatClient {
     /** The model's answer and what it cost, in the units the ledger records. */
     public record Completion(String content, String model, int promptTokens, int completionTokens) {}
 
-    public boolean isConfigured() {
-        String key = properties.getOpenAi().getApiKey();
-        return key != null && !key.isBlank();
-    }
-
     public Completion complete(String systemPrompt, List<Turn> history) {
-        if (!isConfigured()) {
-            throw new ApiIntegrationException("Almo has no model to speak with on this server");
-        }
-
         List<Map<String, String>> messages = new ArrayList<>();
         messages.add(Map.of("role", "system", "content", systemPrompt));
         history.forEach(turn -> messages.add(Map.of("role", turn.role(), "content", turn.content())));
