@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Lock;
 public interface FoundingMemberRepository extends JpaRepository<FoundingMember, Integer> {
     long countByStatusIn(Collection<FoundingMember.Status> statuses);
 
+    long countByStatus(FoundingMember.Status status);
+
     Optional<FoundingMember> findByUserId(UUID userId);
 
     Optional<FoundingMember> findByPaddleTransactionId(String paddleTransactionId);

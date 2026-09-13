@@ -1,6 +1,7 @@
 package com.almonium.subscription.repository;
 
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.record.SubscriptionCount;
 import com.almonium.subscription.model.record.UserEntitlement;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.LockModeType;
@@ -28,4 +29,14 @@ public interface PlanSubscriptionRepository extends JpaRepository<PlanSubscripti
               and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
             """)
     List<UserEntitlement> findActiveEntitlementsByUserIds(Collection<UUID> userIds);
+
+    /** Every subscription row on the books, by plan and status, so the ops page shows who pays for what. */
+    @Query("""
+            select new com.almonium.subscription.model.record.SubscriptionCount(
+                ps.plan.name, ps.plan.type, ps.status, count(ps))
+            from PlanSubscription ps
+            group by ps.plan.name, ps.plan.type, ps.status
+            order by ps.plan.name, ps.plan.type, ps.status
+            """)
+    List<SubscriptionCount> countByPlanAndStatus();
 }

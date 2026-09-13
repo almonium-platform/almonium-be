@@ -1,6 +1,7 @@
 package com.almonium.subscription.repository;
 
 import com.almonium.subscription.model.entity.AccessGrant;
+import com.almonium.subscription.model.record.GrantCount;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
@@ -45,4 +46,34 @@ public interface AccessGrantRepository extends JpaRepository<AccessGrant, UUID> 
               and grant.revokedAt is null
             """)
     int revokeActiveByUserId(UUID userId, Instant now);
+
+    /** The grants in force right now, by what they hand out. */
+    @Query("""
+            select new com.almonium.subscription.model.record.GrantCount(grant.entitlement, count(grant))
+            from AccessGrant grant
+            where grant.revokedAt is null
+              and grant.startsAt <= :now
+              and (grant.expiresAt is null or grant.expiresAt > :now)
+            group by grant.entitlement
+            order by grant.entitlement
+            """)
+    List<GrantCount> countActiveByEntitlement(Instant now);
+
+    /**
+     * People who are members only because an operator said so: an active grant above FREE and no paid plan that is
+     * active or running out its cycle.
+     */
+    @Query("""
+            select count(grant) from AccessGrant grant
+            where grant.revokedAt is null
+              and grant.startsAt <= :now
+              and (grant.expiresAt is null or grant.expiresAt > :now)
+              and grant.entitlement <> com.almonium.subscription.model.entity.enums.Entitlement.FREE
+              and not exists (
+                  select ps from PlanSubscription ps
+                  where ps.user = grant.user
+                    and ps.status in ('ACTIVE', 'ACTIVE_TILL_CYCLE_END')
+                    and ps.plan.entitlement <> com.almonium.subscription.model.entity.enums.Entitlement.FREE)
+            """)
+    long countActivePremiumWithoutPaidPlan(Instant now);
 }

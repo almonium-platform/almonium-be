@@ -6,7 +6,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.almonium.config.PostgresContainer;
 import com.almonium.subscription.model.entity.AccessGrant;
+import com.almonium.subscription.model.entity.Plan;
+import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.model.entity.enums.Entitlement;
+import com.almonium.subscription.model.record.GrantCount;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.EntityManager;
 import java.time.Instant;
@@ -33,6 +36,9 @@ class AccessGrantRepositoryTest {
 
     @Autowired
     EntityManager entityManager;
+
+    @Autowired
+    PlanSubscriptionRepository planSubscriptionRepository;
 
     @DisplayName("Should revoke the active grant and leave none active")
     @Test
@@ -67,6 +73,50 @@ class AccessGrantRepositoryTest {
 
         assertThat(accessGrantRepository.findActiveByUserId(USER_ID, Instant.now()))
                 .contains(replacement);
+    }
+
+    @DisplayName("Should count the grants in force by entitlement and skip revoked or expired ones")
+    @Test
+    void givenGrants_whenCountActiveByEntitlement_thenOnlyTheLiveOnesCount() {
+        AccessGrant revoked = newGrant(Entitlement.UNLIMITED);
+        revoked.setRevokedAt(Instant.now());
+        accessGrantRepository.saveAndFlush(revoked);
+        accessGrantRepository.saveAndFlush(newGrant(Entitlement.PREMIUM));
+        AccessGrant expired = newGrant(Entitlement.PREMIUM);
+        expired.setUser(entityManager.getReference(User.class, OPERATOR_ID));
+        expired.setExpiresAt(Instant.now().minusSeconds(1));
+        accessGrantRepository.saveAndFlush(expired);
+
+        assertThat(accessGrantRepository.countActiveByEntitlement(Instant.now()))
+                .containsExactly(new GrantCount(Entitlement.PREMIUM, 1));
+    }
+
+    @DisplayName("Should count a granted member as grant-only until a paid plan is active")
+    @Test
+    void givenGrantAndPaidPlan_whenCountActivePremiumWithoutPaidPlan_thenThePaidOneDropsOut() {
+        accessGrantRepository.saveAndFlush(newGrant(Entitlement.PREMIUM));
+        assertThat(accessGrantRepository.countActivePremiumWithoutPaidPlan(Instant.now()))
+                .isEqualTo(1);
+
+        planSubscriptionRepository.saveAndFlush(PlanSubscription.builder()
+                .user(entityManager.getReference(User.class, USER_ID))
+                .plan(entityManager.getReference(Plan.class, 2L))
+                .status(PlanSubscription.Status.ACTIVE_TILL_CYCLE_END)
+                .startDate(Instant.now())
+                .updatedAt(Instant.now())
+                .build());
+
+        assertThat(accessGrantRepository.countActivePremiumWithoutPaidPlan(Instant.now()))
+                .isZero();
+    }
+
+    @DisplayName("Should not count a FREE grant as a member")
+    @Test
+    void givenFreeGrant_whenCountActivePremiumWithoutPaidPlan_thenItIsNotAMember() {
+        accessGrantRepository.saveAndFlush(newGrant(Entitlement.FREE));
+
+        assertThat(accessGrantRepository.countActivePremiumWithoutPaidPlan(Instant.now()))
+                .isZero();
     }
 
     private AccessGrant newGrant(Entitlement entitlement) {

@@ -2,6 +2,7 @@ package com.almonium.user.core.repository;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.User;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -36,4 +37,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("select u.id from User u")
     Set<UUID> findAllIds();
+
+    long countByRegisteredGreaterThanEqual(Instant since);
 }
