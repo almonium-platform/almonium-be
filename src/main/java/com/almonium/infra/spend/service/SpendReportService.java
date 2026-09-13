@@ -79,7 +79,8 @@ public class SpendReportService {
     private List<EstimatedLine> almoLines(Instant since, Instant until, List<String> warnings) {
         return turnRepository.spendBetween(since, until).stream()
                 .map(line -> {
-                    OpenAiProperties.ModelPrice price = properties.getPricing().get(line.model());
+                    OpenAiProperties.ModelPrice price =
+                            properties.priceFor(line.model()).orElse(null);
                     if (price == null) {
                         warnings.add("No price is configured for %s, so %d Almo turns are shown without dollars"
                                 .formatted(line.model(), line.turns()));

@@ -8,8 +8,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -38,10 +40,29 @@ public class OpenAiProperties {
     @NotNull
     Duration costsCacheTtl = Duration.ofHours(1);
 
-    /** Dollars per million tokens, keyed by the model name the completion reported. */
+    /**
+     * Dollars per million tokens, keyed by the model alias we ask for, such as {@code gpt-4.1-mini}. OpenAI answers
+     * with the dated snapshot it resolved the alias to, so the lookup accepts that name too.
+     */
     @NotNull
     @Valid
     Map<String, ModelPrice> pricing = new LinkedHashMap<>();
+
+    /**
+     * The price for a model name as a completion reported it. An exact key wins; otherwise the longest key the name
+     * extends with a dash, so {@code gpt-4.1-mini-2025-04-14} is priced as {@code gpt-4.1-mini} and never as a
+     * {@code gpt-4.1} entry beside it.
+     */
+    public Optional<ModelPrice> priceFor(String reportedModel) {
+        ModelPrice exact = pricing.get(reportedModel);
+        if (exact != null) {
+            return Optional.of(exact);
+        }
+        return pricing.keySet().stream()
+                .filter(alias -> reportedModel.startsWith(alias + "-"))
+                .max(Comparator.comparingInt(String::length))
+                .map(pricing::get);
+    }
 
     @Getter
     @Setter

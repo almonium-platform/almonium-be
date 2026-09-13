@@ -134,7 +134,8 @@ almo:
     model: ${ALMO_MODEL:gpt-4.1-mini}
 
 # 12: the organisation side of OpenAI. The admin key reads the bill for the ops spend page; the price list turns our
-# own token ledger into dollars, since OpenAI publishes no pricing endpoint. Dollars per million tokens.
+# own token ledger into dollars, since OpenAI publishes no pricing endpoint. Dollars per million tokens, keyed by the
+# alias we request; the dated snapshot OpenAI reports back (gpt-4.1-mini-2025-04-14) is priced under that alias.
 openai:
   admin-key: ${OPENAI_ADMIN_KEY}
   pricing:

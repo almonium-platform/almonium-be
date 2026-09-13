@@ -82,6 +82,27 @@ class SpendReportServiceTest {
     }
 
     @Test
+    void aDatedSnapshotIsPricedAsTheAliasItResolvedFrom() {
+        OpenAiProperties.ModelPrice base = new OpenAiProperties.ModelPrice();
+        base.setInput(new BigDecimal("2.00"));
+        base.setCachedInput(new BigDecimal("0.50"));
+        base.setOutput(new BigDecimal("8.00"));
+        properties.getPricing().put("gpt-4.1", base);
+        when(turnRepository.spendBetween(any(), any()))
+                .thenReturn(List.of(new AlmoSpendLine("gpt-4.1-mini-2025-04-14", 1, 1_000_000, 0)));
+        when(bookProcessor.aiSpend(any(), any())).thenReturn(List.of());
+        when(costsClient.dailyCosts(any(), anyInt())).thenReturn(List.of());
+
+        SpendReport report = service.report(1);
+
+        assertThat(report.estimated()).singleElement().satisfies(line -> {
+            assertThat(line.model()).isEqualTo("gpt-4.1-mini-2025-04-14");
+            assertThat(line.estimatedUsd()).isEqualByComparingTo("0.40");
+        });
+        assertThat(report.warnings()).isEmpty();
+    }
+
+    @Test
     void anUnpricedModelKeepsItsTokensAndSaysSo() {
         when(turnRepository.spendBetween(any(), any())).thenReturn(List.of(new AlmoSpendLine("gpt-6", 4, 10, 5)));
         when(bookProcessor.aiSpend(any(), any())).thenReturn(List.of());
