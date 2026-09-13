@@ -63,6 +63,13 @@ public class SpendReportService {
 
         FetchedCosts actual = actualCosts(firstDay, since, days, warnings);
         List<ActualLine> actualLines = actual == null ? List.of() : actual.lines();
+        long freeLines =
+                actualLines.stream().filter(line -> line.usd().signum() == 0).count();
+        if (freeLines > 0) {
+            warnings.add(("OpenAI metered %d line items but charged nothing for them, which is what its complimentary"
+                            + " tokens look like; a negative gap is that discount, not a stale price table")
+                    .formatted(freeLines));
+        }
         BigDecimal actualUsd = actualLines.stream().map(ActualLine::usd).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new SpendReport(

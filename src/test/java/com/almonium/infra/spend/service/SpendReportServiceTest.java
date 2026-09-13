@@ -123,6 +123,28 @@ class SpendReportServiceTest {
     }
 
     @Test
+    void meteredButUnchargedLineItemsAreCalledADiscount() {
+        when(turnRepository.spendBetween(any(), any()))
+                .thenReturn(List.of(new AlmoSpendLine("gpt-4.1-mini", 1, 1_000_000, 0)));
+        when(bookProcessor.aiSpend(any(), any())).thenReturn(List.of());
+        when(costsClient.dailyCosts(any(), anyInt()))
+                .thenReturn(List.of(
+                        new OpenAiCostsClient.DailyCost(
+                                LocalDate.of(2026, 9, 5), "proj_a", "gpt-4.1-mini, input", BigDecimal.ZERO),
+                        new OpenAiCostsClient.DailyCost(
+                                LocalDate.of(2026, 9, 5), "proj_a", "gpt-4.1-mini, output", new BigDecimal("0.01"))));
+
+        SpendReport report = service.report(7);
+
+        assertThat(report.actualUsd()).isEqualByComparingTo("0.01");
+        assertThat(report.warnings())
+                .singleElement()
+                .asString()
+                .contains("1 line items")
+                .contains("discount");
+    }
+
+    @Test
     void unreachableUpstreamsLeaveTheirSideEmptyWithAWarning() {
         when(turnRepository.spendBetween(any(), any())).thenReturn(List.of());
         when(bookProcessor.aiSpend(any(), any())).thenThrow(new ApiIntegrationException("down"));
