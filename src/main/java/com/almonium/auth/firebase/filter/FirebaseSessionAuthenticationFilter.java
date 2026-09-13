@@ -11,6 +11,7 @@ import com.almonium.config.aspect.SkipLogging;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.LastSeenRecorder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,18 +30,21 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
     private final FirebaseSessionService sessionService;
     private final FirebaseUserProvisioningService provisioningService;
     private final UserRepository userRepository;
+    private final LastSeenRecorder lastSeenRecorder;
 
     public FirebaseSessionAuthenticationFilter(
             FirebaseAuthGateway firebaseAuthGateway,
             FirebaseSessionCookieService cookieService,
             FirebaseSessionService sessionService,
             FirebaseUserProvisioningService provisioningService,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            LastSeenRecorder lastSeenRecorder) {
         this.firebaseAuthGateway = firebaseAuthGateway;
         this.cookieService = cookieService;
         this.sessionService = sessionService;
         this.provisioningService = provisioningService;
         this.userRepository = userRepository;
+        this.lastSeenRecorder = lastSeenRecorder;
     }
 
     @Override
@@ -61,6 +65,7 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
             FirebaseIdentity identity = firebaseAuthGateway.verifyIdToken(token, false);
             User user = provisioningService.resolveOrCreate(identity);
             SecurityContextHolder.getContext().setAuthentication(sessionService.authentication(identity, user));
+            lastSeenRecorder.touch(user.getId());
         } catch (FirebaseAuthenticationException | ResourceConflictException exception) {
             SecurityContextHolder.clearContext();
         }
@@ -72,8 +77,11 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
             userRepository
                     .findByFirebaseUid(identity.uid())
                     .ifPresentOrElse(
-                            user -> SecurityContextHolder.getContext()
-                                    .setAuthentication(sessionService.authentication(identity, user)),
+                            user -> {
+                                SecurityContextHolder.getContext()
+                                        .setAuthentication(sessionService.authentication(identity, user));
+                                lastSeenRecorder.touch(user.getId());
+                            },
                             () -> cookieService.clear(response));
         } catch (FirebaseAuthenticationException exception) {
             SecurityContextHolder.clearContext();

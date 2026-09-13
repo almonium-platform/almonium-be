@@ -2,6 +2,7 @@ package com.almonium.auth.firebase.filter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
@@ -13,6 +14,7 @@ import com.almonium.auth.firebase.service.FirebaseUserProvisioningService;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.LastSeenRecorder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import java.time.Instant;
@@ -45,6 +47,9 @@ class FirebaseSessionAuthenticationFilterTest {
     UserRepository userRepository;
 
     @Mock
+    LastSeenRecorder lastSeenRecorder;
+
+    @Mock
     FilterChain chain;
 
     @AfterEach
@@ -69,6 +74,7 @@ class FirebaseSessionAuthenticationFilterTest {
         filter().doFilter(request, response, chain);
 
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isSameAs(authentication);
+        verify(lastSeenRecorder).touch(user.getId());
         verify(chain).doFilter(request, response);
     }
 
@@ -84,6 +90,7 @@ class FirebaseSessionAuthenticationFilterTest {
 
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
         verify(cookieService).clear(response);
+        verifyNoInteractions(lastSeenRecorder);
         verify(chain).doFilter(request, response);
     }
 
@@ -104,6 +111,7 @@ class FirebaseSessionAuthenticationFilterTest {
         filter().doFilter(request, response, chain);
 
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isSameAs(authentication);
+        verify(lastSeenRecorder).touch(user.getId());
         verify(chain).doFilter(request, response);
     }
 
@@ -119,12 +127,13 @@ class FirebaseSessionAuthenticationFilterTest {
         filter().doFilter(request, response, chain);
 
         assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
+        verifyNoInteractions(lastSeenRecorder);
         verify(chain).doFilter(request, response);
     }
 
     private FirebaseSessionAuthenticationFilter filter() {
         return new FirebaseSessionAuthenticationFilter(
-                gateway, cookieService, sessionService, provisioningService, userRepository);
+                gateway, cookieService, sessionService, provisioningService, userRepository, lastSeenRecorder);
     }
 
     private FirebaseIdentity identity() {

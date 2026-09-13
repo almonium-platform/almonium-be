@@ -148,3 +148,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260906-drop-avatar-table.yaml
   - include:
       file: db/changelog/changes/patches/20260906-withdraw-published-books.yaml
+  - include:
+      file: db/changelog/changes/patches/20260913-add-last-seen-at.yaml

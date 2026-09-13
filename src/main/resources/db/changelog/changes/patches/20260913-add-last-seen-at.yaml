@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260913-add-last-seen-at
+      author: claude
+      comment: >-
+        last_login is stamped only when the browser creates a session, so it says when someone signed in, not whether
+        they use the product. last_seen_at is stamped from the authentication filter on any authenticated request,
+        browser cookie or native bearer token alike, at most once every few minutes per user. Nullable: an account that
+        has never come back since this shipped has no answer yet.
+      changes:
+        - addColumn:
+            tableName: profile
+            columns:
+              - column:
+                  name: last_seen_at
+                  type: timestamp with time zone
+      rollback:
+        - dropColumn:
+            tableName: profile
+            columnName: last_seen_at

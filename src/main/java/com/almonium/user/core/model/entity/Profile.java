@@ -56,8 +56,15 @@ public class Profile {
     @Builder.Default
     boolean socialEmailNotifications = true;
 
+    /** When the browser last created a session. Says when someone signed in, not whether they use the product. */
     @CreatedDate
     LocalDateTime lastLogin;
+
+    /**
+     * When the account last made an authenticated request, by cookie or bearer token. Stamped by the authentication
+     * filter a few minutes apart at most, so it costs one update per user per window rather than one per request.
+     */
+    Instant lastSeenAt;
 
     /**
      * When the account last swapped which language is active. The downgrade pick does not stamp this: choosing what
