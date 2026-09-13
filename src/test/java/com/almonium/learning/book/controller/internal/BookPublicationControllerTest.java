@@ -59,6 +59,24 @@ class BookPublicationControllerTest {
     }
 
     @Test
+    void carriesTheProcessorEditionAndOurJobIdWhenTheyAreSent() {
+        UUID externalJobId = UUID.randomUUID();
+        when(publicationService.publish(any(BookPublicationRequest.class)))
+                .thenReturn(new BookPublicationResponse(UUID.randomUUID()));
+        byte[] body = publication("\"cefrLevel\": \"C1\", \"editionId\": \"%s\", \"externalJobId\": \"%s\""
+                .formatted(UUID.randomUUID(), externalJobId));
+        long timestamp = now();
+
+        controller.publish(timestamp, sign(timestamp, body), body);
+
+        org.mockito.ArgumentCaptor<BookPublicationRequest> captor =
+                org.mockito.ArgumentCaptor.forClass(BookPublicationRequest.class);
+        verify(publicationService).publish(captor.capture());
+        assertThat(captor.getValue().externalJobId()).isEqualTo(externalJobId);
+        assertThat(captor.getValue().editionId()).isNotNull();
+    }
+
+    @Test
     void namesTheMissingFieldInsteadOfFailingAtTheDatabase() {
         byte[] body = publication("\"cefrLevel\": null");
         long timestamp = now();

@@ -18,6 +18,7 @@ import com.almonium.subscription.service.BillingPeriodService;
 import com.almonium.subscription.service.BillingPeriodService.BillingPeriod;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
+import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
@@ -45,6 +46,7 @@ public class UserBookImportService {
     private final BookProcessorClient processorClient;
     private final PublishedBookContentService contentService;
     private final NotificationService notificationService;
+    private final LibrarySuggestionService librarySuggestionService;
 
     public BookImportDto create(
             User user,
@@ -122,6 +124,42 @@ public class UserBookImportService {
                 bookImport.getLanguage(),
                 bookImport.getPublicationYear());
         return toDto(bookImport);
+    }
+
+    /**
+     * Swaps the file behind an import. The processor forgets its copy and reads the new one under the same id, with
+     * the owner's confirmed details pinned so detection never overwrites them. No new row, so no allowance spent.
+     */
+    public BookImportDto replaceFile(User user, UUID id, MultipartFile source) {
+        UserBookImport bookImport = findOwned(user.getId(), id);
+        if (bookImport.getStatus() != BookImportStatus.READY && bookImport.getStatus() != BookImportStatus.FAILED) {
+            throw new ResourceConflictException("Wait for the current import to finish before replacing the file");
+        }
+        validateSource(source);
+        boolean confirmed = bookImport.getMetadataStatus() == BookImportMetadataStatus.CONFIRMED;
+        processorClient.deletePrivateImport(bookImport.getId(), user.getId());
+        processorClient.createPrivateImport(
+                bookImport.getId(),
+                user.getId(),
+                user.getUsername(),
+                source,
+                confirmed ? bookImport.getTitle() : null,
+                confirmed ? bookImport.getAuthor() : null,
+                confirmed ? bookImport.getDescription() : "",
+                confirmed ? bookImport.getLanguage() : null,
+                confirmed ? bookImport.getPublicationYear() : null);
+        bookImport.setStatus(BookImportStatus.QUEUED);
+        bookImport.setProgress(0);
+        bookImport.setWordCount(0);
+        bookImport.setError("");
+        return toDto(repository.save(bookImport));
+    }
+
+    /** The processor's copy goes first; a copy it no longer has is tolerated. Suggestions go with the row. */
+    public void delete(User user, UUID id) {
+        UserBookImport bookImport = findOwned(user.getId(), id);
+        processorClient.deletePrivateImport(bookImport.getId(), user.getId());
+        repository.delete(bookImport);
     }
 
     @Transactional(readOnly = true)
@@ -277,6 +315,7 @@ public class UserBookImportService {
                 bookImport.getWordCount(),
                 bookImport.getError(),
                 bookImport.getCreatedAt(),
-                bookImport.getUpdatedAt());
+                bookImport.getUpdatedAt(),
+                librarySuggestionService.forImport(bookImport.getId()));
     }
 }

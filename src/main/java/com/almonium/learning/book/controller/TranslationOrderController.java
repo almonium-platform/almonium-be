@@ -40,6 +40,13 @@ public class TranslationOrderController {
         return ResponseEntity.ok(translationOrderService.quota(user));
     }
 
+    /** The fulfilment notice shows until the reader opens it once. */
+    @PostMapping("/orders/{orderId}/seen")
+    public ResponseEntity<Void> markSeen(@Auth UUID userId, @PathVariable UUID orderId) {
+        translationOrderService.markSeen(userId, orderId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{bookId}/language/{language}/orders")
     public ResponseEntity<TranslationOrderDto> createTranslationOrder(
             @Auth User user, @PathVariable UUID bookId, @PathVariable Language language) {

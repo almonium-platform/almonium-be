@@ -2,9 +2,12 @@ package com.almonium.learning.book.service;
 
 import static com.almonium.subscription.model.entity.enums.PlanFeature.MAX_BOOK_IMPORTS_PER_MONTH;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +28,7 @@ import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.subscription.service.BillingPeriodService;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
+import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -65,6 +69,9 @@ class UserBookImportServiceTest {
 
     @Mock
     NotificationService notificationService;
+
+    @Mock
+    LibrarySuggestionService librarySuggestionService;
 
     @InjectMocks
     UserBookImportService service;
@@ -217,6 +224,76 @@ class UserBookImportServiceTest {
                         "A novel.",
                         Language.DE,
                         1813);
+    }
+
+    @Test
+    void replacingTheFileKeepsTheRowSoTheAllowanceIsNotSpentAgain() {
+        UserBookImport bookImport = pendingImport();
+        bookImport.setStatus(BookImportStatus.READY);
+        bookImport.setTitle("Pride and Prejudice");
+        bookImport.setAuthor("Jane Austen");
+        bookImport.setLanguage(Language.EN);
+        bookImport.setPublicationYear(1813);
+        bookImport.setMetadataStatus(BookImportMetadataStatus.CONFIRMED);
+        bookImport.setWordCount(1200);
+        bookImport.getUser().setUsername("private-reader");
+        when(repository.findByIdAndUserId(
+                        bookImport.getId(), bookImport.getUser().getId()))
+                .thenReturn(Optional.of(bookImport));
+        when(repository.save(any(UserBookImport.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        MockMultipartFile source =
+                new MockMultipartFile("file", "better-scan.epub", "application/epub+zip", new byte[] {4, 5, 6});
+
+        BookImportDto result = service.replaceFile(bookImport.getUser(), bookImport.getId(), source);
+
+        verify(processorClient)
+                .deletePrivateImport(bookImport.getId(), bookImport.getUser().getId());
+        verify(processorClient)
+                .createPrivateImport(
+                        bookImport.getId(),
+                        bookImport.getUser().getId(),
+                        "private-reader",
+                        source,
+                        "Pride and Prejudice",
+                        "Jane Austen",
+                        "",
+                        Language.EN,
+                        1813);
+        verify(planValidationService, never()).validatePlanFeature(any(), any(), anyInt());
+        assertThat(result.id()).isEqualTo(bookImport.getId());
+        assertThat(result.status()).isEqualTo(BookImportStatus.QUEUED);
+        assertThat(result.wordCount()).isZero();
+        assertThat(result.metadataStatus()).isEqualTo(BookImportMetadataStatus.CONFIRMED);
+    }
+
+    @Test
+    void replacingTheFileWaitsForARunningImport() {
+        UserBookImport bookImport = pendingImport();
+        bookImport.setStatus(BookImportStatus.PROCESSING);
+        when(repository.findByIdAndUserId(
+                        bookImport.getId(), bookImport.getUser().getId()))
+                .thenReturn(Optional.of(bookImport));
+
+        assertThatThrownBy(() -> service.replaceFile(
+                        bookImport.getUser(),
+                        bookImport.getId(),
+                        new MockMultipartFile("file", "x.epub", "application/epub+zip", new byte[] {1})))
+                .isInstanceOf(ResourceConflictException.class);
+        verify(processorClient, never()).deletePrivateImport(any(), any());
+    }
+
+    @Test
+    void deletingForgetsTheProcessorCopyFirst() {
+        UserBookImport bookImport = pendingImport();
+        when(repository.findByIdAndUserId(
+                        bookImport.getId(), bookImport.getUser().getId()))
+                .thenReturn(Optional.of(bookImport));
+
+        service.delete(bookImport.getUser(), bookImport.getId());
+
+        verify(processorClient)
+                .deletePrivateImport(bookImport.getId(), bookImport.getUser().getId());
+        verify(repository).delete(bookImport);
     }
 
     @Test

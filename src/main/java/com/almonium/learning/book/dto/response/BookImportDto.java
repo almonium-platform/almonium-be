@@ -21,4 +21,5 @@ public record BookImportDto(
         int wordCount,
         String error,
         Instant createdAt,
-        Instant updatedAt) {}
+        Instant updatedAt,
+        LibrarySuggestionDto librarySuggestion) {}

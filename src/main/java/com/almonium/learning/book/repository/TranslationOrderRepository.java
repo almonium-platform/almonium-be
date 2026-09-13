@@ -6,13 +6,20 @@ import com.almonium.learning.book.model.enums.TranslationOrderStatus;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface TranslationOrderRepository extends JpaRepository<TranslationOrder, UUID> {
-    boolean existsByUserIdAndBookIdAndLanguage(UUID userId, UUID bookId, Language language);
+    Optional<TranslationOrder> findByUserIdAndBookIdAndLanguage(UUID userId, UUID bookId, Language language);
+
+    Optional<TranslationOrder> findByIdAndUserId(UUID id, UUID userId);
+
+    List<TranslationOrder> findByStatus(TranslationOrderStatus status);
+
+    long countByStatus(TranslationOrderStatus status);
 
     List<TranslationOrder> findByBookIdAndLanguageAndStatus(
             UUID bookId, Language language, TranslationOrderStatus status);

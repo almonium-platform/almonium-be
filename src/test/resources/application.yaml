@@ -41,6 +41,7 @@ app:
   books:
     publisher-secret: test-books-publisher-secret
     processor-url: https://books.example.test/api/v1
+    translation-budget-usd: 150
 
 rabbitmq:
   exchange:

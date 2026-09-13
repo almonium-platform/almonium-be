@@ -3,6 +3,7 @@ package com.almonium.learning.book.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,6 +17,7 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -30,6 +32,12 @@ class BookPublicationServiceTest {
 
     @Mock
     TranslationOrderService translationOrderService;
+
+    @Mock
+    TranslationJobService translationJobService;
+
+    @Mock
+    LibrarySuggestionService librarySuggestionService;
 
     @InjectMocks
     BookPublicationService service;
@@ -51,7 +59,9 @@ class BookPublicationServiceTest {
                 1818,
                 null,
                 CEFR.C1,
-                75000);
+                75000,
+                null,
+                null);
         when(bookRepository.findAnyByEditionSlug(request.editionSlug())).thenReturn(Optional.empty());
         when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -65,6 +75,71 @@ class BookPublicationServiceTest {
         assertThat(book.getDescription()).isEqualTo("A scientist creates life.");
         assertThat(book.getCefrLevel()).isEqualTo(CEFR.C1);
         assertThat(book.getCoverUrl()).isNull();
+    }
+
+    @Test
+    void publishingATranslationSettlesTheRequestsAndTheJob() {
+        Book original = new Book();
+        original.setId(UUID.randomUUID());
+        original.setEditionSlug("effi-briest-de-original");
+        when(bookRepository.findAnyByEditionSlug("effi-briest-uk-parallel")).thenReturn(Optional.empty());
+        when(bookRepository.findByEditionSlug("effi-briest-de-original")).thenReturn(Optional.of(original));
+        when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        service.publish(new BookPublicationRequest(
+                "effi-briest-uk-parallel",
+                "b".repeat(64),
+                "effi-briest",
+                "Effi Briest",
+                "Theodor Fontane",
+                "",
+                Language.DE,
+                Language.UK,
+                "machine_translation",
+                "effi-briest-de-original",
+                "AI (contemporary neutral)",
+                1895,
+                null,
+                CEFR.B2,
+                80000,
+                UUID.randomUUID(),
+                null));
+
+        ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
+        verify(translationOrderService).publishTranslation(captor.capture());
+        verify(translationJobService).settlePublished(captor.getValue());
+        assertThat(captor.getValue().getOriginalBook()).isEqualTo(original);
+        verify(librarySuggestionService, never()).settlePublished(any(), any());
+    }
+
+    @Test
+    void publishingAnIngestedSuggestionSettlesTheSuggestionGroup() {
+        UUID suggestionId = UUID.randomUUID();
+        when(bookRepository.findAnyByEditionSlug("der-schimmelreiter-de-original"))
+                .thenReturn(Optional.empty());
+        when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        service.publish(new BookPublicationRequest(
+                "der-schimmelreiter-de-original",
+                "c".repeat(64),
+                "der-schimmelreiter",
+                "Der Schimmelreiter",
+                "Theodor Storm",
+                "",
+                Language.DE,
+                Language.DE,
+                "original",
+                null,
+                null,
+                1888,
+                null,
+                CEFR.B2,
+                41000,
+                UUID.randomUUID(),
+                suggestionId));
+
+        verify(librarySuggestionService).settlePublished(eq(suggestionId), any(Book.class));
+        verify(translationOrderService, never()).publishTranslation(any());
     }
 
     @Test
@@ -137,7 +212,9 @@ class BookPublicationServiceTest {
                 1818,
                 null,
                 CEFR.C1,
-                75000);
+                75000,
+                null,
+                null);
         when(bookRepository.findAnyByEditionSlug("frankenstein-en")).thenReturn(Optional.of(withdrawn));
         when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
 

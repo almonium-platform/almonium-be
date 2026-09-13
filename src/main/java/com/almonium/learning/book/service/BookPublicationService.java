@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookPublicationService {
     private final BookRepository bookRepository;
     private final TranslationOrderService translationOrderService;
+    private final TranslationJobService translationJobService;
+    private final LibrarySuggestionService librarySuggestionService;
 
     public BookPublicationResponse publish(BookPublicationRequest request) {
         Book book = bookRepository.findAnyByEditionSlug(request.editionSlug()).orElseGet(Book::new);
@@ -48,6 +50,10 @@ public class BookPublicationService {
         Book saved = bookRepository.save(book);
         if (saved.getOriginalBook() != null) {
             translationOrderService.publishTranslation(saved);
+            translationJobService.settlePublished(saved);
+        }
+        if (request.externalJobId() != null) {
+            librarySuggestionService.settlePublished(request.externalJobId(), saved);
         }
         return new BookPublicationResponse(saved.getId());
     }

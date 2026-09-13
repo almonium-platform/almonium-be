@@ -29,6 +29,7 @@ import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +48,9 @@ class TranslationOrderServiceTest {
 
     @Mock
     NotificationService notificationService;
+
+    @Mock
+    BookEmailService bookEmailService;
 
     @Mock
     PlanValidationService planValidationService;
@@ -70,8 +74,8 @@ class TranslationOrderServiceTest {
     void asksForASecondLanguageOnABookAlreadyRequestedInAnother() {
         User user = user();
         Book book = originalBook();
-        when(translationOrderRepository.existsByUserIdAndBookIdAndLanguage(user.getId(), book.getId(), Language.UK))
-                .thenReturn(false);
+        when(translationOrderRepository.findByUserIdAndBookIdAndLanguage(user.getId(), book.getId(), Language.UK))
+                .thenReturn(Optional.empty());
         when(bookService.getBookById(book.getId())).thenReturn(book);
         when(bookService.getAvailableLanguagesForBook(book.getId())).thenReturn(List.of(Language.PL));
         stubQuota(user, 1L, 3);
@@ -91,8 +95,9 @@ class TranslationOrderServiceTest {
     void refusesASecondRequestForTheSameBookAndLanguage() {
         User user = user();
         UUID bookId = UUID.randomUUID();
-        when(translationOrderRepository.existsByUserIdAndBookIdAndLanguage(user.getId(), bookId, Language.UK))
-                .thenReturn(true);
+        TranslationOrder open = new TranslationOrder(user, originalBook(), Language.UK);
+        when(translationOrderRepository.findByUserIdAndBookIdAndLanguage(user.getId(), bookId, Language.UK))
+                .thenReturn(Optional.of(open));
 
         assertThatThrownBy(() -> service.createTranslationOrder(user, bookId, Language.UK))
                 .isInstanceOf(ResourceConflictException.class);
@@ -103,11 +108,57 @@ class TranslationOrderServiceTest {
     }
 
     @Test
+    void aDeclinedRequestComesBackAsAFreshAskInsteadOfAConflict() {
+        User user = user();
+        Book book = originalBook();
+        TranslationOrder declined = new TranslationOrder(user, book, Language.UK);
+        declined.setStatus(TranslationOrderStatus.DECLINED);
+        declined.setResolvedAt(Instant.now().minus(3, ChronoUnit.DAYS));
+        declined.setCreatedAt(Instant.now().minus(40, ChronoUnit.DAYS));
+        when(translationOrderRepository.findByUserIdAndBookIdAndLanguage(user.getId(), book.getId(), Language.UK))
+                .thenReturn(Optional.of(declined));
+        when(bookService.getBookById(book.getId())).thenReturn(book);
+        when(bookService.getAvailableLanguagesForBook(book.getId())).thenReturn(List.of());
+        stubQuota(user, 0L, 1);
+        when(translationOrderRepository.save(any(TranslationOrder.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        TranslationOrderDto result = service.createTranslationOrder(user, book.getId(), Language.UK);
+
+        assertThat(result.status()).isEqualTo(TranslationOrderStatus.ASKED);
+        assertThat(declined.getResolvedAt()).isNull();
+        assertThat(declined.getCreatedAt()).isAfter(Instant.now().minus(1, ChronoUnit.MINUTES));
+        verify(planValidationService).validatePlanFeature(user, MAX_TRANSLATION_REQUESTS_PER_MONTH, 1);
+    }
+
+    @Test
+    void markingSeenIsScopedToTheOwner() {
+        UUID orderId = UUID.randomUUID();
+        UUID stranger = UUID.randomUUID();
+        when(translationOrderRepository.findByIdAndUserId(orderId, stranger)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.markSeen(stranger, orderId))
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class);
+
+        User owner = user();
+        TranslationOrder order = new TranslationOrder(owner, originalBook(), Language.UK);
+        order.setStatus(TranslationOrderStatus.READY);
+        when(translationOrderRepository.findByIdAndUserId(orderId, owner.getId()))
+                .thenReturn(Optional.of(order));
+
+        service.markSeen(owner.getId(), orderId);
+
+        assertThat(order.getSeenAt()).isNotNull();
+        verify(translationOrderRepository).save(order);
+    }
+
+    @Test
     void settlesOpenRequestsWhenTheTranslationIsPublished() {
         Book original = originalBook();
         Book translation = new Book();
         translation.setId(UUID.randomUUID());
         translation.setTitle("Effi Briest");
+        translation.setEditionSlug("effi-briest-uk");
         translation.setLanguage(Language.UK);
         translation.setOriginalBook(original);
         User asker = user();
@@ -122,6 +173,7 @@ class TranslationOrderServiceTest {
         assertThat(order.getFulfilledBook()).isEqualTo(translation);
         assertThat(order.getResolvedAt()).isNotNull();
         verify(notificationService).notifyOfTranslationOrderCompletion("Effi Briest", Language.UK, List.of(asker));
+        verify(bookEmailService).translationReady(List.of(asker), "Effi Briest", Language.UK, "effi-briest-uk");
     }
 
     @Test
@@ -155,6 +207,7 @@ class TranslationOrderServiceTest {
         assertThat(order.getStatus()).isEqualTo(TranslationOrderStatus.DECLINED);
         assertThat(SPENDING).doesNotContain(order.getStatus());
         verify(notificationService, never()).notifyOfTranslationOrderCompletion(any(), any(), anyList());
+        verify(bookEmailService).translationDeclined(List.of(order.getUser()), "Effi Briest", Language.UK);
     }
 
     @Test

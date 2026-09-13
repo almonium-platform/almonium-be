@@ -20,7 +20,9 @@ public interface BookMapper {
     @Mapping(target = "bookTitle", source = "book.title")
     @Mapping(target = "bookAuthor", source = "book.author")
     @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "bookEditionSlug", source = "book.editionSlug")
     @Mapping(target = "fulfilledBookId", source = "fulfilledBook.id")
+    @Mapping(target = "fulfilledEditionSlug", source = "fulfilledBook.editionSlug")
     TranslationOrderDto toDto(TranslationOrder order);
 
     List<TranslationOrderDto> toOrderDtos(List<TranslationOrder> orders);

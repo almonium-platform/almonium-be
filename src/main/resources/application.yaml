@@ -68,6 +68,8 @@ app:
   books:
     publisher-secret: ${ALMONIUM_BOOKS_PUBLISHER_SECRET}
     processor-url: ${ALMONIUM_BOOKS_PROCESSOR_URL}
+    # The month's ceiling on approved translation estimates; at the ceiling /ops stops approving and the queue keeps collecting.
+    translation-budget-usd: ${ALMONIUM_BOOKS_TRANSLATION_BUDGET_USD:150}
 
 rabbitmq:
   exchange:

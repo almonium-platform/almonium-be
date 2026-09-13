@@ -18,8 +18,10 @@ import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
+import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,7 @@ public class TranslationOrderService {
 
     BookService bookService;
     NotificationService notificationService;
+    BookEmailService bookEmailService;
     PlanValidationService planValidationService;
     PlanSubscriptionService subscriptionService;
     BillingPeriodService billingPeriodService;
@@ -68,23 +71,29 @@ public class TranslationOrderService {
         });
         translationOrderRepository.saveAll(orders);
 
-        notificationService.notifyOfTranslationOrderCompletion(
-                book.getTitle(),
-                book.getLanguage(),
-                orders.stream().map(TranslationOrder::getUser).toList());
+        List<User> users = orders.stream().map(TranslationOrder::getUser).toList();
+        notificationService.notifyOfTranslationOrderCompletion(book.getTitle(), book.getLanguage(), users);
+        bookEmailService.translationReady(users, book.getTitle(), book.getLanguage(), book.getEditionSlug());
     }
 
-    /** Declining refunds the slot and drops the request out of the caller's list. */
+    /** Declining refunds the slot, drops the request out of the caller's list, and says so in a plain mail. */
     @Transactional
     public int declineTranslationOrders(UUID bookId, Language language) {
         List<TranslationOrder> orders = translationOrderRepository.findByBookIdAndLanguageAndStatus(
                 bookId, language, TranslationOrderStatus.ASKED);
+        if (orders.isEmpty()) {
+            return 0;
+        }
         Instant now = Instant.now();
         orders.forEach(order -> {
             order.setStatus(TranslationOrderStatus.DECLINED);
             order.setResolvedAt(now);
         });
         translationOrderRepository.saveAll(orders);
+        bookEmailService.translationDeclined(
+                orders.stream().map(TranslationOrder::getUser).toList(),
+                orders.getFirst().getBook().getTitle(),
+                language);
         return orders.size();
     }
 
@@ -95,9 +104,23 @@ public class TranslationOrderService {
                 > 0;
     }
 
+    /** The fulfilment notice is shown until the reader opens it once; this is that once. */
+    @Transactional
+    public void markSeen(UUID userId, UUID orderId) {
+        TranslationOrder order = translationOrderRepository
+                .findByIdAndUserId(orderId, userId)
+                .orElseThrow(() -> new EntityNotFoundException("Translation request not found"));
+        if (order.getSeenAt() == null) {
+            order.setSeenAt(Instant.now());
+            translationOrderRepository.save(order);
+        }
+    }
+
     @Transactional
     public TranslationOrderDto createTranslationOrder(User user, UUID bookId, Language language) {
-        if (translationOrderRepository.existsByUserIdAndBookIdAndLanguage(user.getId(), bookId, language)) {
+        Optional<TranslationOrder> existing =
+                translationOrderRepository.findByUserIdAndBookIdAndLanguage(user.getId(), bookId, language);
+        if (existing.isPresent() && existing.get().getStatus() != TranslationOrderStatus.DECLINED) {
             throw new ResourceConflictException("You already asked for this book in this language");
         }
 
@@ -117,7 +140,14 @@ public class TranslationOrderService {
         TranslationRequestQuotaDto quota = quota(user);
         planValidationService.validatePlanFeature(user, MAX_TRANSLATION_REQUESTS_PER_MONTH, quota.used() + 1);
 
-        return bookMapper.toDto(translationOrderRepository.save(new TranslationOrder(user, book, language)));
+        // A declined request may be asked again: the row comes back as a fresh ask, spending this month's slot.
+        TranslationOrder order = existing.orElseGet(() -> new TranslationOrder(user, book, language));
+        order.setStatus(TranslationOrderStatus.ASKED);
+        order.setResolvedAt(null);
+        order.setSeenAt(null);
+        order.setFulfilledBook(null);
+        order.setCreatedAt(Instant.now());
+        return bookMapper.toDto(translationOrderRepository.save(order));
     }
 
     @Transactional(readOnly = true)

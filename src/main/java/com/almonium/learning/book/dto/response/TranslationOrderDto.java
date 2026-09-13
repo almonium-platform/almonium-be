@@ -6,8 +6,9 @@ import java.time.Instant;
 import java.util.UUID;
 
 /**
- * One request in the caller's list. {@code fulfilledBookId} is the published translation
- * to open, and is only set once the request is {@code READY}.
+ * One request in the caller's list. {@code fulfilledBookId} and {@code fulfilledEditionSlug} name the published
+ * translation to open, and are only set once the request is {@code READY}; {@code seenAt} is when the reader first
+ * opened it, so the fulfilment notice knows whether it is still news.
  */
 public record TranslationOrderDto(
         UUID id,
@@ -15,7 +16,10 @@ public record TranslationOrderDto(
         UUID bookId,
         String bookTitle,
         String bookAuthor,
+        String bookEditionSlug,
         Language language,
         TranslationOrderStatus status,
         UUID fulfilledBookId,
-        Instant createdAt) {}
+        String fulfilledEditionSlug,
+        Instant createdAt,
+        Instant seenAt) {}

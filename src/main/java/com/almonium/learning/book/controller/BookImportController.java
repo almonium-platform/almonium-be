@@ -5,6 +5,8 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.learning.book.dto.request.BookImportMetadataRequest;
 import com.almonium.learning.book.dto.response.BookImportDto;
 import com.almonium.learning.book.dto.response.BookImportQuotaDto;
+import com.almonium.learning.book.dto.response.LibrarySuggestionDto;
+import com.almonium.learning.book.service.LibrarySuggestionService;
 import com.almonium.learning.book.service.UserBookImportService;
 import com.almonium.user.core.model.entity.User;
 import jakarta.validation.Valid;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class BookImportController {
     private final UserBookImportService importService;
+    private final LibrarySuggestionService librarySuggestionService;
 
     @PostMapping
     public ResponseEntity<BookImportDto> create(
@@ -66,6 +70,30 @@ public class BookImportController {
     public ResponseEntity<BookImportDto> confirmMetadata(
             @Auth User user, @PathVariable UUID id, @Valid @RequestBody BookImportMetadataRequest request) {
         return ResponseEntity.ok(importService.confirmMetadata(user, id, request));
+    }
+
+    /** Replaces the file behind an import; the details stay and the allowance is not spent again. */
+    @PutMapping("/{id}/file")
+    public ResponseEntity<BookImportDto> replaceFile(
+            @Auth User user, @PathVariable UUID id, @RequestPart("file") MultipartFile file) {
+        return ResponseEntity.ok(importService.replaceFile(user, id, file));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@Auth User user, @PathVariable UUID id) {
+        importService.delete(user, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/suggestion")
+    public ResponseEntity<LibrarySuggestionDto> suggest(@Auth User user, @PathVariable UUID id) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(librarySuggestionService.suggest(user, id));
+    }
+
+    @DeleteMapping("/{id}/suggestion")
+    public ResponseEntity<Void> withdrawSuggestion(@Auth User user, @PathVariable UUID id) {
+        librarySuggestionService.withdraw(user, id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/text")
