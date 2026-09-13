@@ -5,8 +5,11 @@ import com.almonium.learning.book.dto.request.BookWithdrawalRequest;
 import com.almonium.learning.book.dto.response.BookPublicationResponse;
 import com.almonium.learning.book.dto.response.BookWithdrawalResponse;
 import com.almonium.learning.book.service.BookPublicationService;
+import jakarta.validation.Validator;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class BookPublicationController {
     private static final long MAX_SIGNATURE_AGE_SECONDS = 300;
     private final BookPublicationService publicationService;
     private final ObjectMapper objectMapper;
+    private final Validator validator;
 
     @Value("${app.books.publisher-secret}")
     private String publisherSecret;
@@ -38,9 +42,9 @@ public class BookPublicationController {
             @RequestHeader("X-Almonium-Books-Signature") String signature,
             @RequestBody byte[] body) {
         verify(timestamp, signature, body);
+        BookPublicationRequest request = parse(body, BookPublicationRequest.class, "publication");
         try {
-            return ResponseEntity.ok(
-                    publicationService.publish(objectMapper.readValue(body, BookPublicationRequest.class)));
+            return ResponseEntity.ok(publicationService.publish(request));
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid publication request", exception);
         }
@@ -52,12 +56,35 @@ public class BookPublicationController {
             @RequestHeader("X-Almonium-Books-Signature") String signature,
             @RequestBody byte[] body) {
         verify(timestamp, signature, body);
+        BookWithdrawalRequest request = parse(body, BookWithdrawalRequest.class, "withdrawal");
         try {
-            return ResponseEntity.ok(
-                    publicationService.withdraw(objectMapper.readValue(body, BookWithdrawalRequest.class)));
+            return ResponseEntity.ok(publicationService.withdraw(request));
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid withdrawal request", exception);
         }
+    }
+
+    /**
+     * The body is read as raw bytes so the signature covers exactly what was sent, which means
+     * Spring never runs bean validation on it. Run it here so a missing field is reported by
+     * name instead of surfacing later as a database constraint failure.
+     */
+    private <T> T parse(byte[] body, Class<T> type, String what) {
+        T request;
+        try {
+            request = objectMapper.readValue(body, type);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Malformed " + what + " request", exception);
+        }
+        String violations = validator.validate(request).stream()
+                .sorted(Comparator.comparing(
+                        violation -> violation.getPropertyPath().toString()))
+                .map(violation -> violation.getPropertyPath() + " " + violation.getMessage())
+                .collect(Collectors.joining(", "));
+        if (!violations.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid " + what + " request: " + violations);
+        }
+        return request;
     }
 
     private void verify(long timestamp, String signature, byte[] body) {
