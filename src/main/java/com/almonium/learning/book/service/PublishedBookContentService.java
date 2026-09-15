@@ -1,10 +1,12 @@
 package com.almonium.learning.book.service;
 
 import com.almonium.learning.book.model.entity.Book;
+import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.HtmlUtils;
 import tools.jackson.databind.JsonNode;
@@ -65,11 +67,16 @@ public class PublishedBookContentService {
     }
 
     public byte[] parallelTextFor(Book primary, Book secondary) {
-        JsonNode payload = restTemplate.getForObject(
-                processorUrl + "/public/editions/{slug}/parallel/{otherSlug}/",
-                JsonNode.class,
-                primary.getEditionSlug(),
-                secondary.getEditionSlug());
+        JsonNode payload;
+        try {
+            payload = restTemplate.getForObject(
+                    processorUrl + "/public/editions/{slug}/parallel/{otherSlug}/",
+                    JsonNode.class,
+                    primary.getEditionSlug(),
+                    secondary.getEditionSlug());
+        } catch (HttpClientErrorException.NotFound unavailable) {
+            throw new EntityNotFoundException("These editions do not have a published, compatible parallel text");
+        }
         if (payload == null || !payload.path("blocks").isArray()) {
             throw new IllegalStateException("Published editions have no aligned content");
         }
@@ -92,7 +99,8 @@ public class PublishedBookContentService {
                     payload.path("secondary_language").asString(),
                     block.path("primary_text").asString(),
                     block.path("secondary_text").asString(),
-                    chapterTitle);
+                    chapterTitle,
+                    block);
         }
         if (chapter >= 0) html.append("</section>");
         return html.toString().getBytes(StandardCharsets.UTF_8);
@@ -127,15 +135,16 @@ public class PublishedBookContentService {
             String secondaryLanguage,
             String primaryText,
             String secondaryText,
-            String chapterTitle) {
-        String segments = "<span class=\"seg-pair\"><span class=\"segment\" lang=\""
+            String chapterTitle,
+            JsonNode block) {
+        String segments = "<span class=\"seg-pair\"><span class=\"segment\" data-side=\"primary\" lang=\""
                 + HtmlUtils.htmlEscape(primaryLanguage)
                 + "\">"
-                + escapedText(primaryText)
-                + "</span><span class=\"segment\" lang=\""
+                + sentenceText(block, "primary", primaryText)
+                + "</span><span class=\"segment\" data-side=\"secondary\" lang=\""
                 + HtmlUtils.htmlEscape(secondaryLanguage)
                 + "\">"
-                + escapedText(secondaryText)
+                + sentenceText(block, "secondary", secondaryText)
                 + "</span></span>";
         if ("heading".equals(type)) {
             if (!primaryText.equals(chapterTitle)) {
@@ -145,5 +154,48 @@ public class PublishedBookContentService {
             html.append("<blockquote>").append(segments).append("</blockquote>");
         else if ("separator".equals(type)) html.append("<hr>");
         else if (!"image".equals(type)) html.append("<p>").append(segments).append("</p>");
+    }
+
+    private String sentenceText(JsonNode block, String side, String text) {
+        JsonNode sentences = block.path(side + "_sentences");
+        JsonNode groups = block.path("sentence_alignment");
+        if (!sentences.isArray() || !groups.isArray() || groups.isEmpty()) return escapedText(text);
+        StringBuilder html = new StringBuilder();
+        int cursor = 0;
+        int length = text.codePointCount(0, text.length());
+        for (int i = 0; i < sentences.size(); i++) {
+            int start = sentences.get(i).path("start").asInt(-1);
+            int end = sentences.get(i).path("end").asInt(-1);
+            if (start < cursor || end <= start || end > length) return escapedText(text);
+            html.append(escapedText(codePointSlice(text, cursor, start)));
+            int matched = -1;
+            for (int g = 0; g < groups.size(); g++) {
+                JsonNode group = groups.get(g);
+                if (!group.path("certain").asBoolean(false)
+                        || group.path("primary").isEmpty()
+                        || group.path("secondary").isEmpty()) continue;
+                for (JsonNode index : group.path(side)) {
+                    if (index.asInt(-1) == i) matched = g;
+                }
+            }
+            if (matched >= 0) {
+                html.append("<span class=\"aligned-sentence\" role=\"button\" tabindex=\"0\" data-alignment=\"")
+                        .append(block.path("chapter").asInt())
+                        .append('-')
+                        .append(block.path("sequence").asInt())
+                        .append('-')
+                        .append(matched)
+                        .append("\">");
+            }
+            html.append(escapedText(codePointSlice(text, start, end)));
+            if (matched >= 0) html.append("</span>");
+            cursor = end;
+        }
+        html.append(escapedText(codePointSlice(text, cursor, length)));
+        return html.toString();
+    }
+
+    private String codePointSlice(String text, int start, int end) {
+        return text.substring(text.offsetByCodePoints(0, start), text.offsetByCodePoints(0, end));
     }
 }

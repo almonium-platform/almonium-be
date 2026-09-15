@@ -48,7 +48,9 @@ public class BookPublicationService {
             book.setOriginalBook(null);
         }
         Book saved = bookRepository.save(book);
-        if (saved.getOriginalBook() != null) {
+        if (saved.getOriginalBook() != null
+                && ("machine_translation".equals(saved.getEditionType())
+                        || "human_translation".equals(saved.getEditionType()))) {
             translationOrderService.publishTranslation(saved);
             translationJobService.settlePublished(saved);
         }

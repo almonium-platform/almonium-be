@@ -9,4 +9,10 @@ public interface BookMiniProjection {
     String getEditionSlug();
 
     Language getLanguage();
+
+    String getEditionType();
+
+    String getCefrLevel();
+
+    String getSourceEditionSlug();
 }

@@ -47,4 +47,10 @@ public class BookOpenController {
     public ResponseEntity<byte[]> getParallelText(@PathVariable String editionSlug, @PathVariable Language language) {
         return ResponseEntity.ok(bookService.getPublicParallelBook(editionSlug, language));
     }
+
+    @GetMapping("/{editionSlug}/parallel-edition/{companionSlug}")
+    public ResponseEntity<byte[]> getParallelEdition(
+            @PathVariable String editionSlug, @PathVariable String companionSlug) {
+        return ResponseEntity.ok(bookService.getPublicParallelEdition(editionSlug, companionSlug));
+    }
 }

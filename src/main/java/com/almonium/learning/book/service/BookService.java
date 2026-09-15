@@ -78,7 +78,7 @@ public class BookService {
                 null,
                 hasVariant,
                 hasVariant,
-                book.getOriginalBook() != null);
+                isTranslation(book));
     }
 
     public BookDetails getPublicBook(String editionSlug) {
@@ -97,7 +97,7 @@ public class BookService {
         details.setWordCount(book.getWordCount());
         details.setLanguage(book.getLanguage());
         details.setCefrLevel(book.getCefrLevel());
-        details.setIsTranslation(book.getOriginalBook() != null);
+        details.setIsTranslation(isTranslation(book));
         details.setHasTranslation(variants.size() > 1);
         details.setHasParallelTranslation(variants.size() > 1);
         details.setLanguageVariants(variants);
@@ -125,6 +125,20 @@ public class BookService {
             throw new BadUserRequestActionException("This book is already in this language");
         }
         return publishedBookContentService.parallelTextFor(primary, secondary);
+    }
+
+    public byte[] getPublicParallelEdition(String editionSlug, String companionSlug) {
+        Book primary = getBookBySlug(editionSlug);
+        Book secondary = getBookBySlug(companionSlug);
+        if (primary.getId().equals(secondary.getId()) || !primary.getWorkSlug().equals(secondary.getWorkSlug())) {
+            throw new BadUserRequestActionException("Choose a different edition of the same work");
+        }
+        // The processor remains authoritative for actual pair compatibility.
+        return publishedBookContentService.parallelTextFor(primary, secondary);
+    }
+
+    private boolean isTranslation(Book book) {
+        return "machine_translation".equals(book.getEditionType()) || "human_translation".equals(book.getEditionType());
     }
 
     private Book getBookBySlug(String editionSlug) {

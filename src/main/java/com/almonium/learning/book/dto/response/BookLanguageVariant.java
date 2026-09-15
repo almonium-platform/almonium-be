@@ -16,4 +16,13 @@ public class BookLanguageVariant {
     UUID id;
     String editionSlug;
     Language language;
+    String editionType;
+    String cefrLevel;
+    String sourceEditionSlug;
+
+    public BookLanguageVariant(UUID id, String editionSlug, Language language) {
+        this.id = id;
+        this.editionSlug = editionSlug;
+        this.language = language;
+    }
 }

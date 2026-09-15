@@ -149,14 +149,13 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     Optional<BookDetailsProjection> findBookDtoById(UUID bookId, UUID learnerId, Collection<Language> fluentLanguages);
 
     @Query("""
-            select b.id as id, b.editionSlug as editionSlug, b.language as language
+            select b.id as id, b.editionSlug as editionSlug, b.language as language,
+                   b.editionType as editionType, cast(b.cefrLevel as string) as cefrLevel,
+                   source.editionSlug as sourceEditionSlug
             from Book b
-            where b.id = :bookId
-               or (b.originalBook is not null and b.originalBook.id = :bookId)
-               or (b.originalBook is null and exists (
-                    select 1 from Book t
-                    where t.originalBook.id = b.id and t.id = :bookId
-                  ))
+            left join b.originalBook source
+            where b.workSlug = (select selected.workSlug from Book selected where selected.id = :bookId)
+            order by b.language, b.cefrLevel, b.editionSlug
         """)
     List<BookMiniProjection> findAvailableLanguagesForBook(UUID bookId);
 }

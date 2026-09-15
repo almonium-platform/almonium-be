@@ -54,4 +54,41 @@ class PublishedBookContentServiceTest {
                         "<section class=\"chapter\"><h2 class=\"chapter-title\" id=\"chapter-1\">One &amp; &lt;Two&gt;</h2>"
                                 + "<p>Stored text.</p></section>");
     }
+
+    @Test
+    void preservesSameLanguageSidesManyToOneSentencesAndUnicodeOffsets() {
+        JsonNode payload = objectMapper.readTree("""
+                {"primary_language":"en","secondary_language":"en","blocks":[{
+                "chapter":11,"chapter_title":"V","sequence":2,"block_type":"paragraph",
+                "primary_text":"😀 Rain. Light.","secondary_text":"Rain and light.",
+                "primary_sentences":[{"start":0,"end":7},{"start":8,"end":14}],
+                "secondary_sentences":[{"start":0,"end":15}],
+                "sentence_alignment":[{"primary":[0,1],"secondary":[0],"certain":true}]}]}
+                """);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                .thenReturn(payload);
+        Book primary = new Book();
+        primary.setEditionSlug("adapted");
+        Book secondary = new Book();
+        secondary.setEditionSlug("original");
+        String html = new String(service.parallelTextFor(primary, secondary), StandardCharsets.UTF_8);
+        assertThat(html).contains("data-side=\"primary\"", "data-side=\"secondary\"", "😀 Rain.", "Light.");
+        assertThat(html.split("data-alignment=\"11-2-0\"", -1)).hasSize(4);
+    }
+
+    @Test
+    void uncertainOrInvalidSentenceSpansFallBackToParagraphText() {
+        JsonNode payload = objectMapper.readTree("""
+                {"primary_language":"en","secondary_language":"uk","blocks":[{
+                "chapter":1,"sequence":1,"block_type":"paragraph",
+                "primary_text":"<script>","secondary_text":"Other.",
+                "primary_sentences":[{"start":0,"end":999}],
+                "secondary_sentences":[{"start":0,"end":6}],
+                "sentence_alignment":[{"primary":[0],"secondary":[0],"certain":false}]}]}
+                """);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                .thenReturn(payload);
+        String html = new String(service.parallelTextFor(new Book(), new Book()), StandardCharsets.UTF_8);
+        assertThat(html).contains("&lt;script&gt;", "Other.").doesNotContain("data-alignment", "<script>");
+    }
 }
