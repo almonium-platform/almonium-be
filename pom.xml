@@ -28,7 +28,7 @@
         <version.findsecbugs>1.14.0</version.findsecbugs>
         <version.fsrs>1.0.0</version.fsrs>
         <java.version>25</java.version>
-        <version.kotlin>2.4.10</version.kotlin>
+        <version.kotlin>2.4.20</version.kotlin>
         <version.lombok>1.18.48</version.lombok>
         <version.mapstruct-lombok-binding>0.2.0</version.mapstruct-lombok-binding>
         <version.mapstruct>1.6.3</version.mapstruct>
