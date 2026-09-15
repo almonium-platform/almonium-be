@@ -27,6 +27,7 @@ import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.LastSeenRecorder;
 import com.almonium.user.core.service.ProfileInfoService;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.RelationshipActionsFacade;
@@ -83,6 +84,9 @@ class ObjectAuthorizationIntegrationTest {
 
     @MockitoBean
     ProfileService profileService;
+
+    @MockitoBean
+    LastSeenRecorder lastSeenRecorder;
 
     @MockitoBean
     ProfileInfoService profileInfoService;

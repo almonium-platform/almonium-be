@@ -30,6 +30,7 @@ import com.almonium.user.core.factory.UserRegistrationService;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
+import com.almonium.user.core.service.LastSeenRecorder;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.util.config.TestConfig;
@@ -82,6 +83,9 @@ class FirebaseSecurityIntegrationTest {
 
     @MockitoBean
     ProfileService profileService;
+
+    @MockitoBean
+    LastSeenRecorder lastSeenRecorder;
 
     @MockitoBean
     UserService userService;
