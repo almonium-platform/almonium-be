@@ -1,8 +1,16 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<body>
-<div class="footer">
-    <p th:text="${footerText}"></p>
-</div>
-</body>
-</html>
+<table xmlns:th="http://www.thymeleaf.org" role="presentation" class="footer" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2C2530">
+    <tr>
+        <td class="footer-cell" align="center" bgcolor="#2C2530">
+            <p class="footer-brand">Almonium &middot; a place of nourishment</p>
+            <!-- Only social sends are unsubscribable. Auth and billing mail carry nothing to opt out of;
+                 every send still points at Settings, which is where a switch lives when there is one. -->
+            <p class="footer-links">
+                <th:block th:if="${unsubscribe}">
+                    <a th:href="${unsubscribeUrl}" class="footer-link">Unsubscribe</a>
+                    <span class="footer-separator">&middot;</span>
+                </th:block>
+                <a th:href="${settingsUrl}" class="footer-link">Settings</a>
+            </p>
+        </td>
+    </tr>
+</table>

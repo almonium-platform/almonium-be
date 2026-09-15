@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: populate-initial-plans-staging
       author: almoni
-      context: staging, test
+      context: local, staging, test
       changes:
         - loadData:
             tableName: plan

@@ -10,9 +10,14 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Service
 public class FriendshipEmailComposerService extends EmailComposerService<FriendshipEvent> {
+    /** Subjects name the counterpart; {@code %s} is their username. The product word is connection, never friendship. */
     private static final Map<FriendshipEvent, EmailSubjectTemplate> TYPE_EMAIL_SUBJECT_TEMPLATE_MAP = Map.of(
-            FriendshipEvent.INITIATED, new EmailSubjectTemplate("You've Got a New Friendship Request!", "initiated"),
-            FriendshipEvent.ACCEPTED, new EmailSubjectTemplate("Your Friendship Request Was Accepted!", "accepted"));
+            FriendshipEvent.INITIATED,
+            new EmailSubjectTemplate(
+                    "@%s wants to connect",
+                    "Accept, ignore, or hide your profile. Ignoring sends no notification.", "initiated"),
+            FriendshipEvent.ACCEPTED,
+            new EmailSubjectTemplate("@%s accepted your request", "Their profile is open to you now.", "accepted"));
 
     public static final String COUNTERPART_USERNAME = "counterpartUsername";
     private static final String BUTTON_URL_PLACEHOLDER = "url";
@@ -33,9 +38,19 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
     public Map<String, String> getCustomPlaceholders(EmailContext<FriendshipEvent> emailContext) {
         return Map.of(
                 BUTTON_URL_PLACEHOLDER,
-                getButtonUrl(emailContext.templateType()),
+                getButtonUrl(emailContext.getValue(COUNTERPART_USERNAME)),
                 COUNTERPART_USERNAME,
                 emailContext.getValue(COUNTERPART_USERNAME));
+    }
+
+    @Override
+    protected String buildSubject(EmailSubjectTemplate template, EmailContext<FriendshipEvent> emailContext) {
+        return String.format(template.subject(), emailContext.getValue(COUNTERPART_USERNAME));
+    }
+
+    @Override
+    protected boolean includesUnsubscribe() {
+        return true;
     }
 
     @Override
@@ -43,12 +58,7 @@ public class FriendshipEmailComposerService extends EmailComposerService<Friends
         return SUBFOLDER;
     }
 
-    private String getButtonUrl(FriendshipEvent event) {
-        String url =
-                switch (event) {
-                    case INITIATED -> "/social?requests=received";
-                    case ACCEPTED -> "/social?tab=friends";
-                };
-        return buildActionUrl(url);
+    private String getButtonUrl(String counterpartUsername) {
+        return buildActionUrl("/users/" + counterpartUsername);
     }
 }

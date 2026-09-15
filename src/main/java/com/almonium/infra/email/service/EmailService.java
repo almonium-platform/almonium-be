@@ -6,6 +6,7 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.util.HtmlFileWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EmailService {
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate;
     HtmlFileWriter htmlFileWriter;
     AppProperties appProperties;
 
@@ -50,20 +51,24 @@ public class EmailService {
 
             log.debug("ZeptoMail response: {}", response.getBody());
         } catch (RestClientException e) {
-            log.error("Failed to send email to {}: {}", emailDto.recipient(), e.getMessage());
-            throw new EmailConfigurationException("Failed to send email: " + e.getMessage(), e);
+            log.error("Email provider request failed for recipient {}", emailDto.recipient(), e);
+            throw new EmailConfigurationException("Email provider is temporarily unavailable", e);
         }
     }
 
-    private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
-        Map<String, Object> body = Map.of(
+    private @NonNull HttpEntity<Map<String, Object>> getMapHttpEntity(
+            EmailDto emailDto, AppProperties.Email emailProps, HttpHeaders headers) {
+        Map<String, Object> body = new HashMap<>(Map.of(
                 "from",
                         Map.of(
                                 "address", emailProps.getFromAddress(),
                                 "name", emailProps.getFromName()),
                 "to", List.of(Map.of("email_address", Map.of("address", emailDto.recipient()))),
                 "subject", emailDto.subject(),
-                "htmlbody", emailDto.body());
+                "htmlbody", emailDto.body()));
+        if (emailDto.textBody() != null && !emailDto.textBody().isBlank()) {
+            body.put("textbody", emailDto.textBody());
+        }
 
         return new HttpEntity<>(body, headers);
     }

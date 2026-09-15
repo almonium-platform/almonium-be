@@ -47,11 +47,24 @@ public class PlanSubscription {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    String stripeSubscriptionId;
+    String paddleSubscriptionId;
+
+    /**
+     * The cadence this subscription moves to at the end of the current period, and when. Paddle has no scheduled plan
+     * change: a downgrade swaps the item immediately and only defers the billing, so without this pair a member would
+     * be shown monthly pricing the moment they scheduled it, having already paid through the year.
+     */
+    @ManyToOne
+    @JoinColumn(name = "scheduled_plan_id")
+    Plan scheduledPlan;
+
+    Instant scheduledChangeAt;
 
     Instant startDate;
 
     Instant endDate;
+
+    Instant latestPaddleEventOccurredAt;
 
     @LastModifiedDate
     Instant updatedAt;
@@ -63,6 +76,7 @@ public class PlanSubscription {
         ACTIVE, // premium plan active and not canceled
         ACTIVE_TILL_CYCLE_END, // premium plan active but canceled by user
         CANCELED, // premium plan canceled by user, plan expired
+        PAUSED, // premium plan paused in Paddle; free-plan access is active locally
         INACTIVE, // lifetime plan is inactive
     }
 
@@ -72,6 +86,7 @@ public class PlanSubscription {
         CANCELED, // premium plan canceled by user, plan is still active till the end of the billing cycle
         ENDED, // plan expired
         RENEWED,
+        REACTIVATED,
         PAYMENT_FAILED,
     }
 }

@@ -44,7 +44,7 @@ public class LangPairTranslatorMapping {
     Long translatorId;
 
     @ManyToOne
-    @JoinColumn(name = "translator_id", referencedColumnName = "id")
+    @JoinColumn(name = "translator_id", referencedColumnName = "id", insertable = false, updatable = false)
     Translator translator;
 
     int priority;

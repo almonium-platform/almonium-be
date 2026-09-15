@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260914-add-book-email-notifications
+      author: claude
+      comment: >-
+        G8a. One switch for the reading mails and pushes, beside the social one; the bell row is governed by
+        neither. A book notification also carries the path its row opens and the title its cover tile shows,
+        because the row has no sender to draw a face from.
+      changes:
+        - addColumn:
+            tableName: profile
+            columns:
+              - column:
+                  name: book_email_notifications
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: notification
+            columns:
+              - column:
+                  name: action_path
+                  type: varchar(500)
+              - column:
+                  name: context_title
+                  type: varchar(500)
+      rollback:
+        - dropColumn:
+            tableName: profile
+            columnName: book_email_notifications
+        - dropColumn:
+            tableName: notification
+            columnName: action_path
+        - dropColumn:
+            tableName: notification
+            columnName: context_title

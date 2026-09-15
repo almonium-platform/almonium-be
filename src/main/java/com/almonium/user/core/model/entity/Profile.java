@@ -2,16 +2,17 @@ package com.almonium.user.core.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import jakarta.persistence.CascadeType;
+import com.almonium.analyzer.translator.model.enums.Language;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -44,18 +45,43 @@ public class Profile {
     @JoinColumn(name = "id")
     User user;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Avatar> avatars;
-
     String avatarUrl;
 
     boolean hidden;
 
+    /**
+     * Whether the two connection emails (request received, request accepted) are sent. The in-app bell and push
+     * notifications do not read this; a member who turns it off still sees the request in the product.
+     */
+    @Builder.Default
+    boolean socialEmailNotifications = true;
+
+    /**
+     * Whether the reading mails and pushes are sent: a translation you asked for, or a book you suggested, is ready.
+     * One switch covers email and push together; the bell row is governed by neither.
+     */
+    @Builder.Default
+    boolean bookEmailNotifications = true;
+
+    /** When the browser last created a session. Says when someone signed in, not whether they use the product. */
     @CreatedDate
     LocalDateTime lastLogin;
 
-    @Builder.Default // todo: rename to loginStreak
-    int streak = 0;
+    /**
+     * When the account last made an authenticated request, by cookie or bearer token. Stamped by the authentication
+     * filter a few minutes apart at most, so it costs one update per user per window rather than one per request.
+     */
+    Instant lastSeenAt;
+
+    /**
+     * When the account last swapped which language is active. The downgrade pick does not stamp this: choosing what
+     * to keep is not the same as spending a switch.
+     */
+    Instant lastActiveSwitchAt;
+
+    /** Which language the user asked to keep when the plan ends. Consumed and cleared the moment it is honoured. */
+    @Enumerated(EnumType.STRING)
+    Language downgradeKeepLanguage;
 
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> uiPreferences;

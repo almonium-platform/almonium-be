@@ -23,7 +23,10 @@ public class NotificationDto {
     String message;
     String pictureUrl;
     UUID referenceId;
+    String actionPath;
+    String contextTitle;
     UUID senderId;
+    String senderUsername;
     Instant createdAt;
     Instant readAt;
 }

@@ -3,8 +3,8 @@ name: Deploy to Production
 on:
   workflow_dispatch:
     inputs:
-      image_tag:
-        description: 'OPTIONAL: Specify an existing image tag to re-deploy.'
+      image_digest:
+        description: 'OPTIONAL: Promote or re-deploy an existing immutable image digest.'
         required: false
 
 permissions:
@@ -17,5 +17,5 @@ jobs:
     with:
       environment_name: prod
       source_branch: main
-      image_tag: ${{ inputs.image_tag }}
+      image_digest: ${{ inputs.image_digest }}
     secrets: inherit

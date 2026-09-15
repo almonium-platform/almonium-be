@@ -17,8 +17,15 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface BookMapper {
     @Mapping(target = "bookId", source = "book.id")
+    @Mapping(target = "bookTitle", source = "book.title")
+    @Mapping(target = "bookAuthor", source = "book.author")
     @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "bookEditionSlug", source = "book.editionSlug")
+    @Mapping(target = "fulfilledBookId", source = "fulfilledBook.id")
+    @Mapping(target = "fulfilledEditionSlug", source = "fulfilledBook.editionSlug")
     TranslationOrderDto toDto(TranslationOrder order);
+
+    List<TranslationOrderDto> toOrderDtos(List<TranslationOrder> orders);
 
     @Mapping(target = "hasTranslation", ignore = true)
     @Mapping(target = "hasParallelTranslation", ignore = true)
@@ -33,19 +40,14 @@ public interface BookMapper {
     List<BookLanguageVariant> toMiniDto(List<BookMiniProjection> projection);
 
     @Mapping(target = "languageVariants", ignore = true)
-    @Mapping(target = "orderLanguage", ignore = true)
     @Mapping(target = "favorite", ignore = true)
     BookDetails toDetailsDto(BookDetailsProjection book);
 
     // New method that handles languages too
     default BookDetails toDetailsDto(
-            BookDetailsProjection book,
-            List<BookLanguageVariant> languageVariants,
-            Optional<TranslationOrder> orderLanguage,
-            Optional<BookFavorite> favorite) {
+            BookDetailsProjection book, List<BookLanguageVariant> languageVariants, Optional<BookFavorite> favorite) {
         BookDetails details = toDetailsDto(book);
         details.setLanguageVariants(languageVariants);
-        orderLanguage.ifPresent(order -> details.setOrderLanguage(order.getLanguage()));
         favorite.ifPresent(fav -> details.setFavorite(true));
         return details;
     }

@@ -41,8 +41,9 @@ public class Notification {
     @JoinColumn(name = "recipient_id", nullable = false)
     User recipient;
 
+    /** Null for a notification the product sends about itself: a book, not a person. */
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
+    @JoinColumn(name = "sender_id")
     User sender;
 
     String title;
@@ -55,6 +56,12 @@ public class Notification {
     String pictureUrl;
 
     UUID referenceId;
+
+    /** The in-app path the row opens; null when the type decides for itself. */
+    String actionPath;
+
+    /** The title the row's tile shows when there is no sender to draw a face from. */
+    String contextTitle;
 
     Instant readAt;
 

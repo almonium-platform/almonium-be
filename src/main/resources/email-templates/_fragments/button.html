@@ -1,0 +1,34 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="button(href, label, width, premium)" class="button-p">
+    <!--/*
+      Outlook for Windows lays out with Word, which ignores border-radius: the pill arrives as a
+      square block. VML is Outlook's own vector markup and draws the shape for that client alone,
+      inside a conditional comment no other client reads. It cannot measure text, so it takes the
+      width in pixels - the rendered width of this label in bold 16px Georgia, rounded up.
+
+      The conditional markers go through th:utext because Thymeleaf does not process attributes
+      inside a comment; written literally, th:href would never resolve. Jsoup keeps each of them
+      whole, so CssInliner leaves the VML alone and it carries its own inline styles.
+    */-->
+    <th:block th:utext="'&lt;!--[if mso]&gt;'"></th:block>
+    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
+                 xmlns:w="urn:schemas-microsoft-com:office:word"
+                 th:href="${href}"
+                 th:style="'height:54px;v-text-anchor:middle;width:' + ${width} + 'px;'"
+                 arcsize="50%" stroke="f" fillcolor="#5A1A74">
+        <w:anchorlock></w:anchorlock>
+        <center th:text="${label}"
+                style="color:#ffffff;font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:bold;">Label</center>
+    </v:roundrect>
+    <th:block th:utext="'&lt;![endif]--&gt;'"></th:block>
+
+    <!--/* Every other client keeps the real pill; only Outlook is sent to the VML above. */-->
+    <th:block th:utext="'&lt;!--[if !mso]&gt;&lt;!--&gt;'"></th:block>
+    <table role="presentation" class="button-table" cellpadding="0" cellspacing="0" border="0" align="center">
+        <tr>
+            <td th:class="${premium} ? 'premium-cell' : 'button-cell'" bgcolor="#5A1A74" align="center">
+                <a th:href="${href}" th:class="${premium} ? 'premium-btn' : 'button'" th:text="${label}">Label</a>
+            </td>
+        </tr>
+    </table>
+    <th:block th:utext="'&lt;!--&lt;![endif]--&gt;'"></th:block>
+</div>

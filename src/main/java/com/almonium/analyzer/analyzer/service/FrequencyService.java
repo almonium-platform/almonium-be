@@ -14,7 +14,10 @@ public class FrequencyService {
     private static final int EXPONENT = 9;
     private static final double FREQUENCY_THRESHOLD = Math.pow(10, -EXPONENT);
     private static final double ENGLISH_SCALE = 12.78990589161462;
-    private static final Map<Language, Double> languageScale = Map.of(Language.EN, ENGLISH_SCALE);
+    private static final Map<Language, Double> languageScale = Map.of(
+            Language.EN, ENGLISH_SCALE,
+            Language.DE, 11.3,
+            Language.RU, 10.5);
     private final NgramsAdapter ngramsAdapter;
 
     public Optional<Integer> getFrequency(Language language, String input) {

@@ -27,8 +27,7 @@ public class RabbitMQProperties {
     Exchange exchange = new Exchange();
 
     @NotNull
-    @Valid
-    Map<String, QueueDetails> queue;
+    Map<String, @Valid QueueDetails> queue;
 
     @Getter
     @Setter

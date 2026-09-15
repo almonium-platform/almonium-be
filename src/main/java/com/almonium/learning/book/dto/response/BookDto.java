@@ -2,19 +2,21 @@ package com.almonium.learning.book.dto.response;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
+import java.util.UUID;
 
 public record BookDto(
-        Long id,
+        UUID id,
+        String editionSlug,
+        String workSlug,
         String title,
         String author,
+        String description,
         Integer publicationYear,
-        String coverImageUrl,
+        String coverUrl,
         Integer wordCount,
-        Double rating,
         Language language,
-        CEFR levelFrom,
-        CEFR levelTo,
+        CEFR cefrLevel,
         Integer progressPercentage,
-        Boolean hasTranslation,
-        Boolean hasParallelTranslation,
-        Boolean isTranslation) {}
+        boolean hasTranslation,
+        boolean hasParallelTranslation,
+        boolean isTranslation) {}

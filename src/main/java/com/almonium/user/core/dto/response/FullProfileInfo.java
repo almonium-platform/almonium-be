@@ -20,7 +20,6 @@ public class FullProfileInfo extends BaseProfileInfo {
     Collection<Language> fluentLangs;
     Collection<TargetLanguageWithProficiency> targetLangs;
     Collection<String> interests;
-    int loginStreak;
 
     public FullProfileInfo(BaseProfileInfo baseProfileInfo) {
         super(

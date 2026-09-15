@@ -31,36 +31,36 @@ public class BookController {
 
     @GetMapping("/{bookId}/language/{language}")
     public ResponseEntity<BookDetails> getMyBook(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+            @Auth User user, @PathVariable Language language, @PathVariable UUID bookId) {
         return ResponseEntity.ok(bookService.getBookById(user, language, bookId));
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<BookMiniDetails> getBookInfo(@Auth UUID userId, @PathVariable Long bookId) {
+    public ResponseEntity<BookMiniDetails> getBookInfo(@Auth UUID userId, @PathVariable UUID bookId) {
         return ResponseEntity.ok(bookService.getBookById(userId, bookId));
     }
 
     @GetMapping("/{bookId}/parallel/{language}")
     public ResponseEntity<byte[]> getParallelBook(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+            @Auth User user, @PathVariable Language language, @PathVariable UUID bookId) {
         return ResponseEntity.ok(bookService.getParallelBook(user, language, bookId));
     }
 
     @GetMapping("/{bookId}/text")
-    public ResponseEntity<byte[]> getText(@Auth User user, @PathVariable Long bookId) {
+    public ResponseEntity<byte[]> getText(@Auth User user, @PathVariable UUID bookId) {
         return ResponseEntity.ok(bookService.getText(user, bookId));
     }
 
     @PostMapping("/{bookId}/language/{language}/favorite")
     public ResponseEntity<?> addToFavorites(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+            @Auth User user, @PathVariable Language language, @PathVariable UUID bookId) {
         bookService.addToFavorites(user, bookId, language);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{bookId}/language/{language}/favorite")
     public ResponseEntity<Void> deleteFromFavorites(
-            @Auth User user, @PathVariable Language language, @PathVariable Long bookId) {
+            @Auth User user, @PathVariable Language language, @PathVariable UUID bookId) {
         boolean deleted = bookService.deleteFromFavorites(user, bookId, language);
         if (deleted) {
             return ResponseEntity.noContent().build();
@@ -77,7 +77,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}/progress")
-    public ResponseEntity<?> deleteBookProgress(@Auth User user, @PathVariable Long bookId) {
+    public ResponseEntity<?> deleteBookProgress(@Auth User user, @PathVariable UUID bookId) {
         boolean success = bookService.deleteBookProgress(user, bookId);
         if (success) {
             return ResponseEntity.noContent().build();
@@ -87,7 +87,7 @@ public class BookController {
 
     @PostMapping("/{bookId}/progress")
     public ResponseEntity<?> saveBookProgress(
-            @Auth User user, @PathVariable Long bookId, @RequestParam int percentage) {
+            @Auth User user, @PathVariable UUID bookId, @RequestParam int percentage) {
         bookService.saveBookProgress(user, bookId, percentage);
         return ResponseEntity.noContent().build();
     }

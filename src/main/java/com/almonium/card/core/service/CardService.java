@@ -8,21 +8,24 @@ import com.almonium.card.core.dto.request.CardCreationDto;
 import com.almonium.card.core.dto.request.CardUpdateDto;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
-import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.CardTag;
 import com.almonium.card.core.model.entity.Example;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.core.model.entity.Tag;
 import com.almonium.card.core.model.entity.Translation;
 import com.almonium.card.core.model.entity.pk.CardTagPK;
-import com.almonium.card.core.repository.CardRepository;
+import com.almonium.card.core.model.enums.LearningIntent;
+import com.almonium.card.core.model.enums.LearningItemType;
 import com.almonium.card.core.repository.CardTagRepository;
 import com.almonium.card.core.repository.ExampleRepository;
+import com.almonium.card.core.repository.LearningItemRepository;
 import com.almonium.card.core.repository.TagRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.google.common.collect.Sets;
+import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CardService {
     LearnerFinder learnerFinder;
 
-    CardRepository cardRepository;
+    LearningItemRepository learningItemRepository;
     CardTagRepository cardTagRepository;
     TagRepository tagRepository;
     ExampleRepository exampleRepository;
@@ -55,18 +58,22 @@ public class CardService {
 
     CardMapper cardMapper;
 
-    public CardDto getCardById(UUID id) {
-        return cardMapper.cardEntityToDto(cardRepository.findById(id).orElseThrow());
+    public CardDto getCardById(User user, UUID id) {
+        return cardMapper.cardEntityToDto(findOwnedCard(user, id));
     }
 
     public CardDto getCardByPublicId(String hash) {
-        Card card = cardRepository.getByPublicId(UUID.fromString(hash)).orElseThrow();
-        return cardMapper.cardEntityToDto(card);
+        LearningItem card =
+                learningItemRepository.getByPublicId(UUID.fromString(hash)).orElseThrow();
+        CardDto dto = cardMapper.cardEntityToDto(card);
+        dto.setSourceContext(null);
+        dto.setLearningIntents(Set.of());
+        return dto;
     }
 
     public List<CardDto> getUsersCardsOfLang(User user, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
-        return cardRepository.findAllByOwner(learner).stream()
+        return learningItemRepository.findAllByOwner(learner).stream()
                 .map(cardMapper::cardEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -75,7 +82,7 @@ public class CardService {
     public List<CardDto> searchByEntry(String entry, Language language, User user) {
         Learner learner = learnerFinder.findLearner(user, language);
 
-        return cardRepository
+        return learningItemRepository
                 .findAllByOwnerAndEntryLikeIgnoreCase(
                         learner, '%' + entry.trim().toLowerCase() + '%')
                 .stream()
@@ -84,45 +91,65 @@ public class CardService {
     }
 
     @Transactional
-    public void createCard(User user, CardCreationDto dto) {
+    public CardDto createCard(User user, CardCreationDto dto) {
         Language language = dto.getLanguage();
-        Learner learner = learnerFinder.findLearner(user, language);
-        Card card = initializeCard(learner, dto);
+        Learner learner = learnerFinder.findActiveLearner(user, language);
+        LearningItem card = initializeCard(learner, dto);
         List<CardTag> cardTags = createCardTags(card, dto.getTags());
         saveEntities(card, card.getTranslations(), card.getExamples(), cardTags, learner);
         log.info("Created card {} for user {}", card, learner);
+        return cardMapper.cardEntityToDto(card);
     }
 
     @Transactional
     public void updateCard(User user, CardUpdateDto dto) {
         Language language = dto.getLanguage();
         Learner learner = learnerFinder.findLearner(user, language);
-        Card entity = cardRepository.findById(dto.getId()).orElseThrow();
+        LearningItem entity = findOwnedCard(user, dto.getId());
         updateCardDetails(entity, dto);
         updateTags(entity, dto.getTags(), learner);
         entity.setUpdatedAt(Instant.now());
-        cardRepository.save(entity);
+        learningItemRepository.save(entity);
     }
 
     @Transactional
-    public void deleteById(UUID id) {
-        cardRepository.deleteById(id);
+    public void deleteById(User user, UUID id) {
+        learningItemRepository.delete(findOwnedCard(user, id));
     }
 
     public void deleteByLanguage(Language code, Learner learner) {
-        cardRepository.deleteAllByOwnerAndLanguage(learner, code);
+        learningItemRepository.deleteAllByOwnerAndLanguage(learner, code);
     }
 
-    private Card initializeCard(Learner learner, CardCreationDto dto) {
-        Card card = cardMapper.cardDtoToEntity(dto);
+    private LearningItem initializeCard(Learner learner, CardCreationDto dto) {
+        LearningItem card = cardMapper.cardDtoToEntity(dto);
+        if (card.getExamples() == null) {
+            card.setExamples(new ArrayList<>());
+        }
         card.setCreatedAt(Instant.now());
         card.setUpdatedAt(Instant.now());
-        learner.addCard(card);
+        card.setNormalizedForm(normalize(card.getEntry()));
+        if (card.getItemType() == null) {
+            card.setItemType(LearningItemType.WORD);
+        }
+        if (card.getLearningIntents() == null || card.getLearningIntents().isEmpty()) {
+            card.setLearningIntents(new HashSet<>(Set.of(LearningIntent.UNDERSTAND)));
+        }
+        card.setDueAt(Instant.now());
+        learner.addLearningItem(card);
+        if (learner.getUser() != null) {
+            card.setLegacyOwnerId(learner.getUser().getId());
+        }
+        card.getTranslations().forEach(translation -> translation.setCard(card));
+        card.getExamples().forEach(example -> example.setCard(card));
         return card;
     }
 
-    private List<CardTag> createCardTags(Card card, TagDto[] tagDtos) {
+    private List<CardTag> createCardTags(LearningItem card, TagDto[] tagDtos) {
         List<CardTag> cardTags = new ArrayList<>();
+        if (tagDtos == null) {
+            return cardTags;
+        }
         for (TagDto tagDto : tagDtos) {
             CardTag cardTag = new CardTag();
             cardTag.setCard(card);
@@ -142,33 +169,38 @@ public class CardService {
     }
 
     private void saveEntities(
-            Card card,
+            LearningItem card,
             List<Translation> translations,
             List<Example> examples,
             List<CardTag> cardTags,
             Learner learner) {
-        cardRepository.save(card);
+        learningItemRepository.save(card);
         translationRepository.saveAll(translations);
         exampleRepository.saveAll(examples);
         cardTagRepository.saveAll(cardTags);
         learnerRepository.save(learner);
     }
 
-    private void updateCardDetails(Card entity, CardUpdateDto dto) {
+    private void updateCardDetails(LearningItem entity, CardUpdateDto dto) {
         cardMapper.update(dto, entity);
+        if (dto.getEntry() != null) {
+            entity.setNormalizedForm(normalize(dto.getEntry()));
+        }
 
         Optional.ofNullable(dto.getDeletedTranslationsIds())
-                .ifPresent(ids -> Arrays.stream(ids).forEach(translationRepository::deleteById));
+                .ifPresent(ids -> Arrays.stream(ids)
+                        .map(id -> findTranslation(entity, id))
+                        .forEach(translationRepository::delete));
 
         Optional.ofNullable(dto.getDeletedExamplesIds())
-                .ifPresent(ids -> Arrays.stream(ids).forEach(exampleRepository::deleteById));
+                .ifPresent(ids ->
+                        Arrays.stream(ids).map(id -> findExample(entity, id)).forEach(exampleRepository::delete));
 
         Optional.ofNullable(dto.getTranslations())
                 .ifPresent(ids -> Arrays.stream(ids).forEach(translationDto -> {
                     UUID id = translationDto.getId();
                     if (id != null) {
-                        Translation translation =
-                                translationRepository.findById(id).orElseThrow();
+                        Translation translation = findTranslation(entity, id);
                         translation.setTranslation(translationDto.getTranslation());
                         translationRepository.save(translation);
                     } else {
@@ -183,7 +215,7 @@ public class CardService {
                 .ifPresent(ids -> Arrays.stream(ids).forEach(exampleDto -> {
                     UUID id = exampleDto.getId();
                     if (id != null) {
-                        Example example = exampleRepository.findById(id).orElseThrow();
+                        Example example = findExample(entity, id);
                         example.setExample(exampleDto.getExample());
                         example.setTranslation(exampleDto.getTranslation());
                         exampleRepository.save(example);
@@ -197,7 +229,27 @@ public class CardService {
                 }));
     }
 
-    private void updateTags(Card entity, TagDto[] tagDtos, Learner learner) {
+    private LearningItem findOwnedCard(User user, UUID cardId) {
+        return learningItemRepository
+                .findByIdAndOwnerUserId(cardId, user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Card not found: " + cardId));
+    }
+
+    private Translation findTranslation(LearningItem card, UUID translationId) {
+        return card.getTranslations().stream()
+                .filter(translation -> translationId.equals(translation.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Translation not found on card: " + translationId));
+    }
+
+    private Example findExample(LearningItem card, UUID exampleId) {
+        return card.getExamples().stream()
+                .filter(example -> exampleId.equals(example.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Example not found on card: " + exampleId));
+    }
+
+    private void updateTags(LearningItem entity, TagDto[] tagDtos, Learner learner) {
         HashSet<String> dtoTagSet = Optional.ofNullable(tagDtos)
                 .map(tags -> Arrays.stream(tags).map(TagDto::getText).collect(Collectors.toCollection(HashSet::new)))
                 .orElseGet(HashSet::new);
@@ -232,5 +284,9 @@ public class CardService {
                     .build();
             cardTagRepository.save(cardTag);
         }
+    }
+
+    private String normalize(String value) {
+        return value == null ? "" : value.trim().toLowerCase(java.util.Locale.ROOT);
     }
 }

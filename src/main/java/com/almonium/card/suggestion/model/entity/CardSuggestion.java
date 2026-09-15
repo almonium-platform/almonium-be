@@ -2,7 +2,7 @@ package com.almonium.card.suggestion.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.card.core.model.entity.Card;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
@@ -42,7 +42,7 @@ public class CardSuggestion {
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
-    Card card;
+    LearningItem card;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
@@ -55,7 +55,7 @@ public class CardSuggestion {
     @CreatedDate
     Instant createdAt;
 
-    public CardSuggestion(Learner sender, Learner recipient, Card card) {
+    public CardSuggestion(Learner sender, Learner recipient, LearningItem card) {
         this.sender = sender;
         this.recipient = recipient;
         this.card = card;

@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260801-recreate-book-domain-with-uuid
+      author: codex
+      comment: Destructively replace the unused numeric book domain with UUID identifiers.
+      changes:
+        - sql:
+            splitStatements: false
+            sql: |
+              DROP TABLE IF EXISTS book_translation CASCADE;
+              DROP TABLE IF EXISTS book_favorite CASCADE;
+              DROP TABLE IF EXISTS learner_book_progress CASCADE;
+              DROP TABLE IF EXISTS translation_order CASCADE;
+              DROP TABLE IF EXISTS book CASCADE;
+
+              CREATE TABLE book (
+                  id uuid PRIMARY KEY,
+                  title varchar(255) NOT NULL,
+                  author varchar(255) NOT NULL,
+                  publication_year integer NOT NULL,
+                  cover_image_url varchar(255) NOT NULL,
+                  language varchar(10) NOT NULL,
+                  word_count integer NOT NULL,
+                  rating numeric(3,2) NOT NULL,
+                  level_from CEFR_LEVEL NOT NULL,
+                  level_to CEFR_LEVEL NOT NULL,
+                  description varchar(2000),
+                  original_book_id uuid REFERENCES book(id),
+                  translator varchar(255)
+              );
+
+              CREATE TABLE learner_book_progress (
+                  id uuid PRIMARY KEY,
+                  learner_id uuid NOT NULL REFERENCES learner(id) ON DELETE CASCADE,
+                  book_id uuid NOT NULL REFERENCES book(id) ON DELETE CASCADE,
+                  progress_percentage integer NOT NULL,
+                  started_at timestamp NOT NULL,
+                  last_read_at timestamp NOT NULL,
+                  CONSTRAINT uc_learner_book_progress_learner_id_book_id
+                      UNIQUE (learner_id, book_id)
+              );
+
+              CREATE TABLE translation_order (
+                  id uuid PRIMARY KEY,
+                  user_id uuid NOT NULL REFERENCES user_core(id) ON DELETE CASCADE,
+                  book_id uuid NOT NULL REFERENCES book(id) ON DELETE CASCADE,
+                  language varchar(10) NOT NULL,
+                  created_at timestamp NOT NULL,
+                  CONSTRAINT uc_translation_order_user_book_language
+                      UNIQUE (user_id, book_id)
+              );
+
+              CREATE TABLE book_favorite (
+                  id uuid PRIMARY KEY,
+                  book_id uuid NOT NULL REFERENCES book(id) ON DELETE CASCADE,
+                  learner_id uuid NOT NULL REFERENCES learner(id) ON DELETE CASCADE,
+                  CONSTRAINT uc_book_favorite_learner_book UNIQUE (learner_id, book_id)
+              );

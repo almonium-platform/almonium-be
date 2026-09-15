@@ -11,14 +11,14 @@ import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.testcontainers.context.ImportTestcontainers;
 import org.springframework.test.context.jdbc.Sql;
 
 @FieldDefaults(level = PRIVATE)
 @DataJpaTest
 @ImportTestcontainers(PostgresContainer.class)
-@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+@Sql(scripts = "classpath:db/add-users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class UserRepositoryTest {
     private static final String JOHN_EMAIL = "john@email.com";
     private static final String JOHN_USERNAME = "john";

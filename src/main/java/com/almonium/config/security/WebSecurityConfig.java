@@ -12,12 +12,8 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
-import com.almonium.auth.oauth2.apple.filter.AppleOidcUserFilter;
-import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationFailureHandler;
-import com.almonium.auth.oauth2.other.handler.OAuth2AuthenticationSuccessHandler;
-import com.almonium.auth.oauth2.other.repository.OAuth2CookieRequestRepository;
-import com.almonium.auth.oauth2.other.service.OAuth2UserDetailsService;
-import com.almonium.auth.token.filter.TokenAuthenticationFilter;
+import com.almonium.auth.firebase.filter.FirebaseSessionAuthenticationFilter;
+import com.almonium.auth.firebase.security.FirebaseBearerToken;
 import com.almonium.config.properties.AppProperties;
 import java.net.URI;
 import java.util.List;
@@ -30,7 +26,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -38,7 +33,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -48,23 +43,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class WebSecurityConfig {
-    OAuth2UserDetailsService OAuth2UserDetailsService;
-
-    TokenAuthenticationFilter tokenAuthenticationFilter;
-    AppleOidcUserFilter appleOidcUserFilter;
-
-    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
-    OAuth2CookieRequestRepository authorizationRequestRepository;
+    FirebaseSessionAuthenticationFilter firebaseSessionAuthenticationFilter;
     AppProperties appProperties;
 
     private static final String[] PUBLIC_URL_PATTERNS = new String[] {
         // Swagger
         "/swagger-ui/**",
         "/v3/api-docs/**",
-        // OAuth2
-        "/oauth2/authorization/**",
         // Public endpoints
         "/public/**",
         // Actuator
@@ -75,9 +60,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                appProperties.getWebDomain(),
-                appProperties.getAuth().getOauth2().getAppleTokenUrl()));
+        configuration.setAllowedOrigins(List.of(appProperties.getWebDomain()));
+        configuration.setAllowedOriginPatterns(appProperties.getCors().getAllowedOriginPatterns());
         configuration.setAllowedMethods(List.of(GET, POST, PUT, PATCH, DELETE, OPTIONS));
         configuration.setAllowedHeaders(
                 List.of(CONTENT_TYPE, AUTHORIZATION, CACHE_CONTROL, "X-XSRF-TOKEN", "ngsw-bypass"));
@@ -117,25 +101,33 @@ public class WebSecurityConfig {
         return http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository)
                         .csrfTokenRequestHandler(csrfTokenRequestHandler)
                         .ignoringRequestMatchers(
-                                new AntPathRequestMatcher("/public/**"), new AntPathRequestMatcher("/actuator/**")))
+                                PathPatternRequestMatcher.withDefaults().matcher("/public/**"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/books/publications"),
+                                PathPatternRequestMatcher.withDefaults()
+                                        .matcher("/internal/books/publications/withdrawals"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
+                                request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URL_PATTERNS)
                         .permitAll()
+                        .requestMatchers(
+                                "/internal/books/publications",
+                                "/internal/books/publications/withdrawals",
+                                "/internal/books/import-events")
+                        .permitAll()
+                        .requestMatchers("/auth/session", "/auth/session/logout")
+                        .permitAll()
+                        .requestMatchers("/ops/**")
+                        .hasRole("ADMIN")
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(appleOidcUserFilter, OAuth2LoginAuthenticationFilter.class)
-                .oauth2Login(loginConfigurer -> loginConfigurer
-                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(OAuth2UserDetailsService))
-                        .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .authorizationEndpoint(authEndpoint ->
-                                authEndpoint.authorizationRequestRepository(authorizationRequestRepository))
-                        .failureHandler(oAuth2AuthenticationFailureHandler))
+                .addFilterBefore(firebaseSessionAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260719-harden-relationship-invariants
+      author: codex
+      changes:
+        - addColumn:
+            tableName: relationship
+            columns:
+              - column:
+                  name: version
+                  type: bigint
+                  defaultValue: '0'
+                  constraints:
+                    nullable: false
+        - sql:
+            dbms: postgresql
+            sql: >-
+              ALTER TABLE relationship
+              ADD CONSTRAINT ck_relationship_distinct_users
+              CHECK (requester_id != requestee_id)
+        - sql:
+            dbms: postgresql
+            sql: >-
+              CREATE UNIQUE INDEX uk_relationship_user_pair
+              ON relationship (LEAST(requester_id, requestee_id), GREATEST(requester_id, requestee_id))
+        - createIndex:
+            tableName: relationship
+            indexName: ix_relationship_requester
+            columns:
+              - column:
+                  name: requester_id
+        - createIndex:
+            tableName: relationship
+            indexName: ix_relationship_requestee
+            columns:
+              - column:
+                  name: requestee_id

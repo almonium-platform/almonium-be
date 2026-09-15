@@ -1,0 +1,30 @@
+package com.almonium.learning.book.dto.request;
+
+import com.almonium.analyzer.analyzer.model.enums.CEFR;
+import com.almonium.analyzer.translator.model.enums.Language;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
+
+/**
+ * {@code editionId} is the processor's own id for the edition and {@code externalJobId} the id we handed it when we
+ * asked for the work (a library suggestion); both are optional so an older processor can still publish.
+ */
+public record BookPublicationRequest(
+        @NotBlank String editionSlug,
+        @NotBlank String sourceHash,
+        @NotBlank String workSlug,
+        @NotBlank String title,
+        @NotBlank String author,
+        String description,
+        @NotNull Language originalLanguage,
+        @NotNull Language language,
+        @NotBlank String editionType,
+        String sourceEditionSlug,
+        String translator,
+        int publicationYear,
+        String coverUrl,
+        @NotNull CEFR cefrLevel,
+        int wordCount,
+        UUID editionId,
+        UUID externalJobId) {}

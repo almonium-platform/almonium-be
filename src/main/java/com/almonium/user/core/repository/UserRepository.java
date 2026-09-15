@@ -2,6 +2,7 @@ package com.almonium.user.core.repository;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.model.entity.User;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -27,11 +28,15 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     boolean existsByUsername(String username);
 
-    @EntityGraph(attributePaths = {"principals"})
-    Optional<User> findById(UUID id);
+    Optional<User> findByPaddleCustomerId(String paddleCustomerId);
 
-    Optional<User> findByStripeCustomerId(String stripeCustomerId);
+    Optional<User> findByFirebaseUid(String firebaseUid);
 
     @Query("select u from User u join Learner l on u.id = l.user.id where u.id = :id")
     Optional<User> findUserWithLearners(UUID id);
+
+    @Query("select u.id from User u")
+    Set<UUID> findAllIds();
+
+    long countByRegisteredGreaterThanEqual(Instant since);
 }

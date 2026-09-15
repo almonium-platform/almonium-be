@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260718-add-firebase-uid
+      author: codex
+      changes:
+        - addColumn:
+            tableName: user_core
+            columns:
+              - column:
+                  name: firebase_uid
+                  type: varchar(128)
+                  constraints:
+                    nullable: true
+        - addUniqueConstraint:
+            tableName: user_core
+            columnNames: firebase_uid
+            constraintName: uq_user_core_firebase_uid

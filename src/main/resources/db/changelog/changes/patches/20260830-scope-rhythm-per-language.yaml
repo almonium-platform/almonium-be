@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260830-scope-rhythm-per-language
+      author: claude
+      comment: >-
+        The weekly target belongs to a language, not to the account: one target per learner, so the harness says
+        which commitment you kept. Learning days carry their language for the same reason, while the daily time
+        cap stays per user so several languages cannot buy several days' worth of hours.
+      changes:
+        - addColumn:
+            tableName: learner
+            columns:
+              - column: { name: weekly_target, type: int }
+        - dropColumn:
+            tableName: profile
+            columnName: weekly_target
+        - addColumn:
+            tableName: learning_day
+            columns:
+              - column: { name: language, type: varchar(10) }
+        - delete:
+            tableName: learning_day
+            where: language IS NULL
+        - addNotNullConstraint:
+            tableName: learning_day
+            columnName: language
+            columnDataType: varchar(10)
+        - dropUniqueConstraint:
+            tableName: learning_day
+            constraintName: uq_learning_day_user_date
+        - addUniqueConstraint:
+            tableName: learning_day
+            columnNames: user_id, activity_date, language
+            constraintName: uq_learning_day_user_date_language

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260906-optional-book-import-metadata
+      author: claude
+      comment: >-
+        Bibliographic fields are detected by the book processor after upload,
+        so author and language may be unknown until then; the owner confirms
+        the detected values afterwards.
+      changes:
+        - dropNotNullConstraint:
+            tableName: user_book_import
+            columnName: author
+            columnDataType: varchar(300)
+        - dropNotNullConstraint:
+            tableName: user_book_import
+            columnName: language
+            columnDataType: varchar(10)
+        - addColumn:
+            tableName: user_book_import
+            columns:
+              - column:
+                  name: metadata_status
+                  type: varchar(20)
+                  defaultValue: CONFIRMED
+                  constraints:
+                    nullable: false
+              - column:
+                  name: metadata_provenance
+                  type: jsonb
+        - sql:
+            comment: New imports start pending; rows that exist were typed in full by their owner.
+            sql: ALTER TABLE user_book_import ALTER COLUMN metadata_status SET DEFAULT 'PENDING';

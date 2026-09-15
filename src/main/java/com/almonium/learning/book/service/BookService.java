@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
-import com.almonium.infra.storage.service.FirebaseStorageService;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookLanguageVariant;
@@ -16,11 +15,9 @@ import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import com.almonium.learning.book.model.entity.BookFavorite;
 import com.almonium.learning.book.model.entity.BookMiniProjection;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
-import com.almonium.learning.book.model.entity.TranslationOrder;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
-import com.almonium.learning.book.repository.TranslationOrderRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
@@ -44,25 +41,113 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BookService {
     LearnerFinder learnerFinder;
-    FirebaseStorageService firebaseStorageService;
+    PublishedBookContentService publishedBookContentService;
 
     BookRepository bookRepository;
     UserRepository userRepository;
-    TranslationOrderRepository translationOrderRepository;
     LearnerBookProgressRepository learnerBookProgressRepository;
     BookFavoriteRepository bookFavoriteRepository;
 
     BookMapper bookMapper;
 
     public List<BookDto> getBooks() {
-        return bookMapper.toBookDtos(bookRepository.findAll());
+        return bookRepository.findAll().stream().map(this::toPublicBookDto).toList();
     }
 
     public List<BookDto> getBooksInLanguage(Language language) {
-        return bookMapper.toBookDtos(bookRepository.findByLanguage(language));
+        return bookRepository.findByLanguage(language).stream()
+                .map(this::toPublicBookDto)
+                .toList();
     }
 
-    public void addToFavorites(User user, Long bookId, Language language) {
+    private BookDto toPublicBookDto(Book book) {
+        boolean hasVariant =
+                bookRepository.findAvailableLanguagesForBook(book.getId()).size() > 1;
+        return new BookDto(
+                book.getId(),
+                book.getEditionSlug(),
+                book.getWorkSlug(),
+                book.getTitle(),
+                book.getAuthor(),
+                book.getDescription(),
+                book.getPublicationYear(),
+                book.getCoverUrl(),
+                book.getWordCount(),
+                book.getLanguage(),
+                book.getCefrLevel(),
+                null,
+                hasVariant,
+                hasVariant,
+                isTranslation(book));
+    }
+
+    public BookDetails getPublicBook(String editionSlug) {
+        Book book = getBookBySlug(editionSlug);
+        List<BookLanguageVariant> variants =
+                bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(book.getId()));
+        BookDetails details = new BookDetails();
+        details.setId(book.getId());
+        details.setEditionSlug(book.getEditionSlug());
+        details.setWorkSlug(book.getWorkSlug());
+        details.setTitle(book.getTitle());
+        details.setAuthor(book.getAuthor());
+        details.setDescription(book.getDescription());
+        details.setPublicationYear(book.getPublicationYear());
+        details.setCoverUrl(book.getCoverUrl());
+        details.setWordCount(book.getWordCount());
+        details.setLanguage(book.getLanguage());
+        details.setCefrLevel(book.getCefrLevel());
+        details.setIsTranslation(isTranslation(book));
+        details.setHasTranslation(variants.size() > 1);
+        details.setHasParallelTranslation(variants.size() > 1);
+        details.setLanguageVariants(variants);
+        details.setOriginalLanguage(book.getOriginalLanguage());
+        details.setOriginalId(
+                book.getOriginalBook() == null
+                        ? book.getId()
+                        : book.getOriginalBook().getId());
+        details.setTranslator(book.getTranslator());
+        return details;
+    }
+
+    public byte[] getPublicText(String editionSlug) {
+        return publishedBookContentService.textFor(getBookBySlug(editionSlug));
+    }
+
+    public byte[] getPublicParallelBook(String editionSlug, Language language) {
+        Book primary = getBookBySlug(editionSlug);
+        Book secondary = bookRepository.findAvailableLanguagesForBook(primary.getId()).stream()
+                .filter(variant -> variant.getLanguage().equals(language))
+                .map(variant -> getBookById(variant.getId()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
+        if (primary.getId().equals(secondary.getId())) {
+            throw new BadUserRequestActionException("This book is already in this language");
+        }
+        return publishedBookContentService.parallelTextFor(primary, secondary);
+    }
+
+    public byte[] getPublicParallelEdition(String editionSlug, String companionSlug) {
+        Book primary = getBookBySlug(editionSlug);
+        Book secondary = getBookBySlug(companionSlug);
+        if (primary.getId().equals(secondary.getId()) || !primary.getWorkSlug().equals(secondary.getWorkSlug())) {
+            throw new BadUserRequestActionException("Choose a different edition of the same work");
+        }
+        // The processor remains authoritative for actual pair compatibility.
+        return publishedBookContentService.parallelTextFor(primary, secondary);
+    }
+
+    private boolean isTranslation(Book book) {
+        return "machine_translation".equals(book.getEditionType()) || "human_translation".equals(book.getEditionType());
+    }
+
+    private Book getBookBySlug(String editionSlug) {
+        return bookRepository
+                .findByEditionSlug(editionSlug)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with slug: " + editionSlug));
+    }
+
+    public void addToFavorites(User user, UUID bookId, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
         Book book = getBookById(bookId);
 
@@ -70,12 +155,12 @@ public class BookService {
         bookFavoriteRepository.save(bookFavorite);
     }
 
-    public boolean deleteFromFavorites(User user, Long bookId, Language language) {
+    public boolean deleteFromFavorites(User user, UUID bookId, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
         return bookFavoriteRepository.deleteByLearnerIdAndBookId(learner.getId(), bookId) > 0;
     }
 
-    public Book getBookById(Long bookId) {
+    public Book getBookById(UUID bookId) {
         return bookRepository
                 .findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + bookId));
@@ -104,12 +189,16 @@ public class BookService {
         return bookMapper.toDto(books);
     }
 
-    public boolean deleteBookProgress(User user, Long bookId) {
+    public boolean deleteBookProgress(User user, UUID bookId) {
         int deletedCount = learnerBookProgressRepository.deleteByUserIdAndBookId(user.getId(), bookId);
         return deletedCount > 0;
     }
 
-    public void saveBookProgress(User user, Long bookId, int progressPercentage) {
+    public void saveBookProgress(User user, UUID bookId, int progressPercentage) {
+        // Resolve the book first: a withdrawn one is not readable any more, and
+        // the reader should be told that rather than have its progress row load
+        // an association that no longer resolves.
+        Book book = getBookById(bookId);
         Optional<LearnerBookProgress> progressOptional =
                 learnerBookProgressRepository.findByUserIdAndBookId(user.getId(), bookId);
 
@@ -122,7 +211,6 @@ public class BookService {
         } else {
             log.debug("No existing progress found for user {} and book {}. Creating new record.", user.getId(), bookId);
 
-            Book book = getBookById(bookId);
             Learner learner = learnerFinder.findLearner(user, book.getLanguage());
 
             LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
@@ -132,13 +220,15 @@ public class BookService {
     }
 
     // by other services
-    public List<Language> getAvailableLanguagesForBook(Long bookId) {
+    public List<Language> getAvailableLanguagesForBook(UUID bookId) {
         return bookRepository.findAvailableLanguagesForBook(bookId).stream()
                 .map(BookMiniProjection::getLanguage)
                 .toList();
     }
 
-    public BookMiniDetails getBookById(UUID userId, Long bookId) {
+    public BookMiniDetails getBookById(UUID userId, UUID bookId) {
+        Language language = getBookById(bookId).getLanguage();
+
         List<BookLanguageVariant> languageVariants =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
@@ -147,8 +237,6 @@ public class BookService {
                 .map(LearnerBookProgress::getProgressPercentage)
                 .orElse(0);
 
-        Language language = getBookById(bookId).getLanguage();
-
         return BookMiniDetails.builder()
                 .languageVariants(languageVariants)
                 .language(language)
@@ -156,7 +244,7 @@ public class BookService {
                 .build();
     }
 
-    public BookDetails getBookById(User user, Language language, Long bookId) {
+    public BookDetails getBookById(User user, Language language, UUID bookId) {
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
@@ -166,19 +254,17 @@ public class BookService {
 
         List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
-        Long originalBookId = projection.getOriginalId() == null ? bookId : projection.getOriginalId();
-        Optional<TranslationOrder> order =
-                translationOrderRepository.findByUserIdAndBookId(user.getId(), originalBookId);
         Optional<BookFavorite> favorite = bookFavoriteRepository.findByLearnerIdAndBookId(learnerId, bookId);
 
-        return bookMapper.toDetailsDto(projection, availableLanguages, order, favorite);
+        return bookMapper.toDetailsDto(projection, availableLanguages, favorite);
     }
 
-    public byte[] getText(User user, Long bookId) {
-        return firebaseStorageService.getBook(bookId);
+    public byte[] getText(User user, UUID bookId) {
+        Book book = getBookById(bookId);
+        return publishedBookContentService.textFor(book);
     }
 
-    public byte[] getParallelBook(User user, Language language, Long bookId) {
+    public byte[] getParallelBook(User user, Language language, UUID bookId) {
         List<BookLanguageVariant> availableLanguages =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
 
@@ -187,12 +273,12 @@ public class BookService {
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException("Book not found in this language"));
 
-        Long secondId = miniDetails.getId();
+        UUID secondId = miniDetails.getId();
 
         if (bookId.equals(secondId)) {
             throw new BadUserRequestActionException("This book is already in this language");
         }
 
-        return firebaseStorageService.getParallelText(bookId, secondId);
+        return publishedBookContentService.parallelTextFor(getBookById(bookId), getBookById(secondId));
     }
 }

@@ -6,9 +6,11 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.user.core.dto.response.InterestDto;
 import com.almonium.user.core.service.InterestService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.time.Duration;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +26,15 @@ public class StaticInfoController {
 
     @GetMapping("/languages/supported")
     public ResponseEntity<List<Language>> getSupportedLanguages() {
-        return ResponseEntity.ok(List.of(Language.values()));
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(Duration.ofDays(1)).cachePublic())
+                .body(List.of(Language.values()));
     }
 
     @GetMapping("/interests")
     public ResponseEntity<List<InterestDto>> getInterests() {
-        return ResponseEntity.ok(interestService.getInterests());
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(Duration.ofDays(1)).cachePublic())
+                .body(interestService.getInterests());
     }
 }

@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260905-add-decks
+      author: claude
+      changes:
+        - createTable:
+            tableName: deck
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: owner_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: language, type: varchar(10), constraints: { nullable: false } }
+              - column: { name: title, type: varchar(60), constraints: { nullable: false } }
+              - column: { name: share_id, type: varchar(16), constraints: { nullable: false } }
+              - column: { name: share_enabled, type: boolean, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: created_at, type: timestamp with time zone }
+              - column: { name: updated_at, type: timestamp with time zone }
+              - column: { name: deleted_at, type: timestamp with time zone }
+        - addForeignKeyConstraint:
+            baseTableName: deck
+            baseColumnNames: owner_id
+            referencedTableName: learner
+            referencedColumnNames: id
+            constraintName: fk_deck_owner
+            onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: deck
+            columnNames: share_id
+            constraintName: uq_deck_share_id
+        - createTable:
+            tableName: deck_item
+            columns:
+              - column: { name: id, type: uuid, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: deck_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: learning_item_id, type: uuid, constraints: { nullable: false } }
+              - column: { name: position, type: int, defaultValueNumeric: 0, constraints: { nullable: false } }
+        - addForeignKeyConstraint:
+            baseTableName: deck_item
+            baseColumnNames: deck_id
+            referencedTableName: deck
+            referencedColumnNames: id
+            constraintName: fk_deck_item_deck
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: deck_item
+            baseColumnNames: learning_item_id
+            referencedTableName: card
+            referencedColumnNames: id
+            constraintName: fk_deck_item_card
+            onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: deck_item
+            columnNames: deck_id, learning_item_id
+            constraintName: uq_deck_item_card

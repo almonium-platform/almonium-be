@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260905-record-scheduled-cadence-change
+      author: claude
+      comment: >-
+        Paddle has no scheduled plan change. Moving an annual subscription to monthly swaps the item straight away and
+        defers only the billing, so the subscription reads as monthly from the moment it is requested while the member
+        has in fact paid through the year. Reconciliation would take that price at face value and print monthly pricing
+        to someone eleven months from their next bill. These two columns hold the cadence that is actually pending and
+        the date it lands, which is what the settings row renders and what reconciliation checks before it believes a
+        price.
+      changes:
+        - addColumn:
+            tableName: plan_subscription
+            columns:
+              - column:
+                  name: scheduled_plan_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: scheduled_change_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: plan_subscription
+            baseColumnNames: scheduled_plan_id
+            constraintName: fk_plan_subscription_scheduled_plan
+            referencedTableName: plan
+            referencedColumnNames: id

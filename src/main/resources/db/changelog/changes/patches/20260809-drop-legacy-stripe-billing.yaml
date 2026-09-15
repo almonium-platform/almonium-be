@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-legacy-stripe-billing
+      author: codex
+      changes:
+        - dropColumn:
+            tableName: user_core
+            columnName: stripe_customer_id
+        - dropColumn:
+            tableName: plan
+            columnName: stripe_price_id
+        - dropColumn:
+            tableName: plan_subscription
+            columnName: stripe_subscription_id
+        - dropColumn:
+            tableName: founding_member
+            columnName: checkout_session_id
+        - dropColumn:
+            tableName: founding_member
+            columnName: stripe_subscription_id
+        - dropTable:
+            tableName: stripe_event_log

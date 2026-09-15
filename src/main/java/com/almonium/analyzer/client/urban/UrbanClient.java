@@ -2,7 +2,6 @@ package com.almonium.analyzer.client.urban;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.urban.dto.UrbanResponse;
 import com.almonium.config.properties.ExternalApiProperties;
@@ -21,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Client
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UrbanClient extends AbstractClient {
+public class UrbanClient {
     private static final String URBAN_API_AUTH_HEADER_HOST = "X-RapidAPI-Host";
     private static final String URBAN_API_AUTH_HEADER_HOST_VALUE = "mashape-community-urban-dictionary.p.rapidapi.com";
     private static final String URBAN_API_AUTH_HEADER_KEY = "X-RapidAPI-Key";
@@ -37,7 +36,7 @@ public class UrbanClient extends AbstractClient {
         headers.set(URBAN_API_AUTH_HEADER_KEY, externalApiProperties.getKey().getUrban());
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        String urlTemplate = UriComponentsBuilder.fromHttpUrl(BASE_URL + ENDPOINT)
+        String urlTemplate = UriComponentsBuilder.fromUriString(BASE_URL + ENDPOINT)
                 .queryParam("term", "{term}")
                 .encode()
                 .toUriString();

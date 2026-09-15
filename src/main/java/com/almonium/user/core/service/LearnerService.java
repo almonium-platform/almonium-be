@@ -15,9 +15,11 @@ import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.mapper.LearnerMapper;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.model.enums.SetAsideBy;
 import com.almonium.user.core.repository.LearnerRepository;
 import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class LearnerService {
     PlanValidationService planValidationService;
+    ActiveLanguageService activeLanguageService;
     CardService cardService;
 
     LearnerRepository learnerRepository;
@@ -43,19 +46,27 @@ public class LearnerService {
     LearnerMapper learnerMapper;
     ApplicationEventPublisher eventPublisher;
 
-    public void updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
+    public LearnerDto updateLearner(UUID userId, Language code, UpdateLearnerRequest request) {
         var learner = learnerRepository
                 .findByUserIdAndLanguage(userId, code)
                 .orElseThrow(() -> new EntityNotFoundException("Learner not found."));
 
-        if (request.active() != null) {
+        if (Boolean.TRUE.equals(request.active()) && !learner.isActive()) {
+            // Taking one up may mean putting another down, and at the allowance it may only be done once a month.
+            activeLanguageService.switchActiveTo(learner.getUser(), code);
+        } else if (Boolean.FALSE.equals(request.active())) {
             long activeLearners = learnerRepository.countActiveLearnersByUserId(userId);
-            if (!request.active() && activeLearners == 1) {
+            if (activeLearners == 1) {
                 throw new BadUserRequestActionException("At least one target language must be active.");
             }
 
-            learner.setActive(request.active());
-            log.info("Learner {} is now {}.", learner.getId(), request.active() ? "active" : "inactive");
+            // The record freezes from the moment a language is set aside, and resumes when it is taken up again.
+            if (learner.isActive()) {
+                learner.setSetAsideAt(Instant.now());
+                learner.setSetAsideBy(SetAsideBy.USER);
+            }
+            learner.setActive(false);
+            log.info("Learner {} is now inactive.", learner.getId());
         }
 
         if (request.level() != null) {
@@ -63,7 +74,7 @@ public class LearnerService {
             log.info("Learner {} CEFR level updated to {}.", learner.getId(), request.level());
         }
 
-        learnerRepository.save(learner);
+        return learnerMapper.toDto(learnerRepository.save(learner));
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
@@ -87,19 +98,36 @@ public class LearnerService {
         int currentTargetLangs = learnerRepository.countLearnersByUserId(userId);
         planValidationService.validatePlanFeature(user, PlanFeature.MAX_TARGET_LANGS, currentTargetLangs + data.size());
 
-        data.forEach(targetLanguageWithProficiency -> {
+        // The creation ceiling and the active allowance are different numbers, so everything asked for is created and
+        // anything past what the plan keeps active is set aside at birth rather than refused. Offering a choice and
+        // then silently ignoring it is worse than any wall; SYSTEM attribution means an upgrade hands these back
+        // through the very path a downgrade's languages return on.
+        int allowance = activeLanguageService.allowance(user);
+        int activeSoFar = learnerRepository.countActiveLearnersByUserId(userId);
+
+        for (TargetLanguageWithProficiency targetLanguageWithProficiency : data) {
             Language code = targetLanguageWithProficiency.language();
 
             if (!replace && learnerRepository.existsByUserIdAndLanguage(userId, code)) {
                 log.warn("User {} already has target language {}. Skipping addition.", userId, code);
-                return; // Skip this language
+                continue;
             }
 
-            learnerRepository.save(new Learner(user, code, targetLanguageWithProficiency.cefrLevel()));
-            log.info("User {} added target language {}.", userId, code);
+            Learner learner = new Learner(user, code, targetLanguageWithProficiency.cefrLevel());
+            if (allowance != ActiveLanguageService.UNLIMITED && activeSoFar >= allowance) {
+                learner.setActive(false);
+                learner.setSetAsideAt(Instant.now());
+                learner.setSetAsideBy(SetAsideBy.SYSTEM);
+                log.info("User {} added target language {}, set aside: outside the plan's allowance", userId, code);
+            } else {
+                activeSoFar++;
+                log.info("User {} added target language {}.", userId, code);
+            }
+
+            learnerRepository.save(learner);
             log.debug("Publishing UserAddedTargetLanguageEvent for user {}, lang {}", userId, code);
             eventPublisher.publishEvent(new UserAddedTargetLanguageEvent(userId, code));
-        });
+        }
 
         return learnerMapper.toDto(getUserWithLearners(userId).getLearners());
     }

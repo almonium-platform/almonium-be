@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
@@ -22,9 +23,12 @@ public class EmailServiceTest extends AppConfigPropertiesTest {
     @Mock
     HtmlFileWriter htmlFileWriter;
 
+    @Mock
+    RestTemplate restTemplate;
+
     @BeforeEach
     void setUp() {
-        emailService = new EmailService(htmlFileWriter, appProperties);
+        emailService = new EmailService(restTemplate, htmlFileWriter, appProperties);
     }
 
     @DisplayName("Should save email to file when email sending is disabled")

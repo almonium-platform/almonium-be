@@ -2,12 +2,13 @@ package com.almonium.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.almonium.auth.local.exception.UserAlreadyExistsException;
+import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.util.dto.ApiResponse;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,23 +47,11 @@ class GlobalExceptionHandlerTest {
         // Arrange
         HttpMethod method = HttpMethod.GET;
         String resourcePath = "/non-existent-resource";
-        NoResourceFoundException ex = new NoResourceFoundException(method, resourcePath);
+        NoResourceFoundException ex = new NoResourceFoundException(method, resourcePath, null);
 
         ResponseEntity<ApiResponse> response = exceptionHandler.handleNoResourceFoundException(ex);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    }
-
-    @DisplayName("Should handle UserAlreadyExistsAuthenticationException")
-    @Test
-    void givenUserAlreadyExistsException_whenHandleException_thenRespondWithBadRequest() {
-        UserAlreadyExistsException ex = new UserAlreadyExistsException("User already exists");
-
-        ResponseEntity<ApiResponse> response = exceptionHandler.handleUserAlreadyExistsException(ex);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-        assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
-        assertThat(response.getBody().success()).isFalse();
     }
 
     @SuppressWarnings("unchecked")
@@ -90,6 +79,27 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
         assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
         assertThat(response.getBody().success()).isFalse();
+    }
+
+    @DisplayName("Should handle an optimistic locking conflict")
+    @Test
+    void givenOptimisticLockingFailure_whenHandleException_thenRespondWithConflict() {
+        var ex = new OptimisticLockingFailureException("stale relationship");
+
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleDataConflictException(ex);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+        assertThat(response.getBody().success()).isFalse();
+    }
+
+    @DisplayName("Should map an external API failure without exposing provider details")
+    @Test
+    void givenApiIntegrationFailure_whenHandleException_thenRespondWithBadGateway() {
+        ResponseEntity<ApiResponse> response =
+                exceptionHandler.handleApiIntegrationException(new ApiIntegrationException("provider response body"));
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_GATEWAY);
+        assertThat(response.getBody().message()).isEqualTo("An external service is temporarily unavailable");
     }
 
     @DisplayName("Should handle general Exception")

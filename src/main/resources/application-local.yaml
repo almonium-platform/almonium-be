@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/almonium_local
+    username: almonium
+    password: almonium-local
+  liquibase:
+    enabled: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: almonium
+    password: almonium-local
+    virtual-host: /almonium_local
+  jpa:
+    show-sql: true
+    properties.hibernate:
+      format_sql: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    com.almonium: DEBUG
+    org.hibernate:
+      info: info
+      SQL: debug
+      orm.jdbc.bind: trace
+      stat: debug
+      SQL_SLOW: info
+      cache: debug
+      type.descriptor.sql.BasicBinder: trace
+
+app:
+  web-domain: http://localhost:9999
+  api-domain: http://localhost:${server.port}
+  # Any local origin, whatever port the dev server, a preview build or a browser-driving agent lands on.
+  cors.allowed-origin-patterns:
+    - http://localhost:[*]
+    - https://localhost:[*]
+    - http://127.0.0.1:[*]
+    - https://127.0.0.1:[*]
+    - http://[::1]:[*]
+  email.dry-run: true

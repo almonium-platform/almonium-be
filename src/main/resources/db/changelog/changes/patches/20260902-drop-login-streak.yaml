@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260902-drop-login-streak
+      author: claude
+      comment: >-
+        The login streak counted consecutive days signed in and was never read: the API mapper always ignored it.
+        The learning rhythm harness is the record of practice now, and it counts learning, not logins.
+      changes:
+        - dropColumn:
+            tableName: profile
+            columnName: streak

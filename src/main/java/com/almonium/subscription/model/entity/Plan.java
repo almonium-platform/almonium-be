@@ -2,6 +2,7 @@ package com.almonium.subscription.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.subscription.model.entity.enums.Entitlement;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,10 +41,13 @@ public class Plan {
     String description;
     double price;
 
+    Double founderPrice;
+
     @Enumerated(EnumType.STRING)
     Type type;
 
-    String stripePriceId;
+    @Enumerated(EnumType.STRING)
+    Entitlement entitlement;
 
     boolean active;
 

@@ -3,10 +3,11 @@ package com.almonium.user.core.model.enums;
 public enum SetupStep {
     // order of declaration is important!
     WELCOME,
-    PLAN,
     LANGUAGES,
-    PROFILE,
+    LEVEL,
     INTERESTS,
+    PROFILE,
+    GREETING,
     COMPLETED;
 
     public static SetupStep getInitial() {

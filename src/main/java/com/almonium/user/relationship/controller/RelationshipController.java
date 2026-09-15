@@ -9,7 +9,6 @@ import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.RelationshipActionsFacade;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.request.RelationshipActionDto;
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
 import com.almonium.user.relationship.service.RelationshipService;
@@ -59,10 +58,10 @@ public class RelationshipController {
         return ResponseEntity.ok(relationshipService.getReceivedRequests(id));
     }
 
-    // you won't be able to find people who you've blocked or who have blocked you
+    // every account whose handle matches, each carrying how you stand with it
     @GetMapping("/search/all")
-    public ResponseEntity<List<PublicUserProfile>> searchUsersByUsername(
-            @RequestParam @Size(min = AppLimits.MIN_USERNAME_LENGTH, max = AppLimits.MAX_USERNAME_LENGTH)
+    public ResponseEntity<List<RelatedUserProfile>> searchUsersByUsername(
+            @RequestParam @Size(min = AppLimits.MIN_USERNAME_SEARCH_LENGTH, max = AppLimits.MAX_USERNAME_LENGTH)
                     String username,
             @Auth UUID id) {
         return ResponseEntity.ok(relationshipService.findUsersByUsername(id, username));

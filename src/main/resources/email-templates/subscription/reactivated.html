@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{_fragments/head}"></head>
+<body bgcolor="#2C2530">
+
+<th:block th:replace="~{_fragments/preheader}"></th:block>
+<header th:replace="~{_fragments/header}"></header>
+
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#F9F6F5">
+    <tr>
+        <td class="email-content" bgcolor="#F9F6F5">
+            <p>Your <strong><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span></strong>
+                subscription is active again.</p>
+
+            <table role="presentation" class="plan-panel" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FAF6FB">
+                <tr>
+                    <td class="plan-panel-cell" bgcolor="#FAF6FB">
+                        <p class="plan-label">Your plan</p>
+                        <p class="plan-name"><span th:text="${#strings.capitalize(#strings.toLowerCase(planName))}"></span>
+                            membership</p>
+                        <p class="plan-detail">Active now.<th:block th:if="${periodEndDate}"> Renews on
+                            <span th:text="${periodEndDate}"></span>.</th:block></p>
+                    </td>
+                </tr>
+            </table>
+
+            <div th:replace="~{_fragments/button :: button(${url}, 'Open Almonium', 180, true)}"></div>
+
+            <p>Level-adapted editions and private imports are open again.</p>
+
+            <div class="rule">
+                <p class="muted">Billing, payment method, and cancellation all live in
+                    <a th:href="${settingsUrl}">Settings</a>.</p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

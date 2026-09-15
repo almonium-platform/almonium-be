@@ -1,0 +1,217 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260913-reading-redesign
+      author: claude
+      comment: >-
+        The reading redesign. A fulfilled translation request carries seen_at so the in-app notice knows whether it is
+        still news. translation_job is the ledger of approved translations: the estimate is written on approval and
+        the processor's phase is mirrored read-only. library_suggestion is a private import offered for the public
+        library, with the details the owner vouched for copied at the moment of suggesting.
+      changes:
+        - addColumn:
+            tableName: translation_order
+            columns:
+              - column:
+                  name: seen_at
+                  type: timestamp with time zone
+        - createTable:
+            tableName: translation_job
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: book_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_translation_job_book
+                    references: book(id)
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: processor_edition_id
+                  type: uuid
+              - column:
+                  name: processor_edition_slug
+                  type: varchar(180)
+              - column:
+                  name: phase
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: progress_completed
+                  type: int
+              - column:
+                  name: progress_total
+                  type: int
+              - column:
+                  name: estimated_cost_usd
+                  type: numeric(12, 6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: actual_cost_usd
+                  type: numeric(12, 6)
+              - column:
+                  name: tier
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mode
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: approved_by_user_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_translation_job_approved_by
+                    references: user_core(id)
+              - column:
+                  name: approved_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: finished_at
+                  type: timestamp with time zone
+              - column:
+                  name: error
+                  type: text
+              - column:
+                  name: published_book_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_translation_job_published_book
+                    references: book(id)
+              - column:
+                  name: last_synced_at
+                  type: timestamp with time zone
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: translation_job
+            indexName: ix_translation_job_book_language
+            columns:
+              - column:
+                  name: book_id
+              - column:
+                  name: language
+        - createTable:
+            tableName: library_suggestion
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: book_import_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_year
+                  type: int
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: processor_edition_id
+                  type: uuid
+              - column:
+                  name: processor_edition_slug
+                  type: varchar(180)
+              - column:
+                  name: phase
+                  type: varchar(20)
+              - column:
+                  name: progress
+                  type: int
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: error
+                  type: text
+              - column:
+                  name: library_book_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_library_suggestion_library_book
+                    references: book(id)
+              - column:
+                  name: decided_by_user_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_library_suggestion_decided_by
+                    references: user_core(id)
+              - column:
+                  name: decided_at
+                  type: timestamp with time zone
+              - column:
+                  name: published_at
+                  type: timestamp with time zone
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: library_suggestion
+            baseColumnNames: book_import_id
+            referencedTableName: user_book_import
+            referencedColumnNames: id
+            constraintName: fk_library_suggestion_import
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: library_suggestion
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_library_suggestion_user
+            onDelete: CASCADE
+        - createIndex:
+            tableName: library_suggestion
+            indexName: ix_library_suggestion_import_status
+            columns:
+              - column:
+                  name: book_import_id
+              - column:
+                  name: status

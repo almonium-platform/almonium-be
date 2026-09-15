@@ -2,27 +2,30 @@ package com.almonium.learning.book.model.entity;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
+import java.util.UUID;
 
 public interface BookDetailsProjection {
-    Long getId();
+    UUID getId();
+
+    String getEditionSlug();
+
+    String getWorkSlug();
 
     String getTitle();
 
     String getAuthor();
 
+    String getDescription();
+
     Integer getPublicationYear();
 
-    String getCoverImageUrl();
+    String getCoverUrl();
 
     Integer getWordCount();
 
-    Double getRating();
-
     Language getLanguage();
 
-    CEFR getLevelFrom();
-
-    CEFR getLevelTo();
+    CEFR getCefrLevel();
 
     Integer getProgressPercentage();
 
@@ -32,11 +35,9 @@ public interface BookDetailsProjection {
 
     Boolean getIsTranslation();
 
-    String getDescription();
-
     Language getOriginalLanguage();
 
-    Long getOriginalId();
+    UUID getOriginalId();
 
     String getTranslator();
 }

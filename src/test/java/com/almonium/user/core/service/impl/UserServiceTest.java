@@ -8,13 +8,17 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.chat.service.StreamChatService;
 import com.almonium.subscription.mapper.PlanSubscriptionMapper;
 import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.model.entity.PlanSubscription;
+import com.almonium.subscription.model.entity.enums.Entitlement;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
+import com.almonium.subscription.service.EffectiveAccessService;
+import com.almonium.subscription.service.FoundingMemberService;
 import com.almonium.subscription.service.PlanSubscriptionService;
-import com.almonium.subscription.service.StripeApiService;
+import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.dto.response.SubscriptionInfoDto;
 import com.almonium.user.core.dto.response.UserInfo;
 import com.almonium.user.core.mapper.UserMapper;
@@ -25,6 +29,7 @@ import com.almonium.user.core.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
@@ -49,13 +54,19 @@ class UserServiceTest {
     PlanSubscriptionService planSubscriptionService;
 
     @Mock
+    FoundingMemberService foundingMemberService;
+
+    @Mock
     PlanService planService;
 
     @Mock
-    PlanSubscriptionMapper planSubscriptionMapper;
+    PlanValidationService planValidationService;
 
     @Mock
-    StripeApiService stripeApiService;
+    EffectiveAccessService effectiveAccessService;
+
+    @Mock
+    PlanSubscriptionMapper planSubscriptionMapper;
 
     @Mock
     UserMapper userMapper;
@@ -126,12 +137,12 @@ class UserServiceTest {
     //        String subscriptionId = "sub_123";
     //        when(planSubscriptionService.findActiveSubscription(user))
     //                .thenReturn(Optional.of(PlanSubscription.builder()
-    //                        .stripeSubscriptionId(subscriptionId)
+    //                        .paddleSubscriptionId(subscriptionId)
     //                        .user(user)
     //                        .build()));
     //        userService.deleteAccount(user);
     //
-    //        verify(stripeApiService).cancelSubscription(subscriptionId);
+    //        verify(paddleApiService).cancelSubscription(subscriptionId);
     //        verify(userRepository).delete(user);
     //    }
 
@@ -167,6 +178,7 @@ class UserServiceTest {
         User user = UserUtility.getUser();
         user.setEmail("john@example.com");
         user.setId(UUID.randomUUID());
+        user.setStreamChatToken(null);
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
@@ -184,20 +196,23 @@ class UserServiceTest {
         subscriptionInfoDto.setName(plan.getName());
 
         when(planSubscriptionService.getActiveSub(user)).thenReturn(planSubscription);
-        when(planService.getPlanLimits(planId)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
+        when(effectiveAccessService.entitlementFor(user)).thenReturn(Entitlement.PREMIUM);
+        when(effectiveAccessService.isPremium(user)).thenReturn(true);
+        when(planService.getPlanLimits(Entitlement.PREMIUM)).thenReturn(Map.of((PlanFeature.MAX_TARGET_LANGS), 3));
         when(userMapper.userToUserInfo(user)).thenReturn(userInfo);
+        when(streamChatService.generateStreamToken(user)).thenReturn("fresh-stream-token");
         when(planSubscriptionMapper.planSubscriptionToPlanDto(eq(planSubscription)))
                 .thenReturn(subscriptionInfoDto);
-        when(planService.isPlanPremium(eq(planId))).thenReturn(true);
 
         UserInfo result = userService.buildUserInfoFromUser(user);
 
         verify(userMapper).userToUserInfo(user);
+        verify(streamChatService).generateStreamToken(user);
         verify(planSubscriptionMapper).planSubscriptionToPlanDto(planSubscription);
-        verify(planService).getPlanLimits(planId);
-        verify(planService).isPlanPremium(planId);
+        verify(planService).getPlanLimits(Entitlement.PREMIUM);
 
         assertThat(result.getEmail()).isEqualTo("john@example.com");
+        assertThat(result.getStreamChatToken()).isEqualTo("fresh-stream-token");
         assertThat(result.getSubscription().getName()).isEqualTo("Premium Plan");
         assertThat(result.getSubscription().getLimits()).containsEntry(PlanFeature.MAX_TARGET_LANGS, 3);
         assertThat(result.isPremium()).isTrue();
@@ -229,5 +244,18 @@ class UserServiceTest {
 
         // Assert
         assertThat(result).isFalse();
+    }
+
+    @DisplayName("Should validate the fluent language count against the active plan")
+    @Test
+    void givenFluentLanguages_whenUpdateFluentLanguages_thenValidatesPlanLimitAndSaves() {
+        User user = UserUtility.getUser();
+        Set<Language> fluentLanguages = Set.of(Language.EN, Language.DE);
+
+        userService.updateFluentLanguages(fluentLanguages, user);
+
+        verify(planValidationService).validatePlanFeature(user, PlanFeature.MAX_FLUENT_LANGS, fluentLanguages.size());
+        verify(userRepository).save(user);
+        assertThat(user.getFluentLangs()).containsExactlyInAnyOrderElementsOf(fluentLanguages);
     }
 }

@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.Getter;
@@ -41,6 +40,23 @@ public class AppProperties {
     @NestedConfigurationProperty
     Auth auth = new Auth();
 
+    @NotNull
+    @Valid
+    @NestedConfigurationProperty
+    Cors cors = new Cors();
+
+    @Getter
+    @Setter
+    @FieldDefaults(level = PRIVATE)
+    public static class Cors {
+        /**
+         * Origins allowed in addition to the web domain, as Spring origin patterns. Empty everywhere but locally,
+         * where a browser tab on any port has to be able to talk to the API.
+         */
+        @NotNull
+        List<String> allowedOriginPatterns = List.of();
+    }
+
     @Getter
     @Setter
     @FieldDefaults(level = PRIVATE)
@@ -64,90 +80,20 @@ public class AppProperties {
     @Setter
     @FieldDefaults(level = PRIVATE)
     public static class Auth {
-        boolean emailVerificationRequired;
-
         @NotNull
         @Valid
         @NestedConfigurationProperty
-        VerificationToken verificationToken = new VerificationToken();
-
-        @NotNull
-        @Valid
-        @NestedConfigurationProperty
-        Jwt jwt = new Jwt();
-
-        @NotNull
-        @Valid
-        @NestedConfigurationProperty
-        Oauth2 oauth2 = new Oauth2();
+        Firebase firebase = new Firebase();
 
         @Getter
         @Setter
         @FieldDefaults(level = PRIVATE)
-        public static class VerificationToken {
+        public static class Firebase {
+            @Min(60)
+            int sessionLifetimeSeconds;
 
             @Min(1)
-            int lifetime;
-
-            @Min(1)
-            int length;
-        }
-
-        @Getter
-        @Setter
-        @FieldDefaults(level = PRIVATE)
-        public static class Jwt {
-
-            @NotBlank
-            String secret;
-
-            @NotNull
-            @Valid
-            @NestedConfigurationProperty
-            AccessToken accessToken = new AccessToken();
-
-            @NotNull
-            @Valid
-            @NestedConfigurationProperty
-            RefreshToken refreshToken = new RefreshToken();
-
-            @Getter
-            @Setter
-            @FieldDefaults(level = PRIVATE)
-            public static class AccessToken {
-                @Min(1)
-                int lifetime;
-            }
-
-            @Getter
-            @Setter
-            @FieldDefaults(level = PRIVATE)
-            public static class RefreshToken {
-
-                @Min(1)
-                int lifetime;
-
-                @NotBlank
-                String url;
-
-                @NotBlank
-                String fullUrl;
-            }
-        }
-
-        @Getter
-        @Setter
-        @FieldDefaults(level = PRIVATE)
-        public static class Oauth2 {
-
-            @NotEmpty
-            List<@NotBlank String> authorizedRedirectUris;
-
-            @NotBlank
-            String appleTokenUrl;
-
-            @NotBlank
-            String appleServiceId;
+            int recentLoginSeconds;
         }
     }
 }

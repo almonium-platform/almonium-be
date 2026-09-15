@@ -5,6 +5,12 @@ server:
   forward-headers-strategy: framework
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 52MB
+  config:
+    import: optional:file:.env[.properties]
   profiles.active: ${SPRING_PROFILE}
   rabbitmq:
     host: ${RABBITMQ_HOST}
@@ -21,9 +27,7 @@ spring:
     publisher-returns: true
   jpa:
     open-in-view: false
-    show-sql: true
     properties.hibernate:
-      format_sql: true
       default_schema: ${DB_SCHEMA}
 
   datasource:
@@ -42,52 +46,10 @@ spring:
     contexts: ${SPRING_PROFILE}
     default-schema: ${DB_SCHEMA}
 
-  security.oauth2.client:
-    registration:
-      google:
-        client-id: ${google.oauth2.client-id}
-        client-secret: ${google.oauth2.client-secret}
-        scope: email,profile
-        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/google
-      facebook:
-        client-id: ${FACEBOOK_CLIENT_ID}
-        client-secret: ${FACEBOOK_CLIENT_SECRET}
-      apple:
-        client-id: ${APPLE_ID}
-        client-secret: ${APPLE_CLIENT_SECRET}
-        authorization-grant-type: authorization_code
-        client-name: Apple
-        client-authentication-method: client_secret_post
-        redirect-uri: ${app.api-domain}${server.servlet.context-path}/login/oauth2/code/apple
-        scope: email # add `name` if needed
-
-    provider:
-      google:
-        user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-      facebook:
-        user-info-uri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email,picture
-      apple:
-        token-uri: https://appleid.apple.com/auth/token
-        authorization-uri: https://appleid.apple.com/auth/authorize?response_mode=form_post
-        user-info-uri: https://appleid.apple.com/auth/userinfo
-        jwk-set-uri: https://appleid.apple.com/auth/keys
-        user-name-attribute: sub
-
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
     org.springframework.transaction.interceptor: INFO
-    com.almonium: DEBUG
     root: INFO
-    org.hibernate:
-      info: info
-      SQL: debug
-      orm.jdbc.bind: trace
-      stat: debug
-      SQL_SLOW: info
-      cache: debug
-      type.descriptor.sql.BasicBinder: trace
   pattern.console: "%magenta(%d{HH:mm:ss.SSS}) %green(%5p) --- %cyan(%c{0}) : %msg%n%ex{5}"
 
 
@@ -100,20 +62,14 @@ app:
     from-address: noreply@almonium.com
     from-name: Almonium
   auth:
-    verification-token:
-      lifetime: 60
-      length: 24
-    jwt:
-      secret: ${JWT_SECRET}
-      access-token.lifetime: 900 # 15 minutes
-      refresh-token:
-        lifetime: 1209600 # 14 days
-        url: /public/auth/refresh-token
-        full-url: ${server.servlet.context-path}${app.auth.jwt.refresh-token.url}
-    oauth2:
-      authorized-redirect-uris: ${app.web-domain}/oauth2/redirect
-      apple-token-url: https://appleid.apple.com
-      apple-service-id: com.almonium.auth
+    firebase:
+      session-lifetime-seconds: 604800 # 7 days
+      recent-login-seconds: 300 # 5 minutes
+  books:
+    publisher-secret: ${ALMONIUM_BOOKS_PUBLISHER_SECRET}
+    processor-url: ${ALMONIUM_BOOKS_PROCESSOR_URL}
+    # The month's ceiling on approved translation estimates; at the ceiling /ops stops approving and the queue keeps collecting.
+    translation-budget-usd: ${ALMONIUM_BOOKS_TRANSLATION_BUDGET_USD:150}
 
 rabbitmq:
   exchange:
@@ -140,10 +96,6 @@ rabbitmq:
       name: q.user.target-language.removed
       routing-key: user.target-language.removed.v1
       dlq-name: q.user.target-language.removed.dlq
-    auth-verification-email:
-      name: q.auth.verification-email.requested
-      routing-key: auth.verification-email.requested.v1
-      dlq-name: q.auth.verification-email.requested.dlq
     subscription-status-changed:
       name: q.subscription.status.changed
       routing-key: subscription.status.changed.v1
@@ -152,48 +104,60 @@ rabbitmq:
       name: q.friendship.email.requested
       routing-key: friendship.email.requested.v1
       dlq-name: q.friendship.email.requested.dlq
+    friendship-accepted:
+      name: q.friendship.accepted
+      routing-key: friendship.accepted.v1
+      dlq-name: q.friendship.accepted.dlq
     user-deleted-stream:
       name: q.user.deleted.stream
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.stream.dlq
-    user-deleted-stripe:
-      name: q.user.deleted.stripe
+    user-deleted-paddle:
+      name: q.user.deleted.paddle
       routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.stripe.dlq
-    user-deleted-firebase:
-      name: q.user.deleted.firebase
-      routing-key: user.deleted.v1
-      dlq-name: q.user.deleted.firebase.dlq
+      dlq-name: q.user.deleted.paddle.dlq
 google:
-  oauth2:
-    client-id: ${GOOGLE_CLIENT_ID}
-    client-secret: ${GOOGLE_CLIENT_SECRET}
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
-  firebase.storage.bucket: ${FIREBASE_STORAGE_BUCKET}
   service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
-
-ai:
-  gpt:
-    model: gpt-3.5-turbo
-    url: https://api.openai.com/v1/chat/completions
-    key: ${OPENAI_KEY}
-  gemini:
-    model: gemini-1.5-flash-8b
-    url: https://generativelanguage.googleapis.com/v1beta/models
-    key: ${GEMINI_API_KEY}
 
 stream.api:
   key: ${STREAM_KEY}
   secret: ${STREAM_SECRET}
 
-stripe:
-  webhook.secret: ${STRIPE_WEBHOOK_SECRET}
-  api.key: ${STRIPE_KEY}
-  checkout:
-    success-url: ${app.web-domain}/payment/success
-    cancel-url: ${app.web-domain}/pricing?canceled=true
-  return-url: ${app.web-domain}/settings/me?portal=from
+# 11: chat with Almo.
+almo:
+  user-id: almo
+  prompt-words: 40
+  history-size: 20
+  daily-message-ceiling: 60
+  open-ai:
+    api-key: ${OPENAI_API_KEY}
+    model: ${ALMO_MODEL:gpt-4.1-mini}
+
+# 12: the organisation side of OpenAI. The admin key reads the bill for the ops spend page; the price list turns our
+# own token ledger into dollars, since OpenAI publishes no pricing endpoint. Dollars per million tokens, keyed by the
+# alias we request; the dated snapshot OpenAI reports back (gpt-4.1-mini-2025-04-14) is priced under that alias.
+openai:
+  admin-key: ${OPENAI_ADMIN_KEY}
+  pricing:
+    "[gpt-4.1-mini]":
+      input: 0.40
+      cached-input: 0.10
+      output: 1.60
+
+paddle:
+  environment: ${PADDLE_ENVIRONMENT}
+  client-token: ${PADDLE_CLIENT_TOKEN}
+  # Empty means Paddle's own default payment link. Set it only to a domain approved in the Paddle dashboard.
+  checkout-url: ${PADDLE_CHECKOUT_URL:}
+  api.key: ${PADDLE_API_KEY}
+  webhook.secret: ${PADDLE_WEBHOOK_SECRET}
+  prices:
+    premium-monthly: ${PADDLE_PRICE_PREMIUM_MONTHLY}
+    premium-annual: ${PADDLE_PRICE_PREMIUM_ANNUAL}
+    founder-monthly: ${PADDLE_PRICE_FOUNDER_MONTHLY}
+    founder-annual: ${PADDLE_PRICE_FOUNDER_ANNUAL}
 
 external.api:
   # free/non-rated

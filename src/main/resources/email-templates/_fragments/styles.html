@@ -1,115 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        p {
-            margin: 10px 0;
-        }
+<style>
+    body {
+        color: #33292E;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 17px;
+        background-color: #2C2530;
+        line-height: 1.55;
+        margin: 0;
+        padding: 0;
+    }
 
-        body {
-            color: #000000;
-            font-family: "Palatino Linotype", serif;
-            font-size: 18px;
-            background-color: #120222;
-            line-height: 1.2;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    table {
+        border-spacing: 0;
+    }
 
-        .email-container {
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1em;
-            background-color: #f3eded;
-            border-radius: 30px;
-        }
+    p {
+        margin: 0 0 14px;
+    }
 
-        .email-content {
-            padding: 0 1em;
-        }
+    a {
+        color: #872657;
+        text-decoration: none;
+    }
 
-        .header {
-            text-align: center;
-            font-size: 12px;
-            color: #ffffff;
-            background-color: #120222;
-            margin: 3em 0 2em 0;
-            padding: 3em 0 1em 0;
-        }
+    .email-container {
+        width: 600px;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #F9F6F5;
+        border-radius: 20px;
+    }
 
-        .header img {
-            width: 50px;
-            height: auto;
-            vertical-align: middle;
-        }
+    .email-content {
+        padding: 34px 36px;
+    }
 
-        .header-title {
-            width: 250px;
-            height: auto;
-            vertical-align: middle;
-        }
+    .header {
+        width: 100%;
+        background-color: #2C2530;
+    }
 
-        .header p {
-            display: inline;
-            margin-left: 10px;
-            font-size: 40px;
-            color: #ffffff;
-            vertical-align: middle;
-        }
+    .header-cell {
+        padding: 36px 0 30px;
+        text-align: center;
+    }
 
-        .button-p {
-            text-align: center;
-            margin: 40px 0;
-        }
+    .header-wordmark {
+        display: inline-block;
+        width: 168px;
+        height: auto;
+        border: 0;
+        /* The alt text stands in for a white wordmark on the dark shell, so it has to be light. */
+        color: #F9F6F5;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 20px;
+    }
 
-        .button {
-            color: #ffffff;
-            background: linear-gradient(45deg, #5A1A74 0%, #8F2356 100%);
-            display: inline-block;
-            padding: 16px 20px;
-            font-size: 16px;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            border-radius: 50px;
-            margin: 0 auto;
-        }
+    .button-p {
+        margin: 28px 0;
+        text-align: center;
+    }
 
-        .premium-btn {
-            color: #ffffff;
-            background: linear-gradient(135deg, #00d1ff, #8a2be2);
-            display: inline-block;
-            padding: 16px 20px;
-            font-size: 16px;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            border-radius: 50px;
-            margin: 0 auto;
-        }
+    .button-table {
+        margin: 0 auto;
+    }
 
-        .footer {
-            text-align: center;
-            font-size: 15px;
-            background-color: #120222;
-            margin-top: 2em;
-            padding: 10px;
-        }
+    .button-cell {
+        border-radius: 9999px;
+        background-color: #5A1A74;
+    }
 
-        .footer img {
-            width: 50px;
-            height: auto;
-            vertical-align: middle;
-        }
+    .premium-cell {
+        border-radius: 9999px;
+        background-color: #5A1A74;
+    }
 
-        .footer p {
-            display: inline;
-            margin-left: 10px;
-            color: #a3a3a3;
-            vertical-align: middle;
-        }    </style>
-    <title></title>
-</head>
-</html>
+    .button,
+    .premium-btn {
+        display: inline-block;
+        padding: 15px 30px;
+        color: #ffffff;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.55;
+        text-decoration: none;
+        border-radius: 9999px;
+    }
+
+    .button {
+        background-color: #5A1A74;
+    }
+
+    .premium-btn {
+        background: linear-gradient(135deg, #8F2356, #5A1A74);
+    }
+
+    .muted {
+        color: #5f5560;
+        font-size: 15px;
+    }
+
+    /* The line after the button that states the allowance: apart from the news, under a hairline. */
+    .closing-line {
+        margin: 16px 0 0;
+        padding-top: 14px;
+        border-top: 1px solid #e3dcdf;
+        color: #5f5560;
+        font-size: 13.5px;
+    }
+
+    .email-headline {
+        margin-bottom: 6px;
+        color: #2C2530;
+        font-size: 20px;
+        line-height: 1.35;
+    }
+
+    .rule {
+        border-top: 1px solid #e3dcdf;
+        padding-top: 16px;
+    }
+
+    .plan-panel {
+        margin: 0 0 6px;
+        background-color: #FAF6FB;
+        border-radius: 14px;
+    }
+
+    .plan-panel-cell {
+        padding: 18px 20px;
+    }
+
+    .plan-label {
+        margin: 0 0 8px;
+        color: #872657;
+        font-size: 13px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+    }
+
+    .plan-name {
+        margin: 0 0 4px;
+        color: #2C2530;
+        font-size: 19px;
+    }
+
+    .plan-detail {
+        margin: 0;
+        color: #5f5560;
+        font-size: 15px;
+    }
+
+    .footer {
+        width: 100%;
+        background-color: #2C2530;
+        text-align: center;
+    }
+
+    .footer-cell {
+        padding: 22px 24px 26px;
+        text-align: center;
+    }
+
+    .footer-brand,
+    .footer-links {
+        margin: 0;
+        color: #a99aa8;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .footer-links {
+        margin-top: 4px;
+    }
+
+    .footer-link {
+        color: #c9c0cc;
+        text-decoration: underline;
+    }
+
+    .footer-separator {
+        color: #a99aa8;
+    }
+</style>

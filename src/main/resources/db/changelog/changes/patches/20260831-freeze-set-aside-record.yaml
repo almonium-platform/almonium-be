@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260831-freeze-set-aside-record
+      author: claude
+      comment: >-
+        A language that has been set aside must never accumulate unmet weeks. Recording when it was set aside lets
+        the record freeze the weeks since, so they read as neither met nor missed. Already-inactive learners are
+        stamped with now, since the moment they were set aside was not kept.
+      changes:
+        - addColumn:
+            tableName: learner
+            columns:
+              - column: { name: set_aside_at, type: timestamp with time zone }
+        - sql:
+            sql: UPDATE learner SET set_aside_at = now() WHERE active = false AND set_aside_at IS NULL

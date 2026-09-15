@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260830-record-learner-start
+      author: claude
+      comment: >-
+        The profile record counts weeks at pace against the weeks a language has actually existed, so a language
+        taken up in June is not judged against fourteen. Existing rows are backfilled from the account's
+        registration date, which is exact for the languages chosen at onboarding and approximate for later ones.
+      changes:
+        - addColumn:
+            tableName: learner
+            columns:
+              - column: { name: created_at, type: timestamp with time zone }
+        - sql:
+            sql: >-
+              UPDATE learner SET created_at = user_core.registered
+              FROM user_core WHERE user_core.id = learner.user_id AND learner.created_at IS NULL
+        - sql:
+            sql: UPDATE learner SET created_at = now() WHERE created_at IS NULL
+        - addNotNullConstraint:
+            tableName: learner
+            columnName: created_at
+            columnDataType: timestamp with time zone

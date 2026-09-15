@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260903-split-active-and-creation-language-caps
+      author: claude
+      comment: >-
+        One number was answering two questions. How many languages may be active is a plan entitlement that moves
+        when you pay; how many may exist is a storage ceiling that must never shrink, or a downgraded account —
+        which keeps every language it made — sits permanently in violation of its own creation limit and cannot
+        re-add a language it already owns. MAX_ACTIVE_LANGS takes over the entitlement, one on Free and three on
+        Premium, unlimited for the insider plan as before. MAX_TARGET_LANGS keeps its original meaning and becomes
+        the same generous ceiling for everyone.
+      changes:
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 1 }
+              - column: { name: feature_key, value: MAX_ACTIVE_LANGS }
+              - column: { name: limit_value, valueNumeric: 1 }
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 2 }
+              - column: { name: feature_key, value: MAX_ACTIVE_LANGS }
+              - column: { name: limit_value, valueNumeric: 3 }
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 3 }
+              - column: { name: feature_key, value: MAX_ACTIVE_LANGS }
+              - column: { name: limit_value, valueNumeric: 3 }
+        - update:
+            tableName: plan_limit
+            columns:
+              - column: { name: limit_value, valueNumeric: 10 }
+            where: feature_key = 'MAX_TARGET_LANGS'
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 2 }
+              - column: { name: feature_key, value: MAX_TARGET_LANGS }
+              - column: { name: limit_value, valueNumeric: 10 }
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 3 }
+              - column: { name: feature_key, value: MAX_TARGET_LANGS }
+              - column: { name: limit_value, valueNumeric: 10 }
+        - insert:
+            tableName: plan_limit
+            columns:
+              - column: { name: plan_id, valueNumeric: 4 }
+              - column: { name: feature_key, value: MAX_TARGET_LANGS }
+              - column: { name: limit_value, valueNumeric: 10 }

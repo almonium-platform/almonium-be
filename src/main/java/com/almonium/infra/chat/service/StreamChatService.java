@@ -6,10 +6,15 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.properties.AppProperties;
+import com.almonium.infra.chat.dto.request.AnnouncementRequest;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.exception.StreamIntegrationException;
+import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import io.getstream.chat.java.exceptions.StreamException;
 import io.getstream.chat.java.models.Channel;
+import io.getstream.chat.java.models.Message;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -29,12 +34,24 @@ public class StreamChatService {
 
     private static final String READ_ONLY_CHAT_TYPE = "broadcast";
 
-    private static final String SHORT_LINK_DOMAIN = "go.almonium.com";
-    private static final String SHORT_LINK_TEMPLATE = "https://%s/%s";
+    private static final String PRIVATE_CHAT_TYPE = "private";
+
+    // A DM is addressed by the friendship it belongs to, so both clients can name the channel before
+    // it exists - and a friendship can never end up with two of them.
+    private static final String PRIVATE_CHANNEL_ID_TEMPLATE = "private_%s";
+
+    // Membership travels with the user record so the clients can mark a member without asking us
+    // who is one. Only the flag: what it entitles someone to is ours to decide, not Stream's.
+    private static final String PREMIUM_FIELD = "premium";
+
+    // Channel artwork ships with the web client, like the email assets do; no third-party shortener
+    // in front of a URL only Stream ever reads.
+    private static final String CHANNEL_IMAGE_TEMPLATE = "%s/chat/%s.png";
 
     private static final List<Language> SUPPORTED_LANGUAGES =
             List.of(Language.EN, Language.DE, Language.ES, Language.FR, Language.IT);
     AppProperties appProperties;
+    EffectiveAccessService effectiveAccessService;
 
     public String setupNewUser(User user) {
         createStreamUser(user);
@@ -52,15 +69,7 @@ public class StreamChatService {
             return;
         }
 
-        try {
-            Channel.update(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
-                    .addMember(String.valueOf(user.getId()))
-                    .request();
-        } catch (StreamException e) {
-            throw new StreamIntegrationException(
-                    String.format("Error while joining language specific channel: %s, %s", language, e.getMessage()),
-                    e);
-        }
+        joinBroadcastChannel(getSupportedLanguageChannelId(language), user, () -> createLanguageChannel(language));
     }
 
     public void leaveLanguageSpecificChannelIfAvailable(User user, Language language) {
@@ -80,23 +89,64 @@ public class StreamChatService {
     }
 
     public void joinDefaultChannels(User user) {
+        joinBroadcastChannel(getDefaultStreamId(), user, this::createDefaultChannel);
+    }
+
+    /**
+     * The system channels are created once, by hand, and can simply not be there: a fresh Stream
+     * app, a purged one, a project nobody bootstrapped. A signup that dies on that leaves the user
+     * with no chat at all - not even their own Saved Messages, which is created afterwards - so a
+     * missing channel is rebuilt rather than raised.
+     */
+    private void joinBroadcastChannel(String channelId, User user, Runnable recreate) {
         try {
-            Channel.update(READ_ONLY_CHAT_TYPE, getDefaultStreamId())
-                    .addMember(String.valueOf(user.getId()))
-                    .request();
+            addMember(channelId, user);
+        } catch (StreamException first) {
+            log.warn("Broadcast channel {} would not take a member, rebuilding it: {}", channelId, first.getMessage());
+            recreate.run();
+            try {
+                addMember(channelId, user);
+            } catch (StreamException second) {
+                throw new StreamIntegrationException(
+                        String.format("Error while joining channel %s: %s", channelId, second.getMessage()), second);
+            }
+        }
+    }
+
+    private void addMember(String channelId, User user) throws StreamException {
+        Channel.update(READ_ONLY_CHAT_TYPE, channelId)
+                .addMember(String.valueOf(user.getId()))
+                .request();
+    }
+
+    /**
+     * Posts to a broadcast channel as the app itself. Members cannot write to those channels, so
+     * this server-side path is the only way anything is published there.
+     */
+    public String publishAnnouncement(AnnouncementRequest request) {
+        String channelId = getBroadcastChannelId(request.language());
+
+        try {
+            var message =
+                    Message.MessageRequestObject.builder().text(request.text()).userId(getDefaultStreamId());
+            // The client draws the footer action from these; a post without them is text alone.
+            if (request.hasCta()) {
+                message.additionalField("ctaLabel", request.ctaLabel()).additionalField("ctaUrl", request.ctaUrl());
+            }
+            return Message.send(READ_ONLY_CHAT_TYPE, channelId)
+                    .message(message.build())
+                    .request()
+                    .getMessage()
+                    .getId();
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while joining default channel: " + e.getMessage(), e);
+            throw new StreamIntegrationException(
+                    String.format("Error while publishing to channel %s: %s", channelId, e.getMessage()), e);
         }
     }
 
     public void createStreamUser(User user) {
         try {
-            upsert().user(io.getstream.chat.java.models.User.UserRequestObject.builder()
-                            .id(user.getId().toString())
-                            .name(user.getUsername())
-                            .additionalField("email", user.getEmail())
-                            .build())
-                    .request();
+            upsert().user(asStreamUser(user)).request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while creating user with id: %s, message: %s", user.getId(), e.getMessage()),
@@ -110,21 +160,65 @@ public class StreamChatService {
 
     public void updateUser(User user) {
         try {
-            io.getstream.chat.java.models.User.UserRequestObject userRequest =
-                    io.getstream.chat.java.models.User.UserRequestObject.builder()
-                            .id(String.valueOf(user.getId())) // User ID to update
-                            .name(user.getUsername()) // User name
-                            .additionalField("email", user.getEmail()) // User email
-                            .additionalField("image", user.getProfile().getAvatarUrl()) // New avatar URL
-                            .build();
-
-            // Upsert the user with the new avatar URL
-            upsert().user(userRequest).request();
-
+            upsert().user(asStreamUser(user)).request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while updating user with id: %s, %s", user.getId(), e.getMessage()), e);
         }
+    }
+
+    /**
+     * The whole Stream-visible profile, so creating and updating a user can never disagree about what
+     * Stream is told: the chat list reads the picture from here, and a record written without one
+     * leaves the interlocutor as a letter next to a card that shows their face.
+     *
+     * <p>A hidden profile keeps its avatar to itself, exactly as it does everywhere else another
+     * person can see it.
+     */
+    private io.getstream.chat.java.models.User.UserRequestObject asStreamUser(User user) {
+        Profile profile = user.getProfile();
+        String avatarUrl = profile == null || profile.isHidden() ? null : profile.getAvatarUrl();
+
+        return io.getstream.chat.java.models.User.UserRequestObject.builder()
+                .id(user.getId().toString())
+                .name(user.getUsername())
+                .additionalField("email", user.getEmail())
+                .additionalField("image", avatarUrl)
+                .additionalField(PREMIUM_FIELD, effectiveAccessService.isPremium(user))
+                .build();
+    }
+
+    /**
+     * The private chat a friendship owns. Idempotent, so a redelivered event costs nothing; the members arrive with the
+     * channel, which is what puts it on both clients' screens.
+     */
+    public void createPrivateChat(UUID relationshipId, UUID accepterId, UUID counterpartId) {
+        String channelId = getPrivateChannelId(relationshipId);
+
+        try {
+            Channel.getOrCreate(PRIVATE_CHAT_TYPE, channelId)
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(accepterId.toString())
+                                    .build())
+                            .members(List.of(asMember(accepterId), asMember(counterpartId)))
+                            .build())
+                    .request();
+
+        } catch (StreamException e) {
+            throw new StreamIntegrationException(
+                    String.format("Error while creating private chat %s: %s", channelId, e.getMessage()), e);
+        }
+    }
+
+    private Channel.ChannelMemberRequestObject asMember(UUID userId) {
+        return Channel.ChannelMemberRequestObject.builder()
+                .userId(userId.toString())
+                .build();
+    }
+
+    private String getPrivateChannelId(UUID relationshipId) {
+        return String.format(PRIVATE_CHANNEL_ID_TEMPLATE, relationshipId);
     }
 
     public void createSelfChat(User user) {
@@ -141,7 +235,6 @@ public class StreamChatService {
                                     .build())
                             .members(Collections.singletonList(selfMember))
                             .additionalField("name", SELF_CHAT_NAME)
-                            .additionalField("image", getShortLink("saved-messages"))
                             .build())
                     .request();
 
@@ -191,8 +284,21 @@ public class StreamChatService {
         }
     }
 
-    private String getShortLink(String key) {
-        return String.format(SHORT_LINK_TEMPLATE, SHORT_LINK_DOMAIN, key);
+    private String getChannelImage(String key) {
+        return String.format(CHANNEL_IMAGE_TEMPLATE, appProperties.getWebDomain(), key);
+    }
+
+    // No language means the app-wide channel; anything else has to be a room we actually run.
+    private String getBroadcastChannelId(Language language) {
+        if (language == null) {
+            return getDefaultStreamId();
+        }
+
+        if (!SUPPORTED_LANGUAGES.contains(language)) {
+            throw new EntityNotFoundException("No broadcast channel for language: " + language);
+        }
+
+        return getSupportedLanguageChannelId(language);
     }
 
     // both default channel and default user id are based on the app name
@@ -200,8 +306,23 @@ public class StreamChatService {
         return appProperties.getName().toLowerCase();
     }
 
-    // should be run once, on project migration
-    @SuppressWarnings("unused")
+    // Re-stamps the artwork on the system channels; run after the asset URLs move. Safe to re-run.
+    public void syncSystemChannelImages() {
+        try {
+            Channel.partialUpdate(READ_ONLY_CHAT_TYPE, getDefaultStreamId())
+                    .setValue("image", getChannelImage("logo"))
+                    .request();
+
+            for (var language : SUPPORTED_LANGUAGES) {
+                Channel.partialUpdate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
+                        .setValue("image", getLogoForLanguageChannel(language))
+                        .request();
+            }
+        } catch (StreamException e) {
+            throw new StreamIntegrationException("Error while syncing system channel images: " + e.getMessage(), e);
+        }
+    }
+
     public void createDefaultChannel() { // Fetch the channel details
         try {
             String defaultChannelId = getDefaultStreamId();
@@ -211,7 +332,7 @@ public class StreamChatService {
                             .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
                                     .id(defaultChannelId)
                                     .build())
-                            .additionalField("image", getShortLink("logo"))
+                            .additionalField("image", getChannelImage("logo"))
                             .additionalField("name", appProperties.getName())
                             .build())
                     .request();
@@ -220,24 +341,24 @@ public class StreamChatService {
         }
     }
 
-    @SuppressWarnings("unused")
     public void createChannelsForSpecificLanguages() {
-        try {
-            String defaultChannelId = getDefaultStreamId();
+        SUPPORTED_LANGUAGES.forEach(this::createLanguageChannel);
+    }
 
-            for (var language : SUPPORTED_LANGUAGES) {
-                Channel.getOrCreate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
-                        .data(Channel.ChannelRequestObject.builder()
-                                .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
-                                        .id(defaultChannelId)
-                                        .build())
-                                .additionalField("image", getLogoForLanguageChannel(language))
-                                .additionalField("name", getLanguageChannelName(language))
-                                .build())
-                        .request();
-            }
+    public void createLanguageChannel(Language language) {
+        try {
+            Channel.getOrCreate(READ_ONLY_CHAT_TYPE, getSupportedLanguageChannelId(language))
+                    .data(Channel.ChannelRequestObject.builder()
+                            .createdBy(io.getstream.chat.java.models.User.UserRequestObject.builder()
+                                    .id(getDefaultStreamId())
+                                    .build())
+                            .additionalField("image", getLogoForLanguageChannel(language))
+                            .additionalField("name", getLanguageChannelName(language))
+                            .build())
+                    .request();
         } catch (StreamException e) {
-            throw new StreamIntegrationException("Error while creating default channel: " + e.getMessage(), e);
+            throw new StreamIntegrationException(
+                    String.format("Error while creating the %s channel: %s", language, e.getMessage()), e);
         }
     }
 
@@ -250,7 +371,7 @@ public class StreamChatService {
     }
 
     private String getLogoForLanguageChannel(Language language) {
-        return getShortLink("logo-" + language.name().toLowerCase());
+        return getChannelImage("logo-" + language.name().toLowerCase());
     }
 
     private String getSupportedLanguageChannelId(Language language) {

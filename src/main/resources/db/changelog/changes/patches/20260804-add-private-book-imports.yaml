@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260804-add-private-book-imports
+      author: codex
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: description
+                  type: text
+        - createTable:
+            tableName: user_book_import
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_book_import_user
+                    references: user_core(id)
+              - column:
+                  name: title
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_year
+                  type: integer
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: progress
+                  type: integer
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: word_count
+                  type: integer
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: error
+                  type: text
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: user_book_import
+            indexName: ix_user_book_import_user_created
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: created_at
+        - sql:
+            sql: |
+              INSERT INTO plan_limit (plan_id, feature_key, limit_value)
+              VALUES
+                  (1, 'MAX_BOOK_IMPORTS_PER_MONTH', 0),
+                  (2, 'MAX_BOOK_IMPORTS_PER_MONTH', 3),
+                  (3, 'MAX_BOOK_IMPORTS_PER_MONTH', 3),
+                  (4, 'MAX_BOOK_IMPORTS_PER_MONTH', 3);

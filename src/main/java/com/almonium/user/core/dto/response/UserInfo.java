@@ -26,9 +26,8 @@ public class UserInfo {
 
     boolean emailVerified;
     boolean isPremium;
+    boolean isAdmin;
     boolean hidden;
-
-    Integer streak;
 
     Collection<String> tags;
     Collection<LearnerDto> learners;
@@ -38,4 +37,5 @@ public class UserInfo {
     SetupStep setupStep;
     SubscriptionInfoDto subscription;
     Map<String, Object> uiPreferences;
+    NotificationPreferencesDto notifications;
 }

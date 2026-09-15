@@ -36,5 +36,5 @@ public class Example {
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
-    Card card;
+    LearningItem card;
 }

@@ -5,7 +5,6 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.user.core.exception.ResourceNotAccessibleException;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.ProfileRepository;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
@@ -21,16 +20,10 @@ import org.springframework.stereotype.Service;
 public class ProfileService {
     ProfileRepository profileRepository;
 
-    public void updateLoginStreak(Profile profile) {
-        LocalDate lastLoginDate = profile.getLastLogin().toLocalDate();
-        LocalDate currentDate = LocalDate.now();
-
-        // If the user logs in the next day, increment the streak, otherwise reset it to 1
-        profile.setStreak(lastLoginDate.plusDays(1).isEqual(currentDate) ? profile.getStreak() + 1 : 1);
-
+    public void updateLastLogin(Profile profile) {
         profile.setLastLogin(LocalDateTime.now());
         profileRepository.save(profile);
-        log.info("Login streak updated for user: {}", profile.getId());
+        log.info("Last login updated for user: {}", profile.getId());
     }
 
     public void updateUIPreferences(UUID userId, Map<String, Object> uiPreferences) {
@@ -51,5 +44,14 @@ public class ProfileService {
         profile.setHidden(hidden);
         profileRepository.save(profile);
         log.info("Hidden status updated for user: {}", userId);
+    }
+
+    /** Each switch covers email and push together; the in-app bell reads neither. */
+    public void updateNotificationPreferences(UUID userId, boolean socialEmails, boolean bookEmails) {
+        Profile profile = getProfileById(userId);
+        profile.setSocialEmailNotifications(socialEmails);
+        profile.setBookEmailNotifications(bookEmails);
+        profileRepository.save(profile);
+        log.info("Notification preferences for user {}: social {}, books {}", userId, socialEmails, bookEmails);
     }
 }

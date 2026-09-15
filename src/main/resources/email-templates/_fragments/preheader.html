@@ -1,0 +1,11 @@
+<!--/*
+  Hidden inbox preview line. It must be the first node inside <body>, before the header table,
+  or clients scrape the wordmark alt text instead. The zero-width run after the text stops Gmail
+  from pulling body copy into the preview. PlainTextEmailBody strips this block from the text part.
+  Parser-level comment: Thymeleaf drops it, so nothing precedes the preheader in the sent HTML.
+*/-->
+<div xmlns:th="http://www.thymeleaf.org" class="preheader"
+     style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-size:1px; line-height:1px; color:#F9F6F5; opacity:0;">
+    <span th:text="${preheader}"></span>
+    &#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;
+</div>

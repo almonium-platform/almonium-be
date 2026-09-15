@@ -2,12 +2,16 @@ package com.almonium.user.core.service.impl;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.service.ProfileService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,30 +30,41 @@ class ProfileServiceTest {
     @InjectMocks
     ProfileService profileService;
 
-    @DisplayName("Should increase streak if last login is on the previous day")
+    @DisplayName("Should stamp the current time as the last login")
     @Test
-    void givenLastLoginIsPreviousDay_whenUpdateLoginStreak_thenStreakIsIncreased() {
+    void givenStaleLastLogin_whenUpdateLastLogin_thenLastLoginIsStampedNow() {
         Profile profile = new Profile();
-        LocalDateTime lastLogin = LocalDateTime.now().minusDays(1);
-        profile.setLastLogin(lastLogin);
-        profile.setStreak(5);
-        profileService.updateLoginStreak(profile);
+        profile.setLastLogin(LocalDateTime.now().minusDays(2));
 
-        assertThat(profile.getStreak()).isEqualTo(6);
+        profileService.updateLastLogin(profile);
+
         assertThat(profile.getLastLogin().toLocalDate()).isEqualTo(LocalDate.now());
+        verify(profileRepository).save(profile);
     }
 
-    @DisplayName("Should reset streak if last login is not on the previous day")
     @Test
-    void givenLastLoginNotPreviousDay_whenUpdateLoginStreak_thenStreakIsReset() {
-        Profile profile = new Profile();
-        LocalDateTime lastLogin = LocalDateTime.now().minusDays(2);
-        profile.setLastLogin(lastLogin);
-        profile.setStreak(5);
+    void socialEmailsAreOnUntilTheMemberTurnsThemOff() {
+        Profile profile = Profile.builder().id(UUID.randomUUID()).build();
+        when(profileRepository.findById(profile.getId())).thenReturn(Optional.of(profile));
+        assertThat(profile.isSocialEmailNotifications()).isTrue();
 
-        profileService.updateLoginStreak(profile);
+        profileService.updateNotificationPreferences(profile.getId(), false, true);
 
-        assertThat(profile.getStreak()).isEqualTo(1);
-        assertThat(profile.getLastLogin().toLocalDate()).isEqualTo(LocalDate.now());
+        assertThat(profile.isSocialEmailNotifications()).isFalse();
+        assertThat(profile.isBookEmailNotifications()).isTrue();
+        verify(profileRepository).save(profile);
+    }
+
+    @Test
+    void bookNotificationsAreOnUntilTheMemberTurnsThemOff() {
+        Profile profile = Profile.builder().id(UUID.randomUUID()).build();
+        when(profileRepository.findById(profile.getId())).thenReturn(Optional.of(profile));
+        assertThat(profile.isBookEmailNotifications()).isTrue();
+
+        profileService.updateNotificationPreferences(profile.getId(), true, false);
+
+        assertThat(profile.isSocialEmailNotifications()).isTrue();
+        assertThat(profile.isBookEmailNotifications()).isFalse();
+        verify(profileRepository).save(profile);
     }
 }

@@ -1,0 +1,198 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-plan-entitlement
+      author: codex
+      changes:
+        - addColumn:
+            tableName: plan
+            columns:
+              - column:
+                  name: entitlement
+                  type: varchar(50)
+        - update:
+            tableName: plan
+            columns:
+              - column:
+                  name: entitlement
+                  value: FREE
+            where: name = 'FREE'
+        - update:
+            tableName: plan
+            columns:
+              - column:
+                  name: entitlement
+                  value: PREMIUM
+            where: name = 'PREMIUM'
+        - update:
+            tableName: plan
+            columns:
+              - column:
+                  name: entitlement
+                  value: UNLIMITED
+            where: name = 'INSIDER'
+        - addNotNullConstraint:
+            tableName: plan
+            columnName: entitlement
+            columnDataType: varchar(50)
+  - changeSet:
+      id: create-access-grant-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: access_grant
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: granted_by_user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entitlement
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: starts_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: timestamp with time zone
+              - column:
+                  name: revoked_at
+                  type: timestamp with time zone
+        - addForeignKeyConstraint:
+            baseTableName: access_grant
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_access_grant_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: access_grant
+            baseColumnNames: granted_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_access_grant_operator
+  - changeSet:
+      id: create-book-import-quota-adjustment-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: book_import_quota_adjustment
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: performed_by_user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: feature_key
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period_starts_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: adjustment
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: book_import_quota_adjustment
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_book_import_quota_adjustment_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: book_import_quota_adjustment
+            baseColumnNames: performed_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_book_import_quota_adjustment_operator
+  - changeSet:
+      id: create-founding-member-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: founding_member
+            columns:
+              - column:
+                  name: slot_number
+                  type: int
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+              - column:
+                  name: checkout_session_id
+                  type: varchar(255)
+              - column:
+                  name: stripe_subscription_id
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reserved_at
+                  type: timestamp with time zone
+              - column:
+                  name: confirmed_at
+                  type: timestamp with time zone
+        - addUniqueConstraint:
+            tableName: founding_member
+            columnNames: user_id
+            constraintName: uq_founding_member_user
+        - addForeignKeyConstraint:
+            baseTableName: founding_member
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_founding_member_user
+            onDelete: RESTRICT
+        - sql:
+            dbms: postgresql
+            sql: INSERT INTO founding_member (slot_number, status) SELECT value, 'AVAILABLE' FROM generate_series(1, 100) AS value

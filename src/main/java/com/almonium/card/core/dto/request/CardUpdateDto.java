@@ -6,8 +6,11 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.ExampleDto;
 import com.almonium.card.core.dto.TagDto;
 import com.almonium.card.core.dto.TranslationDto;
+import com.almonium.card.core.model.enums.LearningIntent;
+import com.almonium.card.core.model.enums.LearningItemType;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +28,13 @@ public class CardUpdateDto {
     UUID id;
 
     String entry;
+    String normalizedForm;
+    String lemma;
+    LearningItemType itemType;
+    String partOfSpeech;
+    String selectedSense;
+    String sourceContext;
+    Set<LearningIntent> learningIntents;
     TranslationDto[] translations;
     String notes;
     TagDto[] tags;

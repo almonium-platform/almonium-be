@@ -35,9 +35,8 @@ public class CardController {
     CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
-        cardService.createCard(user, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CardDto> createCard(@Valid @RequestBody CardCreationDto dto, @Auth User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(user, dto));
     }
 
     @PutMapping
@@ -52,8 +51,8 @@ public class CardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CardDto> getCard(@PathVariable UUID id) {
-        return ResponseEntity.ok(cardService.getCardById(id));
+    public ResponseEntity<CardDto> getCard(@PathVariable UUID id, @Auth User user) {
+        return ResponseEntity.ok(cardService.getCardById(user, id));
     }
 
     @GetMapping("/hash/{hash}")
@@ -62,8 +61,8 @@ public class CardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCard(@PathVariable UUID id) {
-        cardService.deleteById(id);
+    public ResponseEntity<Void> deleteCard(@PathVariable UUID id, @Auth User user) {
+        cardService.deleteById(user, id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -4,6 +4,8 @@
 # Shell & scripts (force LF)
 *.sh    text eol=lf
 *.ps1   text eol=lf
+mvnw    text eol=lf
+.mvn/** text eol=lf
 
 # Windows batch (keep CRLF so they run on Windows)
 *.bat   text eol=crlf

@@ -3,7 +3,6 @@ package com.almonium.infra.messaging.rabbit;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.RabbitMQProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +16,11 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Configures RabbitMQ Exchanges, Queues, and Bindings using Declarables
@@ -31,11 +31,11 @@ import org.springframework.context.annotation.Configuration;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class RabbitMQDeclarablesConfig {
     RabbitMQProperties rabbitMQProperties;
-    ObjectMapper objectMapper;
+    JsonMapper jsonMapper;
 
     @Bean
-    public MessageConverter jackson2JsonMessageConverter() {
-        return new Jackson2JsonMessageConverter(objectMapper);
+    public MessageConverter jacksonJsonMessageConverter() {
+        return new JacksonJsonMessageConverter(jsonMapper);
     }
 
     @Bean

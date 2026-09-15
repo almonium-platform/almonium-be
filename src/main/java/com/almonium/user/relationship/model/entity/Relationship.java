@@ -13,9 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Version;
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +28,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "relationship", uniqueConstraints = @UniqueConstraint(columnNames = {"requester_id", "requestee_id"}))
+@Table(name = "relationship")
 @Getter
 @Setter
 @Builder
@@ -61,19 +60,12 @@ public class Relationship {
     @Enumerated(EnumType.STRING)
     RelationshipStatus status;
 
+    @Version
+    long version;
+
     public Relationship(User requester, User requestee) {
         this.requester = requester;
         this.requestee = requestee;
         status = RelationshipStatus.PENDING;
-    }
-
-    public Optional<UUID> getRelationshipDenier() {
-        if (this.getStatus().equals(RelationshipStatus.FST_BLOCKED_SND)) {
-            return Optional.ofNullable(requester.getId());
-        }
-        if (this.getStatus().equals(RelationshipStatus.SND_BLOCKED_FST)) {
-            return Optional.ofNullable(requestee.getId());
-        }
-        return Optional.empty();
     }
 }

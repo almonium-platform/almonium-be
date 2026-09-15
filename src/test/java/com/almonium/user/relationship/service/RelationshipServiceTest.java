@@ -10,37 +10,44 @@ import static com.almonium.user.relationship.model.enums.RelationshipStatus.UNFR
 import static lombok.AccessLevel.PRIVATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.UserRepository;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.core.service.UserService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
+import com.almonium.user.relationship.event.FriendshipAcceptedEvent;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.repository.RelationshipRepository;
 import com.almonium.util.TestDataGenerator;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = PRIVATE)
@@ -67,6 +74,15 @@ class RelationshipServiceTest {
     @Mock
     NotificationService notificationService;
 
+    @Mock
+    EffectiveAccessService effectiveAccessService;
+
+    @Mock
+    ApplicationEventPublisher eventPublisher;
+
+    @Spy
+    RelationshipStateMachine stateMachine = new RelationshipStateMachine();
+
     @InjectMocks
     RelationshipService relationshipService;
 
@@ -78,25 +94,64 @@ class RelationshipServiceTest {
     void setUp() {
         requester = TestDataGenerator.buildTestUserWithId(REQUESTER_ID);
         recipient = TestDataGenerator.buildTestUserWithId(RECIPIENT_ID);
-        relationship = new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING);
+        relationship =
+                new Relationship(RELATIONSHIP_ID, requester, recipient, Instant.now(), Instant.now(), PENDING, 0);
     }
 
-    @DisplayName("Should return empty list when no friends match username substring")
+    @DisplayName("Should return empty list when no account matches the username substring")
     @Test
     void givenNonMatchingUsernameSubstring_whenFindFriendsByUsername_thenReturnEmptyList() {
         // Arrange
         String usernameSubstring = "nonexistent";
         var currentUserId = UUID.randomUUID(); // ID of the current user to exclude
 
-        when(relationshipRepository.findNewFriendCandidates(
-                        currentUserId, usernameSubstring, RelationshipStatus.retryableStatuses()))
+        when(relationshipRepository.searchUsersByUsername(currentUserId, usernameSubstring))
                 .thenReturn(List.of());
 
         // Act
-        List<PublicUserProfile> result = relationshipService.findUsersByUsername(currentUserId, usernameSubstring);
+        List<RelatedUserProfile> result = relationshipService.findUsersByUsername(currentUserId, usernameSubstring);
 
         // Assert
         assertThat(result).isEmpty();
+    }
+
+    @DisplayName("Should stamp membership from the access service, not from what the query returned")
+    @Test
+    void givenGrantedMember_whenGetFriends_thenTheAccessServiceDecidesWhoIsAMember() {
+        UUID memberId = UUID.randomUUID();
+        UUID freeId = UUID.randomUUID();
+        RelatedUserProfile member = new RelatedUserProfile(memberId, "member", null, RELATIONSHIP_ID, "FRIENDS");
+        RelatedUserProfile free = new RelatedUserProfile(freeId, "free", null, RELATIONSHIP_ID, "FRIENDS");
+
+        when(relationshipRepository.getFriendships(REQUESTER_ID)).thenReturn(List.of(member, free));
+        when(effectiveAccessService.premiumAmong(List.of(memberId, freeId))).thenReturn(Set.of(memberId));
+
+        List<RelatedUserProfile> friends = relationshipService.getFriends(REQUESTER_ID);
+
+        assertThat(friends)
+                .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::isPremium)
+                .containsExactly(tuple("member", true), tuple("free", false));
+    }
+
+    @DisplayName("Should stamp each person with the languages they study, and leave the rest empty")
+    @Test
+    void givenLearners_whenGetFriends_thenEachRowCarriesItsOwnLanguages() {
+        UUID studentId = UUID.randomUUID();
+        UUID quietId = UUID.randomUUID();
+        RelatedUserProfile student = new RelatedUserProfile(studentId, "student", null, RELATIONSHIP_ID, "FRIENDS");
+        RelatedUserProfile quiet = new RelatedUserProfile(quietId, "quiet", null, RELATIONSHIP_ID, "FRIENDS");
+
+        when(relationshipRepository.getFriendships(REQUESTER_ID)).thenReturn(List.of(student, quiet));
+        when(relationshipRepository.findActiveLanguagesOf(List.of(studentId, quietId)))
+                .thenReturn(List.of(
+                        new LearnerLanguageProjection(studentId, Language.ES),
+                        new LearnerLanguageProjection(studentId, Language.DE)));
+
+        List<RelatedUserProfile> friends = relationshipService.getFriends(REQUESTER_ID);
+
+        assertThat(friends)
+                .extracting(RelatedUserProfile::getUsername, RelatedUserProfile::getLearning)
+                .containsExactly(tuple("student", List.of(Language.ES, Language.DE)), tuple("quiet", List.of()));
     }
 
     @DisplayName("Should return empty list when no friends found for a user")
@@ -174,6 +229,46 @@ class RelationshipServiceTest {
         verify(relationshipRepository, never()).save(any(Relationship.class));
     }
 
+    @DisplayName("Should not create a relationship with oneself")
+    @Test
+    void givenSelfAsRecipient_whenCreateFriendshipRequest_thenThrowException() {
+        FriendshipRequestDto dto = new FriendshipRequestDto(REQUESTER_ID);
+
+        assertThatThrownBy(() -> relationshipService.createFriendshipRequest(requester, dto))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage("A user cannot have a relationship with themselves");
+
+        verify(relationshipRepository, never()).save(any(Relationship.class));
+    }
+
+    @DisplayName("Should recheck recipient privacy when re-establishing a relationship")
+    @Test
+    void givenHiddenRecipientAndRetryableRelationship_whenReestablishing_thenThrowException() {
+        relationship.setStatus(UNFRIENDED);
+        requester.getProfile().setHidden(true);
+        FriendshipRequestDto dto = new FriendshipRequestDto(REQUESTER_ID);
+
+        when(relationshipRepository.getRelationshipByUsersIds(RECIPIENT_ID, REQUESTER_ID))
+                .thenReturn(Optional.of(relationship));
+        when(profileService.getProfileById(REQUESTER_ID)).thenReturn(requester.getProfile());
+
+        assertThatThrownBy(() -> relationshipService.createFriendshipRequest(recipient, dto))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage(RELATIONSHIP_CANT_BE_ESTABLISHED);
+
+        verify(relationshipRepository, never()).save(any(Relationship.class));
+    }
+
+    @DisplayName("Should not block oneself")
+    @Test
+    void givenSelfAsTarget_whenBlockingUser_thenThrowException() {
+        assertThatThrownBy(() -> relationshipService.blockUser(requester, REQUESTER_ID))
+                .isInstanceOf(RelationshipException.class)
+                .hasMessage("A user cannot have a relationship with themselves");
+
+        verify(relationshipRepository, never()).getRelationshipByUsersIds(REQUESTER_ID, REQUESTER_ID);
+    }
+
     @DisplayName("Should accept a pending friendship request")
     @Test
     void givenPendingFriendship_whenAcceptFriendshipRequest_thenStatusIsUpdatedToFriends() {
@@ -190,6 +285,29 @@ class RelationshipServiceTest {
         // Assert
         assertThat(updatedRelationship).isNotNull();
         assertThat(updatedRelationship.getStatus()).isEqualTo(FRIENDS);
+    }
+
+    @DisplayName("Should announce an accepted friendship, so its private chat is created for both sides")
+    @Test
+    void givenPendingFriendship_whenAcceptFriendshipRequest_thenAcceptanceIsAnnounced() {
+        // Arrange
+        relationship.setStatus(PENDING);
+
+        when(relationshipRepository.findById(RELATIONSHIP_ID)).thenReturn(Optional.of(relationship));
+        when(relationshipRepository.save(any(Relationship.class))).thenReturn(relationship);
+
+        // Act
+        relationshipService.manageFriendship(recipient, RELATIONSHIP_ID, RelationshipAction.ACCEPT);
+
+        // Assert
+        ArgumentCaptor<FriendshipAcceptedEvent> captor = ArgumentCaptor.forClass(FriendshipAcceptedEvent.class);
+        verify(eventPublisher).publishEvent(captor.capture());
+        assertThat(captor.getValue())
+                .extracting(
+                        FriendshipAcceptedEvent::relationshipId,
+                        FriendshipAcceptedEvent::accepterId,
+                        FriendshipAcceptedEvent::counterpartId)
+                .containsExactly(RELATIONSHIP_ID, RECIPIENT_ID, REQUESTER_ID);
     }
 
     @DisplayName("Should not accept a non-pending friendship request")

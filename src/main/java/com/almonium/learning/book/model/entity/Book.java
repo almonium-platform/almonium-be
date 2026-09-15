@@ -4,12 +4,15 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.Instant;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,9 +20,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.JdbcType;
-import org.hibernate.dialect.PostgreSQLEnumJdbcType;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 @Entity
+// A withdrawn book is invisible to every catalogue and reader query, including
+// the language-variant subselects, but its row stays: learner progress,
+// favourites and translation orders reference it and must survive a takedown.
+@SQLRestriction("withdrawn_at is null")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +36,12 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 @EqualsAndHashCode(of = {"id"})
 public class Book {
     @Id
-    Long id;
+    @UuidV7
+    UUID id;
+
+    String editionSlug;
+    String workSlug;
+    String sourceHash;
 
     // Reference to original book (null if this IS the original)
     @ManyToOne
@@ -37,24 +50,23 @@ public class Book {
 
     String title;
     String author;
+    String description;
     int publicationYear;
-    String coverImageUrl;
+    String coverUrl;
     int wordCount;
-    double rating;
 
     @Enumerated(EnumType.STRING)
     Language language;
 
     @Enumerated(EnumType.STRING)
-    @JdbcType(PostgreSQLEnumJdbcType.class)
-    CEFR levelFrom;
+    Language originalLanguage;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
-    CEFR levelTo;
+    CEFR cefrLevel;
 
-    String description;
-
-    // For translations
+    String editionType;
     String translator;
+
+    Instant withdrawnAt;
 }

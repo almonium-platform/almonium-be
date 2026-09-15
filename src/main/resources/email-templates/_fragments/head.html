@@ -1,0 +1,100 @@
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--/*
+      Dark mode. Outlook (outlook.com and the new Windows client) assumes an email is a light
+      document and recolours it: our #2C2530 shell came back a washed mauve and the #F9F6F5 card
+      came back charcoal, so the design read inside out. Declaring a colour scheme says the mail
+      paints its own ground and asks the client to leave the palette alone; Apple Mail and iOS
+      read the same declaration.
+    */-->
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <!--/*
+      data-embed keeps this block a stylesheet: CssInliner inlines and deletes every other
+      <style>, and none of these rules can be inlined - :root and Outlook's data-ogsb/data-ogsc
+      hooks exist only as selectors, matching nothing at render time.
+    */-->
+    <style data-embed>
+        :root {
+            color-scheme: light dark;
+            supported-color-schemes: light dark;
+        }
+
+        /*
+          The older outlook.com rewriter recolours first and asks later, stamping every element it
+          touched with data-ogsb (it changed the background) or data-ogsc (it changed the text).
+          Restating the value behind those hooks is the only way to take a colour back. Both the
+          descendant and the self form: the attribute lands on the recoloured element, which is
+          sometimes the cell itself and sometimes a wrapper above it.
+        */
+        body[data-ogsb],
+        [data-ogsb] .header, .header[data-ogsb],
+        [data-ogsb] .header-cell, .header-cell[data-ogsb],
+        [data-ogsb] .footer, .footer[data-ogsb],
+        [data-ogsb] .footer-cell, .footer-cell[data-ogsb] {
+            background-color: #2C2530 !important;
+        }
+
+        [data-ogsb] .email-container, .email-container[data-ogsb],
+        [data-ogsb] .email-content, .email-content[data-ogsb] {
+            background-color: #F9F6F5 !important;
+        }
+
+        [data-ogsb] .button-cell, .button-cell[data-ogsb],
+        [data-ogsb] .button, .button[data-ogsb],
+        [data-ogsb] .premium-cell, .premium-cell[data-ogsb] {
+            background-color: #5A1A74 !important;
+        }
+
+        [data-ogsb] .plan-panel, .plan-panel[data-ogsb],
+        [data-ogsb] .plan-panel-cell, .plan-panel-cell[data-ogsb] {
+            background-color: #FAF6FB !important;
+        }
+
+        /*
+          Card copy, in specificity order: the paragraph default first, then every classed run above it. A rule that
+          only names its class loses to the blanket `.email-content p` and the text comes back the wrong colour, so
+          each override is scoped to the card as well.
+        */
+        [data-ogsc] .email-content, .email-content[data-ogsc],
+        [data-ogsc] .email-content p, .email-content p[data-ogsc] {
+            color: #33292E !important;
+        }
+
+        [data-ogsc] .email-content .email-headline, .email-content .email-headline[data-ogsc],
+        [data-ogsc] .email-content .plan-name, .email-content .plan-name[data-ogsc] {
+            color: #2C2530 !important;
+        }
+
+        [data-ogsc] .email-content .muted, .email-content .muted[data-ogsc],
+        [data-ogsc] .email-content .plan-detail, .email-content .plan-detail[data-ogsc] {
+            color: #5f5560 !important;
+        }
+
+        [data-ogsc] .email-content a, .email-content a[data-ogsc],
+        [data-ogsc] .email-content .plan-label, .email-content .plan-label[data-ogsc] {
+            color: #872657 !important;
+        }
+
+        /* Outranks the link rule above: the call to action is white on the purple pill, not magenta. */
+        [data-ogsc] .email-content a.button, .email-content a.button[data-ogsc],
+        [data-ogsc] .email-content a.premium-btn, .email-content a.premium-btn[data-ogsc] {
+            color: #ffffff !important;
+        }
+
+        /* The wordmark is white, so its alt text has to be too when the image is blocked. */
+        [data-ogsc] .header-wordmark, .header-wordmark[data-ogsc] {
+            color: #F9F6F5 !important;
+        }
+
+        [data-ogsc] .footer-link, .footer-link[data-ogsc] {
+            color: #c9c0cc !important;
+        }
+
+        [data-ogsc] .footer-brand, .footer-brand[data-ogsc],
+        [data-ogsc] .footer-separator, .footer-separator[data-ogsc] {
+            color: #a99aa8 !important;
+        }
+    </style>
+</head>

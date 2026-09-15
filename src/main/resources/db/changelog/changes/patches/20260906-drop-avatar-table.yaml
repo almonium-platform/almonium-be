@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260906-drop-avatar-table
+      author: almonium
+      comment: Custom avatars are gone; a profile's avatar is one of the pictures the clients ship. Drops the rows.
+      changes:
+        - dropTable:
+            tableName: avatar

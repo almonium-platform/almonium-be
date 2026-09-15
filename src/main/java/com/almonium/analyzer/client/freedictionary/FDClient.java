@@ -2,7 +2,6 @@ package com.almonium.analyzer.client.freedictionary;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.analyzer.client.AbstractClient;
 import com.almonium.analyzer.client.Client;
 import com.almonium.analyzer.client.freedictionary.dto.FDEntry;
 import java.util.List;
@@ -21,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Slf4j
-public class FDClient extends AbstractClient {
+public class FDClient {
     static String BASE_URL = "https://api.dictionaryapi.dev/api/v2";
     static String ENDPOINT = "/entries";
     static String LANG_CODE = "/en/";

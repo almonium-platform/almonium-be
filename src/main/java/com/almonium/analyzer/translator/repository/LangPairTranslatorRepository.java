@@ -8,14 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface LangPairTranslatorRepository extends JpaRepository<LangPairTranslatorMapping, TranslatorMappingKey> {
-    @Query(
-            """
-            select l.translatorId
+    @Query("""
+            select l.translator.name
             from LangPairTranslatorMapping l
             where l.sourceLang = :sourceLang
             and l.targetLang = :targetLang
             order by l.priority
             """)
-    List<Long> getBySourceLangAndTargetLang(
-            @Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
+    List<String> findProviderNames(@Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
 }

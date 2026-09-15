@@ -2,8 +2,7 @@ package com.almonium.user.core.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.subscription.model.entity.PlanSubscription;
-import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.dto.TargetLanguageWithProficiency;
 import com.almonium.user.core.dto.response.BaseProfileInfo;
 import com.almonium.user.core.dto.response.FullProfileInfo;
@@ -12,13 +11,11 @@ import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.repository.ProfileRepository;
 import com.almonium.user.core.repository.UserRepository;
-import com.almonium.user.relationship.model.entity.Relationship;
-import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
-import com.almonium.user.relationship.model.record.RelationshipInfo;
+import com.almonium.user.relationship.model.record.RelationshipPerspective;
+import com.almonium.user.relationship.service.RelationshipPerspectiveResolver;
 import com.almonium.user.relationship.service.RelationshipService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ProfileInfoService {
     RelationshipService relationshipService;
-    PlanSubscriptionService planSubscriptionService;
-    PlanService planService;
+    RelationshipPerspectiveResolver relationshipPerspectiveResolver;
+    EffectiveAccessService effectiveAccessService;
 
     ProfileRepository profileRepository;
     UserRepository userRepository;
@@ -43,10 +40,10 @@ public class ProfileInfoService {
         User user = findUserById(profileId);
         Profile profile = findProfileById(profileId);
 
-        RelationshipInfo relationshipInfo =
-                relationshipService.getRelationshipInfo(viewer, profileId, profile.isHidden());
+        RelationshipPerspective relationshipPerspective =
+                relationshipService.getRelationshipPerspective(viewer, user, profile.isHidden());
 
-        return getProfileBasedOnVisibility(user, relationshipInfo);
+        return getProfileBasedOnVisibility(user, relationshipPerspective);
     }
 
     @Transactional
@@ -54,9 +51,10 @@ public class ProfileInfoService {
         User user = findUserById(profileId);
         Profile profile = findProfileById(profileId);
 
-        RelationshipInfo relationshipInfo = createStrangerRelationshipInfo(profile.isHidden());
+        RelationshipPerspective relationshipPerspective =
+                relationshipPerspectiveResolver.stranger(user, profile.isHidden());
 
-        return getProfileBasedOnVisibility(user, relationshipInfo);
+        return getProfileBasedOnVisibility(user, relationshipPerspective);
     }
 
     @Transactional
@@ -67,9 +65,10 @@ public class ProfileInfoService {
 
         Profile profile = findProfileById(user.getId());
 
-        RelationshipInfo relationshipInfo = createStrangerRelationshipInfo(profile.isHidden());
+        RelationshipPerspective relationshipPerspective =
+                relationshipPerspectiveResolver.stranger(user, profile.isHidden());
 
-        return getProfileBasedOnVisibility(user, relationshipInfo);
+        return getProfileBasedOnVisibility(user, relationshipPerspective);
     }
 
     private User findUserById(UUID userId) {
@@ -84,25 +83,19 @@ public class ProfileInfoService {
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found: " + profileId));
     }
 
-    private RelationshipInfo createStrangerRelationshipInfo(boolean isProfileHidden) {
-        return new RelationshipInfo(
-                Optional.empty(), RelativeRelationshipStatus.STRANGER, null, !isProfileHidden, !isProfileHidden);
-    }
-
-    private BaseProfileInfo getProfileBasedOnVisibility(User user, RelationshipInfo relationshipInfo) {
-        if (!relationshipInfo.profileVisible()) {
-            return getPublicProfileInfo(user, relationshipInfo);
+    private BaseProfileInfo getProfileBasedOnVisibility(User user, RelationshipPerspective relationshipPerspective) {
+        if (!relationshipPerspective.profileVisible()) {
+            return getPublicProfileInfo(user, relationshipPerspective);
         }
 
-        FullProfileInfo fullUserInfo = getFullProfileInfo(user, relationshipInfo);
-        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
+        FullProfileInfo fullUserInfo = getFullProfileInfo(user, relationshipPerspective);
+        fullUserInfo.setRelationshipStatus(relationshipPerspective.status());
 
         return fullUserInfo;
     }
 
-    private FullProfileInfo getFullProfileInfo(User user, RelationshipInfo relationshipInfo) {
-        Profile profile = user.getProfile();
-        BaseProfileInfo baseProfileInfo = getPublicProfileInfo(user, relationshipInfo);
+    private FullProfileInfo getFullProfileInfo(User user, RelationshipPerspective relationshipPerspective) {
+        BaseProfileInfo baseProfileInfo = getPublicProfileInfo(user, relationshipPerspective);
         List<String> interests =
                 user.getInterests().stream().map(Interest::getName).toList();
 
@@ -110,21 +103,19 @@ public class ProfileInfoService {
         fullUserInfo.setFluentLangs(user.getFluentLangs());
         fullUserInfo.setTargetLangs(getUserTargetLangsWithProficiency(user));
         fullUserInfo.setInterests(interests);
-        fullUserInfo.setLoginStreak(profile.getStreak());
 
-        fullUserInfo.setRelationshipId(
-                relationshipInfo.friendship().map(Relationship::getId).orElse(null));
-        fullUserInfo.setRelationshipStatus(relationshipInfo.status());
+        fullUserInfo.setRelationshipId(relationshipPerspective.relationshipId());
+        fullUserInfo.setRelationshipStatus(relationshipPerspective.status());
 
         return fullUserInfo;
     }
 
-    private BaseProfileInfo getPublicProfileInfo(User user, RelationshipInfo relationshipInfo) {
+    private BaseProfileInfo getPublicProfileInfo(User user, RelationshipPerspective relationshipPerspective) {
         Profile profile = user.getProfile();
 
-        PlanSubscription activePlanSubscription = planSubscriptionService.getActiveSub(user);
-        boolean isPremium =
-                planService.isPlanPremium(activePlanSubscription.getPlan().getId());
+        // Ask the funnel, not the plan: an operator grant makes a member of someone whose plan row is still FREE,
+        // and reading the plan alone showed them to everyone else as free.
+        boolean isPremium = effectiveAccessService.isPremium(user);
 
         return BaseProfileInfo.builder()
                 .id(user.getId().toString())
@@ -132,9 +123,9 @@ public class ProfileInfoService {
                 .isPremium(isPremium)
                 .avatarUrl(profile.getAvatarUrl())
                 .registeredAt(user.getRegistered())
-                .relationshipStatus(relationshipInfo.status())
-                .acceptsRequests(relationshipInfo.acceptsRequests())
-                .relationshipId(relationshipInfo.relationshipId())
+                .relationshipStatus(relationshipPerspective.status())
+                .acceptsRequests(relationshipPerspective.acceptsRequests())
+                .relationshipId(relationshipPerspective.relationshipId())
                 .build();
     }
 

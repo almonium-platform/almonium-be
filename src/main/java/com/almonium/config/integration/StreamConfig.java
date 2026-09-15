@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.config.properties.StreamProperties;
 import io.getstream.chat.java.services.framework.DefaultClient;
+import jakarta.annotation.PostConstruct;
 import java.util.Properties;
-import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Configuration;

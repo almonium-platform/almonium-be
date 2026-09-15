@@ -13,11 +13,11 @@ import static org.mockito.Mockito.when;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.mapper.CardMapper;
-import com.almonium.card.core.model.entity.Card;
 import com.almonium.card.core.model.entity.Example;
+import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.core.model.entity.Translation;
-import com.almonium.card.core.repository.CardRepository;
 import com.almonium.card.core.repository.ExampleRepository;
+import com.almonium.card.core.repository.LearningItemRepository;
 import com.almonium.card.core.repository.TranslationRepository;
 import com.almonium.card.core.service.LearnerFinder;
 import com.almonium.card.suggestion.dto.request.CardSuggestionDto;
@@ -50,7 +50,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class CardSuggestionServiceTest {
 
     @Mock
-    CardRepository cardRepository;
+    LearningItemRepository learningItemRepository;
 
     @Mock
     CardSuggestionRepository cardSuggestionRepository;
@@ -89,7 +89,7 @@ class CardSuggestionServiceTest {
         when(learnerFinder.findLearner(user, lang)).thenReturn(recipientLearner);
 
         Learner sender = Learner.builder().id(senderLearnerId).build();
-        Card card = Card.builder().id(cardId).build();
+        LearningItem card = LearningItem.builder().id(cardId).build();
 
         // The CardSuggestion references the recipientLearner
         List<CardSuggestion> suggestions =
@@ -149,7 +149,7 @@ class CardSuggestionServiceTest {
 
         CardSuggestion cardSuggestion = CardSuggestion.builder()
                 .id(suggestionId)
-                .card(Card.builder().build())
+                .card(LearningItem.builder().build())
                 .recipient(recipientLearner)
                 .build();
 
@@ -199,7 +199,7 @@ class CardSuggestionServiceTest {
         Learner recipientLearner = Learner.builder().user(actionExecutor).build();
 
         // Original card to clone
-        Card originalCard = Card.builder().id(originalCardId).build();
+        LearningItem originalCard = LearningItem.builder().id(originalCardId).build();
         List<Example> examples = Arrays.asList(
                 new Example(UUID.randomUUID(), "example1", "translation1", originalCard),
                 new Example(UUID.randomUUID(), "example2", "translation2", originalCard));
@@ -223,7 +223,7 @@ class CardSuggestionServiceTest {
         when(cardMapper.cardEntityToDto(originalCard)).thenReturn(originalCardDto);
 
         // Cloned card with same data but new UUID
-        Card clonedCard = Card.builder().id(UUID.randomUUID()).build();
+        LearningItem clonedCard = LearningItem.builder().id(UUID.randomUUID()).build();
         clonedCard.setExamples(examples.stream()
                 .map(e -> new Example(UUID.randomUUID(), e.getExample(), e.getTranslation(), clonedCard))
                 .collect(Collectors.toList()));
@@ -232,14 +232,14 @@ class CardSuggestionServiceTest {
                 .collect(Collectors.toList()));
 
         when(cardMapper.copyCardDtoToEntity(eq(originalCardDto))).thenReturn(clonedCard);
-        when(learnerFinder.findLearner(actionExecutor, originalCard.getLanguage()))
+        when(learnerFinder.findActiveLearner(actionExecutor, originalCard.getLanguage()))
                 .thenReturn(recipientLearner);
 
         // Act
         cardSuggestionService.acceptSuggestion(suggestionId, actionExecutor);
 
         // Assert
-        verify(cardRepository)
+        verify(learningItemRepository)
                 .save(argThat(savedCard -> savedCard.getExamples().size() == examples.size()
                         && savedCard.getTranslations().size() == translations.size()));
         verify(translationRepository).saveAll(clonedCard.getTranslations());
@@ -256,10 +256,10 @@ class CardSuggestionServiceTest {
         UUID recipientId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
         User user = User.builder().id(userId).build();
 
-        Card card = Card.builder()
+        LearningItem card = LearningItem.builder()
                 .id(cardId)
                 .examples(new ArrayList<>())
                 .translations(new ArrayList<>())
@@ -267,7 +267,8 @@ class CardSuggestionServiceTest {
                 .language(Language.EN)
                 .build();
 
-        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        when(learningItemRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId()))
+                .thenReturn(Optional.of(card));
 
         Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
@@ -297,11 +298,13 @@ class CardSuggestionServiceTest {
         UUID recipientId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        CardSuggestionDto dto = new CardSuggestionDto(cardId, recipientId);
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
         User user = User.builder().id(userId).build();
 
-        Card card = Card.builder().id(cardId).language(Language.EN).build();
-        when(cardRepository.findById(dto.cardId())).thenReturn(Optional.of(card));
+        LearningItem card =
+                LearningItem.builder().id(cardId).language(Language.EN).build();
+        when(learningItemRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId()))
+                .thenReturn(Optional.of(card));
 
         Learner senderLearner = Learner.builder().id(UUID.randomUUID()).build();
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(senderLearner);
@@ -321,6 +324,21 @@ class CardSuggestionServiceTest {
         verify(cardSuggestionRepository, never()).save(any(CardSuggestion.class));
     }
 
+    @Test
+    @DisplayName("Should not suggest another user's card")
+    void givenAnotherUsersCard_whenSuggestCard_thenThrowNotFound() {
+        User user = User.builder().id(UUID.randomUUID()).build();
+        UUID recipientId = UUID.randomUUID();
+        UUID cardId = UUID.randomUUID();
+        CardSuggestionDto dto = new CardSuggestionDto(recipientId, cardId);
+        when(learningItemRepository.findByIdAndOwnerUserId(dto.cardId(), user.getId()))
+                .thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> cardSuggestionService.suggestCard(dto, user))
+                .isInstanceOf(EntityNotFoundException.class);
+        verify(cardSuggestionRepository, never()).save(any());
+    }
+
     @DisplayName("Should throw EntityNotFoundException when CardSuggestion not found")
     @Test
     void givenNonExistingCardSuggestionId_whenAcceptSuggestion_thenThrowEntityNotFoundException() {
@@ -334,6 +352,6 @@ class CardSuggestionServiceTest {
         // Act & Assert
         assertThatThrownBy(() -> cardSuggestionService.acceptSuggestion(nonExistingId, user))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessageContaining("Card suggestion with ID " + nonExistingId + " not found");
+                .hasMessageContaining("Learning item suggestion with ID " + nonExistingId + " not found");
     }
 }

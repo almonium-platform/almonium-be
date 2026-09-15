@@ -1,152 +1,94 @@
 package com.almonium.auth.common.service;
 
-import static lombok.AccessLevel.PRIVATE;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.almonium.auth.common.exception.AuthMethodNotFoundException;
-import com.almonium.auth.common.exception.BadAuthActionRequest;
-import com.almonium.auth.common.exception.LastAuthMethodException;
-import com.almonium.auth.common.factory.PrincipalFactory;
-import com.almonium.auth.common.model.entity.Principal;
-import com.almonium.auth.common.model.enums.AuthProviderType;
-import com.almonium.auth.common.repository.PrincipalRepository;
-import com.almonium.auth.local.model.entity.LocalPrincipal;
-import com.almonium.auth.local.service.PasswordEncoderService;
+import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
+import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.subscription.exception.PlanSubscriptionException;
+import com.almonium.subscription.service.PlanSubscriptionService;
+import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.service.UserService;
-import com.almonium.util.TestDataGenerator;
+import com.almonium.user.core.repository.UserRepository;
 import java.util.Optional;
-import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.DisplayName;
+import java.util.UUID;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
-@FieldDefaults(level = PRIVATE)
 class SensitiveAuthActionsServiceTest {
-    @InjectMocks
-    SensitiveAuthActionsService authService;
+    @Mock
+    PlanSubscriptionService planSubscriptionService;
 
     @Mock
-    VerificationTokenManagementService verificationTokenManagementService;
+    FirebaseAuthGateway firebaseAuthGateway;
 
     @Mock
-    UserService userService;
+    UserRepository userRepository;
 
     @Mock
-    PrincipalRepository principalRepository;
+    ApplicationEventPublisher eventPublisher;
 
-    @Mock
-    PrincipalFactory principalFactory;
+    SensitiveAuthActionsService service;
+    User user;
 
-    @Mock
-    PasswordEncoderService passwordEncoderService;
-
-    @DisplayName("Should add local login successfully")
-    @Test
-    void givenValidLocalLoginRequest_whenLinkLocal_thenSuccess() {
-        // Arrange
-        User user = TestDataGenerator.buildTestUserWithId();
-
-        String token = "123456";
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-        String password = "password";
-        when(principalFactory.createLocalPrincipal(user, password))
-                .thenReturn(new LocalPrincipal(user, "email@mail.com", "encodedPassword"));
-
-        // Act
-        authService.linkLocal(user.getId(), password);
-
-        // Assert
-        verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalFactory).createLocalPrincipal(user, password);
-        verify(principalRepository).save(any(Principal.class));
+    @BeforeEach
+    void setUp() {
+        service = new SensitiveAuthActionsService(
+                planSubscriptionService, firebaseAuthGateway, userRepository, eventPublisher);
+        user = User.builder().id(UUID.randomUUID()).firebaseUid("firebase-uid").build();
     }
 
-    @DisplayName("Should throw exception when local login already exists")
     @Test
-    void givenExistingLocalLogin_whenLinkLocal_thenThrowBadAuthActionRequestException() {
-        // Arrange
-        User user = TestDataGenerator.buildTestUserWithId();
-        LocalPrincipal existingPrincipal = LocalPrincipal.builder()
-                .user(user)
-                .provider(AuthProviderType.LOCAL)
-                .build();
-        user.getPrincipals().add(existingPrincipal);
+    void preflightFailureKeepsFirebaseAndLocalIdentitiesIntact() {
+        when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
+                .thenThrow(new PlanSubscriptionException("subscription lookup failed"));
 
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-        when(userService.getLocalPrincipal(user)).thenReturn(Optional.of(existingPrincipal));
-        String password = "password";
+        assertThatThrownBy(() -> service.deleteAccount(user)).isInstanceOf(PlanSubscriptionException.class);
 
-        // Act & Assert
-        assertThatThrownBy(() -> authService.linkLocal(user.getId(), password))
-                .isInstanceOf(BadAuthActionRequest.class)
-                .hasMessageContaining("Local auth method already exists for user: " + user.getEmail());
-
-        verify(userService).getLocalPrincipal(user);
-        verify(principalRepository, never()).save(any(Principal.class));
+        verifyNoInteractions(firebaseAuthGateway, eventPublisher, userRepository);
     }
 
-    @DisplayName("Should unlink provider successfully")
     @Test
-    void givenValidProvider_whenUnlinkProvider_thenSuccess() {
-        // Arrange
-        User user = TestDataGenerator.buildTestUserWithId();
-        Principal principalGoogle = TestDataGenerator.buildTestPrincipal(AuthProviderType.GOOGLE);
-        Principal principalFacebook = TestDataGenerator.buildTestPrincipal(AuthProviderType.FACEBOOK);
-        user.getPrincipals().add(principalGoogle);
-        user.getPrincipals().add(principalFacebook);
+    void firebaseDeletionFailureDoesNotPublishCleanupOrDeleteLocalUser() {
+        when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
+                .thenReturn(Optional.of("paddle-subscription"));
+        org.mockito.Mockito.doThrow(
+                        new FirebaseIdentityManagementException("Firebase unavailable", new IllegalStateException()))
+                .when(firebaseAuthGateway)
+                .deleteUser("firebase-uid");
 
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+        assertThatThrownBy(() -> service.deleteAccount(user)).isInstanceOf(FirebaseIdentityManagementException.class);
 
-        // Act
-        authService.unlinkAuthMethod(user.getId(), AuthProviderType.GOOGLE);
-
-        // Assert
-        verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalRepository).delete(principalGoogle);
+        verify(eventPublisher, never()).publishEvent(org.mockito.ArgumentMatchers.any());
+        verify(userRepository, never()).delete(user);
     }
 
-    @DisplayName("Should throw exception when provider not found")
     @Test
-    void givenInvalidProvider_whenUnlinkProvider_thenThrowException() {
-        // Arrange
-        User user = TestDataGenerator.buildTestUserWithId();
+    void successfulDeletionPublishesPreparedCleanupBeforeDeletingLocalUser() {
+        when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
+                .thenReturn(Optional.of("paddle-subscription"));
 
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
+        service.deleteAccount(user);
 
-        // Act & Assert
-        assertThatThrownBy(() -> authService.unlinkAuthMethod(user.getId(), AuthProviderType.GOOGLE))
-                .isInstanceOf(AuthMethodNotFoundException.class)
-                .hasMessageContaining("Auth method not found GOOGLE");
+        ArgumentCaptor<UserDeletedEvent> eventCaptor = ArgumentCaptor.forClass(UserDeletedEvent.class);
+        InOrder deletionOrder = inOrder(firebaseAuthGateway, eventPublisher, userRepository);
+        deletionOrder.verify(firebaseAuthGateway).deleteUser("firebase-uid");
+        deletionOrder.verify(eventPublisher).publishEvent(eventCaptor.capture());
+        deletionOrder.verify(userRepository).delete(user);
 
-        verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalRepository, never()).delete(any(Principal.class));
-    }
-
-    @DisplayName("Should throw exception when trying to unlink the last auth method")
-    @Test
-    void givenLastAuthMethod_whenUnlinkProvider_thenThrowLastAuthMethodException() {
-        // Arrange
-        User user = TestDataGenerator.buildTestUserWithId();
-        Principal principal = TestDataGenerator.buildTestPrincipal(AuthProviderType.LOCAL);
-        user.getPrincipals().add(principal);
-
-        when(userService.getUserWithPrincipals(user.getId())).thenReturn(user);
-
-        // Act & Assert
-        assertThatThrownBy(() -> authService.unlinkAuthMethod(user.getId(), AuthProviderType.LOCAL))
-                .isInstanceOf(LastAuthMethodException.class)
-                .hasMessageContaining("Cannot remove the last authentication method for the user: " + user.getEmail());
-
-        verify(userService).getUserWithPrincipals(user.getId());
-        verify(principalRepository, never()).delete(any(Principal.class));
+        UserDeletedEvent event = eventCaptor.getValue();
+        org.assertj.core.api.Assertions.assertThat(event.userId()).isEqualTo(user.getId());
+        org.assertj.core.api.Assertions.assertThat(event.paddleSubscriptionId()).contains("paddle-subscription");
     }
 }

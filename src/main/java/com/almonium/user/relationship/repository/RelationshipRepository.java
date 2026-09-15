@@ -1,10 +1,10 @@
 package com.almonium.user.relationship.repository;
 
-import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
 import com.almonium.user.relationship.model.entity.Relationship;
-import com.almonium.user.relationship.model.enums.RelationshipStatus;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,36 +12,42 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface RelationshipRepository extends JpaRepository<Relationship, UUID> {
-    @Query(
-            """
-            select new com.almonium.user.relationship.dto.response.PublicUserProfile(
+    /**
+     * Every account whose handle matches, friends included: a search that hides the people you
+     * already know looks broken. The relative status is what the caller renders its one control
+     * from, so it is resolved here rather than guessed at from separate lists.
+     */
+    @Query("""
+            select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 u.id,
                 u.username,
-                case when p.hidden = true then null else p.avatarUrl end
+                case when p.hidden = true then null else p.avatarUrl end,
+                r.id,
+                case
+                    when r.status = 'FRIENDS' then 'FRIENDS'
+                    when r.status = 'PENDING' and r.requester.id = :currentUserId then 'PENDING_OUTGOING'
+                    when r.status = 'PENDING' then 'PENDING_INCOMING'
+                    when r.status in ('FST_BLOCKED_SND', 'SND_BLOCKED_FST', 'MUTUAL_BLOCK') then 'BLOCKED'
+                    else 'STRANGER'
+                end
             )
             from User u
             left join u.profile p
+            left join Relationship r
+                on (r.requester.id = :currentUserId and r.requestee.id = u.id)
+                or (r.requestee.id = :currentUserId and r.requester.id = u.id)
             where u.username like %:username%
               and u.id != :currentUserId
-              and not exists (
-                  select 1
-                  from Relationship r
-                  where ((r.requester.id = :currentUserId and r.requestee.id = u.id)
-                     or (r.requestee.id = :currentUserId and r.requester.id = u.id))
-                     and r.status not in :retryableStatuses
-              )
             """)
-    List<PublicUserProfile> findNewFriendCandidates(
-            UUID currentUserId, String username, List<RelationshipStatus> retryableStatuses);
+    List<RelatedUserProfile> searchUsersByUsername(UUID currentUserId, String username);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 r.requestee.id,
                 r.requestee.username,
                 case when p.hidden = true then null else p.avatarUrl end,
                 r.id,
-                r.status
+                'PENDING_OUTGOING'
             )
             from User u
             join Relationship r on r.requester.id = u.id
@@ -50,14 +56,13 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelatedUserProfile> getSentRequests(UUID id);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
                 r.requester.id,
                 r.requester.username,
                 case when p.hidden = true then null else p.avatarUrl end,
                 r.id,
-                r.status
+                'PENDING_INCOMING'
             )
             from User u
             join Relationship r on r.requestee.id = u.id
@@ -66,14 +71,13 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelatedUserProfile> getReceivedRequests(UUID id);
 
-    @Query(
-            """
+    @Query("""
         select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
             u.id,
             u.username,
             case when p.hidden = true then null else p.avatarUrl end,
             r.id,
-            r.status
+            'BLOCKED'
         )
         from Relationship r
         join User u on
@@ -88,8 +92,24 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
         """)
     List<RelatedUserProfile> getBlocked(UUID id);
 
-    @Query(
-            """
+    /**
+     * The languages a batch of people are studying, in one query rather than one per row. A hidden profile is left
+     * out here rather than filtered later: what it studies is as private as its avatar.
+     */
+    @Query("""
+            select new com.almonium.user.relationship.model.projection.LearnerLanguageProjection(
+                u.id,
+                l.language
+            )
+            from Learner l
+            join l.user u
+            join Profile p on p.id = u.id
+            where u.id in :ids and l.active = true and p.hidden = false
+            order by l.language
+            """)
+    List<LearnerLanguageProjection> findActiveLanguagesOf(Collection<UUID> ids);
+
+    @Query("""
             select r from Relationship r
             where (r.requester.id = :id1 and r.requestee.id = :id2)
             or (r.requester.id = :id2 and r.requestee.id = :id1)
@@ -114,8 +134,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
      * @param id The ID of the user for whom to retrieve visible friendships.
      * @return A list of FriendshipToUserProjection objects representing the visible friendships for the given user.
      */
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.model.projection.RelationshipToUserProjection(
                         case when r.requester.id = :id then r.requestee.id else r.requester.id end,
                         str(r.status),
@@ -126,8 +145,7 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
             """)
     List<RelationshipToUserProjection> getVisibleFriendships(UUID id); // TODO avoid writing FQN in query
 
-    @Query(
-            """
+    @Query("""
         select new com.almonium.user.relationship.dto.response.RelatedUserProfile(
             case
                 when r.requester.id = :id then r.requestee.id
@@ -142,15 +160,14 @@ public interface RelationshipRepository extends JpaRepository<Relationship, UUID
                 else r.requester.profile.avatarUrl
             end,
             r.id,
-            r.status
+            'FRIENDS'
         )
         from Relationship r
         where (r.requester.id = :id or r.requestee.id = :id) and r.status = 'FRIENDS'
         """)
     List<RelatedUserProfile> getFriendships(UUID id);
 
-    @Query(
-            """
+    @Query("""
             select new com.almonium.user.relationship.model.projection.RelationshipToUserProjection(
                 case when r.requester.id = :id then r.requestee.id else r.requester.id end,
                 str(r.status),

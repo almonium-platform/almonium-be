@@ -1,37 +1,37 @@
 package com.almonium.user.relationship.service;
 
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.CANCELLED;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.FRIENDS;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.FST_BLOCKED_SND;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.MUTUAL_BLOCK;
 import static com.almonium.user.relationship.model.enums.RelationshipStatus.PENDING;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.REJECTED;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.SND_BLOCKED_FST;
-import static com.almonium.user.relationship.model.enums.RelationshipStatus.UNFRIENDED;
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
+import com.almonium.subscription.service.EffectiveAccessService;
 import com.almonium.user.core.model.entity.Profile;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.user.core.service.ProfileService;
 import com.almonium.user.relationship.dto.request.FriendshipRequestDto;
 import com.almonium.user.relationship.dto.response.PublicUserProfile;
 import com.almonium.user.relationship.dto.response.RelatedUserProfile;
+import com.almonium.user.relationship.event.FriendshipAcceptedEvent;
 import com.almonium.user.relationship.exception.RelationshipException;
 import com.almonium.user.relationship.model.entity.Relationship;
 import com.almonium.user.relationship.model.enums.RelationshipAction;
 import com.almonium.user.relationship.model.enums.RelationshipStatus;
-import com.almonium.user.relationship.model.enums.RelativeRelationshipStatus;
+import com.almonium.user.relationship.model.projection.LearnerLanguageProjection;
 import com.almonium.user.relationship.model.projection.RelationshipToUserProjection;
-import com.almonium.user.relationship.model.record.RelationshipInfo;
+import com.almonium.user.relationship.model.record.RelationshipPerspective;
 import com.almonium.user.relationship.repository.RelationshipRepository;
+import com.almonium.user.relationship.service.RelationshipStateMachine.ActorRole;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,16 +42,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class RelationshipService {
     private static final String RELATIONSHIP_CANT_BE_ESTABLISHED = "Couldn't create or re-establish relationship";
-    private static final String RELATIONSHIP_IS_ALREADY_BLOCKED = "Relationship is already blocked";
     private static final String RELATIONSHIP_NOT_FOUND = "Relationship not found";
 
     ProfileService profileService;
     NotificationService notificationService;
+    ApplicationEventPublisher eventPublisher;
+    EffectiveAccessService effectiveAccessService;
 
     RelationshipRepository relationshipRepository;
+    RelationshipStateMachine stateMachine;
+    RelationshipPerspectiveResolver perspectiveResolver;
 
-    public List<PublicUserProfile> findUsersByUsername(UUID id, String username) {
-        return relationshipRepository.findNewFriendCandidates(id, username, RelationshipStatus.retryableStatuses());
+    public List<RelatedUserProfile> findUsersByUsername(UUID id, String username) {
+        return describe(relationshipRepository.searchUsersByUsername(id, username));
     }
 
     public List<RelationshipToUserProjection> searchFriends(UUID id, String username) {
@@ -59,19 +62,55 @@ public class RelationshipService {
     }
 
     public List<RelatedUserProfile> getSentRequests(UUID id) {
-        return relationshipRepository.getSentRequests(id);
+        return describe(relationshipRepository.getSentRequests(id));
     }
 
     public List<RelatedUserProfile> getReceivedRequests(UUID id) {
-        return relationshipRepository.getReceivedRequests(id);
+        return describe(relationshipRepository.getReceivedRequests(id));
     }
 
     public List<RelatedUserProfile> getFriends(UUID id) {
-        return relationshipRepository.getFriendships(id);
+        return describe(relationshipRepository.getFriendships(id));
     }
 
     public List<RelatedUserProfile> getBlocked(UUID id) {
-        return relationshipRepository.getBlocked(id);
+        return describe(relationshipRepository.getBlocked(id));
+    }
+
+    /** Everything a row needs beyond a name, filled in one pass over the whole list. */
+    private List<RelatedUserProfile> describe(List<RelatedUserProfile> profiles) {
+        return withLearning(withMembership(profiles));
+    }
+
+    /**
+     * Stamps the languages each person studies, so a row can say who they are rather than only what they are called.
+     * A hidden profile brings nothing back from the query and so keeps its empty list.
+     */
+    private List<RelatedUserProfile> withLearning(List<RelatedUserProfile> profiles) {
+        if (profiles.isEmpty()) {
+            return profiles;
+        }
+        Map<UUID, List<Language>> byUser =
+                relationshipRepository
+                        .findActiveLanguagesOf(
+                                profiles.stream().map(PublicUserProfile::getId).toList())
+                        .stream()
+                        .collect(Collectors.groupingBy(
+                                LearnerLanguageProjection::getUserId,
+                                Collectors.mapping(LearnerLanguageProjection::getLanguage, Collectors.toList())));
+        profiles.forEach(profile -> profile.setLearning(byUser.getOrDefault(profile.getId(), List.of())));
+        return profiles;
+    }
+
+    /**
+     * Stamps membership on a list of people from the one service that knows it, in one pass rather than one lookup
+     * each. A grant and a paid plan are the same thing here, which is exactly why no query decides this for itself.
+     */
+    private List<RelatedUserProfile> withMembership(List<RelatedUserProfile> profiles) {
+        Set<UUID> members = effectiveAccessService.premiumAmong(
+                profiles.stream().map(PublicUserProfile::getId).toList());
+        profiles.forEach(profile -> profile.setPremium(members.contains(profile.getId())));
+        return profiles;
     }
 
     /**
@@ -85,58 +124,14 @@ public class RelationshipService {
      * @param profileHidden - whether the profile is hidden
      * @return - the relationship info between the viewer and the profile
      */
-    public RelationshipInfo getRelationshipInfo(UUID viewerId, UUID profileId, boolean profileHidden) {
-        var friendshipOptional = relationshipRepository.getRelationshipByUsersIds(viewerId, profileId);
-
-        RelativeRelationshipStatus status = RelativeRelationshipStatus.STRANGER;
-        UUID friendshipId = null;
-
-        Boolean acceptsFriendRequests = null; // only makes sense for STRANGER
-        boolean profileVisible = !profileHidden; // always relevant
-
-        if (friendshipOptional.isPresent()) {
-            Relationship relationship = friendshipOptional.get();
-            friendshipId = relationship.getId();
-            boolean isRequester = viewerId.equals(relationship.getRequester().getId());
-
-            switch (relationship.getStatus()) {
-                case FRIENDS -> {
-                    status = RelativeRelationshipStatus.FRIENDS;
-                    profileVisible = true;
-                }
-                case PENDING -> status = isRequester
-                        ? RelativeRelationshipStatus.PENDING_OUTGOING
-                        : RelativeRelationshipStatus.PENDING_INCOMING;
-                case FST_BLOCKED_SND -> {
-                    if (isRequester) {
-                        status = RelativeRelationshipStatus.BLOCKED;
-                    } else {
-                        acceptsFriendRequests = false;
-                        profileVisible = false;
-                    }
-                }
-                case SND_BLOCKED_FST -> {
-                    if (isRequester) {
-                        acceptsFriendRequests = false;
-                        profileVisible = false;
-                    } else {
-                        status = RelativeRelationshipStatus.BLOCKED;
-                    }
-                }
-                case MUTUAL_BLOCK -> {
-                    status = RelativeRelationshipStatus.BLOCKED;
-                    profileVisible = false;
-                }
-                    // same as if no relationship exists
-                case REJECTED, CANCELLED, UNFRIENDED -> acceptsFriendRequests = !profileHidden;
-            }
-        }
-
-        return new RelationshipInfo(friendshipOptional, status, friendshipId, acceptsFriendRequests, profileVisible);
+    public RelationshipPerspective getRelationshipPerspective(UUID viewerId, User profileUser, boolean profileHidden) {
+        var relationship = relationshipRepository.getRelationshipByUsersIds(viewerId, profileUser.getId());
+        return perspectiveResolver.resolve(viewerId, profileUser, relationship, profileHidden);
     }
 
     @Transactional
     public Relationship createFriendshipRequest(User requester, FriendshipRequestDto dto) {
+        validateDistinctUsers(requester.getId(), dto.recipientId());
         return relationshipRepository
                 .getRelationshipByUsersIds(requester.getId(), dto.recipientId())
                 .map(relationship -> reestablishFriendshipAndNotifyOrThrow(requester, relationship))
@@ -148,32 +143,34 @@ public class RelationshipService {
         Relationship relationship = relationshipRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RELATIONSHIP_NOT_FOUND));
-        validateUserIsPartOfFriendship(user, relationship);
+        ActorRole actorRole = actorRole(user, relationship);
+        RelationshipStatus nextStatus = stateMachine.transition(relationship.getStatus(), action, actorRole);
+        Relationship updatedRelationship = setStatusAndSave(relationship, nextStatus);
+        if (action == RelationshipAction.ACCEPT) {
+            notificationService.notifyOfFriendshipAcceptance(updatedRelationship);
 
-        return switch (action) {
-            case ACCEPT -> befriend(user, relationship);
-            case CANCEL -> cancelOwnRequest(user, relationship);
-            case REJECT -> rejectIncomingRequest(user, relationship);
-            case UNFRIEND -> unfriend(relationship);
-            case BLOCK -> block(user, relationship);
-            case UNBLOCK -> unblock(user, relationship);
-        };
+            // The chat belongs to the friendship, not to the client that answered the request: it has
+            // to exist whether Accept was pressed on the social page, on a profile card, or in the
+            // notification bell, and for the requester, who is not here to create anything.
+            eventPublisher.publishEvent(new FriendshipAcceptedEvent(
+                    updatedRelationship.getId(),
+                    updatedRelationship.getRequestee().getId(),
+                    updatedRelationship.getRequester().getId()));
+        }
+        return updatedRelationship;
     }
 
     @Transactional
     public void blockUser(User user, UUID targetUserId) {
+        validateDistinctUsers(user.getId(), targetUserId);
         relationshipRepository
                 .getRelationshipByUsersIds(user.getId(), targetUserId)
-                .ifPresentOrElse(relationship -> block(user, relationship), () -> {
+                .ifPresentOrElse(relationship -> applyBlock(user, relationship), () -> {
                     var relationship = new Relationship(
                             user, profileService.getProfileById(targetUserId).getUser());
                     relationshipRepository.save(relationship);
-                    block(user, relationship);
+                    applyBlock(user, relationship);
                 });
-    }
-
-    public Optional<Relationship> findById(UUID relationshipId) {
-        return relationshipRepository.findById(relationshipId);
     }
 
     private Relationship createFriendshipAndNotify(User requester, FriendshipRequestDto dto) {
@@ -198,6 +195,12 @@ public class RelationshipService {
             existingRelationship.setRequester(requester);
         }
 
+        if (profileService
+                .getProfileById(existingRelationship.getRequestee().getId())
+                .isHidden()) {
+            throw new RelationshipException(RELATIONSHIP_CANT_BE_ESTABLISHED);
+        }
+
         setStatusAndSave(existingRelationship, PENDING);
         notifyAboutFriendshipRequestReceival(existingRelationship);
         return existingRelationship;
@@ -208,97 +211,31 @@ public class RelationshipService {
                 relationship.getRequester(), relationship.getRequestee(), relationship);
     }
 
-    private Relationship befriend(User currentUser, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(currentUser, relationship, false);
-        relationship.setStatus(FRIENDS);
-        relationshipRepository.save(relationship);
-
-        notificationService.notifyOfFriendshipAcceptance(relationship);
-        return relationship;
-    }
-
-    private Relationship cancelOwnRequest(User user, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(user, relationship, true);
-        return setStatusAndSave(relationship, CANCELLED);
-    }
-
-    private Relationship rejectIncomingRequest(User user, Relationship relationship) {
-        validateFriendshipStatus(relationship, PENDING);
-        validateCorrectRole(user, relationship, false);
-        return setStatusAndSave(relationship, REJECTED);
-    }
-
-    private Relationship unfriend(Relationship relationship) {
-        validateFriendshipStatus(relationship, FRIENDS);
-        return setStatusAndSave(relationship, UNFRIENDED);
-    }
-
     private Relationship setStatusAndSave(Relationship relationship, RelationshipStatus status) {
         relationship.setStatus(status);
         return relationshipRepository.save(relationship);
     }
 
-    /**
-     * You can block a relationship if it's not already blocked by you
-     * If the other user has already blocked you, it becomes a mutual block
-     */
-    private Relationship block(User user, Relationship relationship) {
-        if (relationship.getStatus() == MUTUAL_BLOCK) {
-            throw new RelationshipException(RELATIONSHIP_IS_ALREADY_BLOCKED);
-        }
-
-        var friendshipDenier = relationship.getRelationshipDenier();
-        boolean alreadyBlocked = friendshipDenier.isPresent();
-        if (alreadyBlocked && friendshipDenier.get().equals(user.getId())) {
-            throw new RelationshipException(RELATIONSHIP_IS_ALREADY_BLOCKED);
-        }
-
-        RelationshipStatus status = alreadyBlocked
-                ? MUTUAL_BLOCK
-                : user.equals(relationship.getRequester()) ? FST_BLOCKED_SND : SND_BLOCKED_FST;
-
-        relationship.setStatus(status);
-        return relationshipRepository.save(relationship);
+    private Relationship applyBlock(User user, Relationship relationship) {
+        ActorRole actorRole = actorRole(user, relationship);
+        RelationshipStatus nextStatus =
+                stateMachine.transition(relationship.getStatus(), RelationshipAction.BLOCK, actorRole);
+        return setStatusAndSave(relationship, nextStatus);
     }
 
-    private Relationship unblock(User user, Relationship relationship) {
-        var friendshipDenier = relationship.getRelationshipDenier();
-        boolean alreadyBlocked = friendshipDenier.isPresent();
-        if (!alreadyBlocked) {
-            throw new RelationshipException("Friendship is not blocked");
+    private ActorRole actorRole(User user, Relationship relationship) {
+        if (user.equals(relationship.getRequester())) {
+            return ActorRole.REQUESTER;
         }
-
-        if (!friendshipDenier.get().equals(user.getId())) {
-            throw new RelationshipException("User is not the denier of this relationship");
+        if (user.equals(relationship.getRequestee())) {
+            return ActorRole.REQUESTEE;
         }
-
-        var status = relationship.getStatus() == MUTUAL_BLOCK
-                ? user.equals(relationship.getRequester()) ? SND_BLOCKED_FST : FST_BLOCKED_SND
-                : UNFRIENDED;
-
-        return setStatusAndSave(relationship, status);
+        throw new RelationshipException("User is not part of this relationship");
     }
 
-    private void validateUserIsPartOfFriendship(User user, Relationship relationship) {
-        if (!user.equals(relationship.getRequester()) && !user.equals(relationship.getRequestee())) {
-            throw new RelationshipException("User is not part of this relationship");
-        }
-    }
-
-    private void validateCorrectRole(User user, Relationship relationship, boolean requesterNotRequestee) {
-        if (requesterNotRequestee && !user.equals(relationship.getRequester())) {
-            throw new RelationshipException("User is not the requester of this relationship");
-        }
-        if (!requesterNotRequestee && !user.equals(relationship.getRequestee())) {
-            throw new RelationshipException("User is not the requestee of this relationship");
-        }
-    }
-
-    private void validateFriendshipStatus(Relationship relationship, RelationshipStatus... allowedStatuses) {
-        if (!List.of(allowedStatuses).contains(relationship.getStatus())) {
-            throw new RelationshipException("Friendship status must be one of " + List.of(allowedStatuses));
+    private void validateDistinctUsers(UUID firstUserId, UUID secondUserId) {
+        if (firstUserId.equals(secondUserId)) {
+            throw new RelationshipException("A user cannot have a relationship with themselves");
         }
     }
 }

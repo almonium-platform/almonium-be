@@ -2,6 +2,8 @@ package com.almonium.analyzer.analyzer.controller.open;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
+import com.almonium.analyzer.analyzer.service.DiscoverLookupService;
 import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.translator.model.enums.Language;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,9 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class DiscoverController {
     FrequencyService frequencyService;
+    DiscoverLookupService discoverLookupService;
 
     @GetMapping("/freq/{lang}/")
     public ResponseEntity<Optional<Integer>> search(@PathVariable Language lang, @RequestParam String text) {
         return ResponseEntity.ok(frequencyService.getFrequency(lang, text));
+    }
+
+    @GetMapping("/lookup/{lang}/{translationLang}")
+    public ResponseEntity<DiscoverLookupResponse> lookup(
+            @PathVariable Language lang,
+            @PathVariable Language translationLang,
+            @RequestParam String entry,
+            @RequestParam(required = false) String context) {
+        return ResponseEntity.ok(discoverLookupService.lookup(entry, context, lang, translationLang));
     }
 }
