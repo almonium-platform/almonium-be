@@ -67,3 +67,10 @@ No private import data, recaps or staff evidence are exposed; GET never calls AI
 
 Angular consumes this additive endpoint. Expo can use the same public metadata
 without changing its Firebase bearer boundary; its reader integration is pending.
+# Sentence mapping validation (2026-09-16)
+
+Before emitting clickable sentence spans, the renderer validates both sides'
+Unicode code-point offsets and complete, nonduplicated index coverage. Invalid
+mapping or invalid companion offsets disable sentence highlighting on both sides
+of that paragraph; book text remains readable. An uncertain/unmatched group is
+valid data but is not rendered as a clickable correspondence.

@@ -24,6 +24,43 @@ import tools.jackson.databind.ObjectMapper;
 @ExtendWith(MockitoExtension.class)
 class PublishedBookContentServiceTest {
     @Test
+    void invalidCompanionSpansOrDuplicateIndexesDisableHighlightsOnBothSides() {
+        for (String mapping : List.of(
+                "{\"primary\":[0],\"secondary\":[9],\"certain\":true}",
+                "{\"primary\":[0,0],\"secondary\":[0],\"certain\":true}")) {
+            JsonNode payload = objectMapper.readTree("""
+                    {"primary_language":"en","secondary_language":"en","blocks":[{
+                    "chapter":1,"sequence":1,"block_type":"paragraph",
+                    "primary_text":"Rain.","secondary_text":"Light.",
+                    "primary_sentences":[{"start":0,"end":5}],
+                    "secondary_sentences":[{"start":0,"end":6}],
+                    "sentence_alignment":[%s]}]}
+                    """.formatted(mapping));
+            when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                    .thenReturn(payload);
+            String html = new String(service.parallelTextFor(new Book(), new Book()), StandardCharsets.UTF_8);
+            assertThat(html).contains("Rain.", "Light.").doesNotContain("data-alignment");
+        }
+    }
+
+    @Test
+    void invalidOppositeOffsetsDoNotLeaveAnOrphanClickableSentence() {
+        JsonNode payload = objectMapper.readTree("""
+                {"primary_language":"en","secondary_language":"en","blocks":[{
+                "chapter":1,"sequence":1,"block_type":"paragraph",
+                "primary_text":"Rain.","secondary_text":"Light.",
+                "primary_sentences":[{"start":0,"end":5}],
+                "secondary_sentences":[{"start":0,"end":999}],
+                "sentence_alignment":[{"primary":[0],"secondary":[0],"certain":true}]}]}
+                """);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                .thenReturn(payload);
+        assertThat(new String(service.parallelTextFor(new Book(), new Book()), StandardCharsets.UTF_8))
+                .contains("Rain.", "Light.")
+                .doesNotContain("data-alignment");
+    }
+
+    @Test
     void readsTypedChaptersWithoutInferringAnEditorialLevel() {
         var chapter = new BookChapter(UUID.randomUUID(), 10, "IV", "complete", "B2", List.of("A difficult choice."));
         when(restTemplate.getForObject(anyString(), eq(BookChapter[].class), any(Object[].class)))

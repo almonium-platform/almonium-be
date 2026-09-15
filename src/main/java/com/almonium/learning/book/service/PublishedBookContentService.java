@@ -173,7 +173,7 @@ public class PublishedBookContentService {
     private String sentenceText(JsonNode block, String side, String text) {
         JsonNode sentences = block.path(side + "_sentences");
         JsonNode groups = block.path("sentence_alignment");
-        if (!sentences.isArray() || !groups.isArray() || groups.isEmpty()) return escapedText(text);
+        if (!validSentenceMapping(block)) return escapedText(text);
         StringBuilder html = new StringBuilder();
         int cursor = 0;
         int length = text.codePointCount(0, text.length());
@@ -211,5 +211,41 @@ public class PublishedBookContentService {
 
     private String codePointSlice(String text, int start, int end) {
         return text.substring(text.offsetByCodePoints(0, start), text.offsetByCodePoints(0, end));
+    }
+
+    /** Never render a clickable sentence whose opposite side cannot carry its counterpart. */
+    private boolean validSentenceMapping(JsonNode block) {
+        JsonNode groups = block.path("sentence_alignment");
+        if (!groups.isArray() || groups.isEmpty()) return false;
+        for (String side : List.of("primary", "secondary")) {
+            JsonNode sentences = block.path(side + "_sentences");
+            if (!sentences.isArray() || sentences.isEmpty()) return false;
+            String text = block.path(side + "_text").asString();
+            int length = text.codePointCount(0, text.length());
+            int cursor = 0;
+            for (JsonNode sentence : sentences) {
+                if (!sentence.path("start").isInt() || !sentence.path("end").isInt()) return false;
+                int start = sentence.path("start").asInt();
+                int end = sentence.path("end").asInt();
+                if (start < cursor || end <= start || end > length) return false;
+                cursor = end;
+            }
+            boolean[] used = new boolean[sentences.size()];
+            for (JsonNode group : groups) {
+                if (!group.path("certain").isBoolean()
+                        || !group.path("primary").isArray()
+                        || !group.path("secondary").isArray()
+                        || (group.path("primary").isEmpty()
+                                && group.path("secondary").isEmpty())) return false;
+                for (JsonNode index : group.path(side)) {
+                    if (!index.isInt()) return false;
+                    int value = index.asInt();
+                    if (value < 0 || value >= used.length || used[value]) return false;
+                    used[value] = true;
+                }
+            }
+            for (boolean covered : used) if (!covered) return false;
+        }
+        return true;
     }
 }
