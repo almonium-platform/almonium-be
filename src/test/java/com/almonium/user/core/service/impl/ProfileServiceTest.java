@@ -48,9 +48,23 @@ class ProfileServiceTest {
         when(profileRepository.findById(profile.getId())).thenReturn(Optional.of(profile));
         assertThat(profile.isSocialEmailNotifications()).isTrue();
 
-        profileService.updateSocialEmailNotifications(profile.getId(), false);
+        profileService.updateNotificationPreferences(profile.getId(), false, true);
 
         assertThat(profile.isSocialEmailNotifications()).isFalse();
+        assertThat(profile.isBookEmailNotifications()).isTrue();
+        verify(profileRepository).save(profile);
+    }
+
+    @Test
+    void bookNotificationsAreOnUntilTheMemberTurnsThemOff() {
+        Profile profile = Profile.builder().id(UUID.randomUUID()).build();
+        when(profileRepository.findById(profile.getId())).thenReturn(Optional.of(profile));
+        assertThat(profile.isBookEmailNotifications()).isTrue();
+
+        profileService.updateNotificationPreferences(profile.getId(), true, false);
+
+        assertThat(profile.isSocialEmailNotifications()).isTrue();
+        assertThat(profile.isBookEmailNotifications()).isFalse();
         verify(profileRepository).save(profile);
     }
 }

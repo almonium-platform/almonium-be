@@ -71,9 +71,33 @@ public class TranslationOrderService {
         });
         translationOrderRepository.saveAll(orders);
 
-        List<User> users = orders.stream().map(TranslationOrder::getUser).toList();
-        notificationService.notifyOfTranslationOrderCompletion(book.getTitle(), book.getLanguage(), users);
-        bookEmailService.translationReady(users, book.getTitle(), book.getLanguage(), book.getEditionSlug());
+        // Chapter one of the pair: the original edition in the reader with the new language alongside.
+        Book original = book.getOriginalBook();
+        String actionPath = "/reader/%s?parallel=%s"
+                .formatted(original.getEditionSlug(), book.getLanguage().name());
+        String coverUrl = book.getCoverUrl() != null ? book.getCoverUrl() : original.getCoverUrl();
+        for (TranslationOrder order : orders) {
+            User user = order.getUser();
+            String month = BookEmailService.monthOf(order.getCreatedAt());
+            notificationService.notifyOfTranslationReady(
+                    user, order.getId(), book.getTitle(), book.getLanguage(), month, coverUrl, actionPath);
+            bookEmailService.translationReady(
+                    user, book.getTitle(), book.getLanguage(), month, actionPath, requestsLeftLine(user));
+        }
+    }
+
+    /** "You have 2 requests left this month." for the mail; blank when the plan is unlimited. */
+    private String requestsLeftLine(User user) {
+        TranslationRequestQuotaDto quota = quota(user);
+        if (quota.limit() < 0) {
+            return "";
+        }
+        int left = Math.max(0, quota.limit() - quota.used());
+        return switch (left) {
+            case 0 -> "You have no requests left this month.";
+            case 1 -> "You have 1 request left this month.";
+            default -> "You have %d requests left this month.".formatted(left);
+        };
     }
 
     /** Declining refunds the slot, drops the request out of the caller's list, and says so in a plain mail. */
@@ -90,10 +114,8 @@ public class TranslationOrderService {
             order.setResolvedAt(now);
         });
         translationOrderRepository.saveAll(orders);
-        bookEmailService.translationDeclined(
-                orders.stream().map(TranslationOrder::getUser).toList(),
-                orders.getFirst().getBook().getTitle(),
-                language);
+        String title = orders.getFirst().getBook().getTitle();
+        orders.forEach(order -> bookEmailService.translationDeclined(order.getUser(), title, language));
         return orders.size();
     }
 
@@ -114,6 +136,19 @@ public class TranslationOrderService {
             order.setSeenAt(Instant.now());
             translationOrderRepository.save(order);
         }
+        // The bell row and the Read-page card are one fact: opening either clears both.
+        notificationService.readByReference(order.getUser(), orderId);
+    }
+
+    /** The bell row was read; the card on the Read page goes with it. */
+    @Transactional
+    public void markSeenFromNotification(UUID userId, UUID orderId) {
+        translationOrderRepository.findByIdAndUserId(orderId, userId).ifPresent(order -> {
+            if (order.getSeenAt() == null) {
+                order.setSeenAt(Instant.now());
+                translationOrderRepository.save(order);
+            }
+        });
     }
 
     @Transactional

@@ -45,7 +45,7 @@ public class ProfileController {
     @PatchMapping("/notifications")
     public ResponseEntity<Void> updateNotifications(
             @RequestBody ProfileNotificationsRequest request, @Auth UUID userId) {
-        profileService.updateSocialEmailNotifications(userId, request.socialEmails());
+        profileService.updateNotificationPreferences(userId, request.socialEmails(), request.bookEmails());
         return ResponseEntity.noContent().build();
     }
 

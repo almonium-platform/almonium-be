@@ -4,12 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyCollection;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.response.LibrarySuggestionDto;
 import com.almonium.learning.book.dto.response.LibrarySuggestionQueueDto;
 import com.almonium.learning.book.dto.response.ProcessorIngestStatus;
@@ -58,6 +58,9 @@ class LibrarySuggestionServiceTest {
 
     @Mock
     BookEmailService bookEmailService;
+
+    @Mock
+    NotificationService notificationService;
 
     @InjectMocks
     LibrarySuggestionService service;
@@ -200,7 +203,8 @@ class LibrarySuggestionServiceTest {
 
         assertThat(first.getStatus()).isEqualTo(LibrarySuggestionStatus.DECLINED);
         assertThat(second.getStatus()).isEqualTo(LibrarySuggestionStatus.DECLINED);
-        verify(bookEmailService).suggestionDeclined(List.of(first.getUser(), second.getUser()), "Unterleuten");
+        verify(bookEmailService).suggestionDeclined(first.getUser(), "Unterleuten");
+        verify(bookEmailService).suggestionDeclined(second.getUser(), "Unterleuten");
     }
 
     @Test
@@ -222,11 +226,21 @@ class LibrarySuggestionServiceTest {
         assertThat(first.getStatus()).isEqualTo(LibrarySuggestionStatus.PUBLISHED);
         assertThat(second.getLibraryBook()).isEqualTo(book);
         assertThat(second.getPublishedAt()).isNotNull();
+        String month = BookEmailService.monthOf(first.getCreatedAt());
+        verify(notificationService)
+                .notifyOfSuggestionPublished(
+                        first.getUser(),
+                        first.getId(),
+                        "Der Schimmelreiter",
+                        month,
+                        null,
+                        "/books/der-schimmelreiter-de-original");
         verify(bookEmailService)
                 .suggestionPublished(
-                        List.of(first.getUser(), second.getUser()),
-                        "Der Schimmelreiter",
-                        "der-schimmelreiter-de-original");
+                        first.getUser(), "Der Schimmelreiter", month, "/books/der-schimmelreiter-de-original");
+        verify(bookEmailService)
+                .suggestionPublished(
+                        second.getUser(), "Der Schimmelreiter", month, "/books/der-schimmelreiter-de-original");
     }
 
     @Test
@@ -236,7 +250,7 @@ class LibrarySuggestionServiceTest {
 
         service.settlePublished(unknown, new Book());
 
-        verify(bookEmailService, never()).suggestionPublished(anyList(), any(), any());
+        verify(bookEmailService, never()).suggestionPublished(any(), any(), any(), any());
     }
 
     @Test

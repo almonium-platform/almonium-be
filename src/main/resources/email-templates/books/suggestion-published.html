@@ -11,8 +11,9 @@
         <td class="email-content" bgcolor="#F9F6F5">
             <p class="muted">The book you suggested</p>
             <p class="email-headline"><em th:text="${bookTitle}"></em> is now in the library.</p>
-            <p>Thank you for suggesting it. The library copy can be read alongside a translation, and you can ask for more
-                languages from its page. Your private copy stays yours, with its own progress.</p>
+            <p>You suggested this one in <span th:text="${month}"></span>. The library copy can be read alongside a
+                translation, and you can ask for more languages from its page. Your private copy stays yours, with
+                its own progress.</p>
 
             <div th:replace="~{_fragments/button :: button(${url}, 'Open the library copy', 220, false)}"></div>
         </td>

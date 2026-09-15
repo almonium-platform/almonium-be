@@ -56,6 +56,13 @@ public class Profile {
     @Builder.Default
     boolean socialEmailNotifications = true;
 
+    /**
+     * Whether the reading mails and pushes are sent: a translation you asked for, or a book you suggested, is ready.
+     * One switch covers email and push together; the bell row is governed by neither.
+     */
+    @Builder.Default
+    boolean bookEmailNotifications = true;
+
     /** When the browser last created a session. Says when someone signed in, not whether they use the product. */
     @CreatedDate
     LocalDateTime lastLogin;

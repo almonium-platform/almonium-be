@@ -12,9 +12,13 @@
             <p class="muted">The book you asked for</p>
             <p class="email-headline"><em th:text="${bookTitle}"></em> now reads alongside
                 <span th:text="${languageName}"></span>.</p>
-            <p>You asked for this one. Every chapter is aligned, and every reader of the pair has it from today.</p>
+            <p>You asked for this one in <span th:text="${month}"></span>. Every chapter is aligned, and every reader
+                of the pair has it from today.</p>
 
-            <div th:replace="~{_fragments/button :: button(${url}, 'Open the book', 160, false)}"></div>
+            <div th:replace="~{_fragments/button :: button(${url}, 'Open chapter one', 190, false)}"></div>
+
+            <!--/* The allowance line sits under a hairline, apart from the news; a plan with no limit has no line. */-->
+            <p class="closing-line" th:if="${!#strings.isEmpty(requestsLeft)}" th:text="${requestsLeft}"></p>
         </td>
     </tr>
 </table>

@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.client.exception.ApiIntegrationException;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.dto.response.IngestJobDto;
 import com.almonium.learning.book.dto.response.LibraryMatch;
 import com.almonium.learning.book.dto.response.LibrarySuggestionDto;
@@ -66,6 +67,7 @@ public class LibrarySuggestionService {
     BookProcessorClient processorClient;
     EffectiveAccessService effectiveAccessService;
     BookEmailService bookEmailService;
+    NotificationService notificationService;
 
     // --- the owner ---
 
@@ -225,8 +227,8 @@ public class LibrarySuggestionService {
             suggestion.setDecidedAt(now);
         });
         repository.saveAll(group);
-        bookEmailService.suggestionDeclined(
-                group.stream().map(LibrarySuggestion::getUser).toList(), representative.getTitle());
+        group.forEach(
+                suggestion -> bookEmailService.suggestionDeclined(suggestion.getUser(), representative.getTitle()));
         return new LibrarySuggestionRowUpdate(representative.getId(), group.size());
     }
 
@@ -288,8 +290,13 @@ public class LibrarySuggestionService {
             }
         }
         repository.saveAll(group);
-        bookEmailService.suggestionPublished(
-                group.stream().map(LibrarySuggestion::getUser).toList(), book.getTitle(), book.getEditionSlug());
+        String actionPath = "/books/" + book.getEditionSlug();
+        for (LibrarySuggestion suggestion : group) {
+            String month = BookEmailService.monthOf(suggestion.getCreatedAt());
+            notificationService.notifyOfSuggestionPublished(
+                    suggestion.getUser(), suggestion.getId(), book.getTitle(), month, book.getCoverUrl(), actionPath);
+            bookEmailService.suggestionPublished(suggestion.getUser(), book.getTitle(), month, actionPath);
+        }
     }
 
     private LibrarySuggestion find(UUID id) {

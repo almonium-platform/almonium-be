@@ -8,6 +8,7 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.model.dto.EmailContext;
 import com.almonium.infra.email.model.enums.AuthEmailTemplateType;
+import com.almonium.learning.book.model.enums.BookEmailType;
 import com.almonium.subscription.model.entity.PlanSubscription;
 import com.almonium.user.relationship.model.enums.FriendshipEvent;
 import java.util.Map;
@@ -46,6 +47,8 @@ class EmailTemplateRenderingTest {
             new FriendshipEmailComposerService(emailService, templateEngine, properties);
     private final SubscriptionEmailComposerService subscriptionComposer =
             new SubscriptionEmailComposerService(emailService, templateEngine, properties);
+    private final BookEmailComposerService bookComposer =
+            new BookEmailComposerService(emailService, templateEngine, properties);
 
     static Stream<Arguments> sends() {
         return Stream.of(
@@ -114,7 +117,41 @@ class EmailTemplateRenderingTest {
                         "Your subscription is active again",
                         "Level-adapted editions and private imports are open again.",
                         "Open Almonium",
+                        false),
+                Arguments.of(
+                        "books/translation-ready",
+                        "Effi Briest now reads alongside Ukrainian",
+                        "The book you asked for in August is ready.",
+                        "Open chapter one",
+                        false),
+                Arguments.of(
+                        "books/suggestion-published",
+                        "Der Schimmelreiter is now in the library",
+                        "The book you suggested in August is ready.",
+                        "Open the library copy",
                         false));
+    }
+
+    @Test
+    void everySendPointsAtSettingsEvenWhenThereIsNothingToUnsubscribeFrom() {
+        Document html = Jsoup.parse(render("books/translation-ready", Map.of()).body());
+
+        assertThat(html.select("a:contains(Unsubscribe)")).isEmpty();
+        assertThat(html.select("a:contains(Settings)").attr("href")).isEqualTo(WEB_DOMAIN + "/settings");
+    }
+
+    @Test
+    void theFulfilmentMailClosesOnTheAllowanceLineOnlyWhenThereIsOne() {
+        String limited = render(
+                        "books/translation-ready",
+                        Map.of(BookEmailComposerService.REQUESTS_LEFT, "You have 2 requests left this month."))
+                .body();
+        String unlimited = render("books/translation-ready", Map.of()).body();
+
+        assertThat(limited).contains("You have 2 requests left this month.");
+        assertThat(unlimited).doesNotContain("requests left this month");
+        assertThat(Jsoup.parse(limited).select("td[bgcolor=#5A1A74] a").attr("href"))
+                .isEqualTo(WEB_DOMAIN + "/reader/effi-briest-de-original?parallel=UK");
     }
 
     @ParameterizedTest(name = "{0}")
@@ -266,6 +303,23 @@ class EmailTemplateRenderingTest {
                 attributes.put(SubscriptionEmailComposerService.PLAN_NAME, "PREMIUM");
                 subscriptionComposer.sendEmail(
                         "oleg", "oleg@example.com", new EmailContext<>(subscriptionEvent(template), attributes));
+            }
+            case "books" -> {
+                Map<String, String> attributes = new java.util.HashMap<>(extraAttributes);
+                attributes.put(BookEmailComposerService.MONTH, "August");
+                if (template.startsWith("translation")) {
+                    attributes.put(BookEmailComposerService.BOOK_TITLE, "Effi Briest");
+                    attributes.put(BookEmailComposerService.LANGUAGE_NAME, "Ukrainian");
+                    attributes.put(BookEmailComposerService.PATH, "/reader/effi-briest-de-original?parallel=UK");
+                } else {
+                    attributes.put(BookEmailComposerService.BOOK_TITLE, "Der Schimmelreiter");
+                    attributes.put(BookEmailComposerService.PATH, "/books/der-schimmelreiter-de-original");
+                }
+                bookComposer.sendEmail(
+                        "oleg",
+                        "oleg@example.com",
+                        new EmailContext<>(
+                                BookEmailType.valueOf(template.toUpperCase().replace('-', '_')), attributes));
             }
             default -> throw new IllegalArgumentException(send);
         }

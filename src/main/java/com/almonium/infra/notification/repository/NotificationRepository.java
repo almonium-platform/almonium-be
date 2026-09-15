@@ -4,6 +4,7 @@ import com.almonium.infra.notification.model.entity.Notification;
 import com.almonium.user.core.model.entity.User;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,6 +14,15 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
     List<Notification> findByRecipientOrderByReadAtDescCreatedAtDesc(User user);
 
     void deleteByIdAndRecipient(UUID id, User user);
+
+    Optional<Notification> findByIdAndRecipient(UUID id, User user);
+
+    List<Notification> findByRecipientAndReadAtIsNull(User user);
+
+    @Modifying
+    @Query(
+            "update Notification n set n.readAt = current_timestamp where n.recipient = :user and n.referenceId = :referenceId and n.readAt is null")
+    void readByRecipientAndReference(User user, UUID referenceId);
 
     @Modifying
     @Query("update Notification n set n.readAt = current_timestamp where n.recipient = :user and n.readAt is null")

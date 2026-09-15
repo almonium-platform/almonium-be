@@ -2,6 +2,7 @@ package com.almonium.infra.notification.service;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.config.properties.AppProperties;
 import com.almonium.infra.notification.dto.request.FCMTokenRequest;
 import com.almonium.infra.notification.model.entity.FCMToken;
 import com.almonium.infra.notification.repository.FCMTokenRepository;
@@ -13,6 +14,8 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.MulticastMessage;
 import com.google.firebase.messaging.Notification;
 import com.google.firebase.messaging.SendResponse;
+import com.google.firebase.messaging.WebpushConfig;
+import com.google.firebase.messaging.WebpushFcmOptions;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +30,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FCMService {
+    /** The data key every client reads to know where a tap goes. */
+    public static final String PATH = "path";
+
     FCMTokenRepository fcmTokenRepository;
+    AppProperties appProperties;
 
     public void registerToken(FCMTokenRequest request, User user) {
         fcmTokenRepository
@@ -44,20 +51,20 @@ public class FCMService {
     }
 
     public void sendNotificationToUser(UUID userId, String title, String message) {
+        sendToUser(userId, title, message, null);
+    }
+
+    /**
+     * One banner to every device the user already granted push on. {@code path} is the in-app page a tap opens:
+     * it rides in the data payload for the native clients and as the WebPush link for the browser.
+     */
+    public void sendToUser(UUID userId, String title, String body, String path) {
         try {
             List<FCMToken> tokens = fcmTokenRepository.findByUserId(userId);
             if (tokens.isEmpty()) return;
 
             List<String> activeTokens = tokens.stream().map(FCMToken::getToken).toList();
-            MulticastMessage multicastMessage = MulticastMessage.builder()
-                    .setNotification(Notification.builder()
-                            .setTitle(title)
-                            .setBody(message)
-                            .build())
-                    .addAllTokens(activeTokens)
-                    .build();
-
-            FirebaseMessaging.getInstance().sendEachForMulticast(multicastMessage);
+            FirebaseMessaging.getInstance().sendEachForMulticast(message(activeTokens, title, body, path));
         } catch (FirebaseMessagingException e) {
             log.error("Error sending notification to user with id: {}. Error: {}", userId, e.getMessage());
         }
@@ -73,15 +80,8 @@ public class FCMService {
             List<List<String>> tokenBatches = Lists.partition(allTokens, 500);
 
             for (List<String> tokenBatch : tokenBatches) {
-                MulticastMessage multicastMessage = MulticastMessage.builder()
-                        .setNotification(Notification.builder()
-                                .setTitle(title)
-                                .setBody(message)
-                                .build())
-                        .addAllTokens(tokenBatch)
-                        .build();
-
-                BatchResponse response = FirebaseMessaging.getInstance().sendEachForMulticast(multicastMessage);
+                BatchResponse response =
+                        FirebaseMessaging.getInstance().sendEachForMulticast(message(tokenBatch, title, message, null));
 
                 if (response.getFailureCount() > 0) {
                     log.warn(
@@ -107,5 +107,19 @@ public class FCMService {
         } catch (FirebaseMessagingException e) {
             log.error("Error sending mass notification. UsersCount {} Error: {}", users.size(), e.getMessage());
         }
+    }
+
+    private MulticastMessage message(List<String> tokens, String title, String body, String path) {
+        MulticastMessage.Builder builder = MulticastMessage.builder()
+                .setNotification(
+                        Notification.builder().setTitle(title).setBody(body).build())
+                .addAllTokens(tokens);
+        if (path != null && !path.isBlank()) {
+            builder.putData(PATH, path)
+                    .setWebpushConfig(WebpushConfig.builder()
+                            .setFcmOptions(WebpushFcmOptions.withLink(appProperties.getWebDomain() + path))
+                            .build());
+        }
+        return builder.build();
     }
 }

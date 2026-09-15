@@ -152,3 +152,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260913-add-last-seen-at.yaml
   - include:
       file: db/changelog/changes/patches/20260913-reading-redesign.yaml
+  - include:
+      file: db/changelog/changes/patches/20260914-add-book-email-notifications.yaml

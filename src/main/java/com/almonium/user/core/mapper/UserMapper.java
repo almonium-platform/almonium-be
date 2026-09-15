@@ -20,6 +20,8 @@ public interface UserMapper {
     UserInfo userToUserInfo(User user);
 
     default NotificationPreferencesDto toNotificationPreferences(Profile profile) {
-        return new NotificationPreferencesDto(profile == null || profile.isSocialEmailNotifications());
+        return new NotificationPreferencesDto(
+                profile == null || profile.isSocialEmailNotifications(),
+                profile == null || profile.isBookEmailNotifications());
     }
 }

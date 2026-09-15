@@ -50,7 +50,7 @@ public abstract class EmailComposerService<T> {
         Context context = new Context();
         getCustomPlaceholders(emailContext).forEach(context::setVariable);
         buildUniversalPlaceholders(recipientUsername, recipientEmail).forEach(context::setVariable);
-        context.setVariable(PREHEADER, dto.preheader());
+        context.setVariable(PREHEADER, buildPreheader(dto, emailContext));
         context.setVariable(UNSUBSCRIBE, includesUnsubscribe());
 
         String templatePath = String.format(TEMPLATE_PATH_FORMAT, getSubfolder(), dto.template());
@@ -64,6 +64,11 @@ public abstract class EmailComposerService<T> {
     public abstract Map<String, String> getCustomPlaceholders(EmailContext<T> emailContext);
 
     public abstract String getSubfolder();
+
+    /** Preheaders are fixed strings unless a composer needs to name the month or the language. */
+    protected String buildPreheader(EmailSubjectTemplate template, EmailContext<T> emailContext) {
+        return template.preheader();
+    }
 
     /** Subjects are fixed strings unless a composer needs to name the counterpart. */
     protected String buildSubject(EmailSubjectTemplate template, EmailContext<T> emailContext) {

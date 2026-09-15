@@ -46,10 +46,12 @@ public class ProfileService {
         log.info("Hidden status updated for user: {}", userId);
     }
 
-    public void updateSocialEmailNotifications(UUID userId, boolean enabled) {
+    /** Each switch covers email and push together; the in-app bell reads neither. */
+    public void updateNotificationPreferences(UUID userId, boolean socialEmails, boolean bookEmails) {
         Profile profile = getProfileById(userId);
-        profile.setSocialEmailNotifications(enabled);
+        profile.setSocialEmailNotifications(socialEmails);
+        profile.setBookEmailNotifications(bookEmails);
         profileRepository.save(profile);
-        log.info("Social email notifications {} for user: {}", enabled ? "enabled" : "disabled", userId);
+        log.info("Notification preferences for user {}: social {}, books {}", userId, socialEmails, bookEmails);
     }
 }

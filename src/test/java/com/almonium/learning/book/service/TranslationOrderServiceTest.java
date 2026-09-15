@@ -155,6 +155,8 @@ class TranslationOrderServiceTest {
     @Test
     void settlesOpenRequestsWhenTheTranslationIsPublished() {
         Book original = originalBook();
+        original.setEditionSlug("effi-briest-de-original");
+        original.setCoverUrl("https://covers.example/effi.jpg");
         Book translation = new Book();
         translation.setId(UUID.randomUUID());
         translation.setTitle("Effi Briest");
@@ -163,17 +165,95 @@ class TranslationOrderServiceTest {
         translation.setOriginalBook(original);
         User asker = user();
         TranslationOrder order = new TranslationOrder(asker, original, Language.UK);
+        order.setId(UUID.randomUUID());
+        order.setCreatedAt(Instant.parse("2026-08-12T10:00:00Z"));
         when(translationOrderRepository.findByBookIdAndLanguageAndStatus(
                         original.getId(), Language.UK, TranslationOrderStatus.ASKED))
                 .thenReturn(List.of(order));
+        when(subscriptionService.getActiveSub(asker)).thenReturn(subscription());
+        when(planValidationService.effectiveLimit(asker, MAX_TRANSLATION_REQUESTS_PER_MONTH))
+                .thenReturn(3);
+        when(translationOrderRepository.countByUserIdAndStatusInAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
+                        eq(asker.getId()), eq(SPENDING), any(), any()))
+                .thenReturn(1L);
 
         service.publishTranslation(translation);
 
         assertThat(order.getStatus()).isEqualTo(TranslationOrderStatus.READY);
         assertThat(order.getFulfilledBook()).isEqualTo(translation);
         assertThat(order.getResolvedAt()).isNotNull();
-        verify(notificationService).notifyOfTranslationOrderCompletion("Effi Briest", Language.UK, List.of(asker));
-        verify(bookEmailService).translationReady(List.of(asker), "Effi Briest", Language.UK, "effi-briest-uk");
+        // One row per reader, the cover on the tile, and chapter one of the pair behind the tap.
+        verify(notificationService)
+                .notifyOfTranslationReady(
+                        asker,
+                        order.getId(),
+                        "Effi Briest",
+                        Language.UK,
+                        "August",
+                        "https://covers.example/effi.jpg",
+                        "/reader/effi-briest-de-original?parallel=UK");
+        verify(bookEmailService)
+                .translationReady(
+                        asker,
+                        "Effi Briest",
+                        Language.UK,
+                        "August",
+                        "/reader/effi-briest-de-original?parallel=UK",
+                        "You have 2 requests left this month.");
+    }
+
+    @Test
+    void anUnlimitedPlanGetsNoAllowanceLineInTheMail() {
+        Book original = originalBook();
+        original.setEditionSlug("effi-briest-de-original");
+        Book translation = new Book();
+        translation.setId(UUID.randomUUID());
+        translation.setTitle("Effi Briest");
+        translation.setLanguage(Language.UK);
+        translation.setOriginalBook(original);
+        User asker = user();
+        TranslationOrder order = new TranslationOrder(asker, original, Language.UK);
+        order.setId(UUID.randomUUID());
+        order.setCreatedAt(Instant.parse("2026-08-12T10:00:00Z"));
+        when(translationOrderRepository.findByBookIdAndLanguageAndStatus(
+                        original.getId(), Language.UK, TranslationOrderStatus.ASKED))
+                .thenReturn(List.of(order));
+        when(subscriptionService.getActiveSub(asker)).thenReturn(subscription());
+        when(planValidationService.effectiveLimit(asker, MAX_TRANSLATION_REQUESTS_PER_MONTH))
+                .thenReturn(-1);
+
+        service.publishTranslation(translation);
+
+        verify(bookEmailService)
+                .translationReady(eq(asker), eq("Effi Briest"), eq(Language.UK), eq("August"), any(), eq(""));
+    }
+
+    @Test
+    void openingTheFulfilmentClearsTheBellRowToo() {
+        User asker = user();
+        TranslationOrder order = new TranslationOrder(asker, originalBook(), Language.UK);
+        order.setId(UUID.randomUUID());
+        when(translationOrderRepository.findByIdAndUserId(order.getId(), asker.getId()))
+                .thenReturn(Optional.of(order));
+
+        service.markSeen(asker.getId(), order.getId());
+
+        assertThat(order.getSeenAt()).isNotNull();
+        verify(notificationService).readByReference(asker, order.getId());
+    }
+
+    @Test
+    void readingTheBellRowClearsTheFulfilmentCard() {
+        User asker = user();
+        TranslationOrder order = new TranslationOrder(asker, originalBook(), Language.UK);
+        order.setId(UUID.randomUUID());
+        when(translationOrderRepository.findByIdAndUserId(order.getId(), asker.getId()))
+                .thenReturn(Optional.of(order));
+
+        service.markSeenFromNotification(asker.getId(), order.getId());
+
+        assertThat(order.getSeenAt()).isNotNull();
+        verify(notificationService, never()).readByReference(any(), any());
     }
 
     @Test
@@ -189,7 +269,7 @@ class TranslationOrderServiceTest {
 
         service.publishTranslation(translation);
 
-        verify(notificationService, never()).notifyOfTranslationOrderCompletion(any(), any(), anyList());
+        verify(notificationService, never()).notifyOfTranslationReady(any(), any(), any(), any(), any(), any(), any());
         verify(translationOrderRepository, never()).saveAll(anyList());
     }
 
@@ -206,8 +286,8 @@ class TranslationOrderServiceTest {
         assertThat(declined).isEqualTo(1);
         assertThat(order.getStatus()).isEqualTo(TranslationOrderStatus.DECLINED);
         assertThat(SPENDING).doesNotContain(order.getStatus());
-        verify(notificationService, never()).notifyOfTranslationOrderCompletion(any(), any(), anyList());
-        verify(bookEmailService).translationDeclined(List.of(order.getUser()), "Effi Briest", Language.UK);
+        verify(notificationService, never()).notifyOfTranslationReady(any(), any(), any(), any(), any(), any(), any());
+        verify(bookEmailService).translationDeclined(order.getUser(), "Effi Briest", Language.UK);
     }
 
     @Test
