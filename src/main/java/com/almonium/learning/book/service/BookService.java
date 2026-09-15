@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.card.core.service.LearnerFinder;
+import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookLanguageVariant;
@@ -112,6 +113,10 @@ public class BookService {
 
     public byte[] getPublicText(String editionSlug) {
         return publishedBookContentService.textFor(getBookBySlug(editionSlug));
+    }
+
+    public List<BookChapter> getPublicChapters(String editionSlug) {
+        return publishedBookContentService.chaptersFor(getBookBySlug(editionSlug));
     }
 
     public byte[] getPublicParallelBook(String editionSlug, Language language) {

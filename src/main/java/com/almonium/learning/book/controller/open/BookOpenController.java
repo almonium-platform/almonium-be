@@ -1,6 +1,7 @@
 package com.almonium.learning.book.controller.open;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.service.BookService;
@@ -22,6 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookOpenController {
     BookService bookService;
+
+    @GetMapping("/{editionSlug}/chapters")
+    public ResponseEntity<List<BookChapter>> getChapters(@PathVariable String editionSlug) {
+        return ResponseEntity.ok(bookService.getPublicChapters(editionSlug));
+    }
 
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks() {

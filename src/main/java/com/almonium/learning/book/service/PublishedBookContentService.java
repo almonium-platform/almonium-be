@@ -1,8 +1,10 @@
 package com.almonium.learning.book.service;
 
+import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.model.entity.Book;
 import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,18 @@ public class PublishedBookContentService {
 
     @Value("${app.books.processor-url}")
     private String processorUrl;
+
+    public List<BookChapter> chaptersFor(Book book) {
+        BookChapter[] chapters;
+        try {
+            chapters = restTemplate.getForObject(
+                    processorUrl + "/public/editions/{slug}/chapters/", BookChapter[].class, book.getEditionSlug());
+        } catch (HttpClientErrorException.NotFound unavailable) {
+            throw new EntityNotFoundException("Published edition chapters are unavailable");
+        }
+        if (chapters == null) throw new IllegalStateException("Published edition has no chapter response");
+        return List.of(chapters);
+    }
 
     public byte[] textFor(Book book) {
         JsonNode[] blocks = restTemplate.getForObject(

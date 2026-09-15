@@ -54,3 +54,16 @@ Full Maven verification currently fails in pre-existing Firebase web-slice tests
 because `LastSeenRecorder` is missing from their test context (14 context errors;
 464 tests attempted, zero assertion failures, three skipped). Those authentication
 files were not changed by this iteration. This is not a green full-build claim.
+# Public chapter enrichment (2026-09-15)
+
+`GET /public/books/{editionSlug}/chapters` requires a product catalogue entry and
+fetches the processor's public, published-only chapter route. It returns an array
+of `BookChapter`: `id` (UUID), `sequence` (the number used by HTML `chapter-N`
+anchors), `title`, `analysisStatus`, nullable `cefrEstimate`, and `descriptions`
+(ordered spoiler-free window descriptions, not a synthetic chapter summary).
+Only complete current chapter estimates and complete current descriptions appear.
+These are AI estimates, not editorial CEFR overrides or learner measurements.
+No private import data, recaps or staff evidence are exposed; GET never calls AI.
+
+Angular consumes this additive endpoint. Expo can use the same public metadata
+without changing its Firebase bearer boundary; its reader integration is pending.

@@ -6,8 +6,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.model.entity.Book;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +23,16 @@ import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class PublishedBookContentServiceTest {
+    @Test
+    void readsTypedChaptersWithoutInferringAnEditorialLevel() {
+        var chapter = new BookChapter(UUID.randomUUID(), 10, "IV", "complete", "B2", List.of("A difficult choice."));
+        when(restTemplate.getForObject(anyString(), eq(BookChapter[].class), any(Object[].class)))
+                .thenReturn(new BookChapter[] {chapter});
+        Book book = new Book();
+        book.setEditionSlug("adapted");
+        assertThat(service.chaptersFor(book)).containsExactly(chapter);
+    }
+
     @Mock
     RestTemplate restTemplate;
 
