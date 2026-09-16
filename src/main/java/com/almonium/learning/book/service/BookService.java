@@ -10,6 +10,7 @@ import com.almonium.learning.book.dto.response.BookDto;
 import com.almonium.learning.book.dto.response.BookLanguageVariant;
 import com.almonium.learning.book.dto.response.BookMiniDetails;
 import com.almonium.learning.book.dto.response.BookshelfViewDto;
+import com.almonium.learning.book.dto.response.ChapterVocabulary;
 import com.almonium.learning.book.mapper.BookMapper;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.BookDetailsProjection;
@@ -117,6 +118,10 @@ public class BookService {
 
     public List<BookChapter> getPublicChapters(String editionSlug) {
         return publishedBookContentService.chaptersFor(getBookBySlug(editionSlug));
+    }
+
+    public ChapterVocabulary getPublicChapterVocabulary(String editionSlug, int sequence) {
+        return publishedBookContentService.vocabularyFor(getBookBySlug(editionSlug), sequence);
     }
 
     public byte[] getPublicParallelBook(String editionSlug, Language language) {

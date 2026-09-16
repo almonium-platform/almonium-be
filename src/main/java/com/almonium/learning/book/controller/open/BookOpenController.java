@@ -4,6 +4,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.dto.response.BookDetails;
 import com.almonium.learning.book.dto.response.BookDto;
+import com.almonium.learning.book.dto.response.ChapterVocabulary;
 import com.almonium.learning.book.service.BookService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -27,6 +28,12 @@ public class BookOpenController {
     @GetMapping("/{editionSlug}/chapters")
     public ResponseEntity<List<BookChapter>> getChapters(@PathVariable String editionSlug) {
         return ResponseEntity.ok(bookService.getPublicChapters(editionSlug));
+    }
+
+    @GetMapping("/{editionSlug}/chapters/{sequence}/vocabulary")
+    public ResponseEntity<ChapterVocabulary> getChapterVocabulary(
+            @PathVariable String editionSlug, @PathVariable int sequence) {
+        return ResponseEntity.ok(bookService.getPublicChapterVocabulary(editionSlug, sequence));
     }
 
     @GetMapping

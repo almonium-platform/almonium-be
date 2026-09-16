@@ -1,13 +1,16 @@
 package com.almonium.learning.book.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.almonium.learning.book.dto.response.BookChapter;
+import com.almonium.learning.book.dto.response.ChapterVocabulary;
 import com.almonium.learning.book.model.entity.Book;
+import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
@@ -16,13 +19,52 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class PublishedBookContentServiceTest {
+    @Test
+    void readsTypedChapterVocabularyWithoutInventingMissingEntries() {
+        var response = new ChapterVocabulary(
+                UUID.randomUUID(),
+                11,
+                "en",
+                "ready",
+                "book-useful-words-in-chapter",
+                List.of(new ChapterVocabulary.Word(
+                        "lantern", "lanterns", "Two lanterns burned.", "c11.p1", 4, 12, "uncommon")),
+                new ChapterVocabulary.Provenance("hash", "lexical-v3", "en_core_web_sm", "3.8.0"));
+        Book book = new Book();
+        book.setEditionSlug("original");
+        when(restTemplate.getForObject(
+                        "https://books.example/api/v1/public/editions/{slug}/chapters/{sequence}/vocabulary/",
+                        ChapterVocabulary.class,
+                        "original",
+                        11))
+                .thenReturn(response);
+        assertThat(service.vocabularyFor(book, 11)).isEqualTo(response);
+    }
+
+    @Test
+    void missingOrUnpublishedVocabularyIsNotAnEmptySuccessfulDictionary() {
+        when(restTemplate.getForObject(anyString(), eq(ChapterVocabulary.class), any(Object[].class)))
+                .thenThrow(HttpClientErrorException.create(HttpStatus.NOT_FOUND, "Not found", null, null, null));
+        assertThatThrownBy(() -> service.vocabularyFor(new Book(), 11)).isInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void rejectsVocabularyFromAnotherChapter() {
+        when(restTemplate.getForObject(anyString(), eq(ChapterVocabulary.class), any(Object[].class)))
+                .thenReturn(new ChapterVocabulary(
+                        UUID.randomUUID(), 12, "en", "ready", "book-useful-words-in-chapter", List.of(), null));
+        assertThatThrownBy(() -> service.vocabularyFor(new Book(), 11)).isInstanceOf(IllegalStateException.class);
+    }
+
     @Test
     void invalidCompanionSpansOrDuplicateIndexesDisableHighlightsOnBothSides() {
         for (String mapping : List.of(

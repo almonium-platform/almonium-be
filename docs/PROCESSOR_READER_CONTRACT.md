@@ -74,3 +74,23 @@ Unicode code-point offsets and complete, nonduplicated index coverage. Invalid
 mapping or invalid companion offsets disable sentence highlighting on both sides
 of that paragraph; book text remains readable. An uncertain/unmatched group is
 valid data but is not rendered as a clickable correspondence.
+
+## Chapter vocabulary (2026-09-16)
+
+`GET /public/books/{editionSlug}/chapters/{sequence}/vocabulary` resolves a
+non-withdrawn product catalogue edition, then the processor's published-only
+chapter vocabulary resource. Unknown/unpublished chapters remain 404; a
+temporarily missing/stale lexical artifact returns its explicit status, not
+invented words. GET performs no NLP or provider request.
+
+`ChapterVocabulary` contains chapter UUID/sequence, language, status, selection
+policy, words and nullable provenance. Word entries contain dictionary lemma,
+attested surface, source context, block ID, code-point offsets and frequency
+band. Provenance includes the input hash, lexical processor version and spaCy
+model/version. This is a curated subset of existing book useful-word candidates
+occurring in the chapter, not an exhaustive dictionary or CEFR vocabulary band.
+
+The processor retains chapter examples during its existing lexical pass; it
+rejects stale hashes, fallback lemmas, wrong chapters and mismatched text ranges.
+The public contract is additive; native clients may consume it through their
+existing Firebase bearer transport. No changes to authentication or publication.

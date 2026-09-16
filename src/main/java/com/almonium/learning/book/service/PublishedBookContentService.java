@@ -1,6 +1,7 @@
 package com.almonium.learning.book.service;
 
 import com.almonium.learning.book.dto.response.BookChapter;
+import com.almonium.learning.book.dto.response.ChapterVocabulary;
 import com.almonium.learning.book.model.entity.Book;
 import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +33,24 @@ public class PublishedBookContentService {
         }
         if (chapters == null) throw new IllegalStateException("Published edition has no chapter response");
         return List.of(chapters);
+    }
+
+    public ChapterVocabulary vocabularyFor(Book book, int chapterSequence) {
+        if (chapterSequence < 1) throw new EntityNotFoundException("Chapter not found");
+        ChapterVocabulary response;
+        try {
+            response = restTemplate.getForObject(
+                    processorUrl + "/public/editions/{slug}/chapters/{sequence}/vocabulary/",
+                    ChapterVocabulary.class,
+                    book.getEditionSlug(),
+                    chapterSequence);
+        } catch (HttpClientErrorException.NotFound unavailable) {
+            throw new EntityNotFoundException("Published chapter vocabulary is unavailable");
+        }
+        if (response == null || response.chapterSequence() != chapterSequence || response.words() == null) {
+            throw new IllegalStateException("Invalid published chapter vocabulary response");
+        }
+        return response;
     }
 
     public byte[] textFor(Book book) {
