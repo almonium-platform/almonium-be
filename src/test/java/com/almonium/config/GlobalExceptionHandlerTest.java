@@ -17,6 +17,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @SuppressWarnings("DataFlowIssue")
@@ -39,6 +40,30 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         assertThat(response.getBody().message()).isEqualTo(ex.getMessage());
         assertThat(response.getBody().success()).isFalse();
+    }
+
+    @DisplayName("Should keep the status and reason of a ResponseStatusException")
+    @Test
+    void givenResponseStatusException_whenHandleException_thenRespondWithItsStatus() {
+        ResponseStatusException ex = new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Invalid publication request: sourceHash must not be blank");
+
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleResponseStatusException(ex);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody().success()).isFalse();
+        assertThat(response.getBody().message()).isEqualTo("Invalid publication request: sourceHash must not be blank");
+    }
+
+    @DisplayName("Should fall back to a generic message when a ResponseStatusException has no reason")
+    @Test
+    void givenResponseStatusExceptionWithoutReason_whenHandleException_thenRespondWithGenericMessage() {
+        ResponseStatusException ex = new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        ResponseEntity<ApiResponse> response = exceptionHandler.handleResponseStatusException(ex);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        assertThat(response.getBody().message()).isEqualTo("Request rejected");
     }
 
     @DisplayName("Should handle NoResourceFoundException")

@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
@@ -151,6 +152,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException ex) {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse> handleResponseStatusException(ResponseStatusException ex) {
+        log.warn("Request rejected with {}: {}", ex.getStatusCode(), ex.getReason());
+        String message = ex.getReason() != null ? ex.getReason() : "Request rejected";
+        return ResponseEntity.status(ex.getStatusCode()).body(new ApiResponse(false, message));
     }
 
     @ExceptionHandler(Exception.class)
