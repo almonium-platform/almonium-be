@@ -56,7 +56,8 @@ executable source of truth when documentation differs.
   infra repository's Ansible deployment. Pushes to `develop` deploy staging,
   and production follows with the same digest unless the repository variable
   `PROD_FOLLOWS_STAGING` holds it back; `prod-pipeline.yaml` is the manual
-  path for rollbacks and held releases. Do not treat
+  path for rollbacks and held releases. `main` is moved by the pipeline to
+  the commit production runs; never merge into it. Do not treat
   SSH access as permission to bypass this path or perform an ad-hoc production
   deployment.
 - Deployment uses two application slots on one Oracle Cloud ARM host. Keep

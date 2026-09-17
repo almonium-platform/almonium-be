@@ -15,8 +15,8 @@ on:
           - prod
 
 permissions:
-  contents: read
-  packages: read # Only needs read permission
+  contents: write # a prod deploy moves main to the commit production runs
+  packages: read
 
 jobs:
   deploy:

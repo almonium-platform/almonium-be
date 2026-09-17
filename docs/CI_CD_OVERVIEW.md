@@ -101,9 +101,10 @@ staging slot reported healthy, never rebuilt. The repository variable
 `PROD_FOLLOWS_STAGING` (Settings → Secrets and variables → Actions → Variables)
 is the hold switch; set it to anything but `true` and pushes stop at staging
 until it is set back or `Deploy to Production` is dispatched by hand. Manual
-dispatch also covers rollback by digest. `main` no longer takes part in
-delivery; the `prod` GitHub environment's deployment history records what
-production runs.
+dispatch also covers rollback by digest. `main` is a pointer the pipeline
+owns: after every production deploy, including a rollback, the `record-main`
+job moves it to the commit the deployed image was built from (read from the
+image's `org.opencontainers.image.revision` label). Nobody merges into it.
 
 ### Utility and reusable workflows
 
