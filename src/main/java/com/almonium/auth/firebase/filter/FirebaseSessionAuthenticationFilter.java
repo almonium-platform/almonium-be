@@ -18,12 +18,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 @SkipLogging
+@Slf4j
 public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
     private final FirebaseAuthGateway firebaseAuthGateway;
     private final FirebaseSessionCookieService cookieService;
@@ -67,8 +69,16 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(sessionService.authentication(identity, user));
             lastSeenRecorder.touch(user.getId());
         } catch (FirebaseAuthenticationException | ResourceConflictException exception) {
+            // The client only ever sees a bare 401; without this line the reason (an expired or
+            // future-dated token, a wrong audience, an email another account owns) is lost.
+            log.warn("Rejected bearer token: {}", describe(exception));
             SecurityContextHolder.clearContext();
         }
+    }
+
+    private static String describe(Exception exception) {
+        Throwable cause = exception.getCause();
+        return cause == null ? exception.getMessage() : exception.getMessage() + " - " + cause.getMessage();
     }
 
     private void authenticateCookie(String cookie, HttpServletResponse response) {
@@ -84,6 +94,7 @@ public class FirebaseSessionAuthenticationFilter extends OncePerRequestFilter {
                             },
                             () -> cookieService.clear(response));
         } catch (FirebaseAuthenticationException exception) {
+            log.warn("Rejected session cookie: {}", describe(exception));
             SecurityContextHolder.clearContext();
             cookieService.clear(response);
         }
