@@ -6,7 +6,10 @@ import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.PostgresContainer;
 import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.book.model.entity.BookDetailsProjection;
 import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -36,6 +39,25 @@ class BookEditionRepositoryTest {
         ukrainian.setWithdrawnAt(Instant.now());
         books.saveAndFlush(ukrainian);
         assertThat(books.findAvailableLanguagesForBook(adaptation.getId())).hasSize(2);
+    }
+
+    @Test
+    void namesTheOriginalTitleOnlyWhenAnEditionIsTitledDifferently() {
+        Book original = edition("novel-original", Language.EN, CEFR.C1, null);
+        Book adaptation = edition("novel-b2", Language.EN, CEFR.B2, original);
+        Book ukrainian = edition("novel-uk", Language.UK, CEFR.C1, original);
+        ukrainian.setTitle("Роман");
+        books.saveAndFlush(ukrainian);
+        UUID learner = UUID.randomUUID();
+        assertThat(details(ukrainian, learner).getOriginalTitle()).isEqualTo("Novel");
+        // The same title twice would only repeat itself; the original names nobody.
+        assertThat(details(adaptation, learner).getOriginalTitle()).isNull();
+        assertThat(details(original, learner).getOriginalTitle()).isNull();
+    }
+
+    private BookDetailsProjection details(Book book, UUID learner) {
+        return books.findBookDtoById(book.getId(), learner, List.of(Language.EN))
+                .orElseThrow();
     }
 
     private Book edition(String slug, Language language, CEFR level, Book source) {

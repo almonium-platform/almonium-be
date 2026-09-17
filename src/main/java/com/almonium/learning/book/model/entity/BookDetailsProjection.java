@@ -39,5 +39,8 @@ public interface BookDetailsProjection {
 
     UUID getOriginalId();
 
+    /** The original's title when this edition is titled differently (a translation); null otherwise. */
+    String getOriginalTitle();
+
     String getTranslator();
 }

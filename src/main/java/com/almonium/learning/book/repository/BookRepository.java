@@ -134,6 +134,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                case when ob.id is not null then ob.language else b.language end as originalLanguage,
                case when ob.id is not null then ob.id else b.id end as originalId,
+               case when ob.id is not null and ob.title <> b.title then ob.title else null end as originalTitle,
                b.translator as translator,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
