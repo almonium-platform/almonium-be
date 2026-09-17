@@ -26,6 +26,7 @@ public class BookDetails {
     Integer wordCount;
     Language language;
     CEFR cefrLevel;
+    String editionType;
     Integer progressPercentage;
     Boolean hasTranslation;
     Boolean hasParallelTranslation;

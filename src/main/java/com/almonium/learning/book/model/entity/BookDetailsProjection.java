@@ -27,6 +27,9 @@ public interface BookDetailsProjection {
 
     CEFR getCefrLevel();
 
+    /** original, adaptation, machine_translation or human_translation, as the processor names it. */
+    String getEditionType();
+
     Integer getProgressPercentage();
 
     Boolean getHasTranslation();

@@ -16,6 +16,7 @@ public record BookDto(
         Integer wordCount,
         Language language,
         CEFR cefrLevel,
+        String editionType,
         Integer progressPercentage,
         boolean hasTranslation,
         boolean hasParallelTranslation,

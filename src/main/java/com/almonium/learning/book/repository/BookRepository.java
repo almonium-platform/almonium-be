@@ -41,6 +41,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.wordCount as wordCount,
                b.language as language,
                b.cefrLevel as cefrLevel,
+               b.editionType as editionType,
                bp.progressPercentage as progressPercentage,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
@@ -68,6 +69,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.wordCount as wordCount,
                b.language as language,
                b.cefrLevel as cefrLevel,
+               b.editionType as editionType,
                null as progressPercentage,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
@@ -104,6 +106,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.wordCount as wordCount,
                b.language as language,
                b.cefrLevel as cefrLevel,
+               b.editionType as editionType,
                null as progressPercentage,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
@@ -132,6 +135,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.wordCount as wordCount,
                b.language as language,
                b.cefrLevel as cefrLevel,
+               b.editionType as editionType,
                case when ob.id is not null then ob.language else b.language end as originalLanguage,
                case when ob.id is not null then ob.id else b.id end as originalId,
                case when ob.id is not null and ob.title <> b.title then ob.title else null end as originalTitle,

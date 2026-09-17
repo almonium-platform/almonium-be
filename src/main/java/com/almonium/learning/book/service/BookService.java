@@ -77,6 +77,7 @@ public class BookService {
                 book.getWordCount(),
                 book.getLanguage(),
                 book.getCefrLevel(),
+                book.getEditionType(),
                 null,
                 hasVariant,
                 hasVariant,
@@ -99,6 +100,7 @@ public class BookService {
         details.setWordCount(book.getWordCount());
         details.setLanguage(book.getLanguage());
         details.setCefrLevel(book.getCefrLevel());
+        details.setEditionType(book.getEditionType());
         details.setIsTranslation(isTranslation(book));
         details.setHasTranslation(variants.size() > 1);
         details.setHasParallelTranslation(variants.size() > 1);
