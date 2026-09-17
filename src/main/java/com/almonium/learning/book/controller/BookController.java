@@ -87,8 +87,12 @@ public class BookController {
 
     @PostMapping("/{bookId}/progress")
     public ResponseEntity<?> saveBookProgress(
-            @Auth User user, @PathVariable UUID bookId, @RequestParam int percentage) {
-        bookService.saveBookProgress(user, bookId, percentage);
+            @Auth User user,
+            @PathVariable UUID bookId,
+            @RequestParam int percentage,
+            @RequestParam(required = false) Integer chapter,
+            @RequestParam(required = false) Integer chapterCount) {
+        bookService.saveBookProgress(user, bookId, percentage, chapter, chapterCount);
         return ResponseEntity.noContent().build();
     }
 }

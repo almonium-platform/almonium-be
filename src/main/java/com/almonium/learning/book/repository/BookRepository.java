@@ -43,6 +43,8 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.editionType as editionType,
                bp.progressPercentage as progressPercentage,
+               bp.currentChapter as currentChapter,
+               bp.chapterCount as chapterCount,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -71,6 +73,8 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.editionType as editionType,
                null as progressPercentage,
+               null as currentChapter,
+               null as chapterCount,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -108,6 +112,8 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.editionType as editionType,
                null as progressPercentage,
+               null as currentChapter,
+               null as chapterCount,
                case when exists (select 1 from Book t where t.originalBook.id = b.id and t.language = :language)
                     or (b.originalBook is not null and b.language = :language) then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)
@@ -142,6 +148,10 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.translator as translator,
                (select bp.progressPercentage from LearnerBookProgress bp
                 where bp.book.id = b.id and bp.learner.id = :learnerId) as progressPercentage,
+               (select bp.currentChapter from LearnerBookProgress bp
+                where bp.book.id = b.id and bp.learner.id = :learnerId) as currentChapter,
+               (select bp.chapterCount from LearnerBookProgress bp
+                where bp.book.id = b.id and bp.learner.id = :learnerId) as chapterCount,
                case when exists (select 1 from Book t where t.originalBook.id = b.id)
                     or b.originalBook is not null then true else false end as hasTranslation,
                case when exists (select 1 from Book t where (t.originalBook.id = b.id or t.id = b.originalBook.id)

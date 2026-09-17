@@ -48,6 +48,11 @@ public class LearnerBookProgress {
 
     int progressPercentage;
 
+    /** The chapter being read and how many the reader saw, as the client numbers them; null until a client sends them. */
+    Integer currentChapter;
+
+    Integer chapterCount;
+
     @CreatedDate
     Instant startedAt;
 

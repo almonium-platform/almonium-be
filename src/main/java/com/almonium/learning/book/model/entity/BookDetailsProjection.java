@@ -32,6 +32,11 @@ public interface BookDetailsProjection {
 
     Integer getProgressPercentage();
 
+    /** The reader's place beside the percentage: the chapter being read and the count it was numbered against. */
+    Integer getCurrentChapter();
+
+    Integer getChapterCount();
+
     Boolean getHasTranslation();
 
     Boolean getHasParallelTranslation();

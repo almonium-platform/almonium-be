@@ -18,6 +18,8 @@ public record BookDto(
         CEFR cefrLevel,
         String editionType,
         Integer progressPercentage,
+        Integer currentChapter,
+        Integer chapterCount,
         boolean hasTranslation,
         boolean hasParallelTranslation,
         boolean isTranslation) {}

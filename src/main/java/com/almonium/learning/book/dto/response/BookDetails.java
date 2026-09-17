@@ -28,6 +28,8 @@ public class BookDetails {
     CEFR cefrLevel;
     String editionType;
     Integer progressPercentage;
+    Integer currentChapter;
+    Integer chapterCount;
     Boolean hasTranslation;
     Boolean hasParallelTranslation;
     Boolean isTranslation;

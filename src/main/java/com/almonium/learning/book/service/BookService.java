@@ -79,6 +79,8 @@ public class BookService {
                 book.getCefrLevel(),
                 book.getEditionType(),
                 null,
+                null,
+                null,
                 hasVariant,
                 hasVariant,
                 isTranslation(book));
@@ -207,6 +209,15 @@ public class BookService {
     }
 
     public void saveBookProgress(User user, UUID bookId, int progressPercentage) {
+        saveBookProgress(user, bookId, progressPercentage, null, null);
+    }
+
+    /**
+     * The percentage always lands; the place (chapter n of N) only when the client sends a
+     * consistent pair, and a client that sends none leaves the last known place alone.
+     */
+    public void saveBookProgress(
+            User user, UUID bookId, int progressPercentage, Integer currentChapter, Integer chapterCount) {
         // Resolve the book first: a withdrawn one is not readable any more, and
         // the reader should be told that rather than have its progress row load
         // an association that no longer resolves.
@@ -218,6 +229,7 @@ public class BookService {
             LearnerBookProgress progress = progressOptional.get();
             progress.setProgressPercentage(progressPercentage);
             progress.setLastReadAt(Instant.now());
+            applyReadingPlace(progress, currentChapter, chapterCount);
             learnerBookProgressRepository.save(progress);
             log.debug("Updated progress for user {} and book {}", user.getId(), bookId);
         } else {
@@ -227,8 +239,20 @@ public class BookService {
 
             LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
             newProgress.setLastReadAt(Instant.now());
+            applyReadingPlace(newProgress, currentChapter, chapterCount);
             learnerBookProgressRepository.save(newProgress);
         }
+    }
+
+    private static void applyReadingPlace(LearnerBookProgress progress, Integer currentChapter, Integer chapterCount) {
+        if (currentChapter == null || chapterCount == null) {
+            return;
+        }
+        if (currentChapter < 1 || chapterCount < currentChapter) {
+            throw new BadUserRequestActionException("The chapter must be between 1 and the chapter count.");
+        }
+        progress.setCurrentChapter(currentChapter);
+        progress.setChapterCount(chapterCount);
     }
 
     // by other services

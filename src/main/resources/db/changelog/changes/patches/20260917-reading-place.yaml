@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260917-reading-place
+      author: claude
+      comment: >-
+        The place a reader stopped at, beside the percentage (mobile design 4a, "12% · chapter 3 of 24"): the
+        chapter being read and the chapter count the reader saw, as the client numbers them. Both nullable, so a
+        client that only sends the percentage leaves them as they were.
+      changes:
+        - addColumn:
+            tableName: learner_book_progress
+            columns:
+              - column:
+                  name: current_chapter
+                  type: int
+              - column:
+                  name: chapter_count
+                  type: int
