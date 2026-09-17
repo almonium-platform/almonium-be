@@ -93,13 +93,17 @@ deploy, while the infrastructure repository decides **how and where it runs**.
 
 | Workflow | Trigger | Source/environment | Result |
 | --- | --- | --- | --- |
-| `staging-pipeline.yaml` | Push to `develop`, or manual dispatch | `develop` / `staging` | Builds an exact-SHA image unless an existing digest is supplied, then deploys staging by digest |
-| `prod-pipeline.yaml` | Manual dispatch only | `main` / `prod` | Builds and deploys, or promotes/redeploys a supplied existing image digest |
+| `staging-pipeline.yaml` | Push to `develop`, or manual dispatch | `develop` / `staging`, then `prod` | Builds an exact-SHA image unless an existing digest is supplied, deploys staging by digest, then deploys production with the same digest when the push came from `develop` and the repository variable `PROD_FOLLOWS_STAGING` is `true` |
+| `prod-pipeline.yaml` | Manual dispatch only | `develop` / `prod` | Builds and deploys, or promotes/redeploys a supplied existing image digest |
 
-Production is deliberately not deployed automatically on a push. Promotion is
-an operator decision, and the optional `image_digest` deploys an already-built
-artifact. Production promotion uses the exact digest tested in staging rather
-than resolving a mutable tag or rebuilding equivalent source.
+Production follows staging by default: the same digest, deployed only after the
+staging slot reported healthy, never rebuilt. The repository variable
+`PROD_FOLLOWS_STAGING` (Settings → Secrets and variables → Actions → Variables)
+is the hold switch; set it to anything but `true` and pushes stop at staging
+until it is set back or `Deploy to Production` is dispatched by hand. Manual
+dispatch also covers rollback by digest. `main` no longer takes part in
+delivery; the `prod` GitHub environment's deployment history records what
+production runs.
 
 ### Utility and reusable workflows
 
@@ -309,11 +313,13 @@ the backend deploy transaction.
 
 ### Promote to production
 
-1. Ensure the intended commit is on `main` and has passed the relevant checks.
-2. Copy the exact digest of the image already tested in staging.
-3. Manually dispatch `Deploy to Production` with that digest; leave the input
-   empty only when intentionally building the current `main` commit.
-4. Confirm Actuator health and run a user-facing smoke test.
+Nothing to do while `PROD_FOLLOWS_STAGING` is `true`: the staging run's `prod`
+job deploys the digest it just verified. While production is held back:
+
+1. Copy the exact digest of the image already tested in staging.
+2. Manually dispatch `Deploy to Production` with that digest; leave the input
+   empty only when intentionally building the current `develop` commit.
+3. Confirm Actuator health and run a user-facing smoke test.
 
 ### Roll back or redeploy
 

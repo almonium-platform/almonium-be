@@ -53,8 +53,10 @@ executable source of truth when documentation differs.
   the reviewed deployment artifact; do not point a local process at staging or
   production without an explicit incident or debugging decision.
 - CI builds a Java 25 `linux/arm64` image tagged by Git SHA, then invokes the
-  infra repository's Ansible deployment. Pushes to `develop` deploy staging;
-  production deployment from `main` is a manual operator action. Do not treat
+  infra repository's Ansible deployment. Pushes to `develop` deploy staging,
+  and production follows with the same digest unless the repository variable
+  `PROD_FOLLOWS_STAGING` holds it back; `prod-pipeline.yaml` is the manual
+  path for rollbacks and held releases. Do not treat
   SSH access as permission to bypass this path or perform an ad-hoc production
   deployment.
 - Deployment uses two application slots on one Oracle Cloud ARM host. Keep
