@@ -90,9 +90,8 @@ public class BookController {
             @Auth User user,
             @PathVariable UUID bookId,
             @RequestParam int percentage,
-            @RequestParam(required = false) Integer chapter,
-            @RequestParam(required = false) Integer chapterCount) {
-        bookService.saveBookProgress(user, bookId, percentage, chapter, chapterCount);
+            @RequestParam(required = false) Integer chapter) {
+        bookService.saveBookProgress(user, bookId, percentage, chapter);
         return ResponseEntity.noContent().build();
     }
 }

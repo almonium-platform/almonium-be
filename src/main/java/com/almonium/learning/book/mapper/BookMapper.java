@@ -32,7 +32,6 @@ public interface BookMapper {
     @Mapping(target = "isTranslation", ignore = true)
     @Mapping(target = "progressPercentage", ignore = true)
     @Mapping(target = "currentChapter", ignore = true)
-    @Mapping(target = "chapterCount", ignore = true)
     BookDto toDto(Book book);
 
     BookDto toDto(BookDetailsProjection book);

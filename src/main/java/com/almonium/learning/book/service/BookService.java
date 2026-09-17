@@ -80,7 +80,7 @@ public class BookService {
                 book.getEditionType(),
                 null,
                 null,
-                null,
+                book.getChapterCount(),
                 hasVariant,
                 hasVariant,
                 isTranslation(book));
@@ -209,15 +209,14 @@ public class BookService {
     }
 
     public void saveBookProgress(User user, UUID bookId, int progressPercentage) {
-        saveBookProgress(user, bookId, progressPercentage, null, null);
+        saveBookProgress(user, bookId, progressPercentage, null);
     }
 
     /**
-     * The percentage always lands; the place (chapter n of N) only when the client sends a
-     * consistent pair, and a client that sends none leaves the last known place alone.
+     * The percentage always lands; the chapter only when the client sends one, and a client that
+     * sends none leaves the last known chapter alone. The count it is read against is the book's.
      */
-    public void saveBookProgress(
-            User user, UUID bookId, int progressPercentage, Integer currentChapter, Integer chapterCount) {
+    public void saveBookProgress(User user, UUID bookId, int progressPercentage, Integer currentChapter) {
         // Resolve the book first: a withdrawn one is not readable any more, and
         // the reader should be told that rather than have its progress row load
         // an association that no longer resolves.
@@ -229,7 +228,7 @@ public class BookService {
             LearnerBookProgress progress = progressOptional.get();
             progress.setProgressPercentage(progressPercentage);
             progress.setLastReadAt(Instant.now());
-            applyReadingPlace(progress, currentChapter, chapterCount);
+            applyReadingPlace(progress, book, currentChapter);
             learnerBookProgressRepository.save(progress);
             log.debug("Updated progress for user {} and book {}", user.getId(), bookId);
         } else {
@@ -239,20 +238,20 @@ public class BookService {
 
             LearnerBookProgress newProgress = new LearnerBookProgress(learner, book, progressPercentage);
             newProgress.setLastReadAt(Instant.now());
-            applyReadingPlace(newProgress, currentChapter, chapterCount);
+            applyReadingPlace(newProgress, book, currentChapter);
             learnerBookProgressRepository.save(newProgress);
         }
     }
 
-    private static void applyReadingPlace(LearnerBookProgress progress, Integer currentChapter, Integer chapterCount) {
-        if (currentChapter == null || chapterCount == null) {
+    private static void applyReadingPlace(LearnerBookProgress progress, Book book, Integer currentChapter) {
+        if (currentChapter == null) {
             return;
         }
-        if (currentChapter < 1 || chapterCount < currentChapter) {
-            throw new BadUserRequestActionException("The chapter must be between 1 and the chapter count.");
+        Integer chapterCount = book.getChapterCount();
+        if (currentChapter < 1 || (chapterCount != null && chapterCount < currentChapter)) {
+            throw new BadUserRequestActionException("The chapter must be between 1 and the book's chapter count.");
         }
         progress.setCurrentChapter(currentChapter);
-        progress.setChapterCount(chapterCount);
     }
 
     // by other services

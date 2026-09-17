@@ -26,7 +26,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-/** The reading place (chapter n of N) rides with the percentage; a bare percentage leaves it alone. */
+/** The chapter rides with the percentage and is checked against the book's count; a bare percentage leaves it alone. */
 @ExtendWith(MockitoExtension.class)
 class BookReadingPlaceTest {
     @Mock
@@ -51,6 +51,7 @@ class BookReadingPlaceTest {
         book = new Book();
         book.setId(UUID.randomUUID());
         book.setLanguage(Language.EN);
+        book.setChapterCount(24);
         when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
     }
 
@@ -60,11 +61,10 @@ class BookReadingPlaceTest {
         when(progressRepository.findByUserIdAndBookId(user.getId(), book.getId()))
                 .thenReturn(Optional.of(progress));
 
-        service.saveBookProgress(user, book.getId(), 12, 3, 24);
+        service.saveBookProgress(user, book.getId(), 12, 3);
 
         assertThat(progress.getProgressPercentage()).isEqualTo(12);
         assertThat(progress.getCurrentChapter()).isEqualTo(3);
-        assertThat(progress.getChapterCount()).isEqualTo(24);
         assertThat(progress.getLastReadAt()).isNotNull();
         verify(progressRepository).save(progress);
     }
@@ -73,7 +73,6 @@ class BookReadingPlaceTest {
     void aBarePercentageKeepsTheLastKnownPlace() {
         LearnerBookProgress progress = new LearnerBookProgress(new Learner(), book, 12);
         progress.setCurrentChapter(3);
-        progress.setChapterCount(24);
         when(progressRepository.findByUserIdAndBookId(user.getId(), book.getId()))
                 .thenReturn(Optional.of(progress));
 
@@ -81,7 +80,6 @@ class BookReadingPlaceTest {
 
         assertThat(progress.getProgressPercentage()).isEqualTo(14);
         assertThat(progress.getCurrentChapter()).isEqualTo(3);
-        assertThat(progress.getChapterCount()).isEqualTo(24);
     }
 
     @Test
@@ -90,11 +88,23 @@ class BookReadingPlaceTest {
         when(progressRepository.findByUserIdAndBookId(user.getId(), book.getId()))
                 .thenReturn(Optional.of(progress));
 
-        assertThatThrownBy(() -> service.saveBookProgress(user, book.getId(), 14, 30, 24))
+        assertThatThrownBy(() -> service.saveBookProgress(user, book.getId(), 14, 30))
                 .isInstanceOf(BadUserRequestActionException.class);
-        assertThatThrownBy(() -> service.saveBookProgress(user, book.getId(), 14, 0, 24))
+        assertThatThrownBy(() -> service.saveBookProgress(user, book.getId(), 14, 0))
                 .isInstanceOf(BadUserRequestActionException.class);
         verify(progressRepository, never()).save(any());
+    }
+
+    @Test
+    void aBookPublishedBeforeTheCountAcceptsAnyChapter() {
+        book.setChapterCount(null);
+        LearnerBookProgress progress = new LearnerBookProgress(new Learner(), book, 12);
+        when(progressRepository.findByUserIdAndBookId(user.getId(), book.getId()))
+                .thenReturn(Optional.of(progress));
+
+        service.saveBookProgress(user, book.getId(), 14, 30);
+
+        assertThat(progress.getCurrentChapter()).isEqualTo(30);
     }
 
     @Test
@@ -104,13 +114,12 @@ class BookReadingPlaceTest {
                 .thenReturn(Optional.empty());
         when(learnerFinder.findLearner(user, Language.EN)).thenReturn(learner);
 
-        service.saveBookProgress(user, book.getId(), 1, 1, 24);
+        service.saveBookProgress(user, book.getId(), 1, 1);
 
         ArgumentCaptor<LearnerBookProgress> saved = ArgumentCaptor.forClass(LearnerBookProgress.class);
         verify(progressRepository).save(saved.capture());
         assertThat(saved.getValue().getLearner()).isSameAs(learner);
         assertThat(saved.getValue().getProgressPercentage()).isEqualTo(1);
         assertThat(saved.getValue().getCurrentChapter()).isEqualTo(1);
-        assertThat(saved.getValue().getChapterCount()).isEqualTo(24);
     }
 }
