@@ -19,6 +19,7 @@ public class BookLanguageVariant {
     String editionType;
     String cefrLevel;
     String sourceEditionSlug;
+    String editionNote;
 
     public BookLanguageVariant(UUID id, String editionSlug, Language language) {
         this.id = id;

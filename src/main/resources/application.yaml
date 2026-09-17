@@ -68,6 +68,10 @@ app:
   books:
     publisher-secret: ${ALMONIUM_BOOKS_PUBLISHER_SECRET}
     processor-url: ${ALMONIUM_BOOKS_PROCESSOR_URL}
+    # Where staff add an edition a reader asked for; the /ops row links there with the ask prefilled.
+    editorial-url: ${ALMONIUM_BOOKS_EDITORIAL_URL:${ALMONIUM_BOOKS_PROCESSOR_URL}}
+    # The public-domain index the ask sheet checks a title against.
+    gutenberg-url: ${ALMONIUM_BOOKS_GUTENBERG_URL:https://gutendex.com}
     # The month's ceiling on approved translation estimates; at the ceiling /ops stops approving and the queue keeps collecting.
     translation-budget-usd: ${ALMONIUM_BOOKS_TRANSLATION_BUDGET_USD:150}
 

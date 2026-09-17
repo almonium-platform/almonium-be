@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{_fragments/head}"></head>
+<body bgcolor="#2C2530">
+
+<th:block th:replace="~{_fragments/preheader}"></th:block>
+<header th:replace="~{_fragments/header}"></header>
+
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#F9F6F5">
+    <tr>
+        <td class="email-content" bgcolor="#F9F6F5">
+            <p class="muted">The book you asked for</p>
+            <p class="email-headline"><em th:text="${bookTitle}"></em> is now on the shelf.</p>
+            <p>You asked for this one in <span th:text="${month}"></span>. It is on the shelf for every reader from
+                today, and you can ask for more languages from its page.</p>
+
+            <div th:replace="~{_fragments/button :: button(${url}, 'Open the book', 200, false)}"></div>
+        </td>
+    </tr>
+</table>
+
+<th:block th:replace="~{_fragments/footer}"></th:block>
+
+</body>
+</html>

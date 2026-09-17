@@ -39,6 +39,9 @@ class BookPublicationServiceTest {
     @Mock
     LibrarySuggestionService librarySuggestionService;
 
+    @Mock
+    BookRequestService bookRequestService;
+
     @InjectMocks
     BookPublicationService service;
 
@@ -60,6 +63,8 @@ class BookPublicationServiceTest {
                 null,
                 CEFR.C1,
                 75000,
+                null,
+                null,
                 null,
                 null);
         when(bookRepository.findAnyByEditionSlug(request.editionSlug())).thenReturn(Optional.empty());
@@ -103,6 +108,8 @@ class BookPublicationServiceTest {
                 CEFR.B2,
                 80000,
                 UUID.randomUUID(),
+                null,
+                null,
                 null));
 
         ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
@@ -136,7 +143,9 @@ class BookPublicationServiceTest {
                 CEFR.B2,
                 41000,
                 UUID.randomUUID(),
-                suggestionId));
+                suggestionId,
+                null,
+                null));
 
         verify(librarySuggestionService).settlePublished(eq(suggestionId), any(Book.class));
         verify(translationOrderService, never()).publishTranslation(any());
@@ -213,6 +222,8 @@ class BookPublicationServiceTest {
                 null,
                 CEFR.C1,
                 75000,
+                null,
+                null,
                 null,
                 null);
         when(bookRepository.findAnyByEditionSlug("frankenstein-en")).thenReturn(Optional.of(withdrawn));

@@ -8,7 +8,8 @@ import java.util.UUID;
 
 /**
  * {@code editionId} is the processor's own id for the edition and {@code externalJobId} the id we handed it when we
- * asked for the work (a library suggestion); both are optional so an older processor can still publish.
+ * asked for the work (a library suggestion); both are optional so an older processor can still publish, as is
+ * {@code editionNote}, editorial's one sentence about the edition for the book page.
  */
 public record BookPublicationRequest(
         @NotBlank String editionSlug,
@@ -27,4 +28,6 @@ public record BookPublicationRequest(
         @NotNull CEFR cefrLevel,
         int wordCount,
         UUID editionId,
-        UUID externalJobId) {}
+        UUID externalJobId,
+        String editionNote,
+        Integer chapterCount) {}

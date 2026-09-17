@@ -1,0 +1,103 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260917-book-requests-and-edition-notes
+      author: claude
+      comment: >-
+        book_request is a member asking for a work the shelf does not have (G19): one row per member, work and
+        language, grouped in /ops by the normalized title and author. The public-domain lookup result is stored at
+        ask time. book.edition_note is editorial's one sentence about an edition, shown under the Edition chips (G15).
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: edition_note
+                  type: varchar(500)
+        - createTable:
+            tableName: book_request
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_request_user
+                    references: user_core(id)
+              - column:
+                  name: title
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(300)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: normalized_key
+                  type: varchar(820)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+              - column:
+                  name: gutenberg_id
+                  type: int
+              - column:
+                  name: publication_year
+                  type: int
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: decided_by_user_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_book_request_decided_by
+                    references: user_core(id)
+              - column:
+                  name: decided_at
+                  type: timestamp with time zone
+              - column:
+                  name: published_book_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_book_request_published_book
+                    references: book(id)
+              - column:
+                  name: published_at
+                  type: timestamp with time zone
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: book_request
+            indexName: ix_book_request_key_language
+            columns:
+              - column:
+                  name: normalized_key
+              - column:
+                  name: language
+        - createIndex:
+            tableName: book_request
+            indexName: ix_book_request_work_language
+            columns:
+              - column:
+                  name: work_slug
+              - column:
+                  name: language

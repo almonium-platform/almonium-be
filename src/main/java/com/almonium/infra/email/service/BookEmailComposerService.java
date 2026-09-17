@@ -42,7 +42,10 @@ public class BookEmailComposerService extends EmailComposerService<BookEmailType
             BookEmailType.SUGGESTION_DECLINED,
             new EmailSubjectTemplate(
                     "About your suggestion for %s",
-                    "We could not add it to the library; your private copy is unchanged.", "suggestion-declined"));
+                    "We could not add it to the library; your private copy is unchanged.", "suggestion-declined"),
+            BookEmailType.REQUEST_PUBLISHED,
+            new EmailSubjectTemplate(
+                    "%s is now on the shelf", "The book you asked for in %s is ready.", "request-published"));
 
     public BookEmailComposerService(
             EmailService emailService, SpringTemplateEngine templateEngine, AppProperties appProperties) {
@@ -72,7 +75,7 @@ public class BookEmailComposerService extends EmailComposerService<BookEmailType
             case TRANSLATION_READY ->
                 String.format(
                         template.subject(), emailContext.getValue(BOOK_TITLE), emailContext.getValue(LANGUAGE_NAME));
-            case TRANSLATION_DECLINED, SUGGESTION_PUBLISHED, SUGGESTION_DECLINED ->
+            case TRANSLATION_DECLINED, SUGGESTION_PUBLISHED, SUGGESTION_DECLINED, REQUEST_PUBLISHED ->
                 String.format(template.subject(), emailContext.getValue(BOOK_TITLE));
         };
     }
@@ -80,7 +83,7 @@ public class BookEmailComposerService extends EmailComposerService<BookEmailType
     @Override
     protected String buildPreheader(EmailSubjectTemplate template, EmailContext<BookEmailType> emailContext) {
         return switch (emailContext.templateType()) {
-            case TRANSLATION_READY, SUGGESTION_PUBLISHED ->
+            case TRANSLATION_READY, SUGGESTION_PUBLISHED, REQUEST_PUBLISHED ->
                 String.format(template.preheader(), valueOr(emailContext, MONTH, "the month you asked"));
             case TRANSLATION_DECLINED -> String.format(template.preheader(), emailContext.getValue(LANGUAGE_NAME));
             case SUGGESTION_DECLINED -> template.preheader();

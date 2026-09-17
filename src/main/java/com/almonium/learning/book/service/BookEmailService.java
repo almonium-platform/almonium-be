@@ -66,6 +66,19 @@ public class BookEmailService {
                         actionPath));
     }
 
+    public void requestPublished(User user, String bookTitle, String monthAsked, String actionPath) {
+        send(
+                user,
+                BookEmailType.REQUEST_PUBLISHED,
+                Map.of(
+                        BookEmailComposerService.BOOK_TITLE,
+                        bookTitle,
+                        BookEmailComposerService.MONTH,
+                        monthAsked,
+                        BookEmailComposerService.PATH,
+                        actionPath));
+    }
+
     public void suggestionDeclined(User user, String bookTitle) {
         send(user, BookEmailType.SUGGESTION_DECLINED, Map.of(BookEmailComposerService.BOOK_TITLE, bookTitle));
     }

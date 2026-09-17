@@ -21,6 +21,7 @@ public class BookPublicationService {
     private final TranslationOrderService translationOrderService;
     private final TranslationJobService translationJobService;
     private final LibrarySuggestionService librarySuggestionService;
+    private final BookRequestService bookRequestService;
 
     public BookPublicationResponse publish(BookPublicationRequest request) {
         Book book = bookRepository.findAnyByEditionSlug(request.editionSlug()).orElseGet(Book::new);
@@ -34,12 +35,14 @@ public class BookPublicationService {
         book.setDescription(request.description());
         book.setLanguage(request.language());
         book.setWordCount(request.wordCount());
+        book.setChapterCount(request.chapterCount());
         book.setPublicationYear(request.publicationYear());
         book.setCoverUrl(request.coverUrl());
         book.setCefrLevel(request.cefrLevel());
         book.setOriginalLanguage(request.originalLanguage());
         book.setEditionType(request.editionType());
         book.setTranslator(request.translator());
+        book.setEditionNote(request.editionNote());
         if (request.sourceEditionSlug() != null) {
             book.setOriginalBook(bookRepository
                     .findByEditionSlug(request.sourceEditionSlug())
@@ -57,6 +60,7 @@ public class BookPublicationService {
         if (request.externalJobId() != null) {
             librarySuggestionService.settlePublished(request.externalJobId(), saved);
         }
+        bookRequestService.settlePublished(saved);
         return new BookPublicationResponse(saved.getId());
     }
 

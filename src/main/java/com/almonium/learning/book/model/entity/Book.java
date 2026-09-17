@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.util.uuid.UuidV7;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -55,6 +56,9 @@ public class Book {
     String coverUrl;
     int wordCount;
 
+    /** How many chapters the processor published; what the shelf's "chapter 3 of 24" counts against. Null before it was sent. */
+    Integer chapterCount;
+
     @Enumerated(EnumType.STRING)
     Language language;
 
@@ -67,6 +71,10 @@ public class Book {
 
     String editionType;
     String translator;
+
+    /** Editorial's one sentence about this edition, shown under the Edition chips on the book page (G15). */
+    @Column(length = 500)
+    String editionNote;
 
     Instant withdrawnAt;
 }

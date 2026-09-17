@@ -15,4 +15,6 @@ public interface BookMiniProjection {
     String getCefrLevel();
 
     String getSourceEditionSlug();
+
+    String getEditionNote();
 }

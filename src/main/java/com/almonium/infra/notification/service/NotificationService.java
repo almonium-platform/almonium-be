@@ -128,6 +128,25 @@ public class NotificationService {
         pushBook(user, title, "The book you suggested in %s is ready.".formatted(monthSuggested), actionPath);
     }
 
+    /** The book a member asked for (G19) is on the shelf; the row opens it. */
+    public void notifyOfRequestPublished(
+            User user, UUID requestId, String bookTitle, String monthAsked, String coverUrl, String actionPath) {
+        String title = "%s is now on the shelf".formatted(bookTitle);
+        String message = "You asked for it in %s.".formatted(monthAsked);
+        Notification notification = Notification.builder()
+                .title(title)
+                .message(message)
+                .recipient(user)
+                .type(NotificationType.BOOK_REQUEST_PUBLISHED)
+                .referenceId(requestId)
+                .pictureUrl(coverUrl)
+                .contextTitle(bookTitle)
+                .actionPath(actionPath)
+                .build();
+        notificationRepository.save(notification);
+        pushBook(user, title, "The book you asked for in %s is ready.".formatted(monthAsked), actionPath);
+    }
+
     private void pushBook(User user, String title, String body, String actionPath) {
         if (!user.getProfile().isBookEmailNotifications()) {
             log.info("Skipping book push for user {}: book notifications are off", user.getId());
