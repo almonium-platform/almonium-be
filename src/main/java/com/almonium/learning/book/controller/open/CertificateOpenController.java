@@ -34,6 +34,32 @@ public class CertificateOpenController {
     CertificateImageRenderer imageRenderer;
     AppProperties appProperties;
 
+    private static final String TAG_PAGE = """
+            <!doctype html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>{title}</title>
+            <meta name="description" content="{description}">
+            <link rel="canonical" href="{url}">
+            <meta property="og:type" content="website">
+            <meta property="og:site_name" content="Almonium">
+            <meta property="og:title" content="{title}">
+            <meta property="og:description" content="{description}">
+            <meta property="og:url" content="{url}">
+            <meta property="og:image" content="{url}/og.png">
+            <meta property="og:image:width" content="{width}">
+            <meta property="og:image:height" content="{height}">
+            <meta name="twitter:card" content="summary_large_image">
+            </head>
+            <body>
+            <h1>{title}</h1>
+            <p>{description}</p>
+            <p><a href="{url}">{url}</a></p>
+            </body>
+            </html>
+            """;
+
     @GetMapping
     public ResponseEntity<BookCertificateDto> get(@PathVariable String username, @PathVariable String editionSlug) {
         return ResponseEntity.ok(certificateService.publicView(username, editionSlug));
@@ -56,36 +82,11 @@ public class CertificateOpenController {
                 appProperties.getWebDomain() + "/read/@" + certificate.username() + "/" + certificate.editionSlug();
         String title = pageTitle(certificate);
         String description = String.join(", ", certificate.words());
-        String html = """
-                <!doctype html>
-                <html lang="en">
-                <head>
-                <meta charset="utf-8">
-                <title>%1$s</title>
-                <meta name="description" content="%2$s">
-                <link rel="canonical" href="%3$s">
-                <meta property="og:type" content="website">
-                <meta property="og:site_name" content="Almonium">
-                <meta property="og:title" content="%1$s">
-                <meta property="og:description" content="%2$s">
-                <meta property="og:url" content="%3$s">
-                <meta property="og:image" content="%3$s/og.png">
-                <meta property="og:image:width" content="%4$d">
-                <meta property="og:image:height" content="%5$d">
-                <meta name="twitter:card" content="summary_large_image">
-                </head>
-                <body>
-                <h1>%1$s</h1>
-                <p>%2$s</p>
-                <p><a href="%3$s">%3$s</a></p>
-                </body>
-                </html>
-                """.formatted(
-                        HtmlUtils.htmlEscape(title),
-                        HtmlUtils.htmlEscape(description),
-                        HtmlUtils.htmlEscape(pageUrl),
-                        CertificateImageRenderer.WIDTH,
-                        CertificateImageRenderer.HEIGHT);
+        String html = TAG_PAGE.replace("{title}", HtmlUtils.htmlEscape(title))
+                .replace("{description}", HtmlUtils.htmlEscape(description))
+                .replace("{url}", HtmlUtils.htmlEscape(pageUrl))
+                .replace("{width}", String.valueOf(CertificateImageRenderer.WIDTH))
+                .replace("{height}", String.valueOf(CertificateImageRenderer.HEIGHT));
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_HTML)
                 .cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic())
