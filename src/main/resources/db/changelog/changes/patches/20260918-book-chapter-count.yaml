@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260918-book-chapter-count
+      author: codex
+      comment: >-
+        Store the processor chapter count on the book. Preserve the already-applied reading-place
+        changeset and its progress columns so existing local databases and older application slots
+        remain compatible.
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: chapter_count
+                  type: int

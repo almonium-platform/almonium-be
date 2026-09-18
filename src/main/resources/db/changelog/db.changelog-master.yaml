@@ -158,3 +158,6 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260917-book-requests-and-edition-notes.yaml
   - include:
       file: db/changelog/changes/patches/20260917-reading-place.yaml
+
+  - include:
+      file: db/changelog/changes/patches/20260918-book-chapter-count.yaml
