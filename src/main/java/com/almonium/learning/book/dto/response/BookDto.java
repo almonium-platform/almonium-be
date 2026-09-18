@@ -22,4 +22,5 @@ public record BookDto(
         Integer chapterCount,
         boolean hasTranslation,
         boolean hasParallelTranslation,
-        boolean isTranslation) {}
+        boolean isTranslation,
+        CEFR adaptsTo) {}

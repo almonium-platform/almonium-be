@@ -161,3 +161,5 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/changes/patches/20260918-book-chapter-count.yaml
+  - include:
+      file: db/changelog/changes/patches/20260918-book-adapts-to.yaml

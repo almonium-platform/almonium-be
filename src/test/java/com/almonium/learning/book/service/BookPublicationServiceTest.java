@@ -66,6 +66,8 @@ class BookPublicationServiceTest {
                 null,
                 null,
                 null,
+                null,
+                null,
                 null);
         when(bookRepository.findAnyByEditionSlug(request.editionSlug())).thenReturn(Optional.empty());
         when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -110,6 +112,8 @@ class BookPublicationServiceTest {
                 UUID.randomUUID(),
                 null,
                 null,
+                null,
+                null,
                 null));
 
         ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
@@ -144,6 +148,8 @@ class BookPublicationServiceTest {
                 41000,
                 UUID.randomUUID(),
                 suggestionId,
+                null,
+                null,
                 null,
                 null));
 
@@ -222,6 +228,8 @@ class BookPublicationServiceTest {
                 null,
                 CEFR.C1,
                 75000,
+                null,
+                null,
                 null,
                 null,
                 null,

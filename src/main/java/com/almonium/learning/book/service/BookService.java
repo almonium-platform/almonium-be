@@ -83,7 +83,8 @@ public class BookService {
                 book.getChapterCount(),
                 hasVariant,
                 hasVariant,
-                isTranslation(book));
+                isTranslation(book),
+                book.getAdaptsTo());
     }
 
     public BookDetails getPublicBook(String editionSlug) {
@@ -102,6 +103,7 @@ public class BookService {
         details.setWordCount(book.getWordCount());
         details.setLanguage(book.getLanguage());
         details.setCefrLevel(book.getCefrLevel());
+        details.setAdaptsTo(book.getAdaptsTo());
         details.setEditionType(book.getEditionType());
         details.setIsTranslation(isTranslation(book));
         details.setHasTranslation(variants.size() > 1);

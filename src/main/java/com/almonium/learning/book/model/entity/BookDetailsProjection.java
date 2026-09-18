@@ -27,6 +27,9 @@ public interface BookDetailsProjection {
 
     CEFR getCefrLevel();
 
+    /** The work's adaptation floor, as the processor found it; null until a level is reached. */
+    CEFR getAdaptsTo();
+
     /** original, adaptation, machine_translation or human_translation, as the processor names it. */
     String getEditionType();
 

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260918-book-adapts-to
+      author: claude
+      comment: >-
+        The lowest level a faithful adaptation of the work has reached both of its gates at, as the
+        processor found it per book (decision 13). Null until a level is reached; every edition row of
+        a work carries the same value.
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: adapts_to
+                  type: CEFR_LEVEL

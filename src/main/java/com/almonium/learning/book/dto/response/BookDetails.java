@@ -26,6 +26,9 @@ public class BookDetails {
     Integer wordCount;
     Language language;
     CEFR cefrLevel;
+    /** The work's adaptation floor, as the processor found it; null until a level is reached. */
+    CEFR adaptsTo;
+
     String editionType;
     Integer progressPercentage;
     Integer currentChapter;

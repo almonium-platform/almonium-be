@@ -69,6 +69,14 @@ public class Book {
     @JdbcType(PostgreSQLEnumJdbcType.class)
     CEFR cefrLevel;
 
+    /**
+     * The lowest level a faithful adaptation of this work has reached both of its gates at, found per book by the
+     * processor and never promised in advance; null until a level is reached. The same for every edition of a work.
+     */
+    @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    CEFR adaptsTo;
+
     String editionType;
     String translator;
 

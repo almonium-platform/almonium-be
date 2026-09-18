@@ -77,6 +77,23 @@ class BookPublicationControllerTest {
     }
 
     @Test
+    void carriesTheAdaptationFloorAndTheReachedLevelsBesideIt() {
+        when(publicationService.publish(any(BookPublicationRequest.class)))
+                .thenReturn(new BookPublicationResponse(UUID.randomUUID()));
+        byte[] body = publication("\"cefrLevel\": \"C1\", \"adaptsTo\": \"B2\", \"reachedLevels\": [\"B2\"]");
+        long timestamp = now();
+
+        controller.publish(timestamp, sign(timestamp, body), body);
+
+        org.mockito.ArgumentCaptor<BookPublicationRequest> captor =
+                org.mockito.ArgumentCaptor.forClass(BookPublicationRequest.class);
+        verify(publicationService).publish(captor.capture());
+        assertThat(captor.getValue().adaptsTo()).isEqualTo(com.almonium.analyzer.analyzer.model.enums.CEFR.B2);
+        assertThat(captor.getValue().reachedLevels())
+                .containsExactly(com.almonium.analyzer.analyzer.model.enums.CEFR.B2);
+    }
+
+    @Test
     void namesTheMissingFieldInsteadOfFailingAtTheDatabase() {
         byte[] body = publication("\"cefrLevel\": null");
         long timestamp = now();
