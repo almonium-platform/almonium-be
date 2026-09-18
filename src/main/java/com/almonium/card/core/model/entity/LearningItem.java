@@ -78,6 +78,9 @@ public class LearningItem {
 
     String sourceContext;
 
+    /** The library edition the word was met in, when it was saved from the reader; what a certificate counts. */
+    UUID sourceBookId;
+
     @Builder.Default
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "learning_item_intent", joinColumns = @JoinColumn(name = "learning_item_id"))

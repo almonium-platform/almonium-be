@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260918-book-certificate
+      author: claude
+      comment: >-
+        The book-completion certificate (design K): one row per reader and edition, issued the moment
+        the last chapter is read to the end, holding the twelve rarest words and the counts as they
+        were then, and whether the reader has the public page on. A saved word now remembers the
+        edition it was met in, which is what the certificate's "saved" count is.
+      changes:
+        - createTable:
+            tableName: book_certificate
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_certificate_user
+                    references: user_core(id)
+              - column:
+                  name: book_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_certificate_book
+                    references: book(id)
+              - column:
+                  name: finished_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: public_page
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: words
+                  type: jsonb
+                  constraints:
+                    nullable: false
+              - column:
+                  name: words_read
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: words_saved
+                  type: int
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: book_certificate
+            columnNames: user_id, book_id
+            constraintName: uk_book_certificate_user_book
+        - addColumn:
+            tableName: card
+            columns:
+              - column:
+                  name: source_book_id
+                  type: uuid

@@ -11,6 +11,7 @@ import com.almonium.card.core.model.enums.LearningItemType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,6 +40,9 @@ public class CardCreationDto {
     String partOfSpeech;
     String selectedSense;
     String sourceContext;
+    /** The library edition the word was met in, sent by the reader and by nothing else. */
+    UUID sourceBookId;
+
     Set<LearningIntent> learningIntents;
     TagDto[] tags;
     ExampleDto[] examples;
