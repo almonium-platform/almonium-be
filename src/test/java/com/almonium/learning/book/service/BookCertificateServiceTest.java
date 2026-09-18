@@ -33,7 +33,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-/** Issued once at the end, frozen but for the saved count, public by default only once the reader has a name. */
+/** Issued once at the end, frozen but for the saved count, public until the reader turns it off. */
 @ExtendWith(MockitoExtension.class)
 class BookCertificateServiceTest {
     @Mock
@@ -66,7 +66,6 @@ class BookCertificateServiceTest {
         user = new User();
         user.setId(UUID.randomUUID());
         user.setUsername("marta");
-        user.setEmail("marta.k@example.com");
         book = new Book();
         book.setId(UUID.randomUUID());
         book.setEditionSlug("winnie-the-pooh");
@@ -119,17 +118,6 @@ class BookCertificateServiceTest {
     }
 
     @Test
-    void aGeneratedUsernameKeepsThePageOffUntilTheReaderTurnsItOn() {
-        user.setUsername("martak7");
-        when(bookService.getBookById(book.getId())).thenReturn(book);
-        when(certificates.findByUserIdAndBookId(user.getId(), book.getId())).thenReturn(Optional.empty());
-        when(content.chaptersFor(book)).thenReturn(List.of());
-        when(learnerFinder.findLearner(user, Language.EN)).thenReturn(learner);
-
-        assertThat(service.issue(user, book.getId()).publicPage()).isFalse();
-    }
-
-    @Test
     void thePublicPageIsNotFoundWhileItIsOff() {
         when(certificates.findPublic("marta", "winnie-the-pooh")).thenReturn(Optional.empty());
 
@@ -145,27 +133,6 @@ class BookCertificateServiceTest {
         assertThat(service.setPublicPage(user, book.getId(), false).publicPage())
                 .isFalse();
         assertThat(existing.isPublicPage()).isFalse();
-    }
-
-    @Test
-    void theSignUpRuleReadBackwardsTellsAGeneratedNameFromAChosenOne() {
-        assertThat(BookCertificateService.usernameLooksGenerated(user("marta", "marta@x.io")))
-                .isTrue();
-        assertThat(BookCertificateService.usernameLooksGenerated(user("martak42", "marta.k@x.io")))
-                .isTrue();
-        assertThat(BookCertificateService.usernameLooksGenerated(user("12345678901234567890", "a@x.io")))
-                .isTrue();
-        assertThat(BookCertificateService.usernameLooksGenerated(user("bookworm", "marta@x.io")))
-                .isFalse();
-        assertThat(BookCertificateService.usernameLooksGenerated(user("marta_reads", "marta@x.io")))
-                .isFalse();
-    }
-
-    private static User user(String username, String email) {
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        return user;
     }
 
     private static BookChapter chapter(int sequence) {

@@ -51,8 +51,8 @@ public class BookCertificateService {
                 .findByUserIdAndBookId(user.getId(), bookId)
                 .orElseGet(() -> {
                     bookService.saveBookProgress(user, bookId, FINISHED_PERCENTAGE, book.getChapterCount());
-                    BookCertificate issued = new BookCertificate(
-                            user, book, Instant.now(), !usernameLooksGenerated(user), rarestWords(book));
+                    // On by default: the username is already public on the profile page, so nothing new is exposed.
+                    BookCertificate issued = new BookCertificate(user, book, Instant.now(), true, rarestWords(book));
                     log.info("Issued a certificate for user {} and book {}", user.getId(), bookId);
                     return issued;
                 });
@@ -112,20 +112,6 @@ public class BookCertificateService {
             log.warn("No chapters for {}: {}", book.getEditionSlug(), unavailable.getMessage());
         }
         return rarestWordsSelector.rarest(vocabularies);
-    }
-
-    /**
-     * The public page is on by default once the reader has chosen a name, off while it is still the one made from
-     * their email at sign-up. There is no flag for that, so the sign-up rule is applied in reverse: the local part
-     * of the email, stripped to letters, digits and underscores, possibly with digits appended.
-     */
-    static boolean usernameLooksGenerated(User user) {
-        String username = user.getUsername() == null ? "" : user.getUsername().toLowerCase(Locale.ROOT);
-        if (username.isEmpty() || username.chars().allMatch(Character::isDigit)) return true;
-        String email = user.getEmail() == null ? "" : user.getEmail();
-        String localPart = email.split("@")[0].replaceAll("[^a-zA-Z0-9_]", "").toLowerCase(Locale.ROOT);
-        if (localPart.isEmpty() || !username.startsWith(localPart)) return false;
-        return username.substring(localPart.length()).chars().allMatch(Character::isDigit);
     }
 
     private static BookCertificateDto toDto(BookCertificate certificate) {
