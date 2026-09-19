@@ -165,3 +165,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260918-book-adapts-to.yaml
   - include:
       file: db/changelog/changes/patches/20260918-book-certificate.yaml
+  - include:
+      file: db/changelog/changes/patches/20260919-book-imports-on-shelf.yaml

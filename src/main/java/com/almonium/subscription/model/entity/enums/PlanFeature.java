@@ -10,6 +10,7 @@ public enum PlanFeature {
     /** How many of those languages may be active at once. A plan entitlement, and the one a downgrade collects. */
     MAX_ACTIVE_LANGS,
     MAX_FLUENT_LANGS,
-    MAX_BOOK_IMPORTS_PER_MONTH,
+    /** How many private imports may stand on the shelf at a time. Deleting one frees its place; nothing resets. */
+    MAX_BOOK_IMPORTS_ON_SHELF,
     MAX_TRANSLATION_REQUESTS_PER_MONTH,
 }

@@ -59,7 +59,7 @@ Everything above, unlimited, plus:
 - Cross-device sync
 - Unlimited dessert stories, fair use
 - **10 hours** of book audio
-- **3** custom book imports per month
+- **10** custom book imports on the shelf at a time
 - Create and share packs
 - Encounter history and statistics
 

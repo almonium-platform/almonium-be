@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260919-book-imports-on-shelf
+      author: claude
+      comment: >-
+        The private-import cap is ten books on the shelf at a time, not three a month. The plan limit
+        is renamed to the shelf count and reseeded, and the quota-adjustment ledger goes with the
+        monthly allowance it credited: deleting a book frees its place, so there is nothing to reset.
+      changes:
+        - sql:
+            sql: |
+              UPDATE plan_limit
+              SET feature_key = 'MAX_BOOK_IMPORTS_ON_SHELF',
+                  limit_value = CASE WHEN plan_id IN (SELECT id FROM plan WHERE name = 'FREE') THEN 0 ELSE 10 END
+              WHERE feature_key = 'MAX_BOOK_IMPORTS_PER_MONTH';
+        - dropTable:
+            tableName: book_import_quota_adjustment

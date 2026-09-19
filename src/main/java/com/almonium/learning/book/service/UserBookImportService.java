@@ -1,6 +1,6 @@
 package com.almonium.learning.book.service;
 
-import static com.almonium.subscription.model.entity.enums.PlanFeature.MAX_BOOK_IMPORTS_PER_MONTH;
+import static com.almonium.subscription.model.entity.enums.PlanFeature.MAX_BOOK_IMPORTS_ON_SHELF;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.infra.notification.service.NotificationService;
@@ -8,20 +8,14 @@ import com.almonium.learning.book.dto.request.BookImportEventRequest;
 import com.almonium.learning.book.dto.request.BookImportMetadataRequest;
 import com.almonium.learning.book.dto.response.BookImportDto;
 import com.almonium.learning.book.dto.response.BookImportQuotaDto;
-import com.almonium.learning.book.model.entity.BookImportQuotaAdjustment;
 import com.almonium.learning.book.model.entity.UserBookImport;
 import com.almonium.learning.book.model.enums.BookImportMetadataStatus;
 import com.almonium.learning.book.model.enums.BookImportStatus;
-import com.almonium.learning.book.repository.BookImportQuotaAdjustmentRepository;
 import com.almonium.learning.book.repository.UserBookImportRepository;
-import com.almonium.subscription.service.BillingPeriodService;
-import com.almonium.subscription.service.BillingPeriodService.BillingPeriod;
-import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.subscription.service.PlanValidationService;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
 import jakarta.persistence.EntityNotFoundException;
-import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,10 +33,7 @@ public class UserBookImportService {
     private static final List<String> SUPPORTED_EXTENSIONS = List.of(".epub", ".xml");
 
     private final UserBookImportRepository repository;
-    private final BookImportQuotaAdjustmentRepository quotaAdjustmentRepository;
     private final PlanValidationService planValidationService;
-    private final PlanSubscriptionService subscriptionService;
-    private final BillingPeriodService billingPeriodService;
     private final BookProcessorClient processorClient;
     private final PublishedBookContentService contentService;
     private final NotificationService notificationService;
@@ -58,7 +49,7 @@ public class UserBookImportService {
             Integer publicationYear) {
         validateSource(source);
         BookImportQuotaDto quota = quota(user);
-        planValidationService.validatePlanFeature(user, MAX_BOOK_IMPORTS_PER_MONTH, quota.used() + 1);
+        planValidationService.validatePlanFeature(user, MAX_BOOK_IMPORTS_ON_SHELF, quota.used() + 1);
 
         // The owner may leave every detail blank: the processor reads the file
         // header and proposes the rest, and the owner confirms it afterwards.
@@ -169,37 +160,12 @@ public class UserBookImportService {
                 .toList();
     }
 
+    /** The cap is a shelf count, not an allowance: every import the user still has takes a place, and deleting one frees it. */
     @Transactional(readOnly = true)
     public BookImportQuotaDto quota(User user) {
-        BillingPeriod period =
-                billingPeriodService.currentPeriod(subscriptionService.getActiveSub(user), Instant.now());
-        int limit = planValidationService.effectiveLimit(user, MAX_BOOK_IMPORTS_PER_MONTH);
-        long imported = repository.countByUserIdAndCreatedAtGreaterThanEqualAndCreatedAtLessThan(
-                user.getId(), period.startsAt(), period.endsAt());
-        long adjustment =
-                quotaAdjustmentRepository.totalForPeriod(user.getId(), MAX_BOOK_IMPORTS_PER_MONTH, period.startsAt());
-        long used = Math.max(0, imported + adjustment);
-        return new BookImportQuotaDto(limit, Math.toIntExact(used), period.startsAt(), period.endsAt());
-    }
-
-    /** Grants enough credit to make the current-period effective usage zero without deleting imports. */
-    public void resetCurrentPeriodQuota(User user, User operator, String reason) {
-        if (reason == null || reason.isBlank()) {
-            throw new IllegalArgumentException("An operator reason is required");
-        }
-        BookImportQuotaDto quota = quota(user);
-        if (quota.used() == 0) {
-            return;
-        }
-        BookImportQuotaAdjustment adjustment = new BookImportQuotaAdjustment();
-        adjustment.setId(UUID.randomUUID());
-        adjustment.setUser(user);
-        adjustment.setPerformedBy(operator);
-        adjustment.setFeatureKey(MAX_BOOK_IMPORTS_PER_MONTH);
-        adjustment.setPeriodStartsAt(quota.periodStartsAt());
-        adjustment.setAdjustment(-quota.used());
-        adjustment.setReason(reason.trim());
-        quotaAdjustmentRepository.save(adjustment);
+        int limit = planValidationService.effectiveLimit(user, MAX_BOOK_IMPORTS_ON_SHELF);
+        long used = repository.countByUserId(user.getId());
+        return new BookImportQuotaDto(limit, Math.toIntExact(used));
     }
 
     @Transactional(readOnly = true)
