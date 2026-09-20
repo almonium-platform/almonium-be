@@ -5,10 +5,13 @@ import static lombok.AccessLevel.PRIVATE;
 import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.LanguageVariety;
 import com.almonium.analyzer.translator.repository.TranslatorRepository;
 import com.almonium.analyzer.translator.service.TranslationEngine;
 import com.almonium.analyzer.translator.service.TranslationService;
+import com.almonium.analyzer.translator.service.VoiceCatalogue;
 import com.google.protobuf.ByteString;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -31,7 +34,8 @@ public class LanguageProcessor {
         return translationEngine.translate(entry, sourceLang, targetLang);
     }
 
-    public ByteString textToSpeech(String code, String text) {
-        return googleService.textToSpeech(code, text);
+    /** Voice on every play follows the variety (design V7); the vendor code behind it is the catalogue's business. */
+    public ByteString textToSpeech(Language language, Optional<LanguageVariety> variety, String text) {
+        return googleService.textToSpeech(VoiceCatalogue.googleLanguageCode(language, variety), text);
     }
 }

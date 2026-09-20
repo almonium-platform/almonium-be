@@ -131,8 +131,10 @@ public class ProfileInfoService {
 
     private List<TargetLanguageWithProficiency> getUserTargetLangsWithProficiency(User user) {
         return user.getLearners().stream()
-                .map(learner ->
-                        new TargetLanguageWithProficiency(learner.getLanguage(), learner.getSelfReportedLevel()))
+                .map(learner -> new TargetLanguageWithProficiency(
+                        learner.getLanguage(),
+                        learner.getSelfReportedLevel(),
+                        learner.getVariety().orElse(null)))
                 .toList();
     }
 }

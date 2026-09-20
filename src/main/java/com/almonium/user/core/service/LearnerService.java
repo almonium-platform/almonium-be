@@ -3,6 +3,7 @@ package com.almonium.user.core.service;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.LanguageVariety;
 import com.almonium.card.core.service.CardService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
@@ -74,7 +75,29 @@ public class LearnerService {
             log.info("Learner {} CEFR level updated to {}.", learner.getId(), request.level());
         }
 
+        // Takes effect for the voice at once; what the learner has kept stays as kept (design V7).
+        if (request.variety() != null) {
+            learner.setVariety(varietyOf(code, request.variety()));
+            log.info("Learner {} variety updated to {}.", learner.getId(), request.variety());
+        }
+
         return learnerMapper.toDto(learnerRepository.save(learner));
+    }
+
+    /** What a learner is learning to say in this language, resolved to the default when they never chose. */
+    public Optional<LanguageVariety> varietyFor(UUID userId, Language code) {
+        return learnerRepository
+                .findByUserIdAndLanguage(userId, code)
+                .map(Learner::getVariety)
+                .orElseGet(() -> LanguageVariety.defaultFor(code));
+    }
+
+    private static LanguageVariety varietyOf(Language language, LanguageVariety variety) {
+        if (variety.getLanguage() != language) {
+            throw new BadUserRequestActionException(
+                    String.format("%s is not a variety of %s.", variety.getTag(), language));
+        }
+        return variety;
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {
@@ -114,6 +137,9 @@ public class LearnerService {
             }
 
             Learner learner = new Learner(user, code, targetLanguageWithProficiency.cefrLevel());
+            if (targetLanguageWithProficiency.variety() != null) {
+                learner.setVariety(varietyOf(code, targetLanguageWithProficiency.variety()));
+            }
             if (allowance != ActiveLanguageService.UNLIMITED && activeSoFar >= allowance) {
                 learner.setActive(false);
                 learner.setSetAsideAt(Instant.now());

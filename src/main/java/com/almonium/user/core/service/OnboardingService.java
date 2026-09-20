@@ -64,7 +64,8 @@ public class OnboardingService {
                 data -> data.forEach(level -> learnerService.updateLearner(
                         user.getId(),
                         level.language(),
-                        new com.almonium.user.core.dto.request.UpdateLearnerRequest(null, level.cefrLevel()))));
+                        new com.almonium.user.core.dto.request.UpdateLearnerRequest(
+                                null, level.cefrLevel(), level.variety()))));
     }
 
     public void completeSimpleStep(User user, SetupStep step) {

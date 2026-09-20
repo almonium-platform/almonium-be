@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.LanguageVariety;
 import com.almonium.card.core.service.CardService;
 import com.almonium.subscription.model.entity.enums.PlanFeature;
 import com.almonium.subscription.service.PlanValidationService;
@@ -99,6 +100,77 @@ class LearnerServiceTest {
         assertThat(learner.getSelfReportedLevel()).isEqualTo(CEFR.B2);
         assertThat(result).isEqualTo(savedLearner);
         verify(learnerRepository).save(learner);
+    }
+
+    @DisplayName("A chosen variety is kept on the learner and comes back resolved")
+    @Test
+    void givenLearner_whenUpdateVariety_thenItIsStored() {
+        UUID userId = UUID.randomUUID();
+        Learner learner = Learner.builder()
+                .id(UUID.randomUUID())
+                .language(Language.DE)
+                .selfReportedLevel(CEFR.A1)
+                .active(true)
+                .build();
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.DE)).thenReturn(Optional.of(learner));
+        when(learnerRepository.save(learner)).thenReturn(learner);
+
+        assertThat(learner.getVariety()).contains(LanguageVariety.DE_DE);
+
+        learnerService.updateLearner(userId, Language.DE, new UpdateLearnerRequest(null, null, LanguageVariety.DE_CH));
+
+        assertThat(learner.getVariety()).contains(LanguageVariety.DE_CH);
+        assertThat(learner.getSelfReportedLevel()).isEqualTo(CEFR.A1);
+    }
+
+    @DisplayName("A variety of another language is refused, not silently stored")
+    @Test
+    void givenVarietyOfAnotherLanguage_whenUpdateLearner_thenThrows() {
+        UUID userId = UUID.randomUUID();
+        Learner learner = Learner.builder()
+                .id(UUID.randomUUID())
+                .language(Language.DE)
+                .selfReportedLevel(CEFR.A1)
+                .active(true)
+                .build();
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.DE)).thenReturn(Optional.of(learner));
+
+        assertThatThrownBy(() -> learnerService.updateLearner(
+                        userId, Language.DE, new UpdateLearnerRequest(null, null, LanguageVariety.EN_GB)))
+                .isInstanceOf(BadUserRequestActionException.class)
+                .hasMessageContaining("en-GB");
+
+        verify(learnerRepository, never()).save(any());
+    }
+
+    @DisplayName("A one-variety language has no variety to resolve, and a missing learner gets the default")
+    @Test
+    void givenLanguages_whenVarietyFor_thenResolvesDefaults() {
+        UUID userId = UUID.randomUUID();
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.IT)).thenReturn(Optional.empty());
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.EN)).thenReturn(Optional.empty());
+
+        assertThat(learnerService.varietyFor(userId, Language.IT)).isEmpty();
+        assertThat(learnerService.varietyFor(userId, Language.EN)).contains(LanguageVariety.EN_US);
+    }
+
+    @DisplayName("Onboarding may name the variety with the level, and it lands on the new learner")
+    @Test
+    void givenVariety_whenCreateLearners_thenItIsStored() {
+        UUID userId = UUID.randomUUID();
+        User user = User.builder().id(userId).learners(Set.of()).build();
+
+        when(learnerRepository.countLearnersByUserId(userId)).thenReturn(0);
+        when(learnerRepository.countActiveLearnersByUserId(userId)).thenReturn(0);
+        when(activeLanguageService.allowance(user)).thenReturn(3);
+        when(userRepository.findUserWithLearners(userId)).thenReturn(Optional.of(user));
+
+        learnerService.createLearners(
+                List.of(new TargetLanguageWithProficiency(Language.ES, CEFR.B1, LanguageVariety.ES_MX)), user, false);
+
+        verify(learnerRepository)
+                .save(argThat(learner -> learner.getLanguage() == Language.ES
+                        && learner.getVariety().orElseThrow() == LanguageVariety.ES_MX));
     }
 
     @DisplayName("Should add multiple target languages when replacing existing ones")

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260920-learner-variety
+      author: claude
+      comment: >-
+        Which English, which German: a learner's variety, stored as the catalogue entry's name (EN_US, DE_CH).
+        Nullable because the previous release still writes learner rows while the two slots overlap; the entity
+        reads null as the language's default, so nothing is backfilled and a one-variety language stays null.
+      changes:
+        - addColumn:
+            tableName: learner
+            columns:
+              - column: { name: variety, type: varchar(16) }

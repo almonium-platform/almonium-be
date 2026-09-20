@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.model.enums.CEFR;
 import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.analyzer.translator.model.enums.LanguageVariety;
 import com.almonium.card.core.model.entity.LearningItem;
 import com.almonium.card.suggestion.model.entity.CardSuggestion;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
@@ -20,6 +21,7 @@ import jakarta.persistence.OneToMany;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -58,6 +60,15 @@ public class Learner {
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     CEFR selfReportedLevel;
+
+    /**
+     * Which English, which German (design V0): what the learner is learning to say. Read by the voice, and in time
+     * by transcription, sense order and generated examples; it never rewrites text the learner met. Null in the
+     * column only for a row written by the previous release during a rollout, and for a language the catalogue gives
+     * one variety, so {@link #getVariety()} is the accessor: it answers with the language default in both cases.
+     */
+    @Enumerated(EnumType.STRING)
+    LanguageVariety variety;
 
     @Builder.Default
     @OneToMany(mappedBy = "owner")
@@ -110,5 +121,10 @@ public class Learner {
         this.language = language;
         this.selfReportedLevel = selfReportedLevel;
         this.active = true;
+    }
+
+    /** The chosen variety, or the language's default when none was ever chosen; empty for a one-variety language. */
+    public Optional<LanguageVariety> getVariety() {
+        return Optional.ofNullable(variety).or(() -> LanguageVariety.defaultFor(language));
     }
 }

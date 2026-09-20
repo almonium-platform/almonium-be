@@ -10,6 +10,7 @@ import com.almonium.auth.common.annotation.Auth;
 import com.almonium.card.core.dto.response.CardDto;
 import com.almonium.card.core.service.CardService;
 import com.almonium.user.core.model.entity.User;
+import com.almonium.user.core.service.LearnerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LangController {
     CardService cardService;
     LanguageProcessor languageProcessor;
+    LearnerService learnerService;
 
     @GetMapping("/cards/{lang}/search/{text}")
     public ResponseEntity<List<CardDto>> search(
@@ -54,8 +56,11 @@ public class LangController {
     }
 
     @GetMapping("/words/{text}/audio/{lang}")
-    public ResponseEntity<Resource> bulkPronounce(@PathVariable String lang, @PathVariable String text) {
-        byte[] bytes = languageProcessor.textToSpeech(lang, text).toByteArray();
+    public ResponseEntity<Resource> bulkPronounce(
+            @PathVariable Language lang, @PathVariable String text, @Auth User user) {
+        byte[] bytes = languageProcessor
+                .textToSpeech(lang, learnerService.varietyFor(user.getId(), lang), text)
+                .toByteArray();
 
         return ResponseEntity.ok()
                 .headers(createAudioHeaders())
