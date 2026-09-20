@@ -10,3 +10,6 @@ scripts/__pycache__
 .env*
 *.json
 *.pyc
+
+# Reviewed, non-secret voice routing shipped with the application.
+!src/main/resources/tts-voices.json

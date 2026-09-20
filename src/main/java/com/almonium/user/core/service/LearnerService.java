@@ -97,7 +97,9 @@ public class LearnerService {
             throw new BadUserRequestActionException(
                     String.format("%s is not a variety of %s.", variety.getTag(), language));
         }
-        return variety;
+        // Single-choice defaults are resolved on read. Keep their column null so the previous slot,
+        // whose enum only contains multi-choice varieties, can still read the row during rollout.
+        return LanguageVariety.forLanguage(language).size() == 1 ? null : variety;
     }
 
     public List<LearnerDto> createLearners(List<TargetLanguageWithProficiency> data, User user, boolean replace) {

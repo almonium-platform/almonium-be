@@ -23,6 +23,7 @@ public class LanguageProcessor {
     TranslationService googleService;
     TranslatorRepository translatorRepository;
     TranslationEngine translationEngine;
+    VoiceCatalogue voiceCatalogue;
 
     public MLTranslationCard bulkTranslate(String text, Language targetLang) {
         // todo deepL
@@ -36,6 +37,9 @@ public class LanguageProcessor {
 
     /** Voice on every play follows the variety (design V7); the vendor code behind it is the catalogue's business. */
     public ByteString textToSpeech(Language language, Optional<LanguageVariety> variety, String text) {
-        return googleService.textToSpeech(VoiceCatalogue.googleLanguageCode(language, variety), text);
+        return googleService.textToSpeech(
+                voiceCatalogue.requireVoice(variety.orElseGet(
+                        () -> LanguageVariety.defaultFor(language).orElseThrow())),
+                text);
     }
 }

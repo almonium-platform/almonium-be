@@ -273,3 +273,12 @@ and learner-facing factual content.
 
 That stabilization is finite. Once these items are controlled, the existing
 modular monolith is a reasonable foundation for continued feature development.
+
+## Variety and TTS foundation (2026-09-20)
+
+Learners resolve a variety for every target language. Web and mobile onboarding
+and settings carry the preference. TTS uses explicit named Google voices from
+`src/main/resources/tts-voices.json`; unsupported varieties return unavailable
+instead of silently borrowing another region's voice. See
+[Variety and pronunciation foundation](VARIETY_AND_TTS.md) for configuration,
+rollout semantics, and the boundary with future Discover and cached audio work.

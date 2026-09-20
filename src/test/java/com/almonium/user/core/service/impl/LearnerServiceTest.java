@@ -123,6 +123,26 @@ class LearnerServiceTest {
         assertThat(learner.getSelfReportedLevel()).isEqualTo(CEFR.A1);
     }
 
+    @Test
+    void singleChoiceRoundTripsWithoutStoringANewEnumNameDuringRollout() {
+        UUID userId = UUID.randomUUID();
+        Learner learner = Learner.builder()
+                .id(UUID.randomUUID())
+                .language(Language.IT)
+                .active(true)
+                .build();
+        when(learnerRepository.findByUserIdAndLanguage(userId, Language.IT)).thenReturn(Optional.of(learner));
+        when(learnerRepository.save(learner)).thenReturn(learner);
+        learnerService.updateLearner(userId, Language.IT, new UpdateLearnerRequest(null, null, LanguageVariety.IT));
+        assertThat(learner.getVariety()).contains(LanguageVariety.IT);
+        assertThat(org.springframework.test.util.ReflectionTestUtils.getField(learner, "variety"))
+                .isNull();
+        assertThat(org.mapstruct.factory.Mappers.getMapper(LearnerMapper.class)
+                        .toDto(learner)
+                        .getVariety())
+                .isEqualTo(LanguageVariety.IT);
+    }
+
     @DisplayName("A variety of another language is refused, not silently stored")
     @Test
     void givenVarietyOfAnotherLanguage_whenUpdateLearner_thenThrows() {
@@ -143,14 +163,14 @@ class LearnerServiceTest {
         verify(learnerRepository, never()).save(any());
     }
 
-    @DisplayName("A one-variety language has no variety to resolve, and a missing learner gets the default")
+    @DisplayName("Every language resolves a default, including a missing learner")
     @Test
     void givenLanguages_whenVarietyFor_thenResolvesDefaults() {
         UUID userId = UUID.randomUUID();
         when(learnerRepository.findByUserIdAndLanguage(userId, Language.IT)).thenReturn(Optional.empty());
         when(learnerRepository.findByUserIdAndLanguage(userId, Language.EN)).thenReturn(Optional.empty());
 
-        assertThat(learnerService.varietyFor(userId, Language.IT)).isEmpty();
+        assertThat(learnerService.varietyFor(userId, Language.IT)).contains(LanguageVariety.IT);
         assertThat(learnerService.varietyFor(userId, Language.EN)).contains(LanguageVariety.EN_US);
     }
 

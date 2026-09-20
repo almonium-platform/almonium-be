@@ -64,8 +64,7 @@ public class Learner {
     /**
      * Which English, which German (design V0): what the learner is learning to say. Read by the voice, and in time
      * by transcription, sense order and generated examples; it never rewrites text the learner met. Null in the
-     * column only for a row written by the previous release during a rollout, and for a language the catalogue gives
-     * one variety, so {@link #getVariety()} is the accessor: it answers with the language default in both cases.
+     * column for an unselected default and for a language with one supported variety, so {@link #getVariety()} is the accessor: it answers with the language default in both cases.
      */
     @Enumerated(EnumType.STRING)
     LanguageVariety variety;
@@ -123,7 +122,7 @@ public class Learner {
         this.active = true;
     }
 
-    /** The chosen variety, or the language's default when none was ever chosen; empty for a one-variety language. */
+    /** The chosen variety, or the language's default when none was ever chosen; present for every supported language. */
     public Optional<LanguageVariety> getVariety() {
         return Optional.ofNullable(variety).or(() -> LanguageVariety.defaultFor(language));
     }

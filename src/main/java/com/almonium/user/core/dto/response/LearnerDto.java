@@ -22,7 +22,7 @@ public class LearnerDto {
     Language language;
     CEFR selfReportedLevel;
 
-    /** The BCP-47 tag of what is being learnt to say, or null for a language the catalogue gives one variety. */
+    /** The BCP-47 tag of what is being learnt to say, resolved to a non-null default for every language. */
     LanguageVariety variety;
 
     boolean active;

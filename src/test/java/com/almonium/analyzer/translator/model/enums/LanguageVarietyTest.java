@@ -18,9 +18,12 @@ class LanguageVarietyTest {
     }
 
     @Test
-    void aOneVarietyLanguageHasNoRows() {
-        assertThat(LanguageVariety.forLanguage(Language.IT)).isEmpty();
-        assertThat(LanguageVariety.defaultFor(Language.UK)).isEmpty();
+    void everyLanguageHasADefaultEvenWhenNoSelectorIsShown() {
+        for (Language language : Language.values()) {
+            assertThat(LanguageVariety.defaultFor(language)).as(language.name()).isPresent();
+        }
+        assertThat(LanguageVariety.forLanguage(Language.IT)).containsExactly(LanguageVariety.IT);
+        assertThat(LanguageVariety.defaultFor(Language.UK)).contains(LanguageVariety.UK);
     }
 
     @Test

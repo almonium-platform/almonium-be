@@ -1,0 +1,191 @@
+[
+  {
+    "variety": "en-US",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "en-US",
+    "voiceId": "en-US-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "en-GB",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "en-GB",
+    "voiceId": "en-GB-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "en-AU",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "en-AU",
+    "voiceId": "en-AU-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "en-IN",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "en-IN",
+    "voiceId": "en-IN-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "es-ES",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "es-ES",
+    "voiceId": "es-ES-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "es-MX",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "es-MX",
+    "voiceId": null
+  },
+  {
+    "variety": "es-AR",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "es-AR",
+    "voiceId": null
+  },
+  {
+    "variety": "es-CO",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "es-CO",
+    "voiceId": null
+  },
+  {
+    "variety": "pt-BR",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "pt-BR",
+    "voiceId": "pt-BR-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "pt-PT",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "pt-PT",
+    "voiceId": "pt-PT-Wavenet-F"
+  },
+  {
+    "variety": "fr-FR",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "fr-FR",
+    "voiceId": "fr-FR-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "fr-CA",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "fr-CA",
+    "voiceId": "fr-CA-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "fr-BE",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "fr-BE",
+    "voiceId": null
+  },
+  {
+    "variety": "fr-CH",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "fr-CH",
+    "voiceId": null
+  },
+  {
+    "variety": "de-DE",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "de-DE",
+    "voiceId": "de-DE-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "de-AT",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "de-AT",
+    "voiceId": null
+  },
+  {
+    "variety": "de-CH",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": "de-CH",
+    "voiceId": null
+  },
+  {
+    "variety": "nl-NL",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "nl-NL",
+    "voiceId": "nl-NL-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "nl-BE",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "nl-BE",
+    "voiceId": "nl-BE-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "zh-CN",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "cmn-CN",
+    "voiceId": "cmn-CN-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "zh-TW",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "cmn-TW",
+    "voiceId": "cmn-TW-Wavenet-B"
+  },
+  {
+    "variety": "it-IT",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "it-IT",
+    "voiceId": "it-IT-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "ja-JP",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ja-JP",
+    "voiceId": "ja-JP-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "ko-KR",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ko-KR",
+    "voiceId": "ko-KR-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "pl-PL",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "pl-PL",
+    "voiceId": "pl-PL-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "ru-RU",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ru-RU",
+    "voiceId": "ru-RU-Chirp3-HD-Charon"
+  },
+  {
+    "variety": "uk-UA",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "uk-UA",
+    "voiceId": "uk-UA-Chirp3-HD-Charon"
+  }
+]
