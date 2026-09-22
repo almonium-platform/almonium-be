@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260922-book-literary-register
+      author: codex
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: literary_register
+                  type: varchar(32)

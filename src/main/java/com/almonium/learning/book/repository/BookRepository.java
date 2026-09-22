@@ -43,6 +43,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.adaptsTo as adaptsTo,
                b.editionType as editionType,
+               b.literaryRegister as literaryRegister,
                bp.progressPercentage as progressPercentage,
                bp.currentChapter as currentChapter,
                b.chapterCount as chapterCount,
@@ -74,6 +75,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.adaptsTo as adaptsTo,
                b.editionType as editionType,
+               b.literaryRegister as literaryRegister,
                null as progressPercentage,
                null as currentChapter,
                b.chapterCount as chapterCount,
@@ -114,6 +116,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.adaptsTo as adaptsTo,
                b.editionType as editionType,
+               b.literaryRegister as literaryRegister,
                null as progressPercentage,
                null as currentChapter,
                b.chapterCount as chapterCount,
@@ -146,6 +149,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
                b.cefrLevel as cefrLevel,
                b.adaptsTo as adaptsTo,
                b.editionType as editionType,
+               b.literaryRegister as literaryRegister,
                case when ob.id is not null then ob.language else b.language end as originalLanguage,
                case when ob.id is not null then ob.id else b.id end as originalId,
                case when ob.id is not null and ob.title <> b.title then ob.title else null end as originalTitle,
@@ -169,6 +173,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query("""
             select b.id as id, b.editionSlug as editionSlug, b.language as language,
                    b.editionType as editionType, cast(b.cefrLevel as string) as cefrLevel,
+                   b.literaryRegister as literaryRegister,
                    source.editionSlug as sourceEditionSlug, b.editionNote as editionNote
             from Book b
             left join b.originalBook source

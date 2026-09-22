@@ -78,6 +78,7 @@ public class Book {
     CEFR adaptsTo;
 
     String editionType;
+    String literaryRegister;
     String translator;
 
     /** Editorial's one sentence about this edition, shown under the Edition chips on the book page (G15). */

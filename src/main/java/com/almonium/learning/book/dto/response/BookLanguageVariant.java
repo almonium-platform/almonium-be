@@ -17,6 +17,7 @@ public class BookLanguageVariant {
     String editionSlug;
     Language language;
     String editionType;
+    String literaryRegister;
     String cefrLevel;
     String sourceEditionSlug;
     String editionNote;

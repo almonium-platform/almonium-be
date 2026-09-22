@@ -42,6 +42,7 @@ public class BookPublicationService {
         book.setAdaptsTo(request.adaptsTo());
         book.setOriginalLanguage(request.originalLanguage());
         book.setEditionType(request.editionType());
+        book.setLiteraryRegister(request.literaryRegister());
         book.setTranslator(request.translator());
         book.setEditionNote(request.editionNote());
         if (request.sourceEditionSlug() != null) {

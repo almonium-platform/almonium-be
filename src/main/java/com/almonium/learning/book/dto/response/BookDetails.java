@@ -30,6 +30,7 @@ public class BookDetails {
     CEFR adaptsTo;
 
     String editionType;
+    String literaryRegister;
     Integer progressPercentage;
     Integer currentChapter;
     Integer chapterCount;

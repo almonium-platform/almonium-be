@@ -78,6 +78,7 @@ public class BookService {
                 book.getLanguage(),
                 book.getCefrLevel(),
                 book.getEditionType(),
+                book.getLiteraryRegister(),
                 null,
                 null,
                 book.getChapterCount(),

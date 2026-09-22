@@ -33,6 +33,8 @@ public interface BookDetailsProjection {
     /** original, adaptation, machine_translation or human_translation, as the processor names it. */
     String getEditionType();
 
+    String getLiteraryRegister();
+
     Integer getProgressPercentage();
 
     /** The reader's place beside the percentage, as the processor numbers chapters; null until a reader sends it. */

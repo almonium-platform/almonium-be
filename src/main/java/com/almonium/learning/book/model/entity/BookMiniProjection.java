@@ -12,6 +12,8 @@ public interface BookMiniProjection {
 
     String getEditionType();
 
+    String getLiteraryRegister();
+
     String getCefrLevel();
 
     String getSourceEditionSlug();

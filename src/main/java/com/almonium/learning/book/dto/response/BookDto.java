@@ -17,6 +17,7 @@ public record BookDto(
         Language language,
         CEFR cefrLevel,
         String editionType,
+        String literaryRegister,
         Integer progressPercentage,
         Integer currentChapter,
         Integer chapterCount,

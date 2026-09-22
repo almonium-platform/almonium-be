@@ -204,9 +204,7 @@ public class PublishedBookContentService {
             int matched = -1;
             for (int g = 0; g < groups.size(); g++) {
                 JsonNode group = groups.get(g);
-                if (!group.path("certain").asBoolean(false)
-                        || group.path("primary").isEmpty()
-                        || group.path("secondary").isEmpty()) continue;
+                if (group.path("primary").isEmpty() || group.path("secondary").isEmpty()) continue;
                 for (JsonNode index : group.path(side)) {
                     if (index.asInt(-1) == i) matched = g;
                 }

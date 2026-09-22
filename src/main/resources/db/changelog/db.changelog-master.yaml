@@ -169,3 +169,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260919-book-imports-on-shelf.yaml
   - include:
       file: db/changelog/changes/patches/20260920-learner-variety.yaml
+  - include:
+      file: db/changelog/changes/patches/20260922-book-literary-register.yaml

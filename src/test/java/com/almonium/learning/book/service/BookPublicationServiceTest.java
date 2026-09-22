@@ -57,6 +57,7 @@ class BookPublicationServiceTest {
                 Language.EN,
                 Language.EN,
                 "original",
+                "lightly modernised",
                 null,
                 null,
                 1818,
@@ -81,6 +82,7 @@ class BookPublicationServiceTest {
         assertThat(book.getPublicationYear()).isEqualTo(1818);
         assertThat(book.getDescription()).isEqualTo("A scientist creates life.");
         assertThat(book.getCefrLevel()).isEqualTo(CEFR.C1);
+        assertThat(book.getLiteraryRegister()).isEqualTo("lightly modernised");
         assertThat(book.getCoverUrl()).isNull();
     }
 
@@ -103,6 +105,7 @@ class BookPublicationServiceTest {
                 Language.DE,
                 Language.UK,
                 "machine_translation",
+                null,
                 "effi-briest-de-original",
                 "AI (contemporary neutral)",
                 1895,
@@ -140,6 +143,7 @@ class BookPublicationServiceTest {
                 Language.DE,
                 Language.DE,
                 "original",
+                null,
                 null,
                 null,
                 1888,
@@ -222,6 +226,7 @@ class BookPublicationServiceTest {
                 Language.EN,
                 Language.EN,
                 "original",
+                null,
                 null,
                 null,
                 1818,

@@ -169,7 +169,23 @@ class PublishedBookContentServiceTest {
     }
 
     @Test
-    void uncertainOrInvalidSentenceSpansFallBackToParagraphText() {
+    void uncertainSentencePairsRemainInteractive() {
+        JsonNode payload = objectMapper.readTree("""
+                {"primary_language":"fr","secondary_language":"uk","blocks":[{
+                "chapter":1,"sequence":1,"block_type":"paragraph",
+                "primary_text":"Il part.","secondary_text":"Він іде.",
+                "primary_sentences":[{"start":0,"end":8}],
+                "secondary_sentences":[{"start":0,"end":8}],
+                "sentence_alignment":[{"primary":[0],"secondary":[0],"certain":false}]}]}
+                """);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                .thenReturn(payload);
+        String html = new String(service.parallelTextFor(new Book(), new Book()), StandardCharsets.UTF_8);
+        assertThat(html.split("data-alignment=\"1-1-0\"", -1)).hasSize(3);
+    }
+
+    @Test
+    void invalidSentenceSpansFallBackToParagraphText() {
         JsonNode payload = objectMapper.readTree("""
                 {"primary_language":"en","secondary_language":"uk","blocks":[{
                 "chapter":1,"sequence":1,"block_type":"paragraph",

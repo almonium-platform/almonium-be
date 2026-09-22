@@ -24,6 +24,7 @@ public record BookPublicationRequest(
         @NotNull Language originalLanguage,
         @NotNull Language language,
         @NotBlank String editionType,
+        String literaryRegister,
         String sourceEditionSlug,
         String translator,
         int publicationYear,
