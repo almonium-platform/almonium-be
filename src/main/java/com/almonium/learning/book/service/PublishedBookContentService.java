@@ -92,7 +92,7 @@ public class PublishedBookContentService {
             String blockType = block.path("block_type").asString();
             String blockText = block.path("text").asString();
             if (!("heading".equals(blockType) && blockText.equals(chapterTitle))) {
-                appendBlock(html, blockType, blockText);
+                appendBlock(html, blockType, blockText, block.path("notes"));
             }
         }
         if (chapter >= 0) html.append("</section>");
@@ -148,13 +148,13 @@ public class PublishedBookContentService {
                 .append("</h2>");
     }
 
-    private void appendBlock(StringBuilder html, String type, String text) {
-        String escapedText = escapedText(text);
-        if ("heading".equals(type)) html.append("<h3>").append(escapedText).append("</h3>");
+    private void appendBlock(StringBuilder html, String type, String text, JsonNode notes) {
+        String rendered = textWithNotes(text, notes, 0, text.codePointCount(0, text.length()));
+        if ("heading".equals(type)) html.append("<h3>").append(rendered).append("</h3>");
         else if ("blockquote".equals(type))
-            html.append("<blockquote>").append(escapedText).append("</blockquote>");
+            html.append("<blockquote>").append(rendered).append("</blockquote>");
         else if ("separator".equals(type)) html.append("<hr>");
-        else if (!"image".equals(type)) html.append("<p>").append(escapedText).append("</p>");
+        else if (!"image".equals(type)) html.append("<p>").append(rendered).append("</p>");
     }
 
     private String escapedText(String text) {
@@ -173,11 +173,11 @@ public class PublishedBookContentService {
         String segments = "<span class=\"seg-pair\"><span class=\"segment\" data-side=\"primary\" lang=\""
                 + HtmlUtils.htmlEscape(primaryLanguage)
                 + "\">"
-                + sentenceText(block, "primary", primaryText)
+                + sentenceText(block, "primary", primaryText, block.path("primary_notes"))
                 + "</span><span class=\"segment\" data-side=\"secondary\" lang=\""
                 + HtmlUtils.htmlEscape(secondaryLanguage)
                 + "\">"
-                + sentenceText(block, "secondary", secondaryText)
+                + sentenceText(block, "secondary", secondaryText, block.path("secondary_notes"))
                 + "</span></span>";
         if ("heading".equals(type)) {
             if (!primaryText.equals(chapterTitle)) {
@@ -189,10 +189,10 @@ public class PublishedBookContentService {
         else if (!"image".equals(type)) html.append("<p>").append(segments).append("</p>");
     }
 
-    private String sentenceText(JsonNode block, String side, String text) {
+    private String sentenceText(JsonNode block, String side, String text, JsonNode notes) {
         JsonNode sentences = block.path(side + "_sentences");
         JsonNode groups = block.path("sentence_alignment");
-        if (!validSentenceMapping(block)) return escapedText(text);
+        if (!validSentenceMapping(block)) return textWithNotes(text, notes, 0, text.codePointCount(0, text.length()));
         StringBuilder html = new StringBuilder();
         int cursor = 0;
         int length = text.codePointCount(0, text.length());
@@ -218,7 +218,7 @@ public class PublishedBookContentService {
                         .append(matched)
                         .append("\">");
             }
-            html.append(escapedText(codePointSlice(text, start, end)));
+            html.append(textWithNotes(text, notes, start, end));
             if (matched >= 0) html.append("</span>");
             cursor = end;
         }
@@ -228,6 +228,36 @@ public class PublishedBookContentService {
 
     private String codePointSlice(String text, int start, int end) {
         return text.substring(text.offsetByCodePoints(0, start), text.offsetByCodePoints(0, end));
+    }
+
+    private String textWithNotes(String text, JsonNode notes, int start, int end) {
+        if (!notes.isArray() || notes.isEmpty()) return escapedText(codePointSlice(text, start, end));
+        StringBuilder html = new StringBuilder();
+        int cursor = start;
+        for (JsonNode note : notes) {
+            if (!note.path("start").isInt() || !note.path("end").isInt()) continue;
+            int noteStart = note.path("start").asInt();
+            int noteEnd = note.path("end").asInt();
+            String quote = note.path("quote").asString();
+            String body = note.path("body").asString();
+            if (noteStart < cursor
+                    || noteEnd > end
+                    || noteStart >= noteEnd
+                    || body.isBlank()
+                    || body.length() > 500
+                    || !codePointSlice(text, noteStart, noteEnd).equals(quote)) continue;
+            html.append(escapedText(codePointSlice(text, cursor, noteStart)));
+            html.append("<span class=\"almonium-gloss\" role=\"button\" tabindex=\"0\" data-gloss-note=\"")
+                    .append(HtmlUtils.htmlEscape(body))
+                    .append("\" title=\"")
+                    .append(HtmlUtils.htmlEscape(body))
+                    .append("\">")
+                    .append(escapedText(quote))
+                    .append("</span>");
+            cursor = noteEnd;
+        }
+        html.append(escapedText(codePointSlice(text, cursor, end)));
+        return html.toString();
     }
 
     /** Never render a clickable sentence whose opposite side cannot carry its counterpart. */

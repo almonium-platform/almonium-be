@@ -148,6 +148,41 @@ class PublishedBookContentServiceTest {
     }
 
     @Test
+    void rendersOnlyValidEscapedGlossAnchors() throws Exception {
+        JsonNode[] blocks = objectMapper.readValue("""
+                [{"chapter":1,"chapter_title":"One","block_type":"paragraph","text":"An eyry stood here.",
+                  "notes":[{"start":3,"end":7,"quote":"eyry","body":"An eagle's <nest> & home."},
+                           {"start":8,"end":13,"quote":"wrong","body":"Never render."}]}]
+                """, JsonNode[].class);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode[].class), any(Object[].class)))
+                .thenReturn(blocks);
+        String html = new String(service.textFor(new Book()), StandardCharsets.UTF_8);
+        assertThat(html)
+                .contains("class=\"almonium-gloss\"", "data-gloss-note=\"An eagle&#39;s &lt;nest&gt; &amp; home.\"")
+                .contains(">eyry</span>")
+                .doesNotContain("Never render.", "<nest>");
+    }
+
+    @Test
+    void keepsGlossesInsideTheirOwnParallelSentence() {
+        JsonNode payload = objectMapper.readTree("""
+                {"primary_language":"en","secondary_language":"uk","blocks":[{
+                "chapter":1,"sequence":1,"block_type":"paragraph",
+                "primary_text":"An eyry stood.","secondary_text":"Було гніздо.",
+                "primary_sentences":[{"start":0,"end":14}],
+                "secondary_sentences":[{"start":0,"end":12}],
+                "sentence_alignment":[{"primary":[0],"secondary":[0],"certain":true}],
+                "primary_notes":[{"start":3,"end":7,"quote":"eyry","body":"An eagle's nest."}],
+                "secondary_notes":[]}]}
+                """);
+        when(restTemplate.getForObject(anyString(), eq(JsonNode.class), any(Object[].class)))
+                .thenReturn(payload);
+        String html = new String(service.parallelTextFor(new Book(), new Book()), StandardCharsets.UTF_8);
+        assertThat(html).contains("almonium-gloss", "An eagle&#39;s nest.", "data-alignment=\"1-1-0\"");
+        assertThat(html.split("class=\"almonium-gloss\"", -1)).hasSize(2);
+    }
+
+    @Test
     void preservesSameLanguageSidesManyToOneSentencesAndUnicodeOffsets() {
         JsonNode payload = objectMapper.readTree("""
                 {"primary_language":"en","secondary_language":"en","blocks":[{
