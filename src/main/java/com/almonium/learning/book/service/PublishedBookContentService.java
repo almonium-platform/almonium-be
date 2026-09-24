@@ -249,8 +249,6 @@ public class PublishedBookContentService {
             html.append(escapedText(codePointSlice(text, cursor, noteStart)));
             html.append("<span class=\"almonium-gloss\" role=\"button\" tabindex=\"0\" data-gloss-note=\"")
                     .append(HtmlUtils.htmlEscape(body))
-                    .append("\" title=\"")
-                    .append(HtmlUtils.htmlEscape(body))
                     .append("\">")
                     .append(escapedText(quote))
                     .append("</span>");

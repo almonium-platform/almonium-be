@@ -160,7 +160,7 @@ class PublishedBookContentServiceTest {
         assertThat(html)
                 .contains("class=\"almonium-gloss\"", "data-gloss-note=\"An eagle&#39;s &lt;nest&gt; &amp; home.\"")
                 .contains(">eyry</span>")
-                .doesNotContain("Never render.", "<nest>");
+                .doesNotContain("Never render.", "<nest>", "title=");
     }
 
     @Test
