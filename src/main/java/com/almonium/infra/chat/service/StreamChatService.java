@@ -277,7 +277,13 @@ public class StreamChatService {
 
     private void deleteUserFromStream(String userId) {
         try {
-            io.getstream.chat.java.models.User.delete(userId).request();
+            // Hard on all three: the deletion page promises the messages go too, not just the profile. Stream's
+            // default soft delete would leave what the user wrote standing in the public rooms.
+            io.getstream.chat.java.models.User.delete(userId)
+                    .hardDelete(true)
+                    .markMessagesDeleted(true)
+                    .deleteConversationChannels(true)
+                    .request();
         } catch (StreamException e) {
             throw new StreamIntegrationException(
                     String.format("Error while deleting user %s from Stream: %s", userId, e.getMessage()), e);

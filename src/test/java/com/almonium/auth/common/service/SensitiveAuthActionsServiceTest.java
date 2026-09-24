@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
 import com.almonium.subscription.exception.PlanSubscriptionException;
+import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.model.entity.User;
@@ -46,7 +47,12 @@ class SensitiveAuthActionsServiceTest {
     void setUp() {
         service = new SensitiveAuthActionsService(
                 planSubscriptionService, firebaseAuthGateway, userRepository, eventPublisher);
-        user = User.builder().id(UUID.randomUUID()).firebaseUid("firebase-uid").build();
+        user = User.builder()
+                .id(UUID.randomUUID())
+                .firebaseUid("firebase-uid")
+                .email("reader@example.com")
+                .username("reader")
+                .build();
     }
 
     @Test
@@ -78,6 +84,8 @@ class SensitiveAuthActionsServiceTest {
     void successfulDeletionPublishesPreparedCleanupBeforeDeletingLocalUser() {
         when(planSubscriptionService.getPaidSubscriptionIdToCancel(user))
                 .thenReturn(Optional.of("paddle-subscription"));
+        when(planSubscriptionService.getActivePlan(user))
+                .thenReturn(Plan.builder().name("PREMIUM").build());
 
         service.deleteAccount(user);
 
@@ -90,5 +98,21 @@ class SensitiveAuthActionsServiceTest {
         UserDeletedEvent event = eventCaptor.getValue();
         org.assertj.core.api.Assertions.assertThat(event.userId()).isEqualTo(user.getId());
         org.assertj.core.api.Assertions.assertThat(event.paddleSubscriptionId()).contains("paddle-subscription");
+        org.assertj.core.api.Assertions.assertThat(event.email()).isEqualTo("reader@example.com");
+        org.assertj.core.api.Assertions.assertThat(event.username()).isEqualTo("reader");
+        org.assertj.core.api.Assertions.assertThat(event.planName()).contains("PREMIUM");
+    }
+
+    @Test
+    void deletionWithoutPaidSubscriptionCarriesNoPlanName() {
+        when(planSubscriptionService.getPaidSubscriptionIdToCancel(user)).thenReturn(Optional.empty());
+
+        service.deleteAccount(user);
+
+        ArgumentCaptor<UserDeletedEvent> eventCaptor = ArgumentCaptor.forClass(UserDeletedEvent.class);
+        verify(eventPublisher).publishEvent(eventCaptor.capture());
+        org.assertj.core.api.Assertions.assertThat(eventCaptor.getValue().planName())
+                .isEmpty();
+        verify(planSubscriptionService, never()).getActivePlan(user);
     }
 }

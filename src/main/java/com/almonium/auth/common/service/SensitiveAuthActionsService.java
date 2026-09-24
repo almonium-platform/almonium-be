@@ -1,6 +1,7 @@
 package com.almonium.auth.common.service;
 
 import com.almonium.auth.firebase.gateway.FirebaseAuthGateway;
+import com.almonium.subscription.model.entity.Plan;
 import com.almonium.subscription.service.PlanSubscriptionService;
 import com.almonium.user.core.events.UserDeletedEvent;
 import com.almonium.user.core.exception.BadUserRequestActionException;
@@ -28,8 +29,14 @@ public class SensitiveAuthActionsService {
             throw new BadUserRequestActionException("User is not linked to Firebase Authentication");
         }
         Optional<String> billingSubscriptionId = planSubscriptionService.getPaidSubscriptionIdToCancel(user);
+        // Read while the row still exists: the farewell mail is composed after this transaction commits.
+        Optional<String> planName = billingSubscriptionId.flatMap(subscription ->
+                Optional.ofNullable(planSubscriptionService.getActivePlan(user)).map(Plan::getName));
+        String email = user.getEmail();
+        String username = user.getUsername();
         firebaseAuthGateway.deleteUser(user.getFirebaseUid());
-        eventPublisher.publishEvent(new UserDeletedEvent(user.getId(), billingSubscriptionId));
+        eventPublisher.publishEvent(
+                new UserDeletedEvent(user.getId(), billingSubscriptionId, email, username, planName));
         userRepository.delete(user);
         log.info("Deleted Almonium and Firebase identities for user {}", user.getId());
     }
