@@ -171,3 +171,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260920-learner-variety.yaml
   - include:
       file: db/changelog/changes/patches/20260922-book-literary-register.yaml
+  - include:
+      file: db/changelog/changes/patches/20260924-account-deletion-cascades.yaml

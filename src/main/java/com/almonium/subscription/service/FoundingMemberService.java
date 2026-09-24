@@ -103,6 +103,25 @@ public class FoundingMemberService {
         foundingMemberRepository.save(slot);
     }
 
+    /**
+     * Hands a deleted account's place back to the pool, reserved or confirmed. The founder price lives on the Paddle
+     * subscription the deletion cancels, so a slot kept for someone who is gone would only shrink the offer. Runs in
+     * the deletion's transaction: if the account survives, so does the slot.
+     */
+    @Transactional
+    public void releaseForDeletedAccount(UUID userId) {
+        foundingMemberRepository.findByUserId(userId).ifPresent(found -> {
+            FoundingMember slot = getLockedSlot(found.getSlotNumber());
+            slot.setUser(null);
+            slot.setStatus(FoundingMember.Status.AVAILABLE);
+            slot.setPaddleTransactionId(null);
+            slot.setPaddleSubscriptionId(null);
+            slot.setReservedAt(null);
+            slot.setConfirmedAt(null);
+            foundingMemberRepository.save(slot);
+        });
+    }
+
     private FoundingMember getLockedSlot(int slotNumber) {
         return foundingMemberRepository
                 .findLockedBySlotNumber(slotNumber)

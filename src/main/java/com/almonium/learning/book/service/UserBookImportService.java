@@ -153,6 +153,14 @@ public class UserBookImportService {
         repository.delete(bookImport);
     }
 
+    /** The ids an account deletion hands to the processor cleanup; the rows themselves cascade with the user. */
+    @Transactional(readOnly = true)
+    public List<UUID> importIdsOwnedBy(UUID userId) {
+        return repository.findByUserIdOrderByCreatedAtDesc(userId).stream()
+                .map(UserBookImport::getId)
+                .toList();
+    }
+
     @Transactional(readOnly = true)
     public List<BookImportDto> list(User user) {
         return repository.findByUserIdOrderByCreatedAtDesc(user.getId()).stream()

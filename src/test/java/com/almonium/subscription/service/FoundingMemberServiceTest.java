@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.almonium.subscription.model.entity.FoundingMember;
 import com.almonium.subscription.repository.FoundingMemberRepository;
 import com.almonium.user.core.model.entity.User;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,6 +62,28 @@ class FoundingMemberServiceTest {
         assertThatThrownBy(() -> service.confirm(1, UUID.randomUUID(), "txn_01test", "sub_01test"))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("another user");
+    }
+
+    @Test
+    void deletedFounderHandsTheirPlaceBack() {
+        User founder = User.builder().id(UUID.randomUUID()).build();
+        FoundingMember slot = slot(3, founder, FoundingMember.Status.CONFIRMED);
+        slot.setPaddleTransactionId("txn_01test");
+        slot.setPaddleSubscriptionId("sub_01test");
+        slot.setReservedAt(Instant.now());
+        slot.setConfirmedAt(Instant.now());
+        when(repository.findByUserId(founder.getId())).thenReturn(Optional.of(slot));
+        when(repository.findLockedBySlotNumber(3)).thenReturn(Optional.of(slot));
+
+        service.releaseForDeletedAccount(founder.getId());
+
+        assertThat(slot.getUser()).isNull();
+        assertThat(slot.getStatus()).isEqualTo(FoundingMember.Status.AVAILABLE);
+        assertThat(slot.getPaddleTransactionId()).isNull();
+        assertThat(slot.getPaddleSubscriptionId()).isNull();
+        assertThat(slot.getReservedAt()).isNull();
+        assertThat(slot.getConfirmedAt()).isNull();
+        verify(repository).save(slot);
     }
 
     private FoundingMember slot(int number, User user, FoundingMember.Status status) {

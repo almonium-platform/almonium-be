@@ -124,6 +124,10 @@ rabbitmq:
       name: q.user.deleted.email
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.email.dlq
+    user-deleted-book-imports:
+      name: q.user.deleted.book-imports
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.book-imports.dlq
 google:
   project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global

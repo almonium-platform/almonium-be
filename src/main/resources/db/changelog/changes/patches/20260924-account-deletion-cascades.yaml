@@ -1,0 +1,86 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260924-account-deletion-cascades
+      author: claude
+      comment: >-
+        Deleting an account failed for anyone who had imported a book, asked for one or finished one: those three
+        tables pointed at user_core with no delete rule, so Postgres refused the delete. What a reader owns now goes
+        with them. Where an operator is only recorded as the one who decided, approved or granted something, the
+        record stays and forgets who did it, so an operator can delete their own account too. founding_member keeps
+        RESTRICT on purpose: the deletion releases the slot in code first, and the constraint is what catches a path
+        that forgets to.
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: user_book_import
+            constraintName: fk_user_book_import_user
+        - addForeignKeyConstraint:
+            baseTableName: user_book_import
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_user_book_import_user
+            onDelete: CASCADE
+        - dropForeignKeyConstraint:
+            baseTableName: book_request
+            constraintName: fk_book_request_user
+        - addForeignKeyConstraint:
+            baseTableName: book_request
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_book_request_user
+            onDelete: CASCADE
+        - dropForeignKeyConstraint:
+            baseTableName: book_certificate
+            constraintName: fk_book_certificate_user
+        - addForeignKeyConstraint:
+            baseTableName: book_certificate
+            baseColumnNames: user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_book_certificate_user
+            onDelete: CASCADE
+        - dropForeignKeyConstraint:
+            baseTableName: book_request
+            constraintName: fk_book_request_decided_by
+        - addForeignKeyConstraint:
+            baseTableName: book_request
+            baseColumnNames: decided_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_book_request_decided_by
+            onDelete: SET NULL
+        - dropForeignKeyConstraint:
+            baseTableName: library_suggestion
+            constraintName: fk_library_suggestion_decided_by
+        - addForeignKeyConstraint:
+            baseTableName: library_suggestion
+            baseColumnNames: decided_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_library_suggestion_decided_by
+            onDelete: SET NULL
+        - dropForeignKeyConstraint:
+            baseTableName: translation_job
+            constraintName: fk_translation_job_approved_by
+        - addForeignKeyConstraint:
+            baseTableName: translation_job
+            baseColumnNames: approved_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_translation_job_approved_by
+            onDelete: SET NULL
+        - dropNotNullConstraint:
+            tableName: access_grant
+            columnName: granted_by_user_id
+            columnDataType: uuid
+        - dropForeignKeyConstraint:
+            baseTableName: access_grant
+            constraintName: fk_access_grant_operator
+        - addForeignKeyConstraint:
+            baseTableName: access_grant
+            baseColumnNames: granted_by_user_id
+            referencedTableName: user_core
+            referencedColumnNames: id
+            constraintName: fk_access_grant_operator
+            onDelete: SET NULL

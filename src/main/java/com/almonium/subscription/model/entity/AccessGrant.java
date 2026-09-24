@@ -35,7 +35,7 @@ public class AccessGrant {
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "granted_by_user_id", nullable = false)
+    @JoinColumn(name = "granted_by_user_id")
     User grantedBy;
 
     @Enumerated(EnumType.STRING)

@@ -88,6 +88,14 @@ rabbitmq:
       name: q.user.deleted.paddle
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.paddle.dlq
+    user-deleted-email:
+      name: q.user.deleted.email
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.email.dlq
+    user-deleted-book-imports:
+      name: q.user.deleted.book-imports
+      routing-key: user.deleted.v1
+      dlq-name: q.user.deleted.book-imports.dlq
 
 almo:
   open-ai:
