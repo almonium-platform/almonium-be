@@ -99,8 +99,8 @@ diagnose → re-encounter.
 
 | # | Task | Effort | Notes |
 |---|------|--------|-------|
-| 2.1 | Server-rendered public parallel-text pages | L | An Angular SPA will not rank. Static-generate or SSR these. One page per book, one per chapter. Full text, no login wall. This is your only acquisition channel that scales without you. |
-| 2.2 | Sitemap, canonical URLs, schema.org Book markup | S | |
+| 2.1 | Server-rendered public parallel-text pages | L | An Angular SPA will not rank reliably. Static-generate or SSR these. One page per book, one per chapter. Full text, no login wall. This is your only acquisition channel that scales without you. Plan, trigger and the browser-only code to audit: `almonium-fe/docs/SEO.md` step 5. |
+| 2.2 | ~~Sitemap, canonical URLs, schema.org Book markup~~ | S | Done 2026-09-24: `/sitemap.xml` (books and chapters), robots.txt, staging noindex, canonical and Book/Chapter JSON-LD. Search Console setup and the follow-ups are in `almonium-fe/docs/SEO.md`. |
 | 2.3 | Auto-generated “50 useful words from *Book*” pages | M | The Python processor publishes a versioned artifact containing ranked lemmas, counts, chapter dispersion, `wordfreq` provenance, and source occurrences. The backend stores/serves the projection and owns the SSR SEO route; it must not independently tokenize the book or recalculate frequency. |
 | 2.4 | Shareable/forkable word packs with public preview | M | Recipient previews without an account, imports selected items. Acquisition loop that needs no social graph. |
 | 2.5 | Study-buddy pairing on top of existing chat | M | Two people learning the same language, sharing packs, seeing each other's progress. Highest-retention social configuration and it needs density of two, not thousands. |
