@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Almonium · Voice audition</title>
+<style>
+:root{color-scheme:light;--paper:#f9f6f5;--ink:#302b30;--muted:#716671;--plum:#67375c}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:32px 22px}h1{font:42px Georgia,serif;margin:0 0 8px}h2{font:28px Georgia,serif}
+p{max-width:850px}.muted,small{color:var(--muted)}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:20px 0;position:sticky;top:0;background:var(--paper);z-index:2}
+button,select,input,textarea{font:inherit}button,select{min-height:44px;border-radius:22px;padding:9px 16px;border:1px solid #d8ccd5;background:white;color:var(--ink)}button{cursor:pointer}button.primary{background:var(--plum);color:white;border:0}
+button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #c697b9;outline-offset:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}.card{background:white;border-radius:24px;padding:22px;box-shadow:0 3px 14px #38212a08}.card h3{margin:0;font-size:18px}.copy{font-size:18px;min-height:48px}.ipa{font-family:system-ui,sans-serif}.card audio{width:100%;margin:12px 0}.rating{display:flex;gap:10px;flex-wrap:wrap}.rating label{font-size:13px;flex:1}.rating select{width:100%}textarea{width:100%;min-height:76px;padding:12px;border:1px solid #d8ccd5;border-radius:12px;margin-top:12px;resize:vertical}.notice{padding:18px 22px;background:#eee5ed;border-radius:18px}.error{color:#96334a}.hidden{display:none}.voice-detail{overflow-wrap:anywhere}.summary{margin:20px 0}.pill{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--plum)}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--paper:#221e23;--ink:#f5edf2;--muted:#bfb0bb;--plum:#b98cae}.card,button,select,textarea{background:#302932;color:var(--ink)}.notice{background:#382c38}.primary{color:#211921!important}}
+</style>
+<main>
+  <div class="pill">Almonium · listening lab</div>
+  <h1>Choose a voice you want to learn from.</h1>
+  <p>Start with a language you know. Listen to the same sample from A, B and C. Score naturalness and note mistakes. You can leave unfamiliar languages unrated.</p>
+  <div id="status" class="notice"></div>
+  <div class="toolbar">
+    <label>Language <select id="locale"></select></label>
+    <label>Pack <select id="section"><option value="custom">Our word & IPA tests</option><option value="demo">Google demo recordings</option></select></label>
+    <label><input type="checkbox" id="reveal"> Reveal voice names</label>
+    <button id="export" class="primary">Export feedback</button>
+    <button id="import">Import feedback</button><input id="file" type="file" accept="application/json" hidden>
+    <span id="saved" role="status" class="muted"></span>
+  </div>
+  <div class="summary card">
+    <label>Overall choice for this language <select id="favorite"><option value="">Undecided</option></select></label>
+    <textarea id="overall" aria-label="Overall feedback" placeholder="Overall preference, concerns, or another language you want tested…"></textarea>
+    <small>Feedback saves in this browser when local storage is available. Export it before closing and send the JSON back. This page makes no network requests.</small>
+  </div>
+  <div id="clips"></div>
+  <details style="margin-top:28px"><summary>What these tests establish</summary>
+    <p>Google demos help judge voice character. They are published vendor recordings, not evidence that our app’s IPA controls work. Our custom tests use the exact visible text and show any requested IPA. “Accepted by API” does not mean pronunciation has been checked by a speaker.</p>
+    <p>For <b>apple</b>, compare raw text and IPA for the same intended pronunciation. For <b>read</b>, raw text is ambiguous; the two overrides deliberately request present /riːd/ and past /rɛd/. They should differ. German and Ukrainian samples here use raw text; Ukrainian IPA overrides are not claimed to be supported.</p>
+    <p>Duration, decoding, level and near-full-scale checks are technical diagnostics. They cannot certify correct phonemes, stress or naturalness. Different hashes are normal and do not mean the pronunciation changed.</p>
+    <p>Recordings remain local. See GUIDE.md and manifest.json in this folder for sources, request settings, costs and technical measurements.</p>
+  </details>
+</main>
+<script>
+const pack=/*MANIFEST*/null;
+const storageKey='almonium-voice-audition-feedback-v1';
+let feedback={ratings:{},favorites:{},overall:{}};
+try{const old=JSON.parse(localStorage.getItem(storageKey));if(old?.ratings)feedback={...feedback,...old}}catch{}
+const $=id=>document.getElementById(id);
+const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n};
+const hash=s=>[...s].reduce((a,c)=>(Math.imul(a,31)+c.charCodeAt(0))>>>0,7);
+const voicesFor=locale=>[...new Set(pack.clips.filter(c=>c.locale===locale).map(c=>c.voiceId))].sort((a,b)=>hash(a)-hash(b));
+const label=c=>'Voice '+String.fromCharCode(65+voicesFor(c.locale).indexOf(c.voiceId));
+function persist(){try{localStorage.setItem(storageKey,JSON.stringify(feedback));$('saved').textContent='Saved in this browser'}catch{$('saved').textContent='Export to save feedback'}}
+const locales=[...new Set(pack.clips.map(c=>c.locale))].sort((a,b)=>{const x=pack.focus.indexOf(a),y=pack.focus.indexOf(b);return (x<0?100:x)-(y<0?100:y)||a.localeCompare(b)});
+for(const locale of locales){const o=el('option',locale);o.value=locale;$('locale').append(o)}
+$('section').value=pack.clips.some(c=>c.section==='custom')?'custom':'demo';
+$('status').textContent=`Custom tests: ${pack.customStatus}. Planned batch: ${pack.customPlan.requests} requests; conservative estimate $${pack.customPlan.estimatedUpperUsdBeforeFreeTier.toFixed(2)} before free allowance. Public demos require no API synthesis.`;
+function rating(row,key,title,choices){const wrap=el('label',title);const select=el('select');select.setAttribute('aria-label',`${title} ${row.id}`);for(const [value,name] of choices){const option=el('option',name);option.value=value;select.append(option)}select.value=feedback.ratings[row.id]?.[key]||'';select.onchange=()=>{feedback.ratings[row.id]={...feedback.ratings[row.id],[key]:select.value};persist()};wrap.append(select);return wrap}
+function render(){
+ const locale=$('locale').value,section=$('section').value,reveal=$('reveal').checked;
+ $('clips').replaceChildren();$('favorite').replaceChildren(el('option','Undecided'));$('favorite').firstChild.value='';
+ for(const voice of voicesFor(locale)){const o=el('option',reveal?voice:label({locale,voiceId:voice}));o.value=voice;$('favorite').append(o)}
+ $('favorite').value=feedback.favorites[locale]||'';$('overall').value=feedback.overall[locale]||'';
+ const rows=pack.clips.filter(c=>c.locale===locale&&c.section===section);
+ const groups=[...new Set(rows.map(c=>c.sample))];
+ if(!rows.length)$('clips').append(el('p','No clips in this pack for this language. Choose Google demos, or generate the custom pack.','notice'));
+ for(const sample of groups){$('clips').append(el('h2',sample));const grid=el('div',undefined,'grid');
+  for(const row of rows.filter(c=>c.sample===sample).sort((a,b)=>hash(a.voiceId)-hash(b.voiceId))){
+   const card=el('article',undefined,'card');card.append(el('h3',label(row)));
+   if(reveal)card.append(el('small',row.voiceId,'voice-detail'));
+   card.append(el('p',row.text,'copy'));if(row.ipa)card.append(el('p',`Requested IPA: /${row.ipa}/`,'ipa'));
+   if(row.file){const audio=el('audio');audio.controls=true;audio.preload='none';audio.src=row.file;audio.onplay=()=>document.querySelectorAll('audio').forEach(other=>{if(other!==audio)other.pause()});card.append(audio)}
+   if(row.error)card.append(el('p',row.error,'error'));
+   const ratings=el('div',undefined,'rating');ratings.append(rating(row,'naturalness','Naturalness',[['','Unrated'],['1','1 · Robotic'],['2','2'],['3','3 · Acceptable'],['4','4'],['5','5 · Natural']]));
+   ratings.append(rating(row,'pronunciation','Pronunciation',[['','Cannot judge'],['correct','Sounds correct'],['wrong','Wrong / doubtful']]));card.append(ratings);
+   const notes=el('textarea');notes.setAttribute('aria-label','Notes '+row.id);notes.placeholder='Which word, sound, stress, or pause bothered you?';notes.value=feedback.ratings[row.id]?.notes||'';notes.oninput=()=>{feedback.ratings[row.id]={...feedback.ratings[row.id],notes:notes.value};persist()};card.append(notes);
+   if(row.metrics){const d=el('details');d.append(el('summary','Technical checks'));d.append(el('pre',JSON.stringify(row.metrics,null,2)));card.append(d)}
+   grid.append(card);
+  }$('clips').append(grid);
+ }
+}
+for(const id of ['locale','section','reveal'])$(id).onchange=render;
+$('favorite').onchange=()=>{feedback.favorites[$('locale').value]=$('favorite').value;persist()};
+$('overall').oninput=()=>{feedback.overall[$('locale').value]=$('overall').value;persist()};
+$('export').onclick=()=>{const report={schemaVersion:1,exportedAt:new Date().toISOString(),...feedback,clips:pack.clips.map(({id,locale,voiceId,section,sample,ipa,file,metrics})=>({id,locale,voiceId,section,sample,ipa,file,sha256:metrics?.sha256}))};const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=el('a');a.href=url;a.download='almonium-voice-feedback.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+$('import').onclick=()=>$('file').click();$('file').onchange=async()=>{try{const value=JSON.parse(await $('file').files[0].text());if(!value.ratings||typeof value.ratings!=='object')throw Error();feedback={ratings:value.ratings,favorites:value.favorites||{},overall:value.overall||{}};persist();render()}catch{$('saved').textContent='Could not import that feedback file'}};
+render();
+</script>
+</html>
