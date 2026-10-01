@@ -10,6 +10,32 @@ import org.springframework.web.server.ResponseStatusException;
 
 class VoiceCatalogueTest {
     @Test
+    void coversEveryVarietyAndAllowsOnlyDocumentedProviderAliases() throws Exception {
+        var catalogue = new VoiceCatalogue();
+        assertThat(catalogue.list(null)).hasSize(LanguageVariety.values().length);
+        for (var language : com.almonium.analyzer.translator.model.enums.Language.values()) {
+            assertThat(catalogue.list(language).stream()
+                            .filter(row -> row.defaultVariety())
+                            .count())
+                    .isEqualTo(1);
+        }
+        assertThat(catalogue.requireVoice(LanguageVariety.NO).languageCode()).isEqualTo("nb-NO");
+        assertThat(catalogue.requireVoice(LanguageVariety.TL).languageCode()).isEqualTo("fil-PH");
+        assertThat(catalogue.requireVoice(LanguageVariety.FIL).voiceId()).isEqualTo("fil-ph-Neural2-D");
+        assertThat(catalogue.requireVoice(LanguageVariety.AR).languageCode()).isEqualTo("ar-XA");
+        assertThat(catalogue.requireVoice(LanguageVariety.SW).languageCode()).isEqualTo("sw-KE");
+        assertThat(catalogue.requireVoice(LanguageVariety.AF).gender()).isEqualTo(VoiceCatalogue.Gender.FEMALE);
+        var invalid = new VoiceCatalogue.Voice(
+                LanguageVariety.NO,
+                VoiceCatalogue.Provider.GOOGLE,
+                true,
+                "sv-SE",
+                "sv-SE-Chirp3-HD-Charon",
+                VoiceCatalogue.Gender.MALE);
+        assertThatThrownBy(() -> new VoiceCatalogue(List.of(invalid))).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void packagedCatalogueUsesNamedVoicesAndNeverSubstitutesUnavailableVarieties() throws Exception {
         VoiceCatalogue catalogue = new VoiceCatalogue();
         assertThat(catalogue.requireVoice(LanguageVariety.EN_GB).voiceId()).isEqualTo("en-GB-Chirp3-HD-Charon");
@@ -27,17 +53,27 @@ class VoiceCatalogueTest {
     @Test
     void rejectsDuplicateRoutesAndCrossVarietyVoicesAtStartup() {
         var british = new VoiceCatalogue.Voice(
-                LanguageVariety.EN_GB, VoiceCatalogue.Provider.GOOGLE, true, "en-GB", "en-GB-Chirp3-HD-Charon");
+                LanguageVariety.EN_GB,
+                VoiceCatalogue.Provider.GOOGLE,
+                true,
+                "en-GB",
+                "en-GB-Chirp3-HD-Charon",
+                VoiceCatalogue.Gender.MALE);
         assertThatThrownBy(() -> new VoiceCatalogue(List.of(british, british)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Duplicate");
         var substituted = new VoiceCatalogue.Voice(
-                LanguageVariety.DE_CH, VoiceCatalogue.Provider.GOOGLE, true, "de-DE", "de-DE-Chirp3-HD-Charon");
+                LanguageVariety.DE_CH,
+                VoiceCatalogue.Provider.GOOGLE,
+                true,
+                "de-DE",
+                "de-DE-Chirp3-HD-Charon",
+                VoiceCatalogue.Gender.MALE);
         assertThatThrownBy(() -> new VoiceCatalogue(List.of(substituted)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("de-CH");
-        var unnamed =
-                new VoiceCatalogue.Voice(LanguageVariety.EN_GB, VoiceCatalogue.Provider.GOOGLE, true, "en-GB", null);
+        var unnamed = new VoiceCatalogue.Voice(
+                LanguageVariety.EN_GB, VoiceCatalogue.Provider.GOOGLE, true, "en-GB", null, VoiceCatalogue.Gender.MALE);
         assertThatThrownBy(() -> new VoiceCatalogue(List.of(unnamed))).isInstanceOf(IllegalArgumentException.class);
     }
 }

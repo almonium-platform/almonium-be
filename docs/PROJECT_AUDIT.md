@@ -282,3 +282,8 @@ and settings carry the preference. TTS uses explicit named Google voices from
 instead of silently borrowing another region's voice. See
 [Variety and pronunciation foundation](VARIETY_AND_TTS.md) for configuration,
 rollout semantics, and the boundary with future Discover and cached audio work.
+
+As of 2026-10-01 every variety has an explicit TTS route (61 enabled, 85
+unavailable). Authenticated `/lang/voices` and `/lang/voices/{language}` endpoints
+expose the complete capability catalogue, including defaults and unavailable
+choices. Web and mobile API adapters share this additive contract.

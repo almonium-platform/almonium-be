@@ -4,188 +4,1167 @@
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "en-US",
-    "voiceId": "en-US-Chirp3-HD-Charon"
+    "voiceId": "en-US-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "en-GB",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "en-GB",
-    "voiceId": "en-GB-Chirp3-HD-Charon"
+    "voiceId": "en-GB-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "en-AU",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "en-AU",
-    "voiceId": "en-AU-Chirp3-HD-Charon"
+    "voiceId": "en-AU-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "en-IN",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "en-IN",
-    "voiceId": "en-IN-Chirp3-HD-Charon"
+    "voiceId": "en-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "es-ES",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "es-ES",
-    "voiceId": "es-ES-Chirp3-HD-Charon"
+    "voiceId": "es-ES-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "es-MX",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "es-MX",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "es-AR",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "es-AR",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "es-CO",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "es-CO",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "pt-BR",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "pt-BR",
-    "voiceId": "pt-BR-Chirp3-HD-Charon"
+    "voiceId": "pt-BR-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "pt-PT",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "pt-PT",
-    "voiceId": "pt-PT-Wavenet-F"
+    "voiceId": "pt-PT-Wavenet-F",
+    "gender": "MALE"
   },
   {
     "variety": "fr-FR",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "fr-FR",
-    "voiceId": "fr-FR-Chirp3-HD-Charon"
+    "voiceId": "fr-FR-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "fr-CA",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "fr-CA",
-    "voiceId": "fr-CA-Chirp3-HD-Charon"
+    "voiceId": "fr-CA-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "fr-BE",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "fr-BE",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "fr-CH",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "fr-CH",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "de-DE",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "de-DE",
-    "voiceId": "de-DE-Chirp3-HD-Charon"
+    "voiceId": "de-DE-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "de-AT",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "de-AT",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "de-CH",
     "provider": "GOOGLE",
     "enabled": false,
-    "languageCode": "de-CH",
-    "voiceId": null
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "nl-NL",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "nl-NL",
-    "voiceId": "nl-NL-Chirp3-HD-Charon"
+    "voiceId": "nl-NL-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "nl-BE",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "nl-BE",
-    "voiceId": "nl-BE-Chirp3-HD-Charon"
+    "voiceId": "nl-BE-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "zh-CN",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "cmn-CN",
-    "voiceId": "cmn-CN-Chirp3-HD-Charon"
+    "voiceId": "cmn-CN-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "zh-TW",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "cmn-TW",
-    "voiceId": "cmn-TW-Wavenet-B"
+    "voiceId": "cmn-TW-Wavenet-B",
+    "gender": "MALE"
+  },
+  {
+    "variety": "af",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "af-ZA",
+    "voiceId": "af-ZA-Standard-A",
+    "gender": "FEMALE"
+  },
+  {
+    "variety": "sq",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "am",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ar",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ar-XA",
+    "voiceId": "ar-XA-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "hy",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "as",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ay",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "az",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "bm",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "eu",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "eu-ES",
+    "voiceId": "eu-ES-Standard-B",
+    "gender": "FEMALE"
+  },
+  {
+    "variety": "be",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "bn",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "bn-IN",
+    "voiceId": "bn-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "bho",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "bs",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "bg",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "bg-BG",
+    "voiceId": "bg-BG-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ca",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ca-ES",
+    "voiceId": "ca-ES-Standard-B",
+    "gender": "FEMALE"
+  },
+  {
+    "variety": "ceb",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "co",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "hr",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "hr-HR",
+    "voiceId": "hr-HR-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "cs",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "cs-CZ",
+    "voiceId": "cs-CZ-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "da",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "da-DK",
+    "voiceId": "da-DK-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "dv",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "doi",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "eo",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "et",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "et-EE",
+    "voiceId": "et-EE-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ee",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "fil",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "fil-PH",
+    "voiceId": "fil-ph-Neural2-D",
+    "gender": "MALE"
+  },
+  {
+    "variety": "fi",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "fi-FI",
+    "voiceId": "fi-FI-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "fy",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "gl",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "gl-ES",
+    "voiceId": "gl-ES-Standard-B",
+    "gender": "FEMALE"
+  },
+  {
+    "variety": "ka",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "el",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "el-GR",
+    "voiceId": "el-GR-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "gn",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "gu",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "gu-IN",
+    "voiceId": "gu-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ht",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ha",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "haw",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "he",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "he-IL",
+    "voiceId": "he-IL-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "hi",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "hi-IN",
+    "voiceId": "hi-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "hmn",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "hu",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "hu-HU",
+    "voiceId": "hu-HU-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "is",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "is-IS",
+    "voiceId": "is-IS-Standard-B",
+    "gender": "FEMALE"
+  },
+  {
+    "variety": "ig",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ilo",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "id",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "id-ID",
+    "voiceId": "id-ID-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ga",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "it-IT",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "it-IT",
-    "voiceId": "it-IT-Chirp3-HD-Charon"
+    "voiceId": "it-IT-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "ja-JP",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "ja-JP",
-    "voiceId": "ja-JP-Chirp3-HD-Charon"
+    "voiceId": "ja-JP-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "jv",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "kn",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "kn-IN",
+    "voiceId": "kn-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "kk",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "km",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "rw",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "gom",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "ko-KR",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "ko-KR",
-    "voiceId": "ko-KR-Chirp3-HD-Charon"
+    "voiceId": "ko-KR-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "kri",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ku",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ckb",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ky",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "lo",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "la",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "lv",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "lv-LV",
+    "voiceId": "lv-LV-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ln",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "lt",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "lt-LT",
+    "voiceId": "lt-LT-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "lg",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "lb",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mk",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mai",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mg",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ms",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ms-MY",
+    "voiceId": "ms-MY-Wavenet-B",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ml",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ml-IN",
+    "voiceId": "ml-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "mt",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mi",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mr",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "mr-IN",
+    "voiceId": "mr-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "lus",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "mn",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "my",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ne",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "no",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "nb-NO",
+    "voiceId": "nb-NO-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ny",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "or",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "om",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ps",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "fa",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "pl-PL",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "pl-PL",
-    "voiceId": "pl-PL-Chirp3-HD-Charon"
+    "voiceId": "pl-PL-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "pa",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "pa-IN",
+    "voiceId": "pa-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "qu",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ro",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ro-RO",
+    "voiceId": "ro-RO-Chirp3-HD-Charon",
+    "gender": "MALE"
   },
   {
     "variety": "ru-RU",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "ru-RU",
-    "voiceId": "ru-RU-Chirp3-HD-Charon"
+    "voiceId": "ru-RU-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "sm",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sa",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "gd",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "nso",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sr",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "sr-RS",
+    "voiceId": "sr-RS-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "st",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sn",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sd",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "si",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sk",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "sk-SK",
+    "voiceId": "sk-SK-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "sl",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "sl-SI",
+    "voiceId": "sl-SI-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "so",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "su",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "sw",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "sw-KE",
+    "voiceId": "sw-KE-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "sv",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "sv-SE",
+    "voiceId": "sv-SE-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "tl",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "fil-PH",
+    "voiceId": "fil-ph-Neural2-D",
+    "gender": "MALE"
+  },
+  {
+    "variety": "tg",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ta",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ta-IN",
+    "voiceId": "ta-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "tt",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "te",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "te-IN",
+    "voiceId": "te-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "th",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "th-TH",
+    "voiceId": "th-TH-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ti",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ts",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "tr",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "tr-TR",
+    "voiceId": "tr-TR-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "tk",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "ak",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   },
   {
     "variety": "uk-UA",
     "provider": "GOOGLE",
     "enabled": true,
     "languageCode": "uk-UA",
-    "voiceId": "uk-UA-Chirp3-HD-Charon"
+    "voiceId": "uk-UA-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ur",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "ur-IN",
+    "voiceId": "ur-IN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "ug",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "uz",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "vi",
+    "provider": "GOOGLE",
+    "enabled": true,
+    "languageCode": "vi-VN",
+    "voiceId": "vi-VN-Chirp3-HD-Charon",
+    "gender": "MALE"
+  },
+  {
+    "variety": "cy",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "xh",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "yi",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "yo",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
+  },
+  {
+    "variety": "zu",
+    "provider": "GOOGLE",
+    "enabled": false,
+    "languageCode": null,
+    "voiceId": null,
+    "gender": null
   }
 ]

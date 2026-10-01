@@ -1,8 +1,11 @@
 package com.almonium.analyzer.translator.service;
 
+import com.almonium.analyzer.translator.dto.VoiceAvailabilityDto;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.analyzer.translator.model.enums.LanguageVariety;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +23,27 @@ public class VoiceCatalogue {
         GOOGLE
     }
 
+    public enum Gender {
+        MALE,
+        FEMALE,
+        NEUTRAL
+    }
+
     public record Voice(
-            LanguageVariety variety, Provider provider, boolean enabled, String languageCode, String voiceId) {}
+            LanguageVariety variety,
+            Provider provider,
+            boolean enabled,
+            String languageCode,
+            String voiceId,
+            Gender gender) {}
 
     public VoiceCatalogue() throws IOException {
         this(readVoices());
+        for (LanguageVariety variety : LanguageVariety.values()) {
+            if (!voices.containsKey(variety)) {
+                throw new IllegalArgumentException("Missing TTS route: " + variety.getTag());
+            }
+        }
     }
 
     VoiceCatalogue(List<Voice> entries) {
@@ -42,6 +61,8 @@ public class VoiceCatalogue {
                         switch (voice.variety()) {
                             case ZH_CN -> "cmn-CN";
                             case ZH_TW -> "cmn-TW";
+                            case NO -> "nb-NO";
+                            case TL -> "fil-PH";
                             default -> voice.variety().getTag();
                         };
                 // Bare language tags may select a regional voice of that language; explicitly regional
@@ -51,8 +72,16 @@ public class VoiceCatalogue {
                                 && voice.languageCode() != null
                                 && voice.languageCode().startsWith(expectedCode + "-"));
                 if (!matches
+                        || voice.gender() == null
                         || voice.voiceId() == null
-                        || !voice.voiceId().startsWith(voice.languageCode() + "-")
+                        // Google publishes Filipino Neural2 IDs with lowercase "ph".
+                        || !voice.voiceId()
+                                .regionMatches(
+                                        true,
+                                        0,
+                                        voice.languageCode() + "-",
+                                        0,
+                                        voice.languageCode().length() + 1)
                         || voice.voiceId()
                                 .substring(voice.languageCode().length() + 1)
                                 .isBlank()) {
@@ -62,6 +91,28 @@ public class VoiceCatalogue {
             }
         }
         voices = Map.copyOf(routes);
+    }
+
+    /** Ordered by language enum, then variety display order. No provider requests are made. */
+    public List<VoiceAvailabilityDto> list(Language language) {
+        return Arrays.stream(Language.values())
+                .filter(candidate -> language == null || candidate == language)
+                .flatMap(candidate -> LanguageVariety.forLanguage(candidate).stream())
+                .map(variety -> {
+                    Voice voice = voices.get(variety);
+                    boolean available = voice != null && voice.enabled();
+                    return new VoiceAvailabilityDto(
+                            variety.getLanguage(),
+                            variety,
+                            LanguageVariety.defaultFor(variety.getLanguage()).orElseThrow() == variety,
+                            available,
+                            available ? null : "NO_ENABLED_VOICE",
+                            available ? voice.provider() : null,
+                            available ? voice.languageCode() : null,
+                            available ? voice.voiceId() : null,
+                            available ? voice.gender() : null);
+                })
+                .toList();
     }
 
     private static List<Voice> readVoices() throws IOException {
