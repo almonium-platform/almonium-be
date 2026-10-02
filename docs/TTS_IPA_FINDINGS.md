@@ -293,19 +293,22 @@ guess:
   /t/, sv-SE-Mattias mangles the stressed clips, ru-RU-Dmitry clips the word.
   The made-up syllables may sit badly in those sound systems; real words need
   testing before these routes are trusted.
-- The seven the machine could not call (af, bn, gu, kn, ml, sr, sl) are not
-  judged yet.
+- Of the seven the machine could not call: sl-SI-Rok is close to the probe word
+  and counts as following; gu-IN-Niranjan says something like "sojakel", so it
+  probably follows with a wrong consonant; af, bn, kn, ml and sr do not follow.
 
 Voices heard to follow IPA on Azure: en-US, en-GB, en-AU, en-IN, es-ES, pt-BR,
 pt-PT, fr-FR, fr-CA, de-DE, nl-NL, nl-BE, zh-CN, zh-TW, ar-EG, bg-BG, ca-ES,
 hr-HR, cs-CZ, da-DK, fi-FI, el-GR, he-IL, hi-IN, hu-HU, id-ID, it-IT, ja-JP,
 ko-KR, ms-MY, mr-IN, nb-NO, pl-PL, pa-IN, ro-RO, ru-RU, sk-SK, sv-SE, ta-IN,
-te-IN, th-TH, tr-TR, uk-UA, ur-IN, vi-VN. Not following: eu-ES, et-EE, fil-PH,
-gl-ES, is-IS, lv-LV, lt-LT, sw-KE.
+te-IN, th-TH, tr-TR, uk-UA, ur-IN, vi-VN, sl-SI, and gu-IN doubtfully. Not
+following: eu-ES, et-EE, fil-PH, gl-ES, is-IS, lv-LV, lt-LT, sw-KE, af-ZA,
+bn-IN, kn-IN, ml-IN, sr-RS.
 
 Across both providers, every enabled variety except Basque, Estonian, Galician,
 Lithuanian and Swahili now has at least one voice heard to speak the IPA it is
-given.
+given. Afrikaans, Bengali, Filipino, Icelandic, Latvian and Serbian are covered
+by an older Google voice, Kannada and Malayalam by Chirp.
 
 ## Checking audio by machine
 
