@@ -494,7 +494,15 @@ What this establishes for ElevenLabs with native voices:
   the better input. The owner suspects the same Russian influence.
 - The voice can slip into Russian on a word the two languages share: bare
   `дорога` and `дорога́` both did, with `language_code` set to `uk`. The stress
-  mark fixed one and not the other. This is not controlled yet.
+  mark fixed one and not the other.
+- That slip belongs to the voice. Ten words shared with Russian, each with a
+  stress mark, on three Ukrainian voices (`elevenlabs-native/uk-voices.html`,
+  `scripts/tts_research/elevenlabs_uk_voices.py`): Alex Nekrasov was the clear
+  winner with nine of ten right, and Evgeniy Shevchenko, used until then,
+  sounds Russian. Alex Nekrasov is the Ukrainian voice from here on. A voice
+  being listed as Ukrainian says nothing about how Ukrainian it sounds.
+- The tenth word, `кни́га`, came out "кнііга" on all three voices. So the
+  stress mark on "и" breaks the vowel in the model, not in one voice.
 - So "send the IPA we show" does not hold for every route. Where the spelling
   plus a stress mark is the input, the sounds come from the engine's own
   reading of the spelling, and the IPA we display has to agree with that

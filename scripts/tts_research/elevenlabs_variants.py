@@ -5,7 +5,7 @@ written /ɪ/ came out as Russian "и") and Italian `ancora` kept its stress on C
 word; each column is one way of writing it: bare spelling, spelling with a stress mark, or IPA
 with a different symbol for the doubtful sound.
 
-Usage: elevenlabs_variants.py <output folder>   (run from the backend repository root)
+Usage: elevenlabs_variants.py <output folder> [language codes]   (run from the backend repository root)
 """
 import sys, html, time
 from pathlib import Path
@@ -19,7 +19,7 @@ out = Path(sys.argv[1])
 out.mkdir(parents=True, exist_ok=True)
 KEY = next(l.split("=", 1)[1].strip() for l in (ROOT / ".env").read_text().splitlines() if l.startswith("ELEVENLABS_API_KEY="))
 MODEL = "eleven_v4"
-VOICES = {"uk": ("Evgeniy Shevchenko", "Ntd0iVwICtUtA6Fvx27M"), "it": ("MarcoTrox", "W71zT1VwIFFx3mMGH2uZ")}
+VOICES = {"uk": ("Alex Nekrasov", "9Sj8ugvpK1DmcAXyvi3a"), "it": ("MarcoTrox", "W71zT1VwIFFx3mMGH2uZ")}
 spent = [0]
 
 # (language, word and what to listen for, [(how it was written, text sent)])
@@ -29,6 +29,7 @@ ROWS = [
     ("uk", "мити: и та и", [("bare", "мити"), ("stress mark", "ми́ти"), ("IPA ɪ", "/ˈmɪ.tɪ/"), ("IPA ɨ", "/ˈmɨ.tɨ/")]),
     ("uk", "криниця: криНИця", [("bare", "криниця"), ("stress mark", "крини́ця"), ("IPA ɪ", "/krɪ.ˈnɪ.tsʲa/"), ("IPA ɨ", "/krɨ.ˈnɨ.tsʲa/")]),
     ("uk", "паляниця: паляНИця", [("bare", "паляниця"), ("stress mark", "паляни́ця"), ("IPA ɪ", "/pa.lʲa.ˈnɪ.tsʲa/"), ("IPA ɨ", "/pa.lʲa.ˈnɨ.tsʲa/")]),
+    ("uk", "книга: и під наголосом", [("bare", "книга"), ("stress mark", "кни́га"), ("IPA ɪ", "/ˈknɪ.ɦa/"), ("IPA ɨ", "/ˈknɨ.ɦa/")]),
     ("uk", "Укрзалізниця", [("bare", "Укрзалізниця"), ("stress mark", "Укрзалізни́ця"), ("IPA ɪ", "/ukr.za.lʲiz.ˈnɪ.tsʲa/")]),
     ("uk", "замок, фортеця: ЗАмок", [("bare", "замок"), ("stress mark", "за́мок"), ("IPA", "/ˈza.mɔk/")]),
     ("uk", "замок, дверний: заМОК", [("stress mark", "замо́к"), ("IPA", "/za.ˈmɔːk/")]),
@@ -61,6 +62,8 @@ def eleven(text, language):
 STYLE = "<style>body{font:16px system-ui;max-width:1100px;margin:30px auto;padding:0 16px}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:8px 6px;vertical-align:top;text-align:left}audio{width:150px;height:32px}small{color:#666}@media(prefers-color-scheme:dark){body{background:#221e23;color:#f5edf2}td,th{border-color:#444}small{color:#bbb}}</style>"
 page = f"<!doctype html><meta charset=utf-8><title>ElevenLabs: ways of writing a word</title>{STYLE}<h1>One word, written several ways</h1><p>Each row is one word spoken by a native voice. Each clip was sent the text shown above it: the bare spelling, the spelling with a stress mark, or IPA.</p><table>"
 for n, (code, label, variants) in enumerate(ROWS):
+    if sys.argv[2:] and code not in sys.argv[2:]:
+        continue
     cells = ""
     for k, (how, text) in enumerate(variants):
         audio = eleven(text, code)

@@ -27,7 +27,7 @@ ONLY = sys.argv[2:]
 # language -> (voice name, voice id); every one but English is a library voice
 VOICES = {"en": ("Eric", "cjVigY5qzO86Huf0OWal"), "de": ("Otto", "FTNCalFNG5bRnkkaP5Ug"),
           "fr": ("Nicolas", "aQROLel5sQbj1vuIVi6B"), "es": ("David Martin", "Nh2zY9kknu6z4pZy6FhD"),
-          "it": ("MarcoTrox", "W71zT1VwIFFx3mMGH2uZ"), "uk": ("Evgeniy Shevchenko", "Ntd0iVwICtUtA6Fvx27M"),
+          "it": ("MarcoTrox", "W71zT1VwIFFx3mMGH2uZ"), "uk": ("Alex Nekrasov", "9Sj8ugvpK1DmcAXyvi3a"),
           "pl": ("Adam", "hIssydxXZ1WuDorjx6Ic")}
 google = session(ROOT / ".env")
 spent = [0]
