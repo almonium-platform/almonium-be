@@ -173,8 +173,9 @@ nl-BE is on Google's exclusion list and was accepted anyway.
 | Sounds only | cs | cs-CZ-Wavenet-B | `ɔ a ɛ` with `s m k l` |
 | Sounds only | hu | hu-HU-Wavenet-B | `a i u` with `s m k l` |
 | Sounds only | sk | sk-SK-Wavenet-B | `a i u` with `s m k l` |
-| IPA not followed | bn, gu, lv, lt, pa, sr, sv, gl, is, ms | WaveNet or Standard | bytes differ from plain text but are identical across IPA strings |
-| IPA not followed | et, fi, el, he, no, th, vi, zh-TW, eu | WaveNet, Neural2 or Standard | identical to plain text in six symbol sets |
+| Said the text on the sheets, but unfairly tested | bn, lv, lt, pa, sr, sv, is, ms, fi, he, no | WaveNet or Standard | see "Sound lists discovered by bytes": the stress mark or an out-of-list vowel made them drop the IPA; relisten pending |
+| Unresolved | et, gl, gu | WaveNet or Standard | byte results implausible |
+| IPA not accepted at all | el, th, vi, zh-TW, eu | WaveNet, Neural2 or Standard | no symbol pair ever differs from the fallback |
 
 Czech, Hungarian and Slovak have fixed first-syllable stress, so a voice that
 will not stress another syllable is behaving correctly for the language. No
@@ -189,6 +190,66 @@ older voice exists for hr, sl, sw.
 | IPA sounds only, stress not audible | 7 older |
 | Voice exists, IPA not followed or refused | 22 |
 | Needs another notation or hand-built sounds | 6 |
+
+## Sound lists discovered by bytes
+
+Google publishes no phoneme table for most languages the older voices cover,
+because the phoneme tag is not officially supported there. The lists can be
+recovered anyway. An older voice that cannot use the IPA speaks the text inside
+the tag, and that fallback audio is the same whatever the IPA said. So a symbol
+is accepted exactly when a string containing it produces audio that is not the
+fallback. `scripts/tts_research/discover_inventory.py` samples the fallback with
+impossible IPA, finds one working consonant and vowel, then tests about 130
+symbols one at a time inside that frame.
+
+The recovered lists look like the languages: Ukrainian has the palatalized
+series and /ɦ/, Hungarian /c ɟ ɲ/ and front rounded vowels, Norwegian and
+Swedish the retroflexes, Icelandic the aspirated stops, Finnish /ɑ æ y ø ʋ/.
+
+| Voice | Consonants | Vowels | Stress mark | Length mark |
+|---|---|---|---|---|
+| uk-UA-Wavenet-B | p b t d k g ɡ m n f v s z ʃ ʒ x ɦ ts dz tʃ dʒ ʧ ʤ ʦ l r j rʲ lʲ nʲ tʲ dʲ sʲ | a ɛ i ɪ ɔ u ai au aɪ ɔɪ | accepted, moves | no |
+| da-DK-Wavenet-G | p b t d k g ɡ m n ŋ f v s h θ ð ɕ ts tɕ ʦ l ɹ ʁ j w sʲ | a ɑ e ɛ ə i y ø œ o ɔ u ɒ aː eː iː oː uː ɛː ɔː ɑː yː øː ai au ei ou oi | accepted, moves | yes |
+| fil-ph-Neural2-D | p b t d k g ɡ ʔ m n ŋ ɲ f v s z ʃ ʒ h θ ð ts dz tʃ dʒ ʧ ʤ ʦ l ɾ j w | a ɛ ə i o ʊ ʌ ai au ei ou oi aʊ oʊ əʊ | accepted, moves | no |
+| af-ZA-Standard-A | p b t d k g ɡ m n ŋ f v s z ʃ ʒ x h θ ð ts dz tʃ dʒ ʧ ʤ ʦ l r ɹ j w | a æ ɐ ɛ ə i ɪ y œ ɔ u ʊ ʌ ɒ iː uː ɔː ɑː øː æː ai au aɪ aʊ eɪ ɔɪ əʊ | accepted, moves | no |
+| bg-BG-Standard-B | p b t d k g ɡ m n f v s z ʃ ʒ x ts dz tʃ dʒ ʧ ʤ ʦ ɫ ʎ r j rʲ nʲ tʲ dʲ sʲ | a ɛ i o u ɤ ai au ou oi | accepted, moves | no |
+| cs-CZ-Wavenet-B | p b t d k g ɡ ʔ m n ŋ ɲ f v s z ʃ ʒ x ɣ ɦ θ ç ʑ ts dz tʃ dʒ ʧ ʤ ʦ l r ɹ j w c ɟ ɽ pʰ z̪ lʲ sʲ | a æ ɛ ə ɪ ɔ u ʌ ɤ aː iː uː ɛː ɔː au ei aɪ ɔɪ | accepted, moves | yes |
+| hu-HU-Wavenet-B | p b t d k g ɡ m n ɲ f v s z ʃ ʒ h ts dz tʃ dʒ ʧ ʤ ʦ l r j c ɟ | a ɛ ə i y ø o u ɒ aː eː iː oː uː yː øː ai au ou oi | accepted, moves | yes |
+| sk-SK-Wavenet-B | p b t d k g ɡ m n ɲ f v s z ʃ ʒ x ɦ θ ts dz tʃ dʒ ʧ ʤ ʦ l ʎ r ɹ j w c ɟ | a ɛ ə i ɔ u aː iː uː ɛː ɔː ai au | accepted, moves | yes |
+| ro-RO-Wavenet-B | p b t d k g ɡ m n f v s z ʃ ʒ h ts dz tʃ dʒ ʧ ʤ ʦ l r j w | a e ə i ɨ o u ai au ei ou oi | accepted, moves | no |
+| fi-FI-Wavenet-B | p b t d k g ɡ ʔ m n ŋ f s ʃ ʒ h ts tʃ dʒ ʧ ʤ ʦ l r j ʋ t̪ | ɑ æ e ə i y ø o u eː iː oː uː ɑː yː øː æː ei ou oi | accepted, moves | yes |
+| he-IL-Wavenet-B | p b t d k g ɡ ʔ m n ŋ f v s z ʃ ʒ x h ɦ θ ð ts dz tʃ dʒ ʧ ʤ ʦ l ɹ ʁ ʀ j w ɖ tʰ dʰ t̪ rʲ tʲ dʲ | ɐ i y u eː ẽ au ou aɪ | accepted, moves | no |
+| nb-NO-Wavenet-G | p b t d k g ɡ m n ŋ ɳ f v s z ʃ x h ð ç ʂ ts dz tʃ dʒ tʂ ʧ ʤ ʦ l ɾ j ʈ ɖ ɽ | ɑ æ ɛ ə ɪ ʏ œ ɔ ʊ eː iː oː uː ɑː yː øː æː ɔɪ əʊ | **drops the IPA** | yes |
+| sv-SE-Wavenet-C | p b t d k g ɡ m n ŋ ɳ f v s h θ ð ʂ ɕ ts tɕ tʂ ʦ l r ɹ w ʈ ɖ | a æ ɛ i ɪ y ʏ ø œ ɔ ʊ eː iː oː uː ɛː ɔː ɑː yː øː ai aɪ aʊ ɔɪ | **drops the IPA** | yes |
+| is-IS-Standard-B | p t k m n ŋ ɲ f v s x ɣ h θ ð ç ts ʦ l r j c pʰ tʰ kʰ | a ɛ i ɪ ʏ œ ɔ u aː iː uː ɛː ɔː ai au ei ou aɪ aʊ ɔɪ | **drops the IPA** | yes |
+| lv-LV-Standard-B | p b t d k g ɡ m n ɲ f v s z ʃ ʒ x ts dz tʃ dʒ ʧ ʤ ʦ l ʎ r j c ɟ | a æ ɛ ə i ɔ u aː iː uː ɛː æː ai au | **drops the IPA** | yes |
+| lt-LT-Standard-B | p b t d k g ɡ m n ŋ ɲ f s z ʃ ʒ x ɣ θ ʐ ts dz tʃ dʒ tɕ ʧ ʤ ʦ l ɫ ɾ j ʋ c ɖ ɸ bʰ t̪ z̪ rʲ lʲ nʲ sʲ | æ ɐ e ɛ i ɪ o ɔ ʊ ʌ ɤ aː eː iː oː uː ɑː øː æː ɔ̃ ẽ ai au ei oʊ ɔɪ əʊ | **drops the IPA** | yes |
+| sr-RS-Standard-B | p b t d k g ɡ m n ɲ f v s z ʃ ʒ x ʂ ʐ ts dz tʃ dʒ tɕ dʑ tʂ dʐ ʧ ʤ ʦ l ʎ r j ʋ | a e ə i o u aː eː iː oː uː ai au ei ou oi | **drops the IPA** | yes |
+| ms-MY-Wavenet-B | p b t d k g ɡ ʔ m n ŋ ɲ f v s z ʃ ʒ x ɣ h θ ð ç ts dz tʃ dʒ ʧ ʤ ʦ l ʎ r j w ʋ s̪ sʲ | a æ ɐ e ɛ ə i ɪ œ o u ɛ̃ ɑ̃ ai au ei ou oi aɪ aʊ ɔɪ | **drops the IPA** | no |
+| bn-IN-Wavenet-B | p b k g ɡ m n ŋ f s z ʃ h tʃ dʒ ʧ ʤ l r ʈ ɖ ɽ pʰ kʰ bʰ gʰ t̪ d̪ | a æ e ə i o ɔ u ã ɔ̃ õ ẽ ai au ei ou oi | **drops the IPA** | no |
+| pa-IN-Wavenet-B | p b k g ɡ m ŋ ɳ f s z ʃ x ɣ h tʃ dʒ ʧ ʤ l ɾ j ʋ ʈ ɖ ɽ pʰ kʰ t̪ d̪ n̪ | a e ɛ ə i ɪ o ɔ u ʊ ã ɛ̃ ɔ̃ õ ẽ ai au ei ou oi aɪ aʊ eɪ oʊ ɔɪ əʊ | **drops the IPA** | no |
+
+What this corrected: the ten voices marked "IPA not followed" on the earlier
+sheets were never given a fair clip. Every clip the owner heard for them carried
+a stress mark, and for these voices **the stress mark itself is an unknown
+symbol that makes the voice drop the whole IPA**. Without the mark their sounds
+should follow the IPA. That awaits a listen in `older-round3/index.html`, along
+with Finnish, Hebrew and Norwegian, which were written off because the probe
+used vowels outside their lists (Finnish has /ɑ/, not /a/).
+
+Notes on the rest:
+
+- pt-PT-Wavenet-F and ca-ES-Standard-B accepted every one of the 130 symbols.
+  They do not validate, so their list cannot be recovered this way.
+- et-EE-Standard-A, gl-ES-Standard-B and gu-IN-Wavenet-B returned small,
+  implausible sets. Treat them as unresolved.
+- cmn-TW, el-GR, eu-ES, th-TH and vi-VN accepted nothing: no consonant and vowel
+  pair ever differed from the fallback. Chinese, Thai and Vietnamese are tonal
+  and likely need another notation.
+
+Build consequence: before sending IPA to an older voice, check every symbol
+against that voice's list and strip the stress mark where it is not accepted.
+After synthesis, run the IPA-against-IPA byte check as the safety net.
 
 ## Checking audio by machine
 
@@ -250,6 +311,7 @@ Scripts, all in `scripts/tts_research/`, each taking an output folder:
 | `older_voices_sheet.py` | The same sheet for WaveNet, Neural2 and Standard voices through the phoneme tag |
 | `byte_test.py` | Samples each older voice and compares hash sets |
 | `byte_test2.py` | Retries six symbol sets per voice and tests stress with the set that works |
+| `discover_inventory.py` | Recovers each older voice's accepted consonants, vowels, stress and length marks from bytes; writes `older-all/inventory.json` |
 | `stress_eval.py` | Forced alignment and per-syllable measures against ear labels |
 
 `scripts/tts_audition.py` is the earlier three-voice audition generator.
