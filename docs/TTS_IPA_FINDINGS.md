@@ -322,6 +322,27 @@ given. Those five get plain audio only. Swahili is the one large language among
 them. Afrikaans, Bengali, Filipino, Icelandic, Latvian and Serbian are covered
 by an older Google voice, Kannada and Malayalam by Chirp.
 
+## Azure for languages with no Google voice (not yet heard)
+
+After the language list grew to 328, Azure's catalogue was matched against it:
+95 languages have an Azure voice, and 41 of those have no Google voice in the
+app. `scripts/tts_research/azure_new_languages.py` ran the probe on one male
+voice for each (38 distinct voices). By machine transcription only:
+
+- Probably follows IPA (12): Assamese, Odia, Cantonese, Swiss Standard German,
+  and the Arabic country voices for Egypt, Jordan, Iraq, Libya, Morocco,
+  Tunisia, Saudi Arabia and Yemen.
+- Probably reads the text (19): Albanian, Armenian, Azerbaijani, Bosnian,
+  Irish, Javanese, Kazakh, Khmer, Macedonian, Maltese, Mongolian, Persian,
+  Sinhala, Somali, Sundanese, Uzbek, Welsh, Wu Chinese, Zulu.
+- Unclear (7): Algerian Arabic, Amharic, Georgian, Lao, Burmese, Nepali, Pashto.
+
+Caveats on the matching: Azure's Arabic voices are tagged by country and mostly
+read Standard Arabic with a regional accent, so they are a loose fit for the
+colloquial languages; `de-CH` is Swiss Standard German, not Alemannic; three
+Yemeni varieties share one voice. The sheet is `azure-new/index.html`. The
+remaining 233 languages have no voice from either provider.
+
 ## Checking audio by machine
 
 Tried against clips the owner had labelled by ear. None replaces a listener for
