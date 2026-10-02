@@ -86,6 +86,21 @@ ESLint (one existing generated `.expo` warning), Vitest (143 tests), and
 HTTP/component fixtures. No check called Google synthesis, so voice existence
 and quality are still listening and vendor-catalogue checks.
 
+## Wider language list (2026-10-02)
+
+The original 132 languages were a translator's catalogue from 2022, not a
+product decision. 196 more were added so that no language with about a million
+native speakers is missing: 328 languages and 342 varieties in total. The
+additions came from Wikidata speaker counts, keyed by ISO 639-1 where a code
+exists and ISO 639-3 otherwise. Each has one bare-tag variety and a disabled
+voice entry; none has audio. Members of a macrolanguage already listed (Northern
+Uzbek, Bokmål, Kurmanji and the like) were not added again, with two deliberate
+exceptions: the Chinese languages (Cantonese, Wu, Hakka, the Min group and
+others) and the spoken Arabic languages (Egyptian, Levantine, Moroccan and
+others), which learners study as languages of their own. Isan's ISO code is
+`tts`, so `Language.TTS` is a language and not text-to-speech. The counts in
+the section below describe the list before this change.
+
 ## Complete coverage and API (2026-10-01)
 
 All 132 languages / 146 varieties now have explicit configuration entries.

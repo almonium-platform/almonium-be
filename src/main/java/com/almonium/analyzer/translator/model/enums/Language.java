@@ -135,5 +135,204 @@ public enum Language {
     XH, // Xhosa
     YI, // Yiddish
     YO, // Yoruba
-    ZU // Zulu
+    ZU, // Zulu
+
+    // Languages with about a million native speakers or more that the original list,
+    // taken from a translator's catalogue, left out.
+    ACE, // Acehnese
+    ACH, // Acholi
+    AJG, // Adja
+    AA, // Afar
+    ARQ, // Algerian Arabic
+    AWA, // Awadhi
+    BFY, // Bagheli
+    BGQ, // Bagri
+    BQI, // Bakhtiari
+    BAN, // Balinese
+    BAL, // Balochi
+    BJN, // Banjar
+    BCI, // Baoule
+    BA, // Bashkir
+    BAR, // Bavarian
+    BEJ, // Beja
+    BEM, // Bemba
+    BEW, // Betawi
+    BHB, // Bhili
+    BIK, // Bikol
+    BRX, // Bodo
+    PCC, // Bouyei
+    BRH, // Brahui
+    BUG, // Bugis
+    WES, // Cameroon Pidgin
+    YUE, // Cantonese
+    TZM, // Central Atlas Tamazight
+    SHU, // Chadian Arabic
+    CE, // Chechen
+    HNE, // Chhattisgarhi
+    CTG, // Chittagonian
+    CV, // Chuvash
+    DGA, // Dagaare
+    DAG, // Dagbani
+    PRS, // Dari
+    DHD, // Dhundari
+    DIN, // Dinka
+    DYU, // Dioula
+    RMT, // Domari
+    CDO, // Eastern Min
+    TAJ, // Eastern Tamang
+    BIN, // Edo
+    EFI, // Efik
+    ARZ, // Egyptian Arabic
+    EGL, // Emilian
+    FON, // Fon
+    FF, // Fula
+    GAN, // Gan Chinese
+    GBM, // Garhwali
+    GRT, // Garo
+    GPE, // Ghanaian Pidgin English
+    GLK, // Gilaki
+    GON, // Gondi
+    GOR, // Gorontalo
+    GUW, // Gun
+    AYH, // Hadhrami Arabic
+    HAK, // Hakka
+    BGC, // Haryanvi
+    MEY, // Hassaniya Arabic
+    HAZ, // Hazaragi
+    ACW, // Hijazi Arabic
+    HIL, // Hiligaynon
+    HOC, // Ho
+    CZH, // Huizhou Chinese
+    IBA, // Iban
+    IGL, // Igala
+    ACM, // Iraqi Arabic
+    TTS, // Isan
+    JAM, // Jamaican Patois
+    CJY, // Jin Chinese
+    QUC, // K'iche'
+    KBD, // Kabardian
+    KBP, // Kabiye
+    KAB, // Kabyle
+    KBR, // Kafa
+    KMC, // Kam
+    KAM, // Kamba
+    KR, // Kanuri
+    PAM, // Kapampangan
+    KAI, // Karai-karai
+    KRJ, // Karay-a
+    KS, // Kashmiri
+    KHG, // Khams Tibetan
+    KHN, // Khandeshi
+    CGG, // Kiga
+    KI, // Kikuyu
+    RN, // Kirundi
+    KG, // Kongo
+    KFY, // Kumaoni
+    KRU, // Kurukh
+    LKI, // Laki
+    LMN, // Lambadi
+    LAJ, // Lango
+    APC, // Levantine Arabic
+    AYL, // Libyan Arabic
+    LI, // Limburgish
+    LMO, // Lombard
+    NDS, // Low German
+    LUA, // Luba-Kasai
+    LUO, // Luo
+    MAD, // Madurese
+    MAG, // Magahi
+    MDH, // Maguindanao
+    MAK, // Makassar
+    VMW, // Makhuwa
+    KDE, // Makonde
+    MUP, // Malvi
+    BTM, // Mandailing Batak
+    MNK, // Mandinka
+    MWR, // Marwari
+    MZN, // Mazanderani
+    MNI, // Meitei (Manipuri)
+    WRY, // Merwari
+    MTR, // Mewari
+    WTM, // Mewati
+    MIN, // Minangkabau
+    ARY, // Moroccan Arabic
+    MOS, // Mossi
+    UNR, // Mundari
+    MTQ, // Muong
+    SCK, // Nagpuri
+    NAP, // Neapolitan
+    PCM, // Nigerian Pidgin
+    NOE, // Nimadi
+    KXM, // Northern Khmer
+    LRC, // Northern Luri
+    MNP, // Northern Min
+    ND, // Northern Ndebele
+    NOD, // Northern Thai (Lanna)
+    II, // Nuosu
+    NYN, // Nyankole
+    PFL, // Palatinate German
+    PAG, // Pangasinan
+    PMS, // Piedmontese
+    CPX, // Pu-Xian Min
+    RAJ, // Rajasthani
+    RHG, // Rohingya
+    RGN, // Romagnol
+    ROM, // Romani
+    KSW, // S'gaw Karen
+    AEC, // Saidi Arabic
+    SPV, // Sambalpuri
+    AYN, // Sanaani Arabic
+    SG, // Sango
+    SAT, // Santali
+    SKR, // Saraiki
+    SC, // Sardinian
+    SAS, // Sasak
+    SCO, // Scots
+    SGW, // Sebat Bet Gurage
+    SRR, // Serer
+    SHN, // Shan
+    SHY, // Shawiya
+    SHK, // Shilluk
+    SCN, // Sicilian
+    SID, // Sidamo
+    SNK, // Soninke
+    AZB, // South Azerbaijani
+    SDH, // Southern Kurdish
+    LUZ, // Southern Luri
+    NAN, // Southern Min (Hokkien)
+    SOU, // Southern Thai
+    APD, // Sudanese Arabic
+    SUK, // Sukuma
+    SUS, // Susu
+    SS, // Swazi
+    GSW, // Swiss German (Alemannic)
+    SYL, // Sylheti
+    ACQ, // Taizzi-Adeni Arabic
+    RIF, // Tarifit
+    SHI, // Tashelhit
+    TSG, // Tausug
+    BO, // Tibetan
+    BBC, // Toba Batak
+    TPI, // Tok Pisin
+    TOI, // Tonga
+    TSC, // Tswa
+    TN, // Tswana
+    TMH, // Tuareg
+    TCY, // Tulu
+    TUM, // Tumbuka
+    AEB, // Tunisian Arabic
+    TYZ, // Tày
+    UMB, // Umbundu
+    SXU, // Upper Saxon
+    URH, // Urhobo
+    VE, // Venda
+    VEC, // Venetian
+    WAR, // Waray
+    VLS, // West Flemish
+    WAL, // Wolaytta
+    WO, // Wolof
+    WUU, // Wu Chinese
+    HSN, // Xiang Chinese
+    ZZA, // Zazaki
+    ZA // Zhuang
 }
