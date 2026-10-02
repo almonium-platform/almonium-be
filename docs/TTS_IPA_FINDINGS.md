@@ -534,6 +534,30 @@ What this establishes for ElevenLabs with native voices:
   the stress mark is not limited to a marked "и". Unproven guess: the mark
   itself pushes the model toward a Russian reading, since Russian text is
   where such marks usually appear.
+- The rest of that verdict. Ukrainian: `/ˈsɨr/` came out as English "sir";
+  `писа́ти` with a mark has a Russian "і"; everything else was good, which
+  covers the stress pairs замок, мука, дорога, атлас, плачу and the /ɨ/ words
+  книга, мити, великий, язик, криниця, писати, брати. French: spelling and IPA
+  sound the same. Spanish: the same except `/muɾ.ˈθje.la.ɡo/`, where the IPA
+  is clearly worse. Polish: IPA is wrong for źdźbło and szczęście; spelling
+  is much better overall.
+- Across all of this, with a native voice the spelling is the safest input and
+  IPA is worth sending only where the spelling cannot say which word is meant.
+  Proposed input per language, each line resting on the listens above:
+
+  | Language | Voice | Input |
+  |---|---|---|
+  | English | Eric | IPA |
+  | German | Otto | IPA |
+  | French | Nicolas | Spelling; IPA only to tell homographs apart (fils, plus, président) |
+  | Spanish | David Martin | Spelling, which already carries the stress |
+  | Italian | MarcoTrox | Spelling with the accent written on the stressed vowel |
+  | Polish | Adam | Spelling |
+  | Ukrainian | Alex Nekrasov | One syllable: bare spelling. Contains "и": IPA with /ɨ/. Otherwise: spelling with a stress mark |
+
+  The Ukrainian line is the weakest. The stress mark turned "и" into "і" in
+  four of six words (книга, мити, брати, писати; not риба, паляниця) and "г"
+  into "ґ" in орган, and IPA failed on one short word and one long one.
 - So "send the IPA we show" does not hold for every route. Where the spelling
   plus a stress mark is the input, the sounds come from the engine's own
   reading of the spelling, and the IPA we display has to agree with that
