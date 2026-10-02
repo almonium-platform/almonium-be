@@ -5,7 +5,11 @@ how the voice reads ordinary prose.
 The IPA follows the rules learned on 2026-10-02: a stress mark on every word and dots between
 syllables. It was written by hand for this test and is not from a dictionary.
 
-Usage: elevenlabs_tricky.py <output folder>   (run from the backend repository root)
+Each language is spoken by a voice native to it. The first run used the English stock voice Eric
+for everything, and IPA alone then came out with an English accent. Library voices need a paid
+plan over the API.
+
+Usage: elevenlabs_tricky.py <output folder> [language codes]   (run from the backend repository root)
 """
 import sys, base64, html, json, time
 from pathlib import Path
@@ -18,7 +22,13 @@ from tts_audition import session, ROOT
 out = Path(sys.argv[1])
 out.mkdir(parents=True, exist_ok=True)
 KEY = next(l.split("=", 1)[1].strip() for l in (ROOT / ".env").read_text().splitlines() if l.startswith("ELEVENLABS_API_KEY="))
-VOICE_ID, MODEL = "cjVigY5qzO86Huf0OWal", "eleven_v4"
+MODEL = "eleven_v4"
+ONLY = sys.argv[2:]
+# language -> (voice name, voice id); every one but English is a library voice
+VOICES = {"en": ("Eric", "cjVigY5qzO86Huf0OWal"), "de": ("Otto", "FTNCalFNG5bRnkkaP5Ug"),
+          "fr": ("Nicolas", "aQROLel5sQbj1vuIVi6B"), "es": ("David Martin", "Nh2zY9kknu6z4pZy6FhD"),
+          "it": ("MarcoTrox", "W71zT1VwIFFx3mMGH2uZ"), "uk": ("Evgeniy Shevchenko", "Ntd0iVwICtUtA6Fvx27M"),
+          "pl": ("Adam", "hIssydxXZ1WuDorjx6Ic")}
 google = session(ROOT / ".env")
 spent = [0]
 
@@ -73,13 +83,14 @@ SETS = {
 
 def eleven(text, language):
     for attempt in range(4):
-        r = requests.post(f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}?output_format=mp3_44100_128",
+        r = requests.post(f"https://api.elevenlabs.io/v1/text-to-speech/{VOICES[language][1]}?output_format=mp3_44100_128",
                           headers={"xi-api-key": KEY}, json={"text": text, "model_id": MODEL, "language_code": language}, timeout=120)
         if r.status_code == 429:
             time.sleep(8 * (attempt + 1))
             continue
         break
     if not r.ok:
+        print("ElevenLabs", r.status_code, r.text[:160], flush=True)
         return None
     spent[0] += len(text)
     return r.content
@@ -106,7 +117,9 @@ STYLE = "<style>body{font:16px system-ui;max-width:1000px;margin:30px auto;paddi
 page = f"<!doctype html><meta charset=utf-8><title>ElevenLabs: tricky words</title>{STYLE}<h1>ElevenLabs on tricky words</h1><p>Every word below is spoken from the IPA shown, not from its spelling. Pairs share a spelling and differ only in the IPA. The grey line is what a machine wrote down on hearing the clip; red means it wrote a different word, which is worth a careful listen.</p>"
 matched = total = 0
 for code, (name, sentence, words) in SETS.items():
-    page += f"<h2>{name}</h2>"
+    if ONLY and code not in ONLY:
+        continue
+    page += f"<h2>{name} <small>voice: {html.escape(VOICES[code][0])}</small></h2>"
     audio = eleven(sentence, code)
     if audio:
         (out / f"{code}-sentence.mp3").write_bytes(audio)
