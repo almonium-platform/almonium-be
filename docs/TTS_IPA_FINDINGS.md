@@ -305,9 +305,21 @@ te-IN, th-TH, tr-TR, uk-UA, ur-IN, vi-VN, sl-SI, and gu-IN doubtfully. Not
 following: eu-ES, et-EE, fil-PH, gl-ES, is-IS, lv-LV, lt-LT, sw-KE, af-ZA,
 bn-IN, kn-IN, ml-IN, sr-RS.
 
+Follow-up probes with seven different words each (`azure-gujarati`,
+`azure-more`): Gujarati, Urdu and Swedish all follow the IPA. They sound odd to
+the owner's ear on made-up words, but the IPA is clearly what drives them. A
+multilingual Azure voice (`en-US-AndrewMultilingualNeural` with a `<lang>` tag)
+was tried for Lithuanian, Estonian, Basque, Galician and Swahili and said the
+text every time.
+
+Amazon Polly was checked and not tested: its 41 locales include none of those
+five, nor Ukrainian, Greek, Hebrew, Thai, Vietnamese, Hungarian, Urdu or
+Gujarati, so it adds no coverage.
+
 Across both providers, every enabled variety except Basque, Estonian, Galician,
 Lithuanian and Swahili now has at least one voice heard to speak the IPA it is
-given. Afrikaans, Bengali, Filipino, Icelandic, Latvian and Serbian are covered
+given. Those five get plain audio only. Swahili is the one large language among
+them. Afrikaans, Bengali, Filipino, Icelandic, Latvian and Serbian are covered
 by an older Google voice, Kannada and Malayalam by Chirp.
 
 ## Checking audio by machine
