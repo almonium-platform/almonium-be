@@ -281,8 +281,31 @@ phoneme tag on one male neural voice per locale. What is established so far:
   Galician, Icelandic, Latvian, Lithuanian and Swahili read the text, and is
   unclear on seven.
 
-None of this is verified by ear. The sheet is `azure-all/index.html`, sorted by
-the machine guess. Stress on Azure is entirely unjudged.
+Heard by the owner on `azure-all/index.html`, which is sorted by the machine
+guess:
+
+- All 45 in the first group speak the IPA's word in the probe and `pigutan` in
+  the word clips. The machine transcription was right about every one, and
+  right about all eight it marked as reading the text.
+- Stress was noted as clearly right for Italian and Danish. It has not been
+  judged row by row for the rest.
+- Three voices follow the IPA but garble some clips: ur-IN-Salman drops the
+  /t/, sv-SE-Mattias mangles the stressed clips, ru-RU-Dmitry clips the word.
+  The made-up syllables may sit badly in those sound systems; real words need
+  testing before these routes are trusted.
+- The seven the machine could not call (af, bn, gu, kn, ml, sr, sl) are not
+  judged yet.
+
+Voices heard to follow IPA on Azure: en-US, en-GB, en-AU, en-IN, es-ES, pt-BR,
+pt-PT, fr-FR, fr-CA, de-DE, nl-NL, nl-BE, zh-CN, zh-TW, ar-EG, bg-BG, ca-ES,
+hr-HR, cs-CZ, da-DK, fi-FI, el-GR, he-IL, hi-IN, hu-HU, id-ID, it-IT, ja-JP,
+ko-KR, ms-MY, mr-IN, nb-NO, pl-PL, pa-IN, ro-RO, ru-RU, sk-SK, sv-SE, ta-IN,
+te-IN, th-TH, tr-TR, uk-UA, ur-IN, vi-VN. Not following: eu-ES, et-EE, fil-PH,
+gl-ES, is-IS, lv-LV, lt-LT, sw-KE.
+
+Across both providers, every enabled variety except Basque, Estonian, Galician,
+Lithuanian and Swahili now has at least one voice heard to speak the IPA it is
+given.
 
 ## Checking audio by machine
 
