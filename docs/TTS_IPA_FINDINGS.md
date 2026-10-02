@@ -467,10 +467,10 @@ several ways side by side (`elevenlabs-native/variants.html`):
 
 | Word | Bare spelling | Spelling with stress mark | IPA |
 |---|---|---|---|
-| риба | good | not named as good | /ɪ/ good, /ɨ/ good |
+| риба | good | bad: `ри́ба` is said "рііба" | /ɪ/ good, /ɨ/ good |
 | мити | good | not named as good | /ɨ/ good, /ɪ/ not |
 | криниця | best | fine | /ɨ/ good, /ɪ/ bad |
-| паляниця | best | not named | /ɨ/ passable, the soft /lʲ/ slightly off |
+| паляниця | best | bad | /ɨ/ passable, the soft /lʲ/ slightly off |
 | Укрзалізниця | fine | fine | not named as good |
 | замок, заМОК | | `замо́к` works | failed earlier |
 | мука, муКА | | `мука́` works | |
@@ -489,6 +489,9 @@ What this establishes for ElevenLabs with native voices:
   common reading and the sounds come out less native.
 - For Ukrainian IPA, /ɨ/ is closer to "и" than the standard /ɪ/, which the
   engine reads as a plain i. Bare spelling is still better than either.
+- A stress mark on Ukrainian "и" spoils the vowel: it comes out as "і". The
+  stress mark works on other vowels. For a stressed "и" the IPA is, oddly,
+  the better input. The owner suspects the same Russian influence.
 - The voice can slip into Russian on a word the two languages share: bare
   `дорога` and `дорога́` both did, with `language_code` set to `uk`. The stress
   mark fixed one and not the other. This is not controlled yet.
