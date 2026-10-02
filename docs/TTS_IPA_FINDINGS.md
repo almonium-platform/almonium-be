@@ -353,7 +353,7 @@ colloquial languages; `de-CH` is Swiss Standard German, not Alemannic; three
 Yemeni varieties share one voice. The sheet is `azure-new/index.html`. The
 remaining 233 languages have no voice from either provider.
 
-## ElevenLabs, first pass (not yet heard)
+## ElevenLabs
 
 A free-plan key (`ELEVENLABS_API_KEY` in `.env`, restricted to text to speech,
 voices, models and account read) was added on 2026-10-02. The model tested is
@@ -408,6 +408,49 @@ ElevenLabs is not deterministic: the same request returned different bytes
 twice, with and without a fixed seed. Its documentation says IPA results "can
 still vary by voice and phrase". The whole run used 1,074 of the plan's 10,000
 characters. Nothing here is verified by ear yet, stress least of all.
+
+### Tricky real words from IPA alone (heard 2026-10-02): fails outside English
+
+`scripts/tts_research/elevenlabs_tricky.py` spoke 73 real words in seven
+languages from hand-written IPA only (stress mark and syllable dots on every
+word, `language_code` sent and accepted), plus one plain-text sentence per
+language. Output is `elevenlabs/tricky.html`. The owner's verdict:
+
+| Language | Verdict |
+|---|---|
+| English | All right except `choir` `/ˈkwaɪ.ɚ/`, which ends in a clear t ("quiet"). |
+| German | Sounds like an English speaker. `übersetzen` has the same stress in both readings, `modern` is MOdern in both, and /ç/ comes out as "sh". |
+| French | `plus` `/ˈply/` is said as "play". |
+| Spanish | `termino` `/teɾ.ˈmi.no/` is stressed on the first syllable, as the machine listener also wrote. |
+| Ukrainian | Unusable: a foreign learner's accent throughout. `/ukr.za.lʲiz.ˈnɪ.tsʲa/` had "slash" read aloud. |
+| Polish | Unusable in the same way; not close to real Polish (the owner speaks it). |
+
+The plain-text sentences were good in every language, as I read the owner's
+remark; that reading should be confirmed.
+
+What this changes:
+
+- The stock voice is an English one. Given plain text it takes on the
+  language; given IPA alone it has no spelling to tell it which language it is
+  in, and `language_code` does not make up for that. The IPA is read with
+  English habits.
+- The made-up-word test overstated ElevenLabs. Moving the stress on `pigutan`
+  showed only that stress marks are followed in an English-like word. It did
+  not show the sounds of each language, and real stress pairs in German and
+  Spanish failed here.
+- The input rules (stress mark, dots) do not prevent markup being read aloud:
+  it happened again on a long word that followed both.
+- The machine listener earned its place: it flagged `choir`, `termino`,
+  `plus`, Chemie and the Polish words, all confirmed by ear. It missed the
+  German stress pairs, as expected, since it cannot judge stress.
+- The IPA was hand-written, so single wrong clips could be the transcription.
+  The pattern across German, Ukrainian and Polish is too broad for that.
+
+So ElevenLabs is the better voice for plain text and is not an IPA route. The
+decision table at the top stands: Chirp 3 HD with IPA for the launch
+languages, WaveNet for Ukrainian. Untested and possibly different: a voice
+native to each language, and IPA inside a carrier sentence in that language.
+The run used 1,178 characters; about 7,600 of the free 10,000 remain.
 
 ## Checking audio by machine
 
