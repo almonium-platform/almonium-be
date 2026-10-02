@@ -257,6 +257,33 @@ Build consequence: before sending IPA to an older voice, check every symbol
 against that voice's list and strip the stress mark where it is not accepted.
 After synthesis, run the IPA-against-IPA byte check as the safety net.
 
+## Azure, first pass (not yet heard)
+
+A free-tier Azure Speech resource (`almonium-speech-research`, North Europe, in
+resource group `almonium-speech`) was created on 2026-10-02. Its key is in the
+backend `.env` as `AZURE_SPEECH_KEY` with `AZURE_SPEECH_REGION=northeurope`.
+Azure lists 833 voices in 154 locales and has a male neural voice for every one
+of the 60 locales the app enables, including uk-UA (Ostap), hr-HR, sl-SI and
+sw-KE, which Google cannot serve with a steerable male voice or at all.
+
+`scripts/tts_research/azure_sheet.py` ran the same test through the SSML
+phoneme tag on one male neural voice per locale. What is established so far:
+
+- Azure returned 200 for all 60, with a stress mark and dotted syllables, and
+  also for impossible IPA. Contrary to its documentation it did not answer 400,
+  so acceptance means nothing here either.
+- Azure neural voices are not deterministic: the same request gave three
+  different byte results. The byte test does not apply.
+- A machine transcription of the probe clip, good only for which word was said,
+  guesses that 45 of 60 speak the IPA's word. Among them are Greek, Hebrew,
+  Thai, Vietnamese, Croatian, Finnish, Swedish, Norwegian, Czech, Hungarian and
+  the male Ukrainian voice. It guesses that Basque, Estonian, Filipino,
+  Galician, Icelandic, Latvian, Lithuanian and Swahili read the text, and is
+  unclear on seven.
+
+None of this is verified by ear. The sheet is `azure-all/index.html`, sorted by
+the machine guess. Stress on Azure is entirely unjudged.
+
 ## Checking audio by machine
 
 Tried against clips the owner had labelled by ear. None replaces a listener for
