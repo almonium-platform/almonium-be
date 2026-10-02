@@ -384,6 +384,20 @@ So ElevenLabs follows stress better than any other engine tested, but when it
 fails it speaks nonsense or the markup itself, with a 200 response. Every clip
 from it would need a check. Variations of the three are in `elevenlabs/retry.html`.
 
+The retry showed the failures are systematic, not random, and avoidable:
+
+- `/fis/` failed again the same way; `/ˈfis/` and `/ˈfil/` with a stress mark
+  both work. An IPA string needs a non-letter symbol to be read as IPA, so a
+  stress mark goes on every word, monosyllables included. The older
+  `eleven_v3` reads `/fis/` correctly without it.
+- `/publiˈko/` was wrong again the same way; `/pu.bli.ˈko/` with syllable dots
+  works. Syllable boundaries are written out.
+- `/zɑˈmɔːk/` with a long stressed vowel is clearly stressed where
+  `/zaˈmɔk/` was not.
+
+Rule for ElevenLabs input: always a stress mark, always syllable dots, and a
+length mark on the stressed vowel where the stress is otherwise weak.
+
 ElevenLabs is not deterministic: the same request returned different bytes
 twice, with and without a fixed seed. Its documentation says IPA results "can
 still vary by voice and phrase". The whole run used 1,074 of the plan's 10,000
