@@ -568,6 +568,29 @@ Not yet heard with native voices: French, Spanish and Polish word by word
 (covered only by "very good" overall), and whether a stress mark in the
 spelling also beats IPA for Spanish. The three runs used 919 and 409 characters.
 
+### Terms for keeping and serving clips (checked 2026-10-02)
+
+Read from ElevenLabs' Terms of Service (last updated 31 March 2026), their
+help centre and the Voice Library pages. This is a reading, not legal advice.
+
+- Output belongs to the user (section 4(c)(ii)). Commercial use needs a paid
+  plan (section 1(c)); Starter counts.
+- Clips generated while on a paid plan keep their commercial licence forever
+  after the subscription ends, per the help centre. The Terms themselves do
+  not state this. Clips generated on the free plan are non-commercial and
+  need attribution, so nothing made before the upgrade may ship.
+- The Terms put no limit on storing clips or serving them inside an app.
+- Library voices carry a commercial licence. If an owner withdraws a voice,
+  accounts that already used it keep it for the voice's notice period, and
+  clips made before the end of that period stay usable afterwards. All the
+  voices picked here (Alex Nekrasov, Otto, Nicolas, David Martin, MarcoTrox,
+  Adam, and Yaroslava and Bogdan) have a notice period of 730 days.
+- Not read: the Voice Library Addendum in full, and the prohibited-use policy.
+
+So a permanent cache is allowed, provided every cached clip is generated
+while a paid plan is active. A withdrawn voice gives two years to regenerate
+with another, during which the cache stays valid.
+
 ## Checking audio by machine
 
 Tried against clips the owner had labelled by ear. None replaces a listener for
