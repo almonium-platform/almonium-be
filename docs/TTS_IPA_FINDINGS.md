@@ -337,6 +337,13 @@ voice for each (38 distinct voices). By machine transcription only:
   Sinhala, Somali, Sundanese, Uzbek, Welsh, Wu Chinese, Zulu.
 - Unclear (7): Algerian Arabic, Amharic, Georgian, Lao, Burmese, Nepali, Pashto.
 
+Heard by the owner on `azure-new/index.html`: the machine guess held. All
+twelve in the first group speak the IPA's word. Of the unclear seven, Algerian
+Arabic follows and Amharic, Georgian, Lao, Burmese, Nepali and Pashto do not.
+The nineteen guessed as reading the text do read the text. So Azure adds
+thirteen steerable voices here and twenty-five that give plain audio only.
+Stress was not judged for these.
+
 Caveats on the matching: Azure's Arabic voices are tagged by country and mostly
 read Standard Arabic with a regional accent, so they are a loose fit for the
 colloquial languages; `de-CH` is Swiss Standard German, not Alemannic; three
