@@ -173,7 +173,9 @@ nl-BE is on Google's exclusion list and was accepted anyway.
 | Sounds only | cs | cs-CZ-Wavenet-B | `ɔ a ɛ` with `s m k l` |
 | Sounds only | hu | hu-HU-Wavenet-B | `a i u` with `s m k l` |
 | Sounds only | sk | sk-SK-Wavenet-B | `a i u` with `s m k l` |
-| Said the text on the sheets, but unfairly tested | bn, lv, lt, pa, sr, sv, is, ms, fi, he, no | WaveNet or Standard | see "Sound lists discovered by bytes": the stress mark or an out-of-list vowel made them drop the IPA; relisten pending |
+| Sounds only; a stress mark makes the voice drop the IPA | bn, lv, pa, sr, sv, is, ms, no | WaveNet or Standard | the voice's own list, no stress mark; heard on round 3 |
+| Sounds, heard on round 3; stress mark accepted by bytes, not yet judged by ear | fi | fi-FI-Wavenet-B | the voice's own list, `ɑ` not `a` |
+| Heard as not following, despite a recovered list | he, lt | WaveNet, Standard | the recovered lists contain odd symbols and are probably noisy |
 | Unresolved | et, gl, gu | WaveNet or Standard | byte results implausible |
 | IPA not accepted at all | el, th, vi, zh-TW, eu | WaveNet, Neural2 or Standard | no symbol pair ever differs from the fallback |
 
@@ -185,11 +187,13 @@ older voice exists for hr, sl, sw.
 
 | State | Voices |
 |---|---|
-| IPA with stress, verified | 18: 14 on Chirp, 4 older |
+| IPA with stress, verified by ear | 18: 14 on Chirp, 4 older |
 | IPA sounds, language has no stress to mark | 7 on Chirp |
-| IPA sounds only, stress not audible | 7 older |
-| Voice exists, IPA not followed or refused | 22 |
+| IPA sounds only, stress not audible or not accepted | 16 older |
+| Voice exists, IPA not followed, refused or unresolved | 13 |
 | Needs another notation or hand-built sounds | 6 |
+
+That is 41 voices where the IPA shown is what gets spoken.
 
 ## Sound lists discovered by bytes
 
@@ -233,9 +237,11 @@ What this corrected: the ten voices marked "IPA not followed" on the earlier
 sheets were never given a fair clip. Every clip the owner heard for them carried
 a stress mark, and for these voices **the stress mark itself is an unknown
 symbol that makes the voice drop the whole IPA**. Without the mark their sounds
-should follow the IPA. That awaits a listen in `older-round3/index.html`, along
-with Finnish, Hebrew and Norwegian, which were written off because the probe
-used vowels outside their lists (Finnish has /ɑ/, not /a/).
+follow the IPA: the owner heard Bengali, Icelandic, Latvian, Malay, Norwegian,
+Punjabi, Serbian and Swedish speak the probe word on `older-round3/index.html`,
+and Finnish too, which had been written off because the probe used /a/ where
+Finnish has /ɑ/. Hebrew and Lithuanian still said the text; their recovered
+lists include unlikely symbols, so the discovery is probably noisy for them.
 
 Notes on the rest:
 
