@@ -446,11 +446,61 @@ What this changes:
 - The IPA was hand-written, so single wrong clips could be the transcription.
   The pattern across German, Ukrainian and Polish is too broad for that.
 
-So ElevenLabs is the better voice for plain text and is not an IPA route. The
-decision table at the top stands: Chirp 3 HD with IPA for the launch
-languages, WaveNet for Ukrainian. Untested and possibly different: a voice
-native to each language, and IPA inside a carrier sentence in that language.
-The run used 1,178 characters; about 7,600 of the free 10,000 remain.
+That conclusion held only for the English voice. The run used 1,178 characters.
+
+### Native voices (heard 2026-10-02): the earlier failure was the voice
+
+Using Eric for every language was my mistake. Library voices need a paid plan
+over the API (the free plan answers 402); the account is now on Starter. The
+same words were rerun with a voice native to each language: Otto (de), Nicolas
+(fr), David Martin (es-ES), MarcoTrox (it), Evgeniy Shevchenko (uk), Adam
+(pl). Output is `elevenlabs-native/tricky.html`. The owner's verdict:
+
+- English and German from IPA: perfect.
+- The major European languages overall: very good.
+- Italian `ancora` came out anCOra for both IPA strings.
+- Ukrainian `замок` came out ЗАмок for both IPA strings, and the vowel written
+  /ɪ/ was said as Russian "и". Parts of it sounded Russian.
+
+`scripts/tts_research/elevenlabs_variants.py` then sent the doubtful words
+several ways side by side (`elevenlabs-native/variants.html`):
+
+| Word | Bare spelling | Spelling with stress mark | IPA |
+|---|---|---|---|
+| риба | good | not named as good | /ɪ/ good, /ɨ/ good |
+| мити | good | not named as good | /ɨ/ good, /ɪ/ not |
+| криниця | best | fine | /ɨ/ good, /ɪ/ bad |
+| паляниця | best | not named | /ɨ/ passable, the soft /lʲ/ slightly off |
+| Укрзалізниця | fine | fine | not named as good |
+| замок, заМОК | | `замо́к` works | failed earlier |
+| мука, муКА | | `мука́` works | |
+| дорога, доРОга | bad: Russian г | `доро́га` fixes it | |
+| дорога, дороГА | | `дорога́`: Russian pronunciation | |
+| ancora, ANcora | | `àncora` is the only one that works | three IPA variants all fail |
+| principi, PRINcipi | | `prìncipi` works | says "printipi" |
+| principi, prinCIpi | | `princìpi` works | works |
+
+What this establishes for ElevenLabs with native voices:
+
+- The best input differs by language. English and German take IPA well.
+  Ukrainian and Italian are better from the spelling, with the stress written
+  as a mark in the text (acute U+0301 for Ukrainian, a grave or acute accent on
+  the vowel for Italian). There the IPA stress mark loses to the word's more
+  common reading and the sounds come out less native.
+- For Ukrainian IPA, /ɨ/ is closer to "и" than the standard /ɪ/, which the
+  engine reads as a plain i. Bare spelling is still better than either.
+- The voice can slip into Russian on a word the two languages share: bare
+  `дорога` and `дорога́` both did, with `language_code` set to `uk`. The stress
+  mark fixed one and not the other. This is not controlled yet.
+- So "send the IPA we show" does not hold for every route. Where the spelling
+  plus a stress mark is the input, the sounds come from the engine's own
+  reading of the spelling, and the IPA we display has to agree with that
+  rather than drive it. A route's control mode is then one of: IPA, spelling
+  with stress mark, bare spelling.
+
+Not yet heard with native voices: French, Spanish and Polish word by word
+(covered only by "very good" overall), and whether a stress mark in the
+spelling also beats IPA for Spanish. The three runs used 919 and 409 characters.
 
 ## Checking audio by machine
 
