@@ -371,6 +371,19 @@ the whole text of a clip is the IPA and there is no spelling to fall back on.
   beside Chirp 3 HD, unlabelled and in random order; the key is
   `blind-key.json`.
 
+Heard by the owner: the stress lands where asked on the made-up word in all
+languages, and the real pairs record, read, umfahren and principi are right,
+record strikingly so. Three clips went wrong, and none of them failed loudly:
+
+- French `/fis/` was read out as the characters, "slash, f, i, s, slash". An
+  IPA string made only of plain letters is apparently not recognised as IPA.
+- Spanish `/publiˈko/` came out garbled.
+- Ukrainian `/zaˈmɔk/` had even stress on both syllables.
+
+So ElevenLabs follows stress better than any other engine tested, but when it
+fails it speaks nonsense or the markup itself, with a 200 response. Every clip
+from it would need a check. Variations of the three are in `elevenlabs/retry.html`.
+
 ElevenLabs is not deterministic: the same request returned different bytes
 twice, with and without a fixed seed. Its documentation says IPA results "can
 still vary by voice and phrase". The whole run used 1,074 of the plan's 10,000
