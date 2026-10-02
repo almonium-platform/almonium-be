@@ -190,6 +190,11 @@ Enabled routes (the JSON file is authoritative):
 
 ## IPA direction (planned, not implemented)
 
+Tested on 2026-10-02: which engines obey IPA, per language, is recorded in
+[`TTS_IPA_FINDINGS.md`](TTS_IPA_FINDINGS.md). It supersedes the expectations in
+this section wherever they differ; in particular Ukrainian needs WaveNet, and
+the catalogue's current plain Chirp routes carry no pronunciation control yet.
+
 Google's [synthesis response](https://docs.cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize)
 contains audio, not its inferred IPA. Independently generating IPA and synthesizing
 bare text cannot ensure that the learner reads and hears the same pronunciation.
