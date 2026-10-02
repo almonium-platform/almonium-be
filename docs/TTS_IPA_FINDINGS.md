@@ -523,6 +523,17 @@ What this establishes for ElevenLabs with native voices:
 - Proposed Ukrainian input for ElevenLabs, not yet tested as a whole: the
   spelling with a stress mark, except when the stressed vowel is "и", where
   the word goes as IPA with /ɨ/.
+- Second voice round (`elevenlabs-uk-voices/uk-voices.html`): Alex Nekrasov
+  again best. Yaroslava (female) and Bogdan are acceptable. Artem Klopotenko,
+  Yevhen, Vira and Mariya Maro slip into Russian. Of nine Ukrainian voices
+  tried, three are usable.
+- The recipe tested as a whole (`elevenlabs-recipe/recipe.html`,
+  `scripts/tts_research/elevenlabs_recipe.py`), partial verdict so far:
+  `о́рган` and `орга́н` have the right stress but both say "ґ" for "г", and
+  `бра́ти` comes out "браті" although the mark is on "а". So the damage from
+  the stress mark is not limited to a marked "и". Unproven guess: the mark
+  itself pushes the model toward a Russian reading, since Russian text is
+  where such marks usually appear.
 - So "send the IPA we show" does not hold for every route. Where the spelling
   plus a stress mark is the input, the sounds come from the engine's own
   reading of the spelling, and the IPA we display has to agree with that
