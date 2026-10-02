@@ -398,6 +398,12 @@ The retry showed the failures are systematic, not random, and avoidable:
 Rule for ElevenLabs input: always a stress mark, always syllable dots, and a
 length mark on the stressed vowel where the stress is otherwise weak.
 
+Side by side with Chirp 3 HD on twenty real German and English words, as plain
+text, the owner preferred ElevenLabs on all twenty: more like a person, not
+robotic. The test was not truly blind, since he recognised the voice after a
+few words, but the preference was unanimous. I had expected the difference to
+be hard to hear on single words; it is not.
+
 ElevenLabs is not deterministic: the same request returned different bytes
 twice, with and without a fixed seed. Its documentation says IPA results "can
 still vary by voice and phrase". The whole run used 1,074 of the plan's 10,000
