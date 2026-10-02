@@ -353,6 +353,29 @@ colloquial languages; `de-CH` is Swiss Standard German, not Alemannic; three
 Yemeni varieties share one voice. The sheet is `azure-new/index.html`. The
 remaining 233 languages have no voice from either provider.
 
+## ElevenLabs, first pass (not yet heard)
+
+A free-plan key (`ELEVENLABS_API_KEY` in `.env`, restricted to text to speech,
+voices, models and account read) was added on 2026-10-02. The model tested is
+`eleven_v4` with the stock voice Eric; it takes IPA inline between slashes, so
+the whole text of a clip is the IPA and there is no spelling to fall back on.
+`scripts/tts_research/elevenlabs_sheet.py` produced two pages in `elevenlabs/`:
+
+- `index.html`: a made-up word with the stress on each syllable and a second
+  made-up word, in 18 languages, plus real homograph pairs (umfahren, record,
+  read, замок, principi, público and publicó, fils). A machine transcription
+  heard something close to the intended sounds in all 18, including Lithuanian,
+  Estonian, Basque, Galician and Swahili, the five that neither Google nor
+  Azure can steer.
+- `blind.html`: twenty real German and English words as plain text, ElevenLabs
+  beside Chirp 3 HD, unlabelled and in random order; the key is
+  `blind-key.json`.
+
+ElevenLabs is not deterministic: the same request returned different bytes
+twice, with and without a fixed seed. Its documentation says IPA results "can
+still vary by voice and phrase". The whole run used 1,074 of the plan's 10,000
+characters. Nothing here is verified by ear yet, stress least of all.
+
 ## Checking audio by machine
 
 Tried against clips the owner had labelled by ear. None replaces a listener for
