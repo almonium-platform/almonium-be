@@ -503,6 +503,26 @@ What this establishes for ElevenLabs with native voices:
   being listed as Ukrainian says nothing about how Ukrainian it sounds.
 - The tenth word, `кни́га`, came out "кнііга" on all three voices. So the
   stress mark on "и" breaks the vowel in the model, not in one voice.
+- The comparison rerun with Alex Nekrasov (`elevenlabs-alex/variants.html`):
+
+  | Word | Bare | Stress mark | IPA /ɪ/ | IPA /ɨ/ |
+  |---|---|---|---|---|
+  | риба | good | good | good | good (`/ˈre.ba/` says "реба") |
+  | син | good | | good but sounds English | good |
+  | мити | not named | bad: и becomes і | not named | very good |
+  | криниця | not named | not named | bad | not named |
+  | паляниця | good | good | not named | not named |
+  | книга | good | bad: и becomes і | good | good |
+  | Укрзалізниця | not named | not named | bad | |
+  | замок, заМОК | | `замо́к` works | | |
+
+  Bare spelling was never wrong. /ɨ/ was never wrong; /ɪ/ is unreliable. The
+  stress mark on "и" breaks the vowel in some words (книга, мити) and not in
+  others (риба, паляниця). Long words from IPA remain a risk. The мука and
+  дорога rows were not reported.
+- Proposed Ukrainian input for ElevenLabs, not yet tested as a whole: the
+  spelling with a stress mark, except when the stressed vowel is "и", where
+  the word goes as IPA with /ɨ/.
 - So "send the IPA we show" does not hold for every route. Where the spelling
   plus a stress mark is the input, the sounds come from the engine's own
   reading of the spelling, and the IPA we display has to agree with that
