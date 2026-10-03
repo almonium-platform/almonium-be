@@ -162,7 +162,7 @@ if owner.exists() and blind:
         key = k.strip()
         if key not in blind:
             continue
-        best = blind[key]["ABCDEFG".index(letter.strip())]
+        best = blind[key]["ABCDEFGHIJ".index(letter.strip())]
         lang, h = key.split("/", 1)
         for r in rows:
             if r["lang"] == lang and r["headword"] == h and best in (r["model_a"], r["model_b"]) and r["winner"] != "same":

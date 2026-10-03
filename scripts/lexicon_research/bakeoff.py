@@ -90,6 +90,24 @@ def call_openai(model, system, user):
                            "cache_read": cached, "reasoning_tokens": reasoning, "model": r.model, "status": r.status}
 
 
+def call_openrouter(model, system, user):
+    """Any model on OpenRouter, by its vendor/name id; the OpenAI chat shape. Output goes to
+    out/<vendor--name>/ so the id's slash does not become a directory."""
+    from openai import OpenAI
+    client = OpenAI(api_key=ENV["OPENROUTER_API_KEY"], base_url="https://openrouter.ai/api/v1")
+    t0 = time.time()
+    # reasoning off where the model allows it; GLM refuses, so it runs at low effort with room for the thinking
+    reasoning = {"effort": "low"} if model.startswith("z-ai") else {"enabled": False}
+    r = client.chat.completions.create(model=model, max_tokens=32000 if model.startswith("z-ai") else 16000, temperature=0.2,
+                                       messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+                                       extra_body={"usage": {"include": True}, "reasoning": reasoning})
+    u = r.usage
+    cached = getattr(getattr(u, "prompt_tokens_details", None), "cached_tokens", 0) or 0
+    cost = getattr(u, "cost", None)
+    return r.choices[0].message.content or "", {"latency_s": round(time.time() - t0, 1), "input_tokens": u.prompt_tokens, "output_tokens": u.completion_tokens,
+                                                 "cache_read": cached, "cost_usd": cost, "model": r.model, "finish": r.choices[0].finish_reason}
+
+
 def call_gemini(model, system, user):
     g = session(ROOT / ".env")
     t0 = time.time()
@@ -110,6 +128,8 @@ def call_gemini(model, system, user):
 
 
 def provider(model):
+    if "/" in model:
+        return call_openrouter
     if model.startswith("claude"):
         return call_anthropic
     if model.startswith(("gpt", "o1", "o3", "o4")):
@@ -127,7 +147,7 @@ def parse(text):
 
 
 def run_one(model, lang, system, row):
-    d = OUT / model / lang
+    d = OUT / model.replace("/", "--") / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():

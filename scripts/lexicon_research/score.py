@@ -27,7 +27,8 @@ VARIETY = {"en": "en-US", "de": "de-DE", "uk": "uk-UA"}
 WIKIPRON = {"en": "eng_latn_us_broad", "de": "deu_latn_broad", "uk": "ukr_cyrl_narrow"}
 MODELS_SPACY = {"en": "en_core_web_sm", "de": "de_core_news_sm", "uk": "uk_core_news_sm"}
 # dollars per million tokens, list price, 2026-10-03; unknown models priced like their nearest
-PRICE = {"claude-opus-5-5": (4, 20), "claude-sonnet-5-5": (2, 10), "gpt-5.5": (5, 25), "gpt-6.1-sol": (5, 25), "gemini-2.5-pro": (1.25, 10)}
+PRICE = {"claude-opus-5-5": (4, 20), "claude-sonnet-5-5": (2, 10), "gpt-5.5": (5, 25), "gpt-6.1-sol": (5, 25), "gemini-2.5-pro": (1.25, 10),
+         "deepseek--deepseek-v4-pro": (0.21, 0.42), "qwen--qwen3.7-plus": (0.32, 1.28), "moonshotai--kimi-k2.6": (0.95, 4.0), "z-ai--glm-5.3": (1.4, 4.4)}
 CACHE_PRICE = {"claude-opus-5-5": 0.2, "claude-sonnet-5-5": 0.2}
 
 ARPA = {"AA": "ɑ", "AE": "æ", "AH": "ʌ", "AO": "ɔ", "AW": "aʊ", "AY": "aɪ", "EH": "ɛ", "ER": "ɝ", "EY": "eɪ", "IH": "ɪ", "IY": "i",
@@ -299,7 +300,7 @@ for lang in GLOSS:
         key[f"{lang}/{h}"] = [m for m, _ in ms]
         page += f"<h3>{h}</h3><div class='row'>"
         for i, (m, e) in enumerate(ms):
-            label = "ABCDEFG"[i]
+            label = "ABCDEFGHIJ"[i]
             body = ""
             if not e["lexemes"]:
                 body = f"<p><i>rejected: {e.get('reject', '')}</i></p>"
@@ -311,7 +312,7 @@ for lang in GLOSS:
                     body += f"<li>{s['definition']} <small>{s['cefr']}, {s['register']}</small><br><small>{gl}</small><br><i>{s['example']}</i><br><small>cues: {' / '.join(q['text'] for q in s['cues'])}</small></li>"
                 body += "</ol>"
             page += f"<div class='col'><h4>{label}</h4>{body}</div>"
-        page += f"</div><p>Best <select data-v='{lang}/{h} best'><option value=''>-</option>{''.join(f'<option>{l}</option>' for l in 'ABCDEFG'[:len(ms)])}</select> Worst <select data-v='{lang}/{h} worst'><option value=''>-</option>{''.join(f'<option>{l}</option>' for l in 'ABCDEFG'[:len(ms)])}</select></p>"
+        page += f"</div><p>Best <select data-v='{lang}/{h} best'><option value=''>-</option>{''.join(f'<option>{l}</option>' for l in 'ABCDEFGHIJ'[:len(ms)])}</select> Worst <select data-v='{lang}/{h} worst'><option value=''>-</option>{''.join(f'<option>{l}</option>' for l in 'ABCDEFGHIJ'[:len(ms)])}</select></p>"
 page += "<p><button onclick=\"const t=[...document.querySelectorAll('select')].filter(s=>s.value).map(s=>s.dataset.v+': '+s.value).join('\\n');document.getElementById('o').value=t;navigator.clipboard&&navigator.clipboard.writeText(t)\">Copy results</button></p><textarea id=o></textarea>"
 (OUT / "blind.html").write_text(page)
 json.dump(key, open(OUT / "blind-key.json", "w"), ensure_ascii=False, indent=1)
