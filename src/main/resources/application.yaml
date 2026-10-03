@@ -129,7 +129,6 @@ rabbitmq:
       routing-key: user.deleted.v1
       dlq-name: q.user.deleted.book-imports.dlq
 google:
-  project-id: ${GOOGLE_PROJECT_ID}
   parent-location: global
   service-account-key-base64: ${GOOGLE_SERVICE_ACCOUNT_KEY_BASE64}
 

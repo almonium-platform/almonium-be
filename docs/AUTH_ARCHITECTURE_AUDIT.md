@@ -43,9 +43,9 @@ custom authentication platform.
   to choose between password sign-in and account creation. Because the response
   necessarily reveals account existence, the endpoint is limited to ten lookups
   per client address per rolling minute and its in-memory limiter is bounded.
-- The existing Firebase service account is reused for Admin Auth and
-  `GOOGLE_PROJECT_ID` is configured explicitly; no provider secret is stored in
-  this backend.
+- The existing Firebase service account is reused for Admin Auth, and its
+  key's `project_id` selects the Firebase project; no provider secret is stored
+  in this backend.
 
 New Liquibase changesets add `user_core.firebase_uid` and remove the legacy
 principal, verification-token, and refresh-token tables. Existing creation

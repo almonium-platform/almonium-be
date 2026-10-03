@@ -6,6 +6,7 @@ import com.almonium.config.properties.GoogleProperties;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.texttospeech.v1.TextToSpeechClient;
 import com.google.cloud.texttospeech.v1.TextToSpeechSettings;
 import com.google.cloud.translate.v3.LocationName;
@@ -60,8 +61,15 @@ public class GoogleCloudConfig {
         return TextToSpeechClient.create(settings);
     }
 
+    // The project comes from the service-account key rather than separate configuration, so
+    // Translation bills the same project that Firebase and Text-to-Speech already use.
     @Bean
-    public LocationName locationName() {
-        return googleProperties.getLocationName();
+    public LocationName locationName(GoogleCredentials credentials) {
+        if (!(credentials instanceof ServiceAccountCredentials serviceAccount)
+                || serviceAccount.getProjectId() == null
+                || serviceAccount.getProjectId().isBlank()) {
+            throw new IllegalStateException("Google credentials must be a service-account key with a project_id");
+        }
+        return LocationName.of(serviceAccount.getProjectId(), googleProperties.getParentLocation());
     }
 }

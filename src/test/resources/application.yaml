@@ -20,7 +20,6 @@ spring:
     contexts: ${spring.profiles.active}
 
 google:
-  project-id: google_project_id_dummy
   parent-location: global
   service-account-key-base64: firebase_service_account_key_dummy
 
