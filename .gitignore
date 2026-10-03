@@ -13,3 +13,10 @@ scripts/__pycache__
 
 # Reviewed, non-secret voice routing shipped with the application.
 !src/main/resources/tts-voices.json
+
+# lexicon research: reviewed, non-secret data files are tracked; downloaded witness data and run output are not
+!scripts/lexicon_research/*.json
+!scripts/lexicon_research/inventories/*.json
+!scripts/lexicon_research/headwords/*.json
+scripts/lexicon_research/wikipron/
+scripts/lexicon_research/out/

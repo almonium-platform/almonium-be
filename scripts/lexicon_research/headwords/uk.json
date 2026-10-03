@@ -1,0 +1,252 @@
+[
+ {
+  "headword": "покоління",
+  "zipf": 4.79,
+  "set": "frequency"
+ },
+ {
+  "headword": "положення",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "застосування",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "раптом",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "формування",
+  "zipf": 4.98,
+  "set": "frequency"
+ },
+ {
+  "headword": "звання",
+  "zipf": 4.79,
+  "set": "frequency"
+ },
+ {
+  "headword": "відомий",
+  "zipf": 4.93,
+  "set": "frequency"
+ },
+ {
+  "headword": "капітан",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "школа",
+  "zipf": 5.01,
+  "set": "frequency"
+ },
+ {
+  "headword": "особисто",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "готовий",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "відсутність",
+  "zipf": 4.91,
+  "set": "frequency"
+ },
+ {
+  "headword": "дівчина",
+  "zipf": 4.9,
+  "set": "frequency"
+ },
+ {
+  "headword": "ремонт",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "любов",
+  "zipf": 4.97,
+  "set": "frequency"
+ },
+ {
+  "headword": "тимчасово",
+  "zipf": 4.8,
+  "set": "frequency"
+ },
+ {
+  "headword": "курс",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "їхати",
+  "zipf": 4.83,
+  "set": "frequency"
+ },
+ {
+  "headword": "навпаки",
+  "zipf": 4.8,
+  "set": "frequency"
+ },
+ {
+  "headword": "тов",
+  "zipf": 4.8,
+  "set": "frequency"
+ },
+ {
+  "headword": "спільно",
+  "zipf": 4.79,
+  "set": "frequency"
+ },
+ {
+  "headword": "незважаючи",
+  "zipf": 4.9,
+  "set": "frequency"
+ },
+ {
+  "headword": "економіка",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "керівництво",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "весілля",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "гірше",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "начальник",
+  "zipf": 4.89,
+  "set": "frequency"
+ },
+ {
+  "headword": "майдан",
+  "zipf": 4.97,
+  "set": "frequency"
+ },
+ {
+  "headword": "свобода",
+  "zipf": 4.94,
+  "set": "frequency"
+ },
+ {
+  "headword": "настільки",
+  "zipf": 5.0,
+  "set": "frequency"
+ },
+ {
+  "headword": "водночас",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "піти",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "обмеження",
+  "zipf": 4.75,
+  "set": "frequency"
+ },
+ {
+  "headword": "канал",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "всередині",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "наскільки",
+  "zipf": 4.93,
+  "set": "frequency"
+ },
+ {
+  "headword": "закінчення",
+  "zipf": 4.81,
+  "set": "frequency"
+ },
+ {
+  "headword": "лайно",
+  "zipf": 4.8,
+  "set": "frequency"
+ },
+ {
+  "headword": "вода",
+  "zipf": 4.96,
+  "set": "frequency"
+ },
+ {
+  "headword": "обл",
+  "zipf": 4.89,
+  "set": "frequency"
+ },
+ {
+  "headword": "замок",
+  "zipf": 4.68,
+  "set": "hard"
+ },
+ {
+  "headword": "мука",
+  "zipf": 2.95,
+  "set": "hard"
+ },
+ {
+  "headword": "дорога",
+  "zipf": 4.72,
+  "set": "hard"
+ },
+ {
+  "headword": "атлас",
+  "zipf": 3.26,
+  "set": "hard"
+ },
+ {
+  "headword": "орган",
+  "zipf": 4.74,
+  "set": "hard"
+ },
+ {
+  "headword": "брати",
+  "zipf": 5.07,
+  "set": "hard"
+ },
+ {
+  "headword": "книга",
+  "zipf": 4.97,
+  "set": "hard"
+ },
+ {
+  "headword": "плачу",
+  "zipf": 4.16,
+  "set": "hard"
+ },
+ {
+  "headword": "характерний",
+  "zipf": 3.66,
+  "set": "hard"
+ },
+ {
+  "headword": "вигляд",
+  "zipf": 4.83,
+  "set": "hard"
+ }
+]

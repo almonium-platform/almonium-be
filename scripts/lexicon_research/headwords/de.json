@@ -1,0 +1,252 @@
+[
+ {
+  "headword": "fotos",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "ständig",
+  "zipf": 4.84,
+  "set": "frequency"
+ },
+ {
+  "headword": "Vertrag",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "Interview",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "fleisch",
+  "zipf": 4.66,
+  "set": "frequency"
+ },
+ {
+  "headword": "schwarzen",
+  "zipf": 4.72,
+  "set": "frequency"
+ },
+ {
+  "headword": "nett",
+  "zipf": 4.7,
+  "set": "frequency"
+ },
+ {
+  "headword": "freuen",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "willkommen",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "schade",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "gelten",
+  "zipf": 4.8,
+  "set": "frequency"
+ },
+ {
+  "headword": "Chef",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "melden",
+  "zipf": 4.67,
+  "set": "frequency"
+ },
+ {
+  "headword": "daraus",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "erfahren",
+  "zipf": 4.9,
+  "set": "frequency"
+ },
+ {
+  "headword": "General",
+  "zipf": 4.72,
+  "set": "frequency"
+ },
+ {
+  "headword": "Produktion",
+  "zipf": 4.68,
+  "set": "frequency"
+ },
+ {
+  "headword": "bieten",
+  "zipf": 4.81,
+  "set": "frequency"
+ },
+ {
+  "headword": "Konzept",
+  "zipf": 4.74,
+  "set": "frequency"
+ },
+ {
+  "headword": "öffentlich",
+  "zipf": 4.72,
+  "set": "frequency"
+ },
+ {
+  "headword": "ungefähr",
+  "zipf": 4.7,
+  "set": "frequency"
+ },
+ {
+  "headword": "Mama",
+  "zipf": 4.68,
+  "set": "frequency"
+ },
+ {
+  "headword": "draussen",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "Himmel",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "Umgebung",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "Hintergrund",
+  "zipf": 4.85,
+  "set": "frequency"
+ },
+ {
+  "headword": "Unfall",
+  "zipf": 4.7,
+  "set": "frequency"
+ },
+ {
+  "headword": "linken",
+  "zipf": 4.89,
+  "set": "frequency"
+ },
+ {
+  "headword": "Szene",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "schlafen",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "froh",
+  "zipf": 4.79,
+  "set": "frequency"
+ },
+ {
+  "headword": "vorne",
+  "zipf": 4.73,
+  "set": "frequency"
+ },
+ {
+  "headword": "Freiheit",
+  "zipf": 4.88,
+  "set": "frequency"
+ },
+ {
+  "headword": "massnahmen",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "ruhig",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "Zeitpunkt",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "persönlich",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "Schutz",
+  "zipf": 4.84,
+  "set": "frequency"
+ },
+ {
+  "headword": "Versuch",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "hart",
+  "zipf": 4.89,
+  "set": "frequency"
+ },
+ {
+  "headword": "übersetzen",
+  "zipf": 3.9,
+  "set": "hard"
+ },
+ {
+  "headword": "umfahren",
+  "zipf": 3.14,
+  "set": "hard"
+ },
+ {
+  "headword": "modern",
+  "zipf": 4.24,
+  "set": "hard"
+ },
+ {
+  "headword": "Schloss",
+  "zipf": 4.84,
+  "set": "hard"
+ },
+ {
+  "headword": "Montage",
+  "zipf": 3.79,
+  "set": "hard"
+ },
+ {
+  "headword": "Tenor",
+  "zipf": 3.75,
+  "set": "hard"
+ },
+ {
+  "headword": "Chirurg",
+  "zipf": 3.52,
+  "set": "hard"
+ },
+ {
+  "headword": "Bank",
+  "zipf": 4.91,
+  "set": "hard"
+ },
+ {
+  "headword": "Leiter",
+  "zipf": 4.72,
+  "set": "hard"
+ },
+ {
+  "headword": "umgehen",
+  "zipf": 4.39,
+  "set": "hard"
+ }
+]

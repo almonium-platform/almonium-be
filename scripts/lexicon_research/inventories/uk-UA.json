@@ -1,0 +1,46 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː",
+  "ʲ"
+ ],
+ "note": "Hand-written from PHOIBLE and the Chirp 3 HD phoneme tables; first draft 2026-10-03. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "uk-UA",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "ʋ",
+  "s",
+  "z",
+  "ʃ",
+  "ʒ",
+  "x",
+  "ɦ",
+  "ts",
+  "dz",
+  "tʃ",
+  "dʒ",
+  "m",
+  "n",
+  "l",
+  "r",
+  "j"
+ ],
+ "vowels": [
+  "i",
+  "ɪ",
+  "ɛ",
+  "a",
+  "ɔ",
+  "u"
+ ],
+ "conventions": "Standard Ukrainian. Palatalization is written with ʲ after the consonant (tʲ dʲ sʲ zʲ tsʲ dzʲ nʲ lʲ rʲ). Written г is ɦ, ґ is ɡ, и is ɪ, е is ɛ, о is ɔ. Unstressed vowels are written with their full value, no reduction. Length ː is used only to mark a doubled consonant."
+}

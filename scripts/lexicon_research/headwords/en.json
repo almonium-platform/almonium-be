@@ -1,0 +1,252 @@
+[
+ {
+  "headword": "peace",
+  "zipf": 5.02,
+  "set": "frequency"
+ },
+ {
+  "headword": "critical",
+  "zipf": 4.83,
+  "set": "frequency"
+ },
+ {
+  "headword": "forever",
+  "zipf": 4.74,
+  "set": "frequency"
+ },
+ {
+  "headword": "speak",
+  "zipf": 5.03,
+  "set": "frequency"
+ },
+ {
+  "headword": "operation",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "dry",
+  "zipf": 4.74,
+  "set": "frequency"
+ },
+ {
+  "headword": "welcome",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "boss",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "therefore",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "approach",
+  "zipf": 4.93,
+  "set": "frequency"
+ },
+ {
+  "headword": "library",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "message",
+  "zipf": 5.0,
+  "set": "frequency"
+ },
+ {
+  "headword": "previously",
+  "zipf": 4.83,
+  "set": "frequency"
+ },
+ {
+  "headword": "damage",
+  "zipf": 4.9,
+  "set": "frequency"
+ },
+ {
+  "headword": "flight",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "direction",
+  "zipf": 4.93,
+  "set": "frequency"
+ },
+ {
+  "headword": "committee",
+  "zipf": 5.01,
+  "set": "frequency"
+ },
+ {
+  "headword": "create",
+  "zipf": 5.02,
+  "set": "frequency"
+ },
+ {
+  "headword": "pull",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "avoid",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "necessary",
+  "zipf": 4.91,
+  "set": "frequency"
+ },
+ {
+  "headword": "proud",
+  "zipf": 4.78,
+  "set": "frequency"
+ },
+ {
+  "headword": "travel",
+  "zipf": 5.0,
+  "set": "frequency"
+ },
+ {
+  "headword": "surface",
+  "zipf": 4.83,
+  "set": "frequency"
+ },
+ {
+  "headword": "develop",
+  "zipf": 4.75,
+  "set": "frequency"
+ },
+ {
+  "headword": "improve",
+  "zipf": 4.79,
+  "set": "frequency"
+ },
+ {
+  "headword": "contact",
+  "zipf": 4.99,
+  "set": "frequency"
+ },
+ {
+  "headword": "rare",
+  "zipf": 4.77,
+  "set": "frequency"
+ },
+ {
+  "headword": "complex",
+  "zipf": 4.86,
+  "set": "frequency"
+ },
+ {
+  "headword": "double",
+  "zipf": 5.01,
+  "set": "frequency"
+ },
+ {
+  "headword": "village",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "judge",
+  "zipf": 4.95,
+  "set": "frequency"
+ },
+ {
+  "headword": "slow",
+  "zipf": 4.85,
+  "set": "frequency"
+ },
+ {
+  "headword": "alive",
+  "zipf": 4.76,
+  "set": "frequency"
+ },
+ {
+  "headword": "mission",
+  "zipf": 4.87,
+  "set": "frequency"
+ },
+ {
+  "headword": "material",
+  "zipf": 4.95,
+  "set": "frequency"
+ },
+ {
+  "headword": "none",
+  "zipf": 4.93,
+  "set": "frequency"
+ },
+ {
+  "headword": "organization",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "budget",
+  "zipf": 4.82,
+  "set": "frequency"
+ },
+ {
+  "headword": "impact",
+  "zipf": 4.92,
+  "set": "frequency"
+ },
+ {
+  "headword": "lead",
+  "zipf": 5.2,
+  "set": "hard"
+ },
+ {
+  "headword": "tear",
+  "zipf": 4.35,
+  "set": "hard"
+ },
+ {
+  "headword": "wind",
+  "zipf": 4.84,
+  "set": "hard"
+ },
+ {
+  "headword": "present",
+  "zipf": 5.18,
+  "set": "hard"
+ },
+ {
+  "headword": "object",
+  "zipf": 4.56,
+  "set": "hard"
+ },
+ {
+  "headword": "colonel",
+  "zipf": 4.41,
+  "set": "hard"
+ },
+ {
+  "headword": "choir",
+  "zipf": 3.88,
+  "set": "hard"
+ },
+ {
+  "headword": "record",
+  "zipf": 5.21,
+  "set": "hard"
+ },
+ {
+  "headword": "read",
+  "zipf": 5.54,
+  "set": "hard"
+ },
+ {
+  "headword": "bass",
+  "zipf": 4.28,
+  "set": "hard"
+ }
+]
