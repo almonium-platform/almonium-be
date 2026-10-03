@@ -96,7 +96,7 @@ def call_gemini(model, system, user):
     body = {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": user}]}],
             "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json", "maxOutputTokens": 16000}}
     for i in range(5):
-        r = g.post(f"https://aiplatform.googleapis.com/v1/projects/{ENV['GOOGLE_PROJECT_ID']}/locations/global/publishers/google/models/{model}:generateContent", json=body, timeout=300)
+        r = g.post(f"https://aiplatform.googleapis.com/v1/projects/almonium-dev/locations/global/publishers/google/models/{model}:generateContent", json=body, timeout=300)
         if r.status_code in (429, 503):
             time.sleep(10 * (i + 1))
             continue
@@ -143,7 +143,7 @@ def run_one(model, lang, system, row):
     try:
         entry = parse(text) if text else {"error": meta.get("error", "no text")}
     except Exception as e:
-        entry = {"error": f"not JSON: {e}", "raw": text[:4000]}
+        entry = {"error": f"not JSON: {e}", "raw": text}
     meta.update({"prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"]})
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")

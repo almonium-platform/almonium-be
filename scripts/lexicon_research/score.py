@@ -47,6 +47,21 @@ def norm(ipa):
     return s
 
 
+def lev(a, b):
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+def close(x, options):
+    """Agreement with a dictionary that may transcribe narrowly: at most one edit per five symbols."""
+    return any(lev(x, o) <= max(1, len(o) // 5) for o in options)
+
+
 def stress_index(ipa):
     """Which vowel, counting from 0, carries primary stress; -1 when unmarked."""
     body = ipa.strip("/ ")
@@ -94,6 +109,42 @@ def load_wikipron(lang):
     return d
 
 
+POS_FIX = {"ADJECTIVE": "ADJ", "ADVERB": "ADV", "PREPOSITION": "ADP", "CONJUNCTION": "CONJ", "INTERJECTION": "INTJ", "PRONOUN": "PRON", "DETERMINER": "DET", "NUMERAL": "NUM"}
+
+
+def repair_json(text):
+    """Trailing commas and a missing closing bracket, the slips seen in the bake-off."""
+    t = re.sub(r",\s*([}\]])", r"\1", text)
+    opens, closes = t.count("{"), t.count("}")
+    t += "}" * max(0, opens - closes)
+    return json.loads(t)
+
+
+def lenient(e):
+    """The fixes a strict-schema mode or a stricter prompt would make unnecessary: unknown top-level
+    keys dropped, spelled-out parts of speech mapped, a sense-level exact moved into the glosses,
+    missing forms made empty. Content is never changed."""
+    e = {k: v for k, v in e.items() if k in ("language", "headword", "lexemes", "reject")}
+    for lx in e.get("lexemes", []):
+        lx["pos"] = POS_FIX.get(lx.get("pos"), lx.get("pos"))
+        lx.setdefault("forms", [])
+        for k in list(lx):
+            if k not in ("lemma", "pos", "kind", "grammar", "forms", "pattern", "pronunciations", "senses", "relations"):
+                lx.pop(k)
+        if isinstance(lx.get("grammar"), dict):
+            lx["grammar"] = {k: (", ".join(map(str, v)) if isinstance(v, list) else v) for k, v in lx["grammar"].items()}
+        for s in lx.get("senses", []):
+            if "exact" in s:
+                ex = s.pop("exact")
+                if ex is False:
+                    s["glosses"] = {k: ({"text": v, "exact": False} if isinstance(v, str) else v) for k, v in s.get("glosses", {}).items()}
+            for k in list(s):
+                if k not in ("definition", "pos_detail", "register", "cefr", "glosses", "example", "cues"):
+                    s.pop(k)
+            s["glosses"] = {k: v for k, v in s.get("glosses", {}).items() if v}
+    return e
+
+
 def words(text):
     return [w for w in re.findall(r"[^\W\d_]+", text.lower())]
 
@@ -123,13 +174,26 @@ for model in models:
             c["cache_read"] += meta.get("cache_read") or 0
             c["cache_write"] += meta.get("cache_write") or 0
             c["latency"] += meta.get("latency_s") or 0
+            if "error" in e and e.get("raw"):
+                try:
+                    e = repair_json(e["raw"])
+                    c["json_repaired"] += 1
+                except Exception:
+                    pass
             if "error" in e:
                 c["errors"] += 1
                 continue
             try:
                 jsonschema.validate(e, SCHEMA)
+                c["valid_raw"] += 1
             except jsonschema.ValidationError:
+                pass
+            try:
+                e = lenient(e)
+                jsonschema.validate(e, SCHEMA)
+            except jsonschema.ValidationError as ex:
                 c["schema_fail"] += 1
+                c.setdefault("fail_examples", []).append(ex.message[:80]) if isinstance(c.get("fail_examples", []), list) else None
                 continue
             c["valid"] += 1
             entries[(lang, f.stem)][model] = e
@@ -154,12 +218,12 @@ for model in models:
                     wp = wikipron[lang].get(key)
                     if wp:
                         c["wp_seen"] += 1
-                        c["wp_sounds_agree"] += norm(pron) in wp
+                        c["wp_sounds_agree"] += close(norm(pron), wp)
                     if lang == "en":
                         cv = cmu_variants(key)
                         if cv:
                             c["cmu_seen"] += 1
-                            c["cmu_sounds_agree"] += norm(pron) in {norm(s) for s, _ in cv}
+                            c["cmu_sounds_agree"] += close(norm(pron), {norm(s) for s, _ in cv})
                             c["cmu_stress_agree"] += stress_index(pron) in {st for _, st in cv}
                 for fm in lx["forms"]:
                     c["forms"] += 1
@@ -186,13 +250,15 @@ for lang in GLOSS:
     lines += [f"## {lang}", "", "| Measure | " + " | ".join(models) + " |", "|---|" + "---|" * len(models)]
     rows = [
         ("Entries written", lambda c: str(c.get("entries", 0))),
-        ("Valid JSON and schema", lambda c: pct(c.get("valid", 0), c.get("entries", 0))),
+        ("Valid JSON and schema as written", lambda c: pct(c.get("valid_raw", 0), c.get("entries", 0))),
+        ("Valid after lenient repair (content unchanged)", lambda c: pct(c.get("valid", 0), c.get("entries", 0))),
+        ("JSON repaired (trailing commas, brackets)", lambda c: str(c.get("json_repaired", 0))),
         ("Rejected as not a lemma", lambda c: str(c.get("rejects", 0))),
         ("Lexemes per entry", lambda c: f"{c.get('lexemes', 0) / max(1, c.get('valid', 1) - c.get('rejects', 0)):.2f}"),
         ("Senses per lexeme (max)", lambda c: f"{c.get('senses', 0) / max(1, c.get('lexemes', 1)):.1f} ({c.get('senses_max', 0)})"),
         ("IPA symbols inside the inventory", lambda c: pct(c.get("pron_in_inventory", 0), c.get("prons", 0))),
-        ("IPA sounds agree with WikiPron (of words it lists)", lambda c: f"{pct(c.get('wp_sounds_agree', 0), c.get('wp_seen', 0))} of {c.get('wp_seen', 0)}"),
-        ("IPA sounds agree with CMUdict", lambda c: f"{pct(c.get('cmu_sounds_agree', 0), c.get('cmu_seen', 0))} of {c.get('cmu_seen', 0)}"),
+        ("IPA sounds within one edit per five of WikiPron (of words it lists)", lambda c: f"{pct(c.get('wp_sounds_agree', 0), c.get('wp_seen', 0))} of {c.get('wp_seen', 0)}"),
+        ("IPA sounds within one edit per five of CMUdict", lambda c: f"{pct(c.get('cmu_sounds_agree', 0), c.get('cmu_seen', 0))} of {c.get('cmu_seen', 0)}"),
         ("Stress agrees with CMUdict", lambda c: pct(c.get("cmu_stress_agree", 0), c.get("cmu_seen", 0))),
         ("Forms spaCy lemmatizes to the lemma", lambda c: f"{pct(c.get('forms_lemmatize', 0), c.get('forms', 0))} of {c.get('forms', 0)}"),
         ("Definition words in top 3,000", lambda c: pct(c.get("def_common", 0), c.get("def_words", 0))),
