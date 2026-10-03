@@ -18,6 +18,24 @@ after a listening test on that triple.
 
 ## Decision for the launch languages
 
+Decided 2026-10-03: ElevenLabs `eleven_v4` is the canonical engine, with a
+native voice per language and an input mode per language; Google Chirp 3 HD
+with IPA is the fallback, WaveNet for Ukrainian. Every ElevenLabs clip is
+machine-transcribed and compared with the headword; a mismatch regenerates
+once, then falls back. The evidence is in the ElevenLabs section below.
+
+| Variety | ElevenLabs voice | What is sent | Verified |
+|---|---|---|---|
+| en-US, en-GB | audition pending (stock voices) | IPA | "Perfect" on 22 tricky words |
+| de-DE | audition pending (library voices) | IPA | "Perfect" on 18 tricky words |
+| fr-FR | Nicolas | Spelling; IPA only for homographs | Spelling and IPA sound the same |
+| es-ES | David Martin | Spelling | Spelling better than IPA on murciélago |
+| it-IT | MarcoTrox | Spelling with the accent on the stressed vowel | `àncora`, `prìncipi` work; IPA fails |
+| pl-PL | Adam | Spelling | Spelling much better than IPA |
+| uk-UA | Alex Nekrasov | Stress mark; bare if one syllable; IPA with /ɨ/ if the word contains и | Pieces verified; ґ/г and long IPA words still fail |
+
+Fallback routes, verified earlier:
+
 | Variety | Engine and voice | Control | Verified |
 |---|---|---|---|
 | de-DE | Chirp 3 HD, Charon (male) | IPA via `customPronunciations` | Real pair `umfahren`, both stresses |
