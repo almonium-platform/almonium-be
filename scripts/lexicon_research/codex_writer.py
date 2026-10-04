@@ -13,7 +13,7 @@ Output: out/codex-<model>/<lang>/<headword>.json and .meta.json, the bake-off la
 Usage: codex_writer.py <headwords name> [--model gpt-6.1-sol] [--effort medium] [--langs en,de,uk] [--offset N] [--limit N] [--workers 4]
        (run from the backend repository root; headwords/<name>-<lang>.json must exist)
 """
-import argparse, json, os, subprocess, sys, time
+import argparse, json, os, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -25,6 +25,8 @@ OUT = HERE / "out"
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
 EMPTY = Path("/tmp/claude-1000/codex-empty")
 EMPTY.mkdir(parents=True, exist_ok=True)
+# set once the plan refuses a call: nothing more is sent, and no error file is left to block a rerun
+LIMIT_HIT = threading.Event()
 
 
 def has_entry(lang, headword):
@@ -43,6 +45,8 @@ def write_one(model, effort, lang, system, row, shared=False):
     # a quality comparison needs the same words another model wrote; everything else skips them
     if (d / f"{row['headword']}.json").exists() or (not shared and has_entry(lang, row["headword"])):
         return "skip"
+    if LIMIT_HIT.is_set():
+        return "limit"
     d.mkdir(parents=True, exist_ok=True)
     prompt = f"{system}\n\nDo not run commands or read files; answer from your own knowledge.\n\n{user_prompt(lang, row)}"
     t0 = time.time()
@@ -63,6 +67,11 @@ def write_one(model, effort, lang, system, row, shared=False):
             usage = ev.get("usage") or {}
         elif ev.get("type") in ("error", "turn.failed"):
             error = str(ev.get("message") or ev.get("error"))[:300]
+    if not text and "usage limit" in error:
+        if not LIMIT_HIT.is_set():
+            print(f"plan limit reached at {row['headword']}: {error}", flush=True)
+        LIMIT_HIT.set()
+        return "limit"
     meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
             "input_tokens": usage.get("input_tokens"), "cache_read": usage.get("cached_input_tokens"),
             "output_tokens": usage.get("output_tokens"), "reasoning_tokens": usage.get("reasoning_output_tokens")}
