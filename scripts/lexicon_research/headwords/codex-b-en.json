@@ -1,0 +1,602 @@
+[
+ {
+  "headword": "earn",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "finger",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "howard",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "ignore",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "meal",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "meanwhile",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "naturally",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "necessarily",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "partnership",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "percentage",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "pocket",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "practical",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "primarily",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "rape",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "regardless",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "relative",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "rescue",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "rush",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "sharp",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "soccer",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "stable",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "temporary",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "trick",
+  "zipf": 4.48,
+  "set": "codex-b"
+ },
+ {
+  "headword": "audio",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "bone",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "bullshit",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "circuit",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "clothing",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "complicated",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "defend",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "everyday",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "extent",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "fishing",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "format",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "gap",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "harm",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "household",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "immigration",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "impressive",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "killer",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "membership",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "mirror",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "occur",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "parking",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "proposal",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "reputation",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "shortly",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "strongly",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "technique",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "thin",
+  "zipf": 4.47,
+  "set": "codex-b"
+ },
+ {
+  "headword": "adventure",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "argue",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "assessment",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "atmosphere",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "awful",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "bedroom",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "belief",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "carefully",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "closing",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "cloud",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "contrast",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "egg",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "element",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "elsewhere",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "establish",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "extension",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "founder",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "gear",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "hip",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "infrastructure",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "loose",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "moral",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "offensive",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "package",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "poverty",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "railway",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "ridiculous",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "sensitive",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "server",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "shock",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "silence",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "soldier",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "superior",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "thick",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "transition",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "violent",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "wash",
+  "zipf": 4.46,
+  "set": "codex-b"
+ },
+ {
+  "headword": "acid",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "actress",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "administrative",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "alongside",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "anxiety",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "bonus",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "charity",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "compare",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "curious",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "duke",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "encourage",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "enforcement",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "flash",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "formal",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "formula",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "gray",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "gross",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "hungry",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "innocent",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "math",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "mystery",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "palace",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "penalty",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "pet",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "photography",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "protest",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "publication",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "rating",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "refer",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "respectively",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "select",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "silent",
+  "zipf": 4.45,
+  "set": "codex-b"
+ },
+ {
+  "headword": "successfully",
+  "zipf": 4.45,
+  "set": "codex-b"
+ }
+]
