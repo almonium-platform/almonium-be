@@ -33,7 +33,7 @@ class CopyrightEngineTest {
         assertThat(status(littlePrince, "DE")).isEqualTo(FREE);
         assertThat(status(littlePrince, "UA")).isEqualTo(FREE);
         assertThat(status(littlePrince, "PL")).isEqualTo(FREE);
-        assertThat(engine.verdict(littlePrince, "FR", YEAR).freeFrom()).isEqualTo(YearRange.exactly(2045));
+        assertThat(engine.verdict(littlePrince, "FR", YEAR).freeFrom()).isEqualTo(YearRange.exactly(2034));
         assertThat(engine.verdict(littlePrince, "US", YEAR).freeFrom()).isEqualTo(YearRange.exactly(2039));
         assertThat(engine.statusInAll(littlePrince, PRODUCTION, YEAR)).isEqualTo(FREE);
     }
@@ -127,6 +127,26 @@ class CopyrightEngineTest {
         assertThat(engine.verdict(work(1930, AuthorFacts.of("Died 1953", 1880, 1953)), "RU", YEAR)
                         .freeFrom())
                 .isEqualTo(YearRange.exactly(2028));
+    }
+
+    @Test
+    void franceKeepsTheOldTermPlusThirtyAndTheWarYearsForAnAuthorWhoDiedForFrance() {
+        AuthorFacts alainFournier = new AuthorFacts("Alain-Fournier", 1886, 1914, true, null);
+
+        assertThat(engine.verdict(work(1913, alainFournier), "FR", YEAR).freeFrom())
+                .isEqualTo(YearRange.exactly(1914 + 50 + 30 + 9 + 7 + 1));
+        assertThat(engine.verdict(work(1913, AuthorFacts.of("Not for France", 1886, 1914)), "FR", YEAR)
+                        .freeFrom())
+                .isEqualTo(YearRange.exactly(1985));
+    }
+
+    @Test
+    void russiaDidNotReviveWorksWhoseOldTermHadRunOutBy1993() {
+        assertThat(status(work(1910, AuthorFacts.of("Died 1935", 1870, 1935)), "RU"))
+                .isEqualTo(FREE);
+        assertThat(engine.verdict(work(1910, AuthorFacts.of("Died 1935", 1870, 1935)), "RU", YEAR)
+                        .freeFrom())
+                .isEqualTo(YearRange.exactly(1986));
     }
 
     @Test

@@ -62,21 +62,24 @@ also the default for any unlisted country. Special cases:
 | Country | Rule |
 | --- | --- |
 | United States (and territories) | Published before 1978: 95 years from publication (renewal lapses ignored). Otherwise life + 70. |
-| France (and overseas departments) | Life + 70, and 30 more for an author declared "mort pour la France". |
+| France (and overseas departments) | Life + 70. For an author declared "mort pour la France": the old life + 50, plus 30, plus the war extensions for works published by 1947 (8 years 120 days) and by 1920 (6 years 152 days), rounded up to year ends, when longer. |
 | Spain | Authors who died in 1987 or before: life + 80. |
 | Ukraine | Life + 70, counted from rehabilitation for a repressed author rehabilitated after death. |
-| Russia | Life + 70; + 4 for authors who died in 1941 or later (wartime work); from rehabilitation where it applies. |
+| Russia | Life + 70; + 4 for authors who died in 1941 or later (wartime work); from rehabilitation where it applies. Works whose old life + 50 (+ 4) had run out by 1993 stay free. |
 | Canada, New Zealand | Life + 50 for authors who died in 1971 or before, otherwise life + 70. |
 | Japan | Life + 50 for authors who died in 1957 or before (the 1967 cutoff pulled back for the wartime extension on Allied works), otherwise life + 70. |
 | South Korea | Life + 50 for authors who died in 1962 or before, otherwise life + 70. |
 | Life + 50 | BY, CN, EG, HK, IR, KE, MO, MY, NP, PH, PK, SA, TH, TW, VN, ZA |
 | Life + 60 | BD, IN, VE |
-| Life + 75 / 80 / 95 / 99 / 100 | GT, HN, VC, WS / CO / JM / CI / MX |
+| Life + 75 / 80 / 95 / 99 / 100 | GT, HN, VC, WS / CO, GQ / JM / CI / MX |
 
 **The table errs long where a country is uncertain.** A term guessed too long
-only hides a book; one guessed too short publishes one. It was written from
-general knowledge, not from a legal review: have a lawyer confirm the rules
-for Ukraine, Germany and the main markets before relying on it.
+only hides a book; one guessed too short publishes one. On 2026-10-06 it was
+checked against Wikipedia's "List of copyright duration by country": no
+country there has a longer life-based term than the table, and about 80 have
+a shorter one (life + 50), which the table deliberately leaves at 70. It is
+not a legal review: have a lawyer confirm the rules for Ukraine, Germany and
+the main markets before relying on it.
 
 Missing facts widen the answer instead of guessing. An author with no recorded
 death is assumed to have died between the publication and 110 years after

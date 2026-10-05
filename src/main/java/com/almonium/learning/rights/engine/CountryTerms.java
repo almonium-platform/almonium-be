@@ -40,9 +40,20 @@ public final class CountryTerms {
         }
     };
 
-    /** France: life plus 70, and 30 more for an author declared "mort pour la France". */
-    public static final CopyrightTerm FRANCE = (deathYear, publicationYear, author) ->
-            deathYear + 71 + (author != null && author.diedForFrance() ? 30 : 0);
+    /**
+     * France: life plus 70. For an author declared "mort pour la France" the old term still runs: life plus 50, plus
+     * 30 years, plus the war extensions for works published by the end of 1947 (8 years 120 days) or of 1920 (6 years
+     * 152 days more), each rounded up to the next year end; whichever is longer.
+     */
+    public static final CopyrightTerm FRANCE = (deathYear, publicationYear, author) -> {
+        int standard = deathYear + 71;
+        if (author == null || !author.diedForFrance()) {
+            return standard;
+        }
+        int wartime =
+                publicationYear == null ? 9 + 7 : (publicationYear <= 1947 ? 9 : 0) + (publicationYear <= 1920 ? 7 : 0);
+        return Math.max(standard, deathYear + 50 + 30 + wartime + 1);
+    };
 
     /** Spain: authors who died before 7 December 1987 keep the old life plus 80. */
     public static final CopyrightTerm SPAIN =
@@ -56,10 +67,15 @@ public final class CountryTerms {
 
     /**
      * Russia: life plus 70; four more years for an author who worked or fought during the Great Patriotic War (taken
-     * as anyone who died in 1941 or later), counted from rehabilitation for a rehabilitated author.
+     * as anyone who died in 1941 or later), counted from rehabilitation for a rehabilitated author. A work whose old
+     * term (life plus 50, or 54) had run out by 1 January 1993 was not brought back.
      */
-    public static final CopyrightTerm RUSSIA = (deathYear, publicationYear, author) ->
-            Math.max(deathYear, rehabilitation(author, deathYear)) + 71 + (deathYear >= 1941 ? 4 : 0);
+    public static final CopyrightTerm RUSSIA = (deathYear, publicationYear, author) -> {
+        int from = Math.max(deathYear, rehabilitation(author, deathYear));
+        int wartime = deathYear >= 1941 ? 4 : 0;
+        int oldTermEnds = from + 50 + wartime + 1;
+        return oldTermEnds <= 1993 ? oldTermEnds : from + 70 + wartime + 1;
+    };
 
     private static final Map<String, CopyrightTerm> TERMS = new HashMap<>();
 
@@ -84,7 +100,7 @@ public final class CountryTerms {
                 "ZA");
         put(lifePlus(60), "BD", "IN", "VE");
         put(lifePlus(75), "GT", "HN", "VC", "WS");
-        put(lifePlus(80), "CO");
+        put(lifePlus(80), "CO", "GQ");
         put(lifePlus(95), "JM");
         put(lifePlus(99), "CI");
         put(lifePlus(100), "MX");
