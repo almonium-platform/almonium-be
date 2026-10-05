@@ -75,19 +75,24 @@ public class WikidataCatalogSource {
     public Snapshot fetch() {
         Map<String, Work> works = new HashMap<>();
         query(
-                "SELECT ?w (SAMPLE(?links) AS ?l) (SAMPLE(?code) AS ?lang) (MIN(YEAR(?date)) AS ?year) WHERE { "
+                "SELECT ?w (SAMPLE(?links) AS ?l) (SAMPLE(?code) AS ?lang) (MIN(YEAR(?published)) AS ?p) "
+                        + "(MIN(YEAR(?made)) AS ?i) WHERE { "
                         + NOTABLE_WORK
                         + "OPTIONAL { ?w wdt:P407 ?language . ?language wdt:P424 ?code } "
-                        + "OPTIONAL { ?w wdt:P577|wdt:P571 ?date } } GROUP BY ?w",
+                        + "OPTIONAL { ?w wdt:P577 ?published } OPTIONAL { ?w wdt:P571 ?made } } GROUP BY ?w",
                 cells -> {
                     Integer links = SparqlTsv.integer(SparqlTsv.value(cells.get(1)));
+                    // First publication when recorded; the date of writing ("inception") only without one, since
+                    // an earlier year makes the United States' publication-based term look shorter than it is.
+                    Integer published = SparqlTsv.integer(SparqlTsv.value(cells.get(3)));
+                    Integer written = SparqlTsv.integer(SparqlTsv.value(cells.get(4)));
                     works.put(
                             SparqlTsv.value(cells.get(0)),
                             new Work(
                                     SparqlTsv.value(cells.get(0)),
                                     links == null ? 0 : links,
                                     emptyToNull(SparqlTsv.value(cells.get(2))),
-                                    SparqlTsv.integer(SparqlTsv.value(cells.get(3)))));
+                                    published != null ? published : written));
                 });
 
         Map<String, List<String>> authorsByWork = new HashMap<>();
