@@ -2,10 +2,12 @@ package com.almonium.learning.book.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
+import com.almonium.learning.rights.service.ReadingRights;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +20,9 @@ class BookEditionSelectionTest {
     void selectsExactEditionAndRejectsAnotherWorkOrSelf(String level) {
         BookRepository repository = mock(BookRepository.class);
         PublishedBookContentService content = mock(PublishedBookContentService.class);
-        BookService service = new BookService(null, content, repository, null, null, null, null);
+        ReadingRights everywhere = mock(ReadingRights.class);
+        when(everywhere.requireReadable(any())).thenAnswer(call -> call.getArgument(0));
+        BookService service = new BookService(null, content, repository, null, null, null, null, everywhere);
         Book primary = book(level, "frankenstein");
         Book original = book("original", "frankenstein");
         when(repository.findByEditionSlug(level)).thenReturn(Optional.of(primary));

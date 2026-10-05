@@ -6,6 +6,7 @@ import com.almonium.auth.firebase.exception.FirebaseAuthenticationException;
 import com.almonium.auth.firebase.exception.FirebaseIdentityManagementException;
 import com.almonium.infra.email.exception.EmailConfigurationException;
 import com.almonium.infra.qr.exception.QRCodeGenerationException;
+import com.almonium.learning.rights.exception.UnavailableInCountryException;
 import com.almonium.subscription.exception.InvalidPaddleWebhookException;
 import com.almonium.subscription.exception.PaddleIntegrationException;
 import com.almonium.subscription.exception.PlanSubscriptionException;
@@ -238,6 +239,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(StreamIntegrationException.class)
     public ResponseEntity<ApiResponse> handleStreamIntegrationException(StreamIntegrationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    @ExceptionHandler(UnavailableInCountryException.class)
+    public ResponseEntity<ApiResponse> handleUnavailableInCountryException(UnavailableInCountryException ex) {
+        return ResponseEntity.status(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS) // 451
+                .body(new ApiResponse(false, ex.getMessage()));
     }
 
     @ExceptionHandler(ResourceNotAccessibleException.class)

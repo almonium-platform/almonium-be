@@ -105,6 +105,8 @@ public class WebSecurityConfig {
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/publications"),
                                 PathPatternRequestMatcher.withDefaults()
                                         .matcher("/internal/books/publications/withdrawals"),
+                                PathPatternRequestMatcher.withDefaults()
+                                        .matcher("/internal/books/publications/rights-check"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
@@ -116,6 +118,7 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/internal/books/publications",
                                 "/internal/books/publications/withdrawals",
+                                "/internal/books/publications/rights-check",
                                 "/internal/books/import-events")
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")

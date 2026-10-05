@@ -6,6 +6,7 @@ import com.almonium.learning.catalog.dto.response.CatalogHit.CatalogState;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.Hit;
 import com.almonium.learning.rights.model.RightsStatus;
+import com.almonium.learning.rights.service.ReadingRights;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Search over every notable book (W1): a query always lands on real works, each marked by what the reader can do with
- * it. A work counts as on the shelf only while an edition of it is published.
+ * it. A work counts as on the shelf only while an edition of it is published, and only for a country that may read it.
  */
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class CatalogSearchService {
 
     private final CatalogStore store;
     private final BookRepository bookRepository;
+    private final ReadingRights readingRights;
 
     public List<CatalogHit> search(String query, int limit) {
         String folded = TitleFolding.fold(query);
@@ -36,7 +38,7 @@ public class CatalogSearchService {
         CatalogState state;
         if (hit.workSlug() != null
                 && !bookRepository.findByWorkSlug(hit.workSlug()).isEmpty()) {
-            state = CatalogState.ON_SHELF;
+            state = readingRights.mayRead(hit.workSlug()) ? CatalogState.ON_SHELF : CatalogState.NOT_IN_YOUR_COUNTRY;
         } else if (hit.productionStatus() == RightsStatus.PROTECTED) {
             state = CatalogState.UNDER_COPYRIGHT;
         } else {

@@ -6,6 +6,8 @@ import com.almonium.learning.book.dto.response.BookPublicationResponse;
 import com.almonium.learning.book.dto.response.BookWithdrawalResponse;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
+import com.almonium.learning.rights.service.ProductionGate;
+import com.almonium.learning.rights.service.WorkRightsService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.Optional;
@@ -22,8 +24,12 @@ public class BookPublicationService {
     private final TranslationJobService translationJobService;
     private final LibrarySuggestionService librarySuggestionService;
     private final BookRequestService bookRequestService;
+    private final ProductionGate productionGate;
+    private final WorkRightsService workRightsService;
 
     public BookPublicationResponse publish(BookPublicationRequest request) {
+        productionGate.requirePublishable(
+                request.workSlug(), request.title(), request.author(), request.publicationYear());
         Book book = bookRepository.findAnyByEditionSlug(request.editionSlug()).orElseGet(Book::new);
         // Publishing again is how a withdrawn book comes back.
         book.setWithdrawnAt(null);
@@ -63,6 +69,7 @@ public class BookPublicationService {
             librarySuggestionService.settlePublished(request.externalJobId(), saved);
         }
         bookRequestService.settlePublished(saved);
+        workRightsService.recompute(saved.getWorkSlug());
         return new BookPublicationResponse(saved.getId());
     }
 

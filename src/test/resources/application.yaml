@@ -27,6 +27,9 @@ app:
   name: Almonium
   catalog:
     scheduled: false
+  rights:
+    geoip:
+      enabled: false
   web-domain: almonium-dummy.com
   api-domain: api.almonium-dummy.com
   email:

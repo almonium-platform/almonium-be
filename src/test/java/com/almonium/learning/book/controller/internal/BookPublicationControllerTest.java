@@ -10,9 +10,14 @@ import static org.mockito.Mockito.when;
 import com.almonium.learning.book.dto.request.BookPublicationRequest;
 import com.almonium.learning.book.dto.response.BookPublicationResponse;
 import com.almonium.learning.book.service.BookPublicationService;
+import com.almonium.learning.rights.dto.response.ProductionCheck;
+import com.almonium.learning.rights.exception.ProductionBlockedException;
+import com.almonium.learning.rights.model.RightsStatus;
+import com.almonium.learning.rights.service.ProductionGate;
 import jakarta.validation.Validation;
 import java.nio.charset.StandardCharsets;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -33,12 +38,16 @@ class BookPublicationControllerTest {
     @Mock
     BookPublicationService publicationService;
 
+    @Mock
+    ProductionGate productionGate;
+
     BookPublicationController controller;
 
     @BeforeEach
     void setUp() {
         controller = new BookPublicationController(
                 publicationService,
+                productionGate,
                 new ObjectMapper(),
                 Validation.buildDefaultValidatorFactory().getValidator());
         ReflectionTestUtils.setField(controller, "publisherSecret", SECRET);
@@ -56,6 +65,40 @@ class BookPublicationControllerTest {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().bookId()).isEqualTo(bookId);
+    }
+
+    @Test
+    void refusesAWorkUnderCopyrightWhereBooksAreMadeWithTheReason() {
+        when(publicationService.publish(any(BookPublicationRequest.class)))
+                .thenThrow(new ProductionBlockedException("Under copyright in UA and DE until the end of 2046."));
+        byte[] body = publication("\"cefrLevel\": \"C1\"");
+        long timestamp = now();
+
+        assertThatThrownBy(() -> controller.publish(timestamp, sign(timestamp, body), body))
+                .isInstanceOfSatisfying(ResponseStatusException.class, exception -> {
+                    assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+                    assertThat(exception.getReason()).contains("until the end of 2046");
+                });
+    }
+
+    @Test
+    void answersASignedRightsCheck() {
+        ProductionCheck check = new ProductionCheck(
+                RightsStatus.PROTECTED, 2047, List.of("UA", "DE"), null, null, null, "Under copyright");
+        when(productionGate.check("styles", "The Mysterious Affair at Styles", "Agatha Christie", 1920))
+                .thenReturn(check);
+        byte[] body = """
+                {"workSlug": "styles", "title": "The Mysterious Affair at Styles", "author": "Agatha Christie",
+                 "publicationYear": 1920}
+                """.getBytes(StandardCharsets.UTF_8);
+        long timestamp = now();
+
+        assertThat(controller
+                        .rightsCheck(timestamp, sign(timestamp, body), body)
+                        .getBody())
+                .isEqualTo(check);
+        assertThatThrownBy(() -> controller.rightsCheck(timestamp, "forged", body))
+                .isInstanceOf(ResponseStatusException.class);
     }
 
     @Test

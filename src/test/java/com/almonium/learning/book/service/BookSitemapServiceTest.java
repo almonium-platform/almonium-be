@@ -1,12 +1,14 @@
 package com.almonium.learning.book.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.almonium.config.properties.AppProperties;
 import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
+import com.almonium.learning.rights.service.WorkRightsService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +33,7 @@ class BookSitemapServiceTest {
     void setUp() {
         AppProperties properties = new AppProperties();
         properties.setWebDomain("https://almonium.com");
-        service = new BookSitemapService(bookRepository, content, properties);
+        service = new BookSitemapService(bookRepository, content, properties, mock(WorkRightsService.class));
     }
 
     @Test

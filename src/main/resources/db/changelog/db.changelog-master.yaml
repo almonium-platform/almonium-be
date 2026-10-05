@@ -175,3 +175,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260924-account-deletion-cascades.yaml
   - include:
       file: db/changelog/changes/patches/20261005-book-catalogue.yaml
+  - include:
+      file: db/changelog/changes/patches/20261006-reading-rights.yaml
