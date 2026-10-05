@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
@@ -52,6 +53,7 @@ public class WikidataCatalogSource {
     private final String endpoint;
     private final List<String> titleLanguages;
 
+    @Autowired
     public WikidataCatalogSource(
             @Value("${app.catalog.sparql-url:https://qlever.dev/api/wikidata}") String endpoint,
             @Value("${app.catalog.title-languages:en,mul,de,uk,ru,fr,es,it,pl,pt,nl,cs,sv}")
