@@ -77,6 +77,7 @@ class CopyrightEngineTest {
         assertThat(status(work(-800), "DE")).isEqualTo(FREE);
         assertThat(status(work(2001), "DE")).isEqualTo(PROTECTED);
         assertThat(status(work(1930), "DE")).isEqualTo(UNKNOWN);
+        assertThat(status(work(1850), "DE")).isEqualTo(FREE);
         assertThat(status(work(null), "DE")).isEqualTo(UNKNOWN);
     }
 

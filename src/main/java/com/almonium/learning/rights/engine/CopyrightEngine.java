@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 /**
  * Works out whether a work is free in a country in a given year, from its publication year and its authors' lives.
  * Missing facts widen the answer instead of guessing: an author with no recorded death is assumed to have died some
- * time between the publication (or their birth) and 110 years after their birth, and the work is called free only if
+ * time between the publication and 110 years after their birth (taken as ten years before the publication when not
+ * recorded), and the work is called free only if
  * it is free for every death in that window. A work is free when its last author's term has run out.
  *
  * <p>This is a careful estimate for deciding what to prepare and show, not a legal opinion; /ops overrides win.
@@ -22,6 +23,9 @@ import org.springframework.stereotype.Component;
 public class CopyrightEngine {
     /** Nobody is assumed to live longer than this; it bounds an unknown death year. */
     static final int LONGEST_LIFE = 110;
+
+    /** Nobody is assumed to publish before this age; it bounds an unknown birth year by the publication. */
+    static final int YOUNGEST_AUTHOR = 10;
 
     public CountryVerdict verdict(RightsFacts facts, String country, int year) {
         YearRange freeFrom = freeFrom(facts, CountryTerms.of(country));
@@ -85,7 +89,9 @@ public class CopyrightEngine {
         if (author.deathYear() != null) {
             return YearRange.exactly(author.deathYear());
         }
-        Integer bornBy = author.birthYear() != null ? author.birthYear() : publicationYear;
+        Integer bornBy = author.birthYear() != null
+                ? author.birthYear()
+                : publicationYear == null ? null : publicationYear - YOUNGEST_AUTHOR;
         if (bornBy == null) {
             return YearRange.open();
         }
