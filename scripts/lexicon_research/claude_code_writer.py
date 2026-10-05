@@ -11,10 +11,15 @@ SDK or another harness.
 Output: out/cc-<model>/<lang>/<headword>.json and .meta.json, the same layout as the bake-off,
 so score.py and judge.py read it unchanged.
 
+A long run paces itself by the plan's own meters, read from the CLI's /usage screen: it waits
+while the five-hour session is nearly used up, so the owner's other sessions are not locked
+out, and stops for good at a share of the week.
+
 Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [--limit N] [--workers 2]
-       (run from the backend repository root)
+           [--headwords NAME] [--pause-session 70] [--stop-week 0]
+       (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json)
 """
-import argparse, json, subprocess, sys, time
+import argparse, json, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -31,12 +36,51 @@ _schema["definitions"] = _schema.pop("$defs")
 SCHEMA = json.dumps(_schema).replace("#/$defs/", "#/definitions/")
 
 
-def write_one(model, effort, lang, system, row):
+_gate, _checked, _stopped = threading.Lock(), 0.0, False
+
+
+def meters():
+    """Percent used of the five-hour session and of the week, as /usage shows them. No tokens."""
+    r = subprocess.run(["claude", "-p", "--output-format", "json", "--no-session-persistence", "--strict-mcp-config",
+                        "--mcp-config", "{\"mcpServers\": {}}"], input="/usage", capture_output=True, text=True, timeout=120, cwd=EMPTY)
+    screen = json.loads(r.stdout)["result"]
+    used = lambda label: int(m.group(1)) if (m := re.search(label + r": (\d+)% used", screen)) else None
+    return used("Current session"), used(r"Current week \(all models\)")
+
+
+def allowed(pause_session, stop_week):
+    """False once the week's share is reached. Waits, holding every worker, while the session is nearly used up."""
+    global _checked, _stopped
+    with _gate:
+        if _stopped:
+            return False
+        if time.time() - _checked < 180:
+            return True
+        while True:
+            try:
+                session, week = meters()
+            except Exception:
+                session = week = None  # a meter that cannot be read does not stop the run
+            _checked = time.time()
+            if stop_week and week is not None and week >= stop_week:
+                print(f"stopping: {week}% of the week is used", flush=True)
+                _stopped = True
+                return False
+            if session is not None and session >= pause_session:
+                print(f"waiting: {session}% of the session is used", flush=True)
+                time.sleep(300)
+                continue
+            return True
+
+
+def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0):
     d = OUT / f"cc-{model}" / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():
         return "skip"
+    if not allowed(pause_session, stop_week):
+        return "stopped"
     t0 = time.time()
     cmd = ["claude", "-p", user_prompt(lang, row), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
@@ -70,12 +114,16 @@ ap.add_argument("--effort", default="high")
 ap.add_argument("--langs", default="en,de,uk")
 ap.add_argument("--limit", type=int, default=0)
 ap.add_argument("--workers", type=int, default=2)
+ap.add_argument("--headwords", default="", help="a tranche name: reads headwords/<name>-<lang>.json")
+ap.add_argument("--pause-session", type=int, default=70, help="wait while this percent of the 5-hour session is used")
+ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this percent of the week; 0 never stops")
 a = ap.parse_args()
 for lang in a.langs.split(","):
-    rows = json.loads((HERE / "headwords" / f"{lang}.json").read_text())
+    name = f"{a.headwords}-{lang}.json" if a.headwords else f"{lang}.json"
+    rows = json.loads((HERE / "headwords" / name).read_text())
     if a.limit:
         rows = rows[:a.limit]
     system = system_prompt(lang)
     with ThreadPoolExecutor(a.workers) as ex:
-        list(ex.map(lambda r: write_one(a.model, a.effort, lang, system, r), rows))
+        list(ex.map(lambda r: write_one(a.model, a.effort, lang, system, r, a.pause_session, a.stop_week), rows))
 print("done")

@@ -1,0 +1,2252 @@
+[
+ {
+  "headword": "закон",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "куди",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "однак",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "світ",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "фото",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "центр",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "проект",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "цікаво",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "влада",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "дійсно",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "мабуть",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "період",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "спочатку",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "мало",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "навчання",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "справа",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "знати",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "правильно",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "проведення",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "вперше",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "діяльність",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "ласка",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "менше",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "повністю",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "більшість",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "відповідно",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "війна",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "значення",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "насправді",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "син",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "система",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "скоро",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "слава",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "ато",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "великий",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "досі",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "жаль",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "жити",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "колись",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "справді",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "стати",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "швидко",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "виконання",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "момент",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "сайт",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "імені",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "міністр",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "навіщо",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "робота",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "слово",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "вибори",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "використання",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "десь",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "другий",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "туди",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "інформація",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "працювати",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "фільм",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "важко",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "народ",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "посилання",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "якось",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "автор",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "дані",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "звісно",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "проблема",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "прямо",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "рахунок",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "текст",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "інтернет",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "будинок",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "місяць",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "отримати",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "нарешті",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "останній",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "порушення",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "рівень",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "стан",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "євро",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "говорити",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "дати",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "довго",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "забезпечення",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "змі",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "компанія",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "найбільш",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "план",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "уряд",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "головне",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "захід",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "область",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "взяти",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "постійно",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "сильно",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "тиждень",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "іноді",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "бізнес",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "відомо",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "група",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "депутат",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "народження",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "початок",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "важливо",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "жінка",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "міст",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "нормально",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "вчора",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "відповідь",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "легко",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "навколо",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "прес",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "приблизно",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "пізніше",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "сюди",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "читати",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "дослідження",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "зазвичай",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "заступник",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "засідання",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "російський",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "головний",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "додому",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "йти",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "млрд",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "процес",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "роль",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "слід",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "смерть",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "схоже",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "погано",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "само",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "ситуація",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "батько",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "виробництва",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "завдання",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "зброї",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "звідки",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "честь",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "шлях",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "авто",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "занадто",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "захист",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "кошти",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "країна",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "мама",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "мвс",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "призначення",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "рух",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "спосіб",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "школі",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "вище",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "допомогти",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "значно",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "команда",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "купити",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "напевно",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "побачити",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "повідомлення",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "розслідування",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "століття",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "швидше",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "бачити",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "вибір",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "допомога",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "надання",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "повернення",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "стільки",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "термін",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "абсолютно",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "видання",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "отримання",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "привіт",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "провести",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "самоврядування",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "свято",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "івано",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "вдома",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "використовувати",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "вул",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "голос",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "звільнення",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "народний",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "нині",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "політика",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "поліція",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "розвиток",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "роман",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "шкода",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "гарно",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "держава",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "дещо",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "дитина",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "дружина",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "зрозуміло",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "контроль",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "номер",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "ніч",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "обличчя",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "радіо",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "відразу",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "далеко",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "загалом",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "набагато",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "офіційно",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "кіно",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "онлайн",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "створити",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "газ",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "геть",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "клас",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "національний",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "одразу",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "статус",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "церква",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "активно",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "армія",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "державний",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "досвід",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "достатньо",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "коштів",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "кінець",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "майбутнє",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "писати",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "серйозно",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "служба",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "чудово",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "шоу",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "бажання",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "бог",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "відкриття",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "зустріч",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "неможливо",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "особа",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "поблизу",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "режим",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "склад",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "третій",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "ціна",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "директор",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "звернення",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "зрозуміти",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "результат",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "цілком",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "чесно",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "будівництво",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "видно",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "вплив",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "крові",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "одночасно",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "партія",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "поруч",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "річ",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "сезон",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "факт",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "член",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "щастя",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "ясно",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "ідея",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "існування",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "вартість",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "відновлення",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "згодом",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "надто",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "назва",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "практично",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "приємно",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "село",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "шевченка",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "щойно",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "єдиний",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "банк",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "варіант",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "вид",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "війні",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "завод",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "лікування",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "найбільше",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "порядок",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "район",
+  "zipf": 4.94,
+  "set": "night1"
+ },
+ {
+  "headword": "визнання",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "відділення",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "дивитися",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "дивно",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "керівник",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "нижче",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "правило",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "програма",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "телефон",
+  "zipf": 4.93,
+  "set": "night1"
+ },
+ {
+  "headword": "виробництво",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "вугілля",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "відповідальність",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "військовий",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "круто",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "міністерства",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "наразі",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "науково",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "пан",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "ринок",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "стаття",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "тіло",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "фінансування",
+  "zipf": 4.92,
+  "set": "night1"
+ },
+ {
+  "headword": "бюро",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "відкрито",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "гарний",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "думка",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "міжнародний",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "повернути",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "чекати",
+  "zipf": 4.91,
+  "set": "night1"
+ },
+ {
+  "headword": "доки",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "колишній",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "король",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "необхідно",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "ніяк",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "правий",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "стосовно",
+  "zipf": 4.9,
+  "set": "night1"
+ },
+ {
+  "headword": "брат",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "гра",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "переважно",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "переклад",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "серце",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "спокійно",
+  "zipf": 4.89,
+  "set": "night1"
+ },
+ {
+  "headword": "доктор",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "доступ",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "змінити",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "зростання",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "кордон",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "крок",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "повний",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "пост",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "провадження",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "пункт",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "фактично",
+  "zipf": 4.88,
+  "set": "night1"
+ },
+ {
+  "headword": "вогонь",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "впевнений",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "відчуття",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "герой",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "даний",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "джерело",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "комітет",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "міністерство",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "походження",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "припинення",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "підвищення",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "пісня",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "світло",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "шанс",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "інститут",
+  "zipf": 4.87,
+  "set": "night1"
+ },
+ {
+  "headword": "випадок",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "досягнення",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "запитання",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "користь",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "наступний",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "представник",
+  "zipf": 4.86,
+  "set": "night1"
+ },
+ {
+  "headword": "будівництва",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "екс",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "журналіст",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "незалежність",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "освіта",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "офіційний",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "перелік",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "погляд",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "приклад",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "сила",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "хороший",
+  "zipf": 4.85,
+  "set": "night1"
+ },
+ {
+  "headword": "вести",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "виключно",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "вночі",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "грати",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "замовлення",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "земля",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "обладнання",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "організація",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "перемога",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "повітря",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "причина",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "продаж",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "суддя",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "харкові",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "шукати",
+  "zipf": 4.84,
+  "set": "night1"
+ },
+ {
+  "headword": "автомобіль",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "бюджет",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "двері",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "знак",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "клуб",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "найкращий",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "пора",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "розмір",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "справжній",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "фонд",
+  "zipf": 4.83,
+  "set": "night1"
+ },
+ {
+  "headword": "вийти",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "враження",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "відносно",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "знов",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "лікар",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "мистецтва",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "очевидно",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "продовження",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "суспільство",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "тема",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "чувак",
+  "zipf": 4.82,
+  "set": "night1"
+ },
+ {
+  "headword": "вихід",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "думати",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "матч",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "модель",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "музей",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "музика",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "надати",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "пані",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "погода",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "показати",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "почати",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "прапор",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "прийняття",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "реально",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "спілкування",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "університет",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "цілий",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "якраз",
+  "zipf": 4.81,
+  "set": "night1"
+ },
+ {
+  "headword": "вперед",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "голосування",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "днр",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "дім",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "зсу",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "комплекс",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "конкурс",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "наявність",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "поняття",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "українець",
+  "zipf": 4.8,
+  "set": "night1"
+ },
+ {
+  "headword": "боротьба",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "версія",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "волосся",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "відносини",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "конфлікт",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "написати",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "старий",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "художник",
+  "zipf": 4.79,
+  "set": "night1"
+ },
+ {
+  "headword": "генерал",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "законодавства",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "зброя",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "кров",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "майстер",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "мові",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "перш",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "повинно",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "проживання",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "успішно",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "хлопець",
+  "zipf": 4.78,
+  "set": "night1"
+ },
+ {
+  "headword": "адвокат",
+  "zipf": 4.77,
+  "set": "night1"
+ },
+ {
+  "headword": "бік",
+  "zipf": 4.77,
+  "set": "night1"
+ },
+ {
+  "headword": "встановлення",
+  "zipf": 4.77,
+  "set": "night1"
+ }
+]

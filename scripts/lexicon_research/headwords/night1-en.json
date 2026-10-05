@@ -1,0 +1,2252 @@
+[
+ {
+  "headword": "research",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "room",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "several",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "university",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "win",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "wrong",
+  "zipf": 5.39,
+  "set": "night1"
+ },
+ {
+  "headword": "else",
+  "zipf": 5.38,
+  "set": "night1"
+ },
+ {
+  "headword": "girl",
+  "zipf": 5.38,
+  "set": "night1"
+ },
+ {
+  "headword": "matter",
+  "zipf": 5.38,
+  "set": "night1"
+ },
+ {
+  "headword": "pretty",
+  "zipf": 5.38,
+  "set": "night1"
+ },
+ {
+  "headword": "remember",
+  "zipf": 5.38,
+  "set": "night1"
+ },
+ {
+  "headword": "air",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "bit",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "friend",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "hit",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "nice",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "probably",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "understand",
+  "zipf": 5.37,
+  "set": "night1"
+ },
+ {
+  "headword": "class",
+  "zipf": 5.36,
+  "set": "night1"
+ },
+ {
+  "headword": "close",
+  "zipf": 5.36,
+  "set": "night1"
+ },
+ {
+  "headword": "idea",
+  "zipf": 5.36,
+  "set": "night1"
+ },
+ {
+  "headword": "past",
+  "zipf": 5.36,
+  "set": "night1"
+ },
+ {
+  "headword": "possible",
+  "zipf": 5.36,
+  "set": "night1"
+ },
+ {
+  "headword": "cause",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "due",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "happy",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "human",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "move",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "question",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "wait",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "woman",
+  "zipf": 5.35,
+  "set": "night1"
+ },
+ {
+  "headword": "ask",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "community",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "late",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "leave",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "north",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "special",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "watch",
+  "zipf": 5.34,
+  "set": "night1"
+ },
+ {
+  "headword": "either",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "fucking",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "future",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "light",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "low",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "police",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "short",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "stay",
+  "zipf": 5.33,
+  "set": "night1"
+ },
+ {
+  "headword": "age",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "buy",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "deal",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "rather",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "reason",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "red",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "report",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "soon",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "turn",
+  "zipf": 5.32,
+  "set": "night1"
+ },
+ {
+  "headword": "check",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "development",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "form",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "heart",
+  "zipf": 5.31,
+  "set": "night1"
+ },
+ {
+  "headword": "act",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "child",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "fire",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "fun",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "major",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "phone",
+  "zipf": 5.3,
+  "set": "night1"
+ },
+ {
+  "headword": "art",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "behind",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "easy",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "market",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "plan",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "political",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "quite",
+  "zipf": 5.29,
+  "set": "night1"
+ },
+ {
+  "headword": "available",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "education",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "final",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "former",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "front",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "list",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "ready",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "sometimes",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "son",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "street",
+  "zipf": 5.28,
+  "set": "night1"
+ },
+ {
+  "headword": "bring",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "college",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "current",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "example",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "experience",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "meet",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "program",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "type",
+  "zipf": 5.27,
+  "set": "night1"
+ },
+ {
+  "headword": "baby",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "chance",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "process",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "song",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "study",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "word",
+  "zipf": 5.26,
+  "set": "night1"
+ },
+ {
+  "headword": "action",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "clear",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "month",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "outside",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "self",
+  "zipf": 5.25,
+  "set": "night1"
+ },
+ {
+  "headword": "cost",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "cut",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "field",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "instead",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "main",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "moment",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "mother",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "road",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "town",
+  "zipf": 5.24,
+  "set": "night1"
+ },
+ {
+  "headword": "energy",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "fight",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "fine",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "hear",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "issue",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "price",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "rest",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "space",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "term",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "wife",
+  "zipf": 5.23,
+  "set": "night1"
+ },
+ {
+  "headword": "beautiful",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "date",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "land",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "miss",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "project",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "sex",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "site",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "strong",
+  "zipf": 5.22,
+  "set": "night1"
+ },
+ {
+  "headword": "account",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "especially",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "include",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "period",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "position",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "similar",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "total",
+  "zipf": 5.21,
+  "set": "night1"
+ },
+ {
+  "headword": "above",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "club",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "common",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "film",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "likely",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "military",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "perfect",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "personal",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "security",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "share",
+  "zipf": 5.2,
+  "set": "night1"
+ },
+ {
+  "headword": "couple",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "dead",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "happen",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "hold",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "industry",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "inside",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "online",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "player",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "private",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "return",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "sense",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "test",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "view",
+  "zipf": 5.19,
+  "set": "night1"
+ },
+ {
+  "headword": "break",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "event",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "higher",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "hour",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "member",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "middle",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "result",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "sorry",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "wish",
+  "zipf": 5.18,
+  "set": "night1"
+ },
+ {
+  "headword": "answer",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "boy",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "design",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "finally",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "gold",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "guess",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "interest",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "king",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "learn",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "policy",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "society",
+  "zipf": 5.17,
+  "set": "night1"
+ },
+ {
+  "headword": "alone",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "average",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "certain",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "church",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "hot",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "medical",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "movie",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "original",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "performance",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "press",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "role",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "worth",
+  "zipf": 5.16,
+  "set": "night1"
+ },
+ {
+  "headword": "bill",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "cool",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "director",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "exactly",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "ground",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "meeting",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "provide",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "relationship",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "sound",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "source",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "usually",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "value",
+  "zipf": 5.15,
+  "set": "night1"
+ },
+ {
+  "headword": "evidence",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "follow",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "official",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "production",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "rate",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "round",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "save",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "stand",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "stuff",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "tax",
+  "zipf": 5.14,
+  "set": "night1"
+ },
+ {
+  "headword": "amount",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "blue",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "drive",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "eat",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "fall",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "fast",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "federal",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "league",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "management",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "match",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "picture",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "size",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "step",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "trust",
+  "zipf": 5.13,
+  "set": "night1"
+ },
+ {
+  "headword": "central",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "forward",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "key",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "mom",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "page",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "range",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "review",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "science",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "trade",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "various",
+  "zipf": 5.12,
+  "set": "night1"
+ },
+ {
+  "headword": "attention",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "brother",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "character",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "chief",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "football",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "hate",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "lower",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "natural",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "property",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "quality",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "send",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "style",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "vote",
+  "zipf": 5.11,
+  "set": "night1"
+ },
+ {
+  "headword": "amazing",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "blood",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "complete",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "dog",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "economic",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "hell",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "language",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "oil",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "serious",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "stage",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "title",
+  "zipf": 5.1,
+  "set": "night1"
+ },
+ {
+  "headword": "add",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "article",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "attack",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "decision",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "enjoy",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "entire",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "kill",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "perhaps",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "poor",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "release",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "situation",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "technology",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "website",
+  "zipf": 5.09,
+  "set": "night1"
+ },
+ {
+  "headword": "choice",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "code",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "continue",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "cover",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "currently",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "door",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "election",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "financial",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "foreign",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "hair",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "increase",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "legal",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "lose",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "pick",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "race",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "seem",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "sign",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "simple",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "simply",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "staff",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "union",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "walk",
+  "zipf": 5.08,
+  "set": "night1"
+ },
+ {
+  "headword": "bed",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "career",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "crazy",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "die",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "difficult",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "figure",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "hospital",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "loss",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "modern",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "paper",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "popular",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "safe",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "version",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "voice",
+  "zipf": 5.07,
+  "set": "night1"
+ },
+ {
+  "headword": "earth",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "forget",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "goal",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "huge",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "internet",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "listen",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "practice",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "sea",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "sir",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "success",
+  "zipf": 5.06,
+  "set": "night1"
+ },
+ {
+  "headword": "access",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "base",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "deep",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "lol",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "offer",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "pass",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "professional",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "risk",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "sleep",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "table",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "truth",
+  "zipf": 5.05,
+  "set": "night1"
+ },
+ {
+  "headword": "ball",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "build",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "card",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "dark",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "mine",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "note",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "percent",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "piece",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "recent",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "straight",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "visit",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "wall",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "wanna",
+  "zipf": 5.04,
+  "set": "night1"
+ },
+ {
+  "headword": "culture",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "growth",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "officer",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "pain",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "respect",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "response",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "river",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "rock",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "specific",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "write",
+  "zipf": 5.03,
+  "set": "night1"
+ },
+ {
+  "headword": "album",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "century",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "charge",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "cold",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "effect",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "eye",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "funny",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "network",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "recently",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "store",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "student",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "track",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "weight",
+  "zipf": 5.02,
+  "set": "night1"
+ },
+ {
+  "headword": "addition",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "ahead",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "allow",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "anti",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "beat",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "capital",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "conference",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "difference",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "expect",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "gas",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "island",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "normal",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "population",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "potential",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "pressure",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "radio",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "station",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "text",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "treatment",
+  "zipf": 5.01,
+  "set": "night1"
+ },
+ {
+  "headword": "campaign",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "certainly",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "completely",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "content",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "credit",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "cross",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "female",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "focus",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "husband",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "ice",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "individual",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "interesting",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "join",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "nearly",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "particular",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "previous",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "quickly",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "region",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "section",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "sort",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "speed",
+  "zipf": 5.0,
+  "set": "night1"
+ },
+ {
+  "headword": "consider",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "drop",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "fair",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "link",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "positive",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "sale",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "throughout",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "tour",
+  "zipf": 4.99,
+  "set": "night1"
+ },
+ {
+  "headword": "absolutely",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "additional",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "extra",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "immediately",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "minute",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "nature",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "quick",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "sell",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "significant",
+  "zipf": 4.98,
+  "set": "night1"
+ },
+ {
+  "headword": "agree",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "clean",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "computer",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "construction",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "episode",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "favorite",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "income",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "justice",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "manager",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "movement",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "safety",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "scene",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "spend",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "statement",
+  "zipf": 4.97,
+  "set": "night1"
+ },
+ {
+  "headword": "ability",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "coach",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "collection",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "definitely",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "heavy",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "knowledge",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "particularly",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "search",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "subject",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "train",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "wide",
+  "zipf": 4.96,
+  "set": "night1"
+ },
+ {
+  "headword": "author",
+  "zipf": 4.95,
+  "set": "night1"
+ },
+ {
+  "headword": "claim",
+  "zipf": 4.95,
+  "set": "night1"
+ }
+]
