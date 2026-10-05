@@ -173,3 +173,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20260922-book-literary-register.yaml
   - include:
       file: db/changelog/changes/patches/20260924-account-deletion-cascades.yaml
+  - include:
+      file: db/changelog/changes/patches/20261005-book-catalogue.yaml

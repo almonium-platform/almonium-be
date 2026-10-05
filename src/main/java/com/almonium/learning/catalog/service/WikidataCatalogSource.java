@@ -1,0 +1,210 @@
+package com.almonium.learning.catalog.service;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.client.RestClient;
+
+/**
+ * Notable literary works from Wikidata, through a SPARQL endpoint (QLever by default: the public Wikidata query
+ * service times out on queries this size). A work is notable when at least one Wikipedia has an article on it. Five
+ * flat queries instead of one joined one, so no query multiplies rows.
+ */
+@Slf4j
+@Component
+public class WikidataCatalogSource {
+    /** Literary work, novel, novella, short story, poem, play, poetry and story collections, fairy tale, epic, book. */
+    private static final String WORK_CLASSES = "wd:Q7725634 wd:Q8261 wd:Q149537 wd:Q49084 wd:Q5185279 wd:Q25379 "
+            + "wd:Q1279564 wd:Q1371849 wd:Q699 wd:Q37484 wd:Q571 wd:Q47461344";
+
+    /** "Mort pour la France", as an award received (P166). */
+    private static final String DIED_FOR_FRANCE = "wd:Q3324507";
+
+    private static final String PREFIXES = """
+            PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+            PREFIX wd: <http://www.wikidata.org/entity/>
+            PREFIX wikibase: <http://wikiba.se/ontology#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            """;
+
+    // QLever drops every row when wikibase:sitelinks is compared directly; adding zero first works.
+    private static final String NOTABLE_WORK = "VALUES ?cls { " + WORK_CLASSES + " } ?w wdt:P31 ?cls . "
+            + "?w wikibase:sitelinks ?links . BIND(?links + 0 AS ?linkCount) FILTER(?linkCount > 0) ";
+
+    private final RestClient restClient;
+    private final String endpoint;
+    private final List<String> titleLanguages;
+
+    public WikidataCatalogSource(
+            @Value("${app.catalog.sparql-url:https://qlever.dev/api/wikidata}") String endpoint,
+            @Value("${app.catalog.title-languages:en,mul,de,uk,ru,fr,es,it,pl,pt,nl,cs,sv}")
+                    List<String> titleLanguages) {
+        JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory();
+        factory.setReadTimeout(Duration.ofMinutes(10));
+        this.restClient = RestClient.builder().requestFactory(factory).build();
+        this.endpoint = endpoint;
+        this.titleLanguages = titleLanguages;
+    }
+
+    public record Work(String id, int popularity, String languageCode, Integer year) {}
+
+    public record Person(String id, String name, Integer birthYear, Integer deathYear, boolean diedForFrance) {}
+
+    public record Label(String workId, String text, String language) {}
+
+    /** Everything one import needs, keyed by Q-id. */
+    public record Snapshot(
+            Map<String, Work> works,
+            Map<String, List<String>> authorsByWork,
+            Map<String, Person> people,
+            Map<String, List<Label>> labelsByWork,
+            Map<String, Integer> gutenbergByWork) {}
+
+    public Snapshot fetch() {
+        Map<String, Work> works = new HashMap<>();
+        query(
+                "SELECT ?w (SAMPLE(?links) AS ?l) (SAMPLE(?code) AS ?lang) (MIN(YEAR(?date)) AS ?year) WHERE { "
+                        + NOTABLE_WORK
+                        + "OPTIONAL { ?w wdt:P407 ?language . ?language wdt:P424 ?code } "
+                        + "OPTIONAL { ?w wdt:P577|wdt:P571 ?date } } GROUP BY ?w",
+                cells -> {
+                    Integer links = SparqlTsv.integer(SparqlTsv.value(cells.get(1)));
+                    works.put(
+                            SparqlTsv.value(cells.get(0)),
+                            new Work(
+                                    SparqlTsv.value(cells.get(0)),
+                                    links == null ? 0 : links,
+                                    emptyToNull(SparqlTsv.value(cells.get(2))),
+                                    SparqlTsv.integer(SparqlTsv.value(cells.get(3)))));
+                });
+
+        Map<String, List<String>> authorsByWork = new HashMap<>();
+        query(
+                "SELECT DISTINCT ?w ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a }",
+                cells -> authorsByWork
+                        .computeIfAbsent(SparqlTsv.value(cells.get(0)), key -> new ArrayList<>())
+                        .add(SparqlTsv.value(cells.get(1))));
+
+        Map<String, Person> people = new HashMap<>();
+        query(
+                "SELECT ?a (SAMPLE(?en) AS ?nameEn) (SAMPLE(?mul) AS ?nameMul) (SAMPLE(?any) AS ?nameAny) "
+                        + "(MIN(YEAR(?born)) AS ?b) (MAX(YEAR(?died)) AS ?d) (COUNT(?award) AS ?france) WHERE { "
+                        + "{ SELECT DISTINCT ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a } } "
+                        + "OPTIONAL { ?a rdfs:label ?en FILTER(LANG(?en) = \"en\") } "
+                        + "OPTIONAL { ?a rdfs:label ?mul FILTER(LANG(?mul) = \"mul\") } "
+                        + "OPTIONAL { ?a rdfs:label ?any } "
+                        + "OPTIONAL { ?a wdt:P569 ?born } OPTIONAL { ?a wdt:P570 ?died } "
+                        + "OPTIONAL { ?a wdt:P166 ?award FILTER(?award = " + DIED_FOR_FRANCE + ") } } GROUP BY ?a",
+                cells -> {
+                    String name = firstNonEmpty(
+                            SparqlTsv.value(cells.get(1)),
+                            SparqlTsv.value(cells.get(2)),
+                            SparqlTsv.value(cells.get(3)));
+                    Integer france = SparqlTsv.integer(SparqlTsv.value(cells.get(6)));
+                    people.put(
+                            SparqlTsv.value(cells.get(0)),
+                            new Person(
+                                    SparqlTsv.value(cells.get(0)),
+                                    name,
+                                    SparqlTsv.integer(SparqlTsv.value(cells.get(4))),
+                                    SparqlTsv.integer(SparqlTsv.value(cells.get(5))),
+                                    france != null && france > 0));
+                });
+
+        Map<String, List<Label>> labelsByWork = new HashMap<>();
+        Consumer<List<String>> label = raw -> {
+            String workId = SparqlTsv.value(raw.get(0));
+            labelsByWork
+                    .computeIfAbsent(workId, key -> new ArrayList<>())
+                    .add(new Label(workId, SparqlTsv.value(raw.get(1)), SparqlTsv.language(raw.get(1))));
+        };
+        String languages = String.join(
+                ", ", titleLanguages.stream().map(code -> "\"" + code + "\"").toList());
+        query(
+                "SELECT DISTINCT ?w ?label WHERE { " + NOTABLE_WORK + "?w rdfs:label ?label "
+                        + "FILTER(LANG(?label) IN (" + languages + ")) }",
+                label);
+        // The title in the work's own language, whatever that language is.
+        query(
+                "SELECT DISTINCT ?w ?label WHERE { " + NOTABLE_WORK
+                        + "?w wdt:P407 ?language . ?language wdt:P424 ?code . ?w rdfs:label ?label "
+                        + "FILTER(LANG(?label) = ?code) }",
+                label);
+
+        Map<String, Integer> gutenbergByWork = new HashMap<>();
+        query(
+                "SELECT ?w (MIN(?g) AS ?gutenberg) WHERE { " + NOTABLE_WORK + "?w wdt:P2034 ?id . "
+                        + "BIND(xsd:integer(?id) AS ?g) } GROUP BY ?w",
+                cells -> {
+                    Integer id = SparqlTsv.integer(SparqlTsv.value(cells.get(1)));
+                    if (id != null) {
+                        gutenbergByWork.put(SparqlTsv.value(cells.get(0)), id);
+                    }
+                });
+
+        log.info(
+                "Wikidata catalogue: {} works, {} authors, {} with labels, {} with a Gutenberg id",
+                works.size(),
+                people.size(),
+                labelsByWork.size(),
+                gutenbergByWork.size());
+        return new Snapshot(works, authorsByWork, people, labelsByWork, gutenbergByWork);
+    }
+
+    /** Streams the result rows (header skipped) as raw cells; the caller decodes them. */
+    private void query(String select, Consumer<List<String>> row) {
+        LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        form.add("query", PREFIXES + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + select);
+        long started = System.nanoTime();
+        int[] count = {0};
+        restClient
+                .post()
+                .uri(endpoint)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.valueOf("text/tab-separated-values"))
+                .body(form)
+                .exchange((request, response) -> {
+                    if (response.getStatusCode().isError()) {
+                        throw new IllegalStateException("SPARQL endpoint answered " + response.getStatusCode());
+                    }
+                    try (BufferedReader reader =
+                            new BufferedReader(new InputStreamReader(response.getBody(), StandardCharsets.UTF_8))) {
+                        reader.readLine();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            if (!line.isEmpty()) {
+                                row.accept(SparqlTsv.raw(line));
+                                count[0]++;
+                            }
+                        }
+                    }
+                    return null;
+                });
+        log.info("SPARQL query returned {} rows in {} ms", count[0], (System.nanoTime() - started) / 1_000_000);
+    }
+
+    private static String emptyToNull(String value) {
+        return value == null || value.isEmpty() ? null : value;
+    }
+
+    private static String firstNonEmpty(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isEmpty()) {
+                return value;
+            }
+        }
+        return null;
+    }
+}

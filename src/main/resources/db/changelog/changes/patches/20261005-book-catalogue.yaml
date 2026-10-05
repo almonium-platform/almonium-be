@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261005-book-catalogue
+      author: claude
+      comment: >-
+        catalog_work is every notable book, on the shelf or not: metadata only (title, authors with their birth and
+        death years, publication year, original language), imported from Wikidata and Project Gutenberg. Search lands on
+        it, wants point at it, and the copyright engine judges it. production_status caches the engine's answer for the
+        countries editions are made and hosted in. catalog_title holds every title and author name a work can be found
+        by, folded for a trigram index.
+      changes:
+        - sql:
+            sql: create extension if not exists pg_trgm
+        - createTable:
+            tableName: catalog_work
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: wikidata_id
+                  type: varchar(16)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: uq_catalog_work_wikidata
+              - column:
+                  name: gutenberg_id
+                  type: int
+              - column:
+                  name: title
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: original_title
+                  type: varchar(1000)
+              - column:
+                  name: original_language
+                  type: varchar(16)
+              - column:
+                  name: publication_year
+                  type: int
+              - column:
+                  name: author_display
+                  type: varchar(1000)
+              - column:
+                  name: authors
+                  type: jsonb
+                  defaultValueComputed: "'[]'::jsonb"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: popularity
+                  type: int
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+              - column:
+                  name: production_status
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: production_free_from
+                  type: int
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: catalog_work
+            indexName: uq_catalog_work_gutenberg
+            unique: true
+            columns:
+              - column:
+                  name: gutenberg_id
+        - createIndex:
+            tableName: catalog_work
+            indexName: ix_catalog_work_work_slug
+            columns:
+              - column:
+                  name: work_slug
+        - createTable:
+            tableName: catalog_title
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: catalog_work_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_catalog_title_work
+                    references: catalog_work(id)
+                    deleteCascade: true
+              - column:
+                  name: text
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(16)
+              - column:
+                  name: kind
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: normalized
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: catalog_title
+            indexName: ix_catalog_title_work
+            columns:
+              - column:
+                  name: catalog_work_id
+        - sql:
+            sql: create index ix_catalog_title_trgm on catalog_title using gin (normalized gin_trgm_ops)

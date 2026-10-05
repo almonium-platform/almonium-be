@@ -25,6 +25,8 @@ google:
 
 app:
   name: Almonium
+  catalog:
+    scheduled: false
   web-domain: almonium-dummy.com
   api-domain: api.almonium-dummy.com
   email:
