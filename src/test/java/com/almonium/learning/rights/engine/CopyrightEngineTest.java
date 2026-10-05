@@ -107,6 +107,16 @@ class CopyrightEngineTest {
     }
 
     @Test
+    void aRepressedAuthorWithoutARecordedRehabilitationIsUnknownInUkraineButFreeInGermany() {
+        RightsFacts zerov = work(1924, new AuthorFacts("Mykola Zerov", 1890, 1937, false, null, true));
+
+        assertThat(status(zerov, "DE")).isEqualTo(FREE);
+        assertThat(engine.verdict(zerov, "UA", YEAR).freeFrom()).isEqualTo(new YearRange(2008, 2062));
+        assertThat(status(zerov, "UA")).isEqualTo(UNKNOWN);
+        assertThat(engine.statusInAll(zerov, PRODUCTION, YEAR)).isEqualTo(UNKNOWN);
+    }
+
+    @Test
     void spainKeepsLifePlusEightyForAuthorsWhoDiedBefore1988() {
         assertThat(status(work(1930, AuthorFacts.of("Died 1950", 1880, 1950)), "ES"))
                 .isEqualTo(PROTECTED);

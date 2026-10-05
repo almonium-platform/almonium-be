@@ -89,11 +89,24 @@ window, protected only if protected for every one, and unknown otherwise.
 Unknown is never shown as "under copyright" and never blocks: /ops fixes the
 facts or decides.
 
+**Repressed authors.** Ukraine and Russia count the term of an author who was
+executed or died in the purges and rehabilitated after death from the
+rehabilitation, not the death: Valerian Pidmohylny (shot 1937, rehabilitated
+1956) is protected in Ukraine until the end of 2026, though free in Germany
+since 2008. Wikidata records no rehabilitation dates, so the import marks as
+`repressed` every author of a Soviet citizenship (USSR, Ukrainian SSR, Russian
+SFSR) whose manner of death is capital punishment, homicide or "unnatural
+death" and who died in 1930–1953. For such an author with no recorded
+rehabilitation year, the engine lets the rehabilitation be any year up to
+1991, so their works come out unknown, not free, in Ukraine and Russia:
+production goes ahead (unknown passes) but the processor records why, and
+/ops can pin the year with an override. Other countries are unaffected.
+
 Known gaps, handled by /ops overrides rather than by the table: human
-translators' own rights (the catalogue models works, not editions), Ukraine's
-and Russia's rehabilitation dates (no reliable Wikidata source; the field
-exists on `CatalogAuthor` but the import leaves it empty), posthumous
-first-publication rights (Germany §71), and the EU rule of the shorter term.
+translators' own rights (the catalogue models works, not editions), exact
+rehabilitation dates, posthumous first-publication rights (Germany §71,
+Ukraine's 70 years from a publication within 30 years of the death), and the
+EU rule of the shorter term.
 
 ## Reading by country
 

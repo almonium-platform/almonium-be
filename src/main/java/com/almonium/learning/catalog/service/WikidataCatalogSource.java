@@ -70,7 +70,13 @@ public class WikidataCatalogSource {
 
     public record Work(String id, int popularity, String languageCode, Integer year) {}
 
-    public record Person(String id, String name, Integer birthYear, Integer deathYear, boolean diedForFrance) {}
+    /** {@code repressed}: a Soviet author who died a violent death in 1930–1953, the years of the purges. */
+    public record Person(
+            String id, String name, Integer birthYear, Integer deathYear, boolean diedForFrance, boolean repressed) {
+        public Person(String id, String name, Integer birthYear, Integer deathYear, boolean diedForFrance) {
+            this(id, name, birthYear, deathYear, diedForFrance, false);
+        }
+    }
 
     public record Label(String workId, String text, String language) {}
 
@@ -137,6 +143,23 @@ public class WikidataCatalogSource {
                                     SparqlTsv.integer(SparqlTsv.value(cells.get(5))),
                                     france != null && france > 0));
                 });
+
+        // Soviet citizens (USSR, Ukrainian SSR, Russian SFSR) whose manner of death was capital punishment, homicide or
+        // "unnatural death", dying in 1930–1953: the purges' victims, many rehabilitated after death.
+        query(
+                "SELECT DISTINCT ?a WHERE { { SELECT DISTINCT ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a } } "
+                        + "?a wdt:P570 ?died . BIND(YEAR(?died) AS ?y) FILTER(?y >= 1930 && ?y <= 1953) "
+                        + "?a wdt:P27 ?country . FILTER(?country IN (wd:Q15180, wd:Q133356, wd:Q2184)) "
+                        + "?a wdt:P1196 ?manner . FILTER(?manner IN (wd:Q8454, wd:Q855919, wd:Q149086)) }",
+                cells -> people.computeIfPresent(
+                        SparqlTsv.value(cells.get(0)),
+                        (id, person) -> new Person(
+                                person.id(),
+                                person.name(),
+                                person.birthYear(),
+                                person.deathYear(),
+                                person.diedForFrance(),
+                                true)));
 
         Map<String, List<Label>> labelsByWork = new HashMap<>();
         Consumer<List<String>> label = raw -> {

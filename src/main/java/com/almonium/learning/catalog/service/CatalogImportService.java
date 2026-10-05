@@ -207,7 +207,8 @@ public class CatalogImportService {
                             person.birthYear(),
                             person.deathYear(),
                             person.diedForFrance(),
-                            null));
+                            null,
+                            person.repressed()));
                 }
             }
             Set<String> seen = new HashSet<>();
@@ -341,7 +342,8 @@ public class CatalogImportService {
                                 author.birthYear() != null ? author.birthYear() : source.birthYear(),
                                 source.deathYear(),
                                 author.diedForFrance(),
-                                author.rehabilitatedYear());
+                                author.rehabilitatedYear(),
+                                author.repressed());
                         break;
                     }
                 }

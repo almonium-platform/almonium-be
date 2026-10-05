@@ -27,6 +27,9 @@ public class CopyrightEngine {
     /** Nobody is assumed to publish before this age; it bounds an unknown birth year by the publication. */
     static final int YOUNGEST_AUTHOR = 10;
 
+    /** The Soviet Union's last rehabilitation decrees (1989–1991); an unrecorded rehabilitation is assumed no later. */
+    static final int LATEST_REHABILITATION = 1991;
+
     public CountryVerdict verdict(RightsFacts facts, String country, int year) {
         YearRange freeFrom = freeFrom(facts, CountryTerms.of(country));
         return new CountryVerdict(country, freeFrom.statusIn(year), freeFrom);
@@ -73,13 +76,24 @@ public class CopyrightEngine {
         if (deaths.earliest() == null || deaths.latest() == null) {
             return YearRange.open();
         }
+        // A repressed author's rehabilitation year, where unrecorded, could be any year up to the last Soviet
+        // rehabilitations; terms that count from it (Ukraine, Russia) can then run that much longer.
+        AuthorFacts latestRehabilitation = author.repressed() && author.rehabilitatedYear() == null
+                ? new AuthorFacts(
+                        author.name(),
+                        author.birthYear(),
+                        author.deathYear(),
+                        author.diedForFrance(),
+                        LATEST_REHABILITATION,
+                        true)
+                : author;
         int earliest = Integer.MAX_VALUE;
         int latest = Integer.MIN_VALUE;
         // Terms are not always monotonic in the death year (Spain's 1987 switch), so try every year in the window.
         for (int death = deaths.earliest(); death <= deaths.latest(); death++) {
             int free = term.freeFrom(death, publicationYear, author);
             earliest = Math.min(earliest, free);
-            latest = Math.max(latest, free);
+            latest = Math.max(latest, Math.max(free, term.freeFrom(death, publicationYear, latestRehabilitation)));
         }
         return new YearRange(earliest, latest);
     }
