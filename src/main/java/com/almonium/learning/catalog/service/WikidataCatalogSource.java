@@ -43,6 +43,11 @@ public class WikidataCatalogSource {
     private static final String NOTABLE_WORK = "VALUES ?cls { " + WORK_CLASSES + " } ?w wdt:P31 ?cls . "
             + "?w wikibase:sitelinks ?links . BIND(?links + 0 AS ?linkCount) FILTER(?linkCount > 0) ";
 
+    /** How long to wait before each retry of a refused query. */
+    static final List<Duration> RETRY_PAUSES =
+            List.of(Duration.ofSeconds(30), Duration.ofMinutes(1), Duration.ofMinutes(2));
+
+    private final List<Duration> retryPauses;
     private final RestClient restClient;
     private final String endpoint;
     private final List<String> titleLanguages;
@@ -51,6 +56,11 @@ public class WikidataCatalogSource {
             @Value("${app.catalog.sparql-url:https://qlever.dev/api/wikidata}") String endpoint,
             @Value("${app.catalog.title-languages:en,mul,de,uk,ru,fr,es,it,pl,pt,nl,cs,sv}")
                     List<String> titleLanguages) {
+        this(endpoint, titleLanguages, RETRY_PAUSES);
+    }
+
+    WikidataCatalogSource(String endpoint, List<String> titleLanguages, List<Duration> retryPauses) {
+        this.retryPauses = List.copyOf(retryPauses);
         JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory();
         factory.setReadTimeout(Duration.ofMinutes(10));
         this.restClient = RestClient.builder().requestFactory(factory).build();
@@ -169,7 +179,33 @@ public class WikidataCatalogSource {
     }
 
     /** Streams the result rows (header skipped) as raw cells; the caller decodes them. */
+    /**
+     * Streams the result rows (header skipped) as raw cells; the caller decodes them. A refusal before any row arrives
+     * (QLever answers 429 when busy, or a 5xx) is retried after a pause, three times; a failure mid-stream is not, since
+     * rows already handed over would arrive twice.
+     */
     private void query(String select, Consumer<List<String>> row) {
+        for (int attempt = 1; ; attempt++) {
+            try {
+                queryOnce(select, row);
+                return;
+            } catch (RefusedException refused) {
+                if (attempt > retryPauses.size()) {
+                    throw new IllegalStateException("SPARQL endpoint answered " + refused.getMessage(), refused);
+                }
+                Duration pause = retryPauses.get(attempt - 1);
+                log.warn("SPARQL endpoint answered {}; retrying in {} s", refused.getMessage(), pause.toSeconds());
+                try {
+                    Thread.sleep(pause);
+                } catch (InterruptedException interrupted) {
+                    Thread.currentThread().interrupt();
+                    throw new IllegalStateException("Interrupted while waiting to retry", interrupted);
+                }
+            }
+        }
+    }
+
+    private void queryOnce(String select, Consumer<List<String>> row) {
         LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<>();
         form.add("query", PREFIXES + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" + select);
         long started = System.nanoTime();
@@ -182,7 +218,7 @@ public class WikidataCatalogSource {
                 .body(form)
                 .exchange((request, response) -> {
                     if (response.getStatusCode().isError()) {
-                        throw new IllegalStateException("SPARQL endpoint answered " + response.getStatusCode());
+                        throw new RefusedException(response.getStatusCode().toString());
                     }
                     try (BufferedReader reader =
                             new BufferedReader(new InputStreamReader(response.getBody(), StandardCharsets.UTF_8))) {
@@ -198,6 +234,13 @@ public class WikidataCatalogSource {
                     return null;
                 });
         log.info("SPARQL query returned {} rows in {} ms", count[0], (System.nanoTime() - started) / 1_000_000);
+    }
+
+    /** The endpoint refused the query before sending any row. */
+    static final class RefusedException extends RuntimeException {
+        RefusedException(String status) {
+            super(status);
+        }
     }
 
     private static String emptyToNull(String value) {
