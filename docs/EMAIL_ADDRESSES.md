@@ -15,6 +15,7 @@ contact address.
 | --- | --- |
 | `tech@almonium.com` | The real mailbox. Domain, DNS, certificate, and registrar correspondence. |
 | `billing@almonium.com` | Paddle, invoices, refunds, tax and payment questions. |
+| `copyright@almonium.com` | Copyright notices and takedown requests; the book report button mails every report here. |
 | `dmarc@almonium.com` | Destination for DMARC aggregate reports (`rua`). Machine traffic only. |
 | `hello@almonium.com` | General and press enquiries; the friendly public address. |
 | `privacy@almonium.com` | Privacy policy, data-subject requests, deletion and export requests. |
@@ -29,6 +30,9 @@ contact address.
   `src/main/java/com/almonium/config/OpenAPIConfig.java`, and the "Report" link
   in the frontend's shared-page footer
   (`almonium-fe/src/app/sections/shared-link/shared-footer/shared-footer.component.ts`).
+- `copyright@almonium.com` — `app.rights.copyright-address`, the recipient of
+  every book rights report and the contact the report form shows
+  (`docs/COPYRIGHT_AND_CATALOGUE.md`).
 - `tech@almonium.com` — the ACME account email for the Porkbun certificate
   resolver in `almonium-infra/traefik/docker-compose.yaml`.
 - `noreply@almonium.com` — `app.email.from-address` in
