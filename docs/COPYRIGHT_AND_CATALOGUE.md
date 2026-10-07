@@ -219,3 +219,35 @@ minute counts as still typing.
 slot still running the previous release keeps working during a rollout; drop
 it in a later release. Translation orders (the paid "add a language" flow with
 its monthly allowance) are unchanged.
+
+## Public Domain Day and the countdown
+
+`catalog_work.production_free_from` holds the year a work becomes free where we
+make books only when the facts pin it to one year (Christie's Styles: 2047),
+never a lower bound (Rowling: 2068 at the earliest), so a client may count
+down to 1 January of that year. `GET /public/catalog/coming-free[?year=]`
+lists the best-known literary works that become free on 1 January of a year,
+next year by default: for 2027, Brecht and A. A. Milne's Pooh books.
+
+## Free texts and preparing a wanted work
+
+The import records where each work's text can be fetched, through an API and
+legally: Project Gutenberg's books (by id; EPUB 3 from
+`gutenberg.org/ebooks/{id}.epub3.images`) and Wikisource pages, both about the
+work and about its editions (EPUB from Wikisource's own export tool,
+`ws-export.wmcloud.org`). About 225,000 catalogue works have at least one.
+Each source keeps its language and, for a translation, its translators' lives
+(Gutenberg's catalogue names translators with dates; Wikidata editions carry
+translator P655). A source is free only when the work is free where we make
+books and its translators are too; a translation whose translators are not
+known is unknown, never free. A page in another language than the work's is a
+translation; a work with no language recorded takes its author's native one.
+
+`GET /ops/catalog/works/{id}/sources` lists them, free first. In /ops →
+Demand, Start can name one (`{"sourceId": …}`): the backend asks the book
+processor (`POST /internal/source-ingests/`) to fetch that EPUB and ingest it,
+and every three minutes reads its progress back. The Wanted page shows a work
+being prepared as four stages (text, chapters, level and words, on the
+shelf), counted in order from the pipeline stages the processor reports. A
+source under copyright cannot be chosen; the processor checks the rights
+again before any paid step.

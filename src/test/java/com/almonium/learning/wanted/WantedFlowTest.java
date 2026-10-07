@@ -22,6 +22,7 @@ import com.almonium.learning.wanted.dto.request.WantRequest;
 import com.almonium.learning.wanted.dto.response.WantedRow;
 import com.almonium.learning.wanted.model.enums.WantStatus;
 import com.almonium.learning.wanted.service.DemandService;
+import com.almonium.learning.wanted.service.PreparationService;
 import com.almonium.learning.wanted.service.WantService;
 import com.almonium.user.core.exception.ResourceConflictException;
 import com.almonium.user.core.model.entity.User;
@@ -70,6 +71,9 @@ class WantedFlowTest {
 
     @MockitoBean
     BookEmailService bookEmailService;
+
+    @MockitoBean
+    PreparationService preparationService;
 
     @Autowired
     WantService wants;
@@ -165,7 +169,7 @@ class WantedFlowTest {
         wants.want(jane, new WantRequest(hound, Language.EN));
         wants.want(jane, new WantRequest(study, Language.EN));
 
-        demand.start(null, hound, Language.EN);
+        demand.start(null, hound, Language.EN, null);
         var queue = wants.queue(john, false);
         assertThat(queue.beingPrepared()).extracting(WantedRow::catalogWorkId).containsExactly(hound);
         assertThat(queue.beingPrepared().getFirst().status()).isEqualTo(WantStatus.IN_PROGRESS);

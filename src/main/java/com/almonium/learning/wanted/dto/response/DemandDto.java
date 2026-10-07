@@ -24,7 +24,12 @@ public record DemandDto(int days, List<Wanted> wanted, List<UnderCopyright> unde
             WantStatus status,
             Instant firstWantedAt,
             Instant lastWantedAt,
-            String editorialUrl) {}
+            String editorialUrl,
+            Preparing preparing) {}
+
+    /** The free text being prepared for a row, when /ops started one: its source, the processor's phase and stages. */
+    public record Preparing(
+            String sourceKind, String sourceUrl, String sourceLanguage, String phase, int stagesDone, String error) {}
 
     /** A work under copyright readers looked for: how often, by how many, and its publisher where Wikidata has one. */
     public record UnderCopyright(

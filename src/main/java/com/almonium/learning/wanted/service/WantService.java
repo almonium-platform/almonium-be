@@ -14,6 +14,7 @@ import com.almonium.learning.wanted.dto.response.ArrivedRow;
 import com.almonium.learning.wanted.dto.response.WantReceipt;
 import com.almonium.learning.wanted.dto.response.WantedQueueDto;
 import com.almonium.learning.wanted.dto.response.WantedRow;
+import com.almonium.learning.wanted.model.entity.Preparation;
 import com.almonium.learning.wanted.model.entity.Want;
 import com.almonium.learning.wanted.model.enums.WantStatus;
 import com.almonium.learning.wanted.repository.WantRepository;
@@ -61,6 +62,7 @@ public class WantService {
     private final BookRepository bookRepository;
     private final NotificationService notificationService;
     private final BookEmailService bookEmailService;
+    private final PreparationService preparationService;
     private final Clock clock;
 
     public WantReceipt want(User user, WantRequest request) {
@@ -231,7 +233,13 @@ public class WantService {
                 rank,
                 shown(group.getReaders()),
                 mine.contains(key(work.getId(), group.getLanguage())),
-                group.getStatus());
+                group.getStatus(),
+                group.getStatus() == WantStatus.IN_PROGRESS
+                        ? preparationService
+                                .find(work.getId(), group.getLanguage())
+                                .map(Preparation::getProgress)
+                                .orElse(null)
+                        : null);
     }
 
     private boolean onShelf(CatalogWork work, Language language) {

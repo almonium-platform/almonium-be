@@ -4,6 +4,7 @@ import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
 import com.almonium.auth.common.annotation.RequireRecentLogin;
 import com.almonium.learning.wanted.dto.request.AliasRequest;
+import com.almonium.learning.wanted.dto.request.StartRequest;
 import com.almonium.learning.wanted.dto.response.DemandDto;
 import com.almonium.learning.wanted.service.DemandService;
 import com.almonium.user.core.model.entity.User;
@@ -35,11 +36,15 @@ public class OperationsDemandController {
         return ResponseEntity.ok(demandService.demand(days));
     }
 
+    /** Start, optionally with a free text for the book processor to fetch: {@code {"sourceId": "…"}}. */
     @PostMapping("/wanted/{catalogWorkId}/{language}/start")
     @RequireRecentLogin
     public ResponseEntity<Void> start(
-            @Auth User operator, @PathVariable UUID catalogWorkId, @PathVariable Language language) {
-        demandService.start(operator, catalogWorkId, language);
+            @Auth User operator,
+            @PathVariable UUID catalogWorkId,
+            @PathVariable Language language,
+            @RequestBody(required = false) StartRequest request) {
+        demandService.start(operator, catalogWorkId, language, request == null ? null : request.sourceId());
         return ResponseEntity.noContent().build();
     }
 

@@ -8,6 +8,7 @@ import com.almonium.learning.catalog.repository.CatalogWorkRepository;
 import com.almonium.learning.catalog.service.TitleFolding;
 import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.wanted.dto.response.DemandDto;
+import com.almonium.learning.wanted.model.entity.Preparation;
 import com.almonium.learning.wanted.model.entity.Want;
 import com.almonium.learning.wanted.model.enums.WantStatus;
 import com.almonium.learning.wanted.repository.WantRepository;
@@ -50,6 +51,7 @@ public class DemandService {
     private final WantRepository wantRepository;
     private final CatalogWorkRepository catalogWorkRepository;
     private final CatalogStore catalogStore;
+    private final PreparationService preparationService;
     private final Clock clock;
     private final String editorialUrl;
 
@@ -57,11 +59,13 @@ public class DemandService {
             WantRepository wantRepository,
             CatalogWorkRepository catalogWorkRepository,
             CatalogStore catalogStore,
+            PreparationService preparationService,
             Clock clock,
             @Value("${app.books.editorial-url:${app.books.processor-url}}") String editorialUrl) {
         this.wantRepository = wantRepository;
         this.catalogWorkRepository = catalogWorkRepository;
         this.catalogStore = catalogStore;
+        this.preparationService = preparationService;
         this.clock = clock;
         this.editorialUrl = editorialUrl;
     }
@@ -73,9 +77,25 @@ public class DemandService {
         return new DemandDto(days, wanted(), underCopyright(searches), noMatch(searches));
     }
 
-    /** Editorial took the row on: it moves to "Being prepared" for everyone who wants it. */
-    public void start(User operator, UUID catalogWorkId, Language language) {
+    /**
+     * Editorial took the row on: it moves to "Being prepared" for everyone who wants it. With a source, the book
+     * processor is asked to fetch that free text and ingest it, and the Wanted page shows its stages.
+     */
+    public void start(User operator, UUID catalogWorkId, Language language, UUID sourceId) {
+        if (sourceId != null) {
+            preparationService.start(operator, catalogWorkId, language, sourceId);
+        }
         decide(operator, catalogWorkId, language, List.of(WantStatus.OPEN), WantStatus.IN_PROGRESS);
+    }
+
+    private static DemandDto.Preparing preparing(Preparation preparation) {
+        return new DemandDto.Preparing(
+                preparation.getSourceKind(),
+                preparation.getSourceReference(),
+                preparation.getSourceLanguage(),
+                preparation.getPhase(),
+                preparation.getProgress() == null ? 0 : preparation.getProgress(),
+                preparation.getError());
     }
 
     /** One click, no reason, no mail: the row leaves the queue. */
@@ -130,7 +150,11 @@ public class DemandService {
                             group.getStatus(),
                             group.getFirstWantedAt(),
                             group.getLastWantedAt(),
-                            editorialUrl(work, group.getLanguage()));
+                            editorialUrl(work, group.getLanguage()),
+                            preparationService
+                                    .find(work.getId(), group.getLanguage())
+                                    .map(DemandService::preparing)
+                                    .orElse(null));
                 })
                 .toList();
     }
