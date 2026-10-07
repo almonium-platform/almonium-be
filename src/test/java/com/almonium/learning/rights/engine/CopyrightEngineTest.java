@@ -64,6 +64,10 @@ class CopyrightEngineTest {
         assertThat(status(harryPotter, "DE")).isEqualTo(PROTECTED);
         assertThat(engine.verdict(harryPotter, "DE", YEAR).freeFrom().earliest())
                 .isEqualTo(2068);
+        assertThat(engine.verdict(harryPotter, "DE", YEAR).exactYear()).isNull();
+        assertThat(engine.verdict(work(1920, AuthorFacts.of("Agatha Christie", 1890, 1976)), "DE", YEAR)
+                        .exactYear())
+                .isEqualTo(2047);
     }
 
     @Test
