@@ -39,7 +39,10 @@ public class TextSources {
     private final CatalogWorkRepository catalogWorkRepository;
     private final ProductionRights productionRights;
 
-    /** Every source of a work, the ones that may be prepared first, originals before translations. */
+    /**
+     * Every source of a work: the ones that may be prepared first, then one edition's text before a page that may
+     * only list editions, then originals before translations.
+     */
     public List<TextSourceView> forWork(UUID catalogWorkId) {
         CatalogWork work = catalogWorkRepository
                 .findById(catalogWorkId)
@@ -48,6 +51,7 @@ public class TextSources {
                 .map(source -> view(work, source))
                 .sorted(Comparator.comparingInt(
                                 (TextSourceView view) -> view.status().ordinal())
+                        .thenComparing(view -> !view.edition())
                         .thenComparing(TextSourceView::translation)
                         .thenComparing(TextSourceView::kind)
                         .thenComparing(view -> view.label() == null ? "" : view.label()))
@@ -74,6 +78,7 @@ public class TextSources {
                 source.label(),
                 source.translation(),
                 source.translators(),
+                source.edition(),
                 pageUrl(source),
                 downloadUrl(source),
                 verdict.status(),

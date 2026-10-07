@@ -145,7 +145,8 @@ public class CatalogImportService {
                         CatalogRecord.truncate(source.reference(), 1000),
                         source.label() == null ? null : CatalogRecord.truncate(source.label(), 1000),
                         source.translation(),
-                        source.translators()));
+                        source.translators(),
+                        source.edition()));
             }
         }
         Instant writeStarted = Instant.now(clock);
@@ -263,7 +264,8 @@ public class CatalogImportService {
                         page.url(),
                         wikisourceTitle(page.url()),
                         translation,
-                        translators));
+                        translators,
+                        page.editionId() != null));
             }
             records.add(record);
         }
@@ -382,7 +384,8 @@ public class CatalogImportService {
                 String.valueOf(text.id()),
                 TitleFolding.mainTitle(text.title()),
                 translation,
-                translators);
+                translators,
+                true);
     }
 
     /** "Guerre_et_Paix_(trad._Bienstock)" from a page URL, readable: "Guerre et Paix (trad. Bienstock)". */

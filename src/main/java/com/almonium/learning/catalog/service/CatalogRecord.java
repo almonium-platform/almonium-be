@@ -23,14 +23,19 @@ final class CatalogRecord {
 
     record Title(String text, String language, String kind) {}
 
-    /** Where a text of the work can be fetched: a Gutenberg book id or a Wikisource page URL. */
+    /**
+     * Where a text of the work can be fetched: a Gutenberg book id or a Wikisource page URL. {@code edition}: the
+     * source is one edition's text (every Gutenberg book, a Wikisource edition page), not a page about the work that
+     * may only list its editions.
+     */
     record Source(
             String kind,
             String language,
             String reference,
             String label,
             boolean translation,
-            List<CatalogAuthor> translators) {}
+            List<CatalogAuthor> translators,
+            boolean edition) {}
 
     static final String GUTENBERG = "GUTENBERG";
     static final String WIKISOURCE = "WIKISOURCE";

@@ -177,13 +177,14 @@ public class CatalogStore {
             String reference,
             String label,
             boolean translation,
-            List<CatalogAuthor> translators) {}
+            List<CatalogAuthor> translators,
+            boolean edition) {}
 
     public void replaceSources(List<SourceRow> rows) {
         jdbc.update("delete from catalog_text_source");
         String sql = "insert into catalog_text_source"
-                + " (id, catalog_work_id, kind, language, reference, label, translation, translators)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?::jsonb)";
+                + " (id, catalog_work_id, kind, language, reference, label, translation, translators, edition)"
+                + " values (?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?)";
         for (int from = 0; from < rows.size(); from += BATCH) {
             List<SourceRow> chunk = rows.subList(from, Math.min(rows.size(), from + BATCH));
             jdbc.batchUpdate(sql, chunk, chunk.size(), (statement, row) -> {
@@ -195,43 +196,41 @@ public class CatalogStore {
                 statement.setString(6, row.label());
                 statement.setBoolean(7, row.translation());
                 statement.setString(8, objectMapper.writeValueAsString(row.translators()));
+                statement.setBoolean(9, row.edition());
             });
         }
     }
 
     public List<SourceRow> sources(UUID workId) {
         return jdbc.query(
-                "select id, catalog_work_id, kind, language, reference, label, translation, translators::text"
+                "select id, catalog_work_id, kind, language, reference, label, translation, translators::text, edition"
                         + " from catalog_text_source where catalog_work_id = ? order by kind, language, label",
-                (row, index) -> new SourceRow(
-                        row.getObject(1, UUID.class),
-                        row.getObject(2, UUID.class),
-                        row.getString(3),
-                        row.getString(4),
-                        row.getString(5),
-                        row.getString(6),
-                        row.getBoolean(7),
-                        readAuthors(row.getString(8))),
+                this::sourceRow,
                 workId);
     }
 
     public Optional<SourceRow> source(UUID sourceId) {
         return jdbc
                 .query(
-                        "select id, catalog_work_id, kind, language, reference, label, translation, translators::text"
+                        "select id, catalog_work_id, kind, language, reference, label, translation, translators::text, edition"
                                 + " from catalog_text_source where id = ?",
-                        (row, index) -> new SourceRow(
-                                row.getObject(1, UUID.class),
-                                row.getObject(2, UUID.class),
-                                row.getString(3),
-                                row.getString(4),
-                                row.getString(5),
-                                row.getString(6),
-                                row.getBoolean(7),
-                                readAuthors(row.getString(8))),
+                        this::sourceRow,
                         sourceId)
                 .stream()
                 .findFirst();
+    }
+
+    private SourceRow sourceRow(ResultSet row, int index) throws SQLException {
+        return new SourceRow(
+                row.getObject(1, UUID.class),
+                row.getObject(2, UUID.class),
+                row.getString(3),
+                row.getString(4),
+                row.getString(5),
+                row.getString(6),
+                row.getBoolean(7),
+                readAuthors(row.getString(8)),
+                row.getBoolean(9));
     }
 
     public void replaceTitles(List<TitleRow> rows) {

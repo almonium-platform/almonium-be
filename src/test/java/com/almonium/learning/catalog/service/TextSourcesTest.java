@@ -43,7 +43,15 @@ class TextSourcesTest {
 
     static SourceRow source(String kind, String language, String reference, boolean translation, CatalogAuthor... by) {
         return new SourceRow(
-                UUID.randomUUID(), UUID.randomUUID(), kind, language, reference, "label", translation, List.of(by));
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                kind,
+                language,
+                reference,
+                "label",
+                translation,
+                List.of(by),
+                true);
     }
 
     @Test
