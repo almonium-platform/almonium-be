@@ -1,5 +1,6 @@
 package com.almonium.learning.catalog.controller.open;
 
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.catalog.dto.response.CatalogHit;
 import com.almonium.learning.catalog.service.CatalogSearchService;
 import jakarta.validation.constraints.Max;
@@ -27,7 +28,9 @@ public class CatalogOpenController {
 
     @GetMapping("/search")
     public ResponseEntity<List<CatalogHit>> search(
-            @RequestParam @Size(max = 200) String q, @RequestParam(defaultValue = "20") @Min(1) @Max(50) int limit) {
-        return ResponseEntity.ok(catalogSearchService.search(q, limit));
+            @RequestParam @Size(max = 200) String q,
+            @RequestParam(defaultValue = "20") @Min(1) @Max(50) int limit,
+            @RequestParam(required = false) Language language) {
+        return ResponseEntity.ok(catalogSearchService.search(q, limit, language));
     }
 }
