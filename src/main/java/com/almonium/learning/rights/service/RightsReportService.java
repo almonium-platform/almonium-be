@@ -1,6 +1,6 @@
 package com.almonium.learning.rights.service;
 
-import com.almonium.auth.common.model.PrincipalDetails;
+import com.almonium.auth.common.service.CurrentMember;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.learning.book.model.entity.Book;
@@ -12,14 +12,10 @@ import com.almonium.learning.rights.model.enums.RightsReportStatus;
 import com.almonium.learning.rights.repository.RightsReportRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Locale;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
@@ -37,7 +33,7 @@ public class RightsReportService {
     private final BookRepository bookRepository;
     private final ReaderLocation readerLocation;
     private final EmailService emailService;
-    private final UserRepository userRepository;
+    private final CurrentMember currentMember;
     private final String copyrightAddress;
 
     public RightsReportService(
@@ -45,19 +41,19 @@ public class RightsReportService {
             BookRepository bookRepository,
             ReaderLocation readerLocation,
             EmailService emailService,
-            UserRepository userRepository,
+            CurrentMember currentMember,
             @Value("${app.rights.copyright-address:copyright@almonium.com}") String copyrightAddress) {
         this.reportRepository = reportRepository;
         this.bookRepository = bookRepository;
         this.readerLocation = readerLocation;
         this.emailService = emailService;
-        this.userRepository = userRepository;
+        this.currentMember = currentMember;
         this.copyrightAddress = copyrightAddress;
     }
 
     /** A report from whoever is calling: the signed-in member when there is a session, a guest otherwise. */
     public RightsReportReceipt report(String editionSlug, RightsReportRequest request) {
-        return report(editionSlug, request, currentMember().orElse(null));
+        return report(editionSlug, request, currentMember.find().orElse(null));
     }
 
     public RightsReportReceipt report(String editionSlug, RightsReportRequest request, User member) {
@@ -110,14 +106,6 @@ public class RightsReportService {
             // The report is saved and in the /ops queue; a failed copy to the mailbox must not lose it.
             log.warn("Rights report {} saved but not mailed: {}", report.getId(), exception.getMessage());
         }
-    }
-
-    private Optional<User> currentMember() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails principal) {
-            return userRepository.findById(principal.getUserId());
-        }
-        return Optional.empty();
     }
 
     private static String blankToNull(String value) {

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.auth.common.service.CurrentMember;
 import com.almonium.infra.email.dto.EmailDto;
 import com.almonium.infra.email.service.EmailService;
 import com.almonium.learning.book.model.entity.Book;
@@ -20,7 +21,6 @@ import com.almonium.learning.rights.model.enums.RightsReportStatus;
 import com.almonium.learning.rights.repository.RightsReportRepository;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.User;
-import com.almonium.user.core.repository.UserRepository;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ class RightsReportServiceTest {
     ReaderLocation location = mock(ReaderLocation.class);
     EmailService email = mock(EmailService.class);
     RightsReportService service = new RightsReportService(
-            reports, books, location, email, mock(UserRepository.class), "copyright@almonium.com");
+            reports, books, location, email, mock(CurrentMember.class), "copyright@almonium.com");
 
     @BeforeEach
     void aBook() {
