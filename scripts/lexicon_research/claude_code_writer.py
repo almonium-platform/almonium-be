@@ -98,6 +98,11 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0):
                      "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
         structured = res.get("structured_output")
         text = res.get("result") or ""
+        if res.get("is_error") and "limit" in text.lower():
+            # the plan's limit: the headword is not spent on an error, the worker waits it out
+            print(f"limit reached at {row['headword']}; waiting ten minutes", flush=True)
+            time.sleep(600)
+            return write_one(model, effort, lang, system, row, pause_session, stop_week)
         entry = structured if structured is not None else json.loads(text.strip().strip("`").removeprefix("json"))
     except Exception as e:
         entry = {"error": f"{type(e).__name__}: {str(e)[:200]}", "raw": (r.stdout or "")[:20000], "stderr": (r.stderr or "")[-2000:]}
