@@ -79,11 +79,14 @@ public class DemandService {
 
     /**
      * Editorial took the row on: it moves to "Being prepared" for everyone who wants it. With a source, the book
-     * processor is asked to fetch that free text and ingest it, and the Wanted page shows its stages.
+     * processor is asked to fetch that free text and ingest it, and the Wanted page shows its stages. A row whose
+     * preparation failed can be started again with a source (the same or another); it is already in progress.
      */
     public void start(User operator, UUID catalogWorkId, Language language, UUID sourceId) {
         if (sourceId != null) {
             preparationService.start(operator, catalogWorkId, language, sourceId);
+            decide(operator, catalogWorkId, language, WantStatus.STANDING, WantStatus.IN_PROGRESS);
+            return;
         }
         decide(operator, catalogWorkId, language, List.of(WantStatus.OPEN), WantStatus.IN_PROGRESS);
     }

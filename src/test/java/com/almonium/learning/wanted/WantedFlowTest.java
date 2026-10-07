@@ -209,6 +209,19 @@ class WantedFlowTest {
     }
 
     @Test
+    void aRowWhosePreparationFailedCanBeStartedAgainWithASource() {
+        wants.want(john, new WantRequest(study, Language.EN));
+        UUID source = UUID.randomUUID();
+        demand.start(null, study, Language.EN, source);
+        demand.start(null, study, Language.EN, source);
+
+        verify(preparationService, times(2)).start(null, study, Language.EN, source);
+        assertThat(demand.demand(30).wanted()).extracting(row -> row.status()).containsExactly(WantStatus.IN_PROGRESS);
+        assertThatThrownBy(() -> demand.start(null, study, Language.EN, null))
+                .hasMessageContaining("Nobody is waiting");
+    }
+
+    @Test
     void aDeclinedWorkLeavesTheQueue() {
         wants.want(john, new WantRequest(study, Language.EN));
 
