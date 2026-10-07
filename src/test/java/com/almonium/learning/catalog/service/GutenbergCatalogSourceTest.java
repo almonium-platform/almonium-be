@@ -35,6 +35,9 @@ class GutenbergCatalogSourceTest {
                 .containsExactly(new Author("Homer", "Homer", -751, -651));
         assertThat(GutenbergCatalogSource.authors("Kennedy, John F. (John Fitzgerald), 1917-1963"))
                 .containsExactly(new Author("John F. Kennedy", "Kennedy", 1917, 1963));
+        assertThat(GutenbergCatalogSource.translators(
+                        "Tolstoy, Leo, graf, 1828-1910; Maude, Aylmer, 1858-1938 [Translator]; Doe, J. [Editor]"))
+                .containsExactly(new Author("Aylmer Maude", "Maude", 1858, 1938));
         assertThat(GutenbergCatalogSource.authors("Anonymous")).isEmpty();
         assertThat(GutenbergCatalogSource.authors("Doe, Jane"))
                 .containsExactly(new Author("Jane Doe", "Doe", null, null));

@@ -181,3 +181,7 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261007-wanted-books.yaml
   - include:
       file: db/changelog/changes/patches/20261008-coming-free-index.yaml
+  - include:
+      file: db/changelog/changes/patches/20261008-catalog-text-sources.yaml
+  - include:
+      file: db/changelog/changes/patches/20261008-catalog-literary.yaml

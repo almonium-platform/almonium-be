@@ -17,9 +17,23 @@ final class CatalogRecord {
     List<CatalogAuthor> authors = new ArrayList<>();
     int popularity;
     String publisher;
+    boolean literary;
     final List<Title> titles = new ArrayList<>();
+    final List<Source> sources = new ArrayList<>();
 
     record Title(String text, String language, String kind) {}
+
+    /** Where a text of the work can be fetched: a Gutenberg book id or a Wikisource page URL. */
+    record Source(
+            String kind,
+            String language,
+            String reference,
+            String label,
+            boolean translation,
+            List<CatalogAuthor> translators) {}
+
+    static final String GUTENBERG = "GUTENBERG";
+    static final String WIKISOURCE = "WIKISOURCE";
 
     static final String TITLE = "TITLE";
     static final String AUTHOR = "AUTHOR";

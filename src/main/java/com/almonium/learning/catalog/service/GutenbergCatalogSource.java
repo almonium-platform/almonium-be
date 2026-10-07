@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,12 @@ public class GutenbergCatalogSource {
     /** One author of a text: the name as "First Last", and the life years when Gutenberg records them. */
     public record Author(String name, String surname, Integer birthYear, Integer deathYear) {}
 
-    public record Text(int id, String title, String language, List<Author> authors) {}
+    /** One Gutenberg text: its id, title, language, primary authors and, for a translation, its translators. */
+    public record Text(int id, String title, String language, List<Author> authors, List<Author> translators) {
+        public Text(int id, String title, String language, List<Author> authors) {
+            this(id, title, language, authors, List.of());
+        }
+    }
 
     public List<Text> fetch() {
         List<Text> texts = restClient.get().uri(catalogueUrl).exchange((request, response) -> {
@@ -67,20 +73,36 @@ public class GutenbergCatalogSource {
                 continue;
             }
             String language = row.get(4).split(";")[0].trim();
-            texts.add(new Text(id, row.get(3), language, authors(row.get(5))));
+            texts.add(new Text(id, row.get(3), language, authors(row.get(5)), translators(row.get(5))));
         }
         return texts;
     }
 
     /** The primary authors only: translators, editors and illustrators carry a bracketed role and are left out. */
     static List<Author> authors(String field) {
-        List<Author> authors = new ArrayList<>();
+        return people(field, null);
+    }
+
+    /** The translators, whose own lives decide whether a translated text is free. */
+    static List<Author> translators(String field) {
+        return people(field, "Translator");
+    }
+
+    /** The entries with exactly this bracketed role, or with none when {@code role} is null. */
+    private static List<Author> people(String field, String role) {
+        List<Author> people = new ArrayList<>();
         if (field == null || field.isBlank()) {
-            return authors;
+            return people;
         }
         for (String entry : field.split(";")) {
             String trimmed = entry.trim();
-            if (trimmed.isEmpty() || ROLE.matcher(trimmed).find()) {
+            Matcher roleMatch = ROLE.matcher(trimmed);
+            String entryRole = null;
+            if (roleMatch.find()) {
+                entryRole = roleMatch.group().trim().replaceAll("[\\[\\]]", "");
+                trimmed = trimmed.substring(0, roleMatch.start()).trim();
+            }
+            if (trimmed.isEmpty() || !Objects.equals(role, entryRole)) {
                 continue;
             }
             Integer born = null;
@@ -102,9 +124,9 @@ public class GutenbergCatalogSource {
                     || surname.equalsIgnoreCase("Unknown")) {
                 continue;
             }
-            authors.add(new Author(display, surname, born, died));
+            people.add(new Author(display, surname, born, died));
         }
-        return authors;
+        return people;
     }
 
     private static Integer signed(String year, String era) {

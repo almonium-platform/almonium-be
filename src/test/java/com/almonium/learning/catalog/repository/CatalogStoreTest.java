@@ -95,6 +95,42 @@ class CatalogStoreTest {
     }
 
     @Test
+    void publicDomainDayListsLiteraryWorksOfThatYearBestKnownFirst() {
+        UUID pooh = UUID.randomUUID();
+        UUID tract = UUID.randomUUID();
+        UUID chalk = UUID.randomUUID();
+        store.upsertWorks(
+                List.of(
+                        row(pooh, "Winnie-the-Pooh", 31, 2027, true),
+                        row(tract, "A tract", 19, 2027, false),
+                        row(chalk, "The Caucasian Chalk Circle", 23, 2027, true)),
+                Instant.now());
+
+        assertThat(store.freeFrom(2027, 10))
+                .extracting(Hit::title)
+                .containsExactly("Winnie-the-Pooh", "The Caucasian Chalk Circle");
+        assertThat(store.freeFrom(2028, 10)).isEmpty();
+    }
+
+    static WorkRow row(UUID id, String title, int popularity, int freeFrom, boolean literary) {
+        return new WorkRow(
+                id,
+                null,
+                null,
+                title,
+                null,
+                "en",
+                1926,
+                "Someone",
+                List.of(),
+                popularity,
+                RightsStatus.PROTECTED,
+                freeFrom,
+                null,
+                literary);
+    }
+
+    @Test
     void anImportKeepsTheShelfLinkAndReplacesTitles() {
         UUID dracula = works.getFirst().id();
         store.linkWorkSlug(dracula, "dracula");

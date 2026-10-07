@@ -4,17 +4,22 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.repository.CatalogStore;
+import com.almonium.learning.catalog.repository.CatalogStore.SourceRow;
 import com.almonium.learning.catalog.repository.CatalogStore.TitleRow;
 import com.almonium.learning.catalog.repository.CatalogStore.WorkRow;
 import com.almonium.learning.catalog.service.GutenbergCatalogSource.Text;
 import com.almonium.learning.catalog.service.WikidataCatalogSource.Label;
 import com.almonium.learning.catalog.service.WikidataCatalogSource.Person;
 import com.almonium.learning.catalog.service.WikidataCatalogSource.Snapshot;
+import com.almonium.learning.catalog.service.WikidataCatalogSource.WikisourcePage;
 import com.almonium.learning.catalog.service.WikidataCatalogSource.Work;
 import com.almonium.learning.rights.model.CountryVerdict;
 import com.almonium.learning.rights.model.RightsFacts;
 import com.almonium.learning.rights.service.ProductionRights;
 import com.github.f4b6a3.uuid.UuidCreator;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -108,6 +113,7 @@ public class CatalogImportService {
         int year = productionRights.currentYear();
         List<WorkRow> works = new ArrayList<>(records.size());
         List<TitleRow> titles = new ArrayList<>();
+        List<SourceRow> sources = new ArrayList<>();
         for (CatalogRecord record : records) {
             CountryVerdict verdict = productionRights.verdict(
                     new RightsFacts(
@@ -127,14 +133,27 @@ public class CatalogImportService {
                     record.popularity,
                     verdict.status(),
                     verdict.exactYear(),
-                    record.publisher));
+                    record.publisher,
+                    record.literary));
             titles.addAll(titleRows(record));
+            for (CatalogRecord.Source source : record.sources) {
+                sources.add(new SourceRow(
+                        UuidCreator.getTimeOrderedEpoch(),
+                        record.id,
+                        source.kind(),
+                        language(source.language()),
+                        CatalogRecord.truncate(source.reference(), 1000),
+                        source.label() == null ? null : CatalogRecord.truncate(source.label(), 1000),
+                        source.translation(),
+                        source.translators()));
+            }
         }
         Instant writeStarted = Instant.now(clock);
         Integer deleted = transactionTemplate.execute(status -> {
             store.clearGutenbergIds();
             store.upsertWorks(works, writeStarted);
             store.replaceTitles(titles);
+            store.replaceSources(sources);
             return store.deleteStale(writeStarted);
         });
         int linked = linkShelf();
@@ -199,6 +218,7 @@ public class CatalogImportService {
                     .orElse(null);
             record.publicationYear = work.year();
             record.popularity = work.popularity();
+            record.literary = work.literary();
             String publisher = snapshot.publisherByWork().get(work.id());
             record.publisher = publisher == null ? null : CatalogRecord.truncate(publisher, 500);
             for (String authorId : snapshot.authorsByWork().getOrDefault(work.id(), List.of())) {
@@ -219,6 +239,31 @@ public class CatalogImportService {
                 if (seen.add(TitleFolding.fold(label.text()))) {
                     record.addTitle(label.text(), label.language());
                 }
+            }
+            for (WikisourcePage page : snapshot.wikisourceByWork().getOrDefault(work.id(), List.of())) {
+                List<CatalogAuthor> translators = page.translatorIds().stream()
+                        .map(snapshot.people()::get)
+                        .filter(Objects::nonNull)
+                        .map(person -> new CatalogAuthor(
+                                person.name(),
+                                person.id(),
+                                person.birthYear(),
+                                person.deathYear(),
+                                person.diedForFrance(),
+                                null,
+                                person.repressed()))
+                        .toList();
+                // A page in another language than the work's (or when the work's is not recorded) is a translation.
+                boolean translation = !translators.isEmpty()
+                        || record.originalLanguage == null
+                        || !record.originalLanguage.equals(page.language());
+                record.sources.add(new CatalogRecord.Source(
+                        CatalogRecord.WIKISOURCE,
+                        page.language(),
+                        page.url(),
+                        wikisourceTitle(page.url()),
+                        translation,
+                        translators));
             }
             records.add(record);
         }
@@ -293,6 +338,7 @@ public class CatalogImportService {
                     match.gutenbergId = text.id();
                 }
                 fillDeathYears(match, text);
+                match.sources.add(gutenbergSource(text, match.originalLanguage));
                 continue;
             }
             String key = foldedTitle + "|"
@@ -313,8 +359,37 @@ public class CatalogImportService {
                 record.addTitle(mainTitle, record.originalLanguage);
                 unmatched.put(key, record);
             }
+            record.sources.add(gutenbergSource(text, record.originalLanguage));
         }
         return new ArrayList<>(unmatched.values());
+    }
+
+    /**
+     * A Gutenberg text as a source: a translation when Gutenberg names translators or when its language is not the
+     * work's (a translation whose translators Gutenberg does not name is judged unknown, never free).
+     */
+    static CatalogRecord.Source gutenbergSource(Text text, String workLanguage) {
+        String language = text.language().isEmpty() ? null : text.language();
+        boolean translation = !text.translators().isEmpty()
+                || (workLanguage != null && language != null && !workLanguage.equals(language));
+        List<CatalogAuthor> translators = text.translators().stream()
+                .map(author ->
+                        new CatalogAuthor(author.name(), null, author.birthYear(), author.deathYear(), false, null))
+                .toList();
+        return new CatalogRecord.Source(
+                CatalogRecord.GUTENBERG,
+                language,
+                String.valueOf(text.id()),
+                TitleFolding.mainTitle(text.title()),
+                translation,
+                translators);
+    }
+
+    /** "Guerre_et_Paix_(trad._Bienstock)" from a page URL, readable: "Guerre et Paix (trad. Bienstock)". */
+    static String wikisourceTitle(String url) {
+        String path = URI.create(url).getRawPath();
+        String page = path == null ? url : path.substring(path.lastIndexOf('/') + 1);
+        return URLDecoder.decode(page, StandardCharsets.UTF_8).replace('_', ' ');
     }
 
     /** Every Gutenberg author's surname appears among the work's authors; a text with no author matches none. */

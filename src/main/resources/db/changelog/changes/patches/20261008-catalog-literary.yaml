@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261008-catalog-literary
+      author: claude
+      comment: >-
+        catalog_work.literary marks novels, plays, poems, stories and other literary works, as opposed to items
+        Wikidata only calls a book or a written work, which include non-fiction and pamphlets. Public lists such as
+        Public Domain Day show literary works only.
+      changes:
+        - addColumn:
+            tableName: catalog_work
+            columns:
+              - column:
+                  name: literary
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

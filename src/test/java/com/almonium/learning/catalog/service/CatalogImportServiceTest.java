@@ -123,6 +123,63 @@ class CatalogImportServiceTest {
     }
 
     @Test
+    void sourcesKeepTheirLanguageAndTranslatorsAndAPageInAnotherLanguageIsATranslation() {
+        Snapshot base = snapshot();
+        Map<String, Person> people = new java.util.HashMap<>(base.people());
+        people.put("Q99", new Person("Q99", "Katherine Woods", 1886, 1968, false));
+        Snapshot withPages = new Snapshot(
+                base.works(),
+                base.authorsByWork(),
+                people,
+                base.labelsByWork(),
+                base.gutenbergByWork(),
+                Map.of(),
+                Map.of(
+                        "Q25338",
+                        List.of(
+                                new WikidataCatalogSource.WikisourcePage(
+                                        "https://fr.wikisource.org/wiki/Le_Petit_Prince", "fr", null, List.of()),
+                                new WikidataCatalogSource.WikisourcePage(
+                                        "https://en.wikisource.org/wiki/The_Little_Prince",
+                                        "en",
+                                        "Q1",
+                                        List.of("Q99")))));
+
+        var prince = CatalogImportService.fromWikidata(withPages, Map.of()).stream()
+                .filter(r -> "Q25338".equals(r.wikidataId))
+                .findFirst()
+                .orElseThrow();
+
+        assertThat(prince.sources).hasSize(2);
+        assertThat(prince.sources.get(0).translation()).isFalse();
+        assertThat(prince.sources.get(0).label()).isEqualTo("Le Petit Prince");
+        assertThat(prince.sources.get(1).translation()).isTrue();
+        assertThat(prince.sources.get(1).translators())
+                .extracting(CatalogAuthor::deathYear)
+                .containsExactly(1968);
+    }
+
+    @Test
+    void aGutenbergTextWithTranslatorsIsATranslation() {
+        var maude = CatalogImportService.gutenbergSource(
+                new Text(
+                        2600,
+                        "War and Peace",
+                        "en",
+                        List.of(new Author("Leo Tolstoy", "Tolstoy", 1828, 1910)),
+                        List.of(new Author("Aylmer Maude", "Maude", 1858, 1938))),
+                "ru");
+        var original = CatalogImportService.gutenbergSource(
+                new Text(84, "Frankenstein; or, the modern prometheus", "en", List.of()), "en");
+
+        assertThat(maude.translation()).isTrue();
+        assertThat(maude.translators()).extracting(CatalogAuthor::name).containsExactly("Aylmer Maude");
+        assertThat(original.translation()).isFalse();
+        assertThat(original.label()).isEqualTo("Frankenstein");
+        assertThat(original.reference()).isEqualTo("84");
+    }
+
+    @Test
     void englishTitleFirstThenTheMultilingualThenTheOriginal() {
         assertThat(CatalogImportService.pickTitle(
                         List.of(new Label("Q", "Kobzar", "mul"), new Label("Q", "Кобзар", "uk")), "uk"))

@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261008-catalog-text-sources
+      author: claude
+      comment: >-
+        Where the text of a catalogue work can be fetched from, legally and by an API: a Project Gutenberg book id or a
+        Wikisource page, with the text's language and, for a translation, its translators' lives (the translation has
+        its own copyright). Rebuilt by every catalogue import, like catalog_title. Preparation is the link between a
+        wanted work in a language and the source edition the book processor is ingesting for it, so the Wanted page
+        can show its stages.
+      changes:
+        - createTable:
+            tableName: catalog_text_source
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: catalog_work_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_catalog_text_source_work
+                    references: catalog_work(id)
+                    deleteCascade: true
+              - column:
+                  name: kind
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language
+                  type: varchar(16)
+              - column:
+                  name: reference
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: label
+                  type: varchar(1000)
+              - column:
+                  name: translation
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translators
+                  type: jsonb
+                  defaultValueComputed: "'[]'::jsonb"
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: catalog_text_source
+            indexName: ix_catalog_text_source_work
+            columns:
+              - column:
+                  name: catalog_work_id
+        - createTable:
+            tableName: preparation
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: catalog_work_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_preparation_work
+                    references: catalog_work(id)
+                    deleteCascade: true
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_kind
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_reference
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_language
+                  type: varchar(16)
+              - column:
+                  name: processor_edition_id
+                  type: uuid
+              - column:
+                  name: phase
+                  type: varchar(24)
+              - column:
+                  name: stage
+                  type: varchar(24)
+              - column:
+                  name: progress
+                  type: int
+              - column:
+                  name: error
+                  type: varchar(2000)
+              - column:
+                  name: started_by_user_id
+                  type: uuid
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checked_at
+                  type: timestamp with time zone
+        - addUniqueConstraint:
+            tableName: preparation
+            columnNames: catalog_work_id, language
+            constraintName: uq_preparation_work_language
+        - addForeignKeyConstraint:
+            baseTableName: preparation
+            baseColumnNames: started_by_user_id
+            constraintName: fk_preparation_started_by
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL

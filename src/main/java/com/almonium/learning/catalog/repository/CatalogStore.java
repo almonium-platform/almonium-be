@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,7 +47,8 @@ public class CatalogStore {
             int popularity,
             RightsStatus productionStatus,
             Integer productionFreeFrom,
-            String publisher) {
+            String publisher,
+            boolean literary) {
 
         public WorkRow(
                 UUID id,
@@ -74,7 +76,8 @@ public class CatalogStore {
                     popularity,
                     productionStatus,
                     productionFreeFrom,
-                    null);
+                    null,
+                    false);
         }
     }
 
@@ -122,8 +125,8 @@ public class CatalogStore {
         String sql = """
                 insert into catalog_work (id, wikidata_id, gutenberg_id, title, original_title, original_language,
                     publication_year, author_display, authors, popularity, production_status, production_free_from,
-                    updated_at, publisher)
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?)
+                    updated_at, publisher, literary)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?, ?)
                 on conflict (id) do update set wikidata_id = excluded.wikidata_id,
                     gutenberg_id = excluded.gutenberg_id, title = excluded.title,
                     original_title = excluded.original_title, original_language = excluded.original_language,
@@ -131,7 +134,7 @@ public class CatalogStore {
                     authors = excluded.authors, popularity = excluded.popularity,
                     production_status = excluded.production_status,
                     production_free_from = excluded.production_free_from, updated_at = excluded.updated_at,
-                    publisher = excluded.publisher
+                    publisher = excluded.publisher, literary = excluded.literary
                 """;
         Timestamp stamp = Timestamp.from(now);
         for (int from = 0; from < rows.size(); from += BATCH) {
@@ -151,6 +154,7 @@ public class CatalogStore {
                 statement.setObject(12, row.productionFreeFrom(), Types.INTEGER);
                 statement.setTimestamp(13, stamp);
                 statement.setString(14, row.publisher());
+                statement.setBoolean(15, row.literary());
             });
         }
     }
@@ -162,6 +166,72 @@ public class CatalogStore {
                   and not exists (select 1 from want x where x.catalog_work_id = w.id)
                   and not exists (select 1 from catalog_alias a where a.catalog_work_id = w.id)
                 """, Timestamp.from(importStarted));
+    }
+
+    /** Where a work's text can be fetched, as the import writes it. */
+    public record SourceRow(
+            UUID id,
+            UUID workId,
+            String kind,
+            String language,
+            String reference,
+            String label,
+            boolean translation,
+            List<CatalogAuthor> translators) {}
+
+    public void replaceSources(List<SourceRow> rows) {
+        jdbc.update("delete from catalog_text_source");
+        String sql = "insert into catalog_text_source"
+                + " (id, catalog_work_id, kind, language, reference, label, translation, translators)"
+                + " values (?, ?, ?, ?, ?, ?, ?, ?::jsonb)";
+        for (int from = 0; from < rows.size(); from += BATCH) {
+            List<SourceRow> chunk = rows.subList(from, Math.min(rows.size(), from + BATCH));
+            jdbc.batchUpdate(sql, chunk, chunk.size(), (statement, row) -> {
+                statement.setObject(1, row.id());
+                statement.setObject(2, row.workId());
+                statement.setString(3, row.kind());
+                statement.setString(4, row.language());
+                statement.setString(5, row.reference());
+                statement.setString(6, row.label());
+                statement.setBoolean(7, row.translation());
+                statement.setString(8, objectMapper.writeValueAsString(row.translators()));
+            });
+        }
+    }
+
+    public List<SourceRow> sources(UUID workId) {
+        return jdbc.query(
+                "select id, catalog_work_id, kind, language, reference, label, translation, translators::text"
+                        + " from catalog_text_source where catalog_work_id = ? order by kind, language, label",
+                (row, index) -> new SourceRow(
+                        row.getObject(1, UUID.class),
+                        row.getObject(2, UUID.class),
+                        row.getString(3),
+                        row.getString(4),
+                        row.getString(5),
+                        row.getString(6),
+                        row.getBoolean(7),
+                        readAuthors(row.getString(8))),
+                workId);
+    }
+
+    public Optional<SourceRow> source(UUID sourceId) {
+        return jdbc
+                .query(
+                        "select id, catalog_work_id, kind, language, reference, label, translation, translators::text"
+                                + " from catalog_text_source where id = ?",
+                        (row, index) -> new SourceRow(
+                                row.getObject(1, UUID.class),
+                                row.getObject(2, UUID.class),
+                                row.getString(3),
+                                row.getString(4),
+                                row.getString(5),
+                                row.getString(6),
+                                row.getBoolean(7),
+                                readAuthors(row.getString(8))),
+                        sourceId)
+                .stream()
+                .findFirst();
     }
 
     public void replaceTitles(List<TitleRow> rows) {
@@ -270,8 +340,9 @@ public class CatalogStore {
     }
 
     /**
-     * The best-known works that become free where we make books on 1 January of a year (or became free on the last
-     * one): Public Domain Day. Only works whose year the facts pin down exactly are listed.
+     * The best-known literary works that become free where we make books on 1 January of a year (or became free on
+     * the last one): Public Domain Day. Only works whose year the facts pin down exactly are listed, and only novels,
+     * plays, poems and the like: a list readers see is no place for every pamphlet that turns free.
      */
     public List<Hit> freeFrom(int year, int limit) {
         return named.query(
@@ -279,7 +350,7 @@ public class CatalogStore {
                 select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
                        w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score
                 from catalog_work w
-                where w.production_free_from = :year
+                where w.production_free_from = :year and w.literary
                 order by w.popularity desc, w.title
                 limit :limit
                 """, new MapSqlParameterSource().addValue("year", year).addValue("limit", limit), CatalogStore::hit);

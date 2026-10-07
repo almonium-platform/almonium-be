@@ -49,7 +49,22 @@ class WikidataCatalogSourceTest {
     /** One row per query shape, told apart by what each query selects. */
     static byte[] answer(String query) {
         String rows;
-        if (query.contains("AS ?p)")) {
+        if (query.contains("?france") && query.contains("P655")) {
+            rows = "?a\t?nameEn\t?nameMul\t?nameAny\t?b\t?d\t?france\n" + E
+                    + "Q99>\t\"Katherine Woods\"@en\t\t\t1886\t1968\t0\n";
+        } else if (query.contains("SELECT DISTINCT ?e ?a")) {
+            rows = "?e\t?a\n" + E + "Q1>\t" + E + "Q99>\n";
+        } else if (query.contains("SELECT DISTINCT ?w ?e ?article")) {
+            rows = "?w\t?e\t?article\n" + E + "Q25338>\t" + E
+                    + "Q1>\t<https://en.wikisource.org/wiki/The_Little_Prince>\n";
+        } else if (query.contains("SELECT DISTINCT ?w ?article")) {
+            rows = "?w\t?article\n" + E + "Q25338>\t<https://fr.wikisource.org/wiki/Le_Petit_Prince>\n" + E
+                    + "Q25338>\t<https://wikisource.org/wiki/Multilingual_page>\n";
+        } else if (query.contains("P103")) {
+            rows = "?w\t?lang\n" + E + "Q25338>\t\"en\"\n";
+        } else if (query.contains("SELECT DISTINCT ?w WHERE { VALUES ?cls")) {
+            rows = "?w\n" + E + "Q25338>\n";
+        } else if (query.contains("AS ?p)")) {
             rows = "?w\t?l\t?lang\t?p\t?i\n" + E + "Q25338>\t151\t\"fr\"\t1943\t1942\n";
         } else if (query.contains("SELECT DISTINCT ?w ?a")) {
             rows = "?w\t?a\n" + E + "Q25338>\t" + E + "Q2908>\n";
@@ -82,12 +97,21 @@ class WikidataCatalogSourceTest {
         var snapshot = source().fetch();
 
         assertThat(snapshot.works().get("Q25338").year()).isEqualTo(1943);
+        // The work's own language wins over its author's native one.
         assertThat(snapshot.works().get("Q25338").languageCode()).isEqualTo("fr");
+        assertThat(snapshot.works().get("Q25338").literary()).isTrue();
         assertThat(snapshot.authorsByWork().get("Q25338")).containsExactly("Q2908");
         assertThat(snapshot.people().get("Q2908").diedForFrance()).isTrue();
         assertThat(snapshot.people().get("Q2908").deathYear()).isEqualTo(1944);
         assertThat(snapshot.people().get("Q2908").repressed()).isTrue();
         assertThat(snapshot.publisherByWork()).containsEntry("Q25338", "Gallimard");
+        assertThat(snapshot.wikisourceByWork().get("Q25338"))
+                .containsExactlyInAnyOrder(
+                        new WikidataCatalogSource.WikisourcePage(
+                                "https://fr.wikisource.org/wiki/Le_Petit_Prince", "fr", null, List.of()),
+                        new WikidataCatalogSource.WikisourcePage(
+                                "https://en.wikisource.org/wiki/The_Little_Prince", "en", "Q1", List.of("Q99")));
+        assertThat(snapshot.people().get("Q99").deathYear()).isEqualTo(1968);
         assertThat(snapshot.labelsByWork().get("Q25338"))
                 .extracting(WikidataCatalogSource.Label::text)
                 .containsExactlyInAnyOrder("The Little Prince", "Le Petit Prince");
@@ -101,7 +125,7 @@ class WikidataCatalogSourceTest {
         var snapshot = source().fetch();
 
         assertThat(snapshot.works()).containsKey("Q25338");
-        assertThat(requests.get()).isEqualTo(8 + 2);
+        assertThat(requests.get()).isEqualTo(14 + 2);
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.almonium.learning.catalog.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ import org.springframework.web.client.RestClient;
 @Component
 public class WikidataCatalogSource {
     /** Literary work, novel, novella, short story, poem, play, poetry and story collections, fairy tale, epic, book. */
-    private static final String WORK_CLASSES = "wd:Q7725634 wd:Q8261 wd:Q149537 wd:Q49084 wd:Q5185279 wd:Q25379 "
-            + "wd:Q1279564 wd:Q1371849 wd:Q699 wd:Q37484 wd:Q571 wd:Q47461344";
+    private static final String LITERARY_CLASSES = "wd:Q7725634 wd:Q8261 wd:Q149537 wd:Q49084 wd:Q5185279 "
+            + "wd:Q25379 wd:Q1279564 wd:Q1371849 wd:Q699 wd:Q37484";
+
+    /** The literary classes plus the generic book and written work, which also hold non-fiction. */
+    private static final String WORK_CLASSES = LITERARY_CLASSES + " wd:Q571 wd:Q47461344";
 
     /** "Mort pour la France", as an award received (P166). */
     private static final String DIED_FOR_FRANCE = "wd:Q3324507";
@@ -38,6 +42,7 @@ public class WikidataCatalogSource {
             PREFIX wd: <http://www.wikidata.org/entity/>
             PREFIX wikibase: <http://wikiba.se/ontology#>
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX schema: <http://schema.org/>
             """;
 
     // QLever drops every row when wikibase:sitelinks is compared directly; adding zero first works.
@@ -70,7 +75,12 @@ public class WikidataCatalogSource {
         this.titleLanguages = titleLanguages;
     }
 
-    public record Work(String id, int popularity, String languageCode, Integer year) {}
+    /** {@code literary}: a novel, play, poem, story or other literary work, not only a generic book. */
+    public record Work(String id, int popularity, String languageCode, Integer year, boolean literary) {
+        public Work(String id, int popularity, String languageCode, Integer year) {
+            this(id, popularity, languageCode, year, false);
+        }
+    }
 
     /** {@code repressed}: a Soviet author who died a violent death in 1930–1953, the years of the purges. */
     public record Person(
@@ -82,6 +92,9 @@ public class WikidataCatalogSource {
 
     public record Label(String workId, String text, String language) {}
 
+    /** A Wikisource page with a text of the work: the whole work, or one edition of it with that edition's translators. */
+    public record WikisourcePage(String url, String language, String editionId, List<String> translatorIds) {}
+
     /** Everything one import needs, keyed by Q-id. */
     public record Snapshot(
             Map<String, Work> works,
@@ -89,7 +102,8 @@ public class WikidataCatalogSource {
             Map<String, Person> people,
             Map<String, List<Label>> labelsByWork,
             Map<String, Integer> gutenbergByWork,
-            Map<String, String> publisherByWork) {
+            Map<String, String> publisherByWork,
+            Map<String, List<WikisourcePage>> wikisourceByWork) {
 
         public Snapshot(
                 Map<String, Work> works,
@@ -97,7 +111,7 @@ public class WikidataCatalogSource {
                 Map<String, Person> people,
                 Map<String, List<Label>> labelsByWork,
                 Map<String, Integer> gutenbergByWork) {
-            this(works, authorsByWork, people, labelsByWork, gutenbergByWork, Map.of());
+            this(works, authorsByWork, people, labelsByWork, gutenbergByWork, Map.of(), Map.of());
         }
     }
 
@@ -124,6 +138,29 @@ public class WikidataCatalogSource {
                                     published != null ? published : written));
                 });
 
+        // A work with no language of its own takes its author's native language when there is exactly one:
+        // War and Peace records none, Tolstoy's is Russian.
+        query(
+                "SELECT ?w (SAMPLE(?code) AS ?lang) WHERE { " + NOTABLE_WORK
+                        + "FILTER NOT EXISTS { ?w wdt:P407 ?own } ?w wdt:P50 ?a . ?a wdt:P103 ?native . "
+                        + "?native wdt:P424 ?code } GROUP BY ?w HAVING (COUNT(DISTINCT ?code) = 1)",
+                cells -> works.computeIfPresent(
+                        SparqlTsv.value(cells.get(0)),
+                        (id, work) -> work.languageCode() != null
+                                ? work
+                                : new Work(
+                                        id,
+                                        work.popularity(),
+                                        SparqlTsv.value(cells.get(1)),
+                                        work.year(),
+                                        work.literary())));
+        query(
+                "SELECT DISTINCT ?w WHERE { VALUES ?cls { " + LITERARY_CLASSES + " } ?w wdt:P31 ?cls . "
+                        + "?w wikibase:sitelinks ?links . BIND(?links + 0 AS ?linkCount) FILTER(?linkCount > 0) }",
+                cells -> works.computeIfPresent(
+                        SparqlTsv.value(cells.get(0)),
+                        (id, work) -> new Work(id, work.popularity(), work.languageCode(), work.year(), true)));
+
         Map<String, List<String>> authorsByWork = new HashMap<>();
         query(
                 "SELECT DISTINCT ?w ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a }",
@@ -132,30 +169,7 @@ public class WikidataCatalogSource {
                         .add(SparqlTsv.value(cells.get(1))));
 
         Map<String, Person> people = new HashMap<>();
-        query(
-                "SELECT ?a (SAMPLE(?en) AS ?nameEn) (SAMPLE(?mul) AS ?nameMul) (SAMPLE(?any) AS ?nameAny) "
-                        + "(MIN(YEAR(?born)) AS ?b) (MAX(YEAR(?died)) AS ?d) (COUNT(?award) AS ?france) WHERE { "
-                        + "{ SELECT DISTINCT ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a } } "
-                        + "OPTIONAL { ?a rdfs:label ?en FILTER(LANG(?en) = \"en\") } "
-                        + "OPTIONAL { ?a rdfs:label ?mul FILTER(LANG(?mul) = \"mul\") } "
-                        + "OPTIONAL { ?a rdfs:label ?any } "
-                        + "OPTIONAL { ?a wdt:P569 ?born } OPTIONAL { ?a wdt:P570 ?died } "
-                        + "OPTIONAL { ?a wdt:P166 ?award FILTER(?award = " + DIED_FOR_FRANCE + ") } } GROUP BY ?a",
-                cells -> {
-                    String name = firstNonEmpty(
-                            SparqlTsv.value(cells.get(1)),
-                            SparqlTsv.value(cells.get(2)),
-                            SparqlTsv.value(cells.get(3)));
-                    Integer france = SparqlTsv.integer(SparqlTsv.value(cells.get(6)));
-                    people.put(
-                            SparqlTsv.value(cells.get(0)),
-                            new Person(
-                                    SparqlTsv.value(cells.get(0)),
-                                    name,
-                                    SparqlTsv.integer(SparqlTsv.value(cells.get(4))),
-                                    SparqlTsv.integer(SparqlTsv.value(cells.get(5))),
-                                    france != null && france > 0));
-                });
+        readPeople("SELECT DISTINCT ?a WHERE { " + NOTABLE_WORK + "?w wdt:P50 ?a }", people);
 
         // Soviet citizens (USSR, Ukrainian SSR, Russian SFSR) whose manner of death was capital punishment, homicide or
         // "unnatural death", dying in 1930–1953: the purges' victims, many rehabilitated after death.
@@ -205,6 +219,43 @@ public class WikidataCatalogSource {
                     }
                 });
 
+        // Free texts on Wikisource: pages about the work itself, and pages about one of its editions (usually a
+        // translation), whose translators' lives decide whether that text is free.
+        Map<String, List<WikisourcePage>> wikisourceByWork = new HashMap<>();
+        String onWikisource = "?article schema:isPartOf ?site . FILTER(CONTAINS(STR(?site), \"wikisource.org\")) ";
+        query(
+                "SELECT DISTINCT ?w ?article WHERE { " + NOTABLE_WORK + "?article schema:about ?w . " + onWikisource
+                        + "}",
+                cells -> addPage(wikisourceByWork, SparqlTsv.value(cells.get(0)), SparqlTsv.value(cells.get(1)), null));
+        query(
+                "SELECT DISTINCT ?w ?e ?article WHERE { " + NOTABLE_WORK
+                        + "?e wdt:P629 ?w . ?article schema:about ?e . " + onWikisource + "}",
+                cells -> addPage(
+                        wikisourceByWork,
+                        SparqlTsv.value(cells.get(0)),
+                        SparqlTsv.value(cells.get(2)),
+                        SparqlTsv.value(cells.get(1))));
+        Map<String, List<String>> translatorsByEdition = new HashMap<>();
+        String translatedEditions = "SELECT DISTINCT ?e ?a WHERE { " + NOTABLE_WORK + "?e wdt:P629 ?w . "
+                + "?article schema:about ?e . " + onWikisource + "?e wdt:P655 ?a }";
+        query(
+                translatedEditions,
+                cells -> translatorsByEdition
+                        .computeIfAbsent(SparqlTsv.value(cells.get(0)), key -> new ArrayList<>())
+                        .add(SparqlTsv.value(cells.get(1))));
+        readPeople(
+                "SELECT DISTINCT ?a WHERE { " + translatedEditions.substring("SELECT DISTINCT ?e ?a WHERE { ".length()),
+                people);
+        wikisourceByWork.replaceAll((work, pages) -> pages.stream()
+                .map(page -> page.editionId() == null
+                        ? page
+                        : new WikisourcePage(
+                                page.url(),
+                                page.language(),
+                                page.editionId(),
+                                translatorsByEdition.getOrDefault(page.editionId(), List.of())))
+                .toList());
+
         // The publisher, for the /ops demand page's "Rights holder" column: research, not a verdict.
         Map<String, String> publisherByWork = new HashMap<>();
         query(
@@ -223,7 +274,46 @@ public class WikidataCatalogSource {
                 people.size(),
                 labelsByWork.size(),
                 gutenbergByWork.size());
-        return new Snapshot(works, authorsByWork, people, labelsByWork, gutenbergByWork, publisherByWork);
+        return new Snapshot(
+                works, authorsByWork, people, labelsByWork, gutenbergByWork, publisherByWork, wikisourceByWork);
+    }
+
+    /** Names and lives of the people an inner {@code SELECT DISTINCT ?a} finds; ones already read are kept. */
+    private void readPeople(String innerSelect, Map<String, Person> people) {
+        query(
+                "SELECT ?a (SAMPLE(?en) AS ?nameEn) (SAMPLE(?mul) AS ?nameMul) (SAMPLE(?any) AS ?nameAny) "
+                        + "(MIN(YEAR(?born)) AS ?b) (MAX(YEAR(?died)) AS ?d) (COUNT(?award) AS ?france) WHERE { "
+                        + "{ " + innerSelect + " } "
+                        + "OPTIONAL { ?a rdfs:label ?en FILTER(LANG(?en) = \"en\") } "
+                        + "OPTIONAL { ?a rdfs:label ?mul FILTER(LANG(?mul) = \"mul\") } "
+                        + "OPTIONAL { ?a rdfs:label ?any } "
+                        + "OPTIONAL { ?a wdt:P569 ?born } OPTIONAL { ?a wdt:P570 ?died } "
+                        + "OPTIONAL { ?a wdt:P166 ?award FILTER(?award = " + DIED_FOR_FRANCE + ") } } GROUP BY ?a",
+                cells -> {
+                    String name = firstNonEmpty(
+                            SparqlTsv.value(cells.get(1)),
+                            SparqlTsv.value(cells.get(2)),
+                            SparqlTsv.value(cells.get(3)));
+                    Integer france = SparqlTsv.integer(SparqlTsv.value(cells.get(6)));
+                    people.putIfAbsent(
+                            SparqlTsv.value(cells.get(0)),
+                            new Person(
+                                    SparqlTsv.value(cells.get(0)),
+                                    name,
+                                    SparqlTsv.integer(SparqlTsv.value(cells.get(4))),
+                                    SparqlTsv.integer(SparqlTsv.value(cells.get(5))),
+                                    france != null && france > 0));
+                });
+    }
+
+    /** The language of a Wikisource page, from its host ("fr" for fr.wikisource.org); null for the multilingual one. */
+    static String wikisourceLanguage(String url) {
+        String host = URI.create(url).getHost();
+        if (host == null || !host.endsWith(".wikisource.org")) {
+            return null;
+        }
+        String language = host.substring(0, host.length() - ".wikisource.org".length());
+        return language.isEmpty() || language.equals("www") || language.contains(".") ? null : language;
     }
 
     /** Streams the result rows (header skipped) as raw cells; the caller decodes them. */
@@ -288,6 +378,14 @@ public class WikidataCatalogSource {
     static final class RefusedException extends RuntimeException {
         RefusedException(String status) {
             super(status);
+        }
+    }
+
+    private static void addPage(Map<String, List<WikisourcePage>> pages, String workId, String url, String editionId) {
+        String language = wikisourceLanguage(url);
+        if (language != null) {
+            pages.computeIfAbsent(workId, key -> new ArrayList<>())
+                    .add(new WikisourcePage(url, language, editionId, List.of()));
         }
     }
 
