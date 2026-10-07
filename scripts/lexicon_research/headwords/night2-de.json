@@ -1,0 +1,3502 @@
+[
+ {
+  "headword": "verkaufen",
+  "zipf": 4.84,
+  "set": "night2"
+ },
+ {
+  "headword": "wagen",
+  "zipf": 4.84,
+  "set": "night2"
+ },
+ {
+  "headword": "Winter",
+  "zipf": 4.84,
+  "set": "night2"
+ },
+ {
+  "headword": "zusätzlich",
+  "zipf": 4.84,
+  "set": "night2"
+ },
+ {
+  "headword": "anschliessend",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "heissen",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "legen",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Mitglied",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Studie",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Technik",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "tisch",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Urlaub",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Weisst",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Werbung",
+  "zipf": 4.83,
+  "set": "night2"
+ },
+ {
+  "headword": "Auge",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Bier",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Club",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "einfluss",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "fällen",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "fühlen",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Gebiet",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Gericht",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Jahrhundert",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Jugend",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "möglichst",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "Teilnehmer",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "tief",
+  "zipf": 4.82,
+  "set": "night2"
+ },
+ {
+  "headword": "bauen",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Energie",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "herzen",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Hoffnung",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "holen",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Kilometer",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "relativ",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "spät",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "sterben",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "stets",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "tolle",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Trainer",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "usw",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Version",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "wald",
+  "zipf": 4.81,
+  "set": "night2"
+ },
+ {
+  "headword": "Basis",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "dahin",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "ding",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "friedrich",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Gespräch",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "interessant",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "irgendwo",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "meinst",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "möglichkeiten",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Nachricht",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "nötig",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Partner",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Party",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Qualität",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Richter",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "schaden",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "See",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Tor",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "täglich",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "verlieren",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "wahr",
+  "zipf": 4.8,
+  "set": "night2"
+ },
+ {
+  "headword": "Aktion",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Anteil",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "app",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "ausschliesslich",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Beziehung",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Funktion",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "hinten",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "inhalt",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Kontrolle",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "leisten",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Minute",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "rücken",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Vergangenheit",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "vertrauen",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "Zustand",
+  "zipf": 4.79,
+  "set": "night2"
+ },
+ {
+  "headword": "aussehen",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "bewusst",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "damen",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Diskussion",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "fehlen",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "fort",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "grössere",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Künstler",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Literatur",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "miteinander",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Organisation",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "passieren",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "rennen",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "schlimm",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "sekunden",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "verantwortlich",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "weltweit",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "wünsche",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "zufrieden",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Zusammenarbeit",
+  "zipf": 4.78,
+  "set": "night2"
+ },
+ {
+  "headword": "Geburtstag",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "Gegensatz",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "grundsätzlich",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "Insel",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "normal",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "prozess",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "Schwester",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "vertreten",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "vorhanden",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "zuhause",
+  "zipf": 4.77,
+  "set": "night2"
+ },
+ {
+  "headword": "Autor",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "bezahlen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Dienst",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "dumm",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Eindruck",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "entstehen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "feiern",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Feuer",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "geschehen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "hingegen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Kamera",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "lachen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Praxis",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Telefon",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "trinken",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "unterstützen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "verhindern",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "weissen",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "Wetter",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "wiederum",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "zugleich",
+  "zipf": 4.76,
+  "set": "night2"
+ },
+ {
+  "headword": "album",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "allgemein",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "dar",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "Demokratie",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "erinnern",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "extrem",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "grün",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "kostenlos",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "krankenhaus",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "längst",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "Mund",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "Osten",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "positiv",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "schützen",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "tot",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "Verkehr",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "wirken",
+  "zipf": 4.75,
+  "set": "night2"
+ },
+ {
+  "headword": "Anspruch",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "arm",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Armee",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Auftrag",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Ausland",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Behandlung",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "böse",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "diesmal",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Dorf",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "handeln",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "hoffentlich",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "kämpfen",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "notwendig",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Plus",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Professor",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Rat",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "reichen",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Spiegel",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Spitze",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Star",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "strassen",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "test",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Tour",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "Verantwortung",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "wesentlich",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "wunsch",
+  "zipf": 4.74,
+  "set": "night2"
+ },
+ {
+  "headword": "aussen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "beiträge",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Blut",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Bürgermeister",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Büro",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "ehemaligen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Farbe",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Führung",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "garten",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "gründe",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "gäste",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Heimat",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Industrie",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "innen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Leitung",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Lied",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Liga",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Mehrheit",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "offensichtlich",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "schliessen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "unglaublich",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "waffen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "Westen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "wohnen",
+  "zipf": 4.73,
+  "set": "night2"
+ },
+ {
+  "headword": "befinden",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Bezug",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "bilden",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Bus",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Fernsehen",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Find",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Kaiser",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Meer",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Park",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Theater",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Traum",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Verwendung",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Wirkung",
+  "zipf": 4.72,
+  "set": "night2"
+ },
+ {
+  "headword": "Anlage",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Ausgabe",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Brief",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "enthalten",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "erzählen",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Kauf",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Kommentar",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Landkreis",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Modell",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Museum",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Religion",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Urteil",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Vertreter",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Verwaltung",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "übernehmen",
+  "zipf": 4.71,
+  "set": "night2"
+ },
+ {
+  "headword": "Angriff",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "Forschung",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "Grundlage",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "grösseren",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "jung",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "letzter",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "Mark",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "Material",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "schicken",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "selben",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "Strom",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "treten",
+  "zipf": 4.7,
+  "set": "night2"
+ },
+ {
+  "headword": "abends",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Ausstellung",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "beginnen",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Erklärung",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Frieden",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Geil",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Gelegenheit",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "geschäft",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "hauptsächlich",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "hinzu",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "krank",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "lauf",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Mittwoch",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "möglicherweise",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "rum",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "schwierig",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "verdienen",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "weisse",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Wind",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Öffentlichkeit",
+  "zipf": 4.69,
+  "set": "night2"
+ },
+ {
+  "headword": "Alternative",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "ansehen",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Aussage",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "davor",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "einzigen",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "extra",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Fahrer",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Gesundheit",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "international",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "leiden",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "not",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Presse",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Radio",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "reisen",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "selbstverständlich",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Sendung",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "sicherlich",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Twitter",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "vollkommen",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Wissenschaft",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Wunder",
+  "zipf": 4.68,
+  "set": "night2"
+ },
+ {
+  "headword": "Bahnhof",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "benutzen",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "besuchen",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Ecke",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Einführung",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "empfehlen",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Generation",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "hoffen",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Küche",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Masse",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "mitten",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "schiff",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "seitdem",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "sowieso",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Stiftung",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "unmöglich",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "vollständig",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "Wär",
+  "zipf": 4.67,
+  "set": "night2"
+ },
+ {
+  "headword": "anfangen",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Beruf",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Computer",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "finger",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "fliegen",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Geist",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "halb",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "offiziell",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "quellen",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "unabhängig",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Verhältnis",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Zweifel",
+  "zipf": 4.66,
+  "set": "night2"
+ },
+ {
+  "headword": "Alkohol",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "blau",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Donnerstag",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Ebene",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Erinnerung",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "erleben",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "geschichten",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Handel",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Hinweis",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Institut",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Kurs",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "männern",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Norden",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Reaktion",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "schlagen",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "siehst",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "sparen",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Veranstaltung",
+  "zipf": 4.65,
+  "set": "night2"
+ },
+ {
+  "headword": "Aufmerksamkeit",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Ball",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Bundesregierung",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Dienstag",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "gegend",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Holz",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "kriegen",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Länge",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "meistens",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "passen",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "runter",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "sodass",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Sorge",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Stil",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Stimmung",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Tatsache",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "teils",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "traurig",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Täter",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Wein",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "woher",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Zuschauer",
+  "zipf": 4.64,
+  "set": "night2"
+ },
+ {
+  "headword": "Besucher",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "bewegen",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Darstellung",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "dienen",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "entwickeln",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Feld",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Gewinn",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "gibts",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Information",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Kino",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "lasst",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "lösen",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Nase",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "original",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Pause",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Prinzip",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Prüfung",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "starten",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Tradition",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Tätigkeit",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Umwelt",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "ursprünglich",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "verwenden",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Vorstellung",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Vorteil",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "zählen",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "öffnen",
+  "zipf": 4.63,
+  "set": "night2"
+ },
+ {
+  "headword": "Abstand",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "angeblich",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "ansonsten",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Antrag",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Anwendung",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Baum",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "behalten",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "bislang",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Bühne",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "haare",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "komisch",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "mehrfach",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Parlament",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "praktisch",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "respekt",
+  "zipf": 4.62,
+  "set": "night2"
+ },
+ {
+  "headword": "Analyse",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "andererseits",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Aufnahme",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "aussagen",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "berichten",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "brücke",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Freue",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Förderung",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "geniessen",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "heiss",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "hierbei",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Konzert",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "politisch",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Publikum",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "real",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Rechnung",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Service",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Streit",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "städten",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Theorie",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Tier",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Umgang",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Verkauf",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Verständnis",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "werfen",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "weshalb",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "west",
+  "zipf": 4.61,
+  "set": "night2"
+ },
+ {
+  "headword": "Beschreibung",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Charakter",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "daneben",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "desto",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "dringend",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Gang",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "gefährlich",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "halbe",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "hängen",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Realität",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "retten",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "stattdessen",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "steigen",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Termin",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "tipps",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Witz",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "Zugang",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "zweimal",
+  "zipf": 4.6,
+  "set": "night2"
+ },
+ {
+  "headword": "eindeutig",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Einrichtung",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Eis",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "erscheinen",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Gast",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Gegenteil",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Homepage",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "jugendliche",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "jährlich",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Kategorie",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "kommst",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Krankheit",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "morgens",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "nachts",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "nutzer",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Nutzung",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Papier",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "pflanzen",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Sitz",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "ton",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "tätig",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Verlauf",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Wechsel",
+  "zipf": 4.59,
+  "set": "night2"
+ },
+ {
+  "headword": "Ansicht",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "Aufbau",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "automatisch",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "dame",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "design",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "frisch",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "hervor",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "keller",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "momentan",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "nahezu",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "rock",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "Untersuchung",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "übertragen",
+  "zipf": 4.58,
+  "set": "night2"
+ },
+ {
+  "headword": "Anhänger",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Anlass",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "dach",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Dauer",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "demnach",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Einheit",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "eng",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "ergeben",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "farben",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "jemals",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "kaputt",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Minister",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Niveau",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Philosophie",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "rechnen",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "schliesst",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Software",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Süden",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "teuer",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "toten",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "unmittelbar",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Unterricht",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "verlangen",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Vorschlag",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Widerstand",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "äusserst",
+  "zipf": 4.57,
+  "set": "night2"
+ },
+ {
+  "headword": "Abteilung",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Adresse",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Anzeige",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Ausnahme",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Bester",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Fläche",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "fordern",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "gestalten",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "gesund",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Hauptstadt",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "kalt",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Medizin",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Mission",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "nachmittag",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Pflicht",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Ruf",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "singen",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "that",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "Zeug",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "zweiter",
+  "zipf": 4.56,
+  "set": "night2"
+ },
+ {
+  "headword": "anscheinend",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "bar",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Beweis",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "breit",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "geschenk",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "grossartig",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Hunde",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Kommunikation",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Leser",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Manager",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "media",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Mühe",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "nah",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Nord",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Ost",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "privat",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Rang",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Revolution",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Schauspieler",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "scheinen",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "spätestens",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "stecken",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Temperatur",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Uni",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "vermeiden",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "Wettbewerb",
+  "zipf": 4.55,
+  "set": "night2"
+ },
+ {
+  "headword": "achten",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Auflösung",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Besitz",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "einst",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Einstellung",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Figur",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Flucht",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Formel",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Griff",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "hasse",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Integration",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "kümmern",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Maschine",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Mut",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Phase",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Produkt",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Ring",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "schulz",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "womit",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "überlegen",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Übersetzung",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "überzeugen",
+  "zipf": 4.54,
+  "set": "night2"
+ },
+ {
+  "headword": "Ausdruck",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "besitzen",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "beweisen",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Bewohner",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Code",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Debatte",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "definitiv",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "drehen",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "eier",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Forum",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Gas",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Geschmack",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "gratis",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "letztlich",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "liefern",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "liessen",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Mord",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "möchtest",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "oberen",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "ohnehin",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Personal",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "restaurant",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "schwanz",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Spur",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Standort",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "weh",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "witzig",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "worauf",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Wähler",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "zumal",
+  "zipf": 4.53,
+  "set": "night2"
+ },
+ {
+  "headword": "Achtung",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "aufhören",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "aufmerksam",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "auftreten",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "bedeuten",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "begeistert",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Boot",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "daraufhin",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "erforderlich",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "ewig",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Fahrzeug",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Frag",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "kochen",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Marke",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Musiker",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "normalen",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "rufen",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "schlaf",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Silber",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Status",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "story",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "Tasche",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "unterscheiden",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "wechseln",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "zufällig",
+  "zipf": 4.52,
+  "set": "night2"
+ },
+ {
+  "headword": "abhängig",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Anwalt",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "aufnehmen",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "bitten",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "brüder",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "echten",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "funktionieren",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Haltung",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "kommentare",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Krise",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Kurzer",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Methode",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Milch",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "normalerweise",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "speziell",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Strafe",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Sturm",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "tipp",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Verlust",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "verpasst",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "versehen",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "verzichten",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Via",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "warm",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Zeitraum",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Zustimmung",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "öfter",
+  "zipf": 4.51,
+  "set": "night2"
+ },
+ {
+  "headword": "Alltag",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "anfangs",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Auflage",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "ausreichend",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "beobachten",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Brot",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Einwohner",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "erfolgen",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "ernsthaft",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Frühstück",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "gespannt",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "grunde",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Hass",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "hauses",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "hierzu",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "hör",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Kern",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "kreuz",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "müde",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "ner",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "open",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Planung",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "rollen",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Schatten",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Schicksal",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "spuren",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Stern",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Unternehmer",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "verbrechen",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "vielmehr",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "wild",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "wohin",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Änderung",
+  "zipf": 4.5,
+  "set": "night2"
+ },
+ {
+  "headword": "Arbeitgeber",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Besitzer",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "blog",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Bundesrepublik",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "dingen",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Feuerwehr",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Flug",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Hochschule",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Infrastruktur",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Katze",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "mass",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Messer",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "methoden",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Nachfolger",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Pfarrer",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Pflege",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Profil",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Rückkehr",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "sagst",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Schwerer",
+  "zipf": 4.49,
+  "set": "night2"
+ },
+ {
+  "headword": "Sender",
+  "zipf": 4.49,
+  "set": "night2"
+ }
+]
