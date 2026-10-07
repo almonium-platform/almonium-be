@@ -88,7 +88,18 @@ public class WikidataCatalogSource {
             Map<String, List<String>> authorsByWork,
             Map<String, Person> people,
             Map<String, List<Label>> labelsByWork,
-            Map<String, Integer> gutenbergByWork) {}
+            Map<String, Integer> gutenbergByWork,
+            Map<String, String> publisherByWork) {
+
+        public Snapshot(
+                Map<String, Work> works,
+                Map<String, List<String>> authorsByWork,
+                Map<String, Person> people,
+                Map<String, List<Label>> labelsByWork,
+                Map<String, Integer> gutenbergByWork) {
+            this(works, authorsByWork, people, labelsByWork, gutenbergByWork, Map.of());
+        }
+    }
 
     public Snapshot fetch() {
         Map<String, Work> works = new HashMap<>();
@@ -194,13 +205,25 @@ public class WikidataCatalogSource {
                     }
                 });
 
+        // The publisher, for the /ops demand page's "Rights holder" column: research, not a verdict.
+        Map<String, String> publisherByWork = new HashMap<>();
+        query(
+                "SELECT ?w (SAMPLE(?name) AS ?publisher) WHERE { " + NOTABLE_WORK + "?w wdt:P123 ?p . "
+                        + "?p rdfs:label ?name FILTER(LANG(?name) = \"en\") } GROUP BY ?w",
+                cells -> {
+                    String publisher = SparqlTsv.value(cells.get(1));
+                    if (!publisher.isEmpty()) {
+                        publisherByWork.put(SparqlTsv.value(cells.get(0)), publisher);
+                    }
+                });
+
         log.info(
                 "Wikidata catalogue: {} works, {} authors, {} with labels, {} with a Gutenberg id",
                 works.size(),
                 people.size(),
                 labelsByWork.size(),
                 gutenbergByWork.size());
-        return new Snapshot(works, authorsByWork, people, labelsByWork, gutenbergByWork);
+        return new Snapshot(works, authorsByWork, people, labelsByWork, gutenbergByWork, publisherByWork);
     }
 
     /** Streams the result rows (header skipped) as raw cells; the caller decodes them. */

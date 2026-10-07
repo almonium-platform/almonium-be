@@ -45,7 +45,38 @@ public class CatalogStore {
             List<CatalogAuthor> authors,
             int popularity,
             RightsStatus productionStatus,
-            Integer productionFreeFrom) {}
+            Integer productionFreeFrom,
+            String publisher) {
+
+        public WorkRow(
+                UUID id,
+                String wikidataId,
+                Integer gutenbergId,
+                String title,
+                String originalTitle,
+                String originalLanguage,
+                Integer publicationYear,
+                String authorDisplay,
+                List<CatalogAuthor> authors,
+                int popularity,
+                RightsStatus productionStatus,
+                Integer productionFreeFrom) {
+            this(
+                    id,
+                    wikidataId,
+                    gutenbergId,
+                    title,
+                    originalTitle,
+                    originalLanguage,
+                    publicationYear,
+                    authorDisplay,
+                    authors,
+                    popularity,
+                    productionStatus,
+                    productionFreeFrom,
+                    null);
+        }
+    }
 
     public record TitleRow(UUID workId, String text, String language, String kind, String normalized) {}
 
@@ -91,15 +122,16 @@ public class CatalogStore {
         String sql = """
                 insert into catalog_work (id, wikidata_id, gutenberg_id, title, original_title, original_language,
                     publication_year, author_display, authors, popularity, production_status, production_free_from,
-                    updated_at)
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?)
+                    updated_at, publisher)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?)
                 on conflict (id) do update set wikidata_id = excluded.wikidata_id,
                     gutenberg_id = excluded.gutenberg_id, title = excluded.title,
                     original_title = excluded.original_title, original_language = excluded.original_language,
                     publication_year = excluded.publication_year, author_display = excluded.author_display,
                     authors = excluded.authors, popularity = excluded.popularity,
                     production_status = excluded.production_status,
-                    production_free_from = excluded.production_free_from, updated_at = excluded.updated_at
+                    production_free_from = excluded.production_free_from, updated_at = excluded.updated_at,
+                    publisher = excluded.publisher
                 """;
         Timestamp stamp = Timestamp.from(now);
         for (int from = 0; from < rows.size(); from += BATCH) {
@@ -118,14 +150,18 @@ public class CatalogStore {
                 statement.setString(11, row.productionStatus().name());
                 statement.setObject(12, row.productionFreeFrom(), Types.INTEGER);
                 statement.setTimestamp(13, stamp);
+                statement.setString(14, row.publisher());
             });
         }
     }
 
-    /** Works the import no longer produced and nothing on the shelf points at. */
+    /** Works the import no longer produced, unless the shelf, a want or an alias still points at them. */
     public int deleteStale(Instant importStarted) {
-        return jdbc.update(
-                "delete from catalog_work where updated_at < ? and work_slug is null", Timestamp.from(importStarted));
+        return jdbc.update("""
+                delete from catalog_work w where w.updated_at < ? and w.work_slug is null
+                  and not exists (select 1 from want x where x.catalog_work_id = w.id)
+                  and not exists (select 1 from catalog_alias a where a.catalog_work_id = w.id)
+                """, Timestamp.from(importStarted));
     }
 
     public void replaceTitles(List<TitleRow> rows) {
@@ -153,11 +189,15 @@ public class CatalogStore {
         String sql = """
                 select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
                        w.popularity, w.work_slug, w.production_status, w.production_free_from, s.score
-                from (select t.catalog_work_id as id,
-                             max(case when t.normalized = :q then 2.0 else word_similarity(:q, t.normalized) end) as score
-                      from catalog_title t
-                      where :q <% t.normalized
-                      group by t.catalog_work_id) s
+                from (select id, max(score) as score
+                      from (select t.catalog_work_id as id,
+                                   case when t.normalized = :q then 2.0 else word_similarity(:q, t.normalized) end
+                                       as score
+                            from catalog_title t
+                            where :q <% t.normalized
+                            union all
+                            select a.catalog_work_id, 2.0 from catalog_alias a where a.normalized = :q) m
+                      group by id) s
                 join catalog_work w on w.id = s.id
                 order by s.score >= 2 desc, floor(s.score * 4) desc, w.popularity desc, w.title
                 limit :limit
@@ -227,6 +267,48 @@ public class CatalogStore {
                 order by w.popularity desc
                 limit 20
                 """, new MapSqlParameterSource("q", folded), CatalogStore::hit);
+    }
+
+    /** One search as the demand page counts it. {@code requester} tells readers apart without storing an address. */
+    public void logSearch(String folded, Hit top, UUID memberId, String requester, Instant at) {
+        jdbc.update(
+                "insert into catalog_search (query, top_work_id, top_state, member_id, requester, created_at)"
+                        + " values (?, ?, ?, ?, ?, ?)",
+                truncate(folded, 200),
+                top == null ? null : top.id(),
+                top == null ? null : top.productionStatus().name(),
+                memberId,
+                requester,
+                Timestamp.from(at));
+    }
+
+    public record LoggedSearch(String query, UUID topWorkId, String topState, String requester, Instant at) {}
+
+    public List<LoggedSearch> searchesSince(Instant since) {
+        return jdbc.query(
+                "select query, top_work_id, top_state, requester, created_at from catalog_search"
+                        + " where created_at >= ? order by requester, created_at",
+                (row, index) -> new LoggedSearch(
+                        row.getString(1),
+                        row.getObject(2, UUID.class),
+                        row.getString(3),
+                        row.getString(4),
+                        row.getTimestamp(5).toInstant()),
+                Timestamp.from(since));
+    }
+
+    /** Teaches search that a query means a work; a second alias for the same query replaces the first. */
+    public void saveAlias(String folded, UUID workId, UUID createdBy, Instant at) {
+        jdbc.update("""
+                insert into catalog_alias (id, normalized, catalog_work_id, created_by_user_id, created_at)
+                values (?, ?, ?, ?, ?)
+                on conflict (normalized) do update set catalog_work_id = excluded.catalog_work_id,
+                    created_by_user_id = excluded.created_by_user_id, created_at = excluded.created_at
+                """, UUID.randomUUID(), truncate(folded, 200), workId, createdBy, Timestamp.from(at));
+    }
+
+    private static String truncate(String text, int length) {
+        return text.length() <= length ? text : text.substring(0, length);
     }
 
     private static Hit hit(ResultSet row, int index) throws SQLException {

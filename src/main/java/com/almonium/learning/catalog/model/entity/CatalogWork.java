@@ -60,6 +60,10 @@ public class CatalogWork {
     RightsStatus productionStatus;
 
     Integer productionFreeFrom;
+
+    /** Wikidata's publisher: research for a licensing conversation, not a rights verdict. */
+    String publisher;
+
     Instant updatedAt;
 
     public RightsFacts rightsFacts() {

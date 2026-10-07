@@ -177,3 +177,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261005-book-catalogue.yaml
   - include:
       file: db/changelog/changes/patches/20261006-reading-rights.yaml
+  - include:
+      file: db/changelog/changes/patches/20261007-wanted-books.yaml

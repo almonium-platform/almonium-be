@@ -1,12 +1,13 @@
-package com.almonium.learning.book.model.entity;
+package com.almonium.learning.wanted.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.translator.model.enums.Language;
-import com.almonium.learning.book.model.enums.BookRequestStatus;
+import com.almonium.learning.book.model.entity.Book;
+import com.almonium.learning.catalog.model.entity.CatalogWork;
+import com.almonium.learning.wanted.model.enums.WantStatus;
 import com.almonium.user.core.model.entity.User;
 import com.almonium.util.uuid.UuidV7;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -22,14 +23,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * One member asking for one work in one language (G19). Rows of the same work and language are one row in /ops and
- * are decided together; the count of distinct members is the row's weight. {@code workSlug} is set when the work
- * already exists in another language, which is what makes the row an "Add edition" rather than a "New work". The
- * public-domain lookup result is stored at ask time so the reviewer sees what the reader was told.
+ * One member wanting one catalogue work in one language (W1). A want for a missing book and a want for a missing
+ * language of a book already on the shelf are the same record: the catalogue work says which. Wanting is free and
+ * promises nothing but a place in a public order; editorial still chooses what to prepare.
  */
 @Entity
 @Getter
@@ -38,8 +40,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @FieldDefaults(level = PRIVATE)
 @EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "book_request")
-public class BookRequest {
+@Table(name = "want")
+public class Want {
     @Id
     @UuidV7
     UUID id;
@@ -48,29 +50,15 @@ public class BookRequest {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    @Column(length = 500, nullable = false)
-    String title;
-
-    @Column(length = 300, nullable = false)
-    String author;
-
-    /** Lower-cased, whitespace-folded "title|author": what groups asks and what the unique constraint is on. */
-    @Column(length = 820, nullable = false)
-    String normalizedKey;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "catalog_work_id", nullable = false)
+    CatalogWork catalogWork;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     Language language;
 
-    @Column(length = 180)
-    String workSlug;
-
-    Integer gutenbergId;
-    Integer publicationYear;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    BookRequestStatus status;
+    WantStatus status;
 
     @ManyToOne
     @JoinColumn(name = "decided_by_user_id")
@@ -78,11 +66,13 @@ public class BookRequest {
 
     Instant decidedAt;
 
+    // The edition that settled the want outlives its own withdrawal, which hides it from ordinary Book queries.
     @ManyToOne
-    @JoinColumn(name = "published_book_id")
-    Book publishedBook;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "arrived_book_id")
+    Book arrivedBook;
 
-    Instant publishedAt;
+    Instant arrivedAt;
 
     @CreatedDate
     Instant createdAt;

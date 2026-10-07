@@ -19,6 +19,7 @@ import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.rights.exception.ProductionBlockedException;
 import com.almonium.learning.rights.service.ProductionGate;
 import com.almonium.learning.rights.service.WorkRightsService;
+import com.almonium.learning.wanted.service.WantService;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -44,7 +45,7 @@ class BookPublicationServiceTest {
     LibrarySuggestionService librarySuggestionService;
 
     @Mock
-    BookRequestService bookRequestService;
+    WantService wantService;
 
     @Mock
     ProductionGate productionGate;

@@ -58,6 +58,8 @@ class WikidataCatalogSourceTest {
                     + "Q2908>\t\"Antoine de Saint-Exupéry\"@en\t\t\t1900\t1944\t1\n";
         } else if (query.contains("?manner")) {
             rows = "?a\n" + E + "Q2908>\n";
+        } else if (query.contains("?publisher")) {
+            rows = "?w\t?publisher\n" + E + "Q25338>\t\"Gallimard\"@en\n";
         } else if (query.contains("?gutenberg")) {
             rows = "?w\t?gutenberg\n";
         } else if (query.contains("= ?code")) {
@@ -85,6 +87,7 @@ class WikidataCatalogSourceTest {
         assertThat(snapshot.people().get("Q2908").diedForFrance()).isTrue();
         assertThat(snapshot.people().get("Q2908").deathYear()).isEqualTo(1944);
         assertThat(snapshot.people().get("Q2908").repressed()).isTrue();
+        assertThat(snapshot.publisherByWork()).containsEntry("Q25338", "Gallimard");
         assertThat(snapshot.labelsByWork().get("Q25338"))
                 .extracting(WikidataCatalogSource.Label::text)
                 .containsExactlyInAnyOrder("The Little Prince", "Le Petit Prince");
@@ -98,7 +101,7 @@ class WikidataCatalogSourceTest {
         var snapshot = source().fetch();
 
         assertThat(snapshot.works()).containsKey("Q25338");
-        assertThat(requests.get()).isEqualTo(7 + 2);
+        assertThat(requests.get()).isEqualTo(8 + 2);
     }
 
     @Test

@@ -1,0 +1,9 @@
+package com.almonium.learning.wanted.dto.request;
+
+import com.almonium.analyzer.translator.model.enums.Language;
+import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
+
+/** "I want this": a catalogue work, in the language the reader would read it in. */
+public record WantRequest(
+        @NotNull UUID catalogWorkId, @NotNull Language language) {}

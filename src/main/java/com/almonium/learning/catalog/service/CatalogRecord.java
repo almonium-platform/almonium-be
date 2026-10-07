@@ -16,6 +16,7 @@ final class CatalogRecord {
     Integer publicationYear;
     List<CatalogAuthor> authors = new ArrayList<>();
     int popularity;
+    String publisher;
     final List<Title> titles = new ArrayList<>();
 
     record Title(String text, String language, String kind) {}

@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/** Catalogue search (W1): open to guests, since knowing what exists is not personal. */
+/**
+ * Catalogue search (W1): open to guests, since knowing what exists is not personal. With {@code language}, the shelf's
+ * reading language, each hit also says how many readers want it in that language and whether the viewer does.
+ */
 @Validated
 @RestController
 @RequestMapping("/public/catalog")

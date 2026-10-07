@@ -1,9 +1,16 @@
 package com.almonium.learning.catalog.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.startsWith;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.almonium.analyzer.translator.model.enums.Language;
+import com.almonium.auth.common.service.CurrentMember;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.catalog.dto.response.CatalogHit;
@@ -12,7 +19,12 @@ import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.Hit;
 import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.rights.service.ReadingRights;
+import com.almonium.learning.wanted.repository.WantRepository;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +32,17 @@ class CatalogSearchServiceTest {
     CatalogStore store = mock(CatalogStore.class);
     BookRepository books = mock(BookRepository.class);
     ReadingRights readingRights = mock(ReadingRights.class);
-    CatalogSearchService service = new CatalogSearchService(store, books, readingRights);
+    WantRepository wants = mock(WantRepository.class);
+    CurrentMember currentMember = mock(CurrentMember.class);
+    SearchRequester requester = new SearchRequester();
+    CatalogSearchService service = new CatalogSearchService(
+            store,
+            books,
+            readingRights,
+            wants,
+            currentMember,
+            requester,
+            Clock.fixed(Instant.parse("2026-10-07T00:00:00Z"), ZoneOffset.UTC));
 
     static Hit hit(String title, String workSlug, RightsStatus status) {
         return new Hit(UUID.randomUUID(), title, null, null, 1900, "Someone", 10, workSlug, status, null, 1.0);
@@ -49,6 +71,54 @@ class CatalogSearchServiceTest {
                         CatalogState.WANTABLE,
                         CatalogState.WANTABLE,
                         CatalogState.UNDER_COPYRIGHT);
+    }
+
+    @Test
+    void everySearchIsLoggedWithItsTopHitAndAnEmptyOneToo() {
+        Hit top = hit("Lolita", null, RightsStatus.PROTECTED);
+        when(store.search("lolita", 20)).thenReturn(List.of(top));
+        when(store.search("zzqx", 20)).thenReturn(List.of());
+
+        service.search("Lolita", 20);
+        service.search("zzqx", 20);
+
+        verify(store).logSearch(eq("lolita"), eq(top), isNull(), startsWith("g:"), any(Instant.class));
+        verify(store).logSearch(eq("zzqx"), isNull(), isNull(), startsWith("g:"), any(Instant.class));
+    }
+
+    @Test
+    void inALanguageEachHitSaysHowManyWantItAndWhetherTheReaderDoes() {
+        UUID member = UUID.randomUUID();
+        Hit popular = hit("Popular", null, RightsStatus.FREE);
+        Hit lonely = hit("Lonely", null, RightsStatus.FREE);
+        when(store.search("verne", 20)).thenReturn(List.of(popular, lonely));
+        when(currentMember.id()).thenReturn(Optional.of(member));
+        when(wants.readers(List.of(popular.id(), lonely.id()), Language.FR))
+                .thenReturn(List.of(readers(popular.id(), 23), readers(lonely.id(), 1)));
+        when(wants.wantedBy(member, List.of(popular.id(), lonely.id()), Language.FR))
+                .thenReturn(List.of(lonely.id()));
+
+        List<CatalogHit> hits = service.search("verne", 20, Language.FR);
+
+        assertThat(hits.get(0).readers()).isEqualTo(23);
+        assertThat(hits.get(0).wantedByMe()).isFalse();
+        assertThat(hits.get(1).readers()).isNull();
+        assertThat(hits.get(1).wantedByMe()).isTrue();
+        verify(store).logSearch(eq("verne"), eq(popular), eq(member), eq("m:" + member), any(Instant.class));
+    }
+
+    static WantRepository.WorkReaders readers(UUID id, long count) {
+        return new WantRepository.WorkReaders() {
+            @Override
+            public UUID getCatalogWorkId() {
+                return id;
+            }
+
+            @Override
+            public long getReaders() {
+                return count;
+            }
+        };
     }
 
     @Test

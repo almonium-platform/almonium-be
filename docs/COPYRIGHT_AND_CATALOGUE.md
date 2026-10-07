@@ -184,3 +184,38 @@ variable.
 | `app.rights.geoip.url-template` | DB-IP Lite, `%s` = `yyyy-MM` |
 | `app.rights.copyright-address` | `copyright@almonium.com` |
 | `app.rights.reload-interval` | `PT1M` |
+
+## Wanted books
+
+A reader can want any catalogue work that is not under copyright where we make
+books, in the language they would read it in (`POST /books/wants
+{catalogWorkId, language}`; `DELETE /books/wants/{workId}/{language}` takes it
+back, silently). Wanting is free and unmetered: it promises a place in a public
+order, nothing else, and editorial still chooses what to prepare. A want for a
+new book and a want for a new language of a shelf work are the same record.
+
+`GET /books/wanted[?mine=true]` is the Wanted page: up to two works being
+prepared, the queue ranked by distinct readers (ties by the first want), and
+what arrived in the last 14 days. Counts are hidden below three readers, so a
+lone want never reads as "1 reader". The answer to a want carries the work's
+rank, for the "It's 2nd in line" toast. Catalogue search takes `language` and
+then says, per hit, how many want it and whether the viewer does.
+
+A published edition settles every standing want of its work in its language
+(found through the catalogue link on its work slug), and each wanter hears
+once, in the app and by email.
+
+`/ops/demand?days=30` replaces the book-requests tab: the wanted rows (Start
+moves a row to "Being prepared" and links to the editorial catalogue
+prefilled; Decline drops it), searches whose top hit is under copyright (with
+Wikidata's publisher, as research for a licensing conversation), and searches
+that found nothing, where "Link to work" (`POST /ops/demand/aliases`) teaches
+search that the query means a work. Every search is logged with its top hit;
+a guest is told apart by a keyed hash of their address under a key that lives
+only as long as the process, and a query the same searcher extended within a
+minute counts as still typing.
+
+`book_request` is no longer read or written. It stays in the schema so the
+slot still running the previous release keeps working during a rollout; drop
+it in a later release. Translation orders (the paid "add a language" flow with
+its monthly allowance) are unchanged.

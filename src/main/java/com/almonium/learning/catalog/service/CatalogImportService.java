@@ -126,7 +126,8 @@ public class CatalogImportService {
                     record.authors,
                     record.popularity,
                     verdict.status(),
-                    verdict.shownYear()));
+                    verdict.shownYear(),
+                    record.publisher));
             titles.addAll(titleRows(record));
         }
         Instant writeStarted = Instant.now(clock);
@@ -198,6 +199,8 @@ public class CatalogImportService {
                     .orElse(null);
             record.publicationYear = work.year();
             record.popularity = work.popularity();
+            String publisher = snapshot.publisherByWork().get(work.id());
+            record.publisher = publisher == null ? null : CatalogRecord.truncate(publisher, 500);
             for (String authorId : snapshot.authorsByWork().getOrDefault(work.id(), List.of())) {
                 Person person = snapshot.people().get(authorId);
                 if (person != null) {

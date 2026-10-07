@@ -8,6 +8,7 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.rights.service.ProductionGate;
 import com.almonium.learning.rights.service.WorkRightsService;
+import com.almonium.learning.wanted.service.WantService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class BookPublicationService {
     private final TranslationOrderService translationOrderService;
     private final TranslationJobService translationJobService;
     private final LibrarySuggestionService librarySuggestionService;
-    private final BookRequestService bookRequestService;
+    private final WantService wantService;
     private final ProductionGate productionGate;
     private final WorkRightsService workRightsService;
 
@@ -68,7 +69,7 @@ public class BookPublicationService {
         if (request.externalJobId() != null) {
             librarySuggestionService.settlePublished(request.externalJobId(), saved);
         }
-        bookRequestService.settlePublished(saved);
+        wantService.settlePublished(saved);
         workRightsService.recompute(saved.getWorkSlug());
         return new BookPublicationResponse(saved.getId());
     }
