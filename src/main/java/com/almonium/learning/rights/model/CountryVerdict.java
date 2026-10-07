@@ -17,4 +17,19 @@ public record CountryVerdict(String country, RightsStatus status, YearRange free
             case UNKNOWN -> null;
         };
     }
+
+    /**
+     * The year the work becomes (or became) free when the facts pin it to one year, the only year a countdown may
+     * count to; none while protected for an uncertain span or unknown.
+     */
+    public Integer exactYear() {
+        return switch (status) {
+            case FREE -> freeFrom.latest();
+            case PROTECTED ->
+                freeFrom.earliest() != null && freeFrom.earliest().equals(freeFrom.latest())
+                        ? freeFrom.earliest()
+                        : null;
+            case UNKNOWN -> null;
+        };
+    }
 }

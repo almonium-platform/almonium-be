@@ -12,6 +12,7 @@ import com.almonium.learning.rights.service.ReadingRights;
 import com.almonium.learning.wanted.repository.WantRepository;
 import java.time.Clock;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,24 @@ public class CatalogSearchService {
                 member.orElse(null),
                 searchRequester.of(member.orElse(null)),
                 Instant.now(clock));
+        return decorate(hits, language, member);
+    }
+
+    /**
+     * Public Domain Day: the best-known works that become free on 1 January of {@code year} where we make books, or,
+     * for the current year, the ones that became free this January. Not logged: nobody searched.
+     */
+    @Transactional(readOnly = true)
+    public List<CatalogHit> freeFrom(int year, int limit, Language language) {
+        return decorate(store.freeFrom(year, limit), language, currentMember.id());
+    }
+
+    public int currentYear() {
+        return LocalDate.now(clock).getYear();
+    }
+
+    /** Each hit with what the reader can do, and, in a language, how many want it and whether the reader does. */
+    private List<CatalogHit> decorate(List<Hit> hits, Language language, Optional<UUID> member) {
         Map<UUID, Long> readers = Map.of();
         Set<UUID> mine = Set.of();
         if (language != null && !hits.isEmpty()) {

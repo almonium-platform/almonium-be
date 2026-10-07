@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.ArgumentMatchers.startsWith;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -119,6 +120,18 @@ class CatalogSearchServiceTest {
                 return count;
             }
         };
+    }
+
+    @Test
+    void publicDomainDayListsNextYearsWorksWithoutLoggingASearch() {
+        Hit novel = hit("Some 1956 author's novel", null, RightsStatus.PROTECTED);
+        when(store.freeFrom(2027, 12)).thenReturn(List.of(novel));
+
+        assertThat(service.freeFrom(2027, 12, null))
+                .extracting(CatalogHit::state)
+                .containsExactly(CatalogState.UNDER_COPYRIGHT);
+        assertThat(service.currentYear()).isEqualTo(2026);
+        verify(store, never()).logSearch(any(), any(), any(), any(), any());
     }
 
     @Test

@@ -126,7 +126,7 @@ public class CatalogImportService {
                     record.authors,
                     record.popularity,
                     verdict.status(),
-                    verdict.shownYear(),
+                    verdict.exactYear(),
                     record.publisher));
             titles.addAll(titleRows(record));
         }
@@ -163,7 +163,7 @@ public class CatalogImportService {
                             authors.stream().map(CatalogAuthor::facts).toList()),
                     year);
             String status = verdict.status().name();
-            Integer freeFrom = verdict.shownYear();
+            Integer freeFrom = verdict.exactYear();
             if (!status.equals(row.status()) || !Objects.equals(freeFrom, row.freeFrom())) {
                 changed.add(new CatalogStore.FactsRow(row.id(), row.publicationYear(), null, status, freeFrom));
             }

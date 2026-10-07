@@ -269,6 +269,22 @@ public class CatalogStore {
                 """, new MapSqlParameterSource("q", folded), CatalogStore::hit);
     }
 
+    /**
+     * The best-known works that become free where we make books on 1 January of a year (or became free on the last
+     * one): Public Domain Day. Only works whose year the facts pin down exactly are listed.
+     */
+    public List<Hit> freeFrom(int year, int limit) {
+        return named.query(
+                """
+                select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
+                       w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score
+                from catalog_work w
+                where w.production_free_from = :year
+                order by w.popularity desc, w.title
+                limit :limit
+                """, new MapSqlParameterSource().addValue("year", year).addValue("limit", limit), CatalogStore::hit);
+    }
+
     /** One search as the demand page counts it. {@code requester} tells readers apart without storing an address. */
     public void logSearch(String folded, Hit top, UUID memberId, String requester, Instant at) {
         jdbc.update(

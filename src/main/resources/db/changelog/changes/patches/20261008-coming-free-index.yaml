@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261008-coming-free-index
+      author: claude
+      comment: >-
+        The "coming free on 1 January" list reads catalogue works by the year they become free where we make books;
+        production_free_from now holds that year only when the facts pin it down exactly.
+      changes:
+        - createIndex:
+            tableName: catalog_work
+            indexName: ix_catalog_work_free_from
+            columns:
+              - column:
+                  name: production_free_from
+              - column:
+                  name: popularity
+                  descending: true

@@ -179,3 +179,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261006-reading-rights.yaml
   - include:
       file: db/changelog/changes/patches/20261007-wanted-books.yaml
+  - include:
+      file: db/changelog/changes/patches/20261008-coming-free-index.yaml
