@@ -33,4 +33,17 @@ public class CatalogOpenController {
             @RequestParam(required = false) Language language) {
         return ResponseEntity.ok(catalogSearchService.search(q, limit, language));
     }
+
+    /**
+     * Public Domain Day: the best-known works that become free where we make books on 1 January of {@code year}
+     * (next year by default), or became free this January when {@code year} is the current one.
+     */
+    @GetMapping("/coming-free")
+    public ResponseEntity<List<CatalogHit>> comingFree(
+            @RequestParam(required = false) @Min(1) @Max(9999) Integer year,
+            @RequestParam(defaultValue = "12") @Min(1) @Max(50) int limit,
+            @RequestParam(required = false) Language language) {
+        int target = year != null ? year : catalogSearchService.currentYear() + 1;
+        return ResponseEntity.ok(catalogSearchService.freeFrom(target, limit, language));
+    }
 }
