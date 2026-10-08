@@ -40,7 +40,7 @@ def parse(text):
     return json.loads(t)
 
 
-def write_one(model, effort, lang, system, row, shared=False):
+def write_one(model, effort, lang, system, row, shared=False, attempt=1):
     d = OUT / f"codex-{model}-{effort}" / lang
     # a quality comparison needs the same words another model wrote; everything else skips them
     if (d / f"{row['headword']}.json").exists() or (not shared and has_entry(lang, row["headword"])):
@@ -78,6 +78,10 @@ def write_one(model, effort, lang, system, row, shared=False):
     try:
         entry = parse(text) if text else {"error": error or "no agent message", "raw": r.stdout[-3000:]}
     except Exception as e:
+        # a malformed answer (a stray comma, a cut-off string) is the model's slip, not the word's: one more try
+        if attempt == 1:
+            print(f"codex-{model}-{effort} {lang} {row['headword']:20} not JSON, retrying once", flush=True)
+            return write_one(model, effort, lang, system, row, shared, attempt=2)
         entry = {"error": f"not JSON: {e}", "raw": text}
     (d / f"{row['headword']}.json").write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
