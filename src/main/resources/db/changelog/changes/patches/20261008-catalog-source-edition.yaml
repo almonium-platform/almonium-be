@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261008-catalog-source-edition
+      author: claude
+      comment: >-
+        Whether a source is the page of one edition. A Wikisource page about the work itself is often a list of its
+        editions, which the export turns into a list of links rather than a text, so edition pages are offered first.
+      changes:
+        - addColumn:
+            tableName: catalog_text_source
+            columns:
+              - column:
+                  name: edition
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

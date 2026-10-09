@@ -3,6 +3,7 @@ package com.almonium.learning.book.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,6 +14,7 @@ import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.model.entity.LearnerBookProgress;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
+import com.almonium.learning.rights.service.ReadingRights;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
@@ -38,6 +40,9 @@ class BookReadingPlaceTest {
     @Mock
     LearnerFinder learnerFinder;
 
+    @Mock
+    ReadingRights readingRights;
+
     @InjectMocks
     BookService service;
 
@@ -53,6 +58,7 @@ class BookReadingPlaceTest {
         book.setLanguage(Language.EN);
         book.setChapterCount(24);
         when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
+        lenient().when(readingRights.requireReadable(any())).thenAnswer(call -> call.getArgument(0));
     }
 
     @Test

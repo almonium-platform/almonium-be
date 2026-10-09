@@ -3,7 +3,9 @@
 This repository is a Java/Kotlin Spring Boot modular monolith for the Almonium
 language-learning product. Read `docs/PROJECT_AUDIT.md` for a system map and
 known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
-`docs/DESIGN_PATTERNS.md` for the project's pattern catalogue.
+`docs/DESIGN_PATTERNS.md` for the project's pattern catalogue. Read
+`docs/COPYRIGHT_AND_CATALOGUE.md` before changing the book catalogue, the
+copyright rules, or which books a reader's country may open.
 
 ## Product stage: pre-launch
 

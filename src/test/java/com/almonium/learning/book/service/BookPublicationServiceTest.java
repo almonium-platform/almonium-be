@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +16,10 @@ import com.almonium.learning.book.dto.request.BookWithdrawalRequest;
 import com.almonium.learning.book.dto.response.BookWithdrawalResponse;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
+import com.almonium.learning.rights.exception.ProductionBlockedException;
+import com.almonium.learning.rights.service.ProductionGate;
+import com.almonium.learning.rights.service.WorkRightsService;
+import com.almonium.learning.wanted.service.WantService;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,7 +45,13 @@ class BookPublicationServiceTest {
     LibrarySuggestionService librarySuggestionService;
 
     @Mock
-    BookRequestService bookRequestService;
+    WantService wantService;
+
+    @Mock
+    ProductionGate productionGate;
+
+    @Mock
+    WorkRightsService workRightsService;
 
     @InjectMocks
     BookPublicationService service;
@@ -77,6 +88,7 @@ class BookPublicationServiceTest {
 
         ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
         verify(bookRepository).save(captor.capture());
+        verify(workRightsService).recompute("frankenstein");
         Book book = captor.getValue();
         assertThat(book.getSourceHash()).isEqualTo("a".repeat(64));
         assertThat(book.getPublicationYear()).isEqualTo(1818);
@@ -84,6 +96,41 @@ class BookPublicationServiceTest {
         assertThat(book.getCefrLevel()).isEqualTo(CEFR.C1);
         assertThat(book.getLiteraryRegister()).isEqualTo("lightly modernised");
         assertThat(book.getCoverUrl()).isNull();
+    }
+
+    @Test
+    void aWorkUnderCopyrightWhereBooksAreMadeIsNotPublishedAndNothingIsSaved() {
+        BookPublicationRequest request = new BookPublicationRequest(
+                "styles-en",
+                "b".repeat(64),
+                "the-mysterious-affair-at-styles",
+                "The Mysterious Affair at Styles",
+                "Agatha Christie",
+                null,
+                Language.EN,
+                Language.EN,
+                "original",
+                null,
+                null,
+                null,
+                1920,
+                null,
+                CEFR.C1,
+                57000,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        doThrow(new ProductionBlockedException("Under copyright in UA and DE until the end of 2046."))
+                .when(productionGate)
+                .requirePublishable(
+                        "the-mysterious-affair-at-styles", "The Mysterious Affair at Styles", "Agatha Christie", 1920);
+
+        assertThatThrownBy(() -> service.publish(request)).isInstanceOf(ProductionBlockedException.class);
+        verify(bookRepository, never()).save(any(Book.class));
+        verify(workRightsService, never()).recompute(any());
     }
 
     @Test

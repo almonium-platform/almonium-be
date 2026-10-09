@@ -1,10 +1,14 @@
 package com.almonium.learning.book.controller.internal;
 
 import com.almonium.learning.book.dto.request.BookPublicationRequest;
+import com.almonium.learning.book.dto.request.BookRightsCheckRequest;
 import com.almonium.learning.book.dto.request.BookWithdrawalRequest;
 import com.almonium.learning.book.dto.response.BookPublicationResponse;
 import com.almonium.learning.book.dto.response.BookWithdrawalResponse;
 import com.almonium.learning.book.service.BookPublicationService;
+import com.almonium.learning.rights.dto.response.ProductionCheck;
+import com.almonium.learning.rights.exception.ProductionBlockedException;
+import com.almonium.learning.rights.service.ProductionGate;
 import jakarta.validation.Validator;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -30,6 +34,7 @@ import tools.jackson.databind.ObjectMapper;
 public class BookPublicationController {
     private static final long MAX_SIGNATURE_AGE_SECONDS = 300;
     private final BookPublicationService publicationService;
+    private final ProductionGate productionGate;
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
@@ -45,9 +50,23 @@ public class BookPublicationController {
         BookPublicationRequest request = parse(body, BookPublicationRequest.class, "publication");
         try {
             return ResponseEntity.ok(publicationService.publish(request));
+        } catch (ProductionBlockedException exception) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, exception.getMessage(), exception);
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid publication request", exception);
         }
+    }
+
+    /** May this work be prepared at all: free where editions are made and hosted (the processor asks first). */
+    @PostMapping("/rights-check")
+    public ResponseEntity<ProductionCheck> rightsCheck(
+            @RequestHeader("X-Almonium-Books-Timestamp") long timestamp,
+            @RequestHeader("X-Almonium-Books-Signature") String signature,
+            @RequestBody byte[] body) {
+        verify(timestamp, signature, body);
+        BookRightsCheckRequest request = parse(body, BookRightsCheckRequest.class, "rights check");
+        return ResponseEntity.ok(
+                productionGate.check(request.workSlug(), request.title(), request.author(), request.publicationYear()));
     }
 
     @PostMapping("/withdrawals")

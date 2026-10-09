@@ -1,0 +1,173 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261006-reading-rights
+      author: claude
+      comment: >-
+        Who may read a shelf work where. work_rights_block lists the countries a work is hidden in ('*' for
+        everywhere), recomputed from the copyright engine and the overrides whenever either changes; reader requests
+        consult it. rights_override is /ops's word on one work in one country (or everywhere): a takedown blocks, an
+        allow lifts a block the engine would set. rights_report is a reader's or rights holder's report against a
+        book, the start of a takedown.
+      changes:
+        - createTable:
+            tableName: work_rights_block
+            columns:
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: work_rights_block
+            columnNames: work_slug, country
+            constraintName: pk_work_rights_block
+        - createTable:
+            tableName: rights_report
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: book_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_rights_report_book
+                    references: book(id)
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reporter_user_id
+                  type: uuid
+              - column:
+                  name: reporter_email
+                  type: varchar(320)
+              - column:
+                  name: reporter_name
+                  type: varchar(200)
+              - column:
+                  name: reporter_role
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(2)
+              - column:
+                  name: detected_country
+                  type: varchar(2)
+              - column:
+                  name: message
+                  type: varchar(4000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: handled_by_user_id
+                  type: uuid
+              - column:
+                  name: handled_at
+                  type: timestamp with time zone
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: rights_report
+            indexName: ix_rights_report_status
+            columns:
+              - column:
+                  name: status
+        - createTable:
+            tableName: rights_override
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: work_slug
+                  type: varchar(180)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effect
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: report_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_rights_override_report
+                    references: rights_report(id)
+              - column:
+                  name: created_by_user_id
+                  type: uuid
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: rights_override
+            indexName: uq_rights_override_work_country
+            unique: true
+            columns:
+              - column:
+                  name: work_slug
+              - column:
+                  name: country
+        # People come and go; what they reported or decided stays, with the person cleared.
+        - addForeignKeyConstraint:
+            baseTableName: rights_report
+            baseColumnNames: reporter_user_id
+            constraintName: fk_rights_report_reporter
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: rights_report
+            baseColumnNames: handled_by_user_id
+            constraintName: fk_rights_report_handled_by
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: rights_override
+            baseColumnNames: created_by_user_id
+            constraintName: fk_rights_override_created_by
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL

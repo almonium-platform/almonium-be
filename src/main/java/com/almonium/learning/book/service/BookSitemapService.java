@@ -4,6 +4,8 @@ import com.almonium.config.properties.AppProperties;
 import com.almonium.learning.book.dto.response.BookChapter;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
+import com.almonium.learning.rights.model.entity.WorkRightsBlock;
+import com.almonium.learning.rights.service.WorkRightsService;
 import java.util.Comparator;
 import java.util.List;
 import lombok.AccessLevel;
@@ -31,12 +33,16 @@ public class BookSitemapService {
     BookRepository bookRepository;
     PublishedBookContentService publishedBookContentService;
     AppProperties appProperties;
+    WorkRightsService workRightsService;
 
     public String sitemap() {
         StringBuilder xml = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
                 .append("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
         STATIC_PATHS.forEach(path -> appendUrl(xml, path));
         bookRepository.findAll().stream()
+                // A work taken down everywhere is not advertised; one hidden in some countries still is.
+                .filter(book ->
+                        !workRightsService.blockedCountries(book.getWorkSlug()).contains(WorkRightsBlock.EVERYWHERE))
                 .sorted(Comparator.comparing(Book::getEditionSlug))
                 .forEach(book -> {
                     String bookPath = "/books/" + book.getEditionSlug();

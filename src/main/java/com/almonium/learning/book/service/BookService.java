@@ -20,6 +20,7 @@ import com.almonium.learning.book.model.entity.LearnerBookProgress;
 import com.almonium.learning.book.repository.BookFavoriteRepository;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.repository.LearnerBookProgressRepository;
+import com.almonium.learning.rights.service.ReadingRights;
 import com.almonium.user.core.exception.BadUserRequestActionException;
 import com.almonium.user.core.model.entity.Learner;
 import com.almonium.user.core.model.entity.User;
@@ -51,13 +52,16 @@ public class BookService {
     BookFavoriteRepository bookFavoriteRepository;
 
     BookMapper bookMapper;
+    ReadingRights readingRights;
 
     public List<BookDto> getBooks() {
-        return bookRepository.findAll().stream().map(this::toPublicBookDto).toList();
+        return readingRights.readable(bookRepository.findAll(), Book::getWorkSlug).stream()
+                .map(this::toPublicBookDto)
+                .toList();
     }
 
     public List<BookDto> getBooksInLanguage(Language language) {
-        return bookRepository.findByLanguage(language).stream()
+        return readingRights.readable(bookRepository.findByLanguage(language), Book::getWorkSlug).stream()
                 .map(this::toPublicBookDto)
                 .toList();
     }
@@ -158,15 +162,21 @@ public class BookService {
         return "machine_translation".equals(book.getEditionType()) || "human_translation".equals(book.getEditionType());
     }
 
+    /** A book a reader asked for by slug: it must exist and be readable from the reader's country. */
     private Book getBookBySlug(String editionSlug) {
-        return bookRepository
+        return readingRights.requireReadable(bookRepository
                 .findByEditionSlug(editionSlug)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with slug: " + editionSlug));
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with slug: " + editionSlug)));
+    }
+
+    /** A book a reader asked for by id: it must exist and be readable from the reader's country. */
+    private Book getReadableBookById(UUID bookId) {
+        return readingRights.requireReadable(getBookById(bookId));
     }
 
     public void addToFavorites(User user, UUID bookId, Language language) {
         Learner learner = learnerFinder.findLearner(user, language);
-        Book book = getBookById(bookId);
+        Book book = getReadableBookById(bookId);
 
         BookFavorite bookFavorite = new BookFavorite(learner, book);
         bookFavoriteRepository.save(bookFavorite);
@@ -197,9 +207,9 @@ public class BookService {
                 bookRepository.findFavoriteBooks(language, learnerId, fluentLanguages, includeTranslations);
 
         return new BookshelfViewDto(
-                convertToBookDtos(booksInProgress),
-                convertToBookDtos(availableBooks),
-                convertToBookDtos(favoriteBooks));
+                convertToBookDtos(readingRights.readable(booksInProgress, BookDetailsProjection::getWorkSlug)),
+                convertToBookDtos(readingRights.readable(availableBooks, BookDetailsProjection::getWorkSlug)),
+                convertToBookDtos(readingRights.readable(favoriteBooks, BookDetailsProjection::getWorkSlug)));
     }
 
     private List<BookDto> convertToBookDtos(List<BookDetailsProjection> books) {
@@ -223,7 +233,7 @@ public class BookService {
         // Resolve the book first: a withdrawn one is not readable any more, and
         // the reader should be told that rather than have its progress row load
         // an association that no longer resolves.
-        Book book = getBookById(bookId);
+        Book book = getReadableBookById(bookId);
         Optional<LearnerBookProgress> progressOptional =
                 learnerBookProgressRepository.findByUserIdAndBookId(user.getId(), bookId);
 
@@ -265,7 +275,7 @@ public class BookService {
     }
 
     public BookMiniDetails getBookById(UUID userId, UUID bookId) {
-        Language language = getBookById(bookId).getLanguage();
+        Language language = getReadableBookById(bookId).getLanguage();
 
         List<BookLanguageVariant> languageVariants =
                 bookMapper.toMiniDto(bookRepository.findAvailableLanguagesForBook(bookId));
@@ -283,6 +293,7 @@ public class BookService {
     }
 
     public BookDetails getBookById(User user, Language language, UUID bookId) {
+        getReadableBookById(bookId);
         UUID learnerId = learnerFinder.findLearner(user, language).getId();
         Set<Language> fluentLanguages = userRepository.findFluentLangsById(user.getId());
 
@@ -298,7 +309,7 @@ public class BookService {
     }
 
     public byte[] getText(User user, UUID bookId) {
-        Book book = getBookById(bookId);
+        Book book = getReadableBookById(bookId);
         return publishedBookContentService.textFor(book);
     }
 
@@ -317,6 +328,6 @@ public class BookService {
             throw new BadUserRequestActionException("This book is already in this language");
         }
 
-        return publishedBookContentService.parallelTextFor(getBookById(bookId), getBookById(secondId));
+        return publishedBookContentService.parallelTextFor(getReadableBookById(bookId), getBookById(secondId));
     }
 }

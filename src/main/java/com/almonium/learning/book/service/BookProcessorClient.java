@@ -305,6 +305,52 @@ public class BookProcessorClient {
         return ingestStatus(response);
     }
 
+    /**
+     * Asks the processor to fetch a free text from an approved source (Gutenberg, Wikisource's export) and ingest it
+     * as a public source edition. Idempotent on {@code externalId}.
+     */
+    public ProcessorIngestStatus startSourceIngest(
+            UUID externalId,
+            String downloadUrl,
+            String sourceKind,
+            String sourcePageUrl,
+            String title,
+            String author,
+            Language language,
+            Integer publicationYear) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("external_id", externalId.toString());
+        body.put("download_url", downloadUrl);
+        body.put("source_kind", sourceKind);
+        body.put("source_page_url", sourcePageUrl);
+        body.put("title", title);
+        body.put("author", author == null ? "" : author);
+        body.put("language", processorCode(language));
+        body.put("publication_year", publicationYear);
+        HttpHeaders headers = internalHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JsonNode response;
+        try {
+            response = restTemplate
+                    .exchange(
+                            processorUrl + "/internal/source-ingests/",
+                            HttpMethod.POST,
+                            new HttpEntity<>(body, headers),
+                            JsonNode.class)
+                    .getBody();
+        } catch (RestClientException exception) {
+            throw new ApiIntegrationException("Book processor request failed", exception);
+        }
+        if (response == null) {
+            throw new ApiIntegrationException("Book processor answered the source ingest request with nothing");
+        }
+        return ingestStatus(response);
+    }
+
+    public ProcessorIngestStatus sourceIngestStatus(UUID editionId) {
+        return ingestStatus(getJson(processorUrl + "/internal/source-ingests/" + editionId + "/", "source ingest"));
+    }
+
     public ProcessorIngestStatus libraryIngestStatus(UUID editionId) {
         return ingestStatus(getJson(processorUrl + "/internal/library-ingests/" + editionId + "/", "ingest"));
     }
@@ -341,6 +387,9 @@ public class BookProcessorClient {
     }
 
     private static ProcessorIngestStatus ingestStatus(JsonNode body) {
+        List<String> completed = new ArrayList<>();
+        body.path("completed_stages").forEach(stage -> completed.add(stage.asString("")));
+        String current = body.path("current_stage").asString("");
         return new ProcessorIngestStatus(
                 uuid(body.path("edition_id")),
                 body.path("slug").asString(""),
@@ -349,7 +398,9 @@ public class BookProcessorClient {
                 body.path("progress").asInt(0),
                 body.path("error").asString(""),
                 instant(body.path("published_at")),
-                uuid(body.path("published_book_id")));
+                uuid(body.path("published_book_id")),
+                completed,
+                current.isBlank() ? null : current);
     }
 
     private static UUID uuid(JsonNode node) {

@@ -65,11 +65,11 @@ public class GoogleCloudConfig {
     // Translation bills the same project that Firebase and Text-to-Speech already use.
     @Bean
     public LocationName locationName(GoogleCredentials credentials) {
-        if (!(credentials instanceof ServiceAccountCredentials serviceAccount)
-                || serviceAccount.getProjectId() == null
-                || serviceAccount.getProjectId().isBlank()) {
+        String projectId =
+                credentials instanceof ServiceAccountCredentials serviceAccount ? serviceAccount.getProjectId() : null;
+        if (projectId == null || projectId.isBlank()) {
             throw new IllegalStateException("Google credentials must be a service-account key with a project_id");
         }
-        return LocationName.of(serviceAccount.getProjectId(), googleProperties.getParentLocation());
+        return LocationName.of(projectId, googleProperties.getParentLocation());
     }
 }

@@ -94,3 +94,13 @@ The processor retains chapter examples during its existing lexical pass; it
 rejects stale hashes, fallback lemmas, wrong chapters and mismatched text ranges.
 The public contract is additive; native clients may consume it through their
 existing Firebase bearer transport. No changes to authentication or publication.
+
+## Rights
+
+At the start of a production the processor asks
+`POST /internal/books/publications/rights-check` (signed like publications)
+whether the work may be prepared: free in Ukraine and Germany. It holds a
+PROTECTED work before any paid step, goes ahead on UNKNOWN or when the check
+cannot be reached, and records the answer on the run. Publication checks again:
+a work protected in UA or DE is refused with **409** and a short, self-explaining
+`message`, which the processor shows verbatim. See `COPYRIGHT_AND_CATALOGUE.md`.

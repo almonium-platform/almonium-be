@@ -68,12 +68,19 @@ app:
   books:
     publisher-secret: ${ALMONIUM_BOOKS_PUBLISHER_SECRET}
     processor-url: ${ALMONIUM_BOOKS_PROCESSOR_URL}
-    # Where staff add an edition a reader asked for; the /ops row links there with the ask prefilled.
+    # Where staff add an edition readers want; the /ops demand row links there with the work prefilled.
     editorial-url: ${ALMONIUM_BOOKS_EDITORIAL_URL:${ALMONIUM_BOOKS_PROCESSOR_URL}}
-    # The public-domain index the ask sheet checks a title against.
-    gutenberg-url: ${ALMONIUM_BOOKS_GUTENBERG_URL:https://gutendex.com}
     # The month's ceiling on approved translation estimates; at the ceiling /ops stops approving and the queue keeps collecting.
     translation-budget-usd: ${ALMONIUM_BOOKS_TRANSLATION_BUDGET_USD:150}
+  # Every notable book, imported from Wikidata (through QLever) and Project Gutenberg; metadata only.
+  catalog:
+    scheduled: true
+    sparql-url: https://qlever.dev/api/wikidata
+    gutenberg-csv-url: https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv
+    title-languages: en,mul,de,uk,ru,fr,es,it,pl,pt,nl,cs,sv
+  rights:
+    # Where editions are made (Ukraine) and hosted (Germany): a work must be free in all of them to be prepared.
+    production-countries: UA,DE
 
 rabbitmq:
   exchange:

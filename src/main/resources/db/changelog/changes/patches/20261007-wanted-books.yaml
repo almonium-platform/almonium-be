@@ -1,0 +1,188 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261007-wanted-books
+      author: claude
+      comment: >-
+        Wanted books (W1-W5). want is one member wanting one catalogue work in one language; wants of the same work
+        and language are one row of the public queue, ranked by distinct readers. It replaces book_request, which is
+        left in place (no longer written or read) so the slot still running the previous release keeps working; drop
+        it in a later release. catalog_search logs what readers searched for and what the top hit was, for the /ops
+        demand page. catalog_alias is a query /ops taught to find a work, kept apart from catalog_title so imports do
+        not wipe it. catalog_work.publisher is Wikidata's publisher, research for licensing conversations.
+      changes:
+        - addColumn:
+            tableName: catalog_work
+            columns:
+              - column:
+                  name: publisher
+                  type: varchar(500)
+        - createTable:
+            tableName: want
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: catalog_work_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_want_catalog_work
+                    references: catalog_work(id)
+                    deleteCascade: true
+              - column:
+                  name: language
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: decided_by_user_id
+                  type: uuid
+              - column:
+                  name: decided_at
+                  type: timestamp with time zone
+              - column:
+                  name: arrived_book_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_want_arrived_book
+                    references: book(id)
+              - column:
+                  name: arrived_at
+                  type: timestamp with time zone
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: want
+            baseColumnNames: user_id
+            constraintName: fk_want_user
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: want
+            baseColumnNames: decided_by_user_id
+            constraintName: fk_want_decided_by
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - addUniqueConstraint:
+            tableName: want
+            columnNames: user_id, catalog_work_id, language
+            constraintName: uq_want_user_work_language
+        - createIndex:
+            tableName: want
+            indexName: ix_want_work_language_status
+            columns:
+              - column:
+                  name: catalog_work_id
+              - column:
+                  name: language
+              - column:
+                  name: status
+        - createTable:
+            tableName: catalog_search
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: query
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: top_work_id
+                  type: uuid
+              - column:
+                  name: top_state
+                  type: varchar(24)
+              - column:
+                  name: member_id
+                  type: uuid
+              - column:
+                  name: requester
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: catalog_search
+            baseColumnNames: member_id
+            constraintName: fk_catalog_search_member
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: catalog_search
+            baseColumnNames: top_work_id
+            constraintName: fk_catalog_search_work
+            referencedTableName: catalog_work
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            tableName: catalog_search
+            indexName: ix_catalog_search_created
+            columns:
+              - column:
+                  name: created_at
+        - createTable:
+            tableName: catalog_alias
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: normalized
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_catalog_alias_normalized
+              - column:
+                  name: catalog_work_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_catalog_alias_work
+                    references: catalog_work(id)
+                    deleteCascade: true
+              - column:
+                  name: created_by_user_id
+                  type: uuid
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: catalog_alias
+            baseColumnNames: created_by_user_id
+            constraintName: fk_catalog_alias_created_by
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL

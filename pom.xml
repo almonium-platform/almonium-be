@@ -40,6 +40,7 @@
         <version.stream>1.47.0</version.stream>
         <version.uuid-creator>6.1.1</version.uuid-creator>
         <version.zxing>3.5.4</version.zxing>
+        <version.maxmind-db>4.2.0</version.maxmind-db>
     </properties>
 
     <dependencyManagement>
@@ -186,6 +187,12 @@
             <groupId>io.github.open-spaced-repetition</groupId>
             <artifactId>fsrs</artifactId>
             <version>${version.fsrs}</version>
+        </dependency>
+        <!--        reads the IP-to-country database that decides which books a reader's country may open-->
+        <dependency>
+            <groupId>com.maxmind.db</groupId>
+            <artifactId>maxmind-db</artifactId>
+            <version>${version.maxmind-db}</version>
         </dependency>
         <!--        transitive dependencies-->
         <dependency>
