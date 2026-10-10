@@ -64,9 +64,13 @@ public class Preparation {
 
     String error;
 
+    /** Nobody for a preparation the factory started. */
     @ManyToOne
     @JoinColumn(name = "started_by_user_id")
     User startedBy;
+
+    /** Who reports progress: {@code processor}, polled from this deployment's processor, or {@code factory}, pushed. */
+    String reporter;
 
     @CreatedDate
     Instant createdAt;

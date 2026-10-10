@@ -187,3 +187,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261008-catalog-literary.yaml
   - include:
       file: db/changelog/changes/patches/20261008-catalog-source-edition.yaml
+  - include:
+      file: db/changelog/changes/patches/20261011-preparation-reporter.yaml

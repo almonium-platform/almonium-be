@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261011-preparation-reporter
+      author: claude
+      comment: >-
+        Who reports a preparation's progress: "processor" for one this deployment's book processor was asked to
+        ingest and is polled for, "factory" for one the owner's host reserved and pushes status for; the factory's
+        editions are not reachable from here, so they are never polled.
+      changes:
+        - addColumn:
+            tableName: preparation
+            columns:
+              - column:
+                  name: reporter
+                  type: varchar(16)
+                  defaultValue: processor
+                  constraints:
+                    nullable: false

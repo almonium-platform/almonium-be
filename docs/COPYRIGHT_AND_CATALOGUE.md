@@ -251,3 +251,36 @@ being prepared as four stages (text, chapters, level and words, on the
 shelf), counted in order from the pipeline stages the processor reports. A
 source under copyright cannot be chosen; the processor checks the rights
 again before any paid step.
+
+## The factory
+
+Books are made on the owner's host, where the Codex and Claude plan accounts
+are signed in; this deployment's processor cannot run the writers and judges.
+So the factory lives in the book processor on that host
+(`catalog/factory.py`, a systemd timer every 15 minutes), and this backend
+offers it three signed calls under `/internal/books/factory`, signed exactly
+like a publication:
+
+- `POST /queue` (empty body): the wanted works nobody is preparing, ranked as
+  /ops Demand ranks them (readers, then the first want), each with the best
+  free text to start from: in the wanted language if a free one exists, else
+  the work's own, else any free text the processor reads. Twenty rows at most.
+- `POST /preparations {catalogWorkId, language, sourceId}`: the factory's
+  reservation. The same checks as Start in /ops (the source is the work's and
+  not under copyright, its language is one the processor reads, nothing else
+  is preparing the row), but this deployment's processor is not asked: the host
+  fetches the text itself. The wants move to IN_PROGRESS with nobody deciding;
+  the answer is the preparation id, which the host uses as the ingest's id.
+- `POST /preparations/{id}/status`: the host pushes the same status body the
+  backend otherwise polls from its processor, with the production's word on
+  top: `producing` while the levels and translations are made, `published`
+  once promoted and published, `failed` with the production's reason when a
+  gate held the book.
+
+`preparation.reporter` says which kind a row is: `processor` rows are polled
+every three minutes as before, `factory` rows are never polled. The Wanted page
+and /ops Demand show both alike. Publication settles the wants as it always
+did, so a factory book arrives for its readers without anyone pressing
+anything. Whether there is room to start another book is the host's call,
+from its plan meters (`FACTORY_RESERVE_PERCENT`, `FACTORY_MAX_PRODUCTIONS` in
+the processor's environment).

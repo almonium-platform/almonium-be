@@ -387,20 +387,7 @@ public class BookProcessorClient {
     }
 
     private static ProcessorIngestStatus ingestStatus(JsonNode body) {
-        List<String> completed = new ArrayList<>();
-        body.path("completed_stages").forEach(stage -> completed.add(stage.asString("")));
-        String current = body.path("current_stage").asString("");
-        return new ProcessorIngestStatus(
-                uuid(body.path("edition_id")),
-                body.path("slug").asString(""),
-                body.path("status").asString(""),
-                body.path("phase").asString(""),
-                body.path("progress").asInt(0),
-                body.path("error").asString(""),
-                instant(body.path("published_at")),
-                uuid(body.path("published_book_id")),
-                completed,
-                current.isBlank() ? null : current);
+        return ProcessorIngestStatus.from(body);
     }
 
     private static UUID uuid(JsonNode node) {

@@ -13,5 +13,6 @@ public interface PreparationRepository extends JpaRepository<Preparation, UUID> 
 
     List<Preparation> findByCatalogWorkIdIn(Collection<UUID> catalogWorkIds);
 
-    List<Preparation> findByProcessorEditionIdNotNullAndPhaseNotIn(Collection<String> phases);
+    List<Preparation> findByReporterAndProcessorEditionIdNotNullAndPhaseNotIn(
+            String reporter, Collection<String> phases);
 }

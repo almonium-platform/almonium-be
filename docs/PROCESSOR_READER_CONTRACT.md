@@ -104,3 +104,11 @@ PROTECTED work before any paid step, goes ahead on UNKNOWN or when the check
 cannot be reached, and records the answer on the run. Publication checks again:
 a work protected in UA or DE is refused with **409** and a short, self-explaining
 `message`, which the processor shows verbatim. See `COPYRIGHT_AND_CATALOGUE.md`.
+
+## The factory
+
+The host that makes the books asks `POST /internal/books/factory/queue` for the
+wanted works nobody is preparing, reserves one with
+`POST /internal/books/factory/preparations` and pushes its progress to
+`POST /internal/books/factory/preparations/{id}/status`, all signed like
+publications. See `COPYRIGHT_AND_CATALOGUE.md`, "The factory".

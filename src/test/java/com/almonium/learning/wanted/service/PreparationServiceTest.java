@@ -60,6 +60,7 @@ class PreparationServiceTest {
             return preparation;
         });
         when(preparations.findByCatalogWorkIdAndLanguage(any(), any())).thenReturn(Optional.empty());
+        when(preparations.save(any(Preparation.class))).thenAnswer(call -> call.getArgument(0));
     }
 
     TextSourceView source(RightsStatus status, String language) {
@@ -119,12 +120,42 @@ class PreparationServiceTest {
     }
 
     @Test
+    void theFactoryReservesWithoutAskingTheProcessorAndPushesItsOwnProgress() {
+        TextSourceView dracula = source(RightsStatus.FREE, "en");
+
+        Preparation reserved = service.reserve(work.getId(), Language.UK, dracula.id());
+
+        assertThat(reserved.getReporter()).isEqualTo(PreparationService.REPORTER_FACTORY);
+        assertThat(reserved.getPhase()).isEqualTo("queued");
+        assertThat(reserved.getStartedBy()).isNull();
+        verify(processor, never()).startSourceIngest(any(), any(), any(), any(), any(), any(), any(), any());
+
+        when(preparations.findById(reserved.getId())).thenReturn(Optional.of(reserved));
+        Preparation reported = service.report(
+                reserved.getId(),
+                new ProcessorIngestStatus(
+                        edition, "dracula-en", "ready", "producing", 100, "", null, null, List.of("ingest"), "adapt"));
+        assertThat(reported.getPhase()).isEqualTo("producing");
+        assertThat(reported.getProcessorEditionId()).isEqualTo(edition);
+        assertThat(reported.getProgress()).isEqualTo(1);
+        // a preparation /ops started is not the factory's to report on
+        reserved.setReporter(PreparationService.REPORTER_PROCESSOR);
+        assertThatThrownBy(() -> service.report(reserved.getId(), reported(edition)))
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class);
+    }
+
+    private static ProcessorIngestStatus reported(UUID edition) {
+        return new ProcessorIngestStatus(edition, "dracula-en", "ready", "ready", 100, "", null, null);
+    }
+
+    @Test
     void refreshingFollowsTheProcessorThroughItsStages() {
         Preparation preparation = new Preparation();
         preparation.setId(UUID.randomUUID());
         preparation.setProcessorEditionId(edition);
         preparation.setPhase("ingesting");
-        when(preparations.findByProcessorEditionIdNotNullAndPhaseNotIn(PreparationService.FINISHED))
+        when(preparations.findByReporterAndProcessorEditionIdNotNullAndPhaseNotIn(
+                        PreparationService.REPORTER_PROCESSOR, PreparationService.FINISHED))
                 .thenReturn(List.of(preparation));
         when(processor.sourceIngestStatus(edition))
                 .thenReturn(new ProcessorIngestStatus(
