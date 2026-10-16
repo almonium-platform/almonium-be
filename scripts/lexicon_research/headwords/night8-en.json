@@ -1,0 +1,4082 @@
+[
+ {
+  "headword": "consolidation",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "continuation",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "convoy",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "cork",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "cubic",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "dept",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "detector",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "diplomacy",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "directive",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "disadvantage",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "disruption",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "distract",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "downward",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "ebook",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "energetic",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "friction",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "funk",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "greatness",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "hazardous",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "hopeless",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "illustrate",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "imo",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "indirectly",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "induction",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "instability",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "limitation",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "lump",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "macro",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "magistrate",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "marginal",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "masculine",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "milestone",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "municipality",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "observatory",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "outdoors",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "penetration",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "pod",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "predator",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "preferably",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "prophecy",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "proudly",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "recorder",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "relaxation",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "respectable",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "respectful",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "rodriguez",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "roma",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "romeo",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "routinely",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "salute",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "severity",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "shady",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "slack",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "slick",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "spontaneous",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "sticker",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "stove",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "tactic",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "template",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "texting",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "tore",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "tract",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "unexpectedly",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "upward",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "val",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "vogue",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "volcanic",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "wildly",
+  "zipf": 3.71,
+  "set": "night8"
+ },
+ {
+  "headword": "adore",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "akin",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "appoint",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "apprentice",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "benedict",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "beware",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "boulevard",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "bracelet",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "capsule",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "captive",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "chronicle",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "comprehend",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "compulsory",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "contamination",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "counterpart",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "creed",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "crisp",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "crust",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "delegate",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "deploy",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "dietary",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "dissertation",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "domination",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "emission",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "fracture",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "functionality",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "gaze",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "genome",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "grape",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "gravel",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "hustle",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "indictment",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "irregular",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "juicy",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "limb",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "manually",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "meaningless",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "moody",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "offender",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "oracle",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "overlap",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "peek",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "petersburg",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "pos",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "pottery",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "prank",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "premature",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "quad",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "quartz",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "residency",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "responsive",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "roar",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "ronnie",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "rooney",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "rot",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "salem",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "songwriter",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "sophia",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "stain",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "stimulation",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "tidal",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "transcript",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "trench",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "unwilling",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "uruguay",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "validity",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "varsity",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "verification",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "vulnerability",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "wrath",
+  "zipf": 3.7,
+  "set": "night8"
+ },
+ {
+  "headword": "accomplishment",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "aide",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "allegiance",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "avatar",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "beverage",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "blaze",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "brent",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "bumper",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "chalk",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "coaster",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "constituency",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "contingent",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "diplomat",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "emphasize",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "entirety",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "everytime",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "exodus",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "fallout",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "flock",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "footballer",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "ghetto",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "grim",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "helpless",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "hemisphere",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "hyper",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "inconvenience",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "intriguing",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "invasive",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "ipod",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "irrigation",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "lastly",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "manipulate",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "moist",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "monarch",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "monte",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "mustard",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "negatively",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "nothin",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "persona",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "plaque",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "poetic",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "preach",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "punjab",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "purity",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "rabbi",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "ramsey",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "realism",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "retrieve",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "scheduling",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "scoop",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "scrub",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "sol",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "solicitor",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "sophomore",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "squadron",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "stigma",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "takeover",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "tinder",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "trait",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "traitor",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "underestimate",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "wallpaper",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "willow",
+  "zipf": 3.69,
+  "set": "night8"
+ },
+ {
+  "headword": "addict",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "ale",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "api",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "archaeological",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "bengal",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "betrayal",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "cardiovascular",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "chic",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "clone",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "consortium",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "countdown",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "courier",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "defect",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "disastrous",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "drown",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "drummer",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "durable",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "efficacy",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "erin",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "exaggerated",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "exclusion",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "freelance",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "gerard",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "gin",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "ignition",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "investigative",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "marx",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "mourinho",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "mutually",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "navigate",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "perimeter",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "piper",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "procurement",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "protector",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "pulp",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "ransom",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "reel",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "rehearsal",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "reinforce",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "revive",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "rigorous",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "sensory",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "sidewalk",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "skeptical",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "skype",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "sleepy",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "smoothly",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "staple",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "suppression",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "suspend",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "terminology",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "theatrical",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "trustee",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "turnout",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "unanimous",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "unpredictable",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "validation",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "visually",
+  "zipf": 3.68,
+  "set": "night8"
+ },
+ {
+  "headword": "activism",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "advent",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "airborne",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "astonishing",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "believer",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "bunker",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "caffeine",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "chaotic",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "cite",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "commentator",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "commercially",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "confuse",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "copenhagen",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "coward",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "dammit",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "dent",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "depart",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "disappoint",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "dolphin",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "dove",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "fibre",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "finnish",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "fixture",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "focal",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "frightening",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "fucker",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "gala",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "gladly",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "goodwill",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "govern",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "gradual",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "hacker",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "harness",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "hashtag",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "heartbeat",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "honourable",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "imminent",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "inaugural",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "insulation",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "irresponsible",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "locality",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "lure",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "malicious",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "mist",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "monarchy",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "muscular",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "neutrality",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "noisy",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "orgasm",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "otto",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "partition",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "proprietary",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "prostate",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "protagonist",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "rant",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "rash",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "reside",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "ripe",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "riverside",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "roberto",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "rodney",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "sac",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "sane",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "scenic",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "sip",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "snail",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "spotify",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "statistically",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "stimulate",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "strangely",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "susceptible",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "theodore",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "translator",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "transmit",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "tutor",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "unsafe",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "verge",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "vibrant",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "wander",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "yeast",
+  "zipf": 3.67,
+  "set": "night8"
+ },
+ {
+  "headword": "abdul",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "absorption",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "accelerate",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "advertise",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "apologise",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "assign",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "backlash",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "blockchain",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "brewery",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "casually",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "chew",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "circumstance",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "collateral",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "congestion",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "crossover",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "crunch",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "demise",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "dependence",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "dictator",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "disagreement",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "disregard",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "distributor",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "dominion",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "dreadful",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "drunken",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "earnest",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "erase",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "extinct",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "forbid",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "genetically",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "herein",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "hoffman",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "immature",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "imperative",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "ineffective",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "jess",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "knit",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "manly",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "maternity",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "misconduct",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "morale",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "mute",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "needless",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "novelty",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "optimism",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "optimization",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "oxide",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "percy",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "peripheral",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "pint",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "poop",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "pornography",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "prevalence",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "pronounce",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "provisional",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "reddit",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "remark",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "repay",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "shove",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "spur",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "stevie",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "stupidity",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "suppress",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "tangible",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "tara",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "tilt",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "tougher",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "trivial",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "unofficial",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "veil",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "versatile",
+  "zipf": 3.66,
+  "set": "night8"
+ },
+ {
+  "headword": "anthropology",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "artery",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "bamboo",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "blackberry",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "booze",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "brennan",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "cellphone",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "clare",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "contracting",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "corporal",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "courtyard",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "deception",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "derivative",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "discomfort",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "drastically",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "driveway",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "evenly",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "exemption",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "fashionable",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "fetch",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "formidable",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "gmt",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "grenade",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "hamlet",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "hugely",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "hypocrisy",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "inaccurate",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "inception",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "incompetent",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "indefinitely",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "intervene",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "kobe",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "loneliness",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "manifesto",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "maze",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "naomi",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "narrowly",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "negligence",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "nicer",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "nightclub",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "obsolete",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "panda",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "panther",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "posture",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "resonance",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "ruthless",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "salvage",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "satire",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "slash",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "spaghetti",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "speedy",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "standpoint",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "sway",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "terminate",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "torque",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "unconstitutional",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "undermine",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "underwent",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "vacancy",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "var",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "veto",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "vocational",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "withstand",
+  "zipf": 3.65,
+  "set": "night8"
+ },
+ {
+  "headword": "adequately",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "amazingly",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "applicant",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "approximate",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "assemble",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "bam",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "bargaining",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "brew",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "charger",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "checkout",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "cocoa",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "comet",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "compartment",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "cove",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "culturally",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "deficiency",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "dictatorship",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "disrespectful",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "dread",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "dub",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "electorate",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "erosion",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "expo",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "flare",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "goodnight",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "icc",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "incidence",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "intimacy",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "kitten",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "lender",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "leone",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "lisbon",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "mileage",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "multiplayer",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "mutant",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "mythology",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "neal",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "nutritional",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "pedal",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "pest",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "pillar",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "plausible",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "poly",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "polymer",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "precipitation",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "quarantine",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "query",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "restraint",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "rift",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "romney",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "salesman",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "scarlet",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "serena",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "sewer",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "smack",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "sonny",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "spokesperson",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "stitch",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "substrate",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "supremacy",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "swell",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "symptom",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "theoretically",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "thirst",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "transitional",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "unused",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "viewpoint",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "vinegar",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "wig",
+  "zipf": 3.64,
+  "set": "night8"
+ },
+ {
+  "headword": "affiliation",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "aggressively",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "align",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "angus",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "assertion",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "astronomy",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "atop",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "attic",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "autobiography",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "await",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "bing",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "buddhism",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "coherent",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "comfy",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "condo",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "criticize",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "crooked",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "cultivation",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "displacement",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "disrespect",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "drastic",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "edible",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "edmund",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "endorse",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "enhancement",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "flick",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "funky",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "gag",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "gee",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "gigantic",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "gill",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "guitarist",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "halftime",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "hash",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "holden",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "inactive",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "inspect",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "leftist",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "legitimacy",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "linkedin",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "lyric",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "maximize",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "morally",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "mushroom",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "paradox",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "peacefully",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "periodic",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "philly",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "plead",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "podium",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "portray",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "practitioner",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "puck",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "reconsider",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "refrain",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "reproduce",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "rite",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "rum",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "seldom",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "shareholder",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "simone",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "sis",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "soy",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "squash",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "statewide",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "stationary",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "subdivision",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "sunderland",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "temporal",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "unavailable",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "universally",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "unlucky",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "warden",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "warp",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "womb",
+  "zipf": 3.63,
+  "set": "night8"
+ },
+ {
+  "headword": "alpine",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "ambient",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "aquatic",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "assert",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "bandwidth",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "barbecue",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "beforehand",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "bipolar",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "bladder",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "blossom",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "carrot",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "clive",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "comprise",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "computational",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "conceptual",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "debit",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "demolition",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "differentiate",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "dim",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "donkey",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "doo",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "downstream",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "ellie",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "empirical",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "faulty",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "fertile",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "feud",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "filmmaker",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "furnace",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "fuse",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "fuss",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "gale",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "generosity",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "gerry",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "gluten",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "hath",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "lawful",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "loosely",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "mantle",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "militant",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "nostalgia",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "paperback",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "pavilion",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "peasant",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "pointer",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "presume",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "rapist",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "rec",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "regulator",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "rudy",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "sabotage",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "sarcasm",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "sexist",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "shutdown",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "sic",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "swansea",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "unanimously",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "undefeated",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "unfamiliar",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "vale",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "vastly",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "vile",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "violently",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "wedge",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "wisely",
+  "zipf": 3.62,
+  "set": "night8"
+ },
+ {
+  "headword": "adaptive",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "affinity",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "alloy",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "apartheid",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "arthritis",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "bale",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "brunswick",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "casualty",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "cavity",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "conway",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "courthouse",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "disgust",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "dissolution",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "disturbance",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "dominic",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "enclosure",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "evangelical",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "exquisite",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "falsely",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "famine",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "fiji",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "fraudulent",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "freshly",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "geek",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "handicap",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "homage",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "homo",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "hostility",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "hypothetical",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "informative",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "infringement",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "internship",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "interrupt",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "invade",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "jasmine",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "knockout",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "linen",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "lookout",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "misunderstood",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "moonlight",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "moose",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "motel",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "motherfucker",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "mueller",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "novelist",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "nsfw",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "onwards",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "overthrow",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "paradigm",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "pavement",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "physiology",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "pigeon",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "plateau",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "playlist",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "precinct",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "premiership",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "proliferation",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "pseudo",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "pudding",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "refrigerator",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "regeneration",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "remembrance",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "reminiscent",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "resentment",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "resin",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "rotary",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "rupert",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "rusty",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "scarce",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "simulator",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "slippery",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "snyder",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "spectacle",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "stint",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "symposium",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "tailor",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "trajectory",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "underrated",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "unrest",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "unseen",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "utmost",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "waiter",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "weary",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "willy",
+  "zipf": 3.61,
+  "set": "night8"
+ },
+ {
+  "headword": "accusation",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "adapter",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "adjustable",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "adulthood",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "agony",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "allergy",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "astronaut",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "attain",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "attendant",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "authenticity",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "backstage",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "benny",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "binge",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "bourbon",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "breaker",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "brutality",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "careless",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "caste",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "cellar",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "cerebral",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "chant",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "cheerful",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "cinematic",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "cockpit",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "colon",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "communion",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "condom",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "consul",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "contender",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "crimson",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "crypto",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "degradation",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "dexter",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "elaine",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "equilibrium",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "europa",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "evidently",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "fargo",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "fascinated",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "flaw",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "flawless",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "forrest",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "grad",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "granddaughter",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "hereby",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "hotter",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "humorous",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "intercourse",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "interestingly",
+  "zipf": 3.6,
+  "set": "night8"
+ },
+ {
+  "headword": "isolate",
+  "zipf": 3.6,
+  "set": "night8"
+ }
+]

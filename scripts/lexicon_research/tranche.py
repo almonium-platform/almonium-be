@@ -33,6 +33,8 @@ def lemma_ok(nlp, lang, w):
     t = nlp(w)[0]
     if t.ent_type_:
         return None
+    if lang == "en" and (nlp(w.title())[0].pos_ == "PROPN" or nlp(w.title())[0].ent_type_):
+        return None  # wordfreq is lowercase, so a name hides from the entity check until it is capitalised
     if lang == "de":
         if t.pos_ in {"VERB", "AUX", "ADJ", "ADV"} and t.lemma_.lower() != w:
             return None

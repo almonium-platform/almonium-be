@@ -1,0 +1,7502 @@
+[
+ {
+  "headword": "zurückholen",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "zusammenbrechen",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "zusammenwirken",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "zuzugeben",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "zuzuschreiben",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "Zwilling",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "Zöllner",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "Überlastung",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "übler",
+  "zipf": 3.29,
+  "set": "night12"
+ },
+ {
+  "headword": "abfahren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Abholung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "ackerland",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "adventskalender",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "amber",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "amüsieren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "anfahrt",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "anfühlen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "anhaltspunkt",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Arbeitsverhältnis",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "auffinden",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "aufschlussreich",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "auftraten",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "auskennen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Aussetzung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "bayerisch",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "befragungen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Begierde",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "beinah",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "belastend",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "bemerkten",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Bergung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Bestzeit",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "beweglich",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "bewusstseins",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Bohrung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "bolzen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "brent",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "broschüren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "chroniken",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "demokratien",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Demütigung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "eigenhändig",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Eigentor",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Eigentumswohnung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Eingangstür",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Entscheidungsträger",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "ergreifend",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "erotischen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "estate",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "eurozone",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Fachliteratur",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "fanatiker",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "feministinnen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Fixierung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "fragwürdigen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Fremdenfeindlichkeit",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "führungspositionen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Gangbang",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "geborgenheit",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Geburtstagsfeier",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "geschwiegen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Gesundheitsminister",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "gewächshaus",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Golfplatz",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "grauenhaft",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "heimlichen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Heiratsantrag",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "herumlaufen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "hilfsorganisationen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "hochtouren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "homogene",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "hotspot",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Hörsaal",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Idealer",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "initiatoren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Inkompetenz",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Irrtümer",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Kalkulation",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Kameradschaft",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "kategorisch",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "katherine",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "kauder",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Kirchenmusik",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "klarem",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "klausuren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Klebeband",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "konnen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "kooperationspartner",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Kriegsführung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Kunstmuseum",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "kunstvoll",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Körperschaft",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Legitimität",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "leichteren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "liebig",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "läufst",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Maggie",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Makel",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "managen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "mehrfachen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "minütigen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "mitsingen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Mixer",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "mtb",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "naheliegend",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Nebeneffekt",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Nigel",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Notenbank",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "nuklearen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Ohrwurm",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Olympiastadion",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "pokals",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Polizeichef",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Polizeirevier",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "prolog",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Prophezeiung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "prämisse",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Präsidentschaftswahl",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Rauchmelder",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "rausgeworfen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Rechtschreibfehler",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Ronnie",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "runner",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "rückmeldungen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Sabotage",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "sande",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schlafstörungen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Schmuckstück",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schrumpfen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schrägen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schulklassen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Schwägerin",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schönbrunn",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "schönheiten",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "signalisieren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "silent",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "sorgsam",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "spassig",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "sphäre",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "sprachkenntnisse",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "stadtmuseum",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "stilistisch",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "strasser",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Stromverbrauch",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "südeuropa",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Sündenbock",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "taille",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "tbh",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Term",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Terrororganisation",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "theoretischer",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Trab",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Trauerspiel",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Tri",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Ultimatum",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "umsetzbar",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "unbehagen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "uncool",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "unendlichkeit",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "ungemütlich",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "ungut",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Unmöglichkeit",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Unordnung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Verallgemeinerung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Veranlagung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "verbalen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "verblüffend",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "verkaufs",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "verlagern",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Verleumdung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Vermischung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "verreisen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Versenkung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Vierbeiner",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "visuell",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Volke",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Volksentscheid",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "vong",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "vorgängen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterfahren",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterleben",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterlesen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "wickeln",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Widder",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "wogen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "wortspiel",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "wovor",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zahllosen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zerfallen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zumutbar",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zusammenfassend",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zusammengeschlagen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zusammenhängenden",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "zuverlässigen",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Überschreitung",
+  "zipf": 3.28,
+  "set": "night12"
+ },
+ {
+  "headword": "Abdullah",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "abgekürzt",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "abwechslungsreich",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "abzubrechen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Albaner",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "angelsächsischen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "anordnen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "anträgen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "arbeitsleben",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "auffahrt",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "aufgreifen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "auslöschen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "austoben",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Bahnlinie",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Ballast",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "beachtlich",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Bedrängnis",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "bedürftigen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "beeilen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Begehung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Beherrschung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "bergsteiger",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Berichtigung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "besitzes",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Bestimme",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Bewahrung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "bezirksamt",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Bonnie",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Brandstifter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "broken",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "bruns",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Buchführung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Burgund",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Character",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Cinema",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Coaches",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Columbus",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Counter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "dienstagabend",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "direktoren",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Dummkopf",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ebooks",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "eilen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "eingebüsst",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "einsichten",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "einsturz",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "einteilen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Emblem",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "empfindungen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "erbarmen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "erdreich",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ergattern",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Erkundung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ernennen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Errungenschaft",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "fahrgast",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Fahrzeit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "fernsehens",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "fingernägel",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Firmensitz",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Fortnite",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "galaxien",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "galgen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Gastarbeiter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "gaumen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "geilste",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "geländewagen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Gemeindevertretung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "genies",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Geplanter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "gestehe",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Gretel",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "grotesk",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "grünflächen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "handschlag",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "hausarrest",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "herauf",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "herausragend",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "hierin",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Hilfsorganisation",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "hinkommen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "hinkriegen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "hospiz",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "idea",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "independent",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "interessanterweise",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "irdischen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Jahresbeginn",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Josephine",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Katalysator",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Kausalität",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "klinisch",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "kohlen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "kon",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Konfession",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "kontinenten",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Korrekter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "kulturlandschaft",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Kürzel",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Laie",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Landebahn",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "launch",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "lebensräume",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "leiht",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "logischerweise",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "martens",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "masslos",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Mauerfall",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Maulwurf",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "meilenweit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "menschenrecht",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "messbar",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "messern",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Mille",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Ministerrat",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Mobiler",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Mobilisierung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "modem",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "monarchen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "mäusen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Nationalbibliothek",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Netzneutralität",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Neurologie",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "nässe",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "oberstes",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Obrigkeit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "omen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Originelle",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Paranoia",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Pathologie",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "pendel",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "portalen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Prior",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Progression",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Prozession",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "publik",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Qaida",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ranken",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Realistischer",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Rechtsform",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "reformierten",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Regierungspartei",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Regierungsrat",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "reihenweise",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Reit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "rheinhessen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Ricky",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "rider",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Rivalität",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "rolex",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Romantiker",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "rütteln",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "sags",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Schaufel",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Schlichter",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "schlüssig",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Schone",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Schuler",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Severin",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "shift",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "sibylle",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "simplen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "slot",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "spessart",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Sprechende",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "stadtgeschichte",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Stalker",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ste",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "storys",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Stosse",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "strophen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "strumpfhosen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Südstadt",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "tausender",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Tragenden",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "traktoren",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Trockner",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Umbenennung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "underground",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "unerhört",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "unerreichbar",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "ungünstigen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "unhaltbar",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Unverschämtheit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Ureinwohner",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "verkörpern",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "verladen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "verlangsamt",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "verschleiern",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "verstellen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Vertreterin",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "vielmals",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "virtuell",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "vital",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Vollversammlung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Vorwarnung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "völkischen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "wachsam",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Wandlung",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "wanken",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Wartezimmer",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "weihnachts",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "wertungen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "widerliche",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Widersacher",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "willig",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Wohler",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "wurd",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "wörtchen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Zauberei",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Zärtlichkeit",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "übereinkommen",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "überragenden",
+  "zipf": 3.27,
+  "set": "night12"
+ },
+ {
+  "headword": "Abdel",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "abgründe",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "abhauen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Abruf",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Abschreckung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "abstossend",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "abwägen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "adoptieren",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Aggressivität",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Aigner",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "alltäglich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "aloe",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Amtsblatt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Anhebung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "anwesende",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "arendt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "armselig",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "artenvielfalt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "asylsuchende",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "atemlos",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "aufbauend",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "auseinandersetzt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Aussendienst",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "ausweise",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "automobile",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Bambus",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Bankkonto",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "barnes",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bartsch",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "beherbergen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bekanntenkreis",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bescheren",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bestürzt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Betriebswirtschaft",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bien",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Biologischer",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "biste",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "botschafterin",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bowling",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Breitband",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Brise",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Busbahnhof",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bärbel",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bündnisses",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "bürgerhaus",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "canal",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "chemischer",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "chorleiter",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Connection",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Credo",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "datteln",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "dienststellen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Distrikt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "donnerstagabend",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "dornen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "dringlichkeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Duldung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "durchdringen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "ehrgeizig",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Eigner",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "einflussreichen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "eingeschränkten",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "einlässt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Einwirkung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "einzahlen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Eitelkeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "entstammen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Escort",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "ethnisch",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Evidenz",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "existent",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "familienangehörigen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Familienvater",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "farmen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "feindlich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Feuerwehrleute",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Filmmusik",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "flaggschiff",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Fleming",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "fortführen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "fortlaufend",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "friedhöfe",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "fussstapfen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Gamma",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Gesindel",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "gigantisch",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Grimme",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Grundausbildung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "guys",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "herausgegebenen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "herausgekommen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Herrgott",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Hilflosigkeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "hochwertig",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Hungersnot",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "hühnchen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Improvisation",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "interagieren",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Jahreshauptversammlung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "jahrtausende",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "kaufbeuren",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Kernenergie",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "klarstellen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Komik",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "konstellationen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "kontaktlinsen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "kostbaren",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "kostengründen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "köpfchen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "kühen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Lahr",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Liquidität",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "lumpen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Lüfte",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Manuelle",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "memorial",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Menschenhandel",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "mentalen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Metropolregion",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Miniatur",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Mittagszeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Neuausrichtung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Neuerer",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "nordöstlich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "nägeln",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Org",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Orgie",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Perser",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "pfade",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "praktiker",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "praxen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "preislich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "pressemitteilungen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Probezeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "psst",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Pünktlichkeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Rahmenprogramm",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "rappen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Regenschirm",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "rocken",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "sarkastisch",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Schlachthof",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Schlinge",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "schminken",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "schoen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "schwarzwälder",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "sechsmal",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Sonderausstellung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Sprachrohr",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Sprech",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "springs",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "stadtfest",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "starkregen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Steuergeld",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "stils",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "sängerinnen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "tablette",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Tagblatt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Tagebau",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "tageblatt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "tele",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "umgangen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "umgebungen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "unbefriedigend",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "unberechenbar",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "untrennbar",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Uralt",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "verbrauchern",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "verfehlen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Vergleichbarer",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "verleugnen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "verschlingen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "vertikalen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Vizepräsidentin",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Volume",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Vorarbeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "vätern",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wahllos",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Wahltag",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "waisen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Weiblichkeit",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "weihnachtsgeschenk",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterkommen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Weltmeisterin",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wendungen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wertheim",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "widersetzen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "widersprüchlich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Wiedereinführung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wiedergefunden",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Wiederkehr",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wirkungslos",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "wirkungsvoll",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "witte",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zeitungsartikel",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zeugenaussagen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zoos",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zuende",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "Zumutung",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zurückgebracht",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zurückliegenden",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zuzüglich",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "zwecklos",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "übergeordneten",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "überschlagen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "überziehen",
+  "zipf": 3.26,
+  "set": "night12"
+ },
+ {
+  "headword": "abbas",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "abbringen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "abgelaufenen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "ablassen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Abonnement",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Abpfiff",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Abschlussprüfung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "abspritzen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "abwehren",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "adalbert",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "adäquat",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "afghanischen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "akkurat",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "aktenzeichen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "amok",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Amtsgerichts",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Argentinier",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Asse",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "auffüllen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "aufregt",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "ausgewogen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "ausmalen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "auswerten",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "authentischen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "autofahrern",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "balthasar",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "banal",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Barrierefreiheit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Baust",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "bauwesen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "befreiten",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "behandelnden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "bekunden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "benachrichtigungen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "blitzen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "blocken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "blühenden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "breslauer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "bundesvorstand",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Bürgerbeteiligung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "chirurgischen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Cholesterin",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Creampie",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "deich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "dreijährigen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "dünen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "einbrechen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "einloggen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "einwanderern",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "eliminieren",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "elsässer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "entgegenwirken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "entlarven",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Entsprechendem",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "entwicklungs",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "erfundene",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "erklärst",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Erosion",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "erreichbarkeit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "erwägungen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "erwählt",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Eröffnungsfeier",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Esoterik",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Exkursion",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "exotischen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "familienleben",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "fastnacht",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Festsetzung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Finanzverwaltung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "fortbildungen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "freaks",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "fundamental",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Fängst",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "fäuste",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Fütterung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Gastro",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Geschichtswissenschaft",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Geschlossenheit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "geschmeidig",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Gesuch",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Gewerbesteuer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Gis",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Gottseidank",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "grinsend",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "haftstrafen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Hauptziel",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "hdmi",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Hingucker",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "horizontalen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "härteste",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Indoor",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Informationstechnik",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Innsbrucker",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "irgendjemanden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Jule",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Kartoffelsalat",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "karussell",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Klassenkampf",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Kleidungsstück",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Klerus",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Klinke",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Klippe",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Kommunalpolitik",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "konzentrationen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "kopfschütteln",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "koreanischen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "kostbar",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Kurator",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Landesmuseum",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "landstrassen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Lebensgefährtin",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "lebenslänglich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Lel",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Lenovo",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Lynch",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "lüneburger",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Malik",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "mappe",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Medizintechnik",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Minor",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Modellierung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "modifikationen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Monolog",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "mur",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "mülltonnen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "nachlassen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "nachtigall",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "neubaugebiet",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "neuhausen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "neukunden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "neustädter",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Nikotin",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Noel",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "nominierungen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "nordwestlich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "notstand",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Nudel",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "nussbaum",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Oberer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "ochsen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Protection",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Präparat",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "radioaktiven",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "rebell",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "rechtmässigkeit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Rechtssicherheit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Reederei",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "rekrutieren",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "relativieren",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "rettungskräfte",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Romantischer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Rückendeckung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Salzwedel",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "saw",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Schauspielhaus",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "schlafenden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "schreiten",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Sendezeit",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Ses",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "sleep",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "spendiert",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Sportdirektor",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "sprachraum",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Staatskanzlei",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "stapeln",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "stetigen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "steuerlichen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Stichprobe",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Streichung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "südfrankreich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Tagesablauf",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Target",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "tax",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Teilnehmerzahl",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "telefonnummern",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Telegram",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Thought",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Tiefgang",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Titelbild",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "topic",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "trophäen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Tschuldigung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "tuttlingen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "unsichere",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "unwesentlich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "unübersichtlich",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "verdecken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "verehren",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Verführung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "verschwundenen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "versunken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Verwunderung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Vibrator",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "vorbildern",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "vordringen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "vorfinden",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "vorfällen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "wacken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "wasserwerfer",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "weglaufen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Weiterführung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Wettbewerber",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "wissend",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Witziger",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Wunderland",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "zapfen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "zeitig",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Ziff",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "zugetragen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "zurückschicken",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "zwängen",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "Übertreibung",
+  "zipf": 3.25,
+  "set": "night12"
+ },
+ {
+  "headword": "abgeneigt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "absehen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "abweicht",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Abzweigung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Achtsamkeit",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "addition",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "aktienmarkt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Aktivistin",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Alarmanlage",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "allgegenwärtig",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ammoniak",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Amour",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "anbauen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "andernorts",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "anfahren",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Anfängst",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "angebrachten",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "angedacht",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Application",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "arbeitskräften",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ariel",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "aschermittwoch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Asylpolitik",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "auferstanden",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "aufhielt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ausgebildeter",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "ausgedruckt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ausnutzung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "ausschüssen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ausverkauf",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Auswanderer",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "auszuziehen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "avocado",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Bademantel",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Bahnverkehr",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "befestigten",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "beständen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Bewaffnung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "biden",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "bits",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "blümchen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "bulgaren",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "börsengang",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "büste",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Choreographie",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Complete",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Dachverband",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Dalai",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "damian",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "dea",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "dehnen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "displays",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Dogma",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Dramaturgie",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Drehzahl",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "dänisch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Einhalt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "einhergehen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "einschliessen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Einweisung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Einwurf",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Emigration",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Entfremdung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "entsandt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Entscheidungsfindung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "entsetzlich",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "entspannend",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "erreichst",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "erwirken",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Escape",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Exempel",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "extern",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "fahrende",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "feinste",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "filmt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "finnisch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Flixbus",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Flüssiger",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "fraglichen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "framework",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Friedensbewegung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "gebräuchlich",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "gemeinschaftlichen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "genehmigungen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "grosseinsatz",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Ground",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Gülle",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Hausbau",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "ifa",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "implizit",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Intellektueller",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "jar",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "karpfen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "kcal",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "kinderarzt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "kitsch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Klett",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "komischerweise",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Konform",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Koreaner",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Kreisel",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Kreissparkasse",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Kunstsammler",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "käufe",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "lebensgefühl",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Lenkung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "lichtenstein",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "lieblinge",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "lieh",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Luck",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "malerischen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "managements",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Manning",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "markgrafen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "menschenbild",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "mittelständischen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "mulde",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Multikulti",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Nobelpreisträger",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "nolte",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "nurnoch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "obdachlos",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "operativ",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Paarung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "panzern",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "paten",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Peta",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Placebo",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "primitiv",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Prison",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Privatwirtschaft",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "psychologischer",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "pushen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "rauen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Regenwasser",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "reizvoll",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Reklame",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Religiöses",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Rentnerin",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "rocco",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Rückfall",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Rücknahme",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "saxophon",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Schaukel",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Schmerzensgeld",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schmerzhaften",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Schminke",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schneid",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schreiend",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schulhaus",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schwachstelle",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schwenningen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "schwerwiegenden",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Schützenfest",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "scrollen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "seilen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Sichtung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Skeptiker",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "skigebiet",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Slave",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Stalingrad",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Steinbrück",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "steinernen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Steinmetz",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "stirb",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Strassburger",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "stäbchen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Sung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "südost",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "südwestlich",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "tadellos",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "tatkräftig",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "terminals",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "timothy",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Tours",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "trainern",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "trial",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "tropen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Tränengas",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "träum",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Turnschuhe",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "unbeschreiblich",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "unkontrolliert",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Unternehmensberatung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Unternehmensführung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Unterzahl",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "vdi",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Verbannung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "verkneifen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Vermerk",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Verschwörungstheorie",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Vertragspartner",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "verunreinigungen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "volljährig",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Vormund",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Vorrichtung",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "wegner",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterzugeben",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Weltmarkt",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "wisch",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "wählerstimmen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "zeitvertreib",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "zuallererst",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "zurückgegriffen",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "ärmeren",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "ärsche",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "übern",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "Überzahl",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "überzeugenden",
+  "zipf": 3.24,
+  "set": "night12"
+ },
+ {
+  "headword": "abendbrot",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "abenden",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Abendland",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "abgewinnen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "abhören",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "abwerfen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "adeligen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Alleiniger",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Anbetung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "anderseits",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "angler",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "animationen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "animieren",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "arbeitsstunden",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "architektonischen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Attribut",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufjedenfall",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufpasst",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufwind",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "augenschein",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "ausbezahlt",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "aussiehst",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "bastarde",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Beachvolleyball",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Bedeutsame",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Bedingungslose",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Begeisterter",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "begutachten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Beule",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "bezahlbar",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "blöcken",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "bogenschiessen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "braunes",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "bundestagsabgeordneten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Charakterisierung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Direktes",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "drew",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Druckmittel",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "eidgenössischen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "einbahnstrasse",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "eingebauten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "einmaliges",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Einsamer",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "einschreiben",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "eleanor",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "electro",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Emoji",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "entferne",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "erhaben",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Erlangung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Ernsthaftigkeit",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Ersparnis",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "erwerbstätigen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "erörtern",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Fabelhaft",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "fastenzeit",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "felgen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Feministin",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Fifty",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Flatrate",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "flexiblen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Flugzeugabsturz",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "fläschchen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "foltern",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "fossilien",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Fraktionschef",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Frauenbewegung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "fruchtbar",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Furz",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Gage",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "garrett",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Geburtstagsgeschenk",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "geometrischen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "geringeres",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Geschöpf",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Gewaltenteilung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "gezogenen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Gluck",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "gläubig",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "gronau",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "grub",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "grundidee",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "gutmensch",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Gutscheincode",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "hafer",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "hearts",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "herbeiführen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "hindernissen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Hochdruck",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "hundertprozentig",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "höchstes",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "imaginären",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "indianern",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "industriell",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "jakobs",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Kernstadt",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Kirchturm",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "kläglich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Knüppel",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "kompakten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Kompensation",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Kondition",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Konzession",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "kreuzfahrten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "kronach",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "landesweiten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Lasagne",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Lebensform",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "ledig",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Leihe",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "losfahren",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "losgelassen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "luden",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Lungenkrebs",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "längerfristig",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Malerin",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Managerin",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "maritime",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "melken",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "mietwohnungen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Misshandlung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "morgengrauen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "mähen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "mängeln",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Naturwissenschaftler",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Nielsen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "oberbefehlshaber",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "ortsnamen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Partitur",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Patriarchat",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "patrone",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "pennen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "personell",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "pinterest",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "polka",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "professionelles",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Pädophilie",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Rabbiner",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "rasend",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Rauslassen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "reformieren",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Reibung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Rückflug",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Saure",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Schiffer",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Schrecklicher",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Schwellung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Schwimm",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "schälen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "setup",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Showdown",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Silikon",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "sindelfingen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "sole",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "spuk",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Stadtbücherei",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Stadtplanung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Stagnation",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "stiefmutter",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Strukturwandel",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "symmetrisch",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "tapferen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "tequila",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Those",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "totalitären",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Tracker",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Traust",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "trotzen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "tänzerinnen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "umschreiben",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "umsturz",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "unausweichlich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Unfallversicherung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "unnatürlich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "unscharf",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "unvereinbar",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "unüblich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Verabredung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "verankern",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "vereinte",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "verhängen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "verkleinern",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Verschmutzung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Vince",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Vito",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Vordermann",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "vorgefallen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "weiterem",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "wertvollsten",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Westseite",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Whirlpool",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Wirtin",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Wund",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "wunderlich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "wärmen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "zieren",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "zugegen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "zumute",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "zwischenstopp",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "Zündung",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "überglücklich",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "überweisungen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "üppigen",
+  "zipf": 3.23,
+  "set": "night12"
+ },
+ {
+  "headword": "abenteuern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "abwesend",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Airbnb",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Airways",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "akustisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "alec",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "altmaier",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Amtsinhaber",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "andersherum",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Anfangszeit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "angewandten",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "anhaltend",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Anhöhe",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "anschliessendem",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "antrags",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Anzahlung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "apostolischen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "arbeiterinnen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Arbeitskreises",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "artgenossen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "asiatisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Aspirin",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "auffangen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "aufholen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufmachung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "aufstrebenden",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "ausbleiben",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "aushelfen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Ausschüttung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Ausspruch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "badass",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "baus",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Bausubstanz",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Bergwerk",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Beschützer",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Besiedlung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "besinnen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Beständigkeit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "beunruhigend",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Border",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "brettern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Build",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Bundesgesetz",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "buxtehude",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "campen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Chin",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "chronischer",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "darts",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "dativ",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "delmenhorst",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "diagnosen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Distanzierung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Diversität",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Dlr",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "duos",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "durchfahren",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "durchsichtig",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "dutzenden",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "emirate",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Entlohnung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "entsenden",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "erlernte",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "erstklassig",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Erwartungshaltung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "esstisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "establishment",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "ethnien",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Facebookseite",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Feigheit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "feinem",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Frauenanteil",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "frohen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Gastspiel",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "gebären",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Gedenktag",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "geheimnisvoll",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "gemeiner",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "geographisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Gesamtlänge",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "gescheit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "getroffene",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Glut",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "grossflächig",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "grossunternehmen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Grundordnung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Grundsteuer",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Hah",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "haltern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "handwerklichen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "hasste",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Hauptproblem",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Hauptthema",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "hie",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Hilfsbereitschaft",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "hipp",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Hirte",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "hälften",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "hühnern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Imperator",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "inferno",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "inoffiziell",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "intensives",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "iot",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "iraker",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "jägern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "kaiserzeit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "kalkstein",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Katholik",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "kirchlich",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "klarmachen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "klatscht",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Klosterkirche",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Konstitution",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Koordinator",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "kräutern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "königen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "laternen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "leserinnen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Leserschaft",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "libyschen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "lite",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "längeres",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Löffler",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "lösungsansätze",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "magnetischen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Marin",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "mater",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "matsch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "milchstrasse",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Minderung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Mitm",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "mittelgrossen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Mittler",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "moabit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Mohn",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "mossul",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "müden",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "nachdrücklich",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "nachteilig",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Neufassung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "noble",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "oberstleutnant",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Oppositionspartei",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Orangensaft",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "orthopädie",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "papierkram",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "parkplätzen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Personenverkehr",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "pilgern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "plädieren",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Polizeiruf",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Prostata",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "reaktoren",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Regierungsbildung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "resident",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "revival",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Rücksichtnahme",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Rüstungsindustrie",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Schachzug",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "schnallen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "schnuppern",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "schweigend",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sehnsüchtig",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sektionen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sekundär",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "selb",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sicherheitshalber",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sichten",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "silben",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "sixt",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "snake",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Softwareentwicklung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Sozialarbeit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "soziologe",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Spanne",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "spielend",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Staatsbibliothek",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Staatssicherheit",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Stadttheater",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "statischen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Steuerreform",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "strafgesetzbuch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "supply",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Sylvie",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Sättigung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Tanzmusik",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "tate",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "tauglich",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Teilstück",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Theil",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "thematische",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Trap",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Trichter",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "undeutlich",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "ungarisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "vasen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "verblieben",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "verdanke",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "verführerisch",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "vergünstigungen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Verleih",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "verschlagen",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Visualisierung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "vollmer",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "vorbeifahren",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Wasserleitung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "wehtun",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "weites",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Wulf",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Wüst",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "zeitlos",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "zerren",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Zerschlagung",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Zipfel",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "Österr",
+  "zipf": 3.22,
+  "set": "night12"
+ },
+ {
+  "headword": "abgeschickt",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "acer",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Allerbeste",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "altmark",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "andauern",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "andersen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Anfangsphase",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "anrecht",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Anwaltskanzlei",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Apartheid",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "atheist",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufdruck",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "aufleben",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Aufschub",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "aufzuräumen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "auserwählten",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Aushängeschild",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "auszudenken",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "baldigen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "beschneiden",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "beschwören",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "beschämend",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "besucherzahlen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "blabla",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "blinken",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "bohne",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "boykottieren",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Brennholz",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "bumm",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "bäuerlichen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Büchse",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "büssen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "carlsen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Christel",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Compagnie",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "cutter",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "diabetiker",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "district",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Drogendealer",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Drummer",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "durchgegangen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Dustin",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "ebbe",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "einbussen",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "einhergehenden",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Elektromotor",
+  "zipf": 3.21,
+  "set": "night12"
+ },
+ {
+  "headword": "Energiepolitik",
+  "zipf": 3.21,
+  "set": "night12"
+ }
+]
