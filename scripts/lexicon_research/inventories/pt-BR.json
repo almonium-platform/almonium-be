@@ -1,0 +1,51 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː"
+ ],
+ "note": "Hand-written from Google's Chirp 3 HD phoneme table for the locale where one exists (fr-FR, es-ES, it-IT) and from PHOIBLE otherwise; first draft 2026-10-16. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "pt-BR",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "s",
+  "z",
+  "ʃ",
+  "ʒ",
+  "tʃ",
+  "dʒ",
+  "m",
+  "n",
+  "ɲ",
+  "l",
+  "ʎ",
+  "ɾ",
+  "ʁ",
+  "j",
+  "w"
+ ],
+ "vowels": [
+  "i",
+  "e",
+  "ɛ",
+  "a",
+  "ɐ",
+  "ɔ",
+  "o",
+  "u",
+  "ĩ",
+  "ẽ",
+  "ɐ̃",
+  "õ",
+  "ũ"
+ ],
+ "conventions": "Brazilian Portuguese, São Paulo standard. t and d before i are tʃ and dʒ. Written r at word start and rr are ʁ; single r between vowels is ɾ. Final unstressed e and o are i and u. Nasal vowels carry the tilde. Final l is w."
+}

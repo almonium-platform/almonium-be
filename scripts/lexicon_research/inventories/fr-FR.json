@@ -1,0 +1,52 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː"
+ ],
+ "note": "Hand-written from Google's Chirp 3 HD phoneme table for the locale where one exists (fr-FR, es-ES, it-IT) and from PHOIBLE otherwise; first draft 2026-10-16. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "fr-FR",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "s",
+  "z",
+  "ʃ",
+  "ʒ",
+  "m",
+  "n",
+  "ɲ",
+  "ŋ",
+  "l",
+  "ʁ",
+  "j",
+  "w",
+  "ɥ"
+ ],
+ "vowels": [
+  "i",
+  "e",
+  "ɛ",
+  "a",
+  "ɑ",
+  "ɔ",
+  "o",
+  "u",
+  "y",
+  "ø",
+  "œ",
+  "ə",
+  "ɛ̃",
+  "ɑ̃",
+  "ɔ̃",
+  "œ̃"
+ ],
+ "conventions": "Standard French of France. Stress is not phonemic; put the primary stress mark on the last syllable that is not a schwa. Final schwa is dropped unless it is pronounced in ordinary speech. Liaison consonants are not written on the headword."
+}

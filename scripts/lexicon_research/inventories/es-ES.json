@@ -1,0 +1,41 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː"
+ ],
+ "note": "Hand-written from Google's Chirp 3 HD phoneme table for the locale where one exists (fr-FR, es-ES, it-IT) and from PHOIBLE otherwise; first draft 2026-10-16. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "es-ES",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "θ",
+  "s",
+  "x",
+  "tʃ",
+  "ʝ",
+  "l",
+  "ʎ",
+  "m",
+  "n",
+  "ɲ",
+  "ɾ",
+  "r",
+  "j",
+  "w"
+ ],
+ "vowels": [
+  "a",
+  "e",
+  "i",
+  "o",
+  "u"
+ ],
+ "conventions": "Castilian Spanish with distinción (c/z before e, i and z are θ) and ll as ʎ. Voiced stops are written b d ɡ in every position; the approximant allophones are not marked. Stress falls where the written accent rules put it."
+}

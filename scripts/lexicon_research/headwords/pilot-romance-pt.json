@@ -1,0 +1,1002 @@
+[
+ {
+  "headword": "aniversário",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "celular",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "conversa",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "corte",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "escrever",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ilha",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "marca",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "medida",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "menina",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "metade",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "natural",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "perfil",
+  "zipf": 4.99,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "contrário",
+  "zipf": 4.98,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "incrível",
+  "zipf": 4.98,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "natureza",
+  "zipf": 4.98,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "visão",
+  "zipf": 4.98,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "abrir",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "capacidade",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "capaz",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "carta",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cedo",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "conjunto",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fome",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "inclusive",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lembrar",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lembro",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "leste",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "matar",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "parque",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "sonho",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "transporte",
+  "zipf": 4.97,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "achar",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cor",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "culpa",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "departamento",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "emprego",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "estrutura",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "exatamente",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fico",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "importância",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "interessante",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "operação",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "origem",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "provavelmente",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "risco",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "santo",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "suficiente",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "temporada",
+  "zipf": 4.96,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "beleza",
+  "zipf": 4.95,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cabo",
+  "zipf": 4.95,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "necessidade",
+  "zipf": 4.95,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "século",
+  "zipf": 4.95,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "anterior",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "belo",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cinema",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "classe",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "entrevista",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "estação",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "material",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "méxico",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "perfeito",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "prática",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "sangue",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "sede",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "som",
+  "zipf": 4.94,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "administração",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "azul",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chão",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "completamente",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cuidado",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "função",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "membro",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "participar",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pressão",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "totalmente",
+  "zipf": 4.93,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "andar",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "contato",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "crescimento",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "crise",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "céu",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "direita",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "evitar",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "histórico",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "indústria",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "nao",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pro",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "proteção",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "sinal",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "sozinho",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "unidade",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vila",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "aula",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "conversar",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "deputado",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "desejo",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "diante",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "espírito",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "estrada",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "festival",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "geração",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "governador",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "imprensa",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "rosto",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ruim",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "saída",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "acreditar",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "alma",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "caixa",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "esperança",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "estadual",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "garota",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "igual",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lançamento",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "praça",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "propriedade",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pré",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "rock",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "terceiro",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "território",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "antigo",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "bola",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "casal",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "estranho",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "general",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "hotel",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "impossível",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "infelizmente",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "inteiro",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lixo",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "matéria",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "memória",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "olho",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "preto",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "responsabilidade",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "telefone",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tom",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "trazer",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "troca",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "verdadeiro",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ônibus",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "abertura",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "breve",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ciência",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "destino",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "disponível",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "doença",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "efeito",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "global",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "independente",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "investigação",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "jogador",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "loja",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "notícia",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "planeta",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pronto",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tamanho",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tratamento",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vice",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "acidente",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "candidato",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "escolher",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "francisco",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "francês",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lidar",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "normalmente",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "policial",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "rapidamente",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ato",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chave",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "computador",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "episódio",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "espécie",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "prefeito",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "redor",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vermelho",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "votação",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vítima",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "comercial",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "constituição",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "contrato",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "dúvida",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "mesa",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "negro",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "quantidade",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "roupa",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "solução",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "advogado",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "alvo",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "banho",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "combate",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "comércio",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "enorme",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "face",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "graça",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "particular",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "partida",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "seguro",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "técnico",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "violência",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "apresentar",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ }
+]

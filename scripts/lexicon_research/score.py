@@ -22,10 +22,12 @@ from wordfreq import top_n_list
 HERE = Path("scripts/lexicon_research")
 OUT = HERE / "out"
 SCHEMA = json.loads((HERE / "entry.schema.json").read_text())
-GLOSS = {"en": ["uk", "de", "pl"], "de": ["en", "uk", "pl"], "uk": ["en", "de", "pl"]}
-VARIETY = {"en": "en-US", "de": "de-DE", "uk": "uk-UA"}
-WIKIPRON = {"en": "eng_latn_us_broad", "de": "deu_latn_broad", "uk": "ukr_cyrl_narrow"}
-MODELS_SPACY = {"en": "en_core_web_sm", "de": "de_core_news_sm", "uk": "uk_core_news_sm"}
+GLOSS = {"en": ["uk", "de", "pl"], "de": ["en", "uk", "pl"], "uk": ["en", "de", "pl"], "fr": ["en", "uk", "de"],
+         "es": ["en", "uk", "de"], "it": ["en", "uk", "de"], "pt": ["en", "uk", "de"]}
+VARIETY = {"en": "en-US", "de": "de-DE", "uk": "uk-UA", "fr": "fr-FR", "es": "es-ES", "it": "it-IT", "pt": "pt-BR"}
+WIKIPRON = {"en": "eng_latn_us_broad", "de": "deu_latn_broad", "uk": "ukr_cyrl_narrow", "fr": "fra_latn_broad",
+            "es": "spa_latn_ca_broad", "it": "ita_latn_broad", "pt": "por_latn_bz_broad"}
+MODELS_SPACY = {"en": "en_core_web_sm", "de": "de_core_news_sm", "uk": "uk_core_news_sm", "fr": "fr_core_news_sm", "es": "es_core_news_sm", "it": "it_core_news_sm", "pt": "pt_core_news_sm"}
 # dollars per million tokens, list price, 2026-10-03; unknown models priced like their nearest
 PRICE = {"claude-opus-5-5": (4, 20), "claude-sonnet-5-5": (2, 10), "gpt-5.5": (5, 25), "gpt-6.1-sol": (5, 25), "gemini-2.5-pro": (1.25, 10),
          "deepseek--deepseek-v4-pro": (0.21, 0.42), "qwen--qwen3.7-plus": (0.32, 1.28), "moonshotai--kimi-k2.6": (0.95, 4.0), "z-ai--glm-5.3": (1.4, 4.4)}

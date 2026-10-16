@@ -4,10 +4,29 @@ import json
 from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
-PROMPT_VERSION = "v1"
-LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian"}
-VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"]}
-GLOSS = {"en": "uk, de, pl", "de": "en, uk, pl", "uk": "en, de, pl"}
+PROMPT_VERSION = "v2"
+LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
+VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
+             "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
+GLOSS = {"en": "uk, de, pl", "de": "en, uk, pl", "uk": "en, de, pl", "fr": "en, uk, de", "es": "en, uk, de",
+         "it": "en, uk, de", "pt": "en, uk, de"}
+# What the writer lists under "forms". English, German and Ukrainian give the whole paradigm, as the
+# v1 prompt did. The Romance languages give the principal parts only: a full verb paradigm is fifty
+# forms that follow from the conjugation class by rule, so listing them would cost tokens and invite
+# slips where a table does the job.
+ROMANCE_FORMS = ("The principal parts, not the whole paradigm: nouns give singular and plural with gender in grammar; "
+                 "adjectives give masculine and feminine, singular and plural; verbs give the infinitive, the present "
+                 "indicative 1sg 2sg 3sg 1pl 2pl 3pl, the past participle and the {past} 1sg, with the conjugation "
+                 "class and whether it is irregular in grammar. Clitic and compound forms are not listed.")
+FORMS_RULE = {
+    "en": "The complete paradigm for the language: verbs give base, 3sg present, past, past participle, present participle; nouns give singular and plural.",
+    "de": "The complete paradigm for the language: nouns give nominative singular and plural with gender in grammar; verbs give infinitive, 3sg present, 3sg preterite, past participle.",
+    "uk": "The complete paradigm for the language: nouns give all seven cases singular and plural; verbs give infinitive, present or future 1sg 2sg 3sg 1pl 2pl 3pl, past masculine feminine neuter plural, and the aspect pair in grammar.",
+    "fr": ROMANCE_FORMS.format(past="passé composé (auxiliary and participle) and the imparfait"),
+    "es": ROMANCE_FORMS.format(past="pretérito indefinido"),
+    "it": ROMANCE_FORMS.format(past="passato prossimo (auxiliary and participle)"),
+    "pt": ROMANCE_FORMS.format(past="pretérito perfeito"),
+}
 
 SCHEMA_EXAMPLE = json.dumps({
     "language": "en", "headword": "lead",
@@ -35,7 +54,7 @@ def system_prompt(lang):
         d = json.loads((HERE / "inventories" / f"{v}.json").read_text())
         inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
     tpl = (HERE / "prompts" / "entry_writer" / f"{PROMPT_VERSION}.md").read_text()
-    return (tpl.replace("{language_name}", LANG_NAME[lang]).replace("{gloss_languages}", GLOSS[lang])
+    return (tpl.replace("{language_name}", LANG_NAME[lang]).replace("{gloss_languages}", GLOSS[lang]).replace("{forms_rule}", FORMS_RULE[lang])
             .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE))
 
 

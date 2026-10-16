@@ -1,0 +1,45 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː"
+ ],
+ "note": "Hand-written from Google's Chirp 3 HD phoneme table for the locale where one exists (fr-FR, es-ES, it-IT) and from PHOIBLE otherwise; first draft 2026-10-16. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "it-IT",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "s",
+  "z",
+  "ʃ",
+  "ts",
+  "dz",
+  "tʃ",
+  "dʒ",
+  "m",
+  "n",
+  "ɲ",
+  "l",
+  "ʎ",
+  "r",
+  "j",
+  "w"
+ ],
+ "vowels": [
+  "a",
+  "e",
+  "ɛ",
+  "i",
+  "o",
+  "ɔ",
+  "u"
+ ],
+ "conventions": "Standard Italian. Geminates carry ː on the consonant (fatto is /ˈfatːo/); a geminate affricate doubles its stop instead (oggi is /ˈɔddʒi/, pizza is /ˈpittsa/), and ʃ ʎ ɲ between vowels are written long (pesce is /ˈpeʃːe/). Open and close e and o are distinguished (ɛ/e, ɔ/o) in stressed syllables and are e, o when unstressed. Intervocalic s is z where the standard has it."
+}

@@ -1,0 +1,1002 @@
+[
+ {
+  "headword": "lettre",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lieux",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "parole",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "principe",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "prochain",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "radio",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "table",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vaut",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "édition",
+  "zipf": 4.92,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "analyse",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "assurer",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "carrière",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "commun",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "couleur",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "durée",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "erreur",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "espèce",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "faible",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "large",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lundi",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "membre",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ministère",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "neuf",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "objectif",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pro",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "probablement",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "relation",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "respect",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "responsable",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "secteur",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "soutien",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tomber",
+  "zipf": 4.91,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "américaine",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "change",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "concours",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "couple",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "course",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "différence",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fonds",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fou",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "gestion",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "juge",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "mme",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "normal",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ouverture",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "poids",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "suivant",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "taille",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "village",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "visite",
+  "zipf": 4.9,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "absolument",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "bref",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ciel",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "clair",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "combat",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "comité",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "continuer",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "mémoire",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ouvert",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "protection",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "revenir",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "signe",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tenir",
+  "zipf": 4.89,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "album",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cinéma",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "crise",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "expliquer",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "garder",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "généralement",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "historique",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "industrie",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "maladie",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "militaire",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "médecin",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "permettre",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vote",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vouloir",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "écoute",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "île",
+  "zipf": 4.88,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "application",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "banque",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chanson",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "environnement",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ferme",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "final",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "macron",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "maire",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "opération",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "parc",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pleine",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pose",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "seigneur",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "traitement",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "visage",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "véritable",
+  "zipf": 4.87,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "avion",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chien",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cool",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "enquête",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "envoyer",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "facebook",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "limite",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "port",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "professeur",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "transport",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vitesse",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "étranger",
+  "zipf": 4.86,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cheveux",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "dossier",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "hiver",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "hôpital",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "importance",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "marine",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "ouvrir",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pression",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "puissance",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "religion",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "stade",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "théâtre",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "évolution",
+  "zipf": 4.85,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "camp",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "drôle",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "débat",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "oublier",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pauvre",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "regard",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "rêve",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "science",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "utilisation",
+  "zipf": 4.84,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "absence",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "capable",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "cité",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "connaissance",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "delà",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "end",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "habitude",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "poser",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "principal",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "russe",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "référence",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "secret",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tombe",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "totalement",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "usage",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "week",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "émission",
+  "zipf": 4.83,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chaîne",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "chinois",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "classique",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "contact",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "dame",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "direct",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "divers",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "envers",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "expression",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "facilement",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fer",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fil",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "froid",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "futur",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "gaz",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "malade",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "pareil",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "procès",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "rapide",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "réunion",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "révolution",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tableau",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "tendance",
+  "zipf": 4.82,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "boulot",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "bébé",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "communication",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "côte",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "fasse",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "finir",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "goût",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "humain",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "parlement",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "peau",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "surface",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "uniquement",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "vendre",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "victime",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "élection",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "épisode",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "évidemment",
+  "zipf": 4.81,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "allemand",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "arrêt",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "avocat",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "bonheur",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "budget",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "caractère",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "choisir",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "compter",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "consommation",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "découvrir",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "enseignement",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "lendemain",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "magnifique",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ },
+ {
+  "headword": "mari",
+  "zipf": 4.8,
+  "set": "pilot-romance"
+ }
+]

@@ -1,0 +1,50 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː"
+ ],
+ "note": "Hand-written from Google's Chirp 3 HD phoneme table for the locale where one exists (fr-FR, es-ES, it-IT) and from PHOIBLE otherwise; first draft 2026-10-16. Symbols are the phonemic set an entry may use; the display and the engine input share it.",
+ "variety": "pt-PT",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "s",
+  "z",
+  "ʃ",
+  "ʒ",
+  "m",
+  "n",
+  "ɲ",
+  "l",
+  "ʎ",
+  "ɾ",
+  "ʁ",
+  "j",
+  "w"
+ ],
+ "vowels": [
+  "i",
+  "e",
+  "ɛ",
+  "a",
+  "ɐ",
+  "ɔ",
+  "o",
+  "u",
+  "ɨ",
+  "ĩ",
+  "ẽ",
+  "ɐ̃",
+  "õ",
+  "ũ"
+ ],
+ "conventions": "European Portuguese, Lisbon standard. Unstressed e is reduced to ɨ and unstressed a to ɐ; unstressed o is u. Written r at word start and rr are ʁ; single r between vowels is ɾ. Syllable-final s is ʃ. Nasal vowels carry the tilde."
+}
