@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v3"
 LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
 VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
@@ -38,7 +38,7 @@ SCHEMA_EXAMPLE = json.dumps({
         "pronunciations": [{"variety": "en-US", "ipa": "/ˈliːd/"}, {"variety": "en-GB", "ipa": "/ˈliːd/"}],
         "senses": [{
             "definition": "to show someone the way by going in front of them",
-            "pos_detail": "transitive", "register": "neutral", "cefr": "A2",
+            "grammar": {"valency": "Tr"}, "register": "neutral", "cefr": "A2",
             "glosses": {"uk": "вести", "de": "führen", "pl": "prowadzić"},
             "example": "She led us through the dark corridor to the exit.",
             "cues": [{"kind": "wording", "text": "to go first so that others can follow you"},

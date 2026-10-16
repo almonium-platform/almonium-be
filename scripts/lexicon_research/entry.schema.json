@@ -1,6 +1,6 @@
 {
  "$schema": "https://json-schema.org/draft/2020-12/schema",
- "title": "Lexicon entry, schema version 1 (bake-off draft, 2026-10-03)",
+ "title": "Lexicon entry, schema version 2 (closed grammar vocabulary, 2026-10-16)",
  "type": "object",
  "required": [
   "language",
@@ -74,12 +74,119 @@
     },
     "grammar": {
      "type": "object",
-     "additionalProperties": {
-      "type": [
-       "string",
-       "boolean",
-       "number"
-      ]
+     "additionalProperties": false,
+     "properties": {
+      "gender": {
+       "enum": [
+        "Masc",
+        "Fem",
+        "Neut",
+        "Com"
+       ]
+      },
+      "number": {
+       "enum": [
+        "Sing",
+        "Plur"
+       ],
+       "description": "Set only for a noun used in one number: singulare or plurale tantum."
+      },
+      "countability": {
+       "enum": [
+        "Count",
+        "Mass",
+        "Both"
+       ]
+      },
+      "valency": {
+       "enum": [
+        "Tr",
+        "Intr",
+        "Both",
+        "Refl",
+        "Impers"
+       ]
+      },
+      "irregular": {
+       "type": "boolean"
+      },
+      "conjugation": {
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "strong",
+        "weak",
+        "mixed"
+       ],
+       "description": "Romance: 1, 2, 3 by the infinitive ending in the language's own order (fr -er/-ir/-re, es and pt -ar/-er/-ir, it -are/-ere/-ire). German: strong, weak, mixed."
+      },
+      "auxiliary": {
+       "enum": [
+        "have",
+        "be",
+        "both"
+       ],
+       "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+      },
+      "separable": {
+       "type": "boolean"
+      },
+      "separable_prefix": {
+       "type": "string"
+      },
+      "reflexive": {
+       "type": "boolean"
+      },
+      "declension": {
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "weak",
+        "strong",
+        "mixed",
+        "adjectival"
+       ]
+      },
+      "plural_class": {
+       "type": "string",
+       "pattern": "^-¨?(e|en|n|er|s|nen)?$",
+       "description": "German: the plural ending, ¨ for umlaut, '-' for no change."
+      },
+      "aspect": {
+       "enum": [
+        "Imp",
+        "Perf"
+       ]
+      },
+      "aspect_pair": {
+       "type": "string"
+      },
+      "animacy": {
+       "enum": [
+        "Anim",
+        "Inan"
+       ]
+      },
+      "invariable": {
+       "type": "boolean"
+      },
+      "position": {
+       "enum": [
+        "Attr",
+        "Pred"
+       ]
+      },
+      "comparable": {
+       "type": "boolean"
+      },
+      "note": {
+       "type": "string",
+       "maxLength": 120,
+       "description": "Anything the keys above cannot say, for a human reader."
+      }
      }
     },
     "forms": {
@@ -127,11 +234,86 @@
     },
     "features": {
      "type": "object",
-     "additionalProperties": {
-      "type": [
-       "string",
-       "number"
-      ]
+     "additionalProperties": false,
+     "properties": {
+      "Number": {
+       "type": "string",
+       "pattern": "^(Sing|Plur|Ptan)(,(Sing|Plur|Ptan))*$"
+      },
+      "Case": {
+       "type": "string",
+       "pattern": "^(Nom|Gen|Dat|Acc|Ins|Loc|Voc)(,(Nom|Gen|Dat|Acc|Ins|Loc|Voc))*$"
+      },
+      "Gender": {
+       "type": "string",
+       "pattern": "^(Masc|Fem|Neut|Com)(,(Masc|Fem|Neut|Com))*$"
+      },
+      "Tense": {
+       "type": "string",
+       "pattern": "^(Pres|Past|Imp|Fut|Pqp)(,(Pres|Past|Imp|Fut|Pqp))*$"
+      },
+      "Person": {
+       "type": [
+        "string",
+        "integer"
+       ],
+       "enum": [
+        "1",
+        "2",
+        "3",
+        1,
+        2,
+        3
+       ]
+      },
+      "Mood": {
+       "type": "string",
+       "pattern": "^(Ind|Sub|Imp|Cnd)(,(Ind|Sub|Imp|Cnd))*$"
+      },
+      "VerbForm": {
+       "type": "string",
+       "pattern": "^(Fin|Inf|Part|Ger|Conv)(,(Fin|Inf|Part|Ger|Conv))*$"
+      },
+      "Aspect": {
+       "type": "string",
+       "pattern": "^(Imp|Perf|Prog)(,(Imp|Perf|Prog))*$"
+      },
+      "Degree": {
+       "type": "string",
+       "pattern": "^(Pos|Cmp|Sup|Abs)(,(Pos|Cmp|Sup|Abs))*$"
+      },
+      "Animacy": {
+       "type": "string",
+       "pattern": "^(Anim|Inan)(,(Anim|Inan))*$"
+      },
+      "Polarity": {
+       "type": "string",
+       "pattern": "^(Neg|Pos)(,(Neg|Pos))*$"
+      },
+      "Definite": {
+       "type": "string",
+       "pattern": "^(Def|Ind)(,(Def|Ind))*$"
+      },
+      "PronType": {
+       "type": "string",
+       "pattern": "^(Prs|Dem|Int|Rel|Ind|Tot|Neg|Art)(,(Prs|Dem|Int|Rel|Ind|Tot|Neg|Art))*$"
+      },
+      "NumType": {
+       "type": "string",
+       "pattern": "^(Card|Ord|Frac|Mult)(,(Card|Ord|Frac|Mult))*$"
+      },
+      "Poss": {
+       "type": "string",
+       "pattern": "^(Yes)(,(Yes))*$"
+      },
+      "Reflex": {
+       "type": "string",
+       "pattern": "^(Yes)(,(Yes))*$"
+      },
+      "Voice": {
+       "type": "string",
+       "pattern": "^(Act|Pass)(,(Act|Pass))*$"
+      }
      }
     },
     "ipa": {
@@ -177,18 +359,22 @@
      "type": "string",
      "minLength": 10
     },
-    "pos_detail": {
-     "type": "string"
-    },
     "register": {
      "type": "string",
      "enum": [
       "neutral",
       "formal",
       "informal",
+      "slang",
       "vulgar",
+      "offensive",
       "literary",
-      "dated"
+      "archaic",
+      "dated",
+      "humorous",
+      "derogatory",
+      "euphemistic",
+      "technical"
      ]
     },
     "cefr": {
@@ -259,6 +445,58 @@
        }
       }
      }
+    },
+    "grammar": {
+     "type": "object",
+     "additionalProperties": false,
+     "description": "Where a sense differs from the lexeme: a countable and an uncountable sense of one noun, a transitive and an intransitive sense of one verb.",
+     "properties": {
+      "countability": {
+       "enum": [
+        "Count",
+        "Mass",
+        "Both"
+       ]
+      },
+      "valency": {
+       "enum": [
+        "Tr",
+        "Intr",
+        "Both",
+        "Refl",
+        "Impers"
+       ]
+      },
+      "number": {
+       "enum": [
+        "Sing",
+        "Plur"
+       ],
+       "description": "Set only for a noun used in one number: singulare or plurale tantum."
+      },
+      "position": {
+       "enum": [
+        "Attr",
+        "Pred"
+       ]
+      },
+      "reflexive": {
+       "type": "boolean"
+      },
+      "auxiliary": {
+       "enum": [
+        "have",
+        "be",
+        "both"
+       ],
+       "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+      }
+     }
+    },
+    "usage": {
+     "type": "string",
+     "maxLength": 60,
+     "description": "A short label a dictionary prints after the sense: a region, a field, a construction (with dative, usually passive)."
     }
    }
   },
@@ -283,7 +521,23 @@
      "type": "string"
     },
     "pos": {
-     "type": "string"
+     "type": "string",
+     "enum": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "PRON",
+      "DET",
+      "ADP",
+      "NUM",
+      "CONJ",
+      "SCONJ",
+      "PART",
+      "INTJ",
+      "PROPN",
+      "AUX"
+     ]
     },
     "why": {
      "type": "string"

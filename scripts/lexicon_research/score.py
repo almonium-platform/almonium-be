@@ -142,7 +142,7 @@ def lenient(e):
                 if ex is False:
                     s["glosses"] = {k: ({"text": v, "exact": False} if isinstance(v, str) else v) for k, v in s.get("glosses", {}).items()}
             for k in list(s):
-                if k not in ("definition", "pos_detail", "register", "cefr", "glosses", "example", "cues"):
+                if k not in ("definition", "grammar", "usage", "register", "cefr", "glosses", "example", "cues"):
                     s.pop(k)
             s["glosses"] = {k: v for k, v in s.get("glosses", {}).items() if v}
     return e
