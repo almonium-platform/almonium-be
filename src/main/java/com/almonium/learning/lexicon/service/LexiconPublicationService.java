@@ -159,7 +159,7 @@ public class LexiconPublicationService {
         }
         for (Pronunciation pronunciation : lexeme.getPronunciations()) {
             String formKey = pronunciation.getForm() == null ? "" : formKeys.get(pronunciation.getForm());
-            existing.put(pronunciation.getVariety() + "|" + formKey, pronunciation);
+            existing.put(key(pronunciation.getVariety(), pronunciation.getRank(), formKey), pronunciation);
         }
         Map<String, Pronunciation> stale = new HashMap<>(existing);
         stale.keySet().removeAll(wantedPronunciations(document));
@@ -170,8 +170,17 @@ public class LexiconPublicationService {
         }
 
         lexeme.getForms().clear();
+        Map<String, Integer> ranks = new HashMap<>();
         for (PronunciationDocument spoken : document.pronunciations()) {
-            place(lexeme, existing.remove(spoken.variety() + "|"), null, spoken.variety(), spoken.ipa(), writer);
+            int rank = ranks.merge(spoken.variety(), 1, Integer::sum);
+            place(
+                    lexeme,
+                    existing.remove(key(spoken.variety(), rank, "")),
+                    null,
+                    spoken.variety(),
+                    rank,
+                    spoken.ipa(),
+                    writer);
         }
         seen.clear();
         for (FormDocument formDocument : document.forms()) {
@@ -184,39 +193,55 @@ public class LexiconPublicationService {
             for (Map.Entry<String, String> ipa : formDocument.ipa().entrySet()) {
                 place(
                         lexeme,
-                        existing.remove(ipa.getKey() + "|" + formKey),
+                        existing.remove(key(ipa.getKey(), 1, formKey)),
                         form,
                         ipa.getKey(),
+                        1,
                         ipa.getValue(),
                         writer);
             }
         }
     }
 
-    /** The keys the entry's pronunciations will stand under: "variety|" for the lexeme, "variety|form#n" for a form. */
+    /**
+     * The keys the entry's pronunciations will stand under: "variety#rank|" for the lexeme's own, numbered within
+     * the variety in the entry's order, and "variety#1|form#n" for the n-th form spelled alike.
+     */
     private static Set<String> wantedPronunciations(LexemeDocument document) {
         Set<String> wanted = new HashSet<>();
+        Map<String, Integer> ranks = new HashMap<>();
         for (PronunciationDocument spoken : document.pronunciations()) {
-            wanted.add(spoken.variety() + "|");
+            wanted.add(key(spoken.variety(), ranks.merge(spoken.variety(), 1, Integer::sum), ""));
         }
         Map<String, Integer> seen = new HashMap<>();
         for (FormDocument form : document.forms()) {
             String formKey = form.form() + "#" + seen.merge(form.form(), 1, Integer::sum);
             for (String variety : form.ipa().keySet()) {
-                wanted.add(variety + "|" + formKey);
+                wanted.add(key(variety, 1, formKey));
             }
         }
         return wanted;
     }
 
+    private static String key(String variety, int rank, String formKey) {
+        return variety + "#" + rank + "|" + formKey;
+    }
+
     private Pronunciation place(
-            Lexeme lexeme, Pronunciation existing, LexemeForm form, String variety, String phonemic, String writer) {
+            Lexeme lexeme,
+            Pronunciation existing,
+            LexemeForm form,
+            String variety,
+            int rank,
+            String phonemic,
+            String writer) {
         Pronunciation pronunciation = existing != null ? existing : lexeme.addPronunciation(new Pronunciation());
         if (existing == null || !phonemic.equals(existing.getPhonemic())) {
             pronunciation.setStatus(LexiconStatus.PROVISIONAL);
         }
         pronunciation.setForm(form);
         pronunciation.setVariety(variety);
+        pronunciation.setRank(rank);
         pronunciation.setPhonemic(phonemic);
         pronunciation.setSource(writer);
         return pronunciation;

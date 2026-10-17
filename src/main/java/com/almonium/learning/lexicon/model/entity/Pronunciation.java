@@ -44,6 +44,10 @@ public class Pronunciation {
     LexemeForm form;
 
     String variety;
+
+    /** 1-based, within the variety: a word one variety says two ways has rank 1 and rank 2. */
+    int rank;
+
     String phonemic;
     String reading;
     String engineInput;

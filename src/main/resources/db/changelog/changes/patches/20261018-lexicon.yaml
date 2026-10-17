@@ -706,3 +706,26 @@ databaseChangeLog:
             tableName: rejected_headword
             columnNames: language, headword
             constraintName: uq_rejected_headword_language_headword
+  - changeSet:
+      id: 20261018-lexicon-pronunciation-rank
+      author: claude
+      comment: >-
+        One variety may say a word two ways ("either" in en-US), so a pronunciation is numbered within its variety
+        and the unique key takes the number: (lexeme, form, variety, rank), nulls not distinct as before.
+      changes:
+        - addColumn:
+            schemaName: lexicon
+            tableName: pronunciation
+            columns:
+              - column:
+                  name: rank
+                  type: integer
+                  defaultValueNumeric: 1
+                  constraints:
+                    nullable: false
+        - sql:
+            sql: >-
+              ALTER TABLE lexicon.pronunciation DROP CONSTRAINT uq_pronunciation_lexeme_form_variety;
+              ALTER TABLE lexicon.pronunciation
+              ADD CONSTRAINT uq_pronunciation_lexeme_form_variety_rank
+              UNIQUE NULLS NOT DISTINCT (lexeme_id, lexeme_form_id, variety, rank)

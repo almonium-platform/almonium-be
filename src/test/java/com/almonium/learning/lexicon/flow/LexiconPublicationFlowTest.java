@@ -278,6 +278,25 @@ class LexiconPublicationFlowTest {
         assertThat(lookup("en", "bloke").lexemes().getFirst().headword()).isEqualTo("blokes");
     }
 
+    @Test
+    void aVarietyThatSaysAWordTwoWaysKeepsBothRankedAndInPlace() {
+        ObjectNode entry = entry("bloke");
+        ArrayNode spoken = (ArrayNode) entry.get("lexemes").get(0).get("pronunciations");
+        spoken.insert(1, objectMapper.createObjectNode().put("variety", "en-US").put("ipa", "/ˈblɔʊk/"));
+        publishOne(publication(entry, meta("bloke")));
+        Set<UUID> pronunciations = pronunciationIds();
+
+        publishOne(publication(entry, meta("bloke")));
+
+        LexemeView bloke = lookup("en", "bloke").lexemes().getFirst();
+        assertThat(bloke.pronunciations().stream()
+                        .filter(pronunciation -> pronunciation.formId() == null)
+                        .map(pronunciation ->
+                                pronunciation.variety() + "#" + pronunciation.rank() + " " + pronunciation.phonemic()))
+                .containsExactly("en-GB#1 /ˈbləʊk/", "en-US#1 /ˈbloʊk/", "en-US#2 /ˈblɔʊk/");
+        assertThat(pronunciationIds()).isEqualTo(pronunciations);
+    }
+
     private LexiconEntryResponse lookup(String language, String text) {
         ResponseEntity<LexiconEntryResponse> response = reading.entries(language, text);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);

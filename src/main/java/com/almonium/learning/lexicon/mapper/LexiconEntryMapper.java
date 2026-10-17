@@ -84,6 +84,7 @@ public class LexiconEntryMapper {
                 pronunciation.getId(),
                 pronunciation.getForm() == null ? null : pronunciation.getForm().getId(),
                 pronunciation.getVariety(),
+                pronunciation.getRank(),
                 pronunciation.getPhonemic(),
                 pronunciation.getStatus().label());
     }

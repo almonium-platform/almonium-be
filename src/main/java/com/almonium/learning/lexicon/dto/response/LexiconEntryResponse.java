@@ -34,7 +34,7 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
 
     public record FormView(UUID id, String form, Map<String, Object> features) {}
 
-    public record PronunciationView(UUID id, UUID formId, String variety, String phonemic, String status) {}
+    public record PronunciationView(UUID id, UUID formId, String variety, int rank, String phonemic, String status) {}
 
     public record SenseView(
             UUID id,

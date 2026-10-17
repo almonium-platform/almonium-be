@@ -68,7 +68,7 @@ public class Lexeme {
     List<LexemeForm> forms = new ArrayList<>();
 
     @OneToMany(mappedBy = "lexeme", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("variety")
+    @OrderBy("variety, rank")
     @BatchSize(size = 50)
     List<Pronunciation> pronunciations = new ArrayList<>();
 
