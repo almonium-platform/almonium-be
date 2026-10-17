@@ -41,6 +41,7 @@
         <version.uuid-creator>6.1.1</version.uuid-creator>
         <version.zxing>3.5.4</version.zxing>
         <version.maxmind-db>4.2.0</version.maxmind-db>
+        <version.json-schema-validator>1.5.6</version.json-schema-validator>
     </properties>
 
     <dependencyManagement>
@@ -193,6 +194,12 @@
             <groupId>com.maxmind.db</groupId>
             <artifactId>maxmind-db</artifactId>
             <version>${version.maxmind-db}</version>
+        </dependency>
+        <!--        checks a published dictionary entry against the writers' JSON schema (draft 2020-12)-->
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${version.json-schema-validator}</version>
         </dependency>
         <!--        transitive dependencies-->
         <dependency>
