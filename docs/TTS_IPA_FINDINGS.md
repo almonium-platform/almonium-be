@@ -586,6 +586,61 @@ Not yet heard with native voices: French, Spanish and Polish word by word
 (covered only by "very good" overall), and whether a stress mark in the
 spelling also beats IPA for Spanish. The three runs used 919 and 409 characters.
 
+### The full loop, run once (2026-10-18)
+
+`scripts/tts_research/elevenlabs_loop.py` is the decision's verification loop
+built and run end to end: 100 headwords per language for French, Spanish,
+Polish and Ukrainian (the first three from the lexicon entries and wordfreq,
+Ukrainian from the entries with the input built by the recipe rule: bare if
+one syllable, IPA with /ɨ/ if the spelling contains "и", otherwise the
+spelling with a stress mark derived from the entry's IPA), `eleven_v4` with
+the native voice per language, three requests in parallel, every clip
+transcribed locally by faster-whisper `small` (CPU, int8, language fixed), a
+mismatch regenerated once, a second mismatch left "unverified". A transcript
+counts as a match when it equals the headword, equals it without diacritics,
+or is within one edit for words of six letters or more. Clips, `manifest.json`,
+`report.md` and the listening sheet `index.html` are outside the repository
+in the session scratch folder (`tts-loop/`).
+
+| Language | Matched first time | After regeneration | Unverified | Credits | Mean s/request |
+|---|---|---|---|---|---|
+| French (Nicolas) | 79 | 4 | 17 | 292 | 0.61 |
+| Spanish (David Martin) | 97 | 1 | 2 | 268 | 0.63 |
+| Polish (Adam) | 89 | 6 | 5 | 246 | 0.62 |
+| Ukrainian (Alex Nekrasov) | 87 | 4 | 9 | 397 | 0.69 |
+
+448 requests cost 1,203 credits (about 3 per word; the Ukrainian IPA inputs
+cost the most), with no 429 in the run. What the transcripts show, pending
+the owner's listen of the 48 flagged clips:
+
+- The weak side is the listener, not the engine, for French. Nearly every
+  French "unverified" word is a monosyllable or a homophone that whisper
+  spelt another way (`fer`/faire, `maire`/mer, `mari`/Marie, `pose`/pause,
+  `île`/il, `fonds`/fon, `poids`/pois; infinitives written as `-ez`). An
+  orthographic comparison is the wrong gate for French; it needs a phonetic
+  one (compare grapheme-to-phoneme output of transcript and headword) or a
+  carrier sentence. Only `faible`, `homme`, `peau`, `taille` look like the
+  engine.
+- Ukrainian failures cluster in the IPA mode: 6 of 31 IPA inputs are
+  unverified against 2 of 57 stress-mark inputs and 1 of 12 bare. The
+  recurring fault is /ʋ/ read as a vowel (`створити` heard "Стуарити",
+  `вибір` "Уибір", `зазвичай` "Зазуй чай"). The stress mark again pulled one
+  word to Russian: `ціна́` was heard "Цена". Whisper also spells Ukrainian
+  with Russian habits (`Период`, `Партия`, `Читаты`), which the edit-distance
+  rule let through; a Ukrainian-tuned listener or a stricter rule is needed.
+- Polish failures are final devoicing spelt as heard (`teraz` "Teras"), `ł`
+  heard as a vowel (`były` "Bui"), and the engine or listener adding a
+  preposition before a locative form (`w stronie`, `w sprawie`).
+- Spanish: `ciudad` was heard as English "See you then" twice, worth a listen;
+  `niña` as "MÍÑA".
+- The headword lists themselves carry forms, not lemmas: the Polish list is
+  frequency-ranked (`roku`, `były`, `taki`, `niego`, `stronie`, `sprawie`,
+  `mojej`, `jesteśmy`), and Spanish has the participles `dejado`, `ido`.
+  Those are list faults, not engine faults.
+- Regeneration pays: 15 of 48 mismatches matched on the second clip, so the
+  engine's non-determinism is large enough that a retry is worth one more
+  request before falling back.
+
 ### Terms for keeping and serving clips (checked 2026-10-02)
 
 Read from ElevenLabs' Terms of Service (last updated 31 March 2026), their
