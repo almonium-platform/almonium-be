@@ -1,0 +1,708 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261018-lexicon-schema
+      author: claude
+      comment: >-
+        The lexicon lives in its own schema so a read-only role can later be granted on the dictionary alone.
+      changes:
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS lexicon
+  - changeSet:
+      id: 20261018-lexicon-tables
+      author: claude
+      comment: >-
+        The dictionary the backend owns (linguistic core, phase 2). The entry writers build an entry per headword
+        and publish it through the signed internal surface; web and mobile read it. lexeme is one word in one part
+        of speech, numbered when two share a lemma and pos; lexeme_form its inflections, normalized for lookup;
+        pronunciation one variety's IPA of the lexeme (lexeme_form_id null) or of one form; sense, sense_gloss,
+        sense_example and sense_cue the meanings; lexeme_relation points at another lemma, resolved to a lexeme when
+        it exists; lexeme_parts and audio_clip stay empty until later phases. lexicon_build records who wrote a
+        lexeme, with what prompt and at what cost, one row per publish. rejected_headword keeps the writer's verdict
+        that a headword is not a lemma of the language, so it is not asked again.
+      changes:
+        - createTable:
+            schemaName: lexicon
+            tableName: lexeme
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headword
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lemma
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pos
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: homograph_no
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kind
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grammar
+                  type: jsonb
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pattern
+                  type: varchar(200)
+              - column:
+                  name: zipf
+                  type: numeric(4,2)
+              - column:
+                  name: entry_version
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: lexeme
+            columnNames: language, lemma, pos, homograph_no
+            constraintName: uq_lexeme_language_lemma_pos_homograph
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme
+            indexName: ix_lexeme_language_headword
+            columns:
+              - column:
+                  name: language
+              - column:
+                  name: headword
+        - sql:
+            comment: Lookup is case-insensitive on the headword and the lemma.
+            sql: >-
+              CREATE INDEX ix_lexeme_language_lower_headword ON lexicon.lexeme (language, lower(headword));
+              CREATE INDEX ix_lexeme_language_lower_lemma ON lexicon.lexeme (language, lower(lemma));
+        - createTable:
+            schemaName: lexicon
+            tableName: lexeme_form
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lexeme_form_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: form
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: normalized_form
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: features
+                  type: jsonb
+                  constraints:
+                    nullable: false
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme_form
+            indexName: ix_lexeme_form_lexeme
+            columns:
+              - column:
+                  name: lexeme_id
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme_form
+            indexName: ix_lexeme_form_language_normalized
+            columns:
+              - column:
+                  name: language
+              - column:
+                  name: normalized_form
+        - createTable:
+            schemaName: lexicon
+            tableName: pronunciation
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_pronunciation_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: lexeme_form_id
+                  type: uuid
+                  constraints:
+                    foreignKeyName: fk_pronunciation_lexeme_form
+                    references: lexicon.lexeme_form(id)
+                    deleteCascade: true
+              - column:
+                  name: variety
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phonemic
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reading
+                  type: text
+              - column:
+                  name: engine_input
+                  type: text
+              - column:
+                  name: status
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+        - sql:
+            comment: NULLS NOT DISTINCT so the lexeme itself also has one row per variety.
+            sql: >-
+              ALTER TABLE lexicon.pronunciation
+              ADD CONSTRAINT uq_pronunciation_lexeme_form_variety
+              UNIQUE NULLS NOT DISTINCT (lexeme_id, lexeme_form_id, variety)
+        - createTable:
+            schemaName: lexicon
+            tableName: sense
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_sense_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: definition
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cefr
+                  type: varchar(2)
+              - column:
+                  name: cefr_source
+                  type: varchar(16)
+              - column:
+                  name: register
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grammar
+                  type: jsonb
+              - column:
+                  name: usage
+                  type: varchar(60)
+              - column:
+                  name: regions
+                  type: jsonb
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: sense
+            columnNames: lexeme_id, position
+            constraintName: uq_sense_lexeme_position
+        - createTable:
+            schemaName: lexicon
+            tableName: sense_gloss
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: sense_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_sense_gloss_sense
+                    references: lexicon.sense(id)
+                    deleteCascade: true
+              - column:
+                  name: fluent_language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gloss
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rank
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exact
+                  type: boolean
+              - column:
+                  name: collides_with
+                  type: text
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: sense_gloss
+            columnNames: sense_id, fluent_language, rank
+            constraintName: uq_sense_gloss_sense_language_rank
+        - createTable:
+            schemaName: lexicon
+            tableName: sense_example
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: sense_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_sense_example_sense
+                    references: lexicon.sense(id)
+                    deleteCascade: true
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: origin
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translation
+                  type: jsonb
+        - createIndex:
+            schemaName: lexicon
+            tableName: sense_example
+            indexName: ix_sense_example_sense
+            columns:
+              - column:
+                  name: sense_id
+        - createTable:
+            schemaName: lexicon
+            tableName: sense_cue
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: sense_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_sense_cue_sense
+                    references: lexicon.sense(id)
+                    deleteCascade: true
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kind
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: difficulty
+                  type: varchar(16)
+        - createIndex:
+            schemaName: lexicon
+            tableName: sense_cue
+            indexName: ix_sense_cue_sense
+            columns:
+              - column:
+                  name: sense_id
+        - createTable:
+            schemaName: lexicon
+            tableName: lexeme_relation
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lexeme_relation_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_lemma
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_pos
+                  type: varchar(8)
+              - column:
+                  name: target_lexeme_id
+                  type: uuid
+              - column:
+                  name: evidence
+                  type: text
+        - addForeignKeyConstraint:
+            baseTableSchemaName: lexicon
+            baseTableName: lexeme_relation
+            baseColumnNames: target_lexeme_id
+            constraintName: fk_lexeme_relation_target
+            referencedTableSchemaName: lexicon
+            referencedTableName: lexeme
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme_relation
+            indexName: ix_lexeme_relation_lexeme
+            columns:
+              - column:
+                  name: lexeme_id
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme_relation
+            indexName: ix_lexeme_relation_target
+            columns:
+              - column:
+                  name: target_lemma
+              - column:
+                  name: target_pos
+        - createTable:
+            schemaName: lexicon
+            tableName: lexeme_parts
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lexeme_parts_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: position
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gloss
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexeme_parts
+            indexName: ix_lexeme_parts_lexeme
+            columns:
+              - column:
+                  name: lexeme_id
+        - createTable:
+            schemaName: lexicon
+            tableName: lexicon_build
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: lexeme_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lexicon_build_lexeme
+                    references: lexicon.lexeme(id)
+                    deleteCascade: true
+              - column:
+                  name: writer
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: varchar(64)
+              - column:
+                  name: prompt_version
+                  type: varchar(16)
+              - column:
+                  name: register_version
+                  type: varchar(16)
+              - column:
+                  name: schema_version
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: effort
+                  type: varchar(16)
+              - column:
+                  name: list_cost_usd
+                  type: numeric(10,6)
+              - column:
+                  name: relabel_cost_usd
+                  type: numeric(10,6)
+              - column:
+                  name: input_tokens
+                  type: integer
+              - column:
+                  name: output_tokens
+                  type: integer
+              - column:
+                  name: cache_read_tokens
+                  type: integer
+              - column:
+                  name: cache_write_tokens
+                  type: integer
+              - column:
+                  name: verdicts
+                  type: jsonb
+              - column:
+                  name: meta
+                  type: jsonb
+              - column:
+                  name: built_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createIndex:
+            schemaName: lexicon
+            tableName: lexicon_build
+            indexName: ix_lexicon_build_lexeme_built
+            columns:
+              - column:
+                  name: lexeme_id
+              - column:
+                  name: built_at
+        - createTable:
+            schemaName: lexicon
+            tableName: audio_clip
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: pronunciation_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_audio_clip_pronunciation
+                    references: lexicon.pronunciation(id)
+                    deleteCascade: true
+              - column:
+                  name: engine
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: voice
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pace
+                  type: numeric(3,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: format
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: object_key
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: byte_size
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: duration_ms
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: audio_clip
+            columnNames: pronunciation_id, engine, voice, model, pace, format
+            constraintName: uq_audio_clip_pronunciation_rendering
+        - createTable:
+            schemaName: lexicon
+            tableName: rejected_headword
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headword
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: writer
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: varchar(64)
+              - column:
+                  name: prompt_version
+                  type: varchar(16)
+              - column:
+                  name: rejected_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: rejected_headword
+            columnNames: language, headword
+            constraintName: uq_rejected_headword_language_headword
