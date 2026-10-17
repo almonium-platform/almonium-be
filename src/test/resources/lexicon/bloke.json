@@ -1,0 +1,77 @@
+{
+ "language": "en",
+ "headword": "bloke",
+ "lexemes": [
+  {
+   "lemma": "bloke",
+   "pos": "NOUN",
+   "kind": "word",
+   "grammar": {
+    "countability": "Count"
+   },
+   "forms": [
+    {
+     "form": "bloke",
+     "features": {
+      "Number": "Sing"
+     }
+    },
+    {
+     "form": "blokes",
+     "features": {
+      "Number": "Plur"
+     },
+     "ipa": {
+      "en-US": "/ˈbloʊks/",
+      "en-GB": "/ˈbləʊks/"
+     }
+    }
+   ],
+   "pronunciations": [
+    {
+     "variety": "en-US",
+     "ipa": "/ˈbloʊk/"
+    },
+    {
+     "variety": "en-GB",
+     "ipa": "/ˈbləʊk/"
+    }
+   ],
+   "senses": [
+    {
+     "definition": "a man, especially an ordinary one, used mainly in British English",
+     "register": "informal",
+     "cefr": "B2",
+     "glosses": {
+      "uk": "мужик",
+      "de": "Kerl",
+      "pl": "facet"
+     },
+     "example": "He seems like a nice bloke, always happy to help.",
+     "cues": [
+      {
+       "kind": "wording",
+       "text": "a casual British word for any adult male person"
+      },
+      {
+       "kind": "wording",
+       "text": "an everyday, friendly way of talking about a man you meet"
+      },
+      {
+       "kind": "cloze",
+       "text": "He seems like a nice ___, always happy to help."
+      }
+     ],
+     "usage": "British English"
+    }
+   ],
+   "relations": [
+    {
+     "type": "family",
+     "lemma": "blokey",
+     "pos": "ADJ"
+    }
+   ]
+  }
+ ]
+}

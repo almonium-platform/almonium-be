@@ -1,0 +1,187 @@
+{
+ "language": "en",
+ "headword": "chuckle",
+ "lexemes": [
+  {
+   "lemma": "chuckle",
+   "pos": "VERB",
+   "kind": "word",
+   "grammar": {},
+   "forms": [
+    {
+     "form": "chuckle",
+     "features": {
+      "VerbForm": "Inf"
+     }
+    },
+    {
+     "form": "chuckles",
+     "features": {
+      "Tense": "Pres",
+      "Person": 3,
+      "Number": "Sing"
+     },
+     "ipa": {
+      "en-US": "/ˈtʃʌk.əlz/",
+      "en-GB": "/ˈtʃʌk.əlz/"
+     }
+    },
+    {
+     "form": "chuckled",
+     "features": {
+      "Tense": "Past"
+     },
+     "ipa": {
+      "en-US": "/ˈtʃʌk.əld/",
+      "en-GB": "/ˈtʃʌk.əld/"
+     }
+    },
+    {
+     "form": "chuckled",
+     "features": {
+      "VerbForm": "Part",
+      "Tense": "Past"
+     },
+     "ipa": {
+      "en-US": "/ˈtʃʌk.əld/",
+      "en-GB": "/ˈtʃʌk.əld/"
+     }
+    },
+    {
+     "form": "chuckling",
+     "features": {
+      "VerbForm": "Part",
+      "Tense": "Pres"
+     },
+     "ipa": {
+      "en-US": "/ˈtʃʌk.lɪŋ/",
+      "en-GB": "/ˈtʃʌk.lɪŋ/"
+     }
+    }
+   ],
+   "pronunciations": [
+    {
+     "variety": "en-US",
+     "ipa": "/ˈtʃʌk.əl/"
+    },
+    {
+     "variety": "en-GB",
+     "ipa": "/ˈtʃʌk.əl/"
+    }
+   ],
+   "senses": [
+    {
+     "definition": "to laugh quietly, especially because something is funny or pleasing",
+     "register": "neutral",
+     "cefr": "B2",
+     "glosses": {
+      "uk": "посміюватися",
+      "de": {
+       "text": "leise lachen",
+       "exact": false
+      },
+      "pl": "chichotać"
+     },
+     "example": "He chuckled softly as he read the funny letter.",
+     "cues": [
+      {
+       "kind": "wording",
+       "text": "to make a low, soft laughing sound to yourself"
+      },
+      {
+       "kind": "wording",
+       "text": "to laugh gently and not loudly when amused"
+      },
+      {
+       "kind": "cloze",
+       "text": "He ___ softly as he read the funny letter."
+      }
+     ],
+     "grammar": {
+      "valency": "Intr"
+     }
+    }
+   ],
+   "relations": [
+    {
+     "type": "family",
+     "lemma": "chuckle",
+     "pos": "NOUN"
+    }
+   ]
+  },
+  {
+   "lemma": "chuckle",
+   "pos": "NOUN",
+   "kind": "word",
+   "grammar": {
+    "countability": "Count"
+   },
+   "forms": [
+    {
+     "form": "chuckle",
+     "features": {
+      "Number": "Sing"
+     }
+    },
+    {
+     "form": "chuckles",
+     "features": {
+      "Number": "Plur"
+     },
+     "ipa": {
+      "en-US": "/ˈtʃʌk.əlz/",
+      "en-GB": "/ˈtʃʌk.əlz/"
+     }
+    }
+   ],
+   "pronunciations": [
+    {
+     "variety": "en-US",
+     "ipa": "/ˈtʃʌk.əl/"
+    },
+    {
+     "variety": "en-GB",
+     "ipa": "/ˈtʃʌk.əl/"
+    }
+   ],
+   "senses": [
+    {
+     "definition": "a quiet laugh, often made with your mouth closed",
+     "register": "neutral",
+     "cefr": "B2",
+     "glosses": {
+      "uk": "смішок",
+      "de": {
+       "text": "leises Lachen",
+       "exact": false
+      },
+      "pl": "chichot"
+     },
+     "example": "Her joke drew a warm chuckle from the audience.",
+     "cues": [
+      {
+       "kind": "wording",
+       "text": "a soft, low sound you make when something amuses you"
+      },
+      {
+       "kind": "wording",
+       "text": "a gentle laugh that is not loud"
+      },
+      {
+       "kind": "cloze",
+       "text": "Her joke drew a warm ___ from the audience."
+      }
+     ]
+    }
+   ],
+   "relations": [
+    {
+     "type": "family",
+     "lemma": "chuckle",
+     "pos": "VERB"
+    }
+   ]
+  }
+ ]
+}
