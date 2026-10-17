@@ -112,3 +112,24 @@ wanted works nobody is preparing, reserves one with
 `POST /internal/books/factory/preparations` and pushes its progress to
 `POST /internal/books/factory/preparations/{id}/status`, all signed like
 publications. See `COPYRIGHT_AND_CATALOGUE.md`, "The factory".
+
+## The lexicon (2026-10-18)
+
+The backend owns the dictionary, in the `lexicon` schema. The entry writers
+publish to `PUT /internal/lexicon/entries`, signed like publications, with one
+`{writer, entry, meta, built_at}` body or an array of them; `entry` is the
+writer's JSON as `scripts/lexicon_research/entry.schema.json` (version 2)
+describes it and is checked against that schema, `meta` the writer's
+`<headword>.meta.json`. Each entry is taken in its own transaction and
+replaces whatever stood for its headword; pronunciations are updated in place
+by variety, rank and form so audio clips keep pointing at them. A single entry
+is refused with **400** and the schema's message; a batch answers **200** with
+one result per entry. `scripts/lexicon_research/publish_entries.py` is the
+loader, reading the token from `ALMONIUM_BOOKS_PUBLISHER_TOKEN` as the
+processor does.
+
+Clients read `GET /public/lexicon/{language}/entries?text=` without
+authentication: the lexemes the word names by headword or lemma, then those it
+is a form of (`matchedForm` says which), each with forms, pronunciations,
+senses, relations, `capabilities` and `provenance`; **404** when the word is
+unknown.
