@@ -109,6 +109,7 @@ public class WebSecurityConfig {
                                         .matcher("/internal/books/publications/rights-check"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/factory/**"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/lexicon/**"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
                                 request -> FirebaseBearerToken.from(request).isPresent()))
                 .cors(Customizer.withDefaults())
@@ -121,7 +122,8 @@ public class WebSecurityConfig {
                                 "/internal/books/publications/withdrawals",
                                 "/internal/books/publications/rights-check",
                                 "/internal/books/import-events",
-                                "/internal/books/factory/**")
+                                "/internal/books/factory/**",
+                                "/internal/lexicon/**")
                         .permitAll()
                         .requestMatchers("/auth/session", "/auth/session/logout")
                         .permitAll()
