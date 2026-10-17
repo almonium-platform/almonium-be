@@ -1,0 +1,7737 @@
+[
+ {
+  "headword": "más",
+  "zipf": 6.63,
+  "set": "night16"
+ },
+ {
+  "headword": "también",
+  "zipf": 6.19,
+  "set": "night16"
+ },
+ {
+  "headword": "así",
+  "zipf": 6.12,
+  "set": "night16"
+ },
+ {
+  "headword": "bien",
+  "zipf": 6.11,
+  "set": "night16"
+ },
+ {
+  "headword": "hacer",
+  "zipf": 6.07,
+  "set": "night16"
+ },
+ {
+  "headword": "ahora",
+  "zipf": 6.05,
+  "set": "night16"
+ },
+ {
+  "headword": "vez",
+  "zipf": 6.04,
+  "set": "night16"
+ },
+ {
+  "headword": "parte",
+  "zipf": 6.0,
+  "set": "night16"
+ },
+ {
+  "headword": "solo",
+  "zipf": 6.0,
+  "set": "night16"
+ },
+ {
+  "headword": "tiempo",
+  "zipf": 5.97,
+  "set": "night16"
+ },
+ {
+  "headword": "día",
+  "zipf": 5.96,
+  "set": "night16"
+ },
+ {
+  "headword": "mejor",
+  "zipf": 5.95,
+  "set": "night16"
+ },
+ {
+  "headword": "mucho",
+  "zipf": 5.95,
+  "set": "night16"
+ },
+ {
+  "headword": "ver",
+  "zipf": 5.95,
+  "set": "night16"
+ },
+ {
+  "headword": "vida",
+  "zipf": 5.95,
+  "set": "night16"
+ },
+ {
+  "headword": "siempre",
+  "zipf": 5.93,
+  "set": "night16"
+ },
+ {
+  "headword": "después",
+  "zipf": 5.9,
+  "set": "night16"
+ },
+ {
+  "headword": "gente",
+  "zipf": 5.9,
+  "set": "night16"
+ },
+ {
+  "headword": "mundo",
+  "zipf": 5.89,
+  "set": "night16"
+ },
+ {
+  "headword": "mas",
+  "zipf": 5.87,
+  "set": "night16"
+ },
+ {
+  "headword": "gracias",
+  "zipf": 5.86,
+  "set": "night16"
+ },
+ {
+  "headword": "gran",
+  "zipf": 5.84,
+  "set": "night16"
+ },
+ {
+  "headword": "menos",
+  "zipf": 5.84,
+  "set": "night16"
+ },
+ {
+  "headword": "nunca",
+  "zipf": 5.84,
+  "set": "night16"
+ },
+ {
+  "headword": "tanto",
+  "zipf": 5.84,
+  "set": "night16"
+ },
+ {
+  "headword": "antes",
+  "zipf": 5.82,
+  "set": "night16"
+ },
+ {
+  "headword": "poco",
+  "zipf": 5.82,
+  "set": "night16"
+ },
+ {
+  "headword": "tener",
+  "zipf": 5.81,
+  "set": "night16"
+ },
+ {
+  "headword": "trabajo",
+  "zipf": 5.81,
+  "set": "night16"
+ },
+ {
+  "headword": "lugar",
+  "zipf": 5.8,
+  "set": "night16"
+ },
+ {
+  "headword": "hecho",
+  "zipf": 5.79,
+  "set": "night16"
+ },
+ {
+  "headword": "sólo",
+  "zipf": 5.79,
+  "set": "night16"
+ },
+ {
+  "headword": "decir",
+  "zipf": 5.78,
+  "set": "night16"
+ },
+ {
+  "headword": "gobierno",
+  "zipf": 5.78,
+  "set": "night16"
+ },
+ {
+  "headword": "país",
+  "zipf": 5.78,
+  "set": "night16"
+ },
+ {
+  "headword": "casa",
+  "zipf": 5.77,
+  "set": "night16"
+ },
+ {
+  "headword": "forma",
+  "zipf": 5.77,
+  "set": "night16"
+ },
+ {
+  "headword": "nuevo",
+  "zipf": 5.77,
+  "set": "night16"
+ },
+ {
+  "headword": "hoy",
+  "zipf": 5.74,
+  "set": "night16"
+ },
+ {
+  "headword": "caso",
+  "zipf": 5.71,
+  "set": "night16"
+ },
+ {
+  "headword": "momento",
+  "zipf": 5.71,
+  "set": "night16"
+ },
+ {
+  "headword": "bueno",
+  "zipf": 5.7,
+  "set": "night16"
+ },
+ {
+  "headword": "ciudad",
+  "zipf": 5.7,
+  "set": "night16"
+ },
+ {
+  "headword": "luego",
+  "zipf": 5.69,
+  "set": "night16"
+ },
+ {
+  "headword": "nacional",
+  "zipf": 5.69,
+  "set": "night16"
+ },
+ {
+  "headword": "verdad",
+  "zipf": 5.68,
+  "set": "night16"
+ },
+ {
+  "headword": "historia",
+  "zipf": 5.67,
+  "set": "night16"
+ },
+ {
+  "headword": "entonces",
+  "zipf": 5.65,
+  "set": "night16"
+ },
+ {
+  "headword": "tipo",
+  "zipf": 5.65,
+  "set": "night16"
+ },
+ {
+  "headword": "general",
+  "zipf": 5.64,
+  "set": "night16"
+ },
+ {
+  "headword": "mayor",
+  "zipf": 5.64,
+  "set": "night16"
+ },
+ {
+  "headword": "tal",
+  "zipf": 5.64,
+  "set": "night16"
+ },
+ {
+  "headword": "además",
+  "zipf": 5.63,
+  "set": "night16"
+ },
+ {
+  "headword": "mal",
+  "zipf": 5.62,
+  "set": "night16"
+ },
+ {
+  "headword": "acuerdo",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "manera",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "nombre",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "ley",
+  "zipf": 5.6,
+  "set": "night16"
+ },
+ {
+  "headword": "medio",
+  "zipf": 5.6,
+  "set": "night16"
+ },
+ {
+  "headword": "partido",
+  "zipf": 5.6,
+  "set": "night16"
+ },
+ {
+  "headword": "grupo",
+  "zipf": 5.58,
+  "set": "night16"
+ },
+ {
+  "headword": "hombre",
+  "zipf": 5.58,
+  "set": "night16"
+ },
+ {
+  "headword": "mujer",
+  "zipf": 5.57,
+  "set": "night16"
+ },
+ {
+  "headword": "persona",
+  "zipf": 5.56,
+  "set": "night16"
+ },
+ {
+  "headword": "sistema",
+  "zipf": 5.56,
+  "set": "night16"
+ },
+ {
+  "headword": "casi",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "fin",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "noche",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pasado",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "presidente",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "cosa",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "dentro",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "familia",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "lado",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "buen",
+  "zipf": 5.52,
+  "set": "night16"
+ },
+ {
+  "headword": "pueblo",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "final",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "problema",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "punto",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "agua",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "equipo",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "saber",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "dar",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "embargo",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "favor",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "importante",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "información",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "mañana",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "semana",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "dinero",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "social",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "ejemplo",
+  "zipf": 5.46,
+  "set": "night16"
+ },
+ {
+  "headword": "igual",
+  "zipf": 5.46,
+  "set": "night16"
+ },
+ {
+  "headword": "hablar",
+  "zipf": 5.45,
+  "set": "night16"
+ },
+ {
+  "headword": "hora",
+  "zipf": 5.45,
+  "set": "night16"
+ },
+ {
+  "headword": "centro",
+  "zipf": 5.44,
+  "set": "night16"
+ },
+ {
+  "headword": "derecho",
+  "zipf": 5.44,
+  "set": "night16"
+ },
+ {
+  "headword": "cambio",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "idea",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "muerte",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "tarde",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "través",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "realidad",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "dicho",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "frente",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "incluso",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "primero",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "real",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "desarrollo",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "hijo",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "sociedad",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "tema",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "nivel",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "seguro",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "juego",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "llegar",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "mano",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "paso",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "posible",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "proyecto",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "artículo",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "cerca",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "cierto",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "grande",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "razón",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "todavía",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "amigo",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "mayoría",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "padre",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "salir",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "seguridad",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "tierra",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "visto",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "único",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "segundo",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "último",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "cabeza",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "foto",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "internacional",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "pasar",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "público",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "seguir",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "servicio",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "situación",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "ayuda",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "libro",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "siguiente",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "veo",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "dejar",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "educación",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "proceso",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "sentido",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "clase",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "cuanto",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "mes",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "largo",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "orden",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "puesto",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "realmente",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "alto",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "español",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "junto",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "personal",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "total",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "web",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "base",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "empresa",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "especial",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "salud",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "sitio",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "tomar",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "zona",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "cara",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "mundial",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "obra",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "pensar",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "atención",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "escuela",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "julio",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "respecto",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "vivir",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "capital",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "libre",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "luz",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "población",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "suerte",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "bastante",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "debido",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "difícil",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "fuerte",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "poner",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "rey",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "apoyo",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "dado",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "demasiado",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "fuerza",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "mayo",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "oficial",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "propio",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "control",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "encontrar",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "inglés",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "marzo",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "peor",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "serie",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "sur",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "trabajar",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "asi",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "edad",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "futuro",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "justicia",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "libertad",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "pesar",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "tampoco",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "diciembre",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "imagen",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "norte",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "octubre",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "principal",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "volver",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "voz",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "actual",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "estudio",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "modo",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "palabra",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "abril",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "campo",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "joven",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "plan",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "región",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "dirección",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "investigación",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "junio",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "partir",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "resto",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "vuelta",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "consejo",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "llamado",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "mercado",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "movimiento",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "noviembre",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "papel",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "respuesta",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "simplemente",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "agosto",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "aun",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "cargo",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "comida",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "enero",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "experiencia",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "jefe",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "llevar",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "pena",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "producción",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "siglo",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "cabo",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "común",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "economía",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "espacio",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "febrero",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "opinión",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "oportunidad",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "organización",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "página",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "arte",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "conocer",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "septiembre",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "usar",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "valor",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "vivo",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "calidad",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "causa",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "central",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "director",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "duda",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "fecha",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "necesario",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "pronto",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "resultado",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "cambiar",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "civil",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "hermano",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "local",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "mar",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "viaje",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "acerca",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "alrededor",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "campaña",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "encima",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "interés",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "mensaje",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "negro",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "objetivo",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "popular",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "principio",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "provincia",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "ayer",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "blanco",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "comer",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "compañía",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "especialmente",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "ganar",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "interior",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "lucha",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "nota",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "pequeño",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "prueba",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "sol",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "anterior",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "buscar",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "justo",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "medida",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "éxito",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "adelante",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "aire",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "arriba",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "autor",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "entrar",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "estilo",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "lejos",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "militar",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "oro",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "par",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "plata",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "ayudar",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "canción",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "color",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "defensa",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "dólares",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "fondo",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "fútbol",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "hija",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "menor",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "puerto",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "acceso",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "comunicación",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "evitar",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "finalmente",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "fuente",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "jugar",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "puta",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "siquiera",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "época",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "conocido",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "conseguir",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "construcción",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "corte",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "departamento",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "mitad",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "presente",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "sector",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "superior",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "supuesto",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "boca",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "capacidad",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "comprar",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "crear",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "diferente",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "esperar",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "malo",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "mantener",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "modelo",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "natural",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "necesidad",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "radio",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "viejo",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "administración",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "comisión",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "conmigo",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "crisis",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "culpa",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "diario",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "empezar",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "entender",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "fuego",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "perder",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "suficiente",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "título",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "actualmente",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "creer",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "participación",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "sangre",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "auto",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "probablemente",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "rápido",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "solamente",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "área",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "banda",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "contenido",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "decisión",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "encuentro",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "entrada",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "fiesta",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "imposible",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "pagar",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "televisión",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "abajo",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "atrás",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "capaz",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "club",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "error",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "gusto",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "normal",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "sexo",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "tambien",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "texto",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "análisis",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "apenas",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "contrario",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "dolor",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "efecto",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "mente",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "odio",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "presencia",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "profesor",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "quizás",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "totalmente",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "versión",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "cielo",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "cine",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "cuestión",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "escribir",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "formación",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "importancia",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "origen",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "premio",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "simple",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "unidad",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "and",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "canal",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "cultural",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "escrito",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "interesante",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "juicio",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "noticia",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "original",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "peso",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "pobre",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "prensa",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "altura",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "candidato",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "comentario",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "competencia",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "crees",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "debajo",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "generación",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "gestión",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "menudo",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "presupuesto",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "querido",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "quieras",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "abogado",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "abrir",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "antiguo",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "carga",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "cita",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "consumo",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "contexto",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "correo",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "culo",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "ejercicio",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "elegir",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "genial",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "jugador",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "municipal",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "objeto",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "publicación",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "tratamiento",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "calor",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "conciencia",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "cárcel",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "digital",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "distrito",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "familiar",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "fundación",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "intención",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "listo",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "máximo",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "piedra",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "podido",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "privado",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "recordar",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "secretario",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "sede",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "aeropuerto",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "autoridad",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "cadena",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "continuación",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "delante",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "influencia",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "judicial",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "lenguaje",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "literatura",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "online",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "querer",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "saludos",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "actitud",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "basura",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "búsqueda",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "coche",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "corto",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "documento",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "espíritu",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "existencia",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "frontera",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "idioma",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "leche",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "mirar",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "obstante",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "planeta",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "pobreza",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "quedar",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "sexual",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "tienda",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "unido",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "belleza",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "construir",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "declaración",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "estadounidense",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "estatal",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "jajaja",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "león",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "mínimo",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "papá",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "perfil",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "periodo",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "tarea",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "artista",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "compañero",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "distribución",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "gas",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "grave",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "identidad",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "mirada",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "pedido",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "playa",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "promedio",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "pérdida",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "recibido",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "resistencia",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "terreno",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "voluntad",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "votar",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "aceptar",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "asesinato",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "aspecto",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "cocina",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "conflicto",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "consecuencia",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "correcto",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "inmediatamente",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "jueves",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "medicina",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "novela",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "permiso",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "puente",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "reconocimiento",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "regreso",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "subir",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "tren",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "utilizar",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "categoría",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "claramente",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "concurso",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "creado",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "decreto",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "ejecutivo",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "encontrado",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "estrategia",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "generalmente",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "iii",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "municipio",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "penal",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "pensamiento",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "periodista",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "pregunto",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "prisión",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "realizado",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "accidente",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "actualidad",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "aproximadamente",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "avión",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "bandera",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "biblioteca",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "celular",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "costo",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "deporte",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "disco",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "entrega",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "escritor",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "etapa",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "iniciativa",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "madera",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "minuto",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "precisamente",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "regional",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "resolución",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "secreto",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "tendencia",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "tradicional",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "acaso",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "comienzo",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "condición",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "crimen",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "disponible",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "extranjero",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "formar",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "frase",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "global",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "impacto",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "inteligente",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "intentar",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "laboral",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "móvil",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "presentar",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "presidencia",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "publicidad",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "resolver",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "alcanzar",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "aparte",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "ciudadano",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "colaboración",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "compromiso",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "cuento",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "cáncer",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "deuda",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "división",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "enemigo",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "explicar",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "humanidad",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "humor",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "institución",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "interesa",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "lindo",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "llegada",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "moral",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "museo",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "palacio",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "plataforma",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "regalo",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "religión",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "rápidamente",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "técnico",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "bonito",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "capítulo",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "cumpleaños",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "defender",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "estrella",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "firma",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "for",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "guardia",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "juventud",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "martes",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "probable",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "responder",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "sencillo",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "superficie",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "temprano",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "tradición",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "universo",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "valle",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "viento",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "arma",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "colección",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "conversación",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "escenario",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "exposición",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "hermoso",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "igualdad",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "luchar",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "moda",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "normalmente",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "oferta",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "onda",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "seguramente",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "sentencia",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "sesión",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "sonido",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "sorpresa",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "tomado",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "asimismo",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "cerebro",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "clima",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "corriente",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "corta",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "discusión",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "dominio",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "escala",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "espalda",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "gracia",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "intervención",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "probar",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "sensación",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "show",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "terrible",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "vergüenza",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "víctima",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "acabar",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "agencia",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "apoyar",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "asistencia",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "ayuntamiento",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "bajar",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "comandante",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "constante",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "den",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "euros",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "examen",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "fundamental",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "igualmente",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "impuesto",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "industrial",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "masa",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "miércoles",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "nuevamente",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "periódico",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "placer",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "representación",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "seguido",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "titular",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "turismo",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "vender",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "verte",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "viajar",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "vuelo",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "alcance",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "anual",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "archivo",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "aumentar",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "beneficio",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "carajo",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "cerrar",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "continuar",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "cuello",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "definitivamente",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "dictadura",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "establecer",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "famoso",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "lectura",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "príncipe",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "quedado",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "tiro",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "torno",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "abuela",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "ahi",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "cambiado",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "carretera",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "cola",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "convertido",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "disposición",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "dueño",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "editorial",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "labor",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "letra",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "lluvia",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "marido",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "mostrar",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "oeste",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "sentimiento",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "tasa",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "tocar",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "tranquilo",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "usado",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "vivienda",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "absolutamente",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "alegría",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "amistad",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "anteriormente",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "cliente",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "concierto",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "considerado",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "correr",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "córdoba",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "descripción",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "elegido",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "evolución",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "infantil",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "ingreso",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "moneda",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "motor",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "occidental",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "panamá",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "permanente",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "prácticamente",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "punta",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "sub",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "traducción",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "adentro",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "caliente",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "chino",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "constitucional",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "controlar",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "coronel",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "diputado",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "entero",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "hiciste",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "pecho",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "pelea",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "perfectamente",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "proteger",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "reducir",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "toque",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "tío",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "campeón",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "colectivo",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "complejo",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "divertido",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "escucha",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "fotografía",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "límite",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "mezcla",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "parar",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "poesía",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "raza",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "reacción",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "representante",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "salón",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "árbol",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "útil",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "denuncia",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "desarrollar",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "estudiante",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "europeo",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "fase",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "ideal",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "ilegal",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "jornada",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "nacimiento",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "patrimonio",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "pese",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "presentado",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "primavera",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "recientemente",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "reconocer",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "romper",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "rostro",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "ruido",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "sal",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "significado",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "tomo",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "vestido",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "actuación",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "alcohol",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "apertura",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "caballo",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "cierre",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "comenzar",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "efectivo",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "emergencia",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "felicidad",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "firme",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "fácilmente",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "guía",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "inmediato",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "personalidad",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "perspectiva",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "recuperar",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "rock",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "salido",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "alemán",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "alternativa",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "amplio",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "arena",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "argumento",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "caminar",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "combate",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "consulta",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "decidido",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "demostrar",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "dignidad",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "enviar",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "extremo",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "generar",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "gol",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "inferior",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "mental",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "musical",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "orgullo",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "oriente",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "paciente",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pasión",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "permitir",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pieza",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pintura",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pista",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "positivo",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "promoción",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "reciente",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "regresar",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "temperatura",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "tono",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "variedad",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "únicamente",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "activo",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "agente",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "ausencia",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "bogotá",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "cabello",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "cercano",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "dispuesto",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "diálogo",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "estadio",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "inicial",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "locura",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "obvio",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "ofrecer",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "plano",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "producir",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "risa",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "rural",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "ruso",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "servir",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "socialista",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "triunfo",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "ventana",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "ánimo",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "absoluto",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "acceder",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "actor",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "andar",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "anti",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "asegurar",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "bar",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "detalle",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "díaz",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "electrónico",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "eliminar",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "explicación",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "ganador",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "mina",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "nacido",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "obviamente",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "parecido",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "poeta",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "procedimiento",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "puro",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "trump",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "viste",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "americano",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "andrés",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "barco",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "bomba",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "cerveza",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "clásico",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "cuadro",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "entendido",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "gloria",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "impresión",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "oriental",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "preguntar",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "talento",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "traer",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "utilizado",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "venido",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "visitar",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "aniversario",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "anoche",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "aviso",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "comunista",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "echar",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "ejecución",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "entorno",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "extensión",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "homenaje",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "leído",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "llorar",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "meta",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "muchísimo",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "pensado",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "petróleo",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "posteriormente",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "potencial",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "profundo",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "regla",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "regular",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "renta",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "taller",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "abrazo",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "dedicado",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "descubrir",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "enseñanza",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "entidad",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "entrenamiento",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "esposo",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "estés",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "funcionamiento",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "horrible",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "huevo",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "incluido",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "intelectual",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "lanzamiento",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "ocurrido",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "particularmente",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "provincial",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "residencia",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "vecino",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "basado",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "colonia",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "come",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "cooperación",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "darte",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "discutir",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "elemento",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "encuesta",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "exacto",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "extra",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "individual",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "infancia",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "infraestructura",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "ingeniería",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "interpretación",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "legislación",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "liberal",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "llego",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "lógica",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "manejo",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "oscuro",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "oído",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "personalmente",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "torneo",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "vacío",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "venezolano",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "algun",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "celebración",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "celebrar",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "cerrado",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "ciclo",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "crecer",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "criminal",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "círculo",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "decidir",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "dirigido",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "establecido",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "evidente",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "excepción",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "falso",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "formato",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "hierro",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "juro",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "lago",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "logrado",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "modos",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "monte",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "norma",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "olor",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "pleno",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "porcentaje",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "posterior",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "potencia",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "preparado",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "riqueza",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "salario",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "saludo",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "sierra",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "tabla",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "bienestar",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "cantante",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "concentración",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "conseguido",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "copia",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "crítico",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "dedo",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "determinar",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "flor",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "fracaso",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "fábrica",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "gasto",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "margen",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "peligroso",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "suficientemente",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "superar",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "techo",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "transmisión",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "aceite",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "anuncio",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "aplicar",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "castellano",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "correspondiente",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "cura",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "descanso",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "distinto",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "escuchado",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "esquina",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "gira",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "intercambio",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "introducción",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "organismo",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "organizado",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "promover",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "raíz",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "relacionado",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "repente",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "solicitud",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "terminado",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "índice",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "aparentemente",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "culpable",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "difusión",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "documental",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "drama",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "magia",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "mantenimiento",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "moderno",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "muro",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "posiblemente",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "puto",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "queso",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "recorrido",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "relativamente",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "restaurante",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "sabor",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "supremo",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "temporal",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "trabajador",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "vehículo",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "virus",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "bailar",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "beso",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "chávez",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "complicado",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "conclusión",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "continente",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "costumbre",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "dime",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "escolar",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "factor",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "hacienda",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "impresionante",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "infierno",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "interno",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "liberación",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "localidad",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "manda",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "mandar",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "metal",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "polvo",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "producido",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "publicar",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "senador",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "solidaridad",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "sufrir",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "teniente",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "tercero",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "terror",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "tome",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "top",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "tormenta",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "cable",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "cantar",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "comprender",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "desarrollado",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "descubierto",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "escritura",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "fraude",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "gigante",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "horario",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "ingeniero",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "laboratorio",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "lujo",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "manejar",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "petición",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "programación",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "protesta",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "rio",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "robar",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "vean",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "vivido",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "últimamente",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "abandonar",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "agradable",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "arquitectura",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "batería",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "brillante",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "comunicado",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "cubrir",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "demostrado",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "duración",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "encargado",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "enfermo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "existir",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "hablado",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "hacerte",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "idiota",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "importar",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "italiano",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "mio",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "obispo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "obligado",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "periodismo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "portal",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "postura",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "preocupación",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "preparación",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "primo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "reconocido",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "sueldo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "tensión",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "yendo",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "boda",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "chocolate",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "clasificación",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "cumplimiento",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "destrucción",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "espejo",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "formado",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "fría",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "imaginar",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "laura",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "propaganda",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "rango",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "rumbo",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "solar",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "sombra",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "símbolo",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "vigilancia",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "asesinado",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "atacar",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "carro",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "cifra",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "concepción",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "concreto",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "conservación",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "constantemente",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "cristiano",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "democrático",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "detenido",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "dibujo",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "electricidad",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "episodio",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "humo",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "integración",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "levantar",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "leyenda",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "link",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "oficialmente",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "patio",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "pico",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "piloto",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "presidencial",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "presidenta",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "recurso",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "saco",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "urbano",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "adecuado",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "aparecer",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "aparición",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "arroz",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "autorización",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "avenida",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "aventura",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "cobertura",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "conocí",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "desgracia",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "detener",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "enfoque",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "entrenador",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "evaluación",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "explotación",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "favorito",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "financiero",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "gordo",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "habitual",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "identificación",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "incremento",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "iniciar",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "mencionar",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "mexico",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "nave",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "nieve",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "obligación",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "observar",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "pacto",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "profundidad",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "prohibido",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "realización",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "religioso",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "renuncia",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "roberto",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "sabido",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "tonto",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "trabajado",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "vuestro",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "alerta",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "aprendizaje",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "básicamente",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "carmen",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "casado",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "combustible",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "curiosidad",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "desayuno",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "droga",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "débil",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "ejercer",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "emperador",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "ensayo",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "escapar",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "estabilidad",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "exclusivamente",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "experto",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "fallo",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "fundador",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "garantizar",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "incendio",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "instrumento",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "interesado",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "investigar",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "lento",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "originalmente",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "radical",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "relato",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "revisar",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "ten",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "traje",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "universitario",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "abuso",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ambiental",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "asco",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "bolívar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "cartel",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "castigo",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ceremonia",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "chileno",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "computadora",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "conducta",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "confiar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "cortar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "dame",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "derrota",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "destacar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "establecimiento",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "fórmula",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "gracioso",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "https",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ilusión",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "instante",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "medalla",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "multitud",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "nieto",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "nuclear",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "numero",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ocupación",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "olvidado",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "organizar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "pendiente",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "permitido",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "porno",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "previamente",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "recuperación",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "supuestamente",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "temor",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "tirar",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ubicado",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "urgente",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "verdaderamente",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "xix",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "álbum",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "ancho",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "apellido",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "aprobado",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "borde",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "canto",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "conductor",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "consciente",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "contento",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "curioso",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "destruir",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "directora",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "editor",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "educativo",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "enseñar",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "entregar",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "equivalente",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "femenino",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "feo",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "funcionario",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "genio",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "hoja",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "individuo",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "invitado",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "limpiar",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "lástima",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "manga",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "mediados",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "mencionado",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "necesariamente",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "quinto",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "rendimiento",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "sentado",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "titulado",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "valiente",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "vicepresidente",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "acusado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "analizar",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "arco",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "asesino",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "asiento",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "asumir",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "calma",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "capa",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "cumbre",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "declarado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "desaparecido",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "embajador",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "equilibrio",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "equivocado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "excusa",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "expansión",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "firmado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "identificar",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "incluir",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "lector",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "mecanismo",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "ocupado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "olvido",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "orto",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "parada",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "poderoso",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "previo",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "profesión",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "rechazo",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "rescate",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "situado",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "tesis",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "arreglar",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "atender",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "autonomía",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "bienvenido",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "básico",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "campeonato",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "cerro",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "ciertamente",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "coger",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "composición",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "creciente",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "criterio",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "define",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "espiritual",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "fiel",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "fortuna",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "gustado",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "huelga",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "instagram",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "lanza",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "manual",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "maravilloso",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "mate",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "negativo",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "oración",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "orgulloso",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "parcial",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "quitar",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "respectivamente",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "ridículo",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "seguimiento",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "suave",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "académico",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "actriz",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "actualización",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "adicional",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "amarillo",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "aprovechar",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "bravo",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "catalán",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "coalición",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "combatir",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "coordinación",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "culto",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "dato",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "depresión",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "efectivamente",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "emoción",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "empresario",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "esencial",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "espada",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "expresar",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "flujo",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "hilo",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "indio",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "preparar",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "protagonista",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "sufrido",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "totalidad",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "violación",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "acompañado",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "alimentación",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "británico",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "combinación",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "cultivo",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "césar",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "desconocido",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "echo",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "específico",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "fijo",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "formal",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "gris",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "juvenil",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "literalmente",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "manifestación",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "moto",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "oír",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "pesca",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "pinta",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "posesión",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "prioridad",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "reglamento",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "respetar",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "separación",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "sucedido",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "acero",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "ala",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "aparato",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "armado",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "barra",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "bicicleta",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "bolsillo",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "camiseta",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "casualidad",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "cinta",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "cirugía",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "coca",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "determinado",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "explosión",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "guardar",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "inocente",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "lanzado",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "limpio",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "max",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "nacionalidad",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "pendejo",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "poema",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "promesa",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "queja",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "reproducción",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "sanidad",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "sindicato",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "testimonio",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "uniforme",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "aldea",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "amante",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "android",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "aprendido",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "asistir",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "beber",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "cansado",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "cometido",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "conducir",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "desaparecer",
+  "zipf": 4.3,
+  "set": "night16"
+ }
+]

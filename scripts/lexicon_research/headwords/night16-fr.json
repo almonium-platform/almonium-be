@@ -1,0 +1,9457 @@
+[
+ {
+  "headword": "pas",
+  "zipf": 7.0,
+  "set": "night16"
+ },
+ {
+  "headword": "plus",
+  "zipf": 6.68,
+  "set": "night16"
+ },
+ {
+  "headword": "tout",
+  "zipf": 6.44,
+  "set": "night16"
+ },
+ {
+  "headword": "bien",
+  "zipf": 6.37,
+  "set": "night16"
+ },
+ {
+  "headword": "faire",
+  "zipf": 6.34,
+  "set": "night16"
+ },
+ {
+  "headword": "même",
+  "zipf": 6.32,
+  "set": "night16"
+ },
+ {
+  "headword": "aussi",
+  "zipf": 6.19,
+  "set": "night16"
+ },
+ {
+  "headword": "très",
+  "zipf": 6.12,
+  "set": "night16"
+ },
+ {
+  "headword": "avoir",
+  "zipf": 6.08,
+  "set": "night16"
+ },
+ {
+  "headword": "non",
+  "zipf": 6.08,
+  "set": "night16"
+ },
+ {
+  "headword": "encore",
+  "zipf": 6.04,
+  "set": "night16"
+ },
+ {
+  "headword": "alors",
+  "zipf": 6.03,
+  "set": "night16"
+ },
+ {
+  "headword": "temps",
+  "zipf": 6.01,
+  "set": "night16"
+ },
+ {
+  "headword": "peu",
+  "zipf": 5.99,
+  "set": "night16"
+ },
+ {
+  "headword": "autre",
+  "zipf": 5.98,
+  "set": "night16"
+ },
+ {
+  "headword": "dire",
+  "zipf": 5.96,
+  "set": "night16"
+ },
+ {
+  "headword": "monde",
+  "zipf": 5.96,
+  "set": "night16"
+ },
+ {
+  "headword": "fois",
+  "zipf": 5.95,
+  "set": "night16"
+ },
+ {
+  "headword": "toujours",
+  "zipf": 5.94,
+  "set": "night16"
+ },
+ {
+  "headword": "voir",
+  "zipf": 5.94,
+  "set": "night16"
+ },
+ {
+  "headword": "bon",
+  "zipf": 5.93,
+  "set": "night16"
+ },
+ {
+  "headword": "donc",
+  "zipf": 5.92,
+  "set": "night16"
+ },
+ {
+  "headword": "jamais",
+  "zipf": 5.89,
+  "set": "night16"
+ },
+ {
+  "headword": "vie",
+  "zipf": 5.89,
+  "set": "night16"
+ },
+ {
+  "headword": "moins",
+  "zipf": 5.87,
+  "set": "night16"
+ },
+ {
+  "headword": "déjà",
+  "zipf": 5.84,
+  "set": "night16"
+ },
+ {
+  "headword": "trop",
+  "zipf": 5.83,
+  "set": "night16"
+ },
+ {
+  "headword": "ton",
+  "zipf": 5.82,
+  "set": "night16"
+ },
+ {
+  "headword": "gens",
+  "zipf": 5.8,
+  "set": "night16"
+ },
+ {
+  "headword": "juste",
+  "zipf": 5.8,
+  "set": "night16"
+ },
+ {
+  "headword": "oui",
+  "zipf": 5.8,
+  "set": "night16"
+ },
+ {
+  "headword": "vraiment",
+  "zipf": 5.8,
+  "set": "night16"
+ },
+ {
+  "headword": "ainsi",
+  "zipf": 5.79,
+  "set": "night16"
+ },
+ {
+  "headword": "grand",
+  "zipf": 5.79,
+  "set": "night16"
+ },
+ {
+  "headword": "français",
+  "zipf": 5.78,
+  "set": "night16"
+ },
+ {
+  "headword": "beaucoup",
+  "zipf": 5.75,
+  "set": "night16"
+ },
+ {
+  "headword": "jour",
+  "zipf": 5.75,
+  "set": "night16"
+ },
+ {
+  "headword": "comment",
+  "zipf": 5.74,
+  "set": "night16"
+ },
+ {
+  "headword": "premier",
+  "zipf": 5.74,
+  "set": "night16"
+ },
+ {
+  "headword": "homme",
+  "zipf": 5.71,
+  "set": "night16"
+ },
+ {
+  "headword": "ici",
+  "zipf": 5.71,
+  "set": "night16"
+ },
+ {
+  "headword": "cas",
+  "zipf": 5.7,
+  "set": "night16"
+ },
+ {
+  "headword": "chose",
+  "zipf": 5.7,
+  "set": "night16"
+ },
+ {
+  "headword": "partie",
+  "zipf": 5.7,
+  "set": "night16"
+ },
+ {
+  "headword": "mal",
+  "zipf": 5.68,
+  "set": "night16"
+ },
+ {
+  "headword": "fin",
+  "zipf": 5.67,
+  "set": "night16"
+ },
+ {
+  "headword": "mieux",
+  "zipf": 5.67,
+  "set": "night16"
+ },
+ {
+  "headword": "petit",
+  "zipf": 5.67,
+  "set": "night16"
+ },
+ {
+  "headword": "année",
+  "zipf": 5.66,
+  "set": "night16"
+ },
+ {
+  "headword": "moment",
+  "zipf": 5.66,
+  "set": "night16"
+ },
+ {
+  "headword": "place",
+  "zipf": 5.66,
+  "set": "night16"
+ },
+ {
+  "headword": "pourquoi",
+  "zipf": 5.66,
+  "set": "night16"
+ },
+ {
+  "headword": "ville",
+  "zipf": 5.66,
+  "set": "night16"
+ },
+ {
+  "headword": "mois",
+  "zipf": 5.65,
+  "set": "night16"
+ },
+ {
+  "headword": "histoire",
+  "zipf": 5.64,
+  "set": "night16"
+ },
+ {
+  "headword": "mort",
+  "zipf": 5.64,
+  "set": "night16"
+ },
+ {
+  "headword": "nouveau",
+  "zipf": 5.63,
+  "set": "night16"
+ },
+ {
+  "headword": "part",
+  "zipf": 5.63,
+  "set": "night16"
+ },
+ {
+  "headword": "travail",
+  "zipf": 5.63,
+  "set": "night16"
+ },
+ {
+  "headword": "compte",
+  "zipf": 5.62,
+  "set": "night16"
+ },
+ {
+  "headword": "merci",
+  "zipf": 5.62,
+  "set": "night16"
+ },
+ {
+  "headword": "prendre",
+  "zipf": 5.62,
+  "set": "night16"
+ },
+ {
+  "headword": "état",
+  "zipf": 5.62,
+  "set": "night16"
+ },
+ {
+  "headword": "aller",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "cours",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "peux",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "politique",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "reste",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "veux",
+  "zipf": 5.61,
+  "set": "night16"
+ },
+ {
+  "headword": "femme",
+  "zipf": 5.59,
+  "set": "night16"
+ },
+ {
+  "headword": "nom",
+  "zipf": 5.59,
+  "set": "night16"
+ },
+ {
+  "headword": "prix",
+  "zipf": 5.59,
+  "set": "night16"
+ },
+ {
+  "headword": "également",
+  "zipf": 5.59,
+  "set": "night16"
+ },
+ {
+  "headword": "point",
+  "zipf": 5.58,
+  "set": "night16"
+ },
+ {
+  "headword": "seul",
+  "zipf": 5.58,
+  "set": "night16"
+ },
+ {
+  "headword": "lieu",
+  "zipf": 5.57,
+  "set": "night16"
+ },
+ {
+  "headword": "lors",
+  "zipf": 5.57,
+  "set": "night16"
+ },
+ {
+  "headword": "droit",
+  "zipf": 5.56,
+  "set": "night16"
+ },
+ {
+  "headword": "coup",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "mettre",
+  "zipf": 5.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pense",
+  "zipf": 5.54,
+  "set": "night16"
+ },
+ {
+  "headword": "tant",
+  "zipf": 5.54,
+  "set": "night16"
+ },
+ {
+  "headword": "groupe",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "maintenant",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "maison",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "saint",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "tête",
+  "zipf": 5.53,
+  "set": "night16"
+ },
+ {
+  "headword": "aime",
+  "zipf": 5.52,
+  "set": "night16"
+ },
+ {
+  "headword": "famille",
+  "zipf": 5.52,
+  "set": "night16"
+ },
+ {
+  "headword": "parler",
+  "zipf": 5.52,
+  "set": "night16"
+ },
+ {
+  "headword": "suite",
+  "zipf": 5.52,
+  "set": "night16"
+ },
+ {
+  "headword": "assez",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "besoin",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "demande",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "savoir",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "société",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "trouve",
+  "zipf": 5.51,
+  "set": "night16"
+ },
+ {
+  "headword": "côté",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "pouvoir",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "question",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "raison",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "sens",
+  "zipf": 5.5,
+  "set": "night16"
+ },
+ {
+  "headword": "ailleurs",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "jeu",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "soir",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "souvent",
+  "zipf": 5.49,
+  "set": "night16"
+ },
+ {
+  "headword": "effet",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "général",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "partir",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "surtout",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "équipe",
+  "zipf": 5.48,
+  "set": "night16"
+ },
+ {
+  "headword": "dernier",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "enfin",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "nombre",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "porte",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "seulement",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "site",
+  "zipf": 5.47,
+  "set": "night16"
+ },
+ {
+  "headword": "ensemble",
+  "zipf": 5.46,
+  "set": "night16"
+ },
+ {
+  "headword": "mère",
+  "zipf": 5.45,
+  "set": "night16"
+ },
+ {
+  "headword": "passer",
+  "zipf": 5.45,
+  "set": "night16"
+ },
+ {
+  "headword": "près",
+  "zipf": 5.45,
+  "set": "night16"
+ },
+ {
+  "headword": "loi",
+  "zipf": 5.44,
+  "set": "night16"
+ },
+ {
+  "headword": "parti",
+  "zipf": 5.44,
+  "set": "night16"
+ },
+ {
+  "headword": "rapport",
+  "zipf": 5.44,
+  "set": "night16"
+ },
+ {
+  "headword": "trouver",
+  "zipf": 5.43,
+  "set": "night16"
+ },
+ {
+  "headword": "autant",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "face",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "fille",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "gouvernement",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "gros",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "guerre",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "niveau",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "semaine",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "service",
+  "zipf": 5.42,
+  "set": "night16"
+ },
+ {
+  "headword": "accord",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "article",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "donne",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "donner",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "ligne",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "problème",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "président",
+  "zipf": 5.41,
+  "set": "night16"
+ },
+ {
+  "headword": "cause",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "dieu",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "début",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "exemple",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "fils",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "jeune",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "système",
+  "zipf": 5.4,
+  "set": "night16"
+ },
+ {
+  "headword": "air",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "bas",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "façon",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "heure",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "loin",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "possible",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "projet",
+  "zipf": 5.39,
+  "set": "night16"
+ },
+ {
+  "headword": "conseil",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "idée",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "notamment",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "nuit",
+  "zipf": 5.38,
+  "set": "night16"
+ },
+ {
+  "headword": "argent",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "tour",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "vue",
+  "zipf": 5.37,
+  "set": "night16"
+ },
+ {
+  "headword": "dessus",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "film",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "meilleur",
+  "zipf": 5.36,
+  "set": "night16"
+ },
+ {
+  "headword": "corps",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "ensuite",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "forme",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "haut",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "plutôt",
+  "zipf": 5.35,
+  "set": "night16"
+ },
+ {
+  "headword": "chef",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "fort",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "public",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "tard",
+  "zipf": 5.34,
+  "set": "night16"
+ },
+ {
+  "headword": "main",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "terre",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "titre",
+  "zipf": 5.33,
+  "set": "night16"
+ },
+ {
+  "headword": "matin",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "mise",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "plan",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "saison",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "type",
+  "zipf": 5.32,
+  "set": "night16"
+ },
+ {
+  "headword": "afin",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "aide",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "choix",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "long",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "retour",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "situation",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "vite",
+  "zipf": 5.31,
+  "set": "night16"
+ },
+ {
+  "headword": "amour",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "base",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "journée",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "nord",
+  "zipf": 5.3,
+  "set": "night16"
+ },
+ {
+  "headword": "etc",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "grâce",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "moyen",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "ordre",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "école",
+  "zipf": 5.29,
+  "set": "night16"
+ },
+ {
+  "headword": "but",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "manière",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "mars",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "pierre",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "sujet",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "truc",
+  "zipf": 5.28,
+  "set": "night16"
+ },
+ {
+  "headword": "enfant",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "ministre",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "parfois",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "rue",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "sud",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "super",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "sûr",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "vidéo",
+  "zipf": 5.27,
+  "set": "night16"
+ },
+ {
+  "headword": "beau",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "compris",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "gauche",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "livre",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "région",
+  "zipf": 5.26,
+  "set": "night16"
+ },
+ {
+  "headword": "entreprise",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "longtemps",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "match",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "simple",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "voilà",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "voit",
+  "zipf": 5.25,
+  "set": "night16"
+ },
+ {
+  "headword": "chambre",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "deuxième",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "juin",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "mai",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "peur",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "plein",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "police",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "septembre",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "sécurité",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "série",
+  "zipf": 5.24,
+  "set": "night16"
+ },
+ {
+  "headword": "ancien",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "anglais",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "important",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "jouer",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "merde",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "peine",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "presque",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "tellement",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "époque",
+  "zipf": 5.23,
+  "set": "night16"
+ },
+ {
+  "headword": "doute",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "force",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "lire",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "marché",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "mot",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "recherche",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "santé",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "train",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "voix",
+  "zipf": 5.22,
+  "set": "night16"
+ },
+ {
+  "headword": "autour",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "avis",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "cependant",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "développement",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "hier",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "juillet",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "nombreux",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "propre",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "rendre",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "vivre",
+  "zipf": 5.21,
+  "set": "night16"
+ },
+ {
+  "headword": "droite",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "environ",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "fond",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "mec",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "mesure",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "pourtant",
+  "zipf": 5.2,
+  "set": "night16"
+ },
+ {
+  "headword": "abord",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "affaire",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "envie",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "gars",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "octobre",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "siècle",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "sortir",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "terme",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "voiture",
+  "zipf": 5.19,
+  "set": "night16"
+ },
+ {
+  "headword": "avril",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "frère",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "janvier",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "population",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "roi",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "venir",
+  "zipf": 5.18,
+  "set": "night16"
+ },
+ {
+  "headword": "action",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "club",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "culture",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "difficile",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "laisse",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "milieu",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "produit",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "programme",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "propos",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "route",
+  "zipf": 5.17,
+  "set": "night16"
+ },
+ {
+  "headword": "emploi",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "feu",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "marche",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "période",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "tel",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "âge",
+  "zipf": 5.16,
+  "set": "night16"
+ },
+ {
+  "headword": "bois",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "chance",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "confiance",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "croire",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "date",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "décembre",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "laisser",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "mode",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "novembre",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "plaisir",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "rencontre",
+  "zipf": 5.15,
+  "set": "night16"
+ },
+ {
+  "headword": "août",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "blanc",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "classe",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "commence",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "comprendre",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "demain",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "demander",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "formation",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "liste",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "photo",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "rôle",
+  "zipf": 5.14,
+  "set": "night16"
+ },
+ {
+  "headword": "attention",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "bout",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "esprit",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "garde",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "intérieur",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "intérêt",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "mouvement",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "noir",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "origine",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "rouge",
+  "zipf": 5.13,
+  "set": "night16"
+ },
+ {
+  "headword": "auteur",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "bonjour",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "février",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "justice",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "langue",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "occasion",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "perdu",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "qualité",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "risque",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "scène",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "sinon",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "voici",
+  "zipf": 5.12,
+  "set": "night16"
+ },
+ {
+  "headword": "cadre",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "changer",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "libre",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "production",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "vieux",
+  "zipf": 5.11,
+  "set": "night16"
+ },
+ {
+  "headword": "image",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "lien",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "mer",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "pire",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "rester",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "source",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "troisième",
+  "zipf": 5.1,
+  "set": "night16"
+ },
+ {
+  "headword": "aider",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "ami",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "campagne",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "coupe",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "cour",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "objet",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "partout",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "plupart",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "valeur",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "étude",
+  "zipf": 5.09,
+  "set": "night16"
+ },
+ {
+  "headword": "cher",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "etat",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "joue",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "montre",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "national",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "particulier",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "penser",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "poste",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "présent",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "réponse",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "réseau",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "salle",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "texte",
+  "zipf": 5.08,
+  "set": "night16"
+ },
+ {
+  "headword": "appel",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "certain",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "contrôle",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "message",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "position",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "république",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "succès",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "économique",
+  "zipf": 5.07,
+  "set": "night16"
+ },
+ {
+  "headword": "activité",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "américain",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "association",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "carte",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "chercher",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "création",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "devenir",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "expérience",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "fonction",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "impression",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "putain",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "simplement",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "travers",
+  "zipf": 5.06,
+  "set": "night16"
+ },
+ {
+  "headword": "annonce",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "arrêter",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "bientôt",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "chemin",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "demi",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "directeur",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "liberté",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "mariage",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "organisation",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "passage",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "présence",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "sein",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "sort",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "zone",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "économie",
+  "zipf": 5.05,
+  "set": "night16"
+ },
+ {
+  "headword": "bureau",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "compagnie",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "entrée",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "moyenne",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "pied",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "presse",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "prise",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "réalité",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "social",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "université",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "utiliser",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "œuvre",
+  "zipf": 5.04,
+  "set": "night16"
+ },
+ {
+  "headword": "accès",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "commission",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "dimanche",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "départ",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "lit",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "marie",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "mauvais",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "numéro",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "regarder",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "taux",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "travailler",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "voie",
+  "zipf": 5.03,
+  "set": "night16"
+ },
+ {
+  "headword": "acheter",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "attendre",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "bras",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "charge",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "finalement",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "haute",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "manger",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "perdre",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "pratique",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "victoire",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "vérité",
+  "zipf": 5.02,
+  "set": "night16"
+ },
+ {
+  "headword": "ben",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "cherche",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "communauté",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "domaine",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "monsieur",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "payer",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "peuple",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "proche",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "quant",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "répondre",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "suivre",
+  "zipf": 5.01,
+  "set": "night16"
+ },
+ {
+  "headword": "administration",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "auprès",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "code",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "gagner",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "honneur",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "journal",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "matière",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "ouest",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "rapidement",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "retrouver",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "résultat",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "soirée",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "sport",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "téléphone",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "version",
+  "zipf": 5.0,
+  "set": "night16"
+ },
+ {
+  "headword": "arriver",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "arrivée",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "coeur",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "construction",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "devoir",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "double",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "information",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "midi",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "mission",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "moitié",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "page",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "particulièrement",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "pièce",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "prêt",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "technique",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "voyage",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "énergie",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "éviter",
+  "zipf": 4.99,
+  "set": "night16"
+ },
+ {
+  "headword": "arrête",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "bord",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "combien",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "contraire",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "entendre",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "faute",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "heureux",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "impossible",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "joueur",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "nécessaire",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "porter",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "samedi",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "sang",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "second",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "style",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "sérieux",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "terrain",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "église",
+  "zipf": 4.98,
+  "set": "night16"
+ },
+ {
+  "headword": "créer",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "décision",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "défense",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "désormais",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "hôtel",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "instant",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "majorité",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "modèle",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "obtenir",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "paix",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "solution",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "tandis",
+  "zipf": 4.97,
+  "set": "night16"
+ },
+ {
+  "headword": "actuellement",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "assemblée",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "contrat",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "faux",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "international",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "note",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "total",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "tôt",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "vol",
+  "zipf": 4.96,
+  "set": "night16"
+ },
+ {
+  "headword": "avenir",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "critique",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "directement",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "discours",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "dur",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "fête",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "maître",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "personnel",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "preuve",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "prison",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "vendredi",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "éducation",
+  "zipf": 4.95,
+  "set": "night16"
+ },
+ {
+  "headword": "adresse",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "apprendre",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "attaque",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "avance",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "court",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "endroit",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "essayer",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "exactement",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "grave",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "lumière",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "régime",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "toutefois",
+  "zipf": 4.94,
+  "set": "night16"
+ },
+ {
+  "headword": "arrière",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "commencer",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "commerce",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "complètement",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "faite",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "montrer",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "physique",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "quartier",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "rendez",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "territoire",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "unique",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "vis",
+  "zipf": 4.93,
+  "set": "night16"
+ },
+ {
+  "headword": "changement",
+  "zipf": 4.92,
+  "set": "night16"
+ },
+ {
+  "headword": "connaître",
+  "zipf": 4.92,
+  "set": "night16"
+ },
+ {
+  "headword": "populaire",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "prince",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "province",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "rentrer",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "retraite",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "sac",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "secrétaire",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "siège",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "supérieur",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "surprise",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "vent",
+  "zipf": 4.8,
+  "set": "night16"
+ },
+ {
+  "headword": "acte",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "bouche",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "capacité",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "centrale",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "contexte",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "dessous",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "extérieur",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "hauteur",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "naissance",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "opposition",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "processus",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "recevoir",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "rencontrer",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "salut",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "servir",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "sœur",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "vin",
+  "zipf": 4.79,
+  "set": "night16"
+ },
+ {
+  "headword": "actuel",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "approche",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "candidat",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "capitaine",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "croit",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "désolé",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "européen",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "faveur",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "front",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "mérite",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "papier",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "tribunal",
+  "zipf": 4.78,
+  "set": "night16"
+ },
+ {
+  "headword": "accident",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "courage",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "entrer",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "etre",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "jeudi",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "journaliste",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "meme",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "nul",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "perte",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "possibilité",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "riche",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "tuer",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "unité",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "établissement",
+  "zipf": 4.77,
+  "set": "night16"
+ },
+ {
+  "headword": "anniversaire",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "café",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "chat",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "coin",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "identité",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "intéressant",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "lance",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "largement",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "martin",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "mets",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "moindre",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "parcours",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "parfaitement",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "partage",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "pont",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "protéger",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "remettre",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "scientifique",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "somme",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "tirer",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "violence",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "élevé",
+  "zipf": 4.76,
+  "set": "night16"
+ },
+ {
+  "headword": "appeler",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "beauté",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "bleu",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "champ",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "conférence",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "cuisine",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "danger",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "député",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "foi",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "football",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "mercredi",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "mourir",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "opinion",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "participer",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "personnage",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "retard",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "sexe",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "théorie",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "verre",
+  "zipf": 4.75,
+  "set": "night16"
+ },
+ {
+  "headword": "agence",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "artiste",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "assurance",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "autorité",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "bus",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "certainement",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "clairement",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "collection",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "conscience",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "content",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "croissance",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "célèbre",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "davantage",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "distance",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "entier",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "exposition",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "extrême",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "imagine",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "influence",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "lecture",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "masse",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "moderne",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "mur",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "néanmoins",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "propriété",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "quitter",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "quotidien",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "triste",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "vide",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "échange",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "élu",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "énorme",
+  "zipf": 4.74,
+  "set": "night16"
+ },
+ {
+  "headword": "atteindre",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "bizarre",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "catégorie",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "contenu",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "dommage",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "découverte",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "empire",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "entièrement",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "espoir",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "existence",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "exploitation",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "malheureusement",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "mardi",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "offrir",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "prennent",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "religieux",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "section",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "spectacle",
+  "zipf": 4.73,
+  "set": "night16"
+ },
+ {
+  "headword": "appareil",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "britannique",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "château",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "crédit",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "don",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "empêcher",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "entretien",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "gagne",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "immédiatement",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "incroyable",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "jeunesse",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "machine",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "naturel",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "revue",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "rose",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "silence",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "sympa",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "venez",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "vice",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "vision",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "écran",
+  "zipf": 4.72,
+  "set": "night16"
+ },
+ {
+  "headword": "augmentation",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "bruit",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "conseiller",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "docteur",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "franchement",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "génération",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "héros",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "rappeler",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "reine",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "rejoindre",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "ressemble",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "roman",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "régulièrement",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "structure",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "tiers",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "écouter",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "étape",
+  "zipf": 4.71,
+  "set": "night16"
+ },
+ {
+  "headword": "ajouter",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "avantage",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "bataille",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "boîte",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "capital",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "certes",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "cheval",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "client",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "danse",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "défendre",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "exercice",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "institut",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "intervention",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "logique",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "monter",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "palais",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "principalement",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "reprendre",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "revoir",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "réaliser",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "récemment",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "sentiment",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "soin",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "statut",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "sélection",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "tente",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "vivant",
+  "zipf": 4.7,
+  "set": "night16"
+ },
+ {
+  "headword": "baisse",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "collège",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "construire",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "domicile",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "examen",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "moteur",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "officiel",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "ouvrage",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "participation",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "patron",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "préparer",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "réduction",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "réel",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "souvenir",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "tenter",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "test",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "utile",
+  "zipf": 4.69,
+  "set": "night16"
+ },
+ {
+  "headword": "achat",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "bâtiment",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "cerveau",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "concept",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "disposition",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "fortement",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "indépendance",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "justement",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "lancer",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "matériel",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "montant",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "quatrième",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "réaction",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "réduire",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "sentir",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "sourire",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "tourner",
+  "zipf": 4.68,
+  "set": "night16"
+ },
+ {
+  "headword": "agir",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "alcool",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "amie",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "arme",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "autrement",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "coût",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "différent",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "disponible",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "iii",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "indique",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "intention",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "marc",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "minute",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "mondial",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "obligé",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "patrimoine",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "phase",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "rare",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "séance",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "urgence",
+  "zipf": 4.67,
+  "set": "night16"
+ },
+ {
+  "headword": "accepter",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "agent",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "agriculture",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "améliorer",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "auto",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "cancer",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "championnat",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "complet",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "complexe",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "concert",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "constitution",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "déclaration",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "développer",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "forcément",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "gérer",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "heureusement",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "impact",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "joie",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "laurent",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "local",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "métier",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "nez",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "occupe",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "profiter",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "revanche",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "sauver",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "scolaire",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "spécial",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "télévision",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "événement",
+  "zipf": 4.66,
+  "set": "night16"
+ },
+ {
+  "headword": "accueil",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "aimer",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "cadeau",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "condition",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "dormir",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "excellent",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "hasard",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "longueur",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "minimum",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "numérique",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "pointe",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "professionnel",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "proposition",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "publication",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "secours",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "sommet",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "électrique",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "œil",
+  "zipf": 4.65,
+  "set": "night16"
+ },
+ {
+  "headword": "acteur",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "arabe",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "augmenter",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "champion",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "chute",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "compétition",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "croix",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "description",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "efficace",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "garçon",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "issue",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "pain",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "soutenir",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "échelle",
+  "zipf": 4.64,
+  "set": "night16"
+ },
+ {
+  "headword": "aéroport",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "canal",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "chier",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "chiffre",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "comte",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "contrairement",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "défaut",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "enfance",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "estime",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "gare",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "hommage",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "info",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "logement",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "maximum",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "plage",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "procédure",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "produire",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "proximité",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "station",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "volume",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "égalité",
+  "zipf": 4.63,
+  "set": "night16"
+ },
+ {
+  "headword": "boire",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "chômage",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "comportement",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "congrès",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "demeure",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "discussion",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "distribution",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "division",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "définition",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "effort",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "mandat",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "médecine",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "nourriture",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "pape",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "phénomène",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "précédent",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "reprise",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "représentant",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "répondu",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "sale",
+  "zipf": 4.62,
+  "set": "night16"
+ },
+ {
+  "headword": "animal",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "appartement",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "bateau",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "bilan",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "cabinet",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "cap",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "disparu",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "douleur",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "décès",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "démocratie",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "espagnol",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "formule",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "office",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "printemps",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "profit",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "retourner",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "température",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "véhicule",
+  "zipf": 4.61,
+  "set": "night16"
+ },
+ {
+  "headword": "apporter",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "balle",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "climat",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "conflit",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "essentiel",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "exception",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "extrêmement",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "forêt",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "gratuit",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "génie",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "invité",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "islam",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "mobile",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "occuper",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "orange",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "présentation",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "quantité",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "réellement",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "thème",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "usine",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "vincent",
+  "zipf": 4.6,
+  "set": "night16"
+ },
+ {
+  "headword": "ambiance",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "aventure",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "central",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "daniel",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "dessin",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "défaite",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "finit",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "fédération",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "huile",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "littérature",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "min",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "métro",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "nation",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "oeuvre",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "relativement",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "rivière",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "réalisation",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "salaire",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "soeur",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "toucher",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "traduction",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "tranquille",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "vérifier",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "écriture",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "épreuve",
+  "zipf": 4.59,
+  "set": "night16"
+ },
+ {
+  "headword": "académie",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "auparavant",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "black",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "chaleur",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "commande",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "concurrence",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "conduite",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "discuter",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "détail",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "essaye",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "fit",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "haine",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "humour",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "informatique",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "interne",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "magasin",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "pensent",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "plaît",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "rang",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "recours",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "réflexion",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "tradition",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "veille",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "élément",
+  "zipf": 4.58,
+  "set": "night16"
+ },
+ {
+  "headword": "alliance",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "apparemment",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "arbre",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "aspect",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "auquel",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "bac",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "bel",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "conception",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "engagement",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "ennemi",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "fonctionnement",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "impôt",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "initiative",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "inutile",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "investissement",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "maintenir",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "maroc",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "papa",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "profil",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "proposer",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "préparation",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "record",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "remplacer",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "respecter",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "royal",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "serai",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "sérieusement",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "travaillé",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "électricité",
+  "zipf": 4.57,
+  "set": "night16"
+ },
+ {
+  "headword": "belge",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "canadien",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "chapitre",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "circulation",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "conduire",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "conversation",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "crée",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "entraîneur",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "essai",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "financement",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "gentil",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "japonais",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "marcher",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "monnaie",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "neige",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "nucléaire",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "peter",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "pote",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "primaire",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "promis",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "reconnaissance",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "rythme",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "vélo",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "échec",
+  "zipf": 4.56,
+  "set": "night16"
+ },
+ {
+  "headword": "bain",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "construit",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "conséquence",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "doux",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "langage",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "légèrement",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "mange",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "original",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "pen",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "perso",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "philosophie",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "plateau",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "quasi",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "récupérer",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "réduit",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "résidence",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "talent",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "tourisme",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "traiter",
+  "zipf": 4.55,
+  "set": "night16"
+ },
+ {
+  "headword": "commandant",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "commercial",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "convention",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "couche",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "dispose",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "document",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "empereur",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "george",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "italien",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "lever",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "mini",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "option",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "orient",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "policier",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "promotion",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "précis",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "règlement",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "scénario",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "socialiste",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "surveillance",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "technologie",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "tort",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "trou",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "venue",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "voter",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "étudiant",
+  "zipf": 4.54,
+  "set": "night16"
+ },
+ {
+  "headword": "affiche",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "apporte",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "cache",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "caisse",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "collectif",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "compliqué",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "condamné",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "couper",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "effectivement",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "essentiellement",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "exprimer",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "hausse",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "joli",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "judiciaire",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "libération",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "mairie",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "manuel",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "million",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "organisme",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "personnalité",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "princesse",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "progrès",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "prouver",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "retirer",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "réfléchir",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "résumé",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "suffisamment",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "tire",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "vaste",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "équilibre",
+  "zipf": 4.53,
+  "set": "night16"
+ },
+ {
+  "headword": "alexandre",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "attente",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "cercle",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "cesse",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "dette",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "doigt",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "douze",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "démocratique",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "fenêtre",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "former",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "fournir",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "imaginer",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "meurtre",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "mélange",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "normalement",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "ombre",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "plat",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "san",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "terrible",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "établir",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "étage",
+  "zipf": 4.52,
+  "set": "night16"
+ },
+ {
+  "headword": "actualité",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "agréable",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "avancer",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "bête",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "catholique",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "city",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "format",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "génial",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "installer",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "lieutenant",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "live",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "magazine",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "oeil",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "olivier",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "partenaire",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "performance",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "plainte",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "portable",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "portrait",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "réussir",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "score",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "sors",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "superbe",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "viande",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "vierge",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "étrange",
+  "zipf": 4.51,
+  "set": "night16"
+ },
+ {
+  "headword": "attitude",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "batterie",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "collaboration",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "colonel",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "composition",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "convaincre",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "copine",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "diffusion",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "emmanuel",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "essence",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "fondation",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "guide",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "immobilier",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "imposer",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "invite",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "jeter",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "nécessité",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "officiellement",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "poisson",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "reconnaître",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "représentation",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "régler",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "spécialiste",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "suppose",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "évident",
+  "zipf": 4.5,
+  "set": "night16"
+ },
+ {
+  "headword": "actif",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "automne",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "bloc",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "chocolat",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "fixe",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "fédéral",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "gay",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "immense",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "immeuble",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "interview",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "inverse",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "lol",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "léger",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "ordinateur",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "précisément",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "pêche",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "rarement",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "souci",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "transfert",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "vigueur",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "zéro",
+  "zipf": 4.49,
+  "set": "night16"
+ },
+ {
+  "headword": "calcul",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "choc",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "civil",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "décret",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "désir",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "déterminer",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "enlever",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "entraînement",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "fabrication",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "fermé",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "harry",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "mener",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "micro",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "mont",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "obligation",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "officier",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "prénom",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "rock",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "solide",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "vallée",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "égard",
+  "zipf": 4.48,
+  "set": "night16"
+ },
+ {
+  "headword": "agricole",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "appliquer",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "attaquer",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "autorisation",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "circuit",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "courir",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "déjeuner",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "délai",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "efficacité",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "fan",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "idéal",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "individu",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "intelligence",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "mention",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "née",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "organiser",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "quart",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "ridicule",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "réputation",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "secondaire",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "studio",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "sénat",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "trafic",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "voisin",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "étudier",
+  "zipf": 4.47,
+  "set": "night16"
+ },
+ {
+  "headword": "angle",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "appui",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "big",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "billet",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "cacher",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "coupable",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "culturel",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "cérémonie",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "debout",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "détruire",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "enfer",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "gardien",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "geste",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "jack",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "juger",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "majeur",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "notion",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "pardon",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "poursuivre",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "raconter",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "relève",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "récit",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "sommeil",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "tâche",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "ultra",
+  "zipf": 4.46,
+  "set": "night16"
+ },
+ {
+  "headword": "accueillir",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "atelier",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "automobile",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "charte",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "cinquième",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "conserver",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "définitivement",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "foot",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "gouverneur",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "gratuitement",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "incendie",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "interprétation",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "juridique",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "leader",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "luxe",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "man",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "manifestation",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "moral",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "municipal",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "noter",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "particulière",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "positif",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "procureur",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "pétrole",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "repose",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "show",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "traite",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "vague",
+  "zipf": 4.45,
+  "set": "night16"
+ },
+ {
+  "headword": "abus",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "aise",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "bat",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "citoyen",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "commissaire",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "convient",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "coopération",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "drapeau",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "eric",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "franc",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "fuite",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "gamme",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "institution",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "obligatoire",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "paradis",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "potentiel",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "pousser",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "repos",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "sec",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "sondage",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "standard",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "trésor",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "électronique",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "évidence",
+  "zipf": 4.44,
+  "set": "night16"
+ },
+ {
+  "headword": "alerte",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "architecture",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "baiser",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "comparaison",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "cycle",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "destination",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "douche",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "explication",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "exécution",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "falloir",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "franco",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "henry",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "inscription",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "mail",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "outil",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "paiement",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "parisien",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "profondeur",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "publicité",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "queue",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "régional",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "résoudre",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "réussite",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "souris",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "sûre",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "termine",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "tir",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "témoin",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "échapper",
+  "zipf": 4.43,
+  "set": "night16"
+ },
+ {
+  "headword": "alimentation",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "apparition",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "arrondissement",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "artistique",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "ballon",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "bio",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "branche",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "caméra",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "conclusion",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "contrôler",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "corse",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "curieux",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "dialogue",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "dispositif",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "fameux",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "financier",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "grec",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "ingénieur",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "lancement",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "libéral",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "liquide",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "lutter",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "olympique",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "patient",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "prime",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "prévenir",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "pur",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "remplir",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "rupture",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "solidarité",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "sombre",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "supporter",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "supprimer",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "temple",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "transition",
+  "zipf": 4.42,
+  "set": "night16"
+ },
+ {
+  "headword": "amélioration",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "ange",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "bouger",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "considérer",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "cou",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "développé",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "engager",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "favorable",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "horreur",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "introduction",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "jure",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "manche",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "miss",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "montage",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "morceau",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "navire",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "océan",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "piscine",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "présidence",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "rappel",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "rapporte",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "résolution",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "signature",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "street",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "symbole",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "tension",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "thèse",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "ventre",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "voler",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "écrivain",
+  "zipf": 4.41,
+  "set": "night16"
+ },
+ {
+  "headword": "abri",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "business",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "christophe",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "combattre",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "couvert",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "culte",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "digne",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "disparition",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "dépôt",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "fidèle",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "industriel",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "installation",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "intégration",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "job",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "jury",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "lâche",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "ménage",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "odeur",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "participe",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "plante",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "poésie",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "priorité",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "probable",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "ramener",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "refus",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "richesse",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "révèle",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "sensible",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "souffle",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "totalité",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "trump",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "vise",
+  "zipf": 4.4,
+  "set": "night16"
+ },
+ {
+  "headword": "aimez",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "balance",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "charlie",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "comédie",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "corruption",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "extension",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "folie",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "forum",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "féminin",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "garantie",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "honnête",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "hypothèse",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "licence",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "manquer",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "naturellement",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "oreille",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "parallèle",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "profondément",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "précision",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "sportif",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "toit",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "écart",
+  "zipf": 4.39,
+  "set": "night16"
+ },
+ {
+  "headword": "adulte",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "anglaise",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "battu",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "chronique",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "contribution",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "copie",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "destruction",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "envoi",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "espérer",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "extraordinaire",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "foyer",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "frappé",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "fruit",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "horrible",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "humeur",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "immigration",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "inconnu",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "innovation",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "jouent",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "littéraire",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "magique",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "maintien",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "marrant",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "mécanique",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "permettra",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "publier",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "pute",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "remarquer",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "remonter",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "restauration",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "réalise",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "sable",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "suprême",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "terminer",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "transformation",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "témoignage",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "vainqueur",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "énormément",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "étoile",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "évaluation",
+  "zipf": 4.38,
+  "set": "night16"
+ },
+ {
+  "headword": "adaptation",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "adjoint",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "avenue",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "axe",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "boite",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "calendrier",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "champagne",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "drame",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "durable",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "dynamique",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "déplacement",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "expert",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "fermeture",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "fondateur",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "frank",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "future",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "galerie",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "interdiction",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "major",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "nécessairement",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "pis",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "placer",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "profond",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "refaire",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "réalisateur",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "rédaction",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "sauvage",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "seuil",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "signer",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "solo",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "supplémentaire",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "team",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "trace",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "visible",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "visiter",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "voyant",
+  "zipf": 4.37,
+  "set": "night16"
+ },
+ {
+  "headword": "abandonner",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "accent",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "animation",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "annoncer",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "attirer",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "bassin",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "boutique",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "canon",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "casser",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "chapeau",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "col",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "courrier",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "créée",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "destin",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "diversité",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "dizaine",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "dépasse",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "hyper",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "intermédiaire",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "logiciel",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "loup",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "marge",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "maurice",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "médical",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "oncle",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "parlementaire",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "personnellement",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "poète",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "préciser",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "stress",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "utilisent",
+  "zipf": 4.36,
+  "set": "night16"
+ },
+ {
+  "headword": "accéder",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "apprentissage",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "assistance",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "atmosphère",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "attentat",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "bombe",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "charme",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "comporte",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "copain",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "dingue",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "discipline",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "défi",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "effectuer",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "facteur",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "gagnant",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "identifier",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "justifier",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "leçon",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "limiter",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "maria",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "marre",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "mystère",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "méchant",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "orientation",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "paquet",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "paysage",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "pleurer",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "provence",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "pôle",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "quasiment",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "recette",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "représenter",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "réception",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "soldat",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "victor",
+  "zipf": 4.35,
+  "set": "night16"
+ },
+ {
+  "headword": "amende",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "amener",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "aménagement",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "atlantique",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "atteinte",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "autonomie",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "autoroute",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "chanter",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "chanteur",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "chevalier",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "constater",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "continent",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "diable",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "dirige",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "fleur",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "fusion",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "gris",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "lecteur",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "motif",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "métal",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "météo",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "possession",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "refuser",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "remplacement",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "retenir",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "répartition",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "scandale",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "taper",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "terrorisme",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "titulaire",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "video",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "vivement",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "équipage",
+  "zipf": 4.34,
+  "set": "night16"
+ },
+ {
+  "headword": "adam",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "all",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "audience",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "censé",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "citer",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "comprennent",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "conséquent",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "design",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "documentaire",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "fac",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "faculté",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "gorge",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "indispensable",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "investir",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "joyeux",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "magie",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "modifier",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "nettement",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "open",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "ordinaire",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "poursuite",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "prit",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "promesse",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "registre",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "sortant",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "souffrir",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "suivez",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "suppression",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "tournage",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "transformer",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "trompe",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "val",
+  "zipf": 4.33,
+  "set": "night16"
+ },
+ {
+  "headword": "alimentaire",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "annuel",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "apparence",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "bill",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "bob",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "bruno",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "bénéfice",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "clinique",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "communiste",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "concentration",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "couteau",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "doucement",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "dérange",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "ferai",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "fleuve",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "gras",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "inscrire",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "intervenir",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "intégrer",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "intérieure",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "liaison",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "limité",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "marketing",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "miroir",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "paraître",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "partenariat",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "procédé",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "préfecture",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "préfet",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "renforcer",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "respecte",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "référendum",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "sensation",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "support",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "séparation",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "verte",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "écrite",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "émotion",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "étonnant",
+  "zipf": 4.32,
+  "set": "night16"
+ },
+ {
+  "headword": "acquisition",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "apprécier",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "bouge",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "collègue",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "couvre",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "désert",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "déçu",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "enseigne",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "feux",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "frapper",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "héritage",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "inférieur",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "instruction",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "julie",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "jus",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "kevin",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "latin",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "maillot",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "mario",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "mark",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "marquer",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "oiseau",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "plastique",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "plate",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "prière",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "profession",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "profonde",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "pseudo",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "salope",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "sauter",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "signal",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "tony",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "volant",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "ère",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "éditeur",
+  "zipf": 4.31,
+  "set": "night16"
+ },
+ {
+  "headword": "accessible",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "ali",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "ambassadeur",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "carbone",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "cellule",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "chantier",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "chapelle",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "comparer",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "connard",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "conservateur",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "descendre",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "dira",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "duo",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "entraîne",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "exclusivement",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "gamin",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "global",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "horizon",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "maritime",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "mignon",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "précieux",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "quelconque",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "saisir",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "similaire",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "steve",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "subir",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "terroriste",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "tester",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "transmission",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "universitaire",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "vertu",
+  "zipf": 4.3,
+  "set": "night16"
+ },
+ {
+  "headword": "accompagner",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "adopter",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "adoption",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "apprécie",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "assister",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "aveugle",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "baisser",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "best",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "beurre",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "biais",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "blessure",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "boucle",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "bulletin",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "candidature",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "chant",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "del",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "diriger",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "dîner",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "favoriser",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "finance",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "financer",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "fine",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "flotte",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "forcer",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "fromage",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "guère",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "incapable",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "inter",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "jette",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "laissent",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "lion",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "marin",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "masque",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "massif",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "monté",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "musulman",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "nomination",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "observer",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "occupation",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "opéra",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "ose",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "peintre",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "racisme",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "sage",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "session",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "sophie",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "souffrance",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "tempête",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "tennis",
+  "zipf": 4.29,
+  "set": "night16"
+ },
+ {
+  "headword": "abbé",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "acier",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "amateur",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "argument",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "automatique",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "cardinal",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "chaude",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "communiquer",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "consulter",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "définir",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "fantastique",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "game",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "géant",
+  "zipf": 4.28,
+  "set": "night16"
+ },
+ {
+  "headword": "islamique",
+  "zipf": 4.28,
+  "set": "night16"
+ }
+]
