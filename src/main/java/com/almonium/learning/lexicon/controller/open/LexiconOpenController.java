@@ -9,7 +9,6 @@ import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The dictionary, open to guests like the catalogue: what a word means is not personal. The word is bounded like
- * the other public text inputs; the answer is cacheable, since an entry changes only when it is published again.
+ * the other public text inputs, and a bad one is a 400: Spring MVC validates the constraints itself, which the
+ * global handler answers as a bad request, where a {@code @Validated} proxy would throw past it as a 500. The answer
+ * is cacheable, since an entry changes only when it is published again.
  */
-@Validated
 @RestController
 @RequestMapping("/public/lexicon")
 @RequiredArgsConstructor
