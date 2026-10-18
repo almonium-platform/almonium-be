@@ -2,7 +2,16 @@ package com.almonium.learning.lexicon.flow;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 
+import com.almonium.analyzer.analyzer.controller.open.DiscoverController;
+import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
+import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
+import com.almonium.analyzer.analyzer.service.DiscoverLookupService;
+import com.almonium.analyzer.analyzer.service.FrequencyService;
+import com.almonium.analyzer.analyzer.service.LanguageProcessor;
+import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.config.PostgresContainer;
 import com.almonium.learning.book.controller.internal.BooksSignature;
 import com.almonium.learning.lexicon.audio.AudioStore;
@@ -64,7 +73,8 @@ import tools.jackson.databind.node.ObjectNode;
  * Two real entries, as the writer produced them, go in through the signed endpoint and come back out through the
  * public one; then the same entries again, which must change nothing but the version and leave pronunciations
  * where they stand, since audio clips hang off them. Then a clip: listed as wanted, put once, read back with the
- * entry and by itself, and put again without a second write.
+ * entry and by itself, and put again without a second write. Last, the Discover sheet, which reads this lexicon
+ * before it asks any translation provider.
  */
 @DataJpaTest
 @ImportTestcontainers(PostgresContainer.class)
@@ -75,6 +85,7 @@ import tools.jackson.databind.node.ObjectNode;
     AudioClipService.class,
     AudioClipMapper.class,
     EntrySchema.class,
+    DiscoverLexiconMapper.class,
     LexiconPublicationFlowTest.Beans.class
 })
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -124,6 +135,27 @@ class LexiconPublicationFlowTest {
         LexiconClipController clipReading(AudioClipService service) {
             return new LexiconClipController(service);
         }
+
+        @Bean
+        LanguageProcessor languageProcessor() {
+            return mock(LanguageProcessor.class);
+        }
+
+        @Bean
+        FrequencyService frequencyService() {
+            return mock(FrequencyService.class);
+        }
+
+        @Bean
+        DiscoverController discoverController(
+                FrequencyService frequencyService,
+                LanguageProcessor languageProcessor,
+                LexiconLookupService lookupService,
+                DiscoverLexiconMapper mapper) {
+            return new DiscoverController(
+                    frequencyService,
+                    new DiscoverLookupService(languageProcessor, frequencyService, lookupService, mapper));
+        }
     }
 
     @Autowired
@@ -137,6 +169,12 @@ class LexiconPublicationFlowTest {
 
     @Autowired
     LexiconClipController listening;
+
+    @Autowired
+    DiscoverController discovering;
+
+    @Autowired
+    LanguageProcessor languageProcessor;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -425,6 +463,48 @@ class LexiconPublicationFlowTest {
                 .isInstanceOfSatisfying(
                         ResponseStatusException.class,
                         exception -> assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND));
+    }
+
+    @Test
+    void discoverServesThePublishedEntryWithItsClipAndNeverAsksTheProvider() {
+        publishOne(publication("bloke"));
+        UnvoicedPronunciation british = withoutClips("en").stream()
+                .filter(pronunciation -> pronunciation.formId() == null
+                        && pronunciation.variety().equals("en-GB"))
+                .findFirst()
+                .orElseThrow();
+        byte[] mp3 = {(byte) 0xFF, (byte) 0xFB, (byte) 0x90, 0x64, 1, 2, 3};
+        putClip(british.id(), clip(mp3, "Puck", "unverified", "broke"));
+        ClipSubmissionResult verified = putClip(british.id(), clip(mp3, "Charon", "verified", null));
+
+        ResponseEntity<DiscoverLookupResponse> response =
+                discovering.lookup(Language.EN, Language.UK, "Bloke", "A nice bloke.");
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        DiscoverLookupResponse sheet = response.getBody();
+        assertThat(sheet.provider()).isEqualTo("lexicon");
+        assertThat(sheet.entry()).isEqualTo("Bloke");
+        assertThat(sheet.sourceContext()).isEqualTo("A nice bloke.");
+        assertThat(sheet.pronunciations())
+                .extracting(pronunciation -> pronunciation.variety() + " " + pronunciation.ipa())
+                .containsExactly("en-GB /ˈbləʊk/", "en-US /ˈbloʊk/");
+        assertThat(sheet.pronunciations().getFirst().clipUrl()).isEqualTo("/public/lexicon/clips/" + verified.clipId());
+        assertThat(sheet.pronunciations().getFirst().clipStatus()).isEqualTo("verified");
+        assertThat(sheet.pronunciations().get(1).clipUrl()).isNull();
+        assertThat(sheet.senses()).singleElement().satisfies(sense -> {
+            assertThat(sense.index()).isEqualTo(1);
+            assertThat(sense.headword()).isEqualTo("bloke");
+            assertThat(sense.partOfSpeech()).isEqualTo("NOUN");
+            assertThat(sense.transcription()).isEqualTo("/ˈbləʊk/");
+            assertThat(sense.translations()).containsExactly("мужик");
+            assertThat(sense.definition()).startsWith("a man, especially an ordinary one");
+            assertThat(sense.cefr()).isEqualTo("B2");
+            assertThat(sense.examples()).singleElement().satisfies(example -> {
+                assertThat(example.text()).isEqualTo("He seems like a nice bloke, always happy to help.");
+                assertThat(example.translation()).isNull();
+            });
+        });
+        verifyNoInteractions(languageProcessor);
     }
 
     private List<UnvoicedPronunciation> withoutClips(String language) {
