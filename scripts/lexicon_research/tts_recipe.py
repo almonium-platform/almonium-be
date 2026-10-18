@@ -120,7 +120,7 @@ def edit_distance(a, b):
 
 
 def verdict(headword, transcript):
-    """'match', 'match-ignoring-diacritics', 'match-within-1' or 'mismatch'."""
+    """'match', 'match-ignoring-diacritics', 'match-ignoring-spacing', 'match-within-1' or 'mismatch'."""
     h, t = normalise(headword), normalise(transcript or "")
     if not t:
         return "mismatch"
@@ -129,6 +129,9 @@ def verdict(headword, transcript):
     h2, t2 = strip_diacritics(h), strip_diacritics(t)
     if h2 == t2:
         return "match-ignoring-diacritics"
+    # the transcriber spells a homophone as it pleases: "abord" came back as "à bord"
+    if h2.replace(" ", "") == t2.replace(" ", ""):
+        return "match-ignoring-spacing"
     if len(h2) >= 6 and edit_distance(h2, t2) <= 1:
         return "match-within-1"
     return "mismatch"

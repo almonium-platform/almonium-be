@@ -264,3 +264,8 @@ def test_other_varieties_and_forms_are_set_aside_unless_asked(out, monkeypatch, 
     totals = render_clips.run(["es"], backend, None, None, dry_run=True, include_forms=True, limit=1)
     assert "1 to render" in capsys.readouterr().out
 
+
+def test_a_homophone_spelt_with_a_space_still_matches():
+    assert tts_recipe.verdict("abord", "à bord.") == "match-ignoring-spacing"
+    assert tts_recipe.verdict("abbé", "A B.") == "mismatch"
+
