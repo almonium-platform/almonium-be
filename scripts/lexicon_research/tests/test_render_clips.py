@@ -175,7 +175,9 @@ def test_main_loop_publishes_verified_retried_and_unverified_clips(out, monkeypa
 
     backend = render_clips.Backend("http://backend/api/v1/", "secret")
     eleven = render_clips.ElevenLabs("k")
-    totals = render_clips.run(["fr", "uk"], backend, eleven, lambda: FakeWhisper(transcripts), workers=2)
+    totals = render_clips.run(
+        ["fr", "uk"], backend, eleven, lambda: FakeWhisper(transcripts), workers=2, include_forms=True
+    )
 
     assert totals["fr"] == dict(pending=3, rendered=3, verified=2, unverified=1, skipped=0, errors=0, credits=pytest.approx(0.4 * (6 + 7 + 7 + 5 + 5)), reused=0, not_stored=1)
     assert totals["uk"] == dict(pending=2, rendered=1, verified=1, unverified=0, skipped=1, errors=0, credits=pytest.approx(0.4 * 4), reused=0, not_stored=0)
@@ -205,7 +207,9 @@ def test_main_loop_publishes_verified_retried_and_unverified_clips(out, monkeypa
 
     # a second run spends nothing: every clip is reused from disk
     http.puts.clear()
-    again = render_clips.run(["fr"], backend, render_clips.ElevenLabs("k"), FakeWhisper(transcripts), workers=2)
+    again = render_clips.run(
+        ["fr"], backend, render_clips.ElevenLabs("k"), FakeWhisper(transcripts), workers=2, include_forms=True
+    )
     assert http.calls == {"maison": 1, "fenêtre": 2, "chats": 2, "банк": 1}
     assert again["fr"]["credits"] == 0 and again["fr"]["reused"] == 5 and again["fr"]["rendered"] == 3
 
@@ -239,3 +243,24 @@ def test_run_refuses_a_language_without_a_voice(out, monkeypatch):
     with pytest.raises(tts_recipe.UnsupportedLanguage):
         render_clips.run(["en"], render_clips.Backend("http://backend/api/v1", "secret"), None, None, dry_run=True)
     assert http.gets == []
+
+
+def test_other_varieties_and_forms_are_set_aside_unless_asked(out, monkeypatch, capsys):
+    mexican = dict(row("p-mx", "zona", "es"), variety="es-MX")
+    rows = [row("p-es", "zona", "es"), mexican, row("p-form", "zona", "es", form="zonas")]
+    http = FakeHttp({"es": rows}, {})
+    monkeypatch.setattr(render_clips, "requests", http)
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    totals = render_clips.run(["es"], backend, None, None, dry_run=True)
+    printed = capsys.readouterr().out
+    assert totals["es"]["pending"] == 3 and totals["es"]["skipped"] == 2
+    assert "1 set aside, no voice for es-MX" in printed
+    assert "1 set aside, inflected form, not asked for" in printed
+    assert "  es zona" in printed and "zonas" not in printed.split("set aside")[-1]
+    # asked for, the form is rendered; the Mexican row still waits for its own voice
+    totals = render_clips.run(["es"], backend, None, None, dry_run=True, include_forms=True)
+    assert totals["es"]["skipped"] == 1
+    # the limit counts clips to render, not rows fetched
+    totals = render_clips.run(["es"], backend, None, None, dry_run=True, include_forms=True, limit=1)
+    assert "1 to render" in capsys.readouterr().out
+

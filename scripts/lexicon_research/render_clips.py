@@ -12,9 +12,11 @@ stores them under, so a crash never spends credits twice: re-running reuses what
 Usage (from the backend repository root):
     scripts/.venv/bin/python scripts/lexicon_research/render_clips.py --langs fr,es
         [--backend http://localhost:9998/api/v1] [--limit N] [--credit-budget N] [--credit-floor N]
-        [--workers 3] [--dry-run]
+        [--workers 3] [--dry-run] [--include-forms]
 
---limit caps the pronunciations taken per language (0 = all). --credit-budget caps the credits this
+Only the variety the language's voice speaks is rendered (fr-FR, es-ES, pl-PL, uk-UA); the other
+varieties wait for voices of their own. Inflected forms are left out unless --include-forms is given.
+--limit caps the clips rendered per language (0 = all). --credit-budget caps the credits this
 run may spend (0 = no cap); --credit-floor stops before synthesis when the plan has fewer credits
 left. --dry-run lists what would be rendered and the estimated credits, without touching ElevenLabs.
 
@@ -221,16 +223,27 @@ class Transcriber:
 # ---------------------------------------------------------------- the run
 
 
-def plan(lang, rows):
-    """Turn the backend's rows into jobs; rows whose recipe cannot be built become skips."""
+def plan(lang, rows, include_forms=False):
+    """Turn the backend's rows into jobs; the rest become skips, each with its reason.
+
+    Only the variety the language's voice speaks is rendered: a Spain voice must not be filed
+    under es-MX, and en-GB, en-US, es-MX and de-AT wait for voices of their own. Inflected forms
+    are left out unless asked for, since they multiply the bill by two to three.
+    """
     variety = VARIETY[lang]
     voice_id = voice_for(lang)[2]
     jobs, skipped = [], []
     for row in rows:
+        if row.get("variety") != variety:
+            skipped.append((row, f"no voice for {row.get('variety')}"))
+            continue
+        if row.get("formId") and not include_forms:
+            skipped.append((row, "inflected form, not asked for"))
+            continue
         text = row.get("form") if row.get("formId") else row.get("headword")
         built = engine_input(lang, text, row.get("phonemic"))
         if not built:
-            skipped.append(row)
+            skipped.append((row, "recipe cannot be built"))
             continue
         sent, mode = built
         jobs.append(dict(row=row, lang=lang, variety=variety, voice_id=voice_id, text=text, input=sent, mode=mode, clips=[]))
@@ -303,18 +316,28 @@ def new_totals():
     return dict(pending=0, rendered=0, verified=0, unverified=0, skipped=0, errors=0, credits=0.0, reused=0, not_stored=0)
 
 
-def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False):
-    """Render every language; returns {lang: totals}. transcriber may be a factory, called once on first need."""
+def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False, include_forms=False):
+    """Render every language; returns {lang: totals}. transcriber may be a factory, called once on first need.
+
+    limit caps the clips rendered per language, after the rows nobody asked for are set aside.
+    """
     totals = {}
     model = None
     for lang in langs:
         voice_for(lang)  # refuse before touching the backend
-        rows = backend.pending(lang, limit)
-        jobs, skipped = plan(lang, rows)
+        rows = backend.pending(lang)
+        jobs, skipped = plan(lang, rows, include_forms)
+        if limit:
+            jobs = jobs[:limit]
         t = totals[lang] = new_totals()
         t["pending"], t["skipped"] = len(rows), len(skipped)
-        for row in skipped:
-            print(f"  skip {lang} {row.get('headword')!r} (pronunciation {row.get('id')}): recipe cannot be built", flush=True)
+        reasons = {}
+        for row, reason in skipped:
+            reasons[reason] = reasons.get(reason, 0) + 1
+            if reason == "recipe cannot be built":
+                print(f"  skip {lang} {row.get('headword')!r} (pronunciation {row.get('id')}): {reason}", flush=True)
+        for reason, count in sorted(reasons.items()):
+            print(f"{lang}: {count} set aside, {reason}", flush=True)
         if dry_run:
             credits = sum(estimate(j) for j in jobs)
             print(f"{lang}: {len(jobs)} to render, {len(skipped)} skipped, about {credits:.0f} credits for first attempts")
@@ -378,6 +401,9 @@ def main():
     parser.add_argument("--credit-floor", type=float, default=5000, help="stop when the plan has fewer credits left")
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--dry-run", action="store_true", help="list what would be rendered; no synthesis")
+    parser.add_argument(
+        "--include-forms", action="store_true", help="render inflected forms too, not only the headword level"
+    )
     args = parser.parse_args()
 
     langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
@@ -401,7 +427,9 @@ def main():
         return Transcriber()
 
     try:
-        totals = run(langs, backend, eleven, load_whisper, args.limit, args.workers, args.dry_run)
+        totals = run(
+            langs, backend, eleven, load_whisper, args.limit, args.workers, args.dry_run, args.include_forms
+        )
     except (RuntimeError, requests.RequestException) as e:
         sys.exit(f"backend: {e}")
     print_report(totals, args.dry_run)
