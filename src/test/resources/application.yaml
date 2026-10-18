@@ -19,6 +19,12 @@ spring:
   liquibase:
     contexts: ${spring.profiles.active}
 
+management:
+  endpoints.web.exposure.include: health,info,prometheus
+  metrics:
+    tags.application: almonium-be
+    distribution.slo.http.server.requests: 100ms,300ms,1s,3s,10s
+
 google:
   parent-location: global
   service-account-key-base64: firebase_service_account_key_dummy

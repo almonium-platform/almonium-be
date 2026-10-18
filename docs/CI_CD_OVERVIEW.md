@@ -363,7 +363,10 @@ Manual or external to the repository:
 - first host bootstrap, DNS/cloud provisioning, vault password custody, and
   disaster recovery;
 - database restore testing and application-aware migration rollback;
-- monitoring/alerting beyond the deployment-time health request.
+- alert rules and dashboards in Grafana Cloud. The backend exposes
+  `/actuator/prometheus` (reachable only inside the host; Traefik refuses it
+  publicly) and the infra repository's Alloy stack ships those metrics and
+  every container's logs there; see "Monitoring" in its README.
 
 ## Current risks and improvement order
 

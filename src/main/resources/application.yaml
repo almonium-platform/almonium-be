@@ -46,6 +46,14 @@ spring:
     contexts: ${SPRING_PROFILE}
     default-schema: ${DB_SCHEMA}
 
+management:
+  endpoints.web.exposure.include: health,info,prometheus
+  metrics:
+    tags.application: almonium-be
+    # A few fixed latency buckets instead of a full histogram keeps the series
+    # count inside Grafana Cloud's free tier.
+    distribution.slo.http.server.requests: 100ms,300ms,1s,3s,10s
+
 logging:
   level:
     org.springframework.transaction.interceptor: INFO

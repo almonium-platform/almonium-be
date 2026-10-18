@@ -54,7 +54,9 @@ public class WebSecurityConfig {
         "/public/**",
         // Actuator
         "/actuator/health/**",
-        "/actuator/info"
+        "/actuator/info",
+        // Scraped by Alloy over the Docker network; Traefik refuses it from outside the host.
+        "/actuator/prometheus"
     };
 
     @Bean
