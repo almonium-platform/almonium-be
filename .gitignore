@@ -1,6 +1,8 @@
 # folders
 target
 temp
+# local run output, among it the filesystem audio store
+out
 .idea
 scripts/.venv
 scripts/__pycache__

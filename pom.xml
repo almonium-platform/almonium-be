@@ -20,6 +20,7 @@
 
     <properties>
         <version.archunit>1.5.0</version.archunit>
+        <version.aws-sdk>2.46.7</version.aws-sdk>
         <version.commons-configuration2>2.15.1</version.commons-configuration2>
         <version.google-cloud>26.88.0</version.google-cloud>
         <version.google-guava>33.7.1-jre</version.google-guava>
@@ -58,6 +59,13 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-bom</artifactId>
                 <version>${version.kotlin}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${version.aws-sdk}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -222,6 +230,11 @@
         </dependency>
 
         <!-- ============ Google & Third‑party Integrations ============ -->
+        <!-- Pronunciation clips live in an S3-compatible bucket (Cloudflare R2) when deployed. -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

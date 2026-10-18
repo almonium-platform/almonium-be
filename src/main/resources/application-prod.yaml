@@ -2,3 +2,4 @@ app:
   web-domain: https://almonium.com
   api-domain: https://api.almonium.com
   email.dry-run: false
+  audio.store: s3
