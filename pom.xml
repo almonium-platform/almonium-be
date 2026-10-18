@@ -504,7 +504,8 @@
                             <includes>
                                 <include>.gitignore</include>
                                 <include>.yaml</include>
-                                <include>.env</include>
+                                <!-- the template, never the real .env: a failed check prints the offending lines, secrets included -->
+                                <include>.env.template</include>
                             </includes>
                             <trimTrailingWhitespace/>
                             <endWithNewline/>
