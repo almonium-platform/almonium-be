@@ -133,3 +133,45 @@ authentication: the lexemes the word names by headword or lemma, then those it
 is a form of (`matchedForm` says which), each with forms, pronunciations,
 senses, relations, `capabilities` and `provenance`; **404** when the word is
 unknown.
+
+### Pronunciation clips (2026-10-18)
+
+The audio phase runs on the Python side: it asks the backend which
+pronunciations have no clip, synthesises and verifies each one, and hands the
+bytes back. The backend alone holds the bucket credentials and the rows;
+readers fetch clips through it. Both internal routes are signed exactly like
+`PUT /internal/lexicon/entries` (`X-Almonium-Books-Timestamp` and
+`X-Almonium-Books-Signature`); the GET signs an empty body.
+
+- `GET /internal/lexicon/pronunciations?language=fr&without=clip&limit=500&offset=0`
+  answers a JSON array of `{id, lexemeId, headword, lemma, pos, formId, form,
+  variety, rank, phonemic, reading, engineInput}` for the pronunciations of
+  that language with no `audio_clip` row, ordered by headword then rank (with
+  variety and id as tie-breakers, so offset paging is stable). `without` is
+  required and only `clip` is accepted; `limit` is capped at 2000.
+- `PUT /internal/lexicon/pronunciations/{id}/clips` takes
+  `{engine, voice, model, pace, format, engine_input, status, duration_ms,
+  transcript, character_cost, audio_base64}` and answers **200**
+  `{clip_id, object_key, stored}`. `status` is `verified` or `unverified`;
+  `transcript` is what the verifier heard when it differed; `character_cost`
+  what the engine charged. **404** for an unknown pronunciation, **400** for
+  bad or empty base64, an unknown status, a format other than `mp3_*`, or a
+  missing field. The call also records `engine_input` on the pronunciation.
+
+Clips are immutable, content-addressed and write-once. The object key is
+`audio/{variety}/{voice}/{sha256 hex of "engine|voice|model|pace|format|engine_input"}.{ext}`,
+pace rendered with two decimals (`1.00`) and `ext` taken from the format
+(`mp3_44100_128` -> `mp3`). A submission whose key already exists writes
+nothing (`stored: false`) and reuses the existing row, so the same rendering
+submitted twice is one clip with one id; nothing ever deletes or overwrites an
+object. One bucket is shared by staging and production.
+
+Readers fetch a clip through `GET /public/lexicon/clips/{clipId}`, which
+streams it with `Content-Type: audio/mpeg`, `Content-Length`, `Cache-Control:
+public, max-age=31536000, immutable` and an `ETag` equal to the hash part of
+the key; **404** when the row or the object is missing. In the entry response
+each pronunciation carries `clips: [{id, engine, voice, pace, format,
+durationMs, status, url}]`, verified clips first, where `url` is the path
+`/public/lexicon/clips/{id}` for the client to prepend its API base to;
+`capabilities.ipaAudio` is true when any pronunciation of the lexeme has a
+verified clip.

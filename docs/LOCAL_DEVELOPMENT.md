@@ -177,6 +177,17 @@ docker build -t almonium-be:local .
 | Paddle Billing | `PADDLE_ENVIRONMENT`, `PADDLE_CLIENT_TOKEN`, `PADDLE_API_KEY`, `PADDLE_WEBHOOK_SECRET`, `PADDLE_PRICE_PREMIUM_MONTHLY`, `PADDLE_PRICE_PREMIUM_ANNUAL`, `PADDLE_PRICE_FOUNDER_MONTHLY`, `PADDLE_PRICE_FOUNDER_ANNUAL` | Paddle API, Paddle.js, webhook verification, and environment-specific catalog price IDs. |
 | Email/dictionaries | `ZEPTO_API_KEY`, `RAPID_API_KEY`, `WORDNIK_KEY`, `YANDEX_KEY` | Email delivery and dictionary providers. |
 | OpenAI | `OPENAI_API_KEY`, `OPENAI_ADMIN_KEY`, `ALMO_MODEL` | Chat with Almo, and the organisation Admin key the ops spend page reads the bill with. |
+| Audio clips | `AUDIO_STORE`, `AUDIO_LOCAL_DIR`, `AUDIO_S3_ENDPOINT`, `AUDIO_S3_REGION`, `AUDIO_S3_BUCKET`, `AUDIO_S3_ACCESS_KEY_ID`, `AUDIO_S3_SECRET_ACCESS_KEY` | Where pronunciation clips are kept; see below. |
+
+Pronunciation clips are written once into an audio store selected by
+`AUDIO_STORE` (`app.audio.store`). Locally and in tests it is `filesystem`, the
+default, and clips land as files under `AUDIO_LOCAL_DIR` (default `./out/audio`,
+git-ignored), so nothing beyond the checkout is needed to publish and play a
+clip. The `staging` and `prod` profiles set it to `s3`, the Cloudflare R2 bucket
+the infra Compose template points at through the `AUDIO_S3_*` variables, which
+are only read in that mode; the backend refuses to start with `s3` and any of
+them missing. The S3 values are optional locally and stay commented out in
+`.env.template`.
 
 Google/Firebase clients are initialized eagerly, so
 `GOOGLE_SERVICE_ACCOUNT_KEY_BASE64` must contain a valid Base64-encoded service

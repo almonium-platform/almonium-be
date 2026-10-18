@@ -1,5 +1,6 @@
 package com.almonium.learning.lexicon.dto.response;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,22 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
 
     public record FormView(UUID id, String form, Map<String, Object> features) {}
 
-    public record PronunciationView(UUID id, UUID formId, String variety, int rank, String phonemic, String status) {}
+    public record PronunciationView(
+            UUID id, UUID formId, String variety, int rank, String phonemic, String status, List<ClipView> clips) {}
+
+    /**
+     * One synthesised rendering of a pronunciation, verified ones first. {@code url} is the path under the API base
+     * ({@code /public/lexicon/clips/{id}}); a client prepends its own base.
+     */
+    public record ClipView(
+            UUID id,
+            String engine,
+            String voice,
+            BigDecimal pace,
+            String format,
+            int durationMs,
+            String status,
+            String url) {}
 
     public record SenseView(
             UUID id,

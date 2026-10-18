@@ -1,23 +1,37 @@
 package com.almonium.learning.lexicon.flow;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.almonium.config.PostgresContainer;
 import com.almonium.learning.book.controller.internal.BooksSignature;
+import com.almonium.learning.lexicon.audio.AudioStore;
+import com.almonium.learning.lexicon.audio.FileSystemAudioStore;
 import com.almonium.learning.lexicon.controller.internal.LexiconPublicationController;
+import com.almonium.learning.lexicon.controller.internal.PronunciationClipController;
+import com.almonium.learning.lexicon.controller.open.LexiconClipController;
 import com.almonium.learning.lexicon.controller.open.LexiconOpenController;
+import com.almonium.learning.lexicon.dto.response.ClipSubmissionResult;
 import com.almonium.learning.lexicon.dto.response.EntryPublicationResult;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ClipView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.LexemeView;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PronunciationView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.SenseView;
+import com.almonium.learning.lexicon.dto.response.UnvoicedPronunciation;
+import com.almonium.learning.lexicon.mapper.AudioClipMapper;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
+import com.almonium.learning.lexicon.model.ClipObjectKey;
+import com.almonium.learning.lexicon.service.AudioClipService;
 import com.almonium.learning.lexicon.service.EntrySchema;
 import com.almonium.learning.lexicon.service.LexiconLookupService;
 import com.almonium.learning.lexicon.service.LexiconPublicationService;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.Instant;
+import java.util.Base64;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +54,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
@@ -48,7 +63,8 @@ import tools.jackson.databind.node.ObjectNode;
 /**
  * Two real entries, as the writer produced them, go in through the signed endpoint and come back out through the
  * public one; then the same entries again, which must change nothing but the version and leave pronunciations
- * where they stand, since audio clips will hang off them.
+ * where they stand, since audio clips hang off them. Then a clip: listed as wanted, put once, read back with the
+ * entry and by itself, and put again without a second write.
  */
 @DataJpaTest
 @ImportTestcontainers(PostgresContainer.class)
@@ -56,6 +72,8 @@ import tools.jackson.databind.node.ObjectNode;
     LexiconPublicationService.class,
     LexiconLookupService.class,
     LexiconEntryMapper.class,
+    AudioClipService.class,
+    AudioClipMapper.class,
     EntrySchema.class,
     LexiconPublicationFlowTest.Beans.class
 })
@@ -90,6 +108,22 @@ class LexiconPublicationFlowTest {
         LexiconOpenController openController(LexiconLookupService lookupService) {
             return new LexiconOpenController(lookupService);
         }
+
+        @Bean
+        AudioStore audioStore() throws IOException {
+            return new FileSystemAudioStore(Files.createTempDirectory("almonium-audio"));
+        }
+
+        @Bean
+        PronunciationClipController clipController(
+                AudioClipService service, BooksSignature signature, ObjectMapper objectMapper) {
+            return new PronunciationClipController(service, signature, objectMapper);
+        }
+
+        @Bean
+        LexiconClipController clipReading(AudioClipService service) {
+            return new LexiconClipController(service);
+        }
     }
 
     @Autowired
@@ -97,6 +131,12 @@ class LexiconPublicationFlowTest {
 
     @Autowired
     LexiconOpenController reading;
+
+    @Autowired
+    PronunciationClipController voicing;
+
+    @Autowired
+    LexiconClipController listening;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -295,6 +335,123 @@ class LexiconPublicationFlowTest {
                                 pronunciation.variety() + "#" + pronunciation.rank() + " " + pronunciation.phonemic()))
                 .containsExactly("en-GB#1 /ˈbləʊk/", "en-US#1 /ˈbloʊk/", "en-US#2 /ˈblɔʊk/");
         assertThat(pronunciationIds()).isEqualTo(pronunciations);
+    }
+
+    @Test
+    void aClipIsStoredOnceServedForeverAndShowsUpOnItsPronunciation() {
+        publishOne(publication("bloke"));
+        List<UnvoicedPronunciation> unvoiced = withoutClips("en");
+        assertThat(unvoiced).hasSize(4);
+        assertThat(unvoiced).allSatisfy(pronunciation -> {
+            assertThat(pronunciation.headword()).isEqualTo("bloke");
+            assertThat(pronunciation.lemma()).isEqualTo("bloke");
+            assertThat(pronunciation.pos()).isEqualTo("NOUN");
+        });
+        assertThat(unvoiced.stream().filter(pronunciation -> pronunciation.formId() != null))
+                .extracting(UnvoicedPronunciation::form)
+                .containsOnly("blokes");
+        UnvoicedPronunciation british = unvoiced.stream()
+                .filter(pronunciation -> pronunciation.formId() == null
+                        && pronunciation.variety().equals("en-GB"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(british.phonemic()).isEqualTo("/ˈbləʊk/");
+        assertThat(british.engineInput()).isNull();
+        byte[] mp3 = {(byte) 0xFF, (byte) 0xFB, (byte) 0x90, 0x64, 1, 2, 3};
+
+        // An unverified take first: it is kept, with what was heard, but gives the lexeme no audio capability.
+        ClipSubmissionResult doubtful = putClip(british.id(), clip(mp3, "Puck", "unverified", "broke"));
+        assertThat(doubtful.stored()).isTrue();
+        assertThat(lookup("en", "bloke").lexemes().getFirst().capabilities().ipaAudio())
+                .isFalse();
+
+        ClipSubmissionResult first = putClip(british.id(), clip(mp3, "Charon", "verified", null));
+        assertThat(first.stored()).isTrue();
+        assertThat(first.objectKey()).startsWith("audio/en-GB/Charon/").endsWith(".mp3");
+        assertThat(first.clipId()).isNotEqualTo(doubtful.clipId());
+
+        LexemeView bloke = lookup("en", "bloke").lexemes().getFirst();
+        PronunciationView spoken = bloke.pronunciations().stream()
+                .filter(pronunciation -> pronunciation.id().equals(british.id()))
+                .findFirst()
+                .orElseThrow();
+        assertThat(spoken.clips()).extracting(ClipView::status).containsExactly("verified", "unverified");
+        ClipView clip = spoken.clips().getFirst();
+        assertThat(clip.id()).isEqualTo(first.clipId());
+        assertThat(clip.engine()).isEqualTo("google");
+        assertThat(clip.voice()).isEqualTo("Charon");
+        assertThat(clip.pace()).isEqualByComparingTo("1.00");
+        assertThat(clip.format()).isEqualTo("mp3_44100_128");
+        assertThat(clip.durationMs()).isEqualTo(640);
+        assertThat(clip.url()).isEqualTo("/public/lexicon/clips/" + first.clipId());
+        assertThat(bloke.capabilities().ipaAudio()).isTrue();
+        assertThat(bloke.pronunciations().stream()
+                        .filter(pronunciation -> !pronunciation.id().equals(british.id())))
+                .allSatisfy(pronunciation -> assertThat(pronunciation.clips()).isEmpty());
+        assertThat(jdbc.queryForObject(
+                        "select engine_input from lexicon.pronunciation where id = ?", String.class, british.id()))
+                .isEqualTo("bloke");
+        assertThat(jdbc.queryForObject(
+                        "select transcript from lexicon.audio_clip where id = ?", String.class, doubtful.clipId()))
+                .isEqualTo("broke");
+
+        ResponseEntity<byte[]> served = listening.clip(first.clipId());
+        assertThat(served.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(served.getBody()).isEqualTo(mp3);
+        assertThat(served.getHeaders().getContentType()).hasToString("audio/mpeg");
+        assertThat(served.getHeaders().getContentLength()).isEqualTo(mp3.length);
+        assertThat(served.getHeaders().getCacheControl()).isEqualTo("public, max-age=31536000, immutable");
+        assertThat(served.getHeaders().getETag()).isEqualTo("\"" + ClipObjectKey.hashOf(first.objectKey()) + "\"");
+        assertThat(listening.clip(UUID.randomUUID()).getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+        // The same rendering again: nothing is written, and the row keeps its id.
+        ClipSubmissionResult again = putClip(british.id(), clip(mp3, "Charon", "verified", null));
+        assertThat(again.stored()).isFalse();
+        assertThat(again.clipId()).isEqualTo(first.clipId());
+        assertThat(again.objectKey()).isEqualTo(first.objectKey());
+        assertThat(jdbc.queryForObject("select count(*) from lexicon.audio_clip", Integer.class))
+                .isEqualTo(2);
+        assertThat(withoutClips("en"))
+                .hasSize(3)
+                .noneMatch(pronunciation -> pronunciation.id().equals(british.id()));
+
+        ObjectNode wav = clip(mp3, "Charon", "verified", null).put("format", "wav_44100");
+        assertThatThrownBy(() -> putClip(british.id(), wav))
+                .isInstanceOfSatisfying(
+                        ResponseStatusException.class,
+                        exception -> assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST));
+        ObjectNode orphan = clip(mp3, "Charon", "verified", null);
+        assertThatThrownBy(() -> putClip(UUID.randomUUID(), orphan))
+                .isInstanceOfSatisfying(
+                        ResponseStatusException.class,
+                        exception -> assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND));
+    }
+
+    private List<UnvoicedPronunciation> withoutClips(String language) {
+        long timestamp = System.currentTimeMillis() / 1000;
+        return voicing.list(timestamp, sign(timestamp, new byte[0]), language, "clip", 500, 0);
+    }
+
+    private ClipSubmissionResult putClip(UUID pronunciationId, ObjectNode submission) {
+        byte[] body = objectMapper.writeValueAsBytes(submission);
+        long timestamp = System.currentTimeMillis() / 1000;
+        return voicing.put(timestamp, sign(timestamp, body), pronunciationId, body);
+    }
+
+    private ObjectNode clip(byte[] mp3, String voice, String status, String transcript) {
+        ObjectNode submission = objectMapper.createObjectNode();
+        submission.put("engine", "google");
+        submission.put("voice", voice);
+        submission.put("model", "chirp3-hd");
+        submission.put("pace", 1.0);
+        submission.put("format", "mp3_44100_128");
+        submission.put("engine_input", "bloke");
+        submission.put("status", status);
+        submission.put("duration_ms", 640);
+        submission.put("transcript", transcript);
+        submission.put("character_cost", 5.0);
+        submission.put("audio_base64", Base64.getEncoder().encodeToString(mp3));
+        return submission;
     }
 
     private LexiconEntryResponse lookup(String language, String text) {

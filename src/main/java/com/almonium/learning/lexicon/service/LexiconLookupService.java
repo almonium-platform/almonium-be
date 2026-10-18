@@ -2,13 +2,19 @@ package com.almonium.learning.lexicon.service;
 
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
+import com.almonium.learning.lexicon.model.entity.AudioClip;
 import com.almonium.learning.lexicon.model.entity.Lexeme;
 import com.almonium.learning.lexicon.model.entity.LexemeForm;
+import com.almonium.learning.lexicon.repository.AudioClipRepository;
 import com.almonium.learning.lexicon.repository.LexemeFormRepository;
 import com.almonium.learning.lexicon.repository.LexemeRepository;
+import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LexiconLookupService {
     private final LexemeRepository lexemeRepository;
     private final LexemeFormRepository formRepository;
+    private final AudioClipRepository clipRepository;
     private final LexiconEntryMapper mapper;
 
     public Optional<LexiconEntryResponse> lookup(String language, String text) {
@@ -39,6 +46,13 @@ public class LexiconLookupService {
         if (matches.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(mapper.toResponse(language, text, matches));
+        return Optional.of(mapper.toResponse(language, text, matches, clipsOf(matches.keySet())));
+    }
+
+    /** Every clip of these lexemes in one query, by pronunciation, so the mapper never asks per pronunciation. */
+    private Map<UUID, List<AudioClip>> clipsOf(Collection<Lexeme> lexemes) {
+        List<UUID> ids = lexemes.stream().map(Lexeme::getId).toList();
+        return clipRepository.findByLexemeIds(ids).stream()
+                .collect(Collectors.groupingBy(clip -> clip.getPronunciation().getId()));
     }
 }

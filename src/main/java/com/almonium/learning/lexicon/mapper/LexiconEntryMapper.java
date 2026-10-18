@@ -2,6 +2,7 @@ package com.almonium.learning.lexicon.mapper;
 
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.Capabilities;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ClipView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.CueView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ExampleView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.FormView;
@@ -12,6 +13,7 @@ import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.Pronuncia
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.Provenance;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.RelationView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.SenseView;
+import com.almonium.learning.lexicon.model.entity.AudioClip;
 import com.almonium.learning.lexicon.model.entity.Lexeme;
 import com.almonium.learning.lexicon.model.entity.LexemeForm;
 import com.almonium.learning.lexicon.model.entity.LexemePart;
@@ -22,28 +24,42 @@ import com.almonium.learning.lexicon.model.entity.Sense;
 import com.almonium.learning.lexicon.model.entity.SenseCue;
 import com.almonium.learning.lexicon.model.entity.SenseExample;
 import com.almonium.learning.lexicon.model.entity.SenseGloss;
+import com.almonium.learning.lexicon.model.enums.ClipStatus;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 /** Shapes lexicon rows into the one entry every client reads. Written by hand: the graph is deep and computed. */
 @Component
 public class LexiconEntryMapper {
+    /** Where {@code LexiconClipController} serves a clip, relative to the API base the client already knows. */
+    static final String CLIP_PATH = "/public/lexicon/clips/";
 
-    /** {@code matches} pairs each lexeme with the form the reader's word matched, or null when it named the lexeme. */
-    public LexiconEntryResponse toResponse(String language, String text, Map<Lexeme, LexemeForm> matches) {
+    private static final Comparator<AudioClip> VERIFIED_FIRST = Comparator.comparing(
+                    (AudioClip clip) -> clip.getStatus() != ClipStatus.VERIFIED)
+            .thenComparing(AudioClip::getCreatedAt);
+
+    /**
+     * {@code matches} pairs each lexeme with the form the reader's word matched, or null when it named the lexeme;
+     * {@code clips} holds every clip of these lexemes' pronunciations, by pronunciation id, fetched up front.
+     */
+    public LexiconEntryResponse toResponse(
+            String language, String text, Map<Lexeme, LexemeForm> matches, Map<UUID, List<AudioClip>> clips) {
         List<LexemeView> lexemes = new ArrayList<>();
-        matches.forEach((lexeme, matched) -> lexemes.add(toView(lexeme, matched)));
+        matches.forEach((lexeme, matched) -> lexemes.add(toView(lexeme, matched, clips)));
         return new LexiconEntryResponse(language, text, lexemes);
     }
 
-    public LexemeView toView(Lexeme lexeme, LexemeForm matched) {
+    public LexemeView toView(Lexeme lexeme, LexemeForm matched, Map<UUID, List<AudioClip>> clips) {
         List<FormView> forms = lexeme.getForms().stream().map(this::toView).toList();
-        List<PronunciationView> pronunciations =
-                lexeme.getPronunciations().stream().map(this::toView).toList();
+        List<PronunciationView> pronunciations = lexeme.getPronunciations().stream()
+                .map(pronunciation -> toView(pronunciation, clips.getOrDefault(pronunciation.getId(), List.of())))
+                .toList();
         List<SenseView> senses = lexeme.getSenses().stream().map(this::toView).toList();
         List<RelationView> relations =
                 lexeme.getRelations().stream().map(this::toView).toList();
@@ -69,7 +85,9 @@ public class LexiconEntryMapper {
                         !forms.isEmpty(),
                         senses.stream().anyMatch(sense -> sense.cefr() != null),
                         !pronunciations.isEmpty(),
-                        false,
+                        pronunciations.stream()
+                                .flatMap(pronunciation -> pronunciation.clips().stream())
+                                .anyMatch(clip -> ClipStatus.VERIFIED.label().equals(clip.status())),
                         !parts.isEmpty(),
                         !relations.isEmpty()),
                 provenance(lexeme));
@@ -79,14 +97,27 @@ public class LexiconEntryMapper {
         return new FormView(form.getId(), form.getForm(), form.getFeatures());
     }
 
-    private PronunciationView toView(Pronunciation pronunciation) {
+    private PronunciationView toView(Pronunciation pronunciation, List<AudioClip> clips) {
         return new PronunciationView(
                 pronunciation.getId(),
                 pronunciation.getForm() == null ? null : pronunciation.getForm().getId(),
                 pronunciation.getVariety(),
                 pronunciation.getRank(),
                 pronunciation.getPhonemic(),
-                pronunciation.getStatus().label());
+                pronunciation.getStatus().label(),
+                clips.stream().sorted(VERIFIED_FIRST).map(this::toView).toList());
+    }
+
+    private ClipView toView(AudioClip clip) {
+        return new ClipView(
+                clip.getId(),
+                clip.getEngine(),
+                clip.getVoice(),
+                clip.getPace(),
+                clip.getFormat(),
+                clip.getDurationMs(),
+                clip.getStatus().label(),
+                CLIP_PATH + clip.getId());
     }
 
     private SenseView toView(Sense sense) {
