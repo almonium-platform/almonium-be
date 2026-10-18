@@ -19,14 +19,20 @@ OUTPUT_FORMAT = "mp3_44100_128"
 PACE = 1.0
 PACE_KEY = "1.00"  # the pace as it appears in the object key: two decimals, matching the backend
 
-# language -> (language name, voice name, voice id). English and German have no chosen voice yet.
+# language -> (language name, voice name, voice id), the voices the owner listened to on 2026-10-03
+# (docs/TTS_IPA_FINDINGS.md). English and German are sent IPA, which Eric and Otto read "perfectly"
+# on the tricky words; the Romance and Slavic voices get the spelling, per the recipe below.
 VOICES = {
+    "en": ("English", "Eric", "cjVigY5qzO86Huf0OWal"),
+    "de": ("German", "Otto", "FTNCalFNG5bRnkkaP5Ug"),
     "uk": ("Ukrainian", "Alex Nekrasov", "9Sj8ugvpK1DmcAXyvi3a"),
     "fr": ("French", "Nicolas", "aQROLel5sQbj1vuIVi6B"),
     "es": ("Spanish", "David Martin", "Nh2zY9kknu6z4pZy6FhD"),
     "pl": ("Polish", "Adam", "hIssydxXZ1WuDorjx6Ic"),
 }
-VARIETY = {"uk": "uk-UA", "fr": "fr-FR", "es": "es-ES", "pl": "pl-PL"}
+# The variety each voice speaks: Eric is American, so en-GB rows wait for a British voice.
+VARIETY = {"en": "en-US", "de": "de-DE", "uk": "uk-UA", "fr": "fr-FR", "es": "es-ES", "pl": "pl-PL"}
+IPA_LANGUAGES = {"en", "de"}
 
 ACUTE = "́"
 UK_VOWEL_LETTERS = set("аеєиіїоуюя")
@@ -41,8 +47,6 @@ def voice_for(lang):
     """The (language name, voice name, voice id) for a language, or a clear refusal."""
     if lang in VOICES:
         return VOICES[lang]
-    if lang in ("en", "de"):
-        raise UnsupportedLanguage(f"{lang}: no ElevenLabs voice chosen yet (audition pending), refusing to guess")
     raise UnsupportedLanguage(f"{lang}: no ElevenLabs voice in the table, refusing to guess")
 
 
@@ -84,6 +88,11 @@ def engine_input(lang, text, phonemic=None):
         return None
     if lang == "uk":
         return uk_input(text, phonemic)
+    if lang in IPA_LANGUAGES:
+        ipa = (phonemic or "").strip()
+        if not ipa.startswith("/") or not ipa.endswith("/") or len(ipa) < 3:
+            return None
+        return ipa, "ipa"
     return text, "bare"
 
 

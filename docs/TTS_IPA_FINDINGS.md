@@ -26,8 +26,9 @@ once, then falls back. The evidence is in the ElevenLabs section below.
 
 | Variety | ElevenLabs voice | What is sent | Verified |
 |---|---|---|---|
-| en-US, en-GB | audition pending (stock voices) | IPA | "Perfect" on 22 tricky words |
-| de-DE | audition pending (library voices) | IPA | "Perfect" on 18 tricky words |
+| en-US | Eric (stock) | IPA | "Perfect" on 22 tricky words; confirmed as the choice 2026-10-18 |
+| en-GB | none yet | IPA | Eric is American; British rows wait for a British voice |
+| de-DE | Otto (library) | IPA | "Perfect" on 18 tricky words; confirmed as the choice 2026-10-18 |
 | fr-FR | Nicolas | Spelling; IPA only for homographs | Spelling and IPA sound the same |
 | es-ES | David Martin | Spelling | Spelling better than IPA on murciélago |
 | it-IT | MarcoTrox | Spelling with the accent on the stressed vowel | `àncora`, `prìncipi` work; IPA fails |

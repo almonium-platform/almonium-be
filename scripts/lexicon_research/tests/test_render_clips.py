@@ -41,12 +41,18 @@ def test_ukrainian_recipe_on_three_known_words():
 
 
 def test_unsupported_languages_are_refused():
-    with pytest.raises(tts_recipe.UnsupportedLanguage, match="audition pending"):
-        tts_recipe.voice_for("en")
+    with pytest.raises(tts_recipe.UnsupportedLanguage, match="no ElevenLabs voice"):
+        tts_recipe.voice_for("it")
     with pytest.raises(tts_recipe.UnsupportedLanguage):
-        tts_recipe.voice_for("de")
-    with pytest.raises(tts_recipe.UnsupportedLanguage):
-        tts_recipe.engine_input("it", "ancora")
+        tts_recipe.engine_input("pt", "ancora")
+
+
+def test_english_and_german_are_sent_their_ipa():
+    assert tts_recipe.engine_input("en", "abbey", "/ˈæb.i/") == ("/ˈæb.i/", "ipa")
+    assert tts_recipe.engine_input("de", "Wasser", "/ˈva.sɐ/") == ("/ˈva.sɐ/", "ipa")
+    assert tts_recipe.engine_input("en", "abbey", None) is None
+    assert tts_recipe.engine_input("en", "abbey", "æb.i") is None
+    assert tts_recipe.VARIETY["en"] == "en-US"
 
 
 def test_verdict_match_near_miss_and_miss():
@@ -241,7 +247,7 @@ def test_run_refuses_a_language_without_a_voice(out, monkeypatch):
     http = FakeHttp({}, {})
     monkeypatch.setattr(render_clips, "requests", http)
     with pytest.raises(tts_recipe.UnsupportedLanguage):
-        render_clips.run(["en"], render_clips.Backend("http://backend/api/v1", "secret"), None, None, dry_run=True)
+        render_clips.run(["it"], render_clips.Backend("http://backend/api/v1", "secret"), None, None, dry_run=True)
     assert http.gets == []
 
 
