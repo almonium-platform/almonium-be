@@ -224,7 +224,7 @@ class Transcriber:
 # ---------------------------------------------------------------- the run
 
 
-def plan(lang, rows, include_forms=False):
+def plan(lang, rows, include_forms=False, varieties=None):
     """Turn the backend's rows into jobs; the rest become skips, each with its reason.
 
     Only a variety with a voice of its own is rendered: a Spain voice must not be filed under
@@ -236,6 +236,9 @@ def plan(lang, rows, include_forms=False):
         variety = row.get("variety")
         if variety not in VOICES:
             skipped.append((row, f"no voice for {variety}"))
+            continue
+        if varieties and variety not in varieties:
+            skipped.append((row, f"{variety} not asked for"))
             continue
         voice_id = VOICES[variety][1]
         if row.get("formId") and not include_forms:
@@ -317,7 +320,7 @@ def new_totals():
     return dict(pending=0, rendered=0, verified=0, unverified=0, skipped=0, errors=0, credits=0.0, reused=0, not_stored=0)
 
 
-def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False, include_forms=False):
+def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False, include_forms=False, varieties=None):
     """Render every language; returns {lang: totals}. transcriber may be a factory, called once on first need.
 
     limit caps the clips rendered per language, after the rows nobody asked for are set aside.
@@ -327,7 +330,7 @@ def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False, 
     for lang in langs:
         require_language(lang)  # refuse before touching the backend
         rows = backend.pending(lang)
-        jobs, skipped = plan(lang, rows, include_forms)
+        jobs, skipped = plan(lang, rows, include_forms, varieties)
         if limit:
             jobs = jobs[:limit]
         t = totals[lang] = new_totals()
@@ -405,6 +408,7 @@ def main():
     parser.add_argument(
         "--include-forms", action="store_true", help="render inflected forms too, not only the headword level"
     )
+    parser.add_argument("--varieties", default="", help="only these varieties, e.g. en-US (default: every voiced one)")
     args = parser.parse_args()
 
     langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
@@ -428,8 +432,9 @@ def main():
         return Transcriber()
 
     try:
+        varieties = {v.strip() for v in args.varieties.split(",") if v.strip()} or None
         totals = run(
-            langs, backend, eleven, load_whisper, args.limit, args.workers, args.dry_run, args.include_forms
+            langs, backend, eleven, load_whisper, args.limit, args.workers, args.dry_run, args.include_forms, varieties
         )
     except (RuntimeError, requests.RequestException) as e:
         sys.exit(f"backend: {e}")

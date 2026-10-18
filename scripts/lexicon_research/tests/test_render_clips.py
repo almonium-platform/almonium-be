@@ -278,3 +278,14 @@ def test_a_homophone_spelt_with_a_space_still_matches():
     assert tts_recipe.verdict("abord", "à bord.") == "match-ignoring-spacing"
     assert tts_recipe.verdict("abbé", "A B.") == "mismatch"
 
+
+def test_varieties_narrow_the_run(out, monkeypatch, capsys):
+    rows = [row("p-us", "abbey", "en", phonemic="/ˈæb.i/"), dict(row("p-gb", "abbey", "en", phonemic="/ˈæb.i/"), variety="en-GB")]
+    http = FakeHttp({"en": rows}, {})
+    monkeypatch.setattr(render_clips, "requests", http)
+    backend = render_clips.Backend("http://backend/api/v1", "secret")
+    totals = render_clips.run(["en"], backend, None, None, dry_run=True, varieties={"en-US"})
+    assert totals["en"]["skipped"] == 1 and "en-GB not asked for" in capsys.readouterr().out
+    totals = render_clips.run(["en"], backend, None, None, dry_run=True)
+    assert totals["en"]["skipped"] == 0
+
