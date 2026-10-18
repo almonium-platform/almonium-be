@@ -10,10 +10,14 @@ The sheet has to answer five questions fast, in this order: what does it mean he
 
 | Surface | Today | Route |
 | --- | --- | --- |
-| Backend | Public lookup: provider senses + ngrams.dev frequency band, no persistence, no cache | `GET /public/discover/lookup/{lang}/{translationLang}` |
+| Backend | Public lookup: lexicon first, provider senses as the fallback, ngrams.dev frequency band either way; no cache | `GET /public/discover/lookup/{lang}/{translationLang}` |
 | Web (Angular) | One client-rendered page; sentence paste, token sheet, Keep to `POST /cards`, Reader "Look up" hand-off | `/discover` |
 | Mobile (Expo) | Same lookup DTO, one dynamic screen | `app/d/[id].tsx` |
 | Audio | Authenticated, uncached, `no-store` Google TTS endpoint, unused by Discover | `GET /lang/words/{text}/audio/{lang}` |
+
+### The lookup reads the lexicon first (2026-10-18)
+
+The public lookup resolves the entry through `LexiconLookupService` by headword, lemma or form before it asks any translation provider. When the lexicon has the word, the sheet is built from its lexemes and `provider` is `lexicon`: the senses are numbered across lexemes in order and each carries the lexeme's `headword`, `partOfSpeech`, the IPA of its first headword-level pronunciation as `transcription`, the glosses in the translation language as `translations` (exact ones first), plus the new `definition`, `cefr` and `examples` (`{text, translation}`, the translation being the one in the translation language or null). The response also gains `pronunciations`, one `{variety, ipa, clipUrl, clipStatus}` per headword-level pronunciation ordered by variety then rank, where `clipUrl` is the API-relative `/public/lexicon/clips/{id}` of the best clip (verified before unverified) or null, so Listen plays the lexicon's clip without a TTS call. When the lexicon has nothing, the old provider path answers exactly as before, with the new fields null or empty; the frequency band comes from ngrams.dev in both cases. The route stays public and looks at no user.
 
 The frontend's implementation log lists eighteen gaps against the mockup. The ones that shape this design: no canonical lexical entry shared across visitors, no sense identity, no encounter history, no audio, no provider caching, no public indexable word URLs. Audio is the first one we take on because it is the only per-user scaling cost in the product and its cache design decides the storage shape everything else reuses.
 
