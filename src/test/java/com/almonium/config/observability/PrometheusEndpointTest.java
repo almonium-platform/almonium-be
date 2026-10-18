@@ -27,7 +27,8 @@ class PrometheusEndpointTest {
 
     @Test
     void scraperReadsMetricsWithoutSigningIn() throws Exception {
-        mockMvc.perform(get("/actuator/health")).andExpect(status().isOk());
+        // One request first, so the HTTP latency series exists.
+        mockMvc.perform(get("/actuator/info")).andExpect(status().isOk());
 
         mockMvc.perform(get("/actuator/prometheus"))
                 .andExpect(status().isOk())
