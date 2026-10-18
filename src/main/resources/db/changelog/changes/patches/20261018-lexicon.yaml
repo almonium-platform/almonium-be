@@ -16,7 +16,9 @@ databaseChangeLog:
         of speech, numbered when two share a lemma and pos; lexeme_form its inflections, normalized for lookup;
         pronunciation one variety's IPA of the lexeme (lexeme_form_id null) or of one form; sense, sense_gloss,
         sense_example and sense_cue the meanings; lexeme_relation points at another lemma, resolved to a lexeme when
-        it exists; lexeme_parts and audio_clip stay empty until later phases. lexicon_build records who wrote a
+        it exists; audio_clip is one speech engine's rendering of a pronunciation, with where its bytes are in the
+        audio store, whether the verifier heard the word back (transcript when it did not) and what the engine
+        charged; lexeme_parts stays empty until a later phase. lexicon_build records who wrote a
         lexeme, with what prompt and at what cost, one row per publish. rejected_headword keeps the writer's verdict
         that a headword is not a lemma of the language, so it is not asked again.
       changes:
@@ -651,6 +653,12 @@ databaseChangeLog:
                   type: varchar(16)
                   constraints:
                     nullable: false
+              - column:
+                  name: transcript
+                  type: varchar(200)
+              - column:
+                  name: character_cost
+                  type: numeric(8,2)
               - column:
                   name: created_at
                   type: timestamp with time zone
