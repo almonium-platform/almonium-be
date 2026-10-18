@@ -14,8 +14,8 @@ Usage (from the backend repository root):
         [--backend http://localhost:9998/api/v1] [--limit N] [--credit-budget N] [--credit-floor N]
         [--workers 3] [--dry-run] [--include-forms]
 
-Only the variety the language's voice speaks is rendered (fr-FR, es-ES, pl-PL, uk-UA); the other
-varieties wait for voices of their own. Inflected forms are left out unless --include-forms is given.
+Only a variety with a voice of its own is rendered (en-US, en-GB, de-DE, fr-FR, es-ES, pl-PL,
+uk-UA); es-MX and de-AT wait for voices of their own. Inflected forms are left out unless --include-forms is given.
 --limit caps the clips rendered per language (0 = all). --credit-budget caps the credits this
 run may spend (0 = no cap); --credit-floor stops before synthesis when the plan has fewer credits
 left. --dry-run lists what would be rendered and the estimated credits, without touching ElevenLabs.
@@ -44,13 +44,14 @@ from tts_recipe import (  # noqa: E402
     MODEL,
     OUTPUT_FORMAT,
     PACE,
-    VARIETY,
+    VOICES,
     UnsupportedLanguage,
     engine_input,
     matched,
     object_key,
+    require_language,
+    varieties_of,
     verdict,
-    voice_for,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -226,17 +227,17 @@ class Transcriber:
 def plan(lang, rows, include_forms=False):
     """Turn the backend's rows into jobs; the rest become skips, each with its reason.
 
-    Only the variety the language's voice speaks is rendered: a Spain voice must not be filed
-    under es-MX, and en-GB, en-US, es-MX and de-AT wait for voices of their own. Inflected forms
-    are left out unless asked for, since they multiply the bill by two to three.
+    Only a variety with a voice of its own is rendered: a Spain voice must not be filed under
+    es-MX, so es-MX and de-AT wait for voices of their own while en-US and en-GB each have one.
+    Inflected forms are left out unless asked for, since they multiply the bill by two to three.
     """
-    variety = VARIETY[lang]
-    voice_id = voice_for(lang)[2]
     jobs, skipped = [], []
     for row in rows:
-        if row.get("variety") != variety:
-            skipped.append((row, f"no voice for {row.get('variety')}"))
+        variety = row.get("variety")
+        if variety not in VOICES:
+            skipped.append((row, f"no voice for {variety}"))
             continue
+        voice_id = VOICES[variety][1]
         if row.get("formId") and not include_forms:
             skipped.append((row, "inflected form, not asked for"))
             continue
@@ -324,7 +325,7 @@ def run(langs, backend, eleven, transcriber, limit=0, workers=3, dry_run=False, 
     totals = {}
     model = None
     for lang in langs:
-        voice_for(lang)  # refuse before touching the backend
+        require_language(lang)  # refuse before touching the backend
         rows = backend.pending(lang)
         jobs, skipped = plan(lang, rows, include_forms)
         if limit:
@@ -409,7 +410,7 @@ def main():
     langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
     try:
         for lang in langs:
-            voice_for(lang)
+            require_language(lang)
     except UnsupportedLanguage as e:
         sys.exit(str(e))
 

@@ -42,7 +42,9 @@ def test_ukrainian_recipe_on_three_known_words():
 
 def test_unsupported_languages_are_refused():
     with pytest.raises(tts_recipe.UnsupportedLanguage, match="no ElevenLabs voice"):
-        tts_recipe.voice_for("it")
+        tts_recipe.voice_for("it-IT")
+    with pytest.raises(tts_recipe.UnsupportedLanguage):
+        tts_recipe.require_language("it")
     with pytest.raises(tts_recipe.UnsupportedLanguage):
         tts_recipe.engine_input("pt", "ancora")
 
@@ -52,7 +54,8 @@ def test_english_and_german_are_sent_their_ipa():
     assert tts_recipe.engine_input("de", "Wasser", "/ˈva.sɐ/") == ("/ˈva.sɐ/", "ipa")
     assert tts_recipe.engine_input("en", "abbey", None) is None
     assert tts_recipe.engine_input("en", "abbey", "æb.i") is None
-    assert tts_recipe.VARIETY["en"] == "en-US"
+    assert tts_recipe.varieties_of("en") == ["en-US", "en-GB"]
+    assert tts_recipe.voice_for("en-GB")[0] == "George"
 
 
 def test_verdict_match_near_miss_and_miss():
@@ -138,7 +141,7 @@ def row(id_, headword, lang, phonemic=None, form=None):
         "pos": "noun",
         "formId": "f1" if form else None,
         "form": form,
-        "variety": tts_recipe.VARIETY[lang],
+        "variety": tts_recipe.varieties_of(lang)[0],
         "rank": 1,
         "phonemic": phonemic,
         "reading": None,

@@ -27,7 +27,7 @@ once, then falls back. The evidence is in the ElevenLabs section below.
 | Variety | ElevenLabs voice | What is sent | Verified |
 |---|---|---|---|
 | en-US | Eric (stock) | IPA | "Perfect" on 22 tricky words; confirmed as the choice 2026-10-18 |
-| en-GB | none yet | IPA | Eric is American; British rows wait for a British voice |
+| en-GB | George (stock) | IPA | The owner's pick from the British sheet on 2026-10-03, confirmed 2026-10-18 |
 | de-DE | Otto (library) | IPA | "Perfect" on 18 tricky words; confirmed as the choice 2026-10-18 |
 | fr-FR | Nicolas | Spelling; IPA only for homographs | Spelling and IPA sound the same |
 | es-ES | David Martin | Spelling | Spelling better than IPA on murciélago |

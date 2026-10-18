@@ -19,20 +19,25 @@ OUTPUT_FORMAT = "mp3_44100_128"
 PACE = 1.0
 PACE_KEY = "1.00"  # the pace as it appears in the object key: two decimals, matching the backend
 
-# language -> (language name, voice name, voice id), the voices the owner listened to on 2026-10-03
-# (docs/TTS_IPA_FINDINGS.md). English and German are sent IPA, which Eric and Otto read "perfectly"
-# on the tricky words; the Romance and Slavic voices get the spelling, per the recipe below.
+# variety -> (voice name, voice id): the voices the owner listened to on 3 October 2026 and
+# confirmed on 18 October (docs/TTS_IPA_FINDINGS.md). English and German are sent IPA, which
+# Eric, George and Otto read "perfectly" on the tricky words; the Romance and Slavic voices get
+# the spelling, per the recipe below. A variety without a voice here is not rendered.
 VOICES = {
-    "en": ("English", "Eric", "cjVigY5qzO86Huf0OWal"),
-    "de": ("German", "Otto", "FTNCalFNG5bRnkkaP5Ug"),
-    "uk": ("Ukrainian", "Alex Nekrasov", "9Sj8ugvpK1DmcAXyvi3a"),
-    "fr": ("French", "Nicolas", "aQROLel5sQbj1vuIVi6B"),
-    "es": ("Spanish", "David Martin", "Nh2zY9kknu6z4pZy6FhD"),
-    "pl": ("Polish", "Adam", "hIssydxXZ1WuDorjx6Ic"),
+    "en-US": ("Eric", "cjVigY5qzO86Huf0OWal"),
+    "en-GB": ("George", "JBFqnCBsd6RMkjVDRZzb"),
+    "de-DE": ("Otto", "FTNCalFNG5bRnkkaP5Ug"),
+    "uk-UA": ("Alex Nekrasov", "9Sj8ugvpK1DmcAXyvi3a"),
+    "fr-FR": ("Nicolas", "aQROLel5sQbj1vuIVi6B"),
+    "es-ES": ("David Martin", "Nh2zY9kknu6z4pZy6FhD"),
+    "pl-PL": ("Adam", "hIssydxXZ1WuDorjx6Ic"),
 }
-# The variety each voice speaks: Eric is American, so en-GB rows wait for a British voice.
-VARIETY = {"en": "en-US", "de": "de-DE", "uk": "uk-UA", "fr": "fr-FR", "es": "es-ES", "pl": "pl-PL"}
 IPA_LANGUAGES = {"en", "de"}
+
+
+def varieties_of(lang):
+    """The varieties of a language that have a voice, e.g. en -> [en-US, en-GB]."""
+    return [v for v in VOICES if v.split("-")[0] == lang]
 
 ACUTE = "́"
 UK_VOWEL_LETTERS = set("аеєиіїоуюя")
@@ -43,11 +48,17 @@ class UnsupportedLanguage(ValueError):
     pass
 
 
-def voice_for(lang):
-    """The (language name, voice name, voice id) for a language, or a clear refusal."""
-    if lang in VOICES:
-        return VOICES[lang]
-    raise UnsupportedLanguage(f"{lang}: no ElevenLabs voice in the table, refusing to guess")
+def voice_for(variety):
+    """The (voice name, voice id) for a variety such as en-GB, or a clear refusal."""
+    if variety in VOICES:
+        return VOICES[variety]
+    raise UnsupportedLanguage(f"{variety}: no ElevenLabs voice in the table, refusing to guess")
+
+
+def require_language(lang):
+    """Refuse a language none of whose varieties has a voice, before touching anything."""
+    if not varieties_of(lang):
+        raise UnsupportedLanguage(f"{lang}: no ElevenLabs voice in the table, refusing to guess")
 
 
 def uk_input(headword, ipa):
@@ -82,7 +93,7 @@ def uk_input(headword, ipa):
 
 def engine_input(lang, text, phonemic=None):
     """The text to send for a word in a language: (text, mode), or None when the recipe cannot be built."""
-    voice_for(lang)
+    require_language(lang)
     text = (text or "").strip()
     if not text:
         return None
