@@ -6,6 +6,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,9 +32,11 @@ public class FileSystemAudioStore implements AudioStore {
         if (Files.exists(target)) {
             return;
         }
+        // resolve() never hands back the root itself, so the clip always has a directory above it.
+        Path directory = Objects.requireNonNull(target.getParent());
         try {
-            Files.createDirectories(target.getParent());
-            Path staging = Files.createTempFile(target.getParent(), ".", ".part");
+            Files.createDirectories(directory);
+            Path staging = Files.createTempFile(directory, ".", ".part");
             try {
                 Files.write(staging, bytes);
                 Files.move(staging, target, StandardCopyOption.ATOMIC_MOVE);

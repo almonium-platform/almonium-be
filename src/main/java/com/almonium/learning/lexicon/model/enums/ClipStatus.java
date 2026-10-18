@@ -18,10 +18,11 @@ public enum ClipStatus {
     }
 
     public static ClipStatus fromLabel(String label) {
-        try {
-            return valueOf(label.toUpperCase());
-        } catch (IllegalArgumentException | NullPointerException exception) {
-            throw new IllegalArgumentException("Unknown clip status: " + label + " (verified or unverified)");
+        for (ClipStatus status : values()) {
+            if (status.label().equalsIgnoreCase(label)) {
+                return status;
+            }
         }
+        throw new IllegalArgumentException("Unknown clip status: " + label + " (verified or unverified)");
     }
 }
