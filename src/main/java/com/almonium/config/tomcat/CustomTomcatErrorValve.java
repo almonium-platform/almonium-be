@@ -29,7 +29,18 @@ public class CustomTomcatErrorValve extends ErrorReportValve {
             response.getWriter().write(jsonResponse);
             response.getWriter().flush();
 
-            log.error("Error reported: {} {} - URI: {}", statusCode, reasonPhrase, request.getRequestURI(), throwable);
+            // A 4xx here is a client asking for something that is not there, mostly scanners
+            // probing for /.git or /wp-admin; only a server failure is an error worth alerting on.
+            if (statusCode >= 500) {
+                log.error(
+                        "Error reported: {} {} - URI: {}",
+                        statusCode,
+                        reasonPhrase,
+                        request.getRequestURI(),
+                        throwable);
+            } else {
+                log.debug("Error reported: {} {} - URI: {}", statusCode, reasonPhrase, request.getRequestURI());
+            }
         } catch (IOException e) {
             log.error("Failed to write custom error response", e);
         }
