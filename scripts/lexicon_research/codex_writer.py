@@ -13,7 +13,7 @@ Output: out/codex-<model>/<lang>/<headword>.json and .meta.json, the bake-off la
 Usage: codex_writer.py <headwords name> [--model gpt-6.1-sol] [--effort medium] [--langs en,de,uk] [--offset N] [--limit N] [--workers 4]
        (run from the backend repository root; headwords/<name>-<lang>.json must exist)
 """
-import argparse, json, os, subprocess, sys, threading, time
+import argparse, re, json, os, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -37,7 +37,11 @@ def parse(text):
     t = text.strip()
     if t.startswith("```"):
         t = t.split("\n", 1)[1].rsplit("```", 1)[0]
-    return json.loads(t)
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        # the model's one habitual slip is a trailing comma before a closing bracket
+        return json.loads(re.sub(r",(\s*[}\]])", r"\1", t))
 
 
 def write_one(model, effort, lang, system, row, shared=False, attempt=1):
