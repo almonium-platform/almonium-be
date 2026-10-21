@@ -1,0 +1,3002 @@
+[
+ {
+  "headword": "minimiser",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "notification",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "orsay",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "panthéon",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "pivot",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "poêle",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "prairie",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "prédilection",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "préside",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "rafael",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "raoul",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "retomber",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "romance",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "ruth",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "saisit",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "semer",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "sirène",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "sélectionner",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "séoul",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "tailler",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "tardif",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "tinder",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "torrent",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "trahir",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "trembler",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "trésorier",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "élimine",
+  "zipf": 3.62,
+  "set": "night17c"
+ },
+ {
+  "headword": "agrandissement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "amplement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "ampoule",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "approximativement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "beaulieu",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "bombardement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "bouddha",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "boum",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "brusquement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "captivité",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "châtelet",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "clope",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "combine",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "contesté",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "corne",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "craignent",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "crucial",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "csa",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "dispersion",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "défensif",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "démographie",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "edit",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "engouement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "exercent",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "fonctionnelle",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "gatineau",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "gazette",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "gray",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "grès",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "imam",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "impatient",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "incarnation",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "insu",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "insuffisante",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "labyrinthe",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "lasse",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "merdique",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "montreal",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "moralité",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "médiateur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "nam",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "obtint",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "oreiller",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "patienter",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "patriarche",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "perdez",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "perturbé",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "planétaire",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "preneur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "presser",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "pêcheur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "reich",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "repenser",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "rite",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "régulateur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "résolument",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "sculpteur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "serein",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "signalisation",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "sim",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "skype",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "socialement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "soupir",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "stewart",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "substitution",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "sue",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "suivit",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "supportent",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "suspense",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "syndical",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "sémantique",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "transporteur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "trouva",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "végétal",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "économiquement",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "émetteur",
+  "zipf": 3.61,
+  "set": "night17c"
+ },
+ {
+  "headword": "abeille",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "affilée",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "ajustement",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "apportant",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "arctique",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "argumentation",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "atroce",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "baker",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "beaumont",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "bouc",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "brabant",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "cabaret",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "cachet",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "choper",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "cookie",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "dilemme",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "dumont",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "décentralisation",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "déplore",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "déséquilibre",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "endettement",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "entra",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "fascisme",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "féroce",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "gagnez",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "gendre",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "grossier",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "haineux",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "halle",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "hospitalisation",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "impeccable",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "indifférent",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "interdisant",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "involontaire",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "isolation",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "janv",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "lanterne",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "lazare",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "leonardo",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "lobby",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "masquer",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "mcdo",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "mediapart",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "menthe",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "missionnaire",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "montreuil",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "négliger",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "oasis",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "ogm",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "originel",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "perpétuité",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "piratage",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "pneu",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "porcelaine",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "primordial",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "privatisation",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "prospère",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "psychiatrie",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "péage",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "restitution",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "régner",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "salvador",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "santiago",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "seo",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "serieux",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "servit",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "simplification",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "sodium",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "supervision",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "supplie",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "suspens",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "symptôme",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "tempérament",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "terminent",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "texture",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "tintin",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "tranchée",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "triplé",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "ukrainien",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "xxie",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "épuisement",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "érotique",
+  "zipf": 3.6,
+  "set": "night17c"
+ },
+ {
+  "headword": "abat",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ajuster",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "aligner",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ancêtre",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "anticipation",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "apostolique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "approprier",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "approuver",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "apéro",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "arcade",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "assassiner",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "astronomie",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "astérix",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "barbare",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "baromètre",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "boucherie",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "brexit",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "bémol",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "calcium",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "carole",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "charisme",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "chronologique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "coloré",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "compétitif",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "cérébral",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "danseur",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "devis",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "durablement",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "défaillance",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "dégoût",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "dégustation",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "dément",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "démonter",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "déprime",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "détacher",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "embarras",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "encadrer",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "enfuit",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ennuyer",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "evolution",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "finaliste",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "finalité",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "finition",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "foin",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "forge",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "fret",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "gelée",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ghetto",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "grandiose",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "géologique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "hannah",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "humoristique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ibrahim",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "infirmier",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "insigne",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "jonction",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "jong",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "laurier",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "limousin",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "lointaine",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "lès",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "lèvre",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "mentor",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ministériel",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "mordre",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "morel",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "mémorable",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "nef",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "offensif",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "oignon",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "pallier",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "patriotisme",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "patronat",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "pragmatique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "pronostic",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "raide",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "refrain",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "regagner",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "retraité",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "rétabli",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "sacha",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "solliciter",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "souhaitable",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "soulèvement",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "soupçon",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "transcription",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "validation",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "vanne",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "ventilation",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "élastique",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "émotionnel",
+  "zipf": 3.59,
+  "set": "night17c"
+ },
+ {
+  "headword": "agresser",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "arreter",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "auxerre",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "barbier",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "baroque",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "betty",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "bourreau",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "braquage",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "bêtement",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "cacao",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "calédonie",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "caractérisé",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "caramel",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "cargo",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "carotte",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "cazeneuve",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "centré",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "chanel",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "collectivement",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "commet",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "confidentialité",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "conjoncture",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "consolidation",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "consolider",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "contradictoire",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "cruz",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "crystal",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "demandeur",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "devinez",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "diner",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "distingué",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "distribue",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "décevoir",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "défavorable",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "défends",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "défiance",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "démo",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "désirer",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "détenteur",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "développant",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "empathie",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "examine",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "excitant",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "exode",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "export",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "faisceau",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "filiation",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "frotter",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "gouvernemental",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "griller",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "gêner",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "haram",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "homophobe",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "impuissance",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "incompétence",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "indéniable",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "institutionnel",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "inévitablement",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "jardinier",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "manquera",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "marqueur",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "meute",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "mod",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "mortier",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "mémorial",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "newsletter",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "orientée",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "parano",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "passaient",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "patriotique",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "paypal",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "pitoyable",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "pitt",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "postal",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "propreté",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "pâtisserie",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "querelle",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "rationnel",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "revendiquer",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "rico",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "romancier",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "récompenser",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "rétention",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "sauvegarder",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "schmidt",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "schneider",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "splendeur",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "sporting",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "stérile",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "syndic",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "tailleur",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "thon",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "toiture",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "trek",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "turbo",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "utopie",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "vicomte",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "victorieux",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "warner",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "éditorial",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "équitation",
+  "zipf": 3.58,
+  "set": "night17c"
+ },
+ {
+  "headword": "alien",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "aliment",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "appréhender",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "arrogance",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "atp",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "aveux",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "basique",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "batteur",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "bfmtv",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "boivent",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "caresse",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "coloration",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "commode",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "compact",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "comparativement",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "compliquer",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "confronter",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "contredire",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "courtoisie",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "cpe",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "crevé",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "dealer",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "dotation",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "délivre",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "edith",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "embêter",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "escroc",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "excite",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "expiration",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "feuilleton",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "finlandais",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "folk",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "gameplay",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "gloria",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "gomme",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "gonfler",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "guichet",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "gymnastique",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "harceler",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "héroïque",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "hésitent",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "incompréhension",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "intégrant",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "inversion",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "irrésistible",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "jenny",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "jesse",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "joker",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "lama",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "lamentable",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "législateur",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "naze",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "nazisme",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "optimisme",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "orné",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "ouvrira",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "perturber",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "piloter",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "pink",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "podcast",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "positivement",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "pouls",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "pourrir",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "projeter",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "prometteur",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "prépa",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "psychique",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "pus",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "pyjama",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "quantique",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "rase",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "recharge",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "redevenir",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "restructuration",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "rip",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "réal",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "réclamation",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "rêvent",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "soudaine",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "spiritualité",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "surfer",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "surréaliste",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "tampon",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "timing",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "tre",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "tuteur",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "unitaire",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "utérus",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "valet",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "violeur",
+  "zipf": 3.57,
+  "set": "night17c"
+ },
+ {
+  "headword": "accidentellement",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "anal",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "anarchiste",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "antérieur",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "aquatique",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "arena",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "arrete",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ashley",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "aubry",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ballade",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "bascule",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "biblique",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "blabla",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "bluetooth",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "brice",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "budapest",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "bute",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "bêta",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "cadence",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "calmement",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "chelem",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "collecter",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "colmar",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "compétente",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "conclue",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "couille",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "culinaire",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "derek",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "dimitri",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "dissimuler",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "donjon",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "doug",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "duncan",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "débrouiller",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "décalé",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "décline",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "décompte",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ennuyeux",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "envoler",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "excédent",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "expulser",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "filme",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "formel",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "fra",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "haïr",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "incarner",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "indirect",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "inoubliable",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "intrusion",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ion",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ivresse",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "jackie",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "javier",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "judaïsme",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "mauritanie",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "medef",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "mehdi",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "meyer",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "miniature",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "moléculaire",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "montréalais",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "moutarde",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "muse",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "mèche",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "môme",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "naviguer",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ovale",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "pendre",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "perquisition",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "plaider",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "projette",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "préparatoire",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "puzzle",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "périple",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "reconstituer",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "restaient",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "référer",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "résidentiel",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "sceptique",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "significativement",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "strip",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "survenu",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "ségolène",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "texto",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "téhéran",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "violée",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "émissaire",
+  "zipf": 3.56,
+  "set": "night17c"
+ },
+ {
+  "headword": "alimente",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "alma",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "analytique",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "aspiration",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "benzema",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "bled",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "boucler",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "bradley",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "béatrice",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "cerner",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "chanoine",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "choquer",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "clocher",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "consécration",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "continental",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "covid",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "dassault",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "donneur",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "décomposition",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "délibération",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "désactiver",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "désignant",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "echo",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "enchaîner",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "fondent",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "frange",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "freinage",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "garer",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "gaspillage",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "goldman",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "grimpe",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "généré",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "hlm",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "humilier",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "inaccessible",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "inertie",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "internat",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "irresponsable",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "irréprochable",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "jorge",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "latino",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "livreur",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "lunette",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "maladroit",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "marvin",
+  "zipf": 3.55,
+  "set": "night17c"
+ },
+ {
+  "headword": "minime",
+  "zipf": 3.55,
+  "set": "night17c"
+ }
+]
