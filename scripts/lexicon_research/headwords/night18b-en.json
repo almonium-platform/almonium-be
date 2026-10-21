@@ -1,0 +1,1162 @@
+[
+ {
+  "headword": "have",
+  "zipf": 6.71,
+  "set": "night18b"
+ },
+ {
+  "headword": "just",
+  "zipf": 6.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "about",
+  "zipf": 6.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "out",
+  "zipf": 6.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "more",
+  "zipf": 6.36,
+  "set": "night18b"
+ },
+ {
+  "headword": "get",
+  "zipf": 6.28,
+  "set": "night18b"
+ },
+ {
+  "headword": "new",
+  "zipf": 6.25,
+  "set": "night18b"
+ },
+ {
+  "headword": "people",
+  "zipf": 6.25,
+  "set": "night18b"
+ },
+ {
+  "headword": "also",
+  "zipf": 6.19,
+  "set": "night18b"
+ },
+ {
+  "headword": "now",
+  "zipf": 6.18,
+  "set": "night18b"
+ },
+ {
+  "headword": "other",
+  "zipf": 6.16,
+  "set": "night18b"
+ },
+ {
+  "headword": "good",
+  "zipf": 6.12,
+  "set": "night18b"
+ },
+ {
+  "headword": "only",
+  "zipf": 6.12,
+  "set": "night18b"
+ },
+ {
+  "headword": "know",
+  "zipf": 6.1,
+  "set": "night18b"
+ },
+ {
+  "headword": "see",
+  "zipf": 6.1,
+  "set": "night18b"
+ },
+ {
+  "headword": "make",
+  "zipf": 6.08,
+  "set": "night18b"
+ },
+ {
+  "headword": "over",
+  "zipf": 6.08,
+  "set": "night18b"
+ },
+ {
+  "headword": "think",
+  "zipf": 6.08,
+  "set": "night18b"
+ },
+ {
+  "headword": "then",
+  "zipf": 6.07,
+  "set": "night18b"
+ },
+ {
+  "headword": "back",
+  "zipf": 6.04,
+  "set": "night18b"
+ },
+ {
+  "headword": "want",
+  "zipf": 6.04,
+  "set": "night18b"
+ },
+ {
+  "headword": "well",
+  "zipf": 6.03,
+  "set": "night18b"
+ },
+ {
+  "headword": "way",
+  "zipf": 6.01,
+  "set": "night18b"
+ },
+ {
+  "headword": "most",
+  "zipf": 6.0,
+  "set": "night18b"
+ },
+ {
+  "headword": "much",
+  "zipf": 6.0,
+  "set": "night18b"
+ },
+ {
+  "headword": "very",
+  "zipf": 6.0,
+  "set": "night18b"
+ },
+ {
+  "headword": "even",
+  "zipf": 5.99,
+  "set": "night18b"
+ },
+ {
+  "headword": "here",
+  "zipf": 5.97,
+  "set": "night18b"
+ },
+ {
+  "headword": "need",
+  "zipf": 5.97,
+  "set": "night18b"
+ },
+ {
+  "headword": "really",
+  "zipf": 5.97,
+  "set": "night18b"
+ },
+ {
+  "headword": "work",
+  "zipf": 5.96,
+  "set": "night18b"
+ },
+ {
+  "headword": "year",
+  "zipf": 5.96,
+  "set": "night18b"
+ },
+ {
+  "headword": "day",
+  "zipf": 5.95,
+  "set": "night18b"
+ },
+ {
+  "headword": "too",
+  "zipf": 5.95,
+  "set": "night18b"
+ },
+ {
+  "headword": "still",
+  "zipf": 5.92,
+  "set": "night18b"
+ },
+ {
+  "headword": "take",
+  "zipf": 5.92,
+  "set": "night18b"
+ },
+ {
+  "headword": "many",
+  "zipf": 5.91,
+  "set": "night18b"
+ },
+ {
+  "headword": "never",
+  "zipf": 5.91,
+  "set": "night18b"
+ },
+ {
+  "headword": "life",
+  "zipf": 5.89,
+  "set": "night18b"
+ },
+ {
+  "headword": "say",
+  "zipf": 5.89,
+  "set": "night18b"
+ },
+ {
+  "headword": "world",
+  "zipf": 5.89,
+  "set": "night18b"
+ },
+ {
+  "headword": "down",
+  "zipf": 5.88,
+  "set": "night18b"
+ },
+ {
+  "headword": "great",
+  "zipf": 5.88,
+  "set": "night18b"
+ },
+ {
+  "headword": "last",
+  "zipf": 5.86,
+  "set": "night18b"
+ },
+ {
+  "headword": "such",
+  "zipf": 5.84,
+  "set": "night18b"
+ },
+ {
+  "headword": "man",
+  "zipf": 5.82,
+  "set": "night18b"
+ },
+ {
+  "headword": "home",
+  "zipf": 5.81,
+  "set": "night18b"
+ },
+ {
+  "headword": "long",
+  "zipf": 5.81,
+  "set": "night18b"
+ },
+ {
+  "headword": "look",
+  "zipf": 5.81,
+  "set": "night18b"
+ },
+ {
+  "headword": "use",
+  "zipf": 5.81,
+  "set": "night18b"
+ },
+ {
+  "headword": "same",
+  "zipf": 5.8,
+  "set": "night18b"
+ },
+ {
+  "headword": "come",
+  "zipf": 5.78,
+  "set": "night18b"
+ },
+ {
+  "headword": "part",
+  "zipf": 5.78,
+  "set": "night18b"
+ },
+ {
+  "headword": "state",
+  "zipf": 5.78,
+  "set": "night18b"
+ },
+ {
+  "headword": "around",
+  "zipf": 5.77,
+  "set": "night18b"
+ },
+ {
+  "headword": "always",
+  "zipf": 5.76,
+  "set": "night18b"
+ },
+ {
+  "headword": "find",
+  "zipf": 5.76,
+  "set": "night18b"
+ },
+ {
+  "headword": "help",
+  "zipf": 5.75,
+  "set": "night18b"
+ },
+ {
+  "headword": "high",
+  "zipf": 5.75,
+  "set": "night18b"
+ },
+ {
+  "headword": "little",
+  "zipf": 5.75,
+  "set": "night18b"
+ },
+ {
+  "headword": "old",
+  "zipf": 5.75,
+  "set": "night18b"
+ },
+ {
+  "headword": "own",
+  "zipf": 5.74,
+  "set": "night18b"
+ },
+ {
+  "headword": "game",
+  "zipf": 5.72,
+  "set": "night18b"
+ },
+ {
+  "headword": "thing",
+  "zipf": 5.72,
+  "set": "night18b"
+ },
+ {
+  "headword": "give",
+  "zipf": 5.71,
+  "set": "night18b"
+ },
+ {
+  "headword": "place",
+  "zipf": 5.71,
+  "set": "night18b"
+ },
+ {
+  "headword": "school",
+  "zipf": 5.71,
+  "set": "night18b"
+ },
+ {
+  "headword": "again",
+  "zipf": 5.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "next",
+  "zipf": 5.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "end",
+  "zipf": 5.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "show",
+  "zipf": 5.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "big",
+  "zipf": 5.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "feel",
+  "zipf": 5.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "sure",
+  "zipf": 5.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "team",
+  "zipf": 5.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "ever",
+  "zipf": 5.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "family",
+  "zipf": 5.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "keep",
+  "zipf": 5.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "put",
+  "zipf": 5.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "money",
+  "zipf": 5.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "away",
+  "zipf": 5.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "number",
+  "zipf": 5.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "city",
+  "zipf": 5.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "lot",
+  "zipf": 5.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "name",
+  "zipf": 5.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "play",
+  "zipf": 5.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "company",
+  "zipf": 5.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "few",
+  "zipf": 5.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "let",
+  "zipf": 5.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "real",
+  "zipf": 5.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "different",
+  "zipf": 5.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "set",
+  "zipf": 5.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "however",
+  "zipf": 5.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "government",
+  "zipf": 5.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "public",
+  "zipf": 5.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "top",
+  "zipf": 5.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "business",
+  "zipf": 5.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "care",
+  "zipf": 5.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "start",
+  "zipf": 5.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "system",
+  "zipf": 5.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "week",
+  "zipf": 5.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "already",
+  "zipf": 5.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "case",
+  "zipf": 5.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "change",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "enough",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "full",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "live",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "point",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "yet",
+  "zipf": 5.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "bad",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "hard",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mean",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "once",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "support",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "tell",
+  "zipf": 5.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "music",
+  "zipf": 5.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "power",
+  "zipf": 5.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "stop",
+  "zipf": 5.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "water",
+  "zipf": 5.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "believe",
+  "zipf": 5.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "call",
+  "zipf": 5.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "head",
+  "zipf": 5.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "small",
+  "zipf": 5.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "white",
+  "zipf": 5.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "far",
+  "zipf": 5.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "side",
+  "zipf": 5.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "try",
+  "zipf": 5.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "actually",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "later",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "less",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "line",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "order",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "run",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "service",
+  "zipf": 5.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "country",
+  "zipf": 5.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "open",
+  "zipf": 5.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "season",
+  "zipf": 5.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "thank",
+  "zipf": 5.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "area",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "black",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "law",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "together",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "war",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "whole",
+  "zipf": 5.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "car",
+  "zipf": 5.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "face",
+  "zipf": 5.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "kind",
+  "zipf": 5.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "maybe",
+  "zipf": 5.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "story",
+  "zipf": 5.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "course",
+  "zipf": 5.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "health",
+  "zipf": 5.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "hope",
+  "zipf": 5.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "important",
+  "zipf": 5.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "least",
+  "zipf": 5.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "able",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "early",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "information",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "local",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "post",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "video",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "young",
+  "zipf": 5.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "ago",
+  "zipf": 5.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "talk",
+  "zipf": 5.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "fact",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "hand",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "level",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "mind",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "often",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "single",
+  "zipf": 5.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "become",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "body",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "control",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "death",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "food",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "guy",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "office",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "pay",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "problem",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "true",
+  "zipf": 5.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "almost",
+  "zipf": 5.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "fuck",
+  "zipf": 5.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "history",
+  "zipf": 5.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "large",
+  "zipf": 5.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "ver",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "adultery",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "agile",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "anonymously",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "austerity",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "awfully",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "barca",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "beethoven",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "candidacy",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "carve",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "coarse",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "collegiate",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "commonplace",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "confidently",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "contemplate",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "converter",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "depict",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "diagnose",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "directorate",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "dormant",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "duffy",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "emulate",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "evasion",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "eviction",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "expulsion",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "filth",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "foliage",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "foreclosure",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "funnier",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "helper",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "hoop",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "hurdle",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "hypertension",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "immortality",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "indefinite",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "insightful",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "irrespective",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "ledge",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "malt",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "mindfulness",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "moderator",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "monstrous",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "morphology",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "novice",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "ordination",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "otis",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "parity",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "persuasive",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "populous",
+  "zipf": 3.41,
+  "set": "night18b"
+ }
+]

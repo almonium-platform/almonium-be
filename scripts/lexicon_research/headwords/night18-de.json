@@ -1,0 +1,712 @@
+[
+ {
+  "headword": "auch",
+  "zipf": 6.78,
+  "set": "night18"
+ },
+ {
+  "headword": "wie",
+  "zipf": 6.65,
+  "set": "night18"
+ },
+ {
+  "headword": "noch",
+  "zipf": 6.55,
+  "set": "night18"
+ },
+ {
+  "headword": "nur",
+  "zipf": 6.52,
+  "set": "night18"
+ },
+ {
+  "headword": "dann",
+  "zipf": 6.35,
+  "set": "night18"
+ },
+ {
+  "headword": "schon",
+  "zipf": 6.34,
+  "set": "night18"
+ },
+ {
+  "headword": "mehr",
+  "zipf": 6.33,
+  "set": "night18"
+ },
+ {
+  "headword": "mal",
+  "zipf": 6.28,
+  "set": "night18"
+ },
+ {
+  "headword": "hier",
+  "zipf": 6.26,
+  "set": "night18"
+ },
+ {
+  "headword": "immer",
+  "zipf": 6.21,
+  "set": "night18"
+ },
+ {
+  "headword": "jetzt",
+  "zipf": 6.21,
+  "set": "night18"
+ },
+ {
+  "headword": "wieder",
+  "zipf": 6.18,
+  "set": "night18"
+ },
+ {
+  "headword": "sehr",
+  "zipf": 6.14,
+  "set": "night18"
+ },
+ {
+  "headword": "gut",
+  "zipf": 6.09,
+  "set": "night18"
+ },
+ {
+  "headword": "also",
+  "zipf": 6.0,
+  "set": "night18"
+ },
+ {
+  "headword": "Zeit",
+  "zipf": 5.99,
+  "set": "night18"
+ },
+ {
+  "headword": "ganz",
+  "zipf": 5.98,
+  "set": "night18"
+ },
+ {
+  "headword": "machen",
+  "zipf": 5.98,
+  "set": "night18"
+ },
+ {
+  "headword": "damit",
+  "zipf": 5.96,
+  "set": "night18"
+ },
+ {
+  "headword": "einfach",
+  "zipf": 5.95,
+  "set": "night18"
+ },
+ {
+  "headword": "selbst",
+  "zipf": 5.9,
+  "set": "night18"
+ },
+ {
+  "headword": "heute",
+  "zipf": 5.88,
+  "set": "night18"
+ },
+ {
+  "headword": "nun",
+  "zipf": 5.88,
+  "set": "night18"
+ },
+ {
+  "headword": "leben",
+  "zipf": 5.86,
+  "set": "night18"
+ },
+ {
+  "headword": "Jahr",
+  "zipf": 5.84,
+  "set": "night18"
+ },
+ {
+  "headword": "dabei",
+  "zipf": 5.8,
+  "set": "night18"
+ },
+ {
+  "headword": "dort",
+  "zipf": 5.78,
+  "set": "night18"
+ },
+ {
+  "headword": "gerade",
+  "zipf": 5.77,
+  "set": "night18"
+ },
+ {
+  "headword": "erst",
+  "zipf": 5.76,
+  "set": "night18"
+ },
+ {
+  "headword": "lassen",
+  "zipf": 5.76,
+  "set": "night18"
+ },
+ {
+  "headword": "warum",
+  "zipf": 5.75,
+  "set": "night18"
+ },
+ {
+  "headword": "weiter",
+  "zipf": 5.75,
+  "set": "night18"
+ },
+ {
+  "headword": "wirklich",
+  "zipf": 5.75,
+  "set": "night18"
+ },
+ {
+  "headword": "Mann",
+  "zipf": 5.73,
+  "set": "night18"
+ },
+ {
+  "headword": "wohl",
+  "zipf": 5.73,
+  "set": "night18"
+ },
+ {
+  "headword": "vielleicht",
+  "zipf": 5.72,
+  "set": "night18"
+ },
+ {
+  "headword": "dazu",
+  "zipf": 5.71,
+  "set": "night18"
+ },
+ {
+  "headword": "kommen",
+  "zipf": 5.71,
+  "set": "night18"
+ },
+ {
+  "headword": "bitte",
+  "zipf": 5.7,
+  "set": "night18"
+ },
+ {
+  "headword": "sehen",
+  "zipf": 5.69,
+  "set": "night18"
+ },
+ {
+  "headword": "dafür",
+  "zipf": 5.68,
+  "set": "night18"
+ },
+ {
+  "headword": "sagen",
+  "zipf": 5.68,
+  "set": "night18"
+ },
+ {
+  "headword": "bereits",
+  "zipf": 5.67,
+  "set": "night18"
+ },
+ {
+  "headword": "Ende",
+  "zipf": 5.67,
+  "set": "night18"
+ },
+ {
+  "headword": "nie",
+  "zipf": 5.67,
+  "set": "night18"
+ },
+ {
+  "headword": "Uhr",
+  "zipf": 5.67,
+  "set": "night18"
+ },
+ {
+  "headword": "weg",
+  "zipf": 5.67,
+  "set": "night18"
+ },
+ {
+  "headword": "einmal",
+  "zipf": 5.66,
+  "set": "night18"
+ },
+ {
+  "headword": "Frau",
+  "zipf": 5.66,
+  "set": "night18"
+ },
+ {
+  "headword": "Welt",
+  "zipf": 5.66,
+  "set": "night18"
+ },
+ {
+  "headword": "gehen",
+  "zipf": 5.65,
+  "set": "night18"
+ },
+ {
+  "headword": "genau",
+  "zipf": 5.65,
+  "set": "night18"
+ },
+ {
+  "headword": "Danke",
+  "zipf": 5.64,
+  "set": "night18"
+ },
+ {
+  "headword": "gar",
+  "zipf": 5.64,
+  "set": "night18"
+ },
+ {
+  "headword": "Leute",
+  "zipf": 5.63,
+  "set": "night18"
+ },
+ {
+  "headword": "etwa",
+  "zipf": 5.62,
+  "set": "night18"
+ },
+ {
+  "headword": "natürlich",
+  "zipf": 5.62,
+  "set": "night18"
+ },
+ {
+  "headword": "recht",
+  "zipf": 5.61,
+  "set": "night18"
+ },
+ {
+  "headword": "finden",
+  "zipf": 5.6,
+  "set": "night18"
+ },
+ {
+  "headword": "geben",
+  "zipf": 5.6,
+  "set": "night18"
+ },
+ {
+  "headword": "Geld",
+  "zipf": 5.59,
+  "set": "night18"
+ },
+ {
+  "headword": "gleich",
+  "zipf": 5.59,
+  "set": "night18"
+ },
+ {
+  "headword": "lange",
+  "zipf": 5.59,
+  "set": "night18"
+ },
+ {
+  "headword": "Teil",
+  "zipf": 5.59,
+  "set": "night18"
+ },
+ {
+  "headword": "davon",
+  "zipf": 5.58,
+  "set": "night18"
+ },
+ {
+  "headword": "eigentlich",
+  "zipf": 5.58,
+  "set": "night18"
+ },
+ {
+  "headword": "fast",
+  "zipf": 5.58,
+  "set": "night18"
+ },
+ {
+  "headword": "richtig",
+  "zipf": 5.58,
+  "set": "night18"
+ },
+ {
+  "headword": "tun",
+  "zipf": 5.58,
+  "set": "night18"
+ },
+ {
+  "headword": "Arbeit",
+  "zipf": 5.57,
+  "set": "night18"
+ },
+ {
+  "headword": "Frage",
+  "zipf": 5.57,
+  "set": "night18"
+ },
+ {
+  "headword": "zurück",
+  "zipf": 5.57,
+  "set": "night18"
+ },
+ {
+  "headword": "jedoch",
+  "zipf": 5.56,
+  "set": "night18"
+ },
+ {
+  "headword": "klar",
+  "zipf": 5.56,
+  "set": "night18"
+ },
+ {
+  "headword": "grosse",
+  "zipf": 5.55,
+  "set": "night18"
+ },
+ {
+  "headword": "grossen",
+  "zipf": 5.55,
+  "set": "night18"
+ },
+ {
+  "headword": "wissen",
+  "zipf": 5.55,
+  "set": "night18"
+ },
+ {
+  "headword": "zusammen",
+  "zipf": 5.55,
+  "set": "night18"
+ },
+ {
+  "headword": "Fall",
+  "zipf": 5.54,
+  "set": "night18"
+ },
+ {
+  "headword": "Kannst",
+  "zipf": 5.54,
+  "set": "night18"
+ },
+ {
+  "headword": "sicher",
+  "zipf": 5.54,
+  "set": "night18"
+ },
+ {
+  "headword": "darauf",
+  "zipf": 5.52,
+  "set": "night18"
+ },
+ {
+  "headword": "meinen",
+  "zipf": 5.52,
+  "set": "night18"
+ },
+ {
+  "headword": "schön",
+  "zipf": 5.52,
+  "set": "night18"
+ },
+ {
+  "headword": "sogar",
+  "zipf": 5.52,
+  "set": "night18"
+ },
+ {
+  "headword": "zwar",
+  "zipf": 5.52,
+  "set": "night18"
+ },
+ {
+  "headword": "allerdings",
+  "zipf": 5.51,
+  "set": "night18"
+ },
+ {
+  "headword": "Art",
+  "zipf": 5.51,
+  "set": "night18"
+ },
+ {
+  "headword": "schnell",
+  "zipf": 5.51,
+  "set": "night18"
+ },
+ {
+  "headword": "stehen",
+  "zipf": 5.5,
+  "set": "night18"
+ },
+ {
+  "headword": "gerne",
+  "zipf": 5.49,
+  "set": "night18"
+ },
+ {
+  "headword": "Seite",
+  "zipf": 5.49,
+  "set": "night18"
+ },
+ {
+  "headword": "Spiel",
+  "zipf": 5.49,
+  "set": "night18"
+ },
+ {
+  "headword": "Liebe",
+  "zipf": 5.48,
+  "set": "night18"
+ },
+ {
+  "headword": "oft",
+  "zipf": 5.48,
+  "set": "night18"
+ },
+ {
+  "headword": "fragen",
+  "zipf": 5.47,
+  "set": "night18"
+ },
+ {
+  "headword": "Land",
+  "zipf": 5.47,
+  "set": "night18"
+ },
+ {
+  "headword": "Platz",
+  "zipf": 5.46,
+  "set": "night18"
+ },
+ {
+  "headword": "besonders",
+  "zipf": 5.45,
+  "set": "night18"
+ },
+ {
+  "headword": "Geschichte",
+  "zipf": 5.45,
+  "set": "night18"
+ },
+ {
+  "headword": "nehmen",
+  "zipf": 5.45,
+  "set": "night18"
+ },
+ {
+  "headword": "darüber",
+  "zipf": 5.44,
+  "set": "night18"
+ },
+ {
+  "headword": "hin",
+  "zipf": 5.44,
+  "set": "night18"
+ },
+ {
+  "headword": "kurz",
+  "zipf": 5.43,
+  "set": "night18"
+ },
+ {
+  "headword": "morgen",
+  "zipf": 5.43,
+  "set": "night18"
+ },
+ {
+  "headword": "sonst",
+  "zipf": 5.43,
+  "set": "night18"
+ },
+ {
+  "headword": "bekommen",
+  "zipf": 5.42,
+  "set": "night18"
+ },
+ {
+  "headword": "Bzw",
+  "zipf": 5.42,
+  "set": "night18"
+ },
+ {
+  "headword": "Euro",
+  "zipf": 5.42,
+  "set": "night18"
+ },
+ {
+  "headword": "spielen",
+  "zipf": 5.42,
+  "set": "night18"
+ },
+ {
+  "headword": "Familie",
+  "zipf": 5.41,
+  "set": "night18"
+ },
+ {
+  "headword": "Haus",
+  "zipf": 5.41,
+  "set": "night18"
+ },
+ {
+  "headword": "arbeiten",
+  "zipf": 5.4,
+  "set": "night18"
+ },
+ {
+  "headword": "Bild",
+  "zipf": 5.4,
+  "set": "night18"
+ },
+ {
+  "headword": "möglich",
+  "zipf": 5.4,
+  "set": "night18"
+ },
+ {
+  "headword": "weit",
+  "zipf": 5.4,
+  "set": "night18"
+ },
+ {
+  "headword": "deshalb",
+  "zipf": 5.39,
+  "set": "night18"
+ },
+ {
+  "headword": "eben",
+  "zipf": 5.39,
+  "set": "night18"
+ },
+ {
+  "headword": "Polizei",
+  "zipf": 5.39,
+  "set": "night18"
+ },
+ {
+  "headword": "Ausserdem",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "ganzen",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "leider",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "stellen",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "Unternehmen",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "Woche",
+  "zipf": 5.38,
+  "set": "night18"
+ },
+ {
+  "headword": "bleiben",
+  "zipf": 5.37,
+  "set": "night18"
+ },
+ {
+  "headword": "daher",
+  "zipf": 5.37,
+  "set": "night18"
+ },
+ {
+  "headword": "Grund",
+  "zipf": 5.37,
+  "set": "night18"
+ },
+ {
+  "headword": "kaum",
+  "zipf": 5.37,
+  "set": "night18"
+ },
+ {
+  "headword": "Problem",
+  "zipf": 5.37,
+  "set": "night18"
+ },
+ {
+  "headword": "daran",
+  "zipf": 5.36,
+  "set": "night18"
+ },
+ {
+  "headword": "halt",
+  "zipf": 5.36,
+  "set": "night18"
+ },
+ {
+  "headword": "Nacht",
+  "zipf": 5.36,
+  "set": "night18"
+ },
+ {
+  "headword": "neu",
+  "zipf": 5.36,
+  "set": "night18"
+ },
+ {
+  "headword": "Thema",
+  "zipf": 5.36,
+  "set": "night18"
+ },
+ {
+  "headword": "Beispiel",
+  "zipf": 5.35,
+  "set": "night18"
+ },
+ {
+  "headword": "allein",
+  "zipf": 5.34,
+  "set": "night18"
+ },
+ {
+  "headword": "direkt",
+  "zipf": 5.34,
+  "set": "night18"
+ },
+ {
+  "headword": "echt",
+  "zipf": 5.34,
+  "set": "night18"
+ },
+ {
+  "headword": "halten",
+  "zipf": 5.34,
+  "set": "night18"
+ },
+ {
+  "headword": "Schule",
+  "zipf": 5.34,
+  "set": "night18"
+ },
+ {
+  "headword": "überhaupt",
+  "zipf": 5.34,
+  "set": "night18"
+ }
+]

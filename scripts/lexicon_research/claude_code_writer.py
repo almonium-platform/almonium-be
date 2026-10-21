@@ -73,7 +73,7 @@ def allowed(pause_session, stop_week):
             return True
 
 
-def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0):
+def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, retries=0):
     d = OUT / f"cc-{model}" / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
@@ -98,11 +98,14 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0):
                      "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
         structured = res.get("structured_output")
         text = res.get("result") or ""
-        if res.get("is_error") and "limit" in text.lower():
-            # the plan's limit: the headword is not spent on an error, the worker waits it out
-            print(f"limit reached at {row['headword']}; waiting ten minutes", flush=True)
+        if res.get("is_error"):
+            # the plan's limit or any other refusal from the CLI: the headword is not spent on it, the
+            # worker waits it out (a weekly limit can take hours to lift) and gives up after a day
+            if retries >= 144:
+                raise RuntimeError(f"still failing after a day: {text[:200]}")
+            print(f"error at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
             time.sleep(600)
-            return write_one(model, effort, lang, system, row, pause_session, stop_week)
+            return write_one(model, effort, lang, system, row, pause_session, stop_week, retries + 1)
         entry = structured if structured is not None else json.loads(text.strip().strip("`").removeprefix("json"))
     except Exception as e:
         entry = {"error": f"{type(e).__name__}: {str(e)[:200]}", "raw": (r.stdout or "")[:20000], "stderr": (r.stderr or "")[-2000:]}

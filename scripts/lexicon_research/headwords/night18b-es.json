@@ -1,0 +1,11317 @@
+[
+ {
+  "headword": "modernidad",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "modesto",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "moralidad",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "neutralidad",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "noveno",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "ofrezco",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "olga",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "peinado",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "predecir",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "preferible",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "pronuncia",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "proporcionado",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "pólvora",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "rayas",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "reposo",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "resultante",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "sensual",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "simpático",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "suroeste",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "trolls",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "valenciano",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "viajado",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "violador",
+  "zipf": 3.7,
+  "set": "night18b"
+ },
+ {
+  "headword": "acierto",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "agudo",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "asesoramiento",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "asocia",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "brisa",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "calentar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "calificar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "cancún",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "caricatura",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "cesión",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "chapa",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "charlar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "chimenea",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "dañado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "dureza",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "eclipse",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "engañado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "enteramente",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "franquista",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "hincapié",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "honrado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "lienzo",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "lucy",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "manteca",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "marxismo",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "mensajero",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "motivado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "médula",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "originario",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "pandemia",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "perjudicial",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "pesetas",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "planear",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "positivamente",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "profundizar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "pusiera",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "radial",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "redactado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "regularidad",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "respetado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "rodar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "sacarte",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "sacramento",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "solidaria",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "sustancial",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "tenerte",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "tolerar",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "tommy",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "transmitido",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "transversal",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "tutor",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "tuyas",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "variado",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "vencedor",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "veracidad",
+  "zipf": 3.69,
+  "set": "night18b"
+ },
+ {
+  "headword": "absorción",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "acompañamiento",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "adán",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "andré",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "anticipación",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "arqueología",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "arriesgar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "articulación",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "asumido",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "barril",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "buenísimo",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "calefacción",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "caminata",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "cancelado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "canela",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "cano",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "casita",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "cha",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "clip",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "combinar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "comics",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "completado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "concluido",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "confluencia",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "conocimos",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "constituida",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "consultor",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "contrarrestar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "dentista",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "determinante",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "detesto",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "dialecto",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "dinámico",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "emigración",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "empleador",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "energia",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "enfocado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "entretenido",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "evasión",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "excesivamente",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "explícitamente",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "expulsar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "fabricado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "formulación",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "freddy",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "herir",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "hondo",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "hurtado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "impresionado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "imputado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "innecesario",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "insignificante",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "intuición",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "labio",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "llevadas",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "marvel",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "metan",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "mixto",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "oponente",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "ordenamiento",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "pemex",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "perry",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "polémico",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "porte",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "preparatoria",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "presumir",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "progresivamente",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "proposición",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "rastrear",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "recital",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "redactar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "reestructuración",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "reflejar",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "regresado",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "resistente",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "simulación",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "soporto",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "suspiro",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "transferir",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "vacante",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "volvimos",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "vulnerabilidad",
+  "zipf": 3.68,
+  "set": "night18b"
+ },
+ {
+  "headword": "adrián",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "adversario",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "advertido",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "alambre",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "almorzar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "animar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "asentamiento",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "autenticidad",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "belga",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "beneficiar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "busques",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "cambié",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "cantera",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "carcel",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "castaño",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "caño",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "contrata",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "convence",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "corpus",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "deficiente",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "dental",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "descartar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "diferencial",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "distante",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "dotado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "dulzura",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "edit",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "encarcelado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "escalar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "etnia",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "fallido",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "faso",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "garantizado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "glorioso",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "gradual",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "impactante",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "inaugural",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "individualmente",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "instrumental",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "intensamente",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "interminable",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "legalización",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "liderar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "llover",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "metida",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "morado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "murray",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "obedecer",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "picado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "pondré",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "poniente",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "porteño",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "posgrado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "prender",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "profesorado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "programar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "propagación",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "prototipo",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "regalado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "regeneración",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "reprimir",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "resumir",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "revivir",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "sabado",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "suplemento",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "suprimir",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "taquilla",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "triunfar",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "unanimidad",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "var",
+  "zipf": 3.67,
+  "set": "night18b"
+ },
+ {
+  "headword": "acompañante",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "acumulado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "adición",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "adorable",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "almacenar",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "amabilidad",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "antaño",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "aprovechado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "callejón",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "caracol",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "cigarro",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "combo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "comprensible",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "conceptual",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "congresista",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "constituir",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "costoso",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "criar",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuerno",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "dani",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "diarrea",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "dirigencia",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "disminuido",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "disparado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "distribuido",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "documentado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "dúo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "elemental",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "erradicar",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "escoge",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "estallido",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "falsedad",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "financiado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "habitante",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "hablarte",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "imitación",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "impecable",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "improbable",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "influyente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "inmobiliario",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "inserción",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "invadir",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "irracional",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "laurel",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "lecho",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "lógicamente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "magna",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "marginal",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "matemático",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "minimizar",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "monitoreo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "nieta",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "obesidad",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "objetividad",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "ocasionalmente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "palestino",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pancho",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pasaste",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pavo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pertinente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pisar",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "presuntamente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "pretendo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "primitivo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "radicalmente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "reclamación",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "retrasado",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "rob",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "saneamiento",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "semanario",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "textura",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "tuberculosis",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "turner",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "ultimamente",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "urbanismo",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "veredicto",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "wiki",
+  "zipf": 3.66,
+  "set": "night18b"
+ },
+ {
+  "headword": "adaptar",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "adelantar",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "admirable",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "afiliación",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "afortunado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "ahhh",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "ansioso",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "arcilla",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "blues",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "carpa",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "catolicismo",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "chupar",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "conformado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "contable",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "contención",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "contesto",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "convincente",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "desgaste",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "despierte",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "discreción",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "discípulo",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "dorsal",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "elisa",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "emprendedor",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "entusiasta",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "exportar",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "fijación",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "forense",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "frustrado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "guiar",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "ilustrado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "indiscutible",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "inevitablemente",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "infame",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "irlandés",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "itinerario",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "legendario",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "legión",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "machismo",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "nominado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "nominal",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "pastoral",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "plátano",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "portador",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "provisión",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "raramente",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "recreación",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "restablecer",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "rosado",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "secular",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "silencioso",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "someter",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "subí",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "terriblemente",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "yuri",
+  "zipf": 3.65,
+  "set": "night18b"
+ },
+ {
+  "headword": "afirmado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "agitación",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "apagado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "bastón",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "cadera",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "calienta",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "celestial",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "comparable",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "comía",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "corresponsal",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "cresta",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "creíble",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuarentena",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "desarrollador",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "desgraciado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "duermen",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "equipado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "facial",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "festejar",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "fiable",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "flamenco",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "frito",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "galán",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "humillación",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "insuficiencia",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "interrogatorio",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "malvado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "metropolitano",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "mirado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "multinacional",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "negativamente",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "nominación",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "orange",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "padrón",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "pendeja",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "perdedor",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "perjudicar",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "ping",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "rapero",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "recipiente",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "reclutamiento",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "regulador",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "repentinamente",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "reportado",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "sinopsis",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "sistemáticamente",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "suero",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "ubicar",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "velar",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "vigilante",
+  "zipf": 3.64,
+  "set": "night18b"
+ },
+ {
+  "headword": "accidentalmente",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "admitido",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "afiliado",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "amoroso",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "arg",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "carvajal",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "cinismo",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "cobrado",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "concebido",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "conectividad",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "consistencia",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "convivir",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "cooperar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "cosmos",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "decime",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "deliberadamente",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "derribar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "disgusto",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "dispersión",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "encantador",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "encontrarte",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "excursión",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "expandir",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "factible",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "fatiga",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "filmar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "fotográfico",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "genero",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "gratuitamente",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "implicado",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "ingenuo",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "iniciación",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "innovador",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "inquisición",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "llamamiento",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "lodo",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "luchado",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "meterte",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "mir",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "olvidamos",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "opuesta",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "perdone",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "pescar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "procesador",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "programador",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "pronunciar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "proximo",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "proyectar",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "raja",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "repetido",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "revertir",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "sip",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "sobrevivido",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "suspenso",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "tracción",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "traspaso",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "tóxico",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "unánime",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "vencimiento",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "violado",
+  "zipf": 3.63,
+  "set": "night18b"
+ },
+ {
+  "headword": "acostado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "advertir",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "analogía",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "apropiación",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "asfalto",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "asombro",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "bicentenario",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "bilingüe",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "billetera",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "cannabis",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "chantaje",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "chispa",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "correlación",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "creyente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "criada",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "cualidad",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "delirio",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "demo",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "descendiente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "devaluación",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "disfrazado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "emancipación",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "emocionalmente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "enfadado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "entrenado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "envíe",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "estadístico",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "estupido",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "exigente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "fax",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "fertilidad",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "feto",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "folleto",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "gozar",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "implacable",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "incentivo",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "inexistente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "invierte",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "lance",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "meridional",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "mitología",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "nadal",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "oct",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "originalidad",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "paralelamente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "pauta",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "pluralidad",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "podio",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "poli",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "poste",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "pulgar",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "reflejado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "renombre",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "seguidor",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "solemne",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "supervisor",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "tapia",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "tejado",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "vitamina",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "viviente",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "vodka",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "vomitar",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "yeso",
+  "zipf": 3.62,
+  "set": "night18b"
+ },
+ {
+  "headword": "accionar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "admirar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "albergar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "alejo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "algoritmo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "andino",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "apretar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "ascendencia",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "asumo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "aumente",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "beneficiado",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "cajero",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "cedido",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "cel",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "coeficiente",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "consecutivo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "craig",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "criollo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "currículum",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "cursar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "decencia",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "descanse",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "detectado",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "dialogar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "distinguido",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "diverso",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "dom",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "encarnación",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "enserio",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "esquí",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "fanatismo",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "follar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "genérico",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "hidrógeno",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "honrar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "implicación",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "insistencia",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "instructor",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "jacinto",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "jet",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "joyce",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "justificado",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "lente",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "llanura",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "llenado",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "madison",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "medioambiental",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "ministerial",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "pau",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "pera",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "permanecido",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "perímetro",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "podrido",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "potestad",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "procesal",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "prolongado",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "pub",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "remuneración",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "roble",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "sencillez",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "sim",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "soda",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "sonda",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "sudán",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "sugerido",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "tortilla",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "tragar",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "trascendencia",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "trilogía",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "virginidad",
+  "zipf": 3.61,
+  "set": "night18b"
+ },
+ {
+  "headword": "abrazar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "agresor",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "ajustado",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "alentar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "alvaro",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "anormal",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "antiguamente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "aproximado",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "arqueológico",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrojar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "ascender",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "baker",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "caigo",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "caramelo",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "centenar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "cho",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "compadre",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "contenedor",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "cordoba",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "croata",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "curación",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "descendencia",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "destreza",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "duramente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "economia",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "ecuatorial",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "empujar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "enojar",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "entendiste",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "evolucionado",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "facundo",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "filmación",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "fusil",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "greg",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "higiénico",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "infinitamente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "inmune",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "levemente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "libreta",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "medicación",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "moleste",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "munición",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "operado",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "parche",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "parecia",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "persistente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "prestigioso",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "presto",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "prójimo",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "quechua",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "querella",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "quieto",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "rebaño",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "reemplazado",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "respondí",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "restringido",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "tas",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "tecnologia",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "telefónico",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "tirano",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "tobillo",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "ucraniano",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "ventilación",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "íntegramente",
+  "zipf": 3.6,
+  "set": "night18b"
+ },
+ {
+  "headword": "abusar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "amenazar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "analizado",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "ande",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "aprendiz",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrogancia",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "atacante",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "bah",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "borra",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "bruta",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "componer",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "compraste",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "conciliación",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "conformación",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "coyuntura",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuestionario",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "cápsula",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "decorado",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "denso",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "descender",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "despreciable",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "desvío",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "doblar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "echen",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "emergente",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "enterar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "esponja",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "finalizado",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "frasco",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "hazme",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "idéntico",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "impresora",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "inmoral",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "lastimar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "lorena",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "necesitado",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "nervio",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "orgasmo",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "parroquial",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "patronato",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "pink",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "pizarra",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "potenciar",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "pálido",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "reactor",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "relevo",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "seudónimo",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "sobrevive",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "spencer",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "taco",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "terminación",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "valido",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "veloz",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "villarreal",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "violentamente",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "visualización",
+  "zipf": 3.59,
+  "set": "night18b"
+ },
+ {
+  "headword": "accidental",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "aceleración",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "acompaño",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "activado",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "adoración",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "anhelo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "apelar",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrogante",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "asignatura",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "asta",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "ballena",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "betty",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "camarero",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "canario",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "capturados",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "chaleco",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "cid",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "clérigo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "cocinero",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "colorido",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "compresión",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "conforma",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "consecuente",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "copyright",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "corporativo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "ddhh",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "declive",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "deducir",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "descomposición",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "devuelto",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "diesel",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "distintivo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "empoderamiento",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "encaje",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "enfrentado",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "enseñe",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "espesor",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "explosivo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "festivo",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "goleador",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "gym",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "hospitalidad",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "humanista",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "hundido",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "incrementado",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "incursión",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "independentista",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "invernadero",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "latitud",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "lino",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "lpm",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "lucia",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "mao",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "matrimonial",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "membrana",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "movil",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "mueble",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "obediencia",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "parcela",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "paypal",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "periódicamente",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "profesionalmente",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "prominente",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "pulmonar",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "pésima",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "recordatorio",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "renal",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "reorganización",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "sabroso",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "sandoval",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "secuestrar",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "sepamos",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "sirena",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "subvención",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "suegro",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "terminología",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "titularidad",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "tremendamente",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "uff",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "vacunación",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "étnico",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "útero",
+  "zipf": 3.58,
+  "set": "night18b"
+ },
+ {
+  "headword": "activismo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "adjudicación",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "adorno",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "afinidad",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "ahorra",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "alzheimer",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "ampliado",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "anarquista",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "aro",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "arterial",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "audición",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "autodeterminación",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "bancarrota",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "buscarte",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "busto",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "cacique",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "caucho",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "caudillo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "chatarra",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "cohesión",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "comediante",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "conducto",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "conmemorar",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "cronista",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuarteto",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "demandado",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "deseable",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "difundido",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "emigrar",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "erección",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "experimentación",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "extorsión",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "fer",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "fresa",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "herrero",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "ilustrar",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "ilícito",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "impedido",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "importado",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "intervenido",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "intestino",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "irrelevante",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "irónicamente",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "julie",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "kirchnerismo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "maximo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "minimo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "mostrador",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "omisión",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "paraje",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "patología",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "pegada",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "predominante",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "presenciar",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "presunción",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "privilegiado",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "prórroga",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "recordé",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "relajado",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "requerir",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "respectivo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "revancha",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "reverendo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "rompan",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "sapo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "satanás",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "solicite",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "sorprendentemente",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "temblar",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "tendido",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "unilateral",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "vestíbulo",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "vox",
+  "zipf": 3.57,
+  "set": "night18b"
+ },
+ {
+  "headword": "abrimos",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "abstracto",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "accesibilidad",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "acelerado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "acera",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "acercar",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "alude",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "antecedente",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "articular",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "asique",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "asma",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "ayuno",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "barroco",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "cantado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "cardíaco",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "cauce",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "centavo",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "chang",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "codigo",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "colaborado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "complot",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "conformar",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "conmoción",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "consulte",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "contestado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "desinformación",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "donante",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "egoísmo",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "ejercido",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "enriquecimiento",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "entrevistado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "episcopal",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "erosión",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "estético",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "eurovisión",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "faltado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "feb",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "fijamente",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "fundadora",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "fértil",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "gancho",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "hocico",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "inaugurado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "incompetencia",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "injustamente",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "insecto",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "interesar",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "intersección",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "lucir",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "manejado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "materno",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "mazo",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "memorable",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "mickey",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "moralmente",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "neoliberal",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "nublado",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "paternidad",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "peaje",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "pescador",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "planificar",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "rafa",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "repaso",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "saudí",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "sisi",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "sudamericano",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "surf",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "televisivo",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "típicamente",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "vitalidad",
+  "zipf": 3.56,
+  "set": "night18b"
+ },
+ {
+  "headword": "abanico",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "acoger",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "aconsejo",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "acreditado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "acumular",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "administrado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "adobe",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "aguacate",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "alineación",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "ancestral",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "anulación",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "apagón",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "apuntado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "arriesgado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "atendido",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "bautismo",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "boxeador",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "cacho",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "cachorro",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "cagado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "cereal",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "chao",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "chistoso",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "concretar",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "confort",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "consultorio",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "contraer",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "contribuyente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "copiado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "denle",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "deprimente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "desesperadamente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "diagrama",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "dibujante",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "dir",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "dirás",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "disimular",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "dotación",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "escapado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "evadir",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "evitado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "exigimos",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "ezequiel",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "facción",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "felizmente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "galardón",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "genuino",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "hemorragia",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "iluminado",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "imponente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "indicio",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "indudablemente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "informante",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "lama",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "ligar",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "logotipo",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "loreto",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "manufactura",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "misionero",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "nitrógeno",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "notorio",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "pedirte",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "pileta",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "populismo",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "publicitario",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "púrpura",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "reivindicación",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "riñón",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "saliente",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "saliva",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "tomarte",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "transcurrido",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "trasplante",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "vasta",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "viabilidad",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "épico",
+  "zipf": 3.55,
+  "set": "night18b"
+ },
+ {
+  "headword": "aburrimiento",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "actúe",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "adquisitivo",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "alejar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "basket",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "carisma",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "cavidad",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "cocido",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "computador",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "confección",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "contratista",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "convoy",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "coronado",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "cyrus",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "derek",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "derrocar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "desnutrición",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "destrozado",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "dificulta",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "doblaje",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "embarcación",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "empeorar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "encajar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "enterrar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "escopeta",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "espiritualidad",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "extradición",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "fausto",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "ferro",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "fichaje",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "flojo",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "folklore",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "formular",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "fronterizo",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "gestación",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "gobernadora",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "guardería",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "guitarrista",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "implantar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "implementado",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "inaugura",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "inconstitucional",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "innegable",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "intermediario",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "internamente",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "interrumpido",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "macro",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "oficialista",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "padecer",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "patronal",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "periodístico",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "platón",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "potasio",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "poético",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "prometer",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "ratito",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "respetuoso",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "rima",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "sancionado",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "seguidamente",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "sophie",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "sumisión",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "supervisar",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "trasfondo",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "tributario",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "táchira",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "tímido",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "valentina",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "yerno",
+  "zipf": 3.54,
+  "set": "night18b"
+ },
+ {
+  "headword": "adjetivo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "agregan",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "amablemente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrestar",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "asesora",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "asigna",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "aspiración",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "aspirante",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "batido",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "castañeda",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "casualmente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "celo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "cerda",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "chocar",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "circunscripción",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "concurrencia",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "contingente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "demolición",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "deprimido",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "desalojo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "despejado",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "detrimento",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "dictado",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "elijo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "fiscalización",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "formidable",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "fósforo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "guerrillero",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "ilimitado",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "limbo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "liquidez",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mayoritario",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mirador",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mismísimo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mudanza",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "mundialmente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "nicaragüense",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "ocular",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "orientar",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "patrimonial",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "perderte",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "piénsalo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "politico",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "principe",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "pronunciamiento",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "prudencia",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "puertorriqueño",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "regente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "renunciado",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "repetidamente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "restrepo",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "revocar",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "secuela",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "sobresaliente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "sobreviviente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "solista",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "torrente",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "trazar",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "vehicular",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "ventanilla",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "zavala",
+  "zipf": 3.53,
+  "set": "night18b"
+ },
+ {
+  "headword": "afluencia",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "alien",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "aparcamiento",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrepentimiento",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "autismo",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "banner",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "brillar",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "budista",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "calculado",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "cautiverio",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "chota",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "chu",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "claustro",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "combustión",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "compás",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "cordura",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "deficiencia",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "descuido",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "desempeñado",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "divisa",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "egipcia",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "emplazamiento",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "endeudamiento",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "espantoso",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "estanque",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "explorador",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "expropiación",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "ferry",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "flotante",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "funcionalidad",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "gozo",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "grosero",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "hermanito",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "huido",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "inexplicable",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "ingrediente",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "inseguro",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "interferir",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "mermelada",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "motín",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "mudar",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "oficialismo",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "olvídate",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "opcional",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "patriarcal",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "patriótico",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "peluche",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "penetrar",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "polarización",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "recortar",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "regulado",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "reservar",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "rigen",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "rindo",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "rom",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "saliste",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "semifinal",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "shin",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "subjetivo",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "suposición",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "tuviéramos",
+  "zipf": 3.52,
+  "set": "night18b"
+ },
+ {
+  "headword": "abdominal",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "algoritmos",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "aportado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "apreciado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrastrado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "asustar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "ataúd",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "bailarín",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "beneficiario",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "civilizado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "colisión",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "compatriota",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "compren",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "corro",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "creces",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "demandante",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "demencia",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "depositar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "diligencia",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "dual",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "empezo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "encendida",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "enigma",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "entrego",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "esperábamos",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "evacuar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "filtrado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "filtrar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "finalización",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "gentil",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "guionista",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "hugh",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "híbrido",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "ignorado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "igualar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "ilumina",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "indefinido",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "influido",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "insular",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "localmente",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "magistral",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "molecular",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "ocampo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "oleada",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "ombligo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "otero",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "paola",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "peatonal",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "perdono",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "pesimista",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "pianista",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "poblacional",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "premiado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "preocupen",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "prescripción",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "priori",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "profesionalismo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "quejo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "radiante",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "recae",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "repleto",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "represente",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "reventar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "semejanza",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "sistemático",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "sufra",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "tardado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "topo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "tutorial",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "valorado",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "vertiente",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "vid",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "vinilo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "virtualmente",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "visualizar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "yacimiento",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "zar",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "zumo",
+  "zipf": 3.51,
+  "set": "night18b"
+ },
+ {
+  "headword": "acreditación",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "alumbrado",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "andamos",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "angular",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "arbol",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrastrar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "azufre",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "caido",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "callate",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "captación",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "celebridad",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "cesta",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "chivo",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "cilindro",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "cobardía",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "compilación",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "complacer",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "comprometer",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "cínico",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "delfín",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "desactivar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "descifrar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "deshacer",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "desobediencia",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "despegar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "diagonal",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "distribuidor",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "doctoral",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "efectuado",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "emblema",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "encarar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "escepticismo",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "estudie",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "exageración",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "explícito",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "filtración",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "fluidez",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "fonseca",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "fundido",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "generalidad",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "guante",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "imparcialidad",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "impedimento",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "imperativo",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "indignado",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "inercia",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "lingüístico",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "meditar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "naciste",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "ocasional",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "orador",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "perseverancia",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "perverso",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "plenitud",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "precipitación",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "predicador",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "predominantemente",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "prefecto",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "preferentemente",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "preguntarte",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "progresar",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "repentino",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "rezo",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "rotura",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "sonriente",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "suciedad",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "tarado",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "torreón",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "veto",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "voluntariado",
+  "zipf": 3.5,
+  "set": "night18b"
+ },
+ {
+  "headword": "abasto",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "acreditar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "adelgazar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "ahogado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "alcázar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "allanamiento",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "alumna",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "arquitectónico",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "atravesado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "autonómico",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "autorizar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "barbacoa",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "cana",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "cancela",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "capacitado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "causante",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "ciro",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "colesterol",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "comprobación",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "conquistador",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "consecuentemente",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "consumido",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "contradice",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuidadoso",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "curado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "decepcionante",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "demográfico",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "derrumbe",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "desilusión",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "despejar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "devuelvan",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "disputado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "dotar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "dudoso",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "eludir",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "enteramos",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "envejecimiento",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "equivoque",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "escocés",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "escribimos",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "especificar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "estufa",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "excluir",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "fabuloso",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "felicitar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "fenomenal",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "fracasar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "garrido",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "guardaespaldas",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "inflamación",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "inherente",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "intacto",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "inventor",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "lamentar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "malla",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "movilizar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "natalidad",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "neutro",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "normalización",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "olvidaste",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "oporto",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "orar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "paolo",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "parásito",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "patriarcado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "pavimento",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "pelotón",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "penoso",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "ponencia",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "preferente",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "presencial",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "pretensión",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "primeramente",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "psicoanálisis",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "pulsera",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "redención",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "sanguíneo",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "sentenciado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "sesgo",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "severamente",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "señorío",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "similitud",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "sobredosis",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "teta",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "tornado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "traicionado",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "tramitación",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "tranvía",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "ultramar",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "veinticuatro",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "viajo",
+  "zipf": 3.49,
+  "set": "night18b"
+ },
+ {
+  "headword": "abortar",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "adjunta",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "agotamiento",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "agricultor",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "alarmante",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "alfabetización",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "apego",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "aplaudir",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "apretado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "aptitud",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "argumentar",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "ascendente",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "autoritarismo",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "bautizado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "cinematográfico",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "complutense",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "condón",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "consagrado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "contorno",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "contracción",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "cota",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "criminalidad",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "culturalmente",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "demarcación",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "democráticamente",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "depto",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "descubra",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "diciéndome",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "disputar",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "escultor",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "estancamiento",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "evalúa",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "examina",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "exiliado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "exterminio",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "faceta",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "falsificación",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "faz",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "ferroviario",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "finalista",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "gastón",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "geología",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "guerrera",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "hector",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "ibérico",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "indulto",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "infernal",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "ingenioso",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "inquietante",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "lab",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "legalizar",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "lesionado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "lucho",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "medioambiente",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "nac",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "nat",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "naturalidad",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "novato",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "nuez",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "paulatinamente",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "populista",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "precariedad",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "pregúntale",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "pruebe",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "próspero",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "páez",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "reforzado",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "reggae",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "regresen",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "remo",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "remodelación",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "reparte",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "respaldar",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "restringir",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "reí",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "riguroso",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "sangriento",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "sepulcro",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "sexenio",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "soborno",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "susceptible",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "tecla",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "telescopio",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "transferido",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "volvio",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "zinc",
+  "zipf": 3.48,
+  "set": "night18b"
+ },
+ {
+  "headword": "acomodar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "aislar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "alimentado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "alucinante",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "anotado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "apología",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrastre",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrendamiento",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "ateo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "atraso",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "avergonzado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "barbaridad",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "beneficencia",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "boleta",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "capitolio",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "cariñoso",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "cautela",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "ceguera",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "chavo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "concentrar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "confidencialidad",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "configurar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "corra",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "daddy",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "desarrolle",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "dialogo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "dictar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "diecinueve",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "diferenciación",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "dire",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "ebrio",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "ejido",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "eli",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "enfado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "entretanto",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "exigido",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "frustrante",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "guiado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "industrialización",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "iquique",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "izquierdista",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "jurar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "madurar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "mear",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "merecer",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "millon",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "naciente",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "negociado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "nicho",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "paraguaya",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "peón",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "practicado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "predomina",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "proclamación",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "proyectado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "rabo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "refugiado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "reglamentación",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "rígido",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "salgado",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "sanar",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "sentirás",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "teóricamente",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "todd",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "vacio",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "vasto",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "zurdo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "ómnibus",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "óptimo",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "óxido",
+  "zipf": 3.47,
+  "set": "night18b"
+ },
+ {
+  "headword": "accionista",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "alcoholismo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "anticipado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "apoderado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "arellano",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrepentido",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "asimilar",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "ata",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "atrapa",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "automotriz",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "cambiante",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "caracterización",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "carnal",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "cerramos",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "cifrado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "circulo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "concebir",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "congelado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "conoci",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "conquistado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "consecución",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "consolidado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "constructor",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "controlador",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "cártel",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "declare",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "desapercibido",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "dimitir",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "doncella",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "drásticamente",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "dándose",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "ejecutada",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "emperatriz",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "encierro",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "encomienda",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "encontraste",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "enoja",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "envergadura",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "espiar",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "espiritu",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "estimulante",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "existencial",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "extraído",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "extremista",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "flote",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "genéticamente",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "heterosexual",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "hills",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "hughes",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "imbecil",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "incompatible",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "insensible",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "instantáneamente",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "inversor",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "jackie",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "lancha",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "mod",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "muchedumbre",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "nazismo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "nulidad",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "paladar",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "paridad",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "parámetro",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "patear",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "rectificar",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "relámpago",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "rendido",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "renovable",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "retrasar",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "rotundo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "sable",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "sensor",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "sofisticado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "stella",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "sustancialmente",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "tabú",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "tae",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "tallo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "templado",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "tenso",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "tesorero",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "toc",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "verdugo",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "yankees",
+  "zipf": 3.46,
+  "set": "night18b"
+ },
+ {
+  "headword": "angulo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "artefacto",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "ascensión",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "aterrador",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "brutalmente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "calado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "calmado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "caluroso",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "censurar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "científicamente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "coincido",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "competidor",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "complementar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "conglomerado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "curriculum",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "danilo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "delicadeza",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "detector",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "devoto",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "distraer",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "dong",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "educacional",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "eleanor",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "embarque",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "enamoré",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "entrante",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "estigma",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "fajardo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "fundición",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "galardonado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "grosor",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "hackers",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "halo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "heroico",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "humanitario",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "iluminar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "imparable",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "inciso",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "indefinidamente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "inspirar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "interactivo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "latente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "letrero",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "llamativo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "lujoso",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "mapuches",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "mejoría",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "mensualmente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "moyano",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "panameño",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "percibido",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "perforación",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "pesimismo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "pillar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "portar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "preferir",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "prestamos",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "pseudo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "pujol",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "quebrado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "ratificado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "rebote",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "rectificación",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "redistribución",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "regidor",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "reproductor",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "rescatado",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "serenidad",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "sirvo",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "soga",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "suministrar",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "surrealista",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "talentoso",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "telegram",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "temperamento",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "tender",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "tinte",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "tiré",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "urgentemente",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "veréis",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "yankee",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "ápice",
+  "zipf": 3.45,
+  "set": "night18b"
+ },
+ {
+  "headword": "abr",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "aclarado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "afro",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "alimenticia",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "andre",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "anochecer",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "anotación",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "argumentación",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "atribuido",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "brujo",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "cadete",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "chin",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "clavado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "clientela",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "comiste",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "compacto",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "compatibilidad",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "conciliar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "constructivo",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuaresma",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "cómputo",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "cónyuge",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "durado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "empeora",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "encantar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "evolucionar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "feudal",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "fragata",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "freelance",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "gilberto",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "huawei",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "indignante",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "insurrección",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "intencional",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "intestinal",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "invadido",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "lactancia",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "laico",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "leucemia",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "molestado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "multiplicar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "navío",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "obispado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "ordóñez",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "pactado",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "particularidad",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "picar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "pinar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "pobrecito",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "progresión",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "quebrar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "rampa",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "relacionar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "rellenar",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "sabotaje",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "secretamente",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "segregación",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "sociólogo",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "sortear",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "swift",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "vertebral",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "ático",
+  "zipf": 3.44,
+  "set": "night18b"
+ },
+ {
+  "headword": "agüero",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "anexión",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "arder",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "atrasado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "atropello",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "batir",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "blanqueo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "brigadier",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "burgués",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "clandestino",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "codificación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "concertación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "constatar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "contradictorio",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "corregido",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "cualesquiera",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "culpo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "demente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "dramaturgo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "elogio",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "enriquecer",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "envase",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "epicentro",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "equilibrado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "equivocación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "erróneamente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "esperé",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "etiquetado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "explotado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "firmo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "fisiología",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "hermosura",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "impaciente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "improvisación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "incipiente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "inclusivo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "incompetente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "infidelidad",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "inquieta",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "insostenible",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "irreal",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "jaguar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "largamente",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "lectora",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "lentitud",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "linkedin",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "marque",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "mediocridad",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "monsanto",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "noruego",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "odisea",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "olfato",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "operadora",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "panteón",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "paño",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "pbi",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "pedagógico",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "perdonado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "pillo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "planeamiento",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "privación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "proletariado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "psiquiátrico",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "pulpo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "radicalismo",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "ras",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "ratificación",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "realeza",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "reclutar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "recolectar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "recopilar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "renuncie",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "repasar",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "retribución",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "retro",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "rev",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "rip",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "rocky",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "seducir",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "solucionado",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "sostén",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "tolerante",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "tri",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "venís",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "ártico",
+  "zipf": 3.43,
+  "set": "night18b"
+ },
+ {
+  "headword": "acerco",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "alcantarillado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "alzar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "antelación",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "anteproyecto",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "aparentar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "apunte",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "bebo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "brevedad",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "chorizo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "citación",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "contencioso",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "convenientemente",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "coronación",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "cubra",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "democratización",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "derivar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "derogación",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "derribado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "desafortunado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "desplegar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "devuelta",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "distorsión",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "divulgar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "donado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "duplicado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "embajadora",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "emisor",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "envidio",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "escandaloso",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "espontáneo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "estimula",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "exhibir",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "feng",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "figurar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "gamma",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "hambruna",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "huelen",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "ingresado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "injerencia",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "inmortalidad",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "intensivo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "motivar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "neoliberalismo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "notoriedad",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "obsesionado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "originado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "pasarte",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "pepino",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "pijama",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "postular",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "preciado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "preparo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "prescindir",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "prometedor",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "quejar",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "quitarme",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "quitarte",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "rabino",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "rascacielos",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "recibimiento",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "reclamado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "reformado",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "reformista",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "retaguardia",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "rudo",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "solicitante",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "subyacente",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "sumario",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "tópico",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "verdura",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "votante",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "vpn",
+  "zipf": 3.42,
+  "set": "night18b"
+ },
+ {
+  "headword": "abertura",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "alguacil",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "antón",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "api",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrepentir",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "astro",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "bienal",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cagaste",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cangrejo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cartografía",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cayera",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cepa",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "checo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cnte",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "colombo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "cumplo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "desafiar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "desconectar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "destina",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "dinamismo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "distrital",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "enfocar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "ensueño",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "entrevistar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "equilibrar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "erótico",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "estalla",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "excitación",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "fascinación",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "fiar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "financia",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "fluvial",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "golpista",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "humorista",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "hundir",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "impune",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "inmersión",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "inscribir",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "labrador",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "locutor",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "magnate",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "mantenerte",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "matadero",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "mayonesa",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "multimillonario",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "opio",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "optado",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "participativo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "patrocinado",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "pediría",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "popularmente",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "posguerra",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "postgrado",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "previsible",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "psicóloga",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "psuv",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "quisimos",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "reivindicar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "revisen",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "robe",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "satelital",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "saturación",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "secar",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "sombrío",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "stevens",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "tampico",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "tecnico",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "todopoderoso",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "torero",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "vandalismo",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "vanidad",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "vibrante",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "vincular",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "volvi",
+  "zipf": 3.41,
+  "set": "night18b"
+ },
+ {
+  "headword": "abatido",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "acueducto",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "adecuación",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "ambulante",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "analisis",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "antivirus",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "aristocracia",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "arrojado",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "atuendo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "bolivariano",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "burns",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "casanova",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "cesado",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "comision",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "conmovedor",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "contacta",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "córdova",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "defensivo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "dictatorial",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "doblado",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "doquier",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "duradero",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "educador",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "estandarte",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "excepcionalmente",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "exhaustiva",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "extrañamente",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "faena",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "fugaz",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "galindo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "gelatina",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "giran",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "golazo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "graduó",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "humillante",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "imaginate",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "impartir",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "implicar",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "inferioridad",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "inflexión",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "ipod",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "irresponsabilidad",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "liberty",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "licenciada",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "liquidar",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "lucero",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "maduración",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "mafioso",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "med",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "medicinal",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "meseta",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "moverte",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "mutación",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "novedoso",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "paralizado",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "partición",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "peninsular",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "petroleo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "posterioridad",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "predicar",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "proclamado",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "razonar",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "rehén",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "reportera",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "reverso",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "router",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "scioli",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "simplicidad",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "sondeo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "sufro",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "superintendente",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "trivial",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "táctico",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "unificar",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "vialidad",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "vigésimo",
+  "zipf": 3.4,
+  "set": "night18b"
+ },
+ {
+  "headword": "abarcar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "alegar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "alt",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "altísimo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "alv",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "ambigüedad",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "apesta",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "arruinado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "ascendido",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "boulevard",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "budismo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "cajita",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "calculadora",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "cartucho",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "cata",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "chicha",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "columnista",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "comitiva",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "comprarte",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "consultivo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "cortejo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "critico",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "culminación",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "cáucaso",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "damián",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "desarme",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "descentralización",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "desconocer",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "descuidado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "desplazado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "discrepancia",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "dióxido",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "duerma",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "débito",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "egresado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "enamorar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "entablar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "escéptico",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "esmalte",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "espléndido",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "exhaustivo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "facilmente",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "filmado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "fricción",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "galleta",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "generalización",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "gerard",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "gob",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "gótico",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "hipertensión",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "inclinado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "indagar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "indirecto",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "intelecto",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "irresistible",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "jardinero",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "manija",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "masivamente",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "matilde",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "millar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "moderador",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "mortero",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "moverme",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "nsa",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "observo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "ocasionado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "olivo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "ortodoxo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "pacíficamente",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "plateado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "presumiblemente",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "procurar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "protagonizado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "pue",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "querrás",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "rededor",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "referendo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "relator",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "rigidez",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "selfies",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "serial",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "simplificar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "suplico",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "temático",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "torturado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "traicionar",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "unificado",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "óleo",
+  "zipf": 3.39,
+  "set": "night18b"
+ },
+ {
+  "headword": "abstinencia",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "afín",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "amiguito",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "apartar",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "aplastar",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "astronauta",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "automatización",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "bombero",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "calabozo",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "calculo",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "centroamericano",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "ciegamente",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "cisne",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "clemencia",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "consagración",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "contestación",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "cortázar",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuarzo",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "cuasi",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "denise",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "desbloquear",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "descarado",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "destacable",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "destrozar",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "detenidamente",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "dista",
+  "zipf": 3.38,
+  "set": "night18b"
+ },
+ {
+  "headword": "dogma",
+  "zipf": 3.38,
+  "set": "night18b"
+ }
+]
