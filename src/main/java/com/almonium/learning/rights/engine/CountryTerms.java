@@ -78,10 +78,15 @@ public final class CountryTerms {
     };
 
     private static final Map<String, CopyrightTerm> TERMS = new HashMap<>();
+    /** The rule behind each listed country's term, in a reader's words; the default is life plus 70. */
+    private static final Map<String, String> RULES = new HashMap<>();
+
+    static final String DEFAULT_RULE = "Author's life + 70 years";
 
     static {
         put(
                 lifePlus(50),
+                "Author's life + 50 years",
                 "BY",
                 "CN",
                 "EG",
@@ -98,27 +103,59 @@ public final class CountryTerms {
                 "TW",
                 "VN",
                 "ZA");
-        put(lifePlus(60), "BD", "IN", "VE");
-        put(lifePlus(75), "GT", "HN", "VC", "WS");
-        put(lifePlus(80), "CO", "GQ");
-        put(lifePlus(95), "JM");
-        put(lifePlus(99), "CI");
-        put(lifePlus(100), "MX");
-        put(extendedWithoutRevival(50, 70, 1971), "CA", "NZ");
+        put(lifePlus(60), "Author's life + 60 years", "BD", "IN", "VE");
+        put(lifePlus(75), "Author's life + 75 years", "GT", "HN", "VC", "WS");
+        put(lifePlus(80), "Author's life + 80 years", "CO", "GQ");
+        put(lifePlus(95), "Author's life + 95 years", "JM");
+        put(lifePlus(99), "Author's life + 99 years", "CI");
+        put(lifePlus(100), "Author's life + 100 years", "MX");
+        put(
+                extendedWithoutRevival(50, 70, 1971),
+                "Life + 50 for authors who died by 1971, life + 70 after",
+                "CA",
+                "NZ");
         // Japan moved to 70 at the end of 2018; works by Allied nationals also carry a wartime extension of about ten
         // years, so the old-term cutoff is pulled back a decade rather than tracking nationality.
-        put(extendedWithoutRevival(50, 70, 1957), "JP");
-        put(extendedWithoutRevival(50, 70, 1962), "KR");
-        put(UNITED_STATES, "US", "PR", "GU", "VI", "AS", "MP", "UM");
-        put(FRANCE, "FR", "GF", "GP", "MQ", "RE", "YT", "PM", "BL", "MF", "NC", "PF", "WF");
-        put(SPAIN, "ES");
-        put(UKRAINE, "UA");
-        put(RUSSIA, "RU");
+        put(extendedWithoutRevival(50, 70, 1957), "Life + 50 for authors who died by 1957, life + 70 after", "JP");
+        put(extendedWithoutRevival(50, 70, 1962), "Life + 50 for authors who died by 1962, life + 70 after", "KR");
+        put(
+                UNITED_STATES,
+                "95 years after publication for works published before 1978, life + 70 after",
+                "US",
+                "PR",
+                "GU",
+                "VI",
+                "AS",
+                "MP",
+                "UM");
+        put(
+                FRANCE,
+                "Author's life + 70 years, longer for an author who died for France",
+                "FR",
+                "GF",
+                "GP",
+                "MQ",
+                "RE",
+                "YT",
+                "PM",
+                "BL",
+                "MF",
+                "NC",
+                "PF",
+                "WF");
+        put(SPAIN, "Author's life + 80 years for authors who died by 1987, life + 70 after", "ES");
+        put(UKRAINE, "Author's life + 70 years, counted from rehabilitation for a repressed author", "UA");
+        put(RUSSIA, "Author's life + 70 years, + 4 for authors alive in the war", "RU");
     }
 
     /** The term for an ISO 3166 alpha-2 country code; life plus 70 when the country is not listed. */
     public static CopyrightTerm of(String country) {
         return TERMS.getOrDefault(country.toUpperCase(Locale.ROOT), LIFE_PLUS_70);
+    }
+
+    /** The rule a country applies, in a reader's words: what the unlock map shows on hover. */
+    public static String rule(String country) {
+        return RULES.getOrDefault(country.toUpperCase(Locale.ROOT), DEFAULT_RULE);
     }
 
     /** Every ISO 3166 alpha-2 code the JDK knows, which is the set a book can be blocked in. */
@@ -132,9 +169,10 @@ public final class CountryTerms {
         return author == null || author.rehabilitatedYear() == null ? deathYear : author.rehabilitatedYear();
     }
 
-    private static void put(CopyrightTerm term, String... countries) {
+    private static void put(CopyrightTerm term, String rule, String... countries) {
         for (String country : countries) {
             TERMS.put(country, term);
+            RULES.put(country, rule);
         }
     }
 }

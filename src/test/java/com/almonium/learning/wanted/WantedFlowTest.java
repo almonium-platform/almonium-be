@@ -109,6 +109,10 @@ class WantedFlowTest {
     }
 
     UUID work(String title, RightsStatus status) {
+        return work(title, status, null);
+    }
+
+    UUID work(String title, RightsStatus status, Integer freeFrom) {
         UUID id = UUID.randomUUID();
         catalogStore.upsertWorks(
                 List.of(new WorkRow(
@@ -123,7 +127,7 @@ class WantedFlowTest {
                         List.of(new CatalogAuthor("Someone", null, 1850, 1930, false, null)),
                         10,
                         status,
-                        null)),
+                        freeFrom)),
                 Instant.now());
         return id;
     }
@@ -161,6 +165,16 @@ class WantedFlowTest {
         assertThatThrownBy(() -> wants.want(john, new WantRequest(lolita, Language.EN)))
                 .isInstanceOf(ResourceConflictException.class)
                 .hasMessageContaining("under copyright");
+    }
+
+    @Test
+    void aWorkThatFreesUpWithinFiveYearsCanBeWantedAheadOfTheDay() {
+        UUID pooh = work("Winnie-the-Pooh", RightsStatus.PROTECTED, 2027);
+        UUID farOff = work("Lolita, again", RightsStatus.PROTECTED, 2048);
+
+        assertThat(wants.want(john, new WantRequest(pooh, Language.EN)).rank()).isEqualTo(1);
+        assertThatThrownBy(() -> wants.want(john, new WantRequest(farOff, Language.EN)))
+                .isInstanceOf(ResourceConflictException.class);
     }
 
     @Test

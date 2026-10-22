@@ -9,6 +9,7 @@ import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogWorkRepository;
 import com.almonium.learning.catalog.service.CatalogSearchService;
 import com.almonium.learning.rights.model.RightsStatus;
+import com.almonium.learning.rights.service.UnlockDates;
 import com.almonium.learning.wanted.dto.request.WantRequest;
 import com.almonium.learning.wanted.dto.response.ArrivedRow;
 import com.almonium.learning.wanted.dto.response.WantReceipt;
@@ -25,6 +26,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -44,7 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Wanted books (W1–W4): one live queue for new books and new languages, ranked by distinct readers, ties by the first
  * want. Wanting is free and unmetered; it promises a place in a public order and nothing else. A work under copyright
- * where we make books cannot be wanted, so it never appears. A published edition settles every want of its work in its
+ * where we make books cannot be wanted unless it frees up within five years, so it rarely appears. A published edition settles every want of its work in its
  * language, and each wanter hears once, in the app and by email.
  */
 @Service
@@ -69,7 +71,7 @@ public class WantService {
         CatalogWork work = catalogWorkRepository
                 .findById(request.catalogWorkId())
                 .orElseThrow(() -> new EntityNotFoundException("Work not found"));
-        if (work.getProductionStatus() == RightsStatus.PROTECTED) {
+        if (work.getProductionStatus() == RightsStatus.PROTECTED && !freesSoon(work)) {
             throw new ResourceConflictException("This one is under copyright, so we can’t offer it.");
         }
         if (onShelf(work, request.language())) {
@@ -104,6 +106,16 @@ public class WantService {
             }
         }
         return new WantReceipt(work.getId(), request.language(), rank, shown(readers));
+    }
+
+    /**
+     * A work under copyright can still be wanted when its day is in sight (W6): the catalogue knows the exact year it
+     * frees up where we make books and that is within five years, so the want will be filled on 1 January.
+     */
+    private boolean freesSoon(CatalogWork work) {
+        Integer freeFrom = work.getProductionFreeFrom();
+        int year = LocalDate.now(clock).getYear();
+        return freeFrom != null && freeFrom > year && freeFrom <= year + UnlockDates.COUNTDOWN_YEARS;
     }
 
     /** Tapping "Wanted" again takes the want back, silently. */

@@ -5,11 +5,18 @@ import com.almonium.auth.common.service.CurrentMember;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.catalog.dto.response.CatalogHit;
 import com.almonium.learning.catalog.dto.response.CatalogHit.CatalogState;
+import com.almonium.learning.catalog.dto.response.WorkUnlocksView;
+import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.Hit;
+import com.almonium.learning.catalog.repository.CatalogWorkRepository;
+import com.almonium.learning.rights.model.RightsFacts;
 import com.almonium.learning.rights.model.RightsStatus;
+import com.almonium.learning.rights.service.ReaderLocation;
 import com.almonium.learning.rights.service.ReadingRights;
+import com.almonium.learning.rights.service.UnlockDates;
 import com.almonium.learning.wanted.repository.WantRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -38,9 +45,15 @@ public class CatalogSearchService {
     /** Below this many readers a count is not shown, so a lone want never reads as "1 reader". */
     public static final int SHOWN_READERS = 3;
 
+    /** Countries named in "already free in". */
+    static final int FREE_IN_COUNTRIES = 3;
+
     private final CatalogStore store;
+    private final CatalogWorkRepository catalogWorkRepository;
     private final BookRepository bookRepository;
     private final ReadingRights readingRights;
+    private final ReaderLocation readerLocation;
+    private final UnlockDates unlockDates;
     private final WantRepository wantRepository;
     private final CurrentMember currentMember;
     private final SearchRequester searchRequester;
@@ -73,7 +86,28 @@ public class CatalogSearchService {
      */
     @Transactional(readOnly = true)
     public List<CatalogHit> freeFrom(int year, int limit, Language language) {
-        return decorate(store.freeFrom(year, limit), language, currentMember.id());
+        // Free where we make books that January, and in the reader's own country by then (W8).
+        return decorate(store.freeFrom(year, limit), language, currentMember.id()).stream()
+                .filter(hit -> hit.readerFreeFrom() == null || hit.readerFreeFrom() <= year)
+                .toList();
+    }
+
+    /** Where and when one work is free to read, country by country (W7). */
+    @Transactional(readOnly = true)
+    public WorkUnlocksView unlocks(UUID catalogWorkId) {
+        CatalogWork work = catalogWorkRepository
+                .findById(catalogWorkId)
+                .orElseThrow(() -> new EntityNotFoundException("Work not found"));
+        RightsFacts facts = work.rightsFacts();
+        String country = readerLocation.country();
+        return new WorkUnlocksView(
+                work.getId(),
+                work.getTitle(),
+                work.getAuthorDisplay(),
+                work.getPublicationYear(),
+                country,
+                unlockDates.readerFreeFrom(facts, country),
+                unlockDates.everywhere(facts));
     }
 
     public int currentYear() {
@@ -94,12 +128,22 @@ public class CatalogSearchService {
         }
         Map<UUID, Long> counts = readers;
         Set<UUID> wanted = mine;
+        Map<UUID, RightsFacts> facts = hits.isEmpty()
+                ? Map.of()
+                : catalogWorkRepository.findAllById(hits.stream().map(Hit::id).toList()).stream()
+                        .collect(Collectors.toMap(CatalogWork::getId, CatalogWork::rightsFacts));
+        String country = readerLocation.country();
         return hits.stream()
-                .map(hit -> toHit(hit, counts.getOrDefault(hit.id(), 0L), wanted.contains(hit.id())))
+                .map(hit -> toHit(
+                        hit,
+                        counts.getOrDefault(hit.id(), 0L),
+                        wanted.contains(hit.id()),
+                        country,
+                        facts.get(hit.id())))
                 .toList();
     }
 
-    private CatalogHit toHit(Hit hit, long readers, boolean wantedByMe) {
+    private CatalogHit toHit(Hit hit, long readers, boolean wantedByMe, String country, RightsFacts facts) {
         CatalogState state;
         if (hit.workSlug() != null
                 && !bookRepository.findByWorkSlug(hit.workSlug()).isEmpty()) {
@@ -120,6 +164,11 @@ public class CatalogSearchService {
                 hit.workSlug(),
                 hit.productionFreeFrom(),
                 readers >= SHOWN_READERS ? Math.toIntExact(readers) : null,
-                wantedByMe);
+                wantedByMe,
+                country,
+                facts == null ? null : unlockDates.readerFreeFrom(facts, country),
+                facts == null || state != CatalogState.UNDER_COPYRIGHT
+                        ? List.of()
+                        : unlockDates.alreadyFreeIn(facts, country, FREE_IN_COUNTRIES));
     }
 }
