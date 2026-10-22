@@ -57,6 +57,11 @@ def parse(text):
     if t.startswith("```"):
         t = t.split("\n", 1)[1].rsplit("```", 1)[0]
     entry = json.loads(t)
+    # the CLI's schema flag coerces these; here a conjugation class written as the number 1 becomes "1"
+    for lexeme in entry.get("lexemes", []) if isinstance(entry, dict) else []:
+        grammar = lexeme.get("grammar") if isinstance(lexeme, dict) else None
+        if isinstance(grammar, dict) and isinstance(grammar.get("conjugation"), int):
+            grammar["conjugation"] = str(grammar["conjugation"])
     jsonschema.validate(entry, SCHEMA)
     return entry
 
@@ -81,7 +86,10 @@ def write_one(client, model, lang, system, row, budget):
             entry = parse(text)
             break
         except (json.JSONDecodeError, jsonschema.ValidationError) as e:
+            # a malformed answer is the model's slip, not the word's: one more call, then give up
             entry = {"error": f"not valid: {str(e)[:200]}", "raw": text}
+            if attempt >= 1:
+                break
         except Exception as e:  # rate limits, transient errors
             entry = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
             time.sleep(15 * (attempt + 1))
