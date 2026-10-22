@@ -284,3 +284,33 @@ did, so a factory book arrives for its readers without anyone pressing
 anything. Whether there is room to start another book is the host's call,
 from its plan meters (`FACTORY_RESERVE_PERCENT`, `FACTORY_MAX_PRODUCTIONS` in
 the processor's environment).
+
+
+## Unlock dates: when and where a work becomes free (W6, W7, W8)
+
+Added 2026-10-22. Every catalogue hit carries three more fields: `readerCountry`
+(where the request comes from, by `ReaderLocation`), `readerFreeFrom` (the year
+the reader can open the work, from 1 January) and `freeIn` (up to three
+countries where it is already free, best known first). The reader's year is
+the later of two exact years, the production countries' and the reader's
+country's, because an edition can only be made once Ukraine and Germany free
+the work; it is null unless both years are exact, the one case a countdown
+may count to. `UnlockDates` computes all of it from `CopyrightEngine`.
+
+`GET /public/catalog/works/{id}/unlocks` answers for every ISO country: status
+this year, the exact free year when the facts pin it down, and the rule behind
+the term in a reader's words (`CountryTerms.rule`, e.g. "Author's life + 100
+years"). The clients draw it as a map with a year slider on the web and as a
+list grouped by year on the phone. Countries the table does not list show the
+default life-plus-70 rule; the clients call a country with no exact year "Not
+checked yet" rather than guessing.
+
+A work under copyright can be wanted ahead of the day when its production free
+year is within five years (`WantService.freesSoon`): "Tell me on the day" is an
+ordinary want, so it sorts into the queue and is settled when the edition
+arrives. The Public Domain Day list keeps only works the reader's own country
+frees by that January.
+
+The rules are a careful estimate for showing dates, not legal advice: the
+table simplifies non-retroactive extensions, wartime extensions and the US
+publication rule, and it needs a legal check before launch.
