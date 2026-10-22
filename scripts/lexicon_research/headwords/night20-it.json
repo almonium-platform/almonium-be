@@ -15,27 +15,7 @@
   "set": "night20"
  },
  {
-  "headword": "elasticità",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "estinto",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "ezra",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "fagli",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "fanny",
   "zipf": 3.41,
   "set": "night20"
  },
@@ -50,22 +30,7 @@
   "set": "night20"
  },
  {
-  "headword": "gameplay",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "gus",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "immunitario",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "infinità",
   "zipf": 3.41,
   "set": "night20"
  },
@@ -95,11 +60,6 @@
   "set": "night20"
  },
  {
-  "headword": "natalia",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "notarile",
   "zipf": 3.41,
   "set": "night20"
@@ -110,17 +70,7 @@
   "set": "night20"
  },
  {
-  "headword": "parabrezza",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "partecipò",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "paz",
   "zipf": 3.41,
   "set": "night20"
  },
@@ -160,37 +110,7 @@
   "set": "night20"
  },
  {
-  "headword": "reid",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "ridire",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "rigidità",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "ronald",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "ryanair",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "saro",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "scoop",
   "zipf": 3.41,
   "set": "night20"
  },
@@ -215,27 +135,7 @@
   "set": "night20"
  },
  {
-  "headword": "superficialità",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
   "headword": "talpa",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "theo",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "titanic",
-  "zipf": 3.41,
-  "set": "night20"
- },
- {
-  "headword": "tomas",
   "zipf": 3.41,
   "set": "night20"
  },
@@ -300,11 +200,6 @@
   "set": "night20"
  },
  {
-  "headword": "asd",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "avvale",
   "zipf": 3.4,
   "set": "night20"
@@ -330,42 +225,12 @@
   "set": "night20"
  },
  {
-  "headword": "bau",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "bud",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "caffé",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "casapound",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "causale",
   "zipf": 3.4,
   "set": "night20"
  },
  {
-  "headword": "cnr",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "collocamento",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "comunita",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -425,17 +290,7 @@
   "set": "night20"
  },
  {
-  "headword": "inaspettatamente",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "incassare",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "incipit",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -455,17 +310,7 @@
   "set": "night20"
  },
  {
-  "headword": "irrimediabilmente",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "lavoretto",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "lyon",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -480,27 +325,12 @@
   "set": "night20"
  },
  {
-  "headword": "meg",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "morente",
   "zipf": 3.4,
   "set": "night20"
  },
  {
   "headword": "navicella",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "ned",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "nikita",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -575,22 +405,7 @@
   "set": "night20"
  },
  {
-  "headword": "rinaldo",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "rinascere",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "rodríguez",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "runner",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -615,27 +430,7 @@
   "set": "night20"
  },
  {
-  "headword": "sedermi",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "shore",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "sigh",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "sminuire",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "sonorità",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -645,17 +440,7 @@
   "set": "night20"
  },
  {
-  "headword": "straordinariamente",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "stravagante",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "tao",
   "zipf": 3.4,
   "set": "night20"
  },
@@ -705,37 +490,7 @@
   "set": "night20"
  },
  {
-  "headword": "vittore",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "vous",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "weber",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "yuan",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
-  "headword": "zeno",
-  "zipf": 3.4,
-  "set": "night20"
- },
- {
   "headword": "appropriazione",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "arrow",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -750,11 +505,6 @@
   "set": "night20"
  },
  {
-  "headword": "atrocità",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "avverso",
   "zipf": 3.39,
   "set": "night20"
@@ -765,22 +515,7 @@
   "set": "night20"
  },
  {
-  "headword": "calenda",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "cecità",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "cervi",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "ciecamente",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -805,22 +540,7 @@
   "set": "night20"
  },
  {
-  "headword": "cont",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "contraente",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "coprifuoco",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "def",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -840,17 +560,7 @@
   "set": "night20"
  },
  {
-  "headword": "dorothy",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "ebbrezza",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "eccezionalmente",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -861,11 +571,6 @@
  },
  {
   "headword": "estasi",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "facendogli",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -885,22 +590,12 @@
   "set": "night20"
  },
  {
-  "headword": "flavia",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "geologia",
   "zipf": 3.39,
   "set": "night20"
  },
  {
   "headword": "geopolitica",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "gioacchino",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -970,16 +665,6 @@
   "set": "night20"
  },
  {
-  "headword": "luciana",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "lucifero",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "maneggiare",
   "zipf": 3.39,
   "set": "night20"
@@ -1010,37 +695,12 @@
   "set": "night20"
  },
  {
-  "headword": "pericolosamente",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "planetario",
   "zipf": 3.39,
   "set": "night20"
  },
  {
-  "headword": "poe",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "preoccupo",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "professionalmente",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "ras",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "reception",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -1065,11 +725,6 @@
   "set": "night20"
  },
  {
-  "headword": "rovereto",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "sarto",
   "zipf": 3.39,
   "set": "night20"
@@ -1086,11 +741,6 @@
  },
  {
   "headword": "sgomento",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
-  "headword": "sicché",
   "zipf": 3.39,
   "set": "night20"
  },
@@ -1130,11 +780,6 @@
   "set": "night20"
  },
  {
-  "headword": "volkswagen",
-  "zipf": 3.39,
-  "set": "night20"
- },
- {
   "headword": "accelerato",
   "zipf": 3.38,
   "set": "night20"
@@ -1161,11 +806,6 @@
  },
  {
   "headword": "annuario",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "ant",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1200,17 +840,7 @@
   "set": "night20"
  },
  {
-  "headword": "avversità",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "baluardo",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "bass",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1235,11 +865,6 @@
   "set": "night20"
  },
  {
-  "headword": "btw",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "bussare",
   "zipf": 3.38,
   "set": "night20"
@@ -1250,17 +875,7 @@
   "set": "night20"
  },
  {
-  "headword": "cei",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "chiesero",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "cinzia",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1296,11 +911,6 @@
  },
  {
   "headword": "crepa",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "dual",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1360,22 +970,12 @@
   "set": "night20"
  },
  {
-  "headword": "hayes",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "ideatore",
   "zipf": 3.38,
   "set": "night20"
  },
  {
   "headword": "impegnare",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "imperdibile",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1410,16 +1010,6 @@
   "set": "night20"
  },
  {
-  "headword": "jolie",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "kebab",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "lacrima",
   "zipf": 3.38,
   "set": "night20"
@@ -1430,27 +1020,12 @@
   "set": "night20"
  },
  {
-  "headword": "laicità",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "meridione",
   "zipf": 3.38,
   "set": "night20"
  },
  {
-  "headword": "mettiamoci",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "minare",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "nsa",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1480,21 +1055,6 @@
   "set": "night20"
  },
  {
-  "headword": "penelope",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "pit",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "pluralità",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "prematura",
   "zipf": 3.38,
   "set": "night20"
@@ -1510,22 +1070,12 @@
   "set": "night20"
  },
  {
-  "headword": "psico",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "ria",
   "zipf": 3.38,
   "set": "night20"
  },
  {
   "headword": "riformista",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "riley",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1541,11 +1091,6 @@
  },
  {
   "headword": "screditare",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "seul",
   "zipf": 3.38,
   "set": "night20"
  },
@@ -1590,11 +1135,6 @@
   "set": "night20"
  },
  {
-  "headword": "sullivan",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "svincolo",
   "zipf": 3.38,
   "set": "night20"
@@ -1615,28 +1155,8 @@
   "set": "night20"
  },
  {
-  "headword": "tout",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
   "headword": "trampolino",
   "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "variabilità",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "wesley",
-  "zipf": 3.38,
-  "set": "night20"
- },
- {
-  "headword": "alternativamente",
-  "zipf": 3.37,
   "set": "night20"
  },
  {
@@ -1646,16 +1166,6 @@
  },
  {
   "headword": "andavamo",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "ankara",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "arbitrariamente",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1705,27 +1215,12 @@
   "set": "night20"
  },
  {
-  "headword": "civ",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "cloro",
   "zipf": 3.37,
   "set": "night20"
  },
  {
-  "headword": "controcorrente",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "deformazione",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "democraticamente",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1745,21 +1240,6 @@
   "set": "night20"
  },
  {
-  "headword": "edith",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "faq",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "fatima",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "fiorire",
   "zipf": 3.37,
   "set": "night20"
@@ -1771,11 +1251,6 @@
  },
  {
   "headword": "gangster",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "giampaolo",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1830,27 +1305,12 @@
   "set": "night20"
  },
  {
-  "headword": "kitty",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "manu",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "minaccioso",
   "zipf": 3.37,
   "set": "night20"
  },
  {
   "headword": "montatura",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "murales",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1866,16 +1326,6 @@
  },
  {
   "headword": "palpebre",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "parimenti",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "penalità",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1915,11 +1365,6 @@
   "set": "night20"
  },
  {
-  "headword": "proxy",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "pulpito",
   "zipf": 3.37,
   "set": "night20"
@@ -1941,16 +1386,6 @@
  },
  {
   "headword": "rivendica",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "ros",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "salernitana",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -1985,11 +1420,6 @@
   "set": "night20"
  },
  {
-  "headword": "sottovoce",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "starai",
   "zipf": 3.37,
   "set": "night20"
@@ -2000,22 +1430,7 @@
   "set": "night20"
  },
  {
-  "headword": "tantissima",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
   "headword": "telo",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "trap",
-  "zipf": 3.37,
-  "set": "night20"
- },
- {
-  "headword": "unicità",
   "zipf": 3.37,
   "set": "night20"
  },
@@ -2026,11 +1441,6 @@
  },
  {
   "headword": "abissi",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "acidità",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2050,27 +1460,7 @@
   "set": "night20"
  },
  {
-  "headword": "audrey",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "avengers",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "barbone",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "bonaventura",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "buffon",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2096,11 +1486,6 @@
  },
  {
   "headword": "cesareo",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "cliché",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2135,16 +1520,6 @@
   "set": "night20"
  },
  {
-  "headword": "dimmelo",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "dinamo",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "disappunto",
   "zipf": 3.36,
   "set": "night20"
@@ -2160,11 +1535,6 @@
   "set": "night20"
  },
  {
-  "headword": "flashback",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "frequentazione",
   "zipf": 3.36,
   "set": "night20"
@@ -2175,17 +1545,7 @@
   "set": "night20"
  },
  {
-  "headword": "gaspare",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "grinta",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "iddio",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2220,17 +1580,7 @@
   "set": "night20"
  },
  {
-  "headword": "inutilità",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "istruire",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "knight",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2250,27 +1600,12 @@
   "set": "night20"
  },
  {
-  "headword": "obesità",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "osceno",
   "zipf": 3.36,
   "set": "night20"
  },
  {
-  "headword": "pac",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "parare",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "penalmente",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2310,11 +1645,6 @@
   "set": "night20"
  },
  {
-  "headword": "quorum",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "referto",
   "zipf": 3.36,
   "set": "night20"
@@ -2345,17 +1675,7 @@
   "set": "night20"
  },
  {
-  "headword": "rogers",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "scomparve",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "scrivimi",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2370,17 +1690,7 @@
   "set": "night20"
  },
  {
-  "headword": "stigma",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "tangente",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "tex",
   "zipf": 3.36,
   "set": "night20"
  },
@@ -2405,27 +1715,7 @@
   "set": "night20"
  },
  {
-  "headword": "vidal",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "voghera",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
-  "headword": "xxv",
-  "zipf": 3.36,
-  "set": "night20"
- },
- {
   "headword": "accendi",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "ade",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2470,11 +1760,6 @@
   "set": "night20"
  },
  {
-  "headword": "blackberry",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "confinante",
   "zipf": 3.35,
   "set": "night20"
@@ -2505,17 +1790,7 @@
   "set": "night20"
  },
  {
-  "headword": "dina",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "dinamismo",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "ditelo",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2535,11 +1810,6 @@
   "set": "night20"
  },
  {
-  "headword": "explorer",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "fabbricare",
   "zipf": 3.35,
   "set": "night20"
@@ -2550,32 +1820,12 @@
   "set": "night20"
  },
  {
-  "headword": "femminilità",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "gazebo",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "getti",
   "zipf": 3.35,
   "set": "night20"
  },
  {
-  "headword": "gogh",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "guasta",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "inattività",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2605,17 +1855,7 @@
   "set": "night20"
  },
  {
-  "headword": "interattivo",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "intercettazione",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "isp",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2635,11 +1875,6 @@
   "set": "night20"
  },
  {
-  "headword": "mediocrità",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "melone",
   "zipf": 3.35,
   "set": "night20"
@@ -2650,27 +1885,12 @@
   "set": "night20"
  },
  {
-  "headword": "nudità",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "oblio",
   "zipf": 3.35,
   "set": "night20"
  },
  {
   "headword": "oroscopo",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "pancreas",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "petit",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2715,11 +1935,6 @@
   "set": "night20"
  },
  {
-  "headword": "savage",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "scoraggiare",
   "zipf": 3.35,
   "set": "night20"
@@ -2750,11 +1965,6 @@
   "set": "night20"
  },
  {
-  "headword": "suzanne",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
   "headword": "tifoseria",
   "zipf": 3.35,
   "set": "night20"
@@ -2776,16 +1986,6 @@
  },
  {
   "headword": "truffatore",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "twist",
-  "zipf": 3.35,
-  "set": "night20"
- },
- {
-  "headword": "wan",
   "zipf": 3.35,
   "set": "night20"
  },
@@ -2815,16 +2015,6 @@
   "set": "night20"
  },
  {
-  "headword": "azeglio",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "beck",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "bestemmiare",
   "zipf": 3.34,
   "set": "night20"
@@ -2835,22 +2025,7 @@
   "set": "night20"
  },
  {
-  "headword": "caf",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "calligrafia",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "cassandra",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "cattività",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -2860,17 +2035,7 @@
   "set": "night20"
  },
  {
-  "headword": "contrarietà",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "cucire",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "dateci",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -2900,22 +2065,12 @@
   "set": "night20"
  },
  {
-  "headword": "dot",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "egizio",
   "zipf": 3.34,
   "set": "night20"
  },
  {
   "headword": "elettricista",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "enne",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -2935,11 +2090,6 @@
   "set": "night20"
  },
  {
-  "headword": "favorevolmente",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "fil",
   "zipf": 3.34,
   "set": "night20"
@@ -2951,11 +2101,6 @@
  },
  {
   "headword": "ginnasio",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "import",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -2985,11 +2130,6 @@
   "set": "night20"
  },
  {
-  "headword": "ital",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "lascito",
   "zipf": 3.34,
   "set": "night20"
@@ -3000,17 +2140,7 @@
   "set": "night20"
  },
  {
-  "headword": "leroy",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "localizzare",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "magnum",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -3040,16 +2170,6 @@
   "set": "night20"
  },
  {
-  "headword": "nicaragua",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "ocse",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "optare",
   "zipf": 3.34,
   "set": "night20"
@@ -3060,22 +2180,7 @@
   "set": "night20"
  },
  {
-  "headword": "orfeo",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "osaka",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "ospitante",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "pagg",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -3086,11 +2191,6 @@
  },
  {
   "headword": "perfezionare",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "perseveranza",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -3120,11 +2220,6 @@
   "set": "night20"
  },
  {
-  "headword": "privatamente",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "punibile",
   "zipf": 3.34,
   "set": "night20"
@@ -3141,11 +2236,6 @@
  },
  {
   "headword": "restaurare",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "revival",
   "zipf": 3.34,
   "set": "night20"
  },
@@ -3185,11 +2275,6 @@
   "set": "night20"
  },
  {
-  "headword": "splendente",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
   "headword": "sporcizia",
   "zipf": 3.34,
   "set": "night20"
@@ -3220,41 +2305,6 @@
   "set": "night20"
  },
  {
-  "headword": "ultimatum",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "variamente",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "voip",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "volgarità",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "wolfgang",
-  "zipf": 3.34,
-  "set": "night20"
- },
- {
-  "headword": "ahh",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "aldilà",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "approdare",
   "zipf": 3.33,
   "set": "night20"
@@ -3270,16 +2320,6 @@
   "set": "night20"
  },
  {
-  "headword": "atelier",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "backstage",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "bisnonno",
   "zipf": 3.33,
   "set": "night20"
@@ -3290,22 +2330,7 @@
   "set": "night20"
  },
  {
-  "headword": "bra",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "braccetto",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "bum",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "cabaret",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3330,11 +2355,6 @@
   "set": "night20"
  },
  {
-  "headword": "copenhagen",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "creditore",
   "zipf": 3.33,
   "set": "night20"
@@ -3355,22 +2375,7 @@
   "set": "night20"
  },
  {
-  "headword": "dichiaratamente",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "digitalizzazione",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "eclatante",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "editing",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3381,11 +2386,6 @@
  },
  {
   "headword": "esaltare",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "escalation",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3411,16 +2411,6 @@
  },
  {
   "headword": "foglietto",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "framework",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "frost",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3460,32 +2450,12 @@
   "set": "night20"
  },
  {
-  "headword": "jade",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "kamikaze",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "liceale",
   "zipf": 3.33,
   "set": "night20"
  },
  {
   "headword": "lodo",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "lynch",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "malamente",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3505,11 +2475,6 @@
   "set": "night20"
  },
  {
-  "headword": "moderatamente",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "novello",
   "zipf": 3.33,
   "set": "night20"
@@ -3520,37 +2485,12 @@
   "set": "night20"
  },
  {
-  "headword": "ortografia",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "outfit",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "perverso",
   "zipf": 3.33,
   "set": "night20"
  },
  {
-  "headword": "picnic",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "pippa",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "posare",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "pound",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3565,22 +2505,12 @@
   "set": "night20"
  },
  {
-  "headword": "relazionale",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "rimarrebbe",
   "zipf": 3.33,
   "set": "night20"
  },
  {
   "headword": "rimetto",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "rouge",
   "zipf": 3.33,
   "set": "night20"
  },
@@ -3610,38 +2540,13 @@
   "set": "night20"
  },
  {
-  "headword": "stalking",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
   "headword": "suggestivo",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "vabbé",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "valentine",
   "zipf": 3.33,
   "set": "night20"
  },
  {
   "headword": "vicedirettore",
   "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "viceré",
-  "zipf": 3.33,
-  "set": "night20"
- },
- {
-  "headword": "andrés",
-  "zipf": 3.32,
   "set": "night20"
  },
  {
@@ -3660,11 +2565,6 @@
   "set": "night20"
  },
  {
-  "headword": "asus",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "ateismo",
   "zipf": 3.32,
   "set": "night20"
@@ -3676,11 +2576,6 @@
  },
  {
   "headword": "auspicabile",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "avidità",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3705,17 +2600,7 @@
   "set": "night20"
  },
  {
-  "headword": "chernobyl",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "ciclone",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "ció",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3726,16 +2611,6 @@
  },
  {
   "headword": "costellazione",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "dannatamente",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "deluxe",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3785,16 +2660,6 @@
   "set": "night20"
  },
  {
-  "headword": "fintanto",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "fotocamere",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "fregatura",
   "zipf": 3.32,
   "set": "night20"
@@ -3811,11 +2676,6 @@
  },
  {
   "headword": "giovanotto",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "imparzialità",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3840,11 +2700,6 @@
   "set": "night20"
  },
  {
-  "headword": "inesorabilmente",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "innescare",
   "zipf": 3.32,
   "set": "night20"
@@ -3860,22 +2715,12 @@
   "set": "night20"
  },
  {
-  "headword": "intrinsecamente",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "intuitivo",
   "zipf": 3.32,
   "set": "night20"
  },
  {
   "headword": "invadente",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "katy",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3915,16 +2760,6 @@
   "set": "night20"
  },
  {
-  "headword": "ndt",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "passività",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "pavone",
   "zipf": 3.32,
   "set": "night20"
@@ -3945,17 +2780,7 @@
   "set": "night20"
  },
  {
-  "headword": "prendiamoci",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "propagazione",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "prov",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -3990,32 +2815,7 @@
   "set": "night20"
  },
  {
-  "headword": "sensualità",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "silenziosamente",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "simeone",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
   "headword": "smantellamento",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "solomon",
-  "zipf": 3.32,
-  "set": "night20"
- },
- {
-  "headword": "statisticamente",
   "zipf": 3.32,
   "set": "night20"
  },
@@ -4075,27 +2875,12 @@
   "set": "night20"
  },
  {
-  "headword": "austro",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "battello",
   "zipf": 3.31,
   "set": "night20"
  },
  {
-  "headword": "bengala",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "bilingue",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "caldamente",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4110,22 +2895,7 @@
   "set": "night20"
  },
  {
-  "headword": "cliff",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "cluster",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "colorare",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "compact",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4145,22 +2915,7 @@
   "set": "night20"
  },
  {
-  "headword": "cosplay",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "delineare",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "desmond",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "diciamolo",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4205,11 +2960,6 @@
   "set": "night20"
  },
  {
-  "headword": "filadelfia",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "fondente",
   "zipf": 3.31,
   "set": "night20"
@@ -4220,22 +2970,7 @@
   "set": "night20"
  },
  {
-  "headword": "guinness",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "ibrahim",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "impedimento",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "inconsapevolmente",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4250,17 +2985,7 @@
   "set": "night20"
  },
  {
-  "headword": "lupin",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "massimizzare",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "mendes",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4270,17 +2995,7 @@
   "set": "night20"
  },
  {
-  "headword": "molfetta",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "monolocale",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "muffin",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4320,32 +3035,12 @@
   "set": "night20"
  },
  {
-  "headword": "plugin",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "proibizione",
   "zipf": 3.31,
   "set": "night20"
  },
  {
   "headword": "propenso",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "rag",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "relatività",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "religiosità",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4375,16 +3070,6 @@
   "set": "night20"
  },
  {
-  "headword": "rss",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "saluzzo",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "salvò",
   "zipf": 3.31,
   "set": "night20"
@@ -4395,22 +3080,7 @@
   "set": "night20"
  },
  {
-  "headword": "ses",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "sfamare",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "slip",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "soleil",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4420,17 +3090,7 @@
   "set": "night20"
  },
  {
-  "headword": "sup",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
   "headword": "traspare",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "uil",
   "zipf": 3.31,
   "set": "night20"
  },
@@ -4450,42 +3110,7 @@
   "set": "night20"
  },
  {
-  "headword": "volvo",
-  "zipf": 3.31,
-  "set": "night20"
- },
- {
-  "headword": "adolescenziale",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "anatomy",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "animatore",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "antidroga",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "asa",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "aspramente",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "atp",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4510,22 +3135,7 @@
   "set": "night20"
  },
  {
-  "headword": "blanc",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "boa",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "brady",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "brambilla",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4585,11 +3195,6 @@
   "set": "night20"
  },
  {
-  "headword": "corn",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "decadimento",
   "zipf": 3.3,
   "set": "night20"
@@ -4620,32 +3225,12 @@
   "set": "night20"
  },
  {
-  "headword": "dovermi",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "egregiamente",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "esotico",
   "zipf": 3.3,
   "set": "night20"
  },
  {
-  "headword": "eurovision",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "evolutivo",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "falda",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4665,16 +3250,6 @@
   "set": "night20"
  },
  {
-  "headword": "ina",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "incessantemente",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "incrociare",
   "zipf": 3.3,
   "set": "night20"
@@ -4690,21 +3265,6 @@
   "set": "night20"
  },
  {
-  "headword": "kira",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "lanza",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "lattosio",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "meditare",
   "zipf": 3.3,
   "set": "night20"
@@ -4715,37 +3275,12 @@
   "set": "night20"
  },
  {
-  "headword": "morra",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "nacquero",
   "zipf": 3.3,
   "set": "night20"
  },
  {
-  "headword": "optional",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "orchidee",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "ossessivo",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "oswald",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "pap",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4761,11 +3296,6 @@
  },
  {
   "headword": "placebo",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "placido",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4800,11 +3330,6 @@
   "set": "night20"
  },
  {
-  "headword": "sachs",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "sarcofago",
   "zipf": 3.3,
   "set": "night20"
@@ -4816,11 +3341,6 @@
  },
  {
   "headword": "sismico",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
-  "headword": "snowden",
   "zipf": 3.3,
   "set": "night20"
  },
@@ -4865,32 +3385,12 @@
   "set": "night20"
  },
  {
-  "headword": "tossicità",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "videocamere",
   "zipf": 3.3,
   "set": "night20"
  },
  {
-  "headword": "xxiv",
-  "zipf": 3.3,
-  "set": "night20"
- },
- {
   "headword": "adagio",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "amadeus",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "anal",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -4915,22 +3415,12 @@
   "set": "night20"
  },
  {
-  "headword": "autenticazione",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "autostradale",
   "zipf": 3.29,
   "set": "night20"
  },
  {
   "headword": "bassista",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "blanco",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -4960,11 +3450,6 @@
   "set": "night20"
  },
  {
-  "headword": "castellammare",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "chiamerò",
   "zipf": 3.29,
   "set": "night20"
@@ -4985,22 +3470,12 @@
   "set": "night20"
  },
  {
-  "headword": "condor",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "confortevole",
   "zipf": 3.29,
   "set": "night20"
  },
  {
   "headword": "costrinse",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "debitamente",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5035,11 +3510,6 @@
   "set": "night20"
  },
  {
-  "headword": "difficilissimo",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "dismisura",
   "zipf": 3.29,
   "set": "night20"
@@ -5051,11 +3521,6 @@
  },
  {
   "headword": "eguaglianza",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "ercolano",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5085,16 +3550,6 @@
   "set": "night20"
  },
  {
-  "headword": "giuridicamente",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "guevara",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "intollerante",
   "zipf": 3.29,
   "set": "night20"
@@ -5115,11 +3570,6 @@
   "set": "night20"
  },
  {
-  "headword": "loc",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "lustro",
   "zipf": 3.29,
   "set": "night20"
@@ -5135,32 +3585,12 @@
   "set": "night20"
  },
  {
-  "headword": "marcelo",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "morse",
   "zipf": 3.29,
   "set": "night20"
  },
  {
-  "headword": "moses",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "motocicletta",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "nigel",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "oltremodo",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5191,11 +3621,6 @@
  },
  {
   "headword": "polarizzazione",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "posseggono",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5245,16 +3670,6 @@
   "set": "night20"
  },
  {
-  "headword": "saddam",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "salonicco",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "sciare",
   "zipf": 3.29,
   "set": "night20"
@@ -5295,17 +3710,7 @@
   "set": "night20"
  },
  {
-  "headword": "spudoratamente",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
   "headword": "tempismo",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "teo",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5326,11 +3731,6 @@
  },
  {
   "headword": "trota",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "vancouver",
   "zipf": 3.29,
   "set": "night20"
  },
@@ -5360,16 +3760,6 @@
   "set": "night20"
  },
  {
-  "headword": "whiskey",
-  "zipf": 3.29,
-  "set": "night20"
- },
- {
-  "headword": "aaa",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "accoppiamento",
   "zipf": 3.28,
   "set": "night20"
@@ -5381,11 +3771,6 @@
  },
  {
   "headword": "adeguare",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "adolf",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5450,11 +3835,6 @@
   "set": "night20"
  },
  {
-  "headword": "chico",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "chiesetta",
   "zipf": 3.28,
   "set": "night20"
@@ -5486,11 +3866,6 @@
  },
  {
   "headword": "corrisposto",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "cottage",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5545,11 +3920,6 @@
   "set": "night20"
  },
  {
-  "headword": "individualità",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "inequivocabile",
   "zipf": 3.28,
   "set": "night20"
@@ -5575,32 +3945,7 @@
   "set": "night20"
  },
  {
-  "headword": "lennon",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "lim",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "lions",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "longitudinale",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "maia",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "malvagità",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5610,22 +3955,7 @@
   "set": "night20"
  },
  {
-  "headword": "mes",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "meschino",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "miracolosamente",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "monty",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5665,17 +3995,7 @@
   "set": "night20"
  },
  {
-  "headword": "portfolio",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "possente",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "pradesh",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5695,17 +4015,7 @@
   "set": "night20"
  },
  {
-  "headword": "rand",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "rianimazione",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "ricchissimo",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5730,17 +4040,7 @@
   "set": "night20"
  },
  {
-  "headword": "savino",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "scontento",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "simbolicamente",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5780,17 +4080,7 @@
   "set": "night20"
  },
  {
-  "headword": "tnt",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "vedrebbe",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
-  "headword": "vitae",
   "zipf": 3.28,
   "set": "night20"
  },
@@ -5800,17 +4090,7 @@
   "set": "night20"
  },
  {
-  "headword": "wei",
-  "zipf": 3.28,
-  "set": "night20"
- },
- {
   "headword": "abbinare",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "alexa",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -5850,16 +4130,6 @@
   "set": "night20"
  },
  {
-  "headword": "bicarbonato",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "brutalità",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "buddhismo",
   "zipf": 3.27,
   "set": "night20"
@@ -5876,16 +4146,6 @@
  },
  {
   "headword": "commendatore",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "cons",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "cornelio",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -5920,17 +4180,7 @@
   "set": "night20"
  },
  {
-  "headword": "dinosauro",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "drenaggio",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "elijah",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -5965,21 +4215,6 @@
   "set": "night20"
  },
  {
-  "headword": "giambattista",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "globalmente",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "gne",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "implacabile",
   "zipf": 3.27,
   "set": "night20"
@@ -5990,22 +4225,12 @@
   "set": "night20"
  },
  {
-  "headword": "inconsciamente",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "indebolire",
   "zipf": 3.27,
   "set": "night20"
  },
  {
   "headword": "indetta",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "indistintamente",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6025,27 +4250,7 @@
   "set": "night20"
  },
  {
-  "headword": "jamal",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "judy",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "keller",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "legittimare",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "loto",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6056,11 +4261,6 @@
  },
  {
   "headword": "naturalistico",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "negatività",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6080,22 +4280,7 @@
   "set": "night20"
  },
  {
-  "headword": "ooo",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "orgia",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "oss",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "ossidazione",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6110,32 +4295,12 @@
   "set": "night20"
  },
  {
-  "headword": "peggy",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "potentissimo",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "preferivo",
   "zipf": 3.27,
   "set": "night20"
  },
  {
-  "headword": "premiere",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "premura",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "pubertà",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6175,11 +4340,6 @@
   "set": "night20"
  },
  {
-  "headword": "saltuariamente",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "schiaccia",
   "zipf": 3.27,
   "set": "night20"
@@ -6205,27 +4365,12 @@
   "set": "night20"
  },
  {
-  "headword": "solennemente",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "stirare",
   "zipf": 3.27,
   "set": "night20"
  },
  {
   "headword": "svenire",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "tilt",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "topless",
   "zipf": 3.27,
   "set": "night20"
  },
@@ -6250,37 +4395,12 @@
   "set": "night20"
  },
  {
-  "headword": "twilight",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "urgentemente",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "veicolare",
   "zipf": 3.27,
   "set": "night20"
  },
  {
-  "headword": "velocizzare",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
-  "headword": "zaccaria",
-  "zipf": 3.27,
-  "set": "night20"
- },
- {
   "headword": "abusare",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "abusivamente",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6340,22 +4460,7 @@
   "set": "night20"
  },
  {
-  "headword": "catering",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "cazz",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "cerimoniale",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "charter",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6380,22 +4485,7 @@
   "set": "night20"
  },
  {
-  "headword": "dirmelo",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "disc",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "dissesto",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "dixon",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6420,11 +4510,6 @@
   "set": "night20"
  },
  {
-  "headword": "dominic",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "ecografia",
   "zipf": 3.26,
   "set": "night20"
@@ -6440,11 +4525,6 @@
   "set": "night20"
  },
  {
-  "headword": "equamente",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "esauriente",
   "zipf": 3.26,
   "set": "night20"
@@ -6455,22 +4535,7 @@
   "set": "night20"
  },
  {
-  "headword": "facendone",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "fervore",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "finanziariamente",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "follemente",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6500,11 +4565,6 @@
   "set": "night20"
  },
  {
-  "headword": "infedeltà",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "innalzare",
   "zipf": 3.26,
   "set": "night20"
@@ -6530,11 +4590,6 @@
   "set": "night20"
  },
  {
-  "headword": "lat",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "latente",
   "zipf": 3.26,
   "set": "night20"
@@ -6550,17 +4605,7 @@
   "set": "night20"
  },
  {
-  "headword": "misteriosamente",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "misurano",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "nelly",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6575,11 +4620,6 @@
   "set": "night20"
  },
  {
-  "headword": "ono",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "parallelismo",
   "zipf": 3.26,
   "set": "night20"
@@ -6590,27 +4630,12 @@
   "set": "night20"
  },
  {
-  "headword": "perch",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "piglio",
   "zipf": 3.26,
   "set": "night20"
  },
  {
   "headword": "pinto",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "pont",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "posteriormente",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6626,11 +4651,6 @@
  },
  {
   "headword": "rapinatore",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "razionalmente",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6675,17 +4695,7 @@
   "set": "night20"
  },
  {
-  "headword": "scaricabile",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "segregazione",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "sobrietà",
   "zipf": 3.26,
   "set": "night20"
  },
@@ -6710,42 +4720,12 @@
   "set": "night20"
  },
  {
-  "headword": "tecnologicamente",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "tempestivamente",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "valzer",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
   "headword": "vissero",
   "zipf": 3.26,
   "set": "night20"
  },
  {
-  "headword": "winchester",
-  "zipf": 3.26,
-  "set": "night20"
- },
- {
-  "headword": "abbott",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "abitativo",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "acero",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -6815,22 +4795,7 @@
   "set": "night20"
  },
  {
-  "headword": "carroll",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "cavalca",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "cittá",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "commons",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -6885,11 +4850,6 @@
   "set": "night20"
  },
  {
-  "headword": "dolcissimo",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "dormivo",
   "zipf": 3.25,
   "set": "night20"
@@ -6925,11 +4885,6 @@
   "set": "night20"
  },
  {
-  "headword": "finemente",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "fluviale",
   "zipf": 3.25,
   "set": "night20"
@@ -6940,27 +4895,12 @@
   "set": "night20"
  },
  {
-  "headword": "garrett",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "gustoso",
   "zipf": 3.25,
   "set": "night20"
  },
  {
-  "headword": "hmm",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "impopolare",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "impropriamente",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -6990,42 +4930,7 @@
   "set": "night20"
  },
  {
-  "headword": "intro",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "julien",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "lam",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "lev",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "mandante",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "margot",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "marianne",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "marra",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -7045,27 +4950,7 @@
   "set": "night20"
  },
  {
-  "headword": "operatività",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "ottimizzazione",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "padano",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "pallanuoto",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "palm",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -7115,16 +5000,6 @@
   "set": "night20"
  },
  {
-  "headword": "reuters",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "revue",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "rimuove",
   "zipf": 3.25,
   "set": "night20"
@@ -7146,11 +5021,6 @@
  },
  {
   "headword": "rivalutare",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "royce",
   "zipf": 3.25,
   "set": "night20"
  },
@@ -7190,28 +5060,8 @@
   "set": "night20"
  },
  {
-  "headword": "totem",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
   "headword": "turbare",
   "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "unicorno",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "vampire",
-  "zipf": 3.25,
-  "set": "night20"
- },
- {
-  "headword": "abilmente",
-  "zipf": 3.24,
   "set": "night20"
  },
  {
@@ -7230,47 +5080,12 @@
   "set": "night20"
  },
  {
-  "headword": "alcolismo",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "amber",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "antibiotico",
   "zipf": 3.24,
   "set": "night20"
  },
  {
   "headword": "armamento",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "autorevolezza",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "avignone",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "buffy",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "cad",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "cao",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7340,21 +5155,6 @@
   "set": "night20"
  },
  {
-  "headword": "dlc",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "ebollizione",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "eduard",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "equatoriale",
   "zipf": 3.24,
   "set": "night20"
@@ -7390,11 +5190,6 @@
   "set": "night20"
  },
  {
-  "headword": "giovanissima",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "grassetto",
   "zipf": 3.24,
   "set": "night20"
@@ -7411,11 +5206,6 @@
  },
  {
   "headword": "imponibile",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "impunemente",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7465,22 +5255,7 @@
   "set": "night20"
  },
  {
-  "headword": "jaguar",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "jess",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "leopardo",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "lil",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7515,17 +5290,7 @@
   "set": "night20"
  },
  {
-  "headword": "norcia",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "ostello",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "panza",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7540,22 +5305,12 @@
   "set": "night20"
  },
  {
-  "headword": "pauline",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "pentimento",
   "zipf": 3.24,
   "set": "night20"
  },
  {
   "headword": "pienezza",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "pra",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7570,17 +5325,7 @@
   "set": "night20"
  },
  {
-  "headword": "provvisoriamente",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "raccapricciante",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "riempimento",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7595,17 +5340,7 @@
   "set": "night20"
  },
  {
-  "headword": "sab",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "sauna",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "siemens",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7625,42 +5360,12 @@
   "set": "night20"
  },
  {
-  "headword": "ssn",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "starmi",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "sunny",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "tasi",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "tiburtina",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
   "headword": "titanio",
   "zipf": 3.24,
   "set": "night20"
  },
  {
   "headword": "tormentone",
-  "zipf": 3.24,
-  "set": "night20"
- },
- {
-  "headword": "trinidad",
   "zipf": 3.24,
   "set": "night20"
  },
@@ -7730,17 +5435,7 @@
   "set": "night20"
  },
  {
-  "headword": "appia",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "astio",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "attendibilità",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7760,17 +5455,7 @@
   "set": "night20"
  },
  {
-  "headword": "bowling",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "calcolatrice",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "canile",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7780,17 +5465,7 @@
   "set": "night20"
  },
  {
-  "headword": "castità",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "cinematografia",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "clandestinità",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7815,11 +5490,6 @@
   "set": "night20"
  },
  {
-  "headword": "cox",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "decidete",
   "zipf": 3.23,
   "set": "night20"
@@ -7836,16 +5506,6 @@
  },
  {
   "headword": "dimore",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "dov",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "ema",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7870,17 +5530,7 @@
   "set": "night20"
  },
  {
-  "headword": "fasano",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "femore",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "feng",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7891,21 +5541,6 @@
  },
  {
   "headword": "fomentare",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "gerolamo",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "gore",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "immortalità",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7935,32 +5570,7 @@
   "set": "night20"
  },
  {
-  "headword": "italicum",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "leigh",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "linguista",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "longevità",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "luiz",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "mata",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -7970,32 +5580,7 @@
   "set": "night20"
  },
  {
-  "headword": "memorandum",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "meravigliosamente",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "militarmente",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "motociclista",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "myers",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "notebook",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -8006,11 +5591,6 @@
  },
  {
   "headword": "ostruzionismo",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "permanentemente",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -8055,21 +5635,6 @@
   "set": "night20"
  },
  {
-  "headword": "reset",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "richter",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "rim",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "riprovare",
   "zipf": 3.23,
   "set": "night20"
@@ -8090,27 +5655,12 @@
   "set": "night20"
  },
  {
-  "headword": "sansone",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "segretariato",
   "zipf": 3.23,
   "set": "night20"
  },
  {
   "headword": "sermone",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "simmons",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "sire",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -8135,32 +5685,12 @@
   "set": "night20"
  },
  {
-  "headword": "stu",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "supergirl",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "suscettibile",
   "zipf": 3.23,
   "set": "night20"
  },
  {
-  "headword": "toast",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
   "headword": "torturare",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "tragicamente",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -8171,11 +5701,6 @@
  },
  {
   "headword": "usino",
-  "zipf": 3.23,
-  "set": "night20"
- },
- {
-  "headword": "verbalmente",
   "zipf": 3.23,
   "set": "night20"
  },
@@ -8195,11 +5720,6 @@
   "set": "night20"
  },
  {
-  "headword": "ahahaha",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "allarmante",
   "zipf": 3.22,
   "set": "night20"
@@ -8215,22 +5735,7 @@
   "set": "night20"
  },
  {
-  "headword": "amd",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "analfabeta",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "anticipatamente",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "aqua",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8241,11 +5746,6 @@
  },
  {
   "headword": "attributo",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "bale",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8280,27 +5780,7 @@
   "set": "night20"
  },
  {
-  "headword": "cdx",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "chez",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "chimera",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "chissene",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "circus",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8311,11 +5791,6 @@
  },
  {
   "headword": "comperare",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "costituzionalmente",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8345,27 +5820,12 @@
   "set": "night20"
  },
  {
-  "headword": "firmware",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "fisioterapista",
   "zipf": 3.22,
   "set": "night20"
  },
  {
   "headword": "focolare",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "forzatamente",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "fraternità",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8385,22 +5845,7 @@
   "set": "night20"
  },
  {
-  "headword": "iban",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "ignacio",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "immacolato",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "inf",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8430,52 +5875,12 @@
   "set": "night20"
  },
  {
-  "headword": "maura",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "melodramma",
   "zipf": 3.22,
   "set": "night20"
  },
  {
-  "headword": "mic",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "microchip",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "molesta",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "museale",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "nadine",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "norris",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "obiettivamente",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "omg",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8520,11 +5925,6 @@
   "set": "night20"
  },
  {
-  "headword": "pontedera",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "porgere",
   "zipf": 3.22,
   "set": "night20"
@@ -8546,11 +5946,6 @@
  },
  {
   "headword": "puntino",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "qualvolta",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8620,22 +6015,12 @@
   "set": "night20"
  },
  {
-  "headword": "silicon",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "simulatore",
   "zipf": 3.22,
   "set": "night20"
  },
  {
   "headword": "soffiare",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "sottosopra",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8650,27 +6035,12 @@
   "set": "night20"
  },
  {
-  "headword": "str",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "sutura",
   "zipf": 3.22,
   "set": "night20"
  },
  {
-  "headword": "testualmente",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
   "headword": "tintura",
-  "zipf": 3.22,
-  "set": "night20"
- },
- {
-  "headword": "trovarle",
   "zipf": 3.22,
   "set": "night20"
  },
@@ -8690,11 +6060,6 @@
   "set": "night20"
  },
  {
-  "headword": "accorgersene",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "adattano",
   "zipf": 3.21,
   "set": "night20"
@@ -8705,22 +6070,7 @@
   "set": "night20"
  },
  {
-  "headword": "agilità",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "antiterrorismo",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "ascensione",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "asp",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8736,11 +6086,6 @@
  },
  {
   "headword": "balneare",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "bellamy",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8765,16 +6110,6 @@
   "set": "night20"
  },
  {
-  "headword": "carolyn",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "categoricamente",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "cavare",
   "zipf": 3.21,
   "set": "night20"
@@ -8795,27 +6130,12 @@
   "set": "night20"
  },
  {
-  "headword": "conformemente",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "conversare",
   "zipf": 3.21,
   "set": "night20"
  },
  {
   "headword": "creatrice",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "crocevia",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "crozza",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8860,17 +6180,7 @@
   "set": "night20"
  },
  {
-  "headword": "dreamers",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "editto",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "eiffel",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8890,22 +6200,12 @@
   "set": "night20"
  },
  {
-  "headword": "ermanno",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "estremismo",
   "zipf": 3.21,
   "set": "night20"
  },
  {
   "headword": "eternamente",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "evvai",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8940,27 +6240,7 @@
   "set": "night20"
  },
  {
-  "headword": "freddy",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "funk",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "gallagher",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "genoma",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "gilet",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -8980,37 +6260,12 @@
   "set": "night20"
  },
  {
-  "headword": "isla",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "johannes",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "lapidi",
   "zipf": 3.21,
   "set": "night20"
  },
  {
-  "headword": "laurie",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "lombare",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "marsilio",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "mensilmente",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -9030,17 +6285,7 @@
   "set": "night20"
  },
  {
-  "headword": "narcos",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "naviga",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "oltremare",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -9100,17 +6345,7 @@
   "set": "night20"
  },
  {
-  "headword": "rabbit",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "racconterò",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "rebus",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -9131,11 +6366,6 @@
  },
  {
   "headword": "scenda",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "scotch",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -9180,11 +6410,6 @@
   "set": "night20"
  },
  {
-  "headword": "ssd",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "supplico",
   "zipf": 3.21,
   "set": "night20"
@@ -9220,27 +6445,7 @@
   "set": "night20"
  },
  {
-  "headword": "velvet",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "vicinissimo",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
   "headword": "viscerale",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "weiss",
-  "zipf": 3.21,
-  "set": "night20"
- },
- {
-  "headword": "xxvi",
   "zipf": 3.21,
   "set": "night20"
  },
@@ -9255,22 +6460,7 @@
   "set": "night20"
  },
  {
-  "headword": "alberico",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "amido",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
   "headword": "arcaico",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "artù",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9305,11 +6495,6 @@
   "set": "night20"
  },
  {
-  "headword": "borussia",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
   "headword": "caloroso",
   "zipf": 3.2,
   "set": "night20"
@@ -9321,21 +6506,6 @@
  },
  {
   "headword": "castagno",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "casualità",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "cianuro",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "contraddistinto",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9391,11 +6561,6 @@
  },
  {
   "headword": "facoltativo",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "fattibilità",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9465,11 +6630,6 @@
   "set": "night20"
  },
  {
-  "headword": "malincuore",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
   "headword": "masso",
   "zipf": 3.2,
   "set": "night20"
@@ -9500,17 +6660,7 @@
   "set": "night20"
  },
  {
-  "headword": "morfina",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
   "headword": "occupazionale",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "ottimamente",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9556,11 +6706,6 @@
  },
  {
   "headword": "recare",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "reperibilità",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9630,22 +6775,7 @@
   "set": "night20"
  },
  {
-  "headword": "tang",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
   "headword": "toracica",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "tournée",
-  "zipf": 3.2,
-  "set": "night20"
- },
- {
-  "headword": "upload",
   "zipf": 3.2,
   "set": "night20"
  },
@@ -9675,11 +6805,6 @@
   "set": "night20"
  },
  {
-  "headword": "anteriormente",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "appese",
   "zipf": 3.19,
   "set": "night20"
@@ -9690,32 +6815,12 @@
   "set": "night20"
  },
  {
-  "headword": "arto",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "assiduamente",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "assumo",
   "zipf": 3.19,
   "set": "night20"
  },
  {
-  "headword": "bacco",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "balestra",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "batista",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -9736,11 +6841,6 @@
  },
  {
   "headword": "cartuccia",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "castelfranco",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -9771,16 +6871,6 @@
  },
  {
   "headword": "controproducente",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "coraggiosamente",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "cordialmente",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -9830,11 +6920,6 @@
   "set": "night20"
  },
  {
-  "headword": "escobar",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "estenuante",
   "zipf": 3.19,
   "set": "night20"
@@ -9850,11 +6935,6 @@
   "set": "night20"
  },
  {
-  "headword": "fry",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "illuso",
   "zipf": 3.19,
   "set": "night20"
@@ -9865,17 +6945,7 @@
   "set": "night20"
  },
  {
-  "headword": "incondizionatamente",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "inconfondibile",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "incostituzionalità",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -9900,47 +6970,12 @@
   "set": "night20"
  },
  {
-  "headword": "ivano",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "kermesse",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "lamiere",
   "zipf": 3.19,
   "set": "night20"
  },
  {
   "headword": "lasagna",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "legenda",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "lounge",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "lowe",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "lungimiranza",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "macché",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -9985,21 +7020,6 @@
   "set": "night20"
  },
  {
-  "headword": "nondimeno",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "offshore",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "opportunita",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "panettone",
   "zipf": 3.19,
   "set": "night20"
@@ -10040,22 +7060,12 @@
   "set": "night20"
  },
  {
-  "headword": "quaggiù",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "quarantenne",
   "zipf": 3.19,
   "set": "night20"
  },
  {
   "headword": "ricominciamo",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "rihanna",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -10100,11 +7110,6 @@
   "set": "night20"
  },
  {
-  "headword": "sunset",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "trascritto",
   "zipf": 3.19,
   "set": "night20"
@@ -10115,22 +7120,7 @@
   "set": "night20"
  },
  {
-  "headword": "uniformità",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
   "headword": "vallone",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "virilità",
-  "zipf": 3.19,
-  "set": "night20"
- },
- {
-  "headword": "vitro",
   "zipf": 3.19,
   "set": "night20"
  },
@@ -10141,11 +7131,6 @@
  },
  {
   "headword": "aerospaziale",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "alpe",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10180,27 +7165,7 @@
   "set": "night20"
  },
  {
-  "headword": "burt",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "burundi",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "bustina",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "causalità",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "cerro",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10225,11 +7190,6 @@
   "set": "night20"
  },
  {
-  "headword": "contado",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "converrebbe",
   "zipf": 3.18,
   "set": "night20"
@@ -10241,11 +7201,6 @@
  },
  {
   "headword": "decorrenza",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "diametralmente",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10280,22 +7235,7 @@
   "set": "night20"
  },
  {
-  "headword": "dwight",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "eccitare",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "egualmente",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "eng",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10325,37 +7265,7 @@
   "set": "night20"
  },
  {
-  "headword": "figaro",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "genialità",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "geographic",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "gonfiabile",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "gra",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "iconografia",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "impunità",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10410,42 +7320,7 @@
   "set": "night20"
  },
  {
-  "headword": "nicolai",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "numericamente",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "nuovissimo",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "nvidia",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "obiettività",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "offerente",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "ottenimento",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "performer",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10461,11 +7336,6 @@
  },
  {
   "headword": "piè",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "plutone",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10490,11 +7360,6 @@
   "set": "night20"
  },
  {
-  "headword": "puntualità",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "raccoglitore",
   "zipf": 3.18,
   "set": "night20"
@@ -10511,11 +7376,6 @@
  },
  {
   "headword": "riesame",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "ringo",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10555,16 +7415,6 @@
   "set": "night20"
  },
  {
-  "headword": "solennità",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "stelvio",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "stendardo",
   "zipf": 3.18,
   "set": "night20"
@@ -10575,27 +7425,12 @@
   "set": "night20"
  },
  {
-  "headword": "tempore",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "ticinese",
   "zipf": 3.18,
   "set": "night20"
  },
  {
-  "headword": "titolarità",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
   "headword": "triestino",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "uniformemente",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10611,16 +7446,6 @@
  },
  {
   "headword": "viscido",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "vit",
-  "zipf": 3.18,
-  "set": "night20"
- },
- {
-  "headword": "voilà",
   "zipf": 3.18,
   "set": "night20"
  },
@@ -10705,22 +7530,12 @@
   "set": "night20"
  },
  {
-  "headword": "cfu",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "compulsivo",
   "zipf": 3.17,
   "set": "night20"
  },
  {
   "headword": "coniugare",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "daphne",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10740,11 +7555,6 @@
   "set": "night20"
  },
  {
-  "headword": "densamente",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "difendeva",
   "zipf": 3.17,
   "set": "night20"
@@ -10755,27 +7565,12 @@
   "set": "night20"
  },
  {
-  "headword": "dip",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "discontinuità",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "discrete",
   "zipf": 3.17,
   "set": "night20"
  },
  {
   "headword": "distorto",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "dortmund",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10800,22 +7595,12 @@
   "set": "night20"
  },
  {
-  "headword": "formatosi",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "fratellastro",
   "zipf": 3.17,
   "set": "night20"
  },
  {
   "headword": "friggere",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "graficamente",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10845,27 +7630,12 @@
   "set": "night20"
  },
  {
-  "headword": "isee",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "lapo",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "lisce",
   "zipf": 3.17,
   "set": "night20"
  },
  {
   "headword": "lussuoso",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "mld",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10895,16 +7665,6 @@
   "set": "night20"
  },
  {
-  "headword": "oggettività",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "oliviero",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "olmo",
   "zipf": 3.17,
   "set": "night20"
@@ -10920,17 +7680,7 @@
   "set": "night20"
  },
  {
-  "headword": "pazientemente",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "pediatra",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "perfavore",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10950,17 +7700,7 @@
   "set": "night20"
  },
  {
-  "headword": "progenie",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "provvista",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "reboot",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -10970,17 +7710,7 @@
   "set": "night20"
  },
  {
-  "headword": "richards",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "riluttante",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "rossoblù",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -11005,17 +7735,7 @@
   "set": "night20"
  },
  {
-  "headword": "setole",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "sfatare",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "singolarità",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -11040,22 +7760,7 @@
   "set": "night20"
  },
  {
-  "headword": "taser",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "touring",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "trafitto",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
-  "headword": "umilmente",
   "zipf": 3.17,
   "set": "night20"
  },
@@ -11080,11 +7785,6 @@
   "set": "night20"
  },
  {
-  "headword": "équipe",
-  "zipf": 3.17,
-  "set": "night20"
- },
- {
   "headword": "abbassano",
   "zipf": 3.16,
   "set": "night20"
@@ -11096,16 +7796,6 @@
  },
  {
   "headword": "agroalimentare",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "amaramente",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "anders",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11145,22 +7835,12 @@
   "set": "night20"
  },
  {
-  "headword": "boko",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "bollino",
   "zipf": 3.16,
   "set": "night20"
  },
  {
   "headword": "bovino",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "boyd",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11195,16 +7875,6 @@
   "set": "night20"
  },
  {
-  "headword": "chrysler",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "clandestinamente",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "condominiale",
   "zipf": 3.16,
   "set": "night20"
@@ -11216,11 +7886,6 @@
  },
  {
   "headword": "contributivo",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "cory",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11265,26 +7930,6 @@
   "set": "night20"
  },
  {
-  "headword": "faber",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "faire",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "familia",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "fao",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "faticare",
   "zipf": 3.16,
   "set": "night20"
@@ -11300,22 +7945,7 @@
   "set": "night20"
  },
  {
-  "headword": "hpa",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "htc",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "idrogeologico",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "illegittimità",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11340,21 +7970,6 @@
   "set": "night20"
  },
  {
-  "headword": "intimamente",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "kiwi",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "lasciala",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "macchinista",
   "zipf": 3.16,
   "set": "night20"
@@ -11370,27 +7985,12 @@
   "set": "night20"
  },
  {
-  "headword": "matematicamente",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "mediare",
   "zipf": 3.16,
   "set": "night20"
  },
  {
-  "headword": "mmh",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "moltiplica",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "mondovì",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11405,22 +8005,12 @@
   "set": "night20"
  },
  {
-  "headword": "nasconderlo",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "nasi",
   "zipf": 3.16,
   "set": "night20"
  },
  {
   "headword": "nomignolo",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "omnibus",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11455,22 +8045,12 @@
   "set": "night20"
  },
  {
-  "headword": "raccontarmi",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "radunare",
   "zipf": 3.16,
   "set": "night20"
  },
  {
   "headword": "responso",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "riff",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11505,11 +8085,6 @@
   "set": "night20"
  },
  {
-  "headword": "rosanna",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "simpatizzante",
   "zipf": 3.16,
   "set": "night20"
@@ -11535,32 +8110,12 @@
   "set": "night20"
  },
  {
-  "headword": "strutturalmente",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "stuprare",
   "zipf": 3.16,
   "set": "night20"
  },
  {
-  "headword": "suarez",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "succursale",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "teletrasporto",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
-  "headword": "tfr",
   "zipf": 3.16,
   "set": "night20"
  },
@@ -11590,11 +8145,6 @@
   "set": "night20"
  },
  {
-  "headword": "vernon",
-  "zipf": 3.16,
-  "set": "night20"
- },
- {
   "headword": "visionario",
   "zipf": 3.16,
   "set": "night20"
@@ -11611,11 +8161,6 @@
  },
  {
   "headword": "aggiorno",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "akbar",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11640,17 +8185,7 @@
   "set": "night20"
  },
  {
-  "headword": "auge",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "bastoncini",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "becker",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11665,42 +8200,12 @@
   "set": "night20"
  },
  {
-  "headword": "bristol",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "caminetto",
   "zipf": 3.15,
   "set": "night20"
  },
  {
-  "headword": "campos",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "capolino",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "chile",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "chiuderanno",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "claus",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "colt",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11730,11 +8235,6 @@
   "set": "night20"
  },
  {
-  "headword": "corleone",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "corrosione",
   "zipf": 3.15,
   "set": "night20"
@@ -11750,11 +8250,6 @@
   "set": "night20"
  },
  {
-  "headword": "decrescita",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "deodorante",
   "zipf": 3.15,
   "set": "night20"
@@ -11765,27 +8260,7 @@
   "set": "night20"
  },
  {
-  "headword": "dicasi",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "distrae",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "dixit",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "ele",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "eos",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11800,16 +8275,6 @@
   "set": "night20"
  },
  {
-  "headword": "falsamente",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "farmene",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "fautore",
   "zipf": 3.15,
   "set": "night20"
@@ -11820,42 +8285,7 @@
   "set": "night20"
  },
  {
-  "headword": "fim",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "fiom",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "fuorché",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "gale",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "guanciale",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "guardalo",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "guelfi",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "hacking",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11870,11 +8300,6 @@
   "set": "night20"
  },
  {
-  "headword": "inail",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "inattivo",
   "zipf": 3.15,
   "set": "night20"
@@ -11885,22 +8310,12 @@
   "set": "night20"
  },
  {
-  "headword": "incredulità",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "infuriare",
   "zipf": 3.15,
   "set": "night20"
  },
  {
   "headword": "inverni",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "ione",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11921,11 +8336,6 @@
  },
  {
   "headword": "maiuscolo",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "minecraft",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -11955,11 +8365,6 @@
   "set": "night20"
  },
  {
-  "headword": "nooo",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "nuora",
   "zipf": 3.15,
   "set": "night20"
@@ -11970,27 +8375,12 @@
   "set": "night20"
  },
  {
-  "headword": "offrirvi",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "olaf",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "olii",
   "zipf": 3.15,
   "set": "night20"
  },
  {
   "headword": "olivo",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "org",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -12015,11 +8405,6 @@
   "set": "night20"
  },
  {
-  "headword": "pers",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "piccino",
   "zipf": 3.15,
   "set": "night20"
@@ -12030,32 +8415,12 @@
   "set": "night20"
  },
  {
-  "headword": "pittsburgh",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "praticità",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "pretore",
   "zipf": 3.15,
   "set": "night20"
  },
  {
   "headword": "professa",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "raja",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "rca",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -12105,27 +8470,12 @@
   "set": "night20"
  },
  {
-  "headword": "scuolabus",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "serre",
   "zipf": 3.15,
   "set": "night20"
  },
  {
-  "headword": "severità",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "sicario",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "sifilide",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -12146,11 +8496,6 @@
  },
  {
   "headword": "tabula",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "torrent",
   "zipf": 3.15,
   "set": "night20"
  },
@@ -12195,27 +8540,7 @@
   "set": "night20"
  },
  {
-  "headword": "volturno",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
-  "headword": "wally",
-  "zipf": 3.15,
-  "set": "night20"
- },
- {
   "headword": "agitare",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "alimentatore",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "andrews",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12235,32 +8560,7 @@
   "set": "night20"
  },
  {
-  "headword": "capricorno",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "cardio",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "carnefice",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "cividale",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "clinicamente",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "comp",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12286,11 +8586,6 @@
  },
  {
   "headword": "digitare",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "diglielo",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12330,37 +8625,12 @@
   "set": "night20"
  },
  {
-  "headword": "etere",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "finch",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "fleming",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "fotomontaggio",
   "zipf": 3.14,
   "set": "night20"
  },
  {
   "headword": "fumante",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "gad",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "ilarità",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12385,26 +8655,6 @@
   "set": "night20"
  },
  {
-  "headword": "infelicità",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "inspiegabilmente",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "interculturale",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "khmer",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "lesse",
   "zipf": 3.14,
   "set": "night20"
@@ -12415,27 +8665,12 @@
   "set": "night20"
  },
  {
-  "headword": "lore",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "marcare",
   "zipf": 3.14,
   "set": "night20"
  },
  {
   "headword": "merluzzo",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "mort",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "nichel",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12460,22 +8695,12 @@
   "set": "night20"
  },
  {
-  "headword": "perkins",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "persuasione",
   "zipf": 3.14,
   "set": "night20"
  },
  {
   "headword": "pesantezza",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "pinterest",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12495,11 +8720,6 @@
   "set": "night20"
  },
  {
-  "headword": "portal",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "pragmatismo",
   "zipf": 3.14,
   "set": "night20"
@@ -12515,17 +8735,7 @@
   "set": "night20"
  },
  {
-  "headword": "productions",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "prolifico",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "psycho",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12590,11 +8800,6 @@
   "set": "night20"
  },
  {
-  "headword": "simonetta",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "sintetizza",
   "zipf": 3.14,
   "set": "night20"
@@ -12610,27 +8815,12 @@
   "set": "night20"
  },
  {
-  "headword": "sylvester",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "televoto",
   "zipf": 3.14,
   "set": "night20"
  },
  {
-  "headword": "todos",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "trambusto",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
-  "headword": "tro",
   "zipf": 3.14,
   "set": "night20"
  },
@@ -12650,17 +8840,7 @@
   "set": "night20"
  },
  {
-  "headword": "xxvii",
-  "zipf": 3.14,
-  "set": "night20"
- },
- {
   "headword": "abbronzatura",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "abeba",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12671,16 +8851,6 @@
  },
  {
   "headword": "affermativo",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "agatha",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "alì",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12715,17 +8885,7 @@
   "set": "night20"
  },
  {
-  "headword": "array",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "assiduo",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "atlas",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12735,32 +8895,7 @@
   "set": "night20"
  },
  {
-  "headword": "avendolo",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "babe",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "becky",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "benefattore",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "blasfemia",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "booth",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12770,37 +8905,12 @@
   "set": "night20"
  },
  {
-  "headword": "bueno",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "carnale",
   "zipf": 3.13,
   "set": "night20"
  },
  {
-  "headword": "cassie",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "chavez",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "chè",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "cigni",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "clamorosamente",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12870,11 +8980,6 @@
   "set": "night20"
  },
  {
-  "headword": "equitazione",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "esausta",
   "zipf": 3.13,
   "set": "night20"
@@ -12895,11 +9000,6 @@
   "set": "night20"
  },
  {
-  "headword": "filiberto",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "geometrico",
   "zipf": 3.13,
   "set": "night20"
@@ -12910,22 +9010,7 @@
   "set": "night20"
  },
  {
-  "headword": "ideologicamente",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "imbrogliare",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "immediatezza",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "inavvertitamente",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12945,37 +9030,12 @@
   "set": "night20"
  },
  {
-  "headword": "intellettualmente",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "ispiratore",
   "zipf": 3.13,
   "set": "night20"
  },
  {
-  "headword": "istintivamente",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "jesús",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "liberista",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "limousine",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "maledettamente",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -12990,32 +9050,12 @@
   "set": "night20"
  },
  {
-  "headword": "minus",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "multiculturale",
   "zipf": 3.13,
   "set": "night20"
  },
  {
   "headword": "muoiano",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "neuro",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "nitro",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "obi",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -13040,21 +9080,6 @@
   "set": "night20"
  },
  {
-  "headword": "parenzo",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "parlaci",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "pascià",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "pentirai",
   "zipf": 3.13,
   "set": "night20"
@@ -13075,11 +9100,6 @@
   "set": "night20"
  },
  {
-  "headword": "pratt",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "preferenziale",
   "zipf": 3.13,
   "set": "night20"
@@ -13090,47 +9110,7 @@
   "set": "night20"
  },
  {
-  "headword": "prog",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "qualitativamente",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "quirico",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "radioattività",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "reddit",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "replay",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "repost",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "riorganizzare",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "riparto",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -13156,11 +9136,6 @@
  },
  {
   "headword": "rotolare",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "sacralità",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -13195,11 +9170,6 @@
   "set": "night20"
  },
  {
-  "headword": "socialità",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "spigolo",
   "zipf": 3.13,
   "set": "night20"
@@ -13220,11 +9190,6 @@
   "set": "night20"
  },
  {
-  "headword": "stocazzo",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "stravolgere",
   "zipf": 3.13,
   "set": "night20"
@@ -13240,17 +9205,7 @@
   "set": "night20"
  },
  {
-  "headword": "tee",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "terapista",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "theodore",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -13285,22 +9240,7 @@
   "set": "night20"
  },
  {
-  "headword": "verticalmente",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
   "headword": "vigilante",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "viminale",
-  "zipf": 3.13,
-  "set": "night20"
- },
- {
-  "headword": "xxviii",
   "zipf": 3.13,
   "set": "night20"
  },
@@ -13345,16 +9285,6 @@
   "set": "night20"
  },
  {
-  "headword": "beyoncé",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "biden",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "bilocale",
   "zipf": 3.12,
   "set": "night20"
@@ -13365,27 +9295,12 @@
   "set": "night20"
  },
  {
-  "headword": "boyle",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "catalogazione",
   "zipf": 3.12,
   "set": "night20"
  },
  {
   "headword": "cedro",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "chiamandolo",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "clare",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13410,22 +9325,7 @@
   "set": "night20"
  },
  {
-  "headword": "cortez",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "crepare",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "cus",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "discrezionalità",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13435,27 +9335,7 @@
   "set": "night20"
  },
  {
-  "headword": "drammaticamente",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "dubbioso",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "entourage",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "esageratamente",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "eternit",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13465,27 +9345,7 @@
   "set": "night20"
  },
  {
-  "headword": "galilea",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "gasdotto",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "giovanardi",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "gui",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "img",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13535,11 +9395,6 @@
   "set": "night20"
  },
  {
-  "headword": "kwh",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "linfociti",
   "zipf": 3.12,
   "set": "night20"
@@ -13560,11 +9415,6 @@
   "set": "night20"
  },
  {
-  "headword": "memphis",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "micio",
   "zipf": 3.12,
   "set": "night20"
@@ -13580,21 +9430,6 @@
   "set": "night20"
  },
  {
-  "headword": "monreale",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "mossad",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "mus",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "muscoloso",
   "zipf": 3.12,
   "set": "night20"
@@ -13605,22 +9440,7 @@
   "set": "night20"
  },
  {
-  "headword": "newman",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "nocivo",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "oscenità",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "padding",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13680,11 +9500,6 @@
   "set": "night20"
  },
  {
-  "headword": "provalo",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "puffo",
   "zipf": 3.12,
   "set": "night20"
@@ -13701,16 +9516,6 @@
  },
  {
   "headword": "reattivo",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "redditività",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "riccamente",
   "zipf": 3.12,
   "set": "night20"
  },
@@ -13760,26 +9565,6 @@
   "set": "night20"
  },
  {
-  "headword": "sincronizzazione",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "sion",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "soggettività",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "sporadicamente",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "spreca",
   "zipf": 3.12,
   "set": "night20"
@@ -13810,16 +9595,6 @@
   "set": "night20"
  },
  {
-  "headword": "talbot",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "tant",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "totalitarismo",
   "zipf": 3.12,
   "set": "night20"
@@ -13830,32 +9605,12 @@
   "set": "night20"
  },
  {
-  "headword": "trittico",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
-  "headword": "udc",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "varcare",
   "zipf": 3.12,
   "set": "night20"
  },
  {
-  "headword": "voodoo",
-  "zipf": 3.12,
-  "set": "night20"
- },
- {
   "headword": "abbaiare",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "abby",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -13895,16 +9650,6 @@
   "set": "night20"
  },
  {
-  "headword": "bdsm",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "birrificio",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "brigadiere",
   "zipf": 3.11,
   "set": "night20"
@@ -13930,32 +9675,12 @@
   "set": "night20"
  },
  {
-  "headword": "cavalcavia",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "cavalier",
   "zipf": 3.11,
   "set": "night20"
  },
  {
-  "headword": "cdp",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "celebriamo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "cheng",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "cindy",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -13975,22 +9700,12 @@
   "set": "night20"
  },
  {
-  "headword": "continental",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "contraccezione",
   "zipf": 3.11,
   "set": "night20"
  },
  {
   "headword": "correggo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "delgado",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14011,11 +9726,6 @@
  },
  {
   "headword": "docile",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "elisabeth",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14050,17 +9760,7 @@
   "set": "night20"
  },
  {
-  "headword": "freeman",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "futurismo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "geek",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14075,27 +9775,12 @@
   "set": "night20"
  },
  {
-  "headword": "guardatelo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "guggenheim",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "incenso",
   "zipf": 3.11,
   "set": "night20"
  },
  {
   "headword": "ineccepibile",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "infusione",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14110,52 +9795,12 @@
   "set": "night20"
  },
  {
-  "headword": "leeds",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "legends",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "lgbtq",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "lib",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "lignaggio",
   "zipf": 3.11,
   "set": "night20"
  },
  {
-  "headword": "metaforicamente",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "mettilo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "morir",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "nbc",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "nestor",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14215,16 +9860,6 @@
   "set": "night20"
  },
  {
-  "headword": "pitbull",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "pièce",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "pochezza",
   "zipf": 3.11,
   "set": "night20"
@@ -14241,11 +9876,6 @@
  },
  {
   "headword": "rampante",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "raúl",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14275,11 +9905,6 @@
   "set": "night20"
  },
  {
-  "headword": "sanpaolo",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "schivare",
   "zipf": 3.11,
   "set": "night20"
@@ -14305,27 +9930,12 @@
   "set": "night20"
  },
  {
-  "headword": "skywalker",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "sovranista",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "stolto",
   "zipf": 3.11,
   "set": "night20"
  },
  {
   "headword": "stranezza",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
-  "headword": "sudest",
   "zipf": 3.11,
   "set": "night20"
  },
@@ -14365,11 +9975,6 @@
   "set": "night20"
  },
  {
-  "headword": "vox",
-  "zipf": 3.11,
-  "set": "night20"
- },
- {
   "headword": "xenofobo",
   "zipf": 3.11,
   "set": "night20"
@@ -14400,22 +10005,7 @@
   "set": "night20"
  },
  {
-  "headword": "appassionatamente",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "arcivescovile",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "aru",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "auf",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14425,17 +10015,7 @@
   "set": "night20"
  },
  {
-  "headword": "balilla",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "bastarda",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "bentley",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14460,22 +10040,7 @@
   "set": "night20"
  },
  {
-  "headword": "chambers",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "cherokee",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "cirillico",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "cobalto",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14495,17 +10060,7 @@
   "set": "night20"
  },
  {
-  "headword": "costituzionalità",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "cresima",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "deb",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14530,17 +10085,7 @@
   "set": "night20"
  },
  {
-  "headword": "disp",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "dualismo",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "elisir",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14551,11 +10096,6 @@
  },
  {
   "headword": "fattorino",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "ferocemente",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14620,22 +10160,7 @@
   "set": "night20"
  },
  {
-  "headword": "manny",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "mastercard",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "meandri",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "mensilità",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14655,16 +10180,6 @@
   "set": "night20"
  },
  {
-  "headword": "nordovest",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "onofrio",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "oppresso",
   "zipf": 3.1,
   "set": "night20"
@@ -14680,16 +10195,6 @@
   "set": "night20"
  },
  {
-  "headword": "orgogliosamente",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "ortiz",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "pensatore",
   "zipf": 3.1,
   "set": "night20"
@@ -14700,27 +10205,12 @@
   "set": "night20"
  },
  {
-  "headword": "portabilità",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "predilezione",
   "zipf": 3.1,
   "set": "night20"
  },
  {
   "headword": "prefigge",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "proporzionalità",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "rave",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14755,11 +10245,6 @@
   "set": "night20"
  },
  {
-  "headword": "rufus",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "saccheggiare",
   "zipf": 3.1,
   "set": "night20"
@@ -14770,17 +10255,7 @@
   "set": "night20"
  },
  {
-  "headword": "scarlett",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "scettica",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "sciascia",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14800,11 +10275,6 @@
   "set": "night20"
  },
  {
-  "headword": "slalom",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "sostitutivo",
   "zipf": 3.1,
   "set": "night20"
@@ -14816,26 +10286,6 @@
  },
  {
   "headword": "sprovvisto",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "squisitamente",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "stupidamente",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "suffisso",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "teaser",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14855,22 +10305,7 @@
   "set": "night20"
  },
  {
-  "headword": "trenord",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
   "headword": "univoco",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "utet",
-  "zipf": 3.1,
-  "set": "night20"
- },
- {
-  "headword": "uzbekistan",
   "zipf": 3.1,
   "set": "night20"
  },
@@ -14890,16 +10325,6 @@
   "set": "night20"
  },
  {
-  "headword": "arsenico",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "artisticamente",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "assaporare",
   "zipf": 3.09,
   "set": "night20"
@@ -14910,32 +10335,7 @@
   "set": "night20"
  },
  {
-  "headword": "avocado",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "beneficienza",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "benji",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "betsy",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "bugiarda",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "cain",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -14975,22 +10375,12 @@
   "set": "night20"
  },
  {
-  "headword": "dalia",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "deflazione",
   "zipf": 3.09,
   "set": "night20"
  },
  {
   "headword": "detenere",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "diamoci",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15006,16 +10396,6 @@
  },
  {
   "headword": "drammaturgia",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "dumas",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "edipo",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15040,16 +10420,6 @@
   "set": "night20"
  },
  {
-  "headword": "estraneità",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "extravergine",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "fante",
   "zipf": 3.09,
   "set": "night20"
@@ -15065,32 +10435,12 @@
   "set": "night20"
  },
  {
-  "headword": "formattazione",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "franchising",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "frenetico",
   "zipf": 3.09,
   "set": "night20"
  },
  {
-  "headword": "fuffa",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "fuggitivo",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "gabriela",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15106,16 +10456,6 @@
  },
  {
   "headword": "guardai",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "iceberg",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "ila",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15136,11 +10476,6 @@
  },
  {
   "headword": "incurabile",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "indicativamente",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15175,27 +10510,12 @@
   "set": "night20"
  },
  {
-  "headword": "khaled",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "lastrico",
   "zipf": 3.09,
   "set": "night20"
  },
  {
-  "headword": "len",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "lungimirante",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "magister",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15210,32 +10530,12 @@
   "set": "night20"
  },
  {
-  "headword": "meccanicamente",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "migrare",
   "zipf": 3.09,
   "set": "night20"
  },
  {
-  "headword": "mitch",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "montante",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "mumbai",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "outlet",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15250,22 +10550,7 @@
   "set": "night20"
  },
  {
-  "headword": "pascale",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "periodicità",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "personalizzare",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "petronio",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15300,17 +10585,7 @@
   "set": "night20"
  },
  {
-  "headword": "regis",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "regolarizzazione",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "ricevettero",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15335,17 +10610,7 @@
   "set": "night20"
  },
  {
-  "headword": "rodney",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "ronzio",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "rosy",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15356,16 +10621,6 @@
  },
  {
   "headword": "saliamo",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "scrupolosamente",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "settimanalmente",
   "zipf": 3.09,
   "set": "night20"
  },
@@ -15400,11 +10655,6 @@
   "set": "night20"
  },
  {
-  "headword": "squat",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "stagnante",
   "zipf": 3.09,
   "set": "night20"
@@ -15435,37 +10685,12 @@
   "set": "night20"
  },
  {
-  "headword": "unilateralmente",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
-  "headword": "univ",
-  "zipf": 3.09,
-  "set": "night20"
- },
- {
   "headword": "vincolata",
   "zipf": 3.09,
   "set": "night20"
  },
  {
   "headword": "acerbo",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "aden",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "affettuosamente",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "agorà",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15495,42 +10720,12 @@
   "set": "night20"
  },
  {
-  "headword": "avercela",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "baldassarre",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "bolton",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "bozzolo",
   "zipf": 3.08,
   "set": "night20"
  },
  {
-  "headword": "brody",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "cellulite",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "cesenatico",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "chiamalo",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15551,11 +10746,6 @@
  },
  {
   "headword": "compasso",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "connettore",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15595,16 +10785,6 @@
   "set": "night20"
  },
  {
-  "headword": "deo",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "dicendole",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "diminutivo",
   "zipf": 3.08,
   "set": "night20"
@@ -15625,17 +10805,7 @@
   "set": "night20"
  },
  {
-  "headword": "dmitrij",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "domare",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "eccezion",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15666,11 +10836,6 @@
  },
  {
   "headword": "flirtare",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "fonseca",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15710,21 +10875,6 @@
   "set": "night20"
  },
  {
-  "headword": "golia",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "gulag",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "hotspot",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "imo",
   "zipf": 3.08,
   "set": "night20"
@@ -15736,11 +10886,6 @@
  },
  {
   "headword": "indicante",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "indifferentemente",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15761,11 +10906,6 @@
  },
  {
   "headword": "intermediazione",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "lag",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15791,26 +10931,6 @@
  },
  {
   "headword": "mortaio",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "méxico",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "nascondino",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "ness",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "nonche",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15865,27 +10985,7 @@
   "set": "night20"
  },
  {
-  "headword": "prop",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "ramen",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "rappresentatività",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "rattrista",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "reciprocità",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15915,27 +11015,7 @@
   "set": "night20"
  },
  {
-  "headword": "rodotà",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "sabino",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "sanguinoso",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "savannah",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "sawyer",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15945,17 +11025,7 @@
   "set": "night20"
  },
  {
-  "headword": "segale",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "sgomberare",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "silla",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -15985,22 +11055,12 @@
   "set": "night20"
  },
  {
-  "headword": "speck",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "spensieratezza",
   "zipf": 3.08,
   "set": "night20"
  },
  {
   "headword": "subdolo",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "superficialmente",
   "zipf": 3.08,
   "set": "night20"
  },
@@ -16030,27 +11090,12 @@
   "set": "night20"
  },
  {
-  "headword": "void",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
-  "headword": "yates",
-  "zipf": 3.08,
-  "set": "night20"
- },
- {
   "headword": "abbonda",
   "zipf": 3.07,
   "set": "night20"
  },
  {
   "headword": "amputazione",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "anpi",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16070,22 +11115,7 @@
   "set": "night20"
  },
  {
-  "headword": "avery",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "avvertenza",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "bartoli",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "bebe",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16095,27 +11125,12 @@
   "set": "night20"
  },
  {
-  "headword": "booking",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "bosniaco",
   "zipf": 3.07,
   "set": "night20"
  },
  {
-  "headword": "byte",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "cafone",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "casaccio",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16170,17 +11185,7 @@
   "set": "night20"
  },
  {
-  "headword": "croissant",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "cutaneo",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "davos",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16195,27 +11200,12 @@
   "set": "night20"
  },
  {
-  "headword": "dieu",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "dim",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "dimettere",
   "zipf": 3.07,
   "set": "night20"
  },
  {
   "headword": "diversificare",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "egeo",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16245,32 +11235,12 @@
   "set": "night20"
  },
  {
-  "headword": "flagranza",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "florio",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "fraintendimento",
   "zipf": 3.07,
   "set": "night20"
  },
  {
   "headword": "germaniche",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "ginecologia",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "glitter",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16315,11 +11285,6 @@
   "set": "night20"
  },
  {
-  "headword": "inequivocabilmente",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "infiamma",
   "zipf": 3.07,
   "set": "night20"
@@ -16350,27 +11315,12 @@
   "set": "night20"
  },
  {
-  "headword": "ipa",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "istruttivo",
   "zipf": 3.07,
   "set": "night20"
  },
  {
-  "headword": "lasciandolo",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "lessicale",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "lorca",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16410,22 +11360,7 @@
   "set": "night20"
  },
  {
-  "headword": "pesos",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "piantina",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "polly",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "precocemente",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16441,11 +11376,6 @@
  },
  {
   "headword": "prisco",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "promoter",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16471,11 +11401,6 @@
  },
  {
   "headword": "remissione",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "rendersene",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16535,22 +11460,12 @@
   "set": "night20"
  },
  {
-  "headword": "togo",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "trascendentale",
   "zipf": 3.07,
   "set": "night20"
  },
  {
   "headword": "travertino",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "vabbeh",
   "zipf": 3.07,
   "set": "night20"
  },
@@ -16565,11 +11480,6 @@
   "set": "night20"
  },
  {
-  "headword": "vhs",
-  "zipf": 3.07,
-  "set": "night20"
- },
- {
   "headword": "xenofobi",
   "zipf": 3.07,
   "set": "night20"
@@ -16577,11 +11487,6 @@
  {
   "headword": "zoccole",
   "zipf": 3.07,
-  "set": "night20"
- },
- {
-  "headword": "abigail",
-  "zipf": 3.06,
   "set": "night20"
  },
  {
@@ -16601,11 +11506,6 @@
  },
  {
   "headword": "ambire",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "andatevene",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16630,57 +11530,12 @@
   "set": "night20"
  },
  {
-  "headword": "bait",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "bastia",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "bender",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "boomer",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "bridget",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "buster",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "capodimonte",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "celtica",
   "zipf": 3.06,
   "set": "night20"
  },
  {
   "headword": "cero",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "chiedimi",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "chimicamente",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16700,21 +11555,6 @@
   "set": "night20"
  },
  {
-  "headword": "concettualmente",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "contumacia",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "cyril",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "databile",
   "zipf": 3.06,
   "set": "night20"
@@ -16726,11 +11566,6 @@
  },
  {
   "headword": "dessi",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "dibba",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16750,11 +11585,6 @@
   "set": "night20"
  },
  {
-  "headword": "eminem",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "emporio",
   "zipf": 3.06,
   "set": "night20"
@@ -16770,27 +11600,12 @@
   "set": "night20"
  },
  {
-  "headword": "enza",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "estirpare",
   "zipf": 3.06,
   "set": "night20"
  },
  {
   "headword": "estro",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "famosissimo",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "fasc",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16825,22 +11640,7 @@
   "set": "night20"
  },
  {
-  "headword": "incula",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "insegnargli",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "insoddisfatto",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "insolitamente",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16855,22 +11655,12 @@
   "set": "night20"
  },
  {
-  "headword": "interessantissimo",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "intraprendente",
   "zipf": 3.06,
   "set": "night20"
  },
  {
   "headword": "inutilizzabile",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "lattuga",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16895,47 +11685,7 @@
   "set": "night20"
  },
  {
-  "headword": "monnezza",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "montella",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "mor",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "müller",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "naz",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "nazareth",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "nientemeno",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "nipotino",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "null",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16945,22 +11695,7 @@
   "set": "night20"
  },
  {
-  "headword": "omogeneità",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "orsetto",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "peng",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "perdutamente",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -16990,22 +11725,7 @@
   "set": "night20"
  },
  {
-  "headword": "proporzionalmente",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "psa",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "rabbioso",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "racket",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -17050,17 +11770,7 @@
   "set": "night20"
  },
  {
-  "headword": "scroto",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "sequela",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "sesamo",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -17075,47 +11785,12 @@
   "set": "night20"
  },
  {
-  "headword": "sindone",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "snowboard",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "soho",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "sorretto",
   "zipf": 3.06,
   "set": "night20"
  },
  {
   "headword": "sorsero",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "sous",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "sparks",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "spears",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "splendidamente",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -17135,11 +11810,6 @@
   "set": "night20"
  },
  {
-  "headword": "tester",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
   "headword": "tifoserie",
   "zipf": 3.06,
   "set": "night20"
@@ -17151,21 +11821,6 @@
  },
  {
   "headword": "umoristico",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "velleità",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "vicente",
-  "zipf": 3.06,
-  "set": "night20"
- },
- {
-  "headword": "zebre",
   "zipf": 3.06,
   "set": "night20"
  },
@@ -17200,11 +11855,6 @@
   "set": "night20"
  },
  {
-  "headword": "altruismo",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "ammonizione",
   "zipf": 3.05,
   "set": "night20"
@@ -17220,27 +11870,12 @@
   "set": "night20"
  },
  {
-  "headword": "aragonese",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "asportazione",
   "zipf": 3.05,
   "set": "night20"
  },
  {
   "headword": "avventuroso",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "benestare",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "brochure",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17271,16 +11906,6 @@
  },
  {
   "headword": "campionamento",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "camus",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "capitol",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17350,31 +11975,6 @@
   "set": "night20"
  },
  {
-  "headword": "crono",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "crowley",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "diciamocelo",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "dioniso",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "disabilitare",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "discriminatorio",
   "zipf": 3.05,
   "set": "night20"
@@ -17405,22 +12005,7 @@
   "set": "night20"
  },
  {
-  "headword": "egual",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "emissario",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "erodoto",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "eticamente",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17431,16 +12016,6 @@
  },
  {
   "headword": "fantomatico",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "fienile",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "filtraggio",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17460,22 +12035,7 @@
   "set": "night20"
  },
  {
-  "headword": "gaudio",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "greve",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "hopper",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "hora",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17505,11 +12065,6 @@
   "set": "night20"
  },
  {
-  "headword": "instaurazione",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "insuccessi",
   "zipf": 3.05,
   "set": "night20"
@@ -17535,42 +12090,12 @@
   "set": "night20"
  },
  {
-  "headword": "italianità",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "lasciatevi",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "lillo",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "liquirizia",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "lurido",
   "zipf": 3.05,
   "set": "night20"
  },
  {
-  "headword": "macos",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "manovrare",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "membra",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17590,22 +12115,7 @@
   "set": "night20"
  },
  {
-  "headword": "moz",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "mutante",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "omertà",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "orizzontalmente",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17630,11 +12140,6 @@
   "set": "night20"
  },
  {
-  "headword": "prepararti",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "proibizionismo",
   "zipf": 3.05,
   "set": "night20"
@@ -17650,17 +12155,7 @@
   "set": "night20"
  },
  {
-  "headword": "pvc",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "quadrare",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "quito",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17685,22 +12180,12 @@
   "set": "night20"
  },
  {
-  "headword": "ramón",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "remore",
   "zipf": 3.05,
   "set": "night20"
  },
  {
   "headword": "ribaltamento",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "ricordatelo",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17731,11 +12216,6 @@
  },
  {
   "headword": "signorino",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "sima",
   "zipf": 3.05,
   "set": "night20"
  },
@@ -17795,21 +12275,6 @@
   "set": "night20"
  },
  {
-  "headword": "termodinamica",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "tia",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "tinder",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "traduttrice",
   "zipf": 3.05,
   "set": "night20"
@@ -17835,11 +12300,6 @@
   "set": "night20"
  },
  {
-  "headword": "vignola",
-  "zipf": 3.05,
-  "set": "night20"
- },
- {
   "headword": "vivibile",
   "zipf": 3.05,
   "set": "night20"
@@ -17847,11 +12307,6 @@
  {
   "headword": "vivrò",
   "zipf": 3.05,
-  "set": "night20"
- },
- {
-  "headword": "airbus",
-  "zipf": 3.04,
   "set": "night20"
  },
  {
@@ -17900,42 +12355,12 @@
   "set": "night20"
  },
  {
-  "headword": "bentivoglio",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "blaine",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "blogfest",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "bottiglietta",
   "zipf": 3.04,
   "set": "night20"
  },
  {
-  "headword": "brecht",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "brigante",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "canguro",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "caraffa",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -17946,11 +12371,6 @@
  },
  {
   "headword": "cefalea",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "ciak",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18000,11 +12420,6 @@
   "set": "night20"
  },
  {
-  "headword": "denny",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "eguale",
   "zipf": 3.04,
   "set": "night20"
@@ -18030,32 +12445,12 @@
   "set": "night20"
  },
  {
-  "headword": "fargo",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "faye",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "fedina",
   "zipf": 3.04,
   "set": "night20"
  },
  {
   "headword": "fibrosi",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "flebo",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "foley",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18070,27 +12465,12 @@
   "set": "night20"
  },
  {
-  "headword": "fuorigioco",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "giudea",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "guerriere",
   "zipf": 3.04,
   "set": "night20"
  },
  {
   "headword": "imperante",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "impurità",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18130,11 +12510,6 @@
   "set": "night20"
  },
  {
-  "headword": "izzo",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "lucente",
   "zipf": 3.04,
   "set": "night20"
@@ -18155,17 +12530,7 @@
   "set": "night20"
  },
  {
-  "headword": "mucose",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "mutilazione",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "nafta",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18176,16 +12541,6 @@
  },
  {
   "headword": "nebbie",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "niko",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "notav",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18206,11 +12561,6 @@
  },
  {
   "headword": "pensionabile",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "percio",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18241,11 +12591,6 @@
  },
  {
   "headword": "procedurale",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "prominente",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18310,16 +12655,6 @@
   "set": "night20"
  },
  {
-  "headword": "russel",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "saggiamente",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "sanguinare",
   "zipf": 3.04,
   "set": "night20"
@@ -18330,17 +12665,7 @@
   "set": "night20"
  },
  {
-  "headword": "sapientemente",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "scarcerazione",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "schiller",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18380,32 +12705,12 @@
   "set": "night20"
  },
  {
-  "headword": "sparargli",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "spartiacque",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "stradina",
   "zipf": 3.04,
   "set": "night20"
  },
  {
-  "headword": "strenuamente",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
   "headword": "stringente",
-  "zipf": 3.04,
-  "set": "night20"
- },
- {
-  "headword": "svegliatevi",
   "zipf": 3.04,
   "set": "night20"
  },
@@ -18445,11 +12750,6 @@
   "set": "night20"
  },
  {
-  "headword": "aas",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "affinare",
   "zipf": 3.03,
   "set": "night20"
@@ -18460,17 +12760,7 @@
   "set": "night20"
  },
  {
-  "headword": "alpinismo",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "ancoraggio",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "arciduca",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18480,37 +12770,7 @@
   "set": "night20"
  },
  {
-  "headword": "asr",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "autostop",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "azzardare",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "azzo",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "bey",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "bitonto",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "brandy",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18520,17 +12780,7 @@
   "set": "night20"
  },
  {
-  "headword": "camping",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "capitello",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "caravan",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18541,16 +12791,6 @@
  },
  {
   "headword": "certificare",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "ciad",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "clooney",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18575,11 +12815,6 @@
   "set": "night20"
  },
  {
-  "headword": "contemporaneità",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "contratta",
   "zipf": 3.03,
   "set": "night20"
@@ -18591,11 +12826,6 @@
  },
  {
   "headword": "corsaro",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "dandole",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18620,32 +12850,12 @@
   "set": "night20"
  },
  {
-  "headword": "dopodichè",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "dux",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "ebraismo",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "egregio",
   "zipf": 3.03,
   "set": "night20"
  },
  {
   "headword": "eiaculazione",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "emile",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18665,26 +12875,6 @@
   "set": "night20"
  },
  {
-  "headword": "esperanza",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "extremis",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "faticosamente",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "fecondità",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "ficcare",
   "zipf": 3.03,
   "set": "night20"
@@ -18700,16 +12890,6 @@
   "set": "night20"
  },
  {
-  "headword": "fregatene",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "frettolosamente",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "frittura",
   "zipf": 3.03,
   "set": "night20"
@@ -18721,11 +12901,6 @@
  },
  {
   "headword": "galateo",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "genitoriale",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18770,11 +12945,6 @@
   "set": "night20"
  },
  {
-  "headword": "internazionalmente",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "ionica",
   "zipf": 3.03,
   "set": "night20"
@@ -18795,26 +12965,6 @@
   "set": "night20"
  },
  {
-  "headword": "ivanov",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "jordi",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "kahn",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "lasciargli",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "lievitare",
   "zipf": 3.03,
   "set": "night20"
@@ -18825,22 +12975,7 @@
   "set": "night20"
  },
  {
-  "headword": "magnificamente",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "mint",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "misere",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "neurale",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18860,22 +12995,7 @@
   "set": "night20"
  },
  {
-  "headword": "oralmente",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "oria",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "oscillazione",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "ostiense",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18900,22 +13020,12 @@
   "set": "night20"
  },
  {
-  "headword": "pereira",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "racimolare",
   "zipf": 3.03,
   "set": "night20"
  },
  {
   "headword": "radere",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "radu",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -18965,22 +13075,12 @@
   "set": "night20"
  },
  {
-  "headword": "rune",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "sagome",
   "zipf": 3.03,
   "set": "night20"
  },
  {
   "headword": "scasso",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "scherzosamente",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -19040,17 +13140,7 @@
   "set": "night20"
  },
  {
-  "headword": "suscettibilità",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "sventolare",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "taco",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -19061,11 +13151,6 @@
  },
  {
   "headword": "tare",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "tbc",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -19090,17 +13175,7 @@
   "set": "night20"
  },
  {
-  "headword": "viticoltura",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "vivevamo",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
-  "headword": "volatilità",
   "zipf": 3.03,
   "set": "night20"
  },
@@ -19110,17 +13185,7 @@
   "set": "night20"
  },
  {
-  "headword": "yoda",
-  "zipf": 3.03,
-  "set": "night20"
- },
- {
   "headword": "afa",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "afrique",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19135,17 +13200,7 @@
   "set": "night20"
  },
  {
-  "headword": "arcore",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "astrale",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "barolo",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19155,27 +13210,7 @@
   "set": "night20"
  },
  {
-  "headword": "berto",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "cadillac",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "calzolaio",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "cantico",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "capisaldi",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19186,16 +13221,6 @@
  },
  {
   "headword": "carcerario",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "celio",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "clou",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19215,32 +13240,7 @@
   "set": "night20"
  },
  {
-  "headword": "cordialità",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "cromwell",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "custer",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "daenerys",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "diagnosticare",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "dias",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19250,22 +13250,7 @@
   "set": "night20"
  },
  {
-  "headword": "diem",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "disprezzare",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "distale",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "diving",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19290,22 +13275,12 @@
   "set": "night20"
  },
  {
-  "headword": "finocchiaro",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "fionda",
   "zipf": 3.02,
   "set": "night20"
  },
  {
   "headword": "fondarono",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "fucsia",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19320,16 +13295,6 @@
   "set": "night20"
  },
  {
-  "headword": "hdmi",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "ich",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "illuminismo",
   "zipf": 3.02,
   "set": "night20"
@@ -19340,27 +13305,7 @@
   "set": "night20"
  },
  {
-  "headword": "lasciamoli",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "lcd",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "lottizzazione",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "lunghissime",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "mailing",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19390,27 +13335,7 @@
   "set": "night20"
  },
  {
-  "headword": "mauricio",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "melchiorre",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "melody",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "minestrone",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "misano",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19420,27 +13345,12 @@
   "set": "night20"
  },
  {
-  "headword": "neolitico",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "neurologico",
   "zipf": 3.02,
   "set": "night20"
  },
  {
-  "headword": "nomen",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "novarese",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "obbligatorietà",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19470,17 +13380,7 @@
   "set": "night20"
  },
  {
-  "headword": "papillon",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "perdano",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "pilotaggio",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19510,11 +13410,6 @@
   "set": "night20"
  },
  {
-  "headword": "raj",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "razionalizzare",
   "zipf": 3.02,
   "set": "night20"
@@ -19536,11 +13431,6 @@
  },
  {
   "headword": "ricostituzione",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "rilento",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19575,27 +13465,12 @@
   "set": "night20"
  },
  {
-  "headword": "simo",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "sinatra",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "sistemico",
   "zipf": 3.02,
   "set": "night20"
  },
  {
   "headword": "snella",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "soglio",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19610,17 +13485,7 @@
   "set": "night20"
  },
  {
-  "headword": "springsteen",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
   "headword": "suddividere",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "tequila",
   "zipf": 3.02,
   "set": "night20"
  },
@@ -19645,26 +13510,6 @@
   "set": "night20"
  },
  {
-  "headword": "ventinove",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "videosorveglianza",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "zig",
-  "zipf": 3.02,
-  "set": "night20"
- },
- {
-  "headword": "abdullah",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "accusò",
   "zipf": 3.01,
   "set": "night20"
@@ -19675,27 +13520,7 @@
   "set": "night20"
  },
  {
-  "headword": "akira",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "anticristo",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "apartheid",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "arresa",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "asi",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19730,27 +13555,7 @@
   "set": "night20"
  },
  {
-  "headword": "bonolis",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "brevità",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "cantautrice",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "celtic",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "clitoride",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19770,17 +13575,7 @@
   "set": "night20"
  },
  {
-  "headword": "cpi",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "cranica",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "cupcake",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19815,11 +13610,6 @@
   "set": "night20"
  },
  {
-  "headword": "ding",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "diserzione",
   "zipf": 3.01,
   "set": "night20"
@@ -19840,22 +13630,7 @@
   "set": "night20"
  },
  {
-  "headword": "educatamente",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "elusione",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "epub",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "errico",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19870,11 +13645,6 @@
   "set": "night20"
  },
  {
-  "headword": "etf",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "evaporare",
   "zipf": 3.01,
   "set": "night20"
@@ -19885,22 +13655,7 @@
   "set": "night20"
  },
  {
-  "headword": "farro",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "fatico",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "fps",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "frankfurt",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19915,21 +13670,6 @@
   "set": "night20"
  },
  {
-  "headword": "gelosamente",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "gens",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "giullare",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "giustiziere",
   "zipf": 3.01,
   "set": "night20"
@@ -19940,22 +13680,12 @@
   "set": "night20"
  },
  {
-  "headword": "idi",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "immatricolazione",
   "zipf": 3.01,
   "set": "night20"
  },
  {
   "headword": "individualismo",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "ingenuamente",
   "zipf": 3.01,
   "set": "night20"
  },
@@ -19975,22 +13705,7 @@
   "set": "night20"
  },
  {
-  "headword": "juliette",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "krishna",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
   "headword": "lasciai",
-  "zipf": 3.01,
-  "set": "night20"
- },
- {
-  "headword": "lello",
   "zipf": 3.01,
   "set": "night20"
  },

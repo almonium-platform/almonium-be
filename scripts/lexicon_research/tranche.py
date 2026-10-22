@@ -25,6 +25,24 @@ def taken(lang):
     return words
 
 
+def known(lang, w):
+    """Whether a dictionary vouches for the word: simplemma's, or the system wordlists for English."""
+    import simplemma
+    if simplemma.is_known(w, lang=lang):
+        return True
+    if lang == "en":
+        return w in SYSTEM_WORDS
+    return False
+
+
+SYSTEM_WORDS = set()
+for _f in ("/usr/share/dict/american-english", "/usr/share/dict/british-english"):
+    try:
+        SYSTEM_WORDS |= {x.strip() for x in open(_f, errors="ignore") if x[:1].islower()}
+    except OSError:
+        pass
+
+
 def lemma_ok(nlp, lang, w):
     if not w.isalpha() or len(w) < 3:
         return None
@@ -52,11 +70,14 @@ ap.add_argument("--start", type=int, default=3000)
 ap.add_argument("--count", type=int, default=40)
 ap.add_argument("--langs", default="en,de,uk")
 ap.add_argument("--scan", type=int, default=4000, help="how many wordfreq ranks past --start to look through")
+ap.add_argument("--known-only", action="store_true", help="deep lists: keep only words simplemma or the system dictionary knows, which drops names, acronyms and chat spellings")
 a = ap.parse_args()
 for lang in a.langs.split(","):
     nlp, used, rows = spacy.load(MODELS[lang]), taken(lang), []
     for w in top_n_list(lang, a.start + a.scan)[a.start:]:
         h = lemma_ok(nlp, lang, w)
+        if h and a.known_only and not known(lang, h.lower()):
+            h = None
         if h and h.lower() not in used:
             rows.append({"headword": h, "zipf": round(zipf_frequency(w, lang), 2), "set": a.name})
             used.add(h.lower())
