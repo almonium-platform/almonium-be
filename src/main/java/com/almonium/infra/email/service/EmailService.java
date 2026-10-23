@@ -69,6 +69,9 @@ public class EmailService {
         if (emailDto.textBody() != null && !emailDto.textBody().isBlank()) {
             body.put("textbody", emailDto.textBody());
         }
+        if (emailDto.replyTo() != null) {
+            body.put("reply_to", List.of(Map.of("address", emailDto.replyTo())));
+        }
 
         return new HttpEntity<>(body, headers);
     }

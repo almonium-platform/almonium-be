@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{_fragments/head}"></head>
+<body bgcolor="#2C2530">
+
+<th:block th:replace="~{_fragments/preheader}"></th:block>
+<header th:replace="~{_fragments/header}"></header>
+
+<!--/* Internal mail to the founder: the answer is the whole point, so it leads, and the facts follow in the panel. */-->
+<table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#F9F6F5">
+    <tr>
+        <td class="email-content" bgcolor="#F9F6F5">
+            <p class="plan-label">What they were missing</p>
+            <p class="email-headline" style="margin: 0 0 20px; font-size: 18px; line-height: 1.55; font-weight: normal; white-space: pre-wrap;" th:text="${message}"></p>
+            <table role="presentation" class="plan-panel" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FAF6FB">
+                <tr>
+                    <td class="plan-panel-cell" bgcolor="#FAF6FB">
+                        <p class="plan-detail" style="line-height: 1.7;">
+                            <span th:if="${email}" style="color: #2C2530;" th:text="${email}"></span>
+                            <span th:unless="${email}" style="color: #2C2530;">No email given</span><br>
+                            <span th:text="${sentAt}"></span><th:block th:if="${browserLanguage}"> &middot; browser in
+                            <span th:text="${browserLanguage}"></span></th:block><br>
+                            <span th:text="${signedInAs} ?: 'Signed out'"></span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p th:if="${email}" class="muted" style="margin: 16px 0 0;">Reply to this email to answer them.</p>
+        </td>
+    </tr>
+</table>
+
+<table role="presentation" class="footer" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#2C2530">
+    <tr>
+        <td class="footer-cell" align="center" bgcolor="#2C2530">
+            <p class="footer-brand">Sent from the landing page question</p>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
