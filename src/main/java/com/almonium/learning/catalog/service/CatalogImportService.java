@@ -51,6 +51,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class CatalogImportService {
     private final WikidataCatalogSource wikidata;
     private final GutenbergCatalogSource gutenberg;
+    private final List<LibraryCatalogSource> libraries;
     private final CatalogStore store;
     private final BookRepository bookRepository;
     private final CatalogMatcher catalogMatcher;
@@ -109,6 +110,15 @@ public class CatalogImportService {
 
         List<CatalogRecord> records = fromWikidata(snapshot, wikidataIds);
         records.addAll(mergeGutenberg(records, texts, gutenbergIds));
+        for (LibraryCatalogSource library : libraries) {
+            try {
+                int attached = attachLibraryTexts(records, library.fetch());
+                log.info("{}: {} texts attached to works", library.kind(), attached);
+            } catch (RuntimeException exception) {
+                // a library that is down loses its sources for this import, never the import
+                log.warn("{} could not be read: {}", library.kind(), exception.getMessage());
+            }
+        }
 
         int year = productionRights.currentYear();
         List<WorkRow> works = new ArrayList<>(records.size());
@@ -364,6 +374,59 @@ public class CatalogImportService {
             record.sources.add(gutenbergSource(text, record.originalLanguage));
         }
         return new ArrayList<>(unmatched.values());
+    }
+
+    /**
+     * Attaches a library's texts to the works they are copies of, by folded title and author surname, as sources of
+     * the library's kind. A text that matches no work is left out: a library rarely records the dates the copyright
+     * engine needs to make a work of it. A text whose language is not the work's is a translation by translators the
+     * library does not name, which the rights engine judges unknown. Returns how many were attached.
+     */
+    static int attachLibraryTexts(List<CatalogRecord> records, List<LibraryCatalogSource.LibraryText> texts) {
+        Map<String, List<CatalogRecord>> byTitle = new HashMap<>();
+        for (CatalogRecord record : records) {
+            for (CatalogRecord.Title title : record.titles) {
+                byTitle.computeIfAbsent(
+                                TitleFolding.fold(TitleFolding.mainTitle(title.text())), key -> new ArrayList<>())
+                        .add(record);
+            }
+        }
+        int attached = 0;
+        for (LibraryCatalogSource.LibraryText text : texts) {
+            String folded = TitleFolding.fold(TitleFolding.mainTitle(text.title()));
+            if (folded.isEmpty()) {
+                continue;
+            }
+            String surname = surname(text.author());
+            CatalogRecord match = byTitle.getOrDefault(folded, List.of()).stream()
+                    .filter(candidate -> sameAuthor(candidate, surname))
+                    .max(Comparator.comparingInt(candidate -> candidate.popularity))
+                    .orElse(null);
+            if (match == null) {
+                continue;
+            }
+            boolean translation = match.originalLanguage != null
+                    && text.language() != null
+                    && !match.originalLanguage.equals(text.language());
+            match.sources.add(new CatalogRecord.Source(
+                    text.kind(), text.language(), text.reference(), text.title(), translation, List.of(), true));
+            attached++;
+        }
+        return attached;
+    }
+
+    /** The last word of a name as a library writes it: "Honoré de Balzac" is matched on "balzac". */
+    static String surname(String author) {
+        String[] words = TitleFolding.fold(author == null ? "" : author).trim().split(" ");
+        return words.length == 0 ? "" : words[words.length - 1];
+    }
+
+    static boolean sameAuthor(CatalogRecord record, String surname) {
+        if (surname.isBlank()) {
+            return record.authors.isEmpty();
+        }
+        return record.authors.stream()
+                .anyMatch(author -> (" " + TitleFolding.fold(author.name()) + " ").contains(" " + surname + " "));
     }
 
     /**

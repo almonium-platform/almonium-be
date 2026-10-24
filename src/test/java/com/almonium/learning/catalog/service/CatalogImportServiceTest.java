@@ -188,4 +188,41 @@ class CatalogImportServiceTest {
                 .isEqualTo("Кобзар");
         assertThat(CatalogImportService.pickTitle(List.of(), "uk")).isNull();
     }
+
+    @Test
+    void aLibrarysTextIsAttachedToTheWorkWithItsTitleAndAuthorAsATranslationWhenTheLanguageDiffers() {
+        var records = CatalogImportService.fromWikidata(snapshot(), Map.of());
+        var texts = List.of(
+                new LibraryCatalogSource.LibraryText(
+                        "STANDARD_EBOOKS",
+                        "/ebooks/arthur-conan-doyle/a-study-in-scarlet",
+                        "A Study in Scarlet",
+                        "Arthur Conan Doyle",
+                        "en"),
+                new LibraryCatalogSource.LibraryText(
+                        "WOLNE_LEKTURY", "maly-ksiaze", "The Little Prince", "Antoine de Saint-Exupéry", "pl"),
+                new LibraryCatalogSource.LibraryText("WOLNE_LEKTURY", "lalka", "Lalka", "Bolesław Prus", "pl"));
+
+        int attached = CatalogImportService.attachLibraryTexts(records, texts);
+
+        assertThat(attached).isEqualTo(2);
+        var scarlet = records.stream()
+                .filter(r -> "Q8337".equals(r.wikidataId))
+                .findFirst()
+                .orElseThrow();
+        // the better-known of the two "A Study in Scarlet" works gets the text; the film does not
+        assertThat(scarlet.sources).extracting(CatalogRecord.Source::kind).containsExactly("STANDARD_EBOOKS");
+        assertThat(scarlet.sources.getFirst().translation()).isFalse();
+        var prince = records.stream()
+                .filter(r -> "Q25338".equals(r.wikidataId))
+                .findFirst()
+                .orElseThrow();
+        var polish = prince.sources.stream()
+                .filter(s -> "WOLNE_LEKTURY".equals(s.kind()))
+                .findFirst()
+                .orElseThrow();
+        assertThat(polish.translation()).isTrue();
+        assertThat(polish.translators()).isEmpty();
+        assertThat(polish.reference()).isEqualTo("maly-ksiaze");
+    }
 }
