@@ -111,6 +111,24 @@ With the template defaults, the API is available at
 `http://localhost:8080/api/v1`. Liquibase applies pending changes to
 `almonium_local` during startup.
 
+Maven needs a full JDK 25 (`javac` and `lib/ct.sym`), not a runtime: a machine
+whose `java` is the `openjdk-25-jre-headless` package fails test compilation
+with "release version 25 not supported". Point `JAVA_HOME` at a JDK, for example
+`~/.jdks/corretto-25.0.4.1`, or install `openjdk-25-jdk-headless`.
+
+To run the backend as a container beside the two services instead, build the
+jar and start the `almonium-be` service; it reaches PostgreSQL, RabbitMQ and the
+book processor's API on this machine by the names Compose gives it, and listens
+on `LOCAL_PORT` with the debugger on `DEBUG_PORT`:
+
+```bash
+./mvnw -Dmaven.test.skip=true package
+docker compose -f docker-compose.local.yaml up -d --build almonium-be
+```
+
+The host does not use this file: Ansible renders its own Compose from the
+infra repository and names the containers after the environment and slot.
+
 Stop the local services without deleting their data:
 
 ```bash

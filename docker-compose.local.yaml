@@ -1,8 +1,8 @@
 services:
   # ───────────────────────────────────────────────────────── app ──
-  app:
-    container_name: app
-    image: almonium
+  almonium-be:
+    container_name: almonium-be
+    image: almonium-be
     build:
       context: .
       dockerfile: Dockerfile
