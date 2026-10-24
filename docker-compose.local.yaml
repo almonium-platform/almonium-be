@@ -21,6 +21,10 @@ services:
       RABBITMQ_USER: almonium
       RABBITMQ_PASS: almonium-local
       RABBITMQ_VHOST: /almonium_local
+      # the book processor's own Compose publishes its API on this machine's port 8000
+      ALMONIUM_BOOKS_PROCESSOR_URL: http://host.docker.internal:8000/api/v1
+    extra_hosts:
+      - host.docker.internal:host-gateway
     env_file:
       - ./.env
     depends_on:

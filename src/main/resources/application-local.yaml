@@ -1,13 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/almonium_local
+    # The IDE run reaches Compose's services on this machine; the `app` container names them.
+    url: jdbc:postgresql://${DB_HOST:127.0.0.1}:${DB_PORT:5432}/${DB_NAME:almonium_local}
     username: almonium
     password: almonium-local
   liquibase:
     enabled: true
   rabbitmq:
-    host: 127.0.0.1
-    port: 5672
+    host: ${RABBITMQ_HOST:127.0.0.1}
+    port: ${RABBITMQ_PORT:5672}
     username: almonium
     password: almonium-local
     virtual-host: /almonium_local
