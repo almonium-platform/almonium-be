@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.analyzer.dto.DiscoverExampleResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
+import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
 import com.almonium.analyzer.translator.dto.DefinitionDto;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
@@ -163,14 +164,14 @@ class DiscoverLookupServiceTest {
             assertThat(sense.translations()).isEmpty();
             assertThat(sense.cefr()).isNull();
         });
-        assertThat(result.pronunciations())
+        assertThat(withoutSegments(result.pronunciations()))
                 .containsExactly(
                         new DiscoverPronunciationResponse(
-                                "en-GB", "/ˈbləʊk/", "/public/lexicon/clips/" + verifiedClip, "verified"),
-                        new DiscoverPronunciationResponse("en-GB", "/bləʊk/", null, null),
-                        new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null),
+                                "en-GB", "/ˈbləʊk/", "/public/lexicon/clips/" + verifiedClip, "verified", null),
+                        new DiscoverPronunciationResponse("en-GB", "/bləʊk/", null, null, null),
+                        new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null),
                         new DiscoverPronunciationResponse(
-                                "en-US", "/ˈblɔʊk/", "/public/lexicon/clips/" + doubtfulClip, "unverified"));
+                                "en-US", "/ˈblɔʊk/", "/public/lexicon/clips/" + doubtfulClip, "unverified", null));
         verify(languageProcessor, never()).translate(anyString(), any(), any());
     }
 
@@ -204,11 +205,21 @@ class DiscoverLookupServiceTest {
 
         var result = service.lookup("clear", null, Language.EN, Language.UK);
 
-        assertThat(result.pronunciations())
+        assertThat(withoutSegments(result.pronunciations()))
                 .containsExactly(
                         new DiscoverPronunciationResponse(
-                                "en-GB", "/ˈklɪə/", "/public/lexicon/clips/" + verifiedClip, "verified"),
-                        new DiscoverPronunciationResponse("en-US", "/ˈklɪɹ/", null, null));
+                                "en-GB", "/ˈklɪə/", "/public/lexicon/clips/" + verifiedClip, "verified", null),
+                        new DiscoverPronunciationResponse("en-US", "/ˈklɪɹ/", null, null, null));
+        assertThat(result.pronunciations().get(0).segments())
+                .containsExactly(
+                        new IpaSegmentResponse("/ˈklɪ", false),
+                        new IpaSegmentResponse("ə", true),
+                        new IpaSegmentResponse("/", false));
+        assertThat(result.pronunciations().get(1).segments())
+                .containsExactly(
+                        new IpaSegmentResponse("/ˈklɪ", false),
+                        new IpaSegmentResponse("ɹ", true),
+                        new IpaSegmentResponse("/", false));
     }
 
     @Test
@@ -294,5 +305,12 @@ class DiscoverLookupServiceTest {
                 glosses,
                 examples,
                 List.of());
+    }
+
+    private static List<DiscoverPronunciationResponse> withoutSegments(
+            List<DiscoverPronunciationResponse> pronunciations) {
+        return pronunciations.stream()
+                .map(pronunciation -> pronunciation.withSegments(null))
+                .toList();
     }
 }

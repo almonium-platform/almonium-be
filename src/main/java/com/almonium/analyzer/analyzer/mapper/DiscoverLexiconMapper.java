@@ -3,6 +3,7 @@ package com.almonium.analyzer.analyzer.mapper;
 import com.almonium.analyzer.analyzer.dto.DiscoverExampleResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverSenseResponse;
+import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ClipView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ExampleView;
@@ -25,7 +26,8 @@ import org.springframework.stereotype.Component;
  * nothing of lexemes. Senses are numbered across lexemes in order; pronunciations are the headword-level ones, by
  * variety then rank, each carrying its best clip (a verified one before an unverified one, which is the order the
  * lexicon already lists them in). A word with several lexemes (clear as adjective, verb and adverb) records the same
- * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has.
+ * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has. Each
+ * carries its transcription cut where it parts from the others ({@link TranscriptionDiff}), computed per response.
  */
 @Component
 public class DiscoverLexiconMapper {
@@ -69,7 +71,14 @@ public class DiscoverLexiconMapper {
                         Arrays.asList(pronunciation.variety(), pronunciation.ipa()),
                         pronunciation,
                         DiscoverLexiconMapper::betterClip));
-        return List.copyOf(byVarietyAndIpa.values());
+        List<DiscoverPronunciationResponse> pronunciations = List.copyOf(byVarietyAndIpa.values());
+        List<List<IpaSegmentResponse>> segments = TranscriptionDiff.segments(
+                pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(), entry.language());
+        List<DiscoverPronunciationResponse> cut = new ArrayList<>();
+        for (int index = 0; index < pronunciations.size(); index++) {
+            cut.add(pronunciations.get(index).withSegments(segments.get(index)));
+        }
+        return List.copyOf(cut);
     }
 
     private static DiscoverPronunciationResponse betterClip(
@@ -93,7 +102,8 @@ public class DiscoverLexiconMapper {
                 pronunciation.variety(),
                 pronunciation.phonemic(),
                 best == null ? null : best.url(),
-                best == null ? null : best.status());
+                best == null ? null : best.status(),
+                null);
     }
 
     private List<String> glosses(SenseView sense, String translationLanguage) {

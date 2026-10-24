@@ -11,6 +11,7 @@ import com.almonium.analyzer.analyzer.dto.DiscoverFrequencyResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverSenseResponse;
+import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import com.almonium.analyzer.analyzer.service.DiscoverLookupService;
 import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.translator.model.enums.Language;
@@ -60,8 +61,15 @@ class DiscoverControllerTest {
                                 List.of(new DiscoverExampleResponse("He seems like a nice bloke.", null)))),
                         List.of(
                                 new DiscoverPronunciationResponse(
-                                        "en-GB", "/ˈbləʊk/", "/public/lexicon/clips/c1", "verified"),
-                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null))));
+                                        "en-GB",
+                                        "/ˈbləʊk/",
+                                        "/public/lexicon/clips/c1",
+                                        "verified",
+                                        List.of(
+                                                new IpaSegmentResponse("/ˈbl", false),
+                                                new IpaSegmentResponse("əʊ", true),
+                                                new IpaSegmentResponse("k/", false))),
+                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null))));
 
         mvc.perform(get("/public/discover/lookup/EN/UK").param("entry", "bloke").param("context", "A nice bloke."))
                 .andExpect(status().isOk())
@@ -86,6 +94,8 @@ class DiscoverControllerTest {
                 .andExpect(jsonPath("$.pronunciations[0].ipa").value("/ˈbləʊk/"))
                 .andExpect(jsonPath("$.pronunciations[0].clipUrl").value("/public/lexicon/clips/c1"))
                 .andExpect(jsonPath("$.pronunciations[0].clipStatus").value("verified"))
+                .andExpect(jsonPath("$.pronunciations[0].segments[1].text").value("əʊ"))
+                .andExpect(jsonPath("$.pronunciations[0].segments[1].differs").value(true))
                 .andExpect(jsonPath("$.pronunciations[1].variety").value("en-US"))
                 .andExpect(jsonPath("$.pronunciations[1].clipUrl").doesNotExist())
                 .andExpect(jsonPath("$.pronunciations[1].clipStatus").doesNotExist());
