@@ -108,6 +108,18 @@ executable source of truth when documentation differs.
   State the required local configuration change instead.
 - Update the relevant document when an architectural convention or known
   baseline changes.
+- The owner checks every change immediately in the local app, so a backend
+  change is not done until the local backend runs it. After committing a
+  change to `src/main`, rebuild and restart the local container, then confirm
+  the changed endpoint answers with the new behaviour:
+
+  ```bash
+  ./mvnw -Dmaven.test.skip=true package
+  docker compose -f docker-compose.local.yaml up -d --build almonium-be
+  ```
+
+  Changes that do not reach the running application (scripts, docs, tests)
+  need no restart; say so in the handoff.
 
 ## Verification
 
