@@ -2,6 +2,7 @@ package com.almonium.analyzer.analyzer.mapper;
 
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,10 +18,10 @@ import java.util.regex.Pattern;
  * vowel marked non-syllabic (aɪ̯) joins the one before it in any language. A language without a list is compared
  * symbol by symbol, which tints a changed diphthong by its changed half instead of whole.
  *
- * <p>Before comparing, spellings of one sound are made one (ɹ and r, ɝ and ɜːr), syllable dots are ignored, and so is
- * stress between two transcriptions when one of them marks none: a source that omits stress has not said it differs.
- * Every pair of transcriptions is aligned by edit distance; a phoneme substituted is flagged in both, one inserted in
- * the one that has it.
+ * <p>Before comparing, spellings of one sound are made one (ɹ and r, ɝ and ɜːr, t͡ʃ and tʃ) and syllable dots are
+ * ignored. Every pair of transcriptions is aligned by edit distance, sounds only; a phoneme substituted is flagged in
+ * both, one inserted in the one that has it. Stress is then compared by the sound each mark stands before, and left
+ * out between two transcriptions when one of them marks none: a source that omits stress has not said it differs.
  */
 public final class TranscriptionDiff {
     /** Closing diphthongs and affricates. Centring ones (ɪə) stay two, so British ɪə against American ɪɹ shares the ɪ. */
@@ -37,6 +38,9 @@ public final class TranscriptionDiff {
             "ɚ", List.of("ə", "r"));
 
     private static final Pattern ATTACHES = Pattern.compile("[\\p{M}ːˑʰʷʲˠˤ˞ʼ]");
+    /** Tie bars and the non-syllabic mark say how a unit is written, not how it sounds: t͡ʃ is tʃ, aɪ̯ is aɪ. */
+    private static final Pattern NOTATION = Pattern.compile("[\u0361\u035C\u032F]");
+
     private static final Set<String> STRESS = Set.of("ˈ", "ˌ");
     private static final Set<String> IGNORED = Set.of(".", " ", "/", "[", "]");
     private static final char NON_SYLLABIC = '\u032F';
@@ -97,32 +101,44 @@ public final class TranscriptionDiff {
     /** One step of the comparison: the phoneme it reads as, and which phoneme of the line it came from. */
     private record Key(String sound, int phoneme) {}
 
-    private static List<Key> keys(List<String> phonemes, boolean withStress) {
+    /** A stress mark, as the phoneme it stands at and the key it sits before (the key count when it ends the line). */
+    private record Mark(String mark, int phoneme, int before) {}
+
+    private static List<Key> keys(List<String> phonemes) {
         List<Key> keys = new ArrayList<>();
         for (int index = 0; index < phonemes.size(); index++) {
             String phoneme = phonemes.get(index);
-            if (IGNORED.contains(phoneme) || (!withStress && STRESS.contains(phoneme))) continue;
-            for (String sound : SAME_SOUND.getOrDefault(phoneme, List.of(phoneme))) {
+            if (IGNORED.contains(phoneme) || STRESS.contains(phoneme)) continue;
+            String plain = NOTATION.matcher(phoneme).replaceAll("");
+            for (String sound : SAME_SOUND.getOrDefault(plain, List.of(plain))) {
                 keys.add(new Key(sound, index));
             }
         }
         return keys;
     }
 
-    private static boolean marksStress(List<String> phonemes) {
-        return phonemes.stream().anyMatch(STRESS::contains);
+    private static List<Mark> marks(List<String> phonemes, List<Key> keys) {
+        List<Mark> marks = new ArrayList<>();
+        int next = 0;
+        for (int index = 0; index < phonemes.size(); index++) {
+            while (next < keys.size() && keys.get(next).phoneme() < index) next++;
+            if (STRESS.contains(phonemes.get(index))) marks.add(new Mark(phonemes.get(index), index, next));
+        }
+        return marks;
     }
 
     /**
-     * Edit-distance alignment of two lines; what is substituted is flagged in both, what is inserted in its own. A
-     * substitution costs less than an insertion and a deletion together but more than either, so a sound both lines
-     * share is never traded away to shift a run (ɡəˈrɑːʒ against ˈɡærɑːʒ keeps the ɡ matched).
+     * Edit-distance alignment of two lines' sounds; what is substituted is flagged in both, what is inserted in its
+     * own. A substitution costs less than an insertion and a deletion together but more than either, so a sound both
+     * lines share is never traded away to shift a run (ɡəˈrɑːʒ against ˈɡærɑːʒ keeps the ɡ matched). Stress is
+     * compared after, against the alignment: a mark is flagged unless the other line has the same mark before the
+     * sound this one's stands before, so a stress that moves a syllable shows even where the sounds around it agree.
+     * When either line marks no stress at all, stress is left out.
      */
     private static void compare(
             List<String> first, List<String> second, boolean[] firstDiffers, boolean[] secondDiffers) {
-        boolean withStress = marksStress(first) && marksStress(second);
-        List<Key> a = keys(first, withStress);
-        List<Key> b = keys(second, withStress);
+        List<Key> a = keys(first);
+        List<Key> b = keys(second);
         int[][] cost = new int[a.size() + 1][b.size() + 1];
         for (int i = 0; i <= a.size(); i++) cost[i][0] = i * INDEL;
         for (int j = 0; j <= b.size(); j++) cost[0][j] = j * INDEL;
@@ -133,6 +149,12 @@ public final class TranscriptionDiff {
                         Math.min(cost[i - 1][j], cost[i][j - 1]) + INDEL);
             }
         }
+        int[] aToB = new int[a.size() + 1];
+        int[] bToA = new int[b.size() + 1];
+        Arrays.fill(aToB, -1);
+        Arrays.fill(bToA, -1);
+        aToB[a.size()] = b.size();
+        bToA[b.size()] = a.size();
         int i = a.size();
         int j = b.size();
         while (i > 0 || j > 0) {
@@ -141,6 +163,8 @@ public final class TranscriptionDiff {
                     firstDiffers[a.get(i - 1).phoneme()] = true;
                     secondDiffers[b.get(j - 1).phoneme()] = true;
                 }
+                aToB[i - 1] = j - 1;
+                bToA[j - 1] = i - 1;
                 i--;
                 j--;
             } else if (i > 0 && cost[i][j] == cost[i - 1][j] + INDEL) {
@@ -148,6 +172,22 @@ public final class TranscriptionDiff {
             } else {
                 secondDiffers[b.get(--j).phoneme()] = true;
             }
+        }
+        List<Mark> firstMarks = marks(first, a);
+        List<Mark> secondMarks = marks(second, b);
+        if (firstMarks.isEmpty() || secondMarks.isEmpty()) return;
+        flagUnmatched(firstMarks, secondMarks, aToB, firstDiffers);
+        flagUnmatched(secondMarks, firstMarks, bToA, secondDiffers);
+    }
+
+    private static void flagUnmatched(List<Mark> marks, List<Mark> others, int[] aligned, boolean[] differs) {
+        for (Mark mark : marks) {
+            int partner = aligned[mark.before()];
+            boolean matched = partner >= 0
+                    && others.stream()
+                            .anyMatch(other ->
+                                    other.before() == partner && other.mark().equals(mark.mark()));
+            if (!matched) differs[mark.phoneme()] = true;
         }
     }
 
