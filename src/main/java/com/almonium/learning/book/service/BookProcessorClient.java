@@ -402,7 +402,7 @@ public class BookProcessorClient {
 
     private HttpHeaders internalHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Almonium-Books-Token", sharedSecret);
+        headers.set("X-Almonium-Books-Secret", sharedSecret);
         return headers;
     }
 
