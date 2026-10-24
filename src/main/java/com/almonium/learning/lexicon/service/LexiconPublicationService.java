@@ -119,6 +119,10 @@ public class LexiconPublicationService {
         lexeme.setKind(document.kind());
         lexeme.setGrammar(new LinkedHashMap<>(document.grammar()));
         lexeme.setPattern(document.pattern());
+        lexeme.setZipf(
+                publication.zipf() == null
+                        ? null
+                        : BigDecimal.valueOf(publication.zipf()).setScale(2, RoundingMode.HALF_UP));
         lexeme.setEntryVersion(fresh ? 1 : lexeme.getEntryVersion() + 1);
         lexeme.setStatus(LexiconStatus.PROVISIONAL);
         lexeme.setUpdatedAt(now);

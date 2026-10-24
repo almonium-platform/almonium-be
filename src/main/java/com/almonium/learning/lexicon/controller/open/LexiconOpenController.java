@@ -1,11 +1,15 @@
 package com.almonium.learning.lexicon.controller.open;
 
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
+import com.almonium.learning.lexicon.dto.response.LexiconSuggestion;
 import com.almonium.learning.lexicon.service.LexiconLookupService;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.Duration;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +43,20 @@ public class LexiconOpenController {
                         .cacheControl(CacheControl.maxAge(FRESH_FOR).cachePublic())
                         .body(entry))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**
+     * What the Discover field offers while a word is being typed. {@code fluent} names the language the glosses are
+     * in; a guest with none gets rows without glosses.
+     */
+    @GetMapping("/{language}/suggestions")
+    public ResponseEntity<List<LexiconSuggestion>> suggestions(
+            @PathVariable @Pattern(regexp = "^[a-z]{2}$") String language,
+            @RequestParam @NotBlank @Size(max = 64) String prefix,
+            @RequestParam(required = false) @Pattern(regexp = "^[a-z]{2}$") String fluent,
+            @RequestParam(defaultValue = "6") @Min(1) @Max(10) int limit) {
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(FRESH_FOR).cachePublic())
+                .body(lookupService.suggest(language, prefix, fluent, limit));
     }
 }

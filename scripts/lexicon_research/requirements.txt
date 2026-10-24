@@ -1,0 +1,3 @@
+# publish_entries.py: Zipf frequencies for the headwords it publishes
+requests>=2.31,<3
+wordfreq>=3.1,<4

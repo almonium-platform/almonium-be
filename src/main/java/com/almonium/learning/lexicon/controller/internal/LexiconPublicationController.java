@@ -91,7 +91,8 @@ public class LexiconPublicationController {
                             ? objectMapper.convertValue(item.path("meta"), new TypeReference<Map<String, Object>>() {})
                             : Map.of(),
                     builtAt(item.path("built_at")),
-                    EntrySchema.VERSION);
+                    EntrySchema.VERSION,
+                    zipf(item.path("zipf")));
         } catch (Exception exception) {
             return EntryPublicationResult.rejected(language, headword, "Malformed publication: " + reason(exception));
         }
@@ -101,6 +102,17 @@ public class LexiconPublicationController {
             log.warn("Lexicon entry {}/{} refused", language, headword, exception);
             return EntryPublicationResult.rejected(language, headword, reason(exception));
         }
+    }
+
+    /** A Zipf value is a frequency on a 0–9 scale; anything else is a malformed publication. */
+    private static Double zipf(JsonNode node) {
+        if (node.isMissingNode() || node.isNull()) {
+            return null;
+        }
+        if (!node.isNumber() || node.asDouble() < 0 || node.asDouble() >= 10) {
+            throw new IllegalArgumentException("zipf must be a number from 0 to under 10");
+        }
+        return node.asDouble();
     }
 
     private static Instant builtAt(JsonNode node) {

@@ -1,6 +1,7 @@
 package com.almonium.learning.lexicon.service;
 
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
+import com.almonium.learning.lexicon.dto.response.LexiconSuggestion;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
 import com.almonium.learning.lexicon.model.entity.AudioClip;
 import com.almonium.learning.lexicon.model.entity.Lexeme;
@@ -47,6 +48,19 @@ public class LexiconLookupService {
             return Optional.empty();
         }
         return Optional.of(mapper.toResponse(language, text, matches, clipsOf(matches.keySet())));
+    }
+
+    /** Up to {@code limit} headwords beginning with {@code prefix}, glossed in {@code fluent} where the entry can. */
+    public List<LexiconSuggestion> suggest(String language, String prefix, String fluent, int limit) {
+        String escaped = WordNormalizer.normalize(prefix).replaceAll("([\\\\%_])", "\\\\$1");
+        return lexemeRepository.suggest(language, escaped + "%", fluent, limit).stream()
+                .map(row -> new LexiconSuggestion(
+                        row.getHeadword(),
+                        row.getPos(),
+                        row.getGender(),
+                        row.getGloss(),
+                        row.getZipf() == null ? null : row.getZipf().doubleValue()))
+                .toList();
     }
 
     /** Every clip of these lexemes in one query, by pronunciation, so the mapper never asks per pronunciation. */

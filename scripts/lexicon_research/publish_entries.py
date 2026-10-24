@@ -3,7 +3,9 @@
 Walks out/<writer>/<lang>/*.json, pairs each entry with its <headword>.meta.json, skips files holding an
 "error" key, and PUTs them in signed batches to /internal/lexicon/entries; the backend answers one result
 per entry. The signature is HMAC-SHA256 of "{timestamp}." and the body under the publisher token, read from
-ALMONIUM_BOOKS_PUBLISHER_TOKEN as the processor reads it. The token is never printed.
+ALMONIUM_BOOKS_PUBLISHER_TOKEN as the processor reads it. The token is never printed. Each entry carries the
+headword's Zipf frequency from wordfreq, which the backend keeps on its lexemes to rank suggestions; wordfreq
+ships its tables, so this costs no network call (pip install -r requirements.txt).
 Usage: publish_entries.py [--writer cc-claude-opus-5-5] [--langs en,de] [--backend http://localhost:9998/api/v1]
                           [--limit N] [--workers 4] [--batch 50]
 (run from the backend repository root)
@@ -14,6 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+from wordfreq import zipf_frequency
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -38,7 +41,8 @@ def publications(writer, langs, limit):
             meta_path = path.with_name(path.stem + ".meta.json")
             meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
             built_at = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
-            yield path, {"writer": writer, "entry": entry, "meta": meta, "built_at": built_at}
+            zipf = round(zipf_frequency(entry["headword"], lang), 2)
+            yield path, {"writer": writer, "entry": entry, "meta": meta, "built_at": built_at, "zipf": zipf}
             count += 1
             if limit and count >= limit:
                 return

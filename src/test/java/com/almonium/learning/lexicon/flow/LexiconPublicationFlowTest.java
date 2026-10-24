@@ -27,6 +27,7 @@ import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ClipView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.LexemeView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PronunciationView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.SenseView;
+import com.almonium.learning.lexicon.dto.response.LexiconSuggestion;
 import com.almonium.learning.lexicon.dto.response.UnvoicedPronunciation;
 import com.almonium.learning.lexicon.mapper.AudioClipMapper;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
@@ -265,6 +266,44 @@ class LexiconPublicationFlowTest {
 
         assertThat(reading.entries("en", "nonesuch").getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(reading.entries("de", "bloke").getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void aMeasuredFrequencyIsKeptOnEveryLexemeAndRanksTheSuggestions() {
+        ObjectNode bloke = publication("bloke");
+        bloke.put("zipf", 3.1);
+        ObjectNode chuckle = publication("chuckle");
+        chuckle.put("zipf", 3.456);
+        assertThat(publishBatch(bloke, chuckle))
+                .extracting(EntryPublicationResult::accepted)
+                .containsOnly(true);
+
+        assertThat(lookup("en", "bloke").lexemes()).extracting(LexemeView::zipf).containsExactly(3.1);
+        assertThat(lookup("en", "chuckle").lexemes())
+                .extracting(LexemeView::zipf)
+                .containsOnly(3.46);
+
+        List<LexiconSuggestion> blo = suggestions("en", "Blo", "uk");
+        assertThat(blo).containsExactly(new LexiconSuggestion("bloke", "NOUN", null, "мужик", 3.1));
+        assertThat(suggestions("en", "chuckle", null)).singleElement().satisfies(row -> {
+            assertThat(row.headword()).isEqualTo("chuckle");
+            assertThat(row.gloss()).isNull();
+        });
+        assertThat(suggestions("en", "chuckled", "uk"))
+                .extracting(LexiconSuggestion::headword)
+                .containsExactly("chuckle");
+        assertThat(suggestions("en", "%", "uk")).isEmpty();
+        assertThat(suggestions("en", "_loke", "uk")).isEmpty();
+    }
+
+    @Test
+    void aFrequencyOffTheZipfScaleRefusesThePublication() {
+        ObjectNode bloke = publication("bloke");
+        bloke.put("zipf", 12.0);
+        assertThat(publishBatch(bloke)).singleElement().satisfies(result -> {
+            assertThat(result.accepted()).isFalse();
+            assertThat(result.message()).contains("zipf");
+        });
     }
 
     @Test
@@ -532,6 +571,12 @@ class LexiconPublicationFlowTest {
         submission.put("character_cost", 5.0);
         submission.put("audio_base64", Base64.getEncoder().encodeToString(mp3));
         return submission;
+    }
+
+    private List<LexiconSuggestion> suggestions(String language, String prefix, String fluent) {
+        ResponseEntity<List<LexiconSuggestion>> response = reading.suggestions(language, prefix, fluent, 6);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return response.getBody();
     }
 
     private LexiconEntryResponse lookup(String language, String text) {
