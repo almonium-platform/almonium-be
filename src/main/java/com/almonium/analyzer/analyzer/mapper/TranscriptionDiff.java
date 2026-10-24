@@ -3,12 +3,10 @@ package com.almonium.analyzer.analyzer.mapper;
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 /**
  * Where the varieties' transcriptions of one word part (design 5a): each transcription comes back cut into segments
@@ -21,12 +19,9 @@ import java.util.stream.IntStream;
  * symbol by symbol, which tints a changed diphthong by its changed half instead of whole.
  *
  * <p>Before comparing, spellings of one sound are made one (ɹ and r, ɝ and ɜːr, t͡ʃ and tʃ) and syllable dots are
- * ignored. A variety may record several transcriptions (niche: British ˈniːʃ or ˈnɪtʃ), and those are its own
- * alternatives, not a parting, so a transcription is compared only with other varieties': in each, with the one closest
- * to it. Two are aligned by edit distance, sounds only; a phoneme substituted or inserted is flagged in the one it is
- * in. A variety recording the same alternatives as another (both say ˈniːʃ and ˈnɪtʃ) therefore parts nowhere.
- * Stress is then compared by the sound each mark stands before, and left out between two transcriptions when one of
- * them marks none: a source that omits stress has not said it differs.
+ * ignored. Every pair of transcriptions is aligned by edit distance, sounds only; a phoneme substituted is flagged in
+ * both, one inserted in the one that has it. Stress is then compared by the sound each mark stands before, and left
+ * out between two transcriptions when one of them marks none: a source that omits stress has not said it differs.
  */
 public final class TranscriptionDiff {
     /** Closing diphthongs and affricates. Centring ones (ɪə) stay two, so British ɪə against American ɪɹ shares the ɪ. */
@@ -54,22 +49,8 @@ public final class TranscriptionDiff {
 
     private TranscriptionDiff() {}
 
-    /** Segments for each transcription, every one taken as its own variety. */
+    /** Segments for each transcription, in order; a null transcription gets null. */
     public static List<List<IpaSegmentResponse>> segments(List<String> transcriptions, String language) {
-        return segments(
-                transcriptions,
-                IntStream.range(0, transcriptions.size())
-                        .mapToObj(String::valueOf)
-                        .toList(),
-                language);
-    }
-
-    /**
-     * Segments for each transcription, in order, against the closest transcription of each other variety; a null
-     * transcription gets null.
-     */
-    public static List<List<IpaSegmentResponse>> segments(
-            List<String> transcriptions, List<String> varieties, String language) {
         Set<String> units = UNITS.getOrDefault(language == null ? "" : language.toLowerCase(), Set.of());
         List<List<String>> phonemes = transcriptions.stream()
                 .map(transcription -> transcription == null ? null : phonemes(transcription, units))
@@ -77,35 +58,10 @@ public final class TranscriptionDiff {
         List<boolean[]> differs = phonemes.stream()
                 .map(line -> line == null ? null : new boolean[line.size()])
                 .toList();
-        Map<String, List<Integer>> byVariety = new LinkedHashMap<>();
-        for (int index = 0; index < phonemes.size(); index++) {
-            if (phonemes.get(index) != null) {
-                byVariety
-                        .computeIfAbsent(varieties.get(index), variety -> new ArrayList<>())
-                        .add(index);
-            }
-        }
-        for (int index = 0; index < phonemes.size(); index++) {
-            if (phonemes.get(index) == null) continue;
-            List<String> line = phonemes.get(index);
-            for (Map.Entry<String, List<Integer>> variety : byVariety.entrySet()) {
-                if (variety.getKey().equals(varieties.get(index))) continue;
-                boolean[] closest = null;
-                int closestCost = Integer.MAX_VALUE;
-                for (int other : variety.getValue()) {
-                    boolean[] flags = new boolean[line.size()];
-                    int cost = compare(
-                            line,
-                            phonemes.get(other),
-                            flags,
-                            new boolean[phonemes.get(other).size()]);
-                    if (cost < closestCost) {
-                        closest = flags;
-                        closestCost = cost;
-                    }
-                }
-                for (int phoneme = 0; phoneme < line.size(); phoneme++) {
-                    differs.get(index)[phoneme] |= closest[phoneme];
+        for (int first = 0; first < phonemes.size(); first++) {
+            for (int second = first + 1; second < phonemes.size(); second++) {
+                if (phonemes.get(first) != null && phonemes.get(second) != null) {
+                    compare(phonemes.get(first), phonemes.get(second), differs.get(first), differs.get(second));
                 }
             }
         }
@@ -177,10 +133,9 @@ public final class TranscriptionDiff {
      * lines share is never traded away to shift a run (ɡəˈrɑːʒ against ˈɡærɑːʒ keeps the ɡ matched). Stress is
      * compared after, against the alignment: a mark is flagged unless the other line has the same mark before the
      * sound this one's stands before, so a stress that moves a syllable shows even where the sounds around it agree.
-     * When either line marks no stress at all, stress is left out. Returns the alignment's cost, a flagged stress
-     * mark counting as one more step, so the closest of a variety's alternatives can be picked.
+     * When either line marks no stress at all, stress is left out.
      */
-    private static int compare(
+    private static void compare(
             List<String> first, List<String> second, boolean[] firstDiffers, boolean[] secondDiffers) {
         List<Key> a = keys(first);
         List<Key> b = keys(second);
@@ -220,27 +175,20 @@ public final class TranscriptionDiff {
         }
         List<Mark> firstMarks = marks(first, a);
         List<Mark> secondMarks = marks(second, b);
-        int distance = cost[a.size()][b.size()];
-        if (firstMarks.isEmpty() || secondMarks.isEmpty()) return distance;
-        return distance
-                + flagUnmatched(firstMarks, secondMarks, aToB, firstDiffers)
-                + flagUnmatched(secondMarks, firstMarks, bToA, secondDiffers);
+        if (firstMarks.isEmpty() || secondMarks.isEmpty()) return;
+        flagUnmatched(firstMarks, secondMarks, aToB, firstDiffers);
+        flagUnmatched(secondMarks, firstMarks, bToA, secondDiffers);
     }
 
-    private static int flagUnmatched(List<Mark> marks, List<Mark> others, int[] aligned, boolean[] differs) {
-        int unmatched = 0;
+    private static void flagUnmatched(List<Mark> marks, List<Mark> others, int[] aligned, boolean[] differs) {
         for (Mark mark : marks) {
             int partner = aligned[mark.before()];
             boolean matched = partner >= 0
                     && others.stream()
                             .anyMatch(other ->
                                     other.before() == partner && other.mark().equals(mark.mark()));
-            if (!matched) {
-                differs[mark.phoneme()] = true;
-                unmatched++;
-            }
+            if (!matched) differs[mark.phoneme()] = true;
         }
-        return unmatched;
     }
 
     private static int step(Key a, Key b) {

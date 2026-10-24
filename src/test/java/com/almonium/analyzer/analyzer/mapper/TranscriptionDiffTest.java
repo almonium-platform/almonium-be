@@ -264,39 +264,18 @@ class TranscriptionDiffTest {
     }
 
     @Nested
-    class Varieties {
-        private List<List<String>> tinted(List<String> transcriptions, List<String> varieties) {
-            return TranscriptionDiff.segments(transcriptions, varieties, "en").stream()
-                    .map(line -> line.stream()
-                            .filter(IpaSegmentResponse::differs)
-                            .map(IpaSegmentResponse::text)
-                            .toList())
-                    .toList();
-        }
-
-        @Test
-        void neverTintAVarietysAlternativesAgainstEachOther() {
-            assertThat(tinted(List.of("/ˈniːʃ/", "/ˈnɪtʃ/"), List.of("en-GB", "en-GB")))
-                    .containsExactly(List.of(), List.of());
-        }
-
-        @Test
-        void tintNothingWhenTwoVarietiesRecordTheSameAlternativesInAnotherOrder() {
-            assertThat(tinted(
-                            List.of("/ˈniːʃ/", "/ˈnɪtʃ/", "/ˈnɪtʃ/", "/ˈniːʃ/"),
-                            List.of("en-GB", "en-GB", "en-US", "en-US")))
-                    .containsExactly(List.of(), List.of(), List.of(), List.of());
-        }
-
-        @Test
-        void compareEachAlternativeWithTheClosestOfTheOtherVariety() {
-            assertThat(tinted(List.of("/ˈniːʃ/", "/ˈnɪtʃ/", "/ˈnɪtʃ/"), List.of("en-GB", "en-GB", "en-US")))
-                    .containsExactly(List.of("iːʃ"), List.of(), List.of());
-        }
-    }
-
-    @Nested
     class SeveralLines {
+        @Test
+        void tintTheVariantDifferenceWhenBothAccentsRecordTheSameTwo() {
+            assertThat(tinted("en", "/ˈniːʃ/", "/ˈnɪtʃ/", "/ˈnɪtʃ/", "/ˈniːʃ/"))
+                    .containsExactly(List.of("iːʃ"), List.of("ɪtʃ"), List.of("ɪtʃ"), List.of("iːʃ"));
+        }
+
+        @Test
+        void tintNothingWhenEveryAccentRecordsTheSameTranscription() {
+            assertThat(tinted("en", "/bʊk/", "/bʊk/")).containsExactly(List.of(), List.of());
+        }
+
         @Test
         void tintAPhonemeThatDiffersFromAnyOtherLine() {
             assertThat(tinted("en", "/ˈklɪə/", "/ˈklɪɹ/", "/ˈklɪə/"))

@@ -73,11 +73,7 @@ public class DiscoverLexiconMapper {
                         DiscoverLexiconMapper::betterClip));
         List<DiscoverPronunciationResponse> pronunciations = List.copyOf(byVarietyAndIpa.values());
         List<List<IpaSegmentResponse>> segments = TranscriptionDiff.segments(
-                pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(),
-                pronunciations.stream()
-                        .map(DiscoverPronunciationResponse::variety)
-                        .toList(),
-                entry.language());
+                pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(), entry.language());
         List<DiscoverPronunciationResponse> cut = new ArrayList<>();
         for (int index = 0; index < pronunciations.size(); index++) {
             cut.add(pronunciations.get(index).withSegments(segments.get(index)));
