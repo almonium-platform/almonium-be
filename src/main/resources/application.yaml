@@ -96,6 +96,9 @@ app:
     sparql-url: https://qlever.dev/api/wikidata
     gutenberg-csv-url: https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv
     title-languages: en,mul,de,uk,ru,fr,es,it,pl,pt,nl,cs,sv
+    # Which library's text a reader's want is made from, per language of the text, best first; "*" is every
+    # other language. A library that does not carry a language is not on its list.
+    source-order: "en=STANDARD_EBOOKS,ELTEC,GUTENBERG,WIKISOURCE;pl=WOLNE_LEKTURY,ELTEC,GUTENBERG,WIKISOURCE;fr=ELTEC,BEQ,ELG,GUTENBERG,WIKISOURCE;*=ELTEC,GUTENBERG,WIKISOURCE"
   rights:
     # Where editions are made (Ukraine) and hosted (Germany): a work must be free in all of them to be prepared.
     production-countries: UA,DE

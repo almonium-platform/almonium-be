@@ -12,6 +12,7 @@ import java.util.UUID;
  * @param edition one edition's text; a Wikisource page about the whole work may only list its editions
  * @param pageUrl the human page (Gutenberg's book page, the Wikisource page)
  * @param downloadUrl the EPUB the book processor fetches
+ * @param shape the processor's verdict on the file's shape ("ok", "suspect", "unreadable"), null when never measured
  */
 public record TextSourceView(
         UUID id,
@@ -24,4 +25,5 @@ public record TextSourceView(
         String pageUrl,
         String downloadUrl,
         RightsStatus status,
-        Integer freeFrom) {}
+        Integer freeFrom,
+        String shape) {}

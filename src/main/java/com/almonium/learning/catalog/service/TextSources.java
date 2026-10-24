@@ -18,7 +18,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,25 +40,35 @@ public class TextSources {
     private final CatalogStore store;
     private final CatalogWorkRepository catalogWorkRepository;
     private final ProductionRights productionRights;
+    private final SourceOrder sourceOrder;
 
     /**
-     * Every source of a work: the ones that may be prepared first, then one edition's text before a page that may
-     * only list editions, then originals before translations.
+     * Every source of a work, best first: the ones that may be prepared, then files the processor found sound in
+     * shape before ones it found suspect, then one edition's text before a page that may only list editions,
+     * originals before translations, the libraries in the order the source's language prefers, and a file measured
+     * sound before one never measured. The first is the default a reader's want is made from.
      */
     public List<TextSourceView> forWork(UUID catalogWorkId) {
         CatalogWork work = catalogWorkRepository
                 .findById(catalogWorkId)
                 .orElseThrow(() -> new EntityNotFoundException("Work not found"));
-        return store.sources(catalogWorkId).stream()
-                .map(source -> view(work, source))
+        List<SourceRow> rows = store.sources(catalogWorkId);
+        Map<String, String> shapes =
+                store.shapes(rows.stream().map(TextSources::downloadUrl).toList());
+        return rows.stream()
+                .map(source -> view(work, source, shapes.get(downloadUrl(source))))
                 .sorted(Comparator.comparingInt(
                                 (TextSourceView view) -> view.status().ordinal())
+                        .thenComparing(view -> view.shape() != null && SUSPECT_SHAPES.contains(view.shape()))
                         .thenComparing(view -> !view.edition())
                         .thenComparing(TextSourceView::translation)
-                        .thenComparing(TextSourceView::kind)
+                        .thenComparingInt(view -> sourceOrder.rank(view.language(), view.kind()))
+                        .thenComparing(view -> !"ok".equals(view.shape()))
                         .thenComparing(view -> view.label() == null ? "" : view.label()))
                 .toList();
     }
+
+    static final Set<String> SUSPECT_SHAPES = Set.of("suspect", "unreadable");
 
     public Optional<TextSourceView> find(UUID sourceId) {
         return store.source(sourceId)
@@ -70,6 +82,10 @@ public class TextSources {
     }
 
     TextSourceView view(CatalogWork work, SourceRow source) {
+        return view(work, source, null);
+    }
+
+    TextSourceView view(CatalogWork work, SourceRow source, String shape) {
         CountryVerdict verdict = verdict(work, source);
         return new TextSourceView(
                 source.id(),
@@ -82,7 +98,8 @@ public class TextSources {
                 pageUrl(source),
                 downloadUrl(source),
                 verdict.status(),
-                verdict.exactYear());
+                verdict.exactYear(),
+                shape);
     }
 
     /** The work's verdict, then the translators', the stricter winning; a translation by nobody known is unknown. */
@@ -116,16 +133,42 @@ public class TextSources {
         return new YearRange(earliest, latest);
     }
 
+    /**
+     * The human page of a source. Gutenberg and Wolne Lektury are referenced by id and slug, Standard Ebooks by its
+     * path, ELTeC by the raw TEI file's address, BEQ and ELG by the EPUB's address; Wikisource by the page's address.
+     */
     static String pageUrl(SourceRow source) {
-        return CatalogRecord.GUTENBERG.equals(source.kind())
-                ? "https://www.gutenberg.org/ebooks/" + source.reference()
-                : source.reference();
+        return switch (source.kind()) {
+            case CatalogRecord.GUTENBERG -> "https://www.gutenberg.org/ebooks/" + source.reference();
+            case CatalogRecord.STANDARD_EBOOKS -> "https://standardebooks.org" + source.reference();
+            case CatalogRecord.WOLNE_LEKTURY -> "https://wolnelektury.pl/katalog/lektura/" + source.reference() + "/";
+            default -> source.reference();
+        };
     }
 
-    /** Gutenberg's EPUB 3 with images; for Wikisource, its export tool's EPUB of the page and its subpages. */
+    /**
+     * The file the book processor fetches: Gutenberg's EPUB 3 with images (the processor falls back to the plain
+     * build), Standard Ebooks' EPUB with the parameter without which the site answers a page, Wolne Lektury's EPUB
+     * from its media path, ELTeC's TEI, BEQ's and ELG's EPUB as referenced, and for Wikisource its export tool's
+     * EPUB of the page and its subpages.
+     */
     static String downloadUrl(SourceRow source) {
-        if (CatalogRecord.GUTENBERG.equals(source.kind())) {
-            return "https://www.gutenberg.org/ebooks/" + source.reference() + ".epub3.images";
+        switch (source.kind()) {
+            case CatalogRecord.GUTENBERG -> {
+                return "https://www.gutenberg.org/ebooks/" + source.reference() + ".epub3.images";
+            }
+            case CatalogRecord.STANDARD_EBOOKS -> {
+                String[] parts = source.reference().split("/");
+                String file = parts[parts.length - 2] + "_" + parts[parts.length - 1] + ".epub";
+                return "https://standardebooks.org" + source.reference() + "/downloads/" + file + "?source=download";
+            }
+            case CatalogRecord.WOLNE_LEKTURY -> {
+                return "https://wolnelektury.pl/media/book/epub/" + source.reference() + ".epub";
+            }
+            case CatalogRecord.ELTEC, CatalogRecord.BEQ, CatalogRecord.ELG -> {
+                return source.reference();
+            }
+            default -> {}
         }
         String path = URI.create(source.reference()).getRawPath();
         String page = path.substring(path.lastIndexOf('/') + 1);

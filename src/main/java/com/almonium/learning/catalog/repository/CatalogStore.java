@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -207,6 +208,32 @@ public class CatalogStore {
                         + " from catalog_text_source where catalog_work_id = ? order by kind, language, label",
                 this::sourceRow,
                 workId);
+    }
+
+    /** The processor's shape verdict for each download address it has measured, among {@code downloadUrls}. */
+    public Map<String, String> shapes(Collection<String> downloadUrls) {
+        if (downloadUrls.isEmpty()) {
+            return Map.of();
+        }
+        Map<String, String> shapes = new HashMap<>();
+        named.query(
+                "select download_url, verdict from catalog_source_shape where download_url in (:urls)",
+                new MapSqlParameterSource("urls", downloadUrls),
+                row -> {
+                    shapes.put(row.getString(1), row.getString(2));
+                });
+        return shapes;
+    }
+
+    /** Keep the processor's verdict on a file's shape; a later measurement replaces an earlier one. */
+    public void recordShape(String downloadUrl, String verdict, Instant checkedAt) {
+        jdbc.update(
+                "insert into catalog_source_shape (download_url, verdict, checked_at) values (?, ?, ?)"
+                        + " on conflict (download_url) do update set verdict = excluded.verdict,"
+                        + " checked_at = excluded.checked_at",
+                downloadUrl,
+                verdict,
+                Timestamp.from(checkedAt));
     }
 
     public Optional<SourceRow> source(UUID sourceId) {

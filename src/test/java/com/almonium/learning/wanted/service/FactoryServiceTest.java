@@ -149,6 +149,7 @@ class FactoryServiceTest {
                 pageUrl,
                 pageUrl + ".epub3.images",
                 status,
+                null,
                 null);
     }
 }

@@ -75,6 +75,7 @@ class PreparationServiceTest {
                 "https://www.gutenberg.org/ebooks/345",
                 "https://www.gutenberg.org/ebooks/345.epub3.images",
                 status,
+                null,
                 null);
         when(sources.find(view.id())).thenReturn(Optional.of(view));
         when(sources.belongsTo(view, work.getId())).thenReturn(true);

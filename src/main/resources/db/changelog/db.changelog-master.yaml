@@ -191,3 +191,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261011-preparation-reporter.yaml
   - include:
       file: db/changelog/changes/patches/20261018-lexicon.yaml
+  - include:
+      file: db/changelog/changes/patches/20261024-catalog-source-shape.yaml

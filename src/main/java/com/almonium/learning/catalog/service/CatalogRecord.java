@@ -39,6 +39,11 @@ final class CatalogRecord {
 
     static final String GUTENBERG = "GUTENBERG";
     static final String WIKISOURCE = "WIKISOURCE";
+    static final String STANDARD_EBOOKS = "STANDARD_EBOOKS";
+    static final String WOLNE_LEKTURY = "WOLNE_LEKTURY";
+    static final String ELTEC = "ELTEC";
+    static final String BEQ = "BEQ";
+    static final String ELG = "ELG";
 
     static final String TITLE = "TITLE";
     static final String AUTHOR = "AUTHOR";

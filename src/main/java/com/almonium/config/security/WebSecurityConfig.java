@@ -110,6 +110,7 @@ public class WebSecurityConfig {
                                 PathPatternRequestMatcher.withDefaults()
                                         .matcher("/internal/books/publications/rights-check"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/import-events"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/internal/books/sources/shape"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/books/factory/**"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/internal/lexicon/**"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"),
@@ -124,6 +125,7 @@ public class WebSecurityConfig {
                                 "/internal/books/publications/withdrawals",
                                 "/internal/books/publications/rights-check",
                                 "/internal/books/import-events",
+                                "/internal/books/sources/shape",
                                 "/internal/books/factory/**",
                                 "/internal/lexicon/**")
                         .permitAll()

@@ -1,9 +1,11 @@
 package com.almonium.learning.catalog.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.almonium.learning.catalog.dto.response.TextSourceView;
 import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogStore;
@@ -16,6 +18,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -29,7 +32,8 @@ class TextSourcesTest {
             new ProductionRights(
                     new CopyrightEngine(),
                     Clock.fixed(Instant.parse("2026-10-08T00:00:00Z"), ZoneOffset.UTC),
-                    List.of("UA", "DE")));
+                    List.of("UA", "DE")),
+            new SourceOrder("en=STANDARD_EBOOKS,GUTENBERG,WIKISOURCE;*=GUTENBERG,WIKISOURCE"));
 
     static CatalogWork warAndPeace() {
         CatalogWork work = new CatalogWork();
@@ -117,5 +121,43 @@ class TextSourcesTest {
             assertThat(view.status()).isEqualTo(RightsStatus.PROTECTED);
             assertThat(view.freeFrom()).isEqualTo(2047);
         });
+    }
+
+    @Test
+    void sourcesAreRankedByRightsThenShapeThenTheLanguagesLibraryOrder() {
+        CatalogWork work = warAndPeace();
+        work.setOriginalLanguage("en");
+        SourceRow gutenberg = source("GUTENBERG", "en", "2600", false);
+        SourceRow standard = source("STANDARD_EBOOKS", "en", "/ebooks/leo-tolstoy/war-and-peace", false);
+        SourceRow suspect = source("STANDARD_EBOOKS", "en", "/ebooks/leo-tolstoy/war-and-peace-2", false);
+        SourceRow measured = source("GUTENBERG", "en", "2601", false);
+        when(works.findById(work.getId())).thenReturn(Optional.of(work));
+        when(store.sources(work.getId())).thenReturn(List.of(gutenberg, standard, suspect, measured));
+        when(store.shapes(any()))
+                .thenReturn(Map.of(
+                        TextSources.downloadUrl(suspect), "suspect",
+                        TextSources.downloadUrl(measured), "ok"));
+
+        List<TextSourceView> ranked = sources.forWork(work.getId());
+
+        // the English order prefers Standard Ebooks; among Gutenberg's files the measured one comes first; a file
+        // the processor found suspect sinks below every sound or unmeasured one
+        assertThat(ranked.stream().map(TextSourceView::id).toList())
+                .containsExactly(standard.id(), measured.id(), gutenberg.id(), suspect.id());
+        assertThat(ranked.getFirst().downloadUrl())
+                .isEqualTo("https://standardebooks.org/ebooks/leo-tolstoy/war-and-peace/downloads/"
+                        + "leo-tolstoy_war-and-peace.epub?source=download");
+        assertThat(ranked.getFirst().pageUrl())
+                .isEqualTo("https://standardebooks.org/ebooks/leo-tolstoy/war-and-peace");
+        assertThat(ranked.get(1).shape()).isEqualTo("ok");
+    }
+
+    @Test
+    void wolneLekturyIsReferencedBySlug() {
+        SourceRow row = source("WOLNE_LEKTURY", "pl", "balzac-gabinet-starozytnosci", true);
+        assertThat(TextSources.pageUrl(row))
+                .isEqualTo("https://wolnelektury.pl/katalog/lektura/balzac-gabinet-starozytnosci/");
+        assertThat(TextSources.downloadUrl(row))
+                .isEqualTo("https://wolnelektury.pl/media/book/epub/balzac-gabinet-starozytnosci.epub");
     }
 }

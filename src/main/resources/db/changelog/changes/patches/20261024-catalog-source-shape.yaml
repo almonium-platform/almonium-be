@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261024-catalog-source-shape
+      author: claude
+      comment: >-
+        The book processor's verdict on a source file's shape (ok, suspect, unreadable), by the address it fetched,
+        so a work's sources can be ranked on it. Kept apart from catalog_text_source, which every import replaces.
+      changes:
+        - createTable:
+            tableName: catalog_source_shape
+            columns:
+              - column:
+                  name: download_url
+                  type: varchar(1000)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: verdict
+                  type: varchar(12)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checked_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
