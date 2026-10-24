@@ -117,7 +117,8 @@ publications. See `COPYRIGHT_AND_CATALOGUE.md`, "The factory".
 
 The backend owns the dictionary, in the `lexicon` schema. The entry writers
 publish to `PUT /internal/lexicon/entries`, signed like publications, with one
-`{writer, entry, meta, built_at}` body or an array of them; `entry` is the
+`{writer, entry, meta, built_at, zipf}` body or an array of them (`zipf`, the
+headword's frequency from wordfreq, is optional); `entry` is the
 writer's JSON as `scripts/lexicon_research/entry.schema.json` (version 2)
 describes it and is checked against that schema, `meta` the writer's
 `<headword>.meta.json`. Each entry is taken in its own transaction and
@@ -125,8 +126,10 @@ replaces whatever stood for its headword; pronunciations are updated in place
 by variety, rank and form so audio clips keep pointing at them. A single entry
 is refused with **400** and the schema's message; a batch answers **200** with
 one result per entry. `scripts/lexicon_research/publish_entries.py` is the
-loader, reading the token from `ALMONIUM_BOOKS_PUBLISHER_TOKEN` as the
-processor does.
+loader. It signs with the backend's own `ALMONIUM_BOOKS_PUBLISHER_SECRET`,
+exported or read from `.env`. That is the vault's
+`almonium_shared.books.publisher_secret`, which the book processor receives
+under its own name, `ALMONIUM_BOOKS_PUBLISHER_TOKEN`.
 
 Clients read `GET /public/lexicon/{language}/entries?text=` without
 authentication: the lexemes the word names by headword or lemma, then those it

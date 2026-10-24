@@ -20,8 +20,8 @@ uk-UA); es-MX and de-AT wait for voices of their own. Inflected forms are left o
 run may spend (0 = no cap); --credit-floor stops before synthesis when the plan has fewer credits
 left. --dry-run lists what would be rendered and the estimated credits, without touching ElevenLabs.
 
-The ElevenLabs key is ELEVENLABS_API_KEY in .env; the backend token is ALMONIUM_BOOKS_PUBLISHER_TOKEN from
-the environment, or else the backend's own ALMONIUM_BOOKS_PUBLISHER_SECRET from .env. Neither is ever printed.
+The ElevenLabs key is ELEVENLABS_API_KEY in .env; requests to the backend are signed with
+ALMONIUM_BOOKS_PUBLISHER_SECRET, exported or from .env (see backend_env.py). Neither is ever printed.
 """
 
 import argparse
@@ -38,7 +38,7 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from backend_env import dotenv_value, publisher_token  # noqa: E402
+from backend_env import dotenv_value, publisher_secret  # noqa: E402
 from tts_recipe import (  # noqa: E402
     ENGINE,
     MODEL,
@@ -406,7 +406,7 @@ def main():
     except UnsupportedLanguage as e:
         sys.exit(str(e))
 
-    backend = Backend(args.backend, publisher_token())
+    backend = Backend(args.backend, publisher_secret())
     eleven = None
     if not args.dry_run:
         eleven = ElevenLabs(api_key(), args.credit_budget)
