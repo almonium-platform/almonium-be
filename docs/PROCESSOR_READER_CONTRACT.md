@@ -129,7 +129,7 @@ one result per entry. `scripts/lexicon_research/publish_entries.py` is the
 loader. It signs with the backend's own `ALMONIUM_BOOKS_PUBLISHER_SECRET`,
 exported or read from `.env`. That is the vault's
 `almonium_shared.books.publisher_secret`, which the book processor receives
-under its own name, `ALMONIUM_BOOKS_PUBLISHER_TOKEN`.
+under the same name.
 
 Clients read `GET /public/lexicon/{language}/entries?text=` without
 authentication: the lexemes the word names by headword or lemma, then those it

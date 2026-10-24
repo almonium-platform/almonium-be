@@ -1,10 +1,9 @@
 """Secrets the lexicon scripts share with the backend, read under the backend's own names.
 
 The publisher secret signs requests to /internal/lexicon/entries and the clip endpoints. It is the vault's
-almonium_shared.books.publisher_secret, which infra hands the backend as ALMONIUM_BOOKS_PUBLISHER_SECRET (and the book
-processor, under its own name, as ALMONIUM_BOOKS_PUBLISHER_TOKEN). These scripts belong to the backend, so they use
-the backend's name: exported to sign for another environment, otherwise from the backend's .env. No value is ever
-printed.
+almonium_shared.books.publisher_secret, which infra hands the backend and the book processor alike as
+ALMONIUM_BOOKS_PUBLISHER_SECRET. Exported, it signs for another environment; otherwise it comes from the backend's
+.env. No value is ever printed.
 """
 import os
 import sys
