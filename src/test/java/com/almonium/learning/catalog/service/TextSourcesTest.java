@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.almonium.learning.catalog.dto.response.SourceOption;
 import com.almonium.learning.catalog.dto.response.TextSourceView;
 import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.model.entity.CatalogWork;
@@ -159,5 +160,27 @@ class TextSourcesTest {
                 .isEqualTo("https://wolnelektury.pl/katalog/lektura/balzac-gabinet-starozytnosci/");
         assertThat(TextSources.downloadUrl(row))
                 .isEqualTo("https://wolnelektury.pl/media/book/epub/balzac-gabinet-starozytnosci.epub");
+    }
+
+    @Test
+    void theOptionsMarkTheFirstFreeTextAsTheDefaultAndListProtectedOnesToo() {
+        CatalogWork work = warAndPeace();
+        work.setOriginalLanguage("ru");
+        SourceRow original = source("GUTENBERG", "ru", "2600", false);
+        SourceRow recent = source(
+                "GUTENBERG", "en", "2601", true, new CatalogAuthor("Living Translator", null, 1960, null, false, null));
+        when(works.findById(work.getId())).thenReturn(Optional.of(work));
+        when(store.sources(work.getId())).thenReturn(List.of(recent, original));
+        when(store.shapes(any())).thenReturn(Map.of());
+
+        var options = sources.options(work.getId());
+
+        assertThat(options).extracting(SourceOption::preferred).containsExactly(true, false);
+        assertThat(options.getFirst().downloadUrl()).isEqualTo("https://www.gutenberg.org/ebooks/2600.epub3.images");
+        assertThat(options.get(1).status()).isEqualTo(RightsStatus.PROTECTED);
+        assertThat(sources.byDownloadUrl(work.getId(), "https://www.gutenberg.org/ebooks/2600.epub3.images"))
+                .isPresent();
+        assertThat(sources.byDownloadUrl(work.getId(), "https://elsewhere/x.epub"))
+                .isEmpty();
     }
 }

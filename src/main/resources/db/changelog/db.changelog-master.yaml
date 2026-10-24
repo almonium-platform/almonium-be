@@ -193,3 +193,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261018-lexicon.yaml
   - include:
       file: db/changelog/changes/patches/20261024-catalog-source-shape.yaml
+  - include:
+      file: db/changelog/changes/patches/20261024-want-source.yaml

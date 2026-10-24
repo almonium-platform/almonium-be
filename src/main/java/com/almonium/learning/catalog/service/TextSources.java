@@ -1,5 +1,6 @@
 package com.almonium.learning.catalog.service;
 
+import com.almonium.learning.catalog.dto.response.SourceOption;
 import com.almonium.learning.catalog.dto.response.TextSourceView;
 import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.model.entity.CatalogWork;
@@ -69,6 +70,37 @@ public class TextSources {
     }
 
     static final Set<String> SUSPECT_SHAPES = Set.of("suspect", "unreadable");
+
+    /**
+     * The sources a reader may choose from, best first, with the first that may be prepared marked as the default
+     * (W1). Protected texts are listed so the reader sees why a library's edition is not offered.
+     */
+    public List<SourceOption> options(UUID catalogWorkId) {
+        List<TextSourceView> ranked = forWork(catalogWorkId);
+        TextSourceView preferred = ranked.stream()
+                .filter(view -> view.status() == RightsStatus.FREE)
+                .findFirst()
+                .orElse(null);
+        return ranked.stream()
+                .map(view -> new SourceOption(
+                        view.kind(),
+                        view.language(),
+                        view.label(),
+                        view.translation(),
+                        view.pageUrl(),
+                        view.downloadUrl(),
+                        view.status(),
+                        view.shape(),
+                        view == preferred))
+                .toList();
+    }
+
+    /** A work's source by the address the processor fetches it from, the key a want names its choice by. */
+    public Optional<TextSourceView> byDownloadUrl(UUID catalogWorkId, String downloadUrl) {
+        return forWork(catalogWorkId).stream()
+                .filter(view -> view.downloadUrl().equals(downloadUrl))
+                .findFirst();
+    }
 
     public Optional<TextSourceView> find(UUID sourceId) {
         return store.source(sourceId)

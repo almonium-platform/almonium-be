@@ -74,6 +74,12 @@ public class Want {
 
     Instant arrivedAt;
 
+    /**
+     * The library's text the reader asked for, by the address the processor fetches it from, when they overrode the
+     * default (W1); null to take the catalogue's best. The first reservation's choice wins for everyone waiting.
+     */
+    String sourceDownloadUrl;
+
     @CreatedDate
     Instant createdAt;
 }

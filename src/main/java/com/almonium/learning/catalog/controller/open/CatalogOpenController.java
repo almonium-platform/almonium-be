@@ -2,8 +2,10 @@ package com.almonium.learning.catalog.controller.open;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.catalog.dto.response.CatalogHit;
+import com.almonium.learning.catalog.dto.response.SourceOption;
 import com.almonium.learning.catalog.dto.response.WorkUnlocksView;
 import com.almonium.learning.catalog.service.CatalogSearchService;
+import com.almonium.learning.catalog.service.TextSources;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CatalogOpenController {
     private final CatalogSearchService catalogSearchService;
+    private final TextSources textSources;
 
     @GetMapping("/search")
     public ResponseEntity<List<CatalogHit>> search(
@@ -48,6 +51,12 @@ public class CatalogOpenController {
             @RequestParam(required = false) Language language) {
         int target = year != null ? year : catalogSearchService.currentYear() + 1;
         return ResponseEntity.ok(catalogSearchService.freeFrom(target, limit, language));
+    }
+
+    /** The libraries a work's text can come from, best first, with the default a want is made from marked. */
+    @GetMapping("/works/{id}/sources")
+    public ResponseEntity<List<SourceOption>> sources(@PathVariable UUID id) {
+        return ResponseEntity.ok(textSources.options(id));
     }
 
     /** Where and when a work is free to read, country by country: the unlock map (W7). */

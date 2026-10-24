@@ -43,6 +43,26 @@ class FactoryServiceTest {
     void setUp() {
         when(works.findAllById(any())).thenReturn(List.of(dracula, faust));
         when(preparations.forWorks(any())).thenReturn(List.of());
+        when(wants.findByCatalogWorkIdAndLanguageAndStatusIn(any(), any(), any()))
+                .thenReturn(List.of());
+    }
+
+    @Test
+    void aWaitingReadersChosenTextBeatsTheCataloguesDefault() {
+        WantGroup draculaInEnglish = group(dracula, Language.EN, 3, "2026-10-01T00:00:00Z");
+        when(wants.groups(List.of(WantStatus.OPEN))).thenReturn(List.of(draculaInEnglish));
+        TextSourceView standard =
+                source("en", RightsStatus.FREE, "https://standardebooks.org/ebooks/bram-stoker/dracula");
+        TextSourceView gutenberg = source("en", RightsStatus.FREE, "https://www.gutenberg.org/ebooks/345");
+        when(sources.forWork(dracula.getId())).thenReturn(List.of(standard, gutenberg));
+        Want chooser = new Want();
+        chooser.setSourceDownloadUrl(gutenberg.downloadUrl());
+        when(wants.findByCatalogWorkIdAndLanguageAndStatusIn(dracula.getId(), Language.EN, WantStatus.STANDING))
+                .thenReturn(List.of(new Want(), chooser));
+
+        List<FactoryQueueRow> queue = service.queue();
+
+        assertThat(queue.getFirst().source().downloadUrl()).isEqualTo(gutenberg.downloadUrl());
     }
 
     @Test

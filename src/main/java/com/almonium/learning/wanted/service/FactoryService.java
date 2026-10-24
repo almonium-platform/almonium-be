@@ -19,9 +19,11 @@ import com.almonium.user.core.exception.ResourceConflictException;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -105,16 +107,29 @@ public class FactoryService {
                 bestSource(work, group.getLanguage()).orElse(null));
     }
 
-    /** A free text the processor reads: in the wanted language if there is one, else the work's own, else any. */
+    /**
+     * A free text the processor reads: the one a waiting reader chose if any did (the first choice found wins for
+     * everyone), else in the wanted language if there is one, else the work's own, else any.
+     */
     private Optional<FactoryQueueRow.Source> bestSource(CatalogWork work, Language wanted) {
         List<TextSourceView> free = textSources.forWork(work.getId()).stream()
                 .filter(source -> source.status() == RightsStatus.FREE)
                 .filter(source -> PreparationService.language(source.language()).isPresent())
                 .toList();
+        Set<String> chosen =
+                wantRepository
+                        .findByCatalogWorkIdAndLanguageAndStatusIn(work.getId(), wanted, WantStatus.STANDING)
+                        .stream()
+                        .map(Want::getSourceDownloadUrl)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toCollection(LinkedHashSet::new));
         String wantedCode = wanted.name().toLowerCase(Locale.ROOT);
         return free.stream()
-                .filter(source -> wantedCode.equals(source.language()))
+                .filter(source -> chosen.contains(source.downloadUrl()))
                 .findFirst()
+                .or(() -> free.stream()
+                        .filter(source -> wantedCode.equals(source.language()))
+                        .findFirst())
                 .or(() -> free.stream()
                         .filter(source ->
                                 source.language() != null && source.language().equals(work.getOriginalLanguage()))

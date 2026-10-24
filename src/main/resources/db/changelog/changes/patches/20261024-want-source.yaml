@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261024-want-source
+      author: claude
+      comment: >-
+        A reader may choose which library's text their wanted book is made from (W1); the choice is kept by the
+        address the processor fetches it from, since the catalogue's source ids change with every import.
+      changes:
+        - addColumn:
+            tableName: want
+            columns:
+              - column:
+                  name: source_download_url
+                  type: varchar(1000)

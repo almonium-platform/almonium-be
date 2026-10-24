@@ -5,9 +5,11 @@ import com.almonium.infra.notification.service.NotificationService;
 import com.almonium.learning.book.model.entity.Book;
 import com.almonium.learning.book.repository.BookRepository;
 import com.almonium.learning.book.service.BookEmailService;
+import com.almonium.learning.catalog.dto.response.TextSourceView;
 import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogWorkRepository;
 import com.almonium.learning.catalog.service.CatalogSearchService;
+import com.almonium.learning.catalog.service.TextSources;
 import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.rights.service.UnlockDates;
 import com.almonium.learning.wanted.dto.request.WantRequest;
@@ -66,6 +68,7 @@ public class WantService {
     private final BookEmailService bookEmailService;
     private final PreparationService preparationService;
     private final Clock clock;
+    private final TextSources textSources;
 
     public WantReceipt want(User user, WantRequest request) {
         CatalogWork work = catalogWorkRepository
@@ -86,6 +89,15 @@ public class WantService {
                     fresh.setLanguage(request.language());
                     return fresh;
                 });
+        if (request.sourceDownloadUrl() != null) {
+            TextSourceView chosen = textSources
+                    .byDownloadUrl(work.getId(), request.sourceDownloadUrl())
+                    .orElseThrow(() -> new ResourceConflictException("That text is not one of this book's."));
+            if (chosen.status() == RightsStatus.PROTECTED) {
+                throw new ResourceConflictException("That text is under copyright where we make books.");
+            }
+            want.setSourceDownloadUrl(chosen.downloadUrl());
+        }
         if (want.getStatus() == null || !WantStatus.STANDING.contains(want.getStatus())) {
             // Wanting again after a decline or an earlier arrival is feedback too: it rejoins the queue.
             want.setStatus(WantStatus.OPEN);

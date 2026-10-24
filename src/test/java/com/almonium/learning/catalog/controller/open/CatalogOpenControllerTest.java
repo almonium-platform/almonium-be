@@ -6,11 +6,12 @@ import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.learning.catalog.service.CatalogSearchService;
+import com.almonium.learning.catalog.service.TextSources;
 import org.junit.jupiter.api.Test;
 
 class CatalogOpenControllerTest {
     final CatalogSearchService service = mock(CatalogSearchService.class);
-    final CatalogOpenController controller = new CatalogOpenController(service);
+    final CatalogOpenController controller = new CatalogOpenController(service, mock(TextSources.class));
 
     @Test
     void passesTheReadingLanguageSoHitsCarryWantCounts() {
