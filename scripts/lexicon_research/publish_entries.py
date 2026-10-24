@@ -3,20 +3,23 @@
 Walks out/<writer>/<lang>/*.json, pairs each entry with its <headword>.meta.json, skips files holding an
 "error" key, and PUTs them in signed batches to /internal/lexicon/entries; the backend answers one result
 per entry. The signature is HMAC-SHA256 of "{timestamp}." and the body under the publisher token, read from
-ALMONIUM_BOOKS_PUBLISHER_TOKEN as the processor reads it. The token is never printed. Each entry carries the
+ALMONIUM_BOOKS_PUBLISHER_TOKEN when exported, else the backend's ALMONIUM_BOOKS_PUBLISHER_SECRET from .env (see
+backend_env.py). The token is never printed. Each entry carries the
 headword's Zipf frequency from wordfreq, which the backend keeps on its lexemes to rank suggestions; wordfreq
 ships its tables, so this costs no network call (pip install -r requirements.txt).
 Usage: publish_entries.py [--writer cc-claude-opus-5-5] [--langs en,de] [--backend http://localhost:9998/api/v1]
                           [--limit N] [--workers 4] [--batch 50]
 (run from the backend repository root)
 """
-import argparse, hashlib, hmac, json, os, sys, threading, time
+import argparse, hashlib, hmac, json, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
 from wordfreq import zipf_frequency
+
+from backend_env import publisher_token
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -88,9 +91,7 @@ def main():
     parser.add_argument("--batch", type=int, default=50)
     args = parser.parse_args()
 
-    token = os.getenv("ALMONIUM_BOOKS_PUBLISHER_TOKEN", "")
-    if not token:
-        sys.exit("ALMONIUM_BOOKS_PUBLISHER_TOKEN is not set")
+    token = publisher_token()
 
     langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
     accepted, rejected, failed_batches = 0, 0, 0

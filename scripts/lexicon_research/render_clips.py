@@ -20,8 +20,8 @@ uk-UA); es-MX and de-AT wait for voices of their own. Inflected forms are left o
 run may spend (0 = no cap); --credit-floor stops before synthesis when the plan has fewer credits
 left. --dry-run lists what would be rendered and the estimated credits, without touching ElevenLabs.
 
-The ElevenLabs key is ELEVENLABS_API_KEY in .env and the backend token is ALMONIUM_BOOKS_PUBLISHER_TOKEN
-in the environment, read as the existing scripts read them; neither is ever printed.
+The ElevenLabs key is ELEVENLABS_API_KEY in .env; the backend token is ALMONIUM_BOOKS_PUBLISHER_TOKEN from
+the environment, or else the backend's own ALMONIUM_BOOKS_PUBLISHER_SECRET from .env. Neither is ever printed.
 """
 
 import argparse
@@ -29,7 +29,6 @@ import base64
 import hashlib
 import hmac
 import json
-import os
 import sys
 import threading
 import time
@@ -39,6 +38,7 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from backend_env import dotenv_value, publisher_token  # noqa: E402
 from tts_recipe import (  # noqa: E402
     ENGINE,
     MODEL,
@@ -64,19 +64,7 @@ BACKEND_TIMEOUT = 300
 
 
 def api_key():
-    env = ROOT / ".env"
-    if env.exists():
-        for line in env.read_text().splitlines():
-            if line.startswith("ELEVENLABS_API_KEY="):
-                return line.split("=", 1)[1].strip()
-    sys.exit("ELEVENLABS_API_KEY missing from .env")
-
-
-def publisher_token():
-    token = os.getenv("ALMONIUM_BOOKS_PUBLISHER_TOKEN", "")
-    if not token:
-        sys.exit("ALMONIUM_BOOKS_PUBLISHER_TOKEN is not set")
-    return token
+    return dotenv_value("ELEVENLABS_API_KEY") or sys.exit("ELEVENLABS_API_KEY missing from .env")
 
 
 # ---------------------------------------------------------------- backend
