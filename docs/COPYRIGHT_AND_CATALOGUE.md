@@ -243,6 +243,38 @@ books and its translators are too; a translation whose translators are not
 known is unknown, never free. A page in another language than the work's is a
 translation; a work with no language recorded takes its author's native one.
 
+Since 2026-10-24 the import also reads two more libraries and attaches their
+texts, by folded title and author surname, to the works they are copies of
+(never making a work of them, since a library rarely records the author's
+dates the engine needs): Standard Ebooks (`STANDARD_EBOOKS`, English, read
+from its public listing twelve books a page, referenced by its path) and
+Wolne Lektury (`WOLNE_LEKTURY`, Polish prose from its open API, referenced by
+slug). ELTeC, the Bibliothèque électronique du Québec and Ebooks libres et
+gratuits (`ELTEC`, `BEQ`, `ELG`) are kinds with addresses but no importer yet.
+
+A work's sources come best first: free before unknown before protected; then a
+file the book processor found suspect in shape sinks below the rest; then one
+edition's text before a page that may only list editions, originals before
+translations, the libraries in the order the text's language prefers, and a
+file measured sound before one never measured. The order per language is
+`app.catalog.source-order` (`en=STANDARD_EBOOKS,ELTEC,GUTENBERG,WIKISOURCE;
+pl=WOLNE_LEKTURY,…;*=…`; a library that does not carry a language is not on
+its list). The processor's verdicts arrive signed at
+`POST /internal/books/sources/shape` after every ingest and shake-down and live
+in `catalog_source_shape` by download address, apart from the source rows every
+import replaces.
+
+`GET /public/catalog/works/{id}/sources` shows a reader the same list with the
+default marked (the first free one), each with its library's page and whether
+it was checked; the web client prints "From Standard Ebooks · checked" under
+a book not yet on the shelf and unfolds the other free texts as "Other
+editions". Choosing one wants the book from it: `POST /books/wants` takes
+`sourceDownloadUrl`, kept on the want by the address the processor fetches
+(the catalogue's source ids change with every import), and the factory takes a
+waiting reader's choice before the catalogue's default, the first choice found
+winning for everyone waiting on that book. The mobile client has no catalogue
+search yet, so no host for the picker there.
+
 `GET /ops/catalog/works/{id}/sources` lists them, free first. In /ops →
 Demand, Start can name one (`{"sourceId": …}`): the backend asks the book
 processor (`POST /internal/source-ingests/`) to fetch that EPUB and ingest it,
