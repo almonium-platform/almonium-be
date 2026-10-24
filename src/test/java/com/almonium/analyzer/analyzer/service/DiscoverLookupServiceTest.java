@@ -175,6 +175,43 @@ class DiscoverLookupServiceTest {
     }
 
     @Test
+    void showsOnePronunciationPerVarietyAndIpaWhenEveryLexemeRecordsIt() {
+        UUID verifiedClip = UUID.randomUUID();
+        UUID doubtfulClip = UUID.randomUUID();
+        LexemeView adjective = lexeme(
+                "clear",
+                "ADJ",
+                List.of(
+                        pronunciation(null, "en-GB", 1, "/ˈklɪə/", List.of(clip(doubtfulClip, "unverified"))),
+                        pronunciation(null, "en-US", 1, "/ˈklɪɹ/", List.of())),
+                List.of(sense(1, "easy to understand", "A2", Map.of(), List.of())));
+        LexemeView verb = lexeme(
+                "clear",
+                "VERB",
+                List.of(
+                        pronunciation(null, "en-GB", 1, "/ˈklɪə/", List.of(clip(verifiedClip, "verified"))),
+                        pronunciation(null, "en-US", 1, "/ˈklɪɹ/", List.of())),
+                List.of(sense(1, "to remove what is in the way", "B1", Map.of(), List.of())));
+        LexemeView adverb = lexeme(
+                "clear",
+                "ADV",
+                List.of(
+                        pronunciation(null, "en-GB", 1, "/ˈklɪə/", List.of()),
+                        pronunciation(null, "en-US", 1, "/ˈklɪɹ/", List.of())),
+                List.of(sense(1, "away from something", "B2", Map.of(), List.of())));
+        when(lexiconLookupService.lookup("en", "clear"))
+                .thenReturn(Optional.of(new LexiconEntryResponse("en", "clear", List.of(adjective, verb, adverb))));
+
+        var result = service.lookup("clear", null, Language.EN, Language.UK);
+
+        assertThat(result.pronunciations())
+                .containsExactly(
+                        new DiscoverPronunciationResponse(
+                                "en-GB", "/ˈklɪə/", "/public/lexicon/clips/" + verifiedClip, "verified"),
+                        new DiscoverPronunciationResponse("en-US", "/ˈklɪɹ/", null, null));
+    }
+
+    @Test
     void anExampleWithoutARenderingInTheTranslationLanguageKeepsItsText() {
         SenseView sense = sense(
                 1,
