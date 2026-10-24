@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import com.almonium.learning.catalog.repository.CatalogStore;
+import com.almonium.learning.catalog.service.TextSources;
 import jakarta.validation.Validation;
 import java.nio.charset.StandardCharsets;
 import java.util.HexFormat;
@@ -28,7 +28,7 @@ class SourceShapeControllerTest {
     private static final String SECRET = "test-publisher-secret";
 
     @Mock
-    CatalogStore store;
+    TextSources store;
 
     SourceShapeController controller;
 

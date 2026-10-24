@@ -1,7 +1,7 @@
 package com.almonium.learning.catalog.controller.internal;
 
 import com.almonium.learning.catalog.dto.request.SourceShapeReport;
-import com.almonium.learning.catalog.repository.CatalogStore;
+import com.almonium.learning.catalog.service.TextSources;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +33,7 @@ import tools.jackson.databind.ObjectMapper;
 public class SourceShapeController {
     private static final long MAX_SIGNATURE_AGE_SECONDS = 300;
 
-    private final CatalogStore store;
+    private final TextSources textSources;
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
@@ -62,7 +62,7 @@ public class SourceShapeController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, violations.iterator().next().getMessage());
         }
-        store.recordShape(
+        textSources.recordShape(
                 report.downloadUrl(),
                 report.verdict(),
                 report.checkedAt() == null ? Instant.now() : report.checkedAt());

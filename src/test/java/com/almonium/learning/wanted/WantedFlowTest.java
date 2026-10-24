@@ -17,6 +17,7 @@ import com.almonium.learning.book.service.BookEmailService;
 import com.almonium.learning.catalog.model.CatalogAuthor;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.WorkRow;
+import com.almonium.learning.catalog.service.TextSources;
 import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.wanted.dto.request.WantRequest;
 import com.almonium.learning.wanted.dto.response.WantedRow;
@@ -74,6 +75,9 @@ class WantedFlowTest {
 
     @MockitoBean
     PreparationService preparationService;
+
+    @MockitoBean
+    TextSources textSources;
 
     @Autowired
     WantService wants;

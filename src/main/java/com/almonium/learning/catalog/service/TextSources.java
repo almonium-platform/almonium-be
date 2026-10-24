@@ -17,6 +17,7 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,12 @@ public class TextSources {
         return forWork(catalogWorkId).stream()
                 .filter(view -> view.downloadUrl().equals(downloadUrl))
                 .findFirst();
+    }
+
+    /** Keep the processor's verdict on the shape of the file at {@code downloadUrl}; a later one replaces it. */
+    @Transactional
+    public void recordShape(String downloadUrl, String verdict, Instant checkedAt) {
+        store.recordShape(downloadUrl, verdict, checkedAt);
     }
 
     public Optional<TextSourceView> find(UUID sourceId) {
