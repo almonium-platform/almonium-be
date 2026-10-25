@@ -268,6 +268,44 @@ class DiscoverLookupServiceTest {
     }
 
     @Test
+    void tintsOnlyWhatSetsAVarietysReadingsForOtherSensesApartWhenTheReadingFollowsTheMeaning() {
+        LexemeView noun = lexeme(
+                "research",
+                "NOUN",
+                List.of(
+                        pronunciation(null, "en-GB", 1, "/ˈriːsɜːtʃ/", List.of()),
+                        pronunciation(null, "en-GB", 2, "/rɪˈsɜːtʃ/", List.of()),
+                        pronunciation(null, "en-US", 1, "/ˈriːsɝtʃ/", List.of()),
+                        pronunciation(null, "en-US", 2, "/rɪˈsɝtʃ/", List.of())),
+                List.of(sense(1, "careful study", "B1", Map.of(), List.of())));
+        LexemeView verb = lexeme(
+                "research",
+                "VERB",
+                List.of(
+                        pronunciation(null, "en-GB", 1, "/rɪˈsɜːtʃ/", List.of()),
+                        pronunciation(null, "en-US", 1, "/rɪˈsɝtʃ/", List.of())),
+                List.of(sense(1, "to study carefully", "B2", Map.of(), List.of())));
+        when(lexiconLookupService.lookup("en", "research"))
+                .thenReturn(Optional.of(new LexiconEntryResponse("en", "research", List.of(noun, verb))));
+
+        var result = service.lookup("research", null, Language.EN, Language.UK);
+
+        assertThat(result.pronunciations())
+                .extracting(DiscoverPronunciationResponse::ipa, DiscoverPronunciationResponse::senses)
+                .containsExactly(
+                        tuple("/ˈriːsɜːtʃ/", List.of(1)),
+                        tuple("/rɪˈsɜːtʃ/", List.of(1, 2)),
+                        tuple("/ˈriːsɝtʃ/", List.of(1)),
+                        tuple("/rɪˈsɝtʃ/", List.of(1, 2)));
+        // What tells the noun's ˈriː from the reading the verb shares is tinted in both; the ɜː against ɝ that only
+        // tells British from American is not.
+        assertThat(differing(result.pronunciations().get(0))).containsExactly("ˈ", "iː");
+        assertThat(differing(result.pronunciations().get(1))).containsExactly("ɪˈ");
+        assertThat(differing(result.pronunciations().get(2))).containsExactly("ˈ", "iː");
+        assertThat(differing(result.pronunciations().get(3))).containsExactly("ɪˈ");
+    }
+
+    @Test
     void anExampleWithoutARenderingInTheTranslationLanguageKeepsItsText() {
         SenseView sense = sense(
                 1,
@@ -350,6 +388,13 @@ class DiscoverLookupServiceTest {
                 glosses,
                 examples,
                 List.of());
+    }
+
+    private static List<String> differing(DiscoverPronunciationResponse pronunciation) {
+        return pronunciation.segments().stream()
+                .filter(IpaSegmentResponse::differs)
+                .map(IpaSegmentResponse::text)
+                .toList();
     }
 
     private static List<DiscoverPronunciationResponse> withoutSegments(

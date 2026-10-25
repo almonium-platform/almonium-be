@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.regex.Pattern;
 
 /**
@@ -51,6 +52,12 @@ public final class TranscriptionDiff {
 
     /** Segments for each transcription, in order; a null transcription gets null. */
     public static List<List<IpaSegmentResponse>> segments(List<String> transcriptions, String language) {
+        return segments(transcriptions, language, (first, second) -> true);
+    }
+
+    /** As above, flagging differences only between the pairs (by index, first before second) {@code compared} lets. */
+    public static List<List<IpaSegmentResponse>> segments(
+            List<String> transcriptions, String language, BiPredicate<Integer, Integer> compared) {
         Set<String> units = UNITS.getOrDefault(language == null ? "" : language.toLowerCase(), Set.of());
         List<List<String>> phonemes = transcriptions.stream()
                 .map(transcription -> transcription == null ? null : phonemes(transcription, units))
@@ -60,7 +67,7 @@ public final class TranscriptionDiff {
                 .toList();
         for (int first = 0; first < phonemes.size(); first++) {
             for (int second = first + 1; second < phonemes.size(); second++) {
-                if (phonemes.get(first) != null && phonemes.get(second) != null) {
+                if (phonemes.get(first) != null && phonemes.get(second) != null && compared.test(first, second)) {
                     compare(phonemes.get(first), phonemes.get(second), differs.get(first), differs.get(second));
                 }
             }

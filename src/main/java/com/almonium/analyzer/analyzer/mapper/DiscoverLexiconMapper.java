@@ -30,7 +30,10 @@ import org.springframework.stereotype.Component;
  * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has, and
  * with the numbers of every sense said that way: live gives /laɪv/ the adjective's senses and /lɪv/ the verb's, bow
  * gives /boʊ/ only the weapon's, while niche's two readings both carry all of its senses. Each carries its
- * transcription cut where it parts from the others ({@link TranscriptionDiff}), computed per response.
+ * transcription cut where it parts from the others ({@link TranscriptionDiff}), computed per response: from every
+ * other variety's while the readings do not follow the meaning (design 5a), and otherwise only from its own variety's
+ * readings for other senses (design 7a): the card then sets readings in columns by meaning, and the tint marks what
+ * tells the columns apart, never two alternatives taken by the same senses.
  */
 @Component
 public class DiscoverLexiconMapper {
@@ -86,12 +89,31 @@ public class DiscoverLexiconMapper {
                         DiscoverLexiconMapper::merged));
         List<DiscoverPronunciationResponse> pronunciations = List.copyOf(byVarietyAndIpa.values());
         List<List<IpaSegmentResponse>> segments = TranscriptionDiff.segments(
-                pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(), entry.language());
+                pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(),
+                entry.language(),
+                followsMeaning(pronunciations)
+                        ? (first, second) -> apart(pronunciations.get(first), pronunciations.get(second))
+                        : (first, second) -> true);
         List<DiscoverPronunciationResponse> cut = new ArrayList<>();
         for (int index = 0; index < pronunciations.size(); index++) {
             cut.add(pronunciations.get(index).withSegments(segments.get(index)));
         }
         return List.copyOf(cut);
+    }
+
+    /** Whether some reading is said for fewer than all the senses that have one, so the card groups them by meaning. */
+    private static boolean followsMeaning(List<DiscoverPronunciationResponse> pronunciations) {
+        long said = pronunciations.stream()
+                .flatMap(pronunciation -> pronunciation.senses().stream())
+                .distinct()
+                .count();
+        return pronunciations.stream()
+                .anyMatch(pronunciation -> pronunciation.senses().size() < said);
+    }
+
+    /** Two readings of one variety said for different senses, so at least one column holds one and not the other. */
+    private static boolean apart(DiscoverPronunciationResponse first, DiscoverPronunciationResponse second) {
+        return first.variety().equals(second.variety()) && !first.senses().equals(second.senses());
     }
 
     /** One variety's IPA recorded by two lexemes: the better clip, said for both lexemes' senses. */
