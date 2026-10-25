@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261026-lexicon-scopes
+      author: claude
+      comment: >-
+        Entry schema version 3: where a lexeme, form or sense is used ({variety, extent} objects, one shape at every
+        level; sense.regions was already there), the specialist field of a sense as a key the clients render, and the
+        note that says why a variety has a reading besides its first.
+      changes:
+        - addColumn:
+            schemaName: lexicon
+            tableName: lexeme
+            columns:
+              - column:
+                  name: regions
+                  type: jsonb
+        - addColumn:
+            schemaName: lexicon
+            tableName: lexeme_form
+            columns:
+              - column:
+                  name: regions
+                  type: jsonb
+        - addColumn:
+            schemaName: lexicon
+            tableName: sense
+            columns:
+              - column:
+                  name: domain
+                  type: varchar(32)
+        - addColumn:
+            schemaName: lexicon
+            tableName: pronunciation
+            columns:
+              - column:
+                  name: note
+                  type: varchar(16)

@@ -2,6 +2,7 @@ package com.almonium.learning.lexicon.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
@@ -23,6 +25,7 @@ import org.hibernate.type.SqlTypes;
 /**
  * One inflected form of a lexeme with its Universal Dependencies features. {@code normalizedForm} (NFC, lowercase)
  * is what a reader's word is looked up by; {@code language} is copied from the lexeme so that lookup needs no join.
+ * {@code regions} is where the form is used when not everywhere (American gotten), null for the whole language.
  */
 @Entity
 @Getter
@@ -47,4 +50,7 @@ public class LexemeForm {
 
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> features = new LinkedHashMap<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<RegionScope> regions;
 }

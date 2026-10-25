@@ -2,6 +2,7 @@ package com.almonium.learning.lexicon.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,8 +28,9 @@ import org.hibernate.type.SqlTypes;
 
 /**
  * One meaning of a lexeme, in the order the entry lists them. {@code grammar} holds only what differs from the
- * lexeme (a countable sense of a mass noun); {@code usage} is the short label a dictionary prints after the sense;
- * {@code regions} the places the sense is used, when the writer named them.
+ * lexeme (a countable sense of a mass noun); {@code usage} is the construction label a dictionary prints after the
+ * sense (usually passive); {@code domain} the specialist field it belongs to, a key the clients render; {@code
+ * regions} where it is used when not everywhere (British boot of a car), null for the whole language.
  */
 @Entity
 @Getter
@@ -56,9 +58,10 @@ public class Sense {
     Map<String, Object> grammar;
 
     String usage;
+    String domain;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    List<String> regions;
+    List<RegionScope> regions;
 
     @OneToMany(mappedBy = "sense", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("fluentLanguage, rank")

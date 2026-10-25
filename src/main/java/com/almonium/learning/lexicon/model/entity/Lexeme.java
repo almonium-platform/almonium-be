@@ -2,6 +2,7 @@ package com.almonium.learning.lexicon.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.learning.lexicon.model.enums.LexiconStatus;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.CascadeType;
@@ -31,7 +32,8 @@ import org.hibernate.type.SqlTypes;
  * spelling the entry was written under; {@code lemma} and {@code pos} with {@code homographNo} identify the lexeme,
  * the number telling apart two lexemes of one lemma and pos (two unrelated nouns spelled alike). Everything hanging
  * off a lexeme is replaced wholesale when its entry is published again, except pronunciations, which are updated in
- * place so audio clips keep pointing at them.
+ * place so audio clips keep pointing at them. {@code regions} is where the lexeme is used when not everywhere (American
+ * color), null for the whole language.
  */
 @Entity
 @Getter
@@ -56,6 +58,10 @@ public class Lexeme {
     Map<String, Object> grammar = new LinkedHashMap<>();
 
     String pattern;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<RegionScope> regions;
+
     BigDecimal zipf;
     int entryVersion;
     LexiconStatus status;

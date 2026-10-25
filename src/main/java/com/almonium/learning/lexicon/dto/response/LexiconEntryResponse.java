@@ -1,5 +1,6 @@
 package com.almonium.learning.lexicon.dto.response;
 
+import com.almonium.learning.lexicon.model.RegionScope;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
@@ -22,6 +23,7 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             String kind,
             Map<String, Object> grammar,
             String pattern,
+            List<RegionScope> regions,
             Double zipf,
             String status,
             FormView matchedForm,
@@ -33,10 +35,17 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             Capabilities capabilities,
             Provenance provenance) {}
 
-    public record FormView(UUID id, String form, Map<String, Object> features) {}
+    public record FormView(UUID id, String form, Map<String, Object> features, List<RegionScope> regions) {}
 
     public record PronunciationView(
-            UUID id, UUID formId, String variety, int rank, String phonemic, String status, List<ClipView> clips) {}
+            UUID id,
+            UUID formId,
+            String variety,
+            int rank,
+            String phonemic,
+            String note,
+            String status,
+            List<ClipView> clips) {}
 
     /**
      * One synthesised rendering of a pronunciation, verified ones first. {@code url} is the path under the API base
@@ -61,7 +70,8 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             String register,
             Map<String, Object> grammar,
             String usage,
-            List<String> regions,
+            String domain,
+            List<RegionScope> regions,
             Map<String, List<GlossView>> glosses,
             List<ExampleView> examples,
             List<CueView> cues) {}

@@ -73,6 +73,7 @@ public class LexiconEntryMapper {
                 lexeme.getKind(),
                 lexeme.getGrammar(),
                 lexeme.getPattern(),
+                lexeme.getRegions(),
                 lexeme.getZipf() == null ? null : lexeme.getZipf().doubleValue(),
                 lexeme.getStatus().label(),
                 matched == null ? null : toView(matched),
@@ -94,7 +95,7 @@ public class LexiconEntryMapper {
     }
 
     private FormView toView(LexemeForm form) {
-        return new FormView(form.getId(), form.getForm(), form.getFeatures());
+        return new FormView(form.getId(), form.getForm(), form.getFeatures(), form.getRegions());
     }
 
     private PronunciationView toView(Pronunciation pronunciation, List<AudioClip> clips) {
@@ -104,6 +105,7 @@ public class LexiconEntryMapper {
                 pronunciation.getVariety(),
                 pronunciation.getRank(),
                 pronunciation.getPhonemic(),
+                pronunciation.getNote(),
                 pronunciation.getStatus().label(),
                 clips.stream().sorted(VERIFIED_FIRST).map(this::toView).toList());
     }
@@ -135,6 +137,7 @@ public class LexiconEntryMapper {
                 sense.getRegister(),
                 sense.getGrammar(),
                 sense.getUsage(),
+                sense.getDomain(),
                 sense.getRegions(),
                 glosses,
                 sense.getExamples().stream().map(this::toView).toList(),

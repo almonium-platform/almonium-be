@@ -21,7 +21,8 @@ import lombok.experimental.FieldDefaults;
  * How one variety (en-US, de-DE) says a lexeme, or one of its forms when {@code form} is set. Audio clips are keyed
  * by this row, so publishing an entry again updates it in place instead of replacing it. {@code reading} and
  * {@code engineInput} are filled by the audio phase: a spelling with stress marks or the exact text a speech engine
- * was given.
+ * was given. {@code note} says why a variety has this reading besides its first (older, casual, disputed), when it
+ * says something.
  */
 @Entity
 @Getter
@@ -49,6 +50,7 @@ public class Pronunciation {
     int rank;
 
     String phonemic;
+    String note;
     String reading;
     String engineInput;
     LexiconStatus status;

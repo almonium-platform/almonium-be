@@ -5,7 +5,7 @@ import java.util.Map;
 import tools.jackson.databind.JsonNode;
 
 /**
- * A dictionary entry as the writers produce it (schema version 2): one headword, the lexemes it stands for, or a
+ * A dictionary entry as the writers produce it (schema version 3): one headword, the lexemes it stands for, or a
  * reason it stands for none. Read from the published JSON after it has passed the schema, so every field here is
  * present and shaped as the schema says; glosses stay as JSON because a gloss is a string or a {text, exact} object.
  */
@@ -22,6 +22,7 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
             Map<String, Object> grammar,
             List<FormDocument> forms,
             String pattern,
+            List<RegionScope> regions,
             List<PronunciationDocument> pronunciations,
             List<SenseDocument> senses,
             List<RelationDocument> relations) {
@@ -47,7 +48,8 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
         }
     }
 
-    public record FormDocument(String form, Map<String, Object> features, Map<String, String> ipa) {
+    public record FormDocument(
+            String form, Map<String, Object> features, Map<String, String> ipa, List<RegionScope> regions) {
         public Map<String, Object> features() {
             return features == null ? Map.of() : features;
         }
@@ -57,7 +59,7 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
         }
     }
 
-    public record PronunciationDocument(String variety, String ipa) {}
+    public record PronunciationDocument(String variety, String ipa, String note) {}
 
     public record SenseDocument(
             String definition,
@@ -67,7 +69,9 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
             String example,
             List<CueDocument> cues,
             Map<String, Object> grammar,
-            String usage) {
+            String usage,
+            String domain,
+            List<RegionScope> regions) {
 
         public Map<String, JsonNode> glosses() {
             return glosses == null ? Map.of() : glosses;

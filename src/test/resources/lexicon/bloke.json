@@ -62,7 +62,12 @@
        "text": "He seems like a nice ___, always happy to help."
       }
      ],
-     "usage": "British English"
+     "regions": [
+      {
+       "variety": "en-GB",
+       "extent": "mainly"
+      }
+     ]
     }
    ],
    "relations": [

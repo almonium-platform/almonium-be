@@ -32,6 +32,7 @@ import com.almonium.learning.lexicon.dto.response.UnvoicedPronunciation;
 import com.almonium.learning.lexicon.mapper.AudioClipMapper;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
 import com.almonium.learning.lexicon.model.ClipObjectKey;
+import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.learning.lexicon.service.AudioClipService;
 import com.almonium.learning.lexicon.service.EntrySchema;
 import com.almonium.learning.lexicon.service.LexiconLookupService;
@@ -219,7 +220,8 @@ class LexiconPublicationFlowTest {
         assertThat(sense.register()).isEqualTo("informal");
         assertThat(sense.cefr()).isEqualTo("B2");
         assertThat(sense.cefrSource()).isEqualTo("writer");
-        assertThat(sense.usage()).isEqualTo("British English");
+        assertThat(sense.usage()).isNull();
+        assertThat(sense.regions()).containsExactly(new RegionScope("en-GB", "mainly"));
         assertThat(sense.glosses().get("uk")).extracting(gloss -> gloss.text()).containsExactly("мужик");
         assertThat(sense.glosses().get("uk").getFirst().exact()).isNull();
         assertThat(sense.examples()).extracting(example -> example.origin()).containsExactly("generated");
@@ -236,7 +238,7 @@ class LexiconPublicationFlowTest {
         assertThat(noun.provenance().model()).isEqualTo("claude-opus-5-5");
         assertThat(noun.provenance().promptVersion()).isEqualTo("v1");
         assertThat(noun.provenance().registerVersion()).isEqualTo("v3");
-        assertThat(noun.provenance().schemaVersion()).isEqualTo("2");
+        assertThat(noun.provenance().schemaVersion()).isEqualTo("3");
         assertThat(noun.provenance().entryVersion()).isEqualTo(1);
         assertThat(noun.provenance().builtAt()).isEqualTo(BUILT_AT);
 
@@ -294,6 +296,52 @@ class LexiconPublicationFlowTest {
                 .containsExactly("chuckle");
         assertThat(suggestions("en", "%", "uk")).isEmpty();
         assertThat(suggestions("en", "_loke", "uk")).isEmpty();
+    }
+
+    @Test
+    void keepsWhereALexemeFormAndSenseAreUsedTheFieldOfASenseAndWhyAVarietyHasASecondReading() {
+        ObjectNode bloke = publication("bloke");
+        ObjectNode lexeme = (ObjectNode) bloke.path("entry").path("lexemes").get(0);
+        lexeme.set("regions", regions("en-GB", "only"));
+        ((ObjectNode) lexeme.path("forms").get(1)).set("regions", regions("en-US", "mainly"));
+        ((ObjectNode) lexeme.path("senses").get(0)).put("domain", "sport");
+        ((ArrayNode) lexeme.path("pronunciations"))
+                .addObject()
+                .put("variety", "en-GB")
+                .put("ipa", "/ˈblɒk/")
+                .put("note", "older");
+
+        assertThat(publishBatch(bloke))
+                .extracting(EntryPublicationResult::accepted)
+                .containsOnly(true);
+
+        LexemeView noun = lookup("en", "bloke").lexemes().getFirst();
+        assertThat(noun.regions()).containsExactly(new RegionScope("en-GB", "only"));
+        assertThat(noun.forms().get(0).regions()).isNull();
+        assertThat(noun.forms().get(1).regions()).containsExactly(new RegionScope("en-US", "mainly"));
+        assertThat(noun.senses().getFirst().domain()).isEqualTo("sport");
+        assertThat(noun.pronunciations().stream()
+                        .filter(pronunciation -> pronunciation.formId() == null)
+                        .map(pronunciation ->
+                                pronunciation.variety() + " " + pronunciation.rank() + " " + pronunciation.note()))
+                .containsExactlyInAnyOrder("en-US 1 null", "en-GB 1 null", "en-GB 2 older");
+    }
+
+    @Test
+    void aVarietyTheCatalogueLacksForTheLanguageRefusesThePublication() {
+        ObjectNode bloke = publication("bloke");
+        ObjectNode lexeme = (ObjectNode) bloke.path("entry").path("lexemes").get(0);
+        ((ObjectNode) lexeme.path("pronunciations").get(0)).put("variety", "en-NZ");
+        ((ObjectNode) lexeme.path("senses").get(0)).set("regions", regions("pt-BR", "only"));
+
+        assertThat(publishBatch(bloke)).singleElement().satisfies(result -> {
+            assertThat(result.accepted()).isFalse();
+            assertThat(result.message())
+                    .contains("/lexemes/0/pronunciations/0: en-NZ is not a variety of en")
+                    .contains("/lexemes/0/senses/0/regions/0: pt-BR is not a variety of en");
+        });
+        assertThat(jdbc.queryForObject("select count(*) from lexicon.lexeme", Integer.class))
+                .isZero();
     }
 
     @Test
@@ -617,6 +665,12 @@ class LexiconPublicationFlowTest {
         publication.set("meta", meta);
         publication.put("built_at", BUILT_AT.toString());
         return publication;
+    }
+
+    private ArrayNode regions(String variety, String extent) {
+        ArrayNode regions = objectMapper.createArrayNode();
+        regions.addObject().put("variety", variety).put("extent", extent);
+        return regions;
     }
 
     private ObjectNode entry(String headword) {

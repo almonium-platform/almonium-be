@@ -1,6 +1,6 @@
 {
  "$schema": "https://json-schema.org/draft/2020-12/schema",
- "title": "Lexicon entry, schema version 2 (closed grammar vocabulary, 2026-10-16)",
+ "title": "Lexicon entry, schema version 3 (scoped regions, domains, pronunciation notes, 2026-10-26)",
  "type": "object",
  "required": [
   "language",
@@ -217,6 +217,9 @@
      "items": {
       "$ref": "#/$defs/relation"
      }
+    },
+    "regions": {
+     "$ref": "#/$defs/regions"
     }
    }
   },
@@ -322,6 +325,9 @@
       "type": "string",
       "pattern": "^/.+/$"
      }
+    },
+    "regions": {
+     "$ref": "#/$defs/regions"
     }
    }
   },
@@ -334,12 +340,23 @@
    "additionalProperties": false,
    "properties": {
     "variety": {
-     "type": "string",
-     "pattern": "^[a-z]{2}-[A-Z]{2}$"
+     "$ref": "#/$defs/variety"
     },
     "ipa": {
      "type": "string",
      "pattern": "^/.+/$"
+    },
+    "note": {
+     "enum": [
+      "less_common",
+      "older",
+      "newer",
+      "careful",
+      "casual",
+      "regional",
+      "disputed"
+     ],
+     "description": "Why a variety has this reading besides its first, when it says something: rarer, said by older or younger speakers, in careful or casual speech, in part of the variety only, or considered wrong by some. Readings are listed most common first."
     }
    }
   },
@@ -496,7 +513,60 @@
     "usage": {
      "type": "string",
      "maxLength": 60,
-     "description": "A short label a dictionary prints after the sense: a region, a field, a construction (with dative, usually passive)."
+     "description": "A short construction label a dictionary prints after the sense (with dative, usually passive, before a noun). Never a region or a field: those are regions and domain."
+    },
+    "domain": {
+     "enum": [
+      "agriculture",
+      "anatomy",
+      "architecture",
+      "art",
+      "astronomy",
+      "aviation",
+      "biology",
+      "botany",
+      "business",
+      "chemistry",
+      "computing",
+      "cooking",
+      "economics",
+      "education",
+      "engineering",
+      "fashion",
+      "film",
+      "finance",
+      "games",
+      "geography",
+      "geology",
+      "grammar",
+      "history",
+      "law",
+      "linguistics",
+      "literature",
+      "mathematics",
+      "medicine",
+      "military",
+      "music",
+      "nautical",
+      "philosophy",
+      "photography",
+      "physics",
+      "politics",
+      "psychology",
+      "religion",
+      "science",
+      "sport",
+      "statistics",
+      "technology",
+      "telecommunications",
+      "theatre",
+      "transport",
+      "zoology"
+     ],
+     "description": "The field a specialist sense belongs to, when it has one. A key, rendered in the reader's language by the product."
+    },
+    "regions": {
+     "$ref": "#/$defs/regions"
     }
    }
   },
@@ -541,6 +611,36 @@
     },
     "why": {
      "type": "string"
+    }
+   }
+  },
+  "variety": {
+   "type": "string",
+   "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$",
+   "description": "A BCP-47 variety of the entry's language from the product's catalogue (en-GB, es-MX, pt-BR). Publication refuses a variety the catalogue lacks or one of another language."
+  },
+  "regions": {
+   "type": "array",
+   "minItems": 1,
+   "uniqueItems": true,
+   "description": "Where this is used, when not everywhere the language is spoken: only there, or mainly there. Leave it out for what every variety uses. The one way an entry says where anything is used: a lexeme (lorry), a form (gotten), a sense (boot of a car).",
+   "items": {
+    "type": "object",
+    "required": [
+     "variety",
+     "extent"
+    ],
+    "additionalProperties": false,
+    "properties": {
+     "variety": {
+      "$ref": "#/$defs/variety"
+     },
+     "extent": {
+      "enum": [
+       "only",
+       "mainly"
+      ]
+     }
     }
    }
   }

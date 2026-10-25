@@ -119,6 +119,7 @@ public class LexiconPublicationService {
         lexeme.setKind(document.kind());
         lexeme.setGrammar(new LinkedHashMap<>(document.grammar()));
         lexeme.setPattern(document.pattern());
+        lexeme.setRegions(document.regions());
         lexeme.setZipf(
                 publication.zipf() == null
                         ? null
@@ -178,13 +179,14 @@ public class LexiconPublicationService {
         for (PronunciationDocument spoken : document.pronunciations()) {
             int rank = ranks.merge(spoken.variety(), 1, Integer::sum);
             place(
-                    lexeme,
-                    existing.remove(key(spoken.variety(), rank, "")),
-                    null,
-                    spoken.variety(),
-                    rank,
-                    spoken.ipa(),
-                    writer);
+                            lexeme,
+                            existing.remove(key(spoken.variety(), rank, "")),
+                            null,
+                            spoken.variety(),
+                            rank,
+                            spoken.ipa(),
+                            writer)
+                    .setNote(spoken.note());
         }
         seen.clear();
         for (FormDocument formDocument : document.forms()) {
@@ -192,6 +194,7 @@ public class LexiconPublicationService {
             form.setForm(formDocument.form());
             form.setNormalizedForm(WordNormalizer.normalize(formDocument.form()));
             form.setFeatures(new LinkedHashMap<>(formDocument.features()));
+            form.setRegions(formDocument.regions());
             lexeme.addForm(form);
             String formKey = formDocument.form() + "#" + seen.merge(formDocument.form(), 1, Integer::sum);
             for (Map.Entry<String, String> ipa : formDocument.ipa().entrySet()) {
@@ -259,6 +262,8 @@ public class LexiconPublicationService {
         sense.setRegister(document.register());
         sense.setGrammar(document.grammar() == null ? null : new LinkedHashMap<>(document.grammar()));
         sense.setUsage(document.usage());
+        sense.setDomain(document.domain());
+        sense.setRegions(document.regions());
         for (Map.Entry<String, JsonNode> gloss : document.glosses().entrySet()) {
             SenseGloss rendered = new SenseGloss();
             rendered.setFluentLanguage(gloss.getKey());

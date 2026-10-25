@@ -4,10 +4,16 @@ import json
 from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
-PROMPT_VERSION = "v3"
+PROMPT_VERSION = "v4"
 LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
 VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
+# Where a lexeme, form or sense may be scoped to: the product's catalogue of varieties for the language
+# (LanguageVariety in the backend), wider than the varieties the writer transcribes.
+REGIONAL_VARIETIES = {"en": ["en-US", "en-GB", "en-AU", "en-IN"], "de": ["de-DE", "de-AT", "de-CH"], "uk": ["uk-UA"],
+                      "fr": ["fr-FR", "fr-CA", "fr-BE", "fr-CH"], "es": ["es-ES", "es-MX", "es-AR", "es-CO"],
+                      "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
+DOMAINS = json.loads((Path(__file__).parent / "entry.schema.json").read_text())["$defs"]["sense"]["properties"]["domain"]["enum"]
 GLOSS = {"en": "uk, de, pl", "de": "en, uk, pl", "uk": "en, de, pl", "fr": "en, uk, de", "es": "en, uk, de",
          "it": "en, uk, de", "pt": "en, uk, de"}
 # What the writer lists under "forms". English, German and Ukrainian give the whole paradigm, as the
@@ -55,7 +61,9 @@ def system_prompt(lang):
         inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
     tpl = (HERE / "prompts" / "entry_writer" / f"{PROMPT_VERSION}.md").read_text()
     return (tpl.replace("{language_name}", LANG_NAME[lang]).replace("{gloss_languages}", GLOSS[lang]).replace("{forms_rule}", FORMS_RULE[lang])
-            .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE))
+            .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE)
+            .replace("{varieties}", ", ".join(VARIETIES[lang])).replace("{regional_varieties}", ", ".join(REGIONAL_VARIETIES[lang]))
+            .replace("{domains}", ", ".join(DOMAINS)))
 
 
 def user_prompt(lang, row):

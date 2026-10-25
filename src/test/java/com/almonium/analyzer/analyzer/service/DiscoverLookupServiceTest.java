@@ -341,9 +341,10 @@ class DiscoverLookupServiceTest {
                 Map.of(),
                 null,
                 null,
+                null,
                 "provisional",
                 null,
-                List.of(new FormView(UUID.randomUUID(), headword, Map.of())),
+                List.of(new FormView(UUID.randomUUID(), headword, Map.of(), null)),
                 pronunciations,
                 senses,
                 List.of(),
@@ -354,7 +355,7 @@ class DiscoverLookupServiceTest {
 
     private static PronunciationView pronunciation(
             UUID formId, String variety, int rank, String ipa, List<ClipView> clips) {
-        return new PronunciationView(UUID.randomUUID(), formId, variety, rank, ipa, "provisional", clips);
+        return new PronunciationView(UUID.randomUUID(), formId, variety, rank, ipa, null, "provisional", clips);
     }
 
     private static ClipView clip(UUID id, String status) {
@@ -381,6 +382,7 @@ class DiscoverLookupServiceTest {
                 definition,
                 cefr,
                 "writer",
+                null,
                 null,
                 null,
                 null,
