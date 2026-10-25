@@ -1,6 +1,7 @@
 package com.almonium.analyzer.analyzer.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -167,11 +168,21 @@ class DiscoverLookupServiceTest {
         assertThat(withoutSegments(result.pronunciations()))
                 .containsExactly(
                         new DiscoverPronunciationResponse(
-                                "en-GB", "/ˈbləʊk/", "/public/lexicon/clips/" + verifiedClip, "verified", null),
-                        new DiscoverPronunciationResponse("en-GB", "/bləʊk/", null, null, null),
-                        new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null),
+                                "en-GB",
+                                "/ˈbləʊk/",
+                                "/public/lexicon/clips/" + verifiedClip,
+                                "verified",
+                                null,
+                                List.of(1)),
+                        new DiscoverPronunciationResponse("en-GB", "/bləʊk/", null, null, null, List.of(2)),
+                        new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null, List.of(1)),
                         new DiscoverPronunciationResponse(
-                                "en-US", "/ˈblɔʊk/", "/public/lexicon/clips/" + doubtfulClip, "unverified", null));
+                                "en-US",
+                                "/ˈblɔʊk/",
+                                "/public/lexicon/clips/" + doubtfulClip,
+                                "unverified",
+                                null,
+                                List.of(1)));
         verify(languageProcessor, never()).translate(anyString(), any(), any());
     }
 
@@ -208,8 +219,13 @@ class DiscoverLookupServiceTest {
         assertThat(withoutSegments(result.pronunciations()))
                 .containsExactly(
                         new DiscoverPronunciationResponse(
-                                "en-GB", "/ˈklɪə/", "/public/lexicon/clips/" + verifiedClip, "verified", null),
-                        new DiscoverPronunciationResponse("en-US", "/ˈklɪɹ/", null, null, null));
+                                "en-GB",
+                                "/ˈklɪə/",
+                                "/public/lexicon/clips/" + verifiedClip,
+                                "verified",
+                                null,
+                                List.of(1, 2, 3)),
+                        new DiscoverPronunciationResponse("en-US", "/ˈklɪɹ/", null, null, null, List.of(1, 2, 3)));
         assertThat(result.pronunciations().get(0).segments())
                 .containsExactly(
                         new IpaSegmentResponse("/ˈklɪ", false),
@@ -220,6 +236,35 @@ class DiscoverLookupServiceTest {
                         new IpaSegmentResponse("/ˈklɪ", false),
                         new IpaSegmentResponse("ɹ", true),
                         new IpaSegmentResponse("/", false));
+    }
+
+    @Test
+    void givesEachPronunciationTheSensesSaidThatWayAcrossHomographs() {
+        LexemeView bending = lexeme(
+                "bow",
+                "NOUN",
+                List.of(pronunciation(null, "en-US", 1, "/ˈbaʊ/", List.of())),
+                List.of(sense(1, "the act of bending your head", "B2", Map.of(), List.of())));
+        LexemeView bend = lexeme(
+                "bow",
+                "VERB",
+                List.of(pronunciation(null, "en-US", 1, "/ˈbaʊ/", List.of())),
+                List.of(
+                        sense(1, "to bend your head", "B2", Map.of(), List.of()),
+                        sense(2, "to give in", "C1", Map.of(), List.of())));
+        LexemeView weapon = lexeme(
+                "bow",
+                "NOUN",
+                List.of(pronunciation(null, "en-US", 1, "/ˈboʊ/", List.of())),
+                List.of(sense(1, "a weapon made of curved wood", "B1", Map.of(), List.of())));
+        when(lexiconLookupService.lookup("en", "bow"))
+                .thenReturn(Optional.of(new LexiconEntryResponse("en", "bow", List.of(bending, bend, weapon))));
+
+        var result = service.lookup("bow", null, Language.EN, Language.UK);
+
+        assertThat(result.pronunciations())
+                .extracting(DiscoverPronunciationResponse::ipa, DiscoverPronunciationResponse::senses)
+                .containsExactly(tuple("/ˈbaʊ/", List.of(1, 2, 3)), tuple("/ˈboʊ/", List.of(4)));
     }
 
     @Test

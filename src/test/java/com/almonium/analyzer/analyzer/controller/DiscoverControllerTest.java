@@ -68,8 +68,9 @@ class DiscoverControllerTest {
                                         List.of(
                                                 new IpaSegmentResponse("/ˈbl", false),
                                                 new IpaSegmentResponse("əʊ", true),
-                                                new IpaSegmentResponse("k/", false))),
-                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null))));
+                                                new IpaSegmentResponse("k/", false)),
+                                        List.of(1)),
+                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null, List.of(1)))));
 
         mvc.perform(get("/public/discover/lookup/EN/UK").param("entry", "bloke").param("context", "A nice bloke."))
                 .andExpect(status().isOk())
@@ -96,6 +97,7 @@ class DiscoverControllerTest {
                 .andExpect(jsonPath("$.pronunciations[0].clipStatus").value("verified"))
                 .andExpect(jsonPath("$.pronunciations[0].segments[1].text").value("əʊ"))
                 .andExpect(jsonPath("$.pronunciations[0].segments[1].differs").value(true))
+                .andExpect(jsonPath("$.pronunciations[0].senses[0]").value(1))
                 .andExpect(jsonPath("$.pronunciations[1].variety").value("en-US"))
                 .andExpect(jsonPath("$.pronunciations[1].clipUrl").doesNotExist())
                 .andExpect(jsonPath("$.pronunciations[1].clipStatus").doesNotExist());

@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +27,10 @@ import org.springframework.stereotype.Component;
  * nothing of lexemes. Senses are numbered across lexemes in order; pronunciations are the headword-level ones, by
  * variety then rank, each carrying its best clip (a verified one before an unverified one, which is the order the
  * lexicon already lists them in). A word with several lexemes (clear as adjective, verb and adverb) records the same
- * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has. Each
- * carries its transcription cut where it parts from the others ({@link TranscriptionDiff}), computed per response.
+ * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has, and
+ * with the numbers of every sense said that way: live gives /laɪv/ the adjective's senses and /lɪv/ the verb's, bow
+ * gives /boʊ/ only the weapon's, while niche's two readings both carry all of its senses. Each carries its
+ * transcription cut where it parts from the others ({@link TranscriptionDiff}), computed per response.
  */
 @Component
 public class DiscoverLexiconMapper {
@@ -62,15 +65,25 @@ public class DiscoverLexiconMapper {
     }
 
     public List<DiscoverPronunciationResponse> toPronunciations(LexiconEntryResponse entry) {
+        record Said(PronunciationView pronunciation, List<Integer> senses) {}
+        List<Said> said = new ArrayList<>();
+        int senseCount = 0;
+        for (LexemeView lexeme : entry.lexemes()) {
+            List<Integer> senses = IntStream.rangeClosed(
+                            senseCount + 1, senseCount + lexeme.senses().size())
+                    .boxed()
+                    .toList();
+            senseCount += senses.size();
+            headwordPronunciations(lexeme).forEach(pronunciation -> said.add(new Said(pronunciation, senses)));
+        }
         Map<List<String>, DiscoverPronunciationResponse> byVarietyAndIpa = new LinkedHashMap<>();
-        entry.lexemes().stream()
-                .flatMap(this::headwordPronunciations)
-                .sorted(VARIETY_THEN_RANK)
-                .map(this::toPronunciation)
+        said.stream()
+                .sorted(Comparator.comparing(Said::pronunciation, VARIETY_THEN_RANK))
+                .map(each -> toPronunciation(each.pronunciation(), each.senses()))
                 .forEach(pronunciation -> byVarietyAndIpa.merge(
                         Arrays.asList(pronunciation.variety(), pronunciation.ipa()),
                         pronunciation,
-                        DiscoverLexiconMapper::betterClip));
+                        DiscoverLexiconMapper::merged));
         List<DiscoverPronunciationResponse> pronunciations = List.copyOf(byVarietyAndIpa.values());
         List<List<IpaSegmentResponse>> segments = TranscriptionDiff.segments(
                 pronunciations.stream().map(DiscoverPronunciationResponse::ipa).toList(), entry.language());
@@ -79,6 +92,17 @@ public class DiscoverLexiconMapper {
             cut.add(pronunciations.get(index).withSegments(segments.get(index)));
         }
         return List.copyOf(cut);
+    }
+
+    /** One variety's IPA recorded by two lexemes: the better clip, said for both lexemes' senses. */
+    private static DiscoverPronunciationResponse merged(
+            DiscoverPronunciationResponse first, DiscoverPronunciationResponse second) {
+        DiscoverPronunciationResponse clipped = betterClip(first, second);
+        List<Integer> senses = Stream.concat(first.senses().stream(), second.senses().stream())
+                .distinct()
+                .sorted()
+                .toList();
+        return clipped.withSenses(senses);
     }
 
     private static DiscoverPronunciationResponse betterClip(
@@ -95,7 +119,7 @@ public class DiscoverLexiconMapper {
         return lexeme.pronunciations().stream().filter(pronunciation -> pronunciation.formId() == null);
     }
 
-    private DiscoverPronunciationResponse toPronunciation(PronunciationView pronunciation) {
+    private DiscoverPronunciationResponse toPronunciation(PronunciationView pronunciation, List<Integer> senses) {
         ClipView best =
                 pronunciation.clips().isEmpty() ? null : pronunciation.clips().getFirst();
         return new DiscoverPronunciationResponse(
@@ -103,7 +127,8 @@ public class DiscoverLexiconMapper {
                 pronunciation.phonemic(),
                 best == null ? null : best.url(),
                 best == null ? null : best.status(),
-                null);
+                null,
+                senses);
     }
 
     private List<String> glosses(SenseView sense, String translationLanguage) {
