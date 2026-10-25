@@ -1,3 +1,4 @@
-# publish_entries.py: Zipf frequencies for the headwords it publishes
+# publish_entries.py: Zipf frequencies for the headwords it publishes, and the schema its free checks validate
 requests>=2.31,<3
 wordfreq>=3.1,<4
+jsonschema>=4.22,<5

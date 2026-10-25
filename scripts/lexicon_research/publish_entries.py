@@ -5,7 +5,8 @@ Walks out/<writer>/<lang>/*.json, pairs each entry with its <headword>.meta.json
 per entry. The signature is HMAC-SHA256 of "{timestamp}." and the body under ALMONIUM_BOOKS_PUBLISHER_SECRET,
 exported or from the backend's .env (see backend_env.py); it is never printed. Each entry carries the
 headword's Zipf frequency from wordfreq, which the backend keeps on its lexemes to rank suggestions; wordfreq
-ships its tables, so this costs no network call (pip install -r requirements.txt).
+ships its tables, so this costs no network call (pip install -r requirements.txt). An entry the free checks
+(entry_checks.py) find a structural fault in is held and named on stderr, not sent.
 Usage: publish_entries.py [--writer cc-claude-opus-5-5] [--langs en,de] [--backend http://localhost:9998/api/v1]
                           [--limit N] [--workers 4] [--batch 50]
 (run from the backend repository root)
@@ -19,6 +20,7 @@ import requests
 from wordfreq import zipf_frequency
 
 from backend_env import publisher_secret
+from entry_checks import check
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -39,6 +41,12 @@ def publications(writer, langs, limit):
                 continue
             entry = json.loads(path.read_text())
             if "error" in entry:
+                continue
+            # A structural fault the free checks find is held here rather than refused by the backend one by one.
+            faults = [finding for finding in check(entry) if finding["severity"] == "error"]
+            if faults:
+                for fault in faults:
+                    print(f"held {path}: {fault['check']} {fault['path']}: {fault['message']}", file=sys.stderr)
                 continue
             meta_path = path.with_name(path.stem + ".meta.json")
             meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
