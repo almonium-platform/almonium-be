@@ -302,8 +302,9 @@ class LexiconPublicationFlowTest {
     void keepsWhereALexemeFormAndSenseAreUsedTheFieldOfASenseAndWhyAVarietyHasASecondReading() {
         ObjectNode bloke = publication("bloke");
         ObjectNode lexeme = (ObjectNode) bloke.path("entry").path("lexemes").get(0);
-        lexeme.set("regions", regions("en-GB", "only"));
-        ((ObjectNode) lexeme.path("forms").get(1)).set("regions", regions("en-US", "mainly"));
+        // A region need not be a variety the product transcribes: Irish English, or English across the Caribbean.
+        lexeme.set("regions", regions("en-IE", "only"));
+        ((ObjectNode) lexeme.path("forms").get(1)).set("regions", regions("en-029", "mainly"));
         ((ObjectNode) lexeme.path("senses").get(0)).put("domain", "sport");
         ((ArrayNode) lexeme.path("pronunciations"))
                 .addObject()
@@ -316,9 +317,9 @@ class LexiconPublicationFlowTest {
                 .containsOnly(true);
 
         LexemeView noun = lookup("en", "bloke").lexemes().getFirst();
-        assertThat(noun.regions()).containsExactly(new RegionScope("en-GB", "only"));
+        assertThat(noun.regions()).containsExactly(new RegionScope("en-IE", "only"));
         assertThat(noun.forms().get(0).regions()).isNull();
-        assertThat(noun.forms().get(1).regions()).containsExactly(new RegionScope("en-US", "mainly"));
+        assertThat(noun.forms().get(1).regions()).containsExactly(new RegionScope("en-029", "mainly"));
         assertThat(noun.senses().getFirst().domain()).isEqualTo("sport");
         assertThat(noun.pronunciations().stream()
                         .filter(pronunciation -> pronunciation.formId() == null)
@@ -338,7 +339,7 @@ class LexiconPublicationFlowTest {
             assertThat(result.accepted()).isFalse();
             assertThat(result.message())
                     .contains("/lexemes/0/pronunciations/0: en-NZ is not a variety of en")
-                    .contains("/lexemes/0/senses/0/regions/0: pt-BR is not a variety of en");
+                    .contains("/lexemes/0/senses/0/regions/0: pt-BR is not en with a country or a UN region");
         });
         assertThat(jdbc.queryForObject("select count(*) from lexicon.lexeme", Integer.class))
                 .isZero();

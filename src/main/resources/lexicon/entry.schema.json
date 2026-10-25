@@ -623,7 +623,7 @@
    "type": "array",
    "minItems": 1,
    "uniqueItems": true,
-   "description": "Where this is used, when not everywhere the language is spoken: only there, or mainly there. Leave it out for what every variety uses. The one way an entry says where anything is used: a lexeme (lorry), a form (gotten), a sense (boot of a car).",
+   "description": "Where this is used, when not everywhere the language is spoken: only there, or mainly there, by country or UN region. Leave it out for what every variety uses. The one way an entry says where anything is used: a lexeme (lorry), a form (gotten), a sense (boot of a car).",
    "items": {
     "type": "object",
     "required": [
@@ -633,7 +633,7 @@
     "additionalProperties": false,
     "properties": {
      "variety": {
-      "$ref": "#/$defs/variety"
+      "$ref": "#/$defs/region"
      },
      "extent": {
       "enum": [
@@ -643,6 +643,11 @@
      }
     }
    }
+  },
+  "region": {
+   "type": "string",
+   "pattern": "^[a-z]{2,3}-([A-Z]{2}|[0-9]{3})$",
+   "description": "The entry's language with a country (es-EC, en-GB) or a UN M.49 region (es-419 Latin America, es-029 the Caribbean). Wider than the varieties the product transcribes: a word can be Canarian or Ecuadorian without the product offering either accent."
   }
  }
 }

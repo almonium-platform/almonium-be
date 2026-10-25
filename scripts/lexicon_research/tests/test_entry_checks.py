@@ -73,7 +73,17 @@ def test_a_variety_the_language_does_not_transcribe_or_scope_is_an_error():
 
     found = changed(edit)
     assert ("variety", "error", "/lexemes/0/pronunciations/1") in found
-    assert ("variety", "error", "/lexemes/0/senses/0/regions/0/variety") in found
+    assert ("region", "error", "/lexemes/0/senses/0/regions/0/variety") in found
+
+
+def test_a_region_may_be_any_country_or_un_area_of_the_language():
+    def edit(lexeme):
+        lexeme["senses"][0]["regions"] = [
+            {"variety": "en-IE", "extent": "only"},
+            {"variety": "en-029", "extent": "mainly"},
+        ]
+
+    assert changed(edit) == []
 
 
 def test_a_symbol_outside_the_inventory_is_an_error_but_a_tie_bar_is_notation():

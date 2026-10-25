@@ -8,11 +8,10 @@ PROMPT_VERSION = "v4"
 LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
 VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
-# Where a lexeme, form or sense may be scoped to: the product's catalogue of varieties for the language
-# (LanguageVariety in the backend), wider than the varieties the writer transcribes.
-REGIONAL_VARIETIES = {"en": ["en-US", "en-GB", "en-AU", "en-IN"], "de": ["de-DE", "de-AT", "de-CH"], "uk": ["uk-UA"],
-                      "fr": ["fr-FR", "fr-CA", "fr-BE", "fr-CH"], "es": ["es-ES", "es-MX", "es-AR", "es-CO"],
-                      "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
+# A region is the language with a country (es-EC) or one of these UN M.49 areas, so that a word can be Canarian
+# or Andean without the product offering that accent. The backend's EntrySchema holds the same list.
+UN_REGIONS = {"419": "Latin America", "029": "the Caribbean", "005": "South America", "013": "Central America",
+              "021": "Northern America", "150": "Europe", "002": "Africa", "142": "Asia", "009": "Oceania"}
 DOMAINS = json.loads((Path(__file__).parent / "entry.schema.json").read_text())["$defs"]["sense"]["properties"]["domain"]["enum"]
 GLOSS = {"en": "uk, de, pl", "de": "en, uk, pl", "uk": "en, de, pl", "fr": "en, uk, de", "es": "en, uk, de",
          "it": "en, uk, de", "pt": "en, uk, de"}
@@ -62,7 +61,7 @@ def system_prompt(lang):
     tpl = (HERE / "prompts" / "entry_writer" / f"{PROMPT_VERSION}.md").read_text()
     return (tpl.replace("{language_name}", LANG_NAME[lang]).replace("{gloss_languages}", GLOSS[lang]).replace("{forms_rule}", FORMS_RULE[lang])
             .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE)
-            .replace("{varieties}", ", ".join(VARIETIES[lang])).replace("{regional_varieties}", ", ".join(REGIONAL_VARIETIES[lang]))
+            .replace("{varieties}", ", ".join(VARIETIES[lang])).replace("{un_regions}", ", ".join(f"{lang}-{code} {name}" for code, name in UN_REGIONS.items()))
             .replace("{domains}", ", ".join(DOMAINS)))
 
 

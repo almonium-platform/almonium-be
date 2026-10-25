@@ -19,7 +19,7 @@ from pathlib import Path
 
 import jsonschema
 
-from prompting import REGIONAL_VARIETIES, VARIETIES
+from prompting import UN_REGIONS, VARIETIES
 
 HERE = Path(__file__).resolve().parent
 SCHEMA = json.loads((HERE / "entry.schema.json").read_text())
@@ -27,6 +27,7 @@ INVENTORY = {
     variety: json.loads((HERE / "inventories" / f"{variety}.json").read_text())
     for variety in {variety for varieties in VARIETIES.values() for variety in varieties}
 }
+COUNTRIES = set(json.loads((HERE / "countries.json").read_text()))
 # What a transcription may hold besides its phonemes: slashes, stress, syllable dots, spaces between words, and
 # the tie bars that only say how an affricate is written.
 IPA_FRAME = set("/ˈˌ. \u0361\u035c")
@@ -48,23 +49,22 @@ def check(entry):
         find("/" + "/".join(str(part) for part in error.absolute_path), "schema", "error", error.message)
     lang = entry.get("language")
     voiced = VARIETIES.get(lang, [])
-    scoped = REGIONAL_VARIETIES.get(lang, [])
     seen_lexemes = {}
     for li, lexeme in enumerate(entry.get("lexemes") or []):
         base = f"/lexemes/{li}"
-        check_regions(lexeme.get("regions"), scoped, f"{base}/regions", find)
+        check_regions(lexeme.get("regions"), lang, f"{base}/regions", find)
         for pi, spoken in enumerate(lexeme.get("pronunciations") or []):
             check_transcription(spoken.get("variety"), spoken.get("ipa"), voiced, f"{base}/pronunciations/{pi}", find)
         words = {lexeme.get("lemma", "")}
         for fi, form in enumerate(lexeme.get("forms") or []):
             words.add(form.get("form", ""))
             check_script(form.get("form", ""), lang, f"{base}/forms/{fi}/form", find)
-            check_regions(form.get("regions"), scoped, f"{base}/forms/{fi}/regions", find)
+            check_regions(form.get("regions"), lang, f"{base}/forms/{fi}/regions", find)
             for variety, ipa in (form.get("ipa") or {}).items():
                 check_transcription(variety, ipa, voiced, f"{base}/forms/{fi}/ipa/{variety}", find)
         for si, sense in enumerate(lexeme.get("senses") or []):
             path = f"{base}/senses/{si}"
-            check_regions(sense.get("regions"), scoped, f"{path}/regions", find)
+            check_regions(sense.get("regions"), lang, f"{path}/regions", find)
             for field in ("definition", "example"):
                 check_script(sense.get(field) or "", lang, f"{path}/{field}", find)
             for gloss_lang, gloss in (sense.get("glosses") or {}).items():
@@ -102,12 +102,13 @@ def check(entry):
     return findings
 
 
-def check_regions(regions, scoped, path, find):
+def check_regions(regions, lang, path, find):
+    """A region is the entry's language with a country or a known UN region (es-EC, es-419), not another language."""
     for ri, region in enumerate(regions or []):
-        if region.get("variety") not in scoped:
-            find(
-                f"{path}/{ri}/variety", "variety", "error", f"{region.get('variety')} is not one of {', '.join(scoped)}"
-            )
+        tag = region.get("variety", "")
+        language, _, area = tag.partition("-")
+        if language != lang or not (area in COUNTRIES or area in UN_REGIONS):
+            find(f"{path}/{ri}/variety", "region", "error", f"{tag} is not {lang} with a country or a UN region")
 
 
 def check_transcription(variety, ipa, voiced, path, find):
