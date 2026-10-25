@@ -1,0 +1,78 @@
+{
+  "checked_at": "2026-10-25",
+  "scope": "Curated diagnostic checkpoints, not exhaustive gold entries. External lookups were made for every pilot headword before judging outcomes were known. Commercial responses were inspected, not copied into the dataset. These are original evaluation notes about factual coverage. Absence in a reference is not proof that a model sense is wrong. Wiktionary-derived references are one source family.",
+  "cases": {
+    "en-table": {
+      "sources": [{"id":"wiki","url":"https://en.wiktionary.org/wiki/table","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global en","entry_ids":["EN_DE9db70ae24846"],"family":"kdictionaries","observation":"Lookup returned noun entry and an on-the-table phrase, no verb entry. Cannot use this absence to reject real verb senses."}],
+      "checkpoints": [
+        {"id":"furniture-data","expectation":"Both furniture and tabulated information noun meanings are represented."},
+        {"id":"opposite-verbs","expectation":"Verb meanings proposing for discussion and postponing/shelving are distinguished, with regional usage guidance."},
+        {"id":"not-exclusive","expectation":"Do not interpret a British association as exclusive to Britain; do not equate shelving with a guaranteed scheduled later discussion."}
+      ],
+      "notes":"Wiktionary associates the proposal sense with non-US usage and postponement chiefly with US usage. Other legitimate senses need not all be required for a learner entry."
+    },
+    "en-spoon": {
+      "sources":[{"id":"wiki","url":"https://en.wiktionary.org/wiki/spoon","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global en","entry_ids":["EN_DE4d30f1089b64"],"family":"kdictionaries","observation":"One utensil noun sense returned; no verb entry in this lookup."}],
+      "checkpoints":[
+        {"id":"utensil","expectation":"Ordinary utensil noun is correct."},
+        {"id":"transfer-verb","expectation":"Using a spoon to transfer/serve food is represented as a verb."},
+        {"id":"control-restraint","expectation":"No requirement to add obsolete nautical or specialist sporting/fishing senses. More senses alone is not an improvement."}
+      ],
+      "notes":"Wiktionary also attests lying close together; a reference's omission of that sense is not evidence against it."
+    },
+    "de-band": {
+      "sources":[{"id":"wiki","url":"https://en.wiktionary.org/wiki/Band#German","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global de","entry_ids":["DE_DE314910c88e16","DE_DE3720d42eaf7f","DE_DE622ae06e45d6"],"family":"kdictionaries","observation":"Separate masculine book-volume, feminine musical-group and neuter strip entries. Neuter entry also includes ligament, recording tape and conveyor senses."}],
+      "checkpoints":[
+        {"id":"gender","expectation":"Book volume masculine, strip/ribbon neuter, musical group feminine; labels are tied to the correct senses."},
+        {"id":"plural","expectation":"Book volumes Bände, ordinary ribbons Bänder, music groups Bands. Figurative Bande is not automatically wrong."},
+        {"id":"pronunciation","expectation":"Native Band /bant/ is distinguished from musical Band /bɛnt/ or /bɛːnt/."}
+      ],
+      "notes":"The house rule grouping identical pronunciation+POS can merge masculine and neuter nouns with different paradigms. Treat inability to associate forms with senses as a representation problem, not a wrong linguistic fact."
+    },
+    "es-guagua": {
+      "sources":[{"id":"rae","url":"https://dle.rae.es/guagua","family":"rae"},{"id":"wiki","url":"https://en.wiktionary.org/wiki/guagua","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global es","entry_ids":["ES_DE119d9ed4bbf0"],"family":"kdictionaries","observation":"Baby meaning returned with broad Amér usage, no bus sense in this lookup."}],
+      "checkpoints":[
+        {"id":"two-meanings","expectation":"Both bus and baby meanings are represented."},
+        {"id":"regional-scope","expectation":"Bus usage includes Canary Islands and Caribbean contexts; baby usage includes Andean/South American contexts. Do not claim either is universal throughout Latin America."},
+        {"id":"gender","expectation":"Bus is feminine; baby is normally feminine but masculine/feminine use in Ecuador is attested by RAE."}
+      ],
+      "notes":"RAE lists further local senses including an insect and baby-shaped bread. Their existence alone does not make all mandatory in a general learner entry."
+    },
+    "pt-rapariga": {
+      "sources":[{"id":"priberam","url":"https://dicionario.priberam.org/rapariga","family":"priberam"},{"id":"wiki","url":"https://en.wiktionary.org/wiki/rapariga#Portuguese","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global pt","entry_ids":["PT_DEac5177d7013d"],"family":"kdictionaries","observation":"European Portuguese girl/young-woman sense returned. This pt source is not evidence of Brazilian coverage."}],
+      "checkpoints":[
+        {"id":"neutral-girl","expectation":"Ordinary girl/young-woman use in Portugal is not marked offensive."},
+        {"id":"brazil-warning","expectation":"Potentially derogatory prostitute/sexual-partner readings in Brazil are explained and distinguished from neutral girl."},
+        {"id":"avoid-national-absolute","expectation":"Do not assert all Brazilian usage is exclusively prostitute. Priberam explicitly marks this as regional within Brazil."}
+      ],
+      "notes":"Priberam also records an Amazonian virgin sense. Treat that as evidence of local variation, not an automatic requirement to enrich every learner entry with it."
+    },
+    "fr-hote": {
+      "sources":[{"id":"wiki","url":"https://en.wiktionary.org/wiki/h%C3%B4te#French","family":"wiktionary"},{"id":"lexicala","provider":"Lexicala global fr","entry_ids":["FR_DEcc77f7c04b66","FR_DEd7ad40cfb5fc"],"family":"kdictionaries","observation":"Host and guest both present, with gender/form distinctions. Host entry pairs hôte with hôtesse; guest entry is masculine-feminine hôte."}],
+      "checkpoints":[
+        {"id":"host-guest","expectation":"Host and guest meanings are both distinguished, with examples demonstrating the intended direction of hospitality."},
+        {"id":"feminine","expectation":"Hôtesse is not unconditionally applied as the only feminine form of guest. Female guest may be hôte."},
+        {"id":"mute-h","expectation":"Pronunciation /ot/ and elision such as l'hôte; do not claim aspirated h. House citation stress is a convention, not a material factual error."}
+      ],
+      "notes":"Biological host is attested. Whether a specialised sense belongs is an editorial choice under the current ordinary-reading scope."
+    },
+    "it-pesca": {
+      "sources":[{"id":"treccani","url":"https://www.treccani.it/enciclopedia/pesca-o-pesca_(La-grammatica-italiana)/","family":"treccani"},{"id":"lexicala","provider":"Lexicala global it","entry_ids":["IT_DE259c3c5f110f","IT_DEacc9748f59d9"],"family":"kdictionaries","observation":"Fishing and peach are separate feminine noun entries with /e/ and /ɛ/ respectively. Catch/result is also represented."}],
+      "checkpoints":[
+        {"id":"two-nouns","expectation":"Peach and fishing meanings both present as distinct pronunciations."},
+        {"id":"vowels","expectation":"Peach /ˈpɛska/, fishing /ˈpeska/; no reversal."},
+        {"id":"lemma-scope","expectation":"Inflected pesca from pescare is not a separate verb lemma under the writer contract. Plural noun pesche is not pesce."}
+      ],
+      "notes":"The house schema intentionally indexes lemmas. Mentioning a surface verb form as a relation is different from incorrectly publishing a pesca verb lemma."
+    },
+    "uk-zamok": {
+      "sources":[{"id":"hrinchenko-castle","url":"https://hrinchenko.com/dictionary/word/17426-zamok","family":"hrinchenko"},{"id":"hrinchenko-lock","url":"https://hrinchenko.com/dictionary/word/17427-zamok-2","family":"hrinchenko"},{"id":"lexicala","provider":"Lexicala multigloss uk","entry_ids":["UK_EKMTsizkj9m29fzf"],"family":"kdictionaries","observation":"Castle and lock English anchors returned, without Ukrainian IPA or a full inflection paradigm."}],
+      "checkpoints":[
+        {"id":"two-meanings","expectation":"Both castle and locking-device meanings present."},
+        {"id":"stress","expectation":"Castle has initial stress за́мок; locking device has final stress замо́к, assigned to the correct senses."},
+        {"id":"forms","expectation":"Forms follow Ukrainian, including dropping the fleeting o in замк- oblique forms. Do not substitute Russian phonology or forms."}
+      ],
+      "notes":"Historical source supports the headword contrast, not a complete modern usage audit. Modern paradigm details beyond corroborated checkpoints may remain uncertain."
+    }
+  }
+}

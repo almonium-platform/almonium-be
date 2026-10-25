@@ -1,0 +1,104 @@
+Existing multi-model review frameworks, checked 2026-10-25
+
+Decision
+Independent answers, blind peer review, judge aggregation and final synthesis
+already exist. Do not turn review_pilot.py into a general-purpose agent framework.
+Keep its paid artifacts, diagnostic cases, lexical rubric and cost measurements.
+Use an existing evaluation runner for the next, larger experiment; Inspect AI is
+the closest Python fit. Reuse the product's existing jobs for production workflow
+unless a demonstrated need justifies a separate orchestration dependency.
+
+Ready council workflows
+1. karpathy/llm-council
+   Independent responses -> anonymized peer ranking -> chairman synthesis.
+   A small local web application using OpenRouter. Its author explicitly says
+   it was a weekend project, is unsupported and is provided for inspiration.
+   Useful reference implementation, not an established production guarantee.
+   https://github.com/karpathy/llm-council
+   https://raw.githubusercontent.com/karpathy/llm-council/master/README.md
+
+2. tsarihan/model-council-mcp-codex
+   Most directly aligned with the owner's existing plan subscriptions. The
+   README and inspected provider source support claude -p and codex exec,
+   stripping API credentials, plus independent, categorized, iterative conflict
+   resolution, pooled/Delphi and dialectic modes. This is a candidate to evaluate,
+   not a dependency installed or production-tested during this experiment.
+   Inspected query.ts, orchestrator.ts, claude-cli.ts and codex-cli.ts read-only.
+   completeWithRetry can repeat empty/failed completions (default three attempts),
+   while quota/timeouts are exempt. The Codex adapter returns final text and
+   removes its temporary output directory. These call paths do not establish
+   our content-keyed durable paid-response recovery guarantee. Retain a durable
+   receipt adapter and configure retries deliberately if adopting it.
+   https://github.com/tsarihan/model-council-mcp-codex
+   https://github.com/tsarihan/model-council-mcp-codex/blob/main/src/council/query.ts
+   https://github.com/tsarihan/model-council-mcp-codex/blob/main/src/providers/codex-cli.ts
+
+3. sherifkozman/the-llm-council
+   Another packaged council with draft, critique, synthesis, schema checking,
+   artifacts, and Claude/Codex CLI providers. It emphasizes planning and software
+   development. Its documented automatic retries/fallbacks require configuration
+   for our paid-call rules; prompt-cache support is not the same as buying each
+   completed response only once. Reviewed documentation, not runtime-tested.
+   https://github.com/sherifkozman/the-llm-council
+
+Evaluation harnesses
+Inspect AI provides multiple independent model graders, individual panel votes,
+aggregation, custom scoring, model adapters, logs and an offline scoring workflow.
+Its majority reducer withholds a result when the panel lacks a true majority;
+an invalid response does not silently shrink the denominator. That is useful for
+benchmarking judges, though a majority still does not establish lexical truth.
+Cache expiry is configurable, including no expiry; default enabled caching lasts
+one week and has per-epoch scoping. A CLI adapter and restart/adoption tests are
+still necessary to satisfy the owner's stronger paid-unit identity requirement.
+https://inspect.aisi.org.uk/model-graded.html#multiple-models
+https://inspect.aisi.org.uk/multiple-scorers.html
+https://inspect.aisi.org.uk/caching.html
+https://inspect.aisi.org.uk/extensions-model-api.html
+
+Promptfoo is a useful alternative for prompt/model comparisons and inspectable
+results. It has model-graded assertions and custom Python/shell providers, so
+the existing plan CLI adapter could be wrapped. Configure providers explicitly:
+the documented rubric default chooses a provider based on available credentials.
+Do not let a generic runner silently switch these plan calls to paid APIs.
+https://www.promptfoo.dev/docs/providers/custom-script/
+https://www.promptfoo.dev/docs/configuration/expected-outputs/model-graded/llm-rubric/
+
+LangGraph supplies parallel/routed workflows, evaluator-optimizer examples and
+persistent checkpoints. It is workflow infrastructure rather than a pre-calibrated
+lexical jury. Adding it alongside existing workers is not automatically simpler.
+https://docs.langchain.com/oss/python/langgraph/workflows-agents#evaluator-optimizer
+https://docs.langchain.com/oss/python/langgraph/persistence
+
+What remains application-specific
+The entry schema, sense granularity, regional scope, inflection and pronunciation
+rules, external-source interpretation, useful enrichment criteria and adjudication
+of concrete findings. Preserve dissent and an unresolved state. Do not optimize
+for all models eventually agreeing, or silently convert uncertainty to correctness.
+Set a small explicit revision limit and distinguish factual fixes from preferences.
+
+The PoLL paper supplies evidence for diverse judging panels on its tested tasks;
+its accuracy and API-price savings are not estimates for this lexicon or the
+owner's subscriptions. Our own results already show that a cheaper additional
+voice may miss defects or invent corrections, so calibrate by language and task.
+https://arxiv.org/abs/2404.18796
+
+No framework was installed, no plugin settings were changed, and no paid result
+was regenerated to assess these alternatives.
+
+Jev: existing local experiment, not a new recommendation
+out/judge.jsonl contains 1,180 completed comparisons, all jev-1.13.0, with
+$0.904016 of recorded API cost and mean reported confidence 0.6357627119.
+judge.py asked which complete entry was better, plus whether each had any
+visible factual error. It collected choices/probabilities, not concrete error
+locations, justifications or corrections. out/blind-results.txt is absent, so
+the stored report does not establish accuracy against the owner's blind picks.
+Confidence is not measured accuracy. Unequal matchup counts also make headline
+writer win rates unsuitable as a controlled direct model ranking.
+
+Current TypeSafe documentation says to ask focused questions and decompose
+judgments that weigh multiple independent factors. Our old broad pairwise
+prompt was not that narrow use case. This is a design limitation of the old
+test, not proof that a redesigned test would succeed. Keep Jev out of the main
+lexical review/adjudication path. Consider it only for a separately calibrated
+triage task if actual volume later makes that worthwhile. No new Jev calls made.
+https://docs.typesafe.ai/introduction

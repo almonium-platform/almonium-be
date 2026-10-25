@@ -1,0 +1,124 @@
+Whole-entry review pilot, 2026-10-25
+
+Purpose
+Evaluate generation, independent review, evidence-aware correction/enrichment and
+verification of complete learner-dictionary entries. Varieties are one dimension,
+alongside senses, definitions, translations, examples/cues, grammar, inflections,
+pronunciation, register, CEFR and relations.
+
+No production writer, publication contract, database or UI changes in this pilot.
+The v3 writer and existing schema are the unchanged baseline. This deliberately
+measures existing house-rule limitations as well as individual model mistakes.
+Future prompt improvements require a separately identified experimental arm; do
+not mix their outputs into this baseline.
+
+Models and cost (original three-model arm)
+Opus 5.5 high, GPT-6.1 Sol medium, GPT-6 Astra medium, via the signed-in Claude
+Code and Codex CLIs only. No model API calls or fallback. No model names are
+shown to reviewers; a writer never performs its own blind review. Each of the
+other two models reviews each entry independently and receives the full entry.
+All nine review areas must have a verdict, including sense coverage.
+
+Use the owner's October 15 plan measurements, recorded October 16 in
+claude-plan-tiers-and-discount.md: Claude share 0.03 and Codex share 0.07 of
+list cost. These supersede pricing.py's older 0.05 and 0.08 for this experiment.
+Claude's list figure comes from the CLI; Codex is priced from recorded tokens.
+Report allocated subscription cost as the primary metric, not incremental API
+charges. Historical factors are estimates. Concurrent conversations make a
+before/after account meter unsuitable for exact attribution to this pilot.
+
+Launch gate defaults to $2 of estimated plan cost, with $0.15 reserved per
+unfinished request. This is NOT a hard provider billing cap: plan CLIs do not
+expose that limit. At most two calls run concurrently. Check book workers and
+meters before starting; stop on allowance refusals, without API fallback.
+
+Sample
+Eight diagnostic entries across seven languages, one ordinary control and seven
+deliberately challenging entries; review_cases.json includes the expansion pool.
+Fixed inputs for each writer use the same installed wordfreq measurements.
+Eight entries cannot establish population accuracy, language-level reliability,
+or production cost for ordinary vocabulary. Report paired case-level results.
+
+External checks
+Lexicala was queried for every headword before any model reviews were known,
+including eventual unanimous passes. Seven lookups use global, Ukrainian uses
+multigloss. Additional direct dictionary/Wiktionary checks establish narrow
+factual checkpoints in review_evidence.json. Sources are fallible and incomplete.
+Keep these notes out of the first blind review to measure the value of adding
+evidence in the next stage. They are not exhaustive gold dictionary entries.
+Do not count Wordnik's Wiktionary-derived data as independent of Wiktionary.
+Do not copy source definitions or examples into generated entries. No blanket
+commercial redistribution permission is inferred from an API subscription.
+
+Stages
+1. generate: each model writes the same eight entries using the existing prompt.
+2. review: other two models independently assess all fields and propose repairs
+   or useful enrichment; disagreement and unknown are first-class outcomes.
+3. amend: a non-author editor considers both reviews AND external evidence,
+   decides every finding (accept/reject/uncertain), and returns a minimal revised
+   full entry. It checks the original and revised versions against every evidence
+   checkpoint, even when the reviewers agreed. These assessments remain model
+   assessments until independently corroborated.
+4. verify: the third model (neither original author nor editor) independently
+   reviews the revised full entry with the same external evidence. No recursive
+   fix loop: unresolved or newly introduced issues stay visible for inspection.
+
+The initial correction arm uses Opus baseline -> Sol editor -> Astra verifier.
+That is a measured candidate configuration, not a preselected winning pipeline.
+Generation and blind-review role comparisons still rotate all three models.
+Report generation-only, each reviewer, correction, verification, and total cost
+separately. Include costs of failed/invalid outputs; never score a refusal as a
+lexical answer. Do not equate number of complaints with judge accuracy.
+
+Reproducibility and safety
+Each request key hashes provider/model/effort, exact prompts, schema, stage and
+transport version. Price and run labels do not change its identity. A file lock
+prevents concurrent identical calls. CLI stdout/stderr are written as the process
+runs; a later parser can adopt saved paid output. Incomplete/ambiguous calls are
+held, not automatically repurchased. Original and revised entries are separate.
+Trailing-comma repair operates only outside JSON strings and is separately
+reported; it is not a model correction. Schema violations remain recorded.
+
+Commands (Python environment needs jsonschema; tests additionally need pytest)
+  python scripts/lexicon_research/review_pilot.py generate --workers 2
+  python scripts/lexicon_research/review_pilot.py review --workers 2
+  python scripts/lexicon_research/review_pilot.py amend --writers opus --workers 2
+  python scripts/lexicon_research/review_pilot.py verify --writers opus --workers 2
+  python scripts/lexicon_research/review_pilot.py report
+
+Outputs are retained under scripts/lexicon_research/out/review-pilot-v1/ (ignored
+by git). Raw request/response artifacts are local research records, never served
+by the product. A re-run finds existing requests; it is not a new experiment.
+
+Additional judges, authorized during the run
+The owner subsequently explicitly authorized OpenRouter for challenger judges.
+This exception does not move Opus/Sol/Astra off their subscription CLIs.
+review_challengers.py uses the identical blind review prompt and saved English
+entries (table and spoon, all three authors). It adds Fable 5.1 high through
+Claude Code, DeepSeek V4.1 Flash 1017 and Qwen 3.7 Plus through OpenRouter.
+OpenRouter reasoning is initially disabled, temperature 0.2, max output 4096;
+provider/model/parameters and raw usage receipts are retained. This evaluates
+these configurations, not each model's maximum possible reasoning performance.
+
+Fable's allocated plan spend uses the same measured Claude 0.03 multiplier.
+OpenRouter's reported actual API dollars are separate, never discounted by the
+plan multiplier. The API launch gate is $0.50, with conservative byte-based
+input reservations, max-price routing of $1/M input and $3/M output, no automatic
+POST retry and no provider fallback. An ambiguous failure is held. Saved paid
+raw output can be reparsed without another call. Price and budget do not rekey
+cached results; request parameters do. Retained under out/review-challengers-v1.
+
+This small English extension cannot establish Ukrainian capability. Judge
+selection depends on confirmed useful findings and false alarms, not vote count
+or raw complaint count. Different vendors do not guarantee independent errors.
+Provider routing/structured outputs were checked against OpenRouter's current
+documentation and the public model catalog on 2026-10-25.
+
+After the non-reasoning DeepSeek configuration missed a known mixed-script
+Polish gloss defect, a separate diagnostic configuration enabled low reasoning,
+8192 max output tokens, on Sol's spoon entry and Astra's spoon entry. This is a
+targeted follow-up on a known defect, not an unbiased accuracy sample. Both
+configurations' outputs and costs remain separate. No paid results were replaced.
+
+  python scripts/lexicon_research/review_challengers.py --judges deepseek,qwen
+  python scripts/lexicon_research/review_challengers.py --judges fable

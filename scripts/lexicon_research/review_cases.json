@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "purpose": "Diagnostic whole-entry pilot, deliberately difficult; not representative accuracy or cost per language. Watchpoints are hidden from writers and blind reviewers.",
+  "pilot": [
+    {
+      "id": "en-table",
+      "language": "en",
+      "headword": "table",
+      "zipf": 5.05,
+      "set": "review-pilot",
+      "watchpoints": [
+        "opposite verb meanings",
+        "regional scope",
+        "noun and verb coverage",
+        "sense-specific examples"
+      ]
+    },
+    {
+      "id": "en-spoon",
+      "language": "en",
+      "headword": "spoon",
+      "zipf": 3.88,
+      "set": "review-pilot",
+      "watchpoints": [
+        "ordinary control",
+        "useful noun and verb senses",
+        "unnecessary historical enrichment"
+      ]
+    },
+    {
+      "id": "de-band",
+      "language": "de",
+      "headword": "Band",
+      "zipf": 5.06,
+      "set": "review-pilot",
+      "watchpoints": [
+        "gender-dependent homographs",
+        "Bände versus Bänder versus Bands",
+        "pronunciation-to-meaning mapping",
+        "house split rule limitations"
+      ]
+    },
+    {
+      "id": "es-guagua",
+      "language": "es",
+      "headword": "guagua",
+      "zipf": 3.08,
+      "set": "review-pilot",
+      "watchpoints": [
+        "baby versus bus",
+        "regional scope below country level",
+        "overgeneralising Latin America",
+        "gender"
+      ]
+    },
+    {
+      "id": "pt-rapariga",
+      "language": "pt",
+      "headword": "rapariga",
+      "zipf": 4.02,
+      "set": "review-pilot",
+      "watchpoints": [
+        "Portugal and Brazil senses",
+        "register and offence",
+        "variation within Brazil",
+        "sense omission"
+      ]
+    },
+    {
+      "id": "fr-hote",
+      "language": "fr",
+      "headword": "hôte",
+      "zipf": 4.06,
+      "set": "review-pilot",
+      "watchpoints": [
+        "host versus guest",
+        "gender and feminine forms",
+        "aspirated versus mute h",
+        "example ambiguity"
+      ]
+    },
+    {
+      "id": "it-pesca",
+      "language": "it",
+      "headword": "pesca",
+      "zipf": 4.38,
+      "set": "review-pilot",
+      "watchpoints": [
+        "open and closed e",
+        "peach versus fishing",
+        "plural and countability",
+        "surface verb form is not a lemma"
+      ]
+    },
+    {
+      "id": "uk-zamok",
+      "language": "uk",
+      "headword": "замок",
+      "zipf": 4.68,
+      "set": "review-pilot",
+      "watchpoints": [
+        "castle versus lock stress",
+        "inflected forms and stress",
+        "translation false matches",
+        "Russian leakage"
+      ]
+    }
+  ],
+  "frequency_note": "Measured with installed wordfreq, same input for each writer; word-level frequency is not sense-level or regional frequency.",
+  "expansion_pool": {
+    "en": [
+      "sanction",
+      "cleave",
+      "oversight",
+      "inflammable",
+      "nonplussed",
+      "presently",
+      "literally",
+      "data",
+      "lie",
+      "lay",
+      "lead",
+      "read",
+      "rubber",
+      "pavement",
+      "momentarily",
+      "defenestration",
+      "chair",
+      "eat"
+    ],
+    "de": [
+      "umfahren",
+      "übersetzen",
+      "Leiter",
+      "See",
+      "Steuer",
+      "Mädchen",
+      "aufheben",
+      "scheinbar",
+      "anscheinend",
+      "Hauch",
+      "Grossstadt",
+      "Haus",
+      "After",
+      "Fülle",
+      "Diät",
+      "Gastronomie",
+      "Folter"
+    ],
+    "es": [
+      "coger",
+      "ahorita",
+      "constipado",
+      "embarazada",
+      "ordenador",
+      "computadora",
+      "solo",
+      "el agua",
+      "ir",
+      "mesa"
+    ],
+    "pt": [
+      "propina",
+      "apelido",
+      "esquisito",
+      "saudade",
+      "paragem",
+      "ônibus",
+      "fato",
+      "facto",
+      "manga",
+      "casa"
+    ],
+    "fr": [
+      "plus",
+      "fils",
+      "poêle",
+      "avocat",
+      "actuellement",
+      "éventuellement",
+      "septante",
+      "dépanneur",
+      "maison"
+    ],
+    "it": [
+      "principi",
+      "ancora",
+      "venti",
+      "eventualmente",
+      "magari",
+      "babbo",
+      "uovo",
+      "braccio",
+      "casa"
+    ],
+    "uk": [
+      "мука",
+      "атлас",
+      "адреса",
+      "адрес",
+      "наразі",
+      "неділя",
+      "файний",
+      "ґанок",
+      "пальто",
+      "день"
+    ]
+  }
+}

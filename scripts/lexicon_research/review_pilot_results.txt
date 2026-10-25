@@ -1,0 +1,180 @@
+Whole-entry generation and review: measured pilot, 2026-10-25
+
+Conclusion
+Useful errors and missing senses were found, but the always-on heavy chain is
+not yet a calibrated publication gate. Use these results to choose a smaller
+review path and improve the schema/rubric; do not launch unrestricted revision
+loops. Existing evaluation/council frameworks should supply generic machinery
+(see review_frameworks.txt). No production data or prompts were changed.
+
+Completed work and spending
+24 independent generations: eight entries x Opus/Sol/Astra.
+48 blind reviews: each entry reviewed by the other two models independently.
+8 evidence-aware corrections: original Opus -> Sol editor.
+8 final reviews: Astra sees revised entry and evidence, not previous verdicts.
+6 additional Fable reviews of the saved English entries through Claude Code.
+14 OpenRouter challenger reviews: DeepSeek 6, Qwen 6, reasoning DeepSeek 2.
+108 model calls total. No paid unit automatically repurchased. All raw results
+retained, including invalid completions. A verification stage reached an entry
+whose edit was still running; rerunning adopted seven finished reviews and
+bought only the missing eighth review.
+
+Core 88 calls: allocated plan estimate $0.584682179.
+Fable 6 calls: allocated plan estimate $0.055100481.
+Combined plan estimate: $0.639782660, not an incremental API charge.
+OpenRouter 14 calls: actual usage-reported API charges $0.036244660.
+No top-up needed. Dictionary quota/fees and this interactive assistant's own
+usage are not included in these model-call totals.
+
+Cost basis is the owner's October 15 measurement: Claude list-equivalent cost
+x 0.03; Codex x 0.07. Historical factors estimate subscription allocation, not
+exact present-day session-meter consumption. Claude cost comes from its CLI;
+Codex cost is calculated from usage. API challenger cost is never discounted.
+
+Measured dollars per 1,000 entries, same eight diagnostic inputs
+Writer     Generation     Generation + other two blind reviews     Ratio
+Opus          2.65                       21.21                       7.99x
+Sol           2.01                       19.24                       9.58x
+Astra        10.25                       17.50                       1.71x
+
+Generation + Sol review for the Opus entries: $6.10/1,000.
+Full Opus -> Sol+Astra reviews -> Sol edit -> Astra verification:
+$36.35/1,000, or 13.70x the same Opus generation-only sample.
+An edit averages $4.88/1,000; final verification averages $10.26/1,000.
+These are measurements of difficult entries with this prompt and caching mix,
+not forecasts for ordinary vocabulary or proof that the cheapest arm is best.
+
+Historical v3 production baseline, recomputed with the owner's plan factor
+30,386 successful CLI metadata records across six languages; API records excluded.
+Language    Entries    Estimated generation dollars / 1,000
+de            1198                 1.118
+en            3358                 0.907
+es            7786                 1.234
+fr           10211                 1.154
+it            3696                 1.410
+pt            4137                 1.449
+No Ukrainian v3 CLI baseline in this set. Source selection and aggregates are
+saved locally in out/review-pilot-v1/production_baseline.json. Difficult-sample
+generation costs must not be presented as the historic production baseline.
+
+Reviewers
+Main reviewers each assessed 16 entries across seven languages. Opus returned
+12 pass / 4 revise; Sol and Astra each returned 16 revise. Complaint counts are
+not accuracy: Opus produced 86 findings (6 material), Sol 48 (30 material),
+Astra 46 (28 material), using different severity thresholds and granularities.
+Mean dollars / 1,000 reviews: Opus 4.13, Sol 3.28, Astra 14.11.
+
+Fable: six English reviews, 3 pass / 3 revise, all valid structured outputs.
+Mean plan estimate $9.18/1,000 reviews. It detected useful regional/coverage
+issues and the mixed-script Polish gloss. It was not the cheapest added voice:
+on four identical English inputs, Fable averaged $9.24/1,000 vs Sol $3.62/1,000.
+Some verdicts said revise despite having no material finding; compute acceptance
+from an explicit policy rather than treating the free-standing verdict as enough.
+
+DeepSeek V4.1 Flash 1017, reasoning disabled: six English reviews, all pass,
+no findings; $0.238/1,000 actual API dollars. Missed the known mixed-script
+Polish gloss defect. Low reasoning, tested separately on two spoon entries:
+$1.653/1,000, still missed that defect, and wrongly treated omitted uncertain
+glosses as universally mandatory. Not selected for the main review path based
+on these configurations. This does not establish performance on all tasks.
+
+Qwen 3.7 Plus: six English reviews; four valid revisions and two truncated,
+invalid outputs at the 4096 output-token ceiling. Mean actual API cost including
+invalid outputs $5.252/1,000. One review alleged that British table's schwa was
+wrong and wanted an open-mid front vowel; that correction is false. Other
+findings explicitly withdrew themselves while remaining in the findings list.
+It flagged the Polish gloss as a typo but misidentified the offending letters;
+it also incorrectly described spoon as having the GOAT vowel. Its false alarms
+and incomplete outputs make it unsuitable as an automatic deciding vote here.
+No Ukrainian challenger calls were made. Never extrapolate English to Ukrainian.
+
+What the experiment actually found
+- Sol's spoon entry contained Polish lyzka spelled with Cyrillic final letters
+  (the exact stored text is 'łyżка'). Opus, Astra and Fable caught it. Qwen flagged
+  a typo with an incorrect diagnosis; both DeepSeek configurations missed it. The Sol editor later
+  introduced this same defect into a newly added sense of Opus's clean entry;
+  Astra's final verification caught that regression. Schema validity is not
+  linguistic correctness, and editing can introduce defects.
+- Both Sol and Astra identified guagua's Ecuadorian gender exception and overly
+  narrow Band definitions. External RAE/Lexicala observations support relevant
+  distinctions. Do not claim an external source found something both missed.
+- Rapariga merged prostitute and mistress, whose glosses differ; the editor split
+  them and broadened the neutral young-woman definition. Priberam's regional
+  Brazilian label guards against a blanket national claim. Final review still
+  questioned whether the mistress example disambiguated the intended sense.
+- Table's American shelving definition was broadened to allow indefinite delay;
+  labels became nonexclusive. Later verification identified another precision
+  issue in the proposal/presentation sense. Definitions in established sources
+  also vary in granularity; not every narrowing is a catastrophic factual error.
+- All three writers correctly distinguished Italian pesca's vowels and Ukrainian
+  замок's stress-based meanings. Do not manufacture failures for these checkpoints.
+- The current house rule merges identical POS+pronunciation, but German Band
+  needs distinct genders/plural paradigms. French hote and Spanish guagua need
+  sense-dependent gender. The schema lacks those sense fields even where the
+  prose prompt appears to permit them. More judges cannot repair that contract.
+
+Correction outcomes
+All eight revised entries satisfy the existing JSON schema. Editor assessments
+of the 24 narrow source checkpoints changed from 20 met, 3 missed, 1 wrong to
+24 met. These are the editor's self-assessments, not an independent accuracy score.
+All 56 input findings were accepted; this arm therefore does not demonstrate
+successful rejection of bad advice. Include known false findings in future
+adjudicator calibration before trusting its accept/reject decisions.
+
+Case          Senses before/after    Final Astra verdict
+en-table              4 / 7                revise
+en-spoon              2 / 4                revise
+de-band               7 / 8                revise
+es-guagua             2 / 2                revise
+pt-rapariga           2 / 3                revise
+fr-hote               2 / 3                pass
+it-pesca              4 / 5                revise
+uk-zamok              3 / 4                pass
+
+The six revise verdicts are NOT six independently proven bad entries. Band's
+remaining issue is a house-rule/schema conflict with no material lexical error;
+others range from the confirmed introduced typo to scope and enrichment choices.
+No further model revision loop was run. All remaining findings stay inspectable.
+
+External evidence and limitations
+Every pilot headword had a Lexicala lookup, including would-be model agreements.
+RAE, Priberam, Treccani, Hrinchenko and Wiktionary supplied narrow cross-checks.
+Lexicala's returned table/spoon entries lacked the relevant verbs; guagua lacked
+bus; the Portuguese lookup covered the European girl meaning. Source omissions
+are not grounds to erase valid senses. Original factual evidence notes, source
+IDs and URLs are in review_evidence.json; source prose was not copied into entries.
+Table IPA cross-check: https://en.wiktionary.org/wiki/table#Pronunciation
+
+Eight diagnostic headwords across seven languages, only one ordinary control,
+cannot establish population accuracy or a language-level winning model. Opus
+generation used Claude's enforced schema; Codex generation used post-validation
+because the legacy schema is incompatible with its strict subset. Initial schema
+errors (Opus 0/8, Sol 1/8, Astra 3/8) therefore mix linguistic representation,
+prompt compliance and transport enforcement; they are not a fair pure ability score.
+Two Sol JSON outputs needed deterministic trailing-comma repair; raw text retained.
+
+Practical next design
+Start with one writer and one independent whole-entry reviewer; the Opus/Sol
+pair is a measured economical candidate, not a proven winner. Check format and
+detectable script/form errors offline. Distinguish material corrections, optional
+enrichment and uncertain claims. Retrieve evidence for disputed/high-risk facts;
+sample passes too. Use Astra or Fable selectively when the added review has
+demonstrated value. Keep unresolved cases rather than forcing consensus. Use
+one bounded correction and verify changed content; retain every prior version.
+Fix the schema/prompt contradictions before a production rollout. Calibrate on
+confirmed defects AND correct entries to measure misses, false alarms and edit
+regressions. Do not regenerate all existing entries on this pilot's evidence.
+
+Artifacts and verification
+out/review-pilot-v1/: exact requests, raw responses, validated answers, usage,
+original/revised entries, summary.json and comparison.json.
+out/review-challengers-v1/: separate plan/API receipts and comparison.json.
+These local artifacts are ignored by git and retained, not published.
+17 fake-provider tests passed; Ruff lint and format checks passed for the four
+new Python modules/test files. Tests cover duplicate purchase prevention,
+interrupted parsing, holds, budget gates, malformed outputs and matched reporting.
+Book spend_guard before/after was unchanged: 38,499 historical runs, zero duplicate
+paid calls in 24 hours, zero twin editions and zero paid text purged in that window.
+Its historical 534 duplicate calls/164 re-asked windows predate this experiment;
+the file-based pilot ledger is separately covered by the tests. No book workers
+were killed or restarted. Scripts/docs only: no application rebuild required.
