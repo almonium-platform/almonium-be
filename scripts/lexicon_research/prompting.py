@@ -53,19 +53,26 @@ SCHEMA_EXAMPLE = json.dumps({
     }]}, ensure_ascii=False, indent=1)
 
 
-def system_prompt(lang):
+def system_prompt(lang, version=PROMPT_VERSION):
     inv = []
     for v in VARIETIES[lang]:
         d = json.loads((HERE / "inventories" / f"{v}.json").read_text())
         inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
-    tpl = (HERE / "prompts" / "entry_writer" / f"{PROMPT_VERSION}.md").read_text()
+    tpl = (HERE / "prompts" / "entry_writer" / f"{version}.md").read_text()
     return (tpl.replace("{language_name}", LANG_NAME[lang]).replace("{gloss_languages}", GLOSS[lang]).replace("{forms_rule}", FORMS_RULE[lang])
             .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE)
             .replace("{varieties}", ", ".join(VARIETIES[lang])).replace("{un_regions}", ", ".join(f"{lang}-{code} {name}" for code, name in UN_REGIONS.items()))
             .replace("{domains}", ", ".join(DOMAINS)))
 
 
-def user_prompt(lang, row):
-    return f"Language: {lang}\nHeadword: {row['headword']}\nZipf frequency: {row['zipf']}"
+REMINDER = ('Every sense you write carries "from": the ids of the evidence senses it covers. '
+            "Write IPA in the house symbols only, whatever notation the evidence uses.")
+
+
+def user_prompt(lang, row, evidence=None, remind=False):
+    text = f"Language: {lang}\nHeadword: {row['headword']}\nZipf frequency: {row['zipf']}"
+    if evidence is None:
+        return text
+    return f"{text}\n\nEvidence (Wiktionary):\n{evidence}" + (f"\n\n{REMINDER}" if remind else "")
 
 

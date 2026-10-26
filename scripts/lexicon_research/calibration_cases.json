@@ -2,83 +2,494 @@
  "version": 1,
  "purpose": "Ground truth for calibrating entry checks and reviewers: what a correct entry must say, what a known-bad entry got wrong, and entries the writers already get right. A reviewer is scored on misses (a defect or trap fact it does not raise), false alarms (a finding against a control or a correct fact) and edit regressions (a fact a patch breaks). Facts are short claims about the correct entry, each tied to a facet of the review and to where it came from.",
  "status_note": "confirmed: seen in stored entries or established by the pilot's external evidence (review_evidence.json). expected: a standard lexicographic fact a writer must state, to be confirmed against a dictionary or a native speaker before it scores anyone. Promote a fact only with a source.",
- "facets": ["structure", "lexemes", "senses", "grammar", "pronunciation", "regions", "glosses", "examples"],
+ "facets": [
+  "structure",
+  "lexemes",
+  "senses",
+  "grammar",
+  "pronunciation",
+  "regions",
+  "glosses",
+  "examples"
+ ],
  "kinds": {
   "defect": "a stored entry is wrong in a known place; the reviewer must find it and a patch must fix exactly that",
   "trap": "a word whose correct entry is easy to get wrong; the facts are what a correct entry says",
   "control": "a word the writers get right; any material finding against it is a false alarm"
  },
  "cases": [
-  {"id": "de-nahrung-gloss", "kind": "defect", "language": "de", "headword": "Nahrung", "facts": [
-   {"facet": "glosses", "path": "/lexemes/0/senses/1/glosses/uk", "claim": "the Ukrainian gloss is поживa with a Latin final a; it must be all Cyrillic (пожива)", "status": "confirmed", "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/de/Nahrung.json"}]},
-  {"id": "pt-alimento-gloss", "kind": "defect", "language": "pt", "headword": "alimento", "facts": [
-   {"facet": "glosses", "path": "/lexemes/0/senses/1/glosses/uk", "claim": "same Latin a inside поживa", "status": "confirmed", "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/pt/alimento.json"}]},
-  {"id": "en-underestimate-gloss", "kind": "defect", "language": "en", "headword": "underestimate", "facts": [
-   {"facet": "glosses", "path": "/lexemes/1/senses/0/glosses/uk", "claim": "заниженa ends in a Latin a", "status": "confirmed", "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/en/underestimate.json"}]},
-  {"id": "en-spoon-gloss", "kind": "defect", "language": "en", "headword": "spoon", "facts": [
-   {"facet": "glosses", "path": "glosses/pl", "claim": "the Polish gloss was written łyżка with Cyrillic final letters; it is łyżka", "status": "confirmed", "source": "review_pilot_results.txt (Sol entry; reintroduced by the Sol editor)"}]},
-  {"id": "pt-elevador-ipa", "kind": "defect", "language": "pt", "headword": "elevador", "facts": [
-   {"facet": "pronunciation", "path": "/lexemes/0/forms/1/ipa/pt-BR", "claim": "the transcription holds the Chinese character 藞", "status": "confirmed", "source": "entry_checks ipa-inventory, out/cc-claude-opus-5-5/pt/elevador.json"}]},
-  {"id": "de-weiters-variety", "kind": "defect", "language": "de", "headword": "weiters", "facts": [
-   {"facet": "structure", "path": "/lexemes/0/pronunciations/1", "claim": "a de-AT transcription where only de-DE is transcribed; Austrian use belongs in regions (weiters is mainly Austrian)", "status": "confirmed", "source": "entry_checks variety, out/cc-claude-opus-5-5/de/weiters.json"}]},
-  {"id": "de-departement-variety", "kind": "defect", "language": "de", "headword": "Departement", "facts": [
-   {"facet": "structure", "path": "/lexemes/0/pronunciations/1", "claim": "a de-CH transcription where only de-DE is transcribed; Swiss use belongs in regions", "status": "confirmed", "source": "entry_checks variety, out/cc-claude-opus-5-5/de/departement.json"}]},
-  {"id": "en-r-for-turned-r", "kind": "defect", "language": "en", "headword": "translation", "facts": [
-   {"facet": "pronunciation", "path": "/lexemes/0/forms/1/ipa", "claim": "r where the house inventory writes ɹ (126 such transcriptions across English entries)", "status": "confirmed", "source": "entry_checks ipa-inventory"}]},
-
-  {"id": "en-table", "kind": "trap", "language": "en", "headword": "table", "facts": [
-   {"facet": "senses", "claim": "the verb has two opposite meanings: to put forward for discussion, and to postpone discussion", "status": "confirmed", "source": "review_evidence.json en-table"},
-   {"facet": "regions", "claim": "put forward is mainly en-GB, postpone mainly en-US; neither is 'only'", "status": "confirmed", "source": "review_pilot_results.txt (labels became nonexclusive)"}]},
-  {"id": "en-rubber", "kind": "trap", "language": "en", "headword": "rubber", "facts": [
-   {"facet": "senses", "claim": "a sense for the eraser", "status": "expected"},
-   {"facet": "regions", "claim": "eraser is mainly en-GB; condom is an informal en-US sense", "status": "expected"}]},
-  {"id": "en-boot", "kind": "trap", "language": "en", "headword": "boot", "facts": [
-   {"facet": "regions", "claim": "the back of a car is en-GB only (en-US trunk)", "status": "expected"}]},
-  {"id": "en-pavement", "kind": "trap", "language": "en", "headword": "pavement", "facts": [
-   {"facet": "regions", "claim": "the path beside a road is mainly en-GB (en-US sidewalk); the road surface is mainly en-US", "status": "expected"}]},
-  {"id": "en-momentarily", "kind": "trap", "language": "en", "headword": "momentarily", "facts": [
-   {"facet": "regions", "claim": "very soon is mainly en-US; for a moment is common to both", "status": "expected"}]},
-  {"id": "en-niche", "kind": "trap", "language": "en", "headword": "niche", "facts": [
-   {"facet": "pronunciation", "claim": "both varieties have /ˈniːʃ/ and /ˈnɪtʃ/; en-GB lists /ˈniːʃ/ first", "status": "expected"},
-   {"facet": "pronunciation", "claim": "the two readings take the same senses: free alternatives, not split by meaning", "status": "confirmed", "source": "local lexicon, Discover turn 7"}]},
-  {"id": "en-live", "kind": "trap", "language": "en", "headword": "live", "facts": [
-   {"facet": "lexemes", "claim": "the adjective and adverb /laɪv/ and the verb /lɪv/ are separate lexemes", "status": "confirmed", "source": "local lexicon"}]},
-  {"id": "en-research", "kind": "trap", "language": "en", "headword": "research", "facts": [
-   {"facet": "pronunciation", "claim": "the noun allows /rɪˈsɜːtʃ/ and /ˈriːsɜːtʃ/, the verb only /rɪˈsɜːtʃ/", "status": "confirmed", "source": "local lexicon, Discover turn 7a"}]},
-  {"id": "en-bow", "kind": "trap", "language": "en", "headword": "bow", "facts": [
-   {"facet": "lexemes", "claim": "/baʊ/ (bend; front of a ship) and /bəʊ/, en-US /boʊ/ (weapon; knot) are separate lexemes even within the noun", "status": "confirmed", "source": "local lexicon"}]},
-  {"id": "en-lie", "kind": "trap", "language": "en", "headword": "lie", "facts": [
-   {"facet": "lexemes", "claim": "lie (lay, lain) and lie (lied) are two verbs said alike: a different conjugation is a different lexeme", "status": "expected"}]},
-  {"id": "en-spoon", "kind": "trap", "language": "en", "headword": "spoon", "facts": [
-   {"facet": "senses", "claim": "a noun sense; verb senses are optional enrichment, not a defect", "status": "confirmed", "source": "review_pilot_results.txt"}]},
-  {"id": "de-band", "kind": "trap", "language": "de", "headword": "Band", "facts": [
-   {"facet": "lexemes", "claim": "der Band (volume, plural Bände), das Band (ribbon, plural Bänder) and die Band (music group, plural Bands) are three lexemes", "status": "confirmed", "source": "review_pilot_results.txt (house rule merged them)"}]},
-  {"id": "es-guagua", "kind": "trap", "language": "es", "headword": "guagua", "facts": [
-   {"facet": "regions", "claim": "bus is Canarian and Caribbean (es-ES mainly for the Canaries, which have no country code of their own, and es-029); baby is Andean and South American; neither is universal in Latin America", "status": "confirmed", "source": "review_evidence.json es-guagua regional-scope"},
-   {"facet": "grammar", "claim": "bus is feminine; baby is normally feminine, with masculine use attested in Ecuador (RAE): a masculine baby lexeme scoped to es-EC", "status": "confirmed", "source": "review_evidence.json es-guagua gender"}]},
-  {"id": "es-coger", "kind": "trap", "language": "es", "headword": "coger", "facts": [
-   {"facet": "regions", "claim": "the sexual sense is mainly Latin American and vulgar there; take/catch is neutral in es-ES", "status": "expected"}]},
-  {"id": "es-ordenador", "kind": "trap", "language": "es", "headword": "ordenador", "facts": [
-   {"facet": "regions", "claim": "computer is es-ES only; Latin America says computadora", "status": "expected"}]},
-  {"id": "pt-rapariga", "kind": "trap", "language": "pt", "headword": "rapariga", "facts": [
-   {"facet": "regions", "claim": "girl is neutral in pt-PT; the offensive senses are pt-BR and regional within Brazil, not national", "status": "confirmed", "source": "review_evidence.json pt-rapariga (Priberam)"},
-   {"facet": "senses", "claim": "prostitute and mistress are separate senses", "status": "confirmed", "source": "review_pilot_results.txt"}]},
-  {"id": "pt-onibus", "kind": "trap", "language": "pt", "headword": "ônibus", "facts": [
-   {"facet": "regions", "claim": "the lexeme is pt-BR (pt-PT autocarro)", "status": "expected"}]},
-  {"id": "fr-hote", "kind": "trap", "language": "fr", "headword": "hôte", "facts": [
-   {"facet": "senses", "claim": "both host and guest", "status": "confirmed", "source": "review_pilot_results.txt (final verdict pass)"}]},
-  {"id": "fr-septante", "kind": "trap", "language": "fr", "headword": "septante", "facts": [
-   {"facet": "regions", "claim": "the lexeme is used in fr-BE and fr-CH only", "status": "expected"}]},
-
-  {"id": "it-pesca", "kind": "control", "language": "it", "headword": "pesca", "facts": [
-   {"facet": "lexemes", "claim": "pesca /ˈpɛska/ (peach) and pesca /ˈpeska/ (fishing) are distinct by vowel; all three writers got it right", "status": "confirmed", "source": "review_pilot_results.txt"}]},
-  {"id": "uk-zamok", "kind": "control", "language": "uk", "headword": "замок", "facts": [
-   {"facet": "lexemes", "claim": "замок (castle) and замок (lock) are distinct by stress; all three writers got it right", "status": "confirmed", "source": "review_pilot_results.txt"}]},
-  {"id": "en-bloke", "kind": "control", "language": "en", "headword": "bloke", "facts": [
-   {"facet": "regions", "claim": "the informal noun for a man, mainly en-GB", "status": "expected"}]},
-  {"id": "en-chuckle", "kind": "control", "language": "en", "headword": "chuckle", "facts": [
-   {"facet": "lexemes", "claim": "a verb and a noun, one reading in each variety", "status": "expected"}]},
-  {"id": "en-colour", "kind": "control", "language": "en", "headword": "colour", "facts": [
-   {"facet": "regions", "claim": "the spelling colour is mainly en-GB; color is the en-US spelling", "status": "expected"}]}
+  {
+   "id": "de-nahrung-gloss",
+   "kind": "defect",
+   "language": "de",
+   "headword": "Nahrung",
+   "facts": [
+    {
+     "facet": "glosses",
+     "path": "/lexemes/0/senses/1/glosses/uk",
+     "claim": "the Ukrainian gloss is поживa with a Latin final a; it must be all Cyrillic (пожива)",
+     "status": "confirmed",
+     "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/de/Nahrung.json"
+    }
+   ]
+  },
+  {
+   "id": "pt-alimento-gloss",
+   "kind": "defect",
+   "language": "pt",
+   "headword": "alimento",
+   "facts": [
+    {
+     "facet": "glosses",
+     "path": "/lexemes/0/senses/1/glosses/uk",
+     "claim": "same Latin a inside поживa",
+     "status": "confirmed",
+     "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/pt/alimento.json"
+    }
+   ]
+  },
+  {
+   "id": "en-underestimate-gloss",
+   "kind": "defect",
+   "language": "en",
+   "headword": "underestimate",
+   "facts": [
+    {
+     "facet": "glosses",
+     "path": "/lexemes/1/senses/0/glosses/uk",
+     "claim": "заниженa ends in a Latin a",
+     "status": "confirmed",
+     "source": "entry_checks mixed-script, out/cc-claude-opus-5-5/en/underestimate.json"
+    }
+   ]
+  },
+  {
+   "id": "en-spoon-gloss",
+   "kind": "defect",
+   "language": "en",
+   "headword": "spoon",
+   "facts": [
+    {
+     "facet": "glosses",
+     "path": "glosses/pl",
+     "claim": "the Polish gloss was written łyżка with Cyrillic final letters; it is łyżka",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt (Sol entry; reintroduced by the Sol editor)"
+    }
+   ]
+  },
+  {
+   "id": "pt-elevador-ipa",
+   "kind": "defect",
+   "language": "pt",
+   "headword": "elevador",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "path": "/lexemes/0/forms/1/ipa/pt-BR",
+     "claim": "the transcription holds the Chinese character 藞",
+     "status": "confirmed",
+     "source": "entry_checks ipa-inventory, out/cc-claude-opus-5-5/pt/elevador.json"
+    }
+   ]
+  },
+  {
+   "id": "de-weiters-variety",
+   "kind": "defect",
+   "language": "de",
+   "headword": "weiters",
+   "facts": [
+    {
+     "facet": "structure",
+     "path": "/lexemes/0/pronunciations/1",
+     "claim": "a de-AT transcription where only de-DE is transcribed; Austrian use belongs in regions (weiters is mainly Austrian)",
+     "status": "confirmed",
+     "source": "entry_checks variety, out/cc-claude-opus-5-5/de/weiters.json"
+    }
+   ]
+  },
+  {
+   "id": "de-departement-variety",
+   "kind": "defect",
+   "language": "de",
+   "headword": "Departement",
+   "facts": [
+    {
+     "facet": "structure",
+     "path": "/lexemes/0/pronunciations/1",
+     "claim": "a de-CH transcription where only de-DE is transcribed; Swiss use belongs in regions",
+     "status": "confirmed",
+     "source": "entry_checks variety, out/cc-claude-opus-5-5/de/departement.json"
+    }
+   ]
+  },
+  {
+   "id": "en-r-for-turned-r",
+   "kind": "defect",
+   "language": "en",
+   "headword": "translation",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "path": "/lexemes/0/forms/1/ipa",
+     "claim": "r where the house inventory writes ɹ (126 such transcriptions across English entries)",
+     "status": "confirmed",
+     "source": "entry_checks ipa-inventory"
+    }
+   ]
+  },
+  {
+   "id": "en-table",
+   "kind": "trap",
+   "language": "en",
+   "headword": "table",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "the verb has two opposite meanings: to put forward for discussion, and to postpone discussion",
+     "status": "confirmed",
+     "source": "review_evidence.json en-table"
+    },
+    {
+     "facet": "regions",
+     "claim": "put forward is mainly en-GB, postpone mainly en-US; neither is 'only'",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt (labels became nonexclusive)"
+    }
+   ]
+  },
+  {
+   "id": "en-rubber",
+   "kind": "trap",
+   "language": "en",
+   "headword": "rubber",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "a sense for the eraser",
+     "status": "expected"
+    },
+    {
+     "facet": "regions",
+     "claim": "eraser is mainly en-GB; condom is an informal en-US sense",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-boot",
+   "kind": "trap",
+   "language": "en",
+   "headword": "boot",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the back of a car is en-GB only (en-US trunk)",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-pavement",
+   "kind": "trap",
+   "language": "en",
+   "headword": "pavement",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the path beside a road is mainly en-GB (en-US sidewalk); the road surface is mainly en-US",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-momentarily",
+   "kind": "trap",
+   "language": "en",
+   "headword": "momentarily",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "very soon is mainly en-US; for a moment is common to both",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-niche",
+   "kind": "trap",
+   "language": "en",
+   "headword": "niche",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "claim": "both varieties have /ˈniːʃ/ and /ˈnɪtʃ/; en-GB lists /ˈniːʃ/ first",
+     "status": "expected"
+    },
+    {
+     "facet": "pronunciation",
+     "claim": "the two readings take the same senses: free alternatives, not split by meaning",
+     "status": "confirmed",
+     "source": "local lexicon, Discover turn 7"
+    }
+   ]
+  },
+  {
+   "id": "en-live",
+   "kind": "trap",
+   "language": "en",
+   "headword": "live",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "the adjective and adverb /laɪv/ and the verb /lɪv/ are separate lexemes",
+     "status": "confirmed",
+     "source": "local lexicon"
+    }
+   ]
+  },
+  {
+   "id": "en-research",
+   "kind": "trap",
+   "language": "en",
+   "headword": "research",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "claim": "the noun has both /ˈriːsɜːtʃ/ and /rɪˈsɜːtʃ/; the verb has /rɪˈsɜːtʃ/ first (initial stress on the verb is a newer British reading)",
+     "status": "confirmed",
+     "source": "Wiktionary research: RP /ˈɹiːsɜːt͡ʃ/ newer, /ɹɪˈsɜːt͡ʃ/ traditional, on both noun and verb"
+    }
+   ]
+  },
+  {
+   "id": "en-bow",
+   "kind": "trap",
+   "language": "en",
+   "headword": "bow",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "/baʊ/ (bend; front of a ship) and /bəʊ/, en-US /boʊ/ (weapon; knot) are separate lexemes even within the noun",
+     "status": "confirmed",
+     "source": "local lexicon"
+    }
+   ]
+  },
+  {
+   "id": "en-lie",
+   "kind": "trap",
+   "language": "en",
+   "headword": "lie",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "lie (lay, lain) and lie (lied) are two verbs said alike: a different conjugation is a different lexeme",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-spoon",
+   "kind": "trap",
+   "language": "en",
+   "headword": "spoon",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "a noun sense; verb senses are optional enrichment, not a defect",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt"
+    }
+   ]
+  },
+  {
+   "id": "de-band",
+   "kind": "trap",
+   "language": "de",
+   "headword": "Band",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "der Band (volume, plural Bände), das Band (ribbon, plural Bänder) and die Band (music group, plural Bands) are three lexemes",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt (house rule merged them)"
+    }
+   ]
+  },
+  {
+   "id": "es-guagua",
+   "kind": "trap",
+   "language": "es",
+   "headword": "guagua",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "bus is Canarian and Caribbean (es-ES mainly for the Canaries, which have no country code of their own, and es-029); baby is Andean and South American; neither is universal in Latin America",
+     "status": "confirmed",
+     "source": "review_evidence.json es-guagua regional-scope"
+    },
+    {
+     "facet": "grammar",
+     "claim": "bus is feminine; baby is normally feminine, with masculine use attested in Ecuador (RAE): a masculine baby lexeme scoped to es-EC",
+     "status": "confirmed",
+     "source": "review_evidence.json es-guagua gender"
+    }
+   ]
+  },
+  {
+   "id": "es-coger",
+   "kind": "trap",
+   "language": "es",
+   "headword": "coger",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the sexual sense is mainly Latin American and vulgar there; take/catch is neutral in es-ES",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "es-ordenador",
+   "kind": "trap",
+   "language": "es",
+   "headword": "ordenador",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "computer is es-ES (only or mainly); the entry does not present it as general Spanish",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "pt-rapariga",
+   "kind": "trap",
+   "language": "pt",
+   "headword": "rapariga",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "girl is neutral in pt-PT; the offensive senses are pt-BR and regional within Brazil, not national",
+     "status": "confirmed",
+     "source": "review_evidence.json pt-rapariga (Priberam)"
+    },
+    {
+     "facet": "senses",
+     "claim": "prostitute and mistress are separate senses",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt"
+    }
+   ]
+  },
+  {
+   "id": "pt-onibus",
+   "kind": "trap",
+   "language": "pt",
+   "headword": "ônibus",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the lexeme is pt-BR (pt-PT autocarro)",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "fr-hote",
+   "kind": "trap",
+   "language": "fr",
+   "headword": "hôte",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "both host and guest",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt (final verdict pass)"
+    }
+   ]
+  },
+  {
+   "id": "fr-septante",
+   "kind": "trap",
+   "language": "fr",
+   "headword": "septante",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the lexeme is regional: Belgium and Switzerland (fr-BE, fr-CH), also Belgian-influenced Central Africa (DR Congo, Rwanda, Burundi); not France",
+     "status": "confirmed",
+     "source": "Wiktionary septante, read by every writer on 2026-10-26"
+    }
+   ]
+  },
+  {
+   "id": "it-pesca",
+   "kind": "control",
+   "language": "it",
+   "headword": "pesca",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "pesca /ˈpɛska/ (peach) and pesca /ˈpeska/ (fishing) are distinct by vowel; all three writers got it right",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt"
+    }
+   ]
+  },
+  {
+   "id": "uk-zamok",
+   "kind": "control",
+   "language": "uk",
+   "headword": "замок",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "замок (castle) and замок (lock) are distinct by stress; all three writers got it right",
+     "status": "confirmed",
+     "source": "review_pilot_results.txt"
+    }
+   ]
+  },
+  {
+   "id": "en-bloke",
+   "kind": "control",
+   "language": "en",
+   "headword": "bloke",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the informal noun for a man, mainly en-GB",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-chuckle",
+   "kind": "control",
+   "language": "en",
+   "headword": "chuckle",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "a verb and a noun; the pronunciation is the same /ˈtʃʌkəl/ in both",
+     "status": "expected"
+    }
+   ]
+  },
+  {
+   "id": "en-colour",
+   "kind": "control",
+   "language": "en",
+   "headword": "colour",
+   "facts": [
+    {
+     "facet": "regions",
+     "claim": "the spelling colour is mainly en-GB (or other non-US varieties), not en-US",
+     "status": "expected"
+    }
+   ]
+  }
  ]
 }

@@ -70,6 +70,8 @@ def check(entry):
             for gloss_lang, gloss in (sense.get("glosses") or {}).items():
                 text = gloss if isinstance(gloss, str) else (gloss or {}).get("text", "")
                 check_script(text, gloss_lang, f"{path}/glosses/{gloss_lang}", find)
+            if lang != "en" and in_english(sense.get("definition") or "", lang):
+                find(f"{path}/definition", "definition-language", "error", f"written in English, not {lang}")
             for field in ("usage", "definition"):
                 match = REGION_WORDS.search(sense.get(field) or "")
                 if match:
@@ -100,6 +102,17 @@ def check(entry):
             )
         seen_lexemes.setdefault(identity, li)
     return findings
+
+
+def in_english(text, lang):
+    """Whether a definition meant to be in lang reads as English: most of its words are commoner in English."""
+    from wordfreq import zipf_frequency
+
+    words = [word.lower() for word in re.findall(r"[^\W\d_]+", text) if len(word) > 2]
+    if len(words) < 4:
+        return False
+    english = sum(1 for word in words if zipf_frequency(word, "en") > zipf_frequency(word, lang) + 0.5)
+    return english / len(words) >= 0.7
 
 
 def check_regions(regions, lang, path, find):

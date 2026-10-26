@@ -335,6 +335,18 @@ class LexiconPublicationFlowTest {
     }
 
     @Test
+    void aSenseCitingTheWiktionarySensesItCoversIsPublished() {
+        ObjectNode bloke = publication("bloke");
+        ObjectNode sense = (ObjectNode)
+                bloke.path("entry").path("lexemes").get(0).path("senses").get(0);
+        sense.putArray("from").add("1.1").add("1.2");
+
+        assertThat(publishBatch(bloke))
+                .extracting(EntryPublicationResult::accepted)
+                .containsOnly(true);
+    }
+
+    @Test
     void aVarietyTheCatalogueLacksForTheLanguageRefusesThePublication() {
         ObjectNode bloke = publication("bloke");
         ObjectNode lexeme = (ObjectNode) bloke.path("entry").path("lexemes").get(0);

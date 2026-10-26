@@ -567,6 +567,15 @@
     },
     "regions": {
      "$ref": "#/$defs/regions"
+    },
+    "from": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+     },
+     "description": "Provenance: the ids of the evidence senses (Wiktionary, numbered per entry run) this sense covers. Used by the checks to carry regions and to find gaps; not shown to learners."
     }
    }
   },

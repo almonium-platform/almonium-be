@@ -1,0 +1,85 @@
+Wiktionary-grounded entry pipeline: design and measured night, 2026-10-26
+
+Conclusion
+Write every entry from its Wiktionary record. The writer gets the word's lexemes, genders, plurals, forms, IPA by
+variety and numbered senses with their region, register and topic labels, and cites on each sense the evidence
+senses it covers. Facts then come from the evidence and are checked and filled by code; only the few facts that
+still disagree go to one cheap patch call; nothing is reviewed twice. With Opus 5.5 at low effort as the writer,
+92 hard and ordinary words came out 89 ready, 3 disputed (genuine pronunciation variants), 0 held. On the plan
+that is about $1 per 1,000 entries; at API list price $29.60. Cheaper writers did not hold quality: Haiku 5.5 and
+Gemini 3.8 Flash lost blind comparisons to Opus 5:19 and 6:19, and Haiku wrote English definitions into 70
+non-English senses. Recommendation: Opus 5.5, effort low, on the plans, through this pipeline.
+
+Two kinds of disagreement
+Facts have one answer that a source can settle: a lexeme's gender, its plural and forms, how a variety says it
+(including per meaning, which the lexeme split carries), where a sense is used. These are compared with Wiktionary
+in code (evidence_checks.py); what the evidence settles is filled in; a remaining difference gets one patch call,
+and the patch lands only if it verifies. A difference that survives is "disputed", kept with its reason, never
+argued into agreement.
+Judgments have no single answer: how finely to split senses, which rare sense a learner needs, how to word a
+definition, the CEFR level. These are never reviewed in a loop. The writer's choice stands; the only check is
+coverage (no common Wiktionary lexeme or sense silently dropped), which is counted, not "fixed". The house rules
+that would otherwise be argued are written as rules: a different pronunciation, part of speech, gender or
+inflection class is a different lexeme (der/die/das Band, live, bow); everything else is a sense.
+Provenance (the citations) is a third, minor kind: a wrong citation costs the regions it would carry, a reader
+never sees it, so it never holds an entry.
+
+The pipeline (entry_pipeline.py)
+evidence  wiktionary.py: the kaikki.org record for the headword, cached under out/kaikki, reduced to lexemes with
+          gender, nominative plural, a few principal forms, the stressed form (Ukrainian), IPA per transcribed
+          variety with Wiktionary's own notes (newer, traditional -> older, rare -> less_common), and numbered senses
+          with region labels mapped to ISO countries or UN areas (Canary Islands -> ES, Caribbean -> 029).
+          Facts are free to reuse; definitions are CC BY-SA and are shown as evidence only, never copied.
+write     prompt v5 (prompts/entry_writer/v5.md) plus a one-line reminder after the evidence (cite every sense;
+          IPA in house symbols). Arm v5r-evidence in grounded_writer.py. A draft is bought once and reused.
+repair    entry_repair.py, free: what has one reading (conjugation 1 -> "1", auxiliary sein -> be, keys the schema
+          lacks, gloss {word} -> {text}, gender on English nouns, plural class without its hyphen, domain synonyms,
+          Wiktionary notation in the IPA: non-syllabic marks, glottal stops, en-GB ɛ -> e, en-US e -> ɛ, r -> ɹ,
+          syllabic n̩ -> ən, uk o -> ɔ).
+check     entry_checks.py, free: schema, varieties of the language, IPA inside the inventory, mixed alphabets,
+          definitions in English for a non-English entry, duplicate lexemes, region words in text.
+fill      evidence_checks.fill, free: a sense whose citations all carry places takes them as regions.
+settle    patch_facts.py: fact findings only, one Haiku call, RFC 6902 patch inside the finding's lexeme; applied
+          only if the free checks gain no error and the evidence disagrees on fewer facts.
+rewrite   once, with the problems listed, when an entry still has a structural error, covers none of the
+          evidence's common lexemes, or merges lexemes the evidence keeps apart by gender.
+verdict   ready / disputed / held, one ledger line per word with every step's cost.
+
+Measurements (OpenRouter and Anthropic API, real dollars; plan money is list x 0.03 for Claude)
+Writer cost at low effort, 92 words:   Opus 5.5 $29.09/1,000 list (~$0.9 plan); Sonnet 5.5 ~$30 (3 words only);
+                                       Gemini 3.8 Flash $6.15; Haiku 5.5 $1.55.
+Thinking is the cost: Opus at its default effort (medium) spent 5,374 output tokens on Band; low effort 2,433.
+Pipeline verdicts, eval set (92 words: 31 calibration, 33 known-hard, 28 ordinary):
+  Opus drafts   89 ready, 3 disputed, 0 held; settling ran on 3 words ($0.0016), 1 rewrite ($0.06).
+  Haiku drafts  87 ready, 4 disputed, 1 held at $1.75/1,000 all-in (before the definition-language check).
+Validation set (70 fresh ordinary words, Haiku, rules frozen): 60 ready, 8 disputed, 2 held, $1.42/1,000.
+Blind pairs, 32 words, Sonnet judge listing material learner-facing errors:
+  Haiku pipeline vs Opus: Opus better 19, Haiku 5, same 8; errors 84 vs 69.
+  Gemini vs Opus:         Opus better 19, Gemini 6, same 7; errors 78 vs 65.
+Calibration facts (calibration_cases.json, Sonnet judge, before four facts were corrected):
+  Opus 31 met / 4 missed / 2 contradicted; Gemini 30/3/4; Haiku 27/6/3.
+Evidence effect (smoke): Band split into ribbon (Neut, Bänder), bonds (Neut, Bande), volume (Masc, Bände), band
+(Fem, Bands, /ˈbɛnt/); table's verb got "propose" mainly en-GB and "postpone" mainly en-US; guagua's bus and baby
+got their Caribbean/Canarian and Andean regions. These are the pilot's hardest checkpoints, met in one pass.
+Comparator noise found and removed: of Opus's 56 IPA disagreements with Wiktionary, 53 were notation; the rest are
+real variants (translation /s/ or /z/, syncopated momentarily, American unstressed ɪ/i in research).
+
+What the night changed in the contract
+Schema 3 gains sense.from (citations, provenance only; publication accepts it). The entry was already given one
+regions shape and the lexeme split by inflection class earlier the same day.
+
+Open items
+- Plans: the production writer belongs in the book processor's plan harness (the owner's proposal): a queue and
+  switch of its own, keyed by language, headword, prompt version and schema version, so a rewrite is deliberate.
+  Run the Claude CLI at --effort low there; measure the meter per 1,000 entries before a large burn.
+- A second plan writer: Codex (Sol, low effort) through the same pipeline has not been measured with evidence.
+- Haiku as a cheap writer needs more than prompt reminders (it ignored the definition language); if real-dollar
+  scale is ever needed, try structured outputs or a Sonnet writer before giving up on the API route.
+- Wiktionary at scale: per-word fetches from kaikki.org are fine for thousands; for a full language, download the
+  per-language extract once instead.
+- Regions finer than a country (Canary Islands) are written as the country; subdivisions would need a new shape.
+- calibration_cases.json facts marked "expected" still need a source before they score anyone.
+
+Artifacts (git-ignored): out/kaikki, out/grounded/<arm>/<writer>, out/pipeline/<run>/ledger.jsonl,
+out/grounded/pairs-*.jsonl, out/grounded/*/<writer>.calibration.jsonl.
+Spend: $5.53 in all (OpenRouter $4.67, Anthropic API $0.86 until its credit ran out).
