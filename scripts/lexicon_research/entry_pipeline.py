@@ -105,6 +105,24 @@ def run_one(run, writer, fixer, effort, row, budget):
         if grounded_writer._spent >= budget:
             return {"language": lang, "headword": headword, "verdict": "budget"}
     found = wiktionary.evidence(lang, headword)
+    if not found["lexemes"] and found["form_of"]:
+        # An inflected form is not an entry of its own: the reader is sent to its lemma, nothing is written.
+        line = {
+            "language": lang,
+            "headword": headword,
+            "verdict": "inflected",
+            "lemma": wiktionary.lemma_of(found),
+            "rewritten": False,
+            "cost": {"write": 0.0, "settle": 0.0, "rewrite": 0.0},
+            "settle": {},
+            "problems": [],
+            "disputed": [],
+        }
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({"form_of": found["form_of"], "lemma": line["lemma"]}, ensure_ascii=False))
+        with _lock, (HERE / "out" / "pipeline" / run / "ledger.jsonl").open("a") as ledger:
+            ledger.write(json.dumps(line, ensure_ascii=False) + "\n")
+        return line
     status = grounded_writer.write_one(ARM, writer, row, budget, effort)
     draft_path = HERE / "out" / "grounded" / ARM / f"{writer.replace('/', '--')}-{effort}" / lang / f"{headword}.json"
     if not draft_path.exists():
@@ -124,8 +142,22 @@ def run_one(run, writer, fixer, effort, row, budget):
         cost["settle"] += usd
         rewritten = True
         problems = needs_rewrite(entry, found)
-    facts = [f for f in evidence_checks.compare(entry, found) if f["kind"] == "fact"] if "error" not in entry else []
-    verdict = "held" if problems else "disputed" if facts else "ready"
+    if "error" in entry:
+        facts = []
+    elif found["lexemes"]:
+        facts = [f for f in evidence_checks.compare(entry, found) if f["kind"] == "fact"]
+    else:
+        facts = evidence_checks.compare_without_evidence(entry, lambda word: wiktionary.evidence("de", word))
+    rejected = "error" not in entry and not entry.get("lexemes") and entry.get("reject")
+    if problems:
+        verdict = "held"
+    elif rejected:
+        verdict = "rejected"  # the writer said there is no entry to write (a name, a misspelling)
+    elif facts:
+        verdict = "disputed"
+    else:
+        # With no record nothing could disagree: the entry stands on the writer's word alone.
+        verdict = "ready" if found["lexemes"] else "unverified"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(entry, ensure_ascii=False, indent=1))
     line = {

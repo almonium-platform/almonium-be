@@ -46,6 +46,79 @@ LANGUAGE_SAME = {
 PROVENANCE = "provenance"
 
 
+# German suffixes that decide a noun's gender and plural whatever comes before them.
+GERMAN_SUFFIXES = [
+    ("ung", "Fem", "en"),
+    ("heit", "Fem", "en"),
+    ("keit", "Fem", "en"),
+    ("schaft", "Fem", "en"),
+    ("ion", "Fem", "en"),
+    ("tät", "Fem", "en"),
+    ("chen", "Neut", ""),
+    ("lein", "Neut", ""),
+]
+
+
+def german_head(lemma, evidence):
+    """Gender and plural a German compound takes from its last part: a deciding suffix (Verankerung: -ung, so
+    Fem, Verankerungen), or the longest final part Wiktionary knows as a noun (Leistungsträger: Träger, so Masc,
+    Leistungsträger). evidence(word) is wiktionary.evidence for German. None when neither is found."""
+    for suffix, gender, ending in GERMAN_SUFFIXES:
+        if lemma.lower().endswith(suffix):
+            return gender, lemma + ending
+    for cut in range(1, len(lemma) - 2):
+        part = lemma[cut:]
+        head = [
+            lexeme
+            for lexeme in evidence(part[:1].upper() + part[1:])["lexemes"]
+            if lexeme["pos"] == "NOUN" and len(lexeme["gender"]) == 1
+        ]
+        if head:
+            plural = head[0]["plural"][0] if head[0]["plural"] else None
+            return head[0]["gender"][0], (lemma[:cut] + plural.lower()) if plural else None
+    return None
+
+
+def compare_without_evidence(entry, evidence):
+    """Fact findings for an entry Wiktionary has no record of: German nouns checked against their last part."""
+    findings = []
+    if entry.get("language") != "de":
+        return findings
+    for li, lexeme in enumerate(entry.get("lexemes") or []):
+        if lexeme.get("pos") != "NOUN":
+            continue
+        head = german_head(lexeme.get("lemma", ""), evidence)
+        if not head:
+            continue
+        gender, plural = head
+        ours = (lexeme.get("grammar") or {}).get("gender")
+        if ours and ours != gender:
+            findings.append(
+                {
+                    "path": f"/lexemes/{li}/grammar/gender",
+                    "check": "gender",
+                    "kind": "fact",
+                    "message": f"{ours} where its last part makes it {gender}",
+                }
+            )
+        plurals = {
+            form["form"]
+            for form in lexeme.get("forms") or []
+            if (form.get("features") or {}).get("Number") == "Plur"
+            and (form.get("features") or {}).get("Case") in (None, "Nom")
+        }
+        if plural and plurals and plural not in plurals:
+            findings.append(
+                {
+                    "path": f"/lexemes/{li}/forms",
+                    "check": "plural",
+                    "kind": "fact",
+                    "message": f"plural {', '.join(sorted(plurals))} where its last part makes it {plural}",
+                }
+            )
+    return findings
+
+
 def compare(entry, found):
     """Findings from comparing an entry with the evidence Wiktionary gives for its headword."""
     findings = []

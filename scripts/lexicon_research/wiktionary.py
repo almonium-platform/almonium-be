@@ -160,6 +160,39 @@ REGISTER_TAGS = {
     "dialectal",
 }
 SKIP_SENSE = {"obsolete", "historical"}
+# The tags kaikki puts on a sense that only names an inflected form of another word.
+INFLECTION_TAGS = {
+    "plural",
+    "singular",
+    "past",
+    "present",
+    "future",
+    "participle",
+    "infinitive",
+    "gerund",
+    "imperative",
+    "subjunctive",
+    "indicative",
+    "conditional",
+    "preterite",
+    "imperfect",
+    "first-person",
+    "second-person",
+    "third-person",
+    "genitive",
+    "dative",
+    "accusative",
+    "instrumental",
+    "locative",
+    "vocative",
+    "nominative",
+    "comparative",
+    "superlative",
+    "strong",
+    "weak",
+    "mixed",
+    "inflection-of",
+}
 SENSES_PER_LEXEME = 16
 # Labels Wiktionary puts on a pronunciation, as the note an entry gives a reading besides the first.
 SOUND_NOTES = {
@@ -174,6 +207,22 @@ SOUND_NOTES = {
     "casual": "casual",
     "colloquial": "casual",
     "careful": "careful",
+}
+QUALIFIERS = {
+    "chiefly",
+    "mainly",
+    "mostly",
+    "especially",
+    "primarily",
+    "usually",
+    "often",
+    "originally",
+    "now",
+    "also",
+    "in",
+    "rare",
+    "rarely",
+    "sometimes",
 }
 MAINLY = re.compile(r"\b(chiefly|mainly|mostly|especially|usually|primarily|often)\b", re.IGNORECASE)
 
@@ -206,16 +255,33 @@ def fetch(lang, word):
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
+def records(lang, word):
+    """The word's records; a German noun listed in lower case (koordinaten) is found under its capital."""
+    found = fetch(lang, word)
+    if not found and lang == "de" and word[:1].islower():
+        found = fetch(lang, word[:1].upper() + word[1:])
+    return found
+
+
+def inflection(sense):
+    """Whether a sense only names an inflected form ("plural of", "past participle of"). A feminine equivalent
+    (copine), a verbal noun (проведення), an acronym (sida) or an alternative spelling point at another word too,
+    but carry a meaning of their own, so they are lexemes."""
+    if not sense.get("form_of"):
+        return False
+    return bool(INFLECTION_TAGS & set(sense.get("tags", []))) or "inflection of" in " ".join(sense.get("glosses", []))
+
+
 def evidence(lang, word):
     """The headword's lexemes as Wiktionary records them, each with numbered senses; proper names and lexemes
     holding only inflected-form senses ("plural of ...") are kept apart as form_of."""
     lexemes, form_of = [], []
-    for record in fetch(lang, word):
+    for record in records(lang, word):
         pos = POS.get(record.get("pos"))
-        if pos is None or record.get("word") != word:
+        if pos is None or record.get("word", "").lower() != word.lower():
             continue
         senses = [sense for sense in record.get("senses", []) if not SKIP_SENSE & set(sense.get("tags", []))]
-        own = [sense for sense in senses if not sense.get("form_of") and not sense.get("alt_of")]
+        own = [sense for sense in senses if not inflection(sense)]
         if not own:
             form_of += [gloss(sense) for sense in senses]
             continue
@@ -258,13 +324,29 @@ def evidence(lang, word):
 
 
 def labels(sense):
-    """The sense's tags and the labels its gloss opens with, "(Caribbean, Equatorial Guinea) bus", as tag names:
-    kaikki does not turn every label into a tag."""
-    found = set(sense.get("tags", []))
+    """The labels the sense's gloss opens with, "(Caribbean, Equatorial Guinea) bus", as tag names. Only these say
+    where the sense is used: kaikki's tags also carry qualifiers of the headword's gender or forms (French caca's
+    "poo" is tagged Louisiana without its gloss saying so), and a place taken from those would scope a sense
+    that is used everywhere."""
     raw = (sense.get("raw_glosses") or [""])[-1]
-    if raw.startswith("("):
-        found |= {label.strip().replace(" ", "-") for label in raw[1 : raw.find(")")].split(",")}
+    if not raw.startswith("("):
+        return set()
+    found = set()
+    for label in raw[1 : raw.find(")")].split(","):
+        words = label.split()
+        while words and words[0].lower() in QUALIFIERS:  # "chiefly UK" is UK, said mainly there
+            words = words[1:]
+        found.add("-".join(words))
     return found
+
+
+def lemma_of(found):
+    """The word an inflected form belongs to, from "plural of Koordinate" or "past participle of expresar"."""
+    for text in found["form_of"]:
+        match = re.search(r"\bof ([^\s:;,()]+)", text)
+        if match:
+            return match.group(1)
+    return None
 
 
 def gloss(sense):

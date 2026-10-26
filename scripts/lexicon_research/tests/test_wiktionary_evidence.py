@@ -104,3 +104,37 @@ def test_an_uncovered_common_lexeme_is_reported_as_coverage_not_fact():
     findings = evidence_checks.compare(entry(), found)
     coverage = [f["message"] for f in findings if f["kind"] == "coverage"]
     assert any(message.startswith("L2 NOUN") for message in coverage)
+
+
+def test_an_inflected_form_points_at_its_lemma():
+    found = {"lexemes": [], "form_of": ["plural of Koordinate"]}
+    assert wiktionary.lemma_of(found) == "Koordinate"
+    assert wiktionary.lemma_of({"lexemes": [], "form_of": ["past participle of expresar"]}) == "expresar"
+
+
+def test_a_region_comes_from_the_gloss_labels_with_their_qualifiers_set_aside():
+    assert wiktionary.labels({"raw_glosses": ["(chiefly US) To postpone"], "tags": ["US"]}) == {"US"}
+    assert wiktionary.labels({"raw_glosses": ["(childish) poo"], "tags": ["Louisiana"]}) == {"childish"}
+
+
+def test_a_german_compound_takes_gender_and_plural_from_its_last_part():
+    heads = {"Träger": {"lexemes": [{"pos": "NOUN", "gender": ["Masc"], "plural": ["Träger"]}]}}
+
+    def evidence(word):
+        return heads.get(word, {"lexemes": []})
+
+    assert evidence_checks.german_head("Verankerung", evidence) == ("Fem", "Verankerungen")
+    assert evidence_checks.german_head("Leistungsträger", evidence) == ("Masc", "Leistungsträger")
+    entry = {
+        "language": "de",
+        "lexemes": [
+            {
+                "lemma": "Leistungsträger",
+                "pos": "NOUN",
+                "grammar": {"gender": "Fem"},
+                "forms": [{"form": "Leistungsträgerinnen", "features": {"Number": "Plur"}}],
+            }
+        ],
+    }
+    checks = {f["check"] for f in evidence_checks.compare_without_evidence(entry, evidence)}
+    assert checks == {"gender", "plural"}

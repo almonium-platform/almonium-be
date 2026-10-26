@@ -1,14 +1,25 @@
 Wiktionary-grounded entry pipeline: design and measured night, 2026-10-26
 
-Conclusion
-Write every entry from its Wiktionary record. The writer gets the word's lexemes, genders, plurals, forms, IPA by
-variety and numbered senses with their region, register and topic labels, and cites on each sense the evidence
-senses it covers. Facts then come from the evidence and are checked and filled by code; only the few facts that
-still disagree go to one cheap patch call; nothing is reviewed twice. With Opus 5.5 at low effort as the writer,
-92 hard and ordinary words came out 89 ready, 3 disputed (genuine pronunciation variants), 0 held. On the plan
-that is about $1 per 1,000 entries; at API list price $29.60. Cheaper writers did not hold quality: Haiku 5.5 and
-Gemini 3.8 Flash lost blind comparisons to Opus 5:19 and 6:19, and Haiku wrote English definitions into 70
-non-English senses. Recommendation: Opus 5.5, effort low, on the plans, through this pipeline.
+Conclusion (revised the next day, see "Effort decides the writing")
+Write every entry from its Wiktionary record, with Opus 5.5 at HIGH effort on the plans. The writer gets the
+word's lexemes, genders, plurals, forms, IPA by variety and numbered senses with their region, register and topic
+labels, and cites on each sense the evidence senses it covers. Facts then come from the evidence and are checked
+and filled by code; only the few facts that still disagree go to one cheap patch call; nothing is reviewed twice.
+Against the entries in production today (Opus at high effort, prompt v3, no evidence), this recipe won a blind
+comparison 17:9 (10 the same) on 36 fresh words, at about $1.55 per 1,000 entries in plan money ($52 at list).
+The first night's recommendation of low effort was wrong: low effort lost to the old entries 9:17. Cheaper
+writers did not hold quality either: Haiku 5.5 and Gemini 3.8 Flash lost to Opus 5:19 and 6:19, and Haiku wrote
+English definitions into 70 non-English senses.
+
+Effort decides the writing, evidence decides the facts
+Blind pairs, new pipeline entry vs the stored entry for the same word, Sonnet judge, 36-37 fresh words, plan CLI:
+  new at low effort      new better 9,  old better 17, same 10
+  new at medium effort   new better 12, old better 15, same 10
+  new at high effort     new better 17, old better 9,  same 10
+Plan money per 1,000 (list x 0.03): low $1.16, medium about $1.20, high about $1.55. The judge is noisy (the same
+old entries drew 61 errors in one run and 73 in another), but the trend runs one way across three arms. What
+evidence adds is not better definitions but facts that can be checked and filled: regions, lexemes split by
+gender, verified IPA, inflected forms recognised before any money is spent.
 
 Two kinds of disagreement
 Facts have one answer that a source can settle: a lexeme's gender, its plural and forms, how a variety says it
@@ -68,10 +79,39 @@ What the night changed in the contract
 Schema 3 gains sense.from (citations, provenance only; publication accepts it). The entry was already given one
 regions shape and the lexeme split by inflection class earlier the same day.
 
+Wiktionary coverage of the headwords we write (420 sampled, 60 per language, English Wiktionary via kaikki)
+          lexeme  inflected  nothing   IPA when a lexeme   noun gender   noun plural
+  en       55/60       0        5           51/55               -          52/53
+  de       40/60      13        7           28/40             29/29        25/29
+  es       56/60       3        1           56/56             38/38        38/38
+  fr       43/60       7       10           36/43             31/31        29/31
+  it       57/60       3        0           57/57             38/39        33/39
+  pt       57/60       2        1           55/57             38/38        37/38
+  uk       56/60       2        2           56/56             44/44        31/44
+87% have a record, 7% are inflected forms (Wiktionary names the lemma), 6% have nothing: names (petersburg,
+osorio, шевченка), English loans in French and German (pink, undercover), compounds and truncations (Verankerung,
+traitance). Derived words Wiktionary files as "form of" another (copine, sida, Ukrainian verbal nouns) carry their
+own meaning and are lexemes; only inflections are set aside. German IPA is the thinnest fact (70%).
+
+Verdicts with and without a record (entry_pipeline.py)
+inflected   Wiktionary knows the headword only as a form of another word: nothing is written, the ledger names
+            the lemma (koordinaten -> Koordinate, expresado -> expresar). These headwords should not be entries.
+rejected    the writer returned no lexeme and a reason (a name).
+unverified  no record: the writer's knowledge alone, nothing could disagree. German nouns are still checked
+            against their last part (Verankerung: -ung, so Fem and -en; Leistungsträger: Träger, so Masc).
+ready / disputed / held as before.
+Regions come only from the labels a gloss opens with ("(chiefly US) To postpone"), not from kaikki's tags, which
+also carry qualifiers of a headword's gender: French caca's "poo" was tagged Louisiana and came out "fr-US only".
+
+Handover to the book processor (the owner's proposal, agreed)
+One queue and one switch of its own beside book ingestion, on the processor's plan seats with its pause/resume,
+meter pacing and spend guard. A job is one headword, keyed by language, headword, prompt version (v5 + reminder),
+schema version (3) and effort, so a rewrite is always deliberate. Steps as in entry_pipeline.py: evidence (shared
+kaikki cache), write on a Claude seat at --effort high, repair, check, fill, settle (Haiku through the API or a
+plan seat; it ran on 3 of 92 words), one rewrite, verdict. Only "ready" entries are published; "disputed",
+"unverified" and "held" go to a review list; "inflected" headwords are removed from the headword lists.
+
 Open items
-- Plans: the production writer belongs in the book processor's plan harness (the owner's proposal): a queue and
-  switch of its own, keyed by language, headword, prompt version and schema version, so a rewrite is deliberate.
-  Run the Claude CLI at --effort low there; measure the meter per 1,000 entries before a large burn.
 - A second plan writer: Codex (Sol, low effort) through the same pipeline has not been measured with evidence.
 - Haiku as a cheap writer needs more than prompt reminders (it ignored the definition language); if real-dollar
   scale is ever needed, try structured outputs or a Sonnet writer before giving up on the API route.
@@ -82,4 +122,5 @@ Open items
 
 Artifacts (git-ignored): out/kaikki, out/grounded/<arm>/<writer>, out/pipeline/<run>/ledger.jsonl,
 out/grounded/pairs-*.jsonl, out/grounded/*/<writer>.calibration.jsonl.
-Spend: $5.53 in all (OpenRouter $4.67, Anthropic API $0.86 until its credit ran out).
+Spend: $5.53 the first night (OpenRouter $4.67, Anthropic API $0.86 until its credit ran out); the next day
+about $1.25 of OpenRouter judging and 150 plan-written entries (session meter 1% -> 16%, shared with book jobs).

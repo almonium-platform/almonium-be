@@ -12,6 +12,8 @@ Usage: grounded_writer.py --words FILE --arm v5-evidence --writer claude-opus-5-
 
 import argparse
 import json
+import re
+import subprocess
 import sys
 import threading
 import time
@@ -89,6 +91,81 @@ def call_anthropic(model, system, user, effort):
     }
 
 
+EMPTY = Path("/tmp/claude-1000/lexicon-writer-empty")
+NO_MCP = ["--no-session-persistence", "--strict-mcp-config", "--mcp-config", '{"mcpServers": {}}']
+
+
+def cli_schema():
+    """The entry schema as the Claude CLI's validator takes it: draft-07 shapes, definitions instead of $defs."""
+    schema = json.loads((HERE / "entry.schema.json").read_text())
+    schema.pop("$schema", None)
+    schema["definitions"] = schema.pop("$defs")
+    return json.dumps(schema).replace("#/$defs/", "#/definitions/")
+
+
+def meters():
+    """Percent used of the plan's five-hour session and of its week, read from /usage, which costs no tokens."""
+    EMPTY.mkdir(parents=True, exist_ok=True)
+    result = subprocess.run(
+        ["claude", "-p", "--output-format", "json", *NO_MCP],
+        input="/usage",
+        capture_output=True,
+        text=True,
+        timeout=120,
+        cwd=EMPTY,
+        check=False,
+    )
+    screen = json.loads(result.stdout)["result"]
+
+    def used(label):
+        match = re.search(label + r": (\d+)% used", screen)
+        return int(match.group(1)) if match else None
+
+    return used("Current session"), used(r"Current week \(all models\)")
+
+
+def call_plan(model, system, user, effort):
+    """One headless Claude CLI call on the owner's plan, from an empty directory so no project file rides along.
+    usd is the CLI's list-price figure; plan money is a share of it (0.03 measured)."""
+    EMPTY.mkdir(parents=True, exist_ok=True)
+    started = time.time()
+    command = [
+        "claude",
+        "-p",
+        user,
+        "--model",
+        model,
+        "--effort",
+        effort,
+        "--tools",
+        "",
+        "--system-prompt",
+        system,
+        "--json-schema",
+        cli_schema(),
+        "--output-format",
+        "json",
+        *NO_MCP,
+    ]
+    result = subprocess.run(command, capture_output=True, text=True, timeout=900, cwd=EMPTY, check=False)
+    body = json.loads(result.stdout)
+    if body.get("is_error"):
+        raise RuntimeError((body.get("result") or "")[:200])
+    usage = body.get("usage") or {}
+    structured = body.get("structured_output")
+    text = json.dumps(structured, ensure_ascii=False) if structured is not None else body.get("result") or ""
+    return text, {
+        "input_tokens": usage.get("input_tokens"),
+        "output_tokens": usage.get("output_tokens"),
+        "cache_read": usage.get("cache_read_input_tokens"),
+        "cache_write": usage.get("cache_creation_input_tokens"),
+        "usd": body.get("total_cost_usd"),
+        "plan_usd": round((body.get("total_cost_usd") or 0) * 0.03, 6),
+        "latency_s": round(time.time() - started, 1),
+        "via": "plan",
+    }
+
+
 def openrouter_id(writer):
     """claude-opus-5-5 is anthropic/claude-opus-5.5 on OpenRouter; any other id is OpenRouter's own."""
     if writer.startswith("claude-"):
@@ -158,7 +235,10 @@ def write_one(arm, writer, row, budget, effort="low"):
     zipf = round(zipf_frequency(headword, lang), 2)
     system = prompting.system_prompt(lang, version)
     user = prompting.user_prompt(lang, {"headword": headword, "zipf": zipf}, evidence, remind)
-    call = call_anthropic if writer.startswith("claude-") and VIA == "anthropic" else call_openrouter
+    if VIA == "plan":
+        call = call_plan
+    else:
+        call = call_anthropic if writer.startswith("claude-") and VIA == "anthropic" else call_openrouter
     try:
         text, meta = call(writer, system, user, effort)
     except Exception as error:  # noqa: BLE001 - any transport failure is retried by the next run, never written
@@ -196,8 +276,8 @@ def main():
     parser.add_argument("--writer", required=True)
     parser.add_argument("--budget-usd", type=float, default=3.0)
     parser.add_argument("--workers", type=int, default=4)
-    parser.add_argument("--effort", choices=["low", "medium", "high"], default="low")
-    parser.add_argument("--via", choices=["anthropic", "openrouter"], default="anthropic")
+    parser.add_argument("--effort", choices=["low", "medium", "high", "xhigh"], default="low")
+    parser.add_argument("--via", choices=["anthropic", "openrouter", "plan"], default="anthropic")
     args = parser.parse_args()
     global VIA
     VIA = args.via
