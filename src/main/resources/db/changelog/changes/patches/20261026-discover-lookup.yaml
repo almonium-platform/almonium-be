@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261026-discover-lookup
+      author: claude
+      comment: >-
+        discover_lookup logs every Discover word sheet opened: the word, its languages, and whether the lexicon
+        answered it, so /ops can show which language's lexicon to warm up next and which words it lacked. requester
+        tells lookers apart without naming them, the same way catalog_search does.
+      changes:
+        - createTable:
+            tableName: discover_lookup
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translation_language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: query
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: answered_by
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: member_id
+                  type: uuid
+              - column:
+                  name: requester
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: discover_lookup
+            baseColumnNames: member_id
+            constraintName: fk_discover_lookup_member
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            tableName: discover_lookup
+            indexName: ix_discover_lookup_created
+            columns:
+              - column:
+                  name: created_at

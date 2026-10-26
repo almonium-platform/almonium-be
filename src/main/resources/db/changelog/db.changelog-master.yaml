@@ -197,3 +197,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261024-want-source.yaml
   - include:
       file: db/changelog/changes/patches/20261026-lexicon-scopes.yaml
+  - include:
+      file: db/changelog/changes/patches/20261026-discover-lookup.yaml

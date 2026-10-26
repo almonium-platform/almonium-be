@@ -12,6 +12,7 @@ import com.almonium.analyzer.analyzer.dto.DiscoverExampleResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
+import com.almonium.analyzer.analyzer.repository.DiscoverLookupLog.AnsweredBy;
 import com.almonium.analyzer.translator.dto.DefinitionDto;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.dto.TranslationDto;
@@ -48,12 +49,15 @@ class DiscoverLookupServiceTest {
     @Mock
     LexiconLookupService lexiconLookupService;
 
+    @Mock
+    DiscoverLookupRecorder lookupRecorder;
+
     DiscoverLookupService service;
 
     @BeforeEach
     void setUp() {
         service = new DiscoverLookupService(
-                languageProcessor, frequencyService, lexiconLookupService, new DiscoverLexiconMapper());
+                languageProcessor, frequencyService, lexiconLookupService, new DiscoverLexiconMapper(), lookupRecorder);
     }
 
     @Test
@@ -81,6 +85,7 @@ class DiscoverLookupServiceTest {
         assertThat(result.entry()).isEqualTo("Ausgabe");
         assertThat(result.sourceContext()).isEqualTo("Die zweite Ausgabe erschien.");
         assertThat(result.provider()).isEqualTo("dictionary");
+        verify(lookupRecorder).record("Ausgabe", Language.DE, Language.EN, AnsweredBy.PROVIDER);
         assertThat(result.frequency().band()).isEqualTo("Common in books");
         assertThat(result.frequency().provenance()).contains("ngrams.dev", "ger corpus");
         assertThat(result.pronunciations()).isEmpty();
@@ -104,6 +109,7 @@ class DiscoverLookupServiceTest {
         var result = service.lookup("Ausgabe", null, Language.DE, Language.EN);
 
         assertThat(result.provider()).isNull();
+        verify(lookupRecorder).record("Ausgabe", Language.DE, Language.EN, AnsweredBy.NOTHING);
         assertThat(result.frequency()).isNull();
         assertThat(result.senses()).isEmpty();
         assertThat(result.pronunciations()).isEmpty();
@@ -184,6 +190,7 @@ class DiscoverLookupServiceTest {
                                 null,
                                 List.of(1)));
         verify(languageProcessor, never()).translate(anyString(), any(), any());
+        verify(lookupRecorder).record("bloke", Language.EN, Language.UK, AnsweredBy.LEXICON);
     }
 
     @Test

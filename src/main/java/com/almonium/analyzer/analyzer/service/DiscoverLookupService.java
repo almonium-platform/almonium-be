@@ -4,6 +4,7 @@ import com.almonium.analyzer.analyzer.dto.DiscoverFrequencyResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverSenseResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
+import com.almonium.analyzer.analyzer.repository.DiscoverLookupLog.AnsweredBy;
 import com.almonium.analyzer.translator.dto.DefinitionDto;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
@@ -20,7 +21,8 @@ import org.springframework.stereotype.Service;
 /**
  * Builds the Discover sheet for a word. The lexicon is asked first: when it has the word, its lexemes make the
  * sheet and the old translation provider is not called; otherwise the provider answers as before. Frequency comes
- * from ngrams either way. The route is public, so nothing here looks at a user.
+ * from ngrams either way. The route is public and the sheet is the same for everyone; each lookup is logged, with
+ * who answered it, for the /ops languages pulse.
  */
 @Slf4j
 @Service
@@ -30,6 +32,7 @@ public class DiscoverLookupService {
     private final FrequencyService frequencyService;
     private final LexiconLookupService lexiconLookupService;
     private final DiscoverLexiconMapper lexiconMapper;
+    private final DiscoverLookupRecorder lookupRecorder;
 
     public DiscoverLookupResponse lookup(
             String rawEntry, String rawContext, Language language, Language translationLanguage) {
@@ -43,6 +46,7 @@ public class DiscoverLookupService {
         Optional<LexiconEntryResponse> lexiconEntry = lexiconLookupService.lookup(code(language), entry);
         if (lexiconEntry.isPresent() && !lexiconEntry.get().lexemes().isEmpty()) {
             LexiconEntryResponse found = lexiconEntry.get();
+            lookupRecorder.record(entry, language, translationLanguage, AnsweredBy.LEXICON);
             return new DiscoverLookupResponse(
                     entry,
                     context,
@@ -55,6 +59,9 @@ public class DiscoverLookupService {
         }
 
         TranslationCardDto translation = lookupTranslation(entry, language, translationLanguage);
+        List<DiscoverSenseResponse> senses = mapSenses(entry, translation);
+        lookupRecorder.record(
+                entry, language, translationLanguage, senses.isEmpty() ? AnsweredBy.NOTHING : AnsweredBy.PROVIDER);
         return new DiscoverLookupResponse(
                 entry,
                 context,
@@ -62,7 +69,7 @@ public class DiscoverLookupService {
                 translationLanguage,
                 translation == null ? null : translation.getProvider(),
                 frequency,
-                mapSenses(entry, translation),
+                senses,
                 List.of());
     }
 

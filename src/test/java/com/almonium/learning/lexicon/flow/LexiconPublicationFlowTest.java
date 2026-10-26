@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import com.almonium.analyzer.analyzer.controller.open.DiscoverController;
 import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
+import com.almonium.analyzer.analyzer.service.DiscoverLookupRecorder;
 import com.almonium.analyzer.analyzer.service.DiscoverLookupService;
 import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.analyzer.service.LanguageProcessor;
@@ -156,7 +157,12 @@ class LexiconPublicationFlowTest {
                 DiscoverLexiconMapper mapper) {
             return new DiscoverController(
                     frequencyService,
-                    new DiscoverLookupService(languageProcessor, frequencyService, lookupService, mapper));
+                    new DiscoverLookupService(
+                            languageProcessor,
+                            frequencyService,
+                            lookupService,
+                            mapper,
+                            mock(DiscoverLookupRecorder.class)));
         }
     }
 
