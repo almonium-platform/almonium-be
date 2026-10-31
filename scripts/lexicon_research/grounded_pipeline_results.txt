@@ -111,6 +111,23 @@ kaikki cache), write on a Claude seat at --effort high, repair, check, fill, set
 plan seat; it ran on 3 of 92 words), one rewrite, verdict. Only "ready" entries are published; "disputed",
 "unverified" and "held" go to a review list; "inflected" headwords are removed from the headword lists.
 
+Contract follow-ups, 2026-11-01
+Sense identity. A sense keeps a key (lexicon.sense.sense_key) across rewrites: the new sense that matches an old
+one (same citations, definition, glosses in two or more reader languages, wording) takes its key, across all
+lexemes of the headword. Every publish is kept whole in lexicon.entry_version with the keys and the keys it
+retired; cards store sense_key; GET /ops/lexicon/senses/{key}/history traces one sense through every version and
+counts the cards saved from it. Citations ("from") are now stored on the sense, so keep them in every prompt.
+Inflected forms. Prompt v6 (arm v6r-evidence) says a headword that is also an inflection returns only what it is
+the lemma of (saw: the tool and to saw), a form with a meaning of its own is a lexeme when learner dictionaries
+give it a headword (glasses, Eltern) and a plural-only sense otherwise (arms, esposas). The lookup already reaches
+see from saw through see's forms; the ledger now names such lemmas (also_form_of) so they get written. The
+"inflection" check (a lexeme whose lemma is the word the headword inflects) rewrites once; it raised nothing on
+732 stored drafts. v6 is not measured yet: run it on the calibration traps before switching the factory to it.
+Homophones. Computed by the backend from stored transcriptions, never written by the model: same variety, same
+transcription, not the lemma's own form, not family, not a spelling of the same word. Shown on Discover as
+"Sounds like". Wiktionary's own homophone lists (9/96 English records) are not used yet; they would add words the
+lexicon lacks and accent notes (cheer-chair merger).
+
 Open items
 - A second plan writer: Codex (Sol, low effort) through the same pipeline has not been measured with evidence.
 - Haiku as a cheap writer needs more than prompt reminders (it ignored the definition language); if real-dollar
