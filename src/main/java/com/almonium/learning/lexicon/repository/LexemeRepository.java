@@ -31,40 +31,48 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
      * variety is the same, slashes and syllable dots aside. Not a homophone: one of the lemma's own forms (French
      * arrivée of arriver), a family member, or a spelling of the same word, which shares the glosses of one sense in
      * two reader languages or more (humour, humor; plain and plane share only German Ebene and stay). One row per
-     * lexeme asked about, homophone lexeme and variety.
+     * lexeme asked about, homophone lexeme and variety. The candidates are gathered first and each test looks one
+     * way, so every lookup stays on an index (one query with both ways in an OR scanned whole tables).
      */
     @Query(nativeQuery = true, value = """
-            select distinct cast(me.id as varchar) as lexeme, o.lemma as lemma, o.pos as pos, p.variety as variety
-            from lexicon.lexeme me
-            join lexicon.pronunciation mp on mp.lexeme_id = me.id and mp.lexeme_form_id is null
-            join lexicon.pronunciation p on p.variety = mp.variety and p.lexeme_form_id is null
-                 and translate(p.phonemic, '/.', '') = translate(mp.phonemic, '/.', '')
-            join lexicon.lexeme o on o.id = p.lexeme_id and o.language = me.language
-                 and lower(o.lemma) <> lower(me.lemma)
-            where me.id in (:ids)
+            with candidate as materialized (
+                select distinct me.id as lexeme_id, me.language as language, lower(me.lemma) as said, o.lemma as lemma,
+                       lower(o.lemma) as alike, o.pos as pos, p.variety as variety
+                from lexicon.lexeme me
+                join lexicon.pronunciation mp on mp.lexeme_id = me.id and mp.lexeme_form_id is null
+                join lexicon.pronunciation p on p.variety = mp.variety and p.lexeme_form_id is null
+                     and translate(p.phonemic, '/.', '') = translate(mp.phonemic, '/.', '')
+                join lexicon.lexeme o on o.id = p.lexeme_id and o.language = me.language and lower(o.lemma) <> lower(me.lemma)
+                where me.id in (:ids))
+            select cast(c.lexeme_id as varchar) as lexeme, c.lemma as lemma, c.pos as pos, c.variety as variety
+            from candidate c
+            where not exists (
+                    select 1 from lexicon.lexeme x join lexicon.lexeme_form f on f.lexeme_id = x.id
+                    where x.language = c.language and lower(x.lemma) = c.said and f.normalized_form = c.alike)
               and not exists (
-                  select 1 from lexicon.lexeme_form f join lexicon.lexeme x on x.id = f.lexeme_id
-                  where x.language = me.language
-                    and ((lower(x.lemma) = lower(me.lemma) and f.normalized_form = lower(o.lemma))
-                      or (lower(x.lemma) = lower(o.lemma) and f.normalized_form = lower(me.lemma))))
+                    select 1 from lexicon.lexeme x join lexicon.lexeme_form f on f.lexeme_id = x.id
+                    where x.language = c.language and lower(x.lemma) = c.alike and f.normalized_form = c.said)
               and not exists (
-                  select 1 from lexicon.lexeme_relation r join lexicon.lexeme x on x.id = r.lexeme_id
-                  where r.type = 'family' and x.language = me.language
-                    and ((lower(x.lemma) = lower(me.lemma) and lower(r.target_lemma) = lower(o.lemma))
-                      or (lower(x.lemma) = lower(o.lemma) and lower(r.target_lemma) = lower(me.lemma))))
+                    select 1 from lexicon.lexeme x join lexicon.lexeme_relation r on r.lexeme_id = x.id
+                    where x.language = c.language and lower(x.lemma) = c.said and r.type = 'family'
+                      and lower(r.target_lemma) = c.alike)
               and not exists (
-                  select 1
-                  from lexicon.lexeme xa
-                  join lexicon.sense sa on sa.lexeme_id = xa.id
-                  join lexicon.sense_gloss ga on ga.sense_id = sa.id
-                  join lexicon.lexeme xb on xb.language = xa.language and lower(xb.lemma) = lower(o.lemma)
-                  join lexicon.sense sb on sb.lexeme_id = xb.id
-                  join lexicon.sense_gloss gb on gb.sense_id = sb.id
-                       and gb.fluent_language = ga.fluent_language and lower(gb.gloss) = lower(ga.gloss)
-                  where xa.language = me.language and lower(xa.lemma) = lower(me.lemma)
-                  group by sa.id, sb.id
-                  having count(distinct ga.fluent_language) >= 2)
-            order by o.lemma, o.pos, p.variety
+                    select 1 from lexicon.lexeme x join lexicon.lexeme_relation r on r.lexeme_id = x.id
+                    where x.language = c.language and lower(x.lemma) = c.alike and r.type = 'family'
+                      and lower(r.target_lemma) = c.said)
+              and not exists (
+                    select 1
+                    from lexicon.lexeme xa
+                    join lexicon.sense sa on sa.lexeme_id = xa.id
+                    join lexicon.sense_gloss ga on ga.sense_id = sa.id
+                    join lexicon.lexeme xb on xb.language = c.language and lower(xb.lemma) = c.alike
+                    join lexicon.sense sb on sb.lexeme_id = xb.id
+                    join lexicon.sense_gloss gb on gb.sense_id = sb.id
+                         and gb.fluent_language = ga.fluent_language and lower(gb.gloss) = lower(ga.gloss)
+                    where xa.language = c.language and lower(xa.lemma) = c.said
+                    group by sa.id, sb.id
+                    having count(distinct ga.fluent_language) >= 2)
+            order by c.lemma, c.pos, c.variety
             """)
     List<SpokenAlike> findSpokenAlike(@Param("ids") Collection<UUID> ids);
 
