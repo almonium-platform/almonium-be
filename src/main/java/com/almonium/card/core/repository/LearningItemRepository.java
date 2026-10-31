@@ -15,6 +15,8 @@ public interface LearningItemRepository extends JpaRepository<LearningItem, UUID
 
     long countByOwner(Learner owner);
 
+    long countBySenseKey(UUID senseKey);
+
     long countByOwnerAndSourceBookId(Learner owner, UUID sourceBookId);
 
     List<LearningItem> findAllByOwnerAndLanguage(Learner owner, Language language);

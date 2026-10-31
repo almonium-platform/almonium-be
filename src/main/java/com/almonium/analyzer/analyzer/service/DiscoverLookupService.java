@@ -129,6 +129,7 @@ public class DiscoverLookupService {
                         .toList();
         return new DiscoverSenseResponse(
                 index + 1,
+                null,
                 definition.getText() == null || definition.getText().isBlank() ? entry : definition.getText(),
                 definition.getPos(),
                 definition.getTranscription(),

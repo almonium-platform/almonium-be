@@ -29,6 +29,7 @@ import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.LexemeVie
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PronunciationView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.SenseView;
 import com.almonium.learning.lexicon.dto.response.LexiconSuggestion;
+import com.almonium.learning.lexicon.dto.response.SenseHistoryResponse;
 import com.almonium.learning.lexicon.dto.response.UnvoicedPronunciation;
 import com.almonium.learning.lexicon.mapper.AudioClipMapper;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
@@ -38,6 +39,7 @@ import com.almonium.learning.lexicon.service.AudioClipService;
 import com.almonium.learning.lexicon.service.EntrySchema;
 import com.almonium.learning.lexicon.service.LexiconLookupService;
 import com.almonium.learning.lexicon.service.LexiconPublicationService;
+import com.almonium.learning.lexicon.service.SenseHistoryService;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
@@ -83,6 +85,7 @@ import tools.jackson.databind.node.ObjectNode;
 @ImportTestcontainers(PostgresContainer.class)
 @Import({
     LexiconPublicationService.class,
+    SenseHistoryService.class,
     LexiconLookupService.class,
     LexiconEntryMapper.class,
     AudioClipService.class,
@@ -190,10 +193,14 @@ class LexiconPublicationFlowTest {
     @Autowired
     JdbcTemplate jdbc;
 
+    @Autowired
+    SenseHistoryService senseHistory;
+
     @BeforeEach
     void emptyLexicon() {
         jdbc.update("delete from lexicon.lexeme");
         jdbc.update("delete from lexicon.rejected_headword");
+        jdbc.update("delete from lexicon.entry_version");
     }
 
     @Test
@@ -408,6 +415,48 @@ class LexiconPublicationFlowTest {
                         lexeme -> assertThat(lexeme.provenance().entryVersion()).isEqualTo(2));
         assertThat(chuckle.lexemes().get(1).relations().getFirst().lexemeId())
                 .isEqualTo(chuckle.lexemes().get(0).id());
+    }
+
+    @Test
+    void aRewrittenSenseKeepsItsKeyAndADroppedOneIsRetiredInTheEntryVersion() {
+        publishOne(publication("chuckle"));
+        LexiconEntryResponse first = lookup("en", "chuckle");
+        UUID verb = senseKey(first, "VERB");
+        UUID noun = senseKey(first, "NOUN");
+        assertThat(verb).isNotNull().isNotEqualTo(noun);
+
+        ObjectNode entry = entry("chuckle");
+        ((ObjectNode) entry.get("lexemes").get(0).get("senses").get(0))
+                .put("definition", "to laugh quietly, mostly at something funny");
+        ((ArrayNode) entry.get("lexemes")).remove(1);
+        publishOne(publication(entry, meta("chuckle")));
+
+        assertThat(senseKey(lookup("en", "chuckle"), "VERB")).isEqualTo(verb);
+        List<Map<String, Object>> versions =
+                jdbc.queryForList("select version, document->'retired' as retired from lexicon.entry_version"
+                        + " where language = 'en' and headword = 'chuckle' order by version");
+        assertThat(versions).extracting(row -> row.get("version")).containsExactly(1, 2);
+        assertThat(versions.get(1).get("retired").toString()).contains(noun.toString());
+        assertThat(jdbc.queryForObject(
+                        "select count(*) from lexicon.entry_version where document @> cast(? as jsonb)",
+                        Integer.class,
+                        "{\"lexemes\": [{\"senses\": [{\"key\": \"" + verb + "\"}]}]}"))
+                .isEqualTo(2);
+
+        SenseHistoryResponse kept = senseHistory.history(verb);
+        assertThat(kept.versions())
+                .extracting(SenseHistoryResponse.SenseVersion::version)
+                .containsExactly(1, 2);
+        assertThat(kept.versions().get(1).sense())
+                .containsEntry("pos", "VERB")
+                .containsEntry("definition", "to laugh quietly, mostly at something funny");
+        SenseHistoryResponse dropped = senseHistory.history(noun);
+        assertThat(dropped.versions())
+                .extracting(SenseHistoryResponse.SenseVersion::version)
+                .containsExactly(1, 2);
+        assertThat(dropped.versions().get(0).sense()).containsEntry("pos", "NOUN");
+        assertThat(dropped.versions().get(1).sense()).isNull();
+        assertThat(dropped.versions().get(1).retiredTowards()).isNotNull();
     }
 
     @Test
@@ -723,6 +772,16 @@ class LexiconPublicationFlowTest {
                 .collect(Collectors.toMap(
                         table -> table,
                         table -> jdbc.queryForObject("select count(*) from lexicon." + table, Integer.class)));
+    }
+
+    private static UUID senseKey(LexiconEntryResponse entry, String pos) {
+        return entry.lexemes().stream()
+                .filter(lexeme -> lexeme.pos().equals(pos))
+                .findFirst()
+                .orElseThrow()
+                .senses()
+                .getFirst()
+                .key();
     }
 
     private Set<UUID> pronunciationIds() {

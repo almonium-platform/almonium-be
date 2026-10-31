@@ -76,6 +76,13 @@ public class LearningItem {
 
     String selectedSense;
 
+    /**
+     * The lexicon sense the item was saved from, by its key, which survives rewrites of the entry; null when it
+     * was saved from elsewhere. Not a foreign key: a sense a rewrite retires still answers through the entry
+     * versions, and {@code selectedSense} keeps what the learner saw.
+     */
+    UUID senseKey;
+
     String sourceContext;
 
     /** The library edition the word was met in, when it was saved from the reader; what a certificate counts. */

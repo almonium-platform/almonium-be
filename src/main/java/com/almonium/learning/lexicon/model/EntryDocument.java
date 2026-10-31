@@ -71,7 +71,8 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
             Map<String, Object> grammar,
             String usage,
             String domain,
-            List<RegionScope> regions) {
+            List<RegionScope> regions,
+            List<String> from) {
 
         public Map<String, JsonNode> glosses() {
             return glosses == null ? Map.of() : glosses;
@@ -79,6 +80,10 @@ public record EntryDocument(String language, String headword, List<LexemeDocumen
 
         public List<CueDocument> cues() {
             return cues == null ? List.of() : cues;
+        }
+
+        public List<String> from() {
+            return from == null ? List.of() : from;
         }
     }
 

@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261101-sense-identity
+      author: claude
+      comment: >-
+        A sense keeps one key across rewrites of its entry (a republished entry recreates its rows, and the key is
+        carried over to the sense that matches), a sense keeps the evidence senses it cites, which is how a rewrite
+        is matched, every published entry is kept whole with its keys as an entry version, and a card names the
+        sense it was saved from by that key. The card's key is deliberately not a foreign key: a sense a rewrite
+        drops still answers through the entry versions.
+      changes:
+        - addColumn:
+            schemaName: lexicon
+            tableName: sense
+            columns:
+              - column:
+                  name: sense_key
+                  type: uuid
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_sense_key
+              - column:
+                  name: cited
+                  type: jsonb
+        - createTable:
+            schemaName: lexicon
+            tableName: entry_version
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headword
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: writer
+                  type: varchar(64)
+              - column:
+                  name: schema_version
+                  type: varchar(16)
+              - column:
+                  name: document
+                  type: jsonb
+                  constraints:
+                    nullable: false
+              - column:
+                  name: built_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: entry_version
+            columnNames: language, headword, version
+            constraintName: uq_entry_version
+        - sql:
+            sql: create index ix_entry_version_document on lexicon.entry_version using gin (document jsonb_path_ops)
+        - addColumn:
+            tableName: card
+            columns:
+              - column:
+                  name: sense_key
+                  type: uuid
+        - createIndex:
+            tableName: card
+            indexName: ix_card_sense_key
+            columns:
+              - column:
+                  name: sense_key

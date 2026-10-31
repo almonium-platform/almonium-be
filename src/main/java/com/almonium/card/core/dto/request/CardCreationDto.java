@@ -39,6 +39,7 @@ public class CardCreationDto {
     LearningItemType itemType;
     String partOfSpeech;
     String selectedSense;
+    UUID senseKey;
     String sourceContext;
     /** The library edition the word was met in, sent by the reader and by nothing else. */
     UUID sourceBookId;

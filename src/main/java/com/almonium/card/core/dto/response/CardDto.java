@@ -36,6 +36,7 @@ public class CardDto {
     LearningItemType itemType;
     String partOfSpeech;
     String selectedSense;
+    UUID senseKey;
     String sourceContext;
     Set<LearningIntent> learningIntents;
 

@@ -61,8 +61,10 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             String status,
             String url) {}
 
+    /** {@code key} is the sense's identity across rewrites of the entry, what a card saved from it stores. */
     public record SenseView(
             UUID id,
+            UUID key,
             int position,
             String definition,
             String cefr,

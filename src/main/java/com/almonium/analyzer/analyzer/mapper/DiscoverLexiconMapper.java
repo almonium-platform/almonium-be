@@ -55,6 +55,7 @@ public class DiscoverLexiconMapper {
             for (SenseView sense : lexeme.senses()) {
                 senses.add(new DiscoverSenseResponse(
                         senses.size() + 1,
+                        sense.key(),
                         lexeme.headword(),
                         lexeme.pos(),
                         transcription,

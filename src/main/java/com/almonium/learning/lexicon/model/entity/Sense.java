@@ -48,6 +48,12 @@ public class Sense {
     @JoinColumn(name = "lexeme_id")
     Lexeme lexeme;
 
+    /**
+     * Who this sense is across rewrites: a republished entry recreates its rows, and each new sense takes the key of
+     * the old sense it matches (see SenseMatcher). Cards and entry versions name a sense by it.
+     */
+    UUID senseKey;
+
     int position;
     String definition;
     String cefr;
@@ -62,6 +68,10 @@ public class Sense {
 
     @JdbcTypeCode(SqlTypes.JSON)
     List<RegionScope> regions;
+
+    /** The evidence senses the writer said this one covers ("1.2"), which is how a rewrite is matched to it. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<String> cited;
 
     @OneToMany(mappedBy = "sense", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("fluentLanguage, rank")

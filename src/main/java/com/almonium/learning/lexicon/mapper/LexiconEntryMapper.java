@@ -130,6 +130,7 @@ public class LexiconEntryMapper {
         }
         return new SenseView(
                 sense.getId(),
+                sense.getSenseKey(),
                 sense.getPosition(),
                 sense.getDefinition(),
                 sense.getCefr(),

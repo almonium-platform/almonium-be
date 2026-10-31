@@ -385,6 +385,7 @@ class DiscoverLookupServiceTest {
             List<ExampleView> examples) {
         return new SenseView(
                 UUID.randomUUID(),
+                UUID.randomUUID(),
                 position,
                 definition,
                 cefr,

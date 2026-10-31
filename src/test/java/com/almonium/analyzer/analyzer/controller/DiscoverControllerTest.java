@@ -52,6 +52,7 @@ class DiscoverControllerTest {
                         new DiscoverFrequencyResponse(40, "Less common in books", "ngrams.dev"),
                         List.of(new DiscoverSenseResponse(
                                 1,
+                                null,
                                 "bloke",
                                 "NOUN",
                                 "/ˈbləʊk/",
@@ -114,7 +115,7 @@ class DiscoverControllerTest {
                         "dictionary",
                         null,
                         List.of(new DiscoverSenseResponse(
-                                1, "die Ausgabe", "noun", "aʊsɡaːbə", List.of("edition"), null, null, List.of())),
+                                1, null, "die Ausgabe", "noun", "aʊsɡaːbə", List.of("edition"), null, null, List.of())),
                         List.of()));
 
         mvc.perform(get("/public/discover/lookup/DE/EN").param("entry", "Ausgabe"))
