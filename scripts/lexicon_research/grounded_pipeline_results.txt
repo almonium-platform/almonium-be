@@ -122,7 +122,15 @@ the lemma of (saw: the tool and to saw), a form with a meaning of its own is a l
 give it a headword (glasses, Eltern) and a plural-only sense otherwise (arms, esposas). The lookup already reaches
 see from saw through see's forms; the ledger now names such lemmas (also_form_of) so they get written. The
 "inflection" check (a lexeme whose lemma is the word the headword inflects) rewrites once; it raised nothing on
-732 stored drafts. v6 is not measured yet: run it on the calibration traps before switching the factory to it.
+732 stored drafts. v6 on the 15 traps (Opus 5.5 high, plan, $1.16 list, about $0.035 plan money): all 15 met. saw gives
+the tool, to saw and the saying, not see; found gives to found only; left gives ADJ, ADV, NOUN; fue is rejected
+naming ir and ser; glasses, scissors and Eltern are number Plur lexemes; arms (weapons) and esposas (handcuffs) are
+plural-only senses of arm and esposa; interested and bekannt are adjectives; read's past forms, Bänder and the
+moved stress of руки carry their own IPA. One regression against v5: Band's "bonds" (Neut, plural Bande) was folded
+into the ribbon lexeme with both plurals instead of standing apart, which the house rule forbids; the evidence
+check did not catch it because both lexemes are Neut. Noise: a lexeme names its same-spelled siblings as
+confusables (Band, saw), and interested lists family:interest twice; both are harmless and could be dropped in
+entry_repair. Before switching the factory to v6, add a check for one lexeme carrying two nominative plurals.
 Homophones. Computed by the backend from stored transcriptions, never written by the model: same variety, same
 transcription, not the lemma's own form, not family, not a spelling of the same word. Shown on Discover as
 "Sounds like". Wiktionary's own homophone lists (9/96 English records) are not used yet; they would add words the
