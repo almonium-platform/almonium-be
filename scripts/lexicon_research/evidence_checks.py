@@ -163,6 +163,17 @@ def compare(entry, found):
                 "cites evidence lexemes of different genders "
                 f"({', '.join(sorted(g for (g,) in apart))}): they are separate lexemes",
             )
+        if lang == "de" and lexeme.get("pos") == "NOUN":
+            # A German plural marks an inflection class, so two of them are two lexemes (Bänder ribbons, Bande bonds).
+            nominative = {
+                form["form"]
+                for form in lexeme.get("forms") or []
+                if (form.get("features") or {}).get("Number") == "Plur"
+                and "Nom" in str((form.get("features") or {}).get("Case", "Nom"))
+                and not form.get("regions")
+            }
+            if len(nominative) > 1:
+                find(base, "merged", "fact", f"two plurals ({', '.join(sorted(nominative))}): they are separate lexemes")
         if gender and len(genders) == 1 and gender not in genders and lang not in GENDERLESS:
             find(f"{base}/grammar/gender", "gender", "fact", f"{gender} where the evidence has {genders.pop()}")
         plurals = {unstressed(p) for evidence_lexeme in aligned for p in evidence_lexeme["plural"]}

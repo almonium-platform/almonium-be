@@ -158,3 +158,25 @@ def test_the_lemma_a_headword_inflects_written_as_its_lexeme_is_a_fact_finding()
     }
     inflection = [f for f in evidence_checks.compare(entry, found) if f["check"] == "inflection"]
     assert [f["path"] for f in inflection] == ["/lexemes/1"]
+
+
+def test_a_german_noun_with_two_plurals_is_two_lexemes_merged():
+    found = wiktionary.evidence("de", "Band")
+    entry = {
+        "language": "de",
+        "headword": "Band",
+        "lexemes": [
+            {
+                "lemma": "Band",
+                "pos": "NOUN",
+                "grammar": {"gender": "Neut"},
+                "forms": [
+                    {"form": "Bänder", "features": {"Number": "Plur", "Case": "Nom"}},
+                    {"form": "Bande", "features": {"Number": "Plur", "Case": "Nom"}},
+                ],
+                "senses": [{"definition": "Streifen", "from": ["1.1"]}],
+            }
+        ],
+    }
+    merged = [f for f in evidence_checks.compare(entry, found) if f["check"] == "merged"]
+    assert [f["message"] for f in merged] == ["two plurals (Bande, Bänder): they are separate lexemes"]
