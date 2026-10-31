@@ -340,13 +340,20 @@ def labels(sense):
     return found
 
 
-def lemma_of(found):
-    """The word an inflected form belongs to, from "plural of Koordinate" or "past participle of expresar"."""
+def lemmas_of(found):
+    """Every word the headword is an inflected form of, in the evidence's order ("simple past of see" gives see)."""
+    lemmas = []
     for text in found["form_of"]:
         match = re.search(r"\bof ([^\s:;,()]+)", text)
-        if match:
-            return match.group(1)
-    return None
+        if match and match.group(1) not in lemmas:
+            lemmas.append(match.group(1))
+    return lemmas
+
+
+def lemma_of(found):
+    """The word an inflected form belongs to, from "plural of Koordinate" or "past participle of expresar"."""
+    lemmas = lemmas_of(found)
+    return lemmas[0] if lemmas else None
 
 
 def gloss(sense):

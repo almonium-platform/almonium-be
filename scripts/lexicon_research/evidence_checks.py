@@ -18,6 +18,8 @@ import copy
 import re
 import unicodedata
 
+import wiktionary
+
 # Senses a learner can do without: Wiktionary's labels for the rare, the old and the regional-dialect.
 UNCOMMON = {"archaic", "obsolete", "rare", "dated", "dialectal", "poetic", "historical"}
 GENDERLESS = {"en"}
@@ -130,8 +132,14 @@ def compare(entry, found):
     senses = {sense["id"]: (lexeme, sense) for lexeme in found["lexemes"] for sense in lexeme["senses"]}
     cited_lexemes = set()
     cited = set()
+    inflected_of = {lemma.lower() for lemma in wiktionary.lemmas_of(found)}
+    headword = (entry.get("headword") or "").lower()
     for li, lexeme in enumerate(entry.get("lexemes") or []):
         base = f"/lexemes/{li}"
+        lemma = (lexeme.get("lemma") or "").lower()
+        if lemma != headword and lemma in inflected_of:
+            # saw written as see: the headword is only an inflection of that lemma, which has its own entry.
+            find(base, "inflection", "fact", f"{lexeme.get('lemma')} is the lemma this headword inflects, not a lexeme of it")
         ids = [cite for sense in lexeme.get("senses") or [] for cite in sense.get("from") or []]
         for cite in ids:
             if cite not in senses:

@@ -490,6 +490,216 @@
      "status": "expected"
     }
    ]
+  },
+  {
+   "id": "en-saw-form",
+   "kind": "trap",
+   "language": "en",
+   "headword": "saw",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "the lexemes are the tool (NOUN) and to saw (VERB); the past of see is not a lexeme",
+     "status": "confirmed",
+     "source": "prompt v6 inflected-form rule; Wiktionary record (out/kaikki)"
+    }
+   ]
+  },
+  {
+   "id": "en-found-form",
+   "kind": "trap",
+   "language": "en",
+   "headword": "found",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "to found (establish, VERB) is a lexeme; the past of find is not",
+     "status": "confirmed",
+     "source": "prompt v6 inflected-form rule; Wiktionary record (out/kaikki)"
+    }
+   ]
+  },
+  {
+   "id": "en-left-form",
+   "kind": "trap",
+   "language": "en",
+   "headword": "left",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "left the side (ADJ, ADV, NOUN) are lexemes; the past of leave is not",
+     "status": "confirmed",
+     "source": "prompt v6 inflected-form rule; Wiktionary record (out/kaikki)"
+    }
+   ]
+  },
+  {
+   "id": "es-fue-reject",
+   "kind": "trap",
+   "language": "es",
+   "headword": "fue",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "no lexeme; rejected as a form of ir and ser, naming both",
+     "status": "confirmed",
+     "source": "prompt v6 inflected-form rule; Wiktionary record (out/kaikki)"
+    }
+   ]
+  },
+  {
+   "id": "en-glasses-own",
+   "kind": "trap",
+   "language": "en",
+   "headword": "glasses",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "glasses (spectacles) is a NOUN lexeme of its own with number Plur",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "en-scissors-plural",
+   "kind": "trap",
+   "language": "en",
+   "headword": "scissors",
+   "facts": [
+    {
+     "facet": "grammar",
+     "claim": "a NOUN with number Plur; no singular form",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "de-eltern-plural",
+   "kind": "trap",
+   "language": "de",
+   "headword": "Eltern",
+   "facts": [
+    {
+     "facet": "grammar",
+     "claim": "a NOUN with number Plur, no gender in the singular",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "en-arm-weapons",
+   "kind": "trap",
+   "language": "en",
+   "headword": "arm",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "the weapons meaning, if given under arm, is a sense with grammar number Plur",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "es-esposa-handcuffs",
+   "kind": "trap",
+   "language": "es",
+   "headword": "esposa",
+   "facts": [
+    {
+     "facet": "senses",
+     "claim": "handcuffs (esposas) is a sense of esposa with grammar number Plur",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "en-interested-adj",
+   "kind": "trap",
+   "language": "en",
+   "headword": "interested",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "an ADJ lexeme of its own, not a form of interest",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "de-bekannt-adj",
+   "kind": "trap",
+   "language": "de",
+   "headword": "bekannt",
+   "facts": [
+    {
+     "facet": "lexemes",
+     "claim": "an ADJ lexeme; bekennen is at most a family relation",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "en-read-form-ipa",
+   "kind": "trap",
+   "language": "en",
+   "headword": "read",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "claim": "the past and past participle read carry their own IPA /ˈrɛd/ (en-US) and /ˈred/ (en-GB)",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "uk-ruka-stress",
+   "kind": "trap",
+   "language": "uk",
+   "headword": "рука",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "claim": "the plural руки carries its own stress, ру́ки",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "de-band-plural-ipa",
+   "kind": "trap",
+   "language": "de",
+   "headword": "Band",
+   "facts": [
+    {
+     "facet": "pronunciation",
+     "claim": "the plural Bänder carries its own IPA with /ɛ/",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
+  },
+  {
+   "id": "en-attack-confusable",
+   "kind": "trap",
+   "language": "en",
+   "headword": "attack",
+   "facts": [
+    {
+     "facet": "structure",
+     "claim": "attach may be a confusable; no exact homophone is listed as a confusable",
+     "status": "expected",
+     "source": "standard learner dictionaries (Longman, Duden, RAE); to be checked"
+    }
+   ]
   }
  ]
 }

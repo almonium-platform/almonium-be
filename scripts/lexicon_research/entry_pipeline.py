@@ -60,13 +60,13 @@ def needs_rewrite(entry, found):
     if common and not entry.get("lexemes"):
         problems.append("the entry has no lexeme although the evidence has common ones")
     problems += [
-        f"{f['path']}: {f['message']}" for f in evidence_checks.compare(entry, found) if f["check"] == "merged"
+        f"{f['path']}: {f['message']}" for f in evidence_checks.compare(entry, found) if f["check"] in ("merged", "inflection")
     ]
     return problems
 
 
 def rewrite(writer, lang, headword, found, problems, effort):
-    system = prompting.system_prompt(lang, "v5")
+    system = prompting.system_prompt(lang, grounded_writer.ARMS[ARM][0])
     user = prompting.user_prompt(
         lang,
         {"headword": headword, "zipf": round(zipf_frequency(headword, lang), 2)},
@@ -169,6 +169,8 @@ def run_one(run, writer, fixer, effort, row, budget):
         "settle": {k: v for k, v in report.items() if k != "ops"},
         "problems": problems,
         "disputed": [f"{f['check']} {f['path']}: {f['message']}" for f in facts],
+        # saw is also the past of see: the lookup reaches see through its forms only if see is written too.
+        "also_form_of": wiktionary.lemmas_of(found),
     }
     with _lock, (HERE / "out" / "pipeline" / run / "ledger.jsonl").open("a") as ledger:
         ledger.write(json.dumps(line, ensure_ascii=False) + "\n")
@@ -202,6 +204,9 @@ def main():
         f"{len(rows)} words: {verdicts}; rewritten {sum(r['rewritten'] for r in rows)}; "
         f"${total:.3f} in all, ${total / max(len(rows), 1) * 1000:.2f} per 1,000 words"
     )
+    lemmas = sorted({(r["language"], lemma) for r in rows for lemma in r.get("also_form_of") or [r.get("lemma")] if lemma})
+    if lemmas:
+        print("lemmas to write so their forms are found:", ", ".join(f"{lang}/{lemma}" for lang, lemma in lemmas))
     for row in rows:
         if row["verdict"] != "ready":
             print(

@@ -138,3 +138,23 @@ def test_a_german_compound_takes_gender_and_plural_from_its_last_part():
     }
     checks = {f["check"] for f in evidence_checks.compare_without_evidence(entry, evidence)}
     assert checks == {"gender", "plural"}
+
+
+def test_saw_is_its_own_nouns_and_verb_and_also_the_past_of_see():
+    found = wiktionary.evidence("en", "saw")
+    assert found["lexemes"]
+    assert wiktionary.lemmas_of(found) == ["see"]
+
+
+def test_the_lemma_a_headword_inflects_written_as_its_lexeme_is_a_fact_finding():
+    found = wiktionary.evidence("en", "saw")
+    entry = {
+        "language": "en",
+        "headword": "saw",
+        "lexemes": [
+            {"lemma": "saw", "pos": "NOUN", "senses": [{"definition": "a tool", "from": ["1.1"]}]},
+            {"lemma": "see", "pos": "VERB", "senses": [{"definition": "to notice with the eyes"}]},
+        ],
+    }
+    inflection = [f for f in evidence_checks.compare(entry, found) if f["check"] == "inflection"]
+    assert [f["path"] for f in inflection] == ["/lexemes/1"]
