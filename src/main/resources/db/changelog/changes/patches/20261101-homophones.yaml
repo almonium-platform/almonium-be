@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261101-homophones
+      author: claude
+      comment: >-
+        Words said alike are found by comparing the lexemes' own transcriptions within a variety, slashes and syllable
+        dots aside; this index answers that comparison.
+      changes:
+        - sql:
+            sql: >-
+              create index ix_pronunciation_spoken on lexicon.pronunciation
+              (variety, translate(phonemic, '/.', '')) where lexeme_form_id is null

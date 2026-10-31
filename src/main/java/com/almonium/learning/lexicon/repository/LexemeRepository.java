@@ -2,6 +2,7 @@ package com.almonium.learning.lexicon.repository;
 
 import com.almonium.learning.lexicon.model.entity.Lexeme;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +25,59 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
     @Modifying
     @Query("delete from Lexeme l where l.id = :id")
     void deleteTree(@Param("id") UUID id);
+
+    /**
+     * Words said exactly like the given lexemes: another lemma of the language whose own transcription in the same
+     * variety is the same, slashes and syllable dots aside. Not a homophone: one of the lemma's own forms (French
+     * arrivée of arriver), a family member, or a spelling of the same word, which shares the glosses of one sense in
+     * two reader languages or more (humour, humor; plain and plane share only German Ebene and stay). One row per
+     * lexeme asked about, homophone lexeme and variety.
+     */
+    @Query(nativeQuery = true, value = """
+            select distinct cast(me.id as varchar) as lexeme, o.lemma as lemma, o.pos as pos, p.variety as variety
+            from lexicon.lexeme me
+            join lexicon.pronunciation mp on mp.lexeme_id = me.id and mp.lexeme_form_id is null
+            join lexicon.pronunciation p on p.variety = mp.variety and p.lexeme_form_id is null
+                 and translate(p.phonemic, '/.', '') = translate(mp.phonemic, '/.', '')
+            join lexicon.lexeme o on o.id = p.lexeme_id and o.language = me.language
+                 and lower(o.lemma) <> lower(me.lemma)
+            where me.id in (:ids)
+              and not exists (
+                  select 1 from lexicon.lexeme_form f join lexicon.lexeme x on x.id = f.lexeme_id
+                  where x.language = me.language
+                    and ((lower(x.lemma) = lower(me.lemma) and f.normalized_form = lower(o.lemma))
+                      or (lower(x.lemma) = lower(o.lemma) and f.normalized_form = lower(me.lemma))))
+              and not exists (
+                  select 1 from lexicon.lexeme_relation r join lexicon.lexeme x on x.id = r.lexeme_id
+                  where r.type = 'family' and x.language = me.language
+                    and ((lower(x.lemma) = lower(me.lemma) and lower(r.target_lemma) = lower(o.lemma))
+                      or (lower(x.lemma) = lower(o.lemma) and lower(r.target_lemma) = lower(me.lemma))))
+              and not exists (
+                  select 1
+                  from lexicon.lexeme xa
+                  join lexicon.sense sa on sa.lexeme_id = xa.id
+                  join lexicon.sense_gloss ga on ga.sense_id = sa.id
+                  join lexicon.lexeme xb on xb.language = xa.language and lower(xb.lemma) = lower(o.lemma)
+                  join lexicon.sense sb on sb.lexeme_id = xb.id
+                  join lexicon.sense_gloss gb on gb.sense_id = sb.id
+                       and gb.fluent_language = ga.fluent_language and lower(gb.gloss) = lower(ga.gloss)
+                  where xa.language = me.language and lower(xa.lemma) = lower(me.lemma)
+                  group by sa.id, sb.id
+                  having count(distinct ga.fluent_language) >= 2)
+            order by o.lemma, o.pos, p.variety
+            """)
+    List<SpokenAlike> findSpokenAlike(@Param("ids") Collection<UUID> ids);
+
+    /** A row of {@link #findSpokenAlike}: the lexeme asked about (its id as text), and a word said like it where. */
+    interface SpokenAlike {
+        String getLexeme();
+
+        String getLemma();
+
+        String getPos();
+
+        String getVariety();
+    }
 
     /** The lexemes a reader's word names directly: by headword or by lemma, case-insensitively. */
     @Query("""

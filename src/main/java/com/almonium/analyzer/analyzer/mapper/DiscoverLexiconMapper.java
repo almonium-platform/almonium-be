@@ -1,6 +1,7 @@
 package com.almonium.analyzer.analyzer.mapper;
 
 import com.almonium.analyzer.analyzer.dto.DiscoverExampleResponse;
+import com.almonium.analyzer.analyzer.dto.DiscoverHomophoneResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverSenseResponse;
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
@@ -8,6 +9,7 @@ import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ClipView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ExampleView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.GlossView;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.HomophoneView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.LexemeView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PronunciationView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.SenseView;
@@ -18,6 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Component;
@@ -66,6 +70,31 @@ public class DiscoverLexiconMapper {
             }
         }
         return senses;
+    }
+
+    /**
+     * The words said like the sheet's word, one row a spelling, gathering the varieties and the senses (numbered as
+     * {@link #toSenses} numbers them) of every lexeme that sounds like it.
+     */
+    public List<DiscoverHomophoneResponse> toHomophones(LexiconEntryResponse entry) {
+        Map<String, Set<String>> varieties = new LinkedHashMap<>();
+        Map<String, Set<Integer>> senses = new LinkedHashMap<>();
+        int senseCount = 0;
+        for (LexemeView lexeme : entry.lexemes()) {
+            int first = senseCount + 1;
+            senseCount += lexeme.senses().size();
+            for (HomophoneView homophone : lexeme.homophones()) {
+                varieties
+                        .computeIfAbsent(homophone.lemma(), word -> new TreeSet<>())
+                        .addAll(homophone.varieties());
+                Set<Integer> numbers = senses.computeIfAbsent(homophone.lemma(), word -> new TreeSet<>());
+                IntStream.rangeClosed(first, senseCount).forEach(numbers::add);
+            }
+        }
+        return varieties.entrySet().stream()
+                .map(word -> new DiscoverHomophoneResponse(
+                        word.getKey(), List.copyOf(word.getValue()), List.copyOf(senses.get(word.getKey()))))
+                .toList();
     }
 
     public List<DiscoverPronunciationResponse> toPronunciations(LexiconEntryResponse entry) {

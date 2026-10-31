@@ -1,6 +1,7 @@
 package com.almonium.learning.lexicon.service;
 
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.HomophoneView;
 import com.almonium.learning.lexicon.dto.response.LexiconSuggestion;
 import com.almonium.learning.lexicon.mapper.LexiconEntryMapper;
 import com.almonium.learning.lexicon.model.entity.AudioClip;
@@ -9,6 +10,7 @@ import com.almonium.learning.lexicon.model.entity.LexemeForm;
 import com.almonium.learning.lexicon.repository.AudioClipRepository;
 import com.almonium.learning.lexicon.repository.LexemeFormRepository;
 import com.almonium.learning.lexicon.repository.LexemeRepository;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,7 +49,8 @@ public class LexiconLookupService {
         if (matches.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(mapper.toResponse(language, text, matches, clipsOf(matches.keySet())));
+        return Optional.of(
+                mapper.toResponse(language, text, matches, clipsOf(matches.keySet()), homophonesOf(matches)));
     }
 
     /** Up to {@code limit} headwords beginning with {@code prefix}, glossed in {@code fluent} where the entry can. */
@@ -64,6 +67,32 @@ public class LexiconLookupService {
     }
 
     /** Every clip of these lexemes in one query, by pronunciation, so the mapper never asks per pronunciation. */
+    /**
+     * Words said like the lexemes the reader's word names directly, by lexeme, with the varieties that say them
+     * alike. A lexeme reached through one of its forms gets none: saw sounds like nothing see does.
+     */
+    private Map<UUID, List<HomophoneView>> homophonesOf(Map<Lexeme, LexemeForm> matches) {
+        List<UUID> named = matches.entrySet().stream()
+                .filter(match -> match.getValue() == null)
+                .map(match -> match.getKey().getId())
+                .toList();
+        if (named.isEmpty()) {
+            return Map.of();
+        }
+        record Word(String lexeme, String lemma, String pos) {}
+        Map<Word, List<String>> varieties = new LinkedHashMap<>();
+        for (LexemeRepository.SpokenAlike row : lexemeRepository.findSpokenAlike(named)) {
+            varieties
+                    .computeIfAbsent(new Word(row.getLexeme(), row.getLemma(), row.getPos()), word -> new ArrayList<>())
+                    .add(row.getVariety());
+        }
+        Map<UUID, List<HomophoneView>> homophones = new LinkedHashMap<>();
+        varieties.forEach((word, said) -> homophones
+                .computeIfAbsent(UUID.fromString(word.lexeme()), lexeme -> new ArrayList<>())
+                .add(new HomophoneView(word.lemma(), word.pos(), List.copyOf(said))));
+        return homophones;
+    }
+
     private Map<UUID, List<AudioClip>> clipsOf(Collection<Lexeme> lexemes) {
         List<UUID> ids = lexemes.stream().map(Lexeme::getId).toList();
         return clipRepository.findByLexemeIds(ids).stream()

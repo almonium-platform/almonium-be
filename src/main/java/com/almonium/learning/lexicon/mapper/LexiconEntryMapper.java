@@ -7,6 +7,7 @@ import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.CueView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.ExampleView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.FormView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.GlossView;
+import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.HomophoneView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.LexemeView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PartView;
 import com.almonium.learning.lexicon.dto.response.LexiconEntryResponse.PronunciationView;
@@ -49,13 +50,19 @@ public class LexiconEntryMapper {
      * {@code clips} holds every clip of these lexemes' pronunciations, by pronunciation id, fetched up front.
      */
     public LexiconEntryResponse toResponse(
-            String language, String text, Map<Lexeme, LexemeForm> matches, Map<UUID, List<AudioClip>> clips) {
+            String language,
+            String text,
+            Map<Lexeme, LexemeForm> matches,
+            Map<UUID, List<AudioClip>> clips,
+            Map<UUID, List<HomophoneView>> homophones) {
         List<LexemeView> lexemes = new ArrayList<>();
-        matches.forEach((lexeme, matched) -> lexemes.add(toView(lexeme, matched, clips)));
+        matches.forEach((lexeme, matched) ->
+                lexemes.add(toView(lexeme, matched, clips, homophones.getOrDefault(lexeme.getId(), List.of()))));
         return new LexiconEntryResponse(language, text, lexemes);
     }
 
-    public LexemeView toView(Lexeme lexeme, LexemeForm matched, Map<UUID, List<AudioClip>> clips) {
+    public LexemeView toView(
+            Lexeme lexeme, LexemeForm matched, Map<UUID, List<AudioClip>> clips, List<HomophoneView> homophones) {
         List<FormView> forms = lexeme.getForms().stream().map(this::toView).toList();
         List<PronunciationView> pronunciations = lexeme.getPronunciations().stream()
                 .map(pronunciation -> toView(pronunciation, clips.getOrDefault(pronunciation.getId(), List.of())))
@@ -81,6 +88,7 @@ public class LexiconEntryMapper {
                 pronunciations,
                 senses,
                 relations,
+                homophones,
                 parts,
                 new Capabilities(
                         !forms.isEmpty(),

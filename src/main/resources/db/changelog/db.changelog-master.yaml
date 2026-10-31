@@ -201,3 +201,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261026-discover-lookup.yaml
   - include:
       file: db/changelog/changes/patches/20261101-sense-identity.yaml
+  - include:
+      file: db/changelog/changes/patches/20261101-homophones.yaml

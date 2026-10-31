@@ -356,6 +356,7 @@ class DiscoverLookupServiceTest {
                 senses,
                 List.of(),
                 List.of(),
+                List.of(),
                 new Capabilities(true, true, !pronunciations.isEmpty(), false, false, false),
                 null);
     }

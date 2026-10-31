@@ -71,7 +71,8 @@ class DiscoverControllerTest {
                                                 new IpaSegmentResponse("əʊ", true),
                                                 new IpaSegmentResponse("k/", false)),
                                         List.of(1)),
-                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null, List.of(1)))));
+                                new DiscoverPronunciationResponse("en-US", "/ˈbloʊk/", null, null, null, List.of(1))),
+                        List.of()));
 
         mvc.perform(get("/public/discover/lookup/EN/UK").param("entry", "bloke").param("context", "A nice bloke."))
                 .andExpect(status().isOk())
@@ -116,6 +117,7 @@ class DiscoverControllerTest {
                         null,
                         List.of(new DiscoverSenseResponse(
                                 1, null, "die Ausgabe", "noun", "aʊsɡaːbə", List.of("edition"), null, null, List.of())),
+                        List.of(),
                         List.of()));
 
         mvc.perform(get("/public/discover/lookup/DE/EN").param("entry", "Ausgabe"))

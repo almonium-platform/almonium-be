@@ -460,6 +460,40 @@ class LexiconPublicationFlowTest {
     }
 
     @Test
+    void aWordSaidAlikeIsAHomophoneUnlessItIsTheSameWordSpelledAnotherWay() {
+        publishOne(publication("bloke"));
+        publishOne(publication(saidLikeBloke("bloc", "блок", "Block", "blok"), meta("bloke")));
+        // Glosses shared in every reader language make it a spelling of bloke, not another word.
+        publishOne(publication(saidLikeBloke("bloak", "мужик", "Kerl", "facet"), meta("bloke")));
+
+        LexiconEntryResponse bloke = lookup("en", "bloke");
+        assertThat(bloke.lexemes().getFirst().homophones()).singleElement().satisfies(homophone -> {
+            assertThat(homophone.lemma()).isEqualTo("bloc");
+            assertThat(homophone.varieties()).containsExactly("en-GB", "en-US");
+        });
+        assertThat(lookup("en", "blokes").lexemes().getFirst().homophones())
+                .as("reached through a form, so not said like the lemma")
+                .isEmpty();
+    }
+
+    /** The bloke entry under another spelling, with its own glosses and no relations or forms of bloke. */
+    private ObjectNode saidLikeBloke(String spelling, String uk, String de, String pl) {
+        ObjectNode entry = entry("bloke");
+        entry.put("headword", spelling);
+        ObjectNode lexeme = (ObjectNode) entry.get("lexemes").get(0);
+        lexeme.put("lemma", spelling);
+        lexeme.putArray("relations");
+        lexeme.putArray("forms")
+                .addObject()
+                .put("form", spelling)
+                .putObject("features")
+                .put("Number", "Sing");
+        ObjectNode glosses = (ObjectNode) lexeme.get("senses").get(0).get("glosses");
+        glosses.put("uk", uk).put("de", de).put("pl", pl);
+        return entry;
+    }
+
+    @Test
     void aLexemeTheEntryNoLongerListsIsDeletedAndAChangedTranscriptionIsProvisionalAgain() {
         publishOne(publication("chuckle"));
         jdbc.update("update lexicon.pronunciation set status = 'verified'");

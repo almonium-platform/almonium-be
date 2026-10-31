@@ -31,9 +31,16 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             List<PronunciationView> pronunciations,
             List<SenseView> senses,
             List<RelationView> relations,
+            List<HomophoneView> homophones,
             List<PartView> parts,
             Capabilities capabilities,
             Provenance provenance) {}
+
+    /**
+     * Another word said exactly like this lexeme, found by comparing transcriptions, not written by the entry's
+     * writer; {@code varieties} are those that say the two alike (an American merger makes more pairs).
+     */
+    public record HomophoneView(String lemma, String pos, List<String> varieties) {}
 
     public record FormView(UUID id, String form, Map<String, Object> features, List<RegionScope> regions) {}
 
