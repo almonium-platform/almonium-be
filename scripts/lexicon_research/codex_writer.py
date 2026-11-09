@@ -10,17 +10,21 @@ A word that already has an entry from any model is skipped, so no call is spent 
 
 Output: out/codex-<model>/<lang>/<headword>.json and .meta.json, the bake-off layout.
 
-Usage: codex_writer.py <headwords name> [--model gpt-6.1-sol] [--effort medium] [--langs en,de,uk] [--offset N] [--limit N] [--workers 4]
-       (run from the backend repository root; headwords/<name>-<lang>.json must exist)
+An inflected form ("festlichen") is not written either: lemma_gate.py asks the Wiktionary index first.
+
+Usage: codex_writer.py <headwords name> [--model gpt-6.1-sol] [--effort medium] [--langs en,de,uk] [--offset N] [--limit N] [--workers 4] [--no-gate]
+       (run from the backend repository root; headwords/<name>-<lang>.json must exist; build the index once with lemma_index.py)
 """
 import argparse, re, json, os, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
+import lemma_gate
 from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
 
 OUT = HERE / "out"
+GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
 # the snap codex first on PATH is too old to refresh the login or know current models
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
 EMPTY = Path("/tmp/claude-1000/codex-empty")
@@ -49,6 +53,8 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
     # a quality comparison needs the same words another model wrote; everything else skips them
     if (d / f"{row['headword']}.json").exists() or (not shared and has_entry(lang, row["headword"])):
         return "skip"
+    if lemma_gate.stop(lang, row, f"codex-{model}-{effort}", GATE):
+        return "gated"
     if LIMIT_HIT.is_set():
         return "limit"
     d.mkdir(parents=True, exist_ok=True)
@@ -104,7 +110,11 @@ ap.add_argument("--limit", type=int, default=0)
 ap.add_argument("--only-set", help="keep only headwords whose set has this name, e.g. hard")
 ap.add_argument("--shared", action="store_true", help="write words other models already wrote, for a quality comparison")
 ap.add_argument("--workers", type=int, default=4)
+ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 a = ap.parse_args()
+GATE = not a.no_gate
+if GATE:
+    lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):
     # "bakeoff" names the original shared set, whose files carry no name prefix
     path = HERE / "headwords" / (f"{lang}.json" if a.name == "bakeoff" else f"{a.name}-{lang}.json")

@@ -15,18 +15,24 @@ A long run paces itself by the plan's own meters, read from the CLI's /usage scr
 while the five-hour session is nearly used up, so the owner's other sessions are not locked
 out, and stops for good at a share of the week.
 
+Before any call, lemma_gate.py asks the Wiktionary index whether the headword is a lemma at all;
+an inflected form ("festlichen") is not written, and its lemma is recorded under out/gate/.
+
 Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [--limit N] [--workers 2]
-           [--headwords NAME] [--pause-session 70] [--stop-week 0]
-       (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json)
+           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate]
+       (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
+        build the index once with lemma_index.py)
 """
 import argparse, json, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
+import lemma_gate
 from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
 
 OUT = HERE / "out"
+GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
 EMPTY = Path("/tmp/claude-1000/lexicon-writer-empty")
 EMPTY.mkdir(parents=True, exist_ok=True)
 # the CLI's validator takes draft-07 shapes: no $schema keyword, definitions instead of $defs
@@ -79,6 +85,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     f = d / f"{row['headword']}.json"
     if f.exists():
         return "skip"
+    if lemma_gate.stop(lang, row, f"cc-{model}", GATE):
+        return "gated"
     if not allowed(pause_session, stop_week):
         return "stopped"
     t0 = time.time()
@@ -125,7 +133,11 @@ ap.add_argument("--workers", type=int, default=2)
 ap.add_argument("--headwords", default="", help="a tranche name: reads headwords/<name>-<lang>.json")
 ap.add_argument("--pause-session", type=int, default=70, help="wait while this percent of the 5-hour session is used")
 ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this percent of the week; 0 never stops")
+ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 a = ap.parse_args()
+GATE = not a.no_gate
+if GATE:
+    lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):
     name = f"{a.headwords}-{lang}.json" if a.headwords else f"{lang}.json"
     rows = json.loads((HERE / "headwords" / name).read_text())

@@ -10,8 +10,11 @@ Output goes into out/cc-claude-opus-5-5/<lang>/ like the CLI writer's, with "via
 cost in the meta, so publish_entries.py and the CLI writer's skip both see it. A word either writer
 has written is skipped, so the two can run at once on the same list.
 
+An inflected form ("festlichen") is not written: lemma_gate.py asks the Wiktionary index first.
+
 Usage: api_writer.py --headwords NAME --langs fr [--model claude-opus-5-5] [--workers 6]
-           [--budget-usd 240] [--limit N]        (run from the backend repository root)
+           [--budget-usd 240] [--limit N] [--no-gate]        (run from the backend repository root;
+           build the index once with lemma_index.py)
 """
 import argparse, json, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
@@ -19,6 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import jsonschema
+import lemma_gate
 from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
 
 OUT = HERE / "out"
@@ -110,7 +114,10 @@ ap.add_argument("--model", default="claude-opus-5-5")
 ap.add_argument("--workers", type=int, default=6)
 ap.add_argument("--budget-usd", type=float, default=240.0, help="stop for good once this much is spent at list price")
 ap.add_argument("--limit", type=int, default=0)
+ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 a = ap.parse_args()
+if not a.no_gate:
+    lemma_gate.require(a.langs.split(","))
 import anthropic  # noqa: E402
 
 client = anthropic.Anthropic(api_key=ENV["ANTHROPIC_API_KEY"], max_retries=3)
@@ -120,6 +127,7 @@ for lang in a.langs.split(","):
         rows = rows[:a.limit]
     system = system_prompt(lang)
     pending = [r for r in rows if not (OUT / "cc-claude-opus-5-5" / lang / f"{r['headword']}.json").exists()]
+    pending = [r for r in pending if not lemma_gate.stop(lang, r, f"api-{a.model}", not a.no_gate)]
     if not pending:
         continue
     # the first call warms the prompt cache before the rest run in parallel
