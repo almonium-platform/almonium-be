@@ -23,20 +23,20 @@ Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [
        (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
         build the index once with lemma_index.py)
 """
-import argparse, json, re, subprocess, sys, threading, time
+import argparse, json, os, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
-from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
-EMPTY = Path("/tmp/claude-1000/lexicon-writer-empty")
+EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 EMPTY.mkdir(parents=True, exist_ok=True)
 # the CLI's validator takes draft-07 shapes: no $schema keyword, definitions instead of $defs
-_schema = json.loads((HERE / "entry.schema.json").read_text())
+_schema = json.loads(SCHEMA_PATH.read_text())
 _schema.pop("$schema", None)
 _schema["definitions"] = _schema.pop("$defs")
 SCHEMA = json.dumps(_schema).replace("#/$defs/", "#/definitions/")
@@ -80,12 +80,15 @@ def allowed(pause_session, stop_week):
 
 
 def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, retries=0):
-    d = OUT / f"cc-{model}" / lang
+    d = OUT / f"cc-{model}{WRITER_SUFFIX}" / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():
         return "skip"
-    if lemma_gate.stop(lang, row, f"cc-{model}", GATE):
+    # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice
+    if WRITER_SUFFIX and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
+        return "skip"
+    if lemma_gate.stop(lang, row, f"cc-{model}{WRITER_SUFFIX}", GATE):
         return "gated"
     if not allowed(pause_session, stop_week):
         return "stopped"
@@ -96,7 +99,7 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
     wall = round(time.time() - t0, 1)
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
     entry = None
     try:
         res = json.loads(r.stdout)
@@ -120,7 +123,7 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
-    print(f"cc-{model:6} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
+    print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
     return status
 
 

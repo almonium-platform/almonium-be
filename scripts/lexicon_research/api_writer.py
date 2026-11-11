@@ -23,12 +23,13 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import jsonschema
 import lemma_gate
-from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
 ROOT = Path(".")
 ENV = {l.split("=", 1)[0]: l.split("=", 1)[1].strip() for l in (ROOT / ".env").read_text().splitlines() if "=" in l and not l.startswith("#")}
-SCHEMA = json.loads((HERE / "entry.schema.json").read_text())
+SCHEMA = json.loads(SCHEMA_PATH.read_text())
+WRITER = f"cc-claude-opus-5-5{WRITER_SUFFIX}"  # shared with the CLI writer run as --model claude-opus-5-5
 # list prices per million tokens: input, cache read, cache write, output
 PRICES = {"claude-opus-5-5": (4.0, 0.4, 5.0, 20.0), "claude-sonnet-5-5": (3.0, 0.3, 3.75, 15.0)}
 
@@ -72,7 +73,7 @@ def parse(text):
 
 def write_one(client, model, lang, system, row, budget):
     global _spent, _stopped
-    d = OUT / "cc-claude-opus-5-5" / lang
+    d = OUT / WRITER / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():
@@ -97,7 +98,7 @@ def write_one(client, model, lang, system, row, budget):
         except Exception as e:  # rate limits, transient errors
             entry = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
             time.sleep(15 * (attempt + 1))
-    meta.update({"prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": "high",
+    meta.update({"prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": "high",
                  "via": "api", "cost_usd": round(cost_usd(model, meta), 5) if "input_tokens" in meta else None})
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
@@ -126,7 +127,9 @@ for lang in a.langs.split(","):
     if a.limit:
         rows = rows[:a.limit]
     system = system_prompt(lang)
-    pending = [r for r in rows if not (OUT / "cc-claude-opus-5-5" / lang / f"{r['headword']}.json").exists()]
+    pending = [r for r in rows if not (OUT / WRITER / lang / f"{r['headword']}.json").exists()]
+    if WRITER_SUFFIX:  # a v4 entry from any writer is the word's entry
+        pending = [r for r in pending if not any((o / f"{r['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}"))]
     pending = [r for r in pending if not lemma_gate.stop(lang, r, f"api-{a.model}", not a.no_gate)]
     if not pending:
         continue

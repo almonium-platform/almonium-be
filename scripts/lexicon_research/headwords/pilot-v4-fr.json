@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "livre",
+  "zipf": 5.26,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "héros",
+  "zipf": 4.71,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "fils",
+  "zipf": 5.4,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "asseoir",
+  "zipf": 4.09,
+  "set": "pilot-v4"
+ }
+]

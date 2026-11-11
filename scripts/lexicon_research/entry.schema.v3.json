@@ -1,0 +1,790 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "Lexicon entry, schema version 3 (prompt v4, 2026-11-11): core only; glosses and cues are written by later passes",
+ "type": "object",
+ "required": [
+  "language",
+  "headword",
+  "lexemes"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "language": {
+   "type": "string",
+   "pattern": "^[a-z]{2}$"
+  },
+  "headword": {
+   "type": "string",
+   "minLength": 1
+  },
+  "lexemes": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/lexeme"
+   }
+  },
+  "reject": {
+   "type": "string",
+   "description": "Set, with lexemes empty, when the headword is not a lemma: an inflected form, an abbreviation, a foreign word, a misspelling, a pre-reform spelling (name the lemma)."
+  }
+ },
+ "$defs": {
+  "lexeme": {
+   "type": "object",
+   "required": [
+    "lemma",
+    "pos",
+    "kind",
+    "pronunciations",
+    "senses"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "lemma": {
+     "type": "string",
+     "minLength": 1
+    },
+    "pos": {
+     "type": "string",
+     "enum": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "PRON",
+      "DET",
+      "ADP",
+      "NUM",
+      "CONJ",
+      "SCONJ",
+      "PART",
+      "INTJ",
+      "PROPN",
+      "AUX"
+     ]
+    },
+    "kind": {
+     "enum": [
+      "word",
+      "multiword"
+     ]
+    },
+    "spellings": {
+     "type": "array",
+     "minItems": 2,
+     "items": {
+      "$ref": "#/$defs/spelling"
+     }
+    },
+    "grammar": {
+     "type": "object",
+     "additionalProperties": false,
+     "properties": {
+      "gender": {
+       "enum": [
+        "Masc",
+        "Fem",
+        "Neut",
+        "Com"
+       ]
+      },
+      "number": {
+       "enum": [
+        "Sing",
+        "Plur"
+       ],
+       "description": "Set only for a noun used in one number: singulare or plurale tantum."
+      },
+      "countability": {
+       "enum": [
+        "Count",
+        "Mass",
+        "Both"
+       ]
+      },
+      "valency": {
+       "enum": [
+        "Tr",
+        "Intr",
+        "Both",
+        "Refl",
+        "Impers"
+       ]
+      },
+      "irregular": {
+       "type": "boolean"
+      },
+      "conjugation": {
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "strong",
+        "weak",
+        "mixed"
+       ],
+       "description": "Romance: 1, 2, 3 by the infinitive ending in the language's own order (fr -er/-ir/-re, es and pt -ar/-er/-ir, it -are/-ere/-ire). German: strong, weak, mixed."
+      },
+      "auxiliary": {
+       "enum": [
+        "have",
+        "be",
+        "both"
+       ],
+       "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+      },
+      "separable": {
+       "type": "boolean"
+      },
+      "separable_prefix": {
+       "type": "string"
+      },
+      "reflexive": {
+       "type": "boolean"
+      },
+      "declension": {
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "weak",
+        "strong",
+        "mixed",
+        "adjectival"
+       ]
+      },
+      "plural_class": {
+       "type": "string",
+       "pattern": "^-¨?(e|en|n|er|s|nen)?$",
+       "description": "German: the plural ending, ¨ for umlaut, '-' for no change."
+      },
+      "aspect": {
+       "enum": [
+        "Imp",
+        "Perf"
+       ]
+      },
+      "animacy": {
+       "enum": [
+        "Anim",
+        "Inan"
+       ]
+      },
+      "invariable": {
+       "type": "boolean"
+      },
+      "position": {
+       "enum": [
+        "Attr",
+        "Pred"
+       ]
+      },
+      "comparable": {
+       "type": "boolean"
+      },
+      "note": {
+       "type": "string",
+       "maxLength": 120,
+       "description": "Anything the keys above cannot say, for a human reader."
+      },
+      "h_aspire": {
+       "type": "boolean",
+       "description": "French: an initial h that blocks elision and liaison (le héros)."
+      },
+      "by_variety": {
+       "type": "object",
+       "propertyNames": {
+        "pattern": "^[a-z]{2}-[A-Z]{2}$"
+       },
+       "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+         "gender": {
+          "enum": [
+           "Masc",
+           "Fem",
+           "Neut",
+           "Com"
+          ]
+         },
+         "number": {
+          "enum": [
+           "Sing",
+           "Plur"
+          ],
+          "description": "Set only for a noun used in one number: singulare or plurale tantum."
+         },
+         "auxiliary": {
+          "enum": [
+           "have",
+           "be",
+           "both"
+          ],
+          "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+         },
+         "plural_class": {
+          "type": "string",
+          "pattern": "^-¨?(e|en|n|er|s|nen)?$",
+          "description": "German: the plural ending, ¨ for umlaut, '-' for no change."
+         },
+         "declension": {
+          "enum": [
+           "1",
+           "2",
+           "3",
+           "4",
+           "weak",
+           "strong",
+           "mixed",
+           "adjectival"
+          ]
+         },
+         "irregular": {
+          "type": "boolean"
+         }
+        }
+       },
+       "description": "Only what one variety does differently: {\"de-AT\": {\"gender\": \"Neut\"}}."
+      }
+     }
+    },
+    "pronunciations": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "$ref": "#/$defs/pronunciation"
+     }
+    },
+    "forms": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/form"
+     }
+    },
+    "components": {
+     "type": "array",
+     "minItems": 2,
+     "items": {
+      "$ref": "#/$defs/component"
+     }
+    },
+    "separable": {
+     "type": "boolean"
+    },
+    "senses": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "$ref": "#/$defs/sense"
+     }
+    },
+    "relations": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/relation"
+     }
+    }
+   }
+  },
+  "spelling": {
+   "type": "object",
+   "required": [
+    "text"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "text": {
+     "type": "string",
+     "minLength": 1
+    },
+    "varieties": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string",
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+     }
+    },
+    "pre_reform": {
+     "type": "boolean"
+    }
+   }
+  },
+  "pronunciation": {
+   "type": "object",
+   "required": [
+    "variety",
+    "ipa"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "variety": {
+     "type": "string",
+     "pattern": "^[a-z]{2}-[A-Z]{2}$"
+    },
+    "ipa": {
+     "type": "string",
+     "pattern": "^/.+/$"
+    },
+    "reading": {
+     "type": "string",
+     "minLength": 1,
+     "description": "The spelling with its stress marked, where the language does not write stress (рука́, àncora)."
+    }
+   }
+  },
+  "form": {
+   "type": "object",
+   "required": [
+    "form",
+    "features"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "form": {
+     "type": "string",
+     "minLength": 1
+    },
+    "features": {
+     "type": "object",
+     "additionalProperties": false,
+     "properties": {
+      "Number": {
+       "type": "string",
+       "pattern": "^(Sing|Plur|Ptan)(,(Sing|Plur|Ptan))*$"
+      },
+      "Case": {
+       "type": "string",
+       "pattern": "^(Nom|Gen|Dat|Acc|Ins|Loc|Voc)(,(Nom|Gen|Dat|Acc|Ins|Loc|Voc))*$"
+      },
+      "Gender": {
+       "type": "string",
+       "pattern": "^(Masc|Fem|Neut|Com)(,(Masc|Fem|Neut|Com))*$"
+      },
+      "Tense": {
+       "type": "string",
+       "pattern": "^(Pres|Past|Imp|Fut|Pqp)(,(Pres|Past|Imp|Fut|Pqp))*$"
+      },
+      "Person": {
+       "type": [
+        "string",
+        "integer"
+       ],
+       "enum": [
+        "1",
+        "2",
+        "3",
+        1,
+        2,
+        3
+       ]
+      },
+      "Mood": {
+       "type": "string",
+       "pattern": "^(Ind|Sub|Imp|Cnd)(,(Ind|Sub|Imp|Cnd))*$"
+      },
+      "VerbForm": {
+       "type": "string",
+       "pattern": "^(Fin|Inf|Part|Ger|Conv)(,(Fin|Inf|Part|Ger|Conv))*$"
+      },
+      "Aspect": {
+       "type": "string",
+       "pattern": "^(Imp|Perf|Prog)(,(Imp|Perf|Prog))*$"
+      },
+      "Degree": {
+       "type": "string",
+       "pattern": "^(Pos|Cmp|Sup|Abs)(,(Pos|Cmp|Sup|Abs))*$"
+      },
+      "Animacy": {
+       "type": "string",
+       "pattern": "^(Anim|Inan)(,(Anim|Inan))*$"
+      },
+      "Polarity": {
+       "type": "string",
+       "pattern": "^(Neg|Pos)(,(Neg|Pos))*$"
+      },
+      "Definite": {
+       "type": "string",
+       "pattern": "^(Def|Ind)(,(Def|Ind))*$"
+      },
+      "PronType": {
+       "type": "string",
+       "pattern": "^(Prs|Dem|Int|Rel|Ind|Tot|Neg|Art)(,(Prs|Dem|Int|Rel|Ind|Tot|Neg|Art))*$"
+      },
+      "NumType": {
+       "type": "string",
+       "pattern": "^(Card|Ord|Frac|Mult)(,(Card|Ord|Frac|Mult))*$"
+      },
+      "Poss": {
+       "type": "string",
+       "pattern": "^(Yes)(,(Yes))*$"
+      },
+      "Reflex": {
+       "type": "string",
+       "pattern": "^(Yes)(,(Yes))*$"
+      },
+      "Voice": {
+       "type": "string",
+       "pattern": "^(Act|Pass)(,(Act|Pass))*$"
+      }
+     }
+    },
+    "varieties": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string",
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+     }
+    },
+    "senses": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "integer",
+      "minimum": 1
+     }
+    },
+    "ipa": {
+     "type": "object",
+     "propertyNames": {
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+     },
+     "additionalProperties": {
+      "type": "string",
+      "pattern": "^/.+/$"
+     }
+    },
+    "reading": {
+     "type": "string",
+     "minLength": 1
+    }
+   }
+  },
+  "component": {
+   "type": "object",
+   "required": [
+    "text",
+    "lemma",
+    "inflects"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "text": {
+     "type": "string",
+     "minLength": 1
+    },
+    "lemma": {
+     "type": "string",
+     "minLength": 1
+    },
+    "inflects": {
+     "enum": [
+      "head",
+      "agrees",
+      "fixed"
+     ]
+    }
+   }
+  },
+  "sense": {
+   "type": "object",
+   "required": [
+    "definition",
+    "example",
+    "cefr"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "definition": {
+     "type": "string",
+     "minLength": 10
+    },
+    "example": {
+     "type": "string",
+     "minLength": 10
+    },
+    "cefr": {
+     "enum": [
+      "A1",
+      "A2",
+      "B1",
+      "B2",
+      "C1",
+      "C2"
+     ]
+    },
+    "frames": {
+     "type": "array",
+     "minItems": 1,
+     "maxItems": 3,
+     "items": {
+      "type": "string",
+      "minLength": 2
+     }
+    },
+    "labels": {
+     "$ref": "#/$defs/labels"
+    },
+    "regions": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string",
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+     }
+    },
+    "standard_alternative": {
+     "type": "string",
+     "minLength": 1
+    },
+    "grammar": {
+     "type": "object",
+     "additionalProperties": false,
+     "description": "Where a sense differs from the lexeme: a countable and an uncountable sense of one noun, a transitive and an intransitive sense of one verb.",
+     "properties": {
+      "countability": {
+       "enum": [
+        "Count",
+        "Mass",
+        "Both"
+       ]
+      },
+      "valency": {
+       "enum": [
+        "Tr",
+        "Intr",
+        "Both",
+        "Refl",
+        "Impers"
+       ]
+      },
+      "number": {
+       "enum": [
+        "Sing",
+        "Plur"
+       ],
+       "description": "Set only for a noun used in one number: singulare or plurale tantum."
+      },
+      "position": {
+       "enum": [
+        "Attr",
+        "Pred"
+       ]
+      },
+      "reflexive": {
+       "type": "boolean"
+      },
+      "auxiliary": {
+       "enum": [
+        "have",
+        "be",
+        "both"
+       ],
+       "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+      }
+     }
+    },
+    "antonyms": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "required": [
+       "lemma",
+       "pos"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "lemma": {
+        "type": "string",
+        "minLength": 1
+       },
+       "pos": {
+        "type": "string",
+        "enum": [
+         "NOUN",
+         "VERB",
+         "ADJ",
+         "ADV",
+         "PRON",
+         "DET",
+         "ADP",
+         "NUM",
+         "CONJ",
+         "SCONJ",
+         "PART",
+         "INTJ",
+         "PROPN",
+         "AUX"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "labels": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "formality": {
+     "enum": [
+      "formal",
+      "informal",
+      "slang"
+     ]
+    },
+    "attitude": {
+     "type": "array",
+     "minItems": 1,
+     "uniqueItems": true,
+     "items": {
+      "enum": [
+       "derogatory",
+       "offensive",
+       "vulgar",
+       "humorous",
+       "ironic",
+       "euphemistic",
+       "endearing",
+       "disapproving"
+      ]
+     }
+    },
+    "time": {
+     "enum": [
+      "dated",
+      "archaic",
+      "historical"
+     ]
+    },
+    "style": {
+     "type": "array",
+     "minItems": 1,
+     "uniqueItems": true,
+     "items": {
+      "enum": [
+       "literary",
+       "poetic",
+       "elevated",
+       "official"
+      ]
+     }
+    },
+    "normativity": {
+     "enum": [
+      "nonstandard",
+      "proscribed"
+     ]
+    },
+    "domain": {
+     "enum": [
+      "agriculture",
+      "anatomy",
+      "architecture",
+      "art",
+      "astronomy",
+      "aviation",
+      "biology",
+      "botany",
+      "chemistry",
+      "computing",
+      "cooking",
+      "economics",
+      "education",
+      "electricity",
+      "finance",
+      "fishing",
+      "geography",
+      "geology",
+      "grammar",
+      "history",
+      "hunting",
+      "law",
+      "linguistics",
+      "literature",
+      "mathematics",
+      "medicine",
+      "military",
+      "music",
+      "mythology",
+      "nautical",
+      "philosophy",
+      "photography",
+      "physics",
+      "politics",
+      "psychology",
+      "religion",
+      "sport",
+      "technology",
+      "theatre",
+      "transport",
+      "zoology"
+     ]
+    },
+    "figurative": {
+     "type": "boolean"
+    },
+    "rare": {
+     "type": "boolean"
+    }
+   }
+  },
+  "relation": {
+   "type": "object",
+   "required": [
+    "type",
+    "lemma",
+    "pos"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "type": {
+     "enum": [
+      "diminutive_of",
+      "augmentative_of",
+      "endearing_of",
+      "feminine_of",
+      "agent_noun_of",
+      "verbal_noun_of",
+      "abstract_noun_of",
+      "adjective_of",
+      "adverb_of",
+      "derived_from",
+      "aspect_partner",
+      "confusable"
+     ]
+    },
+    "lemma": {
+     "type": "string",
+     "minLength": 1
+    },
+    "pos": {
+     "type": "string",
+     "enum": [
+      "NOUN",
+      "VERB",
+      "ADJ",
+      "ADV",
+      "PRON",
+      "DET",
+      "ADP",
+      "NUM",
+      "CONJ",
+      "SCONJ",
+      "PART",
+      "INTJ",
+      "PROPN",
+      "AUX"
+     ]
+    },
+    "why": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

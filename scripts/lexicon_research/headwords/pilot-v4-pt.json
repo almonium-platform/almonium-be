@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "rapariga",
+  "zipf": 4.02,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "ônibus",
+  "zipf": 4.89,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "facto",
+  "zipf": 4.73,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "jogo",
+  "zipf": 5.59,
+  "set": "pilot-v4"
+ }
+]

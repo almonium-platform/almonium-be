@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
-from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -34,7 +34,7 @@ LIMIT_HIT = threading.Event()
 
 
 def has_entry(lang, headword):
-    return any((d / f"{headword}.json").exists() for d in OUT.glob(f"*/{lang}"))
+    return any((d / f"{headword}.json").exists() for d in OUT.glob(f"*{WRITER_SUFFIX}/{lang}"))
 
 
 def parse(text):
@@ -49,11 +49,11 @@ def parse(text):
 
 
 def write_one(model, effort, lang, system, row, shared=False, attempt=1):
-    d = OUT / f"codex-{model}-{effort}" / lang
+    d = OUT / f"codex-{model}-{effort}{WRITER_SUFFIX}" / lang
     # a quality comparison needs the same words another model wrote; everything else skips them
     if (d / f"{row['headword']}.json").exists() or (not shared and has_entry(lang, row["headword"])):
         return "skip"
-    if lemma_gate.stop(lang, row, f"codex-{model}-{effort}", GATE):
+    if lemma_gate.stop(lang, row, f"codex-{model}-{effort}{WRITER_SUFFIX}", GATE):
         return "gated"
     if LIMIT_HIT.is_set():
         return "limit"
@@ -82,7 +82,7 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
             print(f"plan limit reached at {row['headword']}: {error}", flush=True)
         LIMIT_HIT.set()
         return "limit"
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
             "input_tokens": usage.get("input_tokens"), "cache_read": usage.get("cached_input_tokens"),
             "output_tokens": usage.get("output_tokens"), "reasoning_tokens": usage.get("reasoning_output_tokens")}
     try:

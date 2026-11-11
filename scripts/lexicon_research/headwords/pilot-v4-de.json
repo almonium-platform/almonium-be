@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "Band",
+  "zipf": 5.06,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "morgen",
+  "zipf": 5.43,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "hängen",
+  "zipf": 4.6,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "fallschirm",
+  "zipf": 3.21,
+  "set": "pilot-v4"
+ }
+]

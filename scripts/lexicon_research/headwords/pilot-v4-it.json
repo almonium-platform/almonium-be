@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "braccio",
+  "zipf": 4.65,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "ancora",
+  "zipf": 6.07,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "pesca",
+  "zipf": 4.38,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "principe",
+  "zipf": 4.75,
+  "set": "pilot-v4"
+ }
+]
