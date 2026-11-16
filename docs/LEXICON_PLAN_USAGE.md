@@ -113,6 +113,35 @@ Fixed on 16 November 2026; listed so it is not reintroduced.
   runs skipped the word; the Codex writer stopped the whole run at the first limit; a hung
   call ended a language's run. All three now wait or retry (`f44ca8ea`).
 
+## How deep English goes
+
+English is the deepest language. Counted on 16 November 2026 from Wiktionary's English
+lemmas (plain lower-case words, not hyphenated compounds, whose wordfreq score is inflated
+by their parts) against wordfreq's Zipf scale:
+
+| Zipf at least | Lemma spellings | Of them with an entry then |
+|---|---|---|
+| 4 (once per 100k words) | 5,551 | 3,404 |
+| 3 | 18,912 | 10,578 |
+| 2.5 | 30,411 | 12,841 |
+| 2 | 45,101 | 14,940 |
+| 1.5 | 64,554 | 15,827 |
+| 1 | 90,932 | 15,902 |
+
+The target is everything down to Zipf 1.5: about 65,000 single words, the depth of a
+large advanced learner's dictionary, and enough for the rare words of nineteenth-century
+novels that a reader actually taps. Below 1.5 the list turns into scientific names and
+one-off coinages, so 100,000 single words would buy mostly noise; the next depth is
+multiword lexemes (phrasal verbs, idioms), which need a frequency source of their own, and
+capitalised lemmas (Monday, English, Christmas), left out of the first list because most
+capitalised spellings are names.
+
+The first v4 lists kept only words spaCy tagged as nouns, verbs, adjectives and adverbs out
+of context, which left out every function word (the, to, of, I) and some common ones
+(time, first, two). `headwords/en-deep-en.json` (48,727 words, most frequent first) holds
+every lemma down to Zipf 1.5 that had no entry, function words first. At about 28,000 Opus
+entries per $100 week it is under two weeks of one Claude account.
+
 ## Where to look
 
 - The book processor's Operations page, Entries tab: entries per language and writer,
