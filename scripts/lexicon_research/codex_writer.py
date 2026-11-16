@@ -22,7 +22,7 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
 import v3_entries
-from prompting import HERE, PROMPT_VERSION, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -125,7 +125,7 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
 ap = argparse.ArgumentParser()
 ap.add_argument("name")
 ap.add_argument("--model", default="gpt-6.1-sol")
-ap.add_argument("--langs", default="en,de,uk")
+ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
 ap.add_argument("--effort", default="medium")
 ap.add_argument("--offset", type=int, default=0, help="skip this many headwords, so each test cell gets its own words")
 ap.add_argument("--limit", type=int, default=0)
@@ -135,6 +135,9 @@ ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
+for _lang in a.langs.split(","):
+    if _lang not in TARGET_LANGUAGES:
+        sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)} only")
 REWRITE_OLDER = a.rewrite_older
 GATE = not a.no_gate
 if GATE:

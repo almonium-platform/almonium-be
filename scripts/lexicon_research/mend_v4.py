@@ -38,7 +38,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jsonschema  # noqa: E402
 import v3_entries  # noqa: E402
-from prompting import HERE, REGIONS, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
+from prompting import HERE, REGIONS, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
 
 MEND_VERSION = "mend-v2"
 OUT = HERE / "out"
@@ -343,13 +343,16 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="claude-opus-5-5")
     ap.add_argument("--effort", default="medium")
-    ap.add_argument("--langs", default=",".join(REGIONS))
+    ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--workers", type=int, default=2)
     ap.add_argument("--headwords", default="")
     ap.add_argument("--pause-session", type=int, default=100)
     ap.add_argument("--eval", action="store_true", help="write to out/mend-eval-<model>-<effort>/, beside words a v4 writer already wrote")
     a = ap.parse_args()
+    for _lang in a.langs.split(","):
+        if _lang not in TARGET_LANGUAGES:
+            sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)} only")
     EMPTY.mkdir(parents=True, exist_ok=True)
     for lang in a.langs.split(","):
         rows = queue(lang, a.headwords)

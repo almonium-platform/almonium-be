@@ -22,7 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_v4  # noqa: E402
 import v3_entries  # noqa: E402
-from prompting import HERE, REGIONS  # noqa: E402
+from prompting import HERE, TARGET_LANGUAGES  # noqa: E402
 
 OUT = HERE / "out"
 STATUS = OUT / "status"
@@ -56,7 +56,7 @@ def build(queue):
     languages, writers = [], defaultdict(lambda: {"entries": 0, "rejected": 0, "costs": [], "out": [], "models": Counter(),
                                                    "efforts": Counter(), "prompts": Counter(), "schemas": Counter(),
                                                    "first": None, "last": None})
-    for lang in REGIONS:
+    for lang in TARGET_LANGUAGES:
         row = {"lang": lang, "entries": 0, "rejected": 0, "by_writer": Counter(), "faults": Counter(), "with_faults": 0,
                "last_day": 0, "senses": []}
         written = set()

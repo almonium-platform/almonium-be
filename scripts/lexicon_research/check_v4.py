@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jsonschema  # noqa: E402
-from prompting import HERE, REGIONS, SCHEMA_PATH  # noqa: E402
+from prompting import HERE, REGIONS, SCHEMA_PATH, TARGET_LANGUAGES  # noqa: E402
 
 SCHEMA = json.loads(SCHEMA_PATH.read_text())
 FORMULAS = re.compile(r"\b(the act of|the state of being|the process of|relating to|characteristic of|according to|"
@@ -64,7 +64,7 @@ def check(lang, entry):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--langs", default=",".join(REGIONS))
+    ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
     ap.add_argument("--writer", default="")
     ap.add_argument("--show", type=int, default=5)
     a = ap.parse_args()

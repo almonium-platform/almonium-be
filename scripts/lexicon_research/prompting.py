@@ -16,6 +16,9 @@ PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4")
 SCHEMA_VERSION = {"v1": "2", "v2": "2", "v3": "2", "v4": "3"}[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.json" if SCHEMA_VERSION == "2" else f"entry.schema.v{SCHEMA_VERSION}.json")
 WRITER_SUFFIX = "" if SCHEMA_VERSION == "2" else f"-{PROMPT_VERSION}"
+# The languages a learner studies, the ones entries are written for. Ukrainian is a bridge language
+# only: glosses are written in it, entries are not (owner, 2026-10 and again 16 November 2026).
+TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt")
 LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
 VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
