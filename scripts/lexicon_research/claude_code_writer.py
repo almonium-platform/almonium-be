@@ -40,6 +40,8 @@ GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected for
 REWRITE_OLDER = False  # --rewrite-older writes a word afresh although it has an older entry, which mend_v4.py would mend
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 EMPTY.mkdir(parents=True, exist_ok=True)
+# the CLI's words for a plan's 5-hour or weekly wall (also "rate limit", "usage limit")
+PLAN_LIMIT = re.compile(r"limit|usage|quota", re.I)
 # the CLI's validator takes draft-07 shapes: no $schema keyword, definitions instead of $defs
 _schema = json.loads(SCHEMA_PATH.read_text())
 _schema.pop("$schema", None)
@@ -100,34 +102,51 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
         return "gated"
     if not allowed(pause_session, stop_week):
         return "stopped"
-    t0 = time.time()
     cmd = ["claude", "-p", user_prompt(lang, row), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
            "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]  # no MCP servers: their tool schemas would ride along in every call
-    # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
-    wall = round(time.time() - t0, 1)
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
-    entry = None
-    try:
-        res = json.loads(r.stdout)
-        meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})
-        u = res.get("usage") or {}
-        meta.update({"input_tokens": u.get("input_tokens"), "output_tokens": u.get("output_tokens"),
-                     "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
-        structured = res.get("structured_output")
+    while True:
+        t0 = time.time()
+        # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
+        try:
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
+        except subprocess.TimeoutExpired:
+            # a call that hangs used to end the whole language's run; it is one more try
+            r = subprocess.CompletedProcess(cmd, 1, stdout="", stderr="the call took longer than ten minutes")
+        wall = round(time.time() - t0, 1)
+        try:
+            res = json.loads(r.stdout)
+        except json.JSONDecodeError:
+            res = {"is_error": True, "result": (r.stderr or r.stdout or "no output")[-300:]}
         text = res.get("result") or ""
-        if res.get("is_error"):
-            # the plan's limit or any other refusal from the CLI: the headword is not spent on it, the
-            # worker waits it out (a weekly limit can take hours to lift) and gives up after a day
-            if retries >= 144:
-                raise RuntimeError(f"still failing after a day: {text[:200]}")
-            print(f"error at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
-            time.sleep(600)
-            return write_one(model, effort, lang, system, row, pause_session, stop_week, retries + 1)
+        if not res.get("is_error"):
+            break
+        # a plan's limit is waited out however long it lasts and counts nothing against the word; any
+        # other refusal from the CLI is tried for a day, then left for the next run, with no file written
+        limited = PLAN_LIMIT.search(text)
+        if not limited:
+            retries += 1
+            if retries > 144:
+                print(f"giving up for this run at {row['headword']}: {text[:120]!r}", flush=True)
+                return "error"
+        print(f"{'limit' if limited else 'error'} at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
+        time.sleep(600)
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})
+    u = res.get("usage") or {}
+    meta.update({"input_tokens": u.get("input_tokens"), "output_tokens": u.get("output_tokens"),
+                 "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
+    try:
+        structured = res.get("structured_output")
         entry = structured if structured is not None else json.loads(text.strip().strip("`").removeprefix("json"))
     except Exception as e:
-        entry = {"error": f"{type(e).__name__}: {str(e)[:200]}", "raw": (r.stdout or "")[:20000], "stderr": (r.stderr or "")[-2000:]}
+        # an unusable answer is kept for a look outside the writer's directory, so the next run writes the word
+        failed = OUT / "failed" / f"cc-{model}{WRITER_SUFFIX}" / lang
+        failed.mkdir(parents=True, exist_ok=True)
+        (failed / f"{row['headword']}.json").write_text(json.dumps(
+            {"error": f"{type(e).__name__}: {str(e)[:200]}", "meta": meta, "raw": (r.stdout or "")[:20000]}, ensure_ascii=False, indent=1) + "\n")
+        print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} unusable answer, kept under out/failed/", flush=True)
+        return "error"
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"

@@ -279,18 +279,25 @@ def mend_one(a, lang, system, row, retries=0):
     cmd = ["claude", "-p", user_prompt(row, base), "--model", a.model, "--effort", a.effort, "--tools", "",
            "--system-prompt", system, "--json-schema", json.dumps(PATCH_SCHEMA), "--output-format", "json",
            "--no-session-persistence", "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
+    except subprocess.TimeoutExpired:
+        r = subprocess.CompletedProcess(cmd, 1, stdout="", stderr="the call took longer than ten minutes")
     meta["wall_s"] = round(time.time() - t0, 1)
     try:
         res = json.loads(r.stdout)
     except json.JSONDecodeError:
         res = {"is_error": True, "result": (r.stderr or r.stdout)[-300:]}
     if res.get("is_error"):
-        if retries >= 144:
-            raise RuntimeError(f"still failing after a day: {res.get('result', '')[:200]}")
-        print(f"error at {row['headword']} ({str(res.get('result'))[:80]!r}); waiting ten minutes", flush=True)
+        # a plan's limit is waited out however long it lasts; any other refusal is tried for a day, then
+        # left for the next run with nothing written
+        limited = re.search(r"limit|usage|quota", str(res.get("result")), re.I)
+        if not limited and retries >= 144:
+            print(f"giving up for this run at {row['headword']}: {str(res.get('result'))[:120]!r}", flush=True)
+            return "error"
+        print(f"{'limit' if limited else 'error'} at {row['headword']} ({str(res.get('result'))[:80]!r}); waiting ten minutes", flush=True)
         time.sleep(600)
-        return mend_one(a, lang, system, row, retries + 1)
+        return mend_one(a, lang, system, row, retries if limited else retries + 1)
     u = res.get("usage") or {}
     meta.update({"total_cost_usd": res.get("total_cost_usd"), "input_tokens": u.get("input_tokens"), "output_tokens": u.get("output_tokens"),
                  "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})

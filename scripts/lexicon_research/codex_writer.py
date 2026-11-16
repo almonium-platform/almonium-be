@@ -30,8 +30,9 @@ GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected for
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
 EMPTY = Path("/tmp/claude-1000/codex-empty")
 EMPTY.mkdir(parents=True, exist_ok=True)
-# set once the plan refuses a call: nothing more is sent, and no error file is left to block a rerun
+# set while the plan refuses calls: the other workers hold until one worker's probe gets through
 LIMIT_HIT = threading.Event()
+LIMIT_LOCK = threading.Lock()
 REWRITE_OLDER = False  # --rewrite-older: write words with an older entry too (the mender's rewrite list)
 
 
@@ -60,15 +61,19 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
         return "older"
     if lemma_gate.stop(lang, row, f"codex-{model}-{effort}{WRITER_SUFFIX}", GATE):
         return "gated"
-    if LIMIT_HIT.is_set():
-        return "limit"
+    while LIMIT_HIT.is_set():
+        time.sleep(60)  # another worker found the plan at its limit and is waiting it out
     d.mkdir(parents=True, exist_ok=True)
     prompt = f"{system}\n\nDo not run commands or read files; answer from your own knowledge.\n\n{user_prompt(lang, row)}"
     t0 = time.time()
     # no MCP servers: the user's configured ones add tool schemas and startup noise to every call
-    r = subprocess.run([CODEX, "exec", "-m", model, "--skip-git-repo-check", "--ephemeral", "--json", "--sandbox", "read-only",
-                        "-c", "mcp_servers={}", "-c", f"model_reasoning_effort={effort}", prompt],
-                       capture_output=True, text=True, timeout=900, cwd=EMPTY, stdin=subprocess.DEVNULL)  # an open stdin makes codex wait for it
+    try:
+        r = subprocess.run([CODEX, "exec", "-m", model, "--skip-git-repo-check", "--ephemeral", "--json", "--sandbox", "read-only",
+                            "-c", "mcp_servers={}", "-c", f"model_reasoning_effort={effort}", prompt],
+                           capture_output=True, text=True, timeout=900, cwd=EMPTY, stdin=subprocess.DEVNULL)  # an open stdin makes codex wait for it
+    except subprocess.TimeoutExpired:
+        # a hung call used to end the run; it counts as a call with no answer
+        r = subprocess.CompletedProcess([], 1, stdout="", stderr="timed out")
     wall = round(time.time() - t0, 1)
     text, usage, error = "", {}, ""
     for line in r.stdout.splitlines():
@@ -83,10 +88,15 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
         elif ev.get("type") in ("error", "turn.failed"):
             error = str(ev.get("message") or ev.get("error"))[:300]
     if not text and "usage limit" in error:
-        if not LIMIT_HIT.is_set():
-            print(f"plan limit reached at {row['headword']}: {error}", flush=True)
-        LIMIT_HIT.set()
-        return "limit"
+        # the plan's wall is waited out, however long, and counts nothing against the word; one worker
+        # probes every fifteen minutes while the others hold
+        with LIMIT_LOCK:
+            if not LIMIT_HIT.is_set():
+                print(f"plan limit reached at {row['headword']}: {error}; waiting it out", flush=True)
+                LIMIT_HIT.set()
+        time.sleep(900)
+        LIMIT_HIT.clear()
+        return write_one(model, effort, lang, system, row, shared, attempt)
     meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
             "input_tokens": usage.get("input_tokens"), "cache_read": usage.get("cached_input_tokens"),
             "output_tokens": usage.get("output_tokens"), "reasoning_tokens": usage.get("reasoning_output_tokens")}
@@ -98,6 +108,13 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
             print(f"codex-{model}-{effort} {lang} {row['headword']:20} not JSON, retrying once", flush=True)
             return write_one(model, effort, lang, system, row, shared, attempt=2)
         entry = {"error": f"not JSON: {e}", "raw": text}
+    if "error" in entry:
+        # kept for a look outside the writer's directory, so the next run writes the word
+        failed = OUT / "failed" / d.parent.name / lang
+        failed.mkdir(parents=True, exist_ok=True)
+        (failed / f"{row['headword']}.json").write_text(json.dumps({**entry, "meta": meta}, ensure_ascii=False, indent=1) + "\n")
+        print(f"codex-{model}-{effort} {lang} {row['headword']:20} unusable answer, kept under out/failed/", flush=True)
+        return "error"
     (d / f"{row['headword']}.json").write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
