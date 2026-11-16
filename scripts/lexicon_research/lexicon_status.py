@@ -3,7 +3,7 @@
 For every language: v4 entries written and rejected, by writer (model and prompt), the faults
 check_v4.py finds, senses per lexeme, entries written in the last day, the words of the queue no
 writer has tried yet, the words with only an older (v3) entry still to be mended, and unusable
-answers kept under out/failed/. For every writer directory: model, effort, prompt and schema
+answers kept under out/failed/, and the headword lists a writer can be given. For every writer directory: model, effort, prompt and schema
 version, entries, cost and output tokens per entry, and when it first and last wrote.
 
 check_v4 is run once per file and remembered by the file's modification time, so a rerun reads only
@@ -109,9 +109,12 @@ def build(queue):
         languages.append(row)
     stamp = lambda t: datetime.fromtimestamp(t, timezone.utc).isoformat() if t else None
     top = lambda c: c.most_common(1)[0][0] if c else None
+    lists = {lang: sorted(f.name[: -len(f"-{lang}.json")] for f in (HERE / "headwords").glob(f"*-{lang}.json"))
+             for lang in TARGET_LANGUAGES}
     status = {
         "built_at": now.isoformat(),
         "queue": queue,
+        "lists": lists,
         "languages": languages,
         "writers": [{"writer": name, "entries": w["entries"], "rejected": w["rejected"], "model": top(w["models"]),
                      "effort": top(w["efforts"]), "prompt_version": top(w["prompts"]), "schema_version": top(w["schemas"]),
