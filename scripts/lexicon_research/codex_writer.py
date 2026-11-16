@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
+import v3_entries
 from prompting import HERE, PROMPT_VERSION, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
@@ -31,6 +32,7 @@ EMPTY = Path("/tmp/claude-1000/codex-empty")
 EMPTY.mkdir(parents=True, exist_ok=True)
 # set once the plan refuses a call: nothing more is sent, and no error file is left to block a rerun
 LIMIT_HIT = threading.Event()
+REWRITE_OLDER = False  # --rewrite-older: write words with an older entry too (the mender's rewrite list)
 
 
 def has_entry(lang, headword):
@@ -53,6 +55,9 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
     # a quality comparison needs the same words another model wrote; everything else skips them
     if (d / f"{row['headword']}.json").exists() or (not shared and has_entry(lang, row["headword"])):
         return "skip"
+    # a word with an older entry is mended (mend_v4.py), not bought again
+    if WRITER_SUFFIX and not shared and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):
+        return "older"
     if lemma_gate.stop(lang, row, f"codex-{model}-{effort}{WRITER_SUFFIX}", GATE):
         return "gated"
     if LIMIT_HIT.is_set():
@@ -111,7 +116,9 @@ ap.add_argument("--only-set", help="keep only headwords whose set has this name,
 ap.add_argument("--shared", action="store_true", help="write words other models already wrote, for a quality comparison")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
+ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
+REWRITE_OLDER = a.rewrite_older
 GATE = not a.no_gate
 if GATE:
     lemma_gate.require(a.langs.split(","))

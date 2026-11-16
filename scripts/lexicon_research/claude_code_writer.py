@@ -18,8 +18,11 @@ out, and stops for good at a share of the week.
 Before any call, lemma_gate.py asks the Wiktionary index whether the headword is a lemma at all;
 an inflected form ("festlichen") is not written, and its lemma is recorded under out/gate/.
 
+A word that already has an older (v3) entry is not written either: mend_v4.py mends it for a fraction of
+the cost. Only the words the mender sends back for a rewrite are written, with --rewrite-older.
+
 Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [--limit N] [--workers 2]
-           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate]
+           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate] [--rewrite-older]
        (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
         build the index once with lemma_index.py)
 """
@@ -29,10 +32,12 @@ from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
+import v3_entries
 from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
+REWRITE_OLDER = False  # --rewrite-older writes a word afresh although it has an older entry, which mend_v4.py would mend
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 EMPTY.mkdir(parents=True, exist_ok=True)
 # the CLI's validator takes draft-07 shapes: no $schema keyword, definitions instead of $defs
@@ -88,6 +93,9 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice
     if WRITER_SUFFIX and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
         return "skip"
+    # a word with an older entry is mended (mend_v4.py), not bought again, unless the mender said it must be rewritten
+    if WRITER_SUFFIX and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):
+        return "older"
     if lemma_gate.stop(lang, row, f"cc-{model}{WRITER_SUFFIX}", GATE):
         return "gated"
     if not allowed(pause_session, stop_week):
@@ -137,8 +145,10 @@ ap.add_argument("--headwords", default="", help="a tranche name: reads headwords
 ap.add_argument("--pause-session", type=int, default=70, help="wait while this percent of the 5-hour session is used")
 ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this percent of the week; 0 never stops")
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
+ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
 GATE = not a.no_gate
+REWRITE_OLDER = a.rewrite_older
 if GATE:
     lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):

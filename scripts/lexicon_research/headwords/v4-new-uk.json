@@ -1,0 +1,5847 @@
+[
+{
+"headword": "випадок",
+"zipf": 4.86,
+"set": "v4-new"
+},
+{
+"headword": "наступний",
+"zipf": 4.86,
+"set": "v4-new"
+},
+{
+"headword": "журналіст",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "освіта",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "офіційний",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "перелік",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "погляд",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "приклад",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "сила",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "хороший",
+"zipf": 4.85,
+"set": "v4-new"
+},
+{
+"headword": "вести",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "виключно",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "вночі",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "грати",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "замовлення",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "земля",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "обладнання",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "організація",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "перемога",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "повітря",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "причина",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "продаж",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "суддя",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "харкові",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "шукати",
+"zipf": 4.84,
+"set": "v4-new"
+},
+{
+"headword": "автомобіль",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "бюджет",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "двері",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "знак",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "клуб",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "пора",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "розмір",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "справжній",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "фонд",
+"zipf": 4.83,
+"set": "v4-new"
+},
+{
+"headword": "вийти",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "враження",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "відносно",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "знов",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "лікар",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "очевидно",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "продовження",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "суспільство",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "тема",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "чувак",
+"zipf": 4.82,
+"set": "v4-new"
+},
+{
+"headword": "вихід",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "думати",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "матч",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "модель",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "музей",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "музика",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "надати",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "пані",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "погода",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "показати",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "почати",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "прапор",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "прийняття",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "реально",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "спілкування",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "університет",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "цілий",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "якраз",
+"zipf": 4.81,
+"set": "v4-new"
+},
+{
+"headword": "вперед",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "голосування",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "днр",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "дім",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "зсу",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "комплекс",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "конкурс",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "наявність",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "поняття",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "українець",
+"zipf": 4.8,
+"set": "v4-new"
+},
+{
+"headword": "боротьба",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "версія",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "волосся",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "відносини",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "конфлікт",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "написати",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "старий",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "художник",
+"zipf": 4.79,
+"set": "v4-new"
+},
+{
+"headword": "генерал",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "зброя",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "кров",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "майстер",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "перш",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "повинно",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "проживання",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "успішно",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "хлопець",
+"zipf": 4.78,
+"set": "v4-new"
+},
+{
+"headword": "адвокат",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "бік",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "встановлення",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "документ",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "кохання",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "літак",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "мета",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "поряд",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "причому",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "прокуратура",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "пізно",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "ставлення",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "фестиваль",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "чомусь",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "їсти",
+"zipf": 4.77,
+"set": "v4-new"
+},
+{
+"headword": "блядь",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "введення",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "вечір",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "визначення",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "добрий",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "культура",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "легше",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "площа",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "річний",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "скасування",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "солдат",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "щиро",
+"zipf": 4.76,
+"set": "v4-new"
+},
+{
+"headword": "безпосередньо",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "блок",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "кандидат",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "київський",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "колір",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "комісія",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "наказ",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "озброєння",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "подивитися",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "проводити",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "сан",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "сміття",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "спеціально",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "чогось",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "якість",
+"zipf": 4.75,
+"set": "v4-new"
+},
+{
+"headword": "бій",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "веб",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "виконувати",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "договір",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "законопроект",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "залишити",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "захоплення",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "море",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "обмін",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "перевірити",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "покарання",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "принаймні",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "серія",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "складно",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "спати",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "форма",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "чудовий",
+"zipf": 4.74,
+"set": "v4-new"
+},
+{
+"headword": "безкоштовно",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "вивчення",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "випуск",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "двічі",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "доля",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "негайно",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "незабаром",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "ода",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "парламент",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "постачання",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "почуття",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "правління",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "пройти",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "прізвище",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "рано",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "смішно",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "ходити",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "чути",
+"zipf": 4.73,
+"set": "v4-new"
+},
+{
+"headword": "вбивство",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "завершення",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "збереження",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "майдані",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "незалежно",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "нещодавно",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "поширення",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "прийняти",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "приміщення",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "підтримка",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "ред",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "схід",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "телебачення",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "чорний",
+"zipf": 4.72,
+"set": "v4-new"
+},
+{
+"headword": "вбити",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "ворог",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "військово",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "див",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "журнал",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "лідер",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "нікуди",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "щодня",
+"zipf": 4.71,
+"set": "v4-new"
+},
+{
+"headword": "білий",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "випадково",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "дивитись",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "знання",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "знищення",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "лист",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "магазин",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "медіа",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "метро",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "обговорення",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "окремо",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "парк",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "пити",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "подарунок",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "пояснити",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "припинити",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "рейтинг",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "розуміння",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "страшно",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "строк",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "супер",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "чітко",
+"zipf": 4.7,
+"set": "v4-new"
+},
+{
+"headword": "біль",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "громадянин",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "додати",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "командир",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "майно",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "машина",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "мінімум",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "надалі",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "платити",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "половина",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "прокурор",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "підприємство",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "річчя",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "температура",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "тип",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "тиск",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "топ",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "увага",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "упа",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "частково",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "чемпіонат",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "черговий",
+"zipf": 4.69,
+"set": "v4-new"
+},
+{
+"headword": "американський",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "аналіз",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "ввечері",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "водій",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "дата",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "захищати",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "зрада",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "письменник",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "плюс",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "приймати",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "простір",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "тримати",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "трішки",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "швидкість",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "штаб",
+"zipf": 4.68,
+"set": "v4-new"
+},
+{
+"headword": "власний",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "вранці",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "відпочинок",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "звільнити",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "здійснення",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "зображення",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "канади",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "код",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "мистецтво",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "міні",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "остаточно",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "поступово",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "професор",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "чемпіон",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "інколи",
+"zipf": 4.67,
+"set": "v4-new"
+},
+{
+"headword": "визнати",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "вирішення",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "втім",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "вірно",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "забезпечити",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "змагання",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "концерт",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "край",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "молодець",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "надія",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "опитування",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "секс",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "сидіти",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "слухати",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "союз",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "сука",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "фронт",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "характер",
+"zipf": 4.66,
+"set": "v4-new"
+},
+{
+"headword": "встановити",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "дерево",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "заява",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "збільшення",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "зрештою",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "зупинити",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "казати",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "нахуй",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "непогано",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "образ",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "паспорт",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "перебування",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "прекрасно",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "різниця",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "самостійно",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "спорт",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "суть",
+"zipf": 4.65,
+"set": "v4-new"
+},
+{
+"headword": "бпп",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "вважати",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "вирішити",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "влітку",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "відкрити",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "вільний",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "дізнатися",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "займатися",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "звідти",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "ледь",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "надзвичайно",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "назвати",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "падіння",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "перехід",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "позиція",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "політичний",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "поставити",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "пір",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "тур",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "удар",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "урок",
+"zipf": 4.64,
+"set": "v4-new"
+},
+{
+"headword": "авакова",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "аеропорт",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "боротися",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "відкритий",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "вік",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "другій",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "діяти",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "запоріжжя",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "затримання",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "зберегти",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "звіт",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "зняти",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "матеріал",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "набір",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "назавжди",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "переговори",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "реакція",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "рок",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "секретар",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "скликання",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "сонце",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "страх",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "упц",
+"zipf": 4.63,
+"set": "v4-new"
+},
+{
+"headword": "висновок",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "віддати",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "дтп",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "корабель",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "маленький",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "новина",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "оголошення",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "опис",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "саакашвілі",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "спробувати",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "територія",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "японії",
+"zipf": 4.62,
+"set": "v4-new"
+},
+{
+"headword": "контракт",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "малий",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "мер",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "неймовірно",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "передати",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "почути",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "реформа",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "родина",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "сенс",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "середній",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "сон",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "старший",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "уявити",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "хід",
+"zipf": 4.61,
+"set": "v4-new"
+},
+{
+"headword": "всюди",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "відношення",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "відродження",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "золото",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "намір",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "напередодні",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "неодноразово",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "обслуговування",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "пара",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "повернутися",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "прийти",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "регулярно",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "російсько",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "рідко",
+"zipf": 4.6,
+"set": "v4-new"
+},
+{
+"headword": "внесення",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "внесок",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "ворота",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "відділ",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "газета",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "готель",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "громадянство",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "задоволення",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "зберігання",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "ймовірно",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "квіти",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "керування",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "кредит",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "ліки",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "медаль",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "огляд",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "повноваження",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "позбавлення",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "продати",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "режисер",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "решта",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "розуміти",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "рівно",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "сестра",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "стиль",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "сумно",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "тато",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "театр",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "тренер",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "утворення",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "харчування",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "чай",
+"zipf": 4.59,
+"set": "v4-new"
+},
+{
+"headword": "вiн",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "виставка",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "враховуючи",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "донька",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "дух",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "звідси",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "зниження",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "кабінет",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "механізм",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "необхідність",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "одяг",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "оточення",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "пат",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "подорож",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "політик",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "підтримати",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "сторона",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "техніка",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "харкова",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "шось",
+"zipf": 4.58,
+"set": "v4-new"
+},
+{
+"headword": "бля",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "високий",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "вкрай",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "гурт",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "довести",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "доволі",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "дфс",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "дівчинка",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "етап",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "запис",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "метод",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "мовлення",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "мужність",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "наука",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "основний",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "поганий",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "подумати",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "рота",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "сектор",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "скоріше",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "смак",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "учасник",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "футбол",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "храм",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "чисто",
+"zipf": 4.57,
+"set": "v4-new"
+},
+{
+"headword": "байдуже",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "весело",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "вулиця",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "вірити",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "дозвіл",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "заклад",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "запобігання",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "захистити",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "знищити",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "мережа",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "молодий",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "неправильно",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "отримувати",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "портал",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "порівняно",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "розгляд",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "рос",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "червоний",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "щонайменше",
+"zipf": 4.56,
+"set": "v4-new"
+},
+{
+"headword": "відповісти",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "експерт",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "зірка",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "керувати",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "купа",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "купувати",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "навчальний",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "небо",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "офіс",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "певний",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "продукт",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "прохання",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "ресурс",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "сторінка",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "тихо",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "унр",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "хлопчик",
+"zipf": 4.55,
+"set": "v4-new"
+},
+{
+"headword": "будувати",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "виготовлення",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "вина",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "власник",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "врешті",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "громадський",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "дочка",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "ефект",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "житло",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "здебільшого",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "зло",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "зменшення",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "зміст",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "квартира",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "ліс",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "мозок",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "називати",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "нащо",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "подання",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "полковник",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "попереду",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "потрапити",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "рнбо",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "розширення",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "спостереження",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "трошки",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "чимало",
+"zipf": 4.54,
+"set": "v4-new"
+},
+{
+"headword": "автобус",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "батальйон",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "батьківщина",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "восени",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "відповідати",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "генеральний",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "загальний",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "збір",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "зразок",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "карта",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "максимально",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "міс",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "особливий",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "прочитати",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "розмовляти",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "схема",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "тепло",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "турнір",
+"zipf": 4.53,
+"set": "v4-new"
+},
+{
+"headword": "акт",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "брехня",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "важливий",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "воювати",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "віра",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "додаток",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "збільшити",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "зміна",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "зразу",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "корпус",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "минуле",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "міський",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "напад",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "неподалік",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "отак",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "пдв",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "перейти",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "пиво",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "поет",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "попередження",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "поранення",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "прийом",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "підтримувати",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "підхід",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "створювати",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "стіл",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "творчість",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "успіх",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "фінал",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "частка",
+"zipf": 4.52,
+"set": "v4-new"
+},
+{
+"headword": "вчасно",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "вікно",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "вітер",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "громада",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "дозволити",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "звичайний",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "злочин",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "камінь",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "користування",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "кудись",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "література",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "майор",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "настрій",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "певно",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "продовжувати",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "соціально",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "теорія",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "тест",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "уникнути",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "цікавий",
+"zipf": 4.51,
+"set": "v4-new"
+},
+{
+"headword": "адміністрація",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "біда",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "ведення",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "вторгнення",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "жах",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "заборонити",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "закриття",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "зал",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "зверху",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "кафе",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "навряд",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "підтвердження",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "сервіс",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "серіал",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "сучасний",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "сценарій",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "сюжет",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "товариство",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "українсько",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "європейський",
+"zipf": 4.5,
+"set": "v4-new"
+},
+{
+"headword": "актор",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "безліч",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "блокування",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "бібліотека",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "врятувати",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "втручання",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "вільно",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "громадянства",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "давати",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "довгий",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "дохід",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "діло",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "живий",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "забути",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "збори",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "зручно",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "корупція",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "лос",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "мить",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "молодь",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "наслідок",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "наступ",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "насіння",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "опалення",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "операція",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "оформлення",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "помилка",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "потік",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "розділ",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "різко",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "святий",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "сержант",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "соромно",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "спершу",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "споживання",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "станція",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "сума",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "хліб",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "явно",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "іще",
+"zipf": 4.49,
+"set": "v4-new"
+},
+{
+"headword": "арешт",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "блін",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "ввести",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "визначити",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "виступ",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "воля",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "відновити",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "вінниці",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "детальніше",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "долар",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "експорт",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "закарпаття",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "закрити",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "запах",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "зелений",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "коментар",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "лейтенант",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "ліга",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "острів",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "простіше",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "протистояння",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "прям",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "регулювання",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "скасувати",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "структура",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "схожий",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "твір",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "указ",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "ііі",
+"zipf": 4.48,
+"set": "v4-new"
+},
+{
+"headword": "автоматично",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "агент",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "вирішувати",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "дитячий",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "дід",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "забрати",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "мак",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "мера",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "москаль",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "мільйон",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "науковий",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "невідомо",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "повільно",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "податок",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "правосуддя",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "радий",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "реальність",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "розповісти",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "сигнал",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "торгівля",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "транспорт",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "уважно",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "штука",
+"zipf": 4.47,
+"set": "v4-new"
+},
+{
+"headword": "акція",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "альбом",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "буквально",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "вбивати",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "взимку",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "виходити",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "вітання",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "гей",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "класно",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "конференція",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "кубок",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "курва",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "літо",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "ніде",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "правопорушення",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "принцип",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "пропозиція",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "скрізь",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "спроба",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "стріляти",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "тупо",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "хмельницький",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "хуй",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "четвер",
+"zipf": 4.46,
+"set": "v4-new"
+},
+{
+"headword": "бан",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "виглядати",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "викладач",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "вирок",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "виховання",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "власність",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "володіння",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "днк",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "дніпрі",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "душа",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "економічний",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "жарт",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "забагато",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "засіб",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "зібрати",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "квиток",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "мислення",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "палива",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "посилення",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "посол",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "починати",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "пошук",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "практика",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "реклама",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "спокій",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "цирк",
+"zipf": 4.45,
+"set": "v4-new"
+},
+{
+"headword": "база",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "битва",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "ввп",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "використати",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "внутрішній",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "вчити",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "добро",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "дол",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "допомагати",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "діяч",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "ефективність",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "запит",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "квартал",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "ключ",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "командування",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "контролювати",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "лютий",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "незаконно",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "обсяг",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "особистий",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "подати",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "подія",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "покращення",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "порівняння",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "пояснення",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "поїхати",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "ресторан",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "робочий",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "святкування",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "сильний",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "символ",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "скорочення",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "сприяння",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "сьогоднішній",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "фірма",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "читання",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "історичний",
+"zipf": 4.44,
+"set": "v4-new"
+},
+{
+"headword": "бити",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "взуття",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "виконати",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "вино",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "випробування",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "глибоко",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "декларування",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "залежно",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "змінювати",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "зранку",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "коротко",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "львівський",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "мило",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "ордло",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "пакет",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "понеділок",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "прибуток",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "прогноз",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "простий",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "підготовка",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "підписання",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "розташування",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "рука",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "румунії",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "смт",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "утримання",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "христа",
+"zipf": 4.43,
+"set": "v4-new"
+},
+{
+"headword": "греції",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "дизайн",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "дно",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "дощ",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "заняття",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "звинувачення",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "золотий",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "зона",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "зіткнення",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "недостатньо",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "нерухомість",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "побудувати",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "працівник",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "ризик",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "розум",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "слави",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "статистика",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "ступінь",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "таксі",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "товар",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "формат",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "холодно",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "інформаційний",
+"zipf": 4.42,
+"set": "v4-new"
+},
+{
+"headword": "академія",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "асоціація",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "бажано",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "верховній",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "вхід",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "вінниця",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "гетьмана",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "дядько",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "зайти",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "зусилля",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "кодекс",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "листя",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "лінія",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "максимум",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "надавати",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "насамперед",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "нести",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "обрання",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "окремий",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "перевезення",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "перемогти",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "показник",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "північ",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "розмова",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "рот",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "споруд",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "телевізор",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "терміново",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "хрест",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "інтерес",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "їздити",
+"zipf": 4.41,
+"set": "v4-new"
+},
+{
+"headword": "англ",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "бабуся",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "вмс",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "втратити",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "дорослих",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "діалог",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "дія",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "згадати",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "здатність",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "зняття",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "йорку",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "картина",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "короткий",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "обрати",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "оновлення",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "повідомити",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "поспіль",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "підручник",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "радість",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "сад",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "свідчення",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "табір",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "форм",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "явище",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "іти",
+"zipf": 4.4,
+"set": "v4-new"
+},
+{
+"headword": "виявлення",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "вниз",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "вшанування",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "відстань",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "графік",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "звук",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "навантаження",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "навесні",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "нідерландів",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "очищення",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "парижі",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "польський",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "прикро",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "прямий",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "підняти",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "русь",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "стояти",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "учора",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "форум",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "шлюб",
+"zipf": 4.39,
+"set": "v4-new"
+},
+{
+"headword": "аес",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "вiд",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "викликати",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "вищий",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "включно",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "впровадження",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "вчитель",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "вівторок",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "запропонувати",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "квітень",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "колектив",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "міліція",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "напевне",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "невдовзі",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "озеро",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "охорона",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "порох",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "привести",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "редактор",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "точка",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "угкц",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "хуйня",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "швеції",
+"zipf": 4.38,
+"set": "v4-new"
+},
+{
+"headword": "австралії",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "вчинення",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "відправити",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "господь",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "запрошення",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "захворювання",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "києво",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "користуватися",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "красиво",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "нан",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "оцінка",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "половині",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "потрібний",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "придбати",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "підрозділ",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "розміщення",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "розібратися",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "сцені",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "телеканал",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "угода",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "характеристика",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "широко",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "штраф",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "юрист",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "інструмент",
+"zipf": 4.37,
+"set": "v4-new"
+},
+{
+"headword": "америці",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "вимагати",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "втекти",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "відвідати",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "гаразд",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "година",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "заміж",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "заробити",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "нагороджений",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "носити",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "нуль",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "оператор",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "опір",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "перетворення",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "планування",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "полон",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "постанова",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "потужність",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "презентація",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "проходження",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "ранок",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "розглядати",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "тричі",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "ідеально",
+"zipf": 4.36,
+"set": "v4-new"
+},
+{
+"headword": "борг",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "вдень",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "вдруге",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "відчувати",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "герб",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "диво",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "додатково",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "загибелі",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "загін",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "замінити",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "каталог",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "кремль",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "лев",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "леніна",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "медведчука",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "місцевий",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "назк",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "німецький",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "ніс",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "полювання",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "помічник",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "присутність",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "протокол",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "південь",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "революція",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "розповідати",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "ставити",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "становище",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "суттєво",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "традиційно",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "центральний",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "чорт",
+"zipf": 4.35,
+"set": "v4-new"
+},
+{
+"headword": "боляче",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "виникнення",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "внести",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "відтворення",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "греко",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "гівно",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "дарма",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "двигун",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "добраніч",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "запровадження",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "здійснювати",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "знайомий",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "знайомих",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "королева",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "луценка",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "написання",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "напрямок",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "олімпійський",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "повно",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "посмертно",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "придбання",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "республіка",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "розповсюдження",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "руйнування",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "сир",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "словник",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "смс",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "щоправда",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "їжа",
+"zipf": 4.34,
+"set": "v4-new"
+},
+{
+"headword": "безумовно",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "вибух",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "вчитися",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "душ",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "законодавство",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "зовні",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "квт",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "лайна",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "любити",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "ліжко",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "небагато",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "перевірка",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "переслідування",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "пес",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "поговорити",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "прибрати",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "пропаганда",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "радник",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "раптово",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "регіон",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "рекорд",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "реформування",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "розподіл",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "розпорядження",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "скласти",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "сніг",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "співачка",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "судячи",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "угу",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "індекс",
+"zipf": 4.33,
+"set": "v4-new"
+},
+{
+"headword": "австрії",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "арт",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "бригада",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "вгору",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "вибачення",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "відчути",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "господарство",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "захисник",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "здоров",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "книжка",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "маршрут",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "молоко",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "офіцер",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "переможець",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "поведінка",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "позаду",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "портрет",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "природа",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "риба",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "секрет",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "спілкуватися",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "сум",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "талант",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "темно",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "тренування",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "тяжко",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "уявлення",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "історик",
+"zipf": 4.32,
+"set": "v4-new"
+},
+{
+"headword": "апарат",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "вступ",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "готувати",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "груди",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "департамент",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "довше",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "змушений",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "кухня",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "листопад",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "лікарня",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "літній",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "митрополит",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "місія",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "нафтогаз",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "несподівано",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "обережно",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "організувати",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "поверх",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "позов",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "показувати",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "посвідчення",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "посольство",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "посібник",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "продовжити",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "районний",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "стоп",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "студент",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "січень",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "технологія",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "тривалий",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "фігня",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "щороку",
+"zipf": 4.31,
+"set": "v4-new"
+},
+{
+"headword": "альфа",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "бачення",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "безпека",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "вдвічі",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "вип",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "включення",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "відверто",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "голодомор",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "губернатор",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "дзеркало",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "збірник",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "здоровий",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "змусити",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "зно",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "зовнішній",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "маса",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "менеджер",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "меч",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "навчально",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "пекло",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "повстання",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "покриття",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "поїзд",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "продавати",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "рак",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "розробка",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "священик",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "спостерігати",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "сраку",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "стрічка",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "черга",
+"zipf": 4.3,
+"set": "v4-new"
+},
+{
+"headword": "човен",
+"zipf": 4.3,
+"set": "v4-new"
+}
+]
