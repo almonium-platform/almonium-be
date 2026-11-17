@@ -1,0 +1,252 @@
+[
+ {
+  "headword": "замок",
+  "zipf": 4.51,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "мука",
+  "zipf": 3.61,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "печь",
+  "zipf": 3.97,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "стекло",
+  "zipf": 4.25,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "мой",
+  "zipf": 5.72,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "три",
+  "zipf": 5.65,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "идти",
+  "zipf": 5.08,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ходить",
+  "zipf": 4.71,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "сделать",
+  "zipf": 5.65,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "учиться",
+  "zipf": 4.54,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "нравиться",
+  "zipf": 4.02,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "человек",
+  "zipf": 5.96,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ребенок",
+  "zipf": 4.87,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ёлка",
+  "zipf": 3.01,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "еще",
+  "zipf": 6.29,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "кофе",
+  "zipf": 4.89,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "пальто",
+  "zipf": 4.24,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "деньги",
+  "zipf": 5.57,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ножницы",
+  "zipf": 3.54,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "молоко",
+  "zipf": 4.38,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "хлеб",
+  "zipf": 4.49,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "лес",
+  "zipf": 4.58,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "чай",
+  "zipf": 4.56,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "красивый",
+  "zipf": 4.35,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "хороший",
+  "zipf": 5.03,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "молодой",
+  "zipf": 4.83,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "рад",
+  "zipf": 4.7,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "нельзя",
+  "zipf": 5.45,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "надо",
+  "zipf": 5.89,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ну",
+  "zipf": 5.98,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "же",
+  "zipf": 6.4,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "в",
+  "zipf": 7.63,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "с",
+  "zipf": 7.14,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "который",
+  "zipf": 5.94,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "два",
+  "zipf": 5.76,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "тысяча",
+  "zipf": 4.07,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "железная дорога",
+  "zipf": 3.9,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "потому что",
+  "zipf": 5.76,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "давай",
+  "zipf": 4.92,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "спасибо",
+  "zipf": 5.6,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "блин",
+  "zipf": 4.61,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "ложить",
+  "zipf": 2.35,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "звонить",
+  "zipf": 4.12,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "кушать",
+  "zipf": 3.7,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "бутерброд",
+  "zipf": 3.5,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "компьютер",
+  "zipf": 4.42,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "что",
+  "zipf": 7.09,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "его",
+  "zipf": 6.59,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "солнце",
+  "zipf": 4.77,
+  "set": "pilot-ru"
+ },
+ {
+  "headword": "конечно",
+  "zipf": 5.64,
+  "set": "pilot-ru"
+ }
+]

@@ -11,6 +11,12 @@ answers, the status page's file, audio and the derived lexicon stay out.
 A host timer runs it every three hours (almonium-lexicon-data-sync.timer); a run with nothing new
 commits nothing.
 
+A cloud session writes entries too, in its own container, and cannot push to main without this
+machine's next push being refused. It pushes them to a branch claude/* of the data repository, and
+every run here merges those branches in before it pushes: the entries land in out/, where the
+writers find them and do not buy the words again. A word written on both sides keeps this machine's
+entry.
+
 Usage: lexicon_data_sync.py [--no-push]   (run from the backend repository root)
 """
 import argparse, subprocess, sys
@@ -52,6 +58,27 @@ def git(*args, check=True):
     return subprocess.run(["git", f"--git-dir={DATA}", f"--work-tree={OUT}", *args], check=check, capture_output=True, text=True)
 
 
+def merge_cloud():
+    """Merge every branch claude/* that holds something main does not; says how many were merged."""
+    merged = 0
+    for line in git("ls-remote", "--heads", "origin", "claude/*", check=False).stdout.splitlines():
+        sha, _, ref = line.partition("\t")
+        branch = ref.removeprefix("refs/heads/")
+        if not branch or git("merge-base", "--is-ancestor", sha, "HEAD", check=False).returncode == 0:
+            continue  # nothing there, or already taken in
+        if git("fetch", "-q", "origin", branch, check=False).returncode != 0:
+            print(f"could not fetch {branch}")
+            continue
+        r = git("merge", "--no-edit", "-X", "ours", "-m", f"Entries written in a cloud session ({branch})", "FETCH_HEAD", check=False)
+        if r.returncode != 0:
+            git("merge", "--abort", check=False)  # leave the work tree as it was: the entries here are never at risk
+            print(f"could not merge {branch}: {(r.stderr or r.stdout).strip()[:200]}")
+            continue
+        print(f"merged {branch}")
+        merged += 1
+    return merged
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-push", action="store_true")
@@ -61,12 +88,14 @@ def main():
     (OUT / ".gitignore").write_text("/*\n!/.gitignore\n!/README.md\n" + "".join(f"!/{name}/\n" for name in entry_dirs()))
     (OUT / "README.md").write_text(README)
     git("add", "-A")
-    if not git("status", "--porcelain").stdout.strip():
+    committed = bool(git("status", "--porcelain").stdout.strip())
+    if committed:
+        counted = git("diff", "--cached", "--shortstat").stdout.strip()
+        git("commit", "-q", "-m", f"Entries as of {datetime.now():%Y-%m-%d %H:%M} ({counted})")
+        print(git("log", "--oneline", "-1").stdout.strip())
+    if not merge_cloud() and not committed:
         print("nothing new")
         return
-    counted = git("diff", "--cached", "--shortstat").stdout.strip()
-    git("commit", "-q", "-m", f"Entries as of {datetime.now():%Y-%m-%d %H:%M} ({counted})")
-    print(git("log", "--oneline", "-1").stdout.strip())
     if not a.no_push:
         branch = git("branch", "--show-current").stdout.strip() or "main"
         git("push", "-q", "origin", f"HEAD:{branch}")

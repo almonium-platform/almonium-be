@@ -33,10 +33,12 @@ FORMULAS = re.compile(r"\b(the act of|the state of being|the process of|relating
                       r"o ato de|дія за значенням|стан за значенням|стосується)\b", re.I)
 ARTICLES = {"en": {"the", "a", "an"}, "de": {"der", "die", "das", "ein", "eine"}, "fr": {"le", "la", "les", "un", "une", "l"},
             "es": {"el", "la", "los", "las", "un", "una"}, "it": {"il", "lo", "la", "i", "gli", "le", "un", "una", "l"},
-            "pt": {"o", "a", "os", "as", "um", "uma"}, "uk": set()}
+            "pt": {"o", "a", "os", "as", "um", "uma"}, "uk": set(), "ru": set()}
 ENGLISH = {"the", "of", "and", "that", "which", "who", "with", "from", "for", "is", "are", "or"}
-NEEDS_READING = {"uk", "it"}
-VOWELS = "aeiouàèéìíòóùаеєиіїоуюя"
+NEEDS_READING = {"uk", "it", "ru"}
+# How many words a definition may have. A language without articles says the same in fewer.
+DEFINITION_WORDS = {"ru": (4, 15), "uk": (4, 15)}
+VOWELS = "aeiouàèéìíòóùаеєиіїоуюяыэё"
 ACUTE = "́"
 FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark",
         "pronominal sense without its auxiliary", "double consonant not written twice", "ll of Spain written ʎ")
@@ -52,7 +54,8 @@ def words(text):
 
 def symbols(variety):
     d = json.loads((HERE / "inventories" / f"{variety}.json").read_text())
-    return sorted(d["consonants"] + d["vowels"] + d["diacritics"], key=len, reverse=True)
+    # "also": sounds the audit accepts although the prompt's list, which must not change under written entries, lacks them
+    return sorted(d["consonants"] + d["vowels"] + d["diacritics"] + d.get("also", []), key=len, reverse=True)
 
 
 def outside(ipa, inventory):
@@ -132,7 +135,8 @@ def check(lang, entry, inventories, witness):
                 problems.append(("dictionary formula", d[:60]))
             if lemma and lemma in dw:
                 problems.append(("headword in its definition", d[:60]))
-            if not 6 <= len(dw) <= 15:
+            fewest, most = DEFINITION_WORDS.get(lang, (6, 15))
+            if not fewest <= len(dw) <= most:
                 problems.append(("definition outside 6 to 15 words", f"{len(dw)} words"))
             if not 6 <= len(words(s.get("example", ""))) <= 14:
                 problems.append(("example outside 6 to 14 words", f"{len(words(s.get('example', '')))} words"))
@@ -231,8 +235,8 @@ def audit(lang, show):
             print(f"      {count:6} {kind} ({faulty[kind]} entries, {faulty[kind] / n:.1%})")
             for line in shown[kind]:
                 print(f"             {line}")
-    if lang in NEEDS_READING and witness is None and lang == "uk":
-        print("    no stress witness: run lemma_index.py --langs uk to compare the readings with Wiktionary")
+    if lang in NEEDS_READING and witness is None and lang in ("uk", "ru"):
+        print(f"    no stress witness: run lemma_index.py --langs {lang} to compare the readings with Wiktionary")
     return {"entries": n, "cost": sum(costs), "paid": sum(faulty[k] for k in PAID), "settle": sum(faulty[k] for k in SETTLE),
             "free": sum(faulty[k] for k in FREE)}
 

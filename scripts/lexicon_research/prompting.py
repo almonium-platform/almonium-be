@@ -40,6 +40,9 @@ WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
 # The languages a learner studies, the ones entries are written for. Ukrainian is a bridge language
 # only: glosses are written in it, entries are not (owner, 2026-10 and again 16 November 2026).
 TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt")
+# Languages being tried: they have their settings and can be written by naming them, but no list is written for
+# them by default and nothing is published until a pilot has been read and their examples reviewed.
+PILOT_LANGUAGES = ("ru",)
 
 
 def schema_of_meta(meta):
@@ -48,8 +51,8 @@ def schema_of_meta(meta):
     return "4" if version == "3" and str(meta.get("prompt_version") or "").startswith("v4") else version
 
 
-LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese"}
-VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
+LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "ru": "Russian"}
+VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "ru": ["ru-RU"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
 # A region is the language with a country (es-EC) or one of these UN M.49 areas, so that a word can be Canarian
 # or Andean without the product offering that accent. The backend's EntrySchema holds the same list.
@@ -138,7 +141,7 @@ def user_prompt(lang, row, evidence=None, remind=False, covered=()):
 
 # The varieties a spelling, form or sense may be tagged with: the backend's LanguageVariety for the language.
 REGIONS = {"en": ["en-US", "en-GB", "en-AU", "en-IN"], "de": ["de-DE", "de-AT", "de-CH"], "fr": ["fr-FR", "fr-CA", "fr-BE", "fr-CH"],
-           "es": ["es-ES", "es-MX", "es-AR", "es-CO"], "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"], "uk": ["uk-UA"]}
+           "es": ["es-ES", "es-MX", "es-AR", "es-CO"], "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"], "uk": ["uk-UA"], "ru": ["ru-RU"]}
 
 ORTHOGRAPHY_V4 = {
     "en": "",
@@ -158,11 +161,17 @@ ORTHOGRAPHY_V4 = {
           "fato pt-BR and facto pt-PT for \"fact\"), give both spellings with their varieties. ",
     "uk": "Ukrainian spelling was revised in 2019 (проєкт, not проект) and in 1990, when ґ came back after Soviet spelling had replaced "
           "it with г: проект and ганок (for ґанок) are pre-reform spellings. ",
+    "ru": "Most Russian print writes ё as е. Write the lemma with ё where the word has it (ёлка, ребёнок, ещё) and list the spelling "
+          "with е beside it, without varieties; the headword may arrive in either. The spelling of before 1918 (міръ, хлѣбъ) is turned "
+          "into today's by a rule and is not listed. ",
 }
 
 STRESS_V4 = {
     "uk": "Ukrainian does not write stress, so each pronunciation also carries a reading: the word with an acute accent after its "
           "stressed vowel (рука́, за́мок, замо́к). A word of one syllable has no mark.\n",
+    "ru": "Russian does not write stress, so each pronunciation also carries a reading: the word with an acute accent after its "
+          "stressed vowel (рука́, за́мок, замо́к). The letter ё is always stressed and takes no accent (ёлка, ребёнок). A word of one "
+          "syllable has no mark.\n",
     "it": "Italian does not write stress inside a word, so each pronunciation also carries a reading: the word with an accent on its "
           "stressed vowel as Italian dictionaries print it, grave or acute on e and o for an open or a close vowel (àncora, ancóra, "
           "pèsca, pésca, telèfono). A word of one syllable has no mark.\n",
@@ -196,6 +205,10 @@ FORMS_V4 = {
     "uk": "Nouns: the genitive singular, the nominative plural and the genitive plural, and any other form whose stress or stem a "
           "learner would not expect from these (руці́, ру́ку). Verbs: the present or future 1sg, 2sg and 3pl, the past masculine and "
           "feminine, and the imperative 2sg. Adjectives: the comparative when irregular (добрий, кращий).",
+    "ru": "Nouns: the genitive singular, the nominative plural and the genitive plural, and any other form whose stress or stem a "
+          "learner would not expect from these (ру́ку; в лесу́, Case=Loc; ча́ю, Case=Par). Verbs: the present or future 1sg, 2sg and 3pl, "
+          "the past masculine and feminine, and the imperative 2sg. Adjectives: the short forms when the stress moves in them (мо́лод, "
+          "молода́, мо́лодо) and the comparative when irregular (хороший, лучше).",
 }
 
 FORM_SOUND_V4 = {
@@ -206,6 +219,7 @@ FORM_SOUND_V4 = {
     "es": "Listed forms carry no ipa: it follows from the spelling.",
     "it": "A listed form of two or more syllables carries its own reading (pàrlano).",
     "uk": "Each listed form of two or more syllables carries its own reading (руки́, ру́ку).",
+    "ru": "Each listed form of two or more syllables carries its own reading (руки́, ру́ку), and no ipa.",
 }
 
 # v4.1: a variant chosen by the neighbouring sounds is a spelling of the same lexeme, so that "у" is not bought after "в".
@@ -216,6 +230,8 @@ POSITIONAL_V4 = {
     "it": "A variant chosen by the next sound is a spelling of the same lexeme too (e and ed, a and ad, lo and l'). ",
     "uk": "A variant chosen by the neighbouring sounds is a spelling of the same lexeme too (у and в, і and й, з, із and зі, же and ж, "
           "учитель and вчитель): list them without varieties. ",
+    "ru": "A variant chosen by the neighbouring sounds is a spelling of the same lexeme too (в and во, с and со, к and ко, о, об and "
+          "обо, же and ж): list them without varieties. ",
 }
 
 LANGUAGE_NOTES_V4 = {
@@ -232,6 +248,9 @@ LANGUAGE_NOTES_V4 = {
     "uk": "\nWrite definitions and examples in standard Ukrainian, free of Russianisms and calques. A word or sense that Ukrainian "
           "normative dictionaries reject as a Russianism or a calque is proscribed, with the standard word in standard_alternative "
           "(являтися in the sense \"to be\": бути). A verb lists its aspect partner as a relation.\n",
+    "ru": "\nA verb lists its aspect partner as a relation (делать and сделать). A verb in -ся is a lemma of its own, written under "
+          "its own spelling, not a sense of the verb without it (учиться is not under учить). A word used only as a predicate "
+          "(нельзя, надо, рад) has position Pred. Russian has no articles, so a definition may have as few as four words.\n",
 }
 
 SCHEMA_EXAMPLE_V4 = json.dumps({
@@ -268,7 +287,8 @@ SCHEMA_EXAMPLE_V4 = json.dumps({
 # The UN M.49 areas worth offering a writer of each language; a language spoken in one part of the world has none.
 UN_AREAS_V4 = {"en": ("021", "029", "002", "142", "009"), "es": ("419", "029", "005", "013"), "fr": ("002", "021"), "pt": ("002",)}
 REGION_EXAMPLES_V4 = {"en": "en-GB, en-US, en-AU, en-IE", "de": "de-DE, de-AT, de-CH", "fr": "fr-FR, fr-CA, fr-BE, fr-CH",
-                      "es": "es-ES, es-MX, es-AR, es-CU", "it": "it-IT, it-CH", "pt": "pt-BR, pt-PT, pt-AO", "uk": "uk-UA"}
+                      "es": "es-ES, es-MX, es-AR, es-CU", "it": "it-IT, it-CH", "pt": "pt-BR, pt-PT, pt-AO", "uk": "uk-UA",
+                      "ru": "ru-RU, ru-BY, ru-KZ"}
 
 
 def schema_example_v4(version):

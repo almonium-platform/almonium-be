@@ -55,5 +55,10 @@
   "eə",
   "ʊə"
  ],
- "conventions": "Non-rhotic. Written r is ɹ only before a vowel. The goat vowel is əʊ, the nurse vowel ɜː."
+ "conventions": "Non-rhotic. Written r is ɹ only before a vowel. The goat vowel is əʊ, the nurse vowel ɜː.",
+ "also": [
+  "i",
+  "u"
+ ],
+ "also_note": "Accepted by the audit though the prompts up to v4.6 do not list them: the weak vowels at the end of happy and in situation, which every learner's dictionary prints. The writers use them of their own accord, rightly."
 }

@@ -60,5 +60,14 @@
   "ɛ̃ː",
   "œ̃ː"
  ],
- "conventions": "Standard German. Written r is ʁ before a vowel and ɐ after a long vowel or in -er. Ich-Laut is ç, Ach-Laut is x. Syllabic consonants are written with ə (ən, əl), not with a syllabic mark."
+ "conventions": "Standard German. Written r is ʁ before a vowel and ɐ after a long vowel or in -er. Ich-Laut is ç, Ach-Laut is x. Syllabic consonants are written with ə (ən, əl), not with a syllabic mark.",
+ "also": [
+  "i",
+  "y",
+  "e",
+  "ø",
+  "o",
+  "u"
+ ],
+ "also_note": "Accepted by the audit though the prompts up to v4.6 do not list them: the short close vowels of unstressed syllables, mostly in loanwords: marginal, voran, Politik. The writers use them of their own accord, rightly."
 }

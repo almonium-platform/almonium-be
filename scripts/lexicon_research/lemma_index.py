@@ -18,8 +18,8 @@ A sense is one of
 and a spelling's flags are the union over every entry and part of speech it has ("FL" for
 English "parking": a noun of its own and the participle of park).
 
-For Ukrainian, which does not write stress, the same pass keeps wiktionary/uk.stress.tsv: every
-stressed form Wiktionary prints (та́бору, таборі́в) under its plain spelling. check_v4.py holds the
+For Ukrainian and Russian, which do not write stress, the same pass keeps wiktionary/<lang>.stress.tsv:
+every stressed form Wiktionary prints (та́бору, таборі́в) under its plain spelling. check_v4.py holds the
 readings the writer gave against it; it is a witness, never copied into an entry.
 
 Usage: lemma_index.py [--langs en,de,fr,es,it,pt,uk]   (run from the backend repository root)
@@ -31,13 +31,13 @@ from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
 INDEX = HERE / "wiktionary"
-KAIKKI = {"en": "English", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "uk": "Ukrainian"}
+KAIKKI = {"en": "English", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "uk": "Ukrainian", "ru": "Russian"}
 URL = "https://kaikki.org/dictionary/{name}/kaikki.org-dictionary-{name}.jsonl"
 DERIVED_TAGS = {"diminutive", "augmentative", "endearing", "pejorative", "noun-from-verb", "nominalization", "frequentative"}
 DERIVED_GLOSSES = ("female equivalent of", "male equivalent of")
 REJECTED_ALT = {"abbreviation", "misspelling"}
 KEPT_ALT = {"acronym", "initialism", "clipping"}
-STRESS_WITNESS = {"uk"}
+STRESS_WITNESS = {"uk", "ru"}
 ACUTE = "\u0301"
 
 

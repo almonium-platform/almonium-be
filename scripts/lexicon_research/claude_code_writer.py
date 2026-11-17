@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
 import v3_entries
-from prompting import HERE, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, system_prompt, user_prompt
+from prompting import HERE, PILOT_LANGUAGES, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -172,8 +172,8 @@ ap.add_argument("--no-gate", action="store_true", help="write inflected forms to
 ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
 for _lang in a.langs.split(","):
-    if _lang not in TARGET_LANGUAGES:
-        sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)} only")
+    if _lang not in TARGET_LANGUAGES + PILOT_LANGUAGES:
+        sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)}, and for {', '.join(PILOT_LANGUAGES)} on trial")
 GATE = not a.no_gate
 REWRITE_OLDER = a.rewrite_older
 if GATE:

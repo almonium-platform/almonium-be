@@ -39,6 +39,10 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Code: `scripts/lexicon_research/` on `develop`. A push to `develop` deploys the backend.
 - Entries: the private repository `almonium-lexicon-data`, whose work tree is `out/` itself
   (`lexicon_data_sync.py`, every three hours). The written text is paid for and never edited.
+- A cloud session writes entries too, with the same writer, into its own clone. The owner's
+  machine pushes `main` without pulling, so a cloud session never pushes there: it pushes a branch
+  `claude/*`, and every run of the sync merges those branches before it pushes. A word written on
+  both sides keeps the machine's entry.
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - Backend: `learning/lexicon`. It reads schema 3 and refuses schema 4 (it requires glosses, cues and
   a register on every sense), so the 31,000 entries cannot be shown yet.
@@ -286,6 +290,61 @@ settle was applied to the written entries by ingest at no cost.
 These numbers are of v4's entries. Nothing yet measures v4.6 on a sample drawn at random: that is
 the next step under "Pending", item 3.
 
+## Measuring the entries
+
+A review that corrects entries always finds something to correct, so it cannot say when the entries
+are good enough. `measure.py` asks a narrower question: for each entry of a sample drawn at random,
+which of six kinds of fault does it have? A wrong fact, a claim stated too strongly, a missing
+core sense, a missing minor sense, a sense split in two, wording. The reviewer does not correct and
+does not rank; each finding says whether a learner would be misled. The answer is a rate, and the
+same question can be asked after any change.
+
+What is aimed at, written down before the first count: of a hundred entries, at most two with a
+wrong fact, five with a claim too strong, ten lacking a core sense.
+
+The sample `v46`, a hundred entries a language, mixed so the reviewer cannot tell the parts apart:
+
+- sixty that the dictionary already holds, as ingest would publish them, across the frequencies
+  above Zipf 3.5: what a reader meets most. Nearly all were written under v4 to v4.2.
+- forty words that had no entry, written under v4.6 for this and kept as entries. They are rarer
+  words (Zipf 2.7 to 3.4), because every commoner word is either written or waits for the mender.
+  All 240 are valid, $8.42 at list price; of their 464 senses the audit finds nine definitions
+  and one example out of length, and nothing else.
+
+So the two parts answer two questions, how good is what there is and how good is what v4.6 writes,
+and are not a comparison of like with like: the new words are rarer and have fewer senses.
+
+The files for the reviewer are `measure/v46/review/<lang>-1.md`. Its answers go, as they come, to
+`measure/v46/answers/<lang>-1.md`, and `measure.py --name v46 --tally` counts them.
+
+The mender's entries, some 40,000 older ones still to be mended, are in neither part: they do not
+exist yet. They are the third thing to measure, with the same files, once a batch is mended.
+
+## Russian, on trial
+
+Russian has its settings (`prompting.PILOT_LANGUAGES`): it can be written by naming it, no list is
+written for it by default, and nothing is published. Almost all of it was there from Ukrainian: a
+stress reading on every pronunciation and form, the cases, the aspect partner as a relation.
+Russian's own:
+
+- The lemma is written with ё where the word has it, and the spelling with е is listed beside it,
+  because most print has е (*ребёнок*, *ребенок*). Spellings of before 1918 are not listed: a rule
+  turns them into today's.
+- The transcription shows what the spelling hides: reduced vowels (*молоко* /mə.lɐ.ˈko/), soft
+  consonants, devoicing (*хлеб* /ˈxlʲep/), letters not said or said as others (*солнце*, *что*,
+  *его*).
+- A verb in -ся is a lemma of its own; a word used only as a predicate (*нельзя*, *рад*) says so.
+- A definition may have four words, Russian having no articles.
+
+A pilot of fifty words chosen to be hard, under v4.6 with no examples: all valid, no sound outside
+the list, and all 212 stress readings agree with Wiktionary. *Замок* and *мука* came back as two
+lexemes each by stress; *человек* with *люди* and with *человек* after numbers; *хлеб* with *хле́бы*
+for loaves and *хлеба́* for crops; *лес* with *в лесу́*; *ложить* proscribed, with *класть*;
+*звонить* with a note on the stress people get wrong. $2.67, five cents an entry.
+
+Next for Russian, the same path as the six: a few hundred common words written, twenty candidates
+picked from them, a review, examples, then its place among the target languages.
+
 ## Words that are both a form and a word
 
 Wiktionary files 16,765 English spellings both as a form of another word and as a word of its own
@@ -326,6 +385,23 @@ language, and a translation is plain text in any script.
 - Still to add when the first such language comes: its level scale (HSK, JLPT) beside CEFR, and its
   verb classes.
 
+Japanese, Korean and Chinese are the three with the most learners outside the six, and the book
+processor can lemmatize all three. What stands between them and a pilot is that three things the
+writers share assume an alphabet written with spaces:
+
+1. The pronunciation section of the prompt asks for IPA. These need a reading instead: pinyin with
+   tone marks, kana, a romanization. The schema has it; the prompt has one paragraph to exchange.
+2. The limits on a definition and an example count words. Without spaces they must count
+   characters, in the prompt and in the audit.
+3. The gate asks Wiktionary whether a spelling is an inflected form. Chinese does not inflect;
+   Japanese and Korean do, but a reader taps a run of characters that the book processor, not the
+   gate, must first cut into words.
+
+And each has its own decisions: which script is the headword and which a spelling (simplified and
+traditional; kanji and kana), the classes of verbs and adjectives, counters and measure words,
+levels of politeness. A pilot of forty words a language, as for Russian, is the way to find what
+else there is.
+
 ## The pass over finished entries
 
 One pass brings the written entries up to October's standard and links them:
@@ -354,6 +430,11 @@ One pass brings the written entries up to October's standard and links them:
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
   only when the lexicon has nothing, so showing it beside a lexicon entry is part of the backend work.
+- The audit accepts the weak vowels of *happy* and *situation* in English and the short close
+  vowels of unstressed German syllables (*marginal*, *voran*), which the writers use of their own
+  accord and rightly (`"also"` in the inventory files). That took the entries with a sound outside
+  the list from 1,766 to 39 in English and from 342 to 4 in German. The prompts up to v4.6 do not
+  list them, because a prompt entries were written with does not change; the next version will.
 - Work happens on `develop` and is pushed at once.
 
 ## Sources
@@ -376,14 +457,13 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Measure v4.6** on a sample drawn at random, a hundred entries a language across frequencies and
-   parts of speech, read against a fixed list of fault classes (a wrong fact, a missing sense,
-   wording) so that the result is a rate and not a list of corrections. The calibration set and
-   the blind-pair judge exist; v4 was never judged.
+3. **Read the measurement.** The sample `v46` is drawn and written and its six review files are
+   ready; they wait for a reviewer's answers, then `measure.py --name v46 --tally`. After it, the
+   same for a batch of mended entries.
 4. **Lists**: function words for de, fr, es, it, pt (English has them); the book-word list, which
    needs an export from the book processor; phrases.
-5. **IPA symbol lists**: about a tenth of English and German entries use a sound the lists lack
-   (the last vowel of *fully*, German short unstressed vowels). Extend the lists or map by rule.
+5. **Russian examples**, by the path above; then a pilot of Japanese, the first language without
+   an alphabet (see "Languages outside Europe").
 6. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 7. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

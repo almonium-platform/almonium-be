@@ -1,0 +1,46 @@
+{
+ "diacritics": [
+  "ˈ",
+  "ˌ",
+  ".",
+  "ː",
+  "ʲ"
+ ],
+ "note": "Hand-written, first draft 2026-11-17, for the Russian pilot. A broad transcription that shows what a learner cannot read off the spelling: vowel reduction, palatalization, devoicing.",
+ "variety": "ru-RU",
+ "consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "ɡ",
+  "f",
+  "v",
+  "s",
+  "z",
+  "ʂ",
+  "ʐ",
+  "ɕ",
+  "x",
+  "ts",
+  "tɕ",
+  "m",
+  "n",
+  "l",
+  "r",
+  "j"
+ ],
+ "vowels": [
+  "a",
+  "e",
+  "i",
+  "o",
+  "u",
+  "ɨ",
+  "ɐ",
+  "ə",
+  "ɪ"
+ ],
+ "conventions": "Standard Russian as spoken in Moscow. Palatalization is written with ʲ after the consonant (нет is /ˈnʲet/). Unstressed vowels are written reduced: о and а are ɐ in the syllable before the stress and at the start of a word and ə elsewhere (молоко is /mə.lɐ.ˈko/); е and я after a soft consonant are ɪ (река is /rʲɪ.ˈka/); unstressed у and и keep u and i. ы is ɨ. A voiced consonant is written voiceless at the end of a word and before a voiceless one (хлеб is /ˈxlʲep/, водка is /ˈvot.kə/). ш and ж are ʂ and ʐ, щ is ɕː, ч is tɕ, ц is ts, hard л is l. A letter that is not said is not written, and a letter said as another is written as it is said (солнце is /ˈson.tsə/, что is /ˈʂto/, его is /jɪ.ˈvo/)."
+}
