@@ -18,11 +18,16 @@ Output, per language, under gold/:
   review/<lang>.md         the same for a reviewer: what to check, the rules the entries were written
                            to, the candidates, and the form of the answer
 
-The reviewed entries go to gold/<lang>.json by hand; nothing reads the candidates.
+The reviewer's answer is kept under gold/answers/<lang>.md. --take reads it: for each headword named
+with --pick, in that order, the corrected entry the answer gives, or the candidate itself where the
+verdict was "use as it is". An entry that fails the schema or any check of check_v4.py stops the run;
+nothing becomes an example unchecked. The result is gold/<lang>.json, which the prompt shows.
 
-Usage: gold_candidates.py [--langs en,de] [--per-kind 2]   (run from the backend repository root)
+Usage: gold_candidates.py [--langs en,de] [--per-kind 2]
+       gold_candidates.py --take gold/answers/en.md --lang en --pick lake,afford,aware,institute,hall
+       (run from the backend repository root)
 """
-import argparse, json, sys
+import argparse, json, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -168,11 +173,60 @@ def write(lang, per_kind):
     return flat
 
 
+def reviewed(text):
+    """{headword: (verdict, corrected entry or None)} from a reviewer's answer: a "### N. headword" section
+    each, a verdict in bold, and for a corrected entry one JSON block."""
+    found = {}
+    for head, body in re.findall(r"^### \d+\. (.+?)\n(.*?)(?=^### \d+\. |\Z)", text, re.S | re.M):
+        verdict = re.search(r"\*\*(use as it is|use with corrections|do not use)\*\*", body, re.I)
+        block = re.search(r"```json\n(.*?)\n```", body, re.S)
+        found[head.split(" (")[0].strip()] = (verdict.group(1).lower() if verdict else None, json.loads(block.group(1)) if block else None)
+    return found
+
+
+def settle(entry):
+    """What a reviewer without our schema gets wrong by name only: a component's "inflection" is "inflects"."""
+    for lexeme in entry.get("lexemes", []):
+        for component in lexeme.get("components") or []:
+            if "inflection" in component and "inflects" not in component:
+                component["inflects"] = component.pop("inflection")
+    return entry
+
+
+def take(lang, answer, picks):
+    import jsonschema
+    schema = json.loads((HERE / "entry.schema.v4.json").read_text())
+    inventories = {v: check_v4.symbols(v) for v in VARIETIES[lang]}
+    answers = reviewed(Path(answer).read_text(encoding="utf-8"))
+    offered = {c["entry"]["headword"]: c["entry"] for c in json.loads((GOLD / "candidates" / f"{lang}.json").read_text(encoding="utf-8"))}
+    gold = []
+    for headword in picks:
+        verdict, corrected = answers.get(headword, (None, None))
+        if verdict == "do not use" or verdict is None:
+            sys.exit(f"{headword}: the reviewer's verdict is {verdict or 'missing'}")
+        entry = settle(corrected) if corrected else offered.get(headword)
+        if entry is None:
+            sys.exit(f"{headword}: no corrected entry in the answer and no candidate of that name")
+        jsonschema.validate(entry, schema)
+        if faults := check_v4.check(lang, entry, inventories, None):
+            sys.exit(f"{headword}: {faults}")
+        gold.append(entry)
+    (GOLD / f"{lang}.json").write_text(json.dumps(gold, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return gold
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
     ap.add_argument("--per-kind", type=int, default=1)
+    ap.add_argument("--take", help="a reviewer's answer: build gold/<lang>.json from the entries named with --pick")
+    ap.add_argument("--lang")
+    ap.add_argument("--pick", default="")
     a = ap.parse_args()
+    if a.take:
+        gold = take(a.lang, a.take, [h for h in a.pick.split(",") if h])
+        print(f"{a.lang}: {len(gold)} example entries -> {GOLD / (a.lang + '.json')}:", ", ".join(e["headword"] for e in gold))
+        sys.exit(0)
     for lang in a.langs.split(","):
         flat = write(lang, a.per_kind)
         print(f"{lang}: {len(flat)} candidates:", ", ".join(f"{c['entry']['headword']} ({c['kind']})" for c in flat))

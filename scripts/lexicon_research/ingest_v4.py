@@ -12,6 +12,9 @@ whenever a rule changes, at no cost:
   leaks       a lexeme whose lemma is not the headword ("hash out" under "hash") is dropped
   duplicates  a lexeme another entry already has under one of its spellings ("colour" when "color"
               lists it) is dropped from the less frequent of the two, which becomes an alias
+  syllables   a transcription gets the dot it lacks before a stress mark inside the word (/əˈlaʊ/ becomes
+              /ə.ˈlaʊ/): the prompt asks for a dot at every syllable boundary, and a quarter of the
+              transcriptions left that one out
   forms       a headword the writer rejected as an inflected form ("signed": inflected form of sign)
               becomes an alias of its lemma's entry, so the reader who taps it is shown that entry
   source      which writer, model, effort and prompt wrote it (prompt_sha: the exact system prompt)
@@ -73,6 +76,24 @@ def sense_id(lexeme_uuid, definition):
     return str(uuid.uuid5(NAMESPACE, f"sense|{lexeme_uuid}|{norm(definition)}"))
 
 
+def dotted(ipa):
+    """The transcription with a dot before every stress mark that stands inside a word."""
+    return re.sub(r"(?<=[^/.\s\-])(?=[ˈˌ])", ".", ipa) if isinstance(ipa, str) else ipa
+
+
+def dot_syllables(lexeme):
+    """Put the missing syllable dots into a lexeme's transcriptions; says how many it changed."""
+    changed = 0
+    for spoken in lexeme.get("pronunciations") or []:
+        if "ipa" in spoken and dotted(spoken["ipa"]) != spoken["ipa"]:
+            spoken["ipa"], changed = dotted(spoken["ipa"]), changed + 1
+    for form in lexeme.get("forms") or []:
+        for variety, ipa in list((form.get("ipa") or {}).items()):
+            if dotted(ipa) != ipa:
+                form["ipa"][variety], changed = dotted(ipa), changed + 1
+    return changed
+
+
 def is_own(headword, lexeme):
     """Whether the lexeme belongs under the headword: its lemma, or one of its spellings, is the headword."""
     own = headword.lower()
@@ -115,7 +136,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept = [], []
+    dropped, kept, dots = [], [], 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -143,6 +164,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         for form in lexeme.get("forms") or []:
             if "senses" in form:
                 form["sense_ids"] = [senses[n - 1]["id"] for n in form.pop("senses") if 0 < n <= len(senses)]
+        dots += dot_syllables(lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -154,6 +176,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["aliases"] = sorted(aliases)
     if dropped:
         entry["dropped"] = dropped
+    if dots:
+        entry["syllable_dots_added"] = dots
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -275,6 +299,7 @@ def ingest(lang, dry_run=False):
         for d in clean.get("dropped", []):
             counts["leaked lexemes dropped" if d["reason"].startswith("not the") else "duplicate lexemes dropped"] += 1
         counts["senses retired"] += sum(len(lx.get("retired") or []) for lx in clean["lexemes"])
+        counts["syllable dots added"] += clean.get("syllable_dots_added", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

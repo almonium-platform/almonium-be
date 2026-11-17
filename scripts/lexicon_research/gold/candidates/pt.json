@@ -1,0 +1,1543 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.86,
+  "entry": {
+   "language": "pt",
+   "headword": "computador",
+   "lexemes": [
+    {
+     "lemma": "computador",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/kõ.pu.ta.ˈdoɾ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/kõ.pu.tɐ.ˈdoɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "máquina que guarda e processa dados e executa programas",
+       "example": "Preciso de um computador novo para trabalhar em casa.",
+       "cefr": "A1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "computar",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.86,
+  "entry": {
+   "language": "pt",
+   "headword": "episódio",
+   "lexemes": [
+    {
+     "lemma": "episódio",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/e.pi.ˈzɔ.dʒju/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/i.pi.ˈzɔ.dju/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "cada uma das partes de uma série de televisão, rádio ou podcast",
+       "example": "Hoje à noite vamos ver o último episódio da série.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "acontecimento isolado, muitas vezes marcante, dentro de uma história ou situação maior",
+       "example": "Aquele episódio desagradável na escola nunca foi esquecido pelos alunos.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.86,
+  "entry": {
+   "language": "pt",
+   "headword": "prefeito",
+   "lexemes": [
+    {
+     "lemma": "prefeito",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/pɾe.ˈfej.tu/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/pɾɨ.ˈfɐj.tu/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "pessoa eleita que governa uma cidade ou um município",
+       "example": "O prefeito prometeu consertar as ruas do bairro até dezembro.",
+       "cefr": "A2",
+       "regions": [
+        {
+         "variety": "pt-BR",
+         "extent": "only"
+        }
+       ]
+      },
+      {
+       "definition": "alto funcionário que governa uma região em nome do poder central",
+       "example": "O imperador nomeou um novo prefeito para governar a província.",
+       "cefr": "C1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.86,
+  "entry": {
+   "language": "pt",
+   "headword": "redor",
+   "lexemes": [
+    {
+     "lemma": "redor",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count",
+      "note": "used mostly in the locutions ao redor (de) and em redor (de)"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ʁe.ˈdɔʁ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ʁɨ.ˈdɔɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "espaço ou área que fica em volta de uma coisa ou pessoa",
+       "example": "Sentamos todos ao redor da fogueira para ouvir as histórias.",
+       "cefr": "B1",
+       "frames": [
+        "ao redor de",
+        "em redor de"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "escolher",
+   "lexemes": [
+    {
+     "lemma": "escolher",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "2",
+      "valency": "Tr",
+      "irregular": false,
+      "note": "spelling regular; stressed stem o is open ɔ in escolhes, escolhe, escolhem"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/es.koˈʎeɾ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɨʃ.kuˈʎeɾ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "escolho",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/esˈko.ʎu/",
+        "pt-PT": "/ɨʃˈko.ʎu/"
+       }
+      },
+      {
+       "form": "escolhes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/esˈkɔ.ʎis/",
+        "pt-PT": "/ɨʃˈkɔ.ʎɨʃ/"
+       }
+      },
+      {
+       "form": "escolhe",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/esˈkɔ.ʎi/",
+        "pt-PT": "/ɨʃˈkɔ.ʎɨ/"
+       }
+      },
+      {
+       "form": "escolhemos",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/es.koˈʎe.mus/",
+        "pt-PT": "/ɨʃ.kuˈʎe.muʃ/"
+       }
+      },
+      {
+       "form": "escolhem",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/esˈkɔ.ʎẽj/",
+        "pt-PT": "/ɨʃˈkɔ.ʎɐ̃j/"
+       }
+      },
+      {
+       "form": "escolhi",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/es.koˈʎi/",
+        "pt-PT": "/ɨʃ.kuˈʎi/"
+       }
+      },
+      {
+       "form": "escolheu",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/es.koˈʎew/",
+        "pt-PT": "/ɨʃ.kuˈʎew/"
+       }
+      },
+      {
+       "form": "escolha",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/esˈko.ʎɐ/",
+        "pt-PT": "/ɨʃˈko.ʎɐ/"
+       }
+      },
+      {
+       "form": "escolhido",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "ipa": {
+        "pt-BR": "/es.koˈʎi.du/",
+        "pt-PT": "/ɨʃ.kuˈʎi.du/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "decidir qual, entre várias coisas ou pessoas, se prefere",
+       "example": "Podes escolher entre o vestido azul e o vermelho.",
+       "cefr": "A1",
+       "frames": [
+        "escolher algo/alguém",
+        "escolher entre A e B",
+        "escolher + infinitivo"
+       ]
+      },
+      {
+       "definition": "separar o que é bom do que é mau ou impróprio",
+       "example": "Antes de cozinhar, é preciso escolher bem o feijão.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "lidar",
+   "lexemes": [
+    {
+     "lemma": "lidar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/li.ˈdaʁ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/li.ˈdaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "enfrentar e tentar resolver uma situação ou um problema difícil",
+       "example": "Ainda não sei como lidar com tanta pressão no trabalho.",
+       "cefr": "B1",
+       "frames": [
+        "lidar com algo"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "ter contato ou trabalhar regularmente com pessoas ou coisas",
+       "example": "Quem lida com o público precisa de muita paciência.",
+       "cefr": "B2",
+       "frames": [
+        "lidar com alguém",
+        "lidar com algo"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "enfrentar um touro na arena, fazendo-o investir contra a capa",
+       "example": "O cavaleiro lidou dois touros na corrida de domingo.",
+       "cefr": "C2",
+       "regions": [
+        {
+         "variety": "pt-PT",
+         "extent": "only"
+        }
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.89,
+  "entry": {
+   "language": "pt",
+   "headword": "trazer",
+   "lexemes": [
+    {
+     "lemma": "trazer",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "2",
+      "irregular": true,
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/tɾa.ˈzeɾ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/tɾɐ.ˈzeɾ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "trago",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾa.ɡu/",
+        "pt-PT": "/ˈtɾa.ɡu/"
+       }
+      },
+      {
+       "form": "trazes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾa.zis/",
+        "pt-PT": "/ˈtɾa.zɨʃ/"
+       }
+      },
+      {
+       "form": "traz",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾas/",
+        "pt-PT": "/ˈtɾaʃ/"
+       }
+      },
+      {
+       "form": "trazemos",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/tɾa.ˈze.mus/",
+        "pt-PT": "/tɾɐ.ˈze.muʃ/"
+       }
+      },
+      {
+       "form": "trazem",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾa.zẽj/",
+        "pt-PT": "/ˈtɾa.zɐ̃j/"
+       }
+      },
+      {
+       "form": "trouxe",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾo.si/",
+        "pt-PT": "/ˈtɾo.sɨ/"
+       }
+      },
+      {
+       "form": "trouxe",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾo.si/",
+        "pt-PT": "/ˈtɾo.sɨ/"
+       }
+      },
+      {
+       "form": "traga",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/ˈtɾa.ɡɐ/",
+        "pt-PT": "/ˈtɾa.ɡɐ/"
+       }
+      },
+      {
+       "form": "trarei",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/tɾa.ˈɾej/",
+        "pt-PT": "/tɾɐ.ˈɾɐj/"
+       }
+      },
+      {
+       "form": "traria",
+       "features": {
+        "Mood": "Cnd",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "pt-BR": "/tɾa.ˈɾi.ɐ/",
+        "pt-PT": "/tɾɐ.ˈɾi.ɐ/"
+       }
+      },
+      {
+       "form": "trazido",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "ipa": {
+        "pt-BR": "/tɾa.ˈzi.du/",
+        "pt-PT": "/tɾɐ.ˈzi.du/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "levar alguém ou alguma coisa até o lugar onde está quem fala",
+       "example": "Pode trazer um copo de água para mim, por favor?",
+       "cefr": "A1",
+       "frames": [
+        "trazer algo a/para alguém",
+        "trazer algo de algum lugar"
+       ],
+       "antonyms": [
+        {
+         "lemma": "levar",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "ser a causa de algo; ter algo como resultado",
+       "example": "Essas mudanças vão trazer muitos benefícios para a cidade.",
+       "cefr": "B1",
+       "frames": [
+        "trazer algo a/para alguém"
+       ]
+      },
+      {
+       "definition": "ter ou apresentar algum conteúdo, como notícia ou informação",
+       "example": "O jornal de hoje traz uma entrevista com o novo ministro.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "levar",
+       "pos": "VERB",
+       "why": "trazer is movement towards the speaker, levar is movement away from the speaker"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.9,
+  "entry": {
+   "language": "pt",
+   "headword": "acreditar",
+   "lexemes": [
+    {
+     "lemma": "acreditar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/a.kɾe.dʒi.ˈtaʁ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɐ.kɾɨ.di.ˈtaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "considerar que algo é verdadeiro ou que alguém diz a verdade",
+       "example": "Ainda não acredito que passamos no exame!",
+       "cefr": "A2",
+       "frames": [
+        "acreditar em algo/alguém",
+        "acreditar que + oração"
+       ],
+       "grammar": {
+        "valency": "Both"
+       },
+       "antonyms": [
+        {
+         "lemma": "duvidar",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "ter fé ou confiança em alguém, numa ideia ou em Deus",
+       "example": "Você precisa acreditar em si mesmo para vencer.",
+       "cefr": "B1",
+       "frames": [
+        "acreditar em alguém/algo"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "reconhecer oficialmente alguém ou algo como autorizado ou válido",
+       "example": "O governo acreditou cem jornalistas para cobrir a conferência.",
+       "cefr": "C1",
+       "grammar": {
+        "valency": "Tr"
+       },
+       "labels": {
+        "style": [
+         "official"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "breve",
+   "lexemes": [
+    {
+     "lemma": "breve",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true,
+      "note": "same form for masculine and feminine; plural breves"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈbɾɛ.vi/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈbɾɛ.vɨ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "que dura pouco tempo ou acaba depressa",
+       "example": "Fizemos uma breve pausa antes de continuar a reunião.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "longo",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "dito ou escrito com poucas palavras, sem detalhes desnecessários",
+       "example": "Seja breve, por favor, porque temos pouco tempo.",
+       "cefr": "B2",
+       "antonyms": [
+        {
+         "lemma": "extenso",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "global",
+   "lexemes": [
+    {
+     "lemma": "global",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "note": "same form for masculine and feminine; plural globais"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ɡloˈbaw/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɡluˈbal/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "que abrange o mundo inteiro ou todos os países",
+       "example": "O aquecimento global preocupa cientistas de todos os continentes.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "local",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "considerado no seu conjunto, sem separar as partes",
+       "example": "Qual é o custo global da obra, com todos os materiais?",
+       "cefr": "B2",
+       "antonyms": [
+        {
+         "lemma": "parcial",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "globo",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "francês",
+   "lexemes": [
+    {
+     "lemma": "francês",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "note": "feminine francesa; the accent is dropped in the inflected forms"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/fɾɐ̃.ˈses/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/fɾɐ̃.ˈseʃ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "francesa",
+       "features": {
+        "Gender": "Fem",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "pt-BR": "/fɾɐ̃.ˈse.zɐ/",
+        "pt-PT": "/fɾɐ̃.ˈse.zɐ/"
+       }
+      },
+      {
+       "form": "franceses",
+       "features": {
+        "Gender": "Masc",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/fɾɐ̃.ˈse.zis/",
+        "pt-PT": "/fɾɐ̃.ˈse.zɨʃ/"
+       }
+      },
+      {
+       "form": "francesas",
+       "features": {
+        "Gender": "Fem",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/fɾɐ̃.ˈse.zɐs/",
+        "pt-PT": "/fɾɐ̃.ˈse.zɐʃ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "que é da França, vem desse país ou de lá é típico",
+       "example": "Comprei um queijo francês muito bom na feira de ontem.",
+       "cefr": "A1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "França",
+       "pos": "PROPN"
+      }
+     ]
+    },
+    {
+     "lemma": "francês",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/fɾɐ̃.ˈses/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/fɾɐ̃.ˈseʃ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "franceses",
+       "features": {
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/fɾɐ̃.ˈse.zis/",
+        "pt-PT": "/fɾɐ̃.ˈse.zɨʃ/"
+       },
+       "senses": [
+        2
+       ]
+      }
+     ],
+     "senses": [
+      {
+       "definition": "língua falada na França, na Bélgica, no Canadá e noutros países",
+       "example": "Ela fala francês muito bem desde criança.",
+       "cefr": "A1",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "homem que nasceu na França ou tem essa nacionalidade",
+       "example": "Os franceses costumam jantar mais tarde do que nós.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "policial",
+   "lexemes": [
+    {
+     "lemma": "policial",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/po.li.siˈaw/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/pu.li.siˈal/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "das forças que mantêm a ordem pública e combatem o crime",
+       "example": "Houve uma operação policial no bairro durante a noite.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "diz-se de livro ou filme sobre crimes e a sua investigação",
+       "example": "Adoro ler romances policiais antes de dormir.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "polícia",
+       "pos": "NOUN"
+      }
+     ]
+    },
+    {
+     "lemma": "policial",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Com",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/po.li.siˈaw/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/pu.li.siˈal/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "pessoa que trabalha nas forças que mantêm a ordem pública",
+       "example": "Pergunte ao policial da esquina onde fica a estação.",
+       "cefr": "A2",
+       "regions": [
+        {
+         "variety": "pt-BR",
+         "extent": "only"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "polícia",
+       "pos": "NOUN"
+      },
+      {
+       "type": "confusable",
+       "lemma": "polícia",
+       "pos": "NOUN",
+       "why": "in Portugal a police officer is usually called 'um polícia', while Brazil says 'um policial'"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "ciência",
+   "lexemes": [
+    {
+     "lemma": "ciência",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/siˈẽ.sjɐ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈsjẽ.sjɐ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "conjunto de conhecimentos obtidos pela observação, experiência e estudo rigoroso do mundo",
+       "example": "A ciência ainda não explica todos os mistérios do universo.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "cada área de estudo com objeto e métodos próprios, como a física",
+       "example": "Na universidade, ela quer estudar ciências sociais ou economia.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "definition": "conhecimento ou informação que alguém tem sobre um assunto",
+       "example": "Você tem ciência dos riscos deste tratamento?",
+       "cefr": "C1",
+       "frames": [
+        "ter ciência de algo",
+        "tomar ciência de algo",
+        "dar ciência a alguém de algo"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "pronto",
+   "lexemes": [
+    {
+     "lemma": "pronto",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈpɾõ.tu/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈpɾõ.tu/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "preparado e em condições de fazer algo ou de ser usado",
+       "example": "Estou pronto para sair, só falta calçar os sapatos.",
+       "cefr": "A1",
+       "frames": [
+        "estar pronto para + inf",
+        "pronto para algo"
+       ],
+       "grammar": {
+        "position": "Pred"
+       }
+      },
+      {
+       "definition": "acabado, terminado, com todo o trabalho já feito",
+       "example": "O jantar já está pronto, venham para a mesa!",
+       "cefr": "A1",
+       "grammar": {
+        "position": "Pred"
+       },
+       "antonyms": [
+        {
+         "lemma": "inacabado",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "que acontece ou se faz sem demora; rápido, imediato",
+       "example": "Agradecemos a sua pronta resposta ao nosso pedido.",
+       "cefr": "B2",
+       "labels": {
+        "formality": "formal"
+       },
+       "grammar": {
+        "position": "Attr"
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "pronto",
+     "pos": "INTJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈpɾõ.tu/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈpɾõ.tu/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "palavra que indica que algo terminou ou ficou resolvido",
+       "example": "Pronto, já arrumei a cozinha toda.",
+       "cefr": "A2",
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "palavra usada na conversa para concordar, aceitar ou mudar de assunto",
+       "example": "Pronto, está bem, amanhã falamos sobre isso.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       },
+       "regions": [
+        {
+         "variety": "pt-PT",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "vice",
+   "lexemes": [
+    {
+     "lemma": "vice",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Com",
+      "countability": "Count",
+      "note": "clipping of vice-presidente, vice-governador, vice-campeão etc."
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈvi.si/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈvi.sɨ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "pessoa que substitui o presidente, governador ou outro chefe quando necessário",
+       "example": "Durante a viagem do presidente, quem governa o país é a vice.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "segundo lugar num campeonato, ou a equipa que fica nessa posição",
+       "example": "Depois de três finais perdidas, o clube voltou a ser vice.",
+       "cefr": "B2",
+       "regions": [
+        {
+         "variety": "pt-BR",
+         "extent": "only"
+        }
+       ],
+       "labels": {
+        "domain": "sport",
+        "formality": "informal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.89,
+  "entry": {
+   "language": "pt",
+   "headword": "casal",
+   "lexemes": [
+    {
+     "lemma": "casal",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ka.ˈzaw/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/kɐ.ˈzal/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "duas pessoas unidas por casamento ou por uma relação amorosa",
+       "example": "Conhecemos um casal de italianos muito simpático durante as férias.",
+       "cefr": "A2",
+       "frames": [
+        "casal de + subst."
+       ]
+      },
+      {
+       "definition": "um macho e uma fêmea da mesma espécie de animal",
+       "example": "Vamos comprar um casal de periquitos para as crianças.",
+       "cefr": "B1",
+       "frames": [
+        "casal de + subst."
+       ]
+      },
+      {
+       "definition": "pequeno povoado no campo, com poucas casas e terras",
+       "example": "A minha avó nasceu num casal perto da serra.",
+       "cefr": "C1",
+       "regions": [
+        {
+         "variety": "pt-PT",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.86,
+  "entry": {
+   "language": "pt",
+   "headword": "chave",
+   "lexemes": [
+    {
+     "lemma": "chave",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈʃa.vi/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈʃa.vɨ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "peça de metal usada para abrir e fechar fechaduras",
+       "example": "Esqueci a chave do carro em cima da mesa da cozinha.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "aquilo que permite entender ou resolver algo; elemento essencial",
+       "example": "Para mim, a paciência é a chave para aprender uma língua.",
+       "cefr": "B1",
+       "frames": [
+        "a chave de/para algo"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "ferramenta usada para apertar ou soltar parafusos e porcas",
+       "example": "Preciso de uma chave maior para soltar esta porca.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.88,
+  "entry": {
+   "language": "pt",
+   "headword": "doença",
+   "lexemes": [
+    {
+     "lemma": "doença",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/doˈẽ.sɐ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/duˈẽ.sɐ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "alteração da saúde do corpo ou da mente que causa sofrimento",
+       "example": "A minha avó tem uma doença grave no coração.",
+       "cefr": "A2",
+       "frames": [
+        "doença de algo"
+       ],
+       "antonyms": [
+        {
+         "lemma": "saúde",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "problema grave e difícil de resolver numa sociedade ou num grupo",
+       "example": "Para muitos, a corrupção é a grande doença do país.",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "abstract_noun_of",
+       "lemma": "doente",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "normalmente",
+   "lexemes": [
+    {
+     "lemma": "normalmente",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/noɾ.ˌmaw.ˈmẽ.tʃi/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/nɔɾ.ˌmal.ˈmẽ.tɨ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "na maior parte das vezes; de costume, em geral",
+       "example": "Normalmente acordo às sete, mas hoje dormi até mais tarde.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "raramente",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "de maneira comum, sem problemas nem alterações",
+       "example": "Depois do acidente, o trânsito voltou a circular normalmente na avenida.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "anormalmente",
+         "pos": "ADV"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "normal",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.87,
+  "entry": {
+   "language": "pt",
+   "headword": "rapidamente",
+   "lexemes": [
+    {
+     "lemma": "rapidamente",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˌʁa.pi.daˈmẽ.tʃi/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˌʁa.pi.dɐˈmẽ.tɨ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "com grande velocidade, sem demorar muito tempo",
+       "example": "A notícia espalhou-se rapidamente por toda a cidade.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "lentamente",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "durante pouco tempo, de forma breve e sem entrar em detalhes",
+       "example": "Antes de começarmos, quero falar rapidamente sobre o horário.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "rápido",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

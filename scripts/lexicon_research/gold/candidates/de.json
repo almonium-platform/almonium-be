@@ -1,0 +1,1575 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "Gespräch",
+   "lexemes": [
+    {
+     "lemma": "Gespräch",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "plural_class": "-e",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ɡə.ˈʃpʁɛːç/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Gesprächs",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈʃpʁɛːçs/"
+       }
+      },
+      {
+       "form": "Gespräche",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈʃpʁɛː.çə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Austausch von Gedanken, bei dem zwei oder mehr Personen miteinander reden",
+       "example": "Nach dem Essen hatten wir ein langes Gespräch über Politik.",
+       "cefr": "A2",
+       "frames": [
+        "ein Gespräch mit + Dat führen",
+        "ein Gespräch über + Akk"
+       ]
+      },
+      {
+       "definition": "offizielles Treffen, bei dem Vertreter über ein bestimmtes Thema verhandeln",
+       "example": "Morgen werden die Gespräche zwischen beiden Regierungen fortgesetzt.",
+       "cefr": "B1",
+       "frames": [
+        "Gespräche mit + Dat"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "sprechen",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "Nachricht",
+   "lexemes": [
+    {
+     "lemma": "Nachricht",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "plural_class": "-en",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈnaːx.ʁɪçt/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Nachricht",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈnaːx.ʁɪçt/"
+       }
+      },
+      {
+       "form": "Nachrichten",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈnaːx.ʁɪç.tən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "kurze Mitteilung oder Information, die man jemandem schickt oder gibt",
+       "example": "Hast du meine Nachricht von gestern schon gelesen?",
+       "cefr": "A1",
+       "frames": [
+        "jmdm. eine Nachricht schicken",
+        "Nachricht von + Dat",
+        "Nachricht über + Akk"
+       ]
+      },
+      {
+       "definition": "Sendung im Radio oder Fernsehen über die wichtigsten aktuellen Ereignisse",
+       "example": "Um acht Uhr sehen wir fast immer die Nachrichten.",
+       "cefr": "A2",
+       "grammar": {
+        "number": "Plur"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "Richter",
+   "lexemes": [
+    {
+     "lemma": "Richter",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʁɪç.tɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Richters",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈʁɪç.tɐs/"
+       }
+      },
+      {
+       "form": "Richter",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈʁɪç.tɐ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Person, die in einem Prozess Urteile spricht und über Schuld entscheidet",
+       "example": "Morgen muss sie vor dem Richter als Zeugin aussagen.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "agent_noun_of",
+       "lemma": "richten",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "de",
+   "headword": "Hoffnung",
+   "lexemes": [
+    {
+     "lemma": "Hoffnung",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "plural_class": "-en",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈhɔf.nʊŋ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Hoffnung",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈhɔf.nʊŋ/"
+       }
+      },
+      {
+       "form": "Hoffnungen",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈhɔf.nʊ.ŋən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Gefühl, dass etwas Gutes, das man sich wünscht, geschehen wird",
+       "example": "Wir haben die Hoffnung auf besseres Wetter noch nicht aufgegeben.",
+       "cefr": "A2",
+       "frames": [
+        "Hoffnung auf + Akk",
+        "die Hoffnung aufgeben",
+        "sich Hoffnungen machen"
+       ],
+       "antonyms": [
+        {
+         "lemma": "Verzweiflung",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "Person oder Sache, von der man Erfolg oder Rettung erwartet",
+       "example": "Der junge Spieler gilt als größte Hoffnung des Vereins.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "hoffen",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.81,
+  "entry": {
+   "language": "de",
+   "headword": "sterben",
+   "lexemes": [
+    {
+     "lemma": "sterben",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "strong",
+      "irregular": true,
+      "auxiliary": "be",
+      "valency": "Intr"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʃtɛʁ.bən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "stirbt",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃtɪʁpt/"
+       }
+      },
+      {
+       "form": "starb",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Past",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃtaʁp/"
+       }
+      },
+      {
+       "form": "gestorben",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈʃtɔʁ.bən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "aufhören zu leben, zum Beispiel durch Krankheit, Alter oder Unfall",
+       "example": "Mein Großvater ist letztes Jahr an Krebs gestorben.",
+       "cefr": "A2",
+       "frames": [
+        "sterben an + Dat",
+        "sterben für + Akk"
+       ]
+      },
+      {
+       "definition": "langsam verschwinden und am Ende nicht mehr existieren",
+       "example": "Ohne junge Familien stirbt das kleine Dorf langsam.",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "ein Gefühl wie Angst, Hunger oder Langeweile sehr stark spüren",
+       "example": "Wann gibt es endlich Essen? Ich sterbe vor Hunger!",
+       "cefr": "B1",
+       "frames": [
+        "vor etwas (Dat) sterben"
+       ],
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.82,
+  "entry": {
+   "language": "de",
+   "headword": "fällen",
+   "lexemes": [
+    {
+     "lemma": "fällen",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈfɛ.lən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "fällte",
+       "features": {
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "ipa": {
+        "de-DE": "/ˈfɛl.tə/"
+       }
+      },
+      {
+       "form": "gefällt",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡəˈfɛlt/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "einen Baum unten durchschneiden, sodass er zu Boden stürzt",
+       "example": "Im Winter werden im Wald viele alte Bäume gefällt.",
+       "cefr": "B2"
+      },
+      {
+       "definition": "eine Entscheidung oder ein Urteil treffen und offiziell bekannt geben",
+       "example": "Bis Freitag müssen wir endlich eine Entscheidung fällen.",
+       "cefr": "B2",
+       "frames": [
+        "eine Entscheidung fällen",
+        "ein Urteil fällen"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "fallen",
+       "pos": "VERB"
+      },
+      {
+       "type": "confusable",
+       "lemma": "gefallen",
+       "pos": "VERB",
+       "why": "the participle gefällt looks like gefällt 'pleases', present tense of gefallen"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.84,
+  "entry": {
+   "language": "de",
+   "headword": "verkaufen",
+   "lexemes": [
+    {
+     "lemma": "verkaufen",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/fɛɐˈkaʊ.fən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "verkaufte",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Past",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "de-DE": "/fɛɐˈkaʊf.tə/"
+       }
+      },
+      {
+       "form": "verkauft",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/fɛɐˈkaʊft/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "eine Sache einem anderen gegen Geld geben",
+       "example": "Wir verkaufen unser altes Auto an einen Nachbarn.",
+       "cefr": "A1",
+       "frames": [
+        "jemandem etwas verkaufen",
+        "etwas an jemanden verkaufen"
+       ],
+       "antonyms": [
+        {
+         "lemma": "kaufen",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "eine Idee oder Sache anderen geschickt und überzeugend darstellen",
+       "example": "Die Regierung versucht, die Steuererhöhung als große Reform zu verkaufen.",
+       "cefr": "B2",
+       "frames": [
+        "etwas als etwas verkaufen"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "von Waren: von vielen Kunden gern genommen werden",
+       "example": "Dieses Buch verkauft sich überraschend gut.",
+       "cefr": "B1",
+       "frames": [
+        "sich gut/schlecht verkaufen"
+       ],
+       "grammar": {
+        "valency": "Refl",
+        "reflexive": true
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "kaufen",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.85,
+  "entry": {
+   "language": "de",
+   "headword": "regeln",
+   "lexemes": [
+    {
+     "lemma": "regeln",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʁeː.ɡəln/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "regelte",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Past",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "de-DE": "/ˈʁeː.ɡəl.tə/"
+       }
+      },
+      {
+       "form": "geregelt",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈʁeː.ɡəlt/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "eine Angelegenheit klären und in Ordnung bringen",
+       "example": "Keine Sorge, ich kläre das und regle es morgen mit dem Vermieter.",
+       "cefr": "B1",
+       "frames": [
+        "etw. regeln",
+        "etw. mit jmdm. regeln"
+       ]
+      },
+      {
+       "definition": "durch Vorschriften oder Absprachen genau festlegen",
+       "example": "Ein neues Gesetz regelt den Schutz persönlicher Daten im Internet.",
+       "cefr": "B2"
+      },
+      {
+       "definition": "Temperatur, Menge oder Verkehr steuern, damit alles gleichmäßig läuft",
+       "example": "An der Kreuzung regelt heute ein Polizist den Verkehr.",
+       "cefr": "B2"
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "Regel",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "interessant",
+   "lexemes": [
+    {
+     "lemma": "interessant",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ɪn.tə.ʁɛ.ˈsant/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "so, dass man gern mehr darüber wissen oder hören möchte",
+       "example": "Gestern habe ich einen sehr interessanten Film über Wale gesehen.",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "langweilig",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "für jemanden günstig, weil es Vorteile oder Gewinn bringt",
+       "example": "Für junge Familien ist dieses Angebot finanziell besonders interessant.",
+       "cefr": "B2",
+       "frames": [
+        "interessant für + Akk"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "nötig",
+   "lexemes": [
+    {
+     "lemma": "nötig",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈnøː.tɪç/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "unbedingt gebraucht, damit etwas gelingt oder funktioniert",
+       "example": "Für diese Reise ist ein gültiger Reisepass unbedingt nötig.",
+       "cefr": "A2",
+       "frames": [
+        "etw. ist nötig für + Akk",
+        "es ist nötig, etw. zu tun",
+        "etw. nötig haben"
+       ],
+       "antonyms": [
+        {
+         "lemma": "unnötig",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "Not",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "schaden",
+   "lexemes": [
+    {
+     "lemma": "schaden",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Intr"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʃaː.dən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "schadete",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Fin",
+        "Person": "3",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃaː.də.tə/"
+       }
+      },
+      {
+       "form": "geschadet",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡəˈʃaː.dət/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "für jemanden oder etwas schlecht sein, einen Nachteil bringen",
+       "example": "Zu viel Zucker schadet auf Dauer deinen Zähnen.",
+       "cefr": "B1",
+       "frames": [
+        "jdm./etw. schaden",
+        "schaden + Dat"
+       ],
+       "antonyms": [
+        {
+         "lemma": "nützen",
+         "pos": "VERB"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "Schaden",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-¨",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʃaː.dən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Schadens",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃaː.dəns/"
+       }
+      },
+      {
+       "form": "Schäden",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃɛː.dən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Veränderung, durch die eine Sache kaputt oder weniger wert ist",
+       "example": "Der Sturm hat an vielen Dächern großen Schaden angerichtet.",
+       "cefr": "B1",
+       "frames": [
+        "Schaden anrichten",
+        "Schaden an + Dat"
+       ]
+      },
+      {
+       "definition": "Nachteil oder Verlust, den jemand durch etwas hat",
+       "example": "Diese Entscheidung soll nicht zu Ihrem Schaden sein.",
+       "cefr": "B2",
+       "frames": [
+        "zu jds. Schaden",
+        "Schaden erleiden"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "antonyms": [
+        {
+         "lemma": "Nutzen",
+         "pos": "NOUN"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.84,
+  "entry": {
+   "language": "de",
+   "headword": "perfekt",
+   "lexemes": [
+    {
+     "lemma": "perfekt",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {},
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/pɛʁˈfɛkt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "ohne jeden Fehler, so gut, wie es nur möglich ist",
+       "example": "Nach vielen Jahren im Ausland spricht sie perfektes Englisch.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "fehlerhaft",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "endgültig vereinbart und abgeschlossen, besonders bei Verträgen oder Geschäften",
+       "example": "Nach langen Verhandlungen ist der Wechsel des Spielers jetzt perfekt.",
+       "cefr": "B2",
+       "grammar": {
+        "position": "Pred"
+       },
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "Perfekt",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "plural_class": "-e",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈpɛʁ.fɛkt/"
+      },
+      {
+       "variety": "de-DE",
+       "ipa": "/pɛʁˈfɛkt/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Perfekts",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈpɛʁ.fɛkts/"
+       }
+      },
+      {
+       "form": "Perfekte",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈpɛʁ.fɛk.tə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Zeitform des Verbs, gebildet mit „haben“ oder „sein“ und Partizip",
+       "example": "Im Gespräch benutzen die meisten Leute eher das Perfekt als das Präteritum.",
+       "cefr": "A2",
+       "labels": {
+        "domain": "grammar"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "Tor",
+   "lexemes": [
+    {
+     "lemma": "Tor",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "plural_class": "-e",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈtoːɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Tores",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈtoː.ʁəs/"
+       }
+      },
+      {
+       "form": "Tors",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈtoːɐs/"
+       }
+      },
+      {
+       "form": "Tore",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈtoː.ʁə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "große Tür in einer Mauer, einem Zaun oder Gebäude",
+       "example": "Am Abend wird das Tor zum Hof immer abgeschlossen.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "Treffer, bei dem der Ball ins Ziel geht und zählt",
+       "example": "In der zweiten Halbzeit schoss sie gleich zwei Tore.",
+       "cefr": "A2",
+       "frames": [
+        "ein Tor schießen"
+       ],
+       "labels": {
+        "domain": "sport"
+       }
+      },
+      {
+       "definition": "Gestell mit Netz, in das man beim Fußball den Ball schießen muss",
+       "example": "Der Ball prallte an den Pfosten und flog dann hinein ins Tor.",
+       "cefr": "A2",
+       "labels": {
+        "domain": "sport"
+       }
+      },
+      {
+       "definition": "Zugang oder Weg in einen neuen, größeren Bereich",
+       "example": "Für viele Auswanderer war der Hafen das Tor zur Welt.",
+       "cefr": "B2",
+       "frames": [
+        "das Tor zu + Dat"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "Tor",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "declension": "weak",
+      "plural_class": "-en",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈtoːɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Toren",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈtoː.ʁən/"
+       }
+      },
+      {
+       "form": "Toren",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈtoː.ʁən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "dummer, naiver Mensch, der nicht klug handelt",
+       "example": "Ich war ein Tor, ihm so blind zu vertrauen.",
+       "cefr": "C1",
+       "labels": {
+        "style": [
+         "literary"
+        ],
+        "time": "dated"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "Tor",
+       "pos": "NOUN",
+       "why": "same spelling as das Tor (gate, goal); der Tor means a fool"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.8,
+  "entry": {
+   "language": "de",
+   "headword": "irgendwo",
+   "lexemes": [
+    {
+     "lemma": "irgendwo",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈɪʁ.ɡənt.voː/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "an einem Ort, den man nicht kennt oder nicht nennen will",
+       "example": "Ich habe meinen Schlüssel irgendwo in der Wohnung verloren.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "nirgendwo",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "in gewisser Hinsicht, auf eine schwer zu erklärende Weise",
+       "example": "Irgendwo hast du ja recht mit deiner Kritik.",
+       "cefr": "B2",
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "wo",
+       "pos": "ADV"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.81,
+  "entry": {
+   "language": "de",
+   "headword": "Trainer",
+   "lexemes": [
+    {
+     "lemma": "Trainer",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈtʁɛː.nɐ/"
+      },
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈtʁeː.nɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Trainers",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈtʁɛː.nɐs/"
+       }
+      },
+      {
+       "form": "Trainer",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈtʁɛː.nɐ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Person, die Sportler oder eine Mannschaft anleitet und auf Wettkämpfe vorbereitet",
+       "example": "Nach drei Niederlagen in Folge musste der Trainer gehen.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "bequemer Anzug aus Jacke und Hose, den man beim Sport trägt",
+       "example": "Am Sonntag sitze ich gern im Trainer auf dem Sofa.",
+       "cefr": "B2",
+       "regions": [
+        {
+         "variety": "de-AT",
+         "extent": "only"
+        },
+        {
+         "variety": "de-CH",
+         "extent": "only"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "agent_noun_of",
+       "lemma": "trainieren",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 5.0,
+  "entry": {
+   "language": "de",
+   "headword": "Kreis",
+   "lexemes": [
+    {
+     "lemma": "Kreis",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-e",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈkʁaɪs/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Kreises",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈkʁaɪ.zəs/"
+       }
+      },
+      {
+       "form": "Kreise",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈkʁaɪ.zə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "runde, geschlossene Linie, deren Punkte alle gleich weit von der Mitte entfernt sind",
+       "example": "Zum Spielen setzen sich die Kinder im Kreis auf den Boden.",
+       "cefr": "A2",
+       "frames": [
+        "im Kreis"
+       ]
+      },
+      {
+       "definition": "Gruppe von Menschen, die sich kennen oder etwas gemeinsam haben",
+       "example": "Wir haben den Geburtstag nur im kleinen Kreis gefeiert.",
+       "cefr": "B1",
+       "frames": [
+        "im Kreis + Gen",
+        "in ... Kreisen"
+       ]
+      },
+      {
+       "definition": "Gebiet der Verwaltung, zu dem mehrere Städte und Gemeinden gehören",
+       "example": "Der Kreis plant eine neue Busverbindung zwischen den Dörfern.",
+       "cefr": "B2",
+       "regions": [
+        {
+         "variety": "de-DE",
+         "extent": "only"
+        },
+        {
+         "variety": "de-CH",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.82,
+  "entry": {
+   "language": "de",
+   "headword": "Auge",
+   "lexemes": [
+    {
+     "lemma": "Auge",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "plural_class": "-n",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈaʊ.ɡə/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Auges",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈaʊ.ɡəs/"
+       }
+      },
+      {
+       "form": "Augen",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈaʊ.ɡən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "Organ im Gesicht, mit dem Menschen und Tiere sehen",
+       "example": "Mach bitte die Augen zu, ich habe eine Überraschung.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "Fähigkeit, etwas richtig zu sehen und zu beurteilen",
+       "example": "Sie hat ein gutes Auge für schöne Farben.",
+       "cefr": "B2",
+       "frames": [
+        "ein Auge für etw. haben"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "Punkt auf einer Seite eines Würfels, der eine Zahl zeigt",
+       "example": "Wer die meisten Augen würfelt, darf anfangen.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.82,
+  "entry": {
+   "language": "de",
+   "headword": "Bier",
+   "lexemes": [
+    {
+     "lemma": "Bier",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "plural_class": "-e",
+      "countability": "Both",
+      "note": "after numbers often unchanged: zwei Bier; plural Biere means kinds of beer"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈbiːɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Bieres",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈbiː.ʁəs/"
+       }
+      },
+      {
+       "form": "Biers",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈbiːɐs/"
+       }
+      },
+      {
+       "form": "Biere",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈbiː.ʁə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "alkoholisches Getränk aus Malz, Hopfen, Hefe und Wasser",
+       "example": "In dieser Region wird seit Jahrhunderten Bier gebraut.",
+       "cefr": "A1",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "ein Glas oder eine Flasche von diesem Getränk",
+       "example": "Bringen Sie uns bitte noch zwei Bier!",
+       "cefr": "A1",
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "definition": "Angelegenheit, um die sich jemand selbst kümmern muss",
+       "example": "Wie er sein Geld ausgibt, ist nicht dein Bier.",
+       "cefr": "B2",
+       "frames": [
+        "nicht jemandes Bier sein",
+        "das ist dein Bier"
+       ],
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       },
+       "grammar": {
+        "countability": "Mass"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.81,
+  "entry": {
+   "language": "de",
+   "headword": "stets",
+   "lexemes": [
+    {
+     "lemma": "stets",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈʃteːts/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "immer, zu jeder Zeit und ohne Ausnahme",
+       "example": "Unsere Nachbarin war stets freundlich und hilfsbereit zu allen.",
+       "cefr": "B2",
+       "antonyms": [
+        {
+         "lemma": "nie",
+         "pos": "ADV"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.82,
+  "entry": {
+   "language": "de",
+   "headword": "möglichst",
+   "lexemes": [
+    {
+     "lemma": "möglichst",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈmøːk.lɪçst/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "vor Adjektiven: so sehr oder so viel, wie es nur geht",
+       "example": "Bitte antworten Sie uns möglichst schnell auf diese Anfrage.",
+       "cefr": "B1",
+       "frames": [
+        "möglichst + Adj"
+       ]
+      },
+      {
+       "definition": "wenn es sich irgendwie machen lässt; wenn es geht",
+       "example": "Wir wollen möglichst noch heute Abend zu Hause sein.",
+       "cefr": "B2"
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "möglich",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

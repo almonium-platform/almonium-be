@@ -1,0 +1,1457 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.85,
+  "entry": {
+   "language": "fr",
+   "headword": "hiver",
+   "lexemes": [
+    {
+     "lemma": "hiver",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count",
+      "h_aspire": false
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/i.ˈvɛʁ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "saison la plus froide de l'année, entre l'automne et le printemps",
+       "example": "En hiver, nous partons souvent skier à la montagne.",
+       "cefr": "A1",
+       "frames": [
+        "en hiver",
+        "l'hiver dernier"
+       ],
+       "antonyms": [
+        {
+         "lemma": "été",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "dernière période de la vie d'une personne, la vieillesse",
+       "example": "Arrivé à l'hiver de sa vie, il écrivait enfin ses souvenirs.",
+       "cefr": "C1",
+       "frames": [
+        "l'hiver de la vie"
+       ],
+       "labels": {
+        "figurative": true,
+        "style": [
+         "literary"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.85,
+  "entry": {
+   "language": "fr",
+   "headword": "hôpital",
+   "lexemes": [
+    {
+     "lemma": "hôpital",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ɔ.pi.ˈtal/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "hôpitaux",
+       "features": {
+        "Number": "Plur"
+       },
+       "ipa": {
+        "fr-FR": "/ɔ.pi.ˈto/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "établissement où des médecins soignent les malades et les blessés",
+       "example": "Après l'accident, on l'a transporté d'urgence à l'hôpital le plus proche.",
+       "cefr": "A1",
+       "frames": [
+        "à l'hôpital",
+        "être hospitalisé à l'hôpital"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.85,
+  "entry": {
+   "language": "fr",
+   "headword": "importance",
+   "lexemes": [
+    {
+     "lemma": "importance",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ɛ̃.pɔʁ.ˈtɑ̃s/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "grande valeur ou intérêt qu'on accorde à une chose ou une personne",
+       "example": "Tu attaches trop d'importance à l'avis des autres.",
+       "cefr": "B1",
+       "frames": [
+        "attacher de l'importance à qqch",
+        "avoir de l'importance",
+        "sans importance"
+       ]
+      },
+      {
+       "definition": "grandeur, quantité ou étendue de quelque chose",
+       "example": "L'importance des dégâts a surpris les habitants du village.",
+       "cefr": "B2"
+      }
+     ],
+     "relations": [
+      {
+       "type": "abstract_noun_of",
+       "lemma": "important",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.86,
+  "entry": {
+   "language": "fr",
+   "headword": "avion",
+   "lexemes": [
+    {
+     "lemma": "avion",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/a.ˈvjɔ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "appareil volant à moteur et à ailes qui transporte des passagers ou des marchandises",
+       "example": "Nous prendrons l'avion demain matin pour rendre visite à ma sœur.",
+       "cefr": "A1",
+       "frames": [
+        "prendre l'avion",
+        "voyager en avion",
+        "par avion"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.86,
+  "entry": {
+   "language": "fr",
+   "headword": "envoyer",
+   "lexemes": [
+    {
+     "lemma": "envoyer",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": true,
+      "auxiliary": "have",
+      "valency": "Tr",
+      "note": "future and conditional stem enverr-; y becomes i before a silent e"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ɑ̃.vwa.ˈje/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "envoie",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.ˈvwa/"
+       }
+      },
+      {
+       "form": "envoie",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.ˈvwa/"
+       }
+      },
+      {
+       "form": "envoyons",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.vwa.ˈjɔ̃/"
+       }
+      },
+      {
+       "form": "envoient",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.ˈvwa/"
+       }
+      },
+      {
+       "form": "envoyé",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.vwa.ˈje/"
+       }
+      },
+      {
+       "form": "envoya",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.vwa.ˈja/"
+       }
+      },
+      {
+       "form": "enverrai",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.vɛ.ˈʁe/"
+       }
+      },
+      {
+       "form": "envoie",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ɑ̃.ˈvwa/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "faire partir une lettre, un message ou un objet vers quelqu'un",
+       "example": "Tu peux m'envoyer les photos par courriel ce soir ?",
+       "cefr": "A1",
+       "frames": [
+        "envoyer qqch à qqn"
+       ],
+       "antonyms": [
+        {
+         "lemma": "recevoir",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "faire aller une personne quelque part, souvent pour une mission",
+       "example": "Ma mère m'a envoyé chercher du pain à la boulangerie.",
+       "cefr": "B1",
+       "frames": [
+        "envoyer qqn + inf",
+        "envoyer qqn à/en + lieu"
+       ]
+      },
+      {
+       "definition": "lancer avec force un objet dans une direction",
+       "example": "Le gardien envoie le ballon loin devant lui.",
+       "cefr": "B1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.88,
+  "entry": {
+   "language": "fr",
+   "headword": "expliquer",
+   "lexemes": [
+    {
+     "lemma": "expliquer",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "valency": "Tr",
+      "auxiliary": "have"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ɛks.pli.ˈke/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "faire comprendre quelque chose à quelqu'un en donnant des détails",
+       "example": "Peux-tu m'expliquer comment fonctionne cette machine ?",
+       "cefr": "A2",
+       "frames": [
+        "expliquer qqch à qqn",
+        "expliquer à qqn que + ind",
+        "expliquer comment / pourquoi"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "être la cause ou la raison de quelque chose",
+       "example": "Le mauvais temps explique en partie le retard du train.",
+       "cefr": "B1",
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "donner les raisons de sa conduite pour se justifier",
+       "example": "Laisse-moi m'expliquer avant de te mettre en colère.",
+       "cefr": "B1",
+       "frames": [
+        "s'expliquer sur qqch",
+        "s'expliquer avec qqn"
+       ],
+       "grammar": {
+        "valency": "Refl",
+        "reflexive": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.88,
+  "entry": {
+   "language": "fr",
+   "headword": "permettre",
+   "lexemes": [
+    {
+     "lemma": "permettre",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": true,
+      "auxiliary": "have",
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/pɛʁ.ˈmɛtʁ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "permets",
+       "features": {
+        "Person": "1",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmɛ/"
+       }
+      },
+      {
+       "form": "permet",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmɛ/"
+       }
+      },
+      {
+       "form": "permettons",
+       "features": {
+        "Person": "1",
+        "Number": "Plur",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.mɛ.ˈtɔ̃/"
+       }
+      },
+      {
+       "form": "permettent",
+       "features": {
+        "Person": "3",
+        "Number": "Plur",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmɛt/"
+       }
+      },
+      {
+       "form": "permis",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmi/"
+       }
+      },
+      {
+       "form": "permit",
+       "features": {
+        "Person": "3",
+        "Number": "Sing",
+        "Tense": "Past",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmi/"
+       }
+      },
+      {
+       "form": "permettrai",
+       "features": {
+        "Person": "1",
+        "Number": "Sing",
+        "Tense": "Fut",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.mɛ.ˈtʁe/"
+       }
+      },
+      {
+       "form": "permette",
+       "features": {
+        "Person": "1",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Sub",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/pɛʁ.ˈmɛt/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "rendre une chose possible, donner le moyen de faire",
+       "example": "Ce nouveau train permet d'aller plus vite à la mer.",
+       "cefr": "B1",
+       "frames": [
+        "permettre qqch",
+        "permettre de + inf"
+       ]
+      },
+      {
+       "definition": "donner à quelqu'un le droit ou l'accord de faire quelque chose",
+       "example": "Mes parents ne me permettent pas de sortir le soir.",
+       "cefr": "A2",
+       "frames": [
+        "permettre qqch à qqn",
+        "permettre à qqn de + inf"
+       ],
+       "antonyms": [
+        {
+         "lemma": "interdire",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "oser faire quelque chose sans en demander l'accord, s'accorder une liberté",
+       "example": "Je me permets de vous écrire au sujet de votre annonce.",
+       "cefr": "B1",
+       "frames": [
+        "se permettre qqch",
+        "se permettre de + inf"
+       ],
+       "grammar": {
+        "reflexive": true
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "mettre",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.89,
+  "entry": {
+   "language": "fr",
+   "headword": "continuer",
+   "lexemes": [
+    {
+     "lemma": "continuer",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "valency": "Both",
+      "auxiliary": "have"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/kɔ̃.ti.ˈnɥe/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "ne pas arrêter de faire quelque chose, poursuivre ce qu'on a commencé",
+       "example": "Malgré la pluie, nous avons continué à marcher jusqu'au village.",
+       "cefr": "A2",
+       "frames": [
+        "continuer qqch",
+        "continuer à + inf",
+        "continuer de + inf"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "antonyms": [
+        {
+         "lemma": "arrêter",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "ne pas s'interrompre, durer encore ou aller plus loin dans l'espace",
+       "example": "Continuez tout droit, la gare est au bout de la rue.",
+       "cefr": "A2",
+       "grammar": {
+        "valency": "Intr"
+       },
+       "antonyms": [
+        {
+         "lemma": "cesser",
+         "pos": "VERB"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.9,
+  "entry": {
+   "language": "fr",
+   "headword": "normal",
+   "lexemes": [
+    {
+     "lemma": "normal",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/nɔʁ.ˈmal/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "normale",
+       "features": {
+        "Gender": "Fem",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "fr-FR": "/nɔʁ.ˈmal/"
+       }
+      },
+      {
+       "form": "normaux",
+       "features": {
+        "Gender": "Masc",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "fr-FR": "/nɔʁ.ˈmo/"
+       }
+      },
+      {
+       "form": "normales",
+       "features": {
+        "Gender": "Fem",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "fr-FR": "/nɔʁ.ˈmal/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "conforme à ce qui arrive le plus souvent, sans rien de particulier",
+       "example": "Aujourd'hui, les températures restent normales pour la saison.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "anormal",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "qui ne surprend pas, que l'on peut facilement comprendre ou accepter",
+       "example": "Il est normal que tu sois inquiet avant l'examen.",
+       "cefr": "A2",
+       "frames": [
+        "il est normal que + subj",
+        "c'est normal de + inf"
+       ],
+       "grammar": {
+        "position": "Pred"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "norme",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 5.07,
+  "entry": {
+   "language": "fr",
+   "headword": "économique",
+   "lexemes": [
+    {
+     "lemma": "économique",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/e.kɔ.nɔ.ˈmik/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "lié à la production, aux échanges et aux richesses d'un pays",
+       "example": "Notre pays traverse une grave crise économique depuis deux ans.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "qui coûte peu ou permet de dépenser moins d'argent",
+       "example": "Prendre le train est souvent plus économique que la voiture.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "coûteux",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "économie",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.86,
+  "entry": {
+   "language": "fr",
+   "headword": "cool",
+   "lexemes": [
+    {
+     "lemma": "cool",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true,
+      "note": "Le féminin est identique ; au pluriel on écrit « cool » ou « cools »."
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈkul/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "très agréable, plaisant, qui plaît beaucoup",
+       "example": "Ton nouvel appartement est vraiment cool, surtout la terrasse.",
+       "cefr": "A2",
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "calme et détendu, qui ne s'énerve pas et n'est pas sévère",
+       "example": "Mes parents sont plutôt cool avec les sorties du samedi soir.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       },
+       "antonyms": [
+        {
+         "lemma": "strict",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "cool",
+     "pos": "INTJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈkul/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "exprime la satisfaction, la joie ou l'accord",
+       "example": "Cool ! On part en vacances dès demain matin.",
+       "cefr": "A2",
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.88,
+  "entry": {
+   "language": "fr",
+   "headword": "historique",
+   "lexemes": [
+    {
+     "lemma": "historique",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/is.tɔ.ˈʁik/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "qui appartient au passé réel des peuples et des sociétés",
+       "example": "Ce film raconte des faits historiques survenus pendant la guerre.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "si important qu'on s'en souviendra longtemps",
+       "example": "C'est une victoire historique pour notre petite équipe de football.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "histoire",
+       "pos": "NOUN"
+      }
+     ]
+    },
+    {
+     "lemma": "historique",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/is.tɔ.ˈʁik/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "récit, dans l'ordre du temps, des faits passés concernant une chose",
+       "example": "Le médecin demande toujours l'historique complet de vos maladies.",
+       "cefr": "B2"
+      },
+      {
+       "definition": "liste enregistrée des pages visitées ou des actions faites sur un appareil",
+       "example": "Pense à effacer l'historique de ton navigateur sur cet ordinateur.",
+       "cefr": "B1",
+       "labels": {
+        "domain": "computing"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "historique",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.86,
+  "entry": {
+   "language": "fr",
+   "headword": "chien",
+   "lexemes": [
+    {
+     "lemma": "chien",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈʃjɛ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "animal domestique à quatre pattes qui aboie et garde la maison",
+       "example": "Nous promenons notre chien deux fois par jour dans le parc.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "charme particulier et séduisant d'une personne, surtout d'une femme",
+       "example": "Sans être vraiment belle, elle a beaucoup de chien.",
+       "cefr": "C1",
+       "frames": [
+        "avoir du chien"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.86,
+  "entry": {
+   "language": "fr",
+   "headword": "port",
+   "lexemes": [
+    {
+     "lemma": "port",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈpɔʁ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "endroit sur la côte où les bateaux s'abritent, chargent et déchargent",
+       "example": "Chaque matin, les bateaux de pêche rentrent au port.",
+       "cefr": "A2",
+       "frames": [
+        "au port",
+        "arriver à bon port"
+       ]
+      },
+      {
+       "definition": "utilisation d'un vêtement, d'un équipement ou d'un objet gardé sur soi",
+       "example": "Dans cette voiture, le port de la ceinture est obligatoire pour tous.",
+       "cefr": "B2",
+       "frames": [
+        "le port de qqch"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "somme payée pour envoyer une lettre ou un colis",
+       "example": "Les frais de port sont offerts dès cinquante euros d'achat.",
+       "cefr": "B2",
+       "frames": [
+        "frais de port"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "prise d'un ordinateur où l'on branche un câble ou un appareil",
+       "example": "Branchez la clé sur un port libre de votre ordinateur.",
+       "cefr": "B2",
+       "labels": {
+        "domain": "computing"
+       }
+      },
+      {
+       "definition": "manière de tenir son corps et sa tête, allure d'une personne",
+       "example": "Elle traversait la salle avec un port de reine.",
+       "cefr": "C1",
+       "labels": {
+        "style": [
+         "literary"
+        ]
+       },
+       "grammar": {
+        "countability": "Mass"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "porter",
+       "pos": "VERB"
+      },
+      {
+       "type": "confusable",
+       "lemma": "porc",
+       "pos": "NOUN",
+       "why": "pronounced exactly the same, /pɔʁ/, but means pig or pork"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.9,
+  "entry": {
+   "language": "fr",
+   "headword": "couple",
+   "lexemes": [
+    {
+     "lemma": "couple",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈkupl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "deux personnes qui vivent ensemble ou sont mariées et s'aiment",
+       "example": "Nos voisins forment un couple très uni depuis trente ans.",
+       "cefr": "A2",
+       "frames": [
+        "vivre en couple",
+        "un couple de + nom"
+       ]
+      },
+      {
+       "definition": "un mâle et une femelle d'une même espèce animale réunis",
+       "example": "Un couple de cygnes a fait son nid près de l'étang.",
+       "cefr": "B2",
+       "frames": [
+        "un couple de + nom"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "paire",
+       "pos": "NOUN",
+       "why": "une paire is two matching things; un couple is mostly two people or animals linked together"
+      }
+     ]
+    },
+    {
+     "lemma": "couple",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "number": "Sing"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈkupl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "petit nombre de choses ou de personnes, environ deux ou trois",
+       "example": "Attends-moi ici, je reviens dans une couple de minutes.",
+       "cefr": "B2",
+       "frames": [
+        "une couple de + nom"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "regions": [
+        {
+         "variety": "fr-CA",
+         "extent": "only"
+        }
+       ],
+       "standard_alternative": "quelques"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 5.01,
+  "entry": {
+   "language": "fr",
+   "headword": "ben",
+   "lexemes": [
+    {
+     "lemma": "ben",
+     "pos": "INTJ",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈbɛ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "mot de l'oral qui souligne qu'une réponse est évidente",
+       "example": "Ben oui, je viens ce soir, tu le sais bien !",
+       "cefr": "A2",
+       "frames": [
+        "ben oui",
+        "ben non",
+        "eh ben"
+       ],
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "mot de l'oral qui marque une hésitation ou un étonnement",
+       "example": "Ben… je ne sais pas trop quoi te répondre.",
+       "cefr": "A2",
+       "frames": [
+        "ben quoi ?"
+       ],
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "bien",
+       "pos": "ADV"
+      }
+     ]
+    },
+    {
+     "lemma": "ben",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈbɛ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "à un haut degré, beaucoup, vraiment",
+       "example": "Il fait ben froid ce matin, mets ta tuque.",
+       "cefr": "B2",
+       "regions": [
+        {
+         "variety": "fr-CA",
+         "extent": "only"
+        }
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "standard_alternative": "bien"
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "bien",
+       "pos": "ADV"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.87,
+  "entry": {
+   "language": "fr",
+   "headword": "chanson",
+   "lexemes": [
+    {
+     "lemma": "chanson",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ʃɑ̃.ˈsɔ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "court texte en vers mis en musique, qu'on interprète avec la voix",
+       "example": "Ma grand-mère connaît par cœur toutes les vieilles chansons populaires.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "propos qu'on répète sans cesse et qui lassent",
+       "example": "Avec lui, c'est toujours la même chanson : il n'a jamais le temps.",
+       "cefr": "B2",
+       "frames": [
+        "c'est toujours la même chanson",
+        "c'est une autre chanson"
+       ],
+       "labels": {
+        "figurative": true,
+        "formality": "informal"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "chanter",
+       "pos": "VERB"
+      },
+      {
+       "type": "confusable",
+       "lemma": "chant",
+       "pos": "NOUN",
+       "why": "chant is singing in general or a hymn/birdsong; chanson is a song with words"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.87,
+  "entry": {
+   "language": "fr",
+   "headword": "seigneur",
+   "lexemes": [
+    {
+     "lemma": "seigneur",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/sɛ.ˈɲœʁ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "noble du Moyen Âge qui possédait une terre et commandait ses habitants",
+       "example": "Au Moyen Âge, les paysans travaillaient les terres du seigneur.",
+       "cefr": "B1",
+       "labels": {
+        "time": "historical"
+       },
+       "antonyms": [
+        {
+         "lemma": "vassal",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "nom que les chrétiens et les juifs donnent à Dieu",
+       "example": "Prions le Seigneur pour tous ceux qui souffrent aujourd'hui.",
+       "cefr": "B1",
+       "labels": {
+        "domain": "religion"
+       }
+      },
+      {
+       "definition": "homme puissant ou riche qui se conduit avec noblesse et générosité",
+       "example": "Comme toujours, il a payé tout le repas en grand seigneur.",
+       "cefr": "C1",
+       "frames": [
+        "en grand seigneur",
+        "faire le grand seigneur"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.88,
+  "entry": {
+   "language": "fr",
+   "headword": "généralement",
+   "lexemes": [
+    {
+     "lemma": "généralement",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ʒe.ne.ʁal.ˈmɑ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "dans la plupart des cas, le plus souvent, presque toujours",
+       "example": "Le dimanche, je me lève généralement vers neuf heures.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "rarement",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "par la plupart des gens, de façon large et commune",
+       "example": "C'est une idée généralement admise par les spécialistes du domaine.",
+       "cefr": "B2",
+       "frames": [
+        "généralement admis",
+        "généralement reconnu"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "général",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.91,
+  "entry": {
+   "language": "fr",
+   "headword": "probablement",
+   "lexemes": [
+    {
+     "lemma": "probablement",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/pʁɔ.ba.blə.ˈmɑ̃/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "selon toute vraisemblance, avec de fortes chances d'être vrai",
+       "example": "Il pleuvra probablement demain, alors prends ton parapluie.",
+       "cefr": "A2"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "probable",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

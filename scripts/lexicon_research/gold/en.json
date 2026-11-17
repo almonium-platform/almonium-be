@@ -1,0 +1,327 @@
+[
+ {
+  "language": "en",
+  "headword": "lake",
+  "lexemes": [
+   {
+    "lemma": "lake",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ˈleɪk/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈleɪk/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "a large area of water with land all around it",
+      "example": "We went swimming in the lake every summer morning.",
+      "cefr": "A1",
+      "frames": [
+       "on the lake",
+       "in the lake"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "en",
+  "headword": "afford",
+  "lexemes": [
+   {
+    "lemma": "afford",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "valency": "Tr",
+     "irregular": false
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ə.ˈfɔːɹd/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ə.ˈfɔːd/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "to have enough money or time to buy or do something",
+      "example": "We can't afford a new car this year.",
+      "cefr": "B1",
+      "frames": [
+       "can afford sth",
+       "can afford to do sth"
+      ]
+     },
+     {
+      "definition": "to be able to do something without causing problems for yourself",
+      "example": "You can't afford to miss any more classes before the exam.",
+      "cefr": "B2",
+      "frames": [
+       "can't afford to do sth",
+       "can't afford sth"
+      ]
+     },
+     {
+      "definition": "to provide someone with something useful or pleasant",
+      "example": "The top floor affords a wonderful view of the sea.",
+      "cefr": "C1",
+      "frames": [
+       "afford sth",
+       "afford sb sth"
+      ],
+      "labels": {
+       "formality": "formal"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "en",
+  "headword": "aware",
+  "lexemes": [
+   {
+    "lemma": "aware",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ə.ˈwɛɹ/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ə.ˈweə/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "knowing that something exists, is true or is happening",
+      "example": "Were you aware that the shop closes early today?",
+      "cefr": "B1",
+      "frames": [
+       "aware of sth",
+       "aware that ..."
+      ],
+      "grammar": {
+       "position": "Pred"
+      },
+      "antonyms": [
+       {
+        "lemma": "unaware",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "knowing a lot about a subject and caring about it",
+      "example": "Young people today are very environmentally aware.",
+      "cefr": "B2",
+      "frames": [
+       "politically/socially/environmentally aware"
+      ],
+      "grammar": {
+       "note": "usually modified by an adverb"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "en",
+  "headword": "institute",
+  "lexemes": [
+   {
+    "lemma": "institute",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ˈɪn.stə.tuːt/"
+     },
+     {
+      "variety": "en-US",
+      "ipa": "/ˈɪn.stɪ.tuːt/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈɪn.stɪ.tʃuːt/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈɪn.stɪ.tjuːt/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "an organization for specialist study, professional work or research, or its buildings",
+      "example": "She works at a research institute for marine biology.",
+      "cefr": "B2"
+     }
+    ],
+    "relations": [
+     {
+      "type": "confusable",
+      "lemma": "institution",
+      "pos": "NOUN",
+      "why": "institution is a wider word for any large organization or long-established custom"
+     }
+    ]
+   },
+   {
+    "lemma": "institute",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "valency": "Tr",
+     "irregular": false
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ˈɪn.stə.tuːt/"
+     },
+     {
+      "variety": "en-US",
+      "ipa": "/ˈɪn.stɪ.tuːt/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈɪn.stɪ.tʃuːt/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈɪn.stɪ.tjuːt/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "to officially start or introduce a rule, system or legal action",
+      "example": "The company will institute a new policy on working from home.",
+      "cefr": "C1",
+      "frames": [
+       "institute sth",
+       "institute proceedings against sb"
+      ],
+      "labels": {
+       "formality": "formal"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "en",
+  "headword": "hall",
+  "lexemes": [
+   {
+    "lemma": "hall",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "en-US",
+      "ipa": "/ˈhɑːl/"
+     },
+     {
+      "variety": "en-US",
+      "ipa": "/ˈhɔːl/"
+     },
+     {
+      "variety": "en-GB",
+      "ipa": "/ˈhɔːl/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "the space inside a building entrance that leads to other rooms",
+      "example": "You can leave your wet boots in the hall.",
+      "cefr": "A2",
+      "regions": [
+       {
+        "variety": "en-GB",
+        "extent": "mainly"
+       }
+      ]
+     },
+     {
+      "definition": "a passage inside a building with rooms opening onto it",
+      "example": "Our classroom is at the far end of the hall.",
+      "cefr": "A2",
+      "regions": [
+       {
+        "variety": "en-021",
+        "extent": "mainly"
+       }
+      ]
+     },
+     {
+      "definition": "a large room or building used for public events or shared activities",
+      "example": "Hundreds of people filled the concert hall last night.",
+      "cefr": "A2"
+     },
+     {
+      "definition": "a building where university or college students live",
+      "example": "Most first-year students live in halls near the campus.",
+      "cefr": "B2",
+      "frames": [
+       "in hall(s)"
+      ],
+      "grammar": {
+       "note": "bare hall(s) is especially British"
+      }
+     },
+     {
+      "definition": "a large house in the countryside",
+      "example": "They live in an old hall surrounded by fields.",
+      "cefr": "C1",
+      "grammar": {
+       "note": "often part of a house name"
+      },
+      "regions": [
+       {
+        "variety": "en-GB",
+        "extent": "mainly"
+       }
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "confusable",
+      "lemma": "haul",
+      "pos": "VERB",
+      "why": "sounds the same as haul, to pull something heavy"
+     }
+    ]
+   }
+  ]
+ }
+]

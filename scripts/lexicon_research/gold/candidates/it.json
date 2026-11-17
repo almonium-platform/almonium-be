@@ -1,0 +1,1182 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "collaborazione",
+   "lexemes": [
+    {
+     "lemma": "collaborazione",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/kolː.a.bo.ratˈtsjo.ne/",
+       "reading": "collaborazióne"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "lavoro fatto insieme ad altre persone per raggiungere uno scopo comune",
+       "example": "Grazie alla collaborazione di tutti, finiremo il progetto in tempo.",
+       "cefr": "B1",
+       "frames": [
+        "collaborazione con qcn",
+        "in collaborazione con qcn/qcs"
+       ]
+      },
+      {
+       "definition": "rapporto di lavoro non fisso con un'azienda, un giornale o un ente",
+       "example": "Da anni ha una collaborazione con un quotidiano locale.",
+       "cefr": "B2",
+       "frames": [
+        "collaborazione a/con qcs"
+       ],
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "verbal_noun_of",
+       "lemma": "collaborare",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "denaro",
+   "lexemes": [
+    {
+     "lemma": "denaro",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/de.ˈna.ro/",
+       "reading": "denàro"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "monete e banconote che si usano per comprare e pagare",
+       "example": "Non abbiamo abbastanza denaro per comprare una casa nuova.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "antica moneta d'argento usata dai Romani e nel Medioevo",
+       "example": "Nel museo sono esposti alcuni denari d'argento dell'epoca imperiale.",
+       "cefr": "C1",
+       "grammar": {
+        "countability": "Count"
+       },
+       "labels": {
+        "time": "historical"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "fenomeno",
+   "lexemes": [
+    {
+     "lemma": "fenomeno",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/feˈnɔ.me.no/",
+       "reading": "fenòmeno"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "fatto o evento che si può osservare in natura o nella società",
+       "example": "Il riscaldamento globale è un fenomeno che preoccupa molti scienziati.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "persona con capacità straordinarie, che stupisce tutti",
+       "example": "Segna sempre, in campo quel ragazzo è davvero un fenomeno!",
+       "cefr": "B2",
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "museo",
+   "lexemes": [
+    {
+     "lemma": "museo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/muˈzɛ.o/",
+       "reading": "musèo"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "edificio dove si conservano e si mostrano al pubblico opere d'arte o oggetti importanti",
+       "example": "Domenica andiamo al museo a vedere una mostra di pittura.",
+       "cefr": "A1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "comprare",
+   "lexemes": [
+    {
+     "lemma": "comprare",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "auxiliary": "have",
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/komˈpra.re/",
+       "reading": "compràre"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "ottenere una cosa pagando una somma di denaro",
+       "example": "Domani compriamo il pane e la frutta al mercato.",
+       "cefr": "A1",
+       "frames": [
+        "comprare qualcosa a qualcuno",
+        "comprare qualcosa da qualcuno"
+       ],
+       "antonyms": [
+        {
+         "lemma": "vendere",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "dare denaro o favori a una persona per farla agire in modo disonesto",
+       "example": "Hanno cercato di comprare il giudice con molti soldi.",
+       "cefr": "B2",
+       "frames": [
+        "comprare qualcuno"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.85,
+  "entry": {
+   "language": "it",
+   "headword": "mantenere",
+   "lexemes": [
+    {
+     "lemma": "mantenere",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "2",
+      "irregular": true,
+      "auxiliary": "have",
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/man.teˈne.re/",
+       "reading": "mantenére"
+      }
+     ],
+     "forms": [
+      {
+       "form": "mantengo",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtɛn.ɡo/"
+       },
+       "reading": "mantèngo"
+      },
+      {
+       "form": "mantieni",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtjɛ.ni/"
+       },
+       "reading": "mantièni"
+      },
+      {
+       "form": "mantiene",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtjɛ.ne/"
+       },
+       "reading": "mantiène"
+      },
+      {
+       "form": "manteniamo",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "it-IT": "/man.teˈnja.mo/"
+       },
+       "reading": "manteniàmo"
+      },
+      {
+       "form": "mantengono",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "it-IT": "/manˈtɛn.ɡo.no/"
+       },
+       "reading": "mantèngono"
+      },
+      {
+       "form": "mantenni",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "1",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtenːi/"
+       },
+       "reading": "manténni"
+      },
+      {
+       "form": "mantenne",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtenːe/"
+       },
+       "reading": "manténne"
+      },
+      {
+       "form": "manterrò",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/man.teˈrːɔ/"
+       },
+       "reading": "manterrò"
+      },
+      {
+       "form": "mantenga",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/manˈtɛn.ɡa/"
+       },
+       "reading": "mantènga"
+      },
+      {
+       "form": "mantenuto",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "it-IT": "/man.teˈnu.to/"
+       },
+       "reading": "mantenùto"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "conservare qualcosa nello stesso stato o nella stessa condizione nel tempo",
+       "example": "Cerca di mantenere la calma anche nei momenti difficili.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "dare a qualcuno il denaro e le cose necessarie per vivere",
+       "example": "Con un solo stipendio mantiene moglie e tre figli.",
+       "cefr": "B1",
+       "frames": [
+        "mantenere qualcuno",
+        "mantenersi con qualcosa"
+       ]
+      },
+      {
+       "definition": "fare davvero ciò che si è promesso, rispettare un impegno",
+       "example": "Non preoccuparti, manterrò la promessa che ti ho fatto.",
+       "cefr": "B1",
+       "frames": [
+        "mantenere la parola",
+        "mantenere una promessa"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "tenere",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.87,
+  "entry": {
+   "language": "it",
+   "headword": "iniziare",
+   "lexemes": [
+    {
+     "lemma": "iniziare",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Both",
+      "auxiliary": "both",
+      "note": "avere when transitive, essere when intransitive"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/i.nitˈtsja.re/",
+       "reading": "iniziàre"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "cominciare a fare qualcosa, dare avvio a un'attività",
+       "example": "Domani inizio a lavorare in un nuovo ufficio.",
+       "cefr": "A1",
+       "frames": [
+        "iniziare qcs",
+        "iniziare a + inf"
+       ],
+       "grammar": {
+        "valency": "Tr",
+        "auxiliary": "have"
+       },
+       "antonyms": [
+        {
+         "lemma": "finire",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "avere principio, cominciare in un certo momento o luogo",
+       "example": "A che ora inizia la lezione di inglese?",
+       "cefr": "A2",
+       "grammar": {
+        "valency": "Intr",
+        "auxiliary": "be"
+       },
+       "antonyms": [
+        {
+         "lemma": "finire",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "introdurre qualcuno alla conoscenza o alla pratica di un'arte, di un culto",
+       "example": "Fu il nonno a iniziarlo alla pesca da bambino.",
+       "cefr": "C1",
+       "frames": [
+        "iniziare qcn a qcs"
+       ],
+       "grammar": {
+        "valency": "Tr",
+        "auxiliary": "have"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.89,
+  "entry": {
+   "language": "it",
+   "headword": "continuare",
+   "lexemes": [
+    {
+     "lemma": "continuare",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "valency": "Both",
+      "auxiliary": "both",
+      "irregular": false,
+      "note": "present stressed on -ti-: contìnuo, contìnui, contìnua, contìnuano; avere when transitive"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/kon.ti.nuˈa.re/",
+       "reading": "continuàre"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "andare avanti a fare qualcosa senza fermarsi o dopo una pausa",
+       "example": "Se continui a correre così, domani sarai stanchissimo.",
+       "cefr": "A2",
+       "frames": [
+        "continuare qcs",
+        "continuare a + inf"
+       ],
+       "grammar": {
+        "valency": "Both"
+       },
+       "antonyms": [
+        {
+         "lemma": "smettere",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "durare ancora nel tempo, non finire",
+       "example": "La pioggia è continuata per tutta la notte.",
+       "cefr": "B1",
+       "grammar": {
+        "valency": "Intr"
+       },
+       "antonyms": [
+        {
+         "lemma": "finire",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "estendersi ancora nello spazio, andare oltre un certo punto",
+       "example": "Oltre il ponte la strada continua fino al mare.",
+       "cefr": "B1",
+       "grammar": {
+        "valency": "Intr"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.82,
+  "entry": {
+   "language": "it",
+   "headword": "recente",
+   "lexemes": [
+    {
+     "lemma": "recente",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/re.ˈtʃɛn.te/",
+       "reading": "recènte"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "che è avvenuto, nato o stato fatto da poco tempo",
+       "example": "Secondo uno studio recente, i giovani leggono sempre meno giornali.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "remoto",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.82,
+  "entry": {
+   "language": "it",
+   "headword": "strano",
+   "lexemes": [
+    {
+     "lemma": "strano",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈstra.no/",
+       "reading": "stràno"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "diverso dal solito, che sorprende o non si capisce facilmente",
+       "example": "Mi sembra strano che non abbia ancora risposto al messaggio.",
+       "cefr": "A2",
+       "frames": [
+        "è strano che + congiuntivo",
+        "sembrare strano a qualcuno"
+       ],
+       "antonyms": [
+        {
+         "lemma": "normale",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "straniero",
+       "pos": "ADJ",
+       "why": "looks similar and recalls English 'stranger', but straniero means foreign, strano means strange"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "europeo",
+   "lexemes": [
+    {
+     "lemma": "europeo",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/eu.roˈpɛ.o/",
+       "reading": "europèo"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "del continente che comprende Italia, Francia, Germania e molti altri paesi",
+       "example": "Molti studenti europei passano un anno in un'università straniera.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "che riguarda l'Unione politica ed economica di molti stati del continente",
+       "example": "Domenica si vota per eleggere il nuovo Parlamento europeo.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "Europa",
+       "pos": "PROPN"
+      }
+     ]
+    },
+    {
+     "lemma": "europeo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/eu.roˈpɛ.o/",
+       "reading": "europèo"
+      }
+     ],
+     "forms": [
+      {
+       "form": "europea",
+       "features": {
+        "Gender": "Fem",
+        "Number": "Sing"
+       },
+       "reading": "europèa"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "persona nata o che vive in un paese del continente di Italia e Francia",
+       "example": "Per tanti europei l'estate significa vacanze al mare.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "campionato sportivo tra le squadre nazionali dei paesi del continente",
+       "example": "Quest'estate guarderemo gli Europei di calcio con gli amici.",
+       "cefr": "B1",
+       "grammar": {
+        "number": "Plur"
+       },
+       "labels": {
+        "domain": "sport"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "europeo",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "minimo",
+   "lexemes": [
+    {
+     "lemma": "minimo",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false,
+      "note": "superlativo di piccolo"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈmi.ni.mo/",
+       "reading": "mìnimo"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "il più piccolo o il più basso possibile o consentito",
+       "example": "Non ho la minima idea di dove abbia messo le chiavi.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "massimo",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "molto piccolo, di poca importanza o quasi nullo",
+       "example": "Tra le due versioni ci sono soltanto differenze minime.",
+       "cefr": "B2"
+      }
+     ]
+    },
+    {
+     "lemma": "minimo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈmi.ni.mo/",
+       "reading": "mìnimo"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "la quantità o il grado più basso possibile o richiesto",
+       "example": "Questa settimana ho dormito il minimo indispensabile.",
+       "cefr": "B1",
+       "frames": [
+        "al minimo",
+        "come minimo",
+        "un minimo di + sost."
+       ],
+       "antonyms": [
+        {
+         "lemma": "massimo",
+         "pos": "NOUN"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "minimo",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "bellezza",
+   "lexemes": [
+    {
+     "lemma": "bellezza",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/bel.ˈlet.tsa/",
+       "reading": "bellézza"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "qualità di ciò che è piacevole da guardare o che colpisce l'animo",
+       "example": "Tutti restano colpiti dalla bellezza di questo paesaggio di montagna.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Mass"
+       },
+       "frames": [
+        "che bellezza!"
+       ],
+       "antonyms": [
+        {
+         "lemma": "bruttezza",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "persona o cosa che piace molto per il suo aspetto",
+       "example": "Le bellezze artistiche della città attirano turisti da tutto il mondo.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "definition": "quantità grande, detta per sottolineare quanto è alta",
+       "example": "Ho aspettato in fila la bellezza di tre ore!",
+       "cefr": "B2",
+       "frames": [
+        "la bellezza di + quantità"
+       ],
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "abstract_noun_of",
+       "lemma": "bello",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.82,
+  "entry": {
+   "language": "it",
+   "headword": "addirittura",
+   "lexemes": [
+    {
+     "lemma": "addirittura",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/a.dːi.riˈtːu.ra/",
+       "reading": "addirittùra"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "perfino, per indicare che qualcosa va oltre quanto ci si aspetta",
+       "example": "Quel giorno faceva così freddo che è addirittura nevicato in città.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "esclamazione di stupore davanti a qualcosa che sembra esagerato",
+       "example": "Hai aspettato tre ore? Addirittura! Potevi chiamarmi prima.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "direttamente, senza passaggi intermedi né esitazioni",
+       "example": "Invece di scrivere all'ufficio, rivolgiti addirittura al direttore.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.82,
+  "entry": {
+   "language": "it",
+   "headword": "malattia",
+   "lexemes": [
+    {
+     "lemma": "malattia",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ma.laˈtːi.a/",
+       "reading": "malattìa"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "alterazione della salute del corpo o della mente",
+       "example": "Mio nonno ha una malattia al cuore da molti anni.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "salute",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "passione molto forte, quasi un'ossessione, per qualcosa",
+       "example": "Per lui il calcio è una vera malattia.",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true,
+        "formality": "informal"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "malato",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.84,
+  "entry": {
+   "language": "it",
+   "headword": "pressione",
+   "lexemes": [
+    {
+     "lemma": "pressione",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/preˈsːjo.ne/",
+       "reading": "pressióne"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "forza che un gas o un liquido esercita su una superficie",
+       "example": "La pressione dell'aria diminuisce quando si sale in montagna.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "forza del sangue contro le pareti delle arterie",
+       "example": "Mio nonno si misura la pressione ogni mattina dopo colazione.",
+       "cefr": "B1",
+       "frames": [
+        "pressione alta/bassa",
+        "misurare la pressione"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "spinta leggera o forte fatta con la mano o il dito su qualcosa",
+       "example": "Basta una leggera pressione sul tasto per accendere la radio.",
+       "cefr": "B2",
+       "frames": [
+        "pressione su qc"
+       ],
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "definition": "insistenza o influenza usata per spingere qualcuno ad agire",
+       "example": "Molti genitori fanno pressione sui figli per avere voti migliori.",
+       "cefr": "B2",
+       "frames": [
+        "fare pressione su qn",
+        "subire pressioni"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "condizione di forte tensione dovuta a impegni o responsabilità",
+       "example": "In questo periodo al lavoro sono sempre sotto pressione.",
+       "cefr": "B2",
+       "frames": [
+        "essere sotto pressione"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.81,
+  "entry": {
+   "language": "it",
+   "headword": "immediatamente",
+   "lexemes": [
+    {
+     "lemma": "immediatamente",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/imːe.dja.taˈmen.te/",
+       "reading": "immediataménte"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "subito, senza aspettare e senza perdere tempo",
+       "example": "Se senti questo allarme, esci immediatamente dall'edificio.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "direttamente, senza niente in mezzo nello spazio o nel tempo",
+       "example": "La farmacia si trova immediatamente dopo la piazza, sulla sinistra.",
+       "cefr": "B2",
+       "frames": [
+        "immediatamente dopo/prima",
+        "immediatamente sopra/sotto"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "immediato",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.83,
+  "entry": {
+   "language": "it",
+   "headword": "attualmente",
+   "lexemes": [
+    {
+     "lemma": "attualmente",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/atːu.al.ˈmen.te/",
+       "reading": "attualménte"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "nel periodo presente, in questo momento, oggi",
+       "example": "Attualmente lavoro in una piccola azienda vicino a casa.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "attuale",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

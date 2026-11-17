@@ -204,10 +204,11 @@ def apply(base, patch):
 
 def system_prompt(lang):
     """The v4 writer's rules, then the mending instructions in place of its output section."""
-    rules, _, _ = system_prompt_v4(lang).partition("\n# Output")
-    from prompting import SCHEMA_EXAMPLE_V4
+    # the rules only: a mend returns a patch, so the writer's example entries would show it the wrong answer
+    rules = system_prompt_v4(lang).partition("\n# Output")[0].partition("# Examples")[0].rstrip()
+    from prompting import schema_example_v4
     mend = (HERE / "prompts" / "entry_mender" / f"{MEND_VERSION.removeprefix('mend-')}.md").read_text()
-    return f"{rules}\n# The shape of an entry\n\n{SCHEMA_EXAMPLE_V4}\n\n{mend}"
+    return f"{rules}\n\n# The shape of an entry\n\n{schema_example_v4(PROMPT_VERSION)}\n\n{mend}"
 
 
 def user_prompt(row, base):

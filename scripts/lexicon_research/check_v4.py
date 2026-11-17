@@ -38,7 +38,7 @@ ENGLISH = {"the", "of", "and", "that", "which", "who", "with", "from", "for", "i
 NEEDS_READING = {"uk", "it"}
 VOWELS = "aeiouàèéìíòóùаеєиіїоуюя"
 ACUTE = "́"
-FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias")
+FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark")
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
 SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know")
 
@@ -108,6 +108,8 @@ def check(lang, entry, inventories, witness):
         for p in lx.get("pronunciations", []):
             if p.get("variety") in inventories and (left := outside(p.get("ipa", ""), inventories[p["variety"]])):
                 problems.append(("IPA outside the symbol list", f"{p['ipa']} has {left}"))
+            if ingest_v4.dotted(p.get("ipa", "")) != p.get("ipa", ""):
+                problems.append(("syllable dot missing before a stress mark", p["ipa"]))
         if lang in NEEDS_READING and " " not in lemma and sum(c in VOWELS for c in lemma) > 1 and not any(p.get("reading") for p in lx.get("pronunciations", [])):
             problems.append(("no stress reading", lx.get("lemma")))
         if witness is not None:

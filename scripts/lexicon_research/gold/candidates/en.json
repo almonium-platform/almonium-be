@@ -1,0 +1,1251 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.82,
+  "entry": {
+   "language": "en",
+   "headword": "hill",
+   "lexemes": [
+    {
+     "lemma": "hill",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈhɪl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈhɪl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "an area of land that is higher than the land around it",
+       "example": "We climbed to the top of the hill to watch the sunset.",
+       "cefr": "A2",
+       "frames": [
+        "on a hill",
+        "up/down a hill"
+       ],
+       "antonyms": [
+        {
+         "lemma": "valley",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "a part of a road or path that slopes up or down",
+       "example": "Be careful, there's a steep hill just after the bridge.",
+       "cefr": "B1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.83,
+  "entry": {
+   "language": "en",
+   "headword": "lake",
+   "lexemes": [
+    {
+     "lemma": "lake",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈleɪk/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈleɪk/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a large area of water with land all around it",
+       "example": "We went swimming in the lake every summer morning.",
+       "cefr": "A1",
+       "frames": [
+        "on the lake",
+        "in the lake"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.83,
+  "entry": {
+   "language": "en",
+   "headword": "owner",
+   "lexemes": [
+    {
+     "lemma": "owner",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈoʊ.nɚ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈəʊ.nə/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a person who has something that legally belongs to them",
+       "example": "Are you the owner of this car?",
+       "cefr": "A2",
+       "frames": [
+        "the owner of sth"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "agent_noun_of",
+       "lemma": "own",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.84,
+  "entry": {
+   "language": "en",
+   "headword": "airport",
+   "lexemes": [
+    {
+     "lemma": "airport",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɛɹ.pɔːɹt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈeə.pɔːt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a place where planes take off and land, with buildings for passengers",
+       "example": "We need to be at the airport two hours before our flight.",
+       "cefr": "A1",
+       "frames": [
+        "at the airport"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.99,
+  "entry": {
+   "language": "en",
+   "headword": "consider",
+   "lexemes": [
+    {
+     "lemma": "consider",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/kən.ˈsɪd.ɚ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/kən.ˈsɪd.ə/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "to think carefully about something, especially before making a decision",
+       "example": "We're considering moving to a smaller flat next year.",
+       "cefr": "B1",
+       "frames": [
+        "consider sth",
+        "consider doing sth"
+       ]
+      },
+      {
+       "definition": "to have a particular opinion about someone or something",
+       "example": "Many people consider him the best player of his generation.",
+       "cefr": "B1",
+       "frames": [
+        "consider sb/sth (to be) sth",
+        "consider that ..."
+       ]
+      },
+      {
+       "definition": "to think about a particular fact when judging or planning something",
+       "example": "You also have to consider the cost of getting there.",
+       "cefr": "B2",
+       "frames": [
+        "consider sth",
+        "consider how/what ..."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 5.01,
+  "entry": {
+   "language": "en",
+   "headword": "allow",
+   "lexemes": [
+    {
+     "lemma": "allow",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ə.ˈlaʊ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ə.ˈlaʊ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "to let someone do something or let something happen",
+       "example": "Are dogs allowed in the restaurant?",
+       "cefr": "A2",
+       "frames": [
+        "allow sb to do sth",
+        "allow sth",
+        "be allowed to do sth"
+       ],
+       "antonyms": [
+        {
+         "lemma": "forbid",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "to make it possible for someone to do something",
+       "example": "The new bridge allows people to cross the river safely.",
+       "cefr": "B1",
+       "frames": [
+        "allow sb to do sth",
+        "allow sth"
+       ]
+      },
+      {
+       "definition": "to plan to use a certain amount of time or money for something",
+       "example": "You should allow about two hours for the journey.",
+       "cefr": "B2",
+       "frames": [
+        "allow sth for sth"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.57,
+  "entry": {
+   "language": "en",
+   "headword": "afford",
+   "lexemes": [
+    {
+     "lemma": "afford",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/əˈfɔːɹd/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/əˈfɔːd/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "to have enough money to pay for something",
+       "example": "We can't afford a new car this year.",
+       "cefr": "B1",
+       "frames": [
+        "can afford sth",
+        "can afford to do sth"
+       ]
+      },
+      {
+       "definition": "to be able to do something without causing problems for yourself",
+       "example": "You can't afford to miss any more classes before the exam.",
+       "cefr": "B2",
+       "frames": [
+        "can't afford to do sth",
+        "can't afford sth"
+       ]
+      },
+      {
+       "definition": "to give or provide something such as a chance or a view",
+       "example": "The top floor affords a wonderful view of the sea.",
+       "cefr": "C1",
+       "frames": [
+        "afford sb sth"
+       ],
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 5.03,
+  "entry": {
+   "language": "en",
+   "headword": "write",
+   "lexemes": [
+    {
+     "lemma": "write",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "irregular": true,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɹaɪt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɹaɪt/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "wrote",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "en-US": "/ˈɹoʊt/",
+        "en-GB": "/ˈɹəʊt/"
+       }
+      },
+      {
+       "form": "written",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "en-US": "/ˈɹɪt.ən/",
+        "en-GB": "/ˈɹɪt.ən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "to make letters or words on paper or a screen with a pen, keyboard, etc.",
+       "example": "Please write your name at the top of the page.",
+       "cefr": "A1",
+       "grammar": {
+        "valency": "Both"
+       },
+       "antonyms": [
+        {
+         "lemma": "read",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "to produce a book, article, song or other text for people to read or hear",
+       "example": "He has written three novels and dozens of short stories.",
+       "cefr": "A2",
+       "frames": [
+        "write about sth",
+        "write for sth"
+       ],
+       "grammar": {
+        "valency": "Both"
+       }
+      },
+      {
+       "definition": "to send a letter, email or message to someone",
+       "example": "I'll write to you as soon as we arrive.",
+       "cefr": "A2",
+       "frames": [
+        "write to sb",
+        "write sb sth"
+       ],
+       "grammar": {
+        "valency": "Both"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "right",
+       "pos": "ADJ",
+       "why": "sounds exactly the same as right (and rite)"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.78,
+  "entry": {
+   "language": "en",
+   "headword": "aware",
+   "lexemes": [
+    {
+     "lemma": "aware",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/əˈwɛɹ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/əˈweə/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "knowing that something exists, is true or is happening",
+       "example": "Were you aware that the shop closes early on Sundays?",
+       "cefr": "B1",
+       "frames": [
+        "aware of sth",
+        "aware that…"
+       ],
+       "grammar": {
+        "position": "Pred"
+       },
+       "antonyms": [
+        {
+         "lemma": "unaware",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "knowing a lot about a subject and caring about it",
+       "example": "Young people today are very environmentally aware.",
+       "cefr": "B2",
+       "frames": [
+        "politically/socially aware"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.78,
+  "entry": {
+   "language": "en",
+   "headword": "eastern",
+   "lexemes": [
+    {
+     "lemma": "eastern",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false,
+      "position": "Attr"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈiː.stɚn/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈiː.stən/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "in, from or facing the part of a place where the sun rises",
+       "example": "Heavy snow is expected across the eastern parts of the country.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "western",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "from or connected with the countries of Asia, especially China and Japan",
+       "example": "Many people in the city now practise Eastern forms of meditation.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "western",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "east",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.8,
+  "entry": {
+   "language": "en",
+   "headword": "adult",
+   "lexemes": [
+    {
+     "lemma": "adult",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/əˈdʌlt/"
+      },
+      {
+       "variety": "en-US",
+       "ipa": "/ˈæd.ʌlt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈæd.ʌlt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/əˈdʌlt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a person who is fully grown and no longer a child",
+       "example": "Tickets cost ten dollars for adults and five for children.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "child",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "an animal or plant that has reached its full size",
+       "example": "Young birds look quite different from the adults.",
+       "cefr": "B2"
+      }
+     ]
+    },
+    {
+     "lemma": "adult",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/əˈdʌlt/"
+      },
+      {
+       "variety": "en-US",
+       "ipa": "/ˈæd.ʌlt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈæd.ʌlt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/əˈdʌlt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "fully grown, or for people who are fully grown",
+       "example": "She spent most of her adult life working abroad.",
+       "cefr": "B1",
+       "grammar": {
+        "position": "Attr"
+       }
+      },
+      {
+       "definition": "behaving in a sensible, calm and grown-up way",
+       "example": "Let's try to discuss this in an adult manner.",
+       "cefr": "B2",
+       "antonyms": [
+        {
+         "lemma": "childish",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "showing sex openly and meant only for grown-ups",
+       "example": "The channel shows adult films late at night.",
+       "cefr": "B2",
+       "grammar": {
+        "position": "Attr"
+       },
+       "labels": {
+        "attitude": [
+         "euphemistic"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.8,
+  "entry": {
+   "language": "en",
+   "headword": "institute",
+   "lexemes": [
+    {
+     "lemma": "institute",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɪn.stɪ.tuːt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɪn.stɪ.tjuːt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "an organization or building for research, study or teaching in one subject",
+       "example": "She works at a research institute for marine biology.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "institution",
+       "pos": "NOUN",
+       "why": "institution is a wider word for any large organization or long-established custom"
+      }
+     ]
+    },
+    {
+     "lemma": "institute",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɪn.stɪ.tuːt/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɪn.stɪ.tjuːt/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "to officially start or introduce a rule, system or legal action",
+       "example": "The company will institute a new policy on working from home.",
+       "cefr": "C1",
+       "frames": [
+        "institute sth",
+        "institute proceedings against sb"
+       ],
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.8,
+  "entry": {
+   "language": "en",
+   "headword": "senate",
+   "lexemes": [
+    {
+     "lemma": "senate",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈsɛn.ət/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈsen.ət/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "the smaller of the two groups of elected politicians that make laws in some countries",
+       "example": "The bill must now be approved by the Senate.",
+       "cefr": "B2",
+       "labels": {
+        "domain": "politics"
+       }
+      },
+      {
+       "definition": "the most important governing council in ancient Rome",
+       "example": "The emperor often ignored the advice of the senate.",
+       "cefr": "C1",
+       "labels": {
+        "time": "historical"
+       }
+      },
+      {
+       "definition": "the group of people who control a university and its teaching",
+       "example": "Our university senate voted to change the exam rules.",
+       "cefr": "C1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.82,
+  "entry": {
+   "language": "en",
+   "headword": "mid",
+   "lexemes": [
+    {
+     "lemma": "mid",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈmɪd/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈmɪd/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "in the central part of a period of time, place or activity",
+       "example": "We usually go on holiday in mid August.",
+       "cefr": "B1",
+       "grammar": {
+        "position": "Attr"
+       }
+      },
+      {
+       "definition": "of only average or poor quality; not very good",
+       "example": "Honestly, I thought the new album was kind of mid.",
+       "cefr": "C1",
+       "grammar": {
+        "position": "Pred"
+       },
+       "labels": {
+        "formality": "slang"
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "mid",
+     "pos": "ADP",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈmɪd/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈmɪd/"
+      }
+     ],
+     "spellings": [
+      {
+       "text": "mid"
+      },
+      {
+       "text": "'mid"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "surrounded by or among other things or people",
+       "example": "The old chapel still stood mid the ruins of the town.",
+       "cefr": "C2",
+       "labels": {
+        "style": [
+         "literary",
+         "poetic"
+        ]
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "amid",
+       "pos": "ADP"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.87,
+  "entry": {
+   "language": "en",
+   "headword": "hall",
+   "lexemes": [
+    {
+     "lemma": "hall",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈhɔːl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈhɔːl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a large room or building used for meetings, concerts or other public events",
+       "example": "Hundreds of people filled the concert hall last night.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "the area just inside the front door of a house, or a passage between rooms",
+       "example": "You can leave your wet boots in the hall.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "a building where university students live during their studies",
+       "example": "Most first-year students live in halls near the campus.",
+       "cefr": "B2",
+       "frames": [
+        "hall of residence",
+        "live in halls"
+       ],
+       "regions": [
+        {
+         "variety": "en-GB",
+         "extent": "only"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "haul",
+       "pos": "VERB",
+       "why": "sounds the same as haul, to pull something heavy"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.72,
+  "entry": {
+   "language": "en",
+   "headword": "johnson",
+   "lexemes": [
+    {
+     "lemma": "johnson",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈdʒɑːn.sən/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈdʒɒn.sən/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "the male sexual organ; a man's penis",
+       "example": "He joked that the icy lake water had shrunk his johnson.",
+       "cefr": "C2",
+       "labels": {
+        "formality": "slang",
+        "attitude": [
+         "vulgar",
+         "humorous"
+        ]
+       },
+       "regions": [
+        {
+         "variety": "en-US",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.75,
+  "entry": {
+   "language": "en",
+   "headword": "criminal",
+   "lexemes": [
+    {
+     "lemma": "criminal",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈkɹɪm.ə.nəl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈkɹɪm.ɪ.nəl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a person who has broken the law, especially in a serious way",
+       "example": "Police finally caught the criminals who robbed the bank.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "crime",
+       "pos": "NOUN"
+      }
+     ]
+    },
+    {
+     "lemma": "criminal",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈkɹɪm.ə.nəl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈkɹɪm.ɪ.nəl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "involving illegal acts, or dealing with the law that punishes them",
+       "example": "Do you have a criminal record of any kind?",
+       "cefr": "B1",
+       "grammar": {
+        "position": "Attr"
+       }
+      },
+      {
+       "definition": "morally wrong or very foolish, and deserving strong disapproval",
+       "example": "It's criminal to throw away so much good food.",
+       "cefr": "B2",
+       "frames": [
+        "it is criminal to do sth"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "crime",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.85,
+  "entry": {
+   "language": "en",
+   "headword": "royal",
+   "lexemes": [
+    {
+     "lemma": "royal",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɹɔɪ.əl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɹɔɪ.əl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "belonging to or connected with a king or queen and their family",
+       "example": "Tourists gather outside the palace to watch the royal wedding.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "very fine and impressive, as if meant for a king or queen",
+       "example": "The whole village gave us a royal welcome when we arrived.",
+       "cefr": "C1",
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "royal",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɹɔɪ.əl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɹɔɪ.əl/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "a member of the family of a king or queen",
+       "example": "Crowds waited for hours to see the royals arrive.",
+       "cefr": "B2",
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 5.09,
+  "entry": {
+   "language": "en",
+   "headword": "perhaps",
+   "lexemes": [
+    {
+     "lemma": "perhaps",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/pɚˈhæps/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/pəˈhæps/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "used to say that something is possible but not certain",
+       "example": "Perhaps the train is late because of the snow.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "definitely",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "used to make a request, offer or suggestion sound more polite",
+       "example": "Perhaps you could send me the details by email?",
+       "cefr": "B1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 5.24,
+  "entry": {
+   "language": "en",
+   "headword": "instead",
+   "lexemes": [
+    {
+     "lemma": "instead",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "comparable": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ɪnˈstɛd/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ɪnˈsted/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "in the place of someone or something else; as a different choice",
+       "example": "There was no rice left, so we had pasta instead.",
+       "cefr": "A2",
+       "frames": [
+        "instead of sth",
+        "instead of doing sth"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

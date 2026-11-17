@@ -677,6 +677,14 @@
         "both"
        ],
        "description": "The perfect auxiliary, named language-neutrally: have for haben/avoir/avere/ter, be for sein/être/essere."
+      },
+      "note": {
+       "type": "string",
+       "maxLength": 120,
+       "description": "Anything the keys above cannot say, for a human reader."
+      },
+      "comparable": {
+       "type": "boolean"
       }
      }
     },

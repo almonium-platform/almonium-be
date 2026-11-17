@@ -192,3 +192,16 @@ def test_the_gate_knows_which_spellings_written_entries_cover(out, monkeypatch):
     lemma_gate.register("en", entry("tyre", lexeme("tyre", spellings=[{"text": "tyre"}, {"text": "tire"}])))
     lemma_gate.register("en", {"error": "not valid"})
     assert lemma_gate.covered("en", "tire") == [("tyre", "NOUN")]
+
+
+def test_a_transcription_gets_the_dot_it_lacks_before_a_stress_mark():
+    assert ingest_v4.dotted("/əˈlaʊ/") == "/ə.ˈlaʊ/"
+    assert ingest_v4.dotted("/ˌɪn.təˈɹɛs.tɪd/") == "/ˌɪn.tə.ˈɹɛs.tɪd/"
+    for already in ("/ˈliːd/", "/ə.ˈlaʊ/", "/ˈmʌ.ðɚ ˈɪn.lɔː/", "/ˈɡɪv ˈʌp/"):
+        assert ingest_v4.dotted(already) == already
+    raw = entry("allow", lexeme("allow", "VERB", pronunciations=[{"variety": "en-US", "ipa": "/əˈlaʊ/"}, {"variety": "en-GB", "ipa": "/ə.ˈlaʊ/"}],
+                                forms=[{"form": "allowed", "features": {"Tense": "Past"}, "ipa": {"en-US": "/əˈlaʊd/"}}]))
+    clean = ingest_v4.clean_entry("en", raw, META)
+    assert [p["ipa"] for p in clean["lexemes"][0]["pronunciations"]] == ["/ə.ˈlaʊ/", "/ə.ˈlaʊ/"]
+    assert clean["lexemes"][0]["forms"][0]["ipa"] == {"en-US": "/ə.ˈlaʊd/"} and clean["syllable_dots_added"] == 2
+    assert raw["lexemes"][0]["pronunciations"][0]["ipa"] == "/əˈlaʊ/"  # the written entry is left as it was

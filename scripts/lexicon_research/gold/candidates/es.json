@@ -1,0 +1,1371 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "gobernador",
+   "lexemes": [
+    {
+     "lemma": "gobernador",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count",
+      "note": "feminine: gobernadora"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ɡo.beɾ.naˈdoɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ɡo.beɾ.naˈdoɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "persona que tiene el mando político de un estado, provincia o región",
+       "example": "El nuevo gobernador prometió mejorar las carreteras del estado.",
+       "cefr": "B1",
+       "frames": [
+        "gobernador de + lugar"
+       ]
+      },
+      {
+       "definition": "persona que dirige un banco central u otra institución pública importante",
+       "example": "Mañana hablará el gobernador del banco central sobre la inflación.",
+       "cefr": "C1",
+       "frames": [
+        "gobernador de + institución"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "agent_noun_of",
+       "lemma": "gobernar",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "hotel",
+   "lexemes": [
+    {
+     "lemma": "hotel",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/oˈtel/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/oˈtel/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "edificio donde los viajeros pagan por dormir y a veces comer",
+       "example": "¿Puedes recomendarme un hotel barato cerca de la estación?",
+       "cefr": "A1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "período",
+   "lexemes": [
+    {
+     "lemma": "período",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "spellings": [
+      {
+       "text": "período"
+      },
+      {
+       "text": "periodo"
+      }
+     ],
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/peˈɾi.o.do/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/peˈɾi.o.do/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "espacio de tiempo que dura algo o que hay entre dos momentos",
+       "example": "Durante ese período vivíamos en una casa cerca del mar.",
+       "cefr": "B1",
+       "frames": [
+        "período de + sust."
+       ]
+      },
+      {
+       "definition": "sangre que la mujer expulsa cada mes por la vagina",
+       "example": "Cuando tengo el período me duele bastante la tripa.",
+       "cefr": "B1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "es",
+   "headword": "lunes",
+   "lexemes": [
+    {
+     "lemma": "lunes",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count",
+      "note": "same form in the plural: el lunes, los lunes"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ˈlu.nes/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ˈlu.nes/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "lunes",
+       "features": {
+        "Number": "Plur"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "día de la semana que va después del domingo y antes del martes",
+       "example": "Los lunes siempre me cuesta mucho levantarme temprano.",
+       "cefr": "A1",
+       "frames": [
+        "el lunes",
+        "los lunes"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.79,
+  "entry": {
+   "language": "es",
+   "headword": "compartir",
+   "lexemes": [
+    {
+     "lemma": "compartir",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": false,
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/kom.paɾˈtiɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/kom.paɾˈtiɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "usar o tener algo junto con otras personas, o darles una parte",
+       "example": "Durante la carrera compartí piso con dos estudiantes de medicina.",
+       "cefr": "A2",
+       "frames": [
+        "compartir algo con alguien"
+       ]
+      },
+      {
+       "definition": "tener la misma opinión, idea o sentimiento que otra persona",
+       "example": "No comparto tu punto de vista sobre este asunto.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "dar a conocer a otros información, fotos o experiencias, sobre todo en internet",
+       "example": "¿Puedes compartir el enlace en el grupo de la clase?",
+       "cefr": "A2",
+       "frames": [
+        "compartir algo con alguien"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.82,
+  "entry": {
+   "language": "es",
+   "headword": "participar",
+   "lexemes": [
+    {
+     "lemma": "participar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/paɾ.ti.θi.ˈpaɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/paɾ.ti.si.ˈpaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "intervenir con otras personas en una actividad, un juego o un acontecimiento",
+       "example": "¿Quieres participar en el concurso de fotografía del colegio?",
+       "cefr": "A2",
+       "frames": [
+        "participar en algo"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "tener algo en común con otra persona o cosa; compartir",
+       "example": "Ambos partidos participan de las mismas ideas sobre la economía.",
+       "cefr": "C1",
+       "frames": [
+        "participar de algo"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "labels": {
+        "formality": "formal"
+       }
+      },
+      {
+       "definition": "comunicar o hacer saber una noticia a alguien",
+       "example": "Nos complace participarles el nacimiento de nuestra primera hija.",
+       "cefr": "C2",
+       "frames": [
+        "participar algo a alguien"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.77,
+  "entry": {
+   "language": "es",
+   "headword": "elegir",
+   "lexemes": [
+    {
+     "lemma": "elegir",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": true,
+      "valency": "Tr",
+      "note": "e→i stem change; g→j before a and o"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/e.leˈxiɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/e.leˈxiɾ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "elijo",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "eliges",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elige",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elegimos",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "eligen",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elegí",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "eligió",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elegiré",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elija",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "elegido",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       }
+      },
+      {
+       "form": "eligiendo",
+       "features": {
+        "VerbForm": "Ger"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "tomar una cosa o persona entre varias porque se prefiere",
+       "example": "Puedes elegir el color que más te guste.",
+       "cefr": "A2",
+       "frames": [
+        "elegir algo",
+        "elegir entre varias cosas"
+       ]
+      },
+      {
+       "definition": "nombrar por votación a una persona para un cargo",
+       "example": "Cada cuatro años los vecinos eligen a su alcalde.",
+       "cefr": "B1",
+       "frames": [
+        "elegir a alguien",
+        "elegir a alguien + cargo"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.83,
+  "entry": {
+   "language": "es",
+   "headword": "estudiar",
+   "lexemes": [
+    {
+     "lemma": "estudiar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/es.tuˈdjaɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/es.tuˈdjaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "esforzarse por aprender algo leyendo, practicando o memorizando",
+       "example": "Esta noche tengo que estudiar para el examen de historia.",
+       "cefr": "A1",
+       "frames": [
+        "estudiar algo",
+        "estudiar para algo"
+       ],
+       "grammar": {
+        "valency": "Both"
+       }
+      },
+      {
+       "definition": "seguir los cursos de una carrera o materia en un centro de enseñanza",
+       "example": "Mi hermana estudia medicina en una universidad pública.",
+       "cefr": "A1",
+       "frames": [
+        "estudiar algo",
+        "estudiar en un lugar"
+       ],
+       "grammar": {
+        "valency": "Both"
+       }
+      },
+      {
+       "definition": "examinar algo con atención para entenderlo o tomar una decisión",
+       "example": "Vamos a estudiar tu propuesta con calma antes de responder.",
+       "cefr": "B1",
+       "grammar": {
+        "valency": "Tr"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "enorme",
+   "lexemes": [
+    {
+     "lemma": "enorme",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "note": "same form for masculine and feminine; plural enormes"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/eˈnoɾ.me/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/eˈnoɾ.me/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "muy grande en tamaño, cantidad o intensidad, mucho más de lo normal",
+       "example": "Vivimos al lado de un parque enorme lleno de árboles.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "diminuto",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.77,
+  "entry": {
+   "language": "es",
+   "headword": "genial",
+   "lexemes": [
+    {
+     "lemma": "genial",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true,
+      "note": "Same form for both genders; also used as an adverb in speech: pasarlo genial."
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/xe.ˈnjal/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/xe.ˈnjal/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "muy bueno, estupendo, que gusta mucho",
+       "example": "Tu plan para el fin de semana me parece genial.",
+       "cefr": "A2",
+       "labels": {
+        "formality": "informal"
+       },
+       "antonyms": [
+        {
+         "lemma": "horrible",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "que muestra un talento o una inteligencia extraordinarios",
+       "example": "Fue un escritor genial que cambió la novela moderna.",
+       "cefr": "B2"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "genio",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "directo",
+   "lexemes": [
+    {
+     "lemma": "directo",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/diˈɾek.to/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/diˈɾek.to/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "que va de un lugar a otro en línea recta o sin paradas",
+       "example": "¿Hay algún tren directo de aquí a la capital?",
+       "cefr": "A2"
+      },
+      {
+       "definition": "que ocurre o se hace sin nada ni nadie en medio",
+       "example": "Prefiero tratar con el dueño de forma directa.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "indirecto",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "que dice lo que piensa con claridad y sin rodeos",
+       "example": "Mi jefa es muy directa cuando algo no le gusta.",
+       "cefr": "B1"
+      },
+      {
+       "definition": "en gramática, complemento que recibe la acción del verbo sin preposición",
+       "example": "En esta oración, el libro es el complemento directo.",
+       "cefr": "B2",
+       "labels": {
+        "domain": "grammar"
+       },
+       "grammar": {
+        "position": "Attr"
+       },
+       "antonyms": [
+        {
+         "lemma": "indirecto",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "directo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/diˈɾek.to/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/diˈɾek.to/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "en boxeo, golpe que se da estirando el brazo hacia delante",
+       "example": "Lo tumbó con un directo a la mandíbula.",
+       "cefr": "C1",
+       "labels": {
+        "domain": "sport"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "responsable",
+   "lexemes": [
+    {
+     "lemma": "responsable",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/res.ponˈsa.ble/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/res.ponˈsa.ble/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "que tiene la obligación de cuidar algo o dar cuenta de ello",
+       "example": "Cada alumno es responsable de su propio material escolar.",
+       "cefr": "B1",
+       "frames": [
+        "responsable de algo",
+        "responsable de hacer algo"
+       ]
+      },
+      {
+       "definition": "que cumple sus obligaciones y actúa con cuidado y sensatez",
+       "example": "Mi hermana mayor siempre ha sido muy responsable con el dinero.",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "irresponsable",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "que es la causa de algo, generalmente malo, y debe pagar por ello",
+       "example": "Creen que el conductor fue responsable del accidente.",
+       "cefr": "B2",
+       "frames": [
+        "responsable de algo"
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "responsable",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Com",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/res.ponˈsa.ble/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/res.ponˈsa.ble/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "persona que dirige un grupo, un área o una actividad",
+       "example": "Hable usted con la responsable de ventas, por favor.",
+       "cefr": "B1",
+       "frames": [
+        "el/la responsable de algo"
+       ]
+      },
+      {
+       "definition": "persona que ha causado un daño o cometido un delito",
+       "example": "Los responsables del robo fueron detenidos ayer por la tarde.",
+       "cefr": "B2",
+       "frames": [
+        "el/la responsable de algo"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "concepto",
+   "lexemes": [
+    {
+     "lemma": "concepto",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/kon.ˈθep.to/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/kon.ˈsep.to/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "idea o representación mental que alguien se forma de algo",
+       "example": "Es difícil explicar el concepto de libertad a un niño.",
+       "cefr": "B1",
+       "frames": [
+        "el concepto de algo"
+       ]
+      },
+      {
+       "definition": "opinión o juicio que se tiene sobre una persona o cosa",
+       "example": "Tengo muy buen concepto de tu hermano desde siempre.",
+       "cefr": "B2",
+       "frames": [
+        "tener buen/mal concepto de alguien"
+       ]
+      },
+      {
+       "definition": "motivo o partida por la que se paga o se cobra dinero",
+       "example": "Cada mes pagamos cincuenta euros en concepto de mantenimiento.",
+       "cefr": "C1",
+       "frames": [
+        "en concepto de algo"
+       ],
+       "labels": {
+        "style": [
+         "official"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "matar",
+   "lexemes": [
+    {
+     "lemma": "matar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false,
+      "valency": "Tr",
+      "note": "literary passive may use the participle muerto (fue muerto)"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ma.ˈtaɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ma.ˈtaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "quitar la vida a una persona o a un animal",
+       "example": "Los cazadores no deben disparar a los ciervos más jóvenes ni matarlos.",
+       "cefr": "A2",
+       "frames": [
+        "matar a alguien"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "perder la vida en un accidente, o quitarse uno mismo la vida",
+       "example": "Casi te matas al bajar la escalera tan rápido.",
+       "cefr": "B1",
+       "grammar": {
+        "valency": "Refl",
+        "reflexive": true
+       }
+      },
+      {
+       "definition": "causar a alguien mucho dolor, cansancio o molestia",
+       "example": "Este calor de agosto me mata todas las tardes.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       },
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "esforzarse o trabajar muchísimo para conseguir algo",
+       "example": "Me mato a estudiar y siempre suspendo química.",
+       "cefr": "B2",
+       "frames": [
+        "matarse a + inf.",
+        "matarse por algo"
+       ],
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       },
+       "grammar": {
+        "valency": "Refl",
+        "reflexive": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.81,
+  "entry": {
+   "language": "es",
+   "headword": "café",
+   "lexemes": [
+    {
+     "lemma": "café",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ka.ˈfe/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ka.ˈfe/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "bebida oscura y caliente hecha con granos tostados y molidos",
+       "example": "¿Quieres tomar un café conmigo esta tarde?",
+       "cefr": "A1",
+       "frames": [
+        "café con leche",
+        "café solo"
+       ]
+      },
+      {
+       "definition": "semillas de un arbusto tropical que se tuestan y se muelen",
+       "example": "Este país exporta mucho café a Europa cada año.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "local donde se sirven bebidas y comidas ligeras",
+       "example": "Nos vemos en el café de la esquina a las cinco.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "café",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "note": "plural café or cafés"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ka.ˈfe/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ka.ˈfe/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "de color oscuro parecido al de la tierra o la madera",
+       "example": "Mi hermana tiene los ojos café y el pelo negro.",
+       "cefr": "A2",
+       "regions": [
+        {
+         "variety": "es-MX",
+         "extent": "only"
+        },
+        {
+         "variety": "es-CO",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "regional sense",
+  "zipf": 4.79,
+  "entry": {
+   "language": "es",
+   "headword": "recién",
+   "lexemes": [
+    {
+     "lemma": "recién",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/reˈθjen/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/reˈsjen/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "hace muy poco tiempo, usado delante de un participio",
+       "example": "Cuidado con la pared, que está recién pintada.",
+       "cefr": "B1",
+       "frames": [
+        "recién + participio"
+       ]
+      },
+      {
+       "definition": "hace un momento, justo antes de ahora",
+       "example": "Recién llegué a casa y ya me estás llamando.",
+       "cefr": "B1",
+       "regions": [
+        {
+         "variety": "es-MX",
+         "extent": "only"
+        },
+        {
+         "variety": "es-AR",
+         "extent": "only"
+        },
+        {
+         "variety": "es-CO",
+         "extent": "only"
+        }
+       ]
+      },
+      {
+       "definition": "solamente a partir de un momento determinado, no antes",
+       "example": "Recién mañana vamos a saber los resultados del examen.",
+       "cefr": "B2",
+       "regions": [
+        {
+         "variety": "es-AR",
+         "extent": "only"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "reciente",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.79,
+  "entry": {
+   "language": "es",
+   "headword": "ojo",
+   "lexemes": [
+    {
+     "lemma": "ojo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ˈo.xo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ˈo.xo/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "órgano de la cara con el que las personas y los animales ven",
+       "example": "Mi hermana tiene los ojos verdes, como nuestra abuela.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "capacidad especial para notar, juzgar o elegir bien algo",
+       "example": "Tienes muy buen ojo para elegir regalos.",
+       "cefr": "B2",
+       "frames": [
+        "tener (buen) ojo para algo"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "agujero pequeño de una aguja por donde pasa el hilo",
+       "example": "No consigo pasar el hilo por el ojo de la aguja.",
+       "cefr": "B2"
+      }
+     ]
+    },
+    {
+     "lemma": "ojo",
+     "pos": "INTJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ˈo.xo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ˈo.xo/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "expresión para avisar de un peligro o pedir atención",
+       "example": "¡Ojo, que el suelo está mojado y resbala!",
+       "cefr": "A2",
+       "frames": [
+        "¡ojo con algo!"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.78,
+  "entry": {
+   "language": "es",
+   "headword": "debajo",
+   "lexemes": [
+    {
+     "lemma": "debajo",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/de.ˈba.xo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/de.ˈba.xo/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "en un lugar inferior a otra cosa, a menudo cubierto por ella",
+       "example": "El gato duerme debajo de la cama todas las tardes.",
+       "cefr": "A1",
+       "frames": [
+        "debajo de algo"
+       ],
+       "antonyms": [
+        {
+         "lemma": "encima",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "en un nivel, cantidad o categoría menor que otro",
+       "example": "Esta noche las temperaturas estarán por debajo de cero.",
+       "cefr": "B1",
+       "frames": [
+        "por debajo de algo"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "antonyms": [
+        {
+         "lemma": "encima",
+         "pos": "ADV"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "abajo",
+       "pos": "ADV",
+       "why": "both mean 'below'; debajo usually takes de + noun (under something), abajo is used alone or for direction (downstairs, down)"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "exactamente",
+   "lexemes": [
+    {
+     "lemma": "exactamente",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ek.ˌsak.ta.ˈmen.te/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ek.ˌsak.ta.ˈmen.te/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "de manera precisa, sin ninguna diferencia ni error",
+       "example": "No sé exactamente cuántas personas vendrán a la fiesta.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "aproximadamente",
+         "pos": "ADV"
+        }
+       ]
+      },
+      {
+       "definition": "respuesta que muestra acuerdo total con lo que otro acaba de decir",
+       "example": "—¿Entonces el problema era la batería? —Exactamente, eso era.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "exacto",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.8,
+  "entry": {
+   "language": "es",
+   "headword": "principalmente",
+   "lexemes": [
+    {
+     "lemma": "principalmente",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/pɾin.θi.ˌpal.ˈmen.te/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/pɾin.si.ˌpal.ˈmen.te/"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "sobre todo, más que por cualquier otra cosa o razón",
+       "example": "Este pueblo vive principalmente del turismo y de la pesca.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "principal",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]
