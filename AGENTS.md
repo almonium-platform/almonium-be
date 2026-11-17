@@ -5,7 +5,9 @@ language-learning product. Read `docs/PROJECT_AUDIT.md` for a system map and
 known risks, `docs/AUTH_ARCHITECTURE_AUDIT.md` before authentication work, and
 `docs/DESIGN_PATTERNS.md` for the project's pattern catalogue. Read
 `docs/COPYRIGHT_AND_CATALOGUE.md` before changing the book catalogue, the
-copyright rules, or which books a reader's country may open.
+copyright rules, or which books a reader's country may open. Read `docs/LEXICON.md`
+before changing the dictionary: its shapes and prompts, the writers under
+`scripts/lexicon_research`, or the `learning/lexicon` package.
 
 ## Product stage: pre-launch
 
