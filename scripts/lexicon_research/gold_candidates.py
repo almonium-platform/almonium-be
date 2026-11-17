@@ -27,7 +27,11 @@ Where a taken entry breaks a rule the prompt got after the review, the correctio
 apart from the answer, in gold/own/<lang>.json: a list of {"headword", "path", "value", "why"}, the path
 being keys and list positions from the entry down ("lexemes.1.grammar.note").
 
-Usage: gold_candidates.py [--langs en,de] [--per-kind 2]
+For a language on trial the reviewer is also asked about the decisions taken for it (QUESTIONS), and a
+pilot too small to pick from by kind is reviewed whole, or in the part named: --words.
+
+Usage: gold_candidates.py [--langs en,de] [--per-kind 2] [--rules v4.7]
+       gold_candidates.py --langs ja --words 食べる,行く,辛い          (these entries, whatever their kind)
        gold_candidates.py --take gold/answers/en.md --lang en --pick lake,afford,aware,institute,hall
        (run from the backend repository root)
 """
@@ -38,7 +42,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_v4  # noqa: E402
 import ingest_v4  # noqa: E402
 import lemma_gate  # noqa: E402
-from prompting import HERE, LANG_NAME, TARGET_LANGUAGES, VARIETIES, system_prompt  # noqa: E402
+from prompting import HERE, LANG_NAME, LIMITS_V4, TARGET_LANGUAGES, VARIETIES, system_prompt  # noqa: E402
 
 GOLD = HERE / "gold"
 WRITER = "cc-claude-opus-5-5-v4"
@@ -102,6 +106,7 @@ def candidates(lang, per_kind=1):
     zipf = ingest_v4.zipf_of(lang)
     known = lemma_gate.load(lang)
     inventories = {v: check_v4.symbols(v) for v in VARIETIES[lang]}
+    witness = check_v4.stress_witness(lang) if lang in check_v4.NEEDS_READING else None
     pool = {kind: [] for kind in KINDS}
     for f in sorted((HERE / "out" / WRITER / lang).glob("*.json")):
         if f.name.endswith(".meta.json"):
@@ -116,7 +121,8 @@ def candidates(lang, per_kind=1):
         kinds = kinds_of(entry) if "error" not in entry else []
         if not kinds or any(not ingest_v4.is_own(entry["headword"], lx) for lx in entry["lexemes"]):
             continue
-        if check_v4.check(lang, entry, inventories, None):
+        entry = settle(json.loads(json.dumps(entry)))  # as ingest would publish it: what a rule puts right is no fault
+        if check_v4.check(lang, entry, inventories, witness):
             continue
         for kind in kinds:
             pool[kind].append((z, f.stem, entry))
@@ -163,17 +169,50 @@ verb with its frames, an adjective, a headword with two parts of speech, and a l
 """
 
 
-def write(lang, per_kind):
-    chosen = candidates(lang, per_kind)
-    flat = [{"kind": kind, "zipf": z, "entry": to_v42(entry)} for kind in KINDS for z, _, entry in chosen[kind]]
+# What a reviewer of a language on trial is asked beyond the entries: the decisions its pilot was written to.
+QUESTIONS = {
+    "ru": """1. The transcription shows reduced vowels, soft consonants and devoicing (молоко /mə.lɐ.ˈko/, хлеб /ˈxlʲep/). Is that
+   the right depth for a learner, and is it applied without mistakes?
+2. The lemma is written with ё and the spelling with е is listed beside it. Right?
+3. A noun lists its genitive singular, nominative plural and genitive plural; a verb its 1sg, 2sg and 3pl, past
+   masculine and feminine and imperative. Is anything a learner needs missing, or anything listed needlessly?
+4. A form used after numbers (два часа́) has Number=Count, the second locative (в лесу́) Case=Loc, the partitive
+   (ча́ю) Case=Par. Are these the cases a learner's dictionary of Russian marks?""",
+    "ja": """1. A pronunciation is a reading in hiragana, with no pitch accent and no romanization. Is that enough for a learner's
+   dictionary of Japanese, and if not, what should be added and in what notation?
+2. The lemma is written as dictionaries head it (kanji with okurigana, or kana); another way of writing it is listed
+   only when print uses it, with its script. Are the lemmas and the listed spellings the right ones?
+3. A verb is godan, ichidan or irregular; an adjective i or na; a transitive verb and its intransitive partner name each
+   other. Does a learner's dictionary of Japanese mark anything else (a noun that takes する, a の-adjective)?
+4. A noun's counter is given as its classifier. Are the counters right, and is one counter enough?
+5. Politeness is one of honorific, humble, polite, familiar. Are these the right four, and rightly given here?
+6. The level is a CEFR estimate. Would a JLPT level serve a learner better?
+7. Limits are counted in characters: a definition 10 to 35, an example 12 to 40. Are the definitions written as a
+   Japanese learner's dictionary writes them?""",
+}
+
+
+def write(lang, per_kind, rules="v4.2", words=()):
+    if words:
+        written = ingest_v4.load_raw(lang)
+        zipf = ingest_v4.zipf_of(lang)
+        flat = [{"kind": "pilot", "zipf": zipf.get(w.lower(), 0), "entry": settle(json.loads(json.dumps(written[w][0])))} for w in words]
+    else:
+        chosen = candidates(lang, per_kind)
+        flat = [{"kind": kind, "zipf": z, "entry": to_v42(entry)} for kind in KINDS for z, _, entry in chosen[kind]]
     (GOLD / "candidates").mkdir(parents=True, exist_ok=True)
     (GOLD / "review").mkdir(parents=True, exist_ok=True)
     (GOLD / "candidates" / f"{lang}.json").write_text(json.dumps(flat, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    rules = system_prompt(lang, "v4.2").partition("\n# Output")[0].partition("# Lexemes")
+    rules = system_prompt(lang, rules).partition("\n# Output")[0].partition("# Examples")[0].partition("# Lexemes")
     blocks = [f"### {i}. {c['entry']['headword']} ({c['kind']})\n\n```json\n{json.dumps(c['entry'], ensure_ascii=False, indent=1)}\n```"
               for i, c in enumerate(flat, 1)]
-    (GOLD / "review" / f"{lang}.md").write_text(
-        REVIEW.format(name=LANG_NAME[lang], rules=(rules[1] + rules[2]).strip(), entries="\n\n".join(blocks)), encoding="utf-8")
+    text = REVIEW.format(name=LANG_NAME[lang], rules=(rules[1] + rules[2]).strip(), entries="\n\n".join(blocks))
+    for words, characters in LIMITS_V4.get(lang, {}).items():  # a language without spaces is held to its own limits
+        text = text.replace(words, characters)
+    if lang in QUESTIONS:
+        text += (f"\n## Questions about the shape\n\n{LANG_NAME[lang]} is new to this dictionary. After the candidates, answer each of "
+                 f"these in a few lines, from what the entries show:\n\n{QUESTIONS[lang]}\n")
+    (GOLD / "review" / f"{lang}.md").write_text(text, encoding="utf-8")
     return flat
 
 
@@ -202,6 +241,9 @@ def settle(entry):
                 if other in spelling and "text" not in spelling:
                     spelling["text"] = spelling.pop(other)
         ingest_v4.settle_sounds(entry.get("language"), lexeme)
+        ingest_v4.plain_forms(lexeme)
+        ingest_v4.pronominal_auxiliary(entry.get("language"), lexeme)
+        ingest_v4.settle_defaults(lexeme)
     return entry
 
 
@@ -247,6 +289,8 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
     ap.add_argument("--per-kind", type=int, default=1)
+    ap.add_argument("--rules", default="v4.2", help="the prompt version whose rules the reviewer is shown; the six languages were reviewed against v4.2")
+    ap.add_argument("--words", default="", help="review exactly these written entries (a pilot), not candidates picked by kind")
     ap.add_argument("--take", help="a reviewer's answer: build gold/<lang>.json from the entries named with --pick")
     ap.add_argument("--lang")
     ap.add_argument("--pick", default="")
@@ -256,5 +300,5 @@ if __name__ == "__main__":
         print(f"{a.lang}: {len(gold)} example entries -> {GOLD / (a.lang + '.json')}:", ", ".join(e["headword"] for e in gold))
         sys.exit(0)
     for lang in a.langs.split(","):
-        flat = write(lang, a.per_kind)
+        flat = write(lang, a.per_kind, a.rules, [w for w in a.words.split(",") if w])
         print(f"{lang}: {len(flat)} candidates:", ", ".join(f"{c['entry']['headword']} ({c['kind']})" for c in flat))

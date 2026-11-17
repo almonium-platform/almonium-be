@@ -434,9 +434,12 @@ Written since, to show what no entry had shown: *ты* (familiar) and *вы* (po
 as its form after numbers (`Number=Count`), *год* with *лет*. One of them wrote the stress into the
 forms themselves (*го́да*); ingest now moves such a mark to the reading.
 
-Next for Russian, the same path as the six: `headwords/top-ru-ru.json` holds 250 plain common words
-drawn at random (Zipf 4.2 to 5.6); written, twenty candidates are picked from them, reviewed, and
-the best become its examples.
+The 250 plain common words of `headwords/top-ru-ru.json` are written (on the owner's machine,
+under v4.6, $8.80): all valid, three rightly refused (*вряд*, *следующее*, *дано*). Of 1,073 stress
+readings six disagree with Wiktionary, and at least two of those are wrong outright
+(*рассто́яние* for *расстоя́ние*, *о́тчасти* for *отча́сти*): the witness finds what no reviewer
+would be asked to. Eighteen candidates are picked from them, `gold/review/ru.md`, shown with
+v4.7's rules; they wait for a reviewer, and the best become Russian's examples.
 
 ## Words that are both a form and a word
 
@@ -515,6 +518,16 @@ written. What was decided for it, each of which the pilot may overturn:
   `classifier`; honorific, humble, polite and familiar are politeness labels; a particle is an entry.
 - There is no gate: Japanese is written with `--no-gate`. A reader taps a run of characters that
   the book processor must first cut into words, and its lemma is what reaches the dictionary.
+
+The pilot is written (48 words, $2.13): all valid, and the audit finds nothing. Every one of 71
+pronunciations is a kana reading and every one of 52 spellings names its script. *辛い* came back
+as two words, からい and つらい, *開く* as あく and ひらく with *開ける* as its transitive partner,
+*今日* as きょう and こんにち; *は* is read わ; *国* lists *國* as the form of before the reform;
+nouns carry their counters (*鉛筆* 本, *犬* 匹, *本* 冊) and *本* is a counter of its own;
+*いらっしゃる* is honorific, *参る* humble, *俺* familiar; *おおきに* names Kansai in a note.
+Nothing in the shape had to give. Twenty-four of the entries, with seven questions about the
+decisions above, are in `gold/review/ja.md` for a reviewer who reads Japanese better than the
+audit does.
 
 ### Running a trial language
 
@@ -597,9 +610,9 @@ page does not settle.
    entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
    the words in it; function words for de, fr, es, it, pt (English has them); the book-word list,
    which needs an export from the book processor.
-5. **Russian examples and the Japanese pilot**: both lists are ready to be written ("Running a
-   trial language"); then candidates, a review and examples for Russian, and a reading of the
-   pilot for Japanese.
+5. **Russian examples and the Japanese pilot**: both are written, and their review files wait for a
+   reviewer (`gold/review/ru.md`, `gold/review/ja.md`). Then examples for both, and for Japanese
+   the answers to the seven questions about its shape.
 6. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 7. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

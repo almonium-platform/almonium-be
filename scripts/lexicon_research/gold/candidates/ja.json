@@ -1,0 +1,1974 @@
+[
+ {
+  "kind": "pilot",
+  "zipf": 4.92,
+  "entry": {
+   "language": "ja",
+   "headword": "食べる",
+   "lexemes": [
+    {
+     "lemma": "食べる",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "ichidan"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "たべる",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "物を口に入れ、かんでのみこむ",
+       "example": "毎朝パンと卵を食べてから出かけます。",
+       "cefr": "A1",
+       "frames": [
+        "〜を食べる"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "収入を得て暮らしを立てる",
+       "example": "絵を描くだけで食べていくのは難しい。",
+       "cefr": "B2",
+       "frames": [
+        "〜で食べていく"
+       ],
+       "grammar": {
+        "valency": "Intr",
+        "note": "usually in the form 食べていく"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.52,
+  "entry": {
+   "language": "ja",
+   "headword": "行く",
+   "lexemes": [
+    {
+     "lemma": "行く",
+     "pos": "VERB",
+     "kind": "word",
+     "spellings": [
+      {
+       "text": "行く",
+       "script": "Jpan"
+      },
+      {
+       "text": "いく",
+       "script": "Hira"
+      }
+     ],
+     "grammar": {
+      "conjugation": "godan",
+      "valency": "Intr",
+      "irregular": true,
+      "note": "te form 行って and past 行った, not 行いて/行いた"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "いく",
+       "notation": "kana"
+      },
+      {
+       "variety": "ja-JP",
+       "reading": "ゆく",
+       "notation": "kana",
+       "note": "less_common"
+      }
+     ],
+     "forms": [
+      {
+       "form": "行きます",
+       "features": {
+        "Polite": "Form"
+       },
+       "reading": "いきます",
+       "notation": "kana"
+      },
+      {
+       "form": "行って",
+       "features": {
+        "VerbForm": "Conv"
+       },
+       "reading": "いって",
+       "notation": "kana"
+      },
+      {
+       "form": "行かない",
+       "features": {
+        "Polarity": "Neg"
+       },
+       "reading": "いかない",
+       "notation": "kana"
+      },
+      {
+       "form": "行った",
+       "features": {
+        "Tense": "Past"
+       },
+       "reading": "いった",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "今いる所から、ほかの場所へ移動する",
+       "example": "週末は家族と海に行くつもりです。",
+       "cefr": "A1",
+       "frames": [
+        "〜に行く",
+        "〜へ行く",
+        "〜に〜を買いに行く"
+       ],
+       "antonyms": [
+        {
+         "lemma": "来る",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "物事が進んで、ある結果や状態になる",
+       "example": "新しい仕事はうまくいっています。",
+       "cefr": "B1",
+       "frames": [
+        "うまくいく"
+       ],
+       "spellings": [
+        "いく"
+       ]
+      },
+      {
+       "definition": "動作や変化がこれから先へ続く様子を表す",
+       "example": "これからも日本語の勉強を続けていきたい。",
+       "cefr": "B1",
+       "frames": [
+        "〜ていく"
+       ],
+       "spellings": [
+        "いく"
+       ],
+       "grammar": {
+        "note": "auxiliary use after the te form of a verb"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 6.76,
+  "entry": {
+   "language": "ja",
+   "headword": "する",
+   "lexemes": [
+    {
+     "lemma": "する",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "irregular",
+      "irregular": true,
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "する",
+       "notation": "kana"
+      }
+     ],
+     "forms": [
+      {
+       "form": "します",
+       "features": {
+        "Polite": "Form"
+       },
+       "reading": "します",
+       "notation": "kana"
+      },
+      {
+       "form": "して",
+       "features": {
+        "VerbForm": "Conv"
+       },
+       "reading": "して",
+       "notation": "kana"
+      },
+      {
+       "form": "しない",
+       "features": {
+        "Polarity": "Neg"
+       },
+       "reading": "しない",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "何かの動作や行為を行う",
+       "example": "毎晩、夕食の後で宿題をします。",
+       "cefr": "A1",
+       "frames": [
+        "〜をする",
+        "（名詞）＋する（勉強する）"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "物事をある状態に変える",
+       "example": "部屋を片付けて、きれいにしよう。",
+       "cefr": "A2",
+       "frames": [
+        "〜を〜にする",
+        "〜を〜くする"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "いくつかの中から選んで決める",
+       "example": "私は飲み物はコーヒーにします。",
+       "cefr": "A2",
+       "frames": [
+        "〜にする"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "音やにおい、味などが感じられる",
+       "example": "台所からいいにおいがしてくる。",
+       "cefr": "B1",
+       "frames": [
+        "〜がする"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "アクセサリーなどを身につける",
+       "example": "父は毎朝ネクタイをして出かける。",
+       "cefr": "A2",
+       "frames": [
+        "〜をする"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "ある色や形、様子を持っている",
+       "example": "その子は大きな青い目をしていた。",
+       "cefr": "B1",
+       "frames": [
+        "〜をしている"
+       ],
+       "grammar": {
+        "valency": "Tr",
+        "note": "usually in the form 〜をしている"
+       }
+      },
+      {
+       "definition": "値段がそれだけかかる",
+       "example": "このかばんは五万円もしたそうだ。",
+       "cefr": "B2",
+       "frames": [
+        "（金額）＋する"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.18,
+  "entry": {
+   "language": "ja",
+   "headword": "来る",
+   "lexemes": [
+    {
+     "lemma": "来る",
+     "pos": "VERB",
+     "kind": "word",
+     "spellings": [
+      {
+       "text": "来る",
+       "script": "Jpan"
+      },
+      {
+       "text": "くる",
+       "script": "Hira"
+      },
+      {
+       "text": "來る",
+       "script": "Jpan",
+       "pre_reform": true
+      }
+     ],
+     "grammar": {
+      "conjugation": "irregular",
+      "irregular": true,
+      "valency": "Intr",
+      "note": "カ行変格活用 (kuru verb): stem changes between く, き and こ"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "くる",
+       "notation": "kana"
+      }
+     ],
+     "forms": [
+      {
+       "form": "来ます",
+       "features": {
+        "Polite": "Form"
+       },
+       "reading": "きます",
+       "notation": "kana"
+      },
+      {
+       "form": "来て",
+       "features": {
+        "VerbForm": "Conv"
+       },
+       "reading": "きて",
+       "notation": "kana"
+      },
+      {
+       "form": "来ない",
+       "features": {
+        "Polarity": "Neg"
+       },
+       "reading": "こない",
+       "notation": "kana"
+      },
+      {
+       "form": "来た",
+       "features": {
+        "Tense": "Past"
+       },
+       "reading": "きた",
+       "notation": "kana"
+      },
+      {
+       "form": "来い",
+       "features": {
+        "Mood": "Imp"
+       },
+       "reading": "こい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "ほかの所から、話し手のいる方へ近づいて移る",
+       "example": "明日の午後、友達が家に遊びに来ます。",
+       "cefr": "A1",
+       "frames": [
+        "〜に来る",
+        "〜へ来る",
+        "〜しに来る"
+       ],
+       "antonyms": [
+        {
+         "lemma": "行く",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "ある時期や出来事が、やがて訪れる",
+       "example": "長い冬が終わって、ようやく春が来た。",
+       "cefr": "A2",
+       "frames": [
+        "〜が来る"
+       ]
+      },
+      {
+       "definition": "ある物事が原因や出どころとなって起こる",
+       "example": "この疲れは、きっと寝不足から来ているのだろう。",
+       "cefr": "B2",
+       "frames": [
+        "〜から来る"
+       ]
+      },
+      {
+       "definition": "動作や変化がこちらへ向かったり、今まで続いたりすることを表す",
+       "example": "夕方になって、だんだん寒くなってきた。",
+       "cefr": "B1",
+       "frames": [
+        "〜てくる"
+       ],
+       "grammar": {
+        "note": "auxiliary use after the て form, usually written in hiragana"
+       }
+      }
+     ]
+    },
+    {
+     "lemma": "来る",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "invariable": true,
+      "position": "Attr",
+      "note": "連体詞: used only before a noun, mostly before a date"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "きたる",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "このあと近いうちに訪れる、次の",
+       "example": "来る十日に、市民ホールで総会を開きます。",
+       "cefr": "C1",
+       "labels": {
+        "formality": "formal"
+       },
+       "antonyms": [
+        {
+         "lemma": "去る",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.42,
+  "entry": {
+   "language": "ja",
+   "headword": "開く",
+   "lexemes": [
+    {
+     "lemma": "開く",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "godan",
+      "valency": "Intr"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "あく",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "閉まっていたものが、閉まっていない状態になる",
+       "example": "風で窓が急に開いて、びっくりした。",
+       "cefr": "A2",
+       "frames": [
+        "〜が開く"
+       ],
+       "antonyms": [
+        {
+         "lemma": "閉まる",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "店などがその日の営業を始める",
+       "example": "駅前のスーパーは朝九時に開きます。",
+       "cefr": "A2",
+       "frames": [
+        "〜が開く"
+       ],
+       "antonyms": [
+        {
+         "lemma": "閉まる",
+         "pos": "VERB"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "開ける",
+       "pos": "VERB",
+       "why": "transitive partner: 開ける takes an object (ドアを開ける), 開く (あく) does not (ドアが開く)"
+      }
+     ]
+    },
+    {
+     "lemma": "開く",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "godan",
+      "valency": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "ひらく",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "閉じているものを広げて、中が見えるようにする",
+       "example": "教科書の三十ページを開いてください。",
+       "cefr": "A2",
+       "frames": [
+        "〜を開く"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "antonyms": [
+        {
+         "lemma": "閉じる",
+         "pos": "VERB"
+        }
+       ]
+      },
+      {
+       "definition": "会議や式などを計画して行う",
+       "example": "来月、新しい社員のために歓迎会を開きます。",
+       "cefr": "B1",
+       "frames": [
+        "〜を開く"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "店や事業などを新しく始める",
+       "example": "父は駅前に小さなパン屋を開いた。",
+       "cefr": "B1",
+       "frames": [
+        "〜を開く"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "definition": "閉じていたものが広がる",
+       "example": "暖かくなって、桜の花が開き始めた。",
+       "cefr": "B2",
+       "frames": [
+        "〜が開く"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      },
+      {
+       "definition": "二つのものの差や間が大きくなる",
+       "example": "二位のチームとの差がどんどん開いている。",
+       "cefr": "B2",
+       "frames": [
+        "〜との差が開く"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.66,
+  "entry": {
+   "language": "ja",
+   "headword": "辛い",
+   "lexemes": [
+    {
+     "lemma": "辛い",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "i"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "からい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "舌を刺すような強い刺激のある味だ",
+       "example": "このカレーは辛すぎて、水が手放せない。",
+       "cefr": "A2"
+      },
+      {
+       "definition": "塩の味が強く、しょっぱい感じがする",
+       "example": "このみそ汁は少し辛いから、お湯を足そう。",
+       "cefr": "B1"
+      },
+      {
+       "definition": "評価や扱い方が厳しい",
+       "example": "あの先生は採点が辛いことで有名だ。",
+       "cefr": "B2",
+       "frames": [
+        "〜が辛い"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "antonyms": [
+        {
+         "lemma": "甘い",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "辛い",
+       "pos": "ADJ",
+       "why": "same kanji spelling as つらい, hard to bear"
+      }
+     ]
+    },
+    {
+     "lemma": "辛い",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "i"
+     },
+     "spellings": [
+      {
+       "text": "辛い",
+       "script": "Jpan"
+      },
+      {
+       "text": "つらい",
+       "script": "Hira"
+      }
+     ],
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "つらい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "体や心が苦しくて、我慢するのが難しい",
+       "example": "冬の朝、早く起きるのはつらい。",
+       "cefr": "B1",
+       "frames": [
+        "〜のがつらい",
+        "〜がつらい"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "辛い",
+       "pos": "ADJ",
+       "why": "same kanji spelling as からい, spicy"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.57,
+  "entry": {
+   "language": "ja",
+   "headword": "今日",
+   "lexemes": [
+    {
+     "lemma": "今日",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "note": "often used as an adverb without a particle (今日行く)"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "きょう",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "話している人がいま過ごしているこの日",
+       "example": "今日は朝からずっと雨が降っています。",
+       "cefr": "A1",
+       "frames": [
+        "今日は",
+        "今日の〜",
+        "今日中に"
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "今日",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "note": "often used as an adverb or in 今日では"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "こんにち",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "昔と比べたときの、現在の時代や世の中",
+       "example": "今日の社会では、携帯電話が欠かせない道具になった。",
+       "cefr": "B2",
+       "frames": [
+        "今日では",
+        "今日の〜"
+       ],
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.2,
+  "entry": {
+   "language": "ja",
+   "headword": "明日",
+   "lexemes": [
+    {
+     "lemma": "明日",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count",
+      "note": "Also used without a particle as an adverb of time."
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "あした",
+       "notation": "kana"
+      },
+      {
+       "variety": "ja-JP",
+       "reading": "あす",
+       "notation": "kana",
+       "note": "careful"
+      },
+      {
+       "variety": "ja-JP",
+       "reading": "みょうにち",
+       "notation": "kana",
+       "note": "careful"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "今日が終わったあとの次の日",
+       "example": "明日は朝早く起きなければならない。",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "昨日",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "これから先にやって来る近い将来",
+       "example": "子どもたちは明日の社会を担う大切な存在だ。",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true
+       },
+       "frames": [
+        "明日の〜"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.4,
+  "entry": {
+   "language": "ja",
+   "headword": "高い",
+   "lexemes": [
+    {
+     "lemma": "高い",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "i"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "たかい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "下から上までの長さが大きい。上の方にある",
+       "example": "このビルは町でいちばん高い建物です。",
+       "cefr": "A1",
+       "frames": [
+        "〜が高い",
+        "背が高い"
+       ],
+       "antonyms": [
+        {
+         "lemma": "低い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "値段が普通より多くかかる",
+       "example": "駅前のレストランは少し高いけど、おいしいよ。",
+       "cefr": "A1",
+       "frames": [
+        "〜が高い"
+       ],
+       "antonyms": [
+        {
+         "lemma": "安い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "程度や地位、能力などが普通より上である",
+       "example": "今日は気温が高いので、水をたくさん飲みましょう。",
+       "cefr": "A2",
+       "frames": [
+        "〜が高い"
+       ],
+       "antonyms": [
+        {
+         "lemma": "低い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "音や声の調子が上の方にある",
+       "example": "彼女は高い声で楽しそうに歌っていた。",
+       "cefr": "B1",
+       "antonyms": [
+        {
+         "lemma": "低い",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 6.37,
+  "entry": {
+   "language": "ja",
+   "headword": "いい",
+   "lexemes": [
+    {
+     "lemma": "いい",
+     "pos": "ADJ",
+     "kind": "word",
+     "spellings": [
+      {
+       "text": "いい",
+       "script": "Hira"
+      },
+      {
+       "text": "良い",
+       "script": "Jpan"
+      }
+     ],
+     "grammar": {
+      "conjugation": "i",
+      "irregular": true,
+      "note": "Colloquial form of よい; every form except いい itself is built on よ- (よく, よかった)."
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "いい",
+       "notation": "kana"
+      }
+     ],
+     "forms": [
+      {
+       "form": "よく",
+       "features": {},
+       "note": "adverbial form",
+       "reading": "よく",
+       "notation": "kana"
+      },
+      {
+       "form": "よかった",
+       "features": {
+        "Tense": "Past"
+       },
+       "reading": "よかった",
+       "notation": "kana"
+      },
+      {
+       "form": "よくない",
+       "features": {
+        "Polarity": "Neg"
+       },
+       "reading": "よくない",
+       "notation": "kana"
+      },
+      {
+       "form": "よくて",
+       "features": {
+        "VerbForm": "Conv"
+       },
+       "reading": "よくて",
+       "notation": "kana"
+      },
+      {
+       "form": "よければ",
+       "features": {
+        "Mood": "Cnd"
+       },
+       "reading": "よければ",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "質や程度などがすぐれていて好ましい",
+       "example": "このレストランは料理も雰囲気もいい。",
+       "cefr": "A1",
+       "frames": [
+        "〜がいい"
+       ],
+       "antonyms": [
+        {
+         "lemma": "悪い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "差し支えがなく、それで十分だ",
+       "example": "疲れたら、少し休んでもいいですよ。",
+       "cefr": "A2",
+       "frames": [
+        "〜てもいい",
+        "〜ばいい",
+        "〜でいい"
+       ]
+      },
+      {
+       "definition": "目的や状況にちょうど合っている",
+       "example": "今日は洗濯にちょうどいい天気だ。",
+       "cefr": "A2",
+       "frames": [
+        "〜にいい"
+       ]
+      },
+      {
+       "definition": "性格がやさしく、親切だ",
+       "example": "隣の人はとてもいい人で、よく野菜をくれる。",
+       "cefr": "A2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.47,
+  "entry": {
+   "language": "ja",
+   "headword": "静か",
+   "lexemes": [
+    {
+     "lemma": "静か",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "na"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "しずか",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "物音や声が聞こえず、ひっそりしている",
+       "example": "図書館の中では静かにしてください。",
+       "cefr": "A1",
+       "frames": [
+        "静かにする",
+        "静かな〜"
+       ],
+       "antonyms": [
+        {
+         "lemma": "うるさい",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "動きが少なく、穏やかで落ち着いている",
+       "example": "今朝は風もなく、海がとても静かだ。",
+       "cefr": "B1"
+      },
+      {
+       "definition": "性格や態度がおとなしく、落ち着いている",
+       "example": "兄は静かな人だが、意見ははっきり言う。",
+       "cefr": "B1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.73,
+  "entry": {
+   "language": "ja",
+   "headword": "きれい",
+   "lexemes": [
+    {
+     "lemma": "きれい",
+     "pos": "ADJ",
+     "kind": "word",
+     "spellings": [
+      {
+       "text": "きれい",
+       "script": "Hira",
+       "varieties": [
+        "ja-JP"
+       ]
+      },
+      {
+       "text": "綺麗",
+       "script": "Jpan",
+       "varieties": [
+        "ja-JP"
+       ]
+      },
+      {
+       "text": "奇麗",
+       "script": "Jpan",
+       "varieties": [
+        "ja-JP"
+       ]
+      }
+     ],
+     "grammar": {
+      "conjugation": "na"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "きれい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "見た目や声などが美しく、感じがよい",
+       "example": "窓から見える夕日がとてもきれいだ。",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "醜い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "汚れやごみがなく、清潔である",
+       "example": "料理の前には、手をきれいに洗いましょう。",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "汚い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "あとに何も残らないほど、すっかり",
+       "example": "借りたお金のことをきれいに忘れていた。",
+       "cefr": "B2",
+       "frames": [
+        "きれいに〜する"
+       ],
+       "grammar": {
+        "note": "used adverbially in the form きれいに"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.77,
+  "entry": {
+   "language": "ja",
+   "headword": "好き",
+   "lexemes": [
+    {
+     "lemma": "好き",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "na"
+     },
+     "spellings": [
+      {
+       "text": "好き",
+       "script": "Jpan"
+      },
+      {
+       "text": "すき",
+       "script": "Hira"
+      }
+     ],
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "すき",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "心がひかれて、気に入っている様子",
+       "example": "私は子どもの頃から絵を描くのが好きです。",
+       "cefr": "A1",
+       "frames": [
+        "〜が好き",
+        "〜のが好き",
+        "好きな〜"
+       ],
+       "antonyms": [
+        {
+         "lemma": "嫌い",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "definition": "自分の思うとおりにふるまう様子",
+       "example": "時間はたっぷりあるから、好きにしていいよ。",
+       "cefr": "A2",
+       "frames": [
+        "好きにする",
+        "好きなように〜"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "好く",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.71,
+  "entry": {
+   "language": "ja",
+   "headword": "本",
+   "lexemes": [
+    {
+     "lemma": "本",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count",
+      "classifier": "冊"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "ほん",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "文字や絵を印刷した紙をとじて一冊にしたもの",
+       "example": "寝る前に少し本を読むのが好きです。",
+       "cefr": "A1",
+       "frames": [
+        "本を読む"
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "本",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "note": "counter used after a number; read ぽん or ぼん after some numbers: 一本 いっぽん, 三本 さんぼん"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "ほん",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "細長い物や映画、電話などを数えるのに使う語",
+       "example": "冷蔵庫にビールが三本入っています。",
+       "cefr": "A1",
+       "frames": [
+        "〜本"
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "本",
+     "pos": "DET",
+     "kind": "word",
+     "grammar": {
+      "position": "Attr",
+      "note": "prefix placed directly before a noun"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "ほん",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "いま話題にしている、自分たちが関わるこの",
+       "example": "本大会には全国から多くの選手が参加した。",
+       "cefr": "B2",
+       "frames": [
+        "本〜"
+       ],
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 3.71,
+  "entry": {
+   "language": "ja",
+   "headword": "鉛筆",
+   "lexemes": [
+    {
+     "lemma": "鉛筆",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count",
+      "classifier": "本"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "えんぴつ",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "細長い木の中に芯を入れた、字や絵をかく道具",
+       "example": "テストには鉛筆と消しゴムを持ってきてください。",
+       "cefr": "A1",
+       "frames": [
+        "鉛筆で書く",
+        "鉛筆を削る"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 7.46,
+  "entry": {
+   "language": "ja",
+   "headword": "は",
+   "lexemes": [
+    {
+     "lemma": "は",
+     "pos": "PART",
+     "kind": "word",
+     "grammar": {
+      "invariable": true,
+      "note": "Written は but always pronounced わ as a particle."
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "わ",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "文の話題となる事柄を示すのに使う",
+       "example": "私の趣味は写真を撮ることです。",
+       "cefr": "A1",
+       "frames": [
+        "AはBだ",
+        "〜は"
+       ]
+      },
+      {
+       "definition": "他のものと比べて対比や区別を示すのに使う",
+       "example": "肉は食べますが、魚は食べません。",
+       "cefr": "A2",
+       "frames": [
+        "Aは〜が、Bは〜",
+        "〜ではない"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 7.41,
+  "entry": {
+   "language": "ja",
+   "headword": "を",
+   "lexemes": [
+    {
+     "lemma": "を",
+     "pos": "ADP",
+     "kind": "word",
+     "grammar": {
+      "invariable": true,
+      "note": "case particle placed after a noun; pronounced like お"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "お",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "動作が直接向かう対象であることの印として使う",
+       "example": "毎朝コーヒーを一杯飲んでから出かけます。",
+       "cefr": "A1",
+       "frames": [
+        "〜を食べる",
+        "〜を見る"
+       ]
+      },
+      {
+       "definition": "移動する時に通っていく場所の印として使う",
+       "example": "子どもたちが公園の中を元気に走っている。",
+       "cefr": "A2",
+       "frames": [
+        "〜を歩く",
+        "〜を通る",
+        "〜を渡る"
+       ]
+      },
+      {
+       "definition": "離れていく場所や出発点の印として使う",
+       "example": "来年の春に大学を卒業する予定です。",
+       "cefr": "A2",
+       "frames": [
+        "〜を出る",
+        "〜を降りる"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 3.92,
+  "entry": {
+   "language": "ja",
+   "headword": "いらっしゃる",
+   "lexemes": [
+    {
+     "lemma": "いらっしゃる",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "godan",
+      "irregular": true,
+      "valency": "Intr",
+      "note": "ます form, imperative and て form are irregular"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "いらっしゃる",
+       "notation": "kana"
+      }
+     ],
+     "forms": [
+      {
+       "form": "いらっしゃいます",
+       "features": {
+        "Polite": "Form"
+       },
+       "reading": "いらっしゃいます",
+       "notation": "kana"
+      },
+      {
+       "form": "いらっしゃって",
+       "features": {
+        "VerbForm": "Conv"
+       },
+       "reading": "いらっしゃって",
+       "notation": "kana"
+      },
+      {
+       "form": "いらっしゃらない",
+       "features": {
+        "Polarity": "Neg"
+       },
+       "reading": "いらっしゃらない",
+       "notation": "kana"
+      },
+      {
+       "form": "いらっしゃい",
+       "features": {
+        "Mood": "Imp"
+       },
+       "reading": "いらっしゃい",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "敬うべき人が来る、または行く",
+       "example": "先生は明日の午後、こちらへいらっしゃいます。",
+       "cefr": "B1",
+       "frames": [
+        "〜にいらっしゃる",
+        "〜へいらっしゃる"
+       ],
+       "labels": {
+        "politeness": "honorific"
+       }
+      },
+      {
+       "definition": "敬うべき人がある場所にいる",
+       "example": "部長は今日は一日中会社にいらっしゃるそうです。",
+       "cefr": "B1",
+       "frames": [
+        "〜にいらっしゃる",
+        "〜ていらっしゃる"
+       ],
+       "labels": {
+        "politeness": "honorific"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 2.86,
+  "entry": {
+   "language": "ja",
+   "headword": "参る",
+   "lexemes": [
+    {
+     "lemma": "参る",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "godan",
+      "valency": "Intr"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "まいる",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "「行く」「来る」をへりくだって丁寧に言う語",
+       "example": "明日の午後、私がそちらへ参ります。",
+       "cefr": "A2",
+       "frames": [
+        "〜へ参る",
+        "〜に参る",
+        "〜て参る"
+       ],
+       "labels": {
+        "politeness": "humble"
+       }
+      },
+      {
+       "definition": "どうしてよいか分からず、ひどく困る",
+       "example": "毎日こう暑くては、本当に参ってしまう。",
+       "cefr": "B2",
+       "frames": [
+        "〜に参る"
+       ],
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "相手の強さに負けたと認める",
+       "example": "こんなに強いとは思わなかった、参ったよ。",
+       "cefr": "B2",
+       "grammar": {
+        "note": "usually in the past form 参った"
+       },
+       "labels": {
+        "formality": "informal"
+       }
+      },
+      {
+       "definition": "神仏や墓の前に行って拝む",
+       "example": "毎年お盆には家族で先祖の墓に参る。",
+       "cefr": "B2",
+       "frames": [
+        "〜に参る"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 6.79,
+  "entry": {
+   "language": "ja",
+   "headword": "です",
+   "lexemes": [
+    {
+     "lemma": "です",
+     "pos": "AUX",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "irregular",
+      "irregular": true,
+      "note": "polite counterpart of the copula だ"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "です",
+       "notation": "kana"
+      }
+     ],
+     "forms": [
+      {
+       "form": "でした",
+       "features": {
+        "Tense": "Past",
+        "Polite": "Form"
+       },
+       "reading": "でした",
+       "notation": "kana"
+      },
+      {
+       "form": "でして",
+       "features": {
+        "VerbForm": "Conv",
+        "Polite": "Form"
+       },
+       "reading": "でして",
+       "notation": "kana"
+      },
+      {
+       "form": "ではありません",
+       "features": {
+        "Polarity": "Neg",
+        "Polite": "Form"
+       },
+       "reading": "ではありません",
+       "notation": "kana"
+      },
+      {
+       "form": "じゃありません",
+       "features": {
+        "Polarity": "Neg",
+        "Polite": "Form"
+       },
+       "reading": "じゃありません",
+       "notation": "kana",
+       "note": "casual form of ではありません"
+      },
+      {
+       "form": "でしょう",
+       "features": {
+        "Polite": "Form"
+       },
+       "reading": "でしょう",
+       "notation": "kana",
+       "note": "presumptive form: expresses a guess"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "名詞などについて、丁寧に断定する意味を表す",
+       "example": "私の兄は駅の近くの病院の医者です。",
+       "cefr": "A1",
+       "frames": [
+        "〜は〜です"
+       ],
+       "labels": {
+        "politeness": "polite"
+       }
+      },
+      {
+       "definition": "形容詞などのあとについて、言い方を丁寧にする",
+       "example": "今日は朝からとても暑いですね。",
+       "cefr": "A1",
+       "frames": [
+        "形容詞＋です"
+       ],
+       "labels": {
+        "politeness": "polite"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "ます",
+       "pos": "AUX",
+       "why": "both are polite endings; ます follows verbs, です follows nouns and adjectives"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.97,
+  "entry": {
+   "language": "ja",
+   "headword": "俺",
+   "lexemes": [
+    {
+     "lemma": "俺",
+     "pos": "PRON",
+     "kind": "word",
+     "spellings": [
+      {
+       "text": "俺",
+       "script": "Jpan"
+      },
+      {
+       "text": "おれ",
+       "script": "Hira"
+      }
+     ],
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "おれ",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "男性がくだけた場面で自分を指して言う語",
+       "example": "俺はもう少しここで待っているよ。",
+       "cefr": "A2",
+       "labels": {
+        "formality": "informal",
+        "politeness": "familiar"
+       },
+       "grammar": {
+        "note": "used mostly by men, to equals or those below"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.08,
+  "entry": {
+   "language": "ja",
+   "headword": "コンピューター",
+   "lexemes": [
+    {
+     "lemma": "コンピューター",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count",
+      "classifier": "台"
+     },
+     "spellings": [
+      {
+       "text": "コンピューター",
+       "script": "Kana",
+       "varieties": [
+        "ja-JP"
+       ]
+      },
+      {
+       "text": "コンピュータ",
+       "script": "Kana",
+       "varieties": [
+        "ja-JP"
+       ]
+      }
+     ],
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "こんぴゅーたー",
+       "notation": "kana",
+       "spelling": "コンピューター"
+      },
+      {
+       "variety": "ja-JP",
+       "reading": "こんぴゅーた",
+       "notation": "kana",
+       "spelling": "コンピュータ"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "計算や情報の処理を自動で速く行う電子の機械",
+       "example": "このコンピューターは古くて、動きがとても遅い。",
+       "cefr": "A1"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 5.03,
+  "entry": {
+   "language": "ja",
+   "headword": "勉強",
+   "lexemes": [
+    {
+     "lemma": "勉強",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "べんきょう",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "知識や技術を身につけるために努力すること",
+       "example": "毎晩二時間、日本語を勉強しています。",
+       "cefr": "A1",
+       "frames": [
+        "〜を勉強する",
+        "勉強する"
+       ]
+      },
+      {
+       "definition": "これから役に立つ経験や教訓",
+       "example": "失敗したけれど、いい勉強になりました。",
+       "cefr": "B1",
+       "frames": [
+        "勉強になる"
+       ]
+      },
+      {
+       "definition": "商人が品物の値段を安くすること",
+       "example": "たくさん買ってくれたら、少し勉強しますよ。",
+       "cefr": "B2",
+       "frames": [
+        "勉強する"
+       ],
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "pilot",
+  "zipf": 4.69,
+  "entry": {
+   "language": "ja",
+   "headword": "気をつける",
+   "lexemes": [
+    {
+     "lemma": "気をつける",
+     "pos": "VERB",
+     "kind": "multiword",
+     "components": [
+      {
+       "text": "気",
+       "lemma": "気",
+       "inflects": "fixed"
+      },
+      {
+       "text": "を",
+       "lemma": "を",
+       "inflects": "fixed"
+      },
+      {
+       "text": "つける",
+       "lemma": "付ける",
+       "inflects": "head"
+      }
+     ],
+     "spellings": [
+      {
+       "text": "気をつける",
+       "script": "Jpan"
+      },
+      {
+       "text": "気を付ける",
+       "script": "Jpan"
+      }
+     ],
+     "grammar": {
+      "conjugation": "ichidan",
+      "valency": "Intr"
+     },
+     "pronunciations": [
+      {
+       "variety": "ja-JP",
+       "reading": "きをつける",
+       "notation": "kana"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "危ないことや失敗が起きないよう注意を払う",
+       "example": "道が凍っているので、転ばないように気をつけてください。",
+       "cefr": "A2",
+       "frames": [
+        "〜に気をつける",
+        "〜ように気をつける"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "気がつく",
+       "pos": "VERB",
+       "why": "気がつく means to notice, 気をつける means to be careful; they differ only in the particle and the verb"
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

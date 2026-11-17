@@ -1,0 +1,1429 @@
+[
+ {
+  "kind": "noun",
+  "zipf": 4.81,
+  "entry": {
+   "language": "ru",
+   "headword": "стоимость",
+   "lexemes": [
+    {
+     "lemma": "стоимость",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "animacy": "Inan",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈsto.ɪ.məsʲtʲ/",
+       "reading": "сто́имость"
+      }
+     ],
+     "forms": [
+      {
+       "form": "стоимости",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "сто́имости"
+      },
+      {
+       "form": "стоимости",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "сто́имости"
+      },
+      {
+       "form": "стоимостей",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "сто́имостей"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "сумма денег, которую нужно заплатить за что-либо",
+       "example": "Стоимость билета зависит от дня недели и времени поездки.",
+       "cefr": "B1",
+       "frames": [
+        "стоимость чего"
+       ]
+      },
+      {
+       "definition": "ценность товара, выраженная в затраченном на него общественном труде",
+       "example": "В экономике стоимость товара не всегда совпадает с его ценой.",
+       "cefr": "C1",
+       "labels": {
+        "domain": "economics"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "стоить",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.78,
+  "entry": {
+   "language": "ru",
+   "headword": "мальчик",
+   "lexemes": [
+    {
+     "lemma": "мальчик",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Anim",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈmalʲ.tɕɪk/",
+       "reading": "ма́льчик"
+      }
+     ],
+     "forms": [
+      {
+       "form": "мальчика",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "ма́льчика"
+      },
+      {
+       "form": "мальчики",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "ма́льчики"
+      },
+      {
+       "form": "мальчиков",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "ма́льчиков"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "ребёнок или подросток мужского пола",
+       "example": "Во дворе маленький мальчик учится кататься на велосипеде.",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "девочка",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "подросток, который служит в лавке или работает на посылках",
+       "example": "Хозяин послал мальчика из лавки отнести покупку на дом.",
+       "cefr": "C1",
+       "labels": {
+        "time": "dated"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.82,
+  "entry": {
+   "language": "ru",
+   "headword": "чемпионат",
+   "lexemes": [
+    {
+     "lemma": "чемпионат",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Inan",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/tɕɪm.pʲɪ.ɐ.ˈnat/",
+       "reading": "чемпиона́т"
+      }
+     ],
+     "forms": [
+      {
+       "form": "чемпионата",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "чемпиона́та"
+      },
+      {
+       "form": "чемпионаты",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "чемпиона́ты"
+      },
+      {
+       "form": "чемпионатов",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "чемпиона́тов"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "спортивное соревнование, в котором определяют лучшего спортсмена или лучшую команду",
+       "example": "В следующем году наша страна примет чемпионат мира по футболу.",
+       "cefr": "B1",
+       "frames": [
+        "чемпионат по чему",
+        "чемпионат мира"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "чемпион",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "noun",
+  "zipf": 4.84,
+  "entry": {
+   "language": "ru",
+   "headword": "папа",
+   "lexemes": [
+    {
+     "lemma": "папа",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Anim",
+      "countability": "Count",
+      "note": "masculine noun declined like a feminine noun in -а"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈpa.pə/",
+       "reading": "па́па"
+      }
+     ],
+     "forms": [
+      {
+       "form": "папы",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "па́пы"
+      },
+      {
+       "form": "папы",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "па́пы"
+      },
+      {
+       "form": "пап",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "отец, обычно в речи детей или при обращении к нему",
+       "example": "Мой папа каждое утро отвозит нас в школу на машине.",
+       "cefr": "A1",
+       "antonyms": [
+        {
+         "lemma": "мама",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "definition": "глава католической церкви, живущий в Ватикане",
+       "example": "Римский папа обратился к верующим с площади перед собором.",
+       "cefr": "B2",
+       "frames": [
+        "Римский папа"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.77,
+  "entry": {
+   "language": "ru",
+   "headword": "установить",
+   "lexemes": [
+    {
+     "lemma": "установить",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Perf",
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/u.stə.nɐ.ˈvʲitʲ/",
+       "reading": "установи́ть"
+      }
+     ],
+     "forms": [
+      {
+       "form": "установлю",
+       "features": {
+        "Person": "1",
+        "Number": "Sing",
+        "Tense": "Fut",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "reading": "установлю́"
+      },
+      {
+       "form": "установишь",
+       "features": {
+        "Person": "2",
+        "Number": "Sing",
+        "Tense": "Fut",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "reading": "устано́вишь"
+      },
+      {
+       "form": "установят",
+       "features": {
+        "Person": "3",
+        "Number": "Plur",
+        "Tense": "Fut",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       },
+       "reading": "устано́вят"
+      },
+      {
+       "form": "установил",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "установи́л"
+      },
+      {
+       "form": "установила",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "установи́ла"
+      },
+      {
+       "form": "установи",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "установи́"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "поставить и закрепить на нужном месте, подготовить к работе",
+       "example": "Мастер завтра установит новую стиральную машину на кухне.",
+       "cefr": "B1",
+       "frames": [
+        "установить что где"
+       ]
+      },
+      {
+       "definition": "ввести, создать то, что начинает существовать и действовать",
+       "example": "Наши компании установили деловые связи несколько лет назад.",
+       "cefr": "B2",
+       "frames": [
+        "установить порядок, связи, рекорд"
+       ]
+      },
+      {
+       "definition": "точно выяснить, узнать после проверки или исследования",
+       "example": "Эксперты пока не смогли установить причину пожара.",
+       "cefr": "B2",
+       "frames": [
+        "установить что",
+        "установить, что…"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "aspect_partner",
+       "lemma": "устанавливать",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.88,
+  "entry": {
+   "language": "ru",
+   "headword": "искать",
+   "lexemes": [
+    {
+     "lemma": "искать",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Imp",
+      "valency": "Tr",
+      "note": "ск alternates with щ in the present tense and imperative"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ɪs.ˈkatʲ/",
+       "reading": "иска́ть"
+      }
+     ],
+     "forms": [
+      {
+       "form": "ищу",
+       "features": {
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "ищу́"
+      },
+      {
+       "form": "ищешь",
+       "features": {
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "и́щешь"
+      },
+      {
+       "form": "ищут",
+       "features": {
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "reading": "и́щут"
+      },
+      {
+       "form": "искал",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "иска́л"
+      },
+      {
+       "form": "искала",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "иска́ла"
+      },
+      {
+       "form": "ищи",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "ищи́"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "стараться найти кого-то или что-то потерянное или нужное",
+       "example": "Я уже целый час ищу свои ключи по всей квартире.",
+       "cefr": "A1",
+       "frames": [
+        "искать кого/что"
+       ]
+      },
+      {
+       "definition": "стараться получить или добиться чего-то нужного",
+       "example": "В трудную минуту многие ищут поддержки у близких друзей.",
+       "cefr": "B1",
+       "frames": [
+        "искать чего",
+        "искать чего у кого"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.64,
+  "entry": {
+   "language": "ru",
+   "headword": "платить",
+   "lexemes": [
+    {
+     "lemma": "платить",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Imp",
+      "valency": "Both",
+      "note": "т changes to ч in the 1st person singular (плачу)"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/plɐ.ˈtʲitʲ/",
+       "reading": "плати́ть"
+      }
+     ],
+     "forms": [
+      {
+       "form": "плачу",
+       "reading": "плачу́",
+       "features": {
+        "Person": "1",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "платишь",
+       "reading": "пла́тишь",
+       "features": {
+        "Person": "2",
+        "Number": "Sing",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "платят",
+       "reading": "пла́тят",
+       "features": {
+        "Person": "3",
+        "Number": "Plur",
+        "Tense": "Pres",
+        "Mood": "Ind",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "платил",
+       "reading": "плати́л",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "платила",
+       "reading": "плати́ла",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      },
+      {
+       "form": "плати",
+       "reading": "плати́",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "отдавать деньги за товар, услугу или работу",
+       "example": "Мы платим за квартиру в начале каждого месяца.",
+       "cefr": "A1",
+       "frames": [
+        "платить за что",
+        "платить кому",
+        "платить что (деньги, налоги)"
+       ],
+       "grammar": {
+        "valency": "Both"
+       }
+      },
+      {
+       "definition": "отвечать кому-либо на поступок или отношение своим поступком",
+       "example": "Она всегда платила друзьям преданностью за их доброту.",
+       "cefr": "B2",
+       "frames": [
+        "платить кому чем за что"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "grammar": {
+        "valency": "Tr"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "aspect_partner",
+       "lemma": "заплатить",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "verb with frames",
+  "zipf": 4.62,
+  "entry": {
+   "language": "ru",
+   "headword": "обеспечить",
+   "lexemes": [
+    {
+     "lemma": "обеспечить",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Perf",
+      "valency": "Tr"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ɐ.bʲɪ.ˈspʲe.tɕitʲ/",
+       "reading": "обеспе́чить"
+      }
+     ],
+     "forms": [
+      {
+       "form": "обеспечу",
+       "features": {
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing"
+       },
+       "reading": "обеспе́чу"
+      },
+      {
+       "form": "обеспечишь",
+       "features": {
+        "Tense": "Fut",
+        "Person": "2",
+        "Number": "Sing"
+       },
+       "reading": "обеспе́чишь"
+      },
+      {
+       "form": "обеспечат",
+       "features": {
+        "Tense": "Fut",
+        "Person": "3",
+        "Number": "Plur"
+       },
+       "reading": "обеспе́чат"
+      },
+      {
+       "form": "обеспечил",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing"
+       },
+       "reading": "обеспе́чил"
+      },
+      {
+       "form": "обеспечила",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing"
+       },
+       "reading": "обеспе́чила"
+      },
+      {
+       "form": "обеспечь",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing"
+       },
+       "reading": "обеспе́чь"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "создать условия, при которых что-то нужное точно будет",
+       "example": "Организаторы должны обеспечить безопасность всех участников концерта.",
+       "cefr": "B1",
+       "frames": [
+        "обеспечить что"
+       ]
+      },
+      {
+       "definition": "дать кому-то всё необходимое в нужном количестве",
+       "example": "Государство обязано обеспечить эти семьи нормальным жильём.",
+       "cefr": "B2",
+       "frames": [
+        "обеспечить кого чем"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "aspect_partner",
+       "lemma": "обеспечивать",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.59,
+  "entry": {
+   "language": "ru",
+   "headword": "морской",
+   "lexemes": [
+    {
+     "lemma": "морской",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": false,
+      "note": "no short forms"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/mɐr.ˈskoj/",
+       "reading": "морско́й"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "находящийся в море или у моря, живущий в море или взятый из моря",
+       "example": "Летом мы любим купаться в тёплой морской воде.",
+       "cefr": "A2"
+      },
+      {
+       "definition": "предназначенный для плавания по морю или служащий во флоте",
+       "example": "Мой брат хочет стать морским офицером после училища.",
+       "cefr": "B1"
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "море",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adjective",
+  "zipf": 4.56,
+  "entry": {
+   "language": "ru",
+   "headword": "огромный",
+   "lexemes": [
+    {
+     "lemma": "огромный",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ɐ.ˈɡrom.nɨj/",
+       "reading": "огро́мный"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "очень большой по размеру, количеству или силе",
+       "example": "За нашим домом начинается огромный густой лес.",
+       "cefr": "A2",
+       "antonyms": [
+        {
+         "lemma": "крошечный",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.84,
+  "entry": {
+   "language": "ru",
+   "headword": "возле",
+   "lexemes": [
+    {
+     "lemma": "возле",
+     "pos": "ADP",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈvoz.lʲɪ/",
+       "reading": "во́зле"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "на небольшом расстоянии от кого-либо или чего-либо, рядом с ним",
+       "example": "Давай встретимся завтра возле входа в метро.",
+       "cefr": "A2",
+       "frames": [
+        "возле кого/чего"
+       ]
+      }
+     ]
+    },
+    {
+     "lemma": "возле",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈvoz.lʲɪ/",
+       "reading": "во́зле"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "рядом, близко, на небольшом расстоянии",
+       "example": "Мать сидела возле и тихо гладила сына по голове.",
+       "cefr": "B2"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "two parts of speech",
+  "zipf": 4.88,
+  "entry": {
+   "language": "ru",
+   "headword": "соответственно",
+   "lexemes": [
+    {
+     "lemma": "соответственно",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/sə.ɐt.ˈvʲets.tvʲɪn.nə/",
+       "reading": "соотве́тственно"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "так, как подходит к чему-либо или требуется обстоятельствами",
+       "example": "Работы стало больше, и платить нам должны соответственно.",
+       "cefr": "B2"
+      },
+      {
+       "definition": "используется, чтобы ввести вывод или следствие из сказанного",
+       "example": "Поезд опаздывает, соответственно, мы приедем только поздно вечером.",
+       "cefr": "B1",
+       "grammar": {
+        "note": "used as a parenthetical word, set off by commas"
+       }
+      },
+      {
+       "definition": "в том же порядке, в каком названо раньше",
+       "example": "Брату и сестре сейчас десять и двенадцать лет соответственно.",
+       "cefr": "B2",
+       "grammar": {
+        "note": "usually at the end of the clause"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "adverb_of",
+       "lemma": "соответственный",
+       "pos": "ADJ"
+      }
+     ]
+    },
+    {
+     "lemma": "соответственно",
+     "pos": "ADP",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/sə.ɐt.ˈvʲets.tvʲɪn.nə/",
+       "reading": "соотве́тственно"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "так, как требует или указывает что-либо",
+       "example": "Все работы будут выполнены соответственно требованиям заказчика.",
+       "cefr": "C1",
+       "frames": [
+        "соответственно чему"
+       ],
+       "labels": {
+        "formality": "formal"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.83,
+  "entry": {
+   "language": "ru",
+   "headword": "вода",
+   "lexemes": [
+    {
+     "lemma": "вода",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "animacy": "Inan",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/vɐ.ˈda/",
+       "reading": "вода́"
+      }
+     ],
+     "forms": [
+      {
+       "form": "воды",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "воды́"
+      },
+      {
+       "form": "воду",
+       "features": {
+        "Case": "Acc",
+        "Number": "Sing"
+       },
+       "reading": "во́ду"
+      },
+      {
+       "form": "воды",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "во́ды"
+      },
+      {
+       "form": "вод",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "прозрачная жидкость без цвета, вкуса и запаха, нужная для жизни",
+       "example": "Налей мне, пожалуйста, стакан холодной воды.",
+       "cefr": "A1"
+      },
+      {
+       "definition": "моря, реки или озёра определённого места или государства",
+       "example": "Корабль вошёл в территориальные воды соседней страны.",
+       "cefr": "B2",
+       "grammar": {
+        "number": "Plur"
+       }
+      },
+      {
+       "definition": "лишние слова без важного содержания в тексте или речи",
+       "example": "В твоём докладе слишком много воды, сократи его.",
+       "cefr": "B2",
+       "labels": {
+        "formality": "informal",
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "labelled sense",
+  "zipf": 4.77,
+  "entry": {
+   "language": "ru",
+   "headword": "солнце",
+   "lexemes": [
+    {
+     "lemma": "солнце",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Neut",
+      "animacy": "Inan"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈson.tsə/",
+       "reading": "со́лнце"
+      }
+     ],
+     "forms": [
+      {
+       "form": "солнца",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "со́лнца"
+      },
+      {
+       "form": "солнца",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "со́лнца"
+      },
+      {
+       "form": "солнц",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "definition": "звезда, вокруг которой движется Земля и которая даёт свет и тепло",
+       "example": "Утром солнце встаёт на востоке, а вечером садится на западе.",
+       "cefr": "A1",
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "definition": "яркий свет и тепло, которые идут с неба днём",
+       "example": "Не сиди долго на солнце, а то обгоришь.",
+       "cefr": "A2",
+       "frames": [
+        "на солнце",
+        "под солнцем"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "definition": "ласковое обращение к очень дорогому, любимому человеку",
+       "example": "Солнце моё, не грусти, всё обязательно будет хорошо.",
+       "cefr": "B1",
+       "frames": [
+        "солнце моё"
+       ],
+       "labels": {
+        "attitude": [
+         "endearing"
+        ],
+        "formality": "informal",
+        "figurative": true
+       },
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.77,
+  "entry": {
+   "language": "ru",
+   "headword": "удар",
+   "lexemes": [
+    {
+     "lemma": "удар",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Inan",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/u.ˈdar/",
+       "reading": "уда́р",
+       "notation": "stress"
+      }
+     ],
+     "forms": [
+      {
+       "form": "удара",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "уда́ра"
+      },
+      {
+       "form": "удары",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "уда́ры"
+      },
+      {
+       "form": "ударов",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "уда́ров"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "резкое сильное прикосновение рукой, ногой или предметом",
+       "example": "Одним точным ударом по мячу он забил гол.",
+       "cefr": "B1",
+       "frames": [
+        "удар по чему",
+        "удар чем",
+        "нанести удар кому"
+       ]
+      },
+      {
+       "definition": "тяжёлое неожиданное несчастье, сильное потрясение",
+       "example": "Потеря работы стала для всей семьи настоящим ударом.",
+       "cefr": "B2",
+       "frames": [
+        "удар для кого"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "definition": "быстрое нападение на противника, атака",
+       "example": "Ночью авиация нанесла удар по складам противника.",
+       "cefr": "B2",
+       "frames": [
+        "удар по чему",
+        "нанести удар"
+       ]
+      },
+      {
+       "definition": "короткий резкий звук от столкновения или толчка",
+       "example": "Где-то вдали раздался глухой удар грома.",
+       "cefr": "B2",
+       "frames": [
+        "удар чего"
+       ]
+      },
+      {
+       "definition": "внезапное кровоизлияние в мозг, инсульт",
+       "example": "Старика хватил удар, и он долго лежал в больнице.",
+       "cefr": "C1",
+       "labels": {
+        "formality": "informal"
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "ударить",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "figurative sense",
+  "zipf": 4.75,
+  "entry": {
+   "language": "ru",
+   "headword": "подарок",
+   "lexemes": [
+    {
+     "lemma": "подарок",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Inan",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/pɐ.ˈda.rək/",
+       "reading": "пода́рок"
+      }
+     ],
+     "forms": [
+      {
+       "form": "подарка",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "пода́рка"
+      },
+      {
+       "form": "подарки",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "пода́рки"
+      },
+      {
+       "form": "подарков",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "пода́рков"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "вещь, которую дают кому-то бесплатно, чтобы сделать приятное",
+       "example": "Мы купили маме красивый подарок на день рождения.",
+       "cefr": "A1",
+       "frames": [
+        "подарок кому",
+        "подарок на что",
+        "в подарок"
+       ]
+      },
+      {
+       "definition": "что-то приятное и неожиданное, неожиданная удача",
+       "example": "Этот тёплый солнечный день стал для нас настоящим подарком.",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true
+       },
+       "frames": [
+        "подарок судьбы"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "подарить",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.72,
+  "entry": {
+   "language": "ru",
+   "headword": "дважды",
+   "lexemes": [
+    {
+     "lemma": "дважды",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈdvaʐ.dɨ/",
+       "reading": "два́жды"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "один раз и потом ещё один раз",
+       "example": "Я дважды звонил тебе сегодня, но никто не ответил.",
+       "cefr": "A2",
+       "frames": [
+        "дважды два — четыре"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "два",
+       "pos": "NUM"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "kind": "adverb",
+  "zipf": 4.99,
+  "entry": {
+   "language": "ru",
+   "headword": "насколько",
+   "lexemes": [
+    {
+     "lemma": "насколько",
+     "pos": "ADV",
+     "kind": "word",
+     "grammar": {
+      "invariable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/nɐ.ˈskolʲ.kə/",
+       "reading": "наско́лько"
+      }
+     ],
+     "senses": [
+      {
+       "definition": "в какой мере, до какой степени",
+       "example": "Я не совсем понимаю, насколько серьёзна эта проблема.",
+       "cefr": "B1",
+       "frames": [
+        "насколько + прил./нареч."
+       ]
+      },
+      {
+       "definition": "используется, чтобы ограничить сказанное тем, что говорящий знает или помнит",
+       "example": "Насколько я знаю, магазин сегодня работает до девяти.",
+       "cefr": "B1",
+       "frames": [
+        "насколько я знаю",
+        "насколько я помню",
+        "насколько..., настолько..."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+]
