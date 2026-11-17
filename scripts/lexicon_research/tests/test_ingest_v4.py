@@ -205,3 +205,19 @@ def test_a_transcription_gets_the_dot_it_lacks_before_a_stress_mark():
     assert [p["ipa"] for p in clean["lexemes"][0]["pronunciations"]] == ["/ə.ˈlaʊ/", "/ə.ˈlaʊ/"]
     assert clean["lexemes"][0]["forms"][0]["ipa"] == {"en-US": "/ə.ˈlaʊd/"} and clean["syllable_dots_added"] == 2
     assert raw["lexemes"][0]["pronunciations"][0]["ipa"] == "/əˈlaʊ/"  # the written entry is left as it was
+
+
+def test_a_french_or_italian_pronominal_sense_gets_the_auxiliary_it_is_conjugated_with():
+    verb = lexeme("expliquer", "VERB", grammar={"conjugation": "1", "auxiliary": "have"},
+                  senses=[sense("faire comprendre une chose à une autre personne"),
+                          sense("dire clairement ce que l'on pense ou veut", grammar={"valency": "Refl"}),
+                          sense("se disputer avec une personne pour régler un désaccord", grammar={"reflexive": True, "auxiliary": "be"})])
+    raw = entry("expliquer", verb, lang="fr")
+    clean = ingest_v4.clean_entry("fr", raw, META)
+    assert [s.get("grammar") for s in clean["lexemes"][0]["senses"]] == [None, {"valency": "Refl", "auxiliary": "be"}, {"reflexive": True, "auxiliary": "be"}]
+    assert clean["pronominal_auxiliaries_set"] == 1 and clean["lexemes"][0]["grammar"]["auxiliary"] == "have"
+    assert "auxiliary" not in raw["lexemes"][0]["senses"][1]["grammar"]  # the written entry is left as it was
+    # a verb that is pronominal throughout already says so once; German and Spanish have no such rule
+    whole = entry("évanouir", lexeme("évanouir", "VERB", grammar={"auxiliary": "be", "reflexive": True}, senses=[sense("perdre connaissance pendant un court moment", grammar={"valency": "Refl"})]), lang="fr")
+    assert "pronominal_auxiliaries_set" not in ingest_v4.clean_entry("fr", whole, META)
+    assert "pronominal_auxiliaries_set" not in ingest_v4.clean_entry("de", entry("regeln", verb, lang="de"), META)

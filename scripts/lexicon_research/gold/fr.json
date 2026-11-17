@@ -1,0 +1,350 @@
+[
+ {
+  "language": "fr",
+  "headword": "hôpital",
+  "lexemes": [
+   {
+    "lemma": "hôpital",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/ɔ.pi.ˈtal/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "hôpitaux",
+      "features": {
+       "Number": "Plur"
+      },
+      "ipa": {
+       "fr-FR": "/ɔ.pi.ˈto/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "établissement où des médecins soignent les malades et les blessés",
+      "example": "Après l'accident, on l'a transporté d'urgence à l'hôpital le plus proche.",
+      "cefr": "A1",
+      "frames": [
+       "à l'hôpital",
+       "être hospitalisé à l'hôpital"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "fr",
+  "headword": "continuer",
+  "lexemes": [
+   {
+    "lemma": "continuer",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "1",
+     "valency": "Both",
+     "auxiliary": "have"
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/kɔ̃.ti.ˈnɥe/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "poursuivre une activité déjà commencée, sans s’arrêter ou après une pause",
+      "example": "Malgré la pluie, nous avons continué à marcher jusqu'au village.",
+      "cefr": "A2",
+      "frames": [
+       "continuer qqch",
+       "continuer à + inf",
+       "continuer de + inf"
+      ],
+      "grammar": {
+       "valency": "Both"
+      },
+      "antonyms": [
+       {
+        "lemma": "arrêter",
+        "pos": "VERB"
+       }
+      ]
+     },
+     {
+      "definition": "se prolonger dans le temps ou dans l’espace",
+      "example": "La pluie continue depuis ce matin sans aucune interruption.",
+      "cefr": "A2",
+      "grammar": {
+       "valency": "Intr"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "fr",
+  "headword": "normal",
+  "lexemes": [
+   {
+    "lemma": "normal",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/nɔʁ.ˈmal/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "normaux",
+      "features": {
+       "Gender": "Masc",
+       "Number": "Plur"
+      },
+      "ipa": {
+       "fr-FR": "/nɔʁ.ˈmo/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "conforme à ce qui arrive le plus souvent, sans rien de particulier",
+      "example": "Aujourd'hui, les températures restent normales pour la saison.",
+      "cefr": "A2",
+      "antonyms": [
+       {
+        "lemma": "anormal",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "qui ne surprend pas, que l'on peut facilement comprendre ou accepter",
+      "example": "Il est normal que tu sois inquiet avant l'examen.",
+      "cefr": "A2",
+      "frames": [
+       "il est normal que + subj",
+       "c'est normal de + inf"
+      ]
+     },
+     {
+      "definition": "qui fonctionne ou se développe sans problème particulier",
+      "example": "Depuis sa réparation, le moteur retrouve un fonctionnement normal.",
+      "cefr": "B1",
+      "antonyms": [
+       {
+        "lemma": "anormal",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "adjective_of",
+      "lemma": "norme",
+      "pos": "NOUN"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "fr",
+  "headword": "historique",
+  "lexemes": [
+   {
+    "lemma": "historique",
+    "pos": "ADJ",
+    "kind": "word",
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/is.tɔ.ˈʁik/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "qui présente ou étudie les événements et les sociétés du passé",
+      "example": "Nous préparons une exposition historique sur la vie du village.",
+      "cefr": "B1"
+     },
+     {
+      "definition": "assez marquant pour rester longtemps dans la mémoire collective",
+      "example": "Cette victoire historique marque un tournant pour toute l’équipe.",
+      "cefr": "B1"
+     },
+     {
+      "definition": "dont la réalité est établie, contrairement aux récits inventés",
+      "example": "Ce personnage est historique, même si ses aventures sont inventées.",
+      "cefr": "B2",
+      "antonyms": [
+       {
+        "lemma": "imaginaire",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "jamais atteint auparavant, au point de marquer les esprits",
+      "example": "Le chômage atteint un niveau historique dans cette région.",
+      "cefr": "B2"
+     },
+     {
+      "definition": "présent depuis les débuts d’une organisation ou d’une activité",
+      "example": "Le dirigeant historique du mouvement annonce enfin son départ.",
+      "cefr": "B2"
+     }
+    ],
+    "relations": [
+     {
+      "type": "adjective_of",
+      "lemma": "histoire",
+      "pos": "NOUN"
+     }
+    ]
+   },
+   {
+    "lemma": "historique",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/is.tɔ.ˈʁik/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "liste enregistrée des pages visitées ou des actions faites sur un appareil",
+      "example": "Pense à effacer l'historique de ton navigateur sur cet ordinateur.",
+      "cefr": "B1",
+      "labels": {
+       "domain": "computing"
+      }
+     },
+     {
+      "definition": "récit, dans l'ordre du temps, des faits passés concernant une chose",
+      "example": "Pouvez-vous faire un bref historique du projet pour nos nouveaux collègues ?",
+      "cefr": "B2",
+      "frames": [
+       "faire l’historique de qqch"
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "historique",
+      "pos": "ADJ"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "fr",
+  "headword": "couple",
+  "lexemes": [
+   {
+    "lemma": "couple",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/ˈkupl/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "deux personnes unies par une relation amoureuse ou par le mariage",
+      "example": "Nos voisins forment un couple très uni depuis trente ans.",
+      "cefr": "A2",
+      "frames": [
+       "être en couple",
+       "vivre en couple",
+       "former un couple"
+      ]
+     },
+     {
+      "definition": "ensemble de deux personnes, animaux ou choses associés",
+      "example": "Les danseurs se répartissent par couples avant le début du cours.",
+      "cefr": "B1",
+      "frames": [
+       "un couple de + nom pluriel",
+       "par couples"
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "confusable",
+      "lemma": "paire",
+      "pos": "NOUN",
+      "why": "paire often denotes two matching or complementary items; couple emphasizes an association, especially a romantic relationship"
+     }
+    ]
+   },
+   {
+    "lemma": "couple",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Fem",
+     "countability": "Count",
+     "note": "mostly in une couple de + plural noun"
+    },
+    "pronunciations": [
+     {
+      "variety": "fr-FR",
+      "ipa": "/ˈkupl/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "groupe de deux ou de quelques personnes ou choses",
+      "example": "Attends-moi ici, je reviens dans une couple de minutes.",
+      "cefr": "B2",
+      "frames": [
+       "une couple de + nom pluriel"
+      ],
+      "labels": {
+       "formality": "informal"
+      },
+      "regions": [
+       {
+        "variety": "fr-CA",
+        "extent": "mainly"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

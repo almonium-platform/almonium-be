@@ -25,15 +25,15 @@ HERE = Path("scripts/lexicon_research")
 #   4  November 2026 (v4, v4.1, v4.2, v4.3): the core only, without glosses and cues; labels on separate axes,
 #      frames, spellings by variety, multiword and contraction lexemes, typed relations. v4.2 adds October's
 #      rules for a headword that is also an inflected form, its regions (a country or UN area with an
-#      extent) and pronunciation notes, the parts of a compound, and the politeness label. v4.3 shows a
+#      extent) and pronunciation notes, the parts of a compound, and the politeness label. From v4.3 a
 #      language its own reviewed example entries (gold/<lang>.json) and states five rules a reviewer of
 #      another model family found the entries bending
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.4")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.5")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -224,6 +224,11 @@ LANGUAGE_NOTES_V4 = {
     ("de", "v4.4"): "\nThe headword may come in lower case (fallschirm): write each lemma as German writes it (Fallschirm). An infinitive "
                     "used as a noun (das Sterben, das Laufen) is not a lexeme unless it has a meaning the verb lacks (das Essen, food; "
                     "das Leben, life; das Schreiben, a letter).\n",
+    # from v4.5: three in five pronominal senses were written with the auxiliary of the plain verb
+    ("fr", "v4.5"): "\nA pronominal sense (s'expliquer, se permettre) is conjugated with être: give \"auxiliary\": \"be\" in that "
+                    "sense's grammar, whatever the verb takes elsewhere.\n",
+    ("it", "v4.5"): "\nA pronominal sense (lavarsi, accorgersi) is conjugated with essere: give \"auxiliary\": \"be\" in that "
+                    "sense's grammar, whatever the verb takes elsewhere.\n",
     "uk": "\nWrite definitions and examples in standard Ukrainian, free of Russianisms and calques. A word or sense that Ukrainian "
           "normative dictionaries reject as a Russianism or a calque is proscribed, with the standard word in standard_alternative "
           "(являтися in the sense \"to be\": бути). A verb lists its aspect partner as a relation.\n",
@@ -281,7 +286,7 @@ def schema_example_v4(version):
 # A version's prompt for a language never changes once entries are written with it, so a language whose
 # examples arrive later gets them in the next version, and a gold file in use is not edited: a better set
 # of examples is a new version too.
-GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4"}
+GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4", "fr": "v4.5"}
 
 
 def since_v4(version, first):
@@ -310,7 +315,7 @@ def examples_v4(lang, version):
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.4")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.5")
     schema_path = HERE / "entry.schema.v4.json"
     inv = []
     for v in VARIETIES[lang]:

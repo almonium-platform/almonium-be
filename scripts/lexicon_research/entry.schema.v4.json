@@ -919,6 +919,15 @@
     },
     "why": {
      "type": "string"
+    },
+    "senses": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "integer",
+      "minimum": 1
+     },
+     "description": "The senses, counted from 1, that the relation holds for, when not all (port: derived from porter in the carrying senses only)."
     }
    }
   }

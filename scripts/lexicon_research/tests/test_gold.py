@@ -20,6 +20,7 @@ PINNED = {
     ("en", "v4.2"): "fc17d9bf16b5", ("de", "v4.2"): "b6d36680966c", ("fr", "v4.2"): "6253b994ff5b", ("es", "v4.2"): "2a49019b3872", ("it", "v4.2"): "2fec220b2a1d", ("pt", "v4.2"): "21f761ff10d5",
     ("en", "v4.3"): "e6615ab40a6b", ("de", "v4.3"): "bc8cfbca1124", ("fr", "v4.3"): "5418c0d89d60", ("es", "v4.3"): "7cf0386d9950", ("it", "v4.3"): "0c8f05818753", ("pt", "v4.3"): "58417a4d2947",
     ("en", "v4.4"): "ea3693cc8e6c", ("de", "v4.4"): "264072a754c8", ("fr", "v4.4"): "b42f719d2bef", ("es", "v4.4"): "9f4ac7938249", ("it", "v4.4"): "e0a358f349be", ("pt", "v4.4"): "fb3233860b89",
+    ("en", "v4.5"): "01e3c8b0c49c", ("de", "v4.5"): "3a6bbf9411f3", ("fr", "v4.5"): "cb91c0a2c441", ("es", "v4.5"): "49554113c543", ("it", "v4.5"): "1696c5fba6f0", ("pt", "v4.5"): "a55595cc20b8",
 }
 ANSWER = """# Review
 
@@ -89,6 +90,22 @@ def test_an_example_gets_the_dots_its_reviewer_left_out(tmp_path, monkeypatch):
     assert gold_candidates.take("en", answer, ["allow"])[0]["lexemes"][0]["pronunciations"][0]["ipa"] == "/ə.ˈlaʊ/"
 
 
+def test_our_own_correction_is_applied_on_top_of_the_reviewers_and_must_lead_somewhere(tmp_path, monkeypatch):
+    monkeypatch.setattr(gold_candidates, "GOLD", tmp_path)
+    (tmp_path / "candidates").mkdir()
+    (tmp_path / "candidates" / "en.json").write_text("[]")
+    (tmp_path / "own").mkdir()
+    answer = tmp_path / "answer.md"
+    answer.write_text(ANSWER, encoding="utf-8")
+    own = [{"headword": "hill", "path": "lexemes.0.senses.0.cefr", "value": "A1", "why": "a test"}]
+    (tmp_path / "own" / "en.json").write_text(json.dumps(own))
+    assert gold_candidates.take("en", answer, ["hill"])[0]["lexemes"][0]["senses"][0]["cefr"] == "A1"
+    own[0]["path"] = "lexemes.0.senses.0.grammar.note"
+    (tmp_path / "own" / "en.json").write_text(json.dumps(own))
+    with pytest.raises(KeyError):
+        gold_candidates.take("en", answer, ["hill"])
+
+
 def test_an_entry_the_reviewer_refused_never_becomes_an_example(tmp_path, monkeypatch):
     monkeypatch.setattr(gold_candidates, "GOLD", tmp_path)
     (tmp_path / "candidates").mkdir()
@@ -117,6 +134,7 @@ def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them(
     assert "# Examples" not in prompting.system_prompt("en", "v4.2")
     assert "# Examples" not in prompting.system_prompt("de", "v4.3") and '"headword": "nötig"' in prompting.system_prompt("de", "v4.4")
     assert "# Examples" not in prompting.system_prompt("es", "v4.3") and '"headword": "lunes"' in prompting.system_prompt("es", "v4.4")
+    assert "# Examples" not in prompting.system_prompt("fr", "v4.4") and '"headword": "hôpital"' in prompting.system_prompt("fr", "v4.5")
     for lang in prompting.TARGET_LANGUAGES:
         if lang not in prompting.GOLD_SINCE:
             assert "# Examples" not in prompting.system_prompt(lang)
@@ -129,6 +147,9 @@ def test_a_text_changed_in_a_version_does_not_reach_the_older_ones():
     assert "fallschirm" in prompting.system_prompt("de", "v4.3") and "fallschirm" in prompting.system_prompt("de", "v4.4")
     assert "1959" in prompting.system_prompt("es", "v4.4") and "1959" not in prompting.system_prompt("es", "v4.3")
     assert "sólo as an adverb, guión and fué are pre-reform" in prompting.system_prompt("es", "v4.3")
+    for lang, word in (("fr", "être"), ("it", "essere")):
+        assert f"is conjugated with {word}" in prompting.system_prompt(lang, "v4.5")
+        assert f"is conjugated with {word}" not in prompting.system_prompt(lang, "v4.4")
 
 
 def test_a_prompt_that_entries_were_written_with_still_renders_to_the_letter():

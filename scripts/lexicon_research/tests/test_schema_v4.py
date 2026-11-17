@@ -94,3 +94,22 @@ def test_a_form_may_say_where_it_is_used():
     e = entry()
     e["lexemes"][0]["forms"] = [{"form": "electo", "features": {"VerbForm": "Part", "Tense": "Past"}, "varieties": ["es-MX"], "note": "only in the passive"}]
     VALID.validate(e)
+
+
+def test_a_relation_may_hold_for_some_senses_only():
+    e = entry()
+    e["lexemes"][0]["relations"] = [{"type": "derived_from", "lemma": "porter", "pos": "VERB", "senses": [2, 3]}]
+    VALID.validate(e)
+    e["lexemes"][0]["relations"][0]["senses"] = [0]
+    assert not VALID.is_valid(e)
+
+
+def test_the_audit_counts_a_pronominal_sense_without_its_auxiliary():
+    e = entry()
+    e["language"] = "fr"
+    lexeme = e["lexemes"][0]
+    lexeme["pos"], lexeme["grammar"] = "VERB", {"auxiliary": "have"}
+    lexeme["senses"][0]["grammar"] = {"valency": "Refl"}
+    assert ("pronominal sense without its auxiliary", lexeme["lemma"]) in check_v4.check("fr", e, {}, None)
+    lexeme["senses"][0]["grammar"]["auxiliary"] = "be"
+    assert "pronominal sense without its auxiliary" not in [kind for kind, _ in check_v4.check("fr", e, {}, None)]

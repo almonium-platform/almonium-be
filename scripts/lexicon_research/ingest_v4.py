@@ -94,6 +94,23 @@ def dot_syllables(lexeme):
     return changed
 
 
+BE_WHEN_PRONOMINAL = {"fr", "it"}  # être, essere: every pronominal use of a verb, without exception
+
+
+def pronominal_auxiliary(lang, lexeme):
+    """Give a French or Italian pronominal sense the auxiliary it is conjugated with; says how many lacked it."""
+    whole = lexeme.get("grammar") or {}
+    if lang not in BE_WHEN_PRONOMINAL or lexeme.get("pos") != "VERB" or whole.get("auxiliary") == "be":
+        return 0
+    changed = 0
+    for sense in lexeme.get("senses") or []:
+        own = sense.get("grammar") or {}
+        if (own.get("valency") == "Refl" or own.get("reflexive") is True) and own.get("auxiliary") != "be":
+            sense["grammar"] = {**own, "auxiliary": "be"}
+            changed += 1
+    return changed
+
+
 def is_own(headword, lexeme):
     """Whether the lexeme belongs under the headword: its lemma, or one of its spellings, is the headword."""
     own = headword.lower()
@@ -136,7 +153,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, dots = [], [], 0
+    dropped, kept, dots, auxiliaries = [], [], 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -165,6 +182,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
             if "senses" in form:
                 form["sense_ids"] = [senses[n - 1]["id"] for n in form.pop("senses") if 0 < n <= len(senses)]
         dots += dot_syllables(lexeme)
+        auxiliaries += pronominal_auxiliary(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -178,6 +196,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["dropped"] = dropped
     if dots:
         entry["syllable_dots_added"] = dots
+    if auxiliaries:
+        entry["pronominal_auxiliaries_set"] = auxiliaries
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -300,6 +320,7 @@ def ingest(lang, dry_run=False):
             counts["leaked lexemes dropped" if d["reason"].startswith("not the") else "duplicate lexemes dropped"] += 1
         counts["senses retired"] += sum(len(lx.get("retired") or []) for lx in clean["lexemes"])
         counts["syllable dots added"] += clean.get("syllable_dots_added", 0)
+        counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

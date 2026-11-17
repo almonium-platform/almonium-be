@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -50,15 +50,16 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.4). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.5). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
    free, what needs a paid patch of one field, and what a rule must settle.
 5. **Ingest** (`ingest_v4.py`, free, rerunnable). Ids for lexemes and senses that survive a rewrite,
    leaked lexemes dropped, a word written under two spellings kept once with an alias, a headword
-   rejected as an inflected form or a spelling pointed at the entry that holds its word, and the
-   syllable dot put before every stress mark inside a word.
+   rejected as an inflected form or a spelling pointed at the entry that holds its word, the
+   syllable dot put before every stress mark inside a word, and *être* or *essere* given to every
+   French or Italian pronominal sense.
 6. **Publish.** Not possible yet, see "Pending".
 
 October's line built the other half, for schema 3 (`entry_pipeline.py`): Wiktionary evidence in the
@@ -112,12 +113,14 @@ How a language gets them:
 
 1. `gold_candidates.py` picks twenty faultless entries of plain common words into
    `gold/candidates/<lang>.json` and writes `gold/review/<lang>.md` for a reviewer.
-2. A model of another family reviews them strictly (GPT did English, German and Spanish). Its answer
-   is kept as it came in `gold/answers/<lang>.md`.
+2. A model of another family reviews them strictly (GPT did English, German, Spanish and French).
+   Its answer is kept as it came in `gold/answers/<lang>.md`.
 3. `gold_candidates.py --take gold/answers/<lang>.md --lang <lang> --pick a,b,c,d,e` takes the
    corrected entries named (or the candidate, where the verdict was "use as it is"), puts in the
    syllable dots by ingest's rule, and stops on any that fails the schema or a check. The result
-   is `gold/<lang>.json`.
+   is `gold/<lang>.json`. Where a taken entry breaks a rule the prompt got after the review, the
+   correction is ours and stands apart from the answer, in `gold/own/<lang>.json` (one so far: a
+   note the French reviewer wrote in French).
 4. The language is added to `prompting.GOLD_SINCE` with the prompt version that first shows them.
 
 A prompt version renders the same text for a language for ever, because its hash is in every entry
@@ -197,8 +200,32 @@ Two things the Spanish review raised are left as they are: es-ES writes *ll* as 
 traditional model most printed dictionaries show, though most of Spain says /ʝ/ (a one-line rule
 in ingest either way, when decided); and *Refl* stays one value, with the note saying what kind.
 
-French, Italian and Portuguese write with v4.4's rules and no examples until their reviews are in;
-their examples will be v4.5.
+## Prompt v4.5
+
+French has its examples since v4.5: *hôpital* (noun with an irregular plural), *continuer* (verb with
+*à* and *de*), *normal* (adjective, a frame with the subjunctive), *historique* (adjective and
+noun), *couple* (masculine and feminine lexemes, a familiar sense mainly of Canada). Of twenty
+candidates: three passed, twelve corrected, five refused.
+
+Half of what the French review found was v4.4's subject already (a definition narrower than the
+word: an *avion* carries passengers, a *port* is on the coast, a *couple* is married). What is new:
+
+| Found | Rule in v4.5, or fix |
+|---|---|
+| *s'expliquer* written under a verb that "takes avoir": three in five French pronominal senses lacked *être* | A French or Italian pronominal sense says `auxiliary: be`. For what is written, ingest sets it by rule, free: 73 of 119 French and 16 of 78 Italian pronominal senses |
+| *permettre* derived from *mettre*, *chanson* from *chanter*; *port* derived from *porter* in all its senses, the harbour too | `derived_from` is for a word built inside the language, not for a common ancestor; a relation may list the `senses` it holds for (new in the schema) |
+| *ben*, *cool*, *voilà* defined each in its own way ("mot de l'oral qui...", "exprime...") | A word with no meaning to paraphrase is defined by what it is used for, opening as the language's learner's dictionaries do ("used to ...", "sert à ...") |
+| "Cool ! On part demain." as one example | An interjection stands inside its sentence, after a comma |
+| *normal* marked predicative in a sense that also stands before a noun; *couple* marked singular only | Position and number only for what is never used the other way |
+| `standard_alternative` on a sense with no normative label | Only with nonstandard or proscribed |
+
+Tried on twenty French words against v4.4, and on twenty-two words of the other five languages:
+every entry valid. French senses went from 64 to 74 and frames from 61 to 105, no pronominal
+sense lacked its auxiliary (two did), and the price moved from $0.043 to $0.045 an entry.
+Definitions outside six to fifteen words went from one to four, which the audit counts.
+
+Italian and Portuguese write with v4.5's rules and no examples until their reviews are in; their
+examples will be the next version.
 
 ## Words that are both a form and a word
 
@@ -263,7 +290,7 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
-- Prompt v4.4 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.3` goes back.
+- Prompt v4.5 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.4` goes back.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
   only when the lexicon has nothing, so showing it beside a lexicon entry is part of the backend work.
@@ -289,13 +316,13 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Judge v4.4** on the calibration set and in blind pairs. The tools exist; v4 was never judged.
+3. **Judge v4.5** on the calibration set and in blind pairs. The tools exist; v4 was never judged.
 4. **Lists**: function words for de, fr, es, it, pt (English has them); the book-word list, which
    needs an export from the book processor; phrases.
 5. **IPA symbol lists**: about a tenth of English and German entries use a sound the lists lack
    (the last vowel of *fully*, German short unstressed vowels). Extend the lists or map by rule.
-6. **Example entries for fr, it, pt.** English, German and Spanish have theirs. The review files are
-   written (`gold/review/<lang>.md`); each language needs its reviewer's answer, then `--take` and
+6. **Example entries for it, pt.** English, German, Spanish and French have theirs. The review files
+   are written (`gold/review/<lang>.md`); each language needs its reviewer's answer, then `--take` and
    the next prompt version.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.

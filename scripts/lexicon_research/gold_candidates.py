@@ -23,6 +23,10 @@ with --pick, in that order, the corrected entry the answer gives, or the candida
 verdict was "use as it is". An entry that fails the schema or any check of check_v4.py stops the run;
 nothing becomes an example unchecked. The result is gold/<lang>.json, which the prompt shows.
 
+Where a taken entry breaks a rule the prompt got after the review, the correction is ours and is kept
+apart from the answer, in gold/own/<lang>.json: a list of {"headword", "path", "value", "why"}, the path
+being keys and list positions from the entry down ("lexemes.1.grammar.note").
+
 Usage: gold_candidates.py [--langs en,de] [--per-kind 2]
        gold_candidates.py --take gold/answers/en.md --lang en --pick lake,afford,aware,institute,hall
        (run from the backend repository root)
@@ -196,12 +200,24 @@ def settle(entry):
     return entry
 
 
+def amend(entry, path, value):
+    """Set one value inside an entry; the path must already lead there."""
+    at = entry
+    *way, last = [int(step) if step.isdigit() else step for step in path.split(".")]
+    for step in way:
+        at = at[step]
+    at[last]  # a path that leads nowhere is a mistake in the correction, not a new field
+    at[last] = value
+
+
 def take(lang, answer, picks):
     import jsonschema
     schema = json.loads((HERE / "entry.schema.v4.json").read_text())
     inventories = {v: check_v4.symbols(v) for v in VARIETIES[lang]}
     answers = reviewed(Path(answer).read_text(encoding="utf-8"))
     offered = {c["entry"]["headword"]: c["entry"] for c in json.loads((GOLD / "candidates" / f"{lang}.json").read_text(encoding="utf-8"))}
+    own_path = GOLD / "own" / f"{lang}.json"
+    own = json.loads(own_path.read_text(encoding="utf-8")) if own_path.exists() else []
     gold = []
     for headword in picks:
         verdict, corrected = answers.get(headword, (None, None))
@@ -211,6 +227,9 @@ def take(lang, answer, picks):
         if entry is None:
             sys.exit(f"{headword}: no corrected entry in the answer and no candidate of that name")
         entry = settle(json.loads(json.dumps(entry)))
+        for correction in own:
+            if correction["headword"] == headword:
+                amend(entry, correction["path"], correction["value"])
         jsonschema.validate(entry, schema)
         if faults := check_v4.check(lang, entry, inventories, None):
             sys.exit(f"{headword}: {faults}")

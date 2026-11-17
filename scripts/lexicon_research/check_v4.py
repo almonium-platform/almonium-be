@@ -38,7 +38,8 @@ ENGLISH = {"the", "of", "and", "that", "which", "who", "with", "from", "for", "i
 NEEDS_READING = {"uk", "it"}
 VOWELS = "aeiouàèéìíòóùаеєиіїоуюя"
 ACUTE = "́"
-FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark")
+FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark",
+        "pronominal sense without its auxiliary")
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
 SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know")
 
@@ -108,6 +109,8 @@ def check(lang, entry, inventories, witness):
         for p in lx.get("pronunciations", []):
             if p.get("variety") in inventories and (left := outside(p.get("ipa", ""), inventories[p["variety"]])):
                 problems.append(("IPA outside the symbol list", f"{p['ipa']} has {left}"))
+        if ingest_v4.pronominal_auxiliary(lang, json.loads(json.dumps(lx))):
+            problems.append(("pronominal sense without its auxiliary", lx.get("lemma")))
         spoken = [p.get("ipa", "") for p in lx.get("pronunciations", [])] + [ipa for f in lx.get("forms", []) for ipa in (f.get("ipa") or {}).values()]
         for ipa in spoken:
             if ingest_v4.dotted(ipa) != ipa:
