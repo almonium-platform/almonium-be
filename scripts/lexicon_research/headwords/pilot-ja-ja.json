@@ -1,0 +1,242 @@
+[
+ {
+  "headword": "食べる",
+  "zipf": 4.92,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "帰る",
+  "zipf": 4.63,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "行く",
+  "zipf": 5.52,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "する",
+  "zipf": 6.76,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "来る",
+  "zipf": 5.18,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "ある",
+  "zipf": 6.6,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "開く",
+  "zipf": 4.42,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "開ける",
+  "zipf": 4.09,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "辛い",
+  "zipf": 4.66,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "今日",
+  "zipf": 5.57,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "明日",
+  "zipf": 5.2,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "生",
+  "zipf": 5.46,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "大人",
+  "zipf": 4.99,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "高い",
+  "zipf": 5.4,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "いい",
+  "zipf": 6.37,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "静か",
+  "zipf": 4.47,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "きれい",
+  "zipf": 4.73,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "好き",
+  "zipf": 5.77,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "同じ",
+  "zipf": 5.66,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "本",
+  "zipf": 5.71,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "鉛筆",
+  "zipf": 3.71,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "犬",
+  "zipf": 5.1,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "は",
+  "zipf": 7.46,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "が",
+  "zipf": 7.43,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "を",
+  "zipf": 7.41,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "に",
+  "zipf": 7.52,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "ね",
+  "zipf": 6.63,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "いらっしゃる",
+  "zipf": 3.92,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "参る",
+  "zipf": 2.86,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "です",
+  "zipf": 6.79,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "ございます",
+  "zipf": 5.44,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "あなた",
+  "zipf": 5.66,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "俺",
+  "zipf": 5.97,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "テレビ",
+  "zipf": 5.28,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "コンピューター",
+  "zipf": 4.08,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "アルバイト",
+  "zipf": 4.24,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "勉強",
+  "zipf": 5.03,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "ちょっと",
+  "zipf": 5.71,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "どきどき",
+  "zipf": 3.13,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "お願いします",
+  "zipf": 5.41,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "ありがとう",
+  "zipf": 5.7,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "気をつける",
+  "zipf": 4.69,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "一つ",
+  "zipf": 5.27,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "二人",
+  "zipf": 5.71,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "国",
+  "zipf": 5.58,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "おおきに",
+  "zipf": 2.57,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "めっちゃ",
+  "zipf": 4.62,
+  "set": "pilot-ja"
+ },
+ {
+  "headword": "拙者",
+  "zipf": 3.19,
+  "set": "pilot-ja"
+ }
+]

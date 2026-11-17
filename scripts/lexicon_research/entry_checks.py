@@ -26,6 +26,7 @@ SCHEMA = json.loads((HERE / "entry.schema.json").read_text())
 INVENTORY = {
     variety: json.loads((HERE / "inventories" / f"{variety}.json").read_text())
     for variety in {variety for varieties in VARIETIES.values() for variety in varieties}
+    if (HERE / "inventories" / f"{variety}.json").exists()  # a variety given by a reading, not IPA, has none (ja-JP)
 }
 COUNTRIES = set(json.loads((HERE / "countries.json").read_text()))
 # What a transcription may hold besides its phonemes: slashes, stress, syllable dots, spaces between words, and

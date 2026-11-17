@@ -1,0 +1,231 @@
+"""The shortest list of real entries that between them show everything the shape can say.
+
+For checking the product by hand: type each word into the app and see whether the reader gets what
+the entry holds. Each feature of schema 4 (a second pronunciation, a spelling of one variety, a
+form used only after numbers, a label on each axis, every kind of relation, ...) is looked for in
+the written entries, as ingest would publish them, and the fewest entries that cover all of them are
+chosen, a common English word before a rare one or one of another language.
+
+Output: docs/LEXICON_TOUR.md, a table of the word, its language, and what to look for, each with the
+value the entry really holds.
+
+Usage: tour.py [--langs en,ru,de,fr,es,it,pt]   (run from the backend repository root)
+"""
+import argparse, json, sys
+from collections import defaultdict
+from pathlib import Path
+
+import jsonschema
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ingest_v4  # noqa: E402
+from prompting import HERE, LANG_NAME  # noqa: E402
+
+VALID = jsonschema.Draft202012Validator(json.loads((HERE / "entry.schema.v4.json").read_text()))
+
+DOC = Path("docs/LEXICON_TOUR.md")
+ORDER = ["en", "ru", "de", "fr", "es", "it", "pt"]  # the owner reads the first two natively
+RELATIONS = {"diminutive_of": "a diminutive", "augmentative_of": "an augmentative", "endearing_of": "an endearing form", "feminine_of": "a feminine",
+             "agent_noun_of": "an agent noun", "verbal_noun_of": "a verbal noun", "abstract_noun_of": "an abstract noun", "adjective_of": "an adjective of a noun",
+             "adverb_of": "an adverb of an adjective", "derived_from": "a derived word", "aspect_partner": "an aspect partner", "confusable": "a word it is confused with"}
+
+
+def said(lexeme, variety=None):
+    return [p.get("ipa") or p.get("reading") for p in lexeme.get("pronunciations") or [] if variety in (None, p.get("variety"))]
+
+
+def features(lang, entry):
+    """{feature: what this entry holds for it}. A feature's name says what the reader should be shown."""
+    found = {}
+
+    def note(name, value):
+        found.setdefault(name, value)
+
+    lexemes = entry.get("lexemes") or []
+    if entry.get("reject") and not lexemes:
+        text = entry["reject"]
+        kind = "a headword that is an inflected form: the reader is sent to its word" if ingest_v4.FORM_OF.search(text) else \
+               "a headword that is another word's spelling: the reader is sent to that word" if text.lower().startswith("spelling of") else \
+               "a headword that is no word (an abbreviation, a name): nothing invented" if any(w in text.lower() for w in ("abbreviation", "proper", "name")) else None
+        if kind:
+            note(kind, text)
+        return found
+    for a in lexemes:
+        for b in lexemes:
+            if a is b:
+                continue
+            if a.get("pos") == b.get("pos") and said(a) and said(b) and set(said(a)).isdisjoint(said(b)):
+                note("two words of one spelling, said differently", f"{said(a)[0]} and {said(b)[0]}")
+            if a.get("pos") != b.get("pos"):
+                note("one spelling, two parts of speech", f"{a.get('pos')} and {b.get('pos')}")
+            ga, gb = (a.get("grammar") or {}).get("gender"), (b.get("grammar") or {}).get("gender")
+            if a.get("pos") == b.get("pos") == "NOUN" and ga and gb and ga != gb:
+                note("one spelling, two genders, two words", f"{ga} and {gb}")
+            if a.get("lemma") != b.get("lemma") and (a.get("lemma") or "").lower() == (b.get("lemma") or "").lower():
+                note("a capital letter makes it another word", f"{a.get('lemma')} and {b.get('lemma')}")
+    for lexeme in lexemes:
+        grammar = lexeme.get("grammar") or {}
+        by_variety = defaultdict(list)
+        for p in lexeme.get("pronunciations") or []:
+            by_variety[p.get("variety")].append(p)
+            if p.get("note"):
+                note("a second pronunciation, with a note on who says it", f"{p.get('ipa')} ({p['note']})")
+            if p.get("reading") and lang in ("ru", "uk"):
+                note("the stress marked on the word", p["reading"])
+            if p.get("reading") and lang == "it":
+                note("the stress and the open or close vowel marked on the word", p["reading"])
+            if p.get("spelling"):
+                note("a pronunciation that belongs to one spelling", f"{p.get('ipa')} for {p['spelling']}")
+        firsts = {v: ps[0].get("ipa") for v, ps in by_variety.items() if ps[0].get("ipa")}
+        if len(set(firsts.values())) > 1:
+            note("said differently in two varieties", ", ".join(f"{v} {ipa}" for v, ipa in firsts.items()))
+        spellings = lexeme.get("spellings") or []
+        if any(s.get("pre_reform") for s in spellings):
+            note("a spelling only older books use", ", ".join(s["text"] for s in spellings if s.get("pre_reform")))
+        if len({tuple(s.get("varieties") or ()) for s in spellings if s.get("varieties")}) > 1:
+            note("a spelling for each variety", "; ".join(f"{s['text']} ({', '.join(s['varieties'])})" for s in spellings if s.get("varieties")))
+        if len([s for s in spellings if not s.get("varieties") and not s.get("pre_reform")]) > 1:
+            note("two spellings of one word, used everywhere", ", ".join(s["text"] for s in spellings if not s.get("varieties") and not s.get("pre_reform")))
+        if lexeme.get("kind") == "multiword":
+            note("a phrase with its parts", " + ".join(f"{c.get('text')} ({c.get('inflects')})" for c in lexeme.get("components") or []))
+            if lexeme.get("separable"):
+                note("a phrase other words can come between", lexeme.get("lemma"))
+        if lexeme.get("kind") == "contraction":
+            note("a contraction with the words it stands for", " + ".join(c.get("lemma", "") for c in lexeme.get("components") or []))
+        if lexeme.get("kind") == "word" and lexeme.get("components"):
+            note("a compound with its parts", " + ".join(c.get("lemma", "") for c in lexeme["components"]))
+        for form in lexeme.get("forms") or []:
+            cells = form.get("features") or {}
+            note("an irregular form", f"{form.get('form')} ({', '.join(f'{k}={v}' for k, v in cells.items())})")
+            if form.get("varieties"):
+                note("a form used in one variety", f"{form.get('form')} ({', '.join(form['varieties'])})")
+            if form.get("sense_ids") or form.get("senses"):
+                note("a form that belongs to one sense", form.get("form"))
+            if form.get("note"):
+                note("a form with a note on when it is used", f"{form.get('form')}: {form['note']}")
+            if cells.get("Number") == "Count":
+                note("a form used after numbers", form.get("form"))
+            if cells.get("Case") == "Loc" and lang == "ru":
+                note("a second locative", form.get("reading") or form.get("form"))
+            if cells.get("Case") == "Par":
+                note("a partitive", form.get("reading") or form.get("form"))
+        if grammar.get("gender") == "Com":
+            note("a noun of either gender", lexeme.get("lemma"))
+        if grammar.get("number") == "Plur":
+            note("a noun used only in the plural", lexeme.get("lemma"))
+        if "¨" in str(grammar.get("plural_class", "")):
+            note("a German plural with an umlaut", grammar["plural_class"])
+        if grammar.get("by_variety"):
+            note("grammar that differs in one variety", json.dumps(grammar["by_variety"], ensure_ascii=False))
+        if grammar.get("h_aspire"):
+            note("a French h that blocks elision", lexeme.get("lemma"))
+        if grammar.get("separable"):
+            note("a separable verb", f"{lexeme.get('lemma')} ({grammar.get('separable_prefix', '')})")
+        if grammar.get("auxiliary") == "both":
+            note("a verb with both auxiliaries", lexeme.get("lemma"))
+        if grammar.get("invariable"):
+            note("a word that never changes its form", lexeme.get("lemma"))
+        if grammar.get("note"):
+            note("a note on the word's grammar", grammar["note"])
+        counts = set()
+        for sense in lexeme.get("senses") or []:
+            own = sense.get("grammar") or {}
+            labels = sense.get("labels") or {}
+            if sense.get("frames"):
+                note("the constructions a sense is used in", "; ".join(sense["frames"]))
+            if own.get("countability"):
+                counts.add(own["countability"])
+            if own.get("valency") == "Refl":
+                note("a reflexive sense of a verb", sense.get("definition"))
+            if own.get("position") or grammar.get("position"):
+                note("a word or sense that stands only before a noun or only after a verb", f"{own.get('position') or grammar.get('position')}: {sense.get('definition')}")
+            if own.get("number") == "Plur":
+                note("a sense the word has only in the plural", sense.get("definition"))
+            if own.get("note"):
+                note("a note on one sense's grammar", own["note"])
+            for axis in ("formality", "time", "normativity", "politeness"):
+                if labels.get(axis):
+                    note(f"a sense marked {labels[axis]}", sense.get("definition"))
+            for axis in ("attitude", "style"):
+                for value in labels.get(axis) or []:
+                    note(f"a sense marked {value}", sense.get("definition"))
+            if labels.get("domain"):
+                note("a sense of a special field", f"{labels['domain']}: {sense.get('definition')}")
+            if labels.get("figurative"):
+                note("a figurative sense", sense.get("definition"))
+            if labels.get("rare"):
+                note("a rare sense", sense.get("definition"))
+            if sense.get("standard_alternative"):
+                note("the standard word given for a proscribed one", sense["standard_alternative"])
+            for region in sense.get("regions") or []:
+                if isinstance(region, dict):
+                    area = region.get("variety", "").split("-")[-1].isdigit()
+                    note(f"a sense used {region.get('extent')} in one part of the language" + (", a whole area" if area else ""),
+                         f"{region.get('variety')}: {sense.get('definition')}")
+                else:
+                    note("a sense used only in one part of the language", f"{region}: {sense.get('definition')}")
+            if sense.get("antonyms"):
+                note("an opposite", ", ".join(a.get("lemma", "") for a in sense["antonyms"]))
+        if len(counts) > 1:
+            note("countable in one sense, uncountable in another", lexeme.get("lemma"))
+        for relation in lexeme.get("relations") or []:
+            if relation.get("type") in RELATIONS:
+                note(f"a link to the word it comes from or is mixed up with: {RELATIONS[relation['type']]}",
+                     f"{relation.get('lemma')}" + (f" ({relation['why']})" if relation.get("why") else ""))
+    return found
+
+
+def cover(langs):
+    """[(lang, headword, zipf, {feature: evidence})]: greedily, the entry that shows the most not yet shown."""
+    pool = []
+    for lang in langs:
+        zipf = ingest_v4.zipf_of(lang)
+        for headword, (raw, meta) in ingest_v4.load_raw(lang).items():
+            if not VALID.is_valid(raw):
+                continue  # an entry that breaks the shape shows nothing of it
+            clean = ingest_v4.clean_entry(lang, raw, meta)
+            got = features(lang, clean)
+            if got and headword.replace(" ", "").replace("'", "").replace("-", "").isalpha():
+                pool.append((lang, headword, zipf.get(headword.lower(), 0), got))
+    everything = set().union(*(set(got) for _, _, _, got in pool))
+    left, chosen = set(everything), []
+    while left:
+        def worth(candidate):
+            lang, headword, z, got = candidate
+            new = len(left & set(got))
+            common = z >= 4.0  # a word the owner knows is easier to judge than a rare one
+            return (new if common else new - 1.5, -ORDER.index(lang) if lang in ORDER else -9, z)
+        best = max((candidate for candidate in pool if left & set(candidate[3])), key=worth)
+        gain = left & set(best[3])
+        chosen.append((best[0], best[1], best[2], {f: best[3][f] for f in sorted(gain)}))
+        left -= gain
+    return chosen, everything
+
+
+def write(langs):
+    chosen, everything = cover(langs)
+    lines = ["# A tour of the shape in real entries", "",
+             f"{len(chosen)} written entries that between them show all {len(everything)} things an entry can say, picked by",
+             "`scripts/lexicon_research/tour.py` from what the writers wrote: the fewest words, a common English one first.",
+             "Type each into the app and check that the reader is shown what the right-hand column says.", "",
+             "The entries are schema 4. Until the backend reads schema 4 (docs/LEXICON.md, \"Pending\", item 1) the app cannot",
+             "show them, so today this list is what that work has to make visible, not a test it can pass.", "",
+             "Four things the shape can say have no written entry yet, so no word here shows them: a contraction with the words",
+             "it stands for (German *zum*), a phrase other words can come between (*give it up*), a sense marked familiar or",
+             "polite (*du*, *Sie*), and a form used only after numbers (*пять человек*).", "",
+             "| # | Word | Language | What the reader should see |", "|---|---|---|---|"]
+    for n, (lang, headword, z, got) in enumerate(chosen, 1):
+        shown = "<br>".join(f"**{feature}**: {str(value)[:140]}" for feature, value in got.items())
+        lines.append(f"| {n} | {headword} | {LANG_NAME.get(lang, lang)} | {shown} |")
+    DOC.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return chosen, everything
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--langs", default=",".join(ORDER))
+    a = ap.parse_args()
+    chosen, everything = write(a.langs.split(","))
+    print(f"{len(chosen)} entries show {len(everything)} features -> {DOC}")
+    for lang, headword, z, got in chosen:
+        print(f"  {lang} {headword} ({z:.1f}): {len(got)} new")

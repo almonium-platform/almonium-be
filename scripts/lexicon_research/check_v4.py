@@ -33,15 +33,18 @@ FORMULAS = re.compile(r"\b(the act of|the state of being|the process of|relating
                       r"o ato de|дія за значенням|стан за значенням|стосується)\b", re.I)
 ARTICLES = {"en": {"the", "a", "an"}, "de": {"der", "die", "das", "ein", "eine"}, "fr": {"le", "la", "les", "un", "une", "l"},
             "es": {"el", "la", "los", "las", "un", "una"}, "it": {"il", "lo", "la", "i", "gli", "le", "un", "una", "l"},
-            "pt": {"o", "a", "os", "as", "um", "uma"}, "uk": set(), "ru": set()}
+            "pt": {"o", "a", "os", "as", "um", "uma"}, "uk": set(), "ru": set(), "ja": set()}
 ENGLISH = {"the", "of", "and", "that", "which", "who", "with", "from", "for", "is", "are", "or"}
 NEEDS_READING = {"uk", "it", "ru"}
 # How many words a definition may have. A language without articles says the same in fewer.
 DEFINITION_WORDS = {"ru": (4, 15), "uk": (4, 15)}
+# A language written without spaces counts characters: (definition, example), as prompting.LIMITS_V4 tells the writer.
+CHARACTERS = {"ja": ((10, 35), (12, 40))}
 VOWELS = "aeiouàèéìíòóùаеєиіїоуюяыэё"
 ACUTE = "́"
 FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark",
-        "pronominal sense without its auxiliary", "double consonant not written twice", "ll of Spain written ʎ")
+        "pronominal sense without its auxiliary", "double consonant not written twice", "ll of Spain written ʎ",
+        "word-level grammar a sense overrides")
 SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mark", "double consonants rewritten": "double consonant not written twice",
                 "ll of Spain rewritten": "ll of Spain written ʎ"}
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
@@ -53,6 +56,8 @@ def words(text):
 
 
 def symbols(variety):
+    if not (HERE / "inventories" / f"{variety}.json").exists():
+        return []  # a variety that is not transcribed in IPA has no symbols to check
     d = json.loads((HERE / "inventories" / f"{variety}.json").read_text())
     # "also": sounds the audit accepts although the prompt's list, which must not change under written entries, lacks them
     return sorted(d["consonants"] + d["vowels"] + d["diacritics"] + d.get("also", []), key=len, reverse=True)
@@ -114,6 +119,8 @@ def check(lang, entry, inventories, witness):
         for p in lx.get("pronunciations", []):
             if p.get("variety") in inventories and (left := outside(p.get("ipa", ""), inventories[p["variety"]])):
                 problems.append(("IPA outside the symbol list", f"{p['ipa']} has {left}"))
+        if ingest_v4.settle_defaults(json.loads(json.dumps(lx))):
+            problems.append(("word-level grammar a sense overrides", lx.get("lemma")))
         if ingest_v4.pronominal_auxiliary(lang, json.loads(json.dumps(lx))):
             problems.append(("pronominal sense without its auxiliary", lx.get("lemma")))
         for fix, times in ingest_v4.settle_sounds(lang, json.loads(json.dumps(lx))).items():
@@ -135,6 +142,12 @@ def check(lang, entry, inventories, witness):
                 problems.append(("dictionary formula", d[:60]))
             if lemma and lemma in dw:
                 problems.append(("headword in its definition", d[:60]))
+            if lang in CHARACTERS:
+                for kind, text, (fewest, most) in zip(("definition outside 6 to 15 words", "example outside 6 to 14 words"),
+                                                      (d, s.get("example", "")), CHARACTERS[lang]):
+                    if not fewest <= (size := sum(ch.isalnum() for ch in text)) <= most:
+                        problems.append((kind, f"{size} characters"))
+                continue
             fewest, most = DEFINITION_WORDS.get(lang, (6, 15))
             if not fewest <= len(dw) <= most:
                 problems.append(("definition outside 6 to 15 words", f"{len(dw)} words"))

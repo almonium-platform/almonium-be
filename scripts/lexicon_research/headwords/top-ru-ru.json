@@ -1,0 +1,1252 @@
+[
+ {
+  "headword": "никогда",
+  "zipf": 5.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "свой",
+  "zipf": 5.56,
+  "set": "top-ru"
+ },
+ {
+  "headword": "должен",
+  "zipf": 5.54,
+  "set": "top-ru"
+ },
+ {
+  "headword": "каждый",
+  "zipf": 5.53,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сказать",
+  "zipf": 5.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "про",
+  "zipf": 5.46,
+  "set": "top-ru"
+ },
+ {
+  "headword": "снова",
+  "zipf": 5.45,
+  "set": "top-ru"
+ },
+ {
+  "headword": "найти",
+  "zipf": 5.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "момент",
+  "zipf": 5.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "менее",
+  "zipf": 5.35,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вчера",
+  "zipf": 5.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "роль",
+  "zipf": 5.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "возможность",
+  "zipf": 5.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "несмотря",
+  "zipf": 5.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мама",
+  "zipf": 5.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "группа",
+  "zipf": 5.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мать",
+  "zipf": 5.17,
+  "set": "top-ru"
+ },
+ {
+  "headword": "столько",
+  "zipf": 5.17,
+  "set": "top-ru"
+ },
+ {
+  "headword": "автор",
+  "zipf": 5.13,
+  "set": "top-ru"
+ },
+ {
+  "headword": "использовать",
+  "zipf": 5.11,
+  "set": "top-ru"
+ },
+ {
+  "headword": "суд",
+  "zipf": 5.09,
+  "set": "top-ru"
+ },
+ {
+  "headword": "честь",
+  "zipf": 5.09,
+  "set": "top-ru"
+ },
+ {
+  "headword": "команда",
+  "zipf": 5.07,
+  "set": "top-ru"
+ },
+ {
+  "headword": "член",
+  "zipf": 5.07,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дать",
+  "zipf": 5.06,
+  "set": "top-ru"
+ },
+ {
+  "headword": "иметь",
+  "zipf": 5.06,
+  "set": "top-ru"
+ },
+ {
+  "headword": "план",
+  "zipf": 5.05,
+  "set": "top-ru"
+ },
+ {
+  "headword": "бизнес",
+  "zipf": 5.05,
+  "set": "top-ru"
+ },
+ {
+  "headword": "откуда",
+  "zipf": 5.03,
+  "set": "top-ru"
+ },
+ {
+  "headword": "помочь",
+  "zipf": 5.01,
+  "set": "top-ru"
+ },
+ {
+  "headword": "насколько",
+  "zipf": 4.99,
+  "set": "top-ru"
+ },
+ {
+  "headword": "программа",
+  "zipf": 4.98,
+  "set": "top-ru"
+ },
+ {
+  "headword": "способ",
+  "zipf": 4.97,
+  "set": "top-ru"
+ },
+ {
+  "headword": "номер",
+  "zipf": 4.96,
+  "set": "top-ru"
+ },
+ {
+  "headword": "начать",
+  "zipf": 4.95,
+  "set": "top-ru"
+ },
+ {
+  "headword": "песня",
+  "zipf": 4.94,
+  "set": "top-ru"
+ },
+ {
+  "headword": "тело",
+  "zipf": 4.94,
+  "set": "top-ru"
+ },
+ {
+  "headword": "значение",
+  "zipf": 4.89,
+  "set": "top-ru"
+ },
+ {
+  "headword": "искать",
+  "zipf": 4.88,
+  "set": "top-ru"
+ },
+ {
+  "headword": "соответственно",
+  "zipf": 4.88,
+  "set": "top-ru"
+ },
+ {
+  "headword": "тип",
+  "zipf": 4.87,
+  "set": "top-ru"
+ },
+ {
+  "headword": "порядок",
+  "zipf": 4.86,
+  "set": "top-ru"
+ },
+ {
+  "headword": "контракт",
+  "zipf": 4.86,
+  "set": "top-ru"
+ },
+ {
+  "headword": "папа",
+  "zipf": 4.84,
+  "set": "top-ru"
+ },
+ {
+  "headword": "возле",
+  "zipf": 4.84,
+  "set": "top-ru"
+ },
+ {
+  "headword": "церковь",
+  "zipf": 4.84,
+  "set": "top-ru"
+ },
+ {
+  "headword": "школа",
+  "zipf": 4.84,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вода",
+  "zipf": 4.83,
+  "set": "top-ru"
+ },
+ {
+  "headword": "институт",
+  "zipf": 4.83,
+  "set": "top-ru"
+ },
+ {
+  "headword": "площадь",
+  "zipf": 4.82,
+  "set": "top-ru"
+ },
+ {
+  "headword": "чемпионат",
+  "zipf": 4.82,
+  "set": "top-ru"
+ },
+ {
+  "headword": "стоимость",
+  "zipf": 4.81,
+  "set": "top-ru"
+ },
+ {
+  "headword": "содержание",
+  "zipf": 4.8,
+  "set": "top-ru"
+ },
+ {
+  "headword": "впрочем",
+  "zipf": 4.8,
+  "set": "top-ru"
+ },
+ {
+  "headword": "пойти",
+  "zipf": 4.8,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сеть",
+  "zipf": 4.79,
+  "set": "top-ru"
+ },
+ {
+  "headword": "встреча",
+  "zipf": 4.79,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мальчик",
+  "zipf": 4.78,
+  "set": "top-ru"
+ },
+ {
+  "headword": "стол",
+  "zipf": 4.78,
+  "set": "top-ru"
+ },
+ {
+  "headword": "удар",
+  "zipf": 4.77,
+  "set": "top-ru"
+ },
+ {
+  "headword": "земля",
+  "zipf": 4.77,
+  "set": "top-ru"
+ },
+ {
+  "headword": "размер",
+  "zipf": 4.77,
+  "set": "top-ru"
+ },
+ {
+  "headword": "установить",
+  "zipf": 4.77,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мысль",
+  "zipf": 4.76,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вряд",
+  "zipf": 4.75,
+  "set": "top-ru"
+ },
+ {
+  "headword": "подарок",
+  "zipf": 4.75,
+  "set": "top-ru"
+ },
+ {
+  "headword": "считать",
+  "zipf": 4.75,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сутки",
+  "zipf": 4.74,
+  "set": "top-ru"
+ },
+ {
+  "headword": "газета",
+  "zipf": 4.74,
+  "set": "top-ru"
+ },
+ {
+  "headword": "писать",
+  "zipf": 4.74,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дважды",
+  "zipf": 4.72,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сидеть",
+  "zipf": 4.7,
+  "set": "top-ru"
+ },
+ {
+  "headword": "итак",
+  "zipf": 4.69,
+  "set": "top-ru"
+ },
+ {
+  "headword": "литература",
+  "zipf": 4.68,
+  "set": "top-ru"
+ },
+ {
+  "headword": "добрый",
+  "zipf": 4.67,
+  "set": "top-ru"
+ },
+ {
+  "headword": "восток",
+  "zipf": 4.67,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сборник",
+  "zipf": 4.67,
+  "set": "top-ru"
+ },
+ {
+  "headword": "здоровье",
+  "zipf": 4.67,
+  "set": "top-ru"
+ },
+ {
+  "headword": "тема",
+  "zipf": 4.67,
+  "set": "top-ru"
+ },
+ {
+  "headword": "брать",
+  "zipf": 4.66,
+  "set": "top-ru"
+ },
+ {
+  "headword": "разница",
+  "zipf": 4.65,
+  "set": "top-ru"
+ },
+ {
+  "headword": "канал",
+  "zipf": 4.65,
+  "set": "top-ru"
+ },
+ {
+  "headword": "давать",
+  "zipf": 4.65,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вдоль",
+  "zipf": 4.64,
+  "set": "top-ru"
+ },
+ {
+  "headword": "отдел",
+  "zipf": 4.64,
+  "set": "top-ru"
+ },
+ {
+  "headword": "платить",
+  "zipf": 4.64,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мужик",
+  "zipf": 4.63,
+  "set": "top-ru"
+ },
+ {
+  "headword": "круг",
+  "zipf": 4.63,
+  "set": "top-ru"
+ },
+ {
+  "headword": "платье",
+  "zipf": 4.63,
+  "set": "top-ru"
+ },
+ {
+  "headword": "обеспечить",
+  "zipf": 4.62,
+  "set": "top-ru"
+ },
+ {
+  "headword": "решать",
+  "zipf": 4.62,
+  "set": "top-ru"
+ },
+ {
+  "headword": "операция",
+  "zipf": 4.62,
+  "set": "top-ru"
+ },
+ {
+  "headword": "трое",
+  "zipf": 4.61,
+  "set": "top-ru"
+ },
+ {
+  "headword": "напротив",
+  "zipf": 4.61,
+  "set": "top-ru"
+ },
+ {
+  "headword": "открытие",
+  "zipf": 4.61,
+  "set": "top-ru"
+ },
+ {
+  "headword": "соглашение",
+  "zipf": 4.61,
+  "set": "top-ru"
+ },
+ {
+  "headword": "эффект",
+  "zipf": 4.6,
+  "set": "top-ru"
+ },
+ {
+  "headword": "построить",
+  "zipf": 4.6,
+  "set": "top-ru"
+ },
+ {
+  "headword": "стиль",
+  "zipf": 4.6,
+  "set": "top-ru"
+ },
+ {
+  "headword": "признать",
+  "zipf": 4.6,
+  "set": "top-ru"
+ },
+ {
+  "headword": "служба",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сильный",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "выиграть",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "проверить",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "морской",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "лидер",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "высокий",
+  "zipf": 4.59,
+  "set": "top-ru"
+ },
+ {
+  "headword": "детский",
+  "zipf": 4.58,
+  "set": "top-ru"
+ },
+ {
+  "headword": "продать",
+  "zipf": 4.58,
+  "set": "top-ru"
+ },
+ {
+  "headword": "звук",
+  "zipf": 4.58,
+  "set": "top-ru"
+ },
+ {
+  "headword": "страх",
+  "zipf": 4.57,
+  "set": "top-ru"
+ },
+ {
+  "headword": "любить",
+  "zipf": 4.57,
+  "set": "top-ru"
+ },
+ {
+  "headword": "подумать",
+  "zipf": 4.56,
+  "set": "top-ru"
+ },
+ {
+  "headword": "огромный",
+  "zipf": 4.56,
+  "set": "top-ru"
+ },
+ {
+  "headword": "впечатление",
+  "zipf": 4.56,
+  "set": "top-ru"
+ },
+ {
+  "headword": "передать",
+  "zipf": 4.55,
+  "set": "top-ru"
+ },
+ {
+  "headword": "поэт",
+  "zipf": 4.54,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мозг",
+  "zipf": 4.54,
+  "set": "top-ru"
+ },
+ {
+  "headword": "доказать",
+  "zipf": 4.53,
+  "set": "top-ru"
+ },
+ {
+  "headword": "постановление",
+  "zipf": 4.53,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мост",
+  "zipf": 4.53,
+  "set": "top-ru"
+ },
+ {
+  "headword": "подруга",
+  "zipf": 4.53,
+  "set": "top-ru"
+ },
+ {
+  "headword": "накануне",
+  "zipf": 4.5,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сквозь",
+  "zipf": 4.5,
+  "set": "top-ru"
+ },
+ {
+  "headword": "структура",
+  "zipf": 4.5,
+  "set": "top-ru"
+ },
+ {
+  "headword": "рука",
+  "zipf": 4.5,
+  "set": "top-ru"
+ },
+ {
+  "headword": "потерять",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "леди",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "менять",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "настроение",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "отряд",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "шоссе",
+  "zipf": 4.48,
+  "set": "top-ru"
+ },
+ {
+  "headword": "продукт",
+  "zipf": 4.47,
+  "set": "top-ru"
+ },
+ {
+  "headword": "покинуть",
+  "zipf": 4.47,
+  "set": "top-ru"
+ },
+ {
+  "headword": "расстояние",
+  "zipf": 4.47,
+  "set": "top-ru"
+ },
+ {
+  "headword": "гран",
+  "zipf": 4.46,
+  "set": "top-ru"
+ },
+ {
+  "headword": "нарушение",
+  "zipf": 4.46,
+  "set": "top-ru"
+ },
+ {
+  "headword": "разработка",
+  "zipf": 4.45,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вызов",
+  "zipf": 4.45,
+  "set": "top-ru"
+ },
+ {
+  "headword": "следить",
+  "zipf": 4.45,
+  "set": "top-ru"
+ },
+ {
+  "headword": "бюджет",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "следующее",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "носить",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "младший",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "спросить",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "иной",
+  "zipf": 4.44,
+  "set": "top-ru"
+ },
+ {
+  "headword": "отель",
+  "zipf": 4.43,
+  "set": "top-ru"
+ },
+ {
+  "headword": "собственный",
+  "zipf": 4.43,
+  "set": "top-ru"
+ },
+ {
+  "headword": "крупный",
+  "zipf": 4.43,
+  "set": "top-ru"
+ },
+ {
+  "headword": "билет",
+  "zipf": 4.43,
+  "set": "top-ru"
+ },
+ {
+  "headword": "признание",
+  "zipf": 4.43,
+  "set": "top-ru"
+ },
+ {
+  "headword": "природа",
+  "zipf": 4.42,
+  "set": "top-ru"
+ },
+ {
+  "headword": "двор",
+  "zipf": 4.42,
+  "set": "top-ru"
+ },
+ {
+  "headword": "погода",
+  "zipf": 4.42,
+  "set": "top-ru"
+ },
+ {
+  "headword": "администрация",
+  "zipf": 4.41,
+  "set": "top-ru"
+ },
+ {
+  "headword": "энергия",
+  "zipf": 4.41,
+  "set": "top-ru"
+ },
+ {
+  "headword": "политический",
+  "zipf": 4.41,
+  "set": "top-ru"
+ },
+ {
+  "headword": "установка",
+  "zipf": 4.41,
+  "set": "top-ru"
+ },
+ {
+  "headword": "убрать",
+  "zipf": 4.41,
+  "set": "top-ru"
+ },
+ {
+  "headword": "начинать",
+  "zipf": 4.4,
+  "set": "top-ru"
+ },
+ {
+  "headword": "угол",
+  "zipf": 4.4,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сыграть",
+  "zipf": 4.4,
+  "set": "top-ru"
+ },
+ {
+  "headword": "бросить",
+  "zipf": 4.39,
+  "set": "top-ru"
+ },
+ {
+  "headword": "пакет",
+  "zipf": 4.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "повод",
+  "zipf": 4.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сюжет",
+  "zipf": 4.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "активность",
+  "zipf": 4.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "агентство",
+  "zipf": 4.38,
+  "set": "top-ru"
+ },
+ {
+  "headword": "отдохнуть",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "архив",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "услышать",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "достичь",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "март",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "акция",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "восстановить",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "ввести",
+  "zipf": 4.37,
+  "set": "top-ru"
+ },
+ {
+  "headword": "научный",
+  "zipf": 4.36,
+  "set": "top-ru"
+ },
+ {
+  "headword": "заказ",
+  "zipf": 4.36,
+  "set": "top-ru"
+ },
+ {
+  "headword": "петь",
+  "zipf": 4.36,
+  "set": "top-ru"
+ },
+ {
+  "headword": "имущество",
+  "zipf": 4.36,
+  "set": "top-ru"
+ },
+ {
+  "headword": "приговор",
+  "zipf": 4.36,
+  "set": "top-ru"
+ },
+ {
+  "headword": "помнить",
+  "zipf": 4.35,
+  "set": "top-ru"
+ },
+ {
+  "headword": "присутствие",
+  "zipf": 4.35,
+  "set": "top-ru"
+ },
+ {
+  "headword": "полк",
+  "zipf": 4.35,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вслед",
+  "zipf": 4.35,
+  "set": "top-ru"
+ },
+ {
+  "headword": "лига",
+  "zipf": 4.34,
+  "set": "top-ru"
+ },
+ {
+  "headword": "диск",
+  "zipf": 4.34,
+  "set": "top-ru"
+ },
+ {
+  "headword": "приехать",
+  "zipf": 4.33,
+  "set": "top-ru"
+ },
+ {
+  "headword": "апрель",
+  "zipf": 4.33,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сходить",
+  "zipf": 4.33,
+  "set": "top-ru"
+ },
+ {
+  "headword": "январь",
+  "zipf": 4.32,
+  "set": "top-ru"
+ },
+ {
+  "headword": "блядь",
+  "zipf": 4.32,
+  "set": "top-ru"
+ },
+ {
+  "headword": "научиться",
+  "zipf": 4.32,
+  "set": "top-ru"
+ },
+ {
+  "headword": "обсуждать",
+  "zipf": 4.32,
+  "set": "top-ru"
+ },
+ {
+  "headword": "надолго",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "беда",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "возвращаться",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "ущерб",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "поверить",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "корреспондент",
+  "zipf": 4.31,
+  "set": "top-ru"
+ },
+ {
+  "headword": "рейс",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "нож",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "зайти",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "мак",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "порт",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "рыба",
+  "zipf": 4.29,
+  "set": "top-ru"
+ },
+ {
+  "headword": "август",
+  "zipf": 4.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "хоккей",
+  "zipf": 4.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "миссия",
+  "zipf": 4.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "наступление",
+  "zipf": 4.28,
+  "set": "top-ru"
+ },
+ {
+  "headword": "нести",
+  "zipf": 4.27,
+  "set": "top-ru"
+ },
+ {
+  "headword": "помещение",
+  "zipf": 4.27,
+  "set": "top-ru"
+ },
+ {
+  "headword": "верховный",
+  "zipf": 4.27,
+  "set": "top-ru"
+ },
+ {
+  "headword": "паспорт",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "правовой",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "скандал",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "женский",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "вперёд",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "территория",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "заново",
+  "zipf": 4.26,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дно",
+  "zipf": 4.25,
+  "set": "top-ru"
+ },
+ {
+  "headword": "фирма",
+  "zipf": 4.25,
+  "set": "top-ru"
+ },
+ {
+  "headword": "западный",
+  "zipf": 4.25,
+  "set": "top-ru"
+ },
+ {
+  "headword": "сохранение",
+  "zipf": 4.25,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дано",
+  "zipf": 4.25,
+  "set": "top-ru"
+ },
+ {
+  "headword": "инженер",
+  "zipf": 4.24,
+  "set": "top-ru"
+ },
+ {
+  "headword": "четверо",
+  "zipf": 4.24,
+  "set": "top-ru"
+ },
+ {
+  "headword": "философия",
+  "zipf": 4.24,
+  "set": "top-ru"
+ },
+ {
+  "headword": "штука",
+  "zipf": 4.24,
+  "set": "top-ru"
+ },
+ {
+  "headword": "красота",
+  "zipf": 4.24,
+  "set": "top-ru"
+ },
+ {
+  "headword": "декабрь",
+  "zipf": 4.23,
+  "set": "top-ru"
+ },
+ {
+  "headword": "чёрный",
+  "zipf": 4.23,
+  "set": "top-ru"
+ },
+ {
+  "headword": "учить",
+  "zipf": 4.23,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дневник",
+  "zipf": 4.23,
+  "set": "top-ru"
+ },
+ {
+  "headword": "ноябрь",
+  "zipf": 4.23,
+  "set": "top-ru"
+ },
+ {
+  "headword": "кресло",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "знаменитый",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "зависимость",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "расположение",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "отчасти",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "дефицит",
+  "zipf": 4.22,
+  "set": "top-ru"
+ },
+ {
+  "headword": "палец",
+  "zipf": 4.21,
+  "set": "top-ru"
+ },
+ {
+  "headword": "рассмотреть",
+  "zipf": 4.21,
+  "set": "top-ru"
+ },
+ {
+  "headword": "пожаловать",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "захватить",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "некогда",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "концепция",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "студент",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "послушать",
+  "zipf": 4.2,
+  "set": "top-ru"
+ },
+ {
+  "headword": "уверенно",
+  "zipf": 4.2,
+  "set": "top-ru"
+ }
+]

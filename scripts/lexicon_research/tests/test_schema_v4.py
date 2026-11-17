@@ -132,3 +132,14 @@ def test_the_audit_counts_the_sounds_ingest_puts_in_house_form():
     assert "double consonant not written twice" in [kind for kind, _ in check_v4.check("it", e, {}, None)]
     e["lexemes"][0]["pronunciations"] = [{"variety": "es-ES", "ipa": "/ˈka.ʎe/"}]
     assert "ll of Spain written ʎ" in [kind for kind, _ in check_v4.check("es", e, {}, None)]
+
+
+def test_a_japanese_entry_has_a_kana_reading_a_class_and_limits_counted_in_characters():
+    e = {"language": "ja", "headword": "食べる", "lexemes": [{"lemma": "食べる", "pos": "VERB", "kind": "word",
+         "grammar": {"conjugation": "ichidan", "valency": "Tr"},
+         "pronunciations": [{"variety": "ja-JP", "reading": "たべる", "notation": "kana"}],
+         "senses": [{"definition": "食べ物を口に入れて、かんで飲み込む", "example": "毎朝七時に家族と朝ご飯を食べます。", "cefr": "A1", "frames": ["〜を食べる"]}]}]}
+    VALID.validate(e)
+    assert check_v4.check("ja", e, {"ja-JP": check_v4.symbols("ja-JP")}, None) == []
+    e["lexemes"][0]["senses"][0]["definition"] = "食べること"
+    assert ("definition outside 6 to 15 words", "5 characters") in check_v4.check("ja", e, {}, None)

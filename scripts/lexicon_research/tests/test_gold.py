@@ -167,3 +167,12 @@ def test_a_prompt_that_entries_were_written_with_still_renders_to_the_letter():
     """The hash is in every entry's meta. A change to a prompt file, a rule table or an example file that moves
     one of these belongs in a new version."""
     assert {(lang, v): prompting.prompt_sha(lang, v) for lang, v in PINNED} == PINNED
+
+
+def test_a_language_without_an_alphabet_gets_a_reading_and_limits_in_characters():
+    ja = prompting.system_prompt("ja")
+    assert "Broad IPA" not in ja and "Use only these symbols" not in ja and '"notation": "kana"' in ja
+    assert "10 to 35 characters" in ja and "of 12 to 40 characters" in ja and "6 to 15 words" not in ja
+    assert ja.index("# Spellings") < ja.index("# Pronunciation") < ja.index("# Grammar and forms") < ja.index("# Senses")
+    assert "Broad IPA" in prompting.system_prompt("ru") and "6 to 15 words" in prompting.system_prompt("en")
+    assert set(prompting.PILOT_LANGUAGES).isdisjoint(prompting.TARGET_LANGUAGES)

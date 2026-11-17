@@ -214,8 +214,9 @@ def test_a_french_or_italian_pronominal_sense_gets_the_auxiliary_it_is_conjugate
                           sense("se disputer avec une personne pour régler un désaccord", grammar={"reflexive": True, "auxiliary": "be"})])
     raw = entry("expliquer", verb, lang="fr")
     clean = ingest_v4.clean_entry("fr", raw, META)
-    assert [s.get("grammar") for s in clean["lexemes"][0]["senses"]] == [None, {"valency": "Refl", "auxiliary": "be"}, {"reflexive": True, "auxiliary": "be"}]
-    assert clean["pronominal_auxiliaries_set"] == 1 and clean["lexemes"][0]["grammar"]["auxiliary"] == "have"
+    assert [s.get("grammar") for s in clean["lexemes"][0]["senses"]] == [{"auxiliary": "have"}, {"valency": "Refl", "auxiliary": "be"}, {"reflexive": True, "auxiliary": "be"}]
+    # the word no longer says "have" for all its senses: that value went to the one sense it is true of
+    assert clean["pronominal_auxiliaries_set"] == 1 and clean["lexemes"][0]["grammar"] == {"conjugation": "1"}
     assert "auxiliary" not in raw["lexemes"][0]["senses"][1]["grammar"]  # the written entry is left as it was
     # a verb that is pronominal throughout already says so once; German and Spanish have no such rule
     whole = entry("évanouir", lexeme("évanouir", "VERB", grammar={"auxiliary": "be", "reflexive": True}, senses=[sense("perdre connaissance pendant un court moment", grammar={"valency": "Refl"})]), lang="fr")
@@ -243,3 +244,19 @@ def test_the_ll_of_spain_is_written_as_most_of_spain_says_it():
     assert [p["ipa"] for p in clean["lexemes"][0]["pronunciations"]] == ["/ˈka.ʝe/", "/ˈka.ʝe/"] and clean["ll_of_spain_rewritten"] == 1
     italian = entry("figlio", lexeme("figlio", pronunciations=[{"variety": "it-IT", "ipa": "/ˈfiʎ.ʎo/"}]), lang="it")
     assert ingest_v4.clean_entry("it", italian, META)["lexemes"][0]["pronunciations"][0]["ipa"] == "/ˈfiʎ.ʎo/"
+
+
+def test_a_value_stated_for_the_word_that_one_sense_overrides_is_moved_to_the_other_senses():
+    noun = lexeme("unidade", grammar={"gender": "Fem", "countability": "Count"},
+                  senses=[sense("uma coisa só, considerada à parte das outras"), sense("o que faz de várias partes um todo", grammar={"countability": "Mass"}),
+                          sense("parte de uma organização com função própria", grammar={"note": "often plural"})])
+    clean = ingest_v4.clean_entry("pt", entry("unidade", noun, lang="pt"), META)
+    got = clean["lexemes"][0]
+    assert got["grammar"] == {"gender": "Fem"} and clean["word_grammar_moved_to_senses"] == 1
+    assert [s.get("grammar") for s in got["senses"]] == [{"countability": "Count"}, {"countability": "Mass"}, {"countability": "Count", "note": "often plural"}]
+    assert noun["grammar"] == {"gender": "Fem", "countability": "Count"}  # the written entry is left as it was
+    agreed = lexeme("lake", grammar={"countability": "Count"}, senses=[sense("a large area of water with land around it", grammar={"countability": "Count"})])
+    assert "word_grammar_moved_to_senses" not in ingest_v4.clean_entry("en", entry("lake", agreed), META)
+    # a word said to be both, whose senses say which, is as the prompt asks: nothing to move
+    both = lexeme("study", "VERB", grammar={"valency": "Both"}, senses=[sense("to learn about a subject at school", grammar={"valency": "Tr"}), sense("to spend time learning", grammar={"valency": "Intr"})])
+    assert ingest_v4.clean_entry("en", entry("study", both), META)["lexemes"][0]["grammar"] == {"valency": "Both"}

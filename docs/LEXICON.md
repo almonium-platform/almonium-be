@@ -44,6 +44,8 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
   `claude/*`, and every run of the sync merges those branches before it pushes. A word written on
   both sides keeps the machine's entry.
 - Writers are started and paused from the book processor's Operations page, Entries tab.
+- `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
+  say (`tour.py` picks them), for checking by hand what the app shows a reader.
 - Backend: `learning/lexicon`. It reads schema 3 and refuses schema 4 (it requires glosses, cues and
   a register on every sense), so the 31,000 entries cannot be shown yet.
 
@@ -320,6 +322,50 @@ The files for the reviewer are `measure/v46/review/<lang>-1.md`. Its answers go,
 The mender's entries, some 40,000 older ones still to be mended, are in neither part: they do not
 exist yet. They are the third thing to measure, with the same files, once a batch is mended.
 
+### The first count
+
+All six languages, 600 entries, 701 findings. Entries in a hundred with the fault:
+
+| | wrong fact | claim too strong | core sense missing | no fault at all |
+|---|---|---|---|---|
+| Aim | at most 2 | at most 5 | at most 10 | |
+| All 600 | 5.0 | 11.2 | 9.2 | 29 |
+| The 360 held (all written under v4) | 5.3 | 14.2 | 13.6 | 20 |
+| The 240 new (v4.6, rarer words) | 4.6 | 6.7 | 2.5 | 43 |
+
+Two of the three aims are missed. Where, by a reading of each finding:
+
+- **Claims too strong (67 entries)** sit almost wholly in four tags of grammar: countability (15
+  findings), valency (15), position (14), comparability (5), with number (6), labels (7) and
+  regions (3) after them. "Countable" where a mass use exists, "only before a noun" where the word
+  also follows a verb, "transitive" where a rarer intransitive use exists. Under v4.6 position
+  nearly went (2 findings among the 240), valency did not (7).
+- **Wrong facts (30 entries)**: seven are the vowel before the stress in the Portuguese of
+  Portugal (*normal*, *otomano*, *inclusive*), where our own convention states as a rule ("unstressed
+  o is u") what has many exceptions. Nine are how a pronominal or prepositional verb is classed,
+  where the reviewer follows the national grammars and we chose one value (Refl) and one
+  definition (transitive means a direct object); it was not told so. Fifteen are errors plain and
+  simple: a meaning the word does not have (*veineux* for *veinard*), a stress (*vendita*), two
+  verbs taken for one (*impostare*), an auxiliary, a glide.
+- **Core sense missing (55 entries)**: thirty-four truly lack a sense or a part of speech. Thirteen
+  lack a fixed phrase a learner needs at that word (*sans doute*, *por favor*, *darse cuenta*, *de
+  nouveau*), which by our rule is an entry of its own, and those entries are not written. Nine
+  are a headword that is also a form, an abbreviation or a name (*given*, *mm*, *Mike*), which is
+  not a lexeme by design: the reader reaches *give* through the alias, which the reviewer was not
+  shown.
+
+So the meanings and the forms hold, and three things do not: grammar tags that say "only" or
+"never", the sound of unstressed vowels in pt-PT, and the fixed phrases.
+
+The reviewer marked 94 findings in a hundred as misleading, so that mark tells nothing apart, and
+it found something in 71 entries of a hundred, most often a minor sense missing (34) or a
+definition narrower than the word (37). Those two are what any dictionary is reproached with by
+another, and they have no aim.
+
+What followed at once, free: ingest moves a grammar value stated for the whole word to the senses
+it is true of when one sense states another (776 values in 710 entries), so the word no longer
+claims it. What it asks of the next prompt version is under "Pending".
+
 ## Russian, on trial
 
 Russian has its settings (`prompting.PILOT_LANGUAGES`): it can be written by naming it, no list is
@@ -342,8 +388,14 @@ lexemes each by stress; *человек* with *люди* and with *челове�
 for loaves and *хлеба́* for crops; *лес* with *в лесу́*; *ложить* proscribed, with *класть*;
 *звонить* with a note on the stress people get wrong. $2.67, five cents an entry.
 
-Next for Russian, the same path as the six: a few hundred common words written, twenty candidates
-picked from them, a review, examples, then its place among the target languages.
+A form used only after numbers is stored as a form with `Number=Count`, the name Universal
+Dependencies gives it (*пять челове́к*, *два часа́*, *пять лет*), beside the plural a learner would
+build (*люди*, *людей*). The pilot's *человек* was written before that rule and says it in the
+form's note instead.
+
+Next for Russian, the same path as the six: `headwords/top-ru-ru.json` holds 250 plain common words
+drawn at random (Zipf 4.2 to 5.6); written, twenty candidates are picked from them, reviewed, and
+the best become its examples.
 
 ## Words that are both a form and a word
 
@@ -402,6 +454,43 @@ traditional; kanji and kana), the classes of verbs and adjectives, counters and 
 levels of politeness. A pilot of forty words a language, as for Russian, is the way to find what
 else there is.
 
+### Japanese, on trial
+
+Japanese has its settings and a pilot list of 48 words (`headwords/pilot-ja-ja.json`), not yet
+written. What was decided for it, each of which the pilot may overturn:
+
+- The pronunciation is a reading in hiragana with `notation: kana`, and no IPA; the pronunciation
+  section of the prompt is exchanged whole for a language named in `prompting.PRONUNCIATION_V4`.
+  Pitch accent is left out.
+- Limits count characters (`prompting.LIMITS_V4`, `check_v4.CHARACTERS`): a definition 10 to 35,
+  an example 12 to 40.
+- The lemma is written as dictionaries head it, kanji with okurigana or kana; another way of
+  writing it is a spelling with its script (Jpan, Hira, Kana) only when print uses it; a character
+  of before 1946 is a pre-reform spelling.
+- A reading that changes the meaning makes another lexeme (*辛い*: からい, つらい); readings with one
+  meaning are two pronunciations (*明日*).
+- `conjugation` takes godan, ichidan, irregular for a verb and i, na for an adjective (new in the
+  schema); a transitive verb and its intransitive partner name each other; a noun's counter is its
+  `classifier`; honorific, humble, polite and familiar are politeness labels; a particle is an entry.
+- There is no gate: Japanese is written with `--no-gate`. A reader taps a run of characters that
+  the book processor must first cut into words, and its lemma is what reaches the dictionary.
+
+### Running a trial language
+
+On a machine with the Claude CLI logged in to the account that is to pay:
+
+```bash
+git pull origin develop
+# Russian needs its gate once: a 950 MB download, a few minutes
+scripts/.venv/bin/python scripts/lexicon_research/lemma_index.py --langs ru
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ru --headwords top-ru --workers 4
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ja --headwords pilot-ja --workers 4 --no-gate
+scripts/.venv/bin/python scripts/lexicon_research/lexicon_data_sync.py
+```
+
+About $13 for the 250 Russian words and $3 for the Japanese pilot at list price. The sync pushes
+them to the data repository, where any session reads them.
+
 ## The pass over finished entries
 
 One pass brings the written entries up to October's standard and links them:
@@ -457,13 +546,22 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Read the measurement.** The sample `v46` is drawn and written and its six review files are
-   ready; they wait for a reviewer's answers, then `measure.py --name v46 --tally`. After it, the
-   same for a batch of mended entries.
-4. **Lists**: function words for de, fr, es, it, pt (English has them); the book-word list, which
-   needs an export from the book processor; phrases.
-5. **Russian examples**, by the path above; then a pilot of Japanese, the first language without
-   an alphabet (see "Languages outside Europe").
+3. **What the measurement asks of the next prompt version** (v4.7, not written):
+   - countability, valency, position and comparability only as a learner's dictionary of the
+     language prints them, on the sense they hold for, and left out rather than guessed;
+   - the pt-PT convention without its false rule for unstressed vowels;
+   - the weak vowels of English and German named in the list, as the audit already accepts them.
+   Then the forty new words a language again, which is the cheap half, and the same files for a
+   batch of mended entries. The review file should state our two definitions (one value for every
+   pronominal use; transitive means a direct object) and show a form's alias, so that neither is
+   counted as a fault.
+4. **Lists**: fixed phrases first, which the measurement found to be the gap a learner feels (one
+   entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
+   the words in it; function words for de, fr, es, it, pt (English has them); the book-word list,
+   which needs an export from the book processor.
+5. **Russian examples and the Japanese pilot**: both lists are ready to be written ("Running a
+   trial language"); then candidates, a review and examples for Russian, and a reading of the
+   pilot for Japanese.
 6. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 7. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

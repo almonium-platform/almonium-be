@@ -42,7 +42,7 @@ WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
 TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt")
 # Languages being tried: they have their settings and can be written by naming them, but no list is written for
 # them by default and nothing is published until a pilot has been read and their examples reviewed.
-PILOT_LANGUAGES = ("ru",)
+PILOT_LANGUAGES = ("ru", "ja")
 
 
 def schema_of_meta(meta):
@@ -51,8 +51,8 @@ def schema_of_meta(meta):
     return "4" if version == "3" and str(meta.get("prompt_version") or "").startswith("v4") else version
 
 
-LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "ru": "Russian"}
-VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "ru": ["ru-RU"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
+LANG_NAME = {"en": "English", "de": "German", "uk": "Ukrainian", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "ru": "Russian", "ja": "Japanese"}
+VARIETIES = {"en": ["en-US", "en-GB"], "de": ["de-DE"], "uk": ["uk-UA"], "ru": ["ru-RU"], "ja": ["ja-JP"], "fr": ["fr-FR"], "es": ["es-ES", "es-MX"],
              "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"]}
 # A region is the language with a country (es-EC) or one of these UN M.49 areas, so that a word can be Canarian
 # or Andean without the product offering that accent. The backend's EntrySchema holds the same list.
@@ -141,7 +141,7 @@ def user_prompt(lang, row, evidence=None, remind=False, covered=()):
 
 # The varieties a spelling, form or sense may be tagged with: the backend's LanguageVariety for the language.
 REGIONS = {"en": ["en-US", "en-GB", "en-AU", "en-IN"], "de": ["de-DE", "de-AT", "de-CH"], "fr": ["fr-FR", "fr-CA", "fr-BE", "fr-CH"],
-           "es": ["es-ES", "es-MX", "es-AR", "es-CO"], "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"], "uk": ["uk-UA"], "ru": ["ru-RU"]}
+           "es": ["es-ES", "es-MX", "es-AR", "es-CO"], "it": ["it-IT"], "pt": ["pt-BR", "pt-PT"], "uk": ["uk-UA"], "ru": ["ru-RU"], "ja": ["ja-JP"]}
 
 ORTHOGRAPHY_V4 = {
     "en": "",
@@ -164,6 +164,11 @@ ORTHOGRAPHY_V4 = {
     "ru": "Most Russian print writes ё as е. Write the lemma with ё where the word has it (ёлка, ребёнок, ещё) and list the spelling "
           "with е beside it, without varieties; the headword may arrive in either. The spelling of before 1918 (міръ, хлѣбъ) is turned "
           "into today's by a rule and is not listed. ",
+    "ja": "Write the lemma as Japanese dictionaries head it: in kanji with its okurigana where the word is normally written so (食べる, "
+          "高い), in kana where it normally is (する, これ, テレビ). The headword may arrive in kana or in kanji. List another way of "
+          "writing the word as a spelling only when print uses it too, each with its \"script\": Jpan for kanji with or without kana, "
+          "Hira, Kana (綺麗 Jpan and きれい Hira; コンピューター and コンピュータ, both Kana). A character of before the 1946 reform "
+          "(國 for 国) is a spelling with \"pre_reform\": true. ",
 }
 
 STRESS_V4 = {
@@ -206,9 +211,14 @@ FORMS_V4 = {
           "learner would not expect from these (руці́, ру́ку). Verbs: the present or future 1sg, 2sg and 3pl, the past masculine and "
           "feminine, and the imperative 2sg. Adjectives: the comparative when irregular (добрий, кращий).",
     "ru": "Nouns: the genitive singular, the nominative plural and the genitive plural, and any other form whose stress or stem a "
-          "learner would not expect from these (ру́ку; в лесу́, Case=Loc; ча́ю, Case=Par). Verbs: the present or future 1sg, 2sg and 3pl, "
+          "learner would not expect from these (ру́ку; в лесу́, Case=Loc; ча́ю, Case=Par), and the form used after numbers when "
+          "it is not the genitive plural a learner would build, with Number=Count (пять челове́к, два часа́, пять лет). Verbs: the present or future 1sg, 2sg and 3pl, "
           "the past masculine and feminine, and the imperative 2sg. Adjectives: the short forms when the stress moves in them (мо́лод, "
           "молода́, мо́лодо) and the comparative when irregular (хороший, лучше).",
+    "ja": "Verbs: nothing for a regular godan or ichidan verb, whose class gives every form; for an irregular verb or form the polite "
+          "non-past (Polite=Form), the て form (VerbForm=Conv) and the plain negative (Polarity=Neg): する, 来る, 行く (行って), ある "
+          "(ない), いらっしゃる (いらっしゃいます). Adjectives: nothing, except where the class does not give the form (いい: よく, "
+          "よかった).",
 }
 
 FORM_SOUND_V4 = {
@@ -220,6 +230,7 @@ FORM_SOUND_V4 = {
     "it": "A listed form of two or more syllables carries its own reading (pàrlano).",
     "uk": "Each listed form of two or more syllables carries its own reading (руки́, ру́ку).",
     "ru": "Each listed form of two or more syllables carries its own reading (руки́, ру́ку), and no ipa.",
+    "ja": "Each listed form carries its own reading in hiragana with \"notation\": \"kana\", and no ipa.",
 }
 
 # v4.1: a variant chosen by the neighbouring sounds is a spelling of the same lexeme, so that "у" is not bought after "в".
@@ -251,6 +262,16 @@ LANGUAGE_NOTES_V4 = {
     "ru": "\nA verb lists its aspect partner as a relation (делать and сделать). A verb in -ся is a lemma of its own, written under "
           "its own spelling, not a sense of the verb without it (учиться is not under учить). A word used only as a predicate "
           "(нельзя, надо, рад) has position Pred. Russian has no articles, so a definition may have as few as four words.\n",
+    "ja": "\nDefinitions and examples are in standard Japanese: the definition in the plain style of a dictionary, the example a "
+          "natural sentence in the plain or the polite style, both with kanji as a newspaper uses them. A verb gives its class in "
+          "\"conjugation\": godan, ichidan, or irregular (する, 来る), and its valency; a transitive verb and its intransitive partner "
+          "(開ける, 開く) name each other as a relation of type confusable, with why. An adjective gives \"conjugation\": i or na (高い: "
+          "i; 静か: na). A noun counted with a counter of its own gives it in \"classifier\" (鉛筆: 本; 犬: 匹). A noun that makes a "
+          "verb with する (勉強) shows that in a frame (勉強する). Frames show the particles a sense takes (〜が好き, 〜に行く, 〜を食べる). "
+          "A particle (は, が, を, に, ね) is an entry: its part of speech is ADP for a case particle and PART otherwise, and its "
+          "definition says what it is used for. An honorific or a humble word (いらっしゃる, 参る) has the politeness label honorific "
+          "or humble, a word of the polite style (です, ございます) polite, a word used only with friends and family (俺) familiar. A "
+          "word or sense of one region of Japan (おおきに) names the region in the sense's grammar note, Japan being one variety.\n",
 }
 
 SCHEMA_EXAMPLE_V4 = json.dumps({
@@ -288,7 +309,7 @@ SCHEMA_EXAMPLE_V4 = json.dumps({
 UN_AREAS_V4 = {"en": ("021", "029", "002", "142", "009"), "es": ("419", "029", "005", "013"), "fr": ("002", "021"), "pt": ("002",)}
 REGION_EXAMPLES_V4 = {"en": "en-GB, en-US, en-AU, en-IE", "de": "de-DE, de-AT, de-CH", "fr": "fr-FR, fr-CA, fr-BE, fr-CH",
                       "es": "es-ES, es-MX, es-AR, es-CU", "it": "it-IT, it-CH", "pt": "pt-BR, pt-PT, pt-AO", "uk": "uk-UA",
-                      "ru": "ru-RU, ru-BY, ru-KZ"}
+                      "ru": "ru-RU, ru-BY, ru-KZ", "ja": "ja-JP"}
 
 
 def schema_example_v4(version):
@@ -343,6 +364,19 @@ def sounds_v4(variety, version):
     return f"{variety}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}"
 
 
+# A language written without an alphabet is not transcribed in IPA: its pronunciation section is this text, whole.
+PRONUNCIATION_V4 = {
+    "ja": "Japanese is not given in IPA. Each pronunciation has \"variety\": \"ja-JP\", a \"reading\" in hiragana and \"notation\": "
+          "\"kana\" (食べる: たべる; 東京: とうきょう), also for a word written in kana, whose reading repeats it in hiragana (テレビ: "
+          "てれび). When a word is read in more than one way with the same meaning, give the most common first (明日: あした, あす); a "
+          "reading after the first may carry a \"note\": less_common, older, newer, careful (the formal reading), casual, regional or "
+          "disputed. Give a note only when you are sure of it. A reading that changes the meaning is another lexeme, not a second "
+          "reading (辛い: からい, hot to the taste, and つらい, hard to bear).",
+}
+# ... and its limits count characters, there being no spaces to count words by: what replaces each limit of the prompt.
+LIMITS_V4 = {"ja": {"6 to 15 words": "10 to 35 characters", "of 6 to 14 words": "of 12 to 40 characters"}}
+
+
 def fill_v4(table, lang, version):
     """A language's text from one of the tables above. A text that changed in some version stands beside the old one
     under (language, version), so that an older prompt still renders to the letter; the latest that applies is used."""
@@ -365,7 +399,7 @@ def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
     version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.6")
     schema_path = HERE / "entry.schema.v4.json"
-    inv = [sounds_v4(v, version) for v in VARIETIES[lang]]
+    inv = [] if lang in PRONUNCIATION_V4 else [sounds_v4(v, version) for v in VARIETIES[lang]]
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]
     tpl = (HERE / "prompts" / "entry_writer" / f"{version}.md").read_text()
     fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": fill_v4(ORTHOGRAPHY_V4, lang, version), "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),
@@ -378,4 +412,10 @@ def system_prompt_v4(lang, version=None):
                                      for _ in [0] if lang in UN_AREAS_V4)}
     for k, v in fills.items():
         tpl = tpl.replace(k, v)
+    if lang in PRONUNCIATION_V4:
+        before, _, rest = tpl.partition("# Pronunciation\n\n")
+        tpl = f"{before}# Pronunciation\n\n{PRONUNCIATION_V4[lang]}\n\n# Grammar and forms{rest.partition('# Grammar and forms')[2]}"
+    for old, new in LIMITS_V4.get(lang, {}).items():
+        assert tpl.count(old) == 1, f"the prompt no longer states the limit {old!r} once"
+        tpl = tpl.replace(old, new)
     return tpl

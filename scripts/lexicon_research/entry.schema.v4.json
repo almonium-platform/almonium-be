@@ -122,9 +122,14 @@
         "3",
         "strong",
         "weak",
-        "mixed"
+        "mixed",
+        "godan",
+        "ichidan",
+        "irregular",
+        "i",
+        "na"
        ],
-       "description": "Romance: 1, 2, 3 by the infinitive ending in the language's own order (fr -er/-ir/-re, es and pt -ar/-er/-ir, it -are/-ere/-ire). German: strong, weak, mixed."
+       "description": "Romance: 1, 2, 3 by the infinitive ending in the language's own order (fr -er/-ir/-re, es and pt -ar/-er/-ir, it -are/-ere/-ire). German: strong, weak, mixed. Japanese: godan, ichidan, irregular for a verb; i, na for an adjective."
       },
       "auxiliary": {
        "enum": [
