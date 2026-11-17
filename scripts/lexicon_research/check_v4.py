@@ -97,7 +97,12 @@ def check(lang, entry, inventories, witness):
         lemma = (lx.get("lemma") or "").lower()
         tags = [v for s in lx.get("spellings", []) for v in s.get("varieties", [])]
         tags += [v for f in lx.get("forms", []) for v in f.get("varieties", [])]
-        tags += [v for s in lx.get("senses", []) for v in s.get("regions", [])]
+        for sense in lx.get("senses", []):
+            for region in sense.get("regions", []):
+                if isinstance(region, str):
+                    tags.append(region)
+                elif not str(region.get("variety", "")).startswith(f"{lang}-"):
+                    tags.append(str(region.get("variety")))  # a country or UN area must be one of the entry's language
         if bad := sorted(set(tags) - allowed):
             problems.append(("variety outside the language", ", ".join(bad)))
         for p in lx.get("pronunciations", []):

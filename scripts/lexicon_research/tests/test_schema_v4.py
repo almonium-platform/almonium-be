@@ -1,0 +1,63 @@
+"""Schema 4 as it grows: what was added must not refuse what is already written. Run from the repository root:
+    scripts/.venv/bin/python -m pytest scripts/lexicon_research/tests -q
+"""
+
+import copy
+import json
+import sys
+from pathlib import Path
+
+import jsonschema
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import check_v4  # noqa: E402
+import prompting  # noqa: E402
+
+SCHEMA = json.loads((Path(__file__).resolve().parents[1] / "entry.schema.v4.json").read_text())
+VALID = jsonschema.Draft202012Validator(SCHEMA)
+
+
+def entry():
+    return copy.deepcopy(json.loads(prompting.SCHEMA_EXAMPLE_V4))
+
+
+def test_the_prompts_own_example_is_valid():
+    VALID.validate(entry())
+
+
+def test_a_region_is_a_variety_or_a_place_with_an_extent():
+    e = entry()
+    sense = e["lexemes"][0]["senses"][0]
+    sense["regions"] = ["en-GB", {"variety": "en-US", "extent": "mainly"}, {"variety": "en-029", "extent": "only"}]
+    VALID.validate(e)
+    assert check_v4.check("en", e, {}, None) == []
+    sense["regions"] = [{"variety": "en-GB"}]
+    assert not VALID.is_valid(e)
+    sense["regions"] = [{"variety": "es-CU", "extent": "only"}]
+    assert ("variety outside the language", "es-CU") in check_v4.check("en", e, {}, None)
+
+
+def test_a_pronunciation_needs_ipa_or_a_reading():
+    e = entry()
+    e["lexemes"][0]["pronunciations"] = [{"variety": "zh-CN", "reading": "diànnǎo", "notation": "pinyin"}]
+    VALID.validate(e)
+    e["lexemes"][0]["pronunciations"] = [{"variety": "zh-CN"}]
+    assert not VALID.is_valid(e)
+    e["lexemes"][0]["pronunciations"] = [{"variety": "en-GB", "ipa": "/ˈliːd/", "note": "older"}]
+    VALID.validate(e)
+
+
+def test_scripts_politeness_classifiers_cases_and_citations_are_accepted():
+    e = entry()
+    lexeme = e["lexemes"][1]
+    lexeme["spellings"] = [{"text": "电脑", "script": "Hans", "varieties": ["zh-CN"]}, {"text": "電腦", "script": "Hant", "varieties": ["zh-TW"]}]
+    lexeme["grammar"]["classifier"] = "台"
+    lexeme["forms"] = [{"form": "talossa", "features": {"Case": "Ine", "Number": "Sing"}}]
+    lexeme["senses"][0]["labels"] = {"politeness": "honorific"}
+    lexeme["senses"][0]["from"] = ["1.2", "2.1"]
+    VALID.validate(e)
+    lexeme["senses"][0]["labels"] = {"politeness": "rude"}
+    assert not VALID.is_valid(e)
+    lexeme["senses"][0]["labels"] = {}
+    lexeme["spellings"][0]["script"] = "hans"
+    assert not VALID.is_valid(e)
