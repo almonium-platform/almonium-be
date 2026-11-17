@@ -11,11 +11,13 @@ answers, the status page's file, audio and the derived lexicon stay out.
 A host timer runs it every three hours (almonium-lexicon-data-sync.timer); a run with nothing new
 commits nothing.
 
-A cloud session writes entries too, in its own container, and cannot push to main without this
-machine's next push being refused. It pushes them to a branch claude/* of the data repository, and
-every run here merges those branches in before it pushes: the entries land in out/, where the
-writers find them and do not buy the words again. A word written on both sides keeps this machine's
-entry.
+This machine is not the only one that writes. A cloud session writes entries in its own container,
+and another machine or account may run the writers too. So every run first takes in what is on the
+data repository: its own branch as it stands there, and every branch claude/* a cloud session
+pushed. The entries land in out/, where the writers find them and do not buy the words again. A
+word written on both sides keeps this machine's entry; a merge that fails is aborted and reported,
+and what is here is pushed all the same. A push refused because someone pushed in between is tried
+once more after taking that in.
 
 Usage: lexicon_data_sync.py [--no-push]   (run from the backend repository root)
 """
@@ -58,25 +60,26 @@ def git(*args, check=True):
     return subprocess.run(["git", f"--git-dir={DATA}", f"--work-tree={OUT}", *args], check=check, capture_output=True, text=True)
 
 
+def take_in(ref):
+    """Merge what the data repository holds under ref into what is here; True when something came in."""
+    if git("fetch", "-q", "origin", ref, check=False).returncode != 0:
+        print(f"could not fetch {ref}")
+        return False
+    if git("merge-base", "--is-ancestor", "FETCH_HEAD", "HEAD", check=False).returncode == 0:
+        return False  # already taken in
+    r = git("merge", "--no-edit", "-X", "ours", "-m", f"Entries written elsewhere ({ref})", "FETCH_HEAD", check=False)
+    if r.returncode != 0:
+        git("merge", "--abort", check=False)  # leave the work tree as it was: the entries here are never at risk
+        print(f"could not merge {ref}: {(r.stderr or r.stdout).strip()[:200]}")
+        return False
+    print(f"merged {ref}")
+    return True
+
+
 def merge_cloud():
-    """Merge every branch claude/* that holds something main does not; says how many were merged."""
-    merged = 0
-    for line in git("ls-remote", "--heads", "origin", "claude/*", check=False).stdout.splitlines():
-        sha, _, ref = line.partition("\t")
-        branch = ref.removeprefix("refs/heads/")
-        if not branch or git("merge-base", "--is-ancestor", sha, "HEAD", check=False).returncode == 0:
-            continue  # nothing there, or already taken in
-        if git("fetch", "-q", "origin", branch, check=False).returncode != 0:
-            print(f"could not fetch {branch}")
-            continue
-        r = git("merge", "--no-edit", "-X", "ours", "-m", f"Entries written in a cloud session ({branch})", "FETCH_HEAD", check=False)
-        if r.returncode != 0:
-            git("merge", "--abort", check=False)  # leave the work tree as it was: the entries here are never at risk
-            print(f"could not merge {branch}: {(r.stderr or r.stdout).strip()[:200]}")
-            continue
-        print(f"merged {branch}")
-        merged += 1
-    return merged
+    """Take in every branch claude/* of the data repository; says how many brought something."""
+    heads = git("ls-remote", "--heads", "origin", "claude/*", check=False).stdout.splitlines()
+    return sum(take_in(line.partition("\t")[2].removeprefix("refs/heads/")) for line in heads if "\t" in line)
 
 
 def main():
@@ -93,13 +96,21 @@ def main():
         counted = git("diff", "--cached", "--shortstat").stdout.strip()
         git("commit", "-q", "-m", f"Entries as of {datetime.now():%Y-%m-%d %H:%M} ({counted})")
         print(git("log", "--oneline", "-1").stdout.strip())
-    if not merge_cloud() and not committed:
+    branch = git("branch", "--show-current").stdout.strip() or "main"
+    came = take_in(branch) + merge_cloud()  # after the commit: a merge needs a clean tree, and what is here goes first
+    if not came and not committed:
         print("nothing new")
         return
-    if not a.no_push:
-        branch = git("branch", "--show-current").stdout.strip() or "main"
-        git("push", "-q", "origin", f"HEAD:{branch}")
-        print("pushed")
+    if a.no_push:
+        return
+    for attempt in (1, 2):
+        r = git("push", "-q", "origin", f"HEAD:{branch}", check=False)
+        if r.returncode == 0:
+            print("pushed")
+            return
+        if attempt == 1:
+            take_in(branch)  # someone pushed between the fetch and the push
+    sys.exit(f"could not push: {(r.stderr or r.stdout).strip()[:300]}")
 
 
 if __name__ == "__main__":

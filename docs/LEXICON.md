@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -39,10 +39,11 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Code: `scripts/lexicon_research/` on `develop`. A push to `develop` deploys the backend.
 - Entries: the private repository `almonium-lexicon-data`, whose work tree is `out/` itself
   (`lexicon_data_sync.py`, every three hours). The written text is paid for and never edited.
-- A cloud session writes entries too, with the same writer, into its own clone. The owner's
-  machine pushes `main` without pulling, so a cloud session never pushes there: it pushes a branch
-  `claude/*`, and every run of the sync merges those branches before it pushes. A word written on
-  both sides keeps the machine's entry.
+- The owner's machine is not the only writer: a cloud session writes with the same writer into its
+  own clone, and another machine or account may. Every run of the sync first takes in what the
+  data repository holds, its own branch and every branch `claude/*`, then pushes; a word written
+  on both sides keeps the machine's entry. A cloud session pushes a branch `claude/*`, which is
+  safe whatever version of the sync a machine runs.
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
   say (`tour.py` picks them), for checking by hand what the app shows a reader.
@@ -56,7 +57,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.6). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.7). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
@@ -266,6 +267,42 @@ four languages: every entry valid; no Italian double written the old way (nine w
 from 55 to 73 in Italian and from 48 to 61 in Portuguese; the price stayed at $0.043 an entry in
 Italian and went from $0.046 to $0.051 in Portuguese.
 
+## Prompt v4.7: "mainly"
+
+The first measurement (below, "Measuring the entries") found the entries' weak place: a grammar
+tag that claims more than is true. *Soap* uncountable, though one says *two soaps*; *rushed* only
+after a verb, though *a rushed commuter*; *bloggen* intransitive, though one blogs a text.
+
+A learner's dictionary does not choose between "only" and nothing: it prints "usually before
+noun" beside "only before noun". So does the shape now, with the word it already uses for where
+a sense is spoken. A grammar, of the word or of one sense, may list under `mainly` the keys whose
+value holds for most uses and not all:
+
+    "grammar": {"position": "Attr", "mainly": ["position"]}      usually before a noun
+    "grammar": {"countability": "Mass", "mainly": ["countability"]}    uncountable, except for kinds of it
+
+A key not named holds without exception. The keys are countability, valency, position, number and
+comparable. There is one step, not three: "sometimes" is not a restriction at all, and is said by
+Both or by leaving the tag out; "never" is the other value said without `mainly`.
+
+v4.7 also asks for these five tags as a learner's dictionary of the language prints them and to
+leave out the one the writer is not sure of; gives pt-PT its vowels before the stress as "usually
+ɨ, ɐ, u, but give each word what European dictionaries give it", where the old text stated the
+reduction as a rule; and lists the weak vowels of English and German that the writers already
+used.
+
+Tried on forty-one words the measurement had flagged, written again under v4.7: all valid, and
+twenty of them use `mainly`. Of thirty-one claims too strong, twenty-four no longer stand: hedged
+(*Wald* countable, mainly; *telescopic* before a noun, mainly), dropped (*burnt* not comparable)
+or widened to Both. Seven stand as they were. Of the seven pt-PT vowels three are right now, one
+of them the prompt's own example, and four are unchanged (*inclusive*, *otomano*, *travesti*,
+*envolvente*): what a writer does not know, a rule does not teach it, and those wait for a check
+against a source.
+
+The entries written before v4.7 keep their claims. Which of them are too strong only a pass over
+them can say; what ingest can do without one it does (a value of the whole word that one sense
+contradicts goes to the senses it is true of).
+
 ## What the six reviews say about the entries
 
 118 entries written under v4, all faultless to the audit and all of plain common words, were read
@@ -393,6 +430,10 @@ Dependencies gives it (*пять челове́к*, *два часа́*, *пят
 build (*люди*, *людей*). The pilot's *человек* was written before that rule and says it in the
 form's note instead.
 
+Written since, to show what no entry had shown: *ты* (familiar) and *вы* (polite), *час* with *часа́*
+as its form after numbers (`Number=Count`), *год* with *лет*. One of them wrote the stress into the
+forms themselves (*го́да*); ingest now moves such a mark to the reading.
+
 Next for Russian, the same path as the six: `headwords/top-ru-ru.json` holds 250 plain common words
 drawn at random (Zipf 4.2 to 5.6); written, twenty candidates are picked from them, reviewed, and
 the best become its examples.
@@ -514,7 +555,7 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
-- Prompt v4.6 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.5` goes back.
+- Prompt v4.7 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.6` goes back.
 - es-ES writes *ll* as /ʝ/, as nearly all of Spain says it; the separate /ʎ/ is not marked.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
@@ -546,15 +587,12 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the measurement asks of the next prompt version** (v4.7, not written):
-   - countability, valency, position and comparability only as a learner's dictionary of the
-     language prints them, on the sense they hold for, and left out rather than guessed;
-   - the pt-PT convention without its false rule for unstressed vowels;
-   - the weak vowels of English and German named in the list, as the audit already accepts them.
-   Then the forty new words a language again, which is the cheap half, and the same files for a
-   batch of mended entries. The review file should state our two definitions (one value for every
-   pronominal use; transitive means a direct object) and show a form's alias, so that neither is
-   counted as a fault.
+3. **Measure v4.7**: forty new words a language again, which is the cheap half, and the same
+   files for a batch of mended entries. The review file now states what is ours by definition (one
+   value for every pronominal use; transitive means a direct object; what `mainly` means; a form
+   reaches its word by an alias), so that none of it is counted as a fault. Then, if the claims
+   of the older entries are still worth it, a pass over them that asks only whether a tag should
+   be `mainly`.
 4. **Lists**: fixed phrases first, which the measurement found to be the gap a learner feels (one
    entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
    the words in it; function words for de, fr, es, it, pt (English has them); the book-word list,

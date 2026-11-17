@@ -31,9 +31,9 @@ HERE = Path("scripts/lexicon_research")
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4", "v4.7": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.6")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.7")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -316,6 +316,8 @@ def schema_example_v4(version):
     if version in ("v4", "v4.1"):
         return SCHEMA_EXAMPLE_V4
     entry = json.loads(SCHEMA_EXAMPLE_V4)
+    if since_v4(version, "v4.7"):  # "to be winning" is nearly always intransitive, but one leads a race too
+        entry["lexemes"][0]["senses"][2]["grammar"] = {"valency": "Intr", "mainly": ["valency"]}
     for lexeme in entry["lexemes"]:
         for sense in lexeme["senses"]:
             if "regions" in sense:
@@ -351,6 +353,17 @@ SOUNDS_V4 = {
         "/ˈbɛl.lo/); a double affricate doubles its stop (oggi is /ˈɔd.dʒi/, pizza is /ˈpit.tsa/), and ʃ ʎ ɲ between vowels are "
         "double (pesce is /ˈpeʃ.ʃe/, figlio is /ˈfiʎ.ʎo/). Open and close e and o are distinguished (ɛ/e, ɔ/o) in stressed "
         "syllables and are e, o when unstressed. Intervocalic s is z where the standard has it."},
+    # the first measurement: seven of a hundred Portuguese entries had the wrong vowel before the stress in pt-PT,
+    # where the old text gave reduction as a rule without exception
+    ("pt-PT", "v4.7"): {"conventions":
+        "European Portuguese, Lisbon standard. Before the stress, written e is usually ɨ, a usually ɐ and o usually u, but not "
+        "always: many words keep an open or a close vowel there (normal is /nɔɾ.ˈmal/, esquecer is /ɨʃ.kɛ.ˈseɾ/, padaria is "
+        "/pa.dɐ.ˈɾi.ɐ/), and written i stays i. Give each word the vowels European dictionaries give it, never the rule alone. "
+        "Written r at word start and rr are ʁ; single r between vowels is ɾ. Syllable-final s is ʃ. Nasal vowels carry the tilde."},
+    # the weak vowels the writers used rightly although the lists lacked them (see "also" in the inventory files)
+    ("en-US", "v4.7"): {"with": {"vowels": ["i", "u"]}, "add": " The weak vowel at the end of happy and before another vowel is i (/ˈhæp.i/, /ˈɹeɪ.di.oʊ/), and that of situation is u."},
+    ("en-GB", "v4.7"): {"with": {"vowels": ["i", "u"]}, "add": " The weak vowel at the end of happy and before another vowel is i (/ˈhæp.i/, /ˈɹeɪ.di.əʊ/), and that of situation is u."},
+    ("de-DE", "v4.7"): {"with": {"vowels": ["i", "y", "e", "ø", "o", "u"]}, "add": " A short close vowel in an unstressed syllable, mostly of a loanword, is written without the length mark (Politik is /po.li.ˈtiːk/, marginal is /maʁ.ɡi.ˈnaːl/)."},
 }
 
 
@@ -359,8 +372,9 @@ def sounds_v4(variety, version):
     d = json.loads((HERE / "inventories" / f"{variety}.json").read_text())
     for (v, first), change in SOUNDS_V4.items():
         if v == variety and since_v4(version, first):
-            d = {**d, **{k: [x for x in d[k] if x not in change.get("without", ())] for k in ("consonants", "vowels", "diacritics")},
-                 "conventions": change.get("conventions", d["conventions"])}
+            d = {**d, **{k: [x for x in d[k] if x not in change.get("without", ())] + change.get("with", {}).get(k, [])
+                         for k in ("consonants", "vowels", "diacritics")},
+                 "conventions": change.get("conventions", d["conventions"]) + change.get("add", "")}
     return f"{variety}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}"
 
 
@@ -397,7 +411,7 @@ def examples_v4(lang, version):
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.6")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.7")
     schema_path = HERE / "entry.schema.v4.json"
     inv = [] if lang in PRONUNCIATION_V4 else [sounds_v4(v, version) for v in VARIETIES[lang]]
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]

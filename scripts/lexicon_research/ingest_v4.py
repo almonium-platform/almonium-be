@@ -122,6 +122,22 @@ def settle_sounds(lang, lexeme):
     return changed
 
 
+STRESS_MARK = "\u0301"  # the acute a reading of Russian or Ukrainian carries, never the spelling itself
+
+
+def plain_forms(lexeme):
+    """A form written with its stress mark (го́да) is the form without it, and the mark belongs to its reading.
+    Says how many forms it put right."""
+    changed = 0
+    for form in lexeme.get("forms") or []:
+        text = form.get("form") or ""
+        if STRESS_MARK in text:
+            form.setdefault("reading", text)
+            form["form"] = text.replace(STRESS_MARK, "")
+            changed += 1
+    return changed
+
+
 def settle_defaults(lexeme):
     """A grammar value the lexeme states for the whole word although one of its senses states another (Count for
     the word, Mass for its fourth sense) is the value of the other senses only: it is moved to each sense that
@@ -129,13 +145,20 @@ def settle_defaults(lexeme):
     already allows both (Both, both, true), which the senses only narrow, stays. Says how many values moved."""
     whole, senses = lexeme.get("grammar") or {}, lexeme.get("senses") or []
     moved = 0
-    for key in [k for k in whole if k not in ("note", "by_variety") and whole[k] not in ("Both", "both", True)]:
+    for key in [k for k in whole if k not in ("note", "by_variety", "mainly") and whole[k] not in ("Both", "both", True)]:
         stated = [(s.get("grammar") or {}).get(key) for s in senses]
         if any(v is not None and v != whole[key] for v in stated):
+            hedged = key in (whole.get("mainly") or [])  # "mainly" goes with the value it qualifies
             for sense, own in zip(senses, stated):
                 if own is None:
                     sense["grammar"] = {key: whole[key], **(sense.get("grammar") or {})}
+                    if hedged:
+                        sense["grammar"]["mainly"] = sorted(set(sense["grammar"].get("mainly") or []) | {key})
             del whole[key]
+            if hedged:
+                whole["mainly"] = [k for k in whole["mainly"] if k != key]
+                if not whole["mainly"]:
+                    del whole["mainly"]
             moved += 1
     if "grammar" in lexeme and not whole:
         del lexeme["grammar"]
@@ -201,7 +224,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults = [], [], Counter(), 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks = [], [], Counter(), 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -232,6 +255,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         sounds += settle_sounds(lang, lexeme)
         auxiliaries += pronominal_auxiliary(lang, lexeme)
         defaults += settle_defaults(lexeme)
+        marks += plain_forms(lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -250,6 +274,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["pronominal_auxiliaries_set"] = auxiliaries
     if defaults:
         entry["word_grammar_moved_to_senses"] = defaults
+    if marks:
+        entry["stress_marks_moved_to_readings"] = marks
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -375,6 +401,7 @@ def ingest(lang, dry_run=False):
             counts[name] += clean.get(name.replace(" ", "_").lower(), 0)
         counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
+        counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

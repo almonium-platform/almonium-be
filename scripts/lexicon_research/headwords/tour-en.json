@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "can't",
+  "zipf": 5.8,
+  "set": "tour"
+ },
+ {
+  "headword": "don't",
+  "zipf": 6.2,
+  "set": "tour"
+ },
+ {
+  "headword": "give up",
+  "zipf": 5.63,
+  "set": "tour"
+ },
+ {
+  "headword": "pick up",
+  "zipf": 5.06,
+  "set": "tour"
+ }
+]

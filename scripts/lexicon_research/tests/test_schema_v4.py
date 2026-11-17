@@ -143,3 +143,13 @@ def test_a_japanese_entry_has_a_kana_reading_a_class_and_limits_counted_in_chara
     assert check_v4.check("ja", e, {"ja-JP": check_v4.symbols("ja-JP")}, None) == []
     e["lexemes"][0]["senses"][0]["definition"] = "食べること"
     assert ("definition outside 6 to 15 words", "5 characters") in check_v4.check("ja", e, {}, None)
+
+
+def test_a_grammar_value_may_hold_mainly():
+    e = entry()
+    e["lexemes"][0]["grammar"] = {"valency": "Intr", "mainly": ["valency"]}
+    e["lexemes"][0]["senses"][0]["grammar"] = {"position": "Attr", "countability": "Mass", "mainly": ["position", "countability"]}
+    VALID.validate(e)
+    for wrong in ([], ["gender"], ["position", "position"]):
+        e["lexemes"][0]["senses"][0]["grammar"]["mainly"] = wrong
+        assert not VALID.is_valid(e), wrong

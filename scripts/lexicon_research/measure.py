@@ -65,6 +65,17 @@ dictionary have none: report a fault only when you could show it from a dictiona
 Do not report: the order of senses, a CEFR level off by one step, how syllables are divided, a
 definition you would have worded differently when the given one is true, or anything about style.
 
+Three things are this dictionary's own definitions, not faults:
+
+- valency Refl stands for every use with a reflexive pronoun, whatever a grammar of {name} calls it
+  (reflexive, reciprocal, pronominal); Tr means the verb takes a direct object, so a verb whose
+  object needs a preposition or the dative is Intr.
+- a grammar value followed by "mainly" holds for most uses, not all ("position Attr, mainly"
+  is "usually before a noun"); without it the value is claimed without exception.
+- a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
+  name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
+  is not shown here.
+
 ## The answer
 
 One line of JSON for every entry, in the order given, inside a single ```json block. An entry
@@ -134,11 +145,18 @@ def sample(name, langs, have, new, seed):
         print(f"{lang}: {len(part_have)} held entries, {len(part_new)} words to write (Zipf {min(z for _, z in part_new):.2f} to {max(z for _, z in part_new):.2f})")
 
 
+def stated(grammar):
+    """A grammar as a reader takes it in: each value, with "mainly" after the ones that hold for most uses only."""
+    mainly = set(grammar.get("mainly") or [])
+    return "; ".join(f"{k} {json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v}" + (", mainly" if k in mainly else "")
+                     for k, v in grammar.items() if k != "mainly")
+
+
 def show(entry):
     """An entry as a reviewer reads it: everything it states, nothing of how it is stored."""
     lines = []
     for n, lexeme in enumerate(entry.get("lexemes") or [], 1):
-        grammar = "; ".join(f"{k} {json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v}" for k, v in (lexeme.get("grammar") or {}).items())
+        grammar = stated(lexeme.get("grammar") or {})
         said = ", ".join(f"{p.get('ipa') or ''}{' ' + p['reading'] if p.get('reading') else ''} ({p.get('variety')}{', ' + p['spelling'] if p.get('spelling') else ''}{', ' + p['note'] if p.get('note') else ''})"
                          for p in lexeme.get("pronunciations") or [])
         lines.append(f"**Lexeme {n}: {lexeme.get('lemma')}**, {lexeme.get('pos')}" + (f", {lexeme['kind']}" if lexeme.get("kind") not in (None, "word") else ""))
@@ -166,7 +184,7 @@ def show(entry):
             if sense.get("regions"):
                 more.append("regions: " + ", ".join(r if isinstance(r, str) else f"{r.get('variety')} {r.get('extent')}" for r in sense["regions"]))
             if sense.get("grammar"):
-                more.append("grammar: " + "; ".join(f"{a} {v}" for a, v in sense["grammar"].items()))
+                more.append("grammar: " + stated(sense["grammar"]))
             if sense.get("antonyms"):
                 more.append("opposites: " + ", ".join(a.get("lemma", "") for a in sense["antonyms"]))
             if sense.get("standard_alternative"):

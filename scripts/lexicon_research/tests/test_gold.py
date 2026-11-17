@@ -22,6 +22,7 @@ PINNED = {
     ("en", "v4.4"): "ea3693cc8e6c", ("de", "v4.4"): "264072a754c8", ("fr", "v4.4"): "b42f719d2bef", ("es", "v4.4"): "9f4ac7938249", ("it", "v4.4"): "e0a358f349be", ("pt", "v4.4"): "fb3233860b89",
     ("en", "v4.5"): "01e3c8b0c49c", ("de", "v4.5"): "3a6bbf9411f3", ("fr", "v4.5"): "cb91c0a2c441", ("es", "v4.5"): "49554113c543", ("it", "v4.5"): "1696c5fba6f0", ("pt", "v4.5"): "a55595cc20b8",
     ("en", "v4.6"): "646cc0969f58", ("de", "v4.6"): "46fa8ef481dd", ("fr", "v4.6"): "64d5e683fb3a", ("es", "v4.6"): "a760a331ee23", ("it", "v4.6"): "fc32ca7cc518", ("pt", "v4.6"): "b00e003b42a2",
+    ("en", "v4.7"): "7f06d29d61de", ("de", "v4.7"): "a48e9cbea96f", ("fr", "v4.7"): "ecf8f8c27d3b", ("es", "v4.7"): "8a253d1aa72f", ("it", "v4.7"): "01f677cf0983", ("pt", "v4.7"): "635fcd1314f9",
 }
 ANSWER = """# Review
 
@@ -161,6 +162,9 @@ def test_a_variety_keeps_its_old_sound_conventions_in_the_older_prompts():
     assert "ll and y are both ʝ" in prompting.sounds_v4("es-ES", "v4.6") and " ʎ " not in prompting.sounds_v4("es-ES", "v4.6").split(";")[0]
     assert "/ˈfatːo/" in prompting.sounds_v4("it-IT", "v4.5") and "/ˈfat.to/" in prompting.sounds_v4("it-IT", "v4.6")
     assert "ː" not in prompting.sounds_v4("it-IT", "v4.6") and prompting.sounds_v4("en-US", "v4.5") == prompting.sounds_v4("en-US", "v4.6")
+    assert "unstressed o is u" in prompting.sounds_v4("pt-PT", "v4.6") and "never the rule alone" in prompting.sounds_v4("pt-PT", "v4.7")
+    assert " i u; marks" in prompting.sounds_v4("en-GB", "v4.7") and "happy" not in prompting.sounds_v4("en-GB", "v4.6")
+    assert '"mainly": ["position"]' in prompting.system_prompt("en", "v4.7") and '"mainly": [' not in prompting.system_prompt("en", "v4.6")
 
 
 def test_a_prompt_that_entries_were_written_with_still_renders_to_the_letter():

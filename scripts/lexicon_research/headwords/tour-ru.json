@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "ты",
+  "zipf": 6.37,
+  "set": "tour"
+ },
+ {
+  "headword": "вы",
+  "zipf": 6.17,
+  "set": "tour"
+ },
+ {
+  "headword": "час",
+  "zipf": 5.14,
+  "set": "tour"
+ },
+ {
+  "headword": "год",
+  "zipf": 5.76,
+  "set": "tour"
+ }
+]

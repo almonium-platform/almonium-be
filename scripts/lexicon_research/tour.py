@@ -24,6 +24,11 @@ from prompting import HERE, LANG_NAME  # noqa: E402
 VALID = jsonschema.Draft202012Validator(json.loads((HERE / "entry.schema.v4.json").read_text()))
 
 DOC = Path("docs/LEXICON_TOUR.md")
+# What the shape can say and an entry might not happen to: named here so that the tour says when no entry shows it.
+EXPECTED = {"a contraction with the words it stands for": "German *zum*", "a phrase other words can come between": "*give it up*",
+            "a sense marked familiar": "*du*", "a sense marked polite": "*Sie*", "a form used after numbers": "*два часа́*",
+            "a grammar value that holds mainly, not always": "*usually before a noun*", "a compound with its parts": "*Arbeitszimmer*",
+            "a pronunciation that belongs to one spelling": "*período*, *periodo*"}
 ORDER = ["en", "ru", "de", "fr", "es", "it", "pt"]  # the owner reads the first two natively
 RELATIONS = {"diminutive_of": "a diminutive", "augmentative_of": "an augmentative", "endearing_of": "an endearing form", "feminine_of": "a feminine",
              "agent_noun_of": "an agent noun", "verbal_noun_of": "a verbal noun", "abstract_noun_of": "an abstract noun", "adjective_of": "an adjective of a noun",
@@ -127,6 +132,8 @@ def features(lang, entry):
             note("a word that never changes its form", lexeme.get("lemma"))
         if grammar.get("note"):
             note("a note on the word's grammar", grammar["note"])
+        for key in grammar.get("mainly") or []:
+            note("a grammar value that holds mainly, not always", f"{key} {grammar.get(key)}")
         counts = set()
         for sense in lexeme.get("senses") or []:
             own = sense.get("grammar") or {}
@@ -143,6 +150,8 @@ def features(lang, entry):
                 note("a sense the word has only in the plural", sense.get("definition"))
             if own.get("note"):
                 note("a note on one sense's grammar", own["note"])
+            for key in own.get("mainly") or []:
+                note("a grammar value that holds mainly, not always", f"{key} {own.get(key)}: {sense.get('definition')}")
             for axis in ("formality", "time", "normativity", "politeness"):
                 if labels.get(axis):
                     note(f"a sense marked {labels[axis]}", sense.get("definition"))
@@ -202,6 +211,12 @@ def cover(langs):
     return chosen, everything
 
 
+def absent(everything):
+    """A paragraph naming what the shape can say that no written entry shows yet, or nothing."""
+    missing = [f"{name} ({example})" for name, example in EXPECTED.items() if name not in everything]
+    return [f"No written entry shows these yet, so no word here does: {'; '.join(missing)}.", ""] if missing else []
+
+
 def write(langs):
     chosen, everything = cover(langs)
     lines = ["# A tour of the shape in real entries", "",
@@ -210,9 +225,7 @@ def write(langs):
              "Type each into the app and check that the reader is shown what the right-hand column says.", "",
              "The entries are schema 4. Until the backend reads schema 4 (docs/LEXICON.md, \"Pending\", item 1) the app cannot",
              "show them, so today this list is what that work has to make visible, not a test it can pass.", "",
-             "Four things the shape can say have no written entry yet, so no word here shows them: a contraction with the words",
-             "it stands for (German *zum*), a phrase other words can come between (*give it up*), a sense marked familiar or",
-             "polite (*du*, *Sie*), and a form used only after numbers (*пять человек*).", "",
+             *absent(everything),
              "| # | Word | Language | What the reader should see |", "|---|---|---|---|"]
     for n, (lang, headword, z, got) in enumerate(chosen, 1):
         shown = "<br>".join(f"**{feature}**: {str(value)[:140]}" for feature, value in got.items())

@@ -268,6 +268,21 @@
        "type": "string",
        "minLength": 1,
        "description": "The class of a noun in a language that has classes in place of gender (Swahili 7/8 for kitabu, vitabu)."
+      },
+      "mainly": {
+       "type": "array",
+       "minItems": 1,
+       "uniqueItems": true,
+       "items": {
+        "enum": [
+         "countability",
+         "valency",
+         "position",
+         "number",
+         "comparable"
+        ]
+       },
+       "description": "The keys of this grammar whose value holds for most uses but not all: position Attr with mainly [position] is \"usually before a noun\". A key not named holds without exception. The same word as a region's extent."
       }
      }
     },
@@ -694,6 +709,21 @@
       },
       "comparable": {
        "type": "boolean"
+      },
+      "mainly": {
+       "type": "array",
+       "minItems": 1,
+       "uniqueItems": true,
+       "items": {
+        "enum": [
+         "countability",
+         "valency",
+         "position",
+         "number",
+         "comparable"
+        ]
+       },
+       "description": "The keys of this grammar whose value holds for most uses but not all: position Attr with mainly [position] is \"usually before a noun\". A key not named holds without exception. The same word as a region's extent."
       }
      }
     },

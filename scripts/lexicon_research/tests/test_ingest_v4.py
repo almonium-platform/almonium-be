@@ -260,3 +260,20 @@ def test_a_value_stated_for_the_word_that_one_sense_overrides_is_moved_to_the_ot
     # a word said to be both, whose senses say which, is as the prompt asks: nothing to move
     both = lexeme("study", "VERB", grammar={"valency": "Both"}, senses=[sense("to learn about a subject at school", grammar={"valency": "Tr"}), sense("to spend time learning", grammar={"valency": "Intr"})])
     assert ingest_v4.clean_entry("en", entry("study", both), META)["lexemes"][0]["grammar"] == {"valency": "Both"}
+
+
+def test_a_value_that_holds_mainly_keeps_that_when_it_moves_to_the_senses():
+    noun = lexeme("soap", grammar={"countability": "Mass", "mainly": ["countability"]},
+                  senses=[sense("a substance used with water for washing"), sense("a television story told in many parts", grammar={"countability": "Count"})])
+    got = ingest_v4.clean_entry("en", entry("soap", noun), META)["lexemes"][0]
+    assert "grammar" not in got
+    assert [s.get("grammar") for s in got["senses"]] == [{"countability": "Mass", "mainly": ["countability"]}, {"countability": "Count"}]
+
+
+def test_a_stress_mark_written_into_a_form_goes_to_its_reading():
+    noun = lexeme("год", pronunciations=[{"variety": "ru-RU", "ipa": "/ˈɡot/"}],
+                  forms=[{"form": "го́да", "features": {"Case": "Gen", "Number": "Sing"}, "reading": "го́да"},
+                         {"form": "году́", "features": {"Case": "Loc", "Number": "Sing"}}, {"form": "лет", "features": {"Case": "Gen", "Number": "Plur"}}])
+    clean = ingest_v4.clean_entry("ru", entry("год", noun, lang="ru"), META)
+    assert [(f["form"], f.get("reading")) for f in clean["lexemes"][0]["forms"]] == [("года", "го́да"), ("году", "году́"), ("лет", None)]
+    assert clean["stress_marks_moved_to_readings"] == 2
