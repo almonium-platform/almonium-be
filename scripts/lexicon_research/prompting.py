@@ -5,17 +5,24 @@ Prompt v4 (schema 3) writes the core of an entry only: lexemes, spellings, pronu
 the forms a learner must be told, senses with definition, example, frames, level, labels, regions and
 antonyms, and typed relations. Glosses and review cues are left to later passes that run per sense,
 and the regular forms come from Wiktionary's tables. A v4 entry is written beside the older ones, in
-writer directories named with WRITER_SUFFIX, so a v3 entry never blocks or mixes with it."""
+writer directories named with WRITER_SUFFIX, so a v3 entry never blocks or mixes with it.
+
+The directory is named after the shape (schema 3 is "-v4"), not after the prompt: v4.1 and every later
+prompt of the same shape write into the same directories, so a word written under v4 is never bought
+again because the prompt's wording moved. What an entry was written with is in its meta: the prompt
+version and prompt_sha, the hash of the exact system prompt. A prompt change is applied to written
+entries by selecting the ones it concerns, never by starting a new directory."""
+import hashlib
 import json
 import os
 from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4")
-SCHEMA_VERSION = {"v1": "2", "v2": "2", "v3": "2", "v4": "3"}[PROMPT_VERSION]
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.1")
+SCHEMA_VERSION = {"v1": "2", "v2": "2", "v3": "2", "v4": "3", "v4.1": "3"}[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.json" if SCHEMA_VERSION == "2" else f"entry.schema.v{SCHEMA_VERSION}.json")
-WRITER_SUFFIX = "" if SCHEMA_VERSION == "2" else f"-{PROMPT_VERSION}"
+WRITER_SUFFIX = {"2": "", "3": "-v4"}[SCHEMA_VERSION]
 # The languages a learner studies, the ones entries are written for. Ukrainian is a bridge language
 # only: glosses are written in it, entries are not (owner, 2026-10 and again 16 November 2026).
 TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt")
@@ -62,8 +69,13 @@ SCHEMA_EXAMPLE = json.dumps({
     }]}, ensure_ascii=False, indent=1)
 
 
+def prompt_sha(lang):
+    """Twelve hex digits of the exact system prompt a language is written with; kept in each entry's meta."""
+    return hashlib.sha256(system_prompt(lang).encode("utf-8")).hexdigest()[:12]
+
+
 def system_prompt(lang):
-    if PROMPT_VERSION == "v4":
+    if SCHEMA_VERSION == "3":
         return system_prompt_v4(lang)
     inv = []
     for v in VARIETIES[lang]:
@@ -74,8 +86,13 @@ def system_prompt(lang):
             .replace("{inventory}", "\n".join(inv)).replace("{schema_example}", SCHEMA_EXAMPLE))
 
 
-def user_prompt(lang, row):
-    return f"Language: {lang}\nHeadword: {row['headword']}\nZipf frequency: {row['zipf']}"
+def user_prompt(lang, row, covered=()):
+    """The request for one headword. covered lists (lemma, pos) of written lexemes that already have this
+    spelling (lemma_gate.covered), so that the model does not write them a second time."""
+    text = f"Language: {lang}\nHeadword: {row['headword']}\nZipf frequency: {row['zipf']}"
+    if covered and SCHEMA_VERSION == "3":
+        text += "\nCovered: " + "; ".join(f"{lemma} ({pos})" for lemma, pos in covered)
+    return text
 
 
 
@@ -149,6 +166,16 @@ FORM_SOUND_V4 = {
     "uk": "Each listed form of two or more syllables carries its own reading (руки́, ру́ку).",
 }
 
+# v4.1: a variant chosen by the neighbouring sounds is a spelling of the same lexeme, so that "у" is not bought after "в".
+POSITIONAL_V4 = {
+    "en": "A variant chosen by the next sound is a spelling of the same lexeme too (a and an). ",
+    "fr": "A variant chosen by the next sound is a spelling of the same lexeme too (je and j', le and l', de and d', que and qu'). ",
+    "es": "A variant chosen by the next sound is a spelling of the same lexeme too (y and e, o and u). ",
+    "it": "A variant chosen by the next sound is a spelling of the same lexeme too (e and ed, a and ad, lo and l'). ",
+    "uk": "A variant chosen by the neighbouring sounds is a spelling of the same lexeme too (у and в, і and й, з, із and зі, же and ж, "
+          "учитель and вчитель): list them without varieties. ",
+}
+
 LANGUAGE_NOTES_V4 = {
     "de": "\nThe headword may come in lower case (fallschirm): write each lemma as German writes it (Fallschirm).\n",
     "uk": "\nWrite definitions and examples in standard Ukrainian, free of Russianisms and calques. A word or sense that Ukrainian "
@@ -191,11 +218,12 @@ def system_prompt_v4(lang):
         d = json.loads((HERE / "inventories" / f"{v}.json").read_text())
         inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
     domains = json.loads(SCHEMA_PATH.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]
-    tpl = (HERE / "prompts" / "entry_writer" / "v4.md").read_text()
+    tpl = (HERE / "prompts" / "entry_writer" / f"{PROMPT_VERSION}.md").read_text()
     fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": ORTHOGRAPHY_V4[lang], "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),
              "{inventory}": "\n".join(inv), "{stress_rule}": STRESS_V4.get(lang, ""), "{extra_grammar}": EXTRA_GRAMMAR_V4.get(lang, ""),
              "{forms_rule}": FORMS_V4[lang], "{form_sound_rule}": FORM_SOUND_V4[lang], "{domains}": ", ".join(domains),
-             "{language_notes}": LANGUAGE_NOTES_V4.get(lang, ""), "{schema_example}": SCHEMA_EXAMPLE_V4}
+             "{language_notes}": LANGUAGE_NOTES_V4.get(lang, ""), "{schema_example}": SCHEMA_EXAMPLE_V4,
+             "{positional_rule}": POSITIONAL_V4.get(lang, "")}
     for k, v in fills.items():
         tpl = tpl.replace(k, v)
     return tpl

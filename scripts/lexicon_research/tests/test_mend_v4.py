@@ -96,3 +96,11 @@ def test_the_patch_schema_is_one_the_cli_can_resolve():
     assert "$defs" not in str(schema)
     jsonschema.Draft7Validator.check_schema(schema)
     jsonschema.validate({"verdict": "patch", "lexemes": [{"i": 0, "senses": [{"i": 0, "set": {"frames": ["x of sth"]}}]}]}, schema)
+
+
+def test_derived_folders_under_out_are_not_older_writers():
+    import v3_entries
+
+    for name in ("lexicon-s3", "failed", "status", "carry", "mend", "cc-claude-opus-5-5-v4"):
+        assert not v3_entries.is_older_writer(name)
+    assert v3_entries.is_older_writer("cc-claude-opus-5-5")

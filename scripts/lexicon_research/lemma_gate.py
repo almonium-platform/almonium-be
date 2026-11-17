@@ -13,6 +13,13 @@ this module reads it.
           can be queued (--lemma-list)
   reject  only an abbreviation or misspelling of another word: no call; the writer would refuse it
 
+A contraction (German "zum", French "au") is written, as an entry of kind "contraction".
+
+A spelling that a written entry already lists ("colour" under "color", "у" under "в") is not stopped,
+because it may be another word as well ("tire", to make tired, beside the American spelling of
+"tyre"). covered() says which lexemes already have it, the writer passes that to the model as a
+"Covered:" line, and the model returns only what is not yet written, or rejects it as a spelling.
+
 German capitalises nouns and wordfreq lowercases everything, so for German the capitalised
 spelling is looked up too ("entwicklern" is the dative plural "Entwicklern"). A spelling that is a
 lemma in any of its casings is written.
@@ -34,10 +41,13 @@ from lemma_index import plain  # noqa: E402
 
 HERE = Path("scripts/lexicon_research")
 INDEX = HERE / "wiktionary"
-RECORDS = HERE / "out" / "gate"
+OUT = HERE / "out"
+RECORDS = OUT / "gate"
+V4_DIRS = "*-v4"  # every writer's directory of schema-3 entries
 CAPITALISED_NOUNS = {"de"}
 
 _record_lock = threading.Lock()
+_covered, _covered_lock = {}, threading.Lock()
 
 
 @dataclass(frozen=True)
@@ -91,6 +101,8 @@ def verdict(lang, headword):
     flags = set("".join(fl for _, (fl, _) in found))
     if "L" in flags:
         return Verdict("write", "lemma")
+    if "C" in flags:
+        return Verdict("write", "contraction")
     if "A" in flags:
         return Verdict("write", "alternative spelling")
     if "F" in flags:
@@ -120,6 +132,53 @@ def stop(lang, row, writer, enabled=True):
     record(lang, row["headword"], v, writer)
     print(f"gate    {lang} {row['headword']:22} {v.reason}{' of ' + ', '.join(v.lemmas) if v.lemmas else ''}: not written", flush=True)
     return True
+
+
+def other_spellings(entry):
+    """(spelling, lemma, pos) for every spelling a written entry lists besides its own headword."""
+    own = (entry.get("headword") or "").lower()
+    for lexeme in entry.get("lexemes") or []:
+        for spelling in lexeme.get("spellings") or []:
+            text = (spelling.get("text") or "").strip()
+            if text and text.lower() != own:
+                yield text.lower(), lexeme.get("lemma"), lexeme.get("pos")
+
+
+def _spelling_table(lang):
+    with _covered_lock:
+        if lang not in _covered:
+            table = {}
+            for f in sorted(OUT.glob(f"{V4_DIRS}/{lang}/*.json")):
+                if f.name.endswith(".meta.json"):
+                    continue
+                text = f.read_text(encoding="utf-8")
+                if '"spellings"' not in text:
+                    continue
+                try:
+                    entry = json.loads(text)
+                except json.JSONDecodeError:
+                    continue
+                for spelling, lemma, pos in other_spellings(entry):
+                    if (lemma, pos) not in table.setdefault(spelling, []):
+                        table[spelling].append((lemma, pos))
+            _covered[lang] = table
+        return _covered[lang]
+
+
+def register(lang, entry):
+    """A writer calls this after each write: the new entry's other spellings are covered from now on."""
+    if not isinstance(entry, dict) or "error" in entry:
+        return
+    table = _spelling_table(lang)
+    with _covered_lock:
+        for spelling, lemma, pos in other_spellings(entry):
+            if (lemma, pos) not in table.setdefault(spelling, []):
+                table[spelling].append((lemma, pos))
+
+
+def covered(lang, headword):
+    """The lexemes of written entries that list this headword as one of their spellings: [(lemma, pos), ...]."""
+    return list(_spelling_table(lang).get(headword.lower(), []))
 
 
 def taken(lang):

@@ -22,27 +22,39 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_v4  # noqa: E402
 import v3_entries  # noqa: E402
-from prompting import HERE, TARGET_LANGUAGES  # noqa: E402
+from prompting import HERE, TARGET_LANGUAGES, VARIETIES  # noqa: E402
 
 OUT = HERE / "out"
 STATUS = OUT / "status"
 
 
-def fault_kind(problem):
-    return problem.split(":")[0] if ":" in problem else re.sub(r"\d+", "N", problem)
+# bumped whenever check_v4's checks change, so every entry is checked again once
+CHECKS = 2
+_references = {}
+
+
+def references(lang):
+    """check_v4's symbol inventories and stress witness for a language, read once."""
+    if lang not in _references:
+        _references[lang] = ({v: check_v4.symbols(v) for v in VARIETIES[lang]}, check_v4.stress_witness(lang))
+    return _references[lang]
 
 
 def read_entry(path, lang, cache):
     """(rejected, senses per lexeme, fault kinds) of one entry, from the cache when the file has not changed."""
     key, mtime = str(path), path.stat().st_mtime
     hit = cache.get(key)
-    if hit and hit["mtime"] == mtime:
+    if hit and hit["mtime"] == mtime and hit.get("checks") == CHECKS:
         return hit
-    entry = json.loads(path.read_text())
+    try:
+        entry = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        entry = {"error": "not JSON"}
     rejected = bool(entry.get("reject")) and not entry.get("lexemes")
-    hit = {"mtime": mtime, "rejected": rejected,
+    faults = [("not JSON", "")] if "error" in entry else check_v4.check(lang, entry, *references(lang))
+    hit = {"mtime": mtime, "checks": CHECKS, "rejected": rejected,
            "senses": [len(x.get("senses", [])) for x in entry.get("lexemes", [])],
-           "faults": sorted({fault_kind(p) for p in check_v4.check(lang, entry)})}
+           "faults": sorted({kind for kind, _ in faults})}
     cache[key] = hit
     return hit
 

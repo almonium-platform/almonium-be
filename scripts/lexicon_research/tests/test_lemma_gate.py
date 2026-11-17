@@ -66,6 +66,18 @@ def test_acronyms_and_clippings_are_words_but_bare_abbreviations_are_not():
     assert (verdicts["sida"][0], verdicts["info"][0], verdicts["млрд"][0]) == ("A", "A", "X")
 
 
+def test_a_contraction_is_its_own_kind_and_stressed_forms_are_kept_as_a_witness():
+    stress = {}
+    verdicts = lemma_index.classify([
+        record("zum", {"alt_of": [{"word": "zu"}], "tags": ["abbreviation", "alt-of", "contraction"], "glosses": ["contraction of zu + dem"]}),
+        json.dumps({"word": "табір", "pos": "noun", "senses": [OWN], "forms": [
+            {"form": "та́бір", "tags": ["canonical"]}, {"form": "tábir", "tags": ["romanization"]},
+            {"form": "таборі́в", "tags": ["genitive", "plural"]}, {"form": "рук", "tags": ["genitive", "plural"]}]}, ensure_ascii=False),
+    ], stress)
+    assert verdicts["zum"] == ("C", [])
+    assert stress == {"табір": {"та́бір"}, "таборів": {"таборі́в"}}
+
+
 def test_cyrillic_stress_marks_leave_the_lemma_but_latin_accents_stay():
     verdicts = lemma_index.classify([record("серці", form_of("се́рце")), record("está", form_of("estar"))])
     assert verdicts["серці"] == ("F", ["серце"])
@@ -87,6 +99,7 @@ def index(tmp_path, monkeypatch):
         "morgen\tL\t\n"
         "Morgen\tL\t\n"
         "daß\tA\t\n"
+        "zum\tC\t\n"
         "A\tX\t\n", encoding="utf-8")
     (tmp_path / "wiktionary" / "en.tsv").write_text("parking\tFL\tpark\ngrumpier\tF\tgrumpy\n", encoding="utf-8")
     (tmp_path / "wiktionary" / "pt.tsv").write_text("controle\tAF\tcontrolar\n", encoding="utf-8")
@@ -125,6 +138,10 @@ def test_unknown_words_and_alternative_spellings_still_go_to_the_writer(index):
 
 def test_an_abbreviation_is_refused_without_a_call(index):
     assert lemma_gate.verdict("de", "A").action == "reject"
+
+
+def test_a_contraction_is_written(index):
+    assert lemma_gate.verdict("de", "zum") == lemma_gate.Verdict("write", "contraction")
 
 
 def test_english_is_not_looked_up_capitalised(index):

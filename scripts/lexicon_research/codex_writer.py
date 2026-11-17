@@ -15,7 +15,7 @@ An inflected form ("festlichen") is not written either: lemma_gate.py asks the W
 Usage: codex_writer.py <headwords name> [--model gpt-6.1-sol] [--effort medium] [--langs en,de,uk] [--offset N] [--limit N] [--workers 4] [--no-gate]
        (run from the backend repository root; headwords/<name>-<lang>.json must exist; build the index once with lemma_index.py)
 """
-import argparse, re, json, os, subprocess, sys, threading, time
+import argparse, hashlib, re, json, os, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -64,7 +64,8 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
     while LIMIT_HIT.is_set():
         time.sleep(60)  # another worker found the plan at its limit and is waiting it out
     d.mkdir(parents=True, exist_ok=True)
-    prompt = f"{system}\n\nDo not run commands or read files; answer from your own knowledge.\n\n{user_prompt(lang, row)}"
+    covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
+    prompt = f"{system}\n\nDo not run commands or read files; answer from your own knowledge.\n\n{user_prompt(lang, row, covered)}"
     t0 = time.time()
     # no MCP servers: the user's configured ones add tool schemas and startup noise to every call
     try:
@@ -97,7 +98,9 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
         time.sleep(900)
         LIMIT_HIT.clear()
         return write_one(model, effort, lang, system, row, shared, attempt)
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
+            "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort,
+            "covered": [f"{l} ({p})" for l, p in covered] or None,
             "input_tokens": usage.get("input_tokens"), "cache_read": usage.get("cached_input_tokens"),
             "output_tokens": usage.get("output_tokens"), "reasoning_tokens": usage.get("reasoning_output_tokens")}
     try:
@@ -117,6 +120,7 @@ def write_one(model, effort, lang, system, row, shared=False, attempt=1):
         return "error"
     (d / f"{row['headword']}.json").write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
+    lemma_gate.register(lang, entry)
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
     print(f"codex-{model}-{effort} {lang} {row['headword']:20} {status:12} {wall}s in={meta['input_tokens']} cached={meta['cache_read']} out={meta['output_tokens']} reasoning={meta['reasoning_tokens']}", flush=True)
     return status

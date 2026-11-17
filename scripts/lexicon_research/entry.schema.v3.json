@@ -1,6 +1,6 @@
 {
  "$schema": "https://json-schema.org/draft/2020-12/schema",
- "title": "Lexicon entry, schema version 3 (prompt v4, 2026-11-11): core only; glosses and cues are written by later passes",
+ "title": "Lexicon entry, schema version 3 (prompts v4 and v4.1): core only; glosses and cues are written by later passes",
  "type": "object",
  "required": [
   "language",
@@ -66,7 +66,8 @@
     "kind": {
      "enum": [
       "word",
-      "multiword"
+      "multiword",
+      "contraction"
      ]
     },
     "spellings": {

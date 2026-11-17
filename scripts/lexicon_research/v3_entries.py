@@ -14,13 +14,14 @@ from pathlib import Path
 HERE = Path("scripts/lexicon_research")
 OUT = HERE / "out"
 # folders under out/ that are not writers
-NOT_WRITERS = {"audio", "burn", "cross", "gate", "grounded", "kaikki", "logs", "mend", "carry", "pipeline", "reconcile"}
+NOT_WRITERS = {"audio", "burn", "carry", "cross", "failed", "gate", "grounded", "kaikki", "logs", "mend", "pipeline", "reconcile", "status"}
 # the older writers in the order their entries are trusted; any other older writer folder follows
 PREFERRED = ["cc-claude-opus-5-5", "codex-gpt-6-astra-high", "claude-opus-5-5", "cc-claude-fable-5-1", "cc-opus", "cc-fable"]
 
 
 def is_older_writer(name):
-    return not name.endswith("-v4") and name not in NOT_WRITERS and not name.startswith(("review-", "mend-"))
+    # lexicon-*: ingest_v4.py's clean lexicon, derived from the v4 entries, not an older writer
+    return not name.endswith("-v4") and name not in NOT_WRITERS and not name.startswith(("review-", "mend-", "lexicon-"))
 
 
 @lru_cache(maxsize=None)

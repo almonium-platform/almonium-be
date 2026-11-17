@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "tyre",
+  "zipf": 3.51,
+  "set": "pilot-v41a"
+ },
+ {
+  "headword": "can't",
+  "zipf": 5.8,
+  "set": "pilot-v41a"
+ },
+ {
+  "headword": "nake",
+  "zipf": 1.73,
+  "set": "pilot-v41a"
+ },
+ {
+  "headword": "hash",
+  "zipf": 3.63,
+  "set": "pilot-v41a"
+ }
+]
