@@ -25,4 +25,5 @@ scripts/__pycache__
 !scripts/lexicon_research/inventories/*.json
 !scripts/lexicon_research/headwords/*.json
 scripts/lexicon_research/wikipron/
+scripts/lexicon_research/wiktionary/
 scripts/lexicon_research/out/

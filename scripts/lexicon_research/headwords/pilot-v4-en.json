@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "lead",
+  "zipf": 5.2,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "colour",
+  "zipf": 4.49,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "hang",
+  "zipf": 4.6,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "mother-in-law",
+  "zipf": 5.03,
+  "set": "pilot-v4"
+ }
+]

@@ -32,7 +32,7 @@ HERE = Path(__file__).resolve().parent
 prompting.HERE = HERE
 OUT = HERE / "out" / "grounded"
 # An arm: the prompt version, whether the evidence is given, whether a reminder follows it.
-ARMS = {"v4-plain": ("v4", False, False), "v5-evidence": ("v5", True, False), "v5r-evidence": ("v5", True, True), "v6r-evidence": ("v6", True, True)}
+ARMS = {"v4-plain": ("v4oct", False, False), "v5-evidence": ("v5", True, False), "v5r-evidence": ("v5", True, True), "v6r-evidence": ("v6", True, True)}
 # Anthropic list prices per million tokens: input, cache read, cache write, output.
 PRICES = {
     "claude-opus-5-5": (4.0, 0.2, 5.0, 20.0),

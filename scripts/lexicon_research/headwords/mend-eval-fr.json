@@ -1,0 +1,152 @@
+[
+{
+"headword": "pas",
+"zipf": 7.0,
+"set": "mend-eval"
+},
+{
+"headword": "plus",
+"zipf": 6.68,
+"set": "mend-eval"
+},
+{
+"headword": "tout",
+"zipf": 6.44,
+"set": "mend-eval"
+},
+{
+"headword": "bien",
+"zipf": 6.37,
+"set": "mend-eval"
+},
+{
+"headword": "faire",
+"zipf": 6.34,
+"set": "mend-eval"
+},
+{
+"headword": "même",
+"zipf": 6.32,
+"set": "mend-eval"
+},
+{
+"headword": "aussi",
+"zipf": 6.19,
+"set": "mend-eval"
+},
+{
+"headword": "très",
+"zipf": 6.12,
+"set": "mend-eval"
+},
+{
+"headword": "avoir",
+"zipf": 6.08,
+"set": "mend-eval"
+},
+{
+"headword": "non",
+"zipf": 6.08,
+"set": "mend-eval"
+},
+{
+"headword": "encore",
+"zipf": 6.04,
+"set": "mend-eval"
+},
+{
+"headword": "alors",
+"zipf": 6.03,
+"set": "mend-eval"
+},
+{
+"headword": "temps",
+"zipf": 6.01,
+"set": "mend-eval"
+},
+{
+"headword": "peu",
+"zipf": 5.99,
+"set": "mend-eval"
+},
+{
+"headword": "autre",
+"zipf": 5.98,
+"set": "mend-eval"
+},
+{
+"headword": "dire",
+"zipf": 5.96,
+"set": "mend-eval"
+},
+{
+"headword": "monde",
+"zipf": 5.96,
+"set": "mend-eval"
+},
+{
+"headword": "fois",
+"zipf": 5.95,
+"set": "mend-eval"
+},
+{
+"headword": "toujours",
+"zipf": 5.94,
+"set": "mend-eval"
+},
+{
+"headword": "voir",
+"zipf": 5.94,
+"set": "mend-eval"
+},
+{
+"headword": "bon",
+"zipf": 5.93,
+"set": "mend-eval"
+},
+{
+"headword": "donc",
+"zipf": 5.92,
+"set": "mend-eval"
+},
+{
+"headword": "jamais",
+"zipf": 5.89,
+"set": "mend-eval"
+},
+{
+"headword": "vie",
+"zipf": 5.89,
+"set": "mend-eval"
+},
+{
+"headword": "moins",
+"zipf": 5.87,
+"set": "mend-eval"
+},
+{
+"headword": "déjà",
+"zipf": 5.84,
+"set": "mend-eval"
+},
+{
+"headword": "trop",
+"zipf": 5.83,
+"set": "mend-eval"
+},
+{
+"headword": "ton",
+"zipf": 5.82,
+"set": "mend-eval"
+},
+{
+"headword": "gens",
+"zipf": 5.8,
+"set": "mend-eval"
+},
+{
+"headword": "juste",
+"zipf": 5.8,
+"set": "mend-eval"
+}
+]

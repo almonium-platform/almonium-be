@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "замок",
+  "zipf": 4.68,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "рука",
+  "zipf": 4.43,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "являтися",
+  "zipf": 1.42,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "хлопчик",
+  "zipf": 4.55,
+  "set": "pilot-v4"
+ }
+]

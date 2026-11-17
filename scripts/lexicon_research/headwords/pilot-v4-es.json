@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "capital",
+  "zipf": 5.25,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "coger",
+  "zipf": 4.34,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "freír",
+  "zipf": 3.08,
+  "set": "pilot-v4"
+ },
+ {
+  "headword": "cometa",
+  "zipf": 3.72,
+  "set": "pilot-v4"
+ }
+]

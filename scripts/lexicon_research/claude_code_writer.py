@@ -15,22 +15,35 @@ A long run paces itself by the plan's own meters, read from the CLI's /usage scr
 while the five-hour session is nearly used up, so the owner's other sessions are not locked
 out, and stops for good at a share of the week.
 
+Before any call, lemma_gate.py asks the Wiktionary index whether the headword is a lemma at all;
+an inflected form ("festlichen") is not written, and its lemma is recorded under out/gate/.
+
+A word that already has an older (v3) entry is not written either: mend_v4.py mends it for a fraction of
+the cost. Only the words the mender sends back for a rewrite are written, with --rewrite-older.
+
 Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [--limit N] [--workers 2]
-           [--headwords NAME] [--pause-session 70] [--stop-week 0]
-       (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json)
+           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate] [--rewrite-older]
+       (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
+        build the index once with lemma_index.py)
 """
-import argparse, json, re, subprocess, sys, threading, time
+import argparse, hashlib, json, os, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
-from prompting import HERE, PROMPT_VERSION, system_prompt, user_prompt
+import lemma_gate
+import v3_entries
+from prompting import HERE, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, system_prompt, user_prompt
 
 OUT = HERE / "out"
-EMPTY = Path("/tmp/claude-1000/lexicon-writer-empty")
+GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
+REWRITE_OLDER = False  # --rewrite-older writes a word afresh although it has an older entry, which mend_v4.py would mend
+EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 EMPTY.mkdir(parents=True, exist_ok=True)
+# the CLI's words for a plan's 5-hour or weekly wall (also "rate limit", "usage limit")
+PLAN_LIMIT = re.compile(r"limit|usage|quota", re.I)
 # the CLI's validator takes draft-07 shapes: no $schema keyword, definitions instead of $defs
-_schema = json.loads((HERE / "entry.schema.json").read_text())
+_schema = json.loads(SCHEMA_PATH.read_text())
 _schema.pop("$schema", None)
 _schema["definitions"] = _schema.pop("$defs")
 SCHEMA = json.dumps(_schema).replace("#/$defs/", "#/definitions/")
@@ -74,58 +87,97 @@ def allowed(pause_session, stop_week):
 
 
 def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, retries=0):
-    d = OUT / f"cc-{model}" / lang
+    d = OUT / f"cc-{model}{WRITER_SUFFIX}" / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():
         return "skip"
+    # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice
+    if WRITER_SUFFIX and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
+        return "skip"
+    # a word with an older entry is mended (mend_v4.py), not bought again, unless the mender said it must be rewritten
+    if WRITER_SUFFIX and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):
+        return "older"
+    if lemma_gate.stop(lang, row, f"cc-{model}{WRITER_SUFFIX}", GATE):
+        return "gated"
     if not allowed(pause_session, stop_week):
         return "stopped"
-    t0 = time.time()
-    cmd = ["claude", "-p", user_prompt(lang, row), "--model", model, "--effort", effort, "--tools", "",
+    covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
+    cmd = ["claude", "-p", user_prompt(lang, row, covered=covered), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
            "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]  # no MCP servers: their tool schemas would ride along in every call
-    # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
-    wall = round(time.time() - t0, 1)
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
-    entry = None
-    try:
-        res = json.loads(r.stdout)
-        meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})
-        u = res.get("usage") or {}
-        meta.update({"input_tokens": u.get("input_tokens"), "output_tokens": u.get("output_tokens"),
-                     "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
-        structured = res.get("structured_output")
+    while True:
+        t0 = time.time()
+        # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
+        try:
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
+        except subprocess.TimeoutExpired:
+            # a call that hangs used to end the whole language's run; it is one more try
+            r = subprocess.CompletedProcess(cmd, 1, stdout="", stderr="the call took longer than ten minutes")
+        wall = round(time.time() - t0, 1)
+        try:
+            res = json.loads(r.stdout)
+        except json.JSONDecodeError:
+            res = {"is_error": True, "result": (r.stderr or r.stdout or "no output")[-300:]}
         text = res.get("result") or ""
-        if res.get("is_error"):
-            # the plan's limit or any other refusal from the CLI: the headword is not spent on it, the
-            # worker waits it out (a weekly limit can take hours to lift) and gives up after a day
-            if retries >= 144:
-                raise RuntimeError(f"still failing after a day: {text[:200]}")
-            print(f"error at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
-            time.sleep(600)
-            return write_one(model, effort, lang, system, row, pause_session, stop_week, retries + 1)
+        if not res.get("is_error"):
+            break
+        # a plan's limit is waited out however long it lasts and counts nothing against the word; any
+        # other refusal from the CLI is tried for a day, then left for the next run, with no file written
+        limited = PLAN_LIMIT.search(text)
+        if not limited:
+            retries += 1
+            if retries > 144:
+                print(f"giving up for this run at {row['headword']}: {text[:120]!r}", flush=True)
+                return "error"
+        print(f"{'limit' if limited else 'error'} at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
+        time.sleep(600)
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
+            "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    if covered:
+        meta["covered"] = [f"{lemma} ({pos})" for lemma, pos in covered]
+    meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})
+    u = res.get("usage") or {}
+    meta.update({"input_tokens": u.get("input_tokens"), "output_tokens": u.get("output_tokens"),
+                 "cache_read": u.get("cache_read_input_tokens"), "cache_write": u.get("cache_creation_input_tokens")})
+    try:
+        structured = res.get("structured_output")
         entry = structured if structured is not None else json.loads(text.strip().strip("`").removeprefix("json"))
     except Exception as e:
-        entry = {"error": f"{type(e).__name__}: {str(e)[:200]}", "raw": (r.stdout or "")[:20000], "stderr": (r.stderr or "")[-2000:]}
+        # an unusable answer is kept for a look outside the writer's directory, so the next run writes the word
+        failed = OUT / "failed" / f"cc-{model}{WRITER_SUFFIX}" / lang
+        failed.mkdir(parents=True, exist_ok=True)
+        (failed / f"{row['headword']}.json").write_text(json.dumps(
+            {"error": f"{type(e).__name__}: {str(e)[:200]}", "meta": meta, "raw": (r.stdout or "")[:20000]}, ensure_ascii=False, indent=1) + "\n")
+        print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} unusable answer, kept under out/failed/", flush=True)
+        return "error"
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
+    lemma_gate.register(lang, entry)
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
-    print(f"cc-{model:6} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
+    print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
     return status
 
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--model", default="opus")
 ap.add_argument("--effort", default="high")
-ap.add_argument("--langs", default="en,de,uk")
+ap.add_argument("--langs", default=",".join(TARGET_LANGUAGES))
 ap.add_argument("--limit", type=int, default=0)
 ap.add_argument("--workers", type=int, default=2)
 ap.add_argument("--headwords", default="", help="a tranche name: reads headwords/<name>-<lang>.json")
 ap.add_argument("--pause-session", type=int, default=70, help="wait while this percent of the 5-hour session is used")
 ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this percent of the week; 0 never stops")
+ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
+ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
+for _lang in a.langs.split(","):
+    if _lang not in TARGET_LANGUAGES:
+        sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)} only")
+GATE = not a.no_gate
+REWRITE_OLDER = a.rewrite_older
+if GATE:
+    lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):
     name = f"{a.headwords}-{lang}.json" if a.headwords else f"{lang}.json"
     rows = json.loads((HERE / "headwords" / name).read_text())
