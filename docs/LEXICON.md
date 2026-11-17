@@ -110,6 +110,13 @@ one from Wiktionary's senses and WordNet's lemmas is right 83% of the time and w
 such as *encouraged* and *shoplifting*. So the call stays, a reject costs about $0.013, and ingest
 turns it into an alias of the lemma's entry, which is what the reader who taps the form needs.
 
+A reject's answer is one line, about 35 tokens. Its price is the call: 42% is the model's thinking
+before it answers (some 240 tokens), 31% is reading the cached instructions, twice, because the CLI
+takes two turns when it is given a schema, and 28% is what the CLI writes to the cache on every
+call. Dropping the schema flag was tried on 16 words: one turn, but the model thought more, the
+price did not fall, and one entry in 16 broke the schema. The lists still to write hold about 3,500
+more such rejects, some $47; not worth a batching step of their own.
+
 ## Languages outside Europe
 
 Schema 4 can hold them; the writers cannot write them until a language has a profile (symbols, form
@@ -122,6 +129,15 @@ rules, examples) and the checks count characters where a language has no spaces.
   a romanization, the vowels a script leaves out). Left out, it is the spelling with its stress marked.
 - `grammar.classifier` for the measure word of a noun; every case Universal Dependencies names;
   `labels.politeness` also has honorific and humble.
+- For Arabic and Hebrew: `grammar.root`, the consonants a word is built on; a `vocalized` reading for
+  the vowels the script leaves out; the dual, the jussive and the construct state among the form
+  features. For Swahili and its relatives: `grammar.noun_class`. Forms may carry `Polite`.
+
+What the shape cannot do for such a language is find the word a reader tapped. The book processor
+has no Arabic, Hebrew, Hindi or Persian in its registry and no lemmatizer for them; Russian, Polish,
+Japanese, Korean and Chinese are there. The larger market is the other way round in any case: people
+who speak those languages and learn English need the interface and the short translations in their
+language, and a translation is plain text in any script.
 - Still to add when the first such language comes: its level scale (HSK, JLPT) beside CEFR, and its
   verb classes.
 
@@ -182,7 +198,10 @@ page does not settle.
 6. **Example entries in the prompt**: three to five reviewed entries per language, in that language,
    in place of the one English example every language sees today. They set the house style and how
    finely senses are split. Our own entries, chosen and corrected by hand; a published dictionary's
-   entries are its publisher's and do not have our shape.
+   entries are its publisher's and do not have our shape. `gold_candidates.py` picks twenty
+   faultless entries of plain common words per language into `gold/candidates/` and writes
+   `gold/review/<lang>.md` for a reviewer of another model family; the entries that come back go
+   to `gold/<lang>.json` and into the next prompt.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

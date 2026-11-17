@@ -61,3 +61,19 @@ def test_scripts_politeness_classifiers_cases_and_citations_are_accepted():
     lexeme["senses"][0]["labels"] = {}
     lexeme["spellings"][0]["script"] = "hans"
     assert not VALID.is_valid(e)
+
+
+def test_arabic_and_swahili_have_what_they_need():
+    e = entry()
+    lexeme = e["lexemes"][1]
+    lexeme["grammar"] = {"gender": "Masc", "root": "ك ت ب"}
+    lexeme["spellings"] = [{"text": "كتاب", "script": "Arab"}, {"text": "كِتَاب", "script": "Arab"}]
+    lexeme["pronunciations"] = [{"variety": "ar-EG", "reading": "كِتَاب", "notation": "vocalized"}]
+    lexeme["forms"] = [{"form": "كتابان", "features": {"Number": "Dual", "Case": "Nom"}},
+                       {"form": "كتب", "features": {"Number": "Plur", "Definite": "Cons"}},
+                       {"form": "يكتب", "features": {"Mood": "Jus", "Person": "3", "Polite": "Form"}}]
+    VALID.validate(e)
+    lexeme["grammar"] = {"noun_class": "7/8"}
+    VALID.validate(e)
+    lexeme["forms"] = [{"form": "x", "features": {"Number": "Trial"}}]
+    assert not VALID.is_valid(e)

@@ -253,6 +253,16 @@
        "type": "string",
        "minLength": 1,
        "description": "The measure word a noun is counted with (Chinese 本 for books, Japanese 匹 for small animals)."
+      },
+      "root": {
+       "type": "string",
+       "minLength": 1,
+       "description": "The consonants a word is built on, in a language whose dictionaries are ordered by root (Arabic ك ت ب for كتاب and كاتب, Hebrew כ־ת־ב)."
+      },
+      "noun_class": {
+       "type": "string",
+       "minLength": 1,
+       "description": "The class of a noun in a language that has classes in place of gender (Swahili 7/8 for kitabu, vitabu)."
       }
      }
     },
@@ -397,7 +407,7 @@
      "properties": {
       "Number": {
        "type": "string",
-       "pattern": "^(Sing|Plur|Ptan)(,(Sing|Plur|Ptan))*$"
+       "pattern": "^(Sing|Plur|Dual|Ptan|Coll|Count|Pauc)(,(Sing|Plur|Dual|Ptan|Coll|Count|Pauc))*$"
       },
       "Case": {
        "type": "string",
@@ -427,7 +437,7 @@
       },
       "Mood": {
        "type": "string",
-       "pattern": "^(Ind|Sub|Imp|Cnd)(,(Ind|Sub|Imp|Cnd))*$"
+       "pattern": "^(Ind|Sub|Imp|Cnd|Jus|Opt|Nec|Pot)(,(Ind|Sub|Imp|Cnd|Jus|Opt|Nec|Pot))*$"
       },
       "VerbForm": {
        "type": "string",
@@ -435,7 +445,7 @@
       },
       "Aspect": {
        "type": "string",
-       "pattern": "^(Imp|Perf|Prog)(,(Imp|Perf|Prog))*$"
+       "pattern": "^(Imp|Perf|Prog|Hab|Iter)(,(Imp|Perf|Prog|Hab|Iter))*$"
       },
       "Degree": {
        "type": "string",
@@ -451,7 +461,7 @@
       },
       "Definite": {
        "type": "string",
-       "pattern": "^(Def|Ind)(,(Def|Ind))*$"
+       "pattern": "^(Def|Ind|Cons|Spec)(,(Def|Ind|Cons|Spec))*$"
       },
       "PronType": {
        "type": "string",
@@ -471,7 +481,11 @@
       },
       "Voice": {
        "type": "string",
-       "pattern": "^(Act|Pass)(,(Act|Pass))*$"
+       "pattern": "^(Act|Pass|Mid|Cau|Rcp)(,(Act|Pass|Mid|Cau|Rcp))*$"
+      },
+      "Polite": {
+       "type": "string",
+       "pattern": "^(Infm|Form|Elev|Humb)(,(Infm|Form|Elev|Humb))*$"
       }
      }
     },
