@@ -108,8 +108,10 @@ def check(lang, entry, inventories, witness):
         for p in lx.get("pronunciations", []):
             if p.get("variety") in inventories and (left := outside(p.get("ipa", ""), inventories[p["variety"]])):
                 problems.append(("IPA outside the symbol list", f"{p['ipa']} has {left}"))
-            if ingest_v4.dotted(p.get("ipa", "")) != p.get("ipa", ""):
-                problems.append(("syllable dot missing before a stress mark", p["ipa"]))
+        spoken = [p.get("ipa", "") for p in lx.get("pronunciations", [])] + [ipa for f in lx.get("forms", []) for ipa in (f.get("ipa") or {}).values()]
+        for ipa in spoken:
+            if ingest_v4.dotted(ipa) != ipa:
+                problems.append(("syllable dot missing before a stress mark", ipa))
         if lang in NEEDS_READING and " " not in lemma and sum(c in VOWELS for c in lemma) > 1 and not any(p.get("reading") for p in lx.get("pronunciations", [])):
             problems.append(("no stress reading", lx.get("lemma")))
         if witness is not None:

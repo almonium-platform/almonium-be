@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -50,7 +50,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.3). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.4). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
@@ -112,11 +112,12 @@ How a language gets them:
 
 1. `gold_candidates.py` picks twenty faultless entries of plain common words into
    `gold/candidates/<lang>.json` and writes `gold/review/<lang>.md` for a reviewer.
-2. A model of another family reviews them strictly (GPT did English). Its answer is kept as it came
-   in `gold/answers/<lang>.md`.
+2. A model of another family reviews them strictly (GPT did English, German and Spanish). Its answer
+   is kept as it came in `gold/answers/<lang>.md`.
 3. `gold_candidates.py --take gold/answers/<lang>.md --lang <lang> --pick a,b,c,d,e` takes the
-   corrected entries named, and stops on any that fails the schema or a check. The result is
-   `gold/<lang>.json`.
+   corrected entries named (or the candidate, where the verdict was "use as it is"), puts in the
+   syllable dots by ingest's rule, and stops on any that fails the schema or a check. The result
+   is `gold/<lang>.json`.
 4. The language is added to `prompting.GOLD_SINCE` with the prompt version that first shows them.
 
 A prompt version renders the same text for a language for ever, because its hash is in every entry
@@ -140,8 +141,64 @@ three. What it found in most of them became rules of v4.3:
 Tried against v4.2 on the same twenty English words: both wrote twenty valid entries; missing dots
 went from 4 of 53 transcriptions to 0 of 57, the weak antonyms went, senses rose from 50 to 56
 (the reviewer's commonest complaint was a missing sense), and the price rose 13%, from $0.0286 to
-$0.0323 an entry, for the longer instructions and the extra senses. The other five languages write
-with v4.3's rules and no examples until their reviews are in.
+$0.0323 an entry, for the longer instructions and the extra senses.
+
+## Prompt v4.4
+
+German and Spanish have their examples since v4.4:
+
+- German: *nötig* (adjective with frames), *Nachricht* (noun with a plural-only sense), *fällen*
+  (verb with frames and a confusable), *perfekt* (adjective and noun, stressed differently),
+  *Trainer* (a sense of Austria and Switzerland). Of twenty candidates: two passed, twelve
+  corrected, six refused.
+- Spanish: *lunes*, *estudiar*, *enorme*, *responsable* (adjective and noun of common gender),
+  *genial* (adjective and adverb, informal), *café* (noun and adjective, a colour sense mainly of
+  Latin America). Of twenty: three passed, thirteen corrected, four refused.
+
+Both reviews also named places where the rules contradicted themselves or said too little. What
+v4.4 changes, for every language:
+
+| Found | Rule in v4.4 |
+|---|---|
+| The German plural classes had no umlaut alone (*Vater*, *Väter*) | `-¨` is listed; the writers already used it |
+| "List only irregular forms" against "a German verb lists its preterite and participle" | The forms the language's rule names are listed even when regular; beyond them only what a learner could not build |
+| A definition narrowed to the typical case: a *Richter* decides guilt, a *Nachricht* is short, *responsable* means at fault (the commonest fault in both languages) | A definition holds for every use of the sense and says no more than the word means |
+| A remark on grammar or field inside a definition (*vor Adjektiven:*, *en boxeo*) | It is a frame, a note in the sense's grammar, or a domain label |
+| A construction made into a sense (*recién* + participle and *recién* + verb) | A difference of construction is a frame; one used in part of the language is a grammar note |
+| A serving of a drink as a sense; a meaning found in one idiom as a sense | Neither is a sense |
+| An adverb hidden in a note on the adjective (*genial*) | Every part of speech in ordinary use has its lexeme |
+| *sich verkaufen*, *caerse*, *matarse*: one "reflexive" for four different things | A reflexive use with its own meaning is a sense, with a note when the pronoun does not mean "oneself" |
+| A region for where the thing exists (*Kreis*); "only" where "mainly" was true; two countries named for a use of all Latin America | A region says where the word is used; "only" only when sure; the area rather than a few of its countries |
+| A domain on an everyday word (*Tor* in football) | Domain is for a specialist sense only |
+| *período* and *periodo* are said differently and one sense belongs to one of them | A reading may name its `spelling`, a sense its `spellings` (new in the schema) |
+| *electo* is used only in one construction | A form may carry a `note` (new in the schema) |
+| A form that is two cells at once, joined so that it named cells that do not exist | Values of one feature are joined; otherwise the form is listed twice |
+| *sólo* called pre-reform; *fué* dated to 2010 | *sólo* and *éste* are spellings still allowed; *fué* went in 1959 |
+| "Phonemic IPA" for what is a dictionary's broad transcription with set conventions | Called that |
+| *das Sterben* written beside *sterben* | A German infinitive used as a noun is a lexeme only with a meaning of its own (*das Essen*) |
+| Notes in two languages | Notes are in English, as "why" and "reject" are |
+
+Tried on twenty words each of Spanish, German and English against v4.3, and fifteen more on the
+final text: every entry valid, no transcription without its dot.
+
+| | Spanish v4.3 | v4.4 | German v4.3 | v4.4 | English v4.3 | v4.4 |
+|---|---|---|---|---|---|---|
+| Senses | 75 | 82 | 64 | 58 | 56 | 53 |
+| Frames | 49 | 94 | 51 | 81 | 63 | 59 |
+| Domain labels | 3 | 2 | 5 | 1 | 0 | 0 |
+| Price an entry, prompt cached | $0.045 | $0.052 | $0.044 | $0.045 | $0.032 | $0.031 |
+
+The examples roughly double the frames in the two languages that had none to look at. Senses
+moved both ways: Spanish gained the adverb of *directo* and the uses of *caer*, German lost the
+serving of *Bier*, the noun *Sterben* and the region of *Kreis*, which the review asked for, and
+also the figurative *Richter*, which it did not. Twenty words do not settle more than that.
+
+Two things the Spanish review raised are left as they are: es-ES writes *ll* as /ʎ/, the
+traditional model most printed dictionaries show, though most of Spain says /ʝ/ (a one-line rule
+in ingest either way, when decided); and *Refl* stays one value, with the note saying what kind.
+
+French, Italian and Portuguese write with v4.4's rules and no examples until their reviews are in;
+their examples will be v4.5.
 
 ## Words that are both a form and a word
 
@@ -206,7 +263,7 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
-- Prompt v4.3 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.2` goes back.
+- Prompt v4.4 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.3` goes back.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
   only when the lexicon has nothing, so showing it beside a lexicon entry is part of the backend work.
@@ -232,14 +289,14 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Judge v4.3** on the calibration set and in blind pairs. The tools exist; v4 was never judged.
+3. **Judge v4.4** on the calibration set and in blind pairs. The tools exist; v4 was never judged.
 4. **Lists**: function words for de, fr, es, it, pt (English has them); the book-word list, which
    needs an export from the book processor; phrases.
 5. **IPA symbol lists**: about a tenth of English and German entries use a sound the lists lack
    (the last vowel of *fully*, German short unstressed vowels). Extend the lists or map by rule.
-6. **Example entries for de, fr, es, it, pt.** English has its five. The review files are written
-   (`gold/review/<lang>.md`); each language needs its reviewer's answer, then `--take` and the next
-   prompt version.
+6. **Example entries for fr, it, pt.** English, German and Spanish have theirs. The review files are
+   written (`gold/review/<lang>.md`); each language needs its reviewer's answer, then `--take` and
+   the next prompt version.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

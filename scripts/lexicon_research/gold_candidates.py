@@ -174,10 +174,11 @@ def write(lang, per_kind):
 
 
 def reviewed(text):
-    """{headword: (verdict, corrected entry or None)} from a reviewer's answer: a "### N. headword" section
-    each, a verdict in bold, and for a corrected entry one JSON block."""
+    """{headword: (verdict, corrected entry or None)} from a reviewer's answer: a "## N. headword" or
+    "### N. headword" section each, ending at the next heading, with a verdict in bold and, for a corrected
+    entry, one JSON block."""
     found = {}
-    for head, body in re.findall(r"^### \d+\. (.+?)\n(.*?)(?=^### \d+\. |\Z)", text, re.S | re.M):
+    for head, body in re.findall(r"^#{2,3} \d+\. (.+?)\n(.*?)(?=^#{1,3} |\Z)", text, re.S | re.M):
         verdict = re.search(r"\*\*(use as it is|use with corrections|do not use)\*\*", body, re.I)
         block = re.search(r"```json\n(.*?)\n```", body, re.S)
         found[head.split(" (")[0].strip()] = (verdict.group(1).lower() if verdict else None, json.loads(block.group(1)) if block else None)
@@ -185,11 +186,13 @@ def reviewed(text):
 
 
 def settle(entry):
-    """What a reviewer without our schema gets wrong by name only: a component's "inflection" is "inflects"."""
+    """What a reviewer without our schema leaves in another form: a component's "inflection" is "inflects", and a
+    transcription gets its dot before a stress mark inside the word, by the rule ingest uses."""
     for lexeme in entry.get("lexemes", []):
         for component in lexeme.get("components") or []:
             if "inflection" in component and "inflects" not in component:
                 component["inflects"] = component.pop("inflection")
+        ingest_v4.dot_syllables(lexeme)
     return entry
 
 
@@ -204,9 +207,10 @@ def take(lang, answer, picks):
         verdict, corrected = answers.get(headword, (None, None))
         if verdict == "do not use" or verdict is None:
             sys.exit(f"{headword}: the reviewer's verdict is {verdict or 'missing'}")
-        entry = settle(corrected) if corrected else offered.get(headword)
+        entry = corrected or offered.get(headword)
         if entry is None:
             sys.exit(f"{headword}: no corrected entry in the answer and no candidate of that name")
+        entry = settle(json.loads(json.dumps(entry)))
         jsonschema.validate(entry, schema)
         if faults := check_v4.check(lang, entry, inventories, None):
             sys.exit(f"{headword}: {faults}")

@@ -374,6 +374,10 @@
       "disputed"
      ],
      "description": "Why a variety has this reading besides its first: rarer, said by older or younger speakers, in careful or casual speech, in part of the variety only, or considered wrong by some."
+    },
+    "spelling": {
+     "type": "string",
+     "description": "The spelling this reading belongs to, when the lemma's spellings are said differently (período, periodo)."
     }
    },
    "anyOf": [
@@ -528,6 +532,11 @@
       "vocalized"
      ],
      "description": "What \"reading\" is written in. Left out, it is the spelling with its stress marked."
+    },
+    "note": {
+     "type": "string",
+     "maxLength": 80,
+     "description": "Where the form is used, in one short clause, when features cannot say it (electo: only in the passive)."
     }
    }
   },
@@ -733,6 +742,14 @@
       "pattern": "^[0-9]+\\.[0-9]+$"
      },
      "description": "Provenance: the ids of the Wiktionary evidence senses this sense covers (2.3 is the third sense of the second evidence lexeme). Not shown to learners; regions and fact checks are carried over it."
+    },
+    "spellings": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string"
+     },
+     "description": "The spellings that carry this sense, when not all of the lemma's spellings do."
     }
    }
   },

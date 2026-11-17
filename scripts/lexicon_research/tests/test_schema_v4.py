@@ -77,3 +77,20 @@ def test_arabic_and_swahili_have_what_they_need():
     VALID.validate(e)
     lexeme["forms"] = [{"form": "x", "features": {"Number": "Trial"}}]
     assert not VALID.is_valid(e)
+
+
+def test_two_spellings_said_differently_keep_their_readings_and_senses_apart():
+    e = entry()
+    lexeme = e["lexemes"][0]
+    lexeme["spellings"] = [{"text": "período"}, {"text": "periodo"}]
+    lexeme["pronunciations"] = [{"variety": "es-ES", "ipa": "/pe.ˈɾi.o.do/", "spelling": "período"}, {"variety": "es-ES", "ipa": "/pe.ˈɾjo.do/", "spelling": "periodo"}]
+    lexeme["senses"][0]["spellings"] = ["periodo"]
+    VALID.validate(e)
+    lexeme["senses"][0]["spellings"] = []
+    assert not VALID.is_valid(e)
+
+
+def test_a_form_may_say_where_it_is_used():
+    e = entry()
+    e["lexemes"][0]["forms"] = [{"form": "electo", "features": {"VerbForm": "Part", "Tense": "Past"}, "varieties": ["es-MX"], "note": "only in the passive"}]
+    VALID.validate(e)

@@ -31,9 +31,9 @@ HERE = Path("scripts/lexicon_research")
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.3")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.4")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -147,6 +147,11 @@ ORTHOGRAPHY_V4 = {
     "fr": "Since the 1990 rectifications some words have two accepted spellings (événement and évènement, nénuphar and nénufar): "
           "give both, the traditional one first. ",
     "es": "The 2010 orthography dropped some accents (solo, este, guion): sólo as an adverb, guión and fué are pre-reform spellings. ",
+    # from v4.4: sólo and éste are still allowed, and fué went in 1959, not 2010
+    ("es", "v4.4"): "The 2010 orthography writes guion, truhan and fie without an accent: guión is a pre-reform spelling, and so are fué, "
+                    "dió and vió, which lost theirs in 1959. Solo as an adverb and the demonstratives este, ese and aquel are written "
+                    "without an accent, but sólo and éste are still allowed where the writer sees an ambiguity: list them as spellings, "
+                    "not as pre-reform. ",
     "it": "",
     "pt": "The 1990 Orthographic Agreement removed silent consonants and some accents: acção, óptimo, idéia, vôo and freqüente are "
           "pre-reform spellings. Where Brazil and Portugal still write a word differently (econômico pt-BR and económico pt-PT; "
@@ -215,6 +220,10 @@ POSITIONAL_V4 = {
 
 LANGUAGE_NOTES_V4 = {
     "de": "\nThe headword may come in lower case (fallschirm): write each lemma as German writes it (Fallschirm).\n",
+    # from v4.4: with capitals not separating entries, "sterben" would otherwise bring "das Sterben" along
+    ("de", "v4.4"): "\nThe headword may come in lower case (fallschirm): write each lemma as German writes it (Fallschirm). An infinitive "
+                    "used as a noun (das Sterben, das Laufen) is not a lexeme unless it has a meaning the verb lacks (das Essen, food; "
+                    "das Leben, life; das Schreiben, a letter).\n",
     "uk": "\nWrite definitions and examples in standard Ukrainian, free of Russianisms and calques. A word or sense that Ukrainian "
           "normative dictionaries reject as a Russianism or a calque is proscribed, with the standard word in standard_alternative "
           "(являтися in the sense \"to be\": бути). A verb lists its aspect partner as a relation.\n",
@@ -272,14 +281,26 @@ def schema_example_v4(version):
 # A version's prompt for a language never changes once entries are written with it, so a language whose
 # examples arrive later gets them in the next version, and a gold file in use is not edited: a better set
 # of examples is a new version too.
-GOLD_SINCE = {"en": "v4.3"}
+GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4"}
+
+
+def since_v4(version, first):
+    """Whether a schema-4 prompt version is the one named or a later one."""
+    order = [v for v, schema in SCHEMA_OF.items() if schema == "4"]
+    return order.index(version) >= order.index(first)
+
+
+def fill_v4(table, lang, version):
+    """A language's text from one of the tables above. A text that changed in some version stands beside the old one
+    under (language, version), so that an older prompt still renders to the letter; the latest that applies is used."""
+    dated = [text for key, text in table.items() if isinstance(key, tuple) and key[0] == lang and since_v4(version, key[1])]
+    return dated[-1] if dated else table.get(lang, "")
 
 
 def examples_v4(lang, version):
     """The language's reviewed example entries: one entry to a line, so that five cost little to read.
     A language without them yet shows none and keeps the one English entry under "Output"."""
-    order = [v for v, schema in SCHEMA_OF.items() if schema == "4"]
-    if lang not in GOLD_SINCE or order.index(version) < order.index(GOLD_SINCE[lang]):
+    if lang not in GOLD_SINCE or not since_v4(version, GOLD_SINCE[lang]):
         return ""
     entries = json.loads((HERE / "gold" / f"{lang}.json").read_text(encoding="utf-8"))
     return ("# Examples\n\nEntries of this dictionary that an editor has checked. Write every entry the way these are written: the same "
@@ -289,7 +310,7 @@ def examples_v4(lang, version):
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.3")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.4")
     schema_path = HERE / "entry.schema.v4.json"
     inv = []
     for v in VARIETIES[lang]:
@@ -297,10 +318,10 @@ def system_prompt_v4(lang, version=None):
         inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]
     tpl = (HERE / "prompts" / "entry_writer" / f"{version}.md").read_text()
-    fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": ORTHOGRAPHY_V4[lang], "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),
+    fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": fill_v4(ORTHOGRAPHY_V4, lang, version), "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),
              "{inventory}": "\n".join(inv), "{stress_rule}": STRESS_V4.get(lang, ""), "{extra_grammar}": EXTRA_GRAMMAR_V4.get(lang, ""),
              "{forms_rule}": FORMS_V4[lang], "{form_sound_rule}": FORM_SOUND_V4[lang], "{domains}": ", ".join(domains),
-             "{language_notes}": LANGUAGE_NOTES_V4.get(lang, ""), "{schema_example}": schema_example_v4(version),
+             "{language_notes}": fill_v4(LANGUAGE_NOTES_V4, lang, version), "{schema_example}": schema_example_v4(version),
              "{positional_rule}": POSITIONAL_V4.get(lang, ""), "{region_examples}": REGION_EXAMPLES_V4[lang],
              "{examples}": examples_v4(lang, version),
              "{un_regions}": "".join(" or with a UN area (" + ", ".join(f"{lang}-{code} {UN_REGIONS[code]}" for code in UN_AREAS_V4[lang]) + ")"
