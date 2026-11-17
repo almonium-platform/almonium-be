@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -50,13 +50,14 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.1). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.2). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
    free, what needs a paid patch of one field, and what a rule must settle.
 5. **Ingest** (`ingest_v4.py`, free, rerunnable). Ids for lexemes and senses that survive a rewrite,
-   leaked lexemes dropped, a word written under two spellings kept once with an alias.
+   leaked lexemes dropped, a word written under two spellings kept once with an alias, and a
+   headword rejected as an inflected form or a spelling pointed at the entry that holds its word.
 6. **Publish.** Not possible yet, see "Pending".
 
 October's line built the other half, for schema 3 (`entry_pipeline.py`): Wiktionary evidence in the
@@ -78,6 +79,51 @@ Decided 17 November 2026: schema 4 stays, and takes the best of both.
 | Typed relations, antonyms per sense | Homophones computed by the backend |
 
 All of it is reached by code or by small passes. Nothing written is written again.
+
+Since 17 November the schema holds October's regions, pronunciation notes and `from`, and prompt v4.2
+writes the first two; `from` waits for the citing pass.
+
+## Prompt v4.2
+
+v4.1 plus five rules, tried on 36 trap words (all valid, each behaving as described):
+
+- **A headword that is also an inflected form** returns only what it is the lemma of, October's v6
+  rule: *saw* gives the tool and to saw, *left* the adjective, adverb and noun; *glasses* and
+  *Eltern* are plural lexemes; *arms* and *esposas* are rejected naming the lemma whose entry holds
+  the plural sense; *interested* is an adjective, *signed* a reject naming *sign*.
+- **Regions** as October wrote them: a country or UN area with an extent (*boot* of a car: en-GB and
+  en-AU only; to *table*: mainly en-GB in one sense, mainly en-US in the opposite one).
+- **Pronunciation notes** on a second reading (less common, older, regional).
+- **Parts of a compound written as one word**: *Arbeitszimmer* is Arbeits (Arbeit) + zimmer (Zimmer),
+  *toothbrush* is tooth + brush. Phrases and contractions already listed theirs.
+- **Politeness**: familiar (du, tu, tú) and polite (Sie, vous, usted, Lei).
+
+Entries written under v4 and v4.1 lack the compound parts and the politeness label; both are small
+passes over the words concerned, not rewrites.
+
+## Words that are both a form and a word
+
+Wiktionary files 16,765 English spellings both as a form of another word and as a word of its own
+(*signed*, *railings*, *encouraged*). The gate lets them through and the writer decides: of 4,419 it
+has seen, it wrote 52% and rejected 48%. No rule predicts that well enough to skip the call: the best
+one from Wiktionary's senses and WordNet's lemmas is right 83% of the time and would lose entries
+such as *encouraged* and *shoplifting*. So the call stays, a reject costs about $0.013, and ingest
+turns it into an alias of the lemma's entry, which is what the reader who taps the form needs.
+
+## Languages outside Europe
+
+Schema 4 can hold them; the writers cannot write them until a language has a profile (symbols, form
+rules, examples) and the checks count characters where a language has no spaces.
+
+- A spelling may name its script (`script`, ISO 15924): simplified and traditional Chinese, kanji
+  and kana, Cyrillic and Latin Serbian. Wikidata and OntoLex tell scripts apart the same way, by the
+  script part of the language tag (`zh-Hans`, `ja-Hira`, `sr-Latn`).
+- A pronunciation is IPA or a `reading` or both; `notation` says what the reading is (pinyin, kana,
+  a romanization, the vowels a script leaves out). Left out, it is the spelling with its stress marked.
+- `grammar.classifier` for the measure word of a noun; every case Universal Dependencies names;
+  `labels.politeness` also has honorific and humble.
+- Still to add when the first such language comes: its level scale (HSK, JLPT) beside CEFR, and its
+  verb classes.
 
 ## The pass over finished entries
 
@@ -102,6 +148,7 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
+- Prompt v4.2 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.1` goes back.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
   only when the lexicon has nothing, so showing it beside a lexicon entry is part of the backend work.
@@ -132,8 +179,10 @@ page does not settle.
    needs an export from the book processor; phrases.
 5. **IPA symbol lists**: about a tenth of English and German entries use a sound the lists lack
    (the last vowel of *fully*, German short unstressed vowels). Extend the lists or map by rule.
-6. **Words that are both a form and a lemma** (*signed*, *railings*): a fifth of the deep English
-   list ended as paid rejects. Sort them in batches before writing.
+6. **Example entries in the prompt**: three to five reviewed entries per language, in that language,
+   in place of the one English example every language sees today. They set the house style and how
+   finely senses are split. Our own entries, chosen and corrected by hand; a published dictionary's
+   entries are its publisher's and do not have our shape.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

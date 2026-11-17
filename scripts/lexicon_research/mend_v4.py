@@ -38,7 +38,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jsonschema  # noqa: E402
 import v3_entries  # noqa: E402
-from prompting import HERE, REGIONS, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
+from prompting import HERE, PROMPT_VERSION, REGIONS, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
 
 MEND_VERSION = "mend-v2"
 OUT = HERE / "out"
@@ -267,7 +267,8 @@ def mend_one(a, lang, system, row, retries=0):
     # the backend's lexicon_build keeps model, effort and prompt_version; a mended entry also names who wrote it first
     older_meta_path = OUT / writer / lang / f"{row['headword']}.meta.json"
     older_meta = json.loads(older_meta_path.read_text()) if older_meta_path.exists() else {}
-    meta = {"prompt_version": f"v4+{MEND_VERSION}", "mend_version": MEND_VERSION, "schema_version": SCHEMA_VERSION,
+    # the rules a mend is held to are the writer's prompt of the day, so the meta names it (it said "v4" until v4.2)
+    meta = {"prompt_version": f"{PROMPT_VERSION}+{MEND_VERSION}", "mend_version": MEND_VERSION, "schema_version": SCHEMA_VERSION,
             "headword": row["headword"], "set": row.get("set"), "model": a.model, "effort": a.effort,
             "mended_from": writer, "older_model": older_meta.get("model"), "older_prompt_version": older_meta.get("prompt_version")}
     if base.get("reject"):

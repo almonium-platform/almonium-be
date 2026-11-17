@@ -22,14 +22,16 @@ HERE = Path("scripts/lexicon_research")
 #   2  the first dictionary (prompts v1 to v3): glosses and review cues inside every sense, one register label
 #   3  October 2026 (v4oct, v5, v6): schema 2 plus regions by country or UN area with an extent, domains,
 #      pronunciation notes and, from v5, the Wiktionary senses each sense was written from ("from")
-#   4  November 2026 (v4, v4.1): the core only, without glosses and cues; labels on separate axes, frames,
-#      spellings by variety, multiword and contraction lexemes, typed relations
+#   4  November 2026 (v4, v4.1, v4.2): the core only, without glosses and cues; labels on separate axes,
+#      frames, spellings by variety, multiword and contraction lexemes, typed relations. v4.2 adds October's
+#      rules for a headword that is also an inflected form, its regions (a country or UN area with an
+#      extent) and pronunciation notes, the parts of a compound, and the politeness label
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.1")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.2")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -245,9 +247,28 @@ SCHEMA_EXAMPLE_V4 = json.dumps({
     ]}, ensure_ascii=False, indent=1)
 
 
+# v4.2 says where a sense is used as October's prompts do; its example entry shows that shape. The example of
+# v4 and v4.1 is kept as it is, because their prompt hashes are in the metas of the entries they wrote.
+# The UN M.49 areas worth offering a writer of each language; a language spoken in one part of the world has none.
+UN_AREAS_V4 = {"en": ("021", "029", "002", "142", "009"), "es": ("419", "029", "005", "013"), "fr": ("002", "021"), "pt": ("002",)}
+REGION_EXAMPLES_V4 = {"en": "en-GB, en-US, en-AU, en-IE", "de": "de-DE, de-AT, de-CH", "fr": "fr-FR, fr-CA, fr-BE, fr-CH",
+                      "es": "es-ES, es-MX, es-AR, es-CU", "it": "it-IT, it-CH", "pt": "pt-BR, pt-PT, pt-AO", "uk": "uk-UA"}
+
+
+def schema_example_v4(version):
+    if version in ("v4", "v4.1"):
+        return SCHEMA_EXAMPLE_V4
+    entry = json.loads(SCHEMA_EXAMPLE_V4)
+    for lexeme in entry["lexemes"]:
+        for sense in lexeme["senses"]:
+            if "regions" in sense:
+                sense["regions"] = [{"variety": variety, "extent": "only"} for variety in sense["regions"]]
+    return json.dumps(entry, ensure_ascii=False, indent=1)
+
+
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.1")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.2")
     schema_path = HERE / "entry.schema.v4.json"
     inv = []
     for v in VARIETIES[lang]:
@@ -258,8 +279,10 @@ def system_prompt_v4(lang, version=None):
     fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": ORTHOGRAPHY_V4[lang], "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),
              "{inventory}": "\n".join(inv), "{stress_rule}": STRESS_V4.get(lang, ""), "{extra_grammar}": EXTRA_GRAMMAR_V4.get(lang, ""),
              "{forms_rule}": FORMS_V4[lang], "{form_sound_rule}": FORM_SOUND_V4[lang], "{domains}": ", ".join(domains),
-             "{language_notes}": LANGUAGE_NOTES_V4.get(lang, ""), "{schema_example}": SCHEMA_EXAMPLE_V4,
-             "{positional_rule}": POSITIONAL_V4.get(lang, "")}
+             "{language_notes}": LANGUAGE_NOTES_V4.get(lang, ""), "{schema_example}": schema_example_v4(version),
+             "{positional_rule}": POSITIONAL_V4.get(lang, ""), "{region_examples}": REGION_EXAMPLES_V4[lang],
+             "{un_regions}": "".join(" or with a UN area (" + ", ".join(f"{lang}-{code} {UN_REGIONS[code]}" for code in UN_AREAS_V4[lang]) + ")"
+                                     for _ in [0] if lang in UN_AREAS_V4)}
     for k, v in fills.items():
         tpl = tpl.replace(k, v)
     return tpl
