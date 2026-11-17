@@ -203,3 +203,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261101-sense-identity.yaml
   - include:
       file: db/changelog/changes/patches/20261101-homophones.yaml
+  - include:
+      file: db/changelog/changes/patches/20261117-entry-report.yaml

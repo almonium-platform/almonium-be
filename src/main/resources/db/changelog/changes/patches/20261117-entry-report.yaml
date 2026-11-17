@@ -1,0 +1,99 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261117-entry-report
+      author: claude
+      comment: >-
+        entry_report is a member flagging a dictionary entry: the whole word (sense_key null) or one sense, with one of
+        five reasons and an optional comment. The lexeme, the sense key and the entry version are attached by the
+        server from what was flagged, and the sentence and book from where it was read, so a report stands without a
+        comment. sense_key is deliberately not a foreign key: a rewrite that drops the sense must not lose the report.
+        /ops reads the open ones grouped by sense and reason, most common word first.
+      changes:
+        - createTable:
+            schemaName: lexicon
+            tableName: entry_report
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headword
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lexeme_id
+                  type: uuid
+              - column:
+                  name: sense_key
+                  type: uuid
+              - column:
+                  name: entry_version
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reason
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comment
+                  type: varchar(1000)
+              - column:
+                  name: context
+                  type: varchar(1000)
+              - column:
+                  name: book
+                  type: varchar(200)
+              - column:
+                  name: reporter_id
+                  type: uuid
+              - column:
+                  name: status
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: handled_at
+                  type: timestamp with time zone
+        - addForeignKeyConstraint:
+            baseTableSchemaName: lexicon
+            baseTableName: entry_report
+            baseColumnNames: lexeme_id
+            constraintName: fk_entry_report_lexeme
+            referencedTableSchemaName: lexicon
+            referencedTableName: lexeme
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableSchemaName: lexicon
+            baseTableName: entry_report
+            baseColumnNames: reporter_id
+            constraintName: fk_entry_report_reporter
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            schemaName: lexicon
+            tableName: entry_report
+            indexName: ix_entry_report_open
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: language
+              - column:
+                  name: headword
