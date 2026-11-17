@@ -81,16 +81,44 @@ def dotted(ipa):
     return re.sub(r"(?<=[^/.\s\-])(?=[ˈˌ])", ".", ipa) if isinstance(ipa, str) else ipa
 
 
-def dot_syllables(lexeme):
-    """Put the missing syllable dots into a lexeme's transcriptions; says how many it changed."""
-    changed = 0
+ITALIAN_CONSONANTS = "pbtdkɡfvszʃmnɲlʎr"
+
+
+def italian_doubles(ipa):
+    """An Italian double consonant written twice with the syllable boundary between, however it was written:
+    /ˈfatːo/, /ˈfatː.o/ and /ˈfatto/ are /ˈfat.to/; /ˈpitsːa/ and /ˈpittsa/ are /ˈpit.tsa/; /proɡraˈmːare/ has
+    the stress mark after the boundary, /proɡram.ˈmare/."""
+    if not isinstance(ipa, str):
+        return ipa
+    ipa = re.sub(r"\.?([ˈˌ]?)(ts|dz|tʃ|dʒ)ː\.?", lambda m: f"{m[2][0]}.{m[1]}{m[2]}", ipa)
+    ipa = re.sub(rf"\.?([ˈˌ]?)([{ITALIAN_CONSONANTS}])ː\.?", lambda m: f"{m[2]}.{m[1]}{m[2]}", ipa)
+    return re.sub(rf"([{ITALIAN_CONSONANTS}])(?=\1)", r"\1.", ipa)
+
+
+SOUND_FIXES = ("double consonants rewritten", "ll of Spain rewritten", "syllable dots added")
+
+
+def settle_sounds(lang, lexeme):
+    """Put a lexeme's transcriptions in the form the dictionary prints, by rules that need no judgement: an
+    Italian double consonant written twice, the ll of Spain as most of Spain says it, and a syllable dot before
+    every stress mark inside a word. Says how many transcriptions each rule changed."""
+    changed = Counter()
+
+    def settle(variety, ipa):
+        if not isinstance(ipa, str):
+            return ipa
+        steps = ((lang == "it", italian_doubles), (variety == "es-ES", lambda text: text.replace("ʎ", "ʝ")), (True, dotted))
+        for (applies, rule), name in zip(steps, SOUND_FIXES):
+            if applies and rule(ipa) != ipa:
+                ipa, changed[name] = rule(ipa), changed[name] + 1
+        return ipa
+
     for spoken in lexeme.get("pronunciations") or []:
-        if "ipa" in spoken and dotted(spoken["ipa"]) != spoken["ipa"]:
-            spoken["ipa"], changed = dotted(spoken["ipa"]), changed + 1
+        if "ipa" in spoken:
+            spoken["ipa"] = settle(spoken.get("variety"), spoken["ipa"])
     for form in lexeme.get("forms") or []:
         for variety, ipa in list((form.get("ipa") or {}).items()):
-            if dotted(ipa) != ipa:
-                form["ipa"][variety], changed = dotted(ipa), changed + 1
+            form["ipa"][variety] = settle(variety, ipa)
     return changed
 
 
@@ -153,7 +181,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, dots, auxiliaries = [], [], 0, 0
+    dropped, kept, sounds, auxiliaries = [], [], Counter(), 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -181,7 +209,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         for form in lexeme.get("forms") or []:
             if "senses" in form:
                 form["sense_ids"] = [senses[n - 1]["id"] for n in form.pop("senses") if 0 < n <= len(senses)]
-        dots += dot_syllables(lexeme)
+        sounds += settle_sounds(lang, lexeme)
         auxiliaries += pronominal_auxiliary(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
@@ -194,8 +222,9 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["aliases"] = sorted(aliases)
     if dropped:
         entry["dropped"] = dropped
-    if dots:
-        entry["syllable_dots_added"] = dots
+    for name in SOUND_FIXES:
+        if sounds[name]:
+            entry[name.replace(" ", "_").lower()] = sounds[name]
     if auxiliaries:
         entry["pronominal_auxiliaries_set"] = auxiliaries
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
@@ -319,7 +348,8 @@ def ingest(lang, dry_run=False):
         for d in clean.get("dropped", []):
             counts["leaked lexemes dropped" if d["reason"].startswith("not the") else "duplicate lexemes dropped"] += 1
         counts["senses retired"] += sum(len(lx.get("retired") or []) for lx in clean["lexemes"])
-        counts["syllable dots added"] += clean.get("syllable_dots_added", 0)
+        for name in SOUND_FIXES:
+            counts[name] += clean.get(name.replace(" ", "_").lower(), 0)
         counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):

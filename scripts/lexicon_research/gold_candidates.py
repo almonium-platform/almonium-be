@@ -190,13 +190,18 @@ def reviewed(text):
 
 
 def settle(entry):
-    """What a reviewer without our schema leaves in another form: a component's "inflection" is "inflects", and a
-    transcription gets its dot before a stress mark inside the word, by the rule ingest uses."""
+    """What a reviewer without our schema leaves in another form: a component's "inflection" is "inflects", the
+    text of a spelling is "text" (reviewers wrote "spelling" and "form"), and a transcription is put in the form the
+    dictionary prints (the dot before a stress mark, an Italian double consonant), by the rules ingest uses."""
     for lexeme in entry.get("lexemes", []):
         for component in lexeme.get("components") or []:
             if "inflection" in component and "inflects" not in component:
                 component["inflects"] = component.pop("inflection")
-        ingest_v4.dot_syllables(lexeme)
+        for spelling in lexeme.get("spellings") or []:
+            for other in ("spelling", "form"):
+                if other in spelling and "text" not in spelling:
+                    spelling["text"] = spelling.pop(other)
+        ingest_v4.settle_sounds(entry.get("language"), lexeme)
     return entry
 
 
@@ -223,7 +228,7 @@ def take(lang, answer, picks):
         verdict, corrected = answers.get(headword, (None, None))
         if verdict == "do not use" or verdict is None:
             sys.exit(f"{headword}: the reviewer's verdict is {verdict or 'missing'}")
-        entry = corrected or offered.get(headword)
+        entry = offered.get(headword) if verdict == "use as it is" else corrected  # an entry passed as it is, is ours
         if entry is None:
             sys.exit(f"{headword}: no corrected entry in the answer and no candidate of that name")
         entry = settle(json.loads(json.dumps(entry)))

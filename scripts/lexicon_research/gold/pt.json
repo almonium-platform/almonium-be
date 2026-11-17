@@ -1,0 +1,474 @@
+[
+ {
+  "language": "pt",
+  "headword": "computador",
+  "lexemes": [
+   {
+    "lemma": "computador",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/kõ.pu.ta.ˈdoɾ/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/kõ.pu.tɐ.ˈdoɾ/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "máquina que guarda e processa dados e executa programas",
+      "example": "Preciso de um computador novo para trabalhar em casa.",
+      "cefr": "A1"
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "computar",
+      "pos": "VERB"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "pt",
+  "headword": "escolher",
+  "lexemes": [
+   {
+    "lemma": "escolher",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "2",
+     "valency": "Both",
+     "irregular": false,
+     "note": "stressed o alternates between /o/ in escolho and /ɔ/ in escolhe"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/is.ko.ˈʎeɾ/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/iʃ.ku.ˈʎeɾ/"
+     },
+     {
+      "variety": "pt-BR",
+      "ipa": "/is.ko.ˈʎe/",
+      "note": "casual"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/ʃku.ˈʎeɾ/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "escolho",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Pres",
+       "Person": "1",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ˈko.ʎu/",
+       "pt-PT": "/iʃ.ˈko.ʎu/"
+      }
+     },
+     {
+      "form": "escolhes",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Pres",
+       "Person": "2",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ˈkɔ.ʎis/",
+       "pt-PT": "/iʃ.ˈkɔ.ʎɨʃ/"
+      }
+     },
+     {
+      "form": "escolhe",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Pres",
+       "Person": "3",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ˈkɔ.ʎi/",
+       "pt-PT": "/iʃ.ˈkɔ.ʎɨ/"
+      }
+     },
+     {
+      "form": "escolhemos",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Pres",
+       "Person": "1",
+       "Number": "Plur",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ko.ˈʎe.mus/",
+       "pt-PT": "/iʃ.ku.ˈʎe.muʃ/"
+      }
+     },
+     {
+      "form": "escolhem",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Pres",
+       "Person": "3",
+       "Number": "Plur",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ˈkɔ.ʎẽj/",
+       "pt-PT": "/iʃ.ˈkɔ.ʎɐ̃j/"
+      }
+     },
+     {
+      "form": "escolhi",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Past",
+       "Person": "1",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ko.ˈʎi/",
+       "pt-PT": "/iʃ.ku.ˈʎi/"
+      }
+     },
+     {
+      "form": "escolheu",
+      "features": {
+       "Mood": "Ind",
+       "Tense": "Past",
+       "Person": "3",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ko.ˈʎew/",
+       "pt-PT": "/iʃ.ku.ˈʎew/"
+      }
+     },
+     {
+      "form": "escolha",
+      "features": {
+       "Mood": "Sub",
+       "Tense": "Pres",
+       "Person": "1",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "ipa": {
+       "pt-BR": "/is.ˈko.ʎɐ/",
+       "pt-PT": "/iʃ.ˈko.ʎɐ/"
+      }
+     },
+     {
+      "form": "escolhido",
+      "features": {
+       "VerbForm": "Part",
+       "Tense": "Past"
+      },
+      "ipa": {
+       "pt-BR": "/is.ko.ˈʎi.du/",
+       "pt-PT": "/iʃ.ku.ˈʎi.du/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "decidir qual das possibilidades se quer ou o que fazer",
+      "example": "Ainda não consegui escolher entre os dois vestidos.",
+      "cefr": "A1",
+      "frames": [
+       "escolher algo ou alguém",
+       "escolher entre duas opções",
+       "escolher + infinitivo"
+      ]
+     },
+     {
+      "definition": "separar o que se pode aproveitar do que se deve retirar",
+      "example": "Ajuda a escolher o feijão e tira as pedrinhas.",
+      "cefr": "B2",
+      "frames": [
+       "escolher algo"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "pt",
+  "headword": "global",
+  "lexemes": [
+   {
+    "lemma": "global",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "note": "same form for masculine and feminine"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/ɡlo.ˈbaw/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/ɡlu.ˈbal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "que tem alcance mundial ou envolve países de vários continentes",
+      "example": "O aquecimento global preocupa cientistas de todos os continentes.",
+      "cefr": "B1",
+      "antonyms": [
+       {
+        "lemma": "local",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "considerado no seu conjunto, sem separar as partes",
+      "example": "Qual é o custo global da obra, com todos os materiais?",
+      "cefr": "B2",
+      "antonyms": [
+       {
+        "lemma": "parcial",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "adjective_of",
+      "lemma": "globo",
+      "pos": "NOUN"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "pt",
+  "headword": "policial",
+  "lexemes": [
+   {
+    "lemma": "policial",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": false
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/po.li.ˈsjaw/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/pu.li.ˈsjal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "das forças que mantêm a ordem pública e combatem o crime",
+      "example": "Houve uma operação policial no bairro durante a noite.",
+      "cefr": "B1"
+     },
+     {
+      "definition": "que conta ou desenvolve uma história de crime e investigação",
+      "example": "Adoro ler romances policiais antes de dormir.",
+      "cefr": "B1"
+     }
+    ],
+    "relations": [
+     {
+      "type": "adjective_of",
+      "lemma": "polícia",
+      "pos": "NOUN"
+     }
+    ]
+   },
+   {
+    "lemma": "policial",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Com",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/po.li.ˈsjaw/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/pu.li.ˈsjal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "agente encarregado de manter a ordem pública e combater o crime",
+      "example": "Uma policial nos ajudou a encontrar a estação.",
+      "cefr": "A2",
+      "regions": [
+       {
+        "variety": "pt-BR",
+        "extent": "mainly"
+       }
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "polícia",
+      "pos": "NOUN"
+     },
+     {
+      "type": "confusable",
+      "lemma": "polícia",
+      "pos": "NOUN",
+      "why": "in Portugal a police officer is usually called 'um polícia', while Brazil says 'um policial'"
+     }
+    ]
+   },
+   {
+    "lemma": "policial",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/po.li.ˈsjaw/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/pu.li.ˈsjal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "obra de ficção que acompanha um crime e a sua investigação",
+      "example": "Li um policial e só descobri o culpado na última página.",
+      "cefr": "B2"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "pt",
+  "headword": "ciência",
+  "lexemes": [
+   {
+    "lemma": "ciência",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Fem",
+     "countability": "Both"
+    },
+    "pronunciations": [
+     {
+      "variety": "pt-BR",
+      "ipa": "/si.ˈẽ.sjɐ/"
+     },
+     {
+      "variety": "pt-PT",
+      "ipa": "/ˈsjẽ.sjɐ/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "conhecimento construído por meio de observação, estudo e investigação",
+      "example": "A ciência ainda não explica todos os mistérios do universo.",
+      "cefr": "B1",
+      "grammar": {
+       "countability": "Mass"
+      }
+     },
+     {
+      "definition": "área de estudo que investiga certas questões com métodos próprios",
+      "example": "A astronomia é a ciência que estuda os astros.",
+      "cefr": "B1",
+      "grammar": {
+       "countability": "Count"
+      }
+     },
+     {
+      "definition": "conhecimento ou informação que alguém tem sobre um assunto",
+      "example": "Você tem ciência dos riscos deste tratamento?",
+      "cefr": "C1",
+      "frames": [
+       "ter ciência de algo",
+       "tomar ciência de algo",
+       "dar ciência de algo a alguém"
+      ],
+      "grammar": {
+       "countability": "Mass"
+      },
+      "labels": {
+       "formality": "formal"
+      }
+     }
+    ],
+    "spellings": [
+     {
+      "varieties": [
+       "pt-BR",
+       "pt-PT"
+      ],
+      "text": "ciência"
+     },
+     {
+      "varieties": [
+       "pt-BR",
+       "pt-PT"
+      ],
+      "pre_reform": true,
+      "text": "sciencia"
+     },
+     {
+      "varieties": [
+       "pt-PT"
+      ],
+      "pre_reform": true,
+      "text": "sciência"
+     }
+    ]
+   }
+  ]
+ }
+]

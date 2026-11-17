@@ -113,3 +113,22 @@ def test_the_audit_counts_a_pronominal_sense_without_its_auxiliary():
     assert ("pronominal sense without its auxiliary", lexeme["lemma"]) in check_v4.check("fr", e, {}, None)
     lexeme["senses"][0]["grammar"]["auxiliary"] = "be"
     assert "pronominal sense without its auxiliary" not in [kind for kind, _ in check_v4.check("fr", e, {}, None)]
+
+
+def test_a_form_shared_by_several_persons_joins_them_as_any_other_feature():
+    e = entry()
+    e["lexemes"][0]["forms"] = [{"form": "mantenga", "features": {"Mood": "Sub", "Tense": "Pres", "Person": "1,2,3", "Number": "Sing"}},
+                                {"form": "va", "features": {"Person": "3"}}, {"form": "vai", "features": {"Person": 2}}]
+    VALID.validate(e)
+    for wrong in ("4", "1,", 0, "1;3"):
+        e["lexemes"][0]["forms"][1]["features"]["Person"] = wrong
+        assert not VALID.is_valid(e), wrong
+
+
+def test_the_audit_counts_the_sounds_ingest_puts_in_house_form():
+    e = entry()
+    e["language"] = "it"
+    e["lexemes"][0]["pronunciations"] = [{"variety": "it-IT", "ipa": "/ˈfatːo/", "reading": "fàtto"}]
+    assert "double consonant not written twice" in [kind for kind, _ in check_v4.check("it", e, {}, None)]
+    e["lexemes"][0]["pronunciations"] = [{"variety": "es-ES", "ipa": "/ˈka.ʎe/"}]
+    assert "ll of Spain written ʎ" in [kind for kind, _ in check_v4.check("es", e, {}, None)]

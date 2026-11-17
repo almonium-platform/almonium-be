@@ -430,14 +430,9 @@
         "string",
         "integer"
        ],
-       "enum": [
-        "1",
-        "2",
-        "3",
-        1,
-        2,
-        3
-       ]
+       "pattern": "^[123](,[123])*$",
+       "minimum": 1,
+       "maximum": 3
       },
       "Mood": {
        "type": "string",

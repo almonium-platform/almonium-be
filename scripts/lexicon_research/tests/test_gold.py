@@ -21,6 +21,7 @@ PINNED = {
     ("en", "v4.3"): "e6615ab40a6b", ("de", "v4.3"): "bc8cfbca1124", ("fr", "v4.3"): "5418c0d89d60", ("es", "v4.3"): "7cf0386d9950", ("it", "v4.3"): "0c8f05818753", ("pt", "v4.3"): "58417a4d2947",
     ("en", "v4.4"): "ea3693cc8e6c", ("de", "v4.4"): "264072a754c8", ("fr", "v4.4"): "b42f719d2bef", ("es", "v4.4"): "9f4ac7938249", ("it", "v4.4"): "e0a358f349be", ("pt", "v4.4"): "fb3233860b89",
     ("en", "v4.5"): "01e3c8b0c49c", ("de", "v4.5"): "3a6bbf9411f3", ("fr", "v4.5"): "cb91c0a2c441", ("es", "v4.5"): "49554113c543", ("it", "v4.5"): "1696c5fba6f0", ("pt", "v4.5"): "a55595cc20b8",
+    ("en", "v4.6"): "646cc0969f58", ("de", "v4.6"): "46fa8ef481dd", ("fr", "v4.6"): "64d5e683fb3a", ("es", "v4.6"): "a760a331ee23", ("it", "v4.6"): "fc32ca7cc518", ("pt", "v4.6"): "b00e003b42a2",
 }
 ANSWER = """# Review
 
@@ -135,6 +136,9 @@ def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them(
     assert "# Examples" not in prompting.system_prompt("de", "v4.3") and '"headword": "nötig"' in prompting.system_prompt("de", "v4.4")
     assert "# Examples" not in prompting.system_prompt("es", "v4.3") and '"headword": "lunes"' in prompting.system_prompt("es", "v4.4")
     assert "# Examples" not in prompting.system_prompt("fr", "v4.4") and '"headword": "hôpital"' in prompting.system_prompt("fr", "v4.5")
+    assert "# Examples" not in prompting.system_prompt("it", "v4.5") and '"headword": "museo"' in prompting.system_prompt("it", "v4.6")
+    assert "# Examples" not in prompting.system_prompt("pt", "v4.5") and '"headword": "computador"' in prompting.system_prompt("pt", "v4.6")
+    assert set(prompting.GOLD_SINCE) == set(prompting.TARGET_LANGUAGES)  # from v4.6 every language sees its own examples
     for lang in prompting.TARGET_LANGUAGES:
         if lang not in prompting.GOLD_SINCE:
             assert "# Examples" not in prompting.system_prompt(lang)
@@ -150,6 +154,13 @@ def test_a_text_changed_in_a_version_does_not_reach_the_older_ones():
     for lang, word in (("fr", "être"), ("it", "essere")):
         assert f"is conjugated with {word}" in prompting.system_prompt(lang, "v4.5")
         assert f"is conjugated with {word}" not in prompting.system_prompt(lang, "v4.4")
+
+
+def test_a_variety_keeps_its_old_sound_conventions_in_the_older_prompts():
+    assert "ll as ʎ" in prompting.sounds_v4("es-ES", "v4.5") and " ʎ " in prompting.sounds_v4("es-ES", "v4.5")
+    assert "ll and y are both ʝ" in prompting.sounds_v4("es-ES", "v4.6") and " ʎ " not in prompting.sounds_v4("es-ES", "v4.6").split(";")[0]
+    assert "/ˈfatːo/" in prompting.sounds_v4("it-IT", "v4.5") and "/ˈfat.to/" in prompting.sounds_v4("it-IT", "v4.6")
+    assert "ː" not in prompting.sounds_v4("it-IT", "v4.6") and prompting.sounds_v4("en-US", "v4.5") == prompting.sounds_v4("en-US", "v4.6")
 
 
 def test_a_prompt_that_entries_were_written_with_still_renders_to_the_letter():

@@ -31,9 +31,9 @@ HERE = Path("scripts/lexicon_research")
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.5")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.6")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -286,13 +286,41 @@ def schema_example_v4(version):
 # A version's prompt for a language never changes once entries are written with it, so a language whose
 # examples arrive later gets them in the next version, and a gold file in use is not edited: a better set
 # of examples is a new version too.
-GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4", "fr": "v4.5"}
+GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4", "fr": "v4.5", "it": "v4.6", "pt": "v4.6"}
 
 
 def since_v4(version, first):
     """Whether a schema-4 prompt version is the one named or a later one."""
     order = [v for v, schema in SCHEMA_OF.items() if schema == "4"]
     return order.index(version) >= order.index(first)
+
+
+# How a variety's sounds are written, where a later version says it differently from inventories/<variety>.json.
+# The file keeps every symbol entries were ever written with, so that the audit still reads the old ones;
+# ingest_v4.settle_sounds turns what is written into the present form by rule.
+SOUNDS_V4 = {
+    # most of Spain says ll and y alike; the separate sound is the old norm a few regions keep
+    ("es-ES", "v4.6"): {"without": ["ʎ"], "conventions":
+        "Castilian Spanish with distinción (c/z before e, i and z are θ) and yeísmo: ll and y are both ʝ, as nearly all of Spain says "
+        "them. Voiced stops are written b d ɡ in every position; the approximant allophones are not marked. Stress falls where the "
+        "written accent rules put it."},
+    # a long mark on the consonant left no place for the syllable dot, and three ways of writing a double were in use
+    ("it-IT", "v4.6"): {"without": ["ː"], "conventions":
+        "Standard Italian. A double consonant is written twice with the syllable boundary between (fatto is /ˈfat.to/, bello is "
+        "/ˈbɛl.lo/); a double affricate doubles its stop (oggi is /ˈɔd.dʒi/, pizza is /ˈpit.tsa/), and ʃ ʎ ɲ between vowels are "
+        "double (pesce is /ˈpeʃ.ʃe/, figlio is /ˈfiʎ.ʎo/). Open and close e and o are distinguished (ɛ/e, ɔ/o) in stressed "
+        "syllables and are e, o when unstressed. Intervocalic s is z where the standard has it."},
+}
+
+
+def sounds_v4(variety, version):
+    """The line of the prompt that lists a variety's symbols and conventions."""
+    d = json.loads((HERE / "inventories" / f"{variety}.json").read_text())
+    for (v, first), change in SOUNDS_V4.items():
+        if v == variety and since_v4(version, first):
+            d = {**d, **{k: [x for x in d[k] if x not in change.get("without", ())] for k in ("consonants", "vowels", "diacritics")},
+                 "conventions": change.get("conventions", d["conventions"])}
+    return f"{variety}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}"
 
 
 def fill_v4(table, lang, version):
@@ -315,12 +343,9 @@ def examples_v4(lang, version):
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.5")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.6")
     schema_path = HERE / "entry.schema.v4.json"
-    inv = []
-    for v in VARIETIES[lang]:
-        d = json.loads((HERE / "inventories" / f"{v}.json").read_text())
-        inv.append(f"{v}: consonants {' '.join(d['consonants'])}; vowels {' '.join(d['vowels'])}; marks {' '.join(d['diacritics'])}. {d['conventions']}")
+    inv = [sounds_v4(v, version) for v in VARIETIES[lang]]
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]
     tpl = (HERE / "prompts" / "entry_writer" / f"{version}.md").read_text()
     fills = {"{language_name}": LANG_NAME[lang], "{orthography_rule}": fill_v4(ORTHOGRAPHY_V4, lang, version), "{regions}": ", ".join(REGIONS[lang]), "{ipa_varieties}": ", ".join(VARIETIES[lang]),

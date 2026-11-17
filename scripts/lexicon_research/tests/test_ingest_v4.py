@@ -221,3 +221,25 @@ def test_a_french_or_italian_pronominal_sense_gets_the_auxiliary_it_is_conjugate
     whole = entry("évanouir", lexeme("évanouir", "VERB", grammar={"auxiliary": "be", "reflexive": True}, senses=[sense("perdre connaissance pendant un court moment", grammar={"valency": "Refl"})]), lang="fr")
     assert "pronominal_auxiliaries_set" not in ingest_v4.clean_entry("fr", whole, META)
     assert "pronominal_auxiliaries_set" not in ingest_v4.clean_entry("de", entry("regeln", verb, lang="de"), META)
+
+
+def test_an_italian_double_consonant_is_written_twice_however_it_was_written():
+    same_word = {"/ˈfatːo/": "/ˈfat.to/", "/ˈfatto/": "/ˈfat.to/", "/ˈfatː.o/": "/ˈfat.to/", "/ˈfat.to/": "/ˈfat.to/",
+                 "/pro.ɡraˈmːa.re/": "/pro.ɡram.ˈma.re/", "/ˈpittsa/": "/ˈpit.tsa/", "/ˈpitsːa/": "/ˈpit.tsa/", "/ˈɔddʒi/": "/ˈɔd.dʒi/",
+                 "/ˈpeʃːe/": "/ˈpeʃ.ʃe/", "/beˈlːettsa/": "/bel.ˈlet.tsa/", "/ˈka.ne/": "/ˈka.ne/"}
+    for written, printed in same_word.items():
+        assert ingest_v4.dotted(ingest_v4.italian_doubles(written)) == printed
+    raw = entry("fatto", lexeme("fatto", pronunciations=[{"variety": "it-IT", "ipa": "/ˈfatːo/", "reading": "fàtto"}],
+                                forms=[{"form": "fatti", "features": {"Number": "Plur"}, "ipa": {"it-IT": "/ˈfat.ti/"}}]), lang="it")
+    clean = ingest_v4.clean_entry("it", raw, META)
+    assert clean["lexemes"][0]["pronunciations"][0] == {"variety": "it-IT", "ipa": "/ˈfat.to/", "reading": "fàtto"}
+    assert clean["double_consonants_rewritten"] == 1 and "syllable_dots_added" not in clean
+    assert ingest_v4.clean_entry("en", entry("fatto", lexeme("fatto", pronunciations=[{"variety": "en-US", "ipa": "/ˈfɑːtoʊ/"}])), META)["lexemes"][0]["pronunciations"][0]["ipa"] == "/ˈfɑːtoʊ/"
+
+
+def test_the_ll_of_spain_is_written_as_most_of_spain_says_it():
+    raw = entry("calle", lexeme("calle", pronunciations=[{"variety": "es-ES", "ipa": "/ˈka.ʎe/"}, {"variety": "es-MX", "ipa": "/ˈka.ʝe/"}]), lang="es")
+    clean = ingest_v4.clean_entry("es", raw, META)
+    assert [p["ipa"] for p in clean["lexemes"][0]["pronunciations"]] == ["/ˈka.ʝe/", "/ˈka.ʝe/"] and clean["ll_of_spain_rewritten"] == 1
+    italian = entry("figlio", lexeme("figlio", pronunciations=[{"variety": "it-IT", "ipa": "/ˈfiʎ.ʎo/"}]), lang="it")
+    assert ingest_v4.clean_entry("it", italian, META)["lexemes"][0]["pronunciations"][0]["ipa"] == "/ˈfiʎ.ʎo/"
