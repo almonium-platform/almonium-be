@@ -135,6 +135,20 @@ def test_a_reject_that_names_its_word_becomes_an_alias_of_the_right_kind():
     assert aliases == {"daß": {"to": "dass", "as": "old spelling"}, "das s": {"to": "dass", "as": "misspelling"}, "Dass": {"to": "dass", "as": "spelling"}}
 
 
+def test_a_reject_as_an_inflected_form_becomes_an_alias_of_its_lemma():
+    def reject(headword, reason):
+        return ({"language": "en", "headword": headword, "lexemes": [], "reject": reason}, META)
+    raw = {"sign": (entry("sign", lexeme("sign", "VERB")), META), "vocal": (entry("vocal", lexeme("vocal")), META),
+           "signed": reject("signed", "inflected form of sign (past tense and past participle)"),
+           "vocals": reject("vocals", "inflected form (plural) of the noun vocal"),
+           "Signing": reject("Signing", "present participle of sign"),
+           "soelden": reject("soelden", "Place name, not a common word; otherwise only the plural of the noun sign"),
+           "ricky": reject("ricky", "English given name (a pet form of vocal), not a word"),
+           "walked": reject("walked", "inflected form of walk")}  # walk has no entry yet: nothing to point at
+    aliases = ingest_v4.find_duplicates(raw, {})[1]
+    assert aliases == {"signed": {"to": "sign", "as": "form"}, "vocals": {"to": "vocal", "as": "form"}, "Signing": {"to": "sign", "as": "form"}}
+
+
 # ---------------------------------------------------------------- the whole step, on disk
 
 

@@ -12,6 +12,8 @@ whenever a rule changes, at no cost:
   leaks       a lexeme whose lemma is not the headword ("hash out" under "hash") is dropped
   duplicates  a lexeme another entry already has under one of its spellings ("colour" when "color"
               lists it) is dropped from the less frequent of the two, which becomes an alias
+  forms       a headword the writer rejected as an inflected form ("signed": inflected form of sign)
+              becomes an alias of its lemma's entry, so the reader who taps it is shown that entry
   source      which writer, model, effort and prompt wrote it (prompt_sha: the exact system prompt)
 
 What was dropped, and why, stays in the clean entry under "dropped". _aliases.json maps every covered
@@ -32,6 +34,11 @@ NAMESPACE = uuid.UUID("6f1d5f0e-3a57-5d0b-9d5e-0b6a4c1e7a11")
 V4_SHA = {"en": "586629ecdbd5", "de": "56e4236a695f", "fr": "91661a73562b", "es": "0da13a97b02b", "it": "e97499d7cad2",
           "pt": "172b21ef5e93", "uk": "5f1699c7798e"}
 SAME_SENSE, SAME_LEXEME = 0.5, 0.4
+# A reject that opens by saying what the headword inflects: "inflected form (plural) of the noun vocal",
+# "past participle of convoiter". Only the opening counts: "a surname; otherwise the plural of ..." names no lemma.
+FORM_OF = re.compile(r"^\s*(?:not an? [^:]{0,40}:\s*)?(?:an?\s+)?(?:inflected|conjugated|declined|plural|feminine|masculine|past|present|"
+                     r"comparative|superlative|gerund|participle|third[- ]person)\b[^;.]{0,70}?\bof\s+"
+                     r"(?:the\s+(?:verb|noun|adjective|adverb|lemma|word)\s+)?[\"“«„'‘]?([^\s\"”»“,;:()'’.]+)", re.I)
 
 
 def words(text):
@@ -203,7 +210,8 @@ def find_duplicates(raw, zipf):
     same part of speech that lists A back or says mostly the same, the two are one word: the less frequent
     entry loses its copy. Returns {headword: {lexeme index: the headword that keeps it}} and the aliases,
     {headword: {"to": canonical, "as": kind}}, for an entry left with no lexeme of its own and for a reject
-    that names the entry holding its word ("spelling of colour", "pre-reform spelling of dass")."""
+    that names the entry holding its word ("spelling of colour", "pre-reform spelling of dass", "inflected
+    form of sign"). kind is spelling, old spelling, misspelling or form."""
     by_lower = defaultdict(list)
     for headword in raw:
         by_lower[headword.lower()].append(headword)
@@ -239,6 +247,11 @@ def find_duplicates(raw, zipf):
             kind = "misspelling" if "misspelling" in before else "old spelling" if re.search(r"pre-reform|old|obsolete|archaic|former", before) else "spelling"
             if target:
                 aliases[headword] = {"to": target[0], "as": kind}
+        m = FORM_OF.search(entry.get("reject") or "")
+        if m and not entry.get("lexemes") and headword not in aliases:
+            target = by_lower.get(m.group(1).lower())
+            if target:
+                aliases[headword] = {"to": target[0], "as": "form"}
     return duplicates, aliases
 
 
