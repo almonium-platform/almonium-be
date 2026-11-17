@@ -1,0 +1,12617 @@
+[
+{
+"headword": "de",
+"zipf": 7.68,
+"set": "fr-core"
+},
+{
+"headword": "le",
+"zipf": 7.35,
+"set": "fr-core"
+},
+{
+"headword": "et",
+"zipf": 7.31,
+"set": "fr-core"
+},
+{
+"headword": "l",
+"zipf": 7.26,
+"set": "fr-core"
+},
+{
+"headword": "à",
+"zipf": 7.26,
+"set": "fr-core"
+},
+{
+"headword": "en",
+"zipf": 7.17,
+"set": "fr-core"
+},
+{
+"headword": "d",
+"zipf": 7.14,
+"set": "fr-core"
+},
+{
+"headword": "un",
+"zipf": 7.11,
+"set": "fr-core"
+},
+{
+"headword": "que",
+"zipf": 7.07,
+"set": "fr-core"
+},
+{
+"headword": "du",
+"zipf": 6.99,
+"set": "fr-core"
+},
+{
+"headword": "il",
+"zipf": 6.98,
+"set": "fr-core"
+},
+{
+"headword": "pour",
+"zipf": 6.98,
+"set": "fr-core"
+},
+{
+"headword": "je",
+"zipf": 6.89,
+"set": "fr-core"
+},
+{
+"headword": "qui",
+"zipf": 6.89,
+"set": "fr-core"
+},
+{
+"headword": "c",
+"zipf": 6.87,
+"set": "fr-core"
+},
+{
+"headword": "ce",
+"zipf": 6.78,
+"set": "fr-core"
+},
+{
+"headword": "sur",
+"zipf": 6.77,
+"set": "fr-core"
+},
+{
+"headword": "qu",
+"zipf": 6.76,
+"set": "fr-core"
+},
+{
+"headword": "par",
+"zipf": 6.72,
+"set": "fr-core"
+},
+{
+"headword": "on",
+"zipf": 6.71,
+"set": "fr-core"
+},
+{
+"headword": "ne",
+"zipf": 6.69,
+"set": "fr-core"
+},
+{
+"headword": "avec",
+"zipf": 6.65,
+"set": "fr-core"
+},
+{
+"headword": "j",
+"zipf": 6.65,
+"set": "fr-core"
+},
+{
+"headword": "n",
+"zipf": 6.65,
+"set": "fr-core"
+},
+{
+"headword": "se",
+"zipf": 6.56,
+"set": "fr-core"
+},
+{
+"headword": "vous",
+"zipf": 6.56,
+"set": "fr-core"
+},
+{
+"headword": "s",
+"zipf": 6.53,
+"set": "fr-core"
+},
+{
+"headword": "ça",
+"zipf": 6.53,
+"set": "fr-core"
+},
+{
+"headword": "son",
+"zipf": 6.47,
+"set": "fr-core"
+},
+{
+"headword": "y",
+"zipf": 6.47,
+"set": "fr-core"
+},
+{
+"headword": "ou",
+"zipf": 6.46,
+"set": "fr-core"
+},
+{
+"headword": "si",
+"zipf": 6.46,
+"set": "fr-core"
+},
+{
+"headword": "nous",
+"zipf": 6.43,
+"set": "fr-core"
+},
+{
+"headword": "comme",
+"zipf": 6.41,
+"set": "fr-core"
+},
+{
+"headword": "être",
+"zipf": 6.38,
+"set": "fr-core"
+},
+{
+"headword": "ils",
+"zipf": 6.36,
+"set": "fr-core"
+},
+{
+"headword": "sa",
+"zipf": 6.34,
+"set": "fr-core"
+},
+{
+"headword": "me",
+"zipf": 6.31,
+"set": "fr-core"
+},
+{
+"headword": "t",
+"zipf": 6.28,
+"set": "fr-core"
+},
+{
+"headword": "m",
+"zipf": 6.27,
+"set": "fr-core"
+},
+{
+"headword": "mon",
+"zipf": 6.21,
+"set": "fr-core"
+},
+{
+"headword": "ses",
+"zipf": 6.21,
+"set": "fr-core"
+},
+{
+"headword": "deux",
+"zipf": 6.18,
+"set": "fr-core"
+},
+{
+"headword": "leur",
+"zipf": 6.17,
+"set": "fr-core"
+},
+{
+"headword": "moi",
+"zipf": 6.17,
+"set": "fr-core"
+},
+{
+"headword": "quand",
+"zipf": 6.13,
+"set": "fr-core"
+},
+{
+"headword": "après",
+"zipf": 6.12,
+"set": "fr-core"
+},
+{
+"headword": "sans",
+"zipf": 6.1,
+"set": "fr-core"
+},
+{
+"headword": "où",
+"zipf": 6.07,
+"set": "fr-core"
+},
+{
+"headword": "là",
+"zipf": 5.99,
+"set": "fr-core"
+},
+{
+"headword": "rien",
+"zipf": 5.97,
+"set": "fr-core"
+},
+{
+"headword": "te",
+"zipf": 5.96,
+"set": "fr-core"
+},
+{
+"headword": "votre",
+"zipf": 5.93,
+"set": "fr-core"
+},
+{
+"headword": "avant",
+"zipf": 5.92,
+"set": "fr-core"
+},
+{
+"headword": "depuis",
+"zipf": 5.92,
+"set": "fr-core"
+},
+{
+"headword": "notre",
+"zipf": 5.9,
+"set": "fr-core"
+},
+{
+"headword": "dont",
+"zipf": 5.86,
+"set": "fr-core"
+},
+{
+"headword": "toi",
+"zipf": 5.86,
+"set": "fr-core"
+},
+{
+"headword": "quoi",
+"zipf": 5.84,
+"set": "fr-core"
+},
+{
+"headword": "chez",
+"zipf": 5.8,
+"set": "fr-core"
+},
+{
+"headword": "pays",
+"zipf": 5.79,
+"set": "fr-core"
+},
+{
+"headword": "mes",
+"zipf": 5.77,
+"set": "fr-core"
+},
+{
+"headword": "parce",
+"zipf": 5.73,
+"set": "fr-core"
+},
+{
+"headword": "personne",
+"zipf": 5.73,
+"set": "fr-core"
+},
+{
+"headword": "trois",
+"zipf": 5.72,
+"set": "fr-core"
+},
+{
+"headword": "car",
+"zipf": 5.68,
+"set": "fr-core"
+},
+{
+"headword": "cet",
+"zipf": 5.66,
+"set": "fr-core"
+},
+{
+"headword": "plusieurs",
+"zipf": 5.66,
+"set": "fr-core"
+},
+{
+"headword": "ta",
+"zipf": 5.66,
+"set": "fr-core"
+},
+{
+"headword": "celui",
+"zipf": 5.6,
+"set": "fr-core"
+},
+{
+"headword": "chaque",
+"zipf": 5.6,
+"set": "fr-core"
+},
+{
+"headword": "vrai",
+"zipf": 5.57,
+"set": "fr-core"
+},
+{
+"headword": "selon",
+"zipf": 5.56,
+"set": "fr-core"
+},
+{
+"headword": "quelque",
+"zipf": 5.54,
+"set": "fr-core"
+},
+{
+"headword": "genre",
+"zipf": 5.51,
+"set": "fr-core"
+},
+{
+"headword": "ci",
+"zipf": 5.49,
+"set": "fr-core"
+},
+{
+"headword": "jean",
+"zipf": 5.48,
+"set": "fr-core"
+},
+{
+"headword": "ni",
+"zipf": 5.48,
+"set": "fr-core"
+},
+{
+"headword": "eau",
+"zipf": 5.46,
+"set": "fr-core"
+},
+{
+"headword": "quel",
+"zipf": 5.45,
+"set": "fr-core"
+},
+{
+"headword": "tes",
+"zipf": 5.45,
+"set": "fr-core"
+},
+{
+"headword": "aucun",
+"zipf": 5.44,
+"set": "fr-core"
+},
+{
+"headword": "père",
+"zipf": 5.44,
+"set": "fr-core"
+},
+{
+"headword": "dès",
+"zipf": 5.43,
+"set": "fr-core"
+},
+{
+"headword": "quatre",
+"zipf": 5.42,
+"set": "fr-core"
+},
+{
+"headword": "centre",
+"zipf": 5.39,
+"set": "fr-core"
+},
+{
+"headword": "an",
+"zipf": 5.36,
+"set": "fr-core"
+},
+{
+"headword": "p",
+"zipf": 5.36,
+"set": "fr-core"
+},
+{
+"headword": "or",
+"zipf": 5.35,
+"set": "fr-core"
+},
+{
+"headword": "ah",
+"zipf": 5.31,
+"set": "fr-core"
+},
+{
+"headword": "h",
+"zipf": 5.3,
+"set": "fr-core"
+},
+{
+"headword": "e",
+"zipf": 5.29,
+"set": "fr-core"
+},
+{
+"headword": "cinq",
+"zipf": 5.28,
+"set": "fr-core"
+},
+{
+"headword": "art",
+"zipf": 5.26,
+"set": "fr-core"
+},
+{
+"headword": "lorsque",
+"zipf": 5.24,
+"set": "fr-core"
+},
+{
+"headword": "parmi",
+"zipf": 5.23,
+"set": "fr-core"
+},
+{
+"headword": "ouais",
+"zipf": 5.2,
+"set": "fr-core"
+},
+{
+"headword": "cœur",
+"zipf": 5.17,
+"set": "fr-core"
+},
+{
+"headword": "malgré",
+"zipf": 5.17,
+"set": "fr-core"
+},
+{
+"headword": "derrière",
+"zipf": 5.16,
+"set": "fr-core"
+},
+{
+"headword": "direction",
+"zipf": 5.16,
+"set": "fr-core"
+},
+{
+"headword": "dix",
+"zipf": 5.15,
+"set": "fr-core"
+},
+{
+"headword": "six",
+"zipf": 5.15,
+"set": "fr-core"
+},
+{
+"headword": "x",
+"zipf": 5.14,
+"set": "fr-core"
+},
+{
+"headword": "internet",
+"zipf": 5.13,
+"set": "fr-core"
+},
+{
+"headword": "r",
+"zipf": 5.12,
+"set": "fr-core"
+},
+{
+"headword": "facile",
+"zipf": 5.1,
+"set": "fr-core"
+},
+{
+"headword": "sauf",
+"zipf": 5.1,
+"set": "fr-core"
+},
+{
+"headword": "b",
+"zipf": 5.09,
+"set": "fr-core"
+},
+{
+"headword": "oh",
+"zipf": 5.09,
+"set": "fr-core"
+},
+{
+"headword": "chacun",
+"zipf": 5.08,
+"set": "fr-core"
+},
+{
+"headword": "hein",
+"zipf": 5.08,
+"set": "fr-core"
+},
+{
+"headword": "hors",
+"zipf": 5.08,
+"set": "fr-core"
+},
+{
+"headword": "lequel",
+"zipf": 5.08,
+"set": "fr-core"
+},
+{
+"headword": "louis",
+"zipf": 5.06,
+"set": "fr-core"
+},
+{
+"headword": "nature",
+"zipf": 5.06,
+"set": "fr-core"
+},
+{
+"headword": "puisque",
+"zipf": 5.03,
+"set": "fr-core"
+},
+{
+"headword": "soleil",
+"zipf": 5.03,
+"set": "fr-core"
+},
+{
+"headword": "ex",
+"zipf": 5.02,
+"set": "fr-core"
+},
+{
+"headword": "o",
+"zipf": 5.01,
+"set": "fr-core"
+},
+{
+"headword": "sept",
+"zipf": 5.0,
+"set": "fr-core"
+},
+{
+"headword": "sol",
+"zipf": 5.0,
+"set": "fr-core"
+},
+{
+"headword": "union",
+"zipf": 4.99,
+"set": "fr-core"
+},
+{
+"headword": "v",
+"zipf": 4.99,
+"set": "fr-core"
+},
+{
+"headword": "frais",
+"zipf": 4.97,
+"set": "fr-core"
+},
+{
+"headword": "g",
+"zipf": 4.97,
+"set": "fr-core"
+},
+{
+"headword": "outre",
+"zipf": 4.97,
+"set": "fr-core"
+},
+{
+"headword": "dehors",
+"zipf": 4.95,
+"set": "fr-core"
+},
+{
+"headword": "ceci",
+"zipf": 4.94,
+"set": "fr-core"
+},
+{
+"headword": "dos",
+"zipf": 4.94,
+"set": "fr-core"
+},
+{
+"headword": "huit",
+"zipf": 4.94,
+"set": "fr-core"
+},
+{
+"headword": "via",
+"zipf": 4.93,
+"set": "fr-core"
+},
+{
+"headword": "cul",
+"zipf": 4.92,
+"set": "fr-core"
+},
+{
+"headword": "f",
+"zipf": 4.92,
+"set": "fr-core"
+},
+{
+"headword": "to",
+"zipf": 4.91,
+"set": "fr-core"
+},
+{
+"headword": "al",
+"zipf": 4.9,
+"set": "fr-core"
+},
+{
+"headword": "con",
+"zipf": 4.9,
+"set": "fr-core"
+},
+{
+"headword": "suisse",
+"zipf": 4.89,
+"set": "fr-core"
+},
+{
+"headword": "bah",
+"zipf": 4.88,
+"set": "fr-core"
+},
+{
+"headword": "soi",
+"zipf": 4.88,
+"set": "fr-core"
+},
+{
+"headword": "département",
+"zipf": 4.87,
+"set": "fr-core"
+},
+{
+"headword": "écrire",
+"zipf": 4.87,
+"set": "fr-core"
+},
+{
+"headword": "eh",
+"zipf": 4.86,
+"set": "fr-core"
+},
+{
+"headword": "volonté",
+"zipf": 4.85,
+"set": "fr-core"
+},
+{
+"headword": "belgique",
+"zipf": 4.84,
+"set": "fr-core"
+},
+{
+"headword": "royaume",
+"zipf": 4.83,
+"set": "fr-core"
+},
+{
+"headword": "top",
+"zipf": 4.83,
+"set": "fr-core"
+},
+{
+"headword": "vingt",
+"zipf": 4.82,
+"set": "fr-core"
+},
+{
+"headword": "madame",
+"zipf": 4.81,
+"set": "fr-core"
+},
+{
+"headword": "dedans",
+"zipf": 4.8,
+"set": "fr-core"
+},
+{
+"headword": "musée",
+"zipf": 4.8,
+"set": "fr-core"
+},
+{
+"headword": "u",
+"zipf": 4.8,
+"set": "fr-core"
+},
+{
+"headword": "chaud",
+"zipf": 4.79,
+"set": "fr-core"
+},
+{
+"headword": "rire",
+"zipf": 4.79,
+"set": "fr-core"
+},
+{
+"headword": "noël",
+"zipf": 4.78,
+"set": "fr-core"
+},
+{
+"headword": "présenter",
+"zipf": 4.78,
+"set": "fr-core"
+},
+{
+"headword": "télé",
+"zipf": 4.78,
+"set": "fr-core"
+},
+{
+"headword": "festival",
+"zipf": 4.77,
+"set": "fr-core"
+},
+{
+"headword": "mi",
+"zipf": 4.76,
+"set": "fr-core"
+},
+{
+"headword": "responsabilité",
+"zipf": 4.76,
+"set": "fr-core"
+},
+{
+"headword": "voire",
+"zipf": 4.76,
+"set": "fr-core"
+},
+{
+"headword": "lycée",
+"zipf": 4.75,
+"set": "fr-core"
+},
+{
+"headword": "planète",
+"zipf": 4.75,
+"set": "fr-core"
+},
+{
+"headword": "québécois",
+"zipf": 4.75,
+"set": "fr-core"
+},
+{
+"headword": "maman",
+"zipf": 4.74,
+"set": "fr-core"
+},
+{
+"headword": "propriétaire",
+"zipf": 4.74,
+"set": "fr-core"
+},
+{
+"headword": "twitter",
+"zipf": 4.74,
+"set": "fr-core"
+},
+{
+"headword": "vert",
+"zipf": 4.74,
+"set": "fr-core"
+},
+{
+"headword": "âme",
+"zipf": 4.74,
+"set": "fr-core"
+},
+{
+"headword": "méthode",
+"zipf": 4.72,
+"set": "fr-core"
+},
+{
+"headword": "salon",
+"zipf": 4.72,
+"set": "fr-core"
+},
+{
+"headword": "univers",
+"zipf": 4.72,
+"set": "fr-core"
+},
+{
+"headword": "classement",
+"zipf": 4.71,
+"set": "fr-core"
+},
+{
+"headword": "star",
+"zipf": 4.71,
+"set": "fr-core"
+},
+{
+"headword": "dangereux",
+"zipf": 4.7,
+"set": "fr-core"
+},
+{
+"headword": "robert",
+"zipf": 4.7,
+"set": "fr-core"
+},
+{
+"headword": "sûrement",
+"zipf": 4.7,
+"set": "fr-core"
+},
+{
+"headword": "web",
+"zipf": 4.7,
+"set": "fr-core"
+},
+{
+"headword": "claude",
+"zipf": 4.69,
+"set": "fr-core"
+},
+{
+"headword": "partager",
+"zipf": 4.69,
+"set": "fr-core"
+},
+{
+"headword": "japon",
+"zipf": 4.68,
+"set": "fr-core"
+},
+{
+"headword": "van",
+"zipf": 4.68,
+"set": "fr-core"
+},
+{
+"headword": "battre",
+"zipf": 4.67,
+"set": "fr-core"
+},
+{
+"headword": "jardin",
+"zipf": 4.67,
+"set": "fr-core"
+},
+{
+"headword": "lac",
+"zipf": 4.67,
+"set": "fr-core"
+},
+{
+"headword": "bordel",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "cent",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "colère",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "foutre",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "jaune",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "phrase",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "us",
+"zipf": 4.65,
+"set": "fr-core"
+},
+{
+"headword": "bar",
+"zipf": 4.64,
+"set": "fr-core"
+},
+{
+"headword": "crime",
+"zipf": 4.64,
+"set": "fr-core"
+},
+{
+"headword": "mille",
+"zipf": 4.64,
+"set": "fr-core"
+},
+{
+"headword": "repas",
+"zipf": 4.64,
+"set": "fr-core"
+},
+{
+"headword": "résistance",
+"zipf": 4.64,
+"set": "fr-core"
+},
+{
+"headword": "humanité",
+"zipf": 4.63,
+"set": "fr-core"
+},
+{
+"headword": "nice",
+"zipf": 4.63,
+"set": "fr-core"
+},
+{
+"headword": "post",
+"zipf": 4.63,
+"set": "fr-core"
+},
+{
+"headword": "stratégie",
+"zipf": 4.63,
+"set": "fr-core"
+},
+{
+"headword": "clé",
+"zipf": 4.62,
+"set": "fr-core"
+},
+{
+"headword": "montagne",
+"zipf": 4.62,
+"set": "fr-core"
+},
+{
+"headword": "net",
+"zipf": 4.62,
+"set": "fr-core"
+},
+{
+"headword": "amoureux",
+"zipf": 4.61,
+"set": "fr-core"
+},
+{
+"headword": "faim",
+"zipf": 4.61,
+"set": "fr-core"
+},
+{
+"headword": "lait",
+"zipf": 4.61,
+"set": "fr-core"
+},
+{
+"headword": "lune",
+"zipf": 4.61,
+"set": "fr-core"
+},
+{
+"headword": "alain",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "barre",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "bibliothèque",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "difficulté",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "euro",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "for",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "frontière",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "honte",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "race",
+"zipf": 4.6,
+"set": "fr-core"
+},
+{
+"headword": "duc",
+"zipf": 4.59,
+"set": "fr-core"
+},
+{
+"headword": "k",
+"zipf": 4.59,
+"set": "fr-core"
+},
+{
+"headword": "robe",
+"zipf": 4.59,
+"set": "fr-core"
+},
+{
+"headword": "trente",
+"zipf": 4.59,
+"set": "fr-core"
+},
+{
+"headword": "brésil",
+"zipf": 4.58,
+"set": "fr-core"
+},
+{
+"headword": "commentaire",
+"zipf": 4.58,
+"set": "fr-core"
+},
+{
+"headword": "légende",
+"zipf": 4.58,
+"set": "fr-core"
+},
+{
+"headword": "euh",
+"zipf": 4.57,
+"set": "fr-core"
+},
+{
+"headword": "passion",
+"zipf": 4.57,
+"set": "fr-core"
+},
+{
+"headword": "richard",
+"zipf": 4.57,
+"set": "fr-core"
+},
+{
+"headword": "blog",
+"zipf": 4.56,
+"set": "fr-core"
+},
+{
+"headword": "coucher",
+"zipf": 4.56,
+"set": "fr-core"
+},
+{
+"headword": "jugement",
+"zipf": 4.56,
+"set": "fr-core"
+},
+{
+"headword": "pluie",
+"zipf": 4.56,
+"set": "fr-core"
+},
+{
+"headword": "amitié",
+"zipf": 4.55,
+"set": "fr-core"
+},
+{
+"headword": "bravo",
+"zipf": 4.54,
+"set": "fr-core"
+},
+{
+"headword": "couverture",
+"zipf": 4.54,
+"set": "fr-core"
+},
+{
+"headword": "fier",
+"zipf": 4.54,
+"set": "fr-core"
+},
+{
+"headword": "pp",
+"zipf": 4.54,
+"set": "fr-core"
+},
+{
+"headword": "tas",
+"zipf": 4.54,
+"set": "fr-core"
+},
+{
+"headword": "fermer",
+"zipf": 4.53,
+"set": "fr-core"
+},
+{
+"headword": "puissant",
+"zipf": 4.53,
+"set": "fr-core"
+},
+{
+"headword": "grève",
+"zipf": 4.52,
+"set": "fr-core"
+},
+{
+"headword": "jusque",
+"zipf": 4.52,
+"set": "fr-core"
+},
+{
+"headword": "décider",
+"zipf": 4.51,
+"set": "fr-core"
+},
+{
+"headword": "tournoi",
+"zipf": 4.51,
+"set": "fr-core"
+},
+{
+"headword": "stage",
+"zipf": 4.5,
+"set": "fr-core"
+},
+{
+"headword": "guillaume",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "os",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "pub",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "séjour",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "voile",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "w",
+"zipf": 4.49,
+"set": "fr-core"
+},
+{
+"headword": "disque",
+"zipf": 4.48,
+"set": "fr-core"
+},
+{
+"headword": "lourd",
+"zipf": 4.48,
+"set": "fr-core"
+},
+{
+"headword": "tentative",
+"zipf": 4.48,
+"set": "fr-core"
+},
+{
+"headword": "go",
+"zipf": 4.47,
+"set": "fr-core"
+},
+{
+"headword": "pause",
+"zipf": 4.47,
+"set": "fr-core"
+},
+{
+"headword": "sucre",
+"zipf": 4.47,
+"set": "fr-core"
+},
+{
+"headword": "bière",
+"zipf": 4.46,
+"set": "fr-core"
+},
+{
+"headword": "drogue",
+"zipf": 4.46,
+"set": "fr-core"
+},
+{
+"headword": "tome",
+"zipf": 4.46,
+"set": "fr-core"
+},
+{
+"headword": "do",
+"zipf": 4.45,
+"set": "fr-core"
+},
+{
+"headword": "julien",
+"zipf": 4.45,
+"set": "fr-core"
+},
+{
+"headword": "plait",
+"zipf": 4.45,
+"set": "fr-core"
+},
+{
+"headword": "prof",
+"zipf": 4.45,
+"set": "fr-core"
+},
+{
+"headword": "pré",
+"zipf": 4.45,
+"set": "fr-core"
+},
+{
+"headword": "degré",
+"zipf": 4.44,
+"set": "fr-core"
+},
+{
+"headword": "news",
+"zipf": 4.44,
+"set": "fr-core"
+},
+{
+"headword": "z",
+"zipf": 4.44,
+"set": "fr-core"
+},
+{
+"headword": "bourse",
+"zipf": 4.43,
+"set": "fr-core"
+},
+{
+"headword": "quinze",
+"zipf": 4.43,
+"set": "fr-core"
+},
+{
+"headword": "sexy",
+"zipf": 4.43,
+"set": "fr-core"
+},
+{
+"headword": "couronne",
+"zipf": 4.42,
+"set": "fr-core"
+},
+{
+"headword": "etait",
+"zipf": 4.42,
+"set": "fr-core"
+},
+{
+"headword": "laboratoire",
+"zipf": 4.42,
+"set": "fr-core"
+},
+{
+"headword": "lot",
+"zipf": 4.42,
+"set": "fr-core"
+},
+{
+"headword": "ski",
+"zipf": 4.42,
+"set": "fr-core"
+},
+{
+"headword": "bouteille",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "catherine",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "feuille",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "fortune",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "virus",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "équivalent",
+"zipf": 4.41,
+"set": "fr-core"
+},
+{
+"headword": "los",
+"zipf": 4.4,
+"set": "fr-core"
+},
+{
+"headword": "médaille",
+"zipf": 4.4,
+"set": "fr-core"
+},
+{
+"headword": "pitié",
+"zipf": 4.4,
+"set": "fr-core"
+},
+{
+"headword": "actrice",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "arc",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "indépendant",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "prêtre",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "roy",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "spécialement",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "spécifique",
+"zipf": 4.39,
+"set": "fr-core"
+},
+{
+"headword": "diplôme",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "enregistrement",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "romain",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "sel",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "syndicat",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "toile",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "évêque",
+"zipf": 4.38,
+"set": "fr-core"
+},
+{
+"headword": "cousin",
+"zipf": 4.37,
+"set": "fr-core"
+},
+{
+"headword": "pascal",
+"zipf": 4.37,
+"set": "fr-core"
+},
+{
+"headword": "pop",
+"zipf": 4.37,
+"set": "fr-core"
+},
+{
+"headword": "carré",
+"zipf": 4.36,
+"set": "fr-core"
+},
+{
+"headword": "carrément",
+"zipf": 4.36,
+"set": "fr-core"
+},
+{
+"headword": "monaco",
+"zipf": 4.36,
+"set": "fr-core"
+},
+{
+"headword": "stop",
+"zipf": 4.36,
+"set": "fr-core"
+},
+{
+"headword": "équipement",
+"zipf": 4.36,
+"set": "fr-core"
+},
+{
+"headword": "dimension",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "intelligent",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "mac",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "présidente",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "q",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "retrait",
+"zipf": 4.35,
+"set": "fr-core"
+},
+{
+"headword": "disparaître",
+"zipf": 4.34,
+"set": "fr-core"
+},
+{
+"headword": "juif",
+"zipf": 4.34,
+"set": "fr-core"
+},
+{
+"headword": "pauvreté",
+"zipf": 4.34,
+"set": "fr-core"
+},
+{
+"headword": "pratiquement",
+"zipf": 4.34,
+"set": "fr-core"
+},
+{
+"headword": "thé",
+"zipf": 4.34,
+"set": "fr-core"
+},
+{
+"headword": "adversaire",
+"zipf": 4.33,
+"set": "fr-core"
+},
+{
+"headword": "explosion",
+"zipf": 4.33,
+"set": "fr-core"
+},
+{
+"headword": "autrefois",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "ed",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "fi",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "hockey",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "nu",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "plateforme",
+"zipf": 4.32,
+"set": "fr-core"
+},
+{
+"headword": "gloire",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "livraison",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "moto",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "onze",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "parlez",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "recrutement",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "villa",
+"zipf": 4.31,
+"set": "fr-core"
+},
+{
+"headword": "age",
+"zipf": 4.3,
+"set": "fr-core"
+},
+{
+"headword": "constituent",
+"zipf": 4.3,
+"set": "fr-core"
+},
+{
+"headword": "hop",
+"zipf": 4.3,
+"set": "fr-core"
+},
+{
+"headword": "rayon",
+"zipf": 4.3,
+"set": "fr-core"
+},
+{
+"headword": "coach",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "der",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "fiction",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "ile",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "marié",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "milan",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "pot",
+"zipf": 4.29,
+"set": "fr-core"
+},
+{
+"headword": "mensonge",
+"zipf": 4.28,
+"set": "fr-core"
+},
+{
+"headword": "alsace",
+"zipf": 4.27,
+"set": "fr-core"
+},
+{
+"headword": "dan",
+"zipf": 4.27,
+"set": "fr-core"
+},
+{
+"headword": "environs",
+"zipf": 4.27,
+"set": "fr-core"
+},
+{
+"headword": "ivoire",
+"zipf": 4.27,
+"set": "fr-core"
+},
+{
+"headword": "relais",
+"zipf": 4.27,
+"set": "fr-core"
+},
+{
+"headword": "chaise",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "four",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "napoléon",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "pacifique",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "quarante",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "riz",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "sauce",
+"zipf": 4.26,
+"set": "fr-core"
+},
+{
+"headword": "bible",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "carton",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "cinquante",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "congo",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "jules",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "norme",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "occident",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "rive",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "urbain",
+"zipf": 4.25,
+"set": "fr-core"
+},
+{
+"headword": "forfait",
+"zipf": 4.24,
+"set": "fr-core"
+},
+{
+"headword": "merveilleux",
+"zipf": 4.24,
+"set": "fr-core"
+},
+{
+"headword": "tribune",
+"zipf": 4.24,
+"set": "fr-core"
+},
+{
+"headword": "we",
+"zipf": 4.24,
+"set": "fr-core"
+},
+{
+"headword": "élite",
+"zipf": 4.24,
+"set": "fr-core"
+},
+{
+"headword": "diamètre",
+"zipf": 4.23,
+"set": "fr-core"
+},
+{
+"headword": "poutine",
+"zipf": 4.23,
+"set": "fr-core"
+},
+{
+"headword": "rage",
+"zipf": 4.23,
+"set": "fr-core"
+},
+{
+"headword": "vs",
+"zipf": 4.23,
+"set": "fr-core"
+},
+{
+"headword": "césar",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "girl",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "gâteau",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "joindre",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "li",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "mali",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "miracle",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "noble",
+"zipf": 4.22,
+"set": "fr-core"
+},
+{
+"headword": "baby",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "boy",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "dictionnaire",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "délégation",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "fierté",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "portugais",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "poule",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "propagande",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "quai",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "roue",
+"zipf": 4.21,
+"set": "fr-core"
+},
+{
+"headword": "abonnement",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "conquête",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "duquel",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "fontaine",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "interdire",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "logo",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "épée",
+"zipf": 4.2,
+"set": "fr-core"
+},
+{
+"headword": "ac",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "av",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "bol",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "centaine",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "décrire",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "fabrique",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "louise",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "roche",
+"zipf": 4.19,
+"set": "fr-core"
+},
+{
+"headword": "automatiquement",
+"zipf": 4.18,
+"set": "fr-core"
+},
+{
+"headword": "congé",
+"zipf": 4.18,
+"set": "fr-core"
+},
+{
+"headword": "cv",
+"zipf": 4.18,
+"set": "fr-core"
+},
+{
+"headword": "hé",
+"zipf": 4.18,
+"set": "fr-core"
+},
+{
+"headword": "béton",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "canard",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "case",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "cathédrale",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "cirque",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "diminution",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "panne",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "robin",
+"zipf": 4.17,
+"set": "fr-core"
+},
+{
+"headword": "asile",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "bourgogne",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "canton",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "soixante",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "stock",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "sévère",
+"zipf": 4.16,
+"set": "fr-core"
+},
+{
+"headword": "canapé",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "district",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "expertise",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "junior",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "malin",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "opérateur",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "plaire",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "quiconque",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "réveil",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "saut",
+"zipf": 4.15,
+"set": "fr-core"
+},
+{
+"headword": "charlotte",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "colis",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "life",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "puits",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "quoique",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "taire",
+"zipf": 4.14,
+"set": "fr-core"
+},
+{
+"headword": "envisager",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "harcèlement",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "liège",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "matinée",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "maxime",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "oeuvres",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "pasteur",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "poignée",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "portefeuille",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "sincèrement",
+"zipf": 4.13,
+"set": "fr-core"
+},
+{
+"headword": "abbaye",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "adieu",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "antenne",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "blé",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "clément",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "coucou",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "critiquer",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "enseignant",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "extra",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "jaloux",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "look",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "moulin",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "susceptible",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "trophée",
+"zipf": 4.12,
+"set": "fr-core"
+},
+{
+"headword": "ayez",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "débile",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "détermination",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "globe",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "house",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "mythe",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "poussière",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "ré",
+"zipf": 4.11,
+"set": "fr-core"
+},
+{
+"headword": "back",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "boston",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "chèque",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "considérablement",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "cri",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "fusil",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "pizza",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "polonais",
+"zipf": 4.1,
+"set": "fr-core"
+},
+{
+"headword": "azur",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "campus",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "fidélité",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "fonctionnaire",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "gaffe",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "gré",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "lyonnais",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "manga",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "maths",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "observatoire",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "soumettre",
+"zipf": 4.09,
+"set": "fr-core"
+},
+{
+"headword": "adoptée",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "considérable",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "fun",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "mademoiselle",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "mosquée",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "mâle",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "satellite",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "stockage",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "testament",
+"zipf": 4.08,
+"set": "fr-core"
+},
+{
+"headword": "auguste",
+"zipf": 4.07,
+"set": "fr-core"
+},
+{
+"headword": "green",
+"zipf": 4.07,
+"set": "fr-core"
+},
+{
+"headword": "pompe",
+"zipf": 4.07,
+"set": "fr-core"
+},
+{
+"headword": "prophète",
+"zipf": 4.07,
+"set": "fr-core"
+},
+{
+"headword": "suédois",
+"zipf": 4.07,
+"set": "fr-core"
+},
+{
+"headword": "allure",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "autrui",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "empreinte",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "faune",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "nana",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "people",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "séminaire",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "verbe",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "vocabulaire",
+"zipf": 4.06,
+"set": "fr-core"
+},
+{
+"headword": "are",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "diesel",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "guise",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "hot",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "porto",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "salade",
+"zipf": 4.05,
+"set": "fr-core"
+},
+{
+"headword": "antiquité",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "consensus",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "détriment",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "grandir",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "infirmière",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "mat",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "paragraphe",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "pente",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "wifi",
+"zipf": 4.04,
+"set": "fr-core"
+},
+{
+"headword": "archevêque",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "bye",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "championne",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "esclave",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "ho",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "merveille",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "nier",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "quinzaine",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "rocher",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "terreur",
+"zipf": 4.03,
+"set": "fr-core"
+},
+{
+"headword": "ban",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "oeufs",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "poing",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "psy",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "ras",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "reproduire",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "serpent",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "spectre",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "stand",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "trans",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "treize",
+"zipf": 4.02,
+"set": "fr-core"
+},
+{
+"headword": "dépenser",
+"zipf": 4.01,
+"set": "fr-core"
+},
+{
+"headword": "emprunter",
+"zipf": 4.01,
+"set": "fr-core"
+},
+{
+"headword": "estomac",
+"zipf": 4.01,
+"set": "fr-core"
+},
+{
+"headword": "organe",
+"zipf": 4.01,
+"set": "fr-core"
+},
+{
+"headword": "seize",
+"zipf": 4.01,
+"set": "fr-core"
+},
+{
+"headword": "blues",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "bourg",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "chili",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "fa",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "introduire",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "pan",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "privilège",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "quatorze",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "set",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "vaincre",
+"zipf": 4.0,
+"set": "fr-core"
+},
+{
+"headword": "bague",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "bec",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "capture",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "courageux",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "more",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "obstacle",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "party",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "pékin",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "soeurs",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "sphère",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "séduire",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "valise",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "volontiers",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "xi",
+"zipf": 3.99,
+"set": "fr-core"
+},
+{
+"headword": "alpha",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "athlète",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "aîné",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "bonnet",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "coran",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "déclin",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "favori",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "gel",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "héroïne",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "instar",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "ken",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "périmètre",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "tri",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "ç",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "épais",
+"zipf": 3.98,
+"set": "fr-core"
+},
+{
+"headword": "ba",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "coque",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "if",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "lambert",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "mannequin",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "provincial",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "report",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "ressource",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "souhait",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "vatican",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "ô",
+"zipf": 3.97,
+"set": "fr-core"
+},
+{
+"headword": "cousine",
+"zipf": 3.96,
+"set": "fr-core"
+},
+{
+"headword": "femelle",
+"zipf": 3.96,
+"set": "fr-core"
+},
+{
+"headword": "hébergement",
+"zipf": 3.96,
+"set": "fr-core"
+},
+{
+"headword": "pi",
+"zipf": 3.96,
+"set": "fr-core"
+},
+{
+"headword": "rotation",
+"zipf": 3.96,
+"set": "fr-core"
+},
+{
+"headword": "approvisionnement",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "bi",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "candidate",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "dead",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "dé",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "essor",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "farine",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "fuck",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "grotte",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "hard",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "plancher",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "réchauffement",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "çà",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "élire",
+"zipf": 3.95,
+"set": "fr-core"
+},
+{
+"headword": "bracelet",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "dom",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "jersey",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "nuire",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "short",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "tantôt",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "ti",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "œuf",
+"zipf": 3.94,
+"set": "fr-core"
+},
+{
+"headword": "cabine",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "collectivité",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "enlèvement",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "jungle",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "kit",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "valence",
+"zipf": 3.93,
+"set": "fr-core"
+},
+{
+"headword": "colloque",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "ennui",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "full",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "mouton",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "notoriété",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "reprocher",
+"zipf": 3.92,
+"set": "fr-core"
+},
+{
+"headword": "break",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "chaussure",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "coca",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "mercure",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "notaire",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "pelouse",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "préjudice",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "tasse",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "ténèbres",
+"zipf": 3.91,
+"set": "fr-core"
+},
+{
+"headword": "ciné",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "claque",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "fosse",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "inquiet",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "meeting",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "pipe",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "politiquement",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "péninsule",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "rayonnement",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "triangle",
+"zipf": 3.9,
+"set": "fr-core"
+},
+{
+"headword": "désastre",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "détente",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "jadis",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "loisir",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "lumineux",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "nocturne",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "renard",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "shopping",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "vider",
+"zipf": 3.89,
+"set": "fr-core"
+},
+{
+"headword": "austérité",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "cheville",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "cliché",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "fondement",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "marée",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "ordi",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "ouvrière",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "rousseau",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "single",
+"zipf": 3.88,
+"set": "fr-core"
+},
+{
+"headword": "applicable",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "cinquantaine",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "cross",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "derby",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "dispo",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "inconscient",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "jan",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "rez",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "staff",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "supermarché",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "sylvie",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "trajectoire",
+"zipf": 3.87,
+"set": "fr-core"
+},
+{
+"headword": "about",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "brièvement",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "demoiselle",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "déploiement",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "notable",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "pie",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "sapin",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "édit",
+"zipf": 3.86,
+"set": "fr-core"
+},
+{
+"headword": "app",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "arte",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "bêtise",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "cheminée",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "conseillère",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "déménagement",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "menton",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "posture",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "reconstruire",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "sandwich",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "stylo",
+"zipf": 3.85,
+"set": "fr-core"
+},
+{
+"headword": "borne",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "clergé",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "coutume",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "crayon",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "indépendamment",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "matelas",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "molière",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "parceque",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "pilule",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "randonnée",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "satan",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "sky",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "stone",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "streaming",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "tag",
+"zipf": 3.84,
+"set": "fr-core"
+},
+{
+"headword": "assistante",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "citoyenneté",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "deal",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "emprise",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "fossé",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "gène",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "honnêteté",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "light",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "nièce",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "pin",
+"zipf": 3.83,
+"set": "fr-core"
+},
+{
+"headword": "assassin",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "chan",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "ciment",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "constance",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "doyen",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "formulaire",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "grandit",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "kilomètre",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "massivement",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "store",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "system",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "vigne",
+"zipf": 3.82,
+"set": "fr-core"
+},
+{
+"headword": "avocate",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "cam",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "comporter",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "country",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "discrètement",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "dépens",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "guider",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "halloween",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "yes",
+"zipf": 3.81,
+"set": "fr-core"
+},
+{
+"headword": "arrangement",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "cabane",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "citoyenne",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "cuisse",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "dance",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "delta",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "drone",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "gamine",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "intervalle",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "iris",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "okay",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "syrien",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "validité",
+"zipf": 3.8,
+"set": "fr-core"
+},
+{
+"headword": "allo",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "apocalypse",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "assurément",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "bonté",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "clin",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "concile",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "fabuleux",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "fusée",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "greffe",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "modem",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "redoutable",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "renfort",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "repère",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "richelieu",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "sabre",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "selle",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "tél",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "vachement",
+"zipf": 3.79,
+"set": "fr-core"
+},
+{
+"headword": "addition",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "artifice",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "atlas",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "audace",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "cerf",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "clarté",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "détective",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "méga",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "pois",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "speed",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "séduction",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "vichy",
+"zipf": 3.78,
+"set": "fr-core"
+},
+{
+"headword": "ais",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "arbitraire",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "ayons",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "commencement",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "culotte",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "directoire",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "détection",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "finesse",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "hurler",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "land",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "poupée",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "yen",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "éléphant",
+"zipf": 3.77,
+"set": "fr-core"
+},
+{
+"headword": "bin",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "british",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "dôme",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "poivre",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "refroidissement",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "sou",
+"zipf": 3.76,
+"set": "fr-core"
+},
+{
+"headword": "bouillon",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "confus",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "consulat",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "cran",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "dunkerque",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "fée",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "intra",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "java",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "menacer",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "mœurs",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "normand",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "senior",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "soul",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "teste",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "véronique",
+"zipf": 3.75,
+"set": "fr-core"
+},
+{
+"headword": "affrontement",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "alinéa",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "annuaire",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "araignée",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "artisanat",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "book",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "brin",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "ferry",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "fléau",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "loyauté",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "sas",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "serviteur",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "spot",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "tee",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "western",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "élysée",
+"zipf": 3.74,
+"set": "fr-core"
+},
+{
+"headword": "artisan",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "boulanger",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "cantine",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "chaudière",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "coeurs",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "défaire",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "entrepôt",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "excepté",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "genèse",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "incroyablement",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "joueuse",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "khan",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "machin",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "martial",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "milliardaire",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "obus",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "prostituée",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "radicalement",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "river",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "saumon",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "sieste",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "élégant",
+"zipf": 3.73,
+"set": "fr-core"
+},
+{
+"headword": "camus",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "cohérent",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "danseuse",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "gravure",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "inversement",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "milice",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "oriental",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "questionnaire",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "roc",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "tortue",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "voeux",
+"zipf": 3.72,
+"set": "fr-core"
+},
+{
+"headword": "arche",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "argile",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "bot",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "cursus",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "diabète",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "fantasy",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "idole",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "moustache",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "moïse",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "passerelle",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "précarité",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "ring",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "smic",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "souper",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "trancher",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "troupeau",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "vieillissement",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "écosystème",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "évangile",
+"zipf": 3.71,
+"set": "fr-core"
+},
+{
+"headword": "bijou",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "check",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "email",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "expliquez",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "falaise",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "insuffisant",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "leadership",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "planning",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "self",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "vestiaire",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "vieillesse",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "électro",
+"zipf": 3.7,
+"set": "fr-core"
+},
+{
+"headword": "bb",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "bénin",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "cerise",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "chrome",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "comics",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "déduire",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "gendarme",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "gout",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "merlin",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "orgue",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "redressement",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "switch",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "ultérieurement",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "usure",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "â",
+"zipf": 3.69,
+"set": "fr-core"
+},
+{
+"headword": "autrichien",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "coquille",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "engrais",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "escale",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "flipper",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "karma",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "maya",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "nuque",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "panama",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "pelle",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "pureté",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "round",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "scénariste",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "vœu",
+"zipf": 3.68,
+"set": "fr-core"
+},
+{
+"headword": "aveu",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "bombardier",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "cola",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "comédienne",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "conservatrice",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "créatrice",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "once",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "pm",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "rom",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "staline",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "vicieux",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "échelon",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "étrangement",
+"zipf": 3.67,
+"set": "fr-core"
+},
+{
+"headword": "ancienneté",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "attrait",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "caserne",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "condé",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "insecte",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "isle",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "mâchoire",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "nullement",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "receveur",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "recrue",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "réjouir",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "sceau",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "slip",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "soft",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "soja",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "trinité",
+"zipf": 3.66,
+"set": "fr-core"
+},
+{
+"headword": "clou",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "croître",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "croûte",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "flûte",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "kid",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "promettre",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "prétention",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "rétro",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "théorème",
+"zipf": 3.65,
+"set": "fr-core"
+},
+{
+"headword": "acharnement",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "audacieux",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "bénévole",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "caravane",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "chaleureux",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "disciple",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "durement",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "explosif",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "guitariste",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "impératrice",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "multiple",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "narrateur",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "repli",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "touriste",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "vignoble",
+"zipf": 3.64,
+"set": "fr-core"
+},
+{
+"headword": "adèle",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "coefficient",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "cruauté",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "formulation",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "kilo",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "pet",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "principauté",
+"zipf": 3.63,
+"set": "fr-core"
+},
+{
+"headword": "aa",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "aisé",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "apprenti",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "chrono",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "das",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "diffamation",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "gouffre",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "karen",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "laid",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "loupe",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "monstrueux",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "redevance",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "scie",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "zinc",
+"zipf": 3.62,
+"set": "fr-core"
+},
+{
+"headword": "actu",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "amen",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "bavière",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "buste",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "comète",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "consoler",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "dot",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "enseignante",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "investiture",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "juriste",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "let",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "lucide",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "ouragan",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "shop",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "épopée",
+"zipf": 3.61,
+"set": "fr-core"
+},
+{
+"headword": "adjectif",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "blair",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "body",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "brebis",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "courtier",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "derniere",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "far",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "hameau",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "parcelle",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "pénalité",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "rafale",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "shit",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "vivres",
+"zipf": 3.6,
+"set": "fr-core"
+},
+{
+"headword": "analyste",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "câlin",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "dune",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "fièrement",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "prédire",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "rhume",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "solidité",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "spoiler",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "éolien",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "épave",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "érable",
+"zipf": 3.59,
+"set": "fr-core"
+},
+{
+"headword": "cognac",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "corner",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "croquis",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "dépistage",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "hercule",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "larme",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "naïveté",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "plasma",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "relou",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "réfugier",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "wi",
+"zipf": 3.58,
+"set": "fr-core"
+},
+{
+"headword": "accomplissement",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "bridge",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "camerounais",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "faubourg",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "lotus",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "meunier",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "newton",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "paternité",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "pou",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "quatuor",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "quimper",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "refonte",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "serrure",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "stream",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "tesla",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "vanille",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "vicaire",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "égide",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "énième",
+"zipf": 3.57,
+"set": "fr-core"
+},
+{
+"headword": "cachette",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "chialer",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "cor",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "cuve",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "désespérément",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "feeling",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "fondatrice",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "foulard",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "glissement",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "gâchis",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "homophobie",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "judicieux",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "lys",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "odieux",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "oups",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "papy",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "ravitaillement",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "recouvrement",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "réchauffer",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "scorpion",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "verset",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "weber",
+"zipf": 3.56,
+"set": "fr-core"
+},
+{
+"headword": "abc",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "ace",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "balzac",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "bisou",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "cliente",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "concilier",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "ka",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "lingerie",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "oz",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "primo",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "proverbe",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "titan",
+"zipf": 3.55,
+"set": "fr-core"
+},
+{
+"headword": "abordable",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "allergique",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "amertume",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "building",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "curieusement",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "dentelle",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "déroute",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "gaillard",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "luxembourgeois",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "magistrature",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "oracle",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "quick",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "régression",
+"zipf": 3.54,
+"set": "fr-core"
+},
+{
+"headword": "adjointe",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "amphithéâtre",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "bonbon",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "châtiment",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "coussin",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "démantèlement",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "gallo",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "hart",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "hit",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "ji",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "libraire",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "martel",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "matos",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "monarque",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "panel",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "ruelle",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "réalisatrice",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "schiste",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "épingle",
+"zipf": 3.53,
+"set": "fr-core"
+},
+{
+"headword": "achèvement",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "ananas",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "animatrice",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "avalanche",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "bip",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "campement",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "confiture",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "contingent",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "coquin",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "cruellement",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "curry",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "enculer",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "gaga",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "hachette",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "humanisme",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "imprimante",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "mu",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "parapluie",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "pornographie",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "protectrice",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "psychopathe",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "revente",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "sabine",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "screen",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "soprano",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "tonton",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "trappe",
+"zipf": 3.52,
+"set": "fr-core"
+},
+{
+"headword": "apogée",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "barque",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "calvados",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "casserole",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "dauphiné",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "embouchure",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "expressément",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "hand",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "héritière",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "manège",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "martyre",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "récurrent",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "résine",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "shot",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "taxation",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "toux",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "traque",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "volley",
+"zipf": 3.51,
+"set": "fr-core"
+},
+{
+"headword": "corneille",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "diète",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "escrime",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "fax",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "fdp",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "fresque",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "gant",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "hacker",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "hangar",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "kayak",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "langages",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "language",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "paralysie",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "prescrire",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "ralliement",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "rosé",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "running",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "saucisse",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "stabilisation",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "synopsis",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "translation",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "water",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "zut",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "échappée",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "évocation",
+"zipf": 3.5,
+"set": "fr-core"
+},
+{
+"headword": "alpin",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "barème",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "besson",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "coopérer",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "crétin",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "déluge",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "hazard",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "intact",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "kiosque",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "kurde",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "lessive",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "macédoine",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "mile",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "octave",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "patinoire",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "poussin",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "poutre",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "questionner",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "rebours",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "souscrire",
+"zipf": 3.49,
+"set": "fr-core"
+},
+{
+"headword": "balai",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "baraque",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "canyon",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "cheminement",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "diaspora",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "distant",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "déguisement",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "fat",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "fiançailles",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "hashtag",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "labrador",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "marijuana",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "mono",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "nantais",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "paramètre",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "perruque",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "plausible",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "porn",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "python",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "pêcher",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "quartz",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "servante",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "vulnérabilité",
+"zipf": 3.48,
+"set": "fr-core"
+},
+{
+"headword": "agonie",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "amiante",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "apartheid",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "apollon",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "arrogant",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "attirance",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "auditoire",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "fable",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "gastro",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "héréditaire",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "melon",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "must",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "pentagone",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "répit",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "transversale",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "vaillant",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "vrac",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "éloignement",
+"zipf": 3.47,
+"set": "fr-core"
+},
+{
+"headword": "adrénaline",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "athée",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "corbeau",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "cône",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "faiblement",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "flow",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "habillement",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "holding",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "impuissant",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "législature",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "marquise",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "muraille",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "médiathèque",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "ru",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "substitut",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "tan",
+"zipf": 3.46,
+"set": "fr-core"
+},
+{
+"headword": "catch",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "différentiel",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "dinosaure",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "galette",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "messie",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "ordure",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "rareté",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "serveuse",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "urne",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "valve",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "vigilant",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "zèle",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "étonnamment",
+"zipf": 3.45,
+"set": "fr-core"
+},
+{
+"headword": "antonin",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "bit",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "cargaison",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "cayenne",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "chimiste",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "clim",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "corail",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "drop",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "fitness",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "graal",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "intendant",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "internaute",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "lard",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "legs",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "lexique",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "mandataire",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "merdier",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "mouais",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "méchanceté",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "odyssée",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "paf",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "parenthèse",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "polar",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "tempo",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "trading",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "valois",
+"zipf": 3.44,
+"set": "fr-core"
+},
+{
+"headword": "ambre",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "archer",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "bienveillant",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "cake",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "déportation",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "gland",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "hypothèque",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "intolérable",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "judas",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "louper",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "miam",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "motard",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "pourparlers",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "prostate",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "spin",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "tonneau",
+"zipf": 3.43,
+"set": "fr-core"
+},
+{
+"headword": "adéquat",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "ambiant",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "attractivité",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "carême",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "chandelle",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "confinement",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "consolation",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "cop",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "dauphine",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "frise",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "instantané",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "lé",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "légume",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "motte",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "mélancolie",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "nomenclature",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "pellicule",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "poulain",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "same",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "sobriété",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "tourbillon",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "étincelle",
+"zipf": 3.42,
+"set": "fr-core"
+},
+{
+"headword": "bruxellois",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "canot",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "coloc",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "dégrader",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "gaspard",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "géo",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "habileté",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "infâme",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "joke",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "moustique",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "pool",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "préservatif",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "restau",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "software",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "sonnette",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "soustraire",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "tricher",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "trust",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "voyou",
+"zipf": 3.41,
+"set": "fr-core"
+},
+{
+"headword": "amande",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "analogue",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "bouffon",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "challenger",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "digestif",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "désastreux",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "faussement",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "gaspiller",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "piéton",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "rafraîchir",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "relax",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "rennais",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "réveillon",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "vingtième",
+"zipf": 3.4,
+"set": "fr-core"
+},
+{
+"headword": "ak",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "blason",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "bowling",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "démence",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "inexistant",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "insensé",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "kabyle",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "lentille",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "maj",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "maxwell",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "onéreux",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "prieuré",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "rhinocéros",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "sifflet",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "tumblr",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "vôtres",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "è",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "étendard",
+"zipf": 3.39,
+"set": "fr-core"
+},
+{
+"headword": "adjudant",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "aveuglement",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "avoine",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "brie",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "chiot",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "costaud",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "cover",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "dureté",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "déboucher",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "entremise",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "festin",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "fritz",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "hilarant",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "malle",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "piston",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "prologue",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "regain",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "sentimental",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "soc",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "sursaut",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "verger",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "îlot",
+"zipf": 3.38,
+"set": "fr-core"
+},
+{
+"headword": "bambou",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "basketball",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "boudin",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "cowboy",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "cu",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "djihad",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "désarroi",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "fervent",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "gardienne",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "gifle",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "illinois",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "juvénile",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "mandarin",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "mascotte",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "racaille",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "random",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "samba",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "saoudien",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "somptueux",
+"zipf": 3.37,
+"set": "fr-core"
+},
+{
+"headword": "affaiblissement",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "cell",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "diva",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "détestable",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "entrailles",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "folio",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "gentilhomme",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "inconsciemment",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "instruire",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "item",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "leu",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "lorrain",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "olympe",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "outaouais",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "pharma",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "piéger",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "pli",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "porche",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "portique",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "prisonnière",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "représentante",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "régal",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "scientifiquement",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "shoot",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "tain",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "tripes",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "volaille",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "wu",
+"zipf": 3.36,
+"set": "fr-core"
+},
+{
+"headword": "antan",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "cloître",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "cuvette",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "cygne",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "délice",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "dépouillement",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "exonération",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "fœtus",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "glacial",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "imparfait",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "institutrice",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "jumelle",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "lai",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "safari",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "standing",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "track",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "tromperie",
+"zipf": 3.35,
+"set": "fr-core"
+},
+{
+"headword": "carapace",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "djihadiste",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "démocratisation",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "enclin",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "magnitude",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "messire",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "mollet",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "négativement",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "ost",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "ouh",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "pansement",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "pétanque",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "rameau",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "remous",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "récipient",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "strike",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "superstar",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "tornade",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "versus",
+"zipf": 3.34,
+"set": "fr-core"
+},
+{
+"headword": "accessoirement",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "alto",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "anodin",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "blizzard",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "driver",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "farmer",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "haïtien",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "insuline",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "jument",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "lobbying",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "ossements",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "panthère",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "paranoïa",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "pendule",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "piété",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "progéniture",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "quint",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "quiz",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "rancune",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "reggae",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "sentinelle",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "surpoids",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "té",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "vendeuse",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "vessie",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "évêché",
+"zipf": 3.33,
+"set": "fr-core"
+},
+{
+"headword": "abattement",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "barrette",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "cantal",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "chercheuse",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "dia",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "détailler",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "ive",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "labour",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "maladresse",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "nausée",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "objectivement",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "occasionnellement",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "onglet",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "pioche",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "puberté",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "styliste",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "thune",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "voyelle",
+"zipf": 3.32,
+"set": "fr-core"
+},
+{
+"headword": "acronyme",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "ariège",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "armoiries",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "because",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "biathlon",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "cervelle",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "expliques",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "extase",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "gale",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "gratos",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "hon",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "manuellement",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "matter",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "momentanément",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "négoce",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "prématurément",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "rigoureusement",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "semelle",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "sil",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "tacite",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "underground",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "ut",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "violoncelle",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "étagère",
+"zipf": 3.31,
+"set": "fr-core"
+},
+{
+"headword": "beaujolais",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "brasse",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "cachemire",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "carcasse",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "chenille",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "douille",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "fiesta",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "fourche",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "glande",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "généreusement",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "incompétent",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "lilas",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "living",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "noisette",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "nourrisson",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "nutella",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "ouïe",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "phoque",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "prompt",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "raclette",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "rogue",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "slow",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "stratège",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "tulle",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "twist",
+"zipf": 3.3,
+"set": "fr-core"
+},
+{
+"headword": "ambassadrice",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "bohême",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "fourmi",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "imposture",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "ingrédient",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "lez",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "lustre",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "mortellement",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "projectile",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "proportionnellement",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "purger",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "siffler",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "visuellement",
+"zipf": 3.29,
+"set": "fr-core"
+},
+{
+"headword": "affectueux",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "biomasse",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "discothèque",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "décolleté",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "déplaire",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "forfaitaire",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "gui",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "guignol",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "hijab",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "jacky",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "kan",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "lea",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "libido",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "litière",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "plant",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "radieux",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "récré",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "réécrire",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "scrupule",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "tondeuse",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "énigmatique",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "épilepsie",
+"zipf": 3.28,
+"set": "fr-core"
+},
+{
+"headword": "affront",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "antre",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "archéologue",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "brand",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "compresseur",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "corniche",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "drôlement",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "exhibition",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "fidèlement",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "fourgon",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "harmonieux",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "junte",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "morgane",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "palmier",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "pâtissier",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "rando",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "rangement",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "siemens",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "superviseur",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "thaïlandais",
+"zipf": 3.27,
+"set": "fr-core"
+},
+{
+"headword": "algèbre",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "alle",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "argenté",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "bale",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "binôme",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "caissière",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "crowdfunding",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "cuvée",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "dentifrice",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "dynamo",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "délicatement",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "enflammer",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "guidon",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "imperméable",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "kil",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "moult",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "noeuds",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "oligarchie",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "popcorn",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "psychanalyste",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "putsch",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "pèlerin",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "rai",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "rwandais",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "sillon",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "singer",
+"zipf": 3.26,
+"set": "fr-core"
+},
+{
+"headword": "bongo",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "click",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "delacroix",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "encens",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "flag",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "fluo",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "jojo",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "larve",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "lourdeur",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "masturber",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "militantisme",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "pancréas",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "pendaison",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "protagoniste",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "remarquablement",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "revirement",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "spaghetti",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "trouvaille",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "truck",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "trèfle",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "tune",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "zizi",
+"zipf": 3.25,
+"set": "fr-core"
+},
+{
+"headword": "attentionné",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "burkini",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "chiffrement",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "diacre",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "elfe",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "escapade",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "estival",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "faciès",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "fayard",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "horriblement",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "joyau",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "kiné",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "libyen",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "marmite",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "mauve",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "nope",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "omniprésent",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "passablement",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "prédicateur",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "romano",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "sauna",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "statuette",
+"zipf": 3.24,
+"set": "fr-core"
+},
+{
+"headword": "basta",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "beurette",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "cheese",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "citerne",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "cobra",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "feuillet",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "graphe",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "habitacle",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "ku",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "manne",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "maryland",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "mascara",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "merle",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "morgue",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "parfaire",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "pope",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "pépinière",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "revalorisation",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "richement",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "shooting",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "silicium",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "vigoureux",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "wesh",
+"zipf": 3.23,
+"set": "fr-core"
+},
+{
+"headword": "acné",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "adhérent",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "agilité",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "contournement",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "dicton",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "frérot",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "goal",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "harmattan",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "lavabo",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "nirvana",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "organisatrice",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "parabole",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "psyché",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "rain",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "rand",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "rigolade",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "rédactrice",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "révérence",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "signataire",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "surenchère",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "trot",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "zélandais",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "égo",
+"zipf": 3.22,
+"set": "fr-core"
+},
+{
+"headword": "afghan",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "aria",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "autocar",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "avare",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "avenant",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "border",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "borné",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "canette",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "caïd",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "chrétienté",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "dérober",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "farm",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "fessée",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "flo",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "félicitation",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "gal",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "ide",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "immo",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "liquider",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "lycéenne",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "oméga",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "plug",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "présentatrice",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "rebord",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "ship",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "syllabe",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "trottinette",
+"zipf": 3.21,
+"set": "fr-core"
+},
+{
+"headword": "agrandit",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "alfa",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "bouée",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "cadastre",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "cagoule",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "coiffeuse",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "confidence",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "corrida",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "cricket",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "derrick",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "fix",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "gingembre",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "grappe",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "grasset",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "hammam",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "hospital",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "pingouin",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "prévalence",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "pussy",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "smiley",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "sole",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "tempéré",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "utrecht",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "vocable",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "vrille",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "écrasement",
+"zipf": 3.2,
+"set": "fr-core"
+},
+{
+"headword": "baston",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "bavard",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "betterave",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "bilinguisme",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "bison",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "chilien",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "consciemment",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "menteuse",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "narcisse",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "nippon",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "pitre",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "relique",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "romancière",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "traitre",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "tronçonneuse",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "universalité",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "yard",
+"zipf": 3.19,
+"set": "fr-core"
+},
+{
+"headword": "agora",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "apollinaire",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "culturellement",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "excéder",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "ez",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "feutre",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "gué",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "insurmontable",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "kif",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "manille",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "pensionnat",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "perfusion",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "phosphate",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "piquet",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "pitch",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "polygamie",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "pourtour",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "purgatoire",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "rescousse",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "sep",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "sonder",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "stratagème",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "yvette",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "émoi",
+"zipf": 3.18,
+"set": "fr-core"
+},
+{
+"headword": "ada",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "arf",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "armada",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "aveuglément",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "bastide",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "bayard",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "bourgade",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "brick",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "chantre",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "dada",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "désolation",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "enfantin",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "escape",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "gorille",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "géographe",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "implant",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "intrépide",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "maryse",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "mausolée",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "naine",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "plénitude",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "pompage",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "ruée",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "stèle",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "subtilement",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "trap",
+"zipf": 3.17,
+"set": "fr-core"
+},
+{
+"headword": "anormalement",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "blogueur",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "bouvier",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "burqa",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "cassis",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "chimiothérapie",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "coronavirus",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "dilution",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "flip",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "gazelle",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "gong",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "gracieusement",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "gruyère",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "harnais",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "hérisson",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "inachevé",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "jacent",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "magnétisme",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "malaga",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "maniement",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "muscu",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "nigérian",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "pagaille",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "pale",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "ponctuel",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "rondelle",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "savane",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "sphinx",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "talus",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "tchernobyl",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "tweeter",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "wilaya",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "étanchéité",
+"zipf": 3.16,
+"set": "fr-core"
+},
+{
+"headword": "asse",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "beaufort",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "bruler",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "cacahuète",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "chaudement",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "clitoris",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "compost",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "dual",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "décathlon",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "dépanner",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "dériver",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "fracas",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "framboise",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "freestyle",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "gobelet",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "incognito",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "laiton",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "lasagnes",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "mob",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "modérément",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "pontife",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "pénibilité",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "repondre",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "siecle",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "silicone",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "sparte",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "sèchement",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "verticalement",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "youpi",
+"zipf": 3.15,
+"set": "fr-core"
+},
+{
+"headword": "accroc",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "ale",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "bahia",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "bavure",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "beuh",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "boo",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "cahors",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "clandestinement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "consistoire",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "contrebas",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "cé",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "dino",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "dépêcher",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "désirable",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "envoye",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "ferraille",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "fourbe",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "fourneau",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "fuel",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "gynécologue",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "inlassablement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "inox",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "intellectuellement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "lunch",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "niqab",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "pacifiquement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "passionnément",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "pionnière",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "probation",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "root",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "réunionnais",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "salve",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "scrupuleusement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "secousse",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "sinus",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "unilatéralement",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "vostfr",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "yin",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "épi",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "épiderme",
+"zipf": 3.14,
+"set": "fr-core"
+},
+{
+"headword": "addict",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "appendice",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "bachelor",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "bitch",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "claquement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "codex",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "confident",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "drag",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "ergonomie",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "franchissement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "gone",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "humainement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "implémentation",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "jeun",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "lodge",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "millimètre",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "miraculeux",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "multiculturalisme",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "musicalement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "pff",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "pécho",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "péniblement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "réquisitoire",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "saboter",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "shah",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "snowboard",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "tapette",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "treillis",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "tueuse",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "épilation",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "évitement",
+"zipf": 3.13,
+"set": "fr-core"
+},
+{
+"headword": "agglo",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "anguille",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "ardemment",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "authentification",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "banalité",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "benne",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "calorique",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "cham",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "consumer",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "eldorado",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "escalader",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "hadj",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "historienne",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "idylle",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "indéniablement",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "insuffisamment",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "manucure",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "médicalement",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "ontarien",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "reliure",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "revoilà",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "royalement",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "singulièrement",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "slam",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "tarzan",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "toutou",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "traîneau",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "vainement",
+"zipf": 3.12,
+"set": "fr-core"
+},
+{
+"headword": "accidenté",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "adaptateur",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "adobe",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "amante",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "antillais",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "bene",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "berthe",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "cachot",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "chai",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "chevelu",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "dissident",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "durcissement",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "erroné",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "farouchement",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "façonner",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "fioul",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "foncièrement",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "fourrière",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "haras",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "maitriser",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "matelot",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "naguère",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "nounours",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "nouvelliste",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "numérisation",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "officieux",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "ostie",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "papyrus",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "pastèque",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "patronyme",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "phi",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "pluton",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "politologue",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "pressentiment",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "prou",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "reclus",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "reflux",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "simultané",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "stéphanois",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "surpopulation",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "sénéchal",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "tisane",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "tollé",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "trampoline",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "valeureux",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "visualisation",
+"zipf": 3.11,
+"set": "fr-core"
+},
+{
+"headword": "ani",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "apnée",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "autocollant",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "citrouille",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "colocation",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "computer",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "continuum",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "doucher",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "dumping",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "détritus",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "follow",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "fon",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "gnome",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "gospel",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "hardware",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "inchangé",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "instrumentalisation",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "mainmise",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "mutualisation",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "méchamment",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "naïvement",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "pontifical",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "pédé",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "suffisance",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "timidement",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "turbulences",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "vaudou",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "watt",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "écusson",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "évangélisation",
+"zipf": 3.1,
+"set": "fr-core"
+},
+{
+"headword": "abcès",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "anis",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "armature",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "charleston",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "chasteté",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "corona",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "dancing",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "deck",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "dol",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "dédain",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "factice",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "follement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "funky",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "instinctivement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "intendance",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "magnat",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "mana",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "milanais",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "mixtape",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "mousson",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "pointure",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "recueillement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "ringard",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "ruissellement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "sainement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "smoking",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "tendrement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "transgenre",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "traçabilité",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "vaudois",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "won",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "écrin",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "écu",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "équitablement",
+"zipf": 3.09,
+"set": "fr-core"
+},
+{
+"headword": "bisounours",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "chocolatine",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "clairière",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "daphné",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "fatigant",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "gélatine",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "génois",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "hess",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "horticulture",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "imprudent",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "kangourou",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "legendre",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "maladroitement",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "massue",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "mathématiquement",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "modestement",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "politicienne",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "prépondérant",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "roquefort",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "salafiste",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "sociétal",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "sourate",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "tartare",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "triptyque",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "trouille",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "univ",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "vallaud",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "verbalement",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "yé",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "étau",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "œuvrer",
+"zipf": 3.08,
+"set": "fr-core"
+},
+{
+"headword": "acre",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "averse",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "bistro",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "chuis",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "crémaillère",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "dandy",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "débardeur",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "exhiber",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "fatalement",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "groove",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "humblement",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "intermittence",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "irrémédiablement",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "lebron",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "lev",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "liner",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "lorette",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "légat",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "monoxyde",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "orée",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "pandore",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "pupitre",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "quenelle",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "risée",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "rixe",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "shampooing",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "silice",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "skip",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "substantiel",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "uniformément",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "vortex",
+"zipf": 3.07,
+"set": "fr-core"
+},
+{
+"headword": "arbuste",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "blogueuse",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "botaniste",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "brandebourg",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "buis",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "bénévolement",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "couchage",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "courroie",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "dard",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "docu",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "dommageable",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "députation",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "enfouissement",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "entendement",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "extraordinairement",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "gaieté",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "glas",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "gynéco",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "hélico",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "kiffer",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "lutin",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "oe",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "pontificat",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "précipitamment",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "quantifier",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "radis",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "réticent",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "saouler",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "sceptre",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "symbiose",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "syphilis",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "vaudeville",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "viral",
+"zipf": 3.06,
+"set": "fr-core"
+},
+{
+"headword": "auger",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "bagatelle",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "biographe",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "blanco",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "blockbuster",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "conductrice",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "couter",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "cupidon",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "cybersécurité",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "draft",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "drastiquement",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "déclassement",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "déconstruction",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "exorbitant",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "gamelle",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "gouter",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "hideux",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "hindou",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "impro",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "infante",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "internationalement",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "jockey",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "kappa",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "losange",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "miséricordieux",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "modernisme",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "pommade",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "populace",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "queer",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "remplaçante",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "réfectoire",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "sacerdoce",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "savamment",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "sonate",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "speech",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "taser",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "tracas",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "troisièmement",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "téléthon",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "universellement",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "vacarme",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "zaïre",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "échappatoire",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "éditrice",
+"zipf": 3.05,
+"set": "fr-core"
+},
+{
+"headword": "amicalement",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "anonymement",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "avent",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "aéronef",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "banqueroute",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "blasé",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "boa",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "brême",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "comparateur",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "constitutionnalité",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "crétacé",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "diffus",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "délicieusement",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "ellipse",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "eucalyptus",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "facial",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "guêpe",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "impunément",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "itinérance",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "joconde",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "koi",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "lagon",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "lampadaire",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "lapsus",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "lionne",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "madone",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "meule",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "odéon",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "pacs",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "papauté",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "percuter",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "plèbe",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "psi",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "rab",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "redoublement",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "robustesse",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "sarcophage",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "speaker",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "veilleuse",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "za",
+"zipf": 3.04,
+"set": "fr-core"
+},
+{
+"headword": "aine",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "argh",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "aïd",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "beaupré",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "bosco",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "bottom",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "brocante",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "brunette",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "container",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "contrepoids",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "corset",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "courageusement",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "doudoune",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "exécrable",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "furieusement",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "garenne",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "hola",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "houille",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "jeannette",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "lagune",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "levrette",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "madère",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "musicienne",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "officieusement",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "organigramme",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "parmentier",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "plaidoirie",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "ponce",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "portfolio",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "saule",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "sévices",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "tibétain",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "tkt",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "trauma",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "tribal",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "vestibule",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "virulent",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "véranda",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "écartement",
+"zipf": 3.03,
+"set": "fr-core"
+},
+{
+"headword": "autoportrait",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "bath",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "bienfait",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "béquille",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "cabale",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "caniveau",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "capri",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "cata",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "chancelière",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "contresens",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "déconnexion",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "démembrement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "empressement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "entêtement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "fainéant",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "fard",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "glaive",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "guyot",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "intransigeant",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "intrinsèquement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "justinien",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "lacune",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "multijoueur",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "nativité",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "nymphe",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "perpétuellement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "plastic",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "poignarder",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "promptement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "pépé",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "quorum",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "qué",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "ria",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "royer",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "saper",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "silencieusement",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "sournois",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "supercoupe",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "tabernacle",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "worth",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "écolier",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "épouvante",
+"zipf": 3.02,
+"set": "fr-core"
+},
+{
+"headword": "biceps",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "bosquet",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "brumaire",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "coccinelle",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "cyprès",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "daim",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "densément",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "dispensaire",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "douma",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "dressing",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "décemment",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "dédale",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "dénigrement",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "désintérêt",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "entretemps",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "houblon",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "ibis",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "incessant",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "inonder",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "klaxon",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "lao",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "latence",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "liesse",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "microcosme",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "miette",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "mongol",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "numérotation",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "perceuse",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "persister",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "préf",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "racial",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "religieusement",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "rift",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "sana",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "sociabilité",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "sofa",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "voleuse",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "yorkshire",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "écueil",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "éthanol",
+"zipf": 3.01,
+"set": "fr-core"
+},
+{
+"headword": "admirablement",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "bruyamment",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "bé",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "chamois",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "cicatrisation",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "clasico",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "cluster",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "cormier",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "dac",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "dare",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "distillerie",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "fougueux",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "fournaise",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "frêle",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "hoquet",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "horizontalement",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "kaki",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "lebel",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "mairesse",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "mdp",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "mug",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "nonne",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "polygone",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "profilage",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "pucelle",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "pâque",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "reconduite",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "sigma",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "supp",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "surdoué",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "sépulcre",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "taquet",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "émanation",
+"zipf": 3.0,
+"set": "fr-core"
+},
+{
+"headword": "œcuménique",
+"zipf": 3.0,
+"set": "fr-core"
+}
+]
