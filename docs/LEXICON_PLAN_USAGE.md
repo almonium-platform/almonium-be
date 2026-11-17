@@ -148,3 +148,8 @@ entries per $100 week it is under two weeks of one Claude account.
   prompt and schema versions, faults, queues left and words to mend, refreshed every quarter
   of an hour by `almonium-lexicon-status.timer` (`scripts/lexicon_research/lexicon_status.py`).
 - `scripts/lexicon_research/check_v4.py` for the faults with examples.
+- The private repository `almonium-platform/almonium-lexicon-data`: every written entry, committed
+  every three hours from the owner's machine by `scripts/lexicon_research/lexicon_data_sync.py`
+  (`almonium-lexicon-data-sync.timer`). Its git directory sits beside the backend checkout and its
+  work tree is `out/`, so nothing is copied. It is the only copy of the entries off the laptop and
+  the way a cloud session reads them.
