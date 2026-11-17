@@ -14,8 +14,13 @@ A sense is one of
   A  an alternative, obsolete or regional spelling, an acronym or a clipping (French "sida",
      "info"): a word a learner meets, written under its own spelling until entries carry spellings
   X  an abbreviation or misspelling of another word ("млрд", "нажаль")
+  C  a contraction of two words (German "zum", French "au", English "can't"): written, as kind "contraction"
 and a spelling's flags are the union over every entry and part of speech it has ("FL" for
 English "parking": a noun of its own and the participle of park).
+
+For Ukrainian, which does not write stress, the same pass keeps wiktionary/uk.stress.tsv: every
+stressed form Wiktionary prints (та́бору, таборі́в) under its plain spelling. check_v4.py holds the
+readings the writer gave against it; it is a witness, never copied into an entry.
 
 Usage: lemma_index.py [--langs en,de,fr,es,it,pt,uk]   (run from the backend repository root)
        About 8 GB across the seven languages, streamed; English alone is 3.4 GB.
@@ -32,6 +37,8 @@ DERIVED_TAGS = {"diminutive", "augmentative", "endearing", "pejorative", "noun-f
 DERIVED_GLOSSES = ("female equivalent of", "male equivalent of")
 REJECTED_ALT = {"abbreviation", "misspelling"}
 KEPT_ALT = {"acronym", "initialism", "clipping"}
+STRESS_WITNESS = {"uk"}
+ACUTE = "\u0301"
 
 
 def sense_kind(sense):
@@ -42,6 +49,8 @@ def sense_kind(sense):
         if tags & DERIVED_TAGS or gloss.startswith(DERIVED_GLOSSES):
             return "L"
         return "F"
+    if "contraction" in tags:
+        return "C"
     if sense.get("alt_of") or "alt-of" in tags:
         return "X" if tags & REJECTED_ALT and not tags & KEPT_ALT else "A"
     if "no-gloss" in tags and not sense.get("glosses"):
@@ -60,8 +69,17 @@ def targets(sense):
     return [plain(t["word"]) for t in sense.get("form_of") or [] if t.get("word")]
 
 
-def classify(lines):
-    """Spelling -> (flags, form-of targets) over every record of a JSONL stream."""
+def stressed_forms(record):
+    """Every form of a record that carries a stress mark and is written in the record's own script."""
+    for form in record.get("forms") or []:
+        text = unicodedata.normalize("NFC", form.get("form") or "")
+        if ACUTE in text and "romanization" not in (form.get("tags") or []) and " " not in text:
+            yield text
+
+
+def classify(lines, stress=None):
+    """Spelling -> (flags, form-of targets) over every record of a JSONL stream. When a dict is given
+    as stress, it is filled with plain spelling -> the stressed forms seen for it."""
     flags, aims = defaultdict(set), defaultdict(list)
     for line in lines:
         try:
@@ -71,6 +89,9 @@ def classify(lines):
         word = record.get("word")
         if not word:
             continue
+        if stress is not None:
+            for text in stressed_forms(record):
+                stress.setdefault(plain(text), set()).add(text)
         for sense in record.get("senses") or []:
             kind = sense_kind(sense)
             if kind is None:
@@ -96,14 +117,28 @@ def write_index(lang, verdicts):
     return out
 
 
+def write_stress(lang, stress):
+    out = INDEX / f"{lang}.stress.tsv"
+    tmp = out.with_suffix(".tsv.part")
+    with tmp.open("w", encoding="utf-8") as f:
+        for word in sorted(stress):
+            f.write(f"{word}\t{'|'.join(sorted(stress[word]))}\n")
+    tmp.replace(out)
+    return out
+
+
 def build(lang):
     req = urllib.request.Request(URL.format(name=KAIKKI[lang]), headers={"User-Agent": "almonium-lexicon-research/1.0"})
+    stress = {} if lang in STRESS_WITNESS else None
     with urllib.request.urlopen(req, timeout=120) as response:
-        verdicts = classify(io.TextIOWrapper(response, encoding="utf-8"))
+        verdicts = classify(io.TextIOWrapper(response, encoding="utf-8"), stress)
     out = write_index(lang, verdicts)
+    if stress is not None:
+        print(f"{lang}: {len(stress)} stressed spellings -> {write_stress(lang, stress)}", flush=True)
     counts = defaultdict(int)
     for fl, _ in verdicts.values():
-        counts["lemma" if "L" in fl else "form only" if "F" in fl else "spelling only" if "A" in fl else "abbreviation or misspelling"] += 1
+        counts["lemma" if "L" in fl else "contraction" if "C" in fl else "form only" if "F" in fl else "spelling only" if "A" in fl
+               else "abbreviation or misspelling"] += 1
     print(f"{lang}: {len(verdicts)} spellings -> {out} {dict(counts)}", flush=True)
 
 

@@ -16,7 +16,7 @@ Usage: api_writer.py --headwords NAME --langs fr [--model claude-opus-5-5] [--wo
            [--budget-usd 240] [--limit N] [--no-gate]        (run from the backend repository root;
            build the index once with lemma_index.py)
 """
-import argparse, json, sys, threading, time
+import argparse, hashlib, json, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -33,6 +33,7 @@ WRITER = f"cc-claude-opus-5-5{WRITER_SUFFIX}"  # shared with the CLI writer run 
 # list prices per million tokens: input, cache read, cache write, output
 PRICES = {"claude-opus-5-5": (4.0, 0.4, 5.0, 20.0), "claude-sonnet-5-5": (3.0, 0.3, 3.75, 15.0)}
 
+GATE = True  # --no-gate turns off the Wiktionary check and the covered-spelling lookup
 _lock = threading.Lock()
 _spent = 0.0
 _stopped = False
@@ -83,9 +84,10 @@ def write_one(client, model, lang, system, row, budget):
             _stopped = True
             return "stopped"
     text, meta, entry = "", {}, None
+    covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
     for attempt in range(3):
         try:
-            text, meta = call(client, model, system, user_prompt(lang, row))
+            text, meta = call(client, model, system, user_prompt(lang, row, covered))
             with _lock:
                 _spent += cost_usd(model, meta)
             entry = parse(text)
@@ -98,10 +100,12 @@ def write_one(client, model, lang, system, row, budget):
         except Exception as e:  # rate limits, transient errors
             entry = {"error": f"{type(e).__name__}: {str(e)[:300]}"}
             time.sleep(15 * (attempt + 1))
+    meta.update({"prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12], "covered": [f"{l} ({p})" for l, p in covered] or None})
     meta.update({"prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": "high",
                  "via": "api", "cost_usd": round(cost_usd(model, meta), 5) if "input_tokens" in meta else None})
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
+    lemma_gate.register(lang, entry)
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
     print(f"api-{model:16} {lang} {row['headword']:22} {status:12} {meta.get('latency_s', '?')}s cache_read={meta.get('cache_read', 0)} "
           f"out={meta.get('output_tokens', '?')} cost=${meta.get('cost_usd')} spent=${_spent:.2f}", flush=True)
@@ -117,7 +121,8 @@ ap.add_argument("--budget-usd", type=float, default=240.0, help="stop for good o
 ap.add_argument("--limit", type=int, default=0)
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 a = ap.parse_args()
-if not a.no_gate:
+GATE = not a.no_gate
+if GATE:
     lemma_gate.require(a.langs.split(","))
 import anthropic  # noqa: E402
 

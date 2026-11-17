@@ -1,0 +1,286 @@
+"""From the entries the writers wrote to the lexicon that is published: rules only, no model call.
+
+A written entry (out/<writer>-v4/<lang>/<headword>.json) is the paid text and is never changed. This
+step derives the clean entry from it, into out/lexicon-s3/<lang>/<headword>.json, and can be rerun
+whenever a rule changes, at no cost:
+
+  ids         every lexeme gets an id and a homograph number, every sense an id; a form tied to senses
+              names them by id ("sense_ids") instead of by position
+  rewrites    when a clean entry already exists, a lexeme written again keeps its id, and so does a
+              sense whose definition is the same or mostly the same words; a sense that is gone is
+              listed under "retired", so what hangs on it (glosses, cues, a learner's card) can follow
+  leaks       a lexeme whose lemma is not the headword ("hash out" under "hash") is dropped
+  duplicates  a lexeme another entry already has under one of its spellings ("colour" when "color"
+              lists it) is dropped from the less frequent of the two, which becomes an alias
+  source      which writer, model, effort and prompt wrote it (prompt_sha: the exact system prompt)
+
+What was dropped, and why, stays in the clean entry under "dropped". _aliases.json maps every covered
+spelling to the headword that holds its lexemes; _report.json counts what happened.
+
+Usage: ingest_v4.py [--langs en,de] [--dry-run]   (run from the backend repository root)
+"""
+import argparse, json, re, sys, uuid
+from collections import Counter, defaultdict
+from pathlib import Path
+
+HERE = Path("scripts/lexicon_research")
+OUT = HERE / "out"
+CLEAN = OUT / "lexicon-s3"  # schema 3; the name must not match a writer directory (*-v4)
+LANGS = ["en", "de", "fr", "es", "it", "pt", "uk"]
+NAMESPACE = uuid.UUID("6f1d5f0e-3a57-5d0b-9d5e-0b6a4c1e7a11")
+# the system prompt of v4 as committed in 2ae77a9, for entries written before prompt_sha was recorded
+V4_SHA = {"en": "586629ecdbd5", "de": "56e4236a695f", "fr": "91661a73562b", "es": "0da13a97b02b", "it": "e97499d7cad2",
+          "pt": "172b21ef5e93", "uk": "5f1699c7798e"}
+SAME_SENSE, SAME_LEXEME = 0.5, 0.4
+
+
+def words(text):
+    return set(re.findall(r"[^\W\d_]+", (text or "").lower()))
+
+
+def overlap(a, b):
+    a, b = words(a), words(b)
+    return len(a & b) / len(a | b) if a and b else 0.0
+
+
+def norm(text):
+    return " ".join((text or "").lower().split())
+
+
+def signature(lexeme):
+    """What tells two homographs of one part of speech apart: gender and the first pronunciation."""
+    ipa = ((lexeme.get("pronunciations") or [{}])[0].get("ipa") or "").replace(".", "").replace(" ", "")
+    return ((lexeme.get("grammar") or {}).get("gender"), ipa)
+
+
+def group(lexeme):
+    return (lexeme.get("pos"), (lexeme.get("lemma") or "").lower())
+
+
+def lexeme_id(lang, headword, lexeme, homograph):
+    pos, lemma = group(lexeme)
+    return str(uuid.uuid5(NAMESPACE, f"lexeme|{lang}|{headword.lower()}|{pos}|{lemma}|{homograph}"))
+
+
+def sense_id(lexeme_uuid, definition):
+    return str(uuid.uuid5(NAMESPACE, f"sense|{lexeme_uuid}|{norm(definition)}"))
+
+
+def is_own(headword, lexeme):
+    """Whether the lexeme belongs under the headword: its lemma, or one of its spellings, is the headword."""
+    own = headword.lower()
+    if (lexeme.get("lemma") or "").lower() == own:
+        return True
+    return any((s.get("text") or "").lower() == own for s in lexeme.get("spellings") or [])
+
+
+def match_lexemes(old, new):
+    """Pairs (old index, new index) of lexemes that are the same word, within one part of speech and lemma."""
+    pairs, free_old, free_new = [], set(range(len(old))), set(range(len(new)))
+    for j in sorted(free_new):
+        hit = next((i for i in sorted(free_old) if group(old[i]) == group(new[j]) and signature(old[i]) == signature(new[j])), None)
+        if hit is not None:
+            pairs.append((hit, j)); free_old.discard(hit); free_new.discard(j)
+    scored = sorted(((max((overlap(a.get("definition"), b.get("definition")) for a in old[i].get("senses", []) for b in new[j].get("senses", [])), default=0), i, j)
+                     for i in free_old for j in free_new if group(old[i]) == group(new[j])), reverse=True)
+    for score, i, j in scored:
+        if i in free_old and j in free_new and (score > 0 or sum(group(old[k]) == group(new[j]) for k in free_old) == 1):
+            pairs.append((i, j)); free_old.discard(i); free_new.discard(j)
+    return pairs
+
+
+def match_senses(old, new):
+    """{new index: old sense} for senses that are the same sense: the same definition, or mostly the same words."""
+    kept, free = {}, list(range(len(old)))
+    for j, s in enumerate(new):
+        hit = next((i for i in free if norm(old[i].get("definition")) == norm(s.get("definition"))), None)
+        if hit is not None:
+            kept[j] = old[hit]; free.remove(hit)
+    scored = sorted(((overlap(old[i].get("definition"), s.get("definition")), i, j) for i in free for j, s in enumerate(new) if j not in kept), reverse=True)
+    for score, i, j in scored:
+        if score >= SAME_SENSE and i in free and j not in kept:
+            kept[j] = old[i]; free.remove(i)
+    return kept, [old[i] for i in free]
+
+
+def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
+    """The clean entry for one written entry. previous is the clean entry of an earlier ingest, if any;
+    duplicates maps the index of a lexeme to the headword that already has it."""
+    headword = raw["headword"]
+    entry = {"schema": "3", "language": lang, "headword": headword, "lexemes": []}
+    dropped, kept = [], []
+    for index, lexeme in enumerate(raw.get("lexemes") or []):
+        if not is_own(headword, lexeme):
+            dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
+        elif duplicates and index in duplicates:
+            dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": f"written under {duplicates[index]}"})
+        else:
+            kept.append(json.loads(json.dumps(lexeme)))
+    old = (previous or {}).get("lexemes") or []
+    pairs = dict((j, i) for i, j in match_lexemes(old, kept))
+    used = {(group(o), o.get("homograph")) for o in old}
+    retired_lexemes = [{"id": o["id"], "lemma": o.get("lemma"), "pos": o.get("pos")} for i, o in enumerate(old) if i not in pairs.values()]
+    for j, lexeme in enumerate(kept):
+        before = old[pairs[j]] if j in pairs else None
+        if before:
+            homograph, uid = before["homograph"], before["id"]
+        else:
+            homograph = next(n for n in range(1, 1000) if (group(lexeme), n) not in used)
+            uid = lexeme_id(lang, headword, lexeme, homograph)
+        used.add((group(lexeme), homograph))
+        senses = lexeme.get("senses") or []
+        same, gone = match_senses(before.get("senses") or [], senses) if before else ({}, [])
+        for k, sense in enumerate(senses):
+            sense_uid = same[k]["id"] if k in same else sense_id(uid, sense.get("definition"))
+            senses[k] = {"id": sense_uid, **sense}
+        for form in lexeme.get("forms") or []:
+            if "senses" in form:
+                form["sense_ids"] = [senses[n - 1]["id"] for n in form.pop("senses") if 0 < n <= len(senses)]
+        cleaned = {"id": uid, "homograph": homograph, **lexeme}
+        retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
+        if retired:
+            cleaned["retired"] = retired
+        entry["lexemes"].append(cleaned)
+    if raw.get("reject") and not raw.get("lexemes"):
+        entry["reject"] = raw["reject"]
+    if aliases:
+        entry["aliases"] = sorted(aliases)
+    if dropped:
+        entry["dropped"] = dropped
+    retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
+    if retired_lexemes:
+        entry["retired_lexemes"] = retired_lexemes
+    entry["source"] = {"writer": meta.get("writer"), "model": meta.get("model"), "effort": meta.get("effort"),
+                       "prompt_version": meta.get("prompt_version"),
+                       "prompt_sha": meta.get("prompt_sha") or (V4_SHA.get(lang) if meta.get("prompt_version") == "v4" else None)}
+    return entry
+
+
+def load_raw(lang):
+    """headword -> (entry, meta) for every entry a v4 writer wrote, errors left out. The first writer directory wins."""
+    found = {}
+    for d in sorted(OUT.glob(f"*-v4/{lang}")):
+        for f in sorted(d.glob("*.json")):
+            if f.name.endswith(".meta.json") or f.stem in found:
+                continue
+            try:
+                entry = json.loads(f.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(entry, dict) or "error" in entry or "headword" not in entry:
+                continue
+            meta_f = f.with_name(f.stem + ".meta.json")
+            meta = json.loads(meta_f.read_text(encoding="utf-8")) if meta_f.exists() else {}
+            found[f.stem] = (entry, {**meta, "writer": d.parent.name})
+    return found
+
+
+def zipf_of(lang):
+    best = {}
+    for f in (HERE / "headwords").glob(f"*{lang}.json"):
+        for row in json.loads(f.read_text(encoding="utf-8")):
+            key = row["headword"].lower()
+            best[key] = max(best.get(key, 0), row.get("zipf") or 0)
+    return best
+
+
+def alike(a, b):
+    """How much two lexemes say the same thing: the share of one's senses the other also has, either way round."""
+    def share(x, y):
+        xs = x.get("senses") or []
+        return sum(max((overlap(s.get("definition"), t.get("definition")) for t in y.get("senses") or []), default=0) for s in xs) / max(1, len(xs))
+    return max(share(a, b), share(b, a))
+
+
+def lists(lexeme, headword):
+    return any((s.get("text") or "").lower() == headword.lower() for s in lexeme.get("spellings") or [])
+
+
+def find_duplicates(raw, zipf):
+    """Lexemes written twice because a word has two spellings and both were headwords.
+
+    When a lexeme of entry A lists the headword of entry B among its spellings, and B has a lexeme of the
+    same part of speech that lists A back or says mostly the same, the two are one word: the less frequent
+    entry loses its copy. Returns {headword: {lexeme index: the headword that keeps it}} and the aliases,
+    {headword: {"to": canonical, "as": kind}}, for an entry left with no lexeme of its own and for a reject
+    that names the entry holding its word ("spelling of colour", "pre-reform spelling of dass")."""
+    by_lower = defaultdict(list)
+    for headword in raw:
+        by_lower[headword.lower()].append(headword)
+    rank = lambda h: (-zipf.get(h.lower(), 0), h)
+    duplicates = defaultdict(dict)
+    for a, (entry_a, _) in raw.items():
+        for i, mine in enumerate(entry_a.get("lexemes") or []):
+            if not is_own(a, mine):
+                continue
+            for spelling in mine.get("spellings") or []:
+                text = (spelling.get("text") or "").lower()
+                for b in by_lower.get(text, []) if text != a.lower() else []:
+                    candidates = [(alike(mine, theirs), j, theirs) for j, theirs in enumerate(raw[b][0].get("lexemes") or [])
+                                  if is_own(b, theirs) and theirs.get("pos") == mine.get("pos")]
+                    if not candidates:
+                        continue
+                    score, j, theirs = max(candidates, key=lambda c: (lists(c[2], a), c[0]))
+                    if not (lists(theirs, a) or score >= SAME_LEXEME):
+                        continue
+                    if rank(a) < rank(b):
+                        duplicates[b][j] = a
+                    else:
+                        duplicates[a][i] = b
+    aliases = {}
+    for headword, (entry, _) in raw.items():
+        own = [i for i, lx in enumerate(entry.get("lexemes") or []) if is_own(headword, lx)]
+        if own and all(i in duplicates.get(headword, {}) for i in own):
+            aliases[headword] = {"to": duplicates[headword][own[0]], "as": "spelling"}
+        m = re.search(r"([\w-]*)\s*spelling of\s+[\"“«„]?([^\"”»“,;(]+)", entry.get("reject") or "", re.I)
+        if m and not entry.get("lexemes"):
+            target = by_lower.get(m.group(2).strip().lower())
+            before = (entry.get("reject") or "")[:m.start(2)].lower()
+            kind = "misspelling" if "misspelling" in before else "old spelling" if re.search(r"pre-reform|old|obsolete|archaic|former", before) else "spelling"
+            if target:
+                aliases[headword] = {"to": target[0], "as": kind}
+    return duplicates, aliases
+
+
+def ingest(lang, dry_run=False):
+    raw = load_raw(lang)
+    duplicates, aliases = find_duplicates(raw, zipf_of(lang))
+    covered_by = defaultdict(set)
+    for spelling, alias in aliases.items():
+        covered_by[alias["to"]].add(spelling)
+    counts = Counter(entries=len(raw))
+    target = CLEAN / lang
+    if not dry_run:
+        target.mkdir(parents=True, exist_ok=True)
+    for headword, (entry, meta) in raw.items():
+        path = target / f"{headword}.json"
+        previous = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        clean = clean_entry(lang, entry, meta, previous, duplicates.get(headword), covered_by.get(headword, ()))
+        counts["lexemes"] += len(clean["lexemes"])
+        counts["senses"] += sum(len(lx.get("senses") or []) for lx in clean["lexemes"])
+        counts["rejects"] += bool(clean.get("reject"))
+        for d in clean.get("dropped", []):
+            counts["leaked lexemes dropped" if d["reason"].startswith("not the") else "duplicate lexemes dropped"] += 1
+        counts["senses retired"] += sum(len(lx.get("retired") or []) for lx in clean["lexemes"])
+        text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
+        if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
+            path.write_text(text, encoding="utf-8")
+            counts["files written"] += 1
+    counts["aliases"] = len(aliases)
+    if not dry_run:
+        (target / "_aliases.json").write_text(json.dumps(dict(sorted(aliases.items())), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        (target / "_report.json").write_text(json.dumps(dict(counts), indent=1) + "\n", encoding="utf-8")
+    return counts, duplicates, aliases
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--langs", default=",".join(LANGS))
+    ap.add_argument("--dry-run", action="store_true", help="count what would happen, write nothing")
+    a = ap.parse_args()
+    for lang in a.langs.split(","):
+        counts, _, aliases = ingest(lang, a.dry_run)
+        if counts["entries"]:
+            print(f"{lang}: {dict(counts)}")
+            print("    aliases:", ", ".join(f"{k} -> {v['to']} ({v['as']})" for k, v in list(sorted(aliases.items()))[:8]))
+    sys.exit(0)

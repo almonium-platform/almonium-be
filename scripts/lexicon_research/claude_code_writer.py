@@ -23,13 +23,13 @@ Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [
        (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
         build the index once with lemma_index.py)
 """
-import argparse, json, os, re, subprocess, sys, threading, time
+import argparse, hashlib, json, os, re, subprocess, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
-from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, system_prompt, user_prompt
+from prompting import HERE, PROMPT_VERSION, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -93,13 +93,17 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     if not allowed(pause_session, stop_week):
         return "stopped"
     t0 = time.time()
-    cmd = ["claude", "-p", user_prompt(lang, row), "--model", model, "--effort", effort, "--tools", "",
+    covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
+    cmd = ["claude", "-p", user_prompt(lang, row, covered), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
            "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]  # no MCP servers: their tool schemas would ride along in every call
     # run from an empty directory so no CLAUDE.md, AGENTS.md, memory or project settings are loaded
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, cwd=EMPTY)
     wall = round(time.time() - t0, 1)
-    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
+            "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    if covered:
+        meta["covered"] = [f"{lemma} ({pos})" for lemma, pos in covered]
     entry = None
     try:
         res = json.loads(r.stdout)
@@ -122,6 +126,7 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
         entry = {"error": f"{type(e).__name__}: {str(e)[:200]}", "raw": (r.stdout or "")[:20000], "stderr": (r.stderr or "")[-2000:]}
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
+    lemma_gate.register(lang, entry)
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
     print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
     return status
