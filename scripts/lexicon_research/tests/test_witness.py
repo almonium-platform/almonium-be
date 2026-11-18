@@ -1,0 +1,90 @@
+"""The witness compares what a writer wrote with what Wiktionary states. It must not cry wolf over two ways
+of writing one sound, and it must not miss a stress on the wrong syllable."""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import witness  # noqa: E402
+
+
+def table(word, genders=(), heard=(), plurals=()):
+    return {word: (set(genders), [(set(regions), ipa) for regions, ipa in heard], set(plurals))}
+
+
+def entry(lemma, pos="NOUN", grammar=None, pronunciations=(), forms=()):
+    return {"lexemes": [{"lemma": lemma, "pos": pos, "grammar": grammar or {}, "pronunciations": list(pronunciations), "forms": list(forms)}]}
+
+
+def verdicts(lang, written, known):
+    return {(fact, verdict) for fact, verdict, _ in witness.compare(lang, written, known)}
+
+
+def test_syllables_are_counted_by_their_vowels():
+    assert witness.nuclei("haʊ̯s") == 1  # a diphthong is one syllable
+    assert witness.nuclei("kaˈdena") == 3
+    assert witness.nuclei("ˈmɛːtçn̩") == 2  # a consonant marked as a syllable
+
+
+def test_stress_place_counts_from_both_ends():
+    assert witness.stress_place("/ka.ˈde.na/") == (1, 2)
+    assert witness.stress_place("/ˈka.de.na/") == (0, 3)
+    assert witness.stress_place("/haʊs/") == (0, 1)  # one syllable needs no mark
+    assert witness.stress_place("/ka.de.na/") is None  # three syllables and no mark: the transcription does not say
+
+
+def test_a_stress_on_another_syllable_differs():
+    known = table("cadena", heard=[((), "/kaˈdena/"), ((), "[kaˈð̞e.na]")])
+    wrong = entry("cadena", pronunciations=[{"variety": "es-ES", "ipa": "/ˈka.de.na/"}])
+    right = entry("cadena", pronunciations=[{"variety": "es-ES", "ipa": "/ka.ˈde.na/"}])
+    assert ("stressed syllable", "differs") in verdicts("es", wrong, known)
+    assert ("stressed syllable", "agrees") in verdicts("es", right, known)
+    assert ("sounds", "agrees") in verdicts("es", right, known)  # dots and the place of the mark are not sounds
+
+
+def test_a_run_of_vowels_divided_differently_is_the_same_stress():
+    assert witness.same_stress(witness.stress_place("/te.a.ˈtɾal/"), witness.stress_place("/teaˈtɾal/"))
+    assert not witness.same_stress(witness.stress_place("/ˈkɾe.dʲit/"), witness.stress_place("[krʲɪˈdʲit]"))
+
+
+def test_two_spellings_of_one_sound_agree():
+    known = table("acto", heard=[((), "/ˈaɡto/")])
+    assert ("sounds", "agrees") in verdicts("es", entry("acto", pronunciations=[{"variety": "es-ES", "ipa": "/ˈak.to/"}]), known)
+    known = table("convertir", heard=[((), "/kombeɾˈtiɾ/")])
+    assert ("sounds", "agrees") in verdicts("es", entry("convertir", "VERB", pronunciations=[{"variety": "es-MX", "ipa": "/kon.beɾ.ˈtiɾ/"}]), known)
+
+
+def test_another_sound_differs_and_is_named():
+    known = table("carrera", heard=[((), "/kaˈreɾa/")])
+    found = witness.compare("es", entry("carrera", pronunciations=[{"variety": "es-ES", "ipa": "/ka.ˈre.ra/"}]), known)
+    assert [detail.rpartition("[")[2] for fact, verdict, detail in found if fact == "sounds" and verdict == "differs"] == ["r>ɾ]"]
+
+
+def test_spain_is_held_against_the_transcription_with_theta():
+    known = table("cena", heard=[((), "/ˈθena/"), ((), "/ˈsena/")])
+    assert ("sounds", "differs") in verdicts("es", entry("cena", pronunciations=[{"variety": "es-ES", "ipa": "/ˈse.na/"}]), known)
+    assert ("sounds", "agrees") in verdicts("es", entry("cena", pronunciations=[{"variety": "es-MX", "ipa": "/ˈse.na/"}]), known)
+
+
+def test_a_variety_is_held_against_its_own_place():
+    heard = [({"Brazil"}, "/ɡaʁˈɡɐ̃.tɐ/"), ({"São-Paulo"}, "/ɡaɾˈɡɐ̃.tɐ/"), ({"Portugal"}, "/ɡɐɾˈɡɐ̃.tɐ/")]
+    known = table("garganta", ["Fem"], heard)
+    lisbon_as_brazil = entry("garganta", grammar={"gender": "Fem"}, pronunciations=[{"variety": "pt-PT", "ipa": "/ɡaɾ.ˈɡɐ̃.tɐ/"}])
+    assert ("sounds", "differs") in verdicts("pt", lisbon_as_brazil, known)
+    assert ("gender", "agrees") in verdicts("pt", lisbon_as_brazil, known)
+    brazil = entry("garganta", pronunciations=[{"variety": "pt-BR", "ipa": "/ɡaɾ.ˈɡɐ̃.tɐ/"}])
+    assert ("sounds", "agrees") in verdicts("pt", brazil, known)
+
+
+def test_gender_is_among_those_wiktionary_gives():
+    known = table("See", ["Masc", "Fem"])
+    assert ("gender", "agrees") in verdicts("de", entry("See", grammar={"gender": "Fem"}), known)
+    assert ("gender", "differs") in verdicts("de", entry("See", grammar={"gender": "Neut"}), known)
+    assert not verdicts("de", entry("Meer", grammar={"gender": "Neut"}), known)  # a word Wiktionary does not have is not judged
+
+
+def test_plural_is_the_nominative_one():
+    known = table("Haus", ["Neut"], plurals=["Häuser"])
+    forms = [{"form": "Hauses", "features": {"Case": "Gen", "Number": "Sing"}}, {"form": "Häuser", "features": {"Case": "Nom", "Number": "Plur"}}]
+    assert ("plural", "agrees") in verdicts("de", entry("Haus", grammar={"gender": "Neut"}, forms=forms), known)
+    forms[1]["form"] = "Hause"
+    assert ("plural", "differs") in verdicts("de", entry("Haus", grammar={"gender": "Neut"}, forms=forms), known)

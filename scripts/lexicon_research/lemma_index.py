@@ -27,6 +27,10 @@ English "parking": a noun of its own and the participle of park; "LN" for German
 and a surname). A fourth column keeps the parts of speech of its senses of its own (noun,verb), for
 whoever builds a list of words to write.
 
+The same pass keeps wiktionary/<lang>.facts.tsv: for every lemma the genders, the transcriptions (with their
+region) and the plurals Wiktionary gives it. check_v4.py holds an entry's gender and the syllable its
+transcription stresses against them.
+
 For Ukrainian and Russian, which do not write stress, the same pass keeps wiktionary/<lang>.stress.tsv:
 every stressed form Wiktionary prints (та́бору, таборі́в) under its plain spelling. check_v4.py holds the
 readings the writer gave against it; it is a witness, never copied into an entry.
@@ -146,9 +150,34 @@ def table_forms(record):
             yield text
 
 
-def classify(lines, stress=None):
+GENDERS = {"masculine": "Masc", "feminine": "Fem", "neuter": "Neut", "common-gender": "Com"}
+
+
+def facts_of(record):
+    """What a lemma's entry states that an entry of ours states too: (genders, transcriptions, plurals).
+    A transcription keeps the region Wiktionary names for it ("Portugal:/ɡɐɾˈɡɐ̃.tɐ/"). A witness, like the
+    stressed forms: held against what a writer wrote, never copied into an entry."""
+    tags = set()
+    for sense in record.get("senses") or []:
+        if not sense.get("form_of") and "form-of" not in (sense.get("tags") or []):
+            tags |= set(sense.get("tags") or [])
+    for form in record.get("forms") or []:
+        if "canonical" in (form.get("tags") or []):
+            tags |= set(form.get("tags") or [])
+    genders = sorted({GENDERS[t] for t in tags if t in GENDERS}) if record.get("pos") == "noun" else []
+    sounds = []
+    for sound in record.get("sounds") or []:
+        if sound.get("ipa"):
+            region = "+".join(t for t in (sound.get("tags") or []) if t[:1].isupper())
+            sounds.append(f"{region}:{sound['ipa']}")
+    plurals = sorted({plain(f["form"]) for f in record.get("forms") or [] if set(f.get("tags") or []) == {"plural"} and f.get("form")})
+    return genders, list(dict.fromkeys(sounds))[:40], plurals[:4]
+
+
+def classify(lines, stress=None, facts=None):
     """Spelling -> (flags, form-of targets) over every record of a JSONL stream. When a dict is given
-    as stress, it is filled with plain spelling -> the stressed forms seen for it."""
+    as stress, it is filled with plain spelling -> the stressed forms seen for it; when one is given as
+    facts, with spelling -> [genders, transcriptions, plurals] of its lemma entries."""
     flags, aims, poses, usual, first = defaultdict(set), defaultdict(list), defaultdict(set), set(), {}
     for line in lines:
         try:
@@ -186,6 +215,11 @@ def classify(lines, stress=None):
                 for t in targets(sense):
                     if t not in aims[word]:
                         aims[word].append(t)
+        if own and facts is not None:
+            genders, sounds, plurals = facts_of(record)
+            have = facts.setdefault(word, [[], [], []])
+            for kept, more in zip(have, (genders, sounds, plurals)):
+                kept.extend(x for x in more if x not in kept)
         if own:
             for text in table_forms(record):
                 flags[text].add("F")
@@ -222,15 +256,28 @@ def write_stress(lang, stress):
     return out
 
 
+def write_facts(lang, facts):
+    out = INDEX / f"{lang}.facts.tsv"
+    tmp = out.with_suffix(".tsv.part")
+    with tmp.open("w", encoding="utf-8") as f:
+        for word in sorted(facts):
+            genders, sounds, plurals = facts[word]
+            if genders or sounds or plurals:
+                f.write(f"{word}\t{','.join(genders)}\t{'|'.join(x.replace('|', '') for x in sounds)}\t{','.join(plurals)}\n")
+    tmp.replace(out)
+    return out
+
+
 def build(lang, folder=None):
-    stress = {} if lang in STRESS_WITNESS else None
+    stress, facts = ({} if lang in STRESS_WITNESS else None), {}
     if folder:  # an extract already on disk, as kaikki names it
         with (Path(folder) / f"{KAIKKI[lang]}.jsonl").open(encoding="utf-8") as lines:
-            verdicts = classify(lines, stress)
+            verdicts = classify(lines, stress, facts)
     else:
         req = urllib.request.Request(URL.format(name=KAIKKI[lang]), headers={"User-Agent": "almonium-lexicon-research/1.0"})
         with urllib.request.urlopen(req, timeout=120) as response:
-            verdicts = classify(io.TextIOWrapper(response, encoding="utf-8"), stress)
+            verdicts = classify(io.TextIOWrapper(response, encoding="utf-8"), stress, facts)
+    print(f"{lang}: {len(facts)} lemmas with a gender, a transcription or a plural -> {write_facts(lang, facts)}", flush=True)
     out = write_index(lang, verdicts)
     if stress is not None:
         print(f"{lang}: {len(stress)} stressed spellings -> {write_stress(lang, stress)}", flush=True)
