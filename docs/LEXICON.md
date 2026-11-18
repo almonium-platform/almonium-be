@@ -547,25 +547,37 @@ that the answers also say whether the seventh to ninth of a list are worth their
 Before any reviewer: a sense has 3.4 collocations in the new entries and 3.7 in the mended; a
 program reads 444 of the 452 new frames and 156 of the 157 mended.
 
-**Answers so far**, five files of the eight (English, German, Spanish, Portuguese, Japanese; 256
-entries), entries in a hundred with the fault:
+**Answers so far**, six files of the eight (English, German, Spanish, Portuguese, Russian, Japanese;
+316 entries), entries in a hundred with the fault:
 
 | | fact | claim | missing core | collocation |
 |---|---:|---:|---:|---:|
 | the bar | 2 | 5 | 10 | |
-| new, v4.9 (196) | 8 | 15 | 5 | 11 |
+| new, v4.9 (236) | 9 | 15 | 6 | 15 |
 | mended, v4.9 with mend-v3 (60) | 8 | 10 | 12 | 20 |
+| Russian of the trial, v4.6 (20) | 5 | 10 | 15 | 0 |
 | Japanese, new (40) | 5 | 7.5 | 12.5 | 12.5 |
+| Russian, new (40) | 18 | 15 | 12 | 32 |
 
 The missing-core bar is met by the new entries; facts and claims are not, as in the first count.
 Japanese's forty, of every band, stand at 5, 7.5 and 12.5 where the commonest 250 under v4.7 had
 4, 16 and 21. English new entries have one fact in forty and no core meaning missing. Spanish has
 six facts in thirty-nine, two of them a tap written as a trill (*carrera*, *representación*), which
-a rule could find; Portuguese has again its vowels before the stress. Of forty collocation
-findings twelve are an open place left in (*copy sb's style*, *na órbita de*), eight of them in
-mended entries; nine are a pairing anyone would build (*no fogão*, *シューズを選ぶ*); three are not
-said. Ingest now moves a collocation with an unmistakable open place to the frames
-(`sort_frames`). French, Italian and Russian are not answered yet.
+a rule could find; Portuguese has again its vowels before the stress.
+
+Russian's new entries are the weakest: seven of forty with a fact. Four are stress: *креди́т* and
+*кре́дит* the wrong way round, *осо́бо*, and *попро́бовать* transcribed with the stress on another
+syllable than its own stressed spelling. That last kind needs no source, and the audit now finds
+it ("transcription stressed on another syllable than the reading"): four of the 391 Russian
+pronunciations, *зависеть*, *подумать* and *пожаловать* beside it, each with the spelling right
+and the transcription wrong. Two more are homonyms written as one word (*брак*, *заставить*).
+Russian's collocations are flagged most, thirteen entries of forty, mostly one that belongs to
+another sense of the word or means something the definition does not say (*отправить на тот свет*).
+
+Of all the collocation findings about a quarter are an open place left in (*copy sb's style*, *na
+órbita de*), most of those in mended entries; a quarter are a pairing anyone would build (*no
+fogão*, *ехать быстро*); few are not said. Ingest now moves a collocation with an unmistakable
+open place to the frames (`sort_frames`). French and Italian are not answered yet.
 
 Drawing it showed three things. The mender's queue names every word with an older entry, also the
 ones a writer has since written afresh, which the mender then passes over for nothing; the draw

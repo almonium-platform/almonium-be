@@ -52,7 +52,8 @@ FREE = ("lexeme of another lemma", "word written under two spellings", "reject t
 SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mark", "double consonants rewritten": "double consonant not written twice",
                 "ll of Spain rewritten": "ll of Spain written ʎ"}
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
-SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know")
+SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know",
+          "transcription stressed on another syllable than the reading")
 
 
 def words(text):
@@ -127,6 +128,25 @@ def unknown_accents(lang, lexeme):
                 yield p["reading"], p["accent"], sorted(known)
 
 
+CYRILLIC_VOWELS = set("аеёиоуыэюяіїє")
+
+
+def stress_apart(pronunciation):
+    """Whether a Russian or Ukrainian word's transcription and its stressed spelling put the stress on different
+    syllables (/pə.prɐ.ˈbo.vətʲ/ beside попро́бовать): one of the two is wrong, and no source is needed to see it.
+    Judged only where the transcription has as many syllables as the word has vowels."""
+    reading = unicodedata.normalize("NFD", pronunciation.get("reading") or "").lower()
+    ipa = (pronunciation.get("ipa") or "").strip("/[]")
+    if " " in reading or "ˈ" not in ipa or not (ACUTE in reading or "ё" in unicodedata.normalize("NFC", reading)):
+        return False
+    upto = reading.split(ACUTE)[0] if ACUTE in reading else unicodedata.normalize("NFC", reading).split("ё")[0] + "ё"
+    stressed = sum(ch in CYRILLIC_VOWELS for ch in unicodedata.normalize("NFC", upto)) - 1
+    syllables = ipa.split(".")
+    if len(syllables) != sum(ch in CYRILLIC_VOWELS for ch in unicodedata.normalize("NFC", reading.replace(ACUTE, ""))):
+        return False
+    return next(i for i, syllable in enumerate(syllables) if "ˈ" in syllable) != stressed
+
+
 def readings(lexeme):
     for p in lexeme.get("pronunciations") or []:
         if p.get("reading"):
@@ -180,6 +200,12 @@ def check(lang, entry, inventories, witness):
             problems.append((SOUND_FAULTS[fix], f"{lx.get('lemma')}: {times} transcription{'s' if times > 1 else ''}"))
         if lang in NEEDS_READING and " " not in lemma and sum(c in VOWELS for c in lemma) > 1 and not any(p.get("reading") for p in lx.get("pronunciations", [])):
             problems.append(("no stress reading", lx.get("lemma")))
+        if lang in ("ru", "uk"):
+            dotted = json.loads(json.dumps({"pronunciations": lx.get("pronunciations") or []}))
+            ingest_v4.settle_sounds(lang, dotted)  # the syllables are counted as ingest divides them
+            for p in dotted["pronunciations"]:
+                if stress_apart(p):
+                    problems.append(("transcription stressed on another syllable than the reading", f"{p.get('ipa')} beside {p.get('reading')}"))
         if witness is not None:
             for reading in readings(lx):
                 reading = unicodedata.normalize("NFC", reading)
