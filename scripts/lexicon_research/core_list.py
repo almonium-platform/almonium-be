@@ -1,4 +1,9 @@
-"""The common words of a language that nobody has written yet: headwords/core-<lang>.json.
+"""The words of a language that are worth a call: headwords/healthy-<lang>.json and doubtful-<lang>.json (--healthy),
+made from every list of the language, its frequency list and what Wiktionary says of each spelling; see healthy()
+and "Healthy lists" in docs/LEXICON.md. What follows describes the older list of one kind, core-<lang>.json, which
+the healthy list replaces and whose rules for Russian and Japanese it still uses.
+
+The common words of a language that nobody has written yet: headwords/core-<lang>.json.
 
 Every spelling wordfreq gives Zipf 3 or above that Wiktionary knows as a word of its own (a lemma, a
 contraction or an alternative spelling) and as nothing else, and that no entry of any writer holds, as
@@ -30,7 +35,8 @@ and pieces MeCab did not know (てる, ちゃ) near the top, which the gate cann
 raw material for a list someone reads, as headwords/top-ja-ja.json was, and needs wordfreq's Japanese
 extra (mecab-python3 and ipadic).
 
-Usage: core_list.py --langs ru [--floor 3.0] [--forms-too | --forms-only] [--dry]   (run from the backend repository root)
+Usage: core_list.py --langs de,fr --healthy [--floor 3.0] [--dry]
+       core_list.py --langs ru [--floor 3.0] [--forms-too | --forms-only] [--dry]   (run from the backend repository root)
 """
 import argparse, json, math, re, sys
 from pathlib import Path
@@ -43,10 +49,13 @@ WORD = re.compile(r"[^\W\d_]+(?:[-'’][^\W\d_]+)*")
 UNPOINTED = {"ru": ("е", "ё")}  # the letter print uses, the letter the lemma has
 ALPHABET = {"ru": re.compile(r"[а-яё]+(?:-[а-яё]+)*")}
 VOWELS = {"ru": set("аеёиоуыэюя")}
-ONE_LETTER = {"ru": set("авижкосуяэ")}  # а, в, и, ж, к, о, с, у, я, э: the rest are names of letters and abbreviations
+# The one-letter words of each language: the rest are names of letters, elided forms (French c', t') and abbreviations
+ONE_LETTER = {"ru": set("авижкосуяэ"), "en": set("aio"), "de": set(), "fr": set("àayô"), "es": set("aeoyu"), "it": set("aeèio"),
+              "pt": set("aeéoà")}
 
 
 def a_word(lang, word):
+    word = word.lower()  # "Россия" is a word like "россия"
     if lang in ALPHABET and not ALPHABET[lang].fullmatch(word):
         return False
     if lang in ONE_LETTER and len(word) == 1:
@@ -163,6 +172,113 @@ def japanese(floor):
     return sorted(rows, key=lambda r: -r["zipf"])
 
 
+# Lists a healthy list is not made from: samples, trials and what this file writes itself.
+NOT_QUEUES = ("measure-", "v48-", "v49-", "mend-", "tour-", "pilot-", "codex-", "cross-", "healthy-", "doubtful-")
+# A word that is a lemma and an inflected form as well is refused once in fifty outside English and once in two in
+# English, where "viewed" and "fines" are filed as an adjective and a noun too. Of 4,277 such English words given to
+# a writer, those met more often than their base word were refused 16% of the time (data, vaccinated), those with a
+# verb of their own 0 to 7% (saw, felt, offer), those with two parts of speech of their own 26 to 30% (dancing,
+# insured); the rest, one adjective or one noun beside the form, 55 to 67%. English keeps the first three kinds.
+FORM_TOO_NEEDS = {"en": 0.5}  # how far above its base word's Zipf such a word must be met, failing the other two
+LENT_FREQUENCY = 3.5  # where a German noun stands in the list when its frequency is that of a verb form written like it
+
+
+def queued(lang):
+    """Every headword a list holds for the language: {headword: zipf or None}."""
+    found = {}
+    for path in sorted((HERE / "headwords").glob(f"*{lang}.json")):
+        if path.name.startswith(NOT_QUEUES) or not (path.name == f"{lang}.json" or path.name.endswith(f"-{lang}.json")):
+            continue
+        for row in json.loads(path.read_text()):
+            if isinstance(row, dict) and row.get("headword"):
+                found.setdefault(row["headword"], row.get("zipf"))
+    return found
+
+
+def as_written(lang, word, table):
+    """The spelling Wiktionary has the word under: German nouns get their capital, and a word that is a lemma both
+    ways keeps the lower case."""
+    own = [s for s, (flags, _) in lemma_gate.known(lang, word) if set(flags) & set("LC")]
+    lower = [s for s in own if s == s.lower()]
+    return (lower or own or [word])[0]
+
+
+def healthy(lang, floor=3.0):
+    """The words worth a call, the doubtful ones and why the rest were dropped: (rows, rows with "why", Counter).
+
+    Candidates are every unwritten headword of the language's lists, every spelling wordfreq gives the floor or
+    more, and the base words of the inflected forms among them, which get the frequency of their forms. A healthy
+    word is one Wiktionary has as a word of its own that is not only a name, a spelling or a piece of a word:
+    the kinds the writers refused once in a hundred. The doubtful list holds what they refused a quarter of the
+    time or more and may still be a word."""
+    from collections import Counter
+    from wordfreq import iter_wordlist, zipf_frequency
+
+    table, have = lemma_gate.load(lang), written(lang)
+    weight, seen = {}, {}
+    candidates = dict(queued(lang))
+    for word in iter_wordlist(lang):
+        zipf = zipf_frequency(word, lang)
+        if zipf < floor:
+            break
+        if WORD.fullmatch(word):
+            candidates.setdefault(word, zipf)
+    unpointed = {}
+    for word in list(candidates):  # Russian print: "ее" is the word "её" and "идет" the form "идёт", and its frequency is theirs
+        if lang in UNPOINTED and "L" not in table.get(word, ("",))[0] and "F" not in table.get(word, ("",))[0]:
+            with_letter = pointed(lang, word, table)
+            lemmas = [w for w in with_letter if "L" in table[w][0]]
+            if lemmas or with_letter:
+                unpointed[word] = (lemmas or with_letter)[0]
+    for word, zipf in candidates.items():
+        zipf = zipf if isinstance(zipf, (int, float)) else zipf_frequency(word, lang)
+        target = unpointed.get(word, word)
+        found = lemma_gate.known(lang, target)
+        flags = "".join(entry[0] for _, entry in found)
+        if flags and not set(flags) & set("LCNAPS") and "F" in flags:  # only a form: its frequency goes to its base word
+            aims = [aim for _, entry in found for aim in entry[1]]
+            if aims:  # "va" is a form of aller and of a verb of Louisiana: the one met most as itself takes it
+                best = max(zipf_frequency(aim, lang) for aim in aims)
+                for aim in {as_written(lang, a, table) for a in aims if zipf_frequency(a, lang) == best}:
+                    weight[aim] = weight.get(aim, 0) + 10 ** zipf
+            seen[target] = max(seen.get(target, 0), zipf)
+            continue
+        target = as_written(lang, target, table)
+        weight[target] = weight.get(target, 0) + 10 ** zipf
+        seen[target] = max(seen.get(target, 0), zipf)
+    good, doubt, dropped = [], [], Counter()
+    for word, mass in weight.items():
+        zipf = round(math.log10(mass), 2)
+        if word.lower() in have or lemma_gate.covered(lang, word):
+            dropped["has an entry already"] += 1
+            continue
+        if not WORD.fullmatch(word) or not a_word(lang, word):
+            dropped["not a word (letter, abbreviation, sign)"] += 1
+            continue
+        why = lemma_gate.unfit(lang, word)
+        if why is None and lang in FORM_TOO_NEEDS and word in seen:
+            flags = "".join(entry[0] for _, entry in lemma_gate.known(lang, word))
+            bases = [a for _, entry in lemma_gate.known(lang, word) for a in entry[1]]
+            own = set().union(*(lemma_gate.kinds(lang).get(s, frozenset()) for s, _ in lemma_gate.known(lang, word))) - {"name"}
+            if ("F" in flags and bases and seen[word] - max(zipf_frequency(b, lang) for b in bases) < FORM_TOO_NEEDS[lang]
+                    and "verb" not in own and len(own) < 2):
+                why = "a form with one sense of its own"
+        if why is None and word != word.lower() and word.lower() in table and "L" not in table[word.lower()][0] and table[word.lower()][1]:
+            base = max(zipf_frequency(b, lang) for b in table[word.lower()][1])
+            if seen.get(word, zipf) - base < 1.0:  # "Habe" is met as "habe", of haben; "Tag" is not met as a form of tagen
+                zipf = min(zipf, LENT_FREQUENCY)
+        if why is None:
+            if zipf >= floor or word in candidates:
+                good.append({"headword": word, "zipf": zipf, "set": f"healthy-{lang}"})
+            else:
+                dropped["base word of a form, below the floor"] += 1
+        elif why in ("not in Wiktionary", "alternative spelling", "only old, rare or slang senses", "a form with one sense of its own"):
+            doubt.append({"headword": word, "zipf": zipf, "set": f"doubtful-{lang}", "why": why})
+        else:
+            dropped[why] += 1
+    return sorted(good, key=lambda r: -r["zipf"]), sorted(doubt, key=lambda r: -r["zipf"]), dropped
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--langs", required=True)
@@ -170,8 +286,16 @@ def main():
     ap.add_argument("--forms-too", action="store_true", help="keep the words that are inflected forms as well")
     ap.add_argument("--forms-only", action="store_true", help="only those words, as headwords/core-forms-<lang>.json")
     ap.add_argument("--dry", action="store_true", help="count and show, write nothing")
+    ap.add_argument("--healthy", action="store_true", help="headwords/healthy-<lang>.json and doubtful-<lang>.json from every list and the frequency list")
     a = ap.parse_args()
-    for lang in a.langs.split(","):
+    for lang in a.langs.split(",") if a.healthy else []:
+        good, doubt, dropped = healthy(lang, a.floor)
+        print(f"{lang}: {len(good)} healthy, {len(doubt)} doubtful; dropped {dict(dropped.most_common())}")
+        print(f"    first: {', '.join(r['headword'] for r in good[:30])}")
+        if not a.dry:
+            (HERE / "headwords" / f"healthy-{lang}.json").write_text(json.dumps(good, ensure_ascii=False, indent=1) + "\n")
+            (HERE / "headwords" / f"doubtful-{lang}.json").write_text(json.dumps(doubt, ensure_ascii=False, indent=1) + "\n")
+    for lang in [] if a.healthy else a.langs.split(","):
         name = f"core-{lang}.json"
         if lang == "ja":
             rows = japanese(a.floor)

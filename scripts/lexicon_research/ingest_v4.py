@@ -237,13 +237,25 @@ OPEN_PLACE = {lang: _open_place(lang) for lang in OPEN_PLACES}
 
 
 MOST_COLLOCATIONS = 10  # what the shape lets a sense hold, from v4.9
+MOST_FRAMES = 5
+# A mark of an open place that is nothing else: an abbreviation no phrase contains as a word. Spanish and Portuguese
+# "algo" and the Russian question words are words too ("por algo", "как раз"), so those languages are not judged here.
+UNMISTAKABLE = {"en": {"sb", "sth", "sb's"}, "de": {"jmd.", "jmdn.", "jmdm.", "jmds.", "etw."}, "fr": {"qqn", "qqch"}, "it": {"qcn", "qcs"}}
+
+
+def is_pattern(lang, text):
+    """Whether a string a writer filed as a collocation has an open place, which makes it a frame."""
+    if lang == "ja":
+        return "〜" in text or "～" in text
+    marks = UNMISTAKABLE.get(lang, set())
+    return any(part in marks for token in text.split() for part in token.rstrip(",;:").split("/"))
 
 
 def sort_frames(lang, lexeme):
     """A frame is a pattern with an open place (depend on sth). What the writers before v4.8 also put there, the
     word's usual company and its set phrases (heavy rain, in the lead), is moved to the sense's collocations, up
     to the ten a sense holds; the rest stays. One word alone (suicidarse, 勉強する) is the form of a pattern and
-    stays too. Says how many moved."""
+    stays too. A collocation with an unmistakable open place goes the other way. Says how many moved."""
     if lang not in OPEN_PLACE:
         return 0
     lemma, moved = lexeme.get("lemma") or "", 0
@@ -257,12 +269,21 @@ def sort_frames(lang, lexeme):
                 moved += 1
                 if frame not in company:
                     company.append(frame)
+        for pair in list(company):  # and the other way: "copy sb's style" filed as a collocation is a frame
+            if is_pattern(lang, pair) and (pair in frames or len(frames) < MOST_FRAMES):
+                company.remove(pair)
+                moved += 1
+                if pair not in frames:
+                    frames.append(pair)
+        if moved > before and not sense.get("frames"):
+            sense = {**{k: v for k, v in sense.items() if k != "collocations"}, "frames": [], "collocations": company} if "cefr" not in sense else {
+                k2: v2 for k, v in sense.items() for k2, v2 in ((k, v), *((("frames", []),) if k == "cefr" else ()))}
         if moved > before:
             placed = {}
             for key, value in sense.items():  # the collocations stand where the frames stood, after what is left of them
                 if key == "frames":
                     placed.update({"frames": frames} if frames else {})
-                    placed["collocations"] = company
+                    placed.update({"collocations": company} if company else {})
                 elif key != "collocations":
                     placed[key] = value
             lexeme["senses"][k] = placed

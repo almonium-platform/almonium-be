@@ -343,3 +343,15 @@ def test_one_frame_is_one_pattern_and_a_program_reads_its_parts():
     assert ingest_v4.unread("de", "leisten", "sich (Dat) etw. leisten") is None  # the case of a place is not a second pattern
     kept = lexeme("touch", senses=[sense("the state of talking or writing to someone often", frames=["be/keep in touch (with sb)", "tell sb/sth"])])
     assert ingest_v4.split_frames("en", kept) == 0 and kept["senses"][0]["frames"] == ["be/keep in touch (with sb)", "tell sb/sth"]
+
+
+def test_a_collocation_with_an_open_place_is_a_frame_and_moves_there():
+    verb = lexeme("copy", "VERB", senses=[sense("to make something that is the same as another thing", collocations=["copy sb's style", "copy a file", "keep sth safely"])])
+    clean = ingest_v4.clean_entry("en", entry("copy", verb), META)
+    got = clean["lexemes"][0]["senses"][0]
+    assert got["frames"] == ["copy sb's style", "keep sth safely"] and got["collocations"] == ["copy a file"]
+    assert [p["frame"] for p in got["patterns"]] == ["copy sb's style"]  # the one with the headword in it is read into parts
+    # only an abbreviation that is nothing else decides: Spanish "algo" and Russian "как" are words of phrases too
+    for lang, pair in (("es", "por algo"), ("ru", "как раз"), ("en", "something else")):
+        one = lexeme("x", senses=[sense("eine Sache tun, die man tun muss", collocations=[pair])])
+        assert ingest_v4.sort_frames(lang, one) == 0 and one["senses"][0]["collocations"] == [pair]

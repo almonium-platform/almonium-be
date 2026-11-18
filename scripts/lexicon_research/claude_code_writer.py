@@ -169,12 +169,14 @@ ap.add_argument("--headwords", default="", help="a tranche name: reads headwords
 ap.add_argument("--pause-session", type=int, default=70, help="wait while this percent of the 5-hour session is used")
 ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this percent of the week; 0 never stops")
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
+ap.add_argument("--names", action="store_true", help="write headwords that are only proper names too (people, towns, firms)")
 ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
 a = ap.parse_args()
 for _lang in a.langs.split(","):
     if _lang not in TARGET_LANGUAGES + PILOT_LANGUAGES:
         sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)}, and for {', '.join(PILOT_LANGUAGES)} on trial")
 GATE = not a.no_gate
+lemma_gate.names(a.names)
 REWRITE_OLDER = a.rewrite_older
 if GATE:
     lemma_gate.require(a.langs.split(","))

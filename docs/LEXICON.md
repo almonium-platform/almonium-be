@@ -547,6 +547,26 @@ that the answers also say whether the seventh to ninth of a list are worth their
 Before any reviewer: a sense has 3.4 collocations in the new entries and 3.7 in the mended; a
 program reads 444 of the 452 new frames and 156 of the 157 mended.
 
+**Answers so far**, five files of the eight (English, German, Spanish, Portuguese, Japanese; 256
+entries), entries in a hundred with the fault:
+
+| | fact | claim | missing core | collocation |
+|---|---:|---:|---:|---:|
+| the bar | 2 | 5 | 10 | |
+| new, v4.9 (196) | 8 | 15 | 5 | 11 |
+| mended, v4.9 with mend-v3 (60) | 8 | 10 | 12 | 20 |
+| Japanese, new (40) | 5 | 7.5 | 12.5 | 12.5 |
+
+The missing-core bar is met by the new entries; facts and claims are not, as in the first count.
+Japanese's forty, of every band, stand at 5, 7.5 and 12.5 where the commonest 250 under v4.7 had
+4, 16 and 21. English new entries have one fact in forty and no core meaning missing. Spanish has
+six facts in thirty-nine, two of them a tap written as a trill (*carrera*, *representación*), which
+a rule could find; Portuguese has again its vowels before the stress. Of forty collocation
+findings twelve are an open place left in (*copy sb's style*, *na órbita de*), eight of them in
+mended entries; nine are a pairing anyone would build (*no fogão*, *シューズを選ぶ*); three are not
+said. Ingest now moves a collocation with an unmistakable open place to the frames
+(`sort_frames`). French, Italian and Russian are not answered yet.
+
 Drawing it showed three things. The mender's queue names every word with an older entry, also the
 ones a writer has since written afresh, which the mender then passes over for nothing; the draw
 leaves them out. A draw made again after the first words are written must keep them, or their
@@ -622,22 +642,22 @@ prompt is pinned like the others'. The 304 entries of the trial saw three earlie
 names v4.6 and v4.7; each carries the hash of the one it saw, which tells a trial entry from a
 later one.
 
-Its list is `headwords/core-ru.json`: 12,596 words at Zipf 3 or above that Wiktionary knows as
-words and nobody has written, most frequent first, made by `core_list.py`, which gives the French
-list of the same name back almost to the word. Three things in it are Russian's own:
+Its list is `headwords/healthy-ru.json`, 15,570 words, made as every language's is (see "Healthy
+lists"). Three things in it are Russian's own:
 
 - **ё.** Print has *ее* and *елка*, Wiktionary files those as spellings of *её* and *ёлка*, and a
   frequency list counts them apart. The word with ё is queued, with the frequency of both; the
-  spelling with е is not, because the entry lists it.
+  spelling with е is not, because the entry lists it. A form printed without its ё (*идет*) is a
+  form of its word like any other.
 - **Letters and abbreviations.** *г*, *см*, *км* are frequent and Wiktionary has them as words. A
   word without a vowel is left out, and a single letter unless it is one of the one-letter words
   (*а*, *в*, *и*, *к*, *о*, *с*, *у*, *я*).
-- **Words that are forms as well** are in the list (1,822 of them), where the other five lists
-  left them out. In Russian they are the first words a learner needs: *как*, *это*, *для*, *уже*,
-  *хорошо*, each of them also filed as a form of something (*для* of the verb *длить*). See below.
+- **Words that are forms as well** are in the list. In Russian they are the first words a learner
+  needs: *как*, *это*, *для*, *уже*, *хорошо*, each of them also filed as a form of something
+  (*для* of the verb *длить*).
 
 ```bash
-scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ru --headwords core --workers 4 --limit 1000
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ru --headwords healthy --workers 4 --limit 1000
 ```
 
 ## Words that are both a form and a word
@@ -658,21 +678,89 @@ more such rejects, some $47; not worth a batching step of their own.
 
 The lists `core-de`, `core-fr`, `core-es`, `core-it` and `core-pt` left every such word out, and
 with them the commonest words of each language, which are nearly all a form of something as well:
-*der*, *das*, *es*, *sich*; *la*, *des*, *une*, *dans*, *mais*, *été*; *la*, *los*, *para*, *como*,
-*pero*; *mi*, *gli*, *fatto*; *a*, *os*, *para*, *como*. None of them is in any list or has an entry.
-`core_list.py --forms-only` writes them as `headwords/core-forms-<lang>.json`, most frequent first:
+*der*, *das*, *es*, *sich*; *la*, *des*, *une*, *dans*; *los*, *para*, *como*; *mi*, *gli*. Outside
+English the writers refuse such a word once in fifty, so the healthy lists hold them (next section).
 
-| | words at Zipf 3 or above | at 4.5 or above |
+## Healthy lists
+
+A refusal is not free. Over the 32,500 words the Opus writer was given up to 18 November 2026 an
+entry cost $0.0294 and a refusal $0.0137, half an entry, and the queues held a good deal that could
+only be refused or was not worth an entry. `lemma_index.py` now keeps more of what Wiktionary says
+of a spelling, and the lists are made from it.
+
+What the index learned (it is rebuilt from the same extracts, `lemma_index.py`, about 9 GB read):
+
+- **Names.** A sense from a proper-noun entry is an N when its gloss says a person, a place below a
+  country or a firm (*Renate*, *Leverkusen*, *Google*), and stays a word when it is a month, a
+  feast, a language or a country (*October*, *Christmas*, *Germany*). A spelling whose first sense
+  is such a name is marked too (*David* the name before *a David*, an underdog).
+- **Forms that Wiktionary gives no entry.** The inflection table of every lemma is read: 1.2
+  million more forms, most of them Russian, Italian and Spanish (*российской*, *fertiggestellten*).
+- **Forms it describes in words only**: Italian *possiamo* ("first-person plural present of
+  potere"), *farlo* ("compound of the infinitive fare with lo"), Portuguese *fizeram*. 16,000
+  Italian and 5,900 Portuguese spellings had passed for lemmas.
+- **The parts of speech** of a spelling's own senses, and whether every one of them is marked old,
+  rare or slang (French *robert*, frequent as a name).
+
+The gate uses the first three for every writer and, new, for the mender: a headword that is only
+such a name is stopped unless the writer is run with `--names`, and a word a frequency list wrote
+in lower case is found under its capital (*american*, and *россии*, a form of *Россия*).
+
+How often each kind was refused, of the 30,400 words of the six languages:
+
+| what the gate says of the word | given | refused |
 |---|---:|---:|
-| de | 1,978 | 271 |
-| fr | 1,330 | 180 |
-| es | 1,639 | 244 |
-| it | 2,901 | 364 |
-| pt | 1,955 | 303 |
+| a word of its own | 21,093 | 3% (English 6%, the others under 1%) |
+| a word that is an inflected form as well | 6,708 | English 46%, the others 2 to 6% |
+| not in Wiktionary | 1,021 | 67% |
+| an alternative spelling only | 889 | 51% |
+| only old, rare or slang senses, beside a name or a form | 312 | 62% |
+| a proper name | 247 | 61% |
+| an inflected form (now known) | 149 | 72% |
 
-Going by English, about half of each list will be written and half refused, and the top of each is
-where the words are. German's has a weakness of its own: a noun that looks like a verb form (*Habe*,
-*Muss*, *Hast*) takes that form's frequency, because the frequency list knows no capitals.
+`core_list.py --healthy` writes two lists a language from every unwritten word of every list, every
+spelling at Zipf 3 or more and the base words of the forms among them, which get their forms'
+frequency (so *быть* and *мочь* stand where *был* and *может* did):
+
+| | `healthy-<lang>` | `doubtful-<lang>` | names dropped |
+|---|---:|---:|---:|
+| en | 28,509 | 9,165 | 2,573 |
+| de | 10,680 | 8,309 | 2,912 |
+| fr | 10,802 | 3,840 | 857 |
+| es | 7,384 | 4,093 | 982 |
+| it | 9,760 | 5,680 | 1,004 |
+| pt | 7,880 | 5,542 | 913 |
+| ru | 15,570 | 5,335 | 1,566 |
+
+- **healthy**: a word of its own that is not only a name, a spelling or a piece of a word. Outside
+  English also the word that is a form as well, which is where the commonest words are (*der*,
+  *la*, *para*, *как*, *это*); the five core lists had left those out. In English such a word is
+  kept only if it is met more often than its base word (*data*), has a verb of its own (*saw*,
+  *felt*) or two parts of speech (*dancing*): refused 16%, 0 to 7% and 26 to 30%, where the rest,
+  one adjective or noun beside the form (*viewed*, *fines*), was refused 55 to 67%.
+- **doubtful**: what was refused a quarter of the time or more and may still be a word, each row
+  with its reason. Not to be run as it is; German's holds compounds Wiktionary lacks, of which the
+  writers wrote half.
+- **dropped**: names, forms (the gate would stop them, and their base word is queued instead),
+  letters, abbreviations, pieces of words.
+
+A German noun whose lower-case spelling is only a form of a commoner verb (*Habe*, *Muss*, *Hast*)
+stays, at Zipf 3.5 instead of the form's frequency; *Tag* keeps its own. A word is written under
+Wiktionary's spelling: German nouns with their capital, *American* with its.
+
+Of the 108,500 unwritten words the old lists held, 80% are fit; 9% are forms, 5% spellings, 3%
+unknown to Wiktionary, 2% names. Leaving out what the old gate would have let through is some
+13,000 calls. Of the mender's 48,500 older words the gate now stops 5,600 before a patch is paid
+for: 4,300 forms and 1,200 names that the older writers had been given.
+
+`healthy-<lang>` replaces `core-<lang>`, `core-forms-<lang>` and what is unwritten of `v4-new`,
+`night*` and the English deep lists. Japanese has no such list: its frequency list needs a reading
+first (see "Japanese, on trial").
+
+```bash
+scripts/.venv/bin/python scripts/lexicon_research/lemma_index.py          # once, to have the new index
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --headwords healthy --workers 4 --limit 2000
+```
 
 ## Frames
 
@@ -924,8 +1012,9 @@ One pass brings the written entries up to October's standard and links them:
   it read into parts (`patterns`). An open place has one spelling per language (the
   table under Frames); German follows Duden (*jmdm.*, *etw.*). Ingest sorts and respells what was
   written before.
-- A common-word list holds the words that are inflected forms as well for Russian, and for the other
-  five they are a second list, `core-forms-<lang>`: the writer decides which of them are words.
+- A refusal costs half an entry, so a list holds only the kinds of word the writers mostly write:
+  `healthy-<lang>`, from the index and the refusals counted so far. The gate stops a headword that
+  is only the name of a person, a place or a firm, for the writers and the mender alike.
 - Work happens on `develop` and is pushed at once.
 
 ## Sources
@@ -952,13 +1041,11 @@ page does not settle.
    v49 --tally`): whether v4.9 meets the bar, whether the mender does, and what the reviewer makes
    of the collocations. On that the mending of the 48,600 older words and the pass over the 31,900
    entries of before.
-4. **Lists**: fixed phrases first, which the measurement found to be the gap a learner feels (one
-   entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
-   the words in it; the commonest words of de, fr, es, it and pt, which their core lists left out
-   because each is a form of something as well (*der*, *la*, *para*): `core-forms-<lang>` holds
-   them and is not yet run; the names in `core-de`, which the index could tell from words if it
-   kept Wiktionary's part of speech; the book-word list, which needs an export from the book
-   processor.
+4. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
+   the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
+   ingest linking each phrase to the words in it; the book-word list needs an export from the book
+   processor, and will want `--names` for the places of a book. A list for Japanese needs a reading
+   of its frequency list.
 5. **Japanese**: the next few hundred words under v4.9 and a second count, on words of every
    band this time; the entries of v4.7 whose headword is also a suffix or an auxiliary, written
    again (`--rewrite-older`); an accent table that tells a word in kana from its homophones. Its

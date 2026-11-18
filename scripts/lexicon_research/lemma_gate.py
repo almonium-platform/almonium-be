@@ -11,6 +11,8 @@ this module reads it.
           does not know: the writer decides, as before
   form    every sense is "form of X": no call; the lemmas X are recorded under out/gate/ so they
           can be queued (--lemma-list)
+  name    only the name of a person, a place below a country or a firm (Renate, Leverkusen, Google):
+          no call, unless the writer is run with --names
   reject  only an abbreviation or misspelling of another word: no call; the writer would refuse it
 
 A contraction (German "zum", French "au") is written, as an entry of kind "contraction".
@@ -50,9 +52,18 @@ _record_lock = threading.Lock()
 _covered, _covered_lock = {}, threading.Lock()
 
 
+_names = False
+
+
+def names(allowed):
+    """Whether a headword that is only a proper name is written (a writer's --names) or stopped, which is the default."""
+    global _names
+    _names = bool(allowed)
+
+
 @dataclass(frozen=True)
 class Verdict:
-    action: str  # write | form | reject
+    action: str  # write | form | name | reject
     reason: str
     lemmas: tuple = field(default=())
 
@@ -93,14 +104,29 @@ def spellings(lang, headword):
     return out
 
 
-def verdict(lang, headword):
+def known(lang, headword):
+    """How Wiktionary has the headword: [(spelling, (flags, form targets))]. A frequency list writes everything in
+    lower case, so a word found under no spelling is looked up with its capital too ("american" is "American",
+    "россии" a form of "Россия"); a word found in lower case is not, or "states", a form, would pass for "the States"."""
     table = load(lang)
     found = [(s, table[s]) for s in spellings(lang, headword) if s in table]
+    twin = headword[:1].upper() + headword[1:]
+    if not found and twin in table:
+        found = [(twin, table[twin])]
+    return found
+
+
+def verdict(lang, headword):
+    found = known(lang, headword)
     if not found:
         return Verdict("write", "not in Wiktionary")
     flags = set("".join(fl for _, (fl, _) in found))
-    if "L" in flags:
-        return Verdict("write", "lemma")
+    if "L" not in flags and "C" not in flags and "N" in flags:
+        # a person, a town, a firm: the writers refused a third of them and wrote the rest as entries no list asked
+        # for. names(True) lets them through, for a list that wants them (the places of a book).
+        return Verdict("write" if _names else "name", "proper name")
+    if flags & set("LPS"):  # a piece of a word and a letter are written when a list names them, as they always were
+        return Verdict("write", "lemma" if "L" in flags else "piece of a word or sign")
     if "C" in flags:
         return Verdict("write", "contraction")
     if "A" in flags:
@@ -111,6 +137,60 @@ def verdict(lang, headword):
             lemmas += [a for a in aims if a not in lemmas]
         return Verdict("form", "inflected form", tuple(lemmas))
     return Verdict("reject", "abbreviation or misspelling")
+
+
+@lru_cache(maxsize=None)
+def kinds(lang):
+    """spelling -> the parts of speech of its senses of its own, as Wiktionary names them (noun, verb, name)."""
+    table = {}
+    with (INDEX / f"{lang}.tsv").open(encoding="utf-8") as f:
+        for line in f:
+            cells = line.rstrip("\n").split("\t")
+            if len(cells) > 3 and cells[3]:
+                table[cells[0]] = frozenset(cells[3].split(","))
+    return table
+
+
+# How often the writers refused a word of each kind, of the 32,500 they were given up to 18 November 2026. A refusal
+# costs half an entry ($0.0137 against $0.0294), so a list of words to write holds only the kinds they mostly write.
+UNFIT = {
+    "not in Wiktionary": "a name, a misspelling or a word of another language far more often than a word (refused 47% to 82%)",
+    "proper name": "a person, a place or a brand: no list asks for those",
+    "inflected form": "the gate stops it and its lemma is queued",
+    "alternative spelling": "the entry of the usual spelling lists it (refused 51% in English)",
+    "abbreviation or misspelling": "refused nine times in ten",
+    "piece of a word or sign": "a prefix, a suffix, a letter",
+    "only old, rare or slang senses": "the spelling is frequent for another reason: a name, a form, another language",
+}
+
+
+def unfit(lang, headword):
+    """Why a headword does not belong in a list of words to write, or None when it does: one of the keys of UNFIT.
+    A word that is a lemma and a form as well (FL) is fit here; whether to queue it is the list maker's question,
+    because the answer differs by language."""
+    table = load(lang)
+    found = [(s, entry[0]) for s, entry in known(lang, headword)]
+    capital = table.get(headword[:1].upper() + headword[1:], ("",))[0]  # "robert" beside "Robert"
+    if not found:
+        return "not in Wiktionary"
+    flags = set("".join(fl for _, fl in found))
+    if "C" in flags:
+        return None
+    if "L" in flags:
+        if all("M" in fl for _, fl in found if "L" in fl):
+            return "proper name"  # a name first and a word after: its frequency is the name's
+        if lang not in CAPITALISED_NOUNS and "N" in flags and all(s[:1].isupper() for s, _ in found):
+            # a capital outside German means a name or a word made from one. It is a word to write when it is an
+            # adjective too (American) or a name that is first of all no person or place (April, England); "William",
+            # a given name with a noun for the letter W in radio code, is not
+            own = set().union(*(kinds(lang).get(s, frozenset()) for s, _ in found))
+            if "adj" not in own and own != {"name"}:
+                return "proper name"
+        marginal = all("R" in fl for _, fl in found if "L" in fl)  # of the spellings that are words, every one
+        twin = "N" in flags or "N" in capital or "F" in flags
+        return "only old, rare or slang senses" if marginal and twin else None
+    return ("proper name" if "N" in flags else "inflected form" if "F" in flags else "alternative spelling" if "A" in flags
+            else "piece of a word or sign" if flags & set("PS") else "abbreviation or misspelling")
 
 
 def record(lang, headword, v, writer):
