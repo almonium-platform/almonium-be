@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * The Discover sheet for one word. {@code provider} is {@code lexicon} when the lexicon had the word, otherwise the
- * old translation provider's name; {@code pronunciations} and {@code homophones} are empty in the latter case.
+ * old translation provider's name; {@code pronunciations}, {@code homophones} and {@code lexemes} (the words the
+ * senses belong to) are empty in the latter case.
  */
 public record DiscoverLookupResponse(
         String entry,
@@ -16,4 +17,30 @@ public record DiscoverLookupResponse(
         DiscoverFrequencyResponse frequency,
         List<DiscoverSenseResponse> senses,
         List<DiscoverPronunciationResponse> pronunciations,
-        List<DiscoverHomophoneResponse> homophones) {}
+        List<DiscoverHomophoneResponse> homophones,
+        List<DiscoverLexemeResponse> lexemes) {
+
+    /** A sheet no lexicon entry stands behind. */
+    public DiscoverLookupResponse(
+            String entry,
+            String sourceContext,
+            Language language,
+            Language translationLanguage,
+            String provider,
+            DiscoverFrequencyResponse frequency,
+            List<DiscoverSenseResponse> senses,
+            List<DiscoverPronunciationResponse> pronunciations,
+            List<DiscoverHomophoneResponse> homophones) {
+        this(
+                entry,
+                sourceContext,
+                language,
+                translationLanguage,
+                provider,
+                frequency,
+                senses,
+                pronunciations,
+                homophones,
+                List.of());
+    }
+}

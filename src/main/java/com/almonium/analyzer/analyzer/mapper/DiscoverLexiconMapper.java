@@ -2,6 +2,7 @@ package com.almonium.analyzer.analyzer.mapper;
 
 import com.almonium.analyzer.analyzer.dto.DiscoverExampleResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverHomophoneResponse;
+import com.almonium.analyzer.analyzer.dto.DiscoverLexemeResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.DiscoverSenseResponse;
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
@@ -22,13 +23,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Component;
 
 /**
- * Flattens a lexicon entry onto the Discover sheet, which knows one list of senses and one of pronunciations and
- * nothing of lexemes. Senses are numbered across lexemes in order; pronunciations are the headword-level ones that
+ * Flattens a lexicon entry onto the Discover sheet, which has one list of senses and one of pronunciations; each
+ * sense names the word it belongs to, and the words come beside them with what holds for the whole word. Senses are numbered across lexemes in order; pronunciations are the headword-level ones that
  * have a transcription (the sheet has no place yet for a reading in kana or with stress marks), by variety then rank, each carrying its best clip (a verified one before an unverified one, which is the order the
  * lexicon already lists them in). A word with several lexemes (clear as adjective, verb and adverb) records the same
  * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has, and
@@ -50,7 +52,9 @@ public class DiscoverLexiconMapper {
 
     public List<DiscoverSenseResponse> toSenses(LexiconEntryResponse entry, String translationLanguage) {
         List<DiscoverSenseResponse> senses = new ArrayList<>();
+        int lexemeIndex = 0;
         for (LexemeView lexeme : entry.lexemes()) {
+            lexemeIndex++;
             String transcription = headwordPronunciations(lexeme)
                     .map(PronunciationView::phonemic)
                     .filter(Objects::nonNull)
@@ -66,10 +70,78 @@ public class DiscoverLexiconMapper {
                         glosses(sense, translationLanguage),
                         sense.definition(),
                         sense.cefr(),
-                        examples(sense, translationLanguage)));
+                        examples(sense, translationLanguage),
+                        lexemeIndex,
+                        orEmpty(sense.labels()),
+                        orEmpty(sense.regions()),
+                        orEmpty(sense.grammar()),
+                        orEmpty(sense.frames()),
+                        orEmpty(sense.collocations()),
+                        orEmpty(sense.antonyms()).stream()
+                                .map(antonym -> String.valueOf(antonym.get("lemma")))
+                                .toList(),
+                        sense.standardAlternative()));
             }
         }
         return senses;
+    }
+
+    /**
+     * The words behind the senses, numbered as {@link #toSenses} names them, with what holds for the whole word. A
+     * form or a relation that belongs to some senses only names them by the sheet's numbers.
+     */
+    public List<DiscoverLexemeResponse> toLexemes(LexiconEntryResponse entry) {
+        List<DiscoverLexemeResponse> lexemes = new ArrayList<>();
+        int senseCount = 0;
+        for (LexemeView lexeme : entry.lexemes()) {
+            int first = senseCount + 1;
+            senseCount += lexeme.senses().size();
+            Map<UUID, Integer> numbers = new LinkedHashMap<>();
+            for (SenseView sense : lexeme.senses()) {
+                numbers.put(sense.key(), first + numbers.size());
+            }
+            int last = senseCount;
+            lexemes.add(new DiscoverLexemeResponse(
+                    lexemes.size() + 1,
+                    lexeme.lemma(),
+                    lexeme.pos(),
+                    lexeme.kind(),
+                    orEmpty(lexeme.grammar()),
+                    orEmpty(lexeme.spellings()),
+                    lexeme.forms().stream()
+                            .map(form -> new DiscoverLexemeResponse.Form(
+                                    form.form(),
+                                    orEmpty(form.features()),
+                                    orEmpty(form.varieties()),
+                                    orEmpty(form.senseKeys()).stream()
+                                            .map(numbers::get)
+                                            .filter(Objects::nonNull)
+                                            .toList(),
+                                    form.reading(),
+                                    form.note()))
+                            .toList(),
+                    lexeme.relations().stream()
+                            .map(relation -> new DiscoverLexemeResponse.Relation(
+                                    relation.type(),
+                                    relation.lemma(),
+                                    relation.pos(),
+                                    orEmpty(relation.senses()).stream()
+                                            .map(position -> first + position - 1)
+                                            .filter(number -> number <= last)
+                                            .toList()))
+                            .toList(),
+                    orEmpty(lexeme.components()),
+                    lexeme.separable()));
+        }
+        return lexemes;
+    }
+
+    private static <T> List<T> orEmpty(List<T> list) {
+        return list == null ? List.of() : list;
+    }
+
+    private static Map<String, Object> orEmpty(Map<String, Object> map) {
+        return map == null ? Map.of() : map;
     }
 
     /**

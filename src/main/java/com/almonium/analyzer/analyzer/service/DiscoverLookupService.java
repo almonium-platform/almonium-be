@@ -56,7 +56,8 @@ public class DiscoverLookupService {
                     frequency,
                     lexiconMapper.toSenses(found, code(translationLanguage)),
                     lexiconMapper.toPronunciations(found),
-                    lexiconMapper.toHomophones(found));
+                    lexiconMapper.toHomophones(found),
+                    lexiconMapper.toLexemes(found));
         }
 
         TranslationCardDto translation = lookupTranslation(entry, language, translationLanguage);

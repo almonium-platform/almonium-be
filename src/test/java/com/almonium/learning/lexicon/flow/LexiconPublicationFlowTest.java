@@ -873,6 +873,49 @@ class LexiconPublicationFlowTest {
         verifyNoInteractions(languageProcessor);
     }
 
+    @Test
+    void theSheetCarriesTheWordsBehindItsSensesAndWhatASenseIsSaidWith() {
+        publishOne(publication("program"));
+
+        DiscoverLookupResponse sheet =
+                discovering.lookup(Language.EN, Language.UK, "program", null).getBody();
+
+        assertThat(sheet.lexemes())
+                .extracting(lexeme -> lexeme.index() + " " + lexeme.partOfSpeech())
+                .containsExactly("1 NOUN", "2 VERB");
+        assertThat(sheet.senses()).extracting(sense -> sense.lexeme()).containsExactly(1, 1, 1, 1, 2, 2, 2);
+        var noun = sheet.lexemes().get(0);
+        assertThat(noun.grammar()).containsEntry("countability", "Count");
+        assertThat(noun.spellings())
+                .extracting(spelling -> spelling.get("text"))
+                .containsExactly("program", "programme");
+        var verb = sheet.lexemes().get(1);
+        assertThat(verb.forms()).extracting(form -> form.form()).containsExactly("programmed", "programming");
+        assertThat(verb.forms().getFirst().features()).containsEntry("Tense", "Past");
+        assertThat(verb.forms().getFirst().senses()).isEmpty();
+        assertThat(verb.relations()).singleElement().satisfies(relation -> {
+            assertThat(relation.type()).isEqualTo("derived_from");
+            assertThat(relation.lemma()).isEqualTo("program");
+            assertThat(relation.partOfSpeech()).isEqualTo("NOUN");
+        });
+        var broadcast = sheet.senses().get(0);
+        assertThat(broadcast.frames()).containsExactly("a program about sth");
+        assertThat(broadcast.collocations()).containsExactly("a program on TV");
+        assertThat(broadcast.labels()).isEmpty();
+        assertThat(sheet.senses().get(2).labels()).containsEntry("domain", "computing");
+        assertThat(sheet.senses().get(4).grammar()).containsEntry("valency", "Both");
+        assertThat(sheet.senses().get(6).labels()).containsEntry("figurative", true);
+
+        publishOne(publication("antenna"));
+        DiscoverLookupResponse antenna =
+                discovering.lookup(Language.EN, Language.UK, "antenna", null).getBody();
+        // A form that belongs to one sense names it by the sheet's number.
+        assertThat(antenna.lexemes().getFirst().forms()).singleElement().satisfies(form -> {
+            assertThat(form.form()).isEqualTo("antennae");
+            assertThat(form.senses()).containsExactly(2);
+        });
+    }
+
     private List<UnvoicedPronunciation> withoutClips(String language) {
         long timestamp = System.currentTimeMillis() / 1000;
         return voicing.list(timestamp, sign(timestamp, new byte[0]), language, "clip", 500, 0);
