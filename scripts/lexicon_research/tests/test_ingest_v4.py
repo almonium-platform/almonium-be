@@ -333,6 +333,7 @@ def test_one_frame_is_one_pattern_and_a_program_reads_its_parts():
     assert read("ru", "платить", "платить кому за что")[1:] == [{"slot": ["person"], "case": ["Dat"]}, {"word": "за"}, {"slot": ["thing"], "case": ["Acc", "Nom"]}]
     assert read("ru", "искать", "искать кого/что") == [{"head": "искать"}, {"slot": ["person", "thing"], "case": ["Acc"]}]  # the case both words can be
     assert read("ru", "ответить", "ответить, что ...")[1:] == [{"word": "что"}, {"slot": ["clause"]}]  # the conjunction, not a thing
+    assert read("ru", "с", "с ... до ...") == [{"head": "с"}, {"slot": ["any"]}, {"word": "до"}, {"slot": ["any"]}]  # three dots are a clause only after a word that opens one
     assert read("fr", "normal", "il est normal que + subj")[-1] == {"slot": ["clause"], "mood": "subj"}
     assert read("en", "ask", "ask if")[-1] == {"slot": ["clause"]} and read("en", "tell", "tell sb/sth")[1] == {"slot": ["person", "thing"]}
     assert read("ja", "辛い", "〜がつらい", ["つらい"]) == [{"slot": ["any"]}, {"head": "がつらい"}]  # written in kana: found by the reading

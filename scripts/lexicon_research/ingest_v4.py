@@ -226,6 +226,9 @@ OPEN_CLAUSE = {
 }
 
 
+CLAUSE_OPENERS = {**OPEN_CLAUSE, "ru": "что|чтобы|как|ли|будто", "uk": "що|щоб|як|чи|ніби"}
+
+
 def _open_place(lang):
     words = "|".join(sorted([re.escape(v) for v in FRAME_PLACES.get(lang, {})] + OPEN_PLACES[lang].split("|"), key=len, reverse=True))
     clause = rf"|(?<!\w)(?:{OPEN_CLAUSE[lang]})(?:/\w+)*\W*$" if lang in OPEN_CLAUSE else ""
@@ -429,8 +432,9 @@ def frame_parts(lang, lemma, frame, also=()):
             continue
         if token in CASES and parts and "slot" in parts[-1] and "case" not in parts[-1]:
             parts[-1]["case"] = [CASES[token]]  # "sich (Dat) etw. leisten": the case of the place before it
-        elif token == "...":
-            parts.append({"slot": ["clause"]})
+        elif token == "...":  # a clause after the word that opens one ("that ...", "что ..."); elsewhere anything ("с ... до ...")
+            opener = parts and "word" in parts[-1] and re.fullmatch(CLAUSE_OPENERS.get(lang, "$^"), parts[-1]["word"].lower())
+            parts.append({"slot": ["clause" if opener else "any"]})
         elif token in VERB_PLACES.get(lang, {}):
             form = VERB_PLACES[lang][token]
             if form == "inf" and parts and parts[-1] == {"word": "to"}:
