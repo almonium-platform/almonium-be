@@ -132,8 +132,8 @@ class EntryReportStoreTest {
     UUID sense(UUID lexeme, int position, String definition) {
         UUID key = UUID.randomUUID();
         jdbc.update("""
-                insert into lexicon.sense (id, lexeme_id, sense_key, position, definition, register)
-                values (?, ?, ?, ?, ?, 'neutral')
+                insert into lexicon.sense (id, lexeme_id, sense_key, position, definition)
+                values (?, ?, ?, ?, ?)
                 """, UUID.randomUUID(), lexeme, key, position, definition);
         return key;
     }

@@ -478,10 +478,11 @@ Not done with it, in the order it will be felt:
 3. **The clients show none of the new fields** (labels, frames, collocations, spellings): the
    Discover sheet's contract is unchanged.
 4. **The entries published before** (schema 2, with glosses) stay in a database until their
-   headword is published again or the owner clears the lexicon; the migration deleted nothing.
-   The columns schema 4 does not fill (`sense.register`, `usage`, `domain`, `lexeme.pattern`,
-   `regions`, `lexeme_form.regions`) are still there and are to be dropped by a later change set,
-   once no running version reads them.
+   headword is published again or the owner clears the lexicon. The columns only schema 3 filled
+   (`sense.register`, `usage`, `domain`, `lexeme.pattern`, `regions`, `lexeme_form.regions`) were
+   dropped the same day by a change set of their own, so those older entries no longer have a
+   register or a field. A version of the backend from before schema 4 cannot read the lexicon
+   once that change set has run.
 5. A reading with no transcription (Japanese) is stored and served by the entries endpoint, and the
    Discover sheet has no place for it yet.
 

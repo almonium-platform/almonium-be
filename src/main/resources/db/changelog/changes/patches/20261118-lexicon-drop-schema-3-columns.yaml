@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261118-lexicon-drop-schema-3-columns
+      author: claude
+      comment: >-
+        The columns only entry schema 3 filled, which nothing reads since the backend took schema 4: a sense's single
+        register (labels has its axes), its usage note and its domain (a label now), a lexeme's inflection pattern
+        and regions (its spellings name their varieties), and a form's regions (its varieties). Destructive: what the
+        entries published under the older schemas held there is gone. An application version of before schema 4
+        cannot read the lexicon once this has run.
+      changes:
+        - dropColumn:
+            schemaName: lexicon
+            tableName: sense
+            columns:
+              - column:
+                  name: register
+              - column:
+                  name: usage
+              - column:
+                  name: domain
+        - dropColumn:
+            schemaName: lexicon
+            tableName: lexeme
+            columns:
+              - column:
+                  name: pattern
+              - column:
+                  name: regions
+        - dropColumn:
+            schemaName: lexicon
+            tableName: lexeme_form
+            columns:
+              - column:
+                  name: regions

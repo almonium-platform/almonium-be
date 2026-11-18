@@ -207,3 +207,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261117-entry-report.yaml
   - include:
       file: db/changelog/changes/patches/20261118-lexicon-schema-4.yaml
+  - include:
+      file: db/changelog/changes/patches/20261118-lexicon-drop-schema-3-columns.yaml
