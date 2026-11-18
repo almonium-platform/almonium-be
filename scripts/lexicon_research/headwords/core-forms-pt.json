@@ -1,0 +1,9777 @@
+[
+ {
+  "headword": "a",
+  "zipf": 7.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "é",
+  "zipf": 7.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "para",
+  "zipf": 7.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "os",
+  "zipf": 6.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "como",
+  "zipf": 6.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "as",
+  "zipf": 6.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "foi",
+  "zipf": 6.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "são",
+  "zipf": 6.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nos",
+  "zipf": 6.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pelo",
+  "zipf": 6.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pela",
+  "zipf": 6.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sobre",
+  "zipf": 6.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "todos",
+  "zipf": 6.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entre",
+  "zipf": 6.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "era",
+  "zipf": 6.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "seus",
+  "zipf": 6.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "essa",
+  "zipf": 6.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "eles",
+  "zipf": 6.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nada",
+  "zipf": 5.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quero",
+  "zipf": 5.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sei",
+  "zipf": 5.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nossa",
+  "zipf": 5.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quer",
+  "zipf": 5.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estou",
+  "zipf": 5.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nós",
+  "zipf": 5.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estado",
+  "zipf": 5.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maior",
+  "zipf": 5.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "será",
+  "zipf": 5.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tinha",
+  "zipf": 5.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "boa",
+  "zipf": 5.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "segundo",
+  "zipf": 5.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nova",
+  "zipf": 5.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "toda",
+  "zipf": 5.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vezes",
+  "zipf": 5.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cara",
+  "zipf": 5.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fez",
+  "zipf": 5.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vamos",
+  "zipf": 5.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "for",
+  "zipf": 5.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pelos",
+  "zipf": 5.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conta",
+  "zipf": 5.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "meus",
+  "zipf": 5.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vão",
+  "zipf": 5.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dele",
+  "zipf": 5.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dá",
+  "zipf": 5.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "seria",
+  "zipf": 5.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "teve",
+  "zipf": 5.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lhe",
+  "zipf": 5.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "feito",
+  "zipf": 5.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "terra",
+  "zipf": 5.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falta",
+  "zipf": 5.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aquele",
+  "zipf": 5.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "brasileira",
+  "zipf": 5.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deste",
+  "zipf": 5.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "milhões",
+  "zipf": 5.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deu",
+  "zipf": 5.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nossos",
+  "zipf": 5.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ajuda",
+  "zipf": 5.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fui",
+  "zipf": 5.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deles",
+  "zipf": 5.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pelas",
+  "zipf": 5.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desse",
+  "zipf": 5.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "muita",
+  "zipf": 5.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "política",
+  "zipf": 5.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gosto",
+  "zipf": 5.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "última",
+  "zipf": 5.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fala",
+  "zipf": 5.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veja",
+  "zipf": 5.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "olha",
+  "zipf": 5.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deixa",
+  "zipf": 5.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "passa",
+  "zipf": 5.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "filhos",
+  "zipf": 5.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "uns",
+  "zipf": 5.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "campo",
+  "zipf": 5.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lista",
+  "zipf": 5.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viu",
+  "zipf": 5.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vê",
+  "zipf": 5.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "porto",
+  "zipf": 5.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pais",
+  "zipf": 5.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "via",
+  "zipf": 5.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acha",
+  "zipf": 5.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caminho",
+  "zipf": 5.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vista",
+  "zipf": 5.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acontece",
+  "zipf": 5.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "partido",
+  "zipf": 5.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vale",
+  "zipf": 5.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ia",
+  "zipf": 5.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obrigado",
+  "zipf": 5.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "visto",
+  "zipf": 5.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chega",
+  "zipf": 5.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "resultado",
+  "zipf": 5.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chamado",
+  "zipf": 5.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "irá",
+  "zipf": 5.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "luta",
+  "zipf": 5.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obrigada",
+  "zipf": 5.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pergunta",
+  "zipf": 5.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "errado",
+  "zipf": 5.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tive",
+  "zipf": 5.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "boca",
+  "zipf": 5.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veio",
+  "zipf": 5.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "boas",
+  "zipf": 5.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conhecido",
+  "zipf": 5.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "serão",
+  "zipf": 5.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "busca",
+  "zipf": 5.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mostra",
+  "zipf": 5.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pequena",
+  "zipf": 5.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "república",
+  "zipf": 5.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ti",
+  "zipf": 5.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chama",
+  "zipf": 5.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chamada",
+  "zipf": 5.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alta",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aquilo",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desses",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espera",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "revista",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "senhora",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tais",
+  "zipf": 5.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "liga",
+  "zipf": 5.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "próxima",
+  "zipf": 5.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tá",
+  "zipf": 5.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "leva",
+  "zipf": 5.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falou",
+  "zipf": 5.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "notícias",
+  "zipf": 5.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tivesse",
+  "zipf": 5.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "poucos",
+  "zipf": 5.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "partes",
+  "zipf": 5.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quarta",
+  "zipf": 5.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "visita",
+  "zipf": 5.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "linda",
+  "zipf": 5.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mente",
+  "zipf": 5.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "média",
+  "zipf": 5.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "china",
+  "zipf": 4.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esposa",
+  "zipf": 4.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "portuguesa",
+  "zipf": 4.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preso",
+  "zipf": 4.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "verão",
+  "zipf": 4.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquerda",
+  "zipf": 4.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "menor",
+  "zipf": 4.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perdeu",
+  "zipf": 4.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "meia",
+  "zipf": 4.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "proposta",
+  "zipf": 4.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dado",
+  "zipf": 4.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "usado",
+  "zipf": 4.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morto",
+  "zipf": 4.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quinta",
+  "zipf": 4.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "americana",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amiga",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "começo",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "criado",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pedido",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "porra",
+  "zipf": 4.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escrito",
+  "zipf": 4.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "procura",
+  "zipf": 4.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guarda",
+  "zipf": 4.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "traz",
+  "zipf": 4.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marido",
+  "zipf": 4.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "erro",
+  "zipf": 4.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lindo",
+  "zipf": 4.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tiver",
+  "zipf": 4.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "basta",
+  "zipf": 4.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "leve",
+  "zipf": 4.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "longa",
+  "zipf": 4.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "penso",
+  "zipf": 4.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "regras",
+  "zipf": 4.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "argentina",
+  "zipf": 4.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aberto",
+  "zipf": 4.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "peça",
+  "zipf": 4.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reino",
+  "zipf": 4.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vendo",
+  "zipf": 4.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "digo",
+  "zipf": 4.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "passada",
+  "zipf": 4.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pós",
+  "zipf": 4.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vindo",
+  "zipf": 4.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baixa",
+  "zipf": 4.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "batalha",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "destes",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dê",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "física",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "teste",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "voto",
+  "zipf": 4.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adoro",
+  "zipf": 4.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mata",
+  "zipf": 4.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ama",
+  "zipf": 4.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dança",
+  "zipf": 4.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lima",
+  "zipf": 4.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tiro",
+  "zipf": 4.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "humana",
+  "zipf": 4.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "puta",
+  "zipf": 4.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vim",
+  "zipf": 4.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viva",
+  "zipf": 4.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alegre",
+  "zipf": 4.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "crítica",
+  "zipf": 4.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rosa",
+  "zipf": 4.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "branca",
+  "zipf": 4.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "criada",
+  "zipf": 4.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "férias",
+  "zipf": 4.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "madeira",
+  "zipf": 4.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calma",
+  "zipf": 4.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "engraçado",
+  "zipf": 4.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "velha",
+  "zipf": 4.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tentativa",
+  "zipf": 4.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "técnica",
+  "zipf": 4.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "índia",
+  "zipf": 4.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aberta",
+  "zipf": 4.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "clara",
+  "zipf": 4.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "clique",
+  "zipf": 4.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dito",
+  "zipf": 4.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "posto",
+  "zipf": 4.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "costas",
+  "zipf": 4.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encontrado",
+  "zipf": 4.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escrita",
+  "zipf": 4.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marco",
+  "zipf": 4.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cheia",
+  "zipf": 4.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "custo",
+  "zipf": 4.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "matemática",
+  "zipf": 4.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "namorado",
+  "zipf": 4.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "iniciativa",
+  "zipf": 4.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "namorada",
+  "zipf": 4.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "capa",
+  "zipf": 4.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "curta",
+  "zipf": 4.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "figura",
+  "zipf": 4.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "folha",
+  "zipf": 4.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "querido",
+  "zipf": 4.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tela",
+  "zipf": 4.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tira",
+  "zipf": 4.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baseado",
+  "zipf": 4.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bateria",
+  "zipf": 4.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "negra",
+  "zipf": 4.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viram",
+  "zipf": 4.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zero",
+  "zipf": 4.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anda",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "eleito",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falo",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guia",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mora",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perdido",
+  "zipf": 4.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ameaça",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cheiro",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dada",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "juro",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "localizado",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paga",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "utilizado",
+  "zipf": 4.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dupla",
+  "zipf": 4.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "letras",
+  "zipf": 4.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "parada",
+  "zipf": 4.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "piada",
+  "zipf": 4.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "latina",
+  "zipf": 4.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "papa",
+  "zipf": 4.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "querida",
+  "zipf": 4.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ligado",
+  "zipf": 4.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mandato",
+  "zipf": 4.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ouvido",
+  "zipf": 4.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "castro",
+  "zipf": 4.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fundos",
+  "zipf": 4.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gato",
+  "zipf": 4.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pago",
+  "zipf": 4.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "unido",
+  "zipf": 4.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escala",
+  "zipf": 4.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "passe",
+  "zipf": 4.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pedi",
+  "zipf": 4.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pega",
+  "zipf": 4.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "privada",
+  "zipf": 4.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "barra",
+  "zipf": 4.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lança",
+  "zipf": 4.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bens",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cria",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "muda",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pertence",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "secretaria",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vaga",
+  "zipf": 4.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chile",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estreia",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "francesa",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "levado",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "louca",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marcado",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tratado",
+  "zipf": 4.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conquista",
+  "zipf": 4.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "corre",
+  "zipf": 4.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "médica",
+  "zipf": 4.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "toca",
+  "zipf": 4.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alerta",
+  "zipf": 4.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "game",
+  "zipf": 4.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "regra",
+  "zipf": 4.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rodada",
+  "zipf": 4.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vestido",
+  "zipf": 4.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entrega",
+  "zipf": 4.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "famosa",
+  "zipf": 4.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tomada",
+  "zipf": 4.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desenvolvido",
+  "zipf": 4.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agenda",
+  "zipf": 4.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cansado",
+  "zipf": 4.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fechado",
+  "zipf": 4.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "organizado",
+  "zipf": 4.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saia",
+  "zipf": 4.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "austrália",
+  "zipf": 4.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "colocado",
+  "zipf": 4.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coluna",
+  "zipf": 4.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preta",
+  "zipf": 4.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "produzido",
+  "zipf": 4.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aliança",
+  "zipf": 4.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "determinado",
+  "zipf": 4.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lógica",
+  "zipf": 4.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cruzeiro",
+  "zipf": 4.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falha",
+  "zipf": 4.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "papo",
+  "zipf": 4.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prima",
+  "zipf": 4.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "teus",
+  "zipf": 4.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acusado",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "convidado",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estranha",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lê",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "madrugada",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "russa",
+  "zipf": 4.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aprovado",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "areia",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coroa",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cunha",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descoberta",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escolhido",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "formado",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "percebe",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trinta",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "voo",
+  "zipf": 4.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "máxima",
+  "zipf": 4.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "planta",
+  "zipf": 4.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aventura",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bebida",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "complicado",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "composto",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marinha",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pego",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preparado",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rota",
+  "zipf": 4.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "condenado",
+  "zipf": 4.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marina",
+  "zipf": 4.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sujeito",
+  "zipf": 4.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "torre",
+  "zipf": 4.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "demanda",
+  "zipf": 4.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquece",
+  "zipf": 4.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estima",
+  "zipf": 4.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "receita",
+  "zipf": 4.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dedicado",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entendeu",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gama",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ganho",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lance",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "legenda",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "moça",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vinha",
+  "zipf": 4.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bala",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "junta",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nascido",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "olhada",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "partiu",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vira",
+  "zipf": 4.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apaixonado",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "elevado",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ido",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mina",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morro",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ocorrido",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pesado",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "placa",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reis",
+  "zipf": 4.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cuba",
+  "zipf": 4.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falsa",
+  "zipf": 4.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "imagina",
+  "zipf": 4.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suspeito",
+  "zipf": 4.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "relacionado",
+  "zipf": 4.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "roda",
+  "zipf": 4.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tese",
+  "zipf": 4.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baile",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bunda",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chinesa",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deixado",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lava",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "valeu",
+  "zipf": 4.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acompanhado",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disto",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grávida",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "neve",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ocupado",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "passeio",
+  "zipf": 4.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "imposto",
+  "zipf": 4.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "posta",
+  "zipf": 4.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "síria",
+  "zipf": 4.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abrigo",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cobre",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fita",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inglesa",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pecado",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preocupado",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soldado",
+  "zipf": 4.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abraço",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "créditos",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marcha",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "narrativa",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "novidades",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salvo",
+  "zipf": 4.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "are",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "demora",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desconhecido",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "garantia",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mínima",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "parado",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prestes",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suspeita",
+  "zipf": 4.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "característica",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "casada",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "clínica",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cobra",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "eletrônica",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escuta",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espanhola",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salva",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tento",
+  "zipf": 4.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "associado",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cristã",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dose",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espada",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esperado",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "limpo",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "previsto",
+  "zipf": 4.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arco",
+  "zipf": 4.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falado",
+  "zipf": 4.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "noiva",
+  "zipf": 4.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ocupa",
+  "zipf": 4.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amado",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chegado",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cola",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "policia",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "proibido",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "secretária",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tivessem",
+  "zipf": 4.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "africana",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "costume",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descoberto",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "legado",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "multa",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ás",
+  "zipf": 4.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caminhada",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comunicado",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquecido",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "milho",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "parecido",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quartos",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quinto",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "resenha",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suíça",
+  "zipf": 4.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cigarro",
+  "zipf": 4.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estabelecido",
+  "zipf": 4.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "leu",
+  "zipf": 4.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vaca",
+  "zipf": 4.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "definido",
+  "zipf": 4.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "jogada",
+  "zipf": 4.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salve",
+  "zipf": 4.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tornado",
+  "zipf": 4.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "animado",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "citado",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "crescendo",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "delegado",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "informado",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ligando",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "negativa",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sérvia",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vendido",
+  "zipf": 4.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dividido",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "doutorado",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "doutrina",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estatística",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ferido",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "garante",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grito",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lido",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mandado",
+  "zipf": 4.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acordado",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alemã",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "armada",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dano",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "forçado",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "justa",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "limitado",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "loira",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mama",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "melhora",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viola",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vizinha",
+  "zipf": 4.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "armado",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atacado",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atualizado",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empregado",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mecânica",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nega",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "queima",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sentado",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "testemunha",
+  "zipf": 4.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acabado",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aliado",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "barata",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "céus",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diária",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grana",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "juliana",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "registrado",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tava",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vadia",
+  "zipf": 4.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apelido",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "emenda",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "indonésia",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inspirado",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "italiana",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pa",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pauta",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trio",
+  "zipf": 4.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "britânica",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "decidido",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "demorou",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empregada",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fechou",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inveja",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saí",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soma",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "teclado",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vela",
+  "zipf": 4.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abandonado",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "culpado",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escolhida",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mando",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "neles",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "queixa",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "roubado",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "usina",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "virada",
+  "zipf": 4.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acabo",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bacana",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bárbara",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "culinária",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dita",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escondido",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mestrado",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "temática",
+  "zipf": 4.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "advogada",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bolas",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "borracha",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comparado",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descrito",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gira",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "libras",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maratona",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pausa",
+  "zipf": 4.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aposto",
+  "zipf": 4.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atrasado",
+  "zipf": 4.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "combinado",
+  "zipf": 4.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "produtora",
+  "zipf": 4.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "puxa",
+  "zipf": 4.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coma",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "curva",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dinâmica",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "formando",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "informática",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mágica",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pires",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pátria",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vazia",
+  "zipf": 4.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bancada",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calças",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ciúmes",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "creme",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "destruído",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "doméstica",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dourado",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "educado",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ferida",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palestra",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quantia",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sentada",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vara",
+  "zipf": 4.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ala",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apropriado",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ataca",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "case",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "certificado",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coberta",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conde",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contratado",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "franquia",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "genética",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "indiana",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "malta",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "namorados",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saído",
+  "zipf": 4.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apelo",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comboio",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "feia",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "olímpica",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "proposto",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tanque",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tropa",
+  "zipf": 4.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contraste",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "despedida",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fruta",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "liderado",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "namoro",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nomeado",
+  "zipf": 4.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "campeã",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "classificados",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "concedido",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exibido",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "folga",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gráfica",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morena",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ofensiva",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palma",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rola",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "universitária",
+  "zipf": 4.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "batida",
+  "zipf": 4.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coberto",
+  "zipf": 4.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comprado",
+  "zipf": 4.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falecido",
+  "zipf": 4.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manga",
+  "zipf": 4.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "povoado",
+  "zipf": 4.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prévia",
+  "zipf": 4.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acostumado",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afastado",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deputada",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fundado",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gloria",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "novinha",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preferido",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "procurado",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "representado",
+  "zipf": 4.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aplicado",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "balanço",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escudo",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "executiva",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mate",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "opera",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "orquestra",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reduzido",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "terceiros",
+  "zipf": 4.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cinzas",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "horta",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lida",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manifesto",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mexicana",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mira",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morada",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palestina",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "partilha",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "secundária",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viúva",
+  "zipf": 4.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "avisa",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calmo",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coro",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desaparecido",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gerado",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gorda",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nascida",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quebrado",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recompensa",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transferido",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trigo",
+  "zipf": 4.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "beto",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "classificado",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desvio",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estimado",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estimativa",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estética",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "isolado",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obrigados",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "premiado",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retiro",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sobra",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "subida",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vivido",
+  "zipf": 4.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desgraça",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fofo",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "golfo",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grega",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nativa",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pistola",
+  "zipf": 3.99,
+  "set": "pt-core"
+ },
+ {
+  "headword": "brigada",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gasto",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gelado",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "montado",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salgado",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "telhado",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "torta",
+  "zipf": 3.98,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caverna",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enterrado",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "europeias",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "líbia",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "numero",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "percebido",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "troco",
+  "zipf": 3.97,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caminha",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "carregado",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "choro",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chute",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desgraçado",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esperto",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "legislativas",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pica",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trago",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "varias",
+  "zipf": 3.96,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apertado",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "balada",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calado",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caído",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cota",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derivado",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "digamos",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diretas",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escalada",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "injustiça",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "separado",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suicida",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "surpreso",
+  "zipf": 3.95,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adivinha",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "armênia",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calçada",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cardíaca",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cercado",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chateado",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "designado",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "elaborado",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gramado",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lanche",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "logística",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "monarquia",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ruído",
+  "zipf": 3.94,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agua",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apanhado",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conduzido",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cortado",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exposto",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "livraria",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quebrada",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ronda",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tática",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veste",
+  "zipf": 3.93,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baleado",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bruna",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cerrado",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chego",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derrotado",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "imobiliária",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "traseira",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vossos",
+  "zipf": 3.92,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apontado",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cunhado",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ditado",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dourada",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encarregado",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "presidenciais",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tremendo",
+  "zipf": 3.91,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alarme",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ata",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "borda",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deitado",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desesperado",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "doida",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "evangélica",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grita",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "queimado",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reza",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saraiva",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viciado",
+  "zipf": 3.9,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aposentado",
+  "zipf": 3.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deriva",
+  "zipf": 3.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exposta",
+  "zipf": 3.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mona",
+  "zipf": 3.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vencido",
+  "zipf": 3.89,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baleia",
+  "zipf": 3.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "celebrado",
+  "zipf": 3.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "irritado",
+  "zipf": 3.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "raposa",
+  "zipf": 3.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tomara",
+  "zipf": 3.88,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amadora",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "convencido",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estudado",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "londrina",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pilha",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "romana",
+  "zipf": 3.87,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cega",
+  "zipf": 3.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chata",
+  "zipf": 3.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lésbica",
+  "zipf": 3.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "portaria",
+  "zipf": 3.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sapo",
+  "zipf": 3.86,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atribuído",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cerâmica",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "colorido",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "demonstrado",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desprezo",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disparo",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dragões",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "economias",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ficarão",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gelada",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "impressionado",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "laço",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "porem",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sistemática",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "turca",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zumbi",
+  "zipf": 3.85,
+  "set": "pt-core"
+ },
+ {
+  "headword": "casca",
+  "zipf": 3.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "core",
+  "zipf": 3.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gaga",
+  "zipf": 3.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "horrores",
+  "zipf": 3.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mara",
+  "zipf": 3.84,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ajuste",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alem",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "analisando",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bêbada",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dominicana",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "objetiva",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recolha",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reservado",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ré",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "submetido",
+  "zipf": 3.83,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alterado",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "barro",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chapada",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contado",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dublado",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "impedido",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "molhado",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rodoviária",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "safado",
+  "zipf": 3.82,
+  "set": "pt-core"
+ },
+ {
+  "headword": "achado",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aliada",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "biscoito",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cera",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cheque",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cimento",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cova",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estoque",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fada",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "preliminares",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "queimada",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ria",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trava",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "valia",
+  "zipf": 3.81,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baiana",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "brisa",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "canela",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coordenadora",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coreana",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cruzada",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "damas",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "qualificado",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "referendo",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "solitária",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "urina",
+  "zipf": 3.8,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chocado",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "egípcia",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fodendo",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gana",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oitava",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pegada",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "selecionado",
+  "zipf": 3.79,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acelerado",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acusada",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acústica",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afetado",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assumido",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comprometido",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dezoito",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "havana",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lotado",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palpite",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pisa",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viciada",
+  "zipf": 3.78,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agregado",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baixada",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bruta",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cais",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "condenada",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cruzes",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desrespeito",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "emboscada",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encantado",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "juramento",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "malha",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "miúda",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "patos",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reinado",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retomada",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rima",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "surra",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tocha",
+  "zipf": 3.77,
+  "set": "pt-core"
+ },
+ {
+  "headword": "batizado",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cantada",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comporta",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "correria",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "embarque",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escova",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exagerado",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "legendado",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "progressiva",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sonda",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "unha",
+  "zipf": 3.76,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atributos",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "beba",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diplomática",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escondidas",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "internado",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pinta",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "plástica",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quarentena",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "queixo",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trocado",
+  "zipf": 3.75,
+  "set": "pt-core"
+ },
+ {
+  "headword": "australiana",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comanda",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conservadora",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cooperativa",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diabetes",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fone",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "licenciado",
+  "zipf": 3.74,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amargo",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atraído",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coitado",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empenho",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mosca",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ordenado",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "panda",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "privilegiado",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retórica",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "surpreendido",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tocado",
+  "zipf": 3.73,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cruzado",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diabos",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espadas",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "loco",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "orla",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "penitenciária",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "problemática",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sabido",
+  "zipf": 3.72,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anistia",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atrasados",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cunhada",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desejado",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escolho",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espinha",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fabricado",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "folia",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "molhada",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saque",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "seriado",
+  "zipf": 3.71,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abençoado",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abro",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assustado",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "copas",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fatia",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fodido",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "frios",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "machucado",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "modificado",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rodeado",
+  "zipf": 3.7,
+  "set": "pt-core"
+ },
+ {
+  "headword": "burra",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cometa",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "defensiva",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "moderado",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "motivado",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perceba",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pula",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tina",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tosse",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "traçado",
+  "zipf": 3.69,
+  "set": "pt-core"
+ },
+ {
+  "headword": "artilharia",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "asiática",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "colombiana",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desligado",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disfarçado",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "diva",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esponja",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mordida",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pio",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "requisito",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vagabunda",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vigia",
+  "zipf": 3.68,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desfecho",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dispensado",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gramática",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "influencia",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "largada",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "penteado",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pintado",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prenda",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retrospectiva",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "virado",
+  "zipf": 3.67,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acelera",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dispensa",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "impasse",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nona",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ofendido",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reformado",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ruiva",
+  "zipf": 3.66,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afora",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "angélica",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "avisado",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cabana",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chilena",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cunho",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "décima",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "orientado",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sofisticado",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veterinária",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vide",
+  "zipf": 3.65,
+  "set": "pt-core"
+ },
+ {
+  "headword": "avaliando",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bacharelado",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "brinco",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "continha",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "decepcionado",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fia",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gaia",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inventado",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pelada",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "registado",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tango",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ultrapassado",
+  "zipf": 3.64,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apagado",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bote",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "compacto",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "compreendido",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "emocionado",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espuma",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fratura",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gala",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "goleada",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "influenciado",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ousado",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "porão",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "roça",
+  "zipf": 3.63,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amparo",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baba",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "banido",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cubana",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "envergonhado",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquecida",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exilado",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gatinha",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "honrado",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inscrito",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mana",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "noivado",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nozes",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oculto",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "represa",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trave",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vésperas",
+  "zipf": 3.62,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assado",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "extinto",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "idosa",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "insulto",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mendigo",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "picada",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "republicana",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sê",
+  "zipf": 3.61,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atestado",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chefia",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dobra",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entrevistado",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tara",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transa",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "traído",
+  "zipf": 3.6,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agitado",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anima",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ativado",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comprimido",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desgosto",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "holandesa",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pousada",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reparo",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "superado",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "teres",
+  "zipf": 3.59,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arriscado",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bicha",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ceia",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empurra",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "frito",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ilustrado",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "malandro",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "moderada",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nana",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paulistana",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vassoura",
+  "zipf": 3.58,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apreciado",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coordenada",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coringa",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cozido",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escolta",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "funda",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gaita",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "hidráulica",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "incomodado",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "metido",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nevada",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "traça",
+  "zipf": 3.57,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arranque",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "castanha",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "date",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dotado",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "escritura",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "frita",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lego",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "peruana",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tonta",
+  "zipf": 3.56,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afronta",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "divisa",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estrelado",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "memorando",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "negocio",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "passarão",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prolongado",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saca",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trovoada",
+  "zipf": 3.55,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aba",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anestesia",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fosso",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "melhoras",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "parti",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retardado",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "serio",
+  "zipf": 3.54,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assassina",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derrame",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fenda",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "merecido",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "movimentado",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pintada",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soberana",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suplemento",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vitoria",
+  "zipf": 3.53,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alavanca",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aproximado",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calculado",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chips",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conserva",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "puxado",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saliva",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sola",
+  "zipf": 3.52,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bósnia",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "capricho",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "confundido",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cotovelo",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "criadora",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derrotada",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "jurado",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paus",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "receberão",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sabonete",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "shorts",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suspiro",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "venezuelana",
+  "zipf": 3.51,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abate",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abatido",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adiantado",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "açude",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "equilibrado",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esgotado",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espinho",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "platina",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rodeio",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sós",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "varejo",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vinculado",
+  "zipf": 3.5,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arrumado",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cifra",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "congelado",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desinteresse",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falido",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fritas",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obrigadas",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "poupa",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retoma",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sumido",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sã",
+  "zipf": 3.49,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acertado",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arrependido",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disfarce",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fossa",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "podres",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quito",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reprise",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transportado",
+  "zipf": 3.48,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ale",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arrastado",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cilindro",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estática",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "indignado",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "iraniana",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "licenciada",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mística",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pelado",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "repetido",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sediado",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vilã",
+  "zipf": 3.47,
+  "set": "pt-core"
+ },
+ {
+  "headword": "convencida",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entusiasmado",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fatura",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "intriga",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "neblina",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "negada",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pingo",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "primitiva",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "resfriado",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suba",
+  "zipf": 3.46,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abalada",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abalado",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agradecido",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conserto",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empreitada",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espalhado",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sacada",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sortuda",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tarado",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tou",
+  "zipf": 3.45,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aquecido",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "autárquicas",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "blindado",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caçada",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "directora",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "molde",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "muitíssimo",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "regata",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "robótica",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tico",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vendedora",
+  "zipf": 3.44,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aeronáutica",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chifre",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contaminado",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coordenado",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desacordo",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grelha",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nublado",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pos",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prega",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "punheta",
+  "zipf": 3.43,
+  "set": "pt-core"
+ },
+ {
+  "headword": "antecipado",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apreço",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "delegada",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desapontado",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "destroços",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "distraído",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empolgado",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esclarecido",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "polémica",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "travessa",
+  "zipf": 3.42,
+  "set": "pt-core"
+ },
+ {
+  "headword": "articulado",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aspas",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baita",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "concorde",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquisita",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "furado",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "honorários",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inciso",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "investida",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nata",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pegado",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sereno",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "toro",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trilho",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vegetariana",
+  "zipf": 3.41,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cafeína",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "capitulo",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "condensado",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deprimido",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estampa",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fofoca",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "horto",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "implante",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "náuseas",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prensa",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "principio",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sábia",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tranca",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "travado",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trote",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zebra",
+  "zipf": 3.4,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arménia",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "búlgara",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cante",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "carrego",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "despedido",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fadiga",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fodeu",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "hipoteca",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "irlandesa",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obcecado",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "panfleto",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pavimento",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pertença",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "polos",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sobrado",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tele",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tombo",
+  "zipf": 3.39,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cimeira",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conglomerado",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desativado",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "embate",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exausto",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gate",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gema",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "refinaria",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "roca",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "valsa",
+  "zipf": 3.38,
+  "set": "pt-core"
+ },
+ {
+  "headword": "absolvido",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alegado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bendito",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "catalã",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "clandestina",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "datado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "depositado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "despercebido",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estojo",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fusca",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "improviso",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inclinado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palito",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perseguida",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "planeado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ralo",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "refugiado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "variado",
+  "zipf": 3.37,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aliviado",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arrepio",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bioquímica",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bronca",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cadeado",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cuecas",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dobrado",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dote",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gritaria",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "invertido",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "isca",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "milha",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "missionária",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pernambucana",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recheado",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soneca",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "subordinado",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tailandesa",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tcheca",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "terapêutica",
+  "zipf": 3.36,
+  "set": "pt-core"
+ },
+ {
+  "headword": "administradora",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arquitecto",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atalho",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bochecha",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "buzina",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caramelo",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chapado",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cigana",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "drogado",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "farda",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "franja",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "garrido",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gringa",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ide",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lavada",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lavoura",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mediana",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "minúscula",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "moldura",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "piroca",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "propagar",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recruta",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "resumido",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "simulado",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transe",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vampira",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viajado",
+  "zipf": 3.35,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ara",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arara",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atirado",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "carroça",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cinta",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dezena",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dinamarquesa",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empenhado",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "foragido",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guiada",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "isento",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "madruga",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mestra",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pronunciado",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "upa",
+  "zipf": 3.34,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alameda",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "checa",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chicote",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desviado",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "erótica",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fossemos",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grilo",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "herdeira",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "janta",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "petrolífera",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pisca",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "subordinada",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "temperado",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "xarope",
+  "zipf": 3.33,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adentro",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alcunha",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amargura",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "banha",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "envolto",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estouro",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estragado",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "extrato",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "medio",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "planilha",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rego",
+  "zipf": 3.32,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agrado",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cava",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caídos",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cibernética",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lanço",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mimo",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "respaldo",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soda",
+  "zipf": 3.31,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abusado",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "boliviana",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cancela",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cerne",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cerro",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "choca",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "copia",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ensolarado",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fado",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "forro",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lancha",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mobília",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oca",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pira",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reboque",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retornado",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "velhinha",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zelo",
+  "zipf": 3.3,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acentuado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afirmativa",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alçada",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "broca",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "civilizado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "danado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "decote",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descarte",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desconfiado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descuido",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deveras",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esquilo",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "irado",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lato",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "peregrino",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recomeço",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reembolso",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retina",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salvaguarda",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "temido",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transito",
+  "zipf": 3.29,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acontecerão",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anseio",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aro",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calmaria",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cambio",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "caricatura",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "carreta",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "casarão",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cômica",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empatado",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enfermaria",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estressado",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "moita",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morna",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "norueguesa",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paraguaia",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perturbado",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "raia",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "raposo",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "refinado",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suado",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "timbre",
+  "zipf": 3.28,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ajustado",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "angus",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aplique",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aprisionado",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assessora",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "basto",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bordado",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calçado",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "consola",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "corrupta",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disque",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "durona",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "faxina",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ibérica",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "improvisado",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "incenso",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lide",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mordido",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pasto",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "penetra",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pequenina",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "risca",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tripla",
+  "zipf": 3.27,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aceso",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "botânica",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chegarão",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contestado",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "embriagado",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entediado",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esmola",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "falho",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "funerária",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mescla",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mico",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ordenada",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "racha",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trincheira",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "voadora",
+  "zipf": 3.26,
+  "set": "pt-core"
+ },
+ {
+  "headword": "boleia",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cachimbo",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cobiça",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cromo",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derivada",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dialética",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esforçado",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estaca",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lis",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "loura",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mecha",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nebulosa",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pretendido",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sedutora",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "telha",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tiveste",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zangado",
+  "zipf": 3.25,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alça",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bodas",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "burguesa",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "converso",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ducha",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "eliminatória",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "engorda",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "excitado",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "hepática",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "libanesa",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tornarão",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "transportadora",
+  "zipf": 3.24,
+  "set": "pt-core"
+ },
+ {
+  "headword": "azedo",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "confiado",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encaixe",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "geleia",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grosseira",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "justificado",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manufatura",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "marroquina",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ova",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "picado",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pinga",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "presto",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "roleta",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sela",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sublinha",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tônica",
+  "zipf": 3.23,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acolhida",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "atrapalhado",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "avaria",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chacina",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descontente",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "equivocado",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "merenda",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "motora",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "métrica",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "poupado",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rastreio",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tora",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tuíte",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "velado",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zumbido",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "órfã",
+  "zipf": 3.22,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amarra",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baliza",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desiludido",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encosto",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "homofóbica",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "indefinido",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "permuta",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "relva",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reportado",
+  "zipf": 3.21,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aborrecido",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afiliada",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "brócolis",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deboche",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enjoado",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enunciado",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "levarão",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mascarado",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maura",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maço",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "meiga",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "metafísica",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "portadora",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prestigiado",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "psíquica",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rata",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "substantivo",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "torrada",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "toscana",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "valido",
+  "zipf": 3.2,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abalo",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afiado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alinhado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alvoroço",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "anónima",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assombrado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cochilo",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coça",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "decoro",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desempate",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encarado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "equatoriana",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "faceta",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "geopolítica",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "iraquiana",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paraibana",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "personalizado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "perspetiva",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rasteira",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "relaxado",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "serva",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "turbina",
+  "zipf": 3.19,
+  "set": "pt-core"
+ },
+ {
+  "headword": "danada",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dinamite",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "drogada",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dês",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enriquecido",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "furada",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "hidratado",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lixa",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manuseio",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "milionária",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sacode",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "seqüestro",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tormenta",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tradutora",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viúvo",
+  "zipf": 3.18,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apurado",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arranjado",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bamba",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "castigado",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conceituado",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enfeite",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "filipina",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "greta",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nigeriana",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "peido",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tás",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vaza",
+  "zipf": 3.17,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aritmética",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bobina",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "confisco",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cândida",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desfeita",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desprovido",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "devoto",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "embutido",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "goles",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "grife",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "iodo",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "liberto",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "madrugadas",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "peneira",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pescado",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rixa",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rodado",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sairão",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "selado",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "suplementar",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tormento",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ultraje",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vislumbre",
+  "zipf": 3.16,
+  "set": "pt-core"
+ },
+ {
+  "headword": "achada",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bronzeado",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "circulo",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descalço",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "divorciado",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "faísca",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "instruído",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lingüística",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "orientando",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pita",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pragmática",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pénis",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "regar",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "romena",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trança",
+  "zipf": 3.15,
+  "set": "pt-core"
+ },
+ {
+  "headword": "altíssimo",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alva",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "benta",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chiado",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "conturbado",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desapego",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encargo",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estudiosa",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estônia",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guincho",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "húngara",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ingrata",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maça",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oprimido",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ouros",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pane",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ronco",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sacra",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soluço",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tonga",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "vedado",
+  "zipf": 3.14,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acorrentado",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "assinalado",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "favorecido",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ferrado",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "granizo",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mangue",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mimado",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recaída",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "táctica",
+  "zipf": 3.13,
+  "set": "pt-core"
+ },
+ {
+  "headword": "abafado",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "albergue",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "apressado",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "argolas",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arquiteta",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bagunçado",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bebido",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bica",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cesariana",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cevada",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "configurado",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cri",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encarcerado",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entrevistada",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gasosa",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guindaste",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "idos",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "incógnita",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "locomotiva",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mucosa",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oferenda",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prefixo",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rescaldo",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "seleto",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trunfo",
+  "zipf": 3.12,
+  "set": "pt-core"
+ },
+ {
+  "headword": "austríaca",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "carimbo",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "censurado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chassis",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deliberado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desuso",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "disponha",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encarnado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esfrega",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "esgrima",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inativo",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ladra",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "limonada",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "morgado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "panelaço",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "patinho",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ralado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reciclado",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recorte",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sacha",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tangerina",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tucana",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "uruguaia",
+  "zipf": 3.11,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afiliado",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "avermelhado",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calo",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chiba",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ciranda",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cínica",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "deleite",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espantado",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manada",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mija",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mofo",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "monitorado",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ondulado",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "trance",
+  "zipf": 3.1,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adormecido",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "aglomerado",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bagulho",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "corrompido",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "duche",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "havaiana",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "papagaios",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pinça",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "relvado",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tanga",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "voga",
+  "zipf": 3.09,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amaldiçoado",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arguido",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bainha",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "compilado",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "debilitado",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "didática",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "exaltado",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "frade",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "intento",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "malte",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mimosa",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "remate",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retardo",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sossegado",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tarja",
+  "zipf": 3.08,
+  "set": "pt-core"
+ },
+ {
+  "headword": "barbearia",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "calha",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "churrasqueira",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dedicatória",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desocupado",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "dobre",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "embalado",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enjoo",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "estanho",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "felicitações",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "freqüente",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mamma",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oie",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pigmento",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ressalva",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "soberba",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "taca",
+  "zipf": 3.07,
+  "set": "pt-core"
+ },
+ {
+  "headword": "amnistia",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cavalgada",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "coiso",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desacato",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "efectivo",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fantasiado",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "flagelo",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "geradora",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "harmônica",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "lacre",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "manipuladora",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mijo",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "outorga",
+  "zipf": 3.06,
+  "set": "pt-core"
+ },
+ {
+  "headword": "adido",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afectado",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "andina",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "babado",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "baixinha",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "barganha",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cagada",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "contraído",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desorganizado",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "devassa",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "espeto",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "georgiana",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "histérica",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "indigno",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "paquera",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pastoreio",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "precipitado",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "subjetivo",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sumida",
+  "zipf": 3.05,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alfaiate",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alienado",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cata",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "centelha",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "comovido",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "crivo",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "demoníaca",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desbloqueio",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "descolado",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "factura",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fermento",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "graduando",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "libertária",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "quina",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veraneio",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "verbete",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "viga",
+  "zipf": 3.04,
+  "set": "pt-core"
+ },
+ {
+  "headword": "acupuntura",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "ambíguo",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "arrecada",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "banhado",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "capota",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "churrascaria",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cisma",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "cobro",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "crioula",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "córnea",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "derrocada",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desfalque",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desmaio",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encostado",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "garoa",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guilhotina",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "malaia",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "minuta",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "molhe",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "padronizado",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rega",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "rotunda",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tino",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "toga",
+  "zipf": 3.03,
+  "set": "pt-core"
+ },
+ {
+  "headword": "afegã",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "bananeira",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desanimado",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "desonesto",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "enlace",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "fissura",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "gabarito",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "guinada",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "inquieto",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mica",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "obstetrícia",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "palheta",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sonhadora",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "talo",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tromba",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "veterana",
+  "zipf": 3.02,
+  "set": "pt-core"
+ },
+ {
+  "headword": "actualizado",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "agasalho",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alento",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "antepassado",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "campa",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "emaranhado",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "mulata",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "nitro",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oras",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "oratória",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pedalada",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "prescrito",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reboco",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "retardada",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "sufoco",
+  "zipf": 3.01,
+  "set": "pt-core"
+ },
+ {
+  "headword": "alvinegra",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "azulejo",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "birra",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "broche",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "chapinha",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "choco",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "empata",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "encalço",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "entrave",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "maquinaria",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "pombas",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "premeditado",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "reconquista",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "recta",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "saliente",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "salvadora",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "tirolesa",
+  "zipf": 3.0,
+  "set": "pt-core"
+ },
+ {
+  "headword": "zumba",
+  "zipf": 3.0,
+  "set": "pt-core"
+ }
+]

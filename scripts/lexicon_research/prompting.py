@@ -39,10 +39,11 @@ SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entr
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
 # The languages a learner studies, the ones entries are written for. Ukrainian is a bridge language
 # only: glosses are written in it, entries are not (owner, 2026-10 and again 16 November 2026).
-TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt")
+# Russian joined on 18 November 2026, after its trial: 300 entries read, its examples reviewed.
+TARGET_LANGUAGES = ("en", "de", "fr", "es", "it", "pt", "ru")
 # Languages being tried: they have their settings and can be written by naming them, but no list is written for
 # them by default and nothing is published until a pilot has been read and their examples reviewed.
-PILOT_LANGUAGES = ("ru", "ja")
+PILOT_LANGUAGES = ("ja",)
 
 
 def schema_of_meta(meta):

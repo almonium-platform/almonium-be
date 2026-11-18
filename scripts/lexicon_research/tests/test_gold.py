@@ -23,6 +23,7 @@ PINNED = {
     ("en", "v4.5"): "01e3c8b0c49c", ("de", "v4.5"): "3a6bbf9411f3", ("fr", "v4.5"): "cb91c0a2c441", ("es", "v4.5"): "49554113c543", ("it", "v4.5"): "1696c5fba6f0", ("pt", "v4.5"): "a55595cc20b8",
     ("en", "v4.6"): "646cc0969f58", ("de", "v4.6"): "46fa8ef481dd", ("fr", "v4.6"): "64d5e683fb3a", ("es", "v4.6"): "a760a331ee23", ("it", "v4.6"): "fc32ca7cc518", ("pt", "v4.6"): "b00e003b42a2",
     ("en", "v4.7"): "7f06d29d61de", ("de", "v4.7"): "a48e9cbea96f", ("fr", "v4.7"): "ecf8f8c27d3b", ("es", "v4.7"): "8a253d1aa72f", ("it", "v4.7"): "01f677cf0983", ("pt", "v4.7"): "635fcd1314f9",
+    ("ru", "v4.7"): "1810f2bff60b",  # Russian is a target language from 18 November 2026; its trial entries carry the hash of the text they saw
 }
 ANSWER = """# Review
 

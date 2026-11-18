@@ -200,7 +200,7 @@ def recorded_lemmas(lang):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--headwords", required=True, help="a tranche name: reads headwords/<name>-<lang>.json")
-    ap.add_argument("--langs", default="en,de,fr,es,it,pt,uk")
+    ap.add_argument("--langs", default="en,de,fr,es,it,pt,ru,uk")
     ap.add_argument("--lemma-list", help="write the forms' lemmas that nobody has written or queued to headwords/<this>-<lang>.json")
     ap.add_argument("--samples", type=int, default=12)
     a = ap.parse_args()

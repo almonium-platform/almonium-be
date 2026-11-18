@@ -403,12 +403,11 @@ What followed at once, free: ingest moves a grammar value stated for the whole w
 it is true of when one sense states another (776 values in 710 entries), so the word no longer
 claims it. What it asks of the next prompt version is under "Pending".
 
-## Russian, on trial
+## Russian
 
-Russian has its settings (`prompting.PILOT_LANGUAGES`): it can be written by naming it, no list is
-written for it by default, and nothing is published. Almost all of it was there from Ukrainian: a
-stress reading on every pronunciation and form, the cases, the aspect partner as a relation.
-Russian's own:
+Russian has been a target language since 18 November 2026, after the trial this section records.
+Almost all of its settings were there from Ukrainian: a stress reading on every pronunciation and
+form, the cases, the aspect partner as a relation. Russian's own:
 
 - The lemma is written with ё where the word has it, and the spelling with е is listed beside it,
   because most print has е (*ребёнок*, *ребенок*). Spellings of before 1918 are not listed: a rule
@@ -462,9 +461,29 @@ shown *огромный*, *чемпионат*, *обеспечить* (three se
 Eight words written again under these rules and the examples came back as asked: *шаг* with
 *шага́* after two to four and *на каждом шагу́*, *стол* with no count form, *папа* with *пап*.
 
-Russian has what a target language has: its rules, its gate, its stress witness, its examples,
-304 entries. What it lacks is a place in the queues: a list of its common words, and its name
-among `TARGET_LANGUAGES`, which the writers take as their default.
+With that Russian had what a target language has, and on 18 November 2026 it became one: it is in
+`TARGET_LANGUAGES`, so the writers, the audit and the status take it by default, and its v4.7
+prompt is pinned like the others'. The 304 entries of the trial saw three earlier texts, under the
+names v4.6 and v4.7; each carries the hash of the one it saw, which tells a trial entry from a
+later one.
+
+Its list is `headwords/core-ru.json`: 12,596 words at Zipf 3 or above that Wiktionary knows as
+words and nobody has written, most frequent first, made by `core_list.py`, which gives the French
+list of the same name back almost to the word. Three things in it are Russian's own:
+
+- **ё.** Print has *ее* and *елка*, Wiktionary files those as spellings of *её* and *ёлка*, and a
+  frequency list counts them apart. The word with ё is queued, with the frequency of both; the
+  spelling with е is not, because the entry lists it.
+- **Letters and abbreviations.** *г*, *см*, *км* are frequent and Wiktionary has them as words. A
+  word without a vowel is left out, and a single letter unless it is one of the one-letter words
+  (*а*, *в*, *и*, *к*, *о*, *с*, *у*, *я*).
+- **Words that are forms as well** are in the list (1,822 of them), where the other five lists
+  left them out. In Russian they are the first words a learner needs: *как*, *это*, *для*, *уже*,
+  *хорошо*, each of them also filed as a form of something (*для* of the verb *длить*). See below.
+
+```bash
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ru --headwords core --workers 4 --limit 1000
+```
 
 ## Words that are both a form and a word
 
@@ -481,6 +500,83 @@ takes two turns when it is given a schema, and 28% is what the CLI writes to the
 call. Dropping the schema flag was tried on 16 words: one turn, but the model thought more, the
 price did not fall, and one entry in 16 broke the schema. The lists still to write hold about 3,500
 more such rejects, some $47; not worth a batching step of their own.
+
+The lists `core-de`, `core-fr`, `core-es`, `core-it` and `core-pt` left every such word out, and
+with them the commonest words of each language, which are nearly all a form of something as well:
+*der*, *das*, *es*, *sich*; *la*, *des*, *une*, *dans*, *mais*, *été*; *la*, *los*, *para*, *como*,
+*pero*; *mi*, *gli*, *fatto*; *a*, *os*, *para*, *como*. None of them is in any list or has an entry.
+`core_list.py --forms-only` writes them as `headwords/core-forms-<lang>.json`, most frequent first:
+
+| | words at Zipf 3 or above | at 4.5 or above |
+|---|---:|---:|
+| de | 1,978 | 271 |
+| fr | 1,330 | 180 |
+| es | 1,639 | 244 |
+| it | 2,901 | 364 |
+| pt | 1,955 | 303 |
+
+Going by English, about half of each list will be written and half refused, and the top of each is
+where the words are. German's has a weakness of its own: a noun that looks like a verb form (*Habe*,
+*Muss*, *Hast*) takes that form's frequency, because the frequency list knows no capitals.
+
+## Frames
+
+A frame is what grammar calls government, or valency: what a word needs around it before it can be
+used, a preposition, a case, an infinitive, a clause. *Depend* needs *on* and a thing, *warten*
+needs *auf* and an accusative, *платить* a dative and *за* with an accusative. A learner's
+dictionary prints it as the word with its open places, and every language's dictionaries have
+their own way of writing an open place. Ours:
+
+| | a person | a thing | other open places |
+|---|---|---|---|
+| en | sb | sth | sb's, do sth, doing sth, that ... |
+| de | jmd. jmdn. jmdm. jmds. | etw. | + Akk, + Dat, + Gen |
+| fr | qqn | qqch | inf |
+| es | alguien | algo | inf |
+| it | qcn | qcs | inf |
+| pt | alguém | algo | inf |
+| ru, uk | кто, кого, кому, кем, ком | что, чего, чему, чем, чём | куда, где, инф. |
+| ja | 〜 | 〜 | the particle is written: 〜に, 〜を, 〜が |
+
+The Russian and Ukrainian question words do more than the others' abbreviations: *кого* against
+*кому* says the case, where English *sb* says nothing and German has to add *+ Akk* or decline the
+abbreviation (*jmdn.*, *jmdm.*).
+
+A frame is a string of at most three per sense, and the prompt has only ever said how to write one
+by example: five examples up to v4.7, a sentence each in the notes for Russian and Japanese,
+nothing for French, Spanish, Italian or Portuguese. The 36,300 frames of the schema-4 entries
+(18 November 2026) show what that gave:
+
+| | frames | "something" as | "somebody" as | no open place |
+|---|---:|---|---|---:|
+| en | 13,107 | sth 100% | sb 91%, sb's 9% | 35% |
+| de | 3,513 | etw. 71%, etwas 19%, etw 9% | dative: jmdm. 36%, jdm 30%, jemandem 25%, jdm. 9% | 32% |
+| fr | 5,082 | qqch 95%, quelque chose 3%, qch 2% | qqn 95%, quelqu'un 4% | 41% |
+| es | 3,787 | algo 100% | alguien 98%, algn 2% | 36% |
+| it | 3,874 | qcs 56%, qc 27%, qualcosa 13%, qlco 5% | qcn 69%, qualcuno 14%, qn 13%, qlcu 4% | 37% |
+| pt | 3,257 | algo 100% | alguém 100% | 32% |
+| uk | 2,749 | question words | question words | 23% |
+| ru | 757 | question words | question words | 27% |
+| ja | 177 | 〜 | 〜 | 21% |
+
+Two things are loose.
+
+**How an open place is spelled.** Four languages settled on one spelling by themselves; German and
+Italian took the abbreviations of three or four dictionaries. Ingest now rewrites the abbreviations
+to the table's (`settle_frames`, free, 9.6% of German frames and 13.3% of Italian ones), with
+German on Duden's, which the reviewed German examples already use. A full word (*etwas*,
+*qualcosa*) is left as it is: it can be a word of the phrase (*etwas dagegen haben*), and no rule
+tells that from an open place. A reader of the app can therefore rely on the abbreviations and
+nothing else to find the open places.
+
+**What counts as a frame.** A third of the frames have no open place at all. They are collocations
+(*have an idea*, *eine Geldstrafe zahlen*), fixed phrases (*as soon as possible*, *in the lead*) and
+names made of two words (*site archéologique*, *tienda de campaña*). The prompt asks for them: an
+idiom "is shown under the frames of the sense it uses", and the English example has *in the lead*
+and *take the lead* as frames. Both reviews of November held that a frame is a pattern and a usual
+pairing of words is something else, and Russian and Japanese are written that way since. The other
+six are not, and the next prompt version is where that changes, with the table above in its text
+for every language: see Pending.
 
 ## Languages outside Europe
 
@@ -581,15 +677,14 @@ On a machine with the Claude CLI logged in to the account that is to pay:
 
 ```bash
 git pull origin develop
-# Russian needs its gate once: a 950 MB download, a few minutes
-scripts/.venv/bin/python scripts/lexicon_research/lemma_index.py --langs ru
-scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ru --headwords top-ru --workers 4
-scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ja --headwords pilot-ja --workers 4 --no-gate
+# the gate of a language is built once: 950 MB to read for Russian, 370 MB for Japanese, a few minutes each
+scripts/.venv/bin/python scripts/lexicon_research/lemma_index.py --langs ru,ja
+scripts/.venv/bin/python scripts/lexicon_research/claude_code_writer.py --model claude-opus-5-5 --effort high --langs ja --headwords top-ja --workers 4
 scripts/.venv/bin/python scripts/lexicon_research/lexicon_data_sync.py
 ```
 
-About $13 for the 250 Russian words and $3 for the Japanese pilot at list price. The sync pushes
-them to the data repository, where any session reads them.
+The sync pushes the entries to the data repository, where any session reads them. A language named
+with `--langs` is written whether it is on trial or not; only the default leaves the trial ones out.
 
 ## The pass over finished entries
 
@@ -624,6 +719,12 @@ One pass brings the written entries up to October's standard and links them:
   accord and rightly (`"also"` in the inventory files). That took the entries with a sound outside
   the list from 1,766 to 39 in English and from 342 to 4 in German. The prompts up to v4.6 do not
   list them, because a prompt entries were written with does not change; the next version will.
+- Russian is a target language since 18 November 2026. Japanese is on trial; Korean and Chinese have
+  no settings.
+- An open place of a frame has one spelling per language (the table under Frames), and ingest writes
+  the abbreviations that way. German follows Duden (*jmdm.*, *etw.*).
+- A common-word list holds the words that are inflected forms as well for Russian, and for the other
+  five they are a second list, `core-forms-<lang>`: the writer decides which of them are words.
 - Work happens on `develop` and is pushed at once.
 
 ## Sources
@@ -654,16 +755,19 @@ page does not settle.
    be `mainly`.
 4. **Lists**: fixed phrases first, which the measurement found to be the gap a learner feels (one
    entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
-   the words in it; function words for de, fr, es, it, pt (English has them); the book-word list,
-   which needs an export from the book processor.
-5. **Russian among the target languages**: it has everything but a list of its common words and
-   its place in the writers' default. **Japanese**: a few hundred common words under the reviewed
-   rules, then the measurement, and a witness for the pitch accent from Wiktionary. Korean and
-   Chinese have no settings yet.
-6. **Frames or collocations.** Both new reviews held a frame to be a pattern with an open place
-   (*искать кого/что*, *〜に行く*) and not a usual pairing of words (*чемпионат мира*, *鉛筆で書く*).
-   The six languages' entries mix the two since the examples came. A learner wants both, apart:
-   a list of collocations beside the frames is the open question.
+   the words in it; the commonest words of de, fr, es, it and pt, which their core lists left out
+   because each is a form of something as well (*der*, *la*, *para*): `core-forms-<lang>` holds
+   them and is not yet run; the book-word list, which needs an export from the book processor.
+5. **Japanese**: `top-ja` holds 250 common words to write under the reviewed rules; then their
+   measurement by a reviewer, and a witness for the pitch accent, which the Wiktionary extract
+   turned out not to carry for Tokyo. Korean and Chinese have no settings yet.
+6. **Frames and collocations**, in the next prompt version: the table of open places in the text
+   for every language, a frame defined as a pattern with at least one open place, and the usual
+   pairings of words (*have an idea*, *чемпионат мира*, *鉛筆で書く*) either in a list of their own
+   beside the frames, at most three a sense, or not in the entry at all. A learner wants both,
+   apart; the open question is the owner's, whether the entry gets that second list. An audit kind
+   for a frame without an open place follows the decision, because today it would name a third of
+   all frames.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

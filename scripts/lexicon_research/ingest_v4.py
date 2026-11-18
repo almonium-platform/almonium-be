@@ -31,7 +31,7 @@ from pathlib import Path
 HERE = Path("scripts/lexicon_research")
 OUT = HERE / "out"
 CLEAN = OUT / "lexicon-s4"  # schema 4; the name must not match a writer directory (*-v4)
-LANGS = ["en", "de", "fr", "es", "it", "pt", "uk"]
+LANGS = ["en", "de", "fr", "es", "it", "pt", "ru", "uk"]
 NAMESPACE = uuid.UUID("6f1d5f0e-3a57-5d0b-9d5e-0b6a4c1e7a11")
 # the system prompt of v4 as committed in 2ae77a9, for entries written before prompt_sha was recorded
 V4_SHA = {"en": "586629ecdbd5", "de": "56e4236a695f", "fr": "91661a73562b", "es": "0da13a97b02b", "it": "e97499d7cad2",
@@ -165,6 +165,43 @@ def settle_defaults(lexeme):
     return moved
 
 
+# In a frame the open places for a person and a thing are written one way per language: sb and sth; jmd. jmdn. jmdm.
+# jmds. and etw., as Duden and the reviewed German examples write them; qqn and qqch; alguien and algo; qcn and qcs;
+# alguém and algo. The writers also used the abbreviations of other dictionaries (German jdn and jdm, Italian qc, qn,
+# qlco and qlcu, French qch), so that Italian wrote "something" four ways. An abbreviation is never a word of the
+# phrase, so it is rewritten; the full word (etwas, qualcosa, quelqu'un) is left alone, because it can be one
+# ("etwas dagegen haben"). An open clause is three full stops, as the examples have it.
+FRAME_PLACES = {
+    "en": {"sb.": "sb", "smb": "sb", "smb.": "sb", "sth.": "sth", "smth": "sth", "smth.": "sth"},
+    "de": {"jdn": "jmdn.", "jdn.": "jmdn.", "jmdn": "jmdn.", "j-n": "jmdn.", "jdm": "jmdm.", "jdm.": "jmdm.", "jmdm": "jmdm.", "j-m": "jmdm.",
+           "jds": "jmds.", "jds.": "jmds.", "jmds": "jmds.", "j-s": "jmds.", "jd": "jmd.", "jd.": "jmd.", "jmd": "jmd.", "etw": "etw."},
+    "fr": {"qn": "qqn", "qn.": "qqn", "qqn.": "qqn", "qch": "qqch", "qch.": "qqch", "qqch.": "qqch"},
+    "es": {"algn": "alguien", "algn.": "alguien"},
+    "it": {"qn": "qcn", "qn.": "qcn", "qlcu": "qcn", "qlcu.": "qcn", "qcn.": "qcn",
+           "qc": "qcs", "qc.": "qcs", "qlco": "qcs", "qlco.": "qcs", "qcs.": "qcs"},
+}
+FRAME_PLACE = {lang: re.compile(r"(?<![\w-])(?:" + "|".join(re.escape(v) for v in sorted(table, key=len, reverse=True)) + r")(?![\w.])")
+               for lang, table in FRAME_PLACES.items()}
+
+
+def settle_frames(lang, lexeme):
+    """Write the open places of every frame the one way the language has, and an open clause as three full stops.
+    A frame that becomes the same as another of its sense is dropped. Says how many frames changed."""
+    changed = 0
+    for sense in lexeme.get("senses") or []:
+        frames = []
+        for frame in sense.get("frames") or []:
+            new = frame.replace("…", "...")
+            if lang in FRAME_PLACE:
+                new = FRAME_PLACE[lang].sub(lambda m: FRAME_PLACES[lang][m.group(0)], new)
+            changed += new != frame
+            if new not in frames:
+                frames.append(new)
+        if frames:
+            sense["frames"] = frames
+    return changed
+
+
 BE_WHEN_PRONOMINAL = {"fr", "it"}  # être, essere: every pronominal use of a verb, without exception
 
 
@@ -224,7 +261,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults, marks = [], [], Counter(), 0, 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks, places = [], [], Counter(), 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -256,6 +293,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         auxiliaries += pronominal_auxiliary(lang, lexeme)
         defaults += settle_defaults(lexeme)
         marks += plain_forms(lexeme)
+        places += settle_frames(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -276,6 +314,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["word_grammar_moved_to_senses"] = defaults
     if marks:
         entry["stress_marks_moved_to_readings"] = marks
+    if places:
+        entry["frames_respelled"] = places
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -402,6 +442,7 @@ def ingest(lang, dry_run=False):
         counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
+        counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

@@ -44,7 +44,7 @@ VOWELS = "aeiouàèéìíòóùаеєиіїоуюяыэё"
 ACUTE = "́"
 FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark",
         "pronominal sense without its auxiliary", "double consonant not written twice", "ll of Spain written ʎ",
-        "word-level grammar a sense overrides", "stress mark in a form")
+        "word-level grammar a sense overrides", "stress mark in a form", "open place of a frame spelled another way")
 SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mark", "double consonants rewritten": "double consonant not written twice",
                 "ll of Spain rewritten": "ll of Spain written ʎ"}
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
@@ -121,6 +121,8 @@ def check(lang, entry, inventories, witness):
                 problems.append(("IPA outside the symbol list", f"{p['ipa']} has {left}"))
         if ingest_v4.plain_forms(json.loads(json.dumps(lx))):
             problems.append(("stress mark in a form", lx.get("lemma")))
+        if times := ingest_v4.settle_frames(lang, json.loads(json.dumps(lx))):
+            problems.append(("open place of a frame spelled another way", f"{lx.get('lemma')}: {times} frame{'s' if times > 1 else ''}"))
         if ingest_v4.settle_defaults(json.loads(json.dumps(lx))):
             problems.append(("word-level grammar a sense overrides", lx.get("lemma")))
         if ingest_v4.pronominal_auxiliary(lang, json.loads(json.dumps(lx))):

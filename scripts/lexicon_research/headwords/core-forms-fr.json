@@ -1,0 +1,6652 @@
+[
+ {
+  "headword": "la",
+  "zipf": 7.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "est",
+  "zipf": 7.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "des",
+  "zipf": 7.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "a",
+  "zipf": 7.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "une",
+  "zipf": 7.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dans",
+  "zipf": 6.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mais",
+  "zipf": 6.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tu",
+  "zipf": 6.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "elle",
+  "zipf": 6.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fait",
+  "zipf": 6.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "été",
+  "zipf": 6.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lui",
+  "zipf": 6.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peut",
+  "zipf": 6.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tous",
+  "zipf": 6.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entre",
+  "zipf": 6.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dit",
+  "zipf": 6.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contre",
+  "zipf": 5.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sous",
+  "zipf": 5.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soit",
+  "zipf": 5.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "as",
+  "zipf": 5.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cela",
+  "zipf": 5.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vu",
+  "zipf": 5.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "première",
+  "zipf": 5.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bonne",
+  "zipf": 5.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pendant",
+  "zipf": 5.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "puis",
+  "zipf": 5.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "elles",
+  "zipf": 5.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vers",
+  "zipf": 5.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nouvelle",
+  "zipf": 5.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passe",
+  "zipf": 5.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "devant",
+  "zipf": 5.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pris",
+  "zipf": 5.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pu",
+  "zipf": 5.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fut",
+  "zipf": 5.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passé",
+  "zipf": 5.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aura",
+  "zipf": 5.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ayant",
+  "zipf": 5.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "belle",
+  "zipf": 5.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "donné",
+  "zipf": 5.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étant",
+  "zipf": 5.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nouvelles",
+  "zipf": 5.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "quelle",
+  "zipf": 5.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "musique",
+  "zipf": 5.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allez",
+  "zipf": 5.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écrit",
+  "zipf": 5.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "affaires",
+  "zipf": 5.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nationale",
+  "zipf": 5.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "trouvé",
+  "zipf": 5.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "armée",
+  "zipf": 5.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manque",
+  "zipf": 5.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "présente",
+  "zipf": 5.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sortie",
+  "zipf": 5.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "meilleure",
+  "zipf": 5.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "offre",
+  "zipf": 5.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "travaux",
+  "zipf": 5.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "durant",
+  "zipf": 5.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "seconde",
+  "zipf": 5.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "données",
+  "zipf": 5.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dû",
+  "zipf": 5.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "connu",
+  "zipf": 5.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "espace",
+  "zipf": 5.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sorte",
+  "zipf": 5.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "générale",
+  "zipf": 5.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fini",
+  "zipf": 5.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "marque",
+  "zipf": 5.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reçu",
+  "zipf": 5.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "demandé",
+  "zipf": 5.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entendu",
+  "zipf": 5.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "permis",
+  "zipf": 5.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "armes",
+  "zipf": 4.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "courant",
+  "zipf": 4.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "finale",
+  "zipf": 4.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bande",
+  "zipf": 4.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "commune",
+  "zipf": 4.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grosse",
+  "zipf": 4.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vente",
+  "zipf": 4.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "concernant",
+  "zipf": 4.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arrêté",
+  "zipf": 4.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rendu",
+  "zipf": 4.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "utilisé",
+  "zipf": 4.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suivi",
+  "zipf": 4.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tiens",
+  "zipf": 4.88,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parties",
+  "zipf": 4.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "anciens",
+  "zipf": 4.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "calme",
+  "zipf": 4.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ligue",
+  "zipf": 4.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parfait",
+  "zipf": 4.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "joué",
+  "zipf": 4.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lutte",
+  "zipf": 4.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "touche",
+  "zipf": 4.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blanche",
+  "zipf": 4.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jacques",
+  "zipf": 4.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parlé",
+  "zipf": 4.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "privé",
+  "zipf": 4.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vit",
+  "zipf": 4.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lettres",
+  "zipf": 4.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "oublié",
+  "zipf": 4.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "appris",
+  "zipf": 4.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cru",
+  "zipf": 4.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "revenu",
+  "zipf": 4.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gueule",
+  "zipf": 4.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "né",
+  "zipf": 4.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "capitale",
+  "zipf": 4.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prévu",
+  "zipf": 4.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "envoyé",
+  "zipf": 4.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sainte",
+  "zipf": 4.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aimé",
+  "zipf": 4.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "figure",
+  "zipf": 4.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "noire",
+  "zipf": 4.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pensée",
+  "zipf": 4.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réserve",
+  "zipf": 4.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chargé",
+  "zipf": 4.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "découvert",
+  "zipf": 4.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "règle",
+  "zipf": 4.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "su",
+  "zipf": 4.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traité",
+  "zipf": 4.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passant",
+  "zipf": 4.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "statistiques",
+  "zipf": 4.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "permettant",
+  "zipf": 4.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réforme",
+  "zipf": 4.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bordeaux",
+  "zipf": 4.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "oublie",
+  "zipf": 4.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "quitte",
+  "zipf": 4.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vécu",
+  "zipf": 4.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "élève",
+  "zipf": 4.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chasse",
+  "zipf": 4.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lesquels",
+  "zipf": 4.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conduit",
+  "zipf": 4.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "porté",
+  "zipf": 4.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blague",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fiche",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "histoires",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "interdit",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paroles",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suivante",
+  "zipf": 4.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "glace",
+  "zipf": 4.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "piste",
+  "zipf": 4.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "portant",
+  "zipf": 4.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "portée",
+  "zipf": 4.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tenue",
+  "zipf": 4.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peinture",
+  "zipf": 4.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "restaurant",
+  "zipf": 4.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "seine",
+  "zipf": 4.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "menace",
+  "zipf": 4.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "présidentielle",
+  "zipf": 4.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blessé",
+  "zipf": 4.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fous",
+  "zipf": 4.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "basse",
+  "zipf": 4.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "monte",
+  "zipf": 4.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préféré",
+  "zipf": 4.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vive",
+  "zipf": 4.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épouse",
+  "zipf": 4.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attendu",
+  "zipf": 4.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "composé",
+  "zipf": 4.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "murs",
+  "zipf": 4.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "uni",
+  "zipf": 4.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enceinte",
+  "zipf": 4.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "professionnelle",
+  "zipf": 4.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remise",
+  "zipf": 4.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vendu",
+  "zipf": 4.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "archives",
+  "zipf": 4.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remarque",
+  "zipf": 4.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sacré",
+  "zipf": 4.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tournée",
+  "zipf": 4.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allemande",
+  "zipf": 4.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "casse",
+  "zipf": 4.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "excuse",
+  "zipf": 4.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frappe",
+  "zipf": 4.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ha",
+  "zipf": 4.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pilote",
+  "zipf": 4.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surpris",
+  "zipf": 4.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bienvenue",
+  "zipf": 4.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cible",
+  "zipf": 4.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "donnée",
+  "zipf": 4.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nulle",
+  "zipf": 4.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tiré",
+  "zipf": 4.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "commis",
+  "zipf": 4.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "courses",
+  "zipf": 4.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "normale",
+  "zipf": 4.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "touché",
+  "zipf": 4.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "acquis",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "extrait",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "financière",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "foule",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rentrée",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soumis",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "taxe",
+  "zipf": 4.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allant",
+  "zipf": 4.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "morale",
+  "zipf": 4.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poche",
+  "zipf": 4.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prenant",
+  "zipf": 4.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "employé",
+  "zipf": 4.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "venant",
+  "zipf": 4.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chère",
+  "zipf": 4.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pousse",
+  "zipf": 4.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "règne",
+  "zipf": 4.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suicide",
+  "zipf": 4.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "établi",
+  "zipf": 4.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "associé",
+  "zipf": 4.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "connaissances",
+  "zipf": 4.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "démarche",
+  "zipf": 4.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parlant",
+  "zipf": 4.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lunettes",
+  "zipf": 4.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mine",
+  "zipf": 4.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "religieuse",
+  "zipf": 4.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manqué",
+  "zipf": 4.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "occupé",
+  "zipf": 4.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paye",
+  "zipf": 4.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "voyons",
+  "zipf": 4.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "folle",
+  "zipf": 4.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "indiqué",
+  "zipf": 4.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "montée",
+  "zipf": 4.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "perspective",
+  "zipf": 4.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accusé",
+  "zipf": 4.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "adopté",
+  "zipf": 4.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hâte",
+  "zipf": 4.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lis",
+  "zipf": 4.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sachant",
+  "zipf": 4.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assuré",
+  "zipf": 4.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "crème",
+  "zipf": 4.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "raté",
+  "zipf": 4.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "applique",
+  "zipf": 4.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assis",
+  "zipf": 4.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fondé",
+  "zipf": 4.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "maîtrise",
+  "zipf": 4.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vues",
+  "zipf": 4.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abandonné",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "consacré",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "convaincu",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "indice",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paie",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plaque",
+  "zipf": 4.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "basé",
+  "zipf": 4.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "intéressé",
+  "zipf": 4.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "amoureuse",
+  "zipf": 4.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "opposé",
+  "zipf": 4.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remonte",
+  "zipf": 4.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "communiqué",
+  "zipf": 4.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "destinée",
+  "zipf": 4.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suède",
+  "zipf": 4.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étrangère",
+  "zipf": 4.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contenant",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "correspondant",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paire",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "relative",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rempli",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soutenu",
+  "zipf": 4.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "file",
+  "zipf": 4.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rené",
+  "zipf": 4.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réservé",
+  "zipf": 4.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jugé",
+  "zipf": 4.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "limitée",
+  "zipf": 4.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parisienne",
+  "zipf": 4.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remplacé",
+  "zipf": 4.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "toilettes",
+  "zipf": 4.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "autorisé",
+  "zipf": 4.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "caché",
+  "zipf": 4.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "devoirs",
+  "zipf": 4.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "forcé",
+  "zipf": 4.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "semblant",
+  "zipf": 4.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "catalogue",
+  "zipf": 4.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "violent",
+  "zipf": 4.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "adapté",
+  "zipf": 4.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allée",
+  "zipf": 4.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coupé",
+  "zipf": 4.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "partagé",
+  "zipf": 4.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bouffe",
+  "zipf": 4.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "législatives",
+  "zipf": 4.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poussé",
+  "zipf": 4.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ronde",
+  "zipf": 4.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "économies",
+  "zipf": 4.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "casque",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "couilles",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fourni",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mariée",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parent",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "restant",
+  "zipf": 4.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "alternative",
+  "zipf": 4.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "partant",
+  "zipf": 4.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tape",
+  "zipf": 4.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tombée",
+  "zipf": 4.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attaché",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chrétienne",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "joint",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "regardant",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "satisfait",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suffisant",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "trait",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traverse",
+  "zipf": 4.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "compromis",
+  "zipf": 4.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conclusions",
+  "zipf": 4.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "félicitations",
+  "zipf": 4.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "habitant",
+  "zipf": 4.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "voisine",
+  "zipf": 4.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chanteuse",
+  "zipf": 4.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "constante",
+  "zipf": 4.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "marne",
+  "zipf": 4.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épaule",
+  "zipf": 4.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "armé",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "baise",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "colle",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "méditerranée",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "quotidienne",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "retenu",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "régulière",
+  "zipf": 4.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aile",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blonde",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bloqué",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "boule",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conclu",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "costume",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "impressionnant",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mathématiques",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "serre",
+  "zipf": 4.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "doutes",
+  "zipf": 4.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jeté",
+  "zipf": 4.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prononcé",
+  "zipf": 4.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prévenu",
+  "zipf": 4.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "animé",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assise",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "câble",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépassé",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépense",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déposé",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "spécialisé",
+  "zipf": 4.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accordé",
+  "zipf": 4.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aperçu",
+  "zipf": 4.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assistant",
+  "zipf": 4.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chérie",
+  "zipf": 4.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "libéré",
+  "zipf": 4.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attaquant",
+  "zipf": 4.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "avancée",
+  "zipf": 4.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "facilité",
+  "zipf": 4.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mémoires",
+  "zipf": 4.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pique",
+  "zipf": 4.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "avancé",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hélas",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "protégé",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "relevé",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sportive",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étendue",
+  "zipf": 4.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chaussée",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grille",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "informé",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "interprète",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sèche",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "triple",
+  "zipf": 4.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assisté",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contrainte",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "délégué",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "inconnue",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "initiale",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "loisirs",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "planche",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plume",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tranche",
+  "zipf": 4.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brise",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "clos",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "imposé",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ordonné",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "retenue",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "saisi",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "salarié",
+  "zipf": 4.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "actualités",
+  "zipf": 4.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contraint",
+  "zipf": 4.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croissant",
+  "zipf": 4.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "subit",
+  "zipf": 4.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aire",
+  "zipf": 4.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brisé",
+  "zipf": 4.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "like",
+  "zipf": 4.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "média",
+  "zipf": 4.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "offensive",
+  "zipf": 4.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défini",
+  "zipf": 4.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poussée",
+  "zipf": 4.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "récolte",
+  "zipf": 4.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réglé",
+  "zipf": 4.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "colonnes",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "courante",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "foire",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "offrant",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pensant",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "racine",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rapporté",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suspendu",
+  "zipf": 4.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "carburant",
+  "zipf": 4.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croisé",
+  "zipf": 4.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dessert",
+  "zipf": 4.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "golfe",
+  "zipf": 4.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vivante",
+  "zipf": 4.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assurée",
+  "zipf": 4.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "constant",
+  "zipf": 4.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "faille",
+  "zipf": 4.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "servant",
+  "zipf": 4.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arrivant",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "comparé",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "juive",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "payant",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pourri",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tendu",
+  "zipf": 4.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "appliqué",
+  "zipf": 4.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défendu",
+  "zipf": 4.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lampe",
+  "zipf": 4.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "urgences",
+  "zipf": 4.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allié",
+  "zipf": 4.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "richesses",
+  "zipf": 4.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "comptant",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coordonnées",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "couché",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défilé",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "existant",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "requis",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "serré",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "échecs",
+  "zipf": 4.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accompli",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assises",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "favoris",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "juré",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pressé",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "résolu",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "touchant",
+  "zipf": 4.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "habitué",
+  "zipf": 4.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "opposant",
+  "zipf": 4.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "recommandé",
+  "zipf": 4.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réplique",
+  "zipf": 4.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "curé",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flamme",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pâtes",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "recherché",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "refait",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traversée",
+  "zipf": 3.99,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abattu",
+  "zipf": 3.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "concentré",
+  "zipf": 3.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dalle",
+  "zipf": 3.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "intrigue",
+  "zipf": 3.98,
+  "set": "fr-core"
+ },
+ {
+  "headword": "agissant",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "devise",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dérive",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "foncé",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fût",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "galère",
+  "zipf": 3.97,
+  "set": "fr-core"
+ },
+ {
+  "headword": "boxe",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brune",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "concerné",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dominante",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "intégrale",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passionné",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rigole",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "roulant",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étonné",
+  "zipf": 3.96,
+  "set": "fr-core"
+ },
+ {
+  "headword": "amours",
+  "zipf": 3.95,
+  "set": "fr-core"
+ },
+ {
+  "headword": "choqué",
+  "zipf": 3.95,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croyant",
+  "zipf": 3.95,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exécuté",
+  "zipf": 3.95,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reconnaissant",
+  "zipf": 3.95,
+  "set": "fr-core"
+ },
+ {
+  "headword": "doré",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "impériale",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "masses",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "moque",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ouvrant",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peste",
+  "zipf": 3.94,
+  "set": "fr-core"
+ },
+ {
+  "headword": "approprié",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arnaque",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brûlé",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conseillé",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "couverte",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépendant",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "détenu",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "formant",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manœuvre",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "motivé",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mutuelle",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éloigné",
+  "zipf": 3.93,
+  "set": "fr-core"
+ },
+ {
+  "headword": "choque",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "consultant",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contraste",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enchères",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plongée",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rate",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "renommée",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vaincu",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étendu",
+  "zipf": 3.92,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ados",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "avoué",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chu",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dominant",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "doué",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "employée",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "escalade",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grippe",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gênant",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lente",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lie",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "maudit",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nouveautés",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "respire",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "versé",
+  "zipf": 3.91,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aiguille",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cuire",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lacs",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nique",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préface",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "revenue",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "risqué",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réfléchi",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "répondant",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traîne",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "volée",
+  "zipf": 3.9,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déplacé",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "loge",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rentrant",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rit",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sanitaires",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sure",
+  "zipf": 3.89,
+  "set": "fr-core"
+ },
+ {
+  "headword": "battue",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brève",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enculé",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "indienne",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "justifié",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parvenu",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écossais",
+  "zipf": 3.87,
+  "set": "fr-core"
+ },
+ {
+  "headword": "anneaux",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entrant",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "funérailles",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "impliquant",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prés",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "teint",
+  "zipf": 3.86,
+  "set": "fr-core"
+ },
+ {
+  "headword": "appelant",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "combattant",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dénoncé",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "illustré",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "marchandise",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "piqué",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "purée",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "restreint",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "répandu",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sauté",
+  "zipf": 3.85,
+  "set": "fr-core"
+ },
+ {
+  "headword": "berne",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coloniale",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "députée",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "inquiétant",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "intéressée",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "occupant",
+  "zipf": 3.84,
+  "set": "fr-core"
+ },
+ {
+  "headword": "combiné",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "commençant",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gratte",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "habillé",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "modéré",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parcouru",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poli",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "terminale",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vernis",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vire",
+  "zipf": 3.83,
+  "set": "fr-core"
+ },
+ {
+  "headword": "muscle",
+  "zipf": 3.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "repéré",
+  "zipf": 3.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épuisé",
+  "zipf": 3.82,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cuite",
+  "zipf": 3.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gueules",
+  "zipf": 3.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "patrouille",
+  "zipf": 3.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pisse",
+  "zipf": 3.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "revenant",
+  "zipf": 3.81,
+  "set": "fr-core"
+ },
+ {
+  "headword": "composant",
+  "zipf": 3.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "distribué",
+  "zipf": 3.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "escorte",
+  "zipf": 3.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "souriant",
+  "zipf": 3.8,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cire",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "consécutive",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coopérative",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cédé",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dégagé",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fumé",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lesbienne",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "moule",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mêlée",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "naufrage",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "perle",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "recueilli",
+  "zipf": 3.79,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abords",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accrue",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "curieuse",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enseigné",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "halte",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "orienté",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "provinciale",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "teinte",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "transformée",
+  "zipf": 3.78,
+  "set": "fr-core"
+ },
+ {
+  "headword": "annales",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chassé",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cube",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entraînant",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exigeant",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reins",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rousse",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sperme",
+  "zipf": 3.77,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déterminant",
+  "zipf": 3.76,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fascinant",
+  "zipf": 3.76,
+  "set": "fr-core"
+ },
+ {
+  "headword": "impressionné",
+  "zipf": 3.76,
+  "set": "fr-core"
+ },
+ {
+  "headword": "résultant",
+  "zipf": 3.76,
+  "set": "fr-core"
+ },
+ {
+  "headword": "souffrant",
+  "zipf": 3.76,
+  "set": "fr-core"
+ },
+ {
+  "headword": "certifié",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "consistant",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "noces",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "possédant",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ris",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rompu",
+  "zipf": 3.75,
+  "set": "fr-core"
+ },
+ {
+  "headword": "efface",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "foulée",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fréquenté",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gêné",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passionnant",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "provoquant",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "recouvert",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surnommé",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éclairé",
+  "zipf": 3.74,
+  "set": "fr-core"
+ },
+ {
+  "headword": "commerçant",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "composante",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "confiant",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "constituant",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "criant",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fiancée",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "patiente",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pète",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ramasse",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "silhouette",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "verticale",
+  "zipf": 3.73,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aimant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arraché",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "débutant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "endormi",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entretenu",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "figurant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "menaçant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prétendant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rente",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "savant",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soigné",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sécurisé",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "valises",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ému",
+  "zipf": 3.72,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attrape",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "autopsie",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "barré",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brutale",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "confondu",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cravate",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "daté",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fondu",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fouille",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gagnante",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "influencé",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ralenti",
+  "zipf": 3.71,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abonné",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "allumé",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "apprenant",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conne",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gaule",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remontant",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "repoussé",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "résidant",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "spirale",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "verse",
+  "zipf": 3.7,
+  "set": "fr-core"
+ },
+ {
+  "headword": "avéré",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "concorde",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "douloureuse",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dérives",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "favorite",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nourri",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "psychanalyse",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pété",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "repousse",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "roulé",
+  "zipf": 3.69,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croisée",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "effrayant",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prédit",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préliminaires",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prétendu",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sacre",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sucré",
+  "zipf": 3.68,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aidant",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "branché",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "creusé",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dressé",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dédicace",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exploitant",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "inauguré",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "percée",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "privilégiée",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reposant",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sonné",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tronche",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tuant",
+  "zipf": 3.67,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bourgeoise",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "changeant",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "choquant",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "drague",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "géante",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mesuré",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plaisant",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "polonaise",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pratiquant",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remonté",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "survenue",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "varié",
+  "zipf": 3.66,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fourmis",
+  "zipf": 3.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "garant",
+  "zipf": 3.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "honoraires",
+  "zipf": 3.65,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peuplé",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plâtre",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poursuivant",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rangée",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "survivant",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sus",
+  "zipf": 3.64,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blâme",
+  "zipf": 3.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frustrant",
+  "zipf": 3.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "insultant",
+  "zipf": 3.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "marchande",
+  "zipf": 3.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mouillé",
+  "zipf": 3.63,
+  "set": "fr-core"
+ },
+ {
+  "headword": "amitiés",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "baisé",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "corrompu",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "digitale",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "disposé",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "méprise",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plane",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pointé",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "récidive",
+  "zipf": 3.62,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abruti",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accueillant",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blindé",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "botte",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conjointe",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "favorisant",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "localisé",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nova",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préférences",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écharpe",
+  "zipf": 3.61,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cale",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "carrée",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chantant",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coquine",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "forestière",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "insulté",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "limitant",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "obsèques",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "performant",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pieux",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "regretté",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "usé",
+  "zipf": 3.6,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attirant",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "couronné",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gonflé",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "perche",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ravages",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sente",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "viole",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éclaire",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "énoncé",
+  "zipf": 3.59,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aînée",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "béni",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cartographie",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "incarné",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remords",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éclipse",
+  "zipf": 3.58,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défoncé",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "détaché",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "influent",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jetée",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "masqué",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ores",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "protestant",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pétrolière",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "trempé",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vêtu",
+  "zipf": 3.57,
+  "set": "fr-core"
+ },
+ {
+  "headword": "acceptant",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ancre",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "généralisé",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "intervenant",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jeûne",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "licencié",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pédale",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "signifiant",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "émouvant",
+  "zipf": 3.56,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abstrait",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ascendant",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flippant",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fâché",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gouverne",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "horizontale",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manie",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rangé",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "télécommande",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vomi",
+  "zipf": 3.55,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ciseaux",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cylindre",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déléguée",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fiancé",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frustré",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nappe",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "obligeant",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préoccupé",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "répartie",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tremble",
+  "zipf": 3.54,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assigné",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brûlant",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "controversé",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fondant",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pendu",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rasé",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rattrape",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soufflé",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "triche",
+  "zipf": 3.53,
+  "set": "fr-core"
+ },
+ {
+  "headword": "capote",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "craque",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "douteuse",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépourvu",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enclos",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enfoiré",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "idiote",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "phone",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "taillé",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écouteurs",
+  "zipf": 3.52,
+  "set": "fr-core"
+ },
+ {
+  "headword": "anesthésie",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dissous",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "embrassé",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manifestant",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "matinale",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nazie",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paysanne",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plié",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tombant",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "toussa",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tranché",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "érigé",
+  "zipf": 3.51,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chorale",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déduit",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "identifiant",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "oie",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prévoyant",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "riant",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "taré",
+  "zipf": 3.5,
+  "set": "fr-core"
+ },
+ {
+  "headword": "comprimé",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépouille",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "détenue",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entendant",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flottant",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peluche",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "porteuse",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "primitive",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rétrospective",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "séduisant",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "torche",
+  "zipf": 3.49,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arrangé",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dérangé",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "glacé",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gâche",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hallucinant",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "publiant",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ressemblant",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sacrifié",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sentant",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "stressé",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "trousse",
+  "zipf": 3.48,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accéléré",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bouclé",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "carence",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dénommé",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exactions",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gâché",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "locomotive",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "penchant",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "raie",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "remorque",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "riposte",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "semé",
+  "zipf": 3.47,
+  "set": "fr-core"
+ },
+ {
+  "headword": "administré",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bouchée",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "démenti",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "entraide",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "experte",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "figuré",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "inversé",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "négociant",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préambule",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réclamant",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traine",
+  "zipf": 3.46,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépendante",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "invitant",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paré",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "poussières",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reculé",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sels",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "virée",
+  "zipf": 3.45,
+  "set": "fr-core"
+ },
+ {
+  "headword": "insistant",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "méconnu",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rayé",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "salive",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suicidé",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surcharge",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surveillant",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vielle",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éolienne",
+  "zipf": 3.44,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ardoise",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "diagonale",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "engageant",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mordu",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "musclé",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "négligé",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tordu",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "variant",
+  "zipf": 3.43,
+  "set": "fr-core"
+ },
+ {
+  "headword": "acquitté",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "adoptant",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "claqué",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "impatiente",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plie",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ride",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "terrifiant",
+  "zipf": 3.42,
+  "set": "fr-core"
+ },
+ {
+  "headword": "blouse",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "came",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "collant",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déprimé",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "effrayé",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "glissant",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "griffe",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "obsédé",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rivale",
+  "zipf": 3.41,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bourre",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "comblé",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conquérant",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "débarrassé",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déchu",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dégénéré",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exilé",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flingue",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fondue",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "liant",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "revendiqué",
+  "zipf": 3.4,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accumulé",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bordée",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "emballé",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exposant",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fade",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "guerrière",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "maille",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "opérant",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "perché",
+  "zipf": 3.39,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ancré",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bourrée",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "danoise",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dépeint",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fronde",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "heurté",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "paumé",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réchauffe",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sanglant",
+  "zipf": 3.38,
+  "set": "fr-core"
+ },
+ {
+  "headword": "agace",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "approchant",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attachant",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bille",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bouché",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "conditionné",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croque",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dansant",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enfoncé",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "esquisse",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gave",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "multinationale",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pleurant",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ponte",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "productrice",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prétendue",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "punaise",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "renommé",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "saturé",
+  "zipf": 3.37,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cogne",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coulée",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croît",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dissout",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dura",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "finissant",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gîte",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mitigé",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sis",
+  "zipf": 3.36,
+  "set": "fr-core"
+ },
+ {
+  "headword": "concluant",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "décliné",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enchantée",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ordonnée",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "peigne",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plaignant",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "saisissant",
+  "zipf": 3.35,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bouillie",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "buvant",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "clone",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contrée",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "détendu",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "innovant",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "raffiné",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soignant",
+  "zipf": 3.34,
+  "set": "fr-core"
+ },
+ {
+  "headword": "affluent",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "civilisé",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dictée",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "débauche",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mue",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "passagère",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "structuré",
+  "zipf": 3.33,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aspirant",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cavale",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "distrait",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "espionne",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ferré",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gâté",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hurlant",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hésitant",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "traînée",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "usant",
+  "zipf": 3.32,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cocotte",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "culminant",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ensoleillé",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "limousine",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "marginale",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "matraque",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préjugé",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suspecté",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tournante",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "égaré",
+  "zipf": 3.31,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bobine",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "boisé",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "compta",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dévasté",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ficelle",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frégate",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "garantissant",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gerbe",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "institué",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "instruit",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "monologue",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sophistiqué",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vigile",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étoilé",
+  "zipf": 3.3,
+  "set": "fr-core"
+ },
+ {
+  "headword": "craché",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "diversifié",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "débordé",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déroulant",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "encaissé",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enduit",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fermant",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "journalière",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "largué",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "manipule",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mouille",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "signifié",
+  "zipf": 3.29,
+  "set": "fr-core"
+ },
+ {
+  "headword": "diagnostiqué",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "décombres",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exponentielle",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grimace",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grogne",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "illuminé",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "selles",
+  "zipf": 3.28,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aubaine",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "démarque",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "embrouille",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gorgée",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "moquette",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "motrice",
+  "zipf": 3.27,
+  "set": "fr-core"
+ },
+ {
+  "headword": "automatisé",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bloquant",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chartreuse",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "divergent",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gouvernante",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "joyeuses",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "massé",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "persistant",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "plongeant",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rosée",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "simultanée",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "veillée",
+  "zipf": 3.26,
+  "set": "fr-core"
+ },
+ {
+  "headword": "accentué",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "alternant",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "couchant",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "effraie",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nébuleuse",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prêche",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tacle",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "votant",
+  "zipf": 3.25,
+  "set": "fr-core"
+ },
+ {
+  "headword": "arrosé",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bordé",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dérivée",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "repoussant",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "turbine",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éclatant",
+  "zipf": 3.24,
+  "set": "fr-core"
+ },
+ {
+  "headword": "agréé",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cochonne",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "désarmé",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "feinte",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fugue",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mûre",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "partisane",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pelé",
+  "zipf": 3.23,
+  "set": "fr-core"
+ },
+ {
+  "headword": "crampons",
+  "zipf": 3.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dénué",
+  "zipf": 3.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ennuyé",
+  "zipf": 3.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "méfiant",
+  "zipf": 3.22,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aggravé",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cédant",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flamboyant",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frite",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grillage",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "humiliant",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "menottes",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prometteuse",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épinards",
+  "zipf": 3.21,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abdos",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dérangeant",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "encadrant",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "isolant",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mordant",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nuancé",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vibrant",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épris",
+  "zipf": 3.2,
+  "set": "fr-core"
+ },
+ {
+  "headword": "affamé",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attardé",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attrayant",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aune",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coordonnée",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "délirant",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "envolée",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "indigné",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "muté",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nominé",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "perturbant",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prisé",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "végétarienne",
+  "zipf": 3.19,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abondant",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "discutant",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dénivelé",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fourré",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fumant",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "nourrissant",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "revêtu",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tapant",
+  "zipf": 3.18,
+  "set": "fr-core"
+ },
+ {
+  "headword": "alarmant",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coordonné",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "esquive",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fauché",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "germe",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "homosexuelle",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mime",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tacos",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "truqué",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "téléphoné",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "voyageant",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "voyante",
+  "zipf": 3.17,
+  "set": "fr-core"
+ },
+ {
+  "headword": "amandine",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "articulé",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "attesté",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bondé",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cramé",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lassé",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lubrifiant",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "navré",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pine",
+  "zipf": 3.16,
+  "set": "fr-core"
+ },
+ {
+  "headword": "affligeant",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "colorant",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "correctionnelle",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "docks",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lange",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "louange",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pressant",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "stupéfiant",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "volatile",
+  "zipf": 3.15,
+  "set": "fr-core"
+ },
+ {
+  "headword": "abaissé",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cerné",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "charmé",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "combles",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "contrarié",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "croustillant",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déformé",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "méduse",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pigé",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "seringue",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "stabilisé",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "travesti",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "truffe",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "vanté",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écume",
+  "zipf": 3.14,
+  "set": "fr-core"
+ },
+ {
+  "headword": "breveté",
+  "zipf": 3.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "ponctué",
+  "zipf": 3.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "prévenant",
+  "zipf": 3.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surchauffe",
+  "zipf": 3.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "totalisant",
+  "zipf": 3.13,
+  "set": "fr-core"
+ },
+ {
+  "headword": "coquette",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "obéissant",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "planque",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "reconstitué",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réparateur",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "serrant",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tique",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étable",
+  "zipf": 3.12,
+  "set": "fr-core"
+ },
+ {
+  "headword": "altéré",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bicarbonate",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "douanière",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "embarrassé",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "immortelle",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "médiatisé",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "oit",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éprouvant",
+  "zipf": 3.11,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aïeux",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bruni",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cassant",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "confluent",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "desservant",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flaque",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "frontalière",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "laque",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "louve",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mutant",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "orangé",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "requérant",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "étreinte",
+  "zipf": 3.1,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aspiré",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "césarienne",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enragé",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "motorisé",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "planqué",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "saillant",
+  "zipf": 3.09,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dilué",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "filtré",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "fortifié",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "jubilé",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rafraîchissant",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "retouche",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "scrabble",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "soudé",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "verrière",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "édifiant",
+  "zipf": 3.08,
+  "set": "fr-core"
+ },
+ {
+  "headword": "absorbant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aveuglé",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "divertissant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dégoûtant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "désespérant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "exécutant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "maté",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "miné",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pinte",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "quiche",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rampant",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rouvert",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "tuile",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "voilé",
+  "zipf": 3.07,
+  "set": "fr-core"
+ },
+ {
+  "headword": "captive",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "citadine",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "hôtelière",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "lambeaux",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "motivant",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "métisse",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pincée",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préposé",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rouillé",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "waters",
+  "zipf": 3.06,
+  "set": "fr-core"
+ },
+ {
+  "headword": "brisant",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "dope",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "décontracté",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défaillant",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "désintéressé",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mâche",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "orgues",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "pâture",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "régnant",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sape",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "écluse",
+  "zipf": 3.05,
+  "set": "fr-core"
+ },
+ {
+  "headword": "consonne",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "daube",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "défiant",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déroutant",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "foulé",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gestuelle",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "oscillant",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rouvre",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "répertorié",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "subordonné",
+  "zipf": 3.04,
+  "set": "fr-core"
+ },
+ {
+  "headword": "endetté",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "enroulé",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "gauloise",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "irritant",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "mutilé",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "philippine",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "puant",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "retombée",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "sablé",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "subordonnée",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "suffixe",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "éclairant",
+  "zipf": 3.03,
+  "set": "fr-core"
+ },
+ {
+  "headword": "aberrant",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "assiégé",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "barricade",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cinglé",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "débordant",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "feignant",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "flous",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "saxophone",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "stupéfait",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "surchargé",
+  "zipf": 3.02,
+  "set": "fr-core"
+ },
+ {
+  "headword": "apaisant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "déstabilisé",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "envahissant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "environnant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "estampe",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "interné",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "optimisé",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "percutant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "préfixe",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "rayonnant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "retentissant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réconfortant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "répugnant",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "révélatrice",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "transcrit",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "travailleuse",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "épuré",
+  "zipf": 3.01,
+  "set": "fr-core"
+ },
+ {
+  "headword": "bestiaux",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "carbure",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "chilienne",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "cors",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "diaphragme",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "grisaille",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "immigrant",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "liasse",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "parfumé",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "propagé",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "réjouissant",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "résigné",
+  "zipf": 3.0,
+  "set": "fr-core"
+ },
+ {
+  "headword": "époustouflant",
+  "zipf": 3.0,
+  "set": "fr-core"
+ }
+]

@@ -15,6 +15,7 @@ A sense is one of
      "info"): a word a learner meets, written under its own spelling until entries carry spellings
   X  an abbreviation or misspelling of another word ("млрд", "нажаль")
   C  a contraction of two words (German "zum", French "au", English "can't"): written, as kind "contraction"
+A Japanese word written in kana that Wiktionary only sends on to its spelling with kanji (たべる to 食べる) is an A.
 and a spelling's flags are the union over every entry and part of speech it has ("FL" for
 English "parking": a noun of its own and the participle of park).
 
@@ -22,8 +23,8 @@ For Ukrainian and Russian, which do not write stress, the same pass keeps wiktio
 every stressed form Wiktionary prints (та́бору, таборі́в) under its plain spelling. check_v4.py holds the
 readings the writer gave against it; it is a witness, never copied into an entry.
 
-Usage: lemma_index.py [--langs en,de,fr,es,it,pt,uk]   (run from the backend repository root)
-       About 8 GB across the seven languages, streamed; English alone is 3.4 GB.
+Usage: lemma_index.py [--langs en,de,fr,es,it,pt,ru,uk]   (run from the backend repository root)
+       About 10 GB across the eight languages, streamed; English alone is 3.4 GB.
 """
 import argparse, io, json, sys, unicodedata, urllib.request
 from collections import defaultdict
@@ -31,7 +32,8 @@ from pathlib import Path
 
 HERE = Path("scripts/lexicon_research")
 INDEX = HERE / "wiktionary"
-KAIKKI = {"en": "English", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "uk": "Ukrainian", "ru": "Russian"}
+KAIKKI = {"en": "English", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "pt": "Portuguese", "uk": "Ukrainian", "ru": "Russian",
+          "ja": "Japanese"}
 URL = "https://kaikki.org/dictionary/{name}/kaikki.org-dictionary-{name}.jsonl"
 DERIVED_TAGS = {"diminutive", "augmentative", "endearing", "pejorative", "noun-from-verb", "nominalization", "frequentative"}
 DERIVED_GLOSSES = ("female equivalent of", "male equivalent of")
@@ -92,6 +94,8 @@ def classify(lines, stress=None):
         if stress is not None:
             for text in stressed_forms(record):
                 stress.setdefault(plain(text), set()).add(text)
+        if record.get("pos") == "soft-redirect":
+            flags[word].add("A")  # Japanese in kana (たべる), which Wiktionary sends on to the spelling with kanji (食べる)
         for sense in record.get("senses") or []:
             kind = sense_kind(sense)
             if kind is None:
@@ -144,7 +148,7 @@ def build(lang):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--langs", default="en,de,fr,es,it,pt,uk")
+    ap.add_argument("--langs", default="en,de,fr,es,it,pt,ru,uk")
     a = ap.parse_args()
     for lang in a.langs.split(","):
         if lang not in KAIKKI:

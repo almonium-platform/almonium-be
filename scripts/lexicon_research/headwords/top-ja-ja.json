@@ -1,0 +1,1252 @@
+[
+ {
+  "headword": "の",
+  "zipf": 7.72,
+  "set": "top-ja"
+ },
+ {
+  "headword": "て",
+  "zipf": 7.48,
+  "set": "top-ja"
+ },
+ {
+  "headword": "で",
+  "zipf": 7.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ない",
+  "zipf": 7.14,
+  "set": "top-ja"
+ },
+ {
+  "headword": "だ",
+  "zipf": 7.09,
+  "set": "top-ja"
+ },
+ {
+  "headword": "な",
+  "zipf": 7.07,
+  "set": "top-ja"
+ },
+ {
+  "headword": "も",
+  "zipf": 7.04,
+  "set": "top-ja"
+ },
+ {
+  "headword": "か",
+  "zipf": 6.94,
+  "set": "top-ja"
+ },
+ {
+  "headword": "いる",
+  "zipf": 6.93,
+  "set": "top-ja"
+ },
+ {
+  "headword": "から",
+  "zipf": 6.8,
+  "set": "top-ja"
+ },
+ {
+  "headword": "よ",
+  "zipf": 6.74,
+  "set": "top-ja"
+ },
+ {
+  "headword": "なる",
+  "zipf": 6.69,
+  "set": "top-ja"
+ },
+ {
+  "headword": "こと",
+  "zipf": 6.67,
+  "set": "top-ja"
+ },
+ {
+  "headword": "人",
+  "zipf": 6.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "や",
+  "zipf": 6.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "日",
+  "zipf": 6.38,
+  "set": "top-ja"
+ },
+ {
+  "headword": "この",
+  "zipf": 6.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "そう",
+  "zipf": 6.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ば",
+  "zipf": 6.33,
+  "set": "top-ja"
+ },
+ {
+  "headword": "これ",
+  "zipf": 6.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "よう",
+  "zipf": 6.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "思う",
+  "zipf": 6.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "言う",
+  "zipf": 6.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "できる",
+  "zipf": 6.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "やる",
+  "zipf": 6.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "年",
+  "zipf": 6.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "見る",
+  "zipf": 6.26,
+  "set": "top-ja"
+ },
+ {
+  "headword": "その",
+  "zipf": 6.25,
+  "set": "top-ja"
+ },
+ {
+  "headword": "だけ",
+  "zipf": 6.23,
+  "set": "top-ja"
+ },
+ {
+  "headword": "まで",
+  "zipf": 6.22,
+  "set": "top-ja"
+ },
+ {
+  "headword": "なら",
+  "zipf": 6.2,
+  "set": "top-ja"
+ },
+ {
+  "headword": "月",
+  "zipf": 6.19,
+  "set": "top-ja"
+ },
+ {
+  "headword": "中",
+  "zipf": 6.16,
+  "set": "top-ja"
+ },
+ {
+  "headword": "それ",
+  "zipf": 6.15,
+  "set": "top-ja"
+ },
+ {
+  "headword": "でも",
+  "zipf": 6.15,
+  "set": "top-ja"
+ },
+ {
+  "headword": "何",
+  "zipf": 6.15,
+  "set": "top-ja"
+ },
+ {
+  "headword": "私",
+  "zipf": 6.12,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ため",
+  "zipf": 6.11,
+  "set": "top-ja"
+ },
+ {
+  "headword": "わ",
+  "zipf": 6.1,
+  "set": "top-ja"
+ },
+ {
+  "headword": "時",
+  "zipf": 6.1,
+  "set": "top-ja"
+ },
+ {
+  "headword": "へ",
+  "zipf": 6.08,
+  "set": "top-ja"
+ },
+ {
+  "headword": "一",
+  "zipf": 6.08,
+  "set": "top-ja"
+ },
+ {
+  "headword": "今",
+  "zipf": 6.07,
+  "set": "top-ja"
+ },
+ {
+  "headword": "方",
+  "zipf": 6.07,
+  "set": "top-ja"
+ },
+ {
+  "headword": "くれる",
+  "zipf": 6.06,
+  "set": "top-ja"
+ },
+ {
+  "headword": "など",
+  "zipf": 6.03,
+  "set": "top-ja"
+ },
+ {
+  "headword": "自分",
+  "zipf": 6.01,
+  "set": "top-ja"
+ },
+ {
+  "headword": "より",
+  "zipf": 5.98,
+  "set": "top-ja"
+ },
+ {
+  "headword": "前",
+  "zipf": 5.97,
+  "set": "top-ja"
+ },
+ {
+  "headword": "気",
+  "zipf": 5.96,
+  "set": "top-ja"
+ },
+ {
+  "headword": "時間",
+  "zipf": 5.95,
+  "set": "top-ja"
+ },
+ {
+  "headword": "どう",
+  "zipf": 5.94,
+  "set": "top-ja"
+ },
+ {
+  "headword": "また",
+  "zipf": 5.92,
+  "set": "top-ja"
+ },
+ {
+  "headword": "もう",
+  "zipf": 5.92,
+  "set": "top-ja"
+ },
+ {
+  "headword": "目",
+  "zipf": 5.91,
+  "set": "top-ja"
+ },
+ {
+  "headword": "話",
+  "zipf": 5.89,
+  "set": "top-ja"
+ },
+ {
+  "headword": "知る",
+  "zipf": 5.87,
+  "set": "top-ja"
+ },
+ {
+  "headword": "わかる",
+  "zipf": 5.87,
+  "set": "top-ja"
+ },
+ {
+  "headword": "使う",
+  "zipf": 5.85,
+  "set": "top-ja"
+ },
+ {
+  "headword": "家",
+  "zipf": 5.82,
+  "set": "top-ja"
+ },
+ {
+  "headword": "円",
+  "zipf": 5.8,
+  "set": "top-ja"
+ },
+ {
+  "headword": "しまう",
+  "zipf": 5.8,
+  "set": "top-ja"
+ },
+ {
+  "headword": "後",
+  "zipf": 5.79,
+  "set": "top-ja"
+ },
+ {
+  "headword": "くださる",
+  "zipf": 5.79,
+  "set": "top-ja"
+ },
+ {
+  "headword": "みたい",
+  "zipf": 5.78,
+  "set": "top-ja"
+ },
+ {
+  "headword": "持つ",
+  "zipf": 5.78,
+  "set": "top-ja"
+ },
+ {
+  "headword": "二",
+  "zipf": 5.77,
+  "set": "top-ja"
+ },
+ {
+  "headword": "入る",
+  "zipf": 5.77,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ここ",
+  "zipf": 5.76,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ぞ",
+  "zipf": 5.76,
+  "set": "top-ja"
+ },
+ {
+  "headword": "上",
+  "zipf": 5.75,
+  "set": "top-ja"
+ },
+ {
+  "headword": "必要",
+  "zipf": 5.73,
+  "set": "top-ja"
+ },
+ {
+  "headword": "そんな",
+  "zipf": 5.72,
+  "set": "top-ja"
+ },
+ {
+  "headword": "世界",
+  "zipf": 5.71,
+  "set": "top-ja"
+ },
+ {
+  "headword": "誰",
+  "zipf": 5.71,
+  "set": "top-ja"
+ },
+ {
+  "headword": "あれ",
+  "zipf": 5.7,
+  "set": "top-ja"
+ },
+ {
+  "headword": "聞く",
+  "zipf": 5.7,
+  "set": "top-ja"
+ },
+ {
+  "headword": "よく",
+  "zipf": 5.69,
+  "set": "top-ja"
+ },
+ {
+  "headword": "多い",
+  "zipf": 5.69,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ああ",
+  "zipf": 5.68,
+  "set": "top-ja"
+ },
+ {
+  "headword": "しか",
+  "zipf": 5.68,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ところ",
+  "zipf": 5.68,
+  "set": "top-ja"
+ },
+ {
+  "headword": "仕事",
+  "zipf": 5.68,
+  "set": "top-ja"
+ },
+ {
+  "headword": "作る",
+  "zipf": 5.67,
+  "set": "top-ja"
+ },
+ {
+  "headword": "買う",
+  "zipf": 5.67,
+  "set": "top-ja"
+ },
+ {
+  "headword": "こんな",
+  "zipf": 5.66,
+  "set": "top-ja"
+ },
+ {
+  "headword": "問題",
+  "zipf": 5.66,
+  "set": "top-ja"
+ },
+ {
+  "headword": "悪い",
+  "zipf": 5.66,
+  "set": "top-ja"
+ },
+ {
+  "headword": "まだ",
+  "zipf": 5.65,
+  "set": "top-ja"
+ },
+ {
+  "headword": "手",
+  "zipf": 5.63,
+  "set": "top-ja"
+ },
+ {
+  "headword": "みんな",
+  "zipf": 5.62,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ゲーム",
+  "zipf": 5.62,
+  "set": "top-ja"
+ },
+ {
+  "headword": "そして",
+  "zipf": 5.61,
+  "set": "top-ja"
+ },
+ {
+  "headword": "情報",
+  "zipf": 5.61,
+  "set": "top-ja"
+ },
+ {
+  "headword": "入れる",
+  "zipf": 5.61,
+  "set": "top-ja"
+ },
+ {
+  "headword": "くらい",
+  "zipf": 5.6,
+  "set": "top-ja"
+ },
+ {
+  "headword": "三",
+  "zipf": 5.6,
+  "set": "top-ja"
+ },
+ {
+  "headword": "関係",
+  "zipf": 5.6,
+  "set": "top-ja"
+ },
+ {
+  "headword": "僕",
+  "zipf": 5.59,
+  "set": "top-ja"
+ },
+ {
+  "headword": "力",
+  "zipf": 5.59,
+  "set": "top-ja"
+ },
+ {
+  "headword": "欲しい",
+  "zipf": 5.59,
+  "set": "top-ja"
+ },
+ {
+  "headword": "もらう",
+  "zipf": 5.58,
+  "set": "top-ja"
+ },
+ {
+  "headword": "しかし",
+  "zipf": 5.57,
+  "set": "top-ja"
+ },
+ {
+  "headword": "以上",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "可能",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "場合",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "子",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "車",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "終わる",
+  "zipf": 5.56,
+  "set": "top-ja"
+ },
+ {
+  "headword": "どこ",
+  "zipf": 5.55,
+  "set": "top-ja"
+ },
+ {
+  "headword": "男",
+  "zipf": 5.55,
+  "set": "top-ja"
+ },
+ {
+  "headword": "間",
+  "zipf": 5.55,
+  "set": "top-ja"
+ },
+ {
+  "headword": "読む",
+  "zipf": 5.55,
+  "set": "top-ja"
+ },
+ {
+  "headword": "違う",
+  "zipf": 5.54,
+  "set": "top-ja"
+ },
+ {
+  "headword": "出す",
+  "zipf": 5.54,
+  "set": "top-ja"
+ },
+ {
+  "headword": "すごい",
+  "zipf": 5.54,
+  "set": "top-ja"
+ },
+ {
+  "headword": "人間",
+  "zipf": 5.53,
+  "set": "top-ja"
+ },
+ {
+  "headword": "女",
+  "zipf": 5.53,
+  "set": "top-ja"
+ },
+ {
+  "headword": "書く",
+  "zipf": 5.53,
+  "set": "top-ja"
+ },
+ {
+  "headword": "次",
+  "zipf": 5.52,
+  "set": "top-ja"
+ },
+ {
+  "headword": "死ぬ",
+  "zipf": 5.52,
+  "set": "top-ja"
+ },
+ {
+  "headword": "飲む",
+  "zipf": 5.52,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ほど",
+  "zipf": 5.51,
+  "set": "top-ja"
+ },
+ {
+  "headword": "すぐ",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ただ",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "わけ",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "女性",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "歳",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "受ける",
+  "zipf": 5.5,
+  "set": "top-ja"
+ },
+ {
+  "headword": "意味",
+  "zipf": 5.49,
+  "set": "top-ja"
+ },
+ {
+  "headword": "取る",
+  "zipf": 5.49,
+  "set": "top-ja"
+ },
+ {
+  "headword": "そこ",
+  "zipf": 5.48,
+  "set": "top-ja"
+ },
+ {
+  "headword": "一緒",
+  "zipf": 5.48,
+  "set": "top-ja"
+ },
+ {
+  "headword": "うち",
+  "zipf": 5.47,
+  "set": "top-ja"
+ },
+ {
+  "headword": "君",
+  "zipf": 5.47,
+  "set": "top-ja"
+ },
+ {
+  "headword": "早い",
+  "zipf": 5.47,
+  "set": "top-ja"
+ },
+ {
+  "headword": "長い",
+  "zipf": 5.47,
+  "set": "top-ja"
+ },
+ {
+  "headword": "楽しい",
+  "zipf": 5.47,
+  "set": "top-ja"
+ },
+ {
+  "headword": "もっと",
+  "zipf": 5.46,
+  "set": "top-ja"
+ },
+ {
+  "headword": "使用",
+  "zipf": 5.46,
+  "set": "top-ja"
+ },
+ {
+  "headword": "店",
+  "zipf": 5.46,
+  "set": "top-ja"
+ },
+ {
+  "headword": "結果",
+  "zipf": 5.46,
+  "set": "top-ja"
+ },
+ {
+  "headword": "強い",
+  "zipf": 5.46,
+  "set": "top-ja"
+ },
+ {
+  "headword": "いや",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ぜ",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "先",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "写真",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "参加",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "顔",
+  "zipf": 5.45,
+  "set": "top-ja"
+ },
+ {
+  "headword": "やつ",
+  "zipf": 5.44,
+  "set": "top-ja"
+ },
+ {
+  "headword": "会社",
+  "zipf": 5.44,
+  "set": "top-ja"
+ },
+ {
+  "headword": "声",
+  "zipf": 5.44,
+  "set": "top-ja"
+ },
+ {
+  "headword": "最近",
+  "zipf": 5.44,
+  "set": "top-ja"
+ },
+ {
+  "headword": "十",
+  "zipf": 5.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "少し",
+  "zipf": 5.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "時代",
+  "zipf": 5.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "頭",
+  "zipf": 5.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "変わる",
+  "zipf": 5.43,
+  "set": "top-ja"
+ },
+ {
+  "headword": "いつも",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "お前",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "子供",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "彼",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "心",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "呼ぶ",
+  "zipf": 5.42,
+  "set": "top-ja"
+ },
+ {
+  "headword": "こちら",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "アニメ",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "サイト",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "名前",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "無料",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "神",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "続ける",
+  "zipf": 5.41,
+  "set": "top-ja"
+ },
+ {
+  "headword": "下",
+  "zipf": 5.4,
+  "set": "top-ja"
+ },
+ {
+  "headword": "場所",
+  "zipf": 5.4,
+  "set": "top-ja"
+ },
+ {
+  "headword": "最後",
+  "zipf": 5.4,
+  "set": "top-ja"
+ },
+ {
+  "headword": "会う",
+  "zipf": 5.4,
+  "set": "top-ja"
+ },
+ {
+  "headword": "一番",
+  "zipf": 5.39,
+  "set": "top-ja"
+ },
+ {
+  "headword": "大丈夫",
+  "zipf": 5.39,
+  "set": "top-ja"
+ },
+ {
+  "headword": "町",
+  "zipf": 5.39,
+  "set": "top-ja"
+ },
+ {
+  "headword": "言葉",
+  "zipf": 5.39,
+  "set": "top-ja"
+ },
+ {
+  "headword": "探す",
+  "zipf": 5.39,
+  "set": "top-ja"
+ },
+ {
+  "headword": "映画",
+  "zipf": 5.38,
+  "set": "top-ja"
+ },
+ {
+  "headword": "方法",
+  "zipf": 5.36,
+  "set": "top-ja"
+ },
+ {
+  "headword": "最初",
+  "zipf": 5.36,
+  "set": "top-ja"
+ },
+ {
+  "headword": "理由",
+  "zipf": 5.36,
+  "set": "top-ja"
+ },
+ {
+  "headword": "相手",
+  "zipf": 5.36,
+  "set": "top-ja"
+ },
+ {
+  "headword": "待つ",
+  "zipf": 5.36,
+  "set": "top-ja"
+ },
+ {
+  "headword": "とても",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "体",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "作品",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "動画",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "彼女",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "駅",
+  "zipf": 5.35,
+  "set": "top-ja"
+ },
+ {
+  "headword": "はず",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "企業",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "利用",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "存在",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "曲",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "漫画",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "無理",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "現在",
+  "zipf": 5.34,
+  "set": "top-ja"
+ },
+ {
+  "headword": "以外",
+  "zipf": 5.33,
+  "set": "top-ja"
+ },
+ {
+  "headword": "水",
+  "zipf": 5.33,
+  "set": "top-ja"
+ },
+ {
+  "headword": "事件",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "普通",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "通り",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "忘れる",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "起きる",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "行う",
+  "zipf": 5.32,
+  "set": "top-ja"
+ },
+ {
+  "headword": "つい",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "女子",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "学校",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "最高",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "状態",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "画像",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "発売",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "簡単",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "絶対",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "大きい",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "かかる",
+  "zipf": 5.31,
+  "set": "top-ja"
+ },
+ {
+  "headword": "まあ",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "先生",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "実際",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "気持ち",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "確認",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "開催",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "新しい",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "話す",
+  "zipf": 5.3,
+  "set": "top-ja"
+ },
+ {
+  "headword": "まま",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "今回",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "全部",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "夜",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "生きる",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "過ぎる",
+  "zipf": 5.29,
+  "set": "top-ja"
+ },
+ {
+  "headword": "個人",
+  "zipf": 5.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "外",
+  "zipf": 5.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "結婚",
+  "zipf": 5.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "あげる",
+  "zipf": 5.28,
+  "set": "top-ja"
+ },
+ {
+  "headword": "いえ",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ずっと",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "初めて",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "友達",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "生活",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "色",
+  "zipf": 5.27,
+  "set": "top-ja"
+ },
+ {
+  "headword": "ダメ",
+  "zipf": 5.26,
+  "set": "top-ja"
+ },
+ {
+  "headword": "怖い",
+  "zipf": 5.26,
+  "set": "top-ja"
+ },
+ {
+  "headword": "かなり",
+  "zipf": 5.25,
+  "set": "top-ja"
+ },
+ {
+  "headword": "どんな",
+  "zipf": 5.25,
+  "set": "top-ja"
+ },
+ {
+  "headword": "人気",
+  "zipf": 5.25,
+  "set": "top-ja"
+ },
+ {
+  "headword": "公開",
+  "zipf": 5.25,
+  "set": "top-ja"
+ },
+ {
+  "headword": "理解",
+  "zipf": 5.25,
+  "set": "top-ja"
+ }
+]

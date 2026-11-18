@@ -253,6 +253,7 @@ def settle(entry):
         ingest_v4.plain_forms(lexeme)
         ingest_v4.pronominal_auxiliary(entry.get("language"), lexeme)
         ingest_v4.settle_defaults(lexeme)
+        ingest_v4.settle_frames(entry.get("language"), lexeme)
     return entry
 
 

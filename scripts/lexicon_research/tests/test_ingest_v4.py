@@ -277,3 +277,19 @@ def test_a_stress_mark_written_into_a_form_goes_to_its_reading():
     clean = ingest_v4.clean_entry("ru", entry("год", noun, lang="ru"), META)
     assert [(f["form"], f.get("reading")) for f in clean["lexemes"][0]["forms"]] == [("года", "го́да"), ("году", "году́"), ("лет", None)]
     assert clean["stress_marks_moved_to_readings"] == 2
+
+
+def test_the_open_places_of_a_frame_are_written_the_one_way_the_language_has():
+    verb = lexeme("geben", "VERB", senses=[sense("einer Person etwas in die Hand legen, damit sie es hat", frames=["jdm etw geben", "jmdm. etw. geben", "etwas von sich geben"]),
+                                            sense("sagen, dass etwas so ist", frames=["zu verstehen geben, dass …"])])
+    clean = ingest_v4.clean_entry("de", entry("geben", verb, lang="de"), META)
+    # Duden's abbreviations, as the reviewed examples have them; the frame that became a copy is gone; the word "etwas" of an idiom stays
+    assert [s["frames"] for s in clean["lexemes"][0]["senses"]] == [["jmdm. etw. geben", "etwas von sich geben"], ["zu verstehen geben, dass ..."]]
+    assert clean["frames_respelled"] == 2 and verb["senses"][0]["frames"][0] == "jdm etw geben"  # the written entry is left as it was
+    for lang, written, settled in (("it", "dare qc a qn", "dare qcs a qcn"), ("it", "corsa a qlco", "corsa a qcs"), ("fr", "donner qch à qn", "donner qqch à qqn"),
+                                   ("es", "estar unido a algn", "estar unido a alguien"), ("de", "auf jdn/etw. warten", "auf jmdn./etw. warten")):
+        one = lexeme("x", "VERB", senses=[sense("eine Sache tun, die man tun muss", frames=[written])])
+        assert ingest_v4.settle_frames(lang, one) == 1 and one["senses"][0]["frames"] == [settled]
+    for lang, frame in (("it", "pensare a qcn/qcs"), ("fr", "parler de qqch à qqn"), ("en", "lead sb to/into sth"), ("de", "warten auf + Akk"), ("ru", "платить кому за что")):
+        one = lexeme("x", "VERB", senses=[sense("eine Sache tun, die man tun muss", frames=[frame])])
+        assert ingest_v4.settle_frames(lang, one) == 0 and one["senses"][0]["frames"] == [frame]

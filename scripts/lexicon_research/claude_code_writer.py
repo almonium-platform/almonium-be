@@ -180,6 +180,9 @@ if GATE:
     lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):
     name = f"{a.headwords}-{lang}.json" if a.headwords else f"{lang}.json"
+    if not (HERE / "headwords" / name).exists():
+        print(f"no list headwords/{name}: nothing written for {lang}", flush=True)
+        continue
     rows = json.loads((HERE / "headwords" / name).read_text())
     if a.limit:
         rows = rows[:a.limit]
