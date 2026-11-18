@@ -31,13 +31,15 @@ import tools.jackson.databind.ObjectMapper;
 class LexiconPublicationControllerTest {
     private static final String SECRET = "test-publisher-secret";
     private static final String VALID_ENTRY = """
-            {"language":"en","headword":"bloke","lexemes":[{"lemma":"bloke","pos":"NOUN","kind":"word",
-             "forms":[{"form":"bloke","features":{"Number":"Sing"}}],
+            {"schema":"4","language":"en","headword":"bloke","lexemes":[
+             {"id":"1d41abd6-476a-5d4a-b8f7-6b966e79806e","homograph":1,"lemma":"bloke","pos":"NOUN","kind":"word",
+             "forms":[{"form":"blokes","features":{"Number":"Plur"}}],
              "pronunciations":[{"variety":"en-GB","ipa":"/bləʊk/"}],
-             "senses":[{"definition":"a man, especially an ordinary one","register":"informal","cefr":"B2",
-               "glosses":{"uk":"мужик"},"example":"He seems like a nice bloke, always happy to help.",
-               "cues":[{"kind":"wording","text":"a casual British word for a man"},
-                       {"kind":"cloze","text":"He seems like a nice ___."}]}]}]}
+             "senses":[{"id":"6f900ca0-89af-50ea-a5ad-043ca90b0b0a",
+               "definition":"a man, especially an ordinary one","cefr":"B2",
+               "example":"He seems like a nice bloke, always happy to help.",
+               "labels":{"formality":"informal"},"collocations":["a nice bloke"]}]}],
+             "source":{"writer":"cc-claude-opus-5-5-v4","model":"claude-opus-5-5","prompt_version":"v4.9"}}
             """;
 
     @Mock
@@ -84,7 +86,7 @@ class LexiconPublicationControllerTest {
     @Test
     void requiresAWriterAndAnEntryObject() {
         byte[] noWriter = ("{\"entry\":" + VALID_ENTRY + "}").getBytes(StandardCharsets.UTF_8);
-        byte[] noEntry = "{\"writer\":\"cc-claude-opus-5-5\"}".getBytes(StandardCharsets.UTF_8);
+        byte[] noEntry = "{\"writer\":\"cc-claude-opus-5-5-v4\"}".getBytes(StandardCharsets.UTF_8);
         long timestamp = now();
 
         ResponseEntity<?> writerless = controller.publish(timestamp, sign(timestamp, noWriter), noWriter);
@@ -117,8 +119,8 @@ class LexiconPublicationControllerTest {
     }
 
     private static String publication(String entry) {
-        return "{\"writer\":\"cc-claude-opus-5-5\",\"entry\":" + entry
-                + ",\"meta\":{\"model\":\"claude-opus-5-5\",\"prompt_version\":\"v1\"},"
+        return "{\"writer\":\"cc-claude-opus-5-5-v4\",\"entry\":" + entry
+                + ",\"meta\":{\"model\":\"claude-opus-5-5\",\"prompt_version\":\"v4.9\"},"
                 + "\"built_at\":\"2026-10-12T10:00:00Z\"}";
     }
 

@@ -28,8 +28,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Flattens a lexicon entry onto the Discover sheet, which knows one list of senses and one of pronunciations and
- * nothing of lexemes. Senses are numbered across lexemes in order; pronunciations are the headword-level ones, by
- * variety then rank, each carrying its best clip (a verified one before an unverified one, which is the order the
+ * nothing of lexemes. Senses are numbered across lexemes in order; pronunciations are the headword-level ones that
+ * have a transcription (the sheet has no place yet for a reading in kana or with stress marks), by variety then rank, each carrying its best clip (a verified one before an unverified one, which is the order the
  * lexicon already lists them in). A word with several lexemes (clear as adjective, verb and adverb) records the same
  * pronunciation on each, so one variety saying the same IPA is shown once, with the best clip any lexeme has, and
  * with the numbers of every sense said that way: live gives /laɪv/ the adjective's senses and /lɪv/ the verb's, bow
@@ -168,7 +168,8 @@ public class DiscoverLexiconMapper {
     }
 
     private Stream<PronunciationView> headwordPronunciations(LexemeView lexeme) {
-        return lexeme.pronunciations().stream().filter(pronunciation -> pronunciation.formId() == null);
+        return lexeme.pronunciations().stream()
+                .filter(pronunciation -> pronunciation.formId() == null && pronunciation.phonemic() != null);
     }
 
     private DiscoverPronunciationResponse toPronunciation(PronunciationView pronunciation, List<Integer> senses) {

@@ -4,8 +4,10 @@
 `scripts/lexicon_research/tour.py` from what the writers wrote: the fewest words, a common English one first.
 Type each into the app and check that the reader is shown what the right-hand column says.
 
-The entries are schema 4. Until the backend reads schema 4 (docs/LEXICON.md, "Pending", item 1) the app cannot
-show them, so today this list is what that work has to make visible, not a test it can pass.
+The entries are schema 4, which the backend reads since 18 November 2026 (docs/LEXICON.md, "The backend reads
+schema 4"). `GET /public/lexicon/{language}/entries` returns everything in the right-hand column; the Discover sheet
+shows the senses, their examples and the transcriptions, and not yet the labels, frames, collocations or spellings,
+so for those this list is still what the clients have to make visible.
 
 | # | Word | Language | What the reader should see |
 |---|---|---|---|

@@ -3,12 +3,12 @@ package com.almonium.learning.lexicon.service;
 import com.almonium.learning.lexicon.dto.request.EntryPublication;
 import com.almonium.learning.lexicon.dto.response.EntryPublicationResult;
 import com.almonium.learning.lexicon.model.EntryDocument;
-import com.almonium.learning.lexicon.model.EntryDocument.CueDocument;
 import com.almonium.learning.lexicon.model.EntryDocument.FormDocument;
 import com.almonium.learning.lexicon.model.EntryDocument.LexemeDocument;
 import com.almonium.learning.lexicon.model.EntryDocument.PronunciationDocument;
 import com.almonium.learning.lexicon.model.EntryDocument.RelationDocument;
 import com.almonium.learning.lexicon.model.EntryDocument.SenseDocument;
+import com.almonium.learning.lexicon.model.entity.EntryAlias;
 import com.almonium.learning.lexicon.model.entity.EntryVersion;
 import com.almonium.learning.lexicon.model.entity.Lexeme;
 import com.almonium.learning.lexicon.model.entity.LexemeForm;
@@ -17,10 +17,9 @@ import com.almonium.learning.lexicon.model.entity.LexiconBuild;
 import com.almonium.learning.lexicon.model.entity.Pronunciation;
 import com.almonium.learning.lexicon.model.entity.RejectedHeadword;
 import com.almonium.learning.lexicon.model.entity.Sense;
-import com.almonium.learning.lexicon.model.entity.SenseCue;
 import com.almonium.learning.lexicon.model.entity.SenseExample;
-import com.almonium.learning.lexicon.model.entity.SenseGloss;
 import com.almonium.learning.lexicon.model.enums.LexiconStatus;
+import com.almonium.learning.lexicon.repository.EntryAliasRepository;
 import com.almonium.learning.lexicon.repository.EntryVersionRepository;
 import com.almonium.learning.lexicon.repository.LexemeRelationRepository;
 import com.almonium.learning.lexicon.repository.LexemeRepository;
@@ -31,28 +30,25 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
 /**
  * Takes one published entry into the lexicon. The entry replaces whatever stood for its headword: each lexeme is
  * matched by (language, lemma, pos, homograph number) and rewritten with its forms, senses and relations; lexemes
- * of the headword the entry no longer lists are deleted. Pronunciations are the exception: audio clips hang off
- * them, so an existing one is updated in place when the new entry has the same variety for the same form. Every
- * publish adds a build row per lexeme, which is where provenance is read from, and one entry version, the whole
- * entry as published. Senses are recreated, but each takes the key of the old sense it matches (SenseMatcher), so a
- * card saved from a sense keeps naming it; the entry version records the keys and which old keys were retired.
+ * of the headword the entry no longer lists are deleted, and so are the spellings it answered for, which are
+ * written anew. Pronunciations are the exception: audio clips hang off them, so an existing one is updated in place
+ * when the new entry has the same variety for the same form. Every publish adds a build row per lexeme, which is
+ * where provenance is read from, and one entry version, the whole entry as published. Senses are recreated, and each
+ * is keyed by the id the entry gives it: the ingest step owns that id and keeps it across rewrites, so a card saved
+ * from a sense keeps naming it, and the entry lists the senses it retired.
  */
 @Service
 @RequiredArgsConstructor
@@ -65,7 +61,7 @@ public class LexiconPublicationService {
     private final LexemeRelationRepository relationRepository;
     private final RejectedHeadwordRepository rejectedHeadwordRepository;
     private final EntryVersionRepository entryVersionRepository;
-    private final ObjectMapper objectMapper;
+    private final EntryAliasRepository aliasRepository;
 
     public EntryPublicationResult publish(EntryPublication publication) {
         EntryDocument entry = publication.entry();
@@ -75,40 +71,21 @@ public class LexiconPublicationService {
 
         List<Lexeme> standing = lexemeRepository.findByLanguageAndHeadword(language, headword);
         List<Placement> placements = new ArrayList<>();
-        Map<String, Integer> homographs = new HashMap<>();
         for (LexemeDocument document : entry.lexemes()) {
-            int homographNo = homographs.merge(document.lemma() + "\u0000" + document.pos(), 1, Integer::sum);
             Lexeme lexeme = lexemeRepository
-                    .findByLanguageAndLemmaAndPosAndHomographNo(language, document.lemma(), document.pos(), homographNo)
+                    .findByLanguageAndLemmaAndPosAndHomographNo(
+                            language, document.lemma(), document.pos(), document.homograph())
                     .orElseGet(Lexeme::new);
-            placements.add(new Placement(lexeme, document, homographNo));
+            placements.add(new Placement(lexeme, document));
         }
-        Map<UUID, SenseMatcher.Candidate> oldSenses = new LinkedHashMap<>();
-        Set<Lexeme> previous = new LinkedHashSet<>(standing);
-        placements.stream()
-                .map(Placement::lexeme)
-                .filter(lexeme -> lexeme.getId() != null)
-                .forEach(previous::add);
-        for (Lexeme lexeme : previous) {
-            for (Sense sense : lexeme.getSenses()) {
-                oldSenses.put(sense.getSenseKey(), candidate(lexeme, sense));
-            }
-        }
-        List<SenseMatcher.Candidate> newSenses = new ArrayList<>();
-        for (LexemeDocument document : entry.lexemes()) {
-            for (SenseDocument sense : document.senses()) {
-                newSenses.add(candidate(document, sense));
-            }
-        }
-        SenseMatcher.Result keys = SenseMatcher.match(oldSenses, newSenses);
-        Iterator<UUID> senseKeys = keys.keys().iterator();
 
         for (Lexeme old : standing) {
             if (placements.stream().noneMatch(placement -> placement.lexeme() == old)) {
                 lexemeRepository.deleteTree(old.getId());
             }
         }
-        // Old senses go first and alone: a new sense at the same position would otherwise be inserted before them.
+        // Old senses go first and alone: a new sense at the same position, or with the same key, would otherwise be
+        // inserted before them.
         for (Placement placement : placements) {
             if (placement.lexeme().getId() != null) {
                 placement.lexeme().getSenses().clear();
@@ -116,17 +93,11 @@ public class LexiconPublicationService {
                 placement.lexeme().getParts().clear();
             }
         }
+        aliasRepository.deleteOf(language, headword);
         lexemeRepository.flush();
 
         for (Placement placement : placements) {
-            write(
-                    placement.lexeme(),
-                    placement.document(),
-                    entry,
-                    placement.homographNo(),
-                    publication,
-                    now,
-                    senseKeys);
+            write(placement.lexeme(), placement.document(), entry, publication, now);
             lexemeRepository.save(placement.lexeme());
         }
         lexemeRepository.flush();
@@ -134,32 +105,59 @@ public class LexiconPublicationService {
             Lexeme lexeme = placement.lexeme();
             relationRepository.pointDanglingAt(lexeme.getId(), language, lexeme.getLemma(), lexeme.getPos());
         }
+        writeAliases(entry);
         recordVerdict(entry, publication, now);
-        recordVersion(entry, publication, keys, now);
+        recordVersion(entry, publication, now);
         return EntryPublicationResult.accepted(language, headword, placements.size());
     }
 
-    /** A lexeme of the entry, the row it lands on (new or standing) and its number among same-lemma homographs. */
-    private record Placement(Lexeme lexeme, LexemeDocument document, int homographNo) {}
+    /** A lexeme of the entry and the row it lands on, new or standing. */
+    private record Placement(Lexeme lexeme, LexemeDocument document) {}
+
+    /**
+     * Every spelling the entry answers for besides its headword: those ingest lists (a form or a spelling that was
+     * asked for as a headword of its own) and the other spellings of its lexemes.
+     */
+    private void writeAliases(EntryDocument entry) {
+        Set<String> spellings = new LinkedHashSet<>(entry.aliases());
+        for (LexemeDocument lexeme : entry.lexemes()) {
+            lexeme.spellings().forEach(spelling -> spellings.add(spelling.text()));
+        }
+        spellings.remove(entry.headword());
+        for (String spelling : spellings) {
+            EntryAlias alias = new EntryAlias();
+            alias.setLanguage(entry.language());
+            alias.setHeadword(entry.headword());
+            alias.setAlias(spelling);
+            alias.setNormalizedAlias(WordNormalizer.normalize(spelling));
+            aliasRepository.save(alias);
+        }
+    }
 
     private void write(
-            Lexeme lexeme,
-            LexemeDocument document,
-            EntryDocument entry,
-            int homographNo,
-            EntryPublication publication,
-            Instant now,
-            Iterator<UUID> senseKeys) {
+            Lexeme lexeme, LexemeDocument document, EntryDocument entry, EntryPublication publication, Instant now) {
         boolean fresh = lexeme.getId() == null;
         lexeme.setLanguage(entry.language());
         lexeme.setHeadword(entry.headword());
         lexeme.setLemma(document.lemma());
         lexeme.setPos(document.pos());
-        lexeme.setHomographNo(homographNo);
+        lexeme.setHomographNo(document.homograph());
         lexeme.setKind(document.kind());
         lexeme.setGrammar(new LinkedHashMap<>(document.grammar()));
-        lexeme.setPattern(document.pattern());
-        lexeme.setRegions(document.regions());
+        lexeme.setSpellings(
+                document.spellings().isEmpty()
+                        ? null
+                        : document.spellings().stream()
+                                .map(LexiconPublicationService::spelling)
+                                .toList());
+        lexeme.setComponents(
+                document.components() == null
+                        ? null
+                        : document.components().stream()
+                                .map(part -> Map.<String, Object>of(
+                                        "text", part.text(), "lemma", part.lemma(), "inflects", part.inflects()))
+                                .toList());
+        lexeme.setSeparable(document.separable());
         lexeme.setZipf(
                 publication.zipf() == null
                         ? null
@@ -172,7 +170,7 @@ public class LexiconPublicationService {
         }
         writeFormsAndPronunciations(lexeme, document, publication.writer());
         for (SenseDocument sense : document.senses()) {
-            lexeme.addSense(sense(sense)).setSenseKey(senseKeys.next());
+            lexeme.addSense(sense(sense)).setSenseKey(sense.id());
         }
         for (RelationDocument relation : document.relations()) {
             LexemeRelation link = new LexemeRelation();
@@ -180,6 +178,7 @@ public class LexiconPublicationService {
             link.setTargetLemma(relation.lemma());
             link.setTargetPos(relation.pos());
             link.setEvidence(relation.why());
+            link.setSenses(relation.senses());
             link.setTarget(lexemeRepository
                     .findByLanguageAndLemmaAndPosAndHomographNo(entry.language(), relation.lemma(), relation.pos(), 1)
                     .orElse(null));
@@ -188,10 +187,25 @@ public class LexiconPublicationService {
         lexeme.addBuild(build(publication, now));
     }
 
+    private static Map<String, Object> spelling(EntryDocument.SpellingDocument document) {
+        Map<String, Object> spelling = new LinkedHashMap<>();
+        spelling.put("text", document.text());
+        if (document.varieties() != null) {
+            spelling.put("varieties", document.varieties());
+        }
+        if (document.preReform() != null) {
+            spelling.put("pre_reform", document.preReform());
+        }
+        if (document.script() != null) {
+            spelling.put("script", document.script());
+        }
+        return spelling;
+    }
+
     /**
      * Forms are rewritten; pronunciations are matched to the new forms by variety and spelling (the n-th form spelled
      * alike takes the n-th matching pronunciation) and updated where they stand, so a clip recorded for one stays
-     * attached. A changed transcription drops the row back to provisional. Pronunciations the entry no longer has go
+     * attached. A changed transcription or reading drops the row back to provisional. Pronunciations the entry no longer has go
      * first, in a flush of their own while their forms still exist: were they removed together with the forms,
      * Hibernate would null their form before deleting them, and a pronunciation with no form is the lexeme's own.
      */
@@ -218,15 +232,19 @@ public class LexiconPublicationService {
         Map<String, Integer> ranks = new HashMap<>();
         for (PronunciationDocument spoken : document.pronunciations()) {
             int rank = ranks.merge(spoken.variety(), 1, Integer::sum);
-            place(
-                            lexeme,
-                            existing.remove(key(spoken.variety(), rank, "")),
-                            null,
-                            spoken.variety(),
-                            rank,
-                            spoken.ipa(),
-                            writer)
-                    .setNote(spoken.note());
+            Pronunciation pronunciation = place(
+                    lexeme,
+                    existing.remove(key(spoken.variety(), rank, "")),
+                    null,
+                    spoken.variety(),
+                    rank,
+                    spoken.ipa(),
+                    spoken.reading(),
+                    writer);
+            pronunciation.setNote(spoken.note());
+            pronunciation.setNotation(spoken.notation());
+            pronunciation.setAccent(spoken.accent());
+            pronunciation.setSpelling(spoken.spelling());
         }
         seen.clear();
         for (FormDocument formDocument : document.forms()) {
@@ -234,7 +252,11 @@ public class LexiconPublicationService {
             form.setForm(formDocument.form());
             form.setNormalizedForm(WordNormalizer.normalize(formDocument.form()));
             form.setFeatures(new LinkedHashMap<>(formDocument.features()));
-            form.setRegions(formDocument.regions());
+            form.setVarieties(formDocument.varieties());
+            form.setSenseKeys(formDocument.senseIds());
+            form.setReading(formDocument.reading());
+            form.setNotation(formDocument.notation());
+            form.setNote(formDocument.note());
             lexeme.addForm(form);
             String formKey = formDocument.form() + "#" + seen.merge(formDocument.form(), 1, Integer::sum);
             for (Map.Entry<String, String> ipa : formDocument.ipa().entrySet()) {
@@ -245,6 +267,7 @@ public class LexiconPublicationService {
                         ipa.getKey(),
                         1,
                         ipa.getValue(),
+                        null,
                         writer);
             }
         }
@@ -281,15 +304,19 @@ public class LexiconPublicationService {
             String variety,
             int rank,
             String phonemic,
+            String reading,
             String writer) {
         Pronunciation pronunciation = existing != null ? existing : lexeme.addPronunciation(new Pronunciation());
-        if (existing == null || !phonemic.equals(existing.getPhonemic())) {
+        if (existing == null
+                || !Objects.equals(phonemic, existing.getPhonemic())
+                || !Objects.equals(reading, existing.getReading())) {
             pronunciation.setStatus(LexiconStatus.PROVISIONAL);
         }
         pronunciation.setForm(form);
         pronunciation.setVariety(variety);
         pronunciation.setRank(rank);
         pronunciation.setPhonemic(phonemic);
+        pronunciation.setReading(reading);
         pronunciation.setSource(writer);
         return pronunciation;
     }
@@ -299,37 +326,20 @@ public class LexiconPublicationService {
         sense.setDefinition(document.definition());
         sense.setCefr(document.cefr());
         sense.setCefrSource(document.cefr() == null ? null : CEFR_BY_WRITER);
-        sense.setRegister(document.register());
+        sense.setLabels(document.labels() == null ? null : new LinkedHashMap<>(document.labels()));
         sense.setGrammar(document.grammar() == null ? null : new LinkedHashMap<>(document.grammar()));
-        sense.setUsage(document.usage());
-        sense.setDomain(document.domain());
-        sense.setRegions(document.regions());
-        sense.setCited(document.from().isEmpty() ? null : List.copyOf(document.from()));
-        for (Map.Entry<String, JsonNode> gloss : document.glosses().entrySet()) {
-            SenseGloss rendered = new SenseGloss();
-            rendered.setFluentLanguage(gloss.getKey());
-            rendered.setRank(1);
-            JsonNode value = gloss.getValue();
-            if (value.isString()) {
-                rendered.setGloss(value.stringValue());
-            } else {
-                rendered.setGloss(value.path("text").asString(""));
-                rendered.setExact(value.path("exact").asBoolean(true));
-            }
-            sense.addGloss(rendered);
-        }
-        if (document.example() != null) {
-            SenseExample example = new SenseExample();
-            example.setText(document.example());
-            example.setOrigin(SenseExample.GENERATED);
-            sense.addExample(example);
-        }
-        for (CueDocument cue : document.cues()) {
-            SenseCue prompt = new SenseCue();
-            prompt.setKind(cue.kind());
-            prompt.setText(cue.text());
-            sense.addCue(prompt);
-        }
+        sense.setFrames(document.frames());
+        sense.setPatterns(document.patterns());
+        sense.setCollocations(document.collocations());
+        sense.setAntonyms(document.antonyms());
+        sense.setSpellings(document.spellings());
+        sense.setStandardAlternative(document.standardAlternative());
+        sense.setRegions(document.scopes());
+        sense.setCited(document.from() == null || document.from().isEmpty() ? null : List.copyOf(document.from()));
+        SenseExample example = new SenseExample();
+        example.setText(document.example());
+        example.setOrigin(SenseExample.GENERATED);
+        sense.addExample(example);
         return sense;
     }
 
@@ -353,53 +363,12 @@ public class LexiconPublicationService {
         return build;
     }
 
-    private static SenseMatcher.Candidate candidate(Lexeme lexeme, Sense sense) {
-        Map<String, String> glosses = new HashMap<>();
-        for (SenseGloss gloss : sense.getGlosses()) {
-            glosses.putIfAbsent(gloss.getFluentLanguage(), gloss.getGloss());
-        }
-        return new SenseMatcher.Candidate(
-                lexeme.getLemma(),
-                lexeme.getPos(),
-                sense.getDefinition(),
-                glosses,
-                sense.getCited() == null ? List.of() : sense.getCited());
-    }
-
-    private static SenseMatcher.Candidate candidate(LexemeDocument lexeme, SenseDocument sense) {
-        Map<String, String> glosses = new HashMap<>();
-        for (Map.Entry<String, JsonNode> gloss : sense.glosses().entrySet()) {
-            JsonNode value = gloss.getValue();
-            glosses.put(
-                    gloss.getKey(),
-                    value.isString() ? value.stringValue() : value.path("text").asString(""));
-        }
-        return new SenseMatcher.Candidate(lexeme.lemma(), lexeme.pos(), sense.definition(), glosses, sense.from());
-    }
-
     /**
-     * The entry as published, with each sense's key beside it and the keys this publish retired, as the headword's
-     * next version. The document is never changed afterwards; it is what a card's sense key is traced through.
+     * The entry as published, as the headword's next version. The document is never changed afterwards; it is what a
+     * card's sense key is traced through: every sense carries its key as {@code id}, and a lexeme lists under
+     * {@code retired} the senses it once had.
      */
-    private void recordVersion(
-            EntryDocument entry, EntryPublication publication, SenseMatcher.Result keys, Instant now) {
-        Map<String, Object> document = objectMapper.convertValue(entry, new TypeReference<>() {});
-        Iterator<UUID> senseKeys = keys.keys().iterator();
-        if (document.get("lexemes") instanceof List<?> lexemes) {
-            for (Object lexeme : lexemes) {
-                if (lexeme instanceof Map<?, ?> map && map.get("senses") instanceof List<?> senses) {
-                    for (Object sense : senses) {
-                        @SuppressWarnings("unchecked")
-                        Map<String, Object> written = (Map<String, Object>) sense;
-                        written.put("key", senseKeys.next().toString());
-                    }
-                }
-            }
-        }
-        Map<String, Object> retired = new LinkedHashMap<>();
-        keys.retired()
-                .forEach((key, nearest) -> retired.put(key.toString(), nearest == null ? null : nearest.toString()));
-        document.put("retired", retired);
+    private void recordVersion(EntryDocument entry, EntryPublication publication, Instant now) {
         EntryVersion version = new EntryVersion();
         version.setLanguage(entry.language());
         version.setHeadword(entry.headword());
@@ -410,7 +379,7 @@ public class LexiconPublicationService {
                 + 1);
         version.setWriter(publication.writer());
         version.setSchemaVersion(publication.schemaVersion());
-        version.setDocument(document);
+        version.setDocument(new LinkedHashMap<>(publication.document()));
         version.setBuiltAt(publication.builtAt() != null ? publication.builtAt() : now);
         entryVersionRepository.save(version);
     }

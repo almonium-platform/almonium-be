@@ -2,7 +2,6 @@ package com.almonium.learning.lexicon.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +24,8 @@ import org.hibernate.type.SqlTypes;
 /**
  * One inflected form of a lexeme with its Universal Dependencies features. {@code normalizedForm} (NFC, lowercase)
  * is what a reader's word is looked up by; {@code language} is copied from the lexeme so that lookup needs no join.
- * {@code regions} is where the form is used when not everywhere (American gotten), null for the whole language.
+ * {@code reading} is how the form is read in {@code notation} (kana, the spelling with its stress marked), and
+ * {@code note} where it is used when its features cannot say (only in the passive).
  */
 @Entity
 @Getter
@@ -51,6 +51,15 @@ public class LexemeForm {
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> features = new LinkedHashMap<>();
 
+    /** The varieties that use the form (en-US for gotten), null for all of them. */
     @JdbcTypeCode(SqlTypes.JSON)
-    List<RegionScope> regions;
+    List<String> varieties;
+
+    /** The keys of the senses the form belongs to, null for all of them. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<UUID> senseKeys;
+
+    String reading;
+    String notation;
+    String note;
 }

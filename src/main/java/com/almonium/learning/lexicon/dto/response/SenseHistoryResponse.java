@@ -8,8 +8,8 @@ import java.util.UUID;
 /**
  * One sense across every published version of its entry. {@code cards} is how many learning items were saved from
  * it. In a version, {@code sense} is the sense as published there (with its lexeme's lemma and pos), null when the
- * version no longer had it; {@code retiredTowards} is set only on the version that dropped it: the key of the sense
- * it most resembles, or "" when nothing does.
+ * version no longer had it; {@code retiredTowards} is set only on the version that dropped it, and is "": an entry
+ * names no successor for a sense it retires.
  */
 public record SenseHistoryResponse(UUID key, long cards, List<SenseVersion> versions) {
     public record SenseVersion(

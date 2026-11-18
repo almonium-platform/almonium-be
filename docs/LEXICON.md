@@ -22,8 +22,8 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 | Schema | Written by prompts | What it is | Where |
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
-| 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8, v4.9 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend read this one until 18 November 2026; about 730 drafts under `out/grounded/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8, v4.9 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/`; the backend reads this one, as ingest cleans it |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -47,8 +47,8 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
   say (`tour.py` picks them), for checking by hand what the app shows a reader.
-- Backend: `learning/lexicon`. It reads schema 3 and refuses schema 4 (it requires glosses, cues and
-  a register on every sense), so the 31,000 entries cannot be shown yet.
+- Backend: `learning/lexicon`. It reads schema 4 as ingest publishes it and nothing older; see "The
+  backend reads schema 4".
 
 ## How a word becomes an entry
 
@@ -68,7 +68,8 @@ Today, for schema 4:
    sounds put in the form the dictionary prints (a syllable dot before every stress mark inside a
    word, an Italian double consonant written twice, the *ll* of Spain as /ʝ/), and *être* or
    *essere* given to every French or Italian pronominal sense.
-6. **Publish.** Not possible yet, see "Pending".
+6. **Publish** (`publish_entries.py`, free). The clean entries of `out/lexicon-s4/` go to the backend,
+   which checks each against the published schema and takes it; see "The backend reads schema 4".
 
 October's line built the other half, for schema 3 (`entry_pipeline.py`): Wiktionary evidence in the
 request, each sense citing the Wiktionary senses it covers, then repair, checks, facts filled and
@@ -426,6 +427,63 @@ has 4.1 collocations, a first sense 6.0, where v4.8 gave 1.5: *faire grève*, *�
 характерами*; *пройти проверку*, *провести проверку*; *影響を与える*, *影響を受ける*, *影響を及ぼす*.
 No frame holds a choice of words. One entry of the thirty-two (*finestra*) wrote two collocations
 as frames, which ingest moves. The entries are 5% longer.
+
+## The backend reads schema 4
+
+Since 18 November 2026. What is published is the **clean entry** ingest derives, not the entry a
+writer returned: the backend needs what ingest adds. `published_schema.py` derives the schema of a
+clean entry from `entry.schema.v4.json` (ids, `homograph`, `patterns`, `sense_ids` on a form,
+`aliases`, `dropped`, `retired`, `source`, and ingest's counts) and writes the backend's copy,
+`src/main/resources/lexicon/entry.schema.json`; a test fails when that copy is stale, so after a
+change to the writers' schema run it once. The backend refuses anything else, an entry of schema 2
+or 3 included: there is one shape.
+
+    scripts/.venv/bin/python scripts/lexicon_research/ingest_v4.py
+    scripts/.venv/bin/python scripts/lexicon_research/publish_entries.py [--langs en,de] [--words lead,sign]
+
+What the backend does with an entry (`LexiconPublicationService`):
+
+- **A sense is keyed by the id ingest gives it.** Ingest owns sense identity: the id survives a
+  rewrite while the definition stays mostly the same words, which ingest decides against the clean
+  entry of the last run. The backend's own matcher is gone. A card and a report name a sense by
+  that key; the history of a key (`/ops`) shows every version that had it and the version that
+  dropped it. The ids live in `out/lexicon-s4/`, which the data repository does not track: a
+  machine that ingests from nothing gives a sense the id of its definition, so a definition
+  rewritten since the last publish gets a new key there. Publish from the machine that ingests.
+- **A lexeme** lands on the row of its language, lemma, part of speech and homograph number, so its
+  pronunciations stay where they are and the clips recorded for them stay attached.
+- **Labels** are stored as written, each axis by itself; the single register of schema 3 is not
+  filled any more. Frames, their parts (`patterns`), collocations, antonyms, the spellings of a
+  lexeme by variety, the parts of a multiword, a form's varieties and senses, a reading with its
+  notation and the Japanese accent are all kept and all served by
+  `GET /public/lexicon/{language}/entries`.
+- **A region** written as a bare variety (`en-GB`) is stored as only there.
+- **A spelling the entry answers for** goes to `lexicon.entry_alias`: the entry's `aliases` (a form
+  or a spelling that was asked for as a headword and refused) and the other spellings of its
+  lexemes. A reader's word that is no headword, lemma or listed form is looked up there, so
+  *colour* shows *color* and *signed* shows *sign*.
+- **A variety**, wherever an entry names one (a transcription, a spelling, a form, grammar that
+  differs by variety), must be one the product's catalogue lists for the language.
+- **No glosses and no cues.** The sheet shows the definition and the example in the word's own
+  language and no translation; the tables for glosses and cues stay, empty, for their passes.
+
+Not done with it, in the order it will be felt:
+
+1. **A translation line on the sheet.** A learner who cannot read the definition yet sees no
+   translation for a lexicon word. Either the provider's translation beside the entry or the gloss
+   pass.
+2. **Regular forms.** Schema 4 lists only the forms a learner could not guess, so *walked* finds
+   nothing unless it was asked for as a headword. The lookup needs a lemmatiser's answer, or the
+   book processor's lemma with the tap.
+3. **The clients show none of the new fields** (labels, frames, collocations, spellings): the
+   Discover sheet's contract is unchanged.
+4. **The entries published before** (schema 2, with glosses) stay in a database until their
+   headword is published again or the owner clears the lexicon; the migration deleted nothing.
+   The columns schema 4 does not fill (`sense.register`, `usage`, `domain`, `lexeme.pattern`,
+   `regions`, `lexeme_form.regions`) are still there and are to be dropped by a later change set,
+   once no running version reads them.
+5. A reading with no transcription (Japanese) is stored and served by the entries endpoint, and the
+   Discover sheet has no place for it yet.
 
 ## What the six reviews say about the entries
 
@@ -914,7 +972,8 @@ page does not settle.
 
 ## Pending, in order
 
-1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
+1. ~~The backend reads schema 4~~ Done on 18 November 2026; what it left open is listed under "The
+   backend reads schema 4", the translation line and the regular forms first.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
 3. **Measure v4.9**: forty new words a language again, which is the cheap half, and the same
@@ -942,8 +1001,9 @@ page does not settle.
    5,000 most frequent. Not built. The clients show neither list yet.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
-8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested
-   entry already carries.
+8. ~~One owner of sense identity~~ Done with item 1: ingest owns it, the backend takes the id. What
+   is left is that the ids are only on the machine that ingests (`out/lexicon-s4/` is not in the
+   data repository).
 9. The lookup normaliser (apostrophes, soft hyphens); 95 entries that fail the schema, every one
    from the Codex writer.
 

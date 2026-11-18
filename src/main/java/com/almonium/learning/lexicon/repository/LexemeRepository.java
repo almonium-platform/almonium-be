@@ -29,10 +29,11 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
     /**
      * Words said exactly like the given lexemes: another lemma of the language whose own transcription in the same
      * variety is the same, slashes and syllable dots aside. Not a homophone: one of the lemma's own forms (French
-     * arrivée of arriver), a family member, or a spelling of the same word, which shares the glosses of one sense in
-     * two reader languages or more (humour, humor; plain and plane share only German Ebene and stay). One row per
-     * lexeme asked about, homophone lexeme and variety. The candidates are gathered first and each test looks one
-     * way, so every lookup stays on an index (one query with both ways in an OR scanned whole tables).
+     * arrivée of arriver), a word a relation derives it from or towards (its diminutive, its adverb; a confusable
+     * may well be said alike and stays), or a spelling of the same word, which shares the glosses of one sense in
+     * two reader languages or more (humour, humor; plain and plane share only German Ebene and stay). One row per lexeme asked about, homophone lexeme and variety. The candidates are
+     * gathered first and each test looks one way, so every lookup stays on an index (one query with both ways in an
+     * OR scanned whole tables).
      */
     @Query(nativeQuery = true, value = """
             with candidate as materialized (
@@ -54,11 +55,11 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
                     where x.language = c.language and lower(x.lemma) = c.alike and f.normalized_form = c.said)
               and not exists (
                     select 1 from lexicon.lexeme x join lexicon.lexeme_relation r on r.lexeme_id = x.id
-                    where x.language = c.language and lower(x.lemma) = c.said and r.type = 'family'
+                    where x.language = c.language and lower(x.lemma) = c.said and r.type <> 'confusable'
                       and lower(r.target_lemma) = c.alike)
               and not exists (
                     select 1 from lexicon.lexeme x join lexicon.lexeme_relation r on r.lexeme_id = x.id
-                    where x.language = c.language and lower(x.lemma) = c.alike and r.type = 'family'
+                    where x.language = c.language and lower(x.lemma) = c.alike and r.type <> 'confusable'
                       and lower(r.target_lemma) = c.said)
               and not exists (
                     select 1
@@ -95,6 +96,19 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
             """)
     List<Lexeme> findByLanguageAndNormalizedWord(
             @Param("language") String language, @Param("normalized") String normalized);
+
+    /**
+     * The lexemes of the entries that answer for a spelling which is not a headword itself: colour finds color,
+     * signed finds sign.
+     */
+    @Query("""
+            select l from Lexeme l
+            where l.language = :language
+              and l.headword in (select a.headword from EntryAlias a
+                                 where a.language = :language and a.normalizedAlias = :normalized)
+            order by l.lemma, l.pos, l.homographNo
+            """)
+    List<Lexeme> findByLanguageAndAlias(@Param("language") String language, @Param("normalized") String normalized);
 
     /**
      * Headwords beginning with a prefix, one row per headword, for a field being typed into. A headword that begins

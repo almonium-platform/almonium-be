@@ -1,0 +1,145 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261118-lexicon-schema-4
+      author: claude
+      comment: >-
+        Entry schema version 4, as ingest publishes it. A sense has labels on separate axes in place of one register,
+        its frames, the frames read into parts, its collocations, its antonyms, the standard word for a nonstandard
+        one and the spellings that carry it. A lexeme has its spellings by variety, the parts of a multiword and
+        whether they can be separated. A form says which varieties and senses it belongs to and how it is read. A
+        pronunciation may be a reading with no transcription (kana, a spelling with its stress marked), so phonemic
+        may be null. A relation may hold for some senses only. entry_alias holds every spelling an entry answers
+        for besides its headword. Additive: sense.register only loses NOT NULL, and the columns schema 4 no longer
+        fills (sense.register, usage, domain; lexeme.pattern, regions; lexeme_form.regions) stay until a later change
+        set drops them, so the application version of before this one keeps running through a rollout.
+      changes:
+        - dropNotNullConstraint:
+            schemaName: lexicon
+            tableName: sense
+            columnName: register
+            columnDataType: varchar(16)
+        - dropNotNullConstraint:
+            schemaName: lexicon
+            tableName: pronunciation
+            columnName: phonemic
+            columnDataType: varchar(200)
+        - addColumn:
+            schemaName: lexicon
+            tableName: sense
+            columns:
+              - column:
+                  name: labels
+                  type: jsonb
+              - column:
+                  name: frames
+                  type: jsonb
+              - column:
+                  name: patterns
+                  type: jsonb
+              - column:
+                  name: collocations
+                  type: jsonb
+              - column:
+                  name: antonyms
+                  type: jsonb
+              - column:
+                  name: spellings
+                  type: jsonb
+              - column:
+                  name: standard_alternative
+                  type: varchar(200)
+        - addColumn:
+            schemaName: lexicon
+            tableName: lexeme
+            columns:
+              - column:
+                  name: spellings
+                  type: jsonb
+              - column:
+                  name: components
+                  type: jsonb
+              - column:
+                  name: separable
+                  type: boolean
+        - addColumn:
+            schemaName: lexicon
+            tableName: lexeme_form
+            columns:
+              - column:
+                  name: varieties
+                  type: jsonb
+              - column:
+                  name: sense_keys
+                  type: jsonb
+              - column:
+                  name: reading
+                  type: text
+              - column:
+                  name: notation
+                  type: varchar(16)
+              - column:
+                  name: note
+                  type: varchar(120)
+        - addColumn:
+            schemaName: lexicon
+            tableName: pronunciation
+            columns:
+              - column:
+                  name: notation
+                  type: varchar(16)
+              - column:
+                  name: accent
+                  type: integer
+              - column:
+                  name: spelling
+                  type: varchar(200)
+        - addColumn:
+            schemaName: lexicon
+            tableName: lexeme_relation
+            columns:
+              - column:
+                  name: senses
+                  type: jsonb
+        - createTable:
+            schemaName: lexicon
+            tableName: entry_alias
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headword
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: alias
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: normalized_alias
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            schemaName: lexicon
+            tableName: entry_alias
+            columnNames: language, headword, alias
+            constraintName: uq_entry_alias
+        - createIndex:
+            schemaName: lexicon
+            tableName: entry_alias
+            indexName: ix_entry_alias_language_normalized
+            columns:
+              - column:
+                  name: language
+              - column:
+                  name: normalized_alias

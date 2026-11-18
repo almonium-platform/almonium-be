@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Everything published about one sense, found by its key: each entry version that had it, with the sense as it
- * stood there, and the version that retired it with the key it was retired towards. How many cards were saved from
- * the sense comes along, so an editor sees who a change would reach.
+ * stood there, and the version that dropped it, which is the next version of the headword when that one no longer
+ * has the sense. How many cards were saved from the sense comes along, so an editor sees who a change would reach.
  */
 @Service
 @RequiredArgsConstructor
@@ -27,20 +27,35 @@ public class SenseHistoryService {
     private final LearningItemRepository learningItemRepository;
 
     public SenseHistoryResponse history(UUID key) {
-        String live = "{\"lexemes\": [{\"senses\": [{\"key\": \"" + key + "\"}]}]}";
+        String live = "{\"lexemes\": [{\"senses\": [{\"id\": \"" + key + "\"}]}]}";
+        List<EntryVersion> having = entryVersionRepository.findContaining(live);
         List<SenseVersion> versions = new ArrayList<>();
-        for (EntryVersion version : entryVersionRepository.findContaining(live, key.toString())) {
-            Map<String, Object> document = version.getDocument();
-            versions.add(new SenseVersion(
-                    version.getLanguage(),
-                    version.getHeadword(),
-                    version.getVersion(),
-                    version.getWriter(),
-                    version.getBuiltAt(),
-                    sense(document, key.toString()),
-                    retiredTowards(document, key.toString())));
+        for (int i = 0; i < having.size(); i++) {
+            EntryVersion version = having.get(i);
+            versions.add(version(version, sense(version.getDocument(), key.toString()), null));
+            boolean hasItNext = i + 1 < having.size()
+                    && having.get(i + 1).getLanguage().equals(version.getLanguage())
+                    && having.get(i + 1).getHeadword().equals(version.getHeadword())
+                    && having.get(i + 1).getVersion() == version.getVersion() + 1;
+            if (!hasItNext) {
+                entryVersionRepository
+                        .findByLanguageAndHeadwordAndVersion(
+                                version.getLanguage(), version.getHeadword(), version.getVersion() + 1)
+                        .ifPresent(dropping -> versions.add(version(dropping, null, "")));
+            }
         }
         return new SenseHistoryResponse(key, learningItemRepository.countBySenseKey(key), versions);
+    }
+
+    private static SenseVersion version(EntryVersion version, Map<String, Object> sense, String retiredTowards) {
+        return new SenseVersion(
+                version.getLanguage(),
+                version.getHeadword(),
+                version.getVersion(),
+                version.getWriter(),
+                version.getBuiltAt(),
+                sense,
+                retiredTowards);
     }
 
     /** The sense with the key in this version, with the lemma and part of speech of its lexeme; null if absent. */
@@ -56,7 +71,7 @@ public class SenseHistoryService {
             }
             for (Object sense : senses) {
                 Map<String, Object> written = (Map<String, Object>) sense;
-                if (key.equals(written.get("key"))) {
+                if (key.equals(written.get("id"))) {
                     Map<String, Object> located = new LinkedHashMap<>();
                     located.put("lemma", map.get("lemma"));
                     located.put("pos", map.get("pos"));
@@ -64,15 +79,6 @@ public class SenseHistoryService {
                     return located;
                 }
             }
-        }
-        return null;
-    }
-
-    /** "retired" when this version dropped the sense: the key of its nearest successor, or the empty string. */
-    private static String retiredTowards(Map<String, Object> document, String key) {
-        if (document.get("retired") instanceof Map<?, ?> retired && retired.containsKey(key)) {
-            Object nearest = retired.get(key);
-            return nearest == null ? "" : nearest.toString();
         }
         return null;
     }

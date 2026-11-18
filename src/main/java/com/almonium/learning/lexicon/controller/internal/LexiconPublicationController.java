@@ -27,8 +27,9 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 /**
- * Where the entry writers publish, signed like a book publication. The body is one publication, {@code {writer,
- * entry, meta, built_at}}, or an array of them for the initial load; each entry is checked against the schema and
+ * Where the dictionary is published, signed like a book publication. The body is one publication, {@code {writer,
+ * entry, meta, built_at, zipf}}, or an array of them for the initial load; the entry is the clean one the ingest
+ * step derives from what a writer wrote; each entry is checked against the schema and
  * taken in its own transaction, so one bad entry in a batch costs only itself. A single entry answers 400 with the
  * reason when refused; a batch answers 200 with one result per entry.
  */
@@ -87,6 +88,7 @@ public class LexiconPublicationController {
             publication = new EntryPublication(
                     writer,
                     objectMapper.treeToValue(entry, EntryDocument.class),
+                    objectMapper.convertValue(entry, new TypeReference<Map<String, Object>>() {}),
                     item.path("meta").isObject()
                             ? objectMapper.convertValue(item.path("meta"), new TypeReference<Map<String, Object>>() {})
                             : Map.of(),

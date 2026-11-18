@@ -19,10 +19,9 @@ import lombok.experimental.FieldDefaults;
 
 /**
  * How one variety (en-US, de-DE) says a lexeme, or one of its forms when {@code form} is set. Audio clips are keyed
- * by this row, so publishing an entry again updates it in place instead of replacing it. {@code reading} and
- * {@code engineInput} are filled by the audio phase: a spelling with stress marks or the exact text a speech engine
- * was given. {@code note} says why a variety has this reading besides its first (older, casual, disputed), when it
- * says something.
+ * by this row, so publishing an entry again updates it in place instead of replacing it. {@code engineInput} is
+ * filled by the audio phase: the exact text a speech engine was given. {@code note} says why a variety has this
+ * reading besides its first (older, casual, disputed), when it says something.
  */
 @Entity
 @Getter
@@ -49,9 +48,22 @@ public class Pronunciation {
     /** 1-based, within the variety: a word one variety says two ways has rank 1 and rank 2. */
     int rank;
 
+    /** The IPA transcription; null when the entry gives a reading only. */
     String phonemic;
+
     String note;
+
+    /** The word as read, in {@code notation}: kana, pinyin, the spelling with its stress marked (рука́). */
     String reading;
+
+    String notation;
+
+    /** Japanese: the mora after which the pitch drops, 0 when it does not; null when not known. */
+    Integer accent;
+
+    /** The spelling this reading belongs to, when the lemma's spellings are said differently. */
+    String spelling;
+
     String engineInput;
     LexiconStatus status;
     String source;

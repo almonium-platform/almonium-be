@@ -79,8 +79,9 @@ public class LexiconEntryMapper {
                 lexeme.getHomographNo(),
                 lexeme.getKind(),
                 lexeme.getGrammar(),
-                lexeme.getPattern(),
-                lexeme.getRegions(),
+                lexeme.getSpellings(),
+                lexeme.getComponents(),
+                lexeme.getSeparable(),
                 lexeme.getZipf() == null ? null : lexeme.getZipf().doubleValue(),
                 lexeme.getStatus().label(),
                 matched == null ? null : toView(matched),
@@ -93,7 +94,7 @@ public class LexiconEntryMapper {
                 new Capabilities(
                         !forms.isEmpty(),
                         senses.stream().anyMatch(sense -> sense.cefr() != null),
-                        !pronunciations.isEmpty(),
+                        pronunciations.stream().anyMatch(pronunciation -> pronunciation.phonemic() != null),
                         pronunciations.stream()
                                 .flatMap(pronunciation -> pronunciation.clips().stream())
                                 .anyMatch(clip -> ClipStatus.VERIFIED.label().equals(clip.status())),
@@ -103,7 +104,15 @@ public class LexiconEntryMapper {
     }
 
     private FormView toView(LexemeForm form) {
-        return new FormView(form.getId(), form.getForm(), form.getFeatures(), form.getRegions());
+        return new FormView(
+                form.getId(),
+                form.getForm(),
+                form.getFeatures(),
+                form.getVarieties(),
+                form.getSenseKeys(),
+                form.getReading(),
+                form.getNotation(),
+                form.getNote());
     }
 
     private PronunciationView toView(Pronunciation pronunciation, List<AudioClip> clips) {
@@ -113,6 +122,10 @@ public class LexiconEntryMapper {
                 pronunciation.getVariety(),
                 pronunciation.getRank(),
                 pronunciation.getPhonemic(),
+                pronunciation.getReading(),
+                pronunciation.getNotation(),
+                pronunciation.getAccent(),
+                pronunciation.getSpelling(),
                 pronunciation.getNote(),
                 pronunciation.getStatus().label(),
                 clips.stream().sorted(VERIFIED_FIRST).map(this::toView).toList());
@@ -143,10 +156,14 @@ public class LexiconEntryMapper {
                 sense.getDefinition(),
                 sense.getCefr(),
                 sense.getCefrSource(),
-                sense.getRegister(),
+                sense.getLabels(),
                 sense.getGrammar(),
-                sense.getUsage(),
-                sense.getDomain(),
+                sense.getFrames(),
+                sense.getPatterns(),
+                sense.getCollocations(),
+                sense.getAntonyms(),
+                sense.getSpellings(),
+                sense.getStandardAlternative(),
                 sense.getRegions(),
                 glosses,
                 sense.getExamples().stream().map(this::toView).toList(),
@@ -167,7 +184,8 @@ public class LexiconEntryMapper {
                 relation.getTargetLemma(),
                 relation.getTargetPos(),
                 relation.getTarget() == null ? null : relation.getTarget().getId(),
-                relation.getEvidence());
+                relation.getEvidence(),
+                relation.getSenses());
     }
 
     private PartView toView(LexemePart part) {

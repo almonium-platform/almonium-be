@@ -5,14 +5,16 @@ import java.time.Instant;
 import java.util.Map;
 
 /**
- * One entry as a writer publishes it: the entry itself, the writer's name (cc-claude-opus-5-5), its metadata record
- * (model, prompt version, cost, tokens) and when it was built. {@code schemaVersion} is the version of the entry
- * schema the body passed. {@code zipf} is how often the headword's spelling occurs, on the Zipf scale (log10 of uses
+ * One entry as it is published: the entry itself, read into {@code entry} and whole as it came in {@code document}
+ * (which is what the entry version keeps), the name of the writer that wrote it (cc-claude-opus-5-5-v4), the writer's
+ * metadata record (model, prompt version, cost, tokens) and when it was built. {@code schemaVersion} is the version
+ * of the entry schema the body passed. {@code zipf} is how often the headword's spelling occurs, on the Zipf scale (log10 of uses
  * per billion words) from wordfreq; null when the publisher did not measure it.
  */
 public record EntryPublication(
         String writer,
         EntryDocument entry,
+        Map<String, Object> document,
         Map<String, Object> meta,
         Instant builtAt,
         String schemaVersion,

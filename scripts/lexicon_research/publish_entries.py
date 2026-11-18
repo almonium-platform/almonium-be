@@ -1,13 +1,16 @@
-"""Publish written entries to the backend's lexicon, the way the book processor publishes editions.
+"""Publish the dictionary to the backend's lexicon, the way the book processor publishes editions.
 
-Walks out/<writer>/<lang>/*.json, pairs each entry with its <headword>.meta.json, skips files holding an
-"error" key, and PUTs them in signed batches to /internal/lexicon/entries; the backend answers one result
-per entry. The signature is HMAC-SHA256 of "{timestamp}." and the body under ALMONIUM_BOOKS_PUBLISHER_SECRET,
-exported or from the backend's .env (see backend_env.py); it is never printed. Each entry carries the
-headword's Zipf frequency from wordfreq, which the backend keeps on its lexemes to rank suggestions; wordfreq
-ships its tables, so this costs no network call (pip install -r requirements.txt). An entry the free checks
-(entry_checks.py) find a structural fault in is held and named on stderr, not sent.
-Usage: publish_entries.py [--writer cc-claude-opus-5-5] [--langs en,de] [--backend http://localhost:9998/api/v1]
+What is published is the clean entry ingest_v4.py derives (out/lexicon-s4/<lang>/<headword>.json), not the entry a
+writer returned: it carries the ids of its lexemes and senses, which the backend keys a sense by, its frames read
+into parts, and the spellings it answers for. Run ingest first; it is free. Each entry goes with the meta record of
+the writer that wrote it (out/<writer>/<lang>/<headword>.meta.json: model, prompt, tokens, cost) and with the
+headword's Zipf frequency from wordfreq, which the backend keeps on its lexemes to rank suggestions; wordfreq ships
+its tables, so this costs no network call (pip install -r requirements.txt). Entries are PUT in signed batches to
+/internal/lexicon/entries and the backend answers one result per entry; it refuses an entry that does not pass the
+published schema (published_schema.py) and names the fault. The signature is HMAC-SHA256 of "{timestamp}." and the
+body under ALMONIUM_BOOKS_PUBLISHER_SECRET, exported or from the backend's .env (see backend_env.py); it is never
+printed.
+Usage: publish_entries.py [--langs en,de] [--backend http://localhost:9998/api/v1] [--words lead,program]
                           [--limit N] [--workers 4] [--batch 50]
 (run from the backend repository root)
 """
@@ -20,37 +23,35 @@ import requests
 from wordfreq import zipf_frequency
 
 from backend_env import publisher_secret
-from entry_checks import check
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
+CLEAN = OUT / "lexicon-s4"
 PATH = "/internal/lexicon/entries"
 TIMEOUT = 300
 
 
-def publications(writer, langs, limit):
-    """Yield (path, body) for every entry file of the writer, newest meta beside it, skipping failed writes."""
+def publications(langs, limit, words=()):
+    """Yield (path, body) for every clean entry of the languages, with the meta of the entry it was derived from."""
     count = 0
     for lang in langs:
-        folder = OUT / writer / lang
+        folder = CLEAN / lang
         if not folder.is_dir():
-            print(f"no entries under {folder}", file=sys.stderr)
+            print(f"no entries under {folder}: run ingest_v4.py first", file=sys.stderr)
             continue
         for path in sorted(folder.glob("*.json")):
-            if path.name.endswith(".meta.json"):
+            if path.name.startswith("_") or (words and path.stem not in words):  # _aliases.json, _report.json
                 continue
-            entry = json.loads(path.read_text())
-            if "error" in entry:
+            entry = json.loads(path.read_text(encoding="utf-8"))
+            writer = (entry.get("source") or {}).get("writer")
+            if not writer:
+                print(f"held {path}: the entry does not say which writer wrote it", file=sys.stderr)
                 continue
-            # A structural fault the free checks find is held here rather than refused by the backend one by one.
-            faults = [finding for finding in check(entry) if finding["severity"] == "error"]
-            if faults:
-                for fault in faults:
-                    print(f"held {path}: {fault['check']} {fault['path']}: {fault['message']}", file=sys.stderr)
-                continue
-            meta_path = path.with_name(path.stem + ".meta.json")
-            meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
-            built_at = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
+            written = OUT / writer / lang / path.name
+            meta_path = written.with_name(path.stem + ".meta.json")
+            meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+            built = written if written.exists() else path
+            built_at = datetime.fromtimestamp(built.stat().st_mtime, tz=timezone.utc).isoformat()
             zipf = round(zipf_frequency(entry["headword"], lang), 2)
             yield path, {"writer": writer, "entry": entry, "meta": meta, "built_at": built_at, "zipf": zipf}
             count += 1
@@ -90,8 +91,8 @@ def send(backend, token, batch):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--writer", default="cc-claude-opus-5-5")
-    parser.add_argument("--langs", default="en,de", help="comma-separated language folders under out/<writer>")
+    parser.add_argument("--langs", default="en,de,fr,es,it,pt", help="comma-separated language folders under out/lexicon-s4")
+    parser.add_argument("--words", default="", help="comma-separated headwords, to publish these only")
     parser.add_argument("--backend", default="http://localhost:9998/api/v1")
     parser.add_argument("--limit", type=int, default=0, help="stop after this many entries (0 = all)")
     parser.add_argument("--workers", type=int, default=4)
@@ -101,8 +102,9 @@ def main():
     token = publisher_secret()
 
     langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
+    words = {word.strip() for word in args.words.split(",") if word.strip()}
     accepted, rejected, failed_batches = 0, 0, 0
-    rejections = []
+    rejections, reasons = [], {}
     lock = threading.Lock()
     started = time.time()
 
@@ -123,20 +125,26 @@ def main():
                     accepted += 1
                 else:
                     rejected += 1
+                    reason = result.get("message", "")
+                    reasons[reason[:60]] = reasons.get(reason[:60], 0) + 1
                     if len(rejections) < 10:
-                        rejections.append((str(path.relative_to(OUT)), result.get("message", "")))
+                        rejections.append((str(path.relative_to(OUT)), reason))
             done = accepted + rejected
             if done % 500 < len(batch):
                 print(f"{done} entries in {time.time() - started:.0f}s: {accepted} accepted, {rejected} rejected", flush=True)
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        for batch in batched(publications(args.writer, langs, args.limit), args.batch):
+        for batch in batched(publications(langs, args.limit, words), args.batch):
             pool.submit(work, batch)
 
     elapsed = time.time() - started
     print(f"\n{accepted} accepted, {rejected} rejected ({failed_batches} whole batches failed) in {elapsed:.0f}s")
     for where, message in rejections:
         print(f"  {where}: {message}")
+    if len(reasons) > 1 or rejected > len(rejections):
+        print("refused, by how the reason begins:")
+        for reason, count in sorted(reasons.items(), key=lambda item: -item[1])[:15]:
+            print(f"  {count:6}  {reason}")
     sys.exit(1 if rejected else 0)
 
 

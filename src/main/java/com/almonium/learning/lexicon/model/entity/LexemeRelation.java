@@ -9,17 +9,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
- * A link from a lexeme to another lemma: same word family, a confusable look-alike, an antonym. The target is named
- * by lemma and pos because the writer sees one headword at a time; {@code target} is resolved to a lexeme when that
- * lemma is in the lexicon, at publish time or when the target arrives later.
+ * A link from a lexeme to another lemma, by its type: what it derives from, its aspect partner, a look-alike. The
+ * target is named by lemma and pos because the writer sees one headword at a time; {@code target} is resolved to a
+ * lexeme when that lemma is in the lexicon, at publish time or when the target arrives later.
  */
 @Entity
 @Getter
@@ -47,4 +50,8 @@ public class LexemeRelation {
     Lexeme target;
 
     String evidence;
+
+    /** The senses of this lexeme, counted from 1, that the relation holds for; null for all of them. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<Integer> senses;
 }

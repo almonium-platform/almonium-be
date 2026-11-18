@@ -24,7 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Resolves a reader's word to its lexemes: those it names directly, by headword or lemma, come first; then those it
- * is an inflected form of, each remembering which form matched.
+ * is an inflected form of, each remembering which form matched. A word that is neither is looked for among the
+ * spellings other entries answer for (colour under color, signed under sign).
  */
 @Service
 @RequiredArgsConstructor
@@ -44,6 +45,11 @@ public class LexiconLookupService {
         for (LexemeForm form : formRepository.findByLanguageAndNormalizedFormOrderByPosition(language, normalized)) {
             if (!matches.containsKey(form.getLexeme())) {
                 matches.put(form.getLexeme(), form);
+            }
+        }
+        if (matches.isEmpty()) {
+            for (Lexeme lexeme : lexemeRepository.findByLanguageAndAlias(language, normalized)) {
+                matches.put(lexeme, null);
             }
         }
         if (matches.isEmpty()) {

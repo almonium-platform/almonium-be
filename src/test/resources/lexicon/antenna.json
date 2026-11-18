@@ -1,0 +1,65 @@
+{
+ "schema": "4",
+ "language": "en",
+ "headword": "antenna",
+ "lexemes": [
+  {
+   "id": "1d41abd6-476a-5d4a-b8f7-6b966e79806e",
+   "homograph": 1,
+   "lemma": "antenna",
+   "pos": "NOUN",
+   "kind": "word",
+   "grammar": {
+    "countability": "Count",
+    "note": "plural antennas for the radio sense, antennae for the insect sense"
+   },
+   "pronunciations": [
+    {
+     "variety": "en-US",
+     "ipa": "/æn.ˈtɛn.ə/"
+    },
+    {
+     "variety": "en-GB",
+     "ipa": "/æn.ˈten.ə/"
+    }
+   ],
+   "forms": [
+    {
+     "form": "antennae",
+     "features": {
+      "Number": "Plur"
+     },
+     "ipa": {
+      "en-US": "/æn.ˈtɛn.iː/",
+      "en-GB": "/æn.ˈten.iː/"
+     },
+     "sense_ids": [
+      "5fab857a-efa5-50c7-9e0c-e07956b5dc27"
+     ]
+    }
+   ],
+   "senses": [
+    {
+     "id": "6f900ca0-89af-50ea-a5ad-043ca90b0b0a",
+     "definition": "a metal rod or wire that sends or receives radio or television signals",
+     "example": "We put a new antenna on the roof to improve reception.",
+     "cefr": "B2"
+    },
+    {
+     "id": "5fab857a-efa5-50c7-9e0c-e07956b5dc27",
+     "definition": "one of two long thin parts on an insect's head, used for feeling",
+     "example": "Ants touch each other with their antennae to communicate.",
+     "cefr": "C1"
+    }
+   ]
+  }
+ ],
+ "syllable_dots_added": 4,
+ "source": {
+  "writer": "cc-claude-opus-5-5-v4",
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "prompt_version": "v4",
+  "prompt_sha": "586629ecdbd5"
+ }
+}

@@ -2,7 +2,6 @@ package com.almonium.learning.lexicon.model.entity;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.almonium.learning.lexicon.model.RegionScope;
 import com.almonium.learning.lexicon.model.enums.LexiconStatus;
 import com.almonium.util.uuid.UuidV7;
 import jakarta.persistence.CascadeType;
@@ -32,8 +31,8 @@ import org.hibernate.type.SqlTypes;
  * spelling the entry was written under; {@code lemma} and {@code pos} with {@code homographNo} identify the lexeme,
  * the number telling apart two lexemes of one lemma and pos (two unrelated nouns spelled alike). Everything hanging
  * off a lexeme is replaced wholesale when its entry is published again, except pronunciations, which are updated in
- * place so audio clips keep pointing at them. {@code regions} is where the lexeme is used when not everywhere (American
- * color), null for the whole language.
+ * place so audio clips keep pointing at them. A word two varieties spell differently is one lexeme with both
+ * {@code spellings} (color, colour).
  */
 @Entity
 @Getter
@@ -57,10 +56,16 @@ public class Lexeme {
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> grammar = new LinkedHashMap<>();
 
-    String pattern;
-
+    /** Every way the lemma is written, with where: {text, varieties, pre_reform, script}; null for one spelling. */
     @JdbcTypeCode(SqlTypes.JSON)
-    List<RegionScope> regions;
+    List<Map<String, Object>> spellings;
+
+    /** The words of a multiword lexeme, {text, lemma, inflects}; null for a single word. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<Map<String, Object>> components;
+
+    /** Whether other words may stand between the parts of a multiword (take sth off); null when not said. */
+    Boolean separable;
 
     BigDecimal zipf;
     int entryVersion;

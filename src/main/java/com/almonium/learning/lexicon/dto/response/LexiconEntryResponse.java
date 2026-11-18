@@ -22,8 +22,9 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             int homographNo,
             String kind,
             Map<String, Object> grammar,
-            String pattern,
-            List<RegionScope> regions,
+            List<Map<String, Object>> spellings,
+            List<Map<String, Object>> components,
+            Boolean separable,
             Double zipf,
             String status,
             FormView matchedForm,
@@ -42,14 +43,35 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
      */
     public record HomophoneView(String lemma, String pos, List<String> varieties) {}
 
-    public record FormView(UUID id, String form, Map<String, Object> features, List<RegionScope> regions) {}
+    /**
+     * {@code varieties} and {@code senseKeys} say which varieties use the form and which senses it belongs to, null
+     * for all of them; {@code reading} is how it is read in {@code notation}, {@code note} where it is used.
+     */
+    public record FormView(
+            UUID id,
+            String form,
+            Map<String, Object> features,
+            List<String> varieties,
+            List<UUID> senseKeys,
+            String reading,
+            String notation,
+            String note) {}
 
+    /**
+     * {@code phonemic} is the IPA transcription and {@code reading} the word as read in {@code notation} (kana, the
+     * spelling with its stress marked); an entry gives one or both. {@code spelling} names the spelling the reading
+     * belongs to when the lemma's spellings are said differently; {@code accent} is the Japanese pitch accent.
+     */
     public record PronunciationView(
             UUID id,
             UUID formId,
             String variety,
             int rank,
             String phonemic,
+            String reading,
+            String notation,
+            Integer accent,
+            String spelling,
             String note,
             String status,
             List<ClipView> clips) {}
@@ -68,7 +90,13 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             String status,
             String url) {}
 
-    /** {@code key} is the sense's identity across rewrites of the entry, what a card saved from it stores. */
+    /**
+     * {@code key} is the sense's identity across rewrites of the entry, what a card saved from it stores.
+     * {@code labels} says what kind of word this is here, each axis by itself (formality, attitude, time, style,
+     * normativity, domain, figurative, rare, politeness). {@code frames} are how the word is built into a sentence
+     * and {@code patterns} those frames read into parts; {@code collocations} the words it is commonly said with,
+     * the less guessable first. Glosses and cues are empty until their passes have run.
+     */
     public record SenseView(
             UUID id,
             UUID key,
@@ -76,10 +104,14 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
             String definition,
             String cefr,
             String cefrSource,
-            String register,
+            Map<String, Object> labels,
             Map<String, Object> grammar,
-            String usage,
-            String domain,
+            List<String> frames,
+            List<Map<String, Object>> patterns,
+            List<String> collocations,
+            List<Map<String, Object>> antonyms,
+            List<String> spellings,
+            String standardAlternative,
             List<RegionScope> regions,
             Map<String, List<GlossView>> glosses,
             List<ExampleView> examples,
@@ -91,7 +123,9 @@ public record LexiconEntryResponse(String language, String text, List<LexemeView
 
     public record CueView(String kind, String text, String difficulty) {}
 
-    public record RelationView(String type, String lemma, String pos, UUID lexemeId, String evidence) {}
+    /** {@code senses} are the senses of this lexeme, counted from 1, the relation holds for; null for all. */
+    public record RelationView(
+            String type, String lemma, String pos, UUID lexemeId, String evidence, List<Integer> senses) {}
 
     public record PartView(String text, String gloss, String role) {}
 

@@ -25,15 +25,17 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 /**
- * The writers' entry schema (version 3, draft 2020-12), the same file the research scripts validate against. A body
- * that does not pass it is refused before anything is written, with the schema's own message naming the field. What
- * the schema cannot say is checked after it: a transcription's variety is one the product's catalogue lists for the
- * entry's language ({@link LanguageVariety}), and a region is that language with a country or a UN M.49 area
- * ({@link #UN_REGIONS}), so a word can be Canarian or Andean without the product offering the accent.
+ * The schema of a published entry (version 4, draft 2020-12): the writers' schema with what the ingest step adds,
+ * derived from it by {@code scripts/lexicon_research/published_schema.py}, whose test fails when this copy is stale.
+ * A body that does not pass it is refused before anything is written, with the schema's own message naming the
+ * field. What the schema cannot say is checked after it. A variety, wherever one is named (a transcription, a
+ * spelling, a form, grammar that differs by variety), is one the product's catalogue lists for the entry's language
+ * ({@link LanguageVariety}). A region is the language with a country or a UN M.49 area ({@link #UN_REGIONS}), so a
+ * word can be Canarian or Andean without the product offering the accent.
  */
 @Component
 public class EntrySchema {
-    public static final String VERSION = "3";
+    public static final String VERSION = "4";
 
     /** The UN M.49 areas a region may name besides a country; the writer's prompting.py lists the same. */
     public static final Set<String> UN_REGIONS = Set.of("419", "029", "005", "013", "021", "150", "002", "142", "009");
@@ -74,7 +76,7 @@ public class EntrySchema {
         return strays.isEmpty() ? Optional.empty() : Optional.of(String.join("; ", strays));
     }
 
-    /** Each transcription variety the catalogue lacks and each region outside the language, with where it stands. */
+    /** Each variety the catalogue lacks and each region outside the language, with where it stands. */
     private static List<String> strayPlaces(JsonNode entry) {
         String code = entry.path("language").asText();
         Set<String> known = Arrays.stream(Language.values())
@@ -88,7 +90,16 @@ public class EntrySchema {
         for (int l = 0; l < lexemes.size(); l++) {
             JsonNode lexeme = lexemes.get(l);
             String at = "/lexemes/" + l;
-            regions(lexeme, at, regions);
+            JsonNode spellings = lexeme.path("spellings");
+            for (int s = 0; s < spellings.size(); s++) {
+                varieties(spellings.get(s), at + "/spellings/" + s, named);
+            }
+            for (Iterator<String> varieties =
+                            lexeme.path("grammar").path("by_variety").fieldNames();
+                    varieties.hasNext(); ) {
+                String variety = varieties.next();
+                named.put(at + "/grammar/by_variety/" + variety, variety);
+            }
             JsonNode spoken = lexeme.path("pronunciations");
             for (int p = 0; p < spoken.size(); p++) {
                 named.put(
@@ -97,7 +108,7 @@ public class EntrySchema {
             }
             JsonNode forms = lexeme.path("forms");
             for (int f = 0; f < forms.size(); f++) {
-                regions(forms.get(f), at + "/forms/" + f, regions);
+                varieties(forms.get(f), at + "/forms/" + f, named);
                 for (Iterator<String> varieties = forms.get(f).path("ipa").fieldNames(); varieties.hasNext(); ) {
                     String variety = varieties.next();
                     named.put(at + "/forms/" + f + "/ipa/" + variety, variety);
@@ -123,10 +134,23 @@ public class EntrySchema {
         return COUNTRIES.contains(area) || UN_REGIONS.contains(area);
     }
 
+    /** A region is a bare variety (en-GB), which means only there, or {variety, extent}. */
     private static void regions(JsonNode scoped, String at, Map<String, String> named) {
         JsonNode regions = scoped.path("regions");
         for (int r = 0; r < regions.size(); r++) {
-            named.put(at + "/regions/" + r, regions.get(r).path("variety").asText());
+            JsonNode region = regions.get(r);
+            named.put(
+                    at + "/regions/" + r,
+                    region.isTextual()
+                            ? region.asText()
+                            : region.path("variety").asText());
+        }
+    }
+
+    private static void varieties(JsonNode scoped, String at, Map<String, String> named) {
+        JsonNode varieties = scoped.path("varieties");
+        for (int v = 0; v < varieties.size(); v++) {
+            named.put(at + "/varieties/" + v, varieties.get(v).asText());
         }
     }
 }

@@ -115,12 +115,15 @@ publications. See `COPYRIGHT_AND_CATALOGUE.md`, "The factory".
 
 ## The lexicon (2026-10-18)
 
-The backend owns the dictionary, in the `lexicon` schema. The entry writers
-publish to `PUT /internal/lexicon/entries`, signed like publications, with one
+The backend owns the dictionary, in the `lexicon` schema. Entries are
+published to `PUT /internal/lexicon/entries`, signed like publications, with one
 `{writer, entry, meta, built_at, zipf}` body or an array of them (`zipf`, the
-headword's frequency from wordfreq, is optional); `entry` is the
-writer's JSON as `scripts/lexicon_research/entry.schema.json` (version 2)
-describes it and is checked against that schema, `meta` the writer's
+headword's frequency from wordfreq, is optional). Since 2026-11-18 `entry` is
+the clean entry of schema version 4 that `scripts/lexicon_research/ingest_v4.py`
+derives from what a writer wrote, with the ids of its lexemes and senses; it is
+checked against `src/main/resources/lexicon/entry.schema.json`, which
+`scripts/lexicon_research/published_schema.py` derives from the writers'
+schema. Entries of the older schemas are refused. `meta` is the writer's
 `<headword>.meta.json`. Each entry is taken in its own transaction and
 replaces whatever stood for its headword; pronunciations are updated in place
 by variety, rank and form so audio clips keep pointing at them. A single entry
@@ -133,7 +136,8 @@ under the same name.
 
 Clients read `GET /public/lexicon/{language}/entries?text=` without
 authentication: the lexemes the word names by headword or lemma, then those it
-is a form of (`matchedForm` says which), each with forms, pronunciations,
+is a form of (`matchedForm` says which), and, when it is neither, those of the
+entry that answers for the spelling (*colour* under *color*), each with forms, pronunciations,
 senses, relations, `capabilities` and `provenance`; **404** when the word is
 unknown.
 

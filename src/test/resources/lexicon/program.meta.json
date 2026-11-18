@@ -1,0 +1,19 @@
+{
+ "wall_s": 25.5,
+ "prompt_version": "v4",
+ "schema_version": "3",
+ "headword": "program",
+ "set": "v4-top",
+ "model": "claude-opus-5-5",
+ "effort": "high",
+ "duration_ms": 24135,
+ "duration_api_ms": 24854,
+ "num_turns": 2,
+ "total_cost_usd": 0.059106399999999996,
+ "is_error": false,
+ "subtype": "success",
+ "input_tokens": 2,
+ "output_tokens": 2513,
+ "cache_read": 10051,
+ "cache_write": 838
+}

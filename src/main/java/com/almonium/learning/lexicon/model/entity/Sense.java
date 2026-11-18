@@ -28,9 +28,8 @@ import org.hibernate.type.SqlTypes;
 
 /**
  * One meaning of a lexeme, in the order the entry lists them. {@code grammar} holds only what differs from the
- * lexeme (a countable sense of a mass noun); {@code usage} is the construction label a dictionary prints after the
- * sense (usually passive); {@code domain} the specialist field it belongs to, a key the clients render; {@code
- * regions} where it is used when not everywhere (British boot of a car), null for the whole language.
+ * lexeme (a countable sense of a mass noun); {@code regions} where it is used when not everywhere (British boot of a
+ * car), null for the whole language. Glosses and cues are not in the entry: passes of their own write them.
  */
 @Entity
 @Getter
@@ -49,8 +48,8 @@ public class Sense {
     Lexeme lexeme;
 
     /**
-     * Who this sense is across rewrites: a republished entry recreates its rows, and each new sense takes the key of
-     * the old sense it matches (see SenseMatcher). Cards and entry versions name a sense by it.
+     * Who this sense is across rewrites: the id the ingest step gave it, which it keeps while its definition stays
+     * mostly the same. A republished entry recreates its rows; cards and entry versions name a sense by this key.
      */
     UUID senseKey;
 
@@ -58,13 +57,36 @@ public class Sense {
     String definition;
     String cefr;
     String cefrSource;
-    String register;
+
+    /** What kind of word this is here, each axis by itself: formality, attitude, time, style, normativity, domain. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    Map<String, Object> labels;
 
     @JdbcTypeCode(SqlTypes.JSON)
     Map<String, Object> grammar;
 
-    String usage;
-    String domain;
+    /** How the word is built into a sentence, every open place marked (decide on sth). */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<String> frames;
+
+    /** The frames a program can read, each as {frame, parts}: the headword, the fixed words and the open places. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<Map<String, Object>> patterns;
+
+    /** The words this sense is commonly said with, the less guessable first. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<String> collocations;
+
+    /** Words that mean the opposite of this sense, {lemma, pos}. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<Map<String, Object>> antonyms;
+
+    /** The spellings that carry this sense, when not all of the lemma's do. */
+    @JdbcTypeCode(SqlTypes.JSON)
+    List<String> spellings;
+
+    /** The standard word for a nonstandard or proscribed one. */
+    String standardAlternative;
 
     @JdbcTypeCode(SqlTypes.JSON)
     List<RegionScope> regions;
