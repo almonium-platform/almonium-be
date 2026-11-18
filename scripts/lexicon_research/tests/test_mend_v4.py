@@ -104,3 +104,13 @@ def test_derived_folders_under_out_are_not_older_writers():
     for name in ("lexicon-s4", "failed", "status", "carry", "mend", "cc-claude-opus-5-5-v4"):
         assert not v3_entries.is_older_writer(name)
     assert v3_entries.is_older_writer("cc-claude-opus-5-5")
+
+
+def test_a_patch_may_give_a_sense_its_collocations_beside_its_frames():
+    may_set = mend_v4.PATCH_SCHEMA["properties"]["lexemes"]["items"]["properties"]["senses"]["items"]["properties"]["set"]["properties"]
+    assert {"frames", "collocations"} <= set(may_set) and mend_v4.MEND_VERSION == "mend-v3"
+    assert "frames and collocations: the draft has neither" in mend_v4.system_prompt("en") and "\nCollocations. " in mend_v4.system_prompt("en")
+    patch = {"verdict": "patch", "lexemes": [{"i": 0, "senses": [{"i": 0, "set": {"frames": ["ability to do sth"], "collocations": ["have the ability"]}}]}]}
+    jsonschema.validate(patch, mend_v4.PATCH_SCHEMA)
+    sense = mend_v4.apply(mend_v4.draft("en", ABILITY), patch)["lexemes"][0]["senses"][0]
+    assert sense["frames"] == ["ability to do sth"] and sense["collocations"] == ["have the ability"]

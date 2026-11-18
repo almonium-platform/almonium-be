@@ -354,6 +354,22 @@ out and a few entries have all the same. The entries are no longer than before.
 A test holds the three tables together: every frame the prompt quotes as a model is read by ingest
 as open and left as spelled, and every collocation it quotes would be moved if written as a frame.
 
+**The mender had to follow.** A mend returns a patch, and the patch of mend-v2 could give a sense
+frames and nothing else: under the rules of v4.8 a mended word would have had no collocations at
+all, where v4.7 had let it put them among the frames. mend-v3 is mend-v2 with both lists in its
+instructions and in what a patch may set. Nine older words mended with it (`mend-v3-check`): all
+valid, frames in the table's spelling, and collocations such as *ask for forgiveness*, *sich
+schwarz ärgern*, *infliger une punition*.
+
+**What sorting cannot give.** Ingest files what the writers wrote where it belongs; it does not
+write what they were never asked for. After sorting, of the 59,355 senses of the 31,914 entries
+written before v4.8, 29% have a frame and 15% a collocation, 0.2 collocations a sense. The fifty
+entries written under v4.8 have a frame on 60% of their senses and a collocation on 71%, 1.5 a
+sense. The trial words were chosen for having both, so the gap is smaller than that, but it is
+real: an entry of before is right and thinner. The 48,600 older words still to mend get both lists
+as they are mended. For the entries already in schema 4, a pass that returns only the two lists is
+the way, most frequent first: see Pending.
+
 ## What the six reviews say about the entries
 
 118 entries written under v4, all faultless to the audit and all of plain common words, were read
@@ -830,9 +846,13 @@ page does not settle.
 5. **Japanese**: the answer to `measure/ja-top/review/` (a hundred of the 250 common words), then
    the count, and on it the decision to make Japanese a target language. Its list of thousands
    needs a reading that the top 250 got by hand. Korean and Chinese have no settings yet.
-6. **Collocations a reviewer has read.** The split is by rule and by forty-one trial entries;
-   whether the collocations chosen are the ones a learner's dictionary would choose is a question
-   for the next measurement, whose review file shows them. The clients show neither list yet.
+6. **Collocations a reviewer has read**, then **the two lists for the entries of before v4.8.**
+   The split is by rule and by fifty trial entries; whether the collocations chosen are the ones a
+   learner's dictionary would choose is a question for the next measurement, whose review file
+   shows them. If they hold, a pass over the 31,900 schema-4 entries of before that returns only a
+   sense's frames and collocations, as a patch like the mender's and keyed by the entry it read:
+   some $0.02 an entry by the mender's prices, so about $640 for all of them and $100 for the
+   5,000 most frequent. Not built. The clients show neither list yet.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

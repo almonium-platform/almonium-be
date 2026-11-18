@@ -13,6 +13,10 @@ frames; mend-v2 (this prompt) at high $0.040, at medium $0.037 with 902 frames a
 $0.032 with 697 frames. Thinking is billed as output, so effort sets most of the price. mend-v2 at
 medium is the default: a little cheaper than a fresh entry, fewer faults, and the glosses kept.
 
+mend-v3 (18 November 2026) is mend-v2 for prompt v4.8, which gives a sense its collocations beside its frames:
+the patch may set them, and the instructions ask for both. Under mend-v2 the patch had no place for them, so a
+word mended with the rules of v4.8 would have lost what v4.7 let it put among the frames.
+
   draft(lang, entry)   the older entry in the v4 shape, no model call: register becomes labels, untyped
                        relations and usage notes ride along as _old_ fields for the model to read
   apply(draft, patch)  the v4 entry: the patch's fields replace the draft's, forms are trimmed to the
@@ -40,7 +44,7 @@ import jsonschema  # noqa: E402
 import v3_entries  # noqa: E402
 from prompting import HERE, PROMPT_VERSION, REGIONS, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
 
-MEND_VERSION = "mend-v2"
+MEND_VERSION = "mend-v3"  # v3 with prompt v4.8: a patch may give a sense its collocations, which v2 could not
 OUT = HERE / "out"
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 SCHEMA = json.loads(SCHEMA_PATH.read_text())
@@ -143,7 +147,7 @@ def patch_schema():
                         "type": "object", "additionalProperties": False, "required": ["i"],
                         "properties": {"i": {"type": "integer", "minimum": 0}, "drop": {"type": "boolean"},
                                        "set": {"type": "object", "additionalProperties": False,
-                                               "properties": {k: sense[k] for k in ("definition", "example", "cefr", "frames", "labels", "regions",
+                                               "properties": {k: sense[k] for k in ("definition", "example", "cefr", "frames", "collocations", "labels", "regions",
                                                                                    "standard_alternative", "grammar", "antonyms") if k in sense}}}}},
                     "add_senses": {"type": "array", "items": ref("sense")},
                     "relations": {"type": "array", "items": ref("relation")},
