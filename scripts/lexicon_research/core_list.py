@@ -43,6 +43,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import lemma_gate  # noqa: E402
+import v3_entries  # noqa: E402
 from prompting import HERE  # noqa: E402
 
 WORD = re.compile(r"[^\W\d_]+(?:[-'’][^\W\d_]+)*")
@@ -173,7 +174,7 @@ def japanese(floor):
 
 
 # Lists a healthy list is not made from: samples, trials and what this file writes itself.
-NOT_QUEUES = ("measure-", "v48-", "v49-", "mend-", "tour-", "pilot-", "codex-", "cross-", "healthy-", "doubtful-")
+NOT_QUEUES = ("measure-", "v48-", "v49-", "v410-", "mend-", "tour-", "pilot-", "codex-", "cross-", "healthy-", "doubtful-", "rewrite-")
 # A word that is a lemma and an inflected form as well is refused once in fifty outside English and once in two in
 # English, where "viewed" and "fines" are filed as an adjective and a noun too. Of 4,277 such English words given to
 # a writer, those met more often than their base word were refused 16% of the time (data, vaccinated), those with a
@@ -203,8 +204,18 @@ def as_written(lang, word, table):
     return (lower or own or [word])[0]
 
 
-def healthy(lang, floor=3.0):
+def written_v4(lang):
+    """The headwords that have an entry of the present shape, written or mended."""
+    return {f.stem.lower() for f in lemma_gate.OUT.glob(f"*-v4/{lang}/*.json") if not f.name.endswith(".meta.json")}
+
+
+def healthy(lang, floor=3.0, older=False):
     """The words worth a call, the doubtful ones and why the rest were dropped: (rows, rows with "why", Counter).
+
+    With older, the words to write again and no others: those whose only entry is of the shape before
+    schema 4. The owner decided on 18 November 2026 that they are written afresh and not mended, a mend
+    costing nine tenths of a new entry and keeping the older, narrower definitions. They pass the same
+    gate as a new word, whatever their frequency: an older entry for an inflected form sends its base word.
 
     Candidates are every unwritten headword of the language's lists, every spelling wordfreq gives the floor or
     more, and the base words of the inflected forms among them, which get the frequency of their forms. A healthy
@@ -214,10 +225,11 @@ def healthy(lang, floor=3.0):
     from collections import Counter
     from wordfreq import iter_wordlist, zipf_frequency
 
-    table, have = lemma_gate.load(lang), written(lang)
+    table, have = lemma_gate.load(lang), written_v4(lang) if older else written(lang)
     weight, seen = {}, {}
-    candidates = dict(queued(lang))
-    for word in iter_wordlist(lang):
+    candidates = dict.fromkeys(sorted(v3_entries.headwords(lang))) if older else dict(queued(lang))
+    floor, name = (0.0, "rewrite") if older else (floor, "healthy")
+    for word in [] if older else iter_wordlist(lang):
         zipf = zipf_frequency(word, lang)
         if zipf < floor:
             break
@@ -269,11 +281,11 @@ def healthy(lang, floor=3.0):
                 zipf = min(zipf, LENT_FREQUENCY)
         if why is None:
             if zipf >= floor or word in candidates:
-                good.append({"headword": word, "zipf": zipf, "set": f"healthy-{lang}"})
+                good.append({"headword": word, "zipf": zipf, "set": f"{name}-{lang}"})
             else:
                 dropped["base word of a form, below the floor"] += 1
         elif why in ("not in Wiktionary", "alternative spelling", "only old, rare or slang senses", "a form with one sense of its own"):
-            doubt.append({"headword": word, "zipf": zipf, "set": f"doubtful-{lang}", "why": why})
+            doubt.append({"headword": word, "zipf": zipf, "set": f"{'rewrite-' if older else ''}doubtful-{lang}", "why": why})
         else:
             dropped[why] += 1
     return sorted(good, key=lambda r: -r["zipf"]), sorted(doubt, key=lambda r: -r["zipf"]), dropped
@@ -287,15 +299,18 @@ def main():
     ap.add_argument("--forms-only", action="store_true", help="only those words, as headwords/core-forms-<lang>.json")
     ap.add_argument("--dry", action="store_true", help="count and show, write nothing")
     ap.add_argument("--healthy", action="store_true", help="headwords/healthy-<lang>.json and doubtful-<lang>.json from every list and the frequency list")
+    ap.add_argument("--rewrite", action="store_true", help="headwords/rewrite-<lang>.json: the words whose only entry is of an older shape, to be written "
+                    "afresh with claude_code_writer.py --headwords rewrite --rewrite-older")
     a = ap.parse_args()
-    for lang in a.langs.split(",") if a.healthy else []:
-        good, doubt, dropped = healthy(lang, a.floor)
-        print(f"{lang}: {len(good)} healthy, {len(doubt)} doubtful; dropped {dict(dropped.most_common())}")
+    for lang in a.langs.split(",") if a.healthy or a.rewrite else []:
+        good, doubt, dropped = healthy(lang, a.floor, older=a.rewrite)
+        kind, doubtful = ("rewrite", "rewrite-doubtful") if a.rewrite else ("healthy", "doubtful")
+        print(f"{lang}: {len(good)} {'to write again' if a.rewrite else 'healthy'}, {len(doubt)} doubtful; dropped {dict(dropped.most_common())}")
         print(f"    first: {', '.join(r['headword'] for r in good[:30])}")
         if not a.dry:
-            (HERE / "headwords" / f"healthy-{lang}.json").write_text(json.dumps(good, ensure_ascii=False, indent=1) + "\n")
-            (HERE / "headwords" / f"doubtful-{lang}.json").write_text(json.dumps(doubt, ensure_ascii=False, indent=1) + "\n")
-    for lang in [] if a.healthy else a.langs.split(","):
+            (HERE / "headwords" / f"{kind}-{lang}.json").write_text(json.dumps(good, ensure_ascii=False, indent=1) + "\n")
+            (HERE / "headwords" / f"{doubtful}-{lang}.json").write_text(json.dumps(doubt, ensure_ascii=False, indent=1) + "\n")
+    for lang in [] if a.healthy or a.rewrite else a.langs.split(","):
         name = f"core-{lang}.json"
         if lang == "ja":
             rows = japanese(a.floor)
