@@ -475,12 +475,14 @@ Not done with it, in the order it will be felt:
 2. **Regular forms.** Schema 4 lists only the forms a learner could not guess, so *walked* finds
    nothing unless it was asked for as a headword. The lookup needs a lemmatiser's answer, or the
    book processor's lemma with the tap.
-3. **The mobile app shows none of the new fields.** The Discover sheet's response carries them
-   since 18 November (each sense its labels, regions, grammar, frames, collocations and antonyms,
-   and `lexemes` with the grammar, spellings, forms and relations of each word), and the web sheet
-   shows them; the mobile sheet reads the same response and still shows the meaning and example
-   only. `patterns`, the parts of a multiword and a reading without a transcription are served
-   by the entries endpoint and shown nowhere yet.
+3. **Shown by both clients since 18 November**, from the Discover sheet's response (each sense its
+   labels, regions, grammar, frames, collocations and antonyms, and `lexemes` with the grammar,
+   spellings, forms and relations of each word): the web sheet and the mobile lookup sheet. The
+   reader's word card, on the web and in the app, shows the definition where there is no
+   translation and keeps it as the card's meaning. Each client has an `entry-shape.ts` that turns
+   the entry's keys into words; a new label or grammar value is named in both. `patterns`, the
+   parts of a multiword and a reading without a transcription are served by the entries endpoint
+   and shown nowhere yet.
 4. **The entries published before** (schema 2, with glosses) stay in a database until their
    headword is published again or the owner clears the lexicon. The columns only schema 3 filled
    (`sense.register`, `usage`, `domain`, `lexeme.pattern`, `regions`, `lexeme_form.regions`) were
