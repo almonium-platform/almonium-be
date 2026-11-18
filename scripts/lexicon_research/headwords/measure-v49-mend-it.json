@@ -1,0 +1,77 @@
+[
+ {
+  "headword": "argentino",
+  "zipf": 3.96,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "ascoltare",
+  "zipf": 4.67,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "avvio",
+  "zipf": 4.08,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "chiarezza",
+  "zipf": 4.22,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "emergere",
+  "zipf": 3.96,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "football",
+  "zipf": 4.12,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "indirettamente",
+  "zipf": 3.96,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "infelice",
+  "zipf": 3.86,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "inutilmente",
+  "zipf": 3.85,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "maestro",
+  "zipf": 4.75,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "personalmente",
+  "zipf": 4.51,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "polemica",
+  "zipf": 4.32,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "professionale",
+  "zipf": 4.54,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "ritornare",
+  "zipf": 4.32,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "suggerimento",
+  "zipf": 3.91,
+  "set": "measure-v49-mend"
+ }
+]

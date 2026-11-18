@@ -527,6 +527,37 @@ What followed at once, free: ingest moves a grammar value stated for the whole w
 it is true of when one sense states another (776 values in 710 entries), so the word no longer
 claims it. What it asks of the next prompt version is under "Pending".
 
+### The second sample, v49
+
+Made on 18 November 2026 for prompt v4.9, and for the mender that will write most of what remains:
+
+- **new**: forty words with no entry, in each of eight languages, written under v4.9 ($16.47). All
+  valid; four of the 320 were refused as no lemma.
+- **mended**: fifteen older words in each of the six languages that have older entries, mended
+  under v4.9 with mend-v3 (ninety in the sample; $5.30 for the 98 words it took, of which two the
+  mender asked to have written afresh and six have no lexeme to show).
+- **have**: twenty Russian entries of the trial, which this method had never counted.
+
+425 entries in eight files, `measure/v49/review/<lang>-1.md`, the parts mixed. The six faults are as
+before, so the count can be held against the first one, and there is a seventh counted apart,
+**collocation**: one that is not said, one that does not belong among a sense's ten (anyone would
+build it, or it is rare), or a list that lacks the commonest partner. The reviewer quotes it, so
+that the answers also say whether the seventh to ninth of a list are worth their place.
+
+Before any reviewer: a sense has 3.4 collocations in the new entries and 3.7 in the mended; a
+program reads 444 of the 452 new frames and 156 of the 157 mended.
+
+Drawing it showed three things. The mender's queue names every word with an older entry, also the
+ones a writer has since written afresh, which the mender then passes over for nothing; the draw
+leaves them out. A draw made again after the first words are written must keep them, or their
+price is lost: words already written or mended for a measurement come first, and a word a draw
+should not have had is named in `measure/<name>/skip.json` and gives its place to the next. And
+the lists the words come from hold what is no word to write: in `core-de` a large share of the
+7,000 capitalised words are names of people and towns, for which the frequency list has no capital
+to tell them by; `core-pt` has 360 past forms Wiktionary files as lemmas (*fizeram*, *tiveram*) and
+`core-it` 557 infinitives with a pronoun (*farlo*, *dirgli*). The last two cost a refusal each and
+become aliases; the names become entries nobody asked for.
+
 ## Russian
 
 Russian has been a target language since 18 November 2026, after the trial this section records.
@@ -917,17 +948,17 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Measure v4.9**: forty new words a language again, which is the cheap half, and the same
-   files for a batch of mended entries. The review file now states what is ours by definition (one
-   value for every pronominal use; transitive means a direct object; what `mainly` means; a form
-   reaches its word by an alias), so that none of it is counted as a fault. Then, if the claims
-   of the older entries are still worth it, a pass over them that asks only whether a tag should
-   be `mainly`.
+3. **The answers to the second sample** (`measure/v49/answers/<lang>-1.md`, then `measure.py --name
+   v49 --tally`): whether v4.9 meets the bar, whether the mender does, and what the reviewer makes
+   of the collocations. On that the mending of the 48,600 older words and the pass over the 31,900
+   entries of before.
 4. **Lists**: fixed phrases first, which the measurement found to be the gap a learner feels (one
    entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
    the words in it; the commonest words of de, fr, es, it and pt, which their core lists left out
    because each is a form of something as well (*der*, *la*, *para*): `core-forms-<lang>` holds
-   them and is not yet run; the book-word list, which needs an export from the book processor.
+   them and is not yet run; the names in `core-de`, which the index could tell from words if it
+   kept Wiktionary's part of speech; the book-word list, which needs an export from the book
+   processor.
 5. **Japanese**: the next few hundred words under v4.9 and a second count, on words of every
    band this time; the entries of v4.7 whose headword is also a suffix or an auxiliary, written
    again (`--rewrite-older`); an accent table that tells a word in kana from its homophones. Its

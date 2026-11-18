@@ -19,6 +19,9 @@ Steps (run from the backend repository root):
   measure.py --name v46 --review             measure/<name>/review/<lang>-<n>.md (--per-file 50 for a reviewer that tires)
   measure.py --name v46 --tally              reads measure/<name>/answers/*.md and counts
   measure.py --name ja-top --langs ja --list top-ja --sample --new 0     a count of one list's entries as written
+  measure.py --name v49 --sample --have 0 --new 40 --mended 20          new words and older words to mend, no held ones
+  mend_v4.py --headwords measure-<name>-mend ...             mend those; a word a draw should not have is named in
+                                                             measure/<name>/skip.json and the sample drawn again
 
 The reviewer answers with one JSON object per entry; REVIEW below says how. Its answers are kept as
 they came under measure/<name>/answers/.
@@ -36,7 +39,7 @@ from prompting import HERE, LANG_NAME, PROMPT_VERSION, TARGET_LANGUAGES  # noqa:
 MEASURE = HERE / "measure"
 OUT = HERE / "out"
 BANDS = ((5.0, 9.9), (4.5, 5.0), (4.0, 4.5), (3.5, 4.0))  # the commoner words, most frequent band first
-FAULTS = ("fact", "claim", "missing-core", "missing-minor", "split", "wording")
+FAULTS = ("fact", "claim", "missing-core", "missing-minor", "split", "wording", "collocation")
 # What is aimed at, written down before the first count: of a hundred entries, at most this many with the fault
 BAR = {"fact": 2, "claim": 5, "missing-core": 10}
 
@@ -62,6 +65,11 @@ dictionary have none: report a fault only when you could show it from a dictiona
   a sense.
 - **wording**: a definition is narrower or wider than its sense, an example does not show its
   sense, or an example is not natural {name}.
+- **collocation**: a collocation that is not said that way in {name}; or one that does not belong
+  among the ten a learner is shown for the sense, because anyone would build it from the meanings
+  or because it is rare; or a list that lacks the commonest partner of the sense while it has
+  rarer ones. Quote the collocation in "what". A frame with the wrong preposition or case is a
+  fact, not this.
 
 Do not report: the order of senses, a CEFR level off by one step, how syllables are divided, a
 definition you would have worded differently when the given one is true, or anything about style.
@@ -111,6 +119,8 @@ OURS = {
   a formal noun's use in grammar (〜ことがある): do not report these as split.
 - suru true means the noun makes a verb with する. A noun has no countability. A definition is one
   predicate or one noun phrase of 10 to 35 characters.
+- where the headword is a word, its use as a suffix, a prefix or an auxiliary (目 in 二回目, そう in
+  降りそう) is a sense or a lexeme of it on purpose; a prefix or suffix that is no word (〜的) has no entry.
 """,
 }
 
@@ -127,7 +137,43 @@ def rows_of(lang, only=None):
     return best
 
 
-def draw(lang, have, new, seed, only=None):
+def japanese_pool(skip):
+    """Japanese has no list of words to write: its pool is what core_list reads out of the frequency list, of two
+    characters or more, drawn evenly from the four bands; what is not a word is named in the skip file."""
+    import core_list
+    return {r["headword"]: r["zipf"] for r in core_list.japanese(BANDS[-1][0]) if len(r["headword"]) > 1}
+
+
+def draw_mended(name, lang, mended, seed, skip=()):
+    """Older words to mend for this measurement: [(headword, zipf)]. The words already mended for it come first, so
+    that a second draw keeps what the first one paid for; the rest are drawn in turn from the four bands of what
+    waits, a word a writer has since written afresh left out (the queue names every word with an older entry)."""
+    import mend_v4
+    from wordfreq import zipf_frequency
+    rng = random.Random(f"{seed}-{lang}-mended")
+    done = []
+    for meta in sorted(OUT.glob(f"mend-*-v4/{lang}/*.meta.json")):
+        if json.loads(meta.read_text()).get("set") == f"measure-{name}-mend" and meta.with_name(meta.name[:-10] + ".json").exists():
+            word = meta.name[:-10]
+            if word not in skip and json.loads(meta.with_name(word + ".json").read_text()).get("lexemes"):
+                done.append((word, round(zipf_frequency(word, lang), 2)))
+    out = done[:mended]
+    waiting = [(r["headword"], r["zipf"]) for r in mend_v4.queue(lang, "")
+               if r["headword"].isalpha() and (lang == "de" or r["headword"] == r["headword"].lower())]
+    fresh = {f.stem for d in OUT.glob(f"*-v4/{lang}") if not d.parent.name.startswith("mend-") for f in d.glob("*.json")}
+    bands = []
+    for low, high in BANDS:
+        band = sorted(w for w in waiting if low <= w[1] < high)  # sorted: the queue's order among equals is not the same twice
+        drawn = rng.sample(band, min(len(band), 6 * mended // len(BANDS)))
+        bands.append([w for w in drawn if w[0] not in skip and w[0] not in fresh and w[0] not in {d[0] for d in done}])
+    while len(out) < mended and any(bands):
+        for band in bands:
+            if band and len(out) < mended:
+                out.append(band.pop(0))
+    return out
+
+
+def draw(lang, have, new, seed, only=None, skip=(), name=None):
     """The two parts of a language's sample: [(headword, zipf)] each. The same seed draws the same words.
     With a list named, both parts come from that list alone."""
     rng = random.Random(f"{seed}-{lang}")
@@ -143,19 +189,53 @@ def draw(lang, have, new, seed, only=None):
     part_have += rng.sample(rest, min(len(rest), have - len(part_have)))
     older, known = set(v3_entries.headwords(lang)), lemma_gate.load(lang)
     taken = {f.stem for d in OUT.glob(f"*-v4/{lang}") for f in d.glob("*.json")}
-    free = sorted(h for h in zipf if h not in taken and h not in older and h.isalpha() and len(h) > 2 and h == h.lower()
+    # the words already written for this measurement come first: a second draw keeps what the first one paid for
+    done = []
+    for meta in sorted(OUT.glob(f"*-v4/{lang}/*.meta.json")):
+        if name and json.loads(meta.read_text()).get("set") == f"measure-{name}":
+            word = meta.name[:-10]
+            if word not in skip:
+                done.append(word)
+                if word not in zipf:
+                    from wordfreq import zipf_frequency
+                    zipf[word] = round(zipf_frequency(word, lang), 2)
+    if lang == "ja":
+        zipf = {**zipf, **japanese_pool(skip)}
+        part_new = []
+        for low, high in BANDS:
+            band = sorted(h for h in zipf if h not in taken and h not in part_have and low <= zipf[h] < high)
+            drawn = rng.sample(band, min(len(band), 3 * new // len(BANDS)))
+            part_new += [h for h in drawn if h not in skip][: new // len(BANDS)]
+        part_new = (done + [h for h in part_new if h not in done])[:new]
+        return [(h, zipf[h]) for h in part_have], [(h, zipf[h]) for h in part_new]
+    # German writes its nouns with a capital, so a capital does not make a name there. A capitalised word that English
+    # uses as much (Paris, Google, Adam) is left out, and so is what Wiktionary files as a lemma and is a form: an
+    # Italian infinitive with its pronoun (farlo, dirgli), a Portuguese past (mandaram). The rest is in the skip file.
+    from wordfreq import zipf_frequency
+    form = re.compile({"it": r".*r(?:lo|la|li|le|ti|ci|vi|mi|ne|gli|glielo)$", "pt": r".*[aeií]ram$"}.get(lang, r"$^"))
+    free = sorted(h for h in zipf if h not in taken and h not in older and h.isalpha() and len(h) > 2
+                  and (h == h.lower() or (lang == "de" and zipf_frequency(h.lower(), "en") < 3.0)) and not form.match(h)
                   and known.get(h, ("",))[0] == "L")
     free.sort(key=lambda h: -zipf[h])
     pool = free[: max(new * 25, 1000)]  # the commonest of what is free: a rarer word says less about the dictionary
-    part_new = rng.sample(pool, min(len(pool), new))
+    part_new = [h for h in rng.sample(pool, min(len(pool), 3 * new)) if h not in skip]  # a skipped word gives its place to the next
+    part_new = (done + [h for h in part_new if h not in done])[:new]
     return [(h, zipf[h]) for h in part_have], [(h, zipf[h]) for h in part_new]
 
 
-def sample(name, langs, have, new, seed, only=None):
+def sample(name, langs, have, new, seed, only=None, mended=0):
     (MEASURE / name).mkdir(parents=True, exist_ok=True)
+    skip_path = MEASURE / name / "skip.json"  # {"de": ["Alice", ...]}: names and non-words a draw turned up, left out of the next
+    skips = json.loads(skip_path.read_text(encoding="utf-8")) if skip_path.exists() else {}
     for lang in langs:
-        part_have, part_new = draw(lang, have, new, seed, only)
+        skip = set(skips.get(lang) or [])
+        part_have, part_new = draw(lang, have, new, seed, only, skip, name)
+        part_mended = draw_mended(name, lang, mended, seed, skip) if mended else []
         items = [{"headword": h, "zipf": z, "part": "have"} for h, z in part_have] + [{"headword": h, "zipf": z, "part": "new"} for h, z in part_new]
+        items += [{"headword": h, "zipf": z, "part": "mended"} for h, z in part_mended]
+        if part_mended:
+            (HERE / "headwords" / f"measure-{name}-mend-{lang}.json").write_text(json.dumps(
+                [{"headword": h, "zipf": z, "set": f"measure-{name}-mend"} for h, z in part_mended], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         random.Random(f"{seed}-{lang}-order").shuffle(items)
         for number, item in enumerate(items, 1):
             item["id"] = number
@@ -165,7 +245,8 @@ def sample(name, langs, have, new, seed, only=None):
             continue
         (HERE / "headwords" / f"measure-{name}-{lang}.json").write_text(json.dumps(
             [{"headword": h, "zipf": z, "set": f"measure-{name}"} for h, z in part_new], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-        print(f"{lang}: {len(part_have)} held entries, {len(part_new)} words to write (Zipf {min(z for _, z in part_new):.2f} to {max(z for _, z in part_new):.2f})")
+        print(f"{lang}: {len(part_have)} held entries, {len(part_new)} words to write (Zipf {min(z for _, z in part_new):.2f} to {max(z for _, z in part_new):.2f})"
+              + (f", {len(part_mended)} to mend" if part_mended else ""))
 
 
 def stated(grammar):
@@ -312,10 +393,11 @@ if __name__ == "__main__":
     ap.add_argument("--per-file", type=int, default=100)
     ap.add_argument("--seed", default="2026-11-17")
     ap.add_argument("--list", default=None, help="draw only from headwords/<list>-<lang>.json")
+    ap.add_argument("--mended", type=int, default=0, help="older words to mend for the measurement, as a third part")
     a = ap.parse_args()
     langs = a.langs.split(",")
     if a.sample:
-        sample(a.name, langs, a.have, a.new, a.seed, a.list)
+        sample(a.name, langs, a.have, a.new, a.seed, a.list, a.mended)
     if a.review:
         review(a.name, langs, a.per_file)
     if a.tally:

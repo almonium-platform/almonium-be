@@ -55,3 +55,12 @@ def test_the_tally_counts_entries_with_a_fault_and_holds_them_against_the_bar(tm
     assert "de: 3 of 4 entries answered" in out
     assert "all  both  n=  2  clean 50%" in out and "fact 50% (50% misleading)" in out
     assert "fact          50.0  aim: at most 2  not met" in out and "claim          0.0  aim: at most 5  met" in out
+
+
+def test_a_bad_collocation_is_a_fault_of_its_own_and_does_not_move_the_bar():
+    assert measure.FAULTS[:6] == ("fact", "claim", "missing-core", "missing-minor", "split", "wording") and "collocation" in measure.FAULTS
+    assert set(measure.BAR) == {"fact", "claim", "missing-core"}  # what the earlier counts were held to stays what it was
+    text = measure.REVIEW.format(name="German", part=1, parts=1, ours="", entries="")
+    assert "- **collocation**: " in text and 'Quote the collocation in "what"' in text
+    found = measure.answers_of('{"id": 3, "findings": [{"fault": "collocation", "where": "sense 1", "what": "\\"starker Regen\\" is fine, \\"großer Regen\\" is not said", "misleads": true}]}')
+    assert [f["fault"] for f in found[3]] == ["collocation"]
