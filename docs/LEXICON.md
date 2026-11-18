@@ -57,7 +57,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.9). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.10). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
@@ -68,7 +68,17 @@ Today, for schema 4:
    sounds put in the form the dictionary prints (a syllable dot before every stress mark inside a
    word, an Italian double consonant written twice, the *ll* of Spain as /ʝ/), and *être* or
    *essere* given to every French or Italian pronominal sense.
-6. **Publish.** Not possible yet, see "Pending".
+6. **Witness** (`witness.py`, free). The gender, the plural, the stressed syllable and the sounds
+   an entry states, held against what Wiktionary states for the word. See "Witnesses".
+7. **Measure** (`measure.py`). A random sample read by a second model family against a human
+   dictionary, counted by kind of fault. See "Measuring the entries".
+8. **Publish.** Not possible yet, see "Pending".
+
+Only step 3 is a model. Steps 2, 4, 5 and 6 are programs: they cost nothing, give the same answer
+every time, and can be run again over every entry whenever a rule is added. A fault found in a
+review becomes a rule there when a program can decide it (a stress on the wrong syllable of a
+Spanish word), a sentence of the next prompt when only a writer can (which phrases are frames),
+and a line in the review file when the reviewer was wrong (what Attr means).
 
 October's line built the other half, for schema 3 (`entry_pipeline.py`): Wiktionary evidence in the
 request, each sense citing the Wiktionary senses it covers, then repair, checks, facts filled and
@@ -427,6 +437,44 @@ has 4.1 collocations, a first sense 6.0, where v4.8 gave 1.5: *faire grève*, *�
 No frame holds a choice of words. One entry of the thirty-two (*finestra*) wrote two collocations
 as frames, which ingest moves. The entries are 5% longer.
 
+## Prompt v4.10: what a value claims
+
+Written on 18 November 2026 from the second sample's eight reviews. Three of its changes are to the
+writer and one is to the reviewer; v4.9's text is as it was (pinned).
+
+- **A grammar value says how the word is ordinarily used.** v4.7 to v4.9 said a value "holds
+  without exception", with `mainly` for everything else. No learner's dictionary means that by
+  "uncountable" or "transitive", and a reviewer who can think of one exception then reports a
+  claim: one new entry in six had one. From v4.10 a value is what such a dictionary prints,
+  `mainly` is kept for a word whose other use a learner meets in ordinary text (*soap, two soaps*;
+  an adjective often used after a verb too), and the review file tells the reviewer the same: a
+  value is a claim only when a learner's dictionary would not print it for the word.
+- **Attr is "joined to a noun", on whichever side the language puts it.** The schema value never
+  meant "before a noun"; the prompt and the review file glossed it so, and eight French and Italian
+  adjectives that follow their noun were reported for it.
+- **A phrase that is not complete without what follows it is a frame**: *in favour of sth*, never
+  *in favour of* among the collocations (28 of the collocations reported in the sample). A
+  collocation stands under the sense whose meaning it has, and an idiom no sense explains is left
+  out (17). The word with only an article and a preposition of place or time is not one (*no
+  fogão*).
+- **Not changed: one word, one lexeme.** A reviewer of Russian asked for *брак* (marriage) and
+  *брак* (faulty goods) as two lexemes, as dictionaries number them. A lexeme here is one way of
+  saying and inflecting a word, which is what the forms, the sounds and the reader's saved word
+  hang on; the two meanings are two senses. The review file now says so.
+
+The trial: 39 words in eight languages chosen for what changed (adjectives that stand only with a
+noun, nouns for stuff, nouns that live in one phrase: *sheer*, *luggage*, *behalf*, *hiesig*,
+*zugunsten*, *insu*, *ropa*, *prol*, *бывший*, *単なる*), $4.05, and some $0.50 more for four
+German calls whose answers were lost when the run stopped on a list row without its `set`; the
+writer now reads its whole list before the first call. All 39 are valid; 45 frames, one
+a program cannot read (*à + déterminant possessif + insu*); 3.9 collocations a sense. Every
+adjective that stands only with a noun has Attr, on the sense where only one sense does (*sheer*
+luck, not a *sheer* cliff); every noun for stuff is Mass, with `mainly` on the three whose plural
+is common (*roba*, *mobília*, *bagagem*) and without it on the rest; and the phrases that need a
+complement are frames (*on behalf of sb*, *aux dépens de qqn*, *all'insaputa di qcn*, *em prol de
+algo*). Whether reviewers now report fewer claims is for the next sample to say: the trial shows
+the writer follows the text, not that the text is right.
+
 ## What the six reviews say about the entries
 
 118 entries written under v4, all faultless to the audit and all of plain common words, were read
@@ -593,11 +641,17 @@ ones outside English; the two counts are not one scale, and each language is for
   the head, and ten stays. Ingest now moves a collocation with an unmistakable open place to the
   frames (`sort_frames`).
 - **The mender** is level with the writer on facts and claims and behind on wording, 58 against
-  38: the definitions it keeps from the older entry are found too narrow more often. It is no
-  cheaper any more: $0.053 an entry in a running batch against $0.050 for a new one, and against
-  $0.053 and $0.055 for new French and German words as common as the ones it mends. What it still
-  gives is the older entry's glosses and cues, kept beside the entry. Whether that is worth the
-  weaker definitions is the owner's to decide before 48,500 words are mended.
+  38: the definitions it keeps from the older entry are found too narrow more often. It is hardly
+  cheaper any more. The calls of this sample cost $0.056 a mend (90 calls) against $0.052 a new
+  entry (320 calls), but that comparison is unfair to the mender: a batch of fifteen words on four
+  workers pays to write the prompt cache in one call in five (17 of 90, $0.13 each), a batch of
+  forty in one in ten (32 of 320). Among the calls that found the cache written, a mend costs
+  $0.038 and a new entry $0.041: eight percent less, where mend-v1 cost half ($0.023). Two things
+  ate the difference. The mender reads the same twenty thousand tokens of rules and the old entry
+  on top; and since mend-v3 it writes the collocations of every sense, so its answer grew from
+  some 730 tokens to 880 against a new entry's 1,300. What it still gives is the older entry's
+  glosses and cues, kept beside the entry. Whether that is worth the weaker definitions is the
+  owner's to decide before 48,500 words are mended.
 
 Drawing it showed three things. The mender's queue names every word with an older entry, also the
 ones a writer has since written afresh, which the mender then passes over for nothing; the draw
@@ -609,6 +663,62 @@ the lists the words come from hold what is no word to write: in `core-de` a larg
 to tell them by; `core-pt` has 360 past forms Wiktionary files as lemmas (*fizeram*, *tiveram*) and
 `core-it` 557 infinitives with a pronoun (*farlo*, *dirgli*). The last two cost a refusal each and
 become aliases; the names become entries nobody asked for.
+
+## Witnesses
+
+A third of the facts the second sample's reviewers reported are sounds, genders and stresses: things
+no writer knows without a source, and things the owner cannot check in a language they do not
+read. A reference states them for nearly every word, so they are held against it by a program.
+
+`lemma_index.py` now copies three more things out of each lemma of the Wiktionary extract into
+`wiktionary/<lang>.facts.tsv`: its genders, its transcriptions with the place Wiktionary names for
+each, and its plurals. `witness.py` compares every written entry, as ingest would publish it, and
+prints for each kind of fact how many could be compared, how many agree, and the ones that do not.
+The comparison is as lenient as the fact allows. A gender or a plural agrees when it is among
+Wiktionary's. A stress agrees when it falls on the same syllable counted from the start or from
+the end in any of Wiktionary's transcriptions. Sounds are compared only after both sides are
+brought to one spelling (`SAME_SOUND`, `BY_PLACE`: Wiktionary writes *acto* as /ˈaɡto/ and
+*convertir* with /mb/), against the transcriptions of the variety's own place, and the script
+prints which pairs of sounds differ most often, which is how a habit of notation (hundreds of one
+pair) is told from a fault (a pair seen twice).
+
+All 31,917 written entries, 18 November 2026. Each cell is compared, agreeing, differing:
+
+|    | gender | plural | stressed syllable | sounds | entries to read |
+|----|--------|--------|-------------------|--------|-----------------|
+| en | - | 413, 95.6%, 18 | 20,608, 99.0%, 197 | not comparable yet | 124 of 16,846 |
+| de | 1,535, 99.5%, 8 | 1,313, 99.2%, 11 | 2,086, 97.5%, 52 | not comparable yet | 63 of 3,030 |
+| fr | 2,193, 99.6%, 8 | 32, 87.5%, 4 | - | 3,722, 96.6%, 126 | 117 of 3,462 |
+| es | 1,633, 99.6%, 7 | 31, 100%, 0 | 6,235, 99.6%, 25 | 6,345, 99.1%, 60 | 44 of 2,892 |
+| it | 1,474, 99.7%, 5 | 52, 100%, 0 | 2,720, 99.7%, 7 | 2,764, 96.7%, 91 | 86 of 2,633 |
+| pt | 1,437, 99.6%, 6 | 107, 99.1%, 1 | 5,212, 99.9%, 4 | 5,292, 94.7%, 281 | 230 of 2,696 |
+| ru | 197, 100%, 0 | - | 320, 97.8%, 7 | not comparable yet | 7 of 358 |
+
+What the lists hold:
+
+- **Stress on the wrong syllable**, which no review had named: Spanish *cadena* /ˈka.de.na/,
+  *modelo*, *palabra*, *correo*, *vocablo*; Italian *vendita* /ven.ˈdi.ta/, *testimone*, *fenice*,
+  *colera*; German *Nominativ*, *Positiv*; English *intently*. About half of the English and
+  German lines are a word with two accepted stresses of which Wiktionary has the other
+  (*wahrscheinlich*, *archetypal*); the Spanish and Italian ones are faults nearly to a line.
+- **A sound**: the Spanish tap and trill (*carrera* /ka.ˈre.ra/, 22 of the 60), *brócoli* with /u/,
+  *corrosión* with /θ/; Portugal's unstressed vowels, which is most of Portuguese's 281 (*normal*
+  /nuɾ.ˈmal/ for /nɔɾˈmal/, *contração* /tɾɐ/ for /tɾa/) and what the Portuguese reviewer found
+  one entry in nine for; Italian /s/ and /z/ and open and closed *e* and *o*.
+- **Gender**: 34 nouns in 8,469. Some are Wiktionary's gap and not ours (*mar* is said both ways,
+  *der Weise* is a word of its own).
+
+Three limits. A disagreement is a lead: the short lists were read by sample, not line by line.
+English, German and Russian sounds are not comparable yet, because Wiktionary writes weak vowels,
+syllabic consonants and Russian vowel reduction otherwise than the prompt's symbol list, in
+thousands of words that are right on both sides; their stress is compared and is clean. And nothing
+is copied: Wiktionary's text is under a share-alike licence, so it is asked and never written into
+an entry.
+
+What follows from it, none of it built: a paid patch of the one field for the 671 entries, with
+both transcriptions shown to the model (some $20); the Spanish and Italian sounds written by a rule
+from the spelling in place of a model, since both are regular; and the same witness run on every
+batch before it is counted, so a wrong stress never reaches a reviewer.
 
 ## Russian
 
@@ -1069,15 +1179,13 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the second count asks for**, in a next prompt version: position defined by what an
-   adjective is joined to, not where it stands; a set phrase that needs a complement written as a
-   frame with its open place (*prendre la direction de qqch*); a collocation only under the sense
-   whose meaning it has; Russian homonyms as two lexemes. And three decisions of the owner's:
-   whether a grammar tag states what is usual, as a learner's dictionary prints it, or what holds
-   without exception, which is what makes one entry in seven a "claim"; whether the older words
-   are mended or written afresh, now that the price is the same; and whether the bar for facts
-   stays at two when a third of them are sounds no writer knows without a source. Rules to add
-   without a version: the Spanish tap and trill, by the spelling.
+3. **What the witness found**: a paid patch of one field for the 671 entries of "Witnesses";
+   Wiktionary's notation for English, German and Russian sounds brought to ours, so those three
+   can be compared; the Spanish tap and trill and the Spanish stress as rules of ingest, by the
+   spelling. Then **the third sample**, under v4.10, with the witness run first. Two decisions of
+   the owner's are still open: whether the older words are mended or written afresh, now that a
+   mend costs nine tenths of a new entry and its definitions are the weaker; and whether the bar
+   for facts stays at two.
 4. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
    the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
    ingest linking each phrase to the words in it; the book-word list needs an export from the book
