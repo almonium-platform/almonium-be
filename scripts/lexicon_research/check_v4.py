@@ -147,7 +147,7 @@ def check(lang, entry, inventories, witness):
             if lang in CHARACTERS:
                 for kind, text, (fewest, most) in zip(("definition outside 6 to 15 words", "example outside 6 to 14 words"),
                                                       (d, s.get("example", "")), CHARACTERS[lang]):
-                    if not fewest <= (size := sum(ch.isalnum() for ch in text)) <= most:
+                    if not fewest <= (size := sum(not ch.isspace() for ch in text)) <= most:  # punctuation counts, as the prompt says
                         problems.append((kind, f"{size} characters"))
                 continue
             fewest, most = DEFINITION_WORDS.get(lang, (6, 15))

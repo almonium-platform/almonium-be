@@ -1,0 +1,345 @@
+[
+ {
+  "language": "ru",
+  "headword": "огромный",
+  "lexemes": [
+   {
+    "lemma": "огромный",
+    "pos": "ADJ",
+    "kind": "word",
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/ɐ.ˈɡrom.nɨj/",
+      "reading": "огро́мный"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "очень большой по размеру, количеству или силе",
+      "example": "За нашим домом начинается огромный густой лес.",
+      "cefr": "A2",
+      "antonyms": [
+       {
+        "lemma": "крошечный",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ru",
+  "headword": "чемпионат",
+  "lexemes": [
+   {
+    "lemma": "чемпионат",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "animacy": "Inan",
+     "countability": "Count",
+     "declension": "2"
+    },
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/tɕɪm.pʲi.ɐ.ˈnat/",
+      "reading": "чемпиона́т"
+     }
+    ],
+    "forms": [
+     {
+      "form": "чемпионата",
+      "features": {
+       "Case": "Gen",
+       "Number": "Sing"
+      },
+      "reading": "чемпиона́та"
+     },
+     {
+      "form": "чемпионаты",
+      "features": {
+       "Case": "Nom",
+       "Number": "Plur"
+      },
+      "reading": "чемпиона́ты"
+     },
+     {
+      "form": "чемпионатов",
+      "features": {
+       "Case": "Gen",
+       "Number": "Plur"
+      },
+      "reading": "чемпиона́тов"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "соревнование за звание лучшего участника или лучшей команды",
+      "example": "В следующем году наша страна примет чемпионат мира по футболу.",
+      "cefr": "B1",
+      "frames": [
+       "чемпионат по чему",
+       "чемпионат чего по чему"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ru",
+  "headword": "обеспечить",
+  "lexemes": [
+   {
+    "lemma": "обеспечить",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "aspect": "Perf",
+     "valency": "Tr",
+     "conjugation": "2"
+    },
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/ɐ.bʲɪ.ˈspʲe.tɕitʲ/",
+      "reading": "обеспе́чить"
+     }
+    ],
+    "forms": [
+     {
+      "form": "обеспечу",
+      "features": {
+       "Tense": "Fut",
+       "Person": "1",
+       "Number": "Sing",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "reading": "обеспе́чу"
+     },
+     {
+      "form": "обеспечишь",
+      "features": {
+       "Tense": "Fut",
+       "Person": "2",
+       "Number": "Sing",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "reading": "обеспе́чишь"
+     },
+     {
+      "form": "обеспечат",
+      "features": {
+       "Tense": "Fut",
+       "Person": "3",
+       "Number": "Plur",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "reading": "обеспе́чат"
+     },
+     {
+      "form": "обеспечил",
+      "features": {
+       "Tense": "Past",
+       "Gender": "Masc",
+       "Number": "Sing",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "reading": "обеспе́чил"
+     },
+     {
+      "form": "обеспечила",
+      "features": {
+       "Tense": "Past",
+       "Gender": "Fem",
+       "Number": "Sing",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "reading": "обеспе́чила"
+     },
+     {
+      "form": "обеспечь",
+      "features": {
+       "Mood": "Imp",
+       "Person": "2",
+       "Number": "Sing",
+       "VerbForm": "Fin"
+      },
+      "reading": "обеспе́чь"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "сделать так, чтобы нужный результат был достигнут",
+      "example": "Организаторы должны обеспечить безопасность всех участников концерта.",
+      "cefr": "B2",
+      "frames": [
+       "обеспечить что",
+       "обеспечить кому что"
+      ]
+     },
+     {
+      "definition": "снабдить кого-либо или что-либо тем, что требуется",
+      "example": "Служба доставки обеспечит жителей деревни питьевой водой.",
+      "cefr": "B1",
+      "frames": [
+       "обеспечить кого/что чем"
+      ]
+     },
+     {
+      "definition": "дать кому-либо достаточно средств для жизни",
+      "example": "Новая работа позволит ему обеспечить всю семью.",
+      "cefr": "B2",
+      "frames": [
+       "обеспечить кого"
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "aspect_partner",
+      "lemma": "обеспечивать",
+      "pos": "VERB"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ru",
+  "headword": "возле",
+  "lexemes": [
+   {
+    "lemma": "возле",
+    "pos": "ADP",
+    "kind": "word",
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/ˈvoz.lʲɪ/",
+      "reading": "во́зле"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "на небольшом расстоянии от кого-либо или чего-либо",
+      "example": "Давай встретимся завтра возле входа в метро.",
+      "cefr": "A2",
+      "frames": [
+       "возле кого/чего"
+      ]
+     }
+    ]
+   },
+   {
+    "lemma": "возле",
+    "pos": "ADV",
+    "kind": "word",
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/ˈvoz.lʲɪ/",
+      "reading": "во́зле"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "на небольшом расстоянии от указанного места",
+      "example": "Я сел на скамейку, а пёс устроился возле.",
+      "cefr": "B2"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ru",
+  "headword": "подарок",
+  "lexemes": [
+   {
+    "lemma": "подарок",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "animacy": "Inan",
+     "countability": "Count",
+     "declension": "2"
+    },
+    "pronunciations": [
+     {
+      "variety": "ru-RU",
+      "ipa": "/pɐ.ˈda.rək/",
+      "reading": "пода́рок"
+     }
+    ],
+    "forms": [
+     {
+      "form": "подарка",
+      "features": {
+       "Case": "Gen",
+       "Number": "Sing"
+      },
+      "reading": "пода́рка"
+     },
+     {
+      "form": "подарки",
+      "features": {
+       "Case": "Nom",
+       "Number": "Plur"
+      },
+      "reading": "пода́рки"
+     },
+     {
+      "form": "подарков",
+      "features": {
+       "Case": "Gen",
+       "Number": "Plur"
+      },
+      "reading": "пода́рков"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "то, что дают кому-либо в знак внимания, не требуя ничего взамен",
+      "example": "Мы купили маме красивый подарок на день рождения.",
+      "cefr": "A1",
+      "frames": [
+       "подарок кому",
+       "подарок от кого",
+       "получить что в подарок"
+      ]
+     },
+     {
+      "definition": "то, что приносит особую радость или оказывается большой удачей",
+      "example": "Этот тёплый солнечный день стал для нас настоящим подарком.",
+      "cefr": "B2",
+      "labels": {
+       "figurative": true
+      },
+      "frames": [
+       "подарок для кого"
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "подарить",
+      "pos": "VERB"
+     }
+    ]
+   }
+  ]
+ }
+]

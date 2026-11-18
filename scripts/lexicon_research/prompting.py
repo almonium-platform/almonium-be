@@ -211,9 +211,12 @@ FORMS_V4 = {
           "learner would not expect from these (руці́, ру́ку). Verbs: the present or future 1sg, 2sg and 3pl, the past masculine and "
           "feminine, and the imperative 2sg. Adjectives: the comparative when irregular (добрий, кращий).",
     "ru": "Nouns: the genitive singular, the nominative plural and the genitive plural, and any other form whose stress or stem a "
-          "learner would not expect from these (ру́ку; в лесу́, Case=Loc; ча́ю, Case=Par), and the form used after numbers when "
-          "it is not the genitive plural a learner would build, with Number=Count (пять челове́к, два часа́, пять лет). Verbs: the present or future 1sg, 2sg and 3pl, "
-          "the past masculine and feminine, and the imperative 2sg. Adjectives: the short forms when the stress moves in them (мо́лод, "
+          "learner would not expect from these (ру́ку, во́ду). A form that only some words have is listed with a note saying when it is "
+          "used: the second locative with Case=Loc (лесу́: after в and на, в лесу́ but о ле́се), the partitive with Case=Par beside the "
+          "ordinary genitive (ча́ю), a form of its own after два, три, четыре with Number=Count (часа́: два часа́ but о́коло ча́са), a "
+          "genitive plural used after numbers beside the ordinary one (челове́к: пять челове́к; лет: пять лет), the short form of address "
+          "with Case=Voc (пап). Verbs: the present of an imperfective or the future of a perfective (Tense=Fut) in the 1sg, 2sg and 3pl, "
+          "the past masculine and feminine, the past neuter or plural when its stress could not be guessed, and the imperative 2sg. Adjectives: the short forms when the stress moves in them (мо́лод, "
           "молода́, мо́лодо) and the comparative when irregular (хороший, лучше).",
     "ja": "Verbs: nothing for a regular godan or ichidan verb, whose class gives every form; for an irregular verb or form the polite "
           "non-past (Polite=Form), the て form (VerbForm=Conv) and the plain negative (Polarity=Neg): する, 来る, 行く (行って), ある "
@@ -261,13 +264,25 @@ LANGUAGE_NOTES_V4 = {
           "(являтися in the sense \"to be\": бути). A verb lists its aspect partner as a relation.\n",
     "ru": "\nA verb lists its aspect partner as a relation (делать and сделать). A verb in -ся is a lemma of its own, written under "
           "its own spelling, not a sense of the verb without it (учиться is not under учить). A word used only as a predicate "
-          "(нельзя, надо, рад) has position Pred. Russian has no articles, so a definition may have as few as four words.\n",
+          "(нельзя, надо, рад) has position Pred. A noun gives its declension and a verb its conjugation as Russian school grammar "
+          "numbers them (declension 1 for папа and вода, 2 for стол and окно, 3 for ночь; conjugation 1 or 2). A frame shows what the word "
+          "governs with the question words (искать кого/что, платить кому за что, чемпионат по чему), not one collocation filled in. "
+          "Russian has no articles, so a definition may have as few as four words.\n",
     "ja": "\nDefinitions and examples are in standard Japanese: the definition in the plain style of a dictionary, the example a "
-          "natural sentence in the plain or the polite style, both with kanji as a newspaper uses them. A verb gives its class in "
+          "natural sentence in the plain or the polite style, both with kanji as a newspaper uses them. A definition is one thing "
+          "said once: one predicate for a verb or an adjective, one noun phrase for a noun, a short statement of its use for a "
+          "particle, never two sentences. Characters are counted with their punctuation. A verb gives its class in "
           "\"conjugation\": godan, ichidan, or irregular (する, 来る), and its valency; a transitive verb and its intransitive partner "
-          "(開ける, 開く) name each other as a relation of type confusable, with why. An adjective gives \"conjugation\": i or na (高い: "
-          "i; 静か: na). A noun counted with a counter of its own gives it in \"classifier\" (鉛筆: 本; 犬: 匹). A noun that makes a "
-          "verb with する (勉強) shows that in a frame (勉強する). Frames show the particles a sense takes (〜が好き, 〜に行く, 〜を食べる). "
+          "(開ける, 開く) name each other as a relation of type confusable, with why. A use after the て form with a meaning of its own "
+          "(〜ていく, 〜てくる, 〜ていらっしゃる) is a sense, with its frame. An adjective gives \"conjugation\": i or na (高い: i; 静か: na); "
+          "its に form (静かに) is not an adverb of its own, but a use in which it takes particles as a noun does (好きを仕事にする) is a "
+          "noun lexeme. A word that only stands before a noun and never changes (大きな, 来る read きたる) is ADJ with position Attr and "
+          "invariable true. A prefix or suffix that is not a word on its own (本〜 for \"this\", 〜的) is not a lexeme. Japanese nouns "
+          "take no countability. A noun gives its usual counter in \"classifier\" (鉛筆: 本; 犬: 匹; 本: 冊), and a counter for another "
+          "unit in the note; a counter (本, 匹, 人) is a lexeme itself, whose forms give the readings that change with the number (一本 "
+          "いっぽん, 三本 さんぼん). A noun that makes a verb with する (勉強) has \"suru\": true, in the grammar of the word or of the "
+          "senses it holds for, and shows the verb in a frame (勉強する). A frame is a pattern with its particles and an open place "
+          "(〜が好き, 〜に行く, 〜を食べる), not a usual pairing of words (鉛筆で書く). "
           "A particle (は, が, を, に, ね) is an entry: its part of speech is ADP for a case particle and PART otherwise, and its "
           "definition says what it is used for. An honorific or a humble word (いらっしゃる, 参る) has the politeness label honorific "
           "or humble, a word of the polite style (です, ございます) polite, a word used only with friends and family (俺) familiar. A "
@@ -329,7 +344,8 @@ def schema_example_v4(version):
 # A version's prompt for a language never changes once entries are written with it, so a language whose
 # examples arrive later gets them in the next version, and a gold file in use is not edited: a better set
 # of examples is a new version too.
-GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4", "fr": "v4.5", "it": "v4.6", "pt": "v4.6"}
+GOLD_SINCE = {"en": "v4.3", "de": "v4.4", "es": "v4.4", "fr": "v4.5", "it": "v4.6", "pt": "v4.6",
+              "ru": "v4.7", "ja": "v4.7"}  # languages on trial: their prompts are not pinned until they are target languages
 
 
 def since_v4(version, first):
@@ -385,7 +401,10 @@ PRONUNCIATION_V4 = {
           "てれび). When a word is read in more than one way with the same meaning, give the most common first (明日: あした, あす); a "
           "reading after the first may carry a \"note\": less_common, older, newer, careful (the formal reading), casual, regional or "
           "disputed. Give a note only when you are sure of it. A reading that changes the meaning is another lexeme, not a second "
-          "reading (辛い: からい, hot to the taste, and つらい, hard to bear).",
+          "reading (辛い: からい, hot to the taste, and つらい, hard to bear). The reading is how the word is said, so a particle written "
+          "は or を has the reading わ or お. When you are sure of the pitch accent of Tokyo speech, give it as \"accent\", the number "
+          "dictionaries print: the mora after which the pitch drops, 0 when it does not drop (箸 はし 1, 橋 はし 2, 端 はし 0), counting "
+          "ん, っ and the second half of a long vowel as a mora each. Leave it out when you are not sure.",
 }
 # ... and its limits count characters, there being no spaces to count words by: what replaces each limit of the prompt.
 LIMITS_V4 = {"ja": {"6 to 15 words": "10 to 35 characters", "of 6 to 14 words": "of 12 to 40 characters"}}

@@ -25,7 +25,7 @@ nothing becomes an example unchecked. The result is gold/<lang>.json, which the 
 
 Where a taken entry breaks a rule the prompt got after the review, the correction is ours and is kept
 apart from the answer, in gold/own/<lang>.json: a list of {"headword", "path", "value", "why"}, the path
-being keys and list positions from the entry down ("lexemes.1.grammar.note").
+being keys and list positions from the entry down ("lexemes.1.grammar.note"); a null value takes the key out.
 
 For a language on trial the reviewer is also asked about the decisions taken for it (QUESTIONS), and a
 pilot too small to pick from by kind is reviewed whole, or in the part named: --words.
@@ -216,15 +216,24 @@ def write(lang, per_kind, rules="v4.2", words=()):
     return flat
 
 
+VERDICT = r"(use as it is|use with corrections|do not use)"
+
+
 def reviewed(text):
-    """{headword: (verdict, corrected entry or None)} from a reviewer's answer: a "## N. headword" or
-    "### N. headword" section each, ending at the next heading, with a verdict in bold and, for a corrected
-    entry, one JSON block."""
-    found = {}
+    """{headword: (verdict, corrected entry or None)} from a reviewer's answer. A corrected entry is the JSON
+    block of a "## N. headword" or "### N. headword" section, which ends at the next heading. The verdict is the
+    one in bold in that section, or else the one in the answer's table of verdicts, whose rows are
+    "| N | headword | verdict |" or "| N. headword | verdict |"."""
+    table = {}
+    for head, verdict in re.findall(rf"^\|\s*\d+\.?\s*\|?\s*\[?\**([^|*\]]+?)\**\]?(?:\([^)|]*\))?\s*\|\s*\**{VERDICT}\**\s*\|", text, re.M | re.I):
+        table[head.strip()] = verdict.lower()
+    found = {head: (verdict, None) for head, verdict in table.items()}
     for head, body in re.findall(r"^#{2,3} \d+\. (.+?)\n(.*?)(?=^#{1,3} |\Z)", text, re.S | re.M):
-        verdict = re.search(r"\*\*(use as it is|use with corrections|do not use)\*\*", body, re.I)
+        head = head.split(" (")[0].strip()
+        verdict = re.search(rf"\*\*{VERDICT}\*\*", body, re.I)
         block = re.search(r"```json\n(.*?)\n```", body, re.S)
-        found[head.split(" (")[0].strip()] = (verdict.group(1).lower() if verdict else None, json.loads(block.group(1)) if block else None)
+        if verdict or block or head in table:  # a numbered section that is neither is prose of the reviewer's own
+            found[head] = (verdict.group(1).lower() if verdict else table.get(head), json.loads(block.group(1)) if block else None)
     return found
 
 
@@ -248,13 +257,16 @@ def settle(entry):
 
 
 def amend(entry, path, value):
-    """Set one value inside an entry; the path must already lead there."""
+    """Set one value inside an entry, or take it out when the value is null; the path must already lead there."""
     at = entry
     *way, last = [int(step) if step.isdigit() else step for step in path.split(".")]
     for step in way:
         at = at[step]
     at[last]  # a path that leads nowhere is a mistake in the correction, not a new field
-    at[last] = value
+    if value is None:
+        del at[last]
+    else:
+        at[last] = value
 
 
 def take(lang, answer, picks):

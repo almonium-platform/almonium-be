@@ -283,6 +283,10 @@
         ]
        },
        "description": "The keys of this grammar whose value holds for most uses but not all: position Attr with mainly [position] is \"usually before a noun\". A key not named holds without exception. The same word as a region's extent."
+      },
+      "suru": {
+       "type": "boolean",
+       "description": "Japanese: a noun that makes a verb with する (勉強, 勉強する), in every sense or in the sense that says so."
       }
      }
     },
@@ -398,6 +402,11 @@
     "spelling": {
      "type": "string",
      "description": "The spelling this reading belongs to, when the lemma's spellings are said differently (período, periodo)."
+    },
+    "accent": {
+     "type": "integer",
+     "minimum": 0,
+     "description": "Japanese: where the pitch falls in Tokyo speech, as dictionaries number it: the mora after which it drops, 0 when it does not drop (箸 はし 1, 橋 はし 2, 端 はし 0). Left out when not known."
     }
    },
    "anyOf": [
@@ -724,6 +733,10 @@
         ]
        },
        "description": "The keys of this grammar whose value holds for most uses but not all: position Attr with mainly [position] is \"usually before a noun\". A key not named holds without exception. The same word as a region's extent."
+      },
+      "suru": {
+       "type": "boolean",
+       "description": "Japanese: a noun that makes a verb with する (勉強, 勉強する), in every sense or in the sense that says so."
       }
      }
     },

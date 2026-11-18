@@ -438,8 +438,33 @@ The 250 plain common words of `headwords/top-ru-ru.json` are written (on the own
 under v4.6, $8.80): all valid, three rightly refused (*вряд*, *следующее*, *дано*). Of 1,073 stress
 readings six disagree with Wiktionary, and at least two of those are wrong outright
 (*рассто́яние* for *расстоя́ние*, *о́тчасти* for *отча́сти*): the witness finds what no reviewer
-would be asked to. Eighteen candidates are picked from them, `gold/review/ru.md`, shown with
-v4.7's rules; they wait for a reviewer, and the best become Russian's examples.
+would be asked to.
+
+Eighteen candidates went to a reviewer: one passed, twelve were corrected, five refused. Russian is
+shown *огромный*, *чемпионат*, *обеспечить* (three senses told apart by what the verb governs),
+*возле* (preposition and adverb), *подарок* (a figurative sense). What the review settled:
+
+- **The sounds stay as they are**, broad Moscow IPA beside the stressed spelling, with two rules
+  the candidates had applied unevenly now spelt out: unstressed и is always /i/ and never /ɪ/, and
+  two unstressed vowels side by side before the stress are both /ɐ/ (*соответственно*).
+- **Three kinds of form after a number, not one.** `Number=Count` is for a form of its own after
+  два, три, четыре (*два часа́* beside *о́коло ча́са*); *два стола́* is the ordinary genitive and has
+  none. *Пять челове́к* and *пять лет* are genitive plurals used after numbers, listed beside the
+  ordinary one with a note. Each such form says in its note when it is used, the second locative
+  too (*лесу́*: after в and на), because Universal Dependencies gives the ordinary prepositional
+  case the same tag.
+- **Also listed**: the short form of address (*пап*, `Case=Voc`), the accusative whose stress
+  moves (*во́ду*), a past neuter or plural whose stress could not be guessed.
+- A noun gives its declension and a verb its conjugation as school grammar numbers them.
+- **A frame is what the word governs**, written with the question words (*искать кого/что*,
+  *чемпионат по чему*), not one collocation filled in (*чемпионат мира*).
+
+Eight words written again under these rules and the examples came back as asked: *шаг* with
+*шага́* after two to four and *на каждом шагу́*, *стол* with no count form, *папа* with *пап*.
+
+Russian has what a target language has: its rules, its gate, its stress witness, its examples,
+304 entries. What it lacks is a place in the queues: a list of its common words, and its name
+among `TARGET_LANGUAGES`, which the writers take as their default.
 
 ## Words that are both a form and a word
 
@@ -525,9 +550,30 @@ as two words, からい and つらい, *開く* as あく and ひらく with *�
 *今日* as きょう and こんにち; *は* is read わ; *国* lists *國* as the form of before the reform;
 nouns carry their counters (*鉛筆* 本, *犬* 匹, *本* 冊) and *本* is a counter of its own;
 *いらっしゃる* is honorific, *参る* humble, *俺* familiar; *おおきに* names Kansai in a note.
-Nothing in the shape had to give. Twenty-four of the entries, with seven questions about the
-decisions above, are in `gold/review/ja.md` for a reviewer who reads Japanese better than the
-audit does.
+Nothing in the shape had to give.
+
+A reviewer read twenty-four of the entries and answered seven questions about the decisions.
+Sixteen entries could be used after correction, eight needed writing afresh, none as it stood:
+the shape held and the content did not yet. The basic verbs lacked senses (*行く*, *する*, *来る*
+without their uses after the て form), some definitions said two things, a prefix had been made a
+determiner. Japanese is shown *鉛筆*, *好き* (adjective and noun), *食べる*, *辛い* (two words by
+reading, one sense of the west of Japan), *俺*. What was decided:
+
+| Asked | Decided |
+|---|---|
+| Is a kana reading enough? | It stays, and beside it the pitch accent of Tokyo as the number dictionaries print: the mora after which the pitch drops, 0 for none (*箸* 1, *橋* 2, *端* 0). `accent` on a pronunciation, new in the schema, given only when the writer is sure. Romanization is not stored: code makes it from the kana. |
+| Which spellings? | As written: dictionary forms with their script, kana spellings that print uses, old character forms flagged. A reading is tied to its lexeme or sense where kanji are shared. |
+| Which grammar? | The five classes stay. Added: `suru` for a noun that makes a verb with する, on the word or on the senses it holds for; a use after the て form with a meaning of its own is a sense; a word that only stands before a noun (*大きな*, *来る* read きたる) is an adjective, attributive and invariable; a prefix or suffix is not a lexeme; the に form of an adjective is not an adverb, but *好き* taking を is a noun; Japanese nouns take no countability. |
+| Are the counters right? | Yes. The usual one is the `classifier`, another unit's goes in the note, and a counter is a lexeme whose forms give the readings that change with the number (*一本* いっぽん, *三本* さんぼん). |
+| The four politeness labels? | They stay, on the sense. The finer division of the humble into two kinds is left to a note. |
+| JLPT beside CEFR? | Not added. There is no official list by level since 2010, and a level guessed for every sense would be a claim without a source; it can come from a list by code if wanted. |
+| Limits in characters? | They stay, as a check and not as a style: a definition is one predicate or one noun phrase, never two sentences. Punctuation counts. |
+
+Eleven words written again under these rules and the examples: all valid; nine readings in ten
+carry an accent (*橋* 2, *する* 0, *開く* 0 as あく and 2 as ひらく), *大きな* and *来る* read
+きたる came back as attributive adjectives, *本* as a noun and a counter with no determiner.
+The accents are the writer's own knowledge so far. Wiktionary prints them, and a witness built
+from it as for Russian stress is what would hold them to account.
 
 ### Running a trial language
 
@@ -610,14 +656,19 @@ page does not settle.
    entry in fifty lacks a phrase like *sans doute* at its word), with ingest linking each phrase to
    the words in it; function words for de, fr, es, it, pt (English has them); the book-word list,
    which needs an export from the book processor.
-5. **Russian examples and the Japanese pilot**: both are written, and their review files wait for a
-   reviewer (`gold/review/ru.md`, `gold/review/ja.md`). Then examples for both, and for Japanese
-   the answers to the seven questions about its shape.
-6. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
+5. **Russian among the target languages**: it has everything but a list of its common words and
+   its place in the writers' default. **Japanese**: a few hundred common words under the reviewed
+   rules, then the measurement, and a witness for the pitch accent from Wiktionary. Korean and
+   Chinese have no settings yet.
+6. **Frames or collocations.** Both new reviews held a frame to be a pattern with an open place
+   (*искать кого/что*, *〜に行く*) and not a usual pairing of words (*чемпионат мира*, *鉛筆で書く*).
+   The six languages' entries mix the two since the examples came. A learner wants both, apart:
+   a list of collocations beside the frames is the open question.
+7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
-7. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested
+8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested
    entry already carries.
-8. The lookup normaliser (apostrophes, soft hyphens); 95 entries that fail the schema, every one
+9. The lookup normaliser (apostrophes, soft hyphens); 95 entries that fail the schema, every one
    from the Codex writer.
 
 ## Numbers

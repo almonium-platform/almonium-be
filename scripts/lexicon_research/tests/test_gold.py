@@ -139,7 +139,7 @@ def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them(
     assert "# Examples" not in prompting.system_prompt("fr", "v4.4") and '"headword": "hôpital"' in prompting.system_prompt("fr", "v4.5")
     assert "# Examples" not in prompting.system_prompt("it", "v4.5") and '"headword": "museo"' in prompting.system_prompt("it", "v4.6")
     assert "# Examples" not in prompting.system_prompt("pt", "v4.5") and '"headword": "computador"' in prompting.system_prompt("pt", "v4.6")
-    assert set(prompting.GOLD_SINCE) == set(prompting.TARGET_LANGUAGES)  # from v4.6 every language sees its own examples
+    assert set(prompting.TARGET_LANGUAGES) <= set(prompting.GOLD_SINCE)  # from v4.6 every target language sees its own examples
     for lang in prompting.TARGET_LANGUAGES:
         if lang not in prompting.GOLD_SINCE:
             assert "# Examples" not in prompting.system_prompt(lang)
@@ -180,3 +180,38 @@ def test_a_language_without_an_alphabet_gets_a_reading_and_limits_in_characters(
     assert ja.index("# Spellings") < ja.index("# Pronunciation") < ja.index("# Grammar and forms") < ja.index("# Senses")
     assert "Broad IPA" in prompting.system_prompt("ru") and "6 to 15 words" in prompting.system_prompt("en")
     assert set(prompting.PILOT_LANGUAGES).isdisjoint(prompting.TARGET_LANGUAGES)
+
+
+def test_verdicts_given_only_in_a_table_are_read_and_the_reviewers_numbered_prose_is_not_an_entry():
+    answer = """## Verdicts
+
+| Candidate | Verdict | Finding |
+|---|---|---|
+| 1. **вода** | **do not use** | Misses a sense. |
+| 2. **возле** | **use with corrections** | Repeats synonyms. |
+
+| No. | Headword | Verdict |
+|---:|---|---|
+| 3 | 鉛筆 | **use as it is** |
+
+## Decisions
+
+### 1. Pronunciation
+
+Keep the broad transcription.
+
+### 2. возле
+
+```json
+{"language": "ru", "headword": "возле", "lexemes": []}
+```
+"""
+    read = gold_candidates.reviewed(answer)
+    assert read == {"вода": ("do not use", None), "возле": ("use with corrections", {"language": "ru", "headword": "возле", "lexemes": []}),
+                    "鉛筆": ("use as it is", None)}
+
+
+def test_an_own_correction_with_a_null_value_takes_the_key_out():
+    entry = {"lexemes": [{"grammar": {"countability": "Count", "classifier": "本"}}]}
+    gold_candidates.amend(entry, "lexemes.0.grammar.countability", None)
+    assert entry == {"lexemes": [{"grammar": {"classifier": "本"}}]}
