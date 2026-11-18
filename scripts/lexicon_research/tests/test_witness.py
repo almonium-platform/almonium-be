@@ -8,7 +8,7 @@ import witness  # noqa: E402
 
 
 def table(word, genders=(), heard=(), plurals=()):
-    return {word: (set(genders), [(set(regions), ipa) for regions, ipa in heard], set(plurals))}
+    return {word: (set(genders), [(set(regions), ipa.lstrip("?"), ipa.startswith("?")) for regions, ipa in heard], set(plurals))}
 
 
 def entry(lemma, pos="NOUN", grammar=None, pronunciations=(), forms=()):
@@ -88,3 +88,76 @@ def test_plural_is_the_nominative_one():
     assert ("plural", "agrees") in verdicts("de", entry("Haus", grammar={"gender": "Neut"}, forms=forms), known)
     forms[1]["form"] = "Hause"
     assert ("plural", "differs") in verdicts("de", entry("Haus", grammar={"gender": "Neut"}, forms=forms), known)
+
+
+def said(lang, variety, ours, heard):
+    """The verdict on the sounds of one transcription of ours against a word's transcriptions."""
+    known = table("w", heard=heard)
+    found = witness.compare(lang, entry("w", "VERB", pronunciations=[{"variety": variety, "ipa": ours}]), known)
+    return [verdict for fact, verdict, _ in found if fact == "sounds"]
+
+
+def test_a_sound_in_brackets_may_be_said_or_not():
+    assert witness.readings_of("/ˈkʌl.ə(ɹ)/") == ["ˈkʌl.əɹ", "ˈkʌl.ə"]
+    assert witness.readings_of("/twɛlfθ/ [tʰw̥ɛɫfθ]") == ["twɛlfθ", "tʰw̥ɛɫfθ"]
+    assert said("en", "en-GB", "/ˈkʌl.ə/", [(("Received-Pronunciation",), "/ˈkʌl.ə(ɹ)/")]) == ["agrees"]
+    assert said("en", "en-US", "/ˈkʌl.ɚ/", [(("General-American",), "/ˈkʌl.ə(ɹ)/")]) == ["agrees"]
+
+
+def test_english_notation_is_brought_to_ours():
+    rp, ga = ("Received-Pronunciation",), ("General-American",)
+    assert said("en", "en-GB", "/ˈbɒt.əl/", [(rp, "/ˈbɒtl̩/")]) == ["agrees"]  # a consonant that is a syllable
+    assert said("en", "en-GB", "/ə.ˈdɹes/", [(rp, "/əˈdɹɛs/")]) == ["agrees"]  # ɛ is our e in Britain
+    assert said("en", "en-US", "/ˈʃiːp/", [(ga, "/ʃip/")]) == ["agrees"]  # length left out in America
+    assert said("en", "en-US", "/ˈʃiːp/", [(ga, "/ʃɪp/")]) == ["differs"]  # but sheep is not ship
+    assert said("en", "en-GB", "/ˈhæp.i/", [(rp, "/ˈhæpɪ/")]) == ["agrees"]  # the vowel of happy
+    assert said("en", "en-US", "/ˈsɝ.kəl/", [(ga, "/ˈsɜɹkəl/")]) == ["agrees"]
+    assert said("en", "en-US", "/ˈʃɪɹ/", [(ga, "/ʃɪɚ/")]) == ["agrees"]
+    assert said("en", "en-US", "/ˈkɑːɡ/", [(ga, "/kɔɡ/")]) == ["agrees"]  # cot and caught
+    assert said("en", "en-GB", "/ˈkɑːt/", [(rp, "/kɔːt/")]) == ["differs"]  # not in Britain
+    assert said("en", "en-US", "/ˈfæð.ɚm/", [(ga, "/ˈfæðəm/")]) == ["differs"]
+
+
+def test_a_dialect_of_wiktionary_confirms_and_does_not_contradict():
+    heard = [(("General-American",), "/ˈpaʊnd/"), ((), "?/ˈpæʊ̯nd/")]  # the second is set apart: "Southern US"
+    assert said("en", "en-US", "/ˈpaʊnd/", heard) == ["agrees"]
+    assert said("en", "en-US", "/ˈpæʊnd/", heard) == ["agrees"]
+    assert said("en", "en-US", "/ˈpɪnd/", heard) == ["differs"]
+    assert said("en", "en-US", "/ˈpæʊnd/", [((), "?/ˈpæʊ̯nd/")]) == []  # nothing standard to hold it against
+
+
+def test_a_place_wiktionary_does_not_name_cannot_contradict_one_variety():
+    known = table("bower", heard=[((), "/ˈbaʊ.əɹ/")])
+    both = entry("bower", pronunciations=[{"variety": "en-US", "ipa": "/ˈbaʊ.ɚ/"}, {"variety": "en-GB", "ipa": "/ˈbaʊ.ə/"}])
+    assert [v for f, v, _ in witness.compare("en", both, known) if f == "sounds"] == ["agrees"]
+    neither = entry("bower", pronunciations=[{"variety": "en-US", "ipa": "/ˈboʊ.ɚ/"}, {"variety": "en-GB", "ipa": "/ˈbəʊ.ə/"}])
+    assert [v for f, v, _ in witness.compare("en", neither, known) if f == "sounds"] == ["differs", "differs"]
+
+
+def test_german_notation_is_brought_to_ours():
+    assert said("de", "de-DE", "/ˈɡeː.ɡən.zats/", [((), "/ˈɡeːɡn̩zats/")]) == ["agrees"]
+    assert said("de", "de-DE", "/ˈfɔʏ.ɐ/", [((), "/ˈfɔʏ̯ər/")]) == ["agrees"]  # -er, and r after a vowel
+    assert said("de", "de-DE", "/fɛɐ.ˈkeːɐ/", [((), "/fɛrˈkeːr/")]) == ["agrees"]
+    assert said("de", "de-DE", "/fɛɐ.ˈaɪn/", [((), "/fɛˈʁaɪ̯n/")]) == ["agrees"]
+    assert said("de", "de-DE", "/ak.ˈtsjoːn/", [((), "/akˈtsi̯oːn/")]) == ["agrees"]
+    assert said("de", "de-DE", "/po.li.ˈtiːk/", [((), "/poːliˈtiːk/")]) == ["agrees"]  # length outside the stress
+    assert said("de", "de-DE", "/ˈʃtat/", [((), "/ʃtaːt/")]) == ["differs"]  # Stadt is not Staat
+    assert said("de", "de-DE", "/mɪ.ˈnuː.tə/", [((), "/miˈnuːtə/")]) == ["differs"]
+
+
+def test_russian_narrow_transcription_is_brought_to_ours():
+    assert said("ru", "ru-RU", "/mə.lɐ.ˈko/", [((), "[məɫɐˈko]")]) == ["agrees"]
+    assert said("ru", "ru-RU", "/ˈtɕas.tʲi/", [((), "[ˈt͡ɕæsʲtʲɪ]")]) == ["agrees"]  # æ between soft consonants, the s softened by the t
+    assert said("ru", "ru-RU", "/u.ˈvʲe.rʲɪn.nə/", [((), "[ʊˈvʲerʲɪn(ː)ə]")]) == ["agrees"]
+    assert said("ru", "ru-RU", "/də.ˈvatʲ/", [((), "[dɐˈvatʲ]")]) == ["differs"]  # ɐ before the stress is our own rule
+    assert said("ru", "ru-RU", "/ˈte.mə/", [((), "[ˈtʲemə]")]) == ["differs"]
+
+
+def test_french_and_italian_habits_of_notation():
+    assert said("fr", "fr-FR", "/o.pe.ʁa.ˈsjɔ̃/", [((), "/ɔ.pe.ʁa.sjɔ̃/")]) == ["agrees"]
+    assert said("fr", "fr-FR", "/ˈkɔt/", [((), "/kot/")]) == ["differs"]  # cote is not côte: the last syllable is judged
+    assert said("fr", "fr-FR", "/ab.ˈsɛ̃t/", [((), "/ap.sɛ̃t/")]) == ["agrees"]
+    assert said("fr", "fr-FR", "/ta.lis.ˈman/", [((), "/ta.lis.mɑ̃/")]) == ["differs"]
+    assert said("it", "it-IT", "/pre.kaw.ˈtsjo.ne/", [((), "/pre.kawtˈt͡sjo.ne/")]) == ["agrees"]
+    assert said("it", "it-IT", "/ˈkau.za/", [((), "/ˈkaw.sa/")]) == ["agrees"]
+    assert said("it", "it-IT", "/an.ˈtɛn.na/", [((), "/anˈten.na/")]) == ["differs"]

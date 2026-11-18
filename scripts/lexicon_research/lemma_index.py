@@ -151,11 +151,13 @@ def table_forms(record):
 
 
 GENDERS = {"masculine": "Masc", "feminine": "Fem", "neuter": "Neut", "common-gender": "Com"}
+STANDARD_TAGS = {"standard", "also", "phoneme", "traditional", "formal", "usually", "often", "stressed", "letter", "name"}
 
 
 def facts_of(record):
     """What a lemma's entry states that an entry of ours states too: (genders, transcriptions, plurals).
-    A transcription keeps the region Wiktionary names for it ("Portugal:/ɡɐɾˈɡɐ̃.tɐ/"). A witness, like the
+    A transcription keeps the region Wiktionary names for it ("Portugal:/ɡɐɾˈɡɐ̃.tɐ/"), and a "?" before it when
+    Wiktionary sets it apart from the standard. A witness, like the
     stressed forms: held against what a writer wrote, never copied into an entry."""
     tags = set()
     for sense in record.get("senses") or []:
@@ -168,10 +170,13 @@ def facts_of(record):
     sounds = []
     for sound in record.get("sounds") or []:
         if sound.get("ipa"):
-            region = "+".join(t for t in (sound.get("tags") or []) if t[:1].isupper())
-            sounds.append(f"{region}:{sound['ipa']}")
+            tags = sound.get("tags") or []
+            region = "+".join(t for t in tags if t[:1].isupper())
+            # "?" before one Wiktionary sets apart from the standard: a note ("Southern US", "weak form") or a tag such as dialectal
+            aside = bool(sound.get("note")) or any(not t[:1].isupper() and t not in STANDARD_TAGS for t in tags)
+            sounds.append(f"{'?' if aside else ''}{region}:{sound['ipa']}")
     plurals = sorted({plain(f["form"]) for f in record.get("forms") or [] if set(f.get("tags") or []) == {"plural"} and f.get("form")})
-    return genders, list(dict.fromkeys(sounds))[:40], plurals[:4]
+    return genders, list(dict.fromkeys(sounds))[:60], plurals[:4]
 
 
 def classify(lines, stress=None, facts=None):
