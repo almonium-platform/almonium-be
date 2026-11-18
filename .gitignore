@@ -27,6 +27,7 @@ scripts/__pycache__
 !scripts/lexicon_research/gold/*.json
 !scripts/lexicon_research/gold/candidates/*.json
 !scripts/lexicon_research/gold/own/*.json
+!scripts/lexicon_research/gold/v*/*.json
 !scripts/lexicon_research/measure/*/*.json
 scripts/lexicon_research/wikipron/
 scripts/lexicon_research/wiktionary/

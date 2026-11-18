@@ -1,0 +1,32 @@
+[
+ {
+  "headword": "心配",
+  "zipf": 5.05,
+  "set": "v48-check"
+ },
+ {
+  "headword": "約束",
+  "zipf": 4.67,
+  "set": "v48-check"
+ },
+ {
+  "headword": "電話",
+  "zipf": 5.21,
+  "set": "v48-check"
+ },
+ {
+  "headword": "興味",
+  "zipf": 5.05,
+  "set": "v48-check"
+ },
+ {
+  "headword": "慣れる",
+  "zipf": 3.89,
+  "set": "v48-check"
+ },
+ {
+  "headword": "薬",
+  "zipf": 4.99,
+  "set": "v48-check"
+ }
+]

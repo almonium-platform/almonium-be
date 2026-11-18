@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "Erlebnis",
+  "zipf": 4.2,
+  "set": "v48-check"
+ },
+ {
+  "headword": "Appetit",
+  "zipf": 3.85,
+  "set": "v48-check"
+ },
+ {
+  "headword": "genießen",
+  "zipf": 4.61,
+  "set": "v48-check"
+ },
+ {
+  "headword": "Geburt",
+  "zipf": 4.5,
+  "set": "v48-check"
+ },
+ {
+  "headword": "nachfragen",
+  "zipf": 3.81,
+  "set": "v48-check"
+ }
+]

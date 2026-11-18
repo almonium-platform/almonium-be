@@ -18,11 +18,16 @@ VALID = jsonschema.Draft202012Validator(SCHEMA)
 
 
 def entry():
-    return copy.deepcopy(json.loads(prompting.SCHEMA_EXAMPLE_V4))
+    return json.loads(prompting.schema_example_v4(prompting.PROMPT_VERSION))
 
 
 def test_the_prompts_own_example_is_valid():
     VALID.validate(entry())
+    for version in ("v4", "v4.2", "v4.7", "v4.8"):
+        VALID.validate(json.loads(prompting.schema_example_v4(version)))
+    senses = [s for lx in entry()["lexemes"] for s in lx["senses"]]
+    assert ["in the lead", "take the lead"] in [s.get("collocations") for s in senses]  # from v4.8 the word's company is not a frame
+    assert all(" sth" in f or " sb " in f for s in senses for f in s.get("frames", []))
 
 
 def test_a_region_is_a_variety_or_a_place_with_an_extent():

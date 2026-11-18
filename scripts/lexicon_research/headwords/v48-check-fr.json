@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "pluie",
+  "zipf": 4.56,
+  "set": "v48-check"
+ },
+ {
+  "headword": "honte",
+  "zipf": 4.6,
+  "set": "v48-check"
+ },
+ {
+  "headword": "emprunter",
+  "zipf": 4.01,
+  "set": "v48-check"
+ },
+ {
+  "headword": "partager",
+  "zipf": 4.69,
+  "set": "v48-check"
+ },
+ {
+  "headword": "jaloux",
+  "zipf": 4.12,
+  "set": "v48-check"
+ }
+]

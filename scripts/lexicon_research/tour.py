@@ -140,6 +140,8 @@ def features(lang, entry):
             labels = sense.get("labels") or {}
             if sense.get("frames"):
                 note("the constructions a sense is used in", "; ".join(sense["frames"]))
+            if sense.get("collocations"):
+                note("the words a sense usually goes with", "; ".join(sense["collocations"]))
             if own.get("countability"):
                 counts.add(own["countability"])
             if own.get("valency") == "Refl":

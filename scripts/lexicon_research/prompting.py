@@ -31,9 +31,9 @@ HERE = Path("scripts/lexicon_research")
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4", "v4.7": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4", "v4.7": "4", "v4.8": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.7")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.8")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -290,6 +290,16 @@ LANGUAGE_NOTES_V4 = {
           "word or sense of one region of Japan (おおきに) names the region in the sense's grammar note, Japan being one variety.\n",
 }
 
+# v4.8 says in one place, for every language, how an open place of a frame is written (FRAME_PLACES_V4), and gives
+# the usual pairings of words a list of their own: the two notes that said it for Russian and Japanese give way.
+_ru_frames = ("A frame shows what the word governs with the question words (искать кого/что, платить кому за что, чемпионат по чему), "
+              "not one collocation filled in. ")
+_ja_frames = ("and shows the verb in a frame (勉強する). A frame is a pattern with its particles and an open place "
+              "(〜が好き, 〜に行く, 〜を食べる), not a usual pairing of words (鉛筆で書く). ")
+assert _ru_frames in LANGUAGE_NOTES_V4["ru"] and _ja_frames in LANGUAGE_NOTES_V4["ja"]
+LANGUAGE_NOTES_V4[("ru", "v4.8")] = LANGUAGE_NOTES_V4["ru"].replace(_ru_frames, "")
+LANGUAGE_NOTES_V4[("ja", "v4.8")] = LANGUAGE_NOTES_V4["ja"].replace(_ja_frames, "and shows the verb in a frame with what it takes (〜を勉強する). ")
+
 SCHEMA_EXAMPLE_V4 = json.dumps({
     "language": "en", "headword": "lead",
     "lexemes": [
@@ -334,6 +344,9 @@ def schema_example_v4(version):
     entry = json.loads(SCHEMA_EXAMPLE_V4)
     if since_v4(version, "v4.7"):  # "to be winning" is nearly always intransitive, but one leads a race too
         entry["lexemes"][0]["senses"][2]["grammar"] = {"valency": "Intr", "mainly": ["valency"]}
+    if since_v4(version, "v4.8"):  # "in the lead" and "take the lead" have no open place: they are the word's company
+        first = entry["lexemes"][1]["senses"][0]
+        entry["lexemes"][1]["senses"][0] = {("collocations" if k == "frames" else k): v for k, v in first.items()}
     for lexeme in entry["lexemes"]:
         for sense in lexeme["senses"]:
             if "regions" in sense:
@@ -408,6 +421,48 @@ PRONUNCIATION_V4 = {
           "ん, っ and the second half of a long vowel as a mora each. Leave it out when you are not sure.",
 }
 # ... and its limits count characters, there being no spaces to count words by: what replaces each limit of the prompt.
+# From v4.8 a frame is a pattern with at least one open place, and each language writes an open place one way:
+# the way its entries wrote it most and its reviewed examples write it. ingest_v4.FRAME_PLACES rewrites the other
+# abbreviations to these, and ingest_v4.OPEN_PLACE reads them, so the three must be changed together.
+FRAME_PLACES_V4 = {
+    "en": 'In English a person is sb and a thing is sth (sb\'s for a possessive); a verb is do sth, to do sth or doing sth, a clause is '
+          '"that ..."; any other kind of word is named after a plus sign (+ adj, + adv): "depend on sb/sth", "afford to do sth", '
+          '"insist on doing sth", "aware that ...".',
+    "de": 'In German a person is jmd., jmdn., jmdm. or jmds., by case, and a thing is etw., as Duden writes them, for a subject or an '
+          'object without a preposition; after a preposition write the case it takes, after a plus sign (+ Akk, + Dat, + Gen); an '
+          'infinitive is "etw. zu tun", a clause "dass ...": "jmdm. helfen", "jmdn. bitten um + Akk", "warten auf + Akk", '
+          '"es ist nötig, etw. zu tun".',
+    "fr": 'In French a person is qqn and a thing is qqch; an infinitive is + inf, a clause "que + ind" or "que + subj"; any other kind '
+          'of word is named after a plus sign (+ adj, + nom pluriel): "parler de qqch à qqn", "continuer à + inf", '
+          '"il est normal que + subj".',
+    "es": 'In Spanish a person is alguien and a thing is algo; an infinitive is + inf, a clause "que + ind" or "que + subj"; any other '
+          'kind of word is named after a plus sign (+ adj, + lugar): "depender de algo/alguien", "empezar a + inf", '
+          '"es normal que + subj".',
+    "it": 'In Italian a person is qcn and a thing is qcs; an infinitive is + inf, a clause "che + ind" or "che + cong"; any other kind '
+          'of word is named after a plus sign (+ agg, + luogo): "pensare a qcn/qcs", "iniziare a + inf", "è normale che + cong".',
+    "pt": 'In Portuguese a person is alguém and a thing is algo; an infinitive is + inf, a clause "que + ind" or "que + subj"; any '
+          'other kind of word is named after a plus sign (+ adj, + lugar): "gostar de algo/alguém", "começar a + inf", '
+          '"é normal que + subj".',
+    "ru": 'In Russian an open place is the question word of the case the word governs (кого/что, кого/чего, кому/чему, кем/чем, '
+          'о ком/о чём; куда, где, откуда for a place); an infinitive is + инф., a clause "что ...": "искать кого/что", '
+          '"платить кому за что", "мешать кому + инф.", "чемпионат по чему".',
+    "uk": 'In Ukrainian an open place is the question word of the case the word governs (кого/що, кого/чого, кому/чому, ким/чим, '
+          'на кому/на чому; куди, де, звідки for a place); an infinitive is + інф., a clause "що ...": "шукати кого/що", '
+          '"дякувати кому за що", "заважати кому + інф.".',
+    "ja": 'In Japanese an open place is 〜, with the particle after it written; a kind of word is named where it matters '
+          '(動詞の辞書形＋, 名詞＋): 〜が好き, 〜に行く, 〜を食べる, 〜ことができる.',
+}
+COLLOCATIONS_V4 = {
+    "en": '("make a decision", "heavy rain", "sleep soundly", "on the lake", "take the lead")',
+    "de": '("eine Entscheidung treffen", "starker Regen", "tief schlafen", "einen Baum fällen", "in Führung liegen")',
+    "fr": '("prendre une décision", "une pluie battante", "dormir profondément", "à l\'hôpital", "être en couple")',
+    "es": '("tomar una decisión", "lluvia torrencial", "dormir profundamente", "el lunes", "café con leche")',
+    "it": '("prendere una decisione", "pioggia battente", "dormire profondamente", "di recente", "come minimo")',
+    "pt": '("tomar uma decisão", "chuva forte", "dormir profundamente", "de manhã", "ter razão")',
+    "ru": '("принять решение", "сильный дождь", "крепко спать", "получить в подарок", "играть роль")',
+    "uk": '("прийняти рішення", "сильний дощ", "міцно спати", "брати участь", "мати значення")',
+    "ja": '(薬を飲む, 傘をさす, 風邪をひく, 強い雨, 点が辛い)',
+}
 LIMITS_V4 = {"ja": {"6 to 15 words": "10 to 35 characters", "of 6 to 14 words": "of 12 to 40 characters"}}
 
 
@@ -418,20 +473,32 @@ def fill_v4(table, lang, version):
     return dated[-1] if dated else table.get(lang, "")
 
 
+def gold_path(lang, version):
+    """The file of a language's examples as a version shows them. A gold file in use is never edited, so a set
+    that changed stands in a folder named by the version it changed in (gold/v4.8/de.json), and a version shows
+    the latest set that is not younger than itself."""
+    order = [v for v, schema in SCHEMA_OF.items() if schema == "4"]
+    for v in reversed(order[: order.index(version) + 1]):
+        if (HERE / "gold" / v / f"{lang}.json").exists():
+            return HERE / "gold" / v / f"{lang}.json"
+    return HERE / "gold" / f"{lang}.json"
+
+
 def examples_v4(lang, version):
     """The language's reviewed example entries: one entry to a line, so that five cost little to read.
     A language without them yet shows none and keeps the one English entry under "Output"."""
     if lang not in GOLD_SINCE or not since_v4(version, GOLD_SINCE[lang]):
         return ""
-    entries = json.loads((HERE / "gold" / f"{lang}.json").read_text(encoding="utf-8"))
+    entries = json.loads(gold_path(lang, version).read_text(encoding="utf-8"))
+    shown = "frames, collocations, labels" if since_v4(version, "v4.8") else "frames, labels"
     return ("# Examples\n\nEntries of this dictionary that an editor has checked. Write every entry the way these are written: the same "
-            "care in which senses are numbered, the same plain definitions, the same use of frames, labels, regions and grammar.\n\n"
+            f"care in which senses are numbered, the same plain definitions, the same use of {shown}, regions and grammar.\n\n"
             + "\n".join(json.dumps(entry, ensure_ascii=False) for entry in entries) + "\n\n")
 
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.7")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.8")
     schema_path = HERE / "entry.schema.v4.json"
     inv = [] if lang in PRONUNCIATION_V4 else [sounds_v4(v, version) for v in VARIETIES[lang]]
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]
@@ -442,6 +509,7 @@ def system_prompt_v4(lang, version=None):
              "{language_notes}": fill_v4(LANGUAGE_NOTES_V4, lang, version), "{schema_example}": schema_example_v4(version),
              "{positional_rule}": POSITIONAL_V4.get(lang, ""), "{region_examples}": REGION_EXAMPLES_V4[lang],
              "{examples}": examples_v4(lang, version),
+             "{frame_places}": FRAME_PLACES_V4[lang], "{collocation_examples}": COLLOCATIONS_V4[lang],
              "{un_regions}": "".join(" or with a UN area (" + ", ".join(f"{lang}-{code} {UN_REGIONS[code]}" for code in UN_AREAS_V4[lang]) + ")"
                                      for _ in [0] if lang in UN_AREAS_V4)}
     for k, v in fills.items():

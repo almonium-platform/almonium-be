@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "зависеть",
+  "zipf": 3.9,
+  "set": "v48-check"
+ },
+ {
+  "headword": "победа",
+  "zipf": 4.71,
+  "set": "v48-check"
+ },
+ {
+  "headword": "ответить",
+  "zipf": 4.66,
+  "set": "v48-check"
+ },
+ {
+  "headword": "позвонить",
+  "zipf": 4.16,
+  "set": "v48-check"
+ },
+ {
+  "headword": "вывод",
+  "zipf": 4.51,
+  "set": "v48-check"
+ }
+]

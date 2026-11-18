@@ -34,6 +34,9 @@ These are this dictionary's own definitions, not faults:
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.
+- a frame is the word with what it governs, every open place marked (depend on sth); a collocation
+  is the word with a particular word it usually goes with, or a set phrase, with no open place
+  (heavy rain, in the lead). At most three of each, so a missing one is not a fault.
 - a word is said as a reading in hiragana, not in IPA. "accent" after it is the pitch accent of Tokyo as
   dictionaries number it: the mora after which the pitch drops, 0 when it does not drop. A reading without
   one is not a fault: the writer gives it only when sure. A wrong one is a fact.
@@ -100,20 +103,22 @@ meaning in front of them, false when the fault is a blemish.
 - parts: 時 (時) + 間 (間)
   1. [A1] 物事をするのにかかる、または使える長さ
      - example: 忙しくて、ゆっくり本を読む時間がない。
-     - frames: 〜する時間; 時間がかかる; 時間がある
+     - frames: 〜する時間
+     - collocations: 時間がかかる; 時間がある
   2. [A1] 一日を二十四に分けた長さの単位
      - example: 駅から空港まではバスで二時間かかる。
      - frames: 数＋時間
      - grammar: note Used after a number as a counter of hours.
   3. [A2] 予定として決めた、一日の中のある一点
      - example: 約束の時間に遅れないよう、早めに家を出た。
-     - frames: 〜の時間; 時間に遅れる; 時間を守る
+     - frames: 〜の時間
+     - collocations: 時間に遅れる; 時間を守る
   4. [A2] 学校などで、ある事のために区切ったひとまとまり
      - example: 次は理科の時間だから、教室を移動しよう。
      - frames: 〜の時間
   5. [B1] 過去から未来へと絶えず流れていくもの
      - example: どんなに願っても、流れていく時間は止められない。
-     - frames: 時間が経つ; 時間が過ぎる
+     - collocations: 時間が経つ; 時間が過ぎる
 
 ### 3. 最近
 
@@ -170,7 +175,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  さいご, accent 1 (ja-JP)
   1. [A2] 順番や時間の流れの中で、いちばん終わり
      - example: 映画の最後の場面で思わず泣いてしまった。
-     - frames: 最後の〜; 最後に; 最後まで
+     - frames: 最後の〜
+     - collocations: 最後に; 最後まで
      - opposites: 最初
   2. [B2] 一度そうなったら、もうどうにもならないこと
      - example: あの人は話し始めたら最後、二時間は止まらない。
@@ -191,10 +197,10 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜に〜を使う
   3. [B1] 心や頭をあれこれと働かせる
      - example: 客に気を使いすぎて、すっかり疲れた。
-     - frames: 気を使う; 頭を使う
+     - collocations: 気を使う; 頭を使う
   4. [B1] 人を雇ったり働かせたりする
      - example: 彼は小さな工房で三人の職人を使っている。
-     - frames: 人を使う
+     - collocations: 人を使う
 
 ### 8. 顔
 
@@ -209,11 +215,11 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜な顔をする
   3. [B2] 人々の前で保たれる名誉や立場
      - example: 私の失敗で、紹介してくれた先輩の顔をつぶしてしまった。
-     - frames: 顔をつぶす; 顔が立つ
+     - collocations: 顔をつぶす; 顔が立つ
      - labels: figurative True
   4. [B2] 広く人に知られていること、またそれによる力
      - example: 父はこの町の商店街ではかなり顔がきく。
-     - frames: 顔が広い; 顔がきく
+     - collocations: 顔が広い; 顔がきく
      - labels: figurative True
   5. [B2] 団体や場所を代表する人や物
      - example: この駅は、町の新しい顔として親しまれている。
@@ -231,10 +237,10 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 女
   2. [B2] 一人前の大人としての体面や値打ち
      - example: 約束をきちんと守って、彼は男を上げた。
-     - frames: 男を上げる; 男が立つ; 男がすたる
+     - collocations: 男を上げる; 男が立つ; 男がすたる
   3. [B2] 女性から見た恋人や愛人
      - example: 姉には最近、男ができたらしい。
-     - frames: 男ができる
+     - collocations: 男ができる
      - labels: formality informal
 
 ### 10. あれ
@@ -245,10 +251,10 @@ meaning in front of them, false when the fault is a blemish.
      - example: あれが私たちの泊まるホテルです。
   2. [A2] 話し手と聞き手がともに知っている物事や過去の時を指す言葉
      - example: あれから十年たったが、今でもよく覚えている。
-     - frames: あれから; あれ以来
+     - collocations: あれから; あれ以来
   3. [B1] 名前がすぐに出ないものや言いにくいことを代わりに指す言葉
      - example: 今日はちょっとあれなので、また今度にしよう。
-     - frames: ちょっとあれで; あれだ
+     - collocations: ちょっとあれで; あれだ
      - labels: formality informal
 **Lexeme 2: あれ**, INTJ
 - said:  あれ (ja-JP)
@@ -344,10 +350,11 @@ meaning in front of them, false when the fault is a blemish.
      - example: 目を閉じて、ゆっくり深呼吸してください。
   2. [A2] 物の形や色を見ることのできる力
      - example: 祖母は年をとって目が悪くなった。
-     - frames: 目がいい; 目が悪い
+     - collocations: 目がいい; 目が悪い
   3. [B1] 見ている人の視線や見方
      - example: 周りの人の目が気になって、うまく話せない。
-     - frames: 〜に目を向ける; 人の目が気になる
+     - frames: 〜に目を向ける
+     - collocations: 人の目が気になる
   4. [B2] 物事のよしあしを見分ける力
      - example: 彼女は人を見る目が確かだ。
      - frames: 〜を見る目がある
@@ -356,7 +363,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜目にあう; 〜目を見る
   6. [B2] 網や布などのすき間や、並んだ筋や点
      - example: この網は目が細かいので小さな魚も逃げない。
-     - frames: 目が細かい; 目が粗い
+     - collocations: 目が細かい; 目が粗い
 
 ### 15. へ
 
@@ -392,7 +399,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  や (ja-JP)
   1. [B1] あきらめの気持ちを込めて、軽く文を終えるのに使う
      - example: 雨が降ってきたし、散歩はもういいや。
-     - frames: もういいや; 〜でいいや
+     - frames: 〜でいいや
+     - collocations: もういいや
      - labels: formality informal
      - grammar: note Sentence-final; often said to oneself.
   2. [B2] 相手を誘う気持ちを強めて文を終えるのに使う
@@ -435,7 +443,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 気 (ja-JP); 氣 [older books only]
   1. [A2] 物事に対する心の動きや生まれつきの性質
      - example: 彼は気が短くて、すぐに怒り出してしまう。
-     - frames: 気が強い; 気が弱い; 〜と気が合う
+     - frames: 〜と気が合う
+     - collocations: 気が強い; 気が弱い
   2. [A2] 物事に向ける注意や心配り
      - example: 細かいことを気にしすぎると疲れてしまうよ。
      - frames: 〜に気をつける; 〜を気にする; 〜に気を配る
@@ -478,7 +487,7 @@ meaning in front of them, false when the fault is a blemish.
      - example: 犬は人間よりずっと鼻がいいそうだ。
   2. [B2] 性格や品位など、その者としての中身
      - example: 彼は若いのに人間ができていて、誰にでも親切だ。
-     - frames: 人間ができている; 人間が小さい; 人間が大きい
+     - collocations: 人間ができている; 人間が小さい; 人間が大きい
 
 ### 23. 子
 
@@ -490,10 +499,10 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 親
   2. [A2] まだ大人になっていない、年の小さい人
      - example: 公園で近所の子たちが元気に遊んでいる。
-     - frames: 男の子; 女の子; この子
+     - collocations: 男の子; 女の子; この子
   3. [B1] 動物の、親から生まれたもの
      - example: うちの猫が四匹の子を産んだ。
-     - frames: 子を産む
+     - collocations: 子を産む
      - opposites: 親
   4. [B1] 親しみをこめて若い人、特に若い女性を指す言葉
      - example: 隣の部署に入った新しい子はとても明るい。
@@ -502,7 +511,7 @@ meaning in front of them, false when the fault is a blemish.
 - said:  ね (ja-JP)
   1. [C1] 十二支の一番目で、ねずみに当たるもの
      - example: 昔は夜中の十二時ごろを子の刻と呼んだ。
-     - frames: 子の刻; 子年
+     - collocations: 子の刻; 子年
 
 ### 24. そう
 
@@ -510,7 +519,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  そう, accent 1 (ja-JP)
   1. [A1] 相手が言ったことや話に出たことのように
      - example: 私もそう思いますが、もう少し考えてみます。
-     - frames: そう思う; そうする; そうだ
+     - frames: そうする
+     - collocations: そう思う; そうだ
   2. [B1] 考えていたほどの程度には
      - example: この問題はそう難しくないから、すぐ解けるよ。
      - frames: そう〜ない
@@ -522,7 +532,7 @@ meaning in front of them, false when the fault is a blemish.
      - grammar: note With rising intonation (そう？) it shows mild doubt or surprise.
   2. [B1] ふと思い出したときや話を切り出すときに言う語
      - example: そうそう、明日の会議は十時からだよ。
-     - frames: そうそう
+     - collocations: そうそう
 
 ### 25. 円
 
@@ -531,10 +541,10 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 円 (ja-JP); 圓 [older books only]
   1. [B1] 一つの点から同じ距離にある点を結んだ丸い形
      - example: コンパスを使って、紙に大きな円を描いた。
-     - frames: 円を描く; 円になる
+     - collocations: 円を描く; 円になる
   2. [B1] 日本で使われている通貨
      - example: 円が安くなると、海外旅行の費用が上がる。
-     - frames: 円が高くなる; 円に替える
+     - collocations: 円が高くなる; 円に替える
 **Lexeme 2: 円**, NOUN
 - grammar: note Counter for amounts of Japanese money; follows a number.
 - said:  えん (ja-JP)
@@ -551,7 +561,7 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 少し (ja-JP); すこし (ja-JP)
   1. [A1] 数や量、程度がわずかであるようす
      - example: 今日は昨日より少し寒いですね。
-     - frames: 少しずつ; 少しだけ
+     - collocations: 少しずつ; 少しだけ
   2. [A1] 時間や距離がわずかであるようす
      - example: すぐに戻りますから、少し待っていてください。
 **Lexeme 2: 少し**, NOUN
@@ -559,7 +569,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 少し (ja-JP); すこし (ja-JP)
   1. [A2] ほんのわずかな数や量のもの
      - example: ほんの少しの水でも、この花は元気になる。
-     - frames: 少しの〜; ほんの少し
+     - frames: 少しの〜
+     - collocations: ほんの少し
 
 ### 27. 月
 
@@ -657,7 +668,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜にかかる
   8. [B1] 医者に体を診察してもらう
      - example: 熱が下がらないので、近くの医者にかかった。
-     - frames: 医者にかかる
+     - collocations: 医者にかかる
   9. [B1] 水などの液体や粉が上から浴びせられる
      - example: 車が通って、服に泥水がかかった。
      - frames: 〜に〜がかかる
@@ -674,7 +685,8 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜にかかる
   14. [B2] 相手に向かって攻めていく
      - example: 何人でもいいから、まとめてかかってこい。
-     - frames: 〜にかかっていく; かかってくる
+     - frames: 〜にかかっていく
+     - collocations: かかってくる
   15. [B2] 今にもそうなりそうになる
      - example: 溺れかかった子どもを近くの人が助けた。
      - frames: 動詞連用形＋かかる
@@ -735,13 +747,14 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 良い
   3. [A2] 体や心の調子が普通でなく、すぐれない
      - example: 朝から気分が悪くて、何も食べられない。
-     - frames: 気分が悪い; 具合が悪い
+     - collocations: 気分が悪い; 具合が悪い
   4. [B1] 健康や物事に害を与える性質がある
      - example: 毎晩の夜更かしは体に悪いよ。
      - frames: 〜に悪い
   5. [B1] 相手に迷惑をかけて申し訳ない
      - example: 悪いけど、ちょっと荷物を持ってくれる？
-     - frames: 悪いけど; 〜に悪い
+     - frames: 〜に悪い
+     - collocations: 悪いけど
      - labels: formality informal
 
 ### 35. なら
@@ -843,7 +856,7 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 普通 (ja-JP); ふつう (ja-JP)
   1. [B1] ほかと変わらない、ありふれた様子
      - example: 派手な暮らしより、普通が一番だと思う。
-     - frames: 普通と違う; 普通が一番
+     - collocations: 普通と違う; 普通が一番
   2. [B1] 駅ごとにすべて止まる列車
      - example: 急行は止まらないので、普通に乗り換えた。
      - labels: domain transport
@@ -892,7 +905,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: まあ (ja-JP); まぁ (ja-JP)
   1. [B1] 十分ではないが、一応よいと認める気持ちを表す
      - example: この点数なら、まあ合格と言えるだろう。
-     - frames: まあいい; まあまあ〜
+     - frames: まあまあ〜
+     - collocations: まあいい
   2. [B1] 相手をなだめたり、軽く何かをすすめたりするときに使う
      - example: まあ、そう怒らずに話を聞いてください。
      - grammar: note Usually at the start of what is said.
@@ -917,7 +931,8 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 短い
   2. [A1] 始まりから終わりまでの時間が多くかかる
      - example: 長い冬が終わって、ようやく春が来た。
-     - frames: 長い間; 〜が長い
+     - frames: 〜が長い
+     - collocations: 長い間
      - opposites: 短い
 
 ### 43. よく
@@ -991,7 +1006,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 無理 (ja-JP); むり (ja-JP); ムリ (ja-JP)
   1. [A2] 体や力の限度を超えて物事をすること
      - example: 熱があるなら、無理をしないで休んでください。
-     - frames: 無理をする; 無理する
+     - frames: 無理する
+     - collocations: 無理をする
      - grammar: suru True
   2. [B2] 筋道が通らず、うまくいかない点
      - example: その説明には少し無理があると思う。
@@ -1038,7 +1054,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 呼ぶ (ja-JP); よぶ (ja-JP)
   1. [A1] 声をかけて相手の注意をこちらに向けさせる
      - example: 後ろから名前を呼ばれて、思わず振り返った。
-     - frames: 〜を呼ぶ; 名前を呼ぶ
+     - frames: 〜を呼ぶ
+     - collocations: 名前を呼ぶ
   2. [A2] 来るように言って人や車などを来させる
      - example: 具合が悪そうなので、すぐに救急車を呼んだ。
      - frames: 〜を呼ぶ

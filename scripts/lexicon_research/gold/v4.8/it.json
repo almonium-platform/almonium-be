@@ -1,0 +1,318 @@
+[
+ {
+  "language": "it",
+  "headword": "museo",
+  "lexemes": [
+   {
+    "lemma": "museo",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/mu.ˈzɛ.o/",
+      "reading": "musèo"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "raccolta di opere o oggetti di valore culturale, o il luogo dove si espongono",
+      "example": "Domenica andiamo al museo a vedere una mostra di pittura.",
+      "cefr": "A1"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "it",
+  "headword": "iniziare",
+  "lexemes": [
+   {
+    "lemma": "iniziare",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "1",
+     "irregular": false,
+     "valency": "Both",
+     "auxiliary": "both"
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/i.nit.ˈtsja.re/",
+      "reading": "iniziàre"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "compiere i primi passi di un’attività o mettersi a fare qualcosa",
+      "example": "Dopo cena ho iniziato a leggere il tuo libro.",
+      "cefr": "A1",
+      "frames": [
+       "iniziare qcs",
+       "iniziare a + inf"
+      ],
+      "grammar": {
+       "valency": "Both",
+       "auxiliary": "have"
+      },
+      "antonyms": [
+       {
+        "lemma": "finire",
+        "pos": "VERB"
+       }
+      ]
+     },
+     {
+      "definition": "prendere avvio in un certo momento o luogo",
+      "example": "La lezione è iniziata mentre cercavo un posto libero.",
+      "cefr": "A2",
+      "frames": [
+       "qcs inizia",
+       "iniziare con qcs"
+      ],
+      "grammar": {
+       "valency": "Intr",
+       "auxiliary": "be"
+      },
+      "antonyms": [
+       {
+        "lemma": "finire",
+        "pos": "VERB"
+       }
+      ]
+     },
+     {
+      "definition": "guidare qualcuno nei primi passi di una nuova attività",
+      "example": "È stata mia zia a iniziarmi alla fotografia.",
+      "cefr": "C1",
+      "frames": [
+       "iniziare qcn a qcs"
+      ],
+      "grammar": {
+       "valency": "Tr",
+       "auxiliary": "have"
+      }
+     },
+     {
+      "definition": "ammettere qualcuno in un gruppo attraverso un rito",
+      "example": "Gli anziani iniziavano i giovani ai misteri della loro comunità.",
+      "cefr": "C1",
+      "frames": [
+       "iniziare qcn a qcs"
+      ],
+      "collocations": [
+       "iniziare ai misteri di un culto"
+      ],
+      "grammar": {
+       "valency": "Tr",
+       "auxiliary": "have"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "it",
+  "headword": "recente",
+  "lexemes": [
+   {
+    "lemma": "recente",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/re.ˈtʃɛn.te/",
+      "reading": "recènte"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "avvenuto, nato o fatto da poco tempo",
+      "example": "Secondo uno studio recente, i giovani leggono sempre meno giornali.",
+      "cefr": "B1",
+      "antonyms": [
+       {
+        "lemma": "remoto",
+        "pos": "ADJ"
+       }
+      ],
+      "collocations": [
+       "di recente"
+      ]
+     }
+    ],
+    "spellings": [
+     {
+      "varieties": [
+       "it-IT"
+      ],
+      "text": "recente"
+     },
+     {
+      "varieties": [
+       "it-IT"
+      ],
+      "pre_reform": true,
+      "text": "ricente"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "it",
+  "headword": "minimo",
+  "lexemes": [
+   {
+    "lemma": "minimo",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": false,
+     "note": "superlative of piccolo"
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/ˈmi.ni.mo/",
+      "reading": "mìnimo"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "più piccolo o più basso tra quelli possibili, richiesti o consentiti",
+      "example": "L’età minima per partecipare al corso è di sedici anni.",
+      "cefr": "B1",
+      "antonyms": [
+       {
+        "lemma": "massimo",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "molto piccolo, di poca importanza o quasi nullo",
+      "example": "Tra le due versioni ci sono soltanto differenze minime.",
+      "cefr": "B2",
+      "collocations": [
+       "non avere la minima idea"
+      ]
+     }
+    ]
+   },
+   {
+    "lemma": "minimo",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Both"
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/ˈmi.ni.mo/",
+      "reading": "mìnimo"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "la quantità o il grado più basso possibile o richiesto",
+      "example": "Per aprire il corso serve un minimo di otto iscritti.",
+      "cefr": "B1",
+      "frames": [
+       "un minimo di qcs"
+      ],
+      "collocations": [
+       "come minimo",
+       "ridurre al minimo"
+      ],
+      "antonyms": [
+       {
+        "lemma": "massimo",
+        "pos": "NOUN"
+       }
+      ],
+      "grammar": {
+       "countability": "Count"
+      }
+     },
+     {
+      "definition": "regime di un motore acceso quando non si preme l’acceleratore",
+      "example": "Al semaforo il motore non tiene il minimo e si spegne.",
+      "cefr": "B2",
+      "collocations": [
+       "girare al minimo",
+       "tenere il minimo"
+      ],
+      "grammar": {
+       "countability": "Mass"
+      }
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "minimo",
+      "pos": "ADJ"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "it",
+  "headword": "fenomeno",
+  "lexemes": [
+   {
+    "lemma": "fenomeno",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "it-IT",
+      "ipa": "/fe.ˈnɔ.me.no/",
+      "reading": "fenòmeno"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "fatto che si manifesta e può essere osservato o studiato",
+      "example": "L’arcobaleno è un fenomeno che si vede spesso dopo un temporale.",
+      "cefr": "B1"
+     },
+     {
+      "definition": "fatto o tendenza che assume particolare importanza nella società",
+      "example": "Il lavoro da casa è ormai un fenomeno di massa.",
+      "cefr": "B2"
+     },
+     {
+      "definition": "persona o cosa che stupisce per le sue qualità eccezionali",
+      "example": "Mia sorella è un fenomeno con i numeri.",
+      "cefr": "B2",
+      "labels": {
+       "formality": "informal",
+       "figurative": true
+      }
+     }
+    ]
+   }
+  ]
+ }
+]

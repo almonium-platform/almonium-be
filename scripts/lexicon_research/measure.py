@@ -76,6 +76,9 @@ These are this dictionary's own definitions, not faults:
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.
+- a frame is the word with what it governs, every open place marked (depend on sth); a collocation
+  is the word with a particular word it usually goes with, or a set phrase, with no open place
+  (heavy rain, in the lead). At most three of each, so a missing one is not a fault.
 {ours}
 ## The answer
 
@@ -199,6 +202,8 @@ def show(entry):
             more = []
             if sense.get("frames"):
                 more.append("frames: " + "; ".join(sense["frames"]))
+            if sense.get("collocations"):
+                more.append("collocations: " + "; ".join(sense["collocations"]))
             if sense.get("labels"):
                 more.append("labels: " + ", ".join(f"{a} {', '.join(v) if isinstance(v, list) else v}" for a, v in sense["labels"].items()))
             if sense.get("regions"):

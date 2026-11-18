@@ -1,0 +1,482 @@
+[
+ {
+  "language": "ja",
+  "headword": "鉛筆",
+  "lexemes": [
+   {
+    "lemma": "鉛筆",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "classifier": "本"
+    },
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "えんぴつ",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "木などで芯を包み、先を削って字や絵をかく道具",
+      "example": "筆箱には削った鉛筆が三本入っている。",
+      "cefr": "A1"
+     }
+    ],
+    "spellings": [
+     {
+      "text": "鉛筆",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "えんぴつ",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "エンピツ",
+      "script": "Kana",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "えん筆",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ],
+    "components": [
+     {
+      "text": "鉛",
+      "lemma": "鉛",
+      "inflects": "fixed"
+     },
+     {
+      "text": "筆",
+      "lemma": "筆",
+      "inflects": "fixed"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ja",
+  "headword": "好き",
+  "lexemes": [
+   {
+    "lemma": "好き",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "na"
+    },
+    "spellings": [
+     {
+      "text": "好き",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "すき",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ],
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "すき",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "人や物事に心をひかれている",
+      "example": "私は子どもの頃から絵を描くのが好きです。",
+      "cefr": "A1",
+      "frames": [
+       "〜が好き",
+       "〜のが好き",
+       "好きな〜"
+      ],
+      "antonyms": [
+       {
+        "lemma": "嫌い",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "自分の思いどおりで自由だ",
+      "example": "時間はたっぷりあるから、好きにしていいよ。",
+      "cefr": "A2",
+      "frames": [
+       "好きなように〜"
+      ],
+      "collocations": [
+       "好きにする"
+      ]
+     },
+     {
+      "definition": "人があまりしたがらないことにまで熱心だ",
+      "example": "また自転車で山を越えるなんて、君も好きだね。",
+      "cefr": "B2",
+      "frames": [
+       "〜も好きだね"
+      ],
+      "grammar": {
+       "note": "Often said with affectionate surprise or gentle irony."
+      }
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "好く",
+      "pos": "VERB"
+     }
+    ]
+   },
+   {
+    "lemma": "好き",
+    "kind": "word",
+    "spellings": [
+     {
+      "text": "好き",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "すき",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ],
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "すき",
+      "notation": "kana"
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "好く",
+      "pos": "VERB"
+     }
+    ],
+    "pos": "NOUN",
+    "senses": [
+     {
+      "definition": "人や物事にひかれる気持ちやその対象",
+      "example": "自分の好きを仕事にしたい。",
+      "cefr": "B1"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ja",
+  "headword": "食べる",
+  "lexemes": [
+   {
+    "lemma": "食べる",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "ichidan",
+     "note": "食べる is the usual kanji spelling. 喰べる is an uncommon literary spelling."
+    },
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "たべる",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "ものを口に入れ、かむなどして飲み込む",
+      "example": "毎朝パンと卵を食べてから出かけます。",
+      "cefr": "A1",
+      "frames": [
+       "〜を食べる"
+      ],
+      "grammar": {
+       "valency": "Tr"
+      }
+     },
+     {
+      "definition": "生活に必要なものをまかなって暮らす",
+      "example": "絵の仕事だけでなんとか食べている。",
+      "cefr": "B2",
+      "frames": [
+       "〜で食べる",
+       "〜で食べていく"
+      ],
+      "grammar": {
+       "valency": "Intr",
+       "note": "The source of support takes で."
+      },
+      "labels": {
+       "figurative": true
+      },
+      "spellings": [
+       "食べる",
+       "たべる"
+      ]
+     }
+    ],
+    "spellings": [
+     {
+      "text": "食べる",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "たべる",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "喰べる",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ja",
+  "headword": "辛い",
+  "lexemes": [
+   {
+    "lemma": "辛い",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "i",
+     "note": "鹹い is uncommon and denotes saltiness."
+    },
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "からい",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "口に入れると舌に強い刺激がある",
+      "example": "このカレーは辛すぎて、水が手放せない。",
+      "cefr": "A2",
+      "spellings": [
+       "辛い",
+       "からい"
+      ]
+     },
+     {
+      "definition": "口に入れたときの塩味が強い",
+      "example": "塩を入れすぎて、スープが辛くなった。",
+      "cefr": "B1",
+      "grammar": {
+       "note": "Common from the Tōkai region through western Japan, including Kansai."
+      }
+     },
+     {
+      "definition": "人への評価や点のつけ方が厳しい",
+      "example": "あの先生は採点が辛いことで有名だ。",
+      "cefr": "B2",
+      "collocations": [
+       "点が辛い",
+       "採点が辛い"
+      ],
+      "labels": {
+       "figurative": true
+      },
+      "antonyms": [
+       {
+        "lemma": "甘い",
+        "pos": "ADJ"
+       }
+      ],
+      "spellings": [
+       "辛い",
+       "からい"
+      ]
+     },
+     {
+      "definition": "酒の味に甘みが少なく、すっきりしている",
+      "example": "この酒は思ったよりも辛く、甘みはほとんどない。",
+      "cefr": "B2",
+      "spellings": [
+       "辛い",
+       "からい"
+      ],
+      "antonyms": [
+       {
+        "lemma": "甘い",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ],
+    "spellings": [
+     {
+      "text": "辛い",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "からい",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "鹹い",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ]
+   },
+   {
+    "lemma": "辛い",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "i"
+    },
+    "spellings": [
+     {
+      "text": "辛い",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "つらい",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ],
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "つらい",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "体や心が苦しくて耐えにくい",
+      "example": "冬の朝、早く起きるのはつらい。",
+      "cefr": "B1",
+      "frames": [
+       "〜のがつらい",
+       "〜がつらい"
+      ]
+     },
+     {
+      "definition": "人への接し方に思いやりがない",
+      "example": "失敗した仲間につらく当たるのはよそう。",
+      "cefr": "B2",
+      "collocations": [
+       "人につらく当たる"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "ja",
+  "headword": "俺",
+  "lexemes": [
+   {
+    "lemma": "俺",
+    "pos": "PRON",
+    "kind": "word",
+    "spellings": [
+     {
+      "text": "俺",
+      "script": "Jpan",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "おれ",
+      "script": "Hira",
+      "varieties": [
+       "ja-JP"
+      ]
+     },
+     {
+      "text": "オレ",
+      "script": "Kana",
+      "varieties": [
+       "ja-JP"
+      ]
+     }
+    ],
+    "pronunciations": [
+     {
+      "variety": "ja-JP",
+      "reading": "おれ",
+      "notation": "kana"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "くだけた会話で話し手自身を指す言葉",
+      "example": "俺はもう少しここで待っているよ。",
+      "cefr": "A2",
+      "labels": {
+       "formality": "informal",
+       "politeness": "familiar"
+      },
+      "grammar": {
+       "note": "Used mostly by men. Choice depends on the relationship and setting."
+      }
+     }
+    ]
+   }
+  ]
+ }
+]

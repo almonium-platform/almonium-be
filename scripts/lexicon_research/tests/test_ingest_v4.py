@@ -293,3 +293,26 @@ def test_the_open_places_of_a_frame_are_written_the_one_way_the_language_has():
     for lang, frame in (("it", "pensare a qcn/qcs"), ("fr", "parler de qqch à qqn"), ("en", "lead sb to/into sth"), ("de", "warten auf + Akk"), ("ru", "платить кому за что")):
         one = lexeme("x", "VERB", senses=[sense("eine Sache tun, die man tun muss", frames=[frame])])
         assert ingest_v4.settle_frames(lang, one) == 0 and one["senses"][0]["frames"] == [frame]
+
+
+def test_a_frame_without_an_open_place_is_the_words_company_and_moves_to_the_collocations():
+    noun = lexeme("lead", senses=[sense("the first position in a race or a competition", frames=["in the lead", "lead over sb", "take the lead"],
+                                        labels={"domain": ["sport"]})])
+    clean = ingest_v4.clean_entry("en", entry("lead", noun), META)
+    got = clean["lexemes"][0]["senses"][0]
+    assert got["frames"] == ["lead over sb"] and got["collocations"] == ["in the lead", "take the lead"] and clean["frames_moved_to_collocations"] == 2
+    assert list(got)[:6] == ["id", "definition", "example", "cefr", "frames", "collocations"]  # they stand where the frames stood
+    assert noun["senses"][0]["frames"] == ["in the lead", "lead over sb", "take the lead"]  # the written entry is left as it was
+    # every frame gone: no empty list is left; a sense holds three collocations and the fourth stays where it was
+    full = lexeme("rain", senses=[sense("water that falls from clouds in drops", frames=["heavy rain", "in the rain"],
+                                        collocations=["pouring rain", "light rain"])])
+    got = ingest_v4.clean_entry("en", entry("rain", full), META)["lexemes"][0]["senses"][0]
+    assert got["collocations"] == ["pouring rain", "light rain", "heavy rain"] and got["frames"] == ["in the rain"]
+    gone = lexeme("lake", senses=[sense("a large area of water with land around it", frames=["on the lake"])])
+    assert "frames" not in ingest_v4.clean_entry("en", entry("lake", gone), META)["lexemes"][0]["senses"][0]
+    # an old abbreviation is an open place too, one word alone is the form of a pattern, and an open clause is open
+    for lang, frame in (("de", "jdn abschieben"), ("it", "evadere da qc"), ("es", "suicidarse"), ("en", "ask if"), ("ja", "AはBだ"), ("ru", "платить кому за что")):
+        one = lexeme("x", "VERB", senses=[sense("eine Sache tun, die man tun muss", frames=[frame])])
+        assert ingest_v4.sort_frames(lang, one) == 0, frame
+    suru = lexeme("勉強", senses=[sense("知識を身につけるために学ぶこと", frames=["勉強する", "勉強になる"])])
+    assert ingest_v4.sort_frames("ja", suru) == 1 and suru["senses"][0]["frames"] == ["勉強する"] and suru["senses"][0]["collocations"] == ["勉強になる"]

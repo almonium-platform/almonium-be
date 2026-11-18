@@ -1,0 +1,353 @@
+[
+ {
+  "language": "de",
+  "headword": "nötig",
+  "lexemes": [
+   {
+    "lemma": "nötig",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈnøː.tɪç/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "unbedingt gebraucht, damit etwas gelingt oder funktioniert",
+      "example": "Für diese Reise ist ein gültiger Reisepass unbedingt nötig.",
+      "cefr": "A2",
+      "frames": [
+       "etw. ist nötig für + Akk",
+       "es ist nötig, etw. zu tun",
+       "etw. nötig haben"
+      ],
+      "antonyms": [
+       {
+        "lemma": "unnötig",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "Not",
+      "pos": "NOUN"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "de",
+  "headword": "Nachricht",
+  "lexemes": [
+   {
+    "lemma": "Nachricht",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Fem",
+     "plural_class": "-en",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈnaːx.ʁɪçt/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "Nachricht",
+      "features": {
+       "Case": "Gen",
+       "Number": "Sing"
+      },
+      "ipa": {
+       "de-DE": "/ˈnaːx.ʁɪçt/"
+      }
+     },
+     {
+      "form": "Nachrichten",
+      "features": {
+       "Case": "Nom",
+       "Number": "Plur"
+      },
+      "ipa": {
+       "de-DE": "/ˈnaːx.ʁɪç.tən/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "Mitteilung, die jemandem Informationen über eine Person oder Sache gibt",
+      "example": "Ich habe dir gestern eine Nachricht über den Termin geschickt.",
+      "cefr": "A1",
+      "frames": [
+       "Nachricht von + Dat",
+       "Nachricht über + Akk"
+      ],
+      "collocations": [
+       "eine Nachricht schicken"
+      ]
+     },
+     {
+      "definition": "Sendung mit Berichten über die wichtigsten aktuellen Ereignisse",
+      "example": "Um acht Uhr sehen wir fast immer die Nachrichten.",
+      "cefr": "A2",
+      "grammar": {
+       "number": "Plur"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "de",
+  "headword": "fällen",
+  "lexemes": [
+   {
+    "lemma": "fällen",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "weak",
+     "auxiliary": "have",
+     "valency": "Tr",
+     "irregular": false
+    },
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈfɛ.lən/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "fällte",
+      "features": {
+       "Tense": "Past",
+       "Person": "3",
+       "Number": "Sing",
+       "VerbForm": "Fin",
+       "Mood": "Ind"
+      },
+      "ipa": {
+       "de-DE": "/ˈfɛl.tə/"
+      }
+     },
+     {
+      "form": "gefällt",
+      "features": {
+       "Tense": "Past",
+       "VerbForm": "Part"
+      },
+      "ipa": {
+       "de-DE": "/ɡə.ˈfɛlt/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "einen Baum am Stamm absägen oder mit einer Axt umschlagen",
+      "example": "Im Winter werden im Wald viele alte Bäume gefällt.",
+      "cefr": "B2",
+      "collocations": [
+       "einen Baum fällen"
+      ]
+     },
+     {
+      "definition": "nach einer Prüfung oder Überlegung eine verbindliche Entscheidung treffen",
+      "example": "Bis Freitag müssen wir endlich eine Entscheidung fällen.",
+      "cefr": "B2",
+      "collocations": [
+       "eine Entscheidung fällen",
+       "ein Urteil fällen"
+      ]
+     }
+    ],
+    "relations": [
+     {
+      "type": "derived_from",
+      "lemma": "fallen",
+      "pos": "VERB"
+     },
+     {
+      "type": "confusable",
+      "lemma": "gefallen",
+      "pos": "VERB",
+      "why": "the participle gefällt looks like gefällt 'pleases', present tense of gefallen"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "de",
+  "headword": "perfekt",
+  "lexemes": [
+   {
+    "lemma": "perfekt",
+    "pos": "ADJ",
+    "kind": "word",
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/pɛʁ.ˈfɛkt/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "ohne Fehler und in jeder Hinsicht so gut wie möglich",
+      "example": "Nach mehreren Versuchen ist ihr Kuchen diesmal wirklich perfekt geworden.",
+      "cefr": "A2",
+      "antonyms": [
+       {
+        "lemma": "fehlerhaft",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "endgültig vereinbart und abgeschlossen, sodass nichts mehr geklärt werden muss",
+      "example": "Nach langen Verhandlungen ist der Wechsel des Spielers jetzt perfekt.",
+      "cefr": "B2",
+      "grammar": {
+       "position": "Pred"
+      },
+      "frames": [
+       "etw. ist perfekt",
+       "etw. perfekt machen"
+      ]
+     }
+    ]
+   },
+   {
+    "lemma": "Perfekt",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Neut",
+     "plural_class": "-e",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈpɛʁ.fɛkt/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "Perfekts",
+      "features": {
+       "Case": "Gen",
+       "Number": "Sing"
+      },
+      "ipa": {
+       "de-DE": "/ˈpɛʁ.fɛkts/"
+      }
+     },
+     {
+      "form": "Perfekte",
+      "features": {
+       "Case": "Nom",
+       "Number": "Plur"
+      },
+      "ipa": {
+       "de-DE": "/ˈpɛʁ.fɛk.tə/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "Zeitform, meist mit Hilfsverb im Präsens und Partizip II für vergangene Ereignisse",
+      "example": "Im Gespräch benutzen die meisten Leute eher das Perfekt als das Präteritum.",
+      "cefr": "A2",
+      "labels": {
+       "domain": "grammar"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "de",
+  "headword": "Trainer",
+  "lexemes": [
+   {
+    "lemma": "Trainer",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "plural_class": "-",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈtʁɛː.nɐ/"
+     },
+     {
+      "variety": "de-DE",
+      "ipa": "/ˈtʁeː.nɐ/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "Trainers",
+      "features": {
+       "Case": "Gen",
+       "Number": "Sing"
+      },
+      "ipa": {
+       "de-DE": "/ˈtʁɛː.nɐs/"
+      }
+     },
+     {
+      "form": "Trainer",
+      "features": {
+       "Case": "Nom",
+       "Number": "Plur"
+      },
+      "ipa": {
+       "de-DE": "/ˈtʁɛː.nɐ/"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "Person, die Menschen oder Tiere durch regelmäßige Übungen ausbildet",
+      "example": "Unser Trainer zeigt uns heute Übungen für den Rücken.",
+      "cefr": "A2"
+     },
+     {
+      "definition": "bequemer Anzug aus Jacke und Hose, den man beim Sport trägt",
+      "example": "Am Sonntag sitze ich gern im Trainer auf dem Sofa.",
+      "cefr": "B2",
+      "regions": [
+       {
+        "variety": "de-AT",
+        "extent": "only"
+       },
+       {
+        "variety": "de-CH",
+        "extent": "only"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

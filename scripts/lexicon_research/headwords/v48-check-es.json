@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "disfrutar",
+  "zipf": 4.59,
+  "set": "v48-check"
+ },
+ {
+  "headword": "quejarse",
+  "zipf": 3.82,
+  "set": "v48-check"
+ },
+ {
+  "headword": "rutina",
+  "zipf": 4.21,
+  "set": "v48-check"
+ },
+ {
+  "headword": "habilidad",
+  "zipf": 4.38,
+  "set": "v48-check"
+ },
+ {
+  "headword": "golpear",
+  "zipf": 3.91,
+  "set": "v48-check"
+ }
+]

@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7 | November: the core only, no glosses or cues; labels on separate axes, frames, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -57,7 +57,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.7). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.8). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
@@ -302,6 +302,57 @@ against a source.
 The entries written before v4.7 keep their claims. Which of them are too strong only a pass over
 them can say; what ingest can do without one it does (a value of the whole word that one sense
 contradicts goes to the senses it is true of).
+
+## Prompt v4.8: frames and collocations
+
+Until v4.7 a sense had one list, `frames`, and a count of 36,300 of them (below, "Frames") found
+two things in it. From v4.8 a sense has two lists, of at most three each:
+
+    "frames": ["decision on sth", "decision to do sth"]          how the word is built into a sentence
+    "collocations": ["make a decision", "a tough decision"]      which words it is said with
+
+- **A frame** is grammar: the preposition, the case or the kind of complement the word takes, with
+  every open place marked. It always has one, and each language writes it one way, which the
+  prompt now states for every language (the table under "Frames").
+- **A collocation** is vocabulary: a particular word the sense goes with that a learner could not
+  guess and would get wrong from another language (*make* a decision and not *do* one, *принять
+  решение*, *薬を飲む*: medicine is drunk), or a set phrase the sense lives in (*in the lead*). It is
+  written as it is said and has no open place.
+
+The two are apart because they answer different questions, and neither follows from the other. A
+frame filled in is a collocation only when the filling is the thing to learn (*pay sth* teaches
+nothing by *pay a bill*, and something by *pay attention*). A word with no frame at all has
+collocations (*rain*: *heavy rain*, *in the rain*; *sleep*: *sleep soundly*), and a word can have a
+frame and no partner worth teaching (*dislodge sth from sth*).
+
+What changed with it:
+
+- The prompt's own example has *in the lead* and *take the lead* as collocations, and the reviewed
+  examples of every language are shown with their frames sorted the same way (`gold/v4.8/`,
+  twenty-nine senses re-sorted by hand, nothing added; Italian's and Portuguese's open places put
+  in the table's spelling). The files of v4.7 stay as they are, since entries were written with them.
+- An idiom a learner needs goes among the collocations, where the prompt used to send it to the
+  frames.
+- The notes that told Russian and Japanese how to write a frame give way to the one paragraph
+  every language now has.
+- **Ingest sorts what is already written**, for free (`sort_frames`): a frame with no open place
+  moves to the sense's collocations, up to the three a sense holds. Of the 36,300 frames counted,
+  about 12,100 move, a third (English 33%, German 32%, French 40%, Spanish 35%, Italian 36%,
+  Portuguese 33%, Russian 26%). What it reads as an open place is generous on purpose, the old
+  abbreviations and full words too, so that a pattern is never taken for a pairing; one word alone
+  (*suicidarse*, *勉強する*) is the form of a pattern and stays. The audit names both faults among
+  those ingest puts right.
+
+Tried on forty-one words that had no entry (`headwords/v48-check-*`, $4.77): all valid, and not one
+frame without an open place or in another spelling, in any of the eight languages. Of 113 senses
+69 have frames and 81 have collocations, 1.5 a sense: *одержать победу*, *сделать вывод*, *fall
+into disrepair*, *offer your condolences*, *Appetit bekommen*, *約束を守る*. *Disrepair*, *rutina*,
+*fortuna* and *薬* have collocations and no frame. The weak place is the pairing anyone would build
+(*зависеть от обстоятельств*, *partager sur les réseaux sociaux*), which the prompt asks to leave
+out and a few entries have all the same. The entries are no longer than before.
+
+A test holds the three tables together: every frame the prompt quotes as a model is read by ingest
+as open and left as spelled, and every collocation it quotes would be moved if written as a frame.
 
 ## What the six reviews say about the entries
 
@@ -559,24 +610,20 @@ nothing for French, Spanish, Italian or Portuguese. The 36,300 frames of the sch
 | ru | 757 | question words | question words | 27% |
 | ja | 177 | 〜 | 〜 | 21% |
 
-Two things are loose.
+Two things were loose, and both are settled.
 
-**How an open place is spelled.** Four languages settled on one spelling by themselves; German and
-Italian took the abbreviations of three or four dictionaries. Ingest now rewrites the abbreviations
+**How an open place is spelled.** Four languages had settled on one spelling by themselves; German
+and Italian took the abbreviations of three or four dictionaries. Ingest rewrites the abbreviations
 to the table's (`settle_frames`, free, 9.6% of German frames and 13.3% of Italian ones), with
-German on Duden's, which the reviewed German examples already use. A full word (*etwas*,
-*qualcosa*) is left as it is: it can be a word of the phrase (*etwas dagegen haben*), and no rule
-tells that from an open place. A reader of the app can therefore rely on the abbreviations and
-nothing else to find the open places.
+German on Duden's, which the reviewed German examples already use, and from v4.8 the prompt states
+the table. A full word (*etwas*, *qualcosa*) in an entry of before is left as it is: it can be a
+word of the phrase (*etwas dagegen haben*), and no rule tells that from an open place.
 
-**What counts as a frame.** A third of the frames have no open place at all. They are collocations
+**What counts as a frame.** A third of the frames had no open place at all. They were collocations
 (*have an idea*, *eine Geldstrafe zahlen*), fixed phrases (*as soon as possible*, *in the lead*) and
-names made of two words (*site archéologique*, *tienda de campaña*). The prompt asks for them: an
-idiom "is shown under the frames of the sense it uses", and the English example has *in the lead*
-and *take the lead* as frames. Both reviews of November held that a frame is a pattern and a usual
-pairing of words is something else, and Russian and Japanese are written that way since. The other
-six are not, and the next prompt version is where that changes, with the table above in its text
-for every language: see Pending.
+names made of two words (*site archéologique*, *tienda de campaña*), and the prompt had asked for
+them. From v4.8 they are the sense's collocations, in new entries by the prompt and in the old ones
+by ingest: see "Prompt v4.8".
 
 ## Languages outside Europe
 
@@ -729,7 +776,7 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
-- Prompt v4.7 is the writers' prompt since 17 November 2026; `LEXICON_PROMPT_VERSION=v4.6` goes back.
+- Prompt v4.8 is the writers' prompt since 18 November 2026; `LEXICON_PROMPT_VERSION=v4.7` goes back.
 - es-ES writes *ll* as /ʝ/, as nearly all of Spain says it; the separate /ʎ/ is not marked.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
@@ -741,8 +788,10 @@ One pass brings the written entries up to October's standard and links them:
   list them, because a prompt entries were written with does not change; the next version will.
 - Russian is a target language since 18 November 2026. Japanese is on trial; Korean and Chinese have
   no settings.
-- An open place of a frame has one spelling per language (the table under Frames), and ingest writes
-  the abbreviations that way. German follows Duden (*jmdm.*, *etw.*).
+- A sense has frames (patterns, each with an open place) and collocations (the words it is said
+  with, no open place), at most three of each. An open place has one spelling per language (the
+  table under Frames); German follows Duden (*jmdm.*, *etw.*). Ingest sorts and respells what was
+  written before.
 - A common-word list holds the words that are inflected forms as well for Russian, and for the other
   five they are a second list, `core-forms-<lang>`: the writer decides which of them are words.
 - Work happens on `develop` and is pushed at once.
@@ -767,7 +816,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Measure v4.7**: forty new words a language again, which is the cheap half, and the same
+3. **Measure v4.8**: forty new words a language again, which is the cheap half, and the same
    files for a batch of mended entries. The review file now states what is ours by definition (one
    value for every pronominal use; transitive means a direct object; what `mainly` means; a form
    reaches its word by an alias), so that none of it is counted as a fault. Then, if the claims
@@ -781,13 +830,9 @@ page does not settle.
 5. **Japanese**: the answer to `measure/ja-top/review/` (a hundred of the 250 common words), then
    the count, and on it the decision to make Japanese a target language. Its list of thousands
    needs a reading that the top 250 got by hand. Korean and Chinese have no settings yet.
-6. **Frames and collocations**, in the next prompt version: the table of open places in the text
-   for every language, a frame defined as a pattern with at least one open place, and the usual
-   pairings of words (*have an idea*, *чемпионат мира*, *鉛筆で書く*) either in a list of their own
-   beside the frames, at most three a sense, or not in the entry at all. A learner wants both,
-   apart; the open question is the owner's, whether the entry gets that second list. An audit kind
-   for a frame without an open place follows the decision, because today it would name a third of
-   all frames.
+6. **Collocations a reviewer has read.** The split is by rule and by forty-one trial entries;
+   whether the collocations chosen are the ones a learner's dictionary would choose is a question
+   for the next measurement, whose review file shows them. The clients show neither list yet.
 7. **One set of checks**: `entry_checks.py` and `entry_repair.py` (schema 3) and `check_v4.py` and
    `ingest_v4.py` (schema 4) overlap.
 8. **One owner of sense identity**: the backend keeps the key; it should take the id an ingested

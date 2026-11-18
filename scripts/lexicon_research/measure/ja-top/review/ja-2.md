@@ -34,6 +34,9 @@ These are this dictionary's own definitions, not faults:
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.
+- a frame is the word with what it governs, every open place marked (depend on sth); a collocation
+  is the word with a particular word it usually goes with, or a set phrase, with no open place
+  (heavy rain, in the lead). At most three of each, so a missing one is not a fault.
 - a word is said as a reading in hiragana, not in IPA. "accent" after it is the pitch accent of Tokyo as
   dictionaries number it: the mora after which the pitch drops, 0 when it does not drop. A reading without
   one is not a fault: the writer gives it only when sure. A wrong one is a fact.
@@ -74,7 +77,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 人の〜
   4. [B1] その者が生まれつき持っている性質
      - example: 彼は人がいいから、頼まれると断れない。
-     - frames: 人がいい; 人が悪い
+     - collocations: 人がいい; 人が悪い
 **Lexeme 2: 人**, NOUN
 - grammar: note Counter for people; follows a numeral.
 - said:  にん (ja-JP)
@@ -125,7 +128,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  げんざい, accent 1 (ja-JP)
   1. [A2] 過ぎた時とこれから来る時の間にある、今のこの時
      - example: 現在、この町には約三千人が住んでいる。
-     - frames: 現在の〜; 現在では
+     - frames: 現在の〜
+     - collocations: 現在では
   2. [B2] ある日時を基準にしたときの、その時点
      - example: 四月一日現在の人口は約五万人です。
      - frames: 〜現在; 〜現在で
@@ -144,7 +148,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: いつも (ja-JP); 何時も (ja-JP)
   1. [A2] 特別でない、ふだんどおりの状態や物事
      - example: 今日は駅までの道がいつもより混んでいる。
-     - frames: いつもの〜; いつもと違う; いつもより〜
+     - frames: いつもの〜; いつもより〜
+     - collocations: いつもと違う
 
 ### 56. やつ
 
@@ -184,7 +189,8 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜から聞く; 〜と聞く
   4. [B1] 人の言うことや頼みを受け入れて従う
      - example: この子は親の言うことを全然聞かない。
-     - frames: 〜の言うことを聞く; 頼みを聞く
+     - frames: 〜の言うことを聞く
+     - collocations: 頼みを聞く
 - relations: confusable 聞こえる (VERB): intransitive partner: 聞こえる means a sound reaches one's ears without effort, 聞く is to listen or hear actively; confusable 効く (VERB): same reading きく, but means to be effective
 
 ### 58. 以上
@@ -193,7 +199,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  いじょう, accent 1 (ja-JP)
   1. [A2] 数や程度がそれと同じか、それより多いこと
      - example: 二十歳以上の人は、この用紙に記入してください。
-     - frames: 〜以上; 〜以上の〜; それ以上
+     - frames: 〜以上; 〜以上の〜
+     - collocations: それ以上
      - opposites: 以下
   2. [B1] それより前に述べたこと
      - example: 以上の理由から、計画を延期することにしました。
@@ -204,7 +211,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜た以上(は); 〜する以上(は)
   4. [B1] 話や文書の終わりに置き、これで終わりだと示すのに使う語
      - example: 報告は以上です。ご清聴ありがとうございました。
-     - frames: 以上です
+     - collocations: 以上です
 
 ### 59. 彼女
 
@@ -221,7 +228,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 彼女 (ja-JP); カノジョ (ja-JP)
   1. [A2] 恋人として付き合っている女性
      - example: 兄に最近彼女ができたらしい。
-     - frames: 〜の彼女; 彼女ができる
+     - frames: 〜の彼女
+     - collocations: 彼女ができる
      - labels: formality informal
 - relations: derived_from 彼女 (PRON)
 
@@ -245,7 +253,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 夜 (ja-JP); よる (ja-JP)
   1. [A1] 日が沈んでから次の朝までの暗い間
      - example: 夜になると、この通りは急に静かになる。
-     - frames: 夜に〜; 夜が明ける; 夜が更ける
+     - frames: 夜に〜
+     - collocations: 夜が明ける; 夜が更ける
      - opposites: 昼
 
 ### 62. いえ
@@ -297,7 +306,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  そんな, accent 0 (ja-JP)
   1. [A2] 相手の言ったことや話に出たことと同じような
      - example: そんな話は今まで一度も聞いたことがない。
-     - frames: そんな〜; そんなことはない
+     - frames: そんな〜
+     - collocations: そんなことはない
 **Lexeme 2: そんな**, INTJ
 - said:  そんな, accent 0 (ja-JP)
   1. [B1] 思いがけないことに驚き、信じられない気持ちを表す
@@ -332,7 +342,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  かのう, accent 0 (ja-JP)
   1. [B1] そうすることができる見込みがある
      - example: この会議室は五十人まで利用が可能です。
-     - frames: 〜が可能だ; 〜ことが可能だ; 可能な限り
+     - frames: 〜が可能だ; 〜ことが可能だ
+     - collocations: 可能な限り
      - opposites: 不可能
 
 ### 68. こんな
@@ -342,7 +353,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  こんな, accent 0 (ja-JP)
   1. [A2] 話し手の近くの物事や、いま話している事と同じような
      - example: こんな寒い日は、家でゆっくり休みたい。
-     - frames: こんな〜; こんなこと
+     - frames: こんな〜
+     - collocations: こんなこと
 
 ### 69. 新しい
 
@@ -408,7 +420,8 @@ meaning in front of them, false when the fault is a blemish.
 - said:  ああ, accent 0 (ja-JP)
   1. [A2] 話し手からも聞き手からも離れた物事のようすを指して言う語
      - example: ああなってしまっては、もう手遅れだ。
-     - frames: ああする; ああなる; ああだ
+     - frames: ああする
+     - collocations: ああなる; ああだ
 
 ### 73. 思う
 
@@ -478,7 +491,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜よりずっと〜; ずっと〜ほうが〜
   3. [B1] 時間や距離が大きく離れて
      - example: ずっと昔、この辺りは一面の海だったそうだ。
-     - frames: ずっと前; ずっと先; ずっと昔
+     - collocations: ずっと前; ずっと先; ずっと昔
 
 ### 76. 十
 
@@ -602,7 +615,8 @@ meaning in front of them, false when the fault is a blemish.
      - grammar: valency Tr
   2. [A2] 酒類を口にし、楽しんだり酔ったりする
      - example: 仕事の後、同僚と駅前の店で飲んだ。
-     - frames: 〜と飲む; 飲みに行く
+     - frames: 〜と飲む
+     - collocations: 飲みに行く
      - grammar: valency Both
   3. [B2] 相手の要求や条件をしかたなく受け入れる
      - example: 会社は組合の要求をのむしかなかった。
@@ -623,7 +637,8 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜場合(は); 〜の場合
   2. [B1] その時のありさまや事情
      - example: 今は冗談を言っている場合ではない。
-     - frames: 〜場合ではない; 時と場合による
+     - frames: 〜場合ではない
+     - collocations: 時と場合による
 
 ### 83. 前
 
@@ -632,7 +647,8 @@ meaning in front of them, false when the fault is a blemish.
 - spellings: 前 (ja-JP); まえ (ja-JP)
   1. [A1] 顔や体が向いている方向や、物の正面の側
      - example: 駅の改札口で友だちと待ち合わせて、店の前まで歩いた。
-     - frames: 〜の前; 〜の前で; 前に進む
+     - frames: 〜の前; 〜の前で
+     - collocations: 前に進む
      - opposites: 後ろ
   2. [A1] ある時やできごとより早い時
      - example: 寝る前には必ず歯をみがきなさい。
@@ -640,7 +656,8 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 後
   3. [A2] 今より以前の、過ぎ去ったある時
      - example: この店には前にも一度来たことがある。
-     - frames: 前に; 前の〜
+     - frames: 前の〜
+     - collocations: 前に
   4. [A2] 順番や並びで先のほう
      - example: 前の人に続いて、順に中へ入ってください。
      - frames: 前の〜
@@ -722,7 +739,7 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜の理由; 〜という理由で; 〜を理由に
   2. [B2] 本当のわけを隠して表向きに言いたてること
      - example: 彼は何かと理由をつけて会議を休む。
-     - frames: 理由をつける
+     - collocations: 理由をつける
 
 ### 89. 死ぬ
 
@@ -752,7 +769,8 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 〜の問題; 〜という問題
   3. [B1] 困った点や面倒な出来事
      - example: この計画には、費用の面で大きな問題がある。
-     - frames: 〜に問題がある; 問題になる; 問題を起こす
+     - frames: 〜に問題がある
+     - collocations: 問題になる; 問題を起こす
 
 ### 91. 強い
 
@@ -773,7 +791,7 @@ meaning in front of them, false when the fault is a blemish.
      - opposites: 弱い
   4. [B1] 心がしっかりしていて、困難にくじけない
      - example: 彼女は気持ちが強いから、きっと立ち直れる。
-     - frames: 気が強い; 意志が強い
+     - collocations: 気が強い; 意志が強い
      - opposites: 弱い
   5. [B1] ある分野が得意で、よく知っている
      - example: 兄は機械に強いので、パソコンの設定を頼んだ。
@@ -881,7 +899,7 @@ meaning in front of them, false when the fault is a blemish.
      - grammar: valency Intr
   9. [B2] 酒を飲んだり物を食べたりする
      - example: 仕事の後で、同僚と軽く一杯やろう。
-     - frames: 一杯やる
+     - collocations: 一杯やる
      - labels: formality informal
      - grammar: valency Tr
 - relations: confusable あげる (VERB): both mean to give; やる is used toward inferiors, animals and plants, あげる is politer; confusable する (VERB): both mean to do; やる is more casual and cannot replace する in suru verbs like 勉強する
@@ -896,10 +914,10 @@ meaning in front of them, false when the fault is a blemish.
      - grammar: suru True
   2. [B1] 言葉や行いの裏にある意図や理由
      - example: 彼女が急に黙った意味が、やっとわかった。
-     - frames: どういう意味
+     - collocations: どういう意味
   3. [B1] 物事が持っている価値や大切さ
      - example: 今さら謝っても、もう意味がないよ。
-     - frames: 意味がある; 意味がない
+     - collocations: 意味がある; 意味がない
 
 ### 97. か
 
@@ -920,7 +938,8 @@ meaning in front of them, false when the fault is a blemish.
      - frames: 疑問詞＋か
   5. [B1] 新たに気づいたことや驚きを表す
      - example: なんだ、もう全部終わったのか。
-     - frames: 〜のか; そうか
+     - frames: 〜のか
+     - collocations: そうか
      - labels: formality informal
 
 ### 98. 場所
@@ -932,7 +951,7 @@ meaning in front of them, false when the fault is a blemish.
      - example: 待ち合わせの場所は駅の前に決めた。
   2. [B1] 人や物が占める空間や広さ
      - example: この机は大きすぎて、部屋の場所を取る。
-     - frames: 場所を取る; 場所がある
+     - collocations: 場所を取る; 場所がある
   3. [C1] 大相撲で、決まった期間に開かれる興行
      - example: 九州での場所は毎年十一月に開かれる。
      - labels: domain sport

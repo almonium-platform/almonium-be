@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "compensar",
+  "zipf": 3.87,
+  "set": "v48-check"
+ },
+ {
+  "headword": "raiva",
+  "zipf": 4.7,
+  "set": "v48-check"
+ },
+ {
+  "headword": "paciência",
+  "zipf": 4.41,
+  "set": "v48-check"
+ },
+ {
+  "headword": "defesa",
+  "zipf": 5.13,
+  "set": "v48-check"
+ },
+ {
+  "headword": "converter",
+  "zipf": 3.88,
+  "set": "v48-check"
+ }
+]

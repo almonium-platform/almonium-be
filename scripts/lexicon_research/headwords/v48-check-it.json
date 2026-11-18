@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "occupare",
+  "zipf": 4.08,
+  "set": "v48-check"
+ },
+ {
+  "headword": "dolore",
+  "zipf": 4.9,
+  "set": "v48-check"
+ },
+ {
+  "headword": "pensione",
+  "zipf": 4.58,
+  "set": "v48-check"
+ },
+ {
+  "headword": "fortuna",
+  "zipf": 5.05,
+  "set": "v48-check"
+ },
+ {
+  "headword": "passeggiata",
+  "zipf": 4.22,
+  "set": "v48-check"
+ }
+]

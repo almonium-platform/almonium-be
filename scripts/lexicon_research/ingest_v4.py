@@ -202,6 +202,70 @@ def settle_frames(lang, lexeme):
     return changed
 
 
+# What shows that a frame has an open place: the abbreviations above and the full words they stand for, the names of
+# kinds of word and of cases, a reflexive pronoun, and what every language uses (a plus sign, three full stops, 〜, a
+# letter standing for a thing). It is generous on purpose: what it takes for a pattern stays where the writer put it.
+OPEN_PLACES = {
+    "en": "sb|sb's|sth|one's|your|yourself|oneself|somebody|someone|something|do|doing|adj|adv|noun|number|clause",
+    "de": r"jmd\.|jmdn\.|jmdm\.|jmds\.|etw\.|etwas|jemand|jemanden|jemandem|jemandes|sich|Akk|Dat|Gen|Nom|Inf|Adj|Adv|irgendwo|irgendwohin",
+    "fr": "qqn|qqch|quelqu'un|quelqu’un|quelque chose|se|s'|s’|inf|infinitif|subj|subjonctif|ind|indicatif|nom|adj|adjectif|adverbe|nombre",
+    "es": "alguien|algo|se|inf|infinitivo|subj|subjuntivo|ind|indicativo|sust|sustantivo|adj|adjetivo|adverbio|cantidad|número",
+    "it": "qcn|qcs|qualcuno|qualcosa|inf|infinito|cong|congiuntivo|ind|indicativo|nome|sost|sostantivo|agg|aggettivo|avverbio",
+    "pt": "alguém|algo|alguma coisa|se|inf|infinitivo|subj|subjuntivo|conj|conjuntivo|ind|indicativo|subst|substantivo|nome|adj|adjetivo|oração",
+    "ru": "кто|кого|кому|кем|ком|что|чего|чему|чем|чём|куда|где|откуда|когда|как|какой|какого|какому|каким|каком|сколько|чей|"
+          "инф|сущ|прил|глагол|Gen|Acc|Dat|Ins|Prep|Nom|кого-л|что-л|кого-либо|что-либо|чего-либо|кому-либо|чем-либо",
+    "uk": "хто|кого|кому|ким|кім|що|чого|чому|чим|чім|куди|де|звідки|коли|як|який|якого|якому|яким|скільки|чий|"
+          "інф|ім|прикм|дієслово|Gen|Acc|Dat|Ins|Loc|Nom|кого-н|що-н|кого-небудь|що-небудь",
+    "ja": "名詞|動詞|形容詞|数詞",
+}
+# A frame that ends in the word a clause opens with is open too: "ask if", "wissen, dass", "savoir si".
+OPEN_CLAUSE = {
+    "en": "that|if|whether|what|how|why|who|where|when|which", "de": "dass|ob|was|wie|wer|wo|warum|wann",
+    "fr": "que|si|comment|pourquoi|où|quand|qui", "es": "que|si|cómo|qué|dónde|cuándo|quién|por qué",
+    "it": "che|se|come|perché|dove|quando|chi", "pt": "que|se|como|onde|quando|quem|porque",
+}
+
+
+def _open_place(lang):
+    words = "|".join(sorted([re.escape(v) for v in FRAME_PLACES.get(lang, {})] + OPEN_PLACES[lang].split("|"), key=len, reverse=True))
+    clause = rf"|(?<!\w)(?:{OPEN_CLAUSE[lang]})(?:/\w+)*\W*$" if lang in OPEN_CLAUSE else ""
+    letters = "|[ABXYＡＢ]" if lang == "ja" else ""  # Japanese has no spaces to set a letter off: AはBだ
+    return re.compile(r"\+|＋|\.\.\.|…|〜|～|~|（" + letters + r"|(?<![\w'’-])(?:[ABXYN]|" + words + r")(?![\w'’-])" + clause)
+
+
+OPEN_PLACE = {lang: _open_place(lang) for lang in OPEN_PLACES}
+
+
+def sort_frames(lang, lexeme):
+    """A frame is a pattern with an open place (depend on sth). What the writers before v4.8 also put there, the
+    word's usual company and its set phrases (heavy rain, in the lead), is moved to the sense's collocations, up
+    to the three a sense holds; the rest stays. One word alone (suicidarse, 勉強する) is the form of a pattern and
+    stays too. Says how many moved."""
+    if lang not in OPEN_PLACE:
+        return 0
+    lemma, moved = lexeme.get("lemma") or "", 0
+    for k, sense in enumerate(lexeme.get("senses") or []):
+        frames, company, before = [], list(sense.get("collocations") or []), moved
+        for frame in sense.get("frames") or []:
+            one_word = frame == lemma + "する" if lang == "ja" else " " not in frame.strip()
+            if OPEN_PLACE[lang].search(frame) or one_word or len(company) >= 3:
+                frames.append(frame)
+            else:
+                moved += 1
+                if frame not in company:
+                    company.append(frame)
+        if moved > before:
+            placed = {}
+            for key, value in sense.items():  # the collocations stand where the frames stood, after what is left of them
+                if key == "frames":
+                    placed.update({"frames": frames} if frames else {})
+                    placed["collocations"] = company
+                elif key != "collocations":
+                    placed[key] = value
+            lexeme["senses"][k] = placed
+    return moved
+
+
 BE_WHEN_PRONOMINAL = {"fr", "it"}  # être, essere: every pronominal use of a verb, without exception
 
 
@@ -261,7 +325,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults, marks, places = [], [], Counter(), 0, 0, 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks, places, company = [], [], Counter(), 0, 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -294,6 +358,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         defaults += settle_defaults(lexeme)
         marks += plain_forms(lexeme)
         places += settle_frames(lang, lexeme)
+        company += sort_frames(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -316,6 +381,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["stress_marks_moved_to_readings"] = marks
     if places:
         entry["frames_respelled"] = places
+    if company:
+        entry["frames_moved_to_collocations"] = company
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -443,6 +510,7 @@ def ingest(lang, dry_run=False):
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
+        counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

@@ -3,6 +3,7 @@
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -12,6 +13,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import check_v4  # noqa: E402
 import gold_candidates  # noqa: E402
+import ingest_v4  # noqa: E402
 import prompting  # noqa: E402
 
 HERE = Path(__file__).resolve().parents[1]
@@ -24,6 +26,8 @@ PINNED = {
     ("en", "v4.6"): "646cc0969f58", ("de", "v4.6"): "46fa8ef481dd", ("fr", "v4.6"): "64d5e683fb3a", ("es", "v4.6"): "a760a331ee23", ("it", "v4.6"): "fc32ca7cc518", ("pt", "v4.6"): "b00e003b42a2",
     ("en", "v4.7"): "7f06d29d61de", ("de", "v4.7"): "a48e9cbea96f", ("fr", "v4.7"): "ecf8f8c27d3b", ("es", "v4.7"): "8a253d1aa72f", ("it", "v4.7"): "01f677cf0983", ("pt", "v4.7"): "635fcd1314f9",
     ("ru", "v4.7"): "1810f2bff60b",  # Russian is a target language from 18 November 2026; its trial entries carry the hash of the text they saw
+    ("en", "v4.8"): "f298d9db6658", ("de", "v4.8"): "b59c0058756f", ("fr", "v4.8"): "486527168595", ("es", "v4.8"): "3230c0c6651d", ("it", "v4.8"): "f4d69f46053b", ("pt", "v4.8"): "8aed3b320562",
+    ("ru", "v4.8"): "db13d034811d",
 }
 ANSWER = """# Review
 
@@ -124,12 +128,35 @@ def test_an_entry_the_reviewer_refused_never_becomes_an_example(tmp_path, monkey
 
 def test_the_examples_in_the_repository_are_valid_and_faultless():
     schema = json.loads((HERE / "entry.schema.v4.json").read_text())
-    for path in sorted((HERE / "gold").glob("??.json")):
-        lang = path.stem
+    for first in sorted((HERE / "gold").glob("??.json")):
+        lang = first.stem
         inventories = {v: check_v4.symbols(v) for v in prompting.VARIETIES[lang]}
-        for entry in json.loads(path.read_text(encoding="utf-8")):
+        for entry in json.loads(first.read_text(encoding="utf-8")):
+            jsonschema.validate(entry, schema)
+        shown = prompting.gold_path(lang, prompting.PROMPT_VERSION)  # what a writer is shown today has no fault at all
+        for entry in json.loads(shown.read_text(encoding="utf-8")):
             jsonschema.validate(entry, schema)
             assert check_v4.check(lang, entry, inventories, None) == [], entry["headword"]
+
+
+def test_from_v4_8_a_frame_has_an_open_place_and_the_words_company_is_a_collocation():
+    assert prompting.gold_path("de", "v4.7") == HERE / "gold" / "de.json" and prompting.gold_path("de", "v4.8") == HERE / "gold" / "v4.8" / "de.json"
+    for lang in prompting.TARGET_LANGUAGES + prompting.PILOT_LANGUAGES:
+        new, old = prompting.system_prompt(lang, "v4.8"), prompting.system_prompt(lang, "v4.7")
+        assert "\nCollocations. " in new and "Collocations. " not in old and '"collocations": [' in new and '"collocations"' not in old
+        assert prompting.FRAME_PLACES_V4[lang] in new and prompting.COLLOCATIONS_V4[lang] in new and "{" not in new.split("# Output")[0].split("Frames. ")[1][:1500]
+        # the three tables agree: what the prompt tells a writer to write is what ingest reads as an open place and leaves as it is
+        text = prompting.FRAME_PLACES_V4[lang]
+        frames = re.findall(r'"([^"]+)"', text.split(": ", 1)[1]) if lang != "ja" else text.rsplit(": ", 1)[1].rstrip(".").split(", ")
+        assert len(frames) >= 3, lang
+        for frame in frames:
+            lexeme = {"lemma": "x", "senses": [{"definition": "d", "example": "e", "cefr": "B1", "frames": [frame]}]}
+            assert ingest_v4.settle_frames(lang, lexeme) == 0 and ingest_v4.sort_frames(lang, lexeme) == 0, (lang, frame)
+        for pair in re.findall(r'"([^"]+)"', prompting.COLLOCATIONS_V4[lang]) or prompting.COLLOCATIONS_V4[lang].strip("()").split(", "):
+            lexeme = {"lemma": "x", "senses": [{"definition": "d", "example": "e", "cefr": "B1", "frames": [pair]}]}
+            assert ingest_v4.sort_frames(lang, lexeme) == 1 and lexeme["senses"][0] == {"definition": "d", "example": "e", "cefr": "B1", "collocations": [pair]}, (lang, pair)
+    for lang in ("ru", "ja"):  # their notes said how a frame is written before every language was told
+        assert "not one collocation filled in" not in prompting.system_prompt("ru", "v4.8") and "〜を勉強する" in prompting.system_prompt("ja", "v4.8")
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():
