@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend reads this one today; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8, v4.9 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/` |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -57,7 +57,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.8). A word with a schema-2
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.9). A word with a schema-2
    entry is mended instead (`mend_v4.py`): the old entry is converted by code and the model returns
    only a patch.
 4. **Audit** (`check_v4.py`, free). Every fault a program can see, sorted into what is fixed for
@@ -306,7 +306,8 @@ contradicts goes to the senses it is true of).
 ## Prompt v4.8: frames and collocations
 
 Until v4.7 a sense had one list, `frames`, and a count of 36,300 of them (below, "Frames") found
-two things in it. From v4.8 a sense has two lists, of at most three each:
+two things in it. From v4.8 a sense has two lists (of at most three each then; five frames and ten
+collocations from v4.9):
 
     "frames": ["decision on sth", "decision to do sth"]          how the word is built into a sentence
     "collocations": ["make a decision", "a tough decision"]      which words it is said with
@@ -336,7 +337,7 @@ What changed with it:
 - The notes that told Russian and Japanese how to write a frame give way to the one paragraph
   every language now has.
 - **Ingest sorts what is already written**, for free (`sort_frames`): a frame with no open place
-  moves to the sense's collocations, up to the three a sense holds. Of the 36,300 frames counted,
+  moves to the sense's collocations, up to the ten a sense holds. Of the 36,300 frames counted,
   about 12,100 move, a third (English 33%, German 32%, French 40%, Spanish 35%, Italian 36%,
   Portuguese 33%, Russian 26%). What it reads as an open place is generous on purpose, the old
   abbreviations and full words too, so that a pattern is never taken for a pairing; one word alone
@@ -369,6 +370,62 @@ sense. The trial words were chosen for having both, so the gap is smaller than t
 real: an entry of before is right and thinner. The 48,600 older words still to mend get both lists
 as they are mended. For the entries already in schema 4, a pass that returns only the two lists is
 the way, most frequent first: see Pending.
+
+## Prompt v4.9: a frame a program reads, and the word's common company
+
+Two things the owner asked of v4.8 on the day it was made.
+
+**A frame has to be usable by a program**, to find the word's use in a reader's text. A frame stays
+a string a learner reads, and the string is formal: a headword, the words fixed around it, and
+open places written with the marks of the table under "Frames". `ingest_v4.frame_parts` reads it,
+and the clean entry carries the result beside the frames, as `patterns`:
+
+    "decision on sth"       [{"head": "decision"}, {"word": "on"}, {"slot": ["thing"]}]
+    "afford to do sth"      [{"head": "afford"}, {"slot": ["verb"], "form": "to-inf"}]
+    "warten auf + Akk"      [{"head": "warten"}, {"word": "auf"}, {"slot": ["any"], "case": ["Acc"]}]
+    "платить кому за что"   [{"head": "платить"}, {"slot": ["person"], "case": ["Dat"]}, {"word": "за"},
+                             {"slot": ["thing"], "case": ["Acc", "Nom"]}]
+    "il est normal que + subj"   [... {"word": "que"}, {"slot": ["clause"], "mood": "subj"}]
+
+A slot says what stands there (person, thing, verb with its form, clause with its mood, adjective,
+place, direction) and, in German, Russian and Ukrainian, the case. The model is not asked for any
+of this: it writes the string, and code reads it, so the two cannot disagree. Three rules make the
+string readable:
+
+- **One frame, one pattern.** *decision on/about sth* is two frames. A slash stands only between
+  two open places of one position (*sb/sth*, *кого/что*); no brackets. v4.9 asks for it and lets a
+  sense have five frames; ingest splits what was written before (`split_frames`, 2,100 strings),
+  frames and collocations alike.
+- **An open place is never a word.** *etwas* and *qualcosa* for a place cannot be told from the
+  words; the abbreviation can.
+- **The headword is in it**, in a form that begins like the lemma, one of its spellings or, for
+  Japanese, its reading.
+
+Of the 24,400 frames written before v4.8, after ingest's sorting, 93.4% read: English 96.5%,
+Portuguese 96.7%, Spanish 95.6%, Russian 93.9%, French 93.7%, Japanese 87.9%, German and Italian
+86%, where one frame in ten has the open place as a full word. All 137 frames written under v4.8
+read, and 90 of the 92 of the v4.9 trial. A frame that does not read has no `patterns` entry and
+is named by the audit ("frame a program cannot read", with why). Finding a frame in a sentence
+still needs what the book processor has, lemmas and a parse, because words move (*Ich warte seit
+einer Stunde auf dich*); the parts say what to look for.
+
+**Collocations are the word's common company, up to ten.** v4.8 allowed three and asked for the
+ones a learner could not guess. v4.9 asks for the common ones, as many as are really common, those
+a learner would get wrong first: the order is the priority, and a client that shows three shows
+the three that matter. A word that goes with nearly every word of its kind (*big*, *good*, *very*,
+*to have*) is still not one. The prompt's own example shows it on *lead* (*take the lead*, *in the
+lead*, *hold the lead*, *lose the lead*, *a narrow lead*, *a comfortable lead*).
+
+v4.9 also says that a grammar note states what is usual as usual, and a rule without exception
+only where there is none: of the sixteen claims the Japanese count found, eight were notes that
+said "follows" or "cannot" where "usually" was true.
+
+Tried on thirty-two words that had no entry (`headwords/v49-check-*`, $4.54): all valid. A sense
+has 4.1 collocations, a first sense 6.0, where v4.8 gave 1.5: *faire grève*, *être en grève*,
+*préavis de grève*; *adquirir un hábito*, *colgar los hábitos*; *тяжёлый характер*, *не сойтись
+характерами*; *пройти проверку*, *провести проверку*; *影響を与える*, *影響を受ける*, *影響を及ぼす*.
+No frame holds a choice of words. One entry of the thirty-two (*finestra*) wrote two collocations
+as frames, which ingest moves. The entries are 5% longer.
 
 ## What the six reviews say about the entries
 
@@ -609,7 +666,7 @@ The Russian and Ukrainian question words do more than the others' abbreviations:
 *кому* says the case, where English *sb* says nothing and German has to add *+ Akk* or decline the
 abbreviation (*jmdn.*, *jmdm.*).
 
-A frame is a string of at most three per sense, and the prompt has only ever said how to write one
+A frame is a string, a few to a sense, and until v4.8 the prompt had only ever said how to write one
 by example: five examples up to v4.7, a sentence each in the notes for Russian and Japanese,
 nothing for French, Spanish, Italian or Portuguese. The 36,300 frames of the schema-4 entries
 (18 November 2026) show what that gave:
@@ -754,6 +811,32 @@ without one are the pilot's 71, written before the rule, and 91 the writer was n
 reader of another model family to count the six kinds of fault in, as was done for the six
 languages. The review file says what is Japanese's own, and shows the accent.
 
+**The count** (`measure/ja-top/answers/`, 18 November 2026). Of a hundred entries fourteen are
+clean; four have a fact wrong, sixteen a claim too strong, twenty-one lack a core meaning: all
+three over the bar (2, 5, 10), and Japanese stays on trial. The hundred are the commonest words of
+the language, the ones with most meanings, where the six languages were measured on four bands of
+frequency, so the two counts are not one scale. What is behind them:
+
+- **Missing core, 21.** Seven are a suffix, prefix or auxiliary use of the headword (*目* in
+  *二回目*, *方* in *読み方*, *人* in *日本人*, *上* in *法律上*, *前* in *前首相*, *そう* in *降りそう*,
+  *よう* in *始めよう*), which the rules had left out on the first review's advice that an affix is
+  not a lexeme. Six are another word or a fixed combination (*鳴る* under *なる*, *遭う* under *会う*,
+  *誰か*, *何か*, *かもしれない*). Eight are meanings an entry should have had (*顔* as looks,
+  *悪い* as at fault, *の* in *のだ*).
+- **Claims, 16.** Eight are grammar notes that state a rule where a tendency is true (*まま* "after
+  a modifier", though *ままならない*); two are old characters called pre-reform that are still
+  written in a corner of the language (*氣*, *圓*); two are labels.
+- **Facts, 4.** The accent of adverbial *そう*, which the witness let through because a word in kana
+  is held to every word read so; *〜か月* listed under the reading つき; a part of speech; a valency.
+
+v4.9 answers the first two. Where the headword is a word, its use as a suffix, a prefix or an
+auxiliary is part of its entry: a sense when the reading is the same, a lexeme of its own when it
+is read differently or is another part of speech, with a frame that shows what it attaches to.
+Six of the words written again under v4.9, in scratch: *目* has "数＋回＋目", *方* has かた with
+"動詞の連用形＋方", *人* has じん and にん, *上* has じょう, and *そう* and *よう* have their auxiliaries.
+And a note says what is usual as usual. The 250 entries of v4.7 keep what they have; the words
+among them that lack such a use are a list to write again.
+
 ### Running a trial language
 
 On a machine with the Claude CLI logged in to the account that is to pay:
@@ -792,7 +875,8 @@ One pass brings the written entries up to October's standard and links them:
 - Words to write: the words of the catalogue's books plus the most frequent of each language, not a
   million up front. English goes down to Zipf 1.5 (about 65,000 words).
 - An old or dated word is an entry with a time label; an old spelling is an alias.
-- Prompt v4.8 is the writers' prompt since 18 November 2026; `LEXICON_PROMPT_VERSION=v4.7` goes back.
+- Prompt v4.9 is the writers' prompt since 18 November 2026 (v4.8 for a few hours before it);
+  `LEXICON_PROMPT_VERSION=v4.7` goes back to one list.
 - es-ES writes *ll* as /ʝ/, as nearly all of Spain says it; the separate /ʎ/ is not marked.
 - Glosses are not bought for now. The sheet has the definition in the word's own language. A reader
   who cannot read that yet needs a translation line; today the lookup asks a translation provider
@@ -805,7 +889,8 @@ One pass brings the written entries up to October's standard and links them:
 - Russian is a target language since 18 November 2026. Japanese is on trial; Korean and Chinese have
   no settings.
 - A sense has frames (patterns, each with an open place) and collocations (the words it is said
-  with, no open place), at most three of each. An open place has one spelling per language (the
+  with, no open place), at most five and ten. One frame is one pattern, and the clean entry carries
+  it read into parts (`patterns`). An open place has one spelling per language (the
   table under Frames); German follows Duden (*jmdm.*, *etw.*). Ingest sorts and respells what was
   written before.
 - A common-word list holds the words that are inflected forms as well for Russian, and for the other
@@ -832,7 +917,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **Measure v4.8**: forty new words a language again, which is the cheap half, and the same
+3. **Measure v4.9**: forty new words a language again, which is the cheap half, and the same
    files for a batch of mended entries. The review file now states what is ours by definition (one
    value for every pronominal use; transitive means a direct object; what `mainly` means; a form
    reaches its word by an alias), so that none of it is counted as a fault. Then, if the claims
@@ -843,13 +928,15 @@ page does not settle.
    the words in it; the commonest words of de, fr, es, it and pt, which their core lists left out
    because each is a form of something as well (*der*, *la*, *para*): `core-forms-<lang>` holds
    them and is not yet run; the book-word list, which needs an export from the book processor.
-5. **Japanese**: the answer to `measure/ja-top/review/` (a hundred of the 250 common words), then
-   the count, and on it the decision to make Japanese a target language. Its list of thousands
-   needs a reading that the top 250 got by hand. Korean and Chinese have no settings yet.
+5. **Japanese**: the next few hundred words under v4.9 and a second count, on words of every
+   band this time; the entries of v4.7 whose headword is also a suffix or an auxiliary, written
+   again (`--rewrite-older`); an accent table that tells a word in kana from its homophones. Its
+   list of thousands needs a reading that the top 250 got by hand. Korean and Chinese have no
+   settings yet.
 6. **Collocations a reviewer has read**, then **the two lists for the entries of before v4.8.**
-   The split is by rule and by fifty trial entries; whether the collocations chosen are the ones a
-   learner's dictionary would choose is a question for the next measurement, whose review file
-   shows them. If they hold, a pass over the 31,900 schema-4 entries of before that returns only a
+   The split is by rule and by eighty trial entries; whether the collocations chosen are the ones a
+   learner's dictionary would choose, and whether ten is too many, is a question for the next
+   measurement, whose review file shows them. If they hold, a pass over the 31,900 schema-4 entries of before that returns only a
    sense's frames and collocations, as a patch like the mender's and keyed by the entry it read:
    some $0.02 an entry by the mender's prices, so about $640 for all of them and $100 for the
    5,000 most frequent. Not built. The clients show neither list yet.

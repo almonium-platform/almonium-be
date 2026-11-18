@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "смерть",
+  "zipf": 4.95,
+  "set": "v49-check"
+ },
+ {
+  "headword": "характер",
+  "zipf": 4.84,
+  "set": "v49-check"
+ },
+ {
+  "headword": "готовить",
+  "zipf": 4.4,
+  "set": "v49-check"
+ },
+ {
+  "headword": "проверка",
+  "zipf": 4.34,
+  "set": "v49-check"
+ }
+]

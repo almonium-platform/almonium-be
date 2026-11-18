@@ -254,6 +254,7 @@ def settle(entry):
         ingest_v4.pronominal_auxiliary(entry.get("language"), lexeme)
         ingest_v4.settle_defaults(lexeme)
         ingest_v4.settle_frames(entry.get("language"), lexeme)
+        ingest_v4.split_frames(entry.get("language"), lexeme)
         ingest_v4.sort_frames(entry.get("language"), lexeme)
     return entry
 

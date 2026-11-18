@@ -236,10 +236,13 @@ def _open_place(lang):
 OPEN_PLACE = {lang: _open_place(lang) for lang in OPEN_PLACES}
 
 
+MOST_COLLOCATIONS = 10  # what the shape lets a sense hold, from v4.9
+
+
 def sort_frames(lang, lexeme):
     """A frame is a pattern with an open place (depend on sth). What the writers before v4.8 also put there, the
     word's usual company and its set phrases (heavy rain, in the lead), is moved to the sense's collocations, up
-    to the three a sense holds; the rest stays. One word alone (suicidarse, 勉強する) is the form of a pattern and
+    to the ten a sense holds; the rest stays. One word alone (suicidarse, 勉強する) is the form of a pattern and
     stays too. Says how many moved."""
     if lang not in OPEN_PLACE:
         return 0
@@ -248,7 +251,7 @@ def sort_frames(lang, lexeme):
         frames, company, before = [], list(sense.get("collocations") or []), moved
         for frame in sense.get("frames") or []:
             one_word = frame == lemma + "する" if lang == "ja" else " " not in frame.strip()
-            if OPEN_PLACE[lang].search(frame) or one_word or len(company) >= 3:
+            if OPEN_PLACE[lang].search(frame) or one_word or len(company) >= MOST_COLLOCATIONS:
                 frames.append(frame)
             else:
                 moved += 1
@@ -264,6 +267,190 @@ def sort_frames(lang, lexeme):
                     placed[key] = value
             lexeme["senses"][k] = placed
     return moved
+
+
+# What stands in an open place, by the word that marks it: the kinds of thing, and for a language with cases the
+# cases it can be in. The book processor finds a frame in a sentence by these, so they are part of the clean entry.
+_P, _T = ("person",), ("thing",)
+SLOTS = {
+    "en": {"sb": (_P,), "sth": (_T,), "sb's": (("possessive",),), "one's": (("possessive",),), "your": (("possessive",),),
+           "yourself": (("reflexive",),), "oneself": (("reflexive",),), "adj": (("adj",),), "adv": (("adv",),), "noun": (("noun",),),
+           "number": (("number",),)},
+    "de": {"jmd.": (_P, ("Nom",)), "jmdn.": (_P, ("Acc",)), "jmdm.": (_P, ("Dat",)), "jmds.": (_P, ("Gen",)), "etw.": (_T,),
+           "sich": (("reflexive",),), "irgendwo": (("place",),), "irgendwohin": (("direction",),), "irgendwoher": (("source",),)},
+    "fr": {"qqn": (_P,), "qqch": (_T,), "se": (("reflexive",),), "s'": (("reflexive",),), "s’": (("reflexive",),)},
+    "es": {"alguien": (_P,), "algo": (_T,), "se": (("reflexive",),)},
+    "it": {"qcn": (_P,), "qcs": (_T,)},
+    "pt": {"alguém": (_P,), "algo": (_T,), "se": (("reflexive",),)},
+    "ru": {"кто": (_P, ("Nom",)), "кого": (_P, ("Gen", "Acc")), "кому": (_P, ("Dat",)), "кем": (_P, ("Ins",)), "ком": (_P, ("Loc",)),
+           "что": (_T, ("Nom", "Acc")), "чего": (_T, ("Gen",)), "чему": (_T, ("Dat",)), "чем": (_T, ("Ins",)), "чём": (_T, ("Loc",)),
+           "куда": (("direction",),), "где": (("place",),), "откуда": (("source",),), "когда": (("time",),), "как": (("manner",),),
+           "сколько": (("amount",),), "какой": (("attribute",),), "какого": (("attribute",),), "какому": (("attribute",),),
+           "каким": (("attribute",),), "каком": (("attribute",),), "какая": (("attribute",),), "какую": (("attribute",),),
+           "чей": (("possessive",),), "чьего": (("possessive",),)},
+    "uk": {"хто": (_P, ("Nom",)), "кого": (_P, ("Gen", "Acc")), "кому": (_P, ("Dat", "Loc")), "ким": (_P, ("Ins",)), "кім": (_P, ("Loc",)),
+           "що": (_T, ("Nom", "Acc")), "чого": (_T, ("Gen",)), "чому": (_T, ("Dat", "Loc")), "чим": (_T, ("Ins",)), "чім": (_T, ("Loc",)),
+           "куди": (("direction",),), "де": (("place",),), "звідки": (("source",),), "коли": (("time",),), "як": (("manner",),),
+           "скільки": (("amount",),)},
+}
+# What stands after a plus sign: a case, a kind of word, the mood of a clause
+CASES = {"Akk": "Acc", "Dat": "Dat", "Gen": "Gen", "Nom": "Nom", "Acc": "Acc", "Ins": "Ins", "Loc": "Loc", "Prep": "Loc"}
+AFTER_PLUS = {"inf": ("verb", "form", "inf"), "инф.": ("verb", "form", "inf"), "інф.": ("verb", "form", "inf"), "Inf": ("verb", "form", "inf"),
+              "subj": ("clause", "mood", "subj"), "cong": ("clause", "mood", "subj"), "conj": ("clause", "mood", "subj"),
+              "ind": ("clause", "mood", "ind"),
+              "adj": ("adj",), "agg": ("adj",), "Adj": ("adj",), "adv": ("adv",), "Adv": ("adv",), "nom": ("noun",), "nome": ("noun",),
+              "sust": ("noun",), "subst": ("noun",), "noun": ("noun",), "lieu": ("place",), "lugar": ("place",), "luogo": ("place",)}
+VERB_PLACES = {"en": {"do": "inf", "doing": "ing"}}
+FULL_WORD_PLACES = {"en": "somebody|someone|something", "de": "etwas|jemand|jemanden|jemandem|jemandes", "fr": "quelqu'un|quelqu’un|quelque chose",
+                    "it": "qualcuno|qualcosa", "pt": "alguma coisa"}
+
+
+def _slot(lang, token):
+    """The open place a token is, or None: "sb/sth" is one place for a person or a thing; "кого/что" one in the accusative."""
+    table = SLOTS.get(lang, {})
+    marks = token.split("/")
+    if not all(m in table for m in marks):
+        return None
+    kinds = [k for m in marks for k in table[m][0]]
+    cases = [set(table[m][1]) for m in marks if len(table[m]) > 1]
+    slot = {"slot": list(dict.fromkeys(kinds))}
+    if cases:
+        shared = set.intersection(*cases) if len(cases) == len(marks) else set()
+        slot["case"] = sorted(shared or set.union(*cases))
+    return slot
+
+
+def split_frames(lang, lexeme):
+    """One frame, one pattern, and one collocation, one phrase. A string that offers a choice of words with a slash
+    ("decision on/about sth", "politically/socially aware") becomes one string for each word; a slash between two
+    open places (sb/sth, кого/что) is one place and stays. A string with two such choices, or with one of phrases
+    (" / "), is left: which words go together there is not said. Says how many strings were split."""
+    split = 0
+    for sense in lexeme.get("senses") or []:
+        for key in ("frames", "collocations"):
+            out = []
+            for text in sense.get(key) or []:
+                tokens = text.split(" ")
+                choices = []
+                for i, token in enumerate(tokens):
+                    core = token.rstrip(",;:")
+                    words = core.split("/")
+                    if len(words) > 1 and all(words) and not any(w in SLOTS.get(lang, {}) or not w[0].isalpha() for w in words):
+                        choices.append((i, [w + token[len(core):] for w in words]))
+                if len(choices) == 1 and "(" not in text and lang != "ja":
+                    i, words = choices[0]
+                    split += 1
+                    for word in words:
+                        one = " ".join(tokens[:i] + [word] + tokens[i + 1:])
+                        if one not in out:
+                            out.append(one)
+                elif text not in out:
+                    out.append(text)
+            if out:
+                sense[key] = out
+    return split
+
+
+def _is_head(lemma, token):
+    lemma, token = lemma.lower(), token.lower().strip(",;:()")
+    if "'" in token or "’" in token:  # l'hôpital, d'accord, dell'arte: the word after the elided one
+        token = re.split(r"['’]", token)[-1] or token
+    stem = lemma[: max(3, len(lemma) - 3)]
+    return bool(token) and (token == lemma or (len(stem) >= 3 and token.startswith(stem)) or (len(lemma) < 3 and token.startswith(lemma)))
+
+
+def names(lexeme):
+    """Every way the lexeme's word is written: its lemma, its other spellings and, for Japanese, its readings
+    (つらい for 辛い), any of which may stand for it in a frame."""
+    found = [lexeme.get("lemma") or ""]
+    found += [sp.get("text") for sp in lexeme.get("spellings") or [] if isinstance(sp, dict) and sp.get("text")]
+    found += [p["reading"] for p in lexeme.get("pronunciations") or [] if p.get("notation") == "kana" and p.get("reading")]
+    return list(dict.fromkeys(n for n in found if n))
+
+
+def frame_parts(lang, lemma, frame, also=()):
+    """A frame as a program reads it: the headword, the words fixed around it and the open places, in order.
+      "decision on sth"        [{"head": "decision"}, {"word": "on"}, {"slot": ["thing"]}]
+      "warten auf + Akk"       [{"head": "warten"}, {"word": "auf"}, {"slot": ["any"], "case": ["Acc"]}]
+      "платить кому за что"    [{"head": "платить"}, {"slot": ["person"], "case": ["Dat"]}, {"word": "за"}, {"slot": ["thing"], "case": ["Acc", "Nom"]}]
+      "afford to do sth"       [{"head": "afford"}, {"slot": ["verb"], "form": "to-inf"}]
+    Japanese is written without spaces, so its frame is cut at the open places only and the piece with the headword
+    is the head. Nothing is guessed: a token that is not a known mark of an open place is a word."""
+    if lang == "ja":
+        stems = [n[:-1] if len(n) > 1 and "\u3041" <= n[-1] <= "\u3096" else n for n in (lemma, *also)]
+        parts = []
+        for piece in re.split(r"([〜～])", frame):
+            if piece in ("〜", "～"):
+                parts.append({"slot": ["any"]})
+            elif piece:
+                parts.append({"head": piece} if any(st in piece for st in stems) and not any("head" in p for p in parts) else {"word": piece})
+        return parts
+    tokens = [t for t in re.sub(r"(?<=\w)\.\.\.", " ...", re.sub(r"[()]", " ", frame).replace("…", "...")).split() if t]
+    parts, i = [], 0
+    while i < len(tokens):
+        raw = tokens[i]
+        token = raw.rstrip(",;:")
+        slot = _slot(lang, token)
+        if token == "+" and i + 1 < len(tokens):
+            label = tokens[i + 1].rstrip(",;:")
+            if label in CASES:
+                parts.append({"slot": ["any"], "case": [CASES[label]]})
+            elif label.rstrip(".") in AFTER_PLUS or label in AFTER_PLUS:
+                kind = AFTER_PLUS.get(label) or AFTER_PLUS[label.rstrip(".")]
+                parts.append({"slot": [kind[0]], **({kind[1]: kind[2]} if len(kind) > 1 else {})})
+            else:
+                parts.append({"slot": ["other"], "label": label})
+            i += 2
+            while i < len(tokens) and tokens[i] != "+" and not _slot(lang, tokens[i].rstrip(",;:")) and not _is_head(lemma, tokens[i]) \
+                    and tokens[i][:1].islower() and parts[-1]["slot"][0] in ("noun", "verb", "other"):
+                parts[-1]["label"] = f"{parts[-1].get('label', label)} {tokens[i].rstrip(',;:')}"  # "+ nom pluriel", "+ inf passé"
+                i += 1
+            continue
+        if token in CASES and parts and "slot" in parts[-1] and "case" not in parts[-1]:
+            parts[-1]["case"] = [CASES[token]]  # "sich (Dat) etw. leisten": the case of the place before it
+        elif token == "...":
+            parts.append({"slot": ["clause"]})
+        elif token in VERB_PLACES.get(lang, {}):
+            form = VERB_PLACES[lang][token]
+            if form == "inf" and parts and parts[-1] == {"word": "to"}:
+                parts.pop()
+                form = "to-inf"
+            parts.append({"slot": ["verb"], "form": form})
+            if i + 1 < len(tokens) and tokens[i + 1].rstrip(",;:") in ("sth", "sb", "sb/sth"):
+                i += 1  # "do sth": the thing done belongs to the open verb
+        elif lang == "de" and token == "etw." and [t.rstrip(",;:") for t in tokens[i + 1:i + 3]] == ["zu", "tun"]:
+            parts.append({"slot": ["verb"], "form": "zu-inf"})
+            i += 2
+        elif slot and not (i + 1 < len(tokens) and tokens[i + 1].startswith("...") and "thing" in slot["slot"] and len(slot["slot"]) == 1):
+            parts.append(slot)  # but "что ..." and "що ..." open a clause: there the word is a conjunction
+        elif any(_is_head(n, token) for n in (lemma, *also)) and not any("head" in p for p in parts):
+            parts.append({"head": token})
+        elif token in ("A", "B", "X", "Y", "N"):
+            parts.append({"slot": ["number" if token == "N" else "any"]})
+        else:
+            parts.append({"word": token})
+        i += 1
+    last = parts[-1] if parts else {}
+    if lang in OPEN_CLAUSE and "word" in last and re.fullmatch(rf"(?:{OPEN_CLAUSE[lang]})(?:/\w+)*", last["word"]):
+        parts.append({"slot": ["clause"]})  # "ask if", "savoir si": the clause the last word opens
+    return parts
+
+
+def unread(lang, lemma, frame, also=()):
+    """Why a program cannot rely on a frame, or None: it has two patterns, no headword, no open place it knows, or
+    an open place written as a word."""
+    if "(" in re.sub(r"\((?:Akk|Dat|Gen|Nom)\)", "", frame) or "（" in frame or " / " in frame:
+        return "two patterns in one"
+    parts = frame_parts(lang, lemma, frame, also)
+    if any("/" in p.get("word", "") for p in parts):
+        return "two patterns in one"
+    if not any("head" in p for p in parts):
+        return "no headword"
+    if lang in FULL_WORD_PLACES and re.search(rf"(?<![\w'’-])(?:{FULL_WORD_PLACES[lang]})(?![\w'’-])", frame):
+        return "open place written as a word"
+    if not any("slot" in p for p in parts):
+        return "no open place it knows"
+    return None
 
 
 BE_WHEN_PRONOMINAL = {"fr", "it"}  # être, essere: every pronominal use of a verb, without exception
@@ -325,7 +512,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults, marks, places, company = [], [], Counter(), 0, 0, 0, 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices = [], [], Counter(), 0, 0, 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -358,7 +545,13 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         defaults += settle_defaults(lexeme)
         marks += plain_forms(lexeme)
         places += settle_frames(lang, lexeme)
+        choices += split_frames(lang, lexeme)
         company += sort_frames(lang, lexeme)
+        for sense in lexeme.get("senses") or []:  # each frame a program can rely on, as its parts: what the reader's text is matched against
+            read = [{"frame": frame, "parts": frame_parts(lang, lexeme.get("lemma") or "", frame, names(lexeme))}
+                    for frame in sense.get("frames") or [] if not unread(lang, lexeme.get("lemma") or "", frame, names(lexeme))]
+            if read:
+                sense["patterns"] = read
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -383,6 +576,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["frames_respelled"] = places
     if company:
         entry["frames_moved_to_collocations"] = company
+    if choices:
+        entry["frames_split"] = choices
     retired_lexemes += list((previous or {}).get("retired_lexemes") or [])
     if retired_lexemes:
         entry["retired_lexemes"] = retired_lexemes
@@ -511,6 +706,7 @@ def ingest(lang, dry_run=False):
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
+        counts["frames and collocations with a choice of words split"] += clean.get("frames_split", 0)
         text = json.dumps(clean, ensure_ascii=False, indent=1) + "\n"
         if not dry_run and (previous is None or path.read_text(encoding="utf-8") != text):
             path.write_text(text, encoding="utf-8")

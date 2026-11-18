@@ -303,11 +303,11 @@ def test_a_frame_without_an_open_place_is_the_words_company_and_moves_to_the_col
     assert got["frames"] == ["lead over sb"] and got["collocations"] == ["in the lead", "take the lead"] and clean["frames_moved_to_collocations"] == 2
     assert list(got)[:6] == ["id", "definition", "example", "cefr", "frames", "collocations"]  # they stand where the frames stood
     assert noun["senses"][0]["frames"] == ["in the lead", "lead over sb", "take the lead"]  # the written entry is left as it was
-    # every frame gone: no empty list is left; a sense holds three collocations and the fourth stays where it was
-    full = lexeme("rain", senses=[sense("water that falls from clouds in drops", frames=["heavy rain", "in the rain"],
-                                        collocations=["pouring rain", "light rain"])])
+    # every frame gone: no empty list is left; a sense holds ten collocations and the eleventh stays where it was
+    ten = [f"rain {n}" for n in range(9)]
+    full = lexeme("rain", senses=[sense("water that falls from clouds in drops", frames=["heavy rain", "in the rain"], collocations=ten)])
     got = ingest_v4.clean_entry("en", entry("rain", full), META)["lexemes"][0]["senses"][0]
-    assert got["collocations"] == ["pouring rain", "light rain", "heavy rain"] and got["frames"] == ["in the rain"]
+    assert got["collocations"] == ten + ["heavy rain"] and got["frames"] == ["in the rain"]
     gone = lexeme("lake", senses=[sense("a large area of water with land around it", frames=["on the lake"])])
     assert "frames" not in ingest_v4.clean_entry("en", entry("lake", gone), META)["lexemes"][0]["senses"][0]
     # an old abbreviation is an open place too, one word alone is the form of a pattern, and an open clause is open
@@ -316,3 +316,30 @@ def test_a_frame_without_an_open_place_is_the_words_company_and_moves_to_the_col
         assert ingest_v4.sort_frames(lang, one) == 0, frame
     suru = lexeme("勉強", senses=[sense("知識を身につけるために学ぶこと", frames=["勉強する", "勉強になる"])])
     assert ingest_v4.sort_frames("ja", suru) == 1 and suru["senses"][0]["frames"] == ["勉強する"] and suru["senses"][0]["collocations"] == ["勉強になる"]
+
+
+def test_one_frame_is_one_pattern_and_a_program_reads_its_parts():
+    noun = lexeme("decision", senses=[sense("a choice that you make after thinking about what is best", frames=["decision on/about sth", "decision to do sth"],
+                                            collocations=["a tough/difficult decision"])])
+    clean = ingest_v4.clean_entry("en", entry("decision", noun), META)
+    got = clean["lexemes"][0]["senses"][0]
+    assert got["frames"] == ["decision on sth", "decision about sth", "decision to do sth"] and clean["frames_split"] == 2
+    assert got["collocations"] == ["a tough decision", "a difficult decision"]
+    assert got["patterns"][0] == {"frame": "decision on sth", "parts": [{"head": "decision"}, {"word": "on"}, {"slot": ["thing"]}]}
+    assert got["patterns"][2]["parts"] == [{"head": "decision"}, {"slot": ["verb"], "form": "to-inf"}]
+    read = lambda lang, lemma, frame, also=(): ingest_v4.frame_parts(lang, lemma, frame, also)
+    assert read("de", "warten", "warten auf + Akk") == [{"head": "warten"}, {"word": "auf"}, {"slot": ["any"], "case": ["Acc"]}]
+    assert read("de", "helfen", "jmdm. helfen") == [{"slot": ["person"], "case": ["Dat"]}, {"head": "helfen"}]
+    assert read("ru", "платить", "платить кому за что")[1:] == [{"slot": ["person"], "case": ["Dat"]}, {"word": "за"}, {"slot": ["thing"], "case": ["Acc", "Nom"]}]
+    assert read("ru", "искать", "искать кого/что") == [{"head": "искать"}, {"slot": ["person", "thing"], "case": ["Acc"]}]  # the case both words can be
+    assert read("ru", "ответить", "ответить, что ...")[1:] == [{"word": "что"}, {"slot": ["clause"]}]  # the conjunction, not a thing
+    assert read("fr", "normal", "il est normal que + subj")[-1] == {"slot": ["clause"], "mood": "subj"}
+    assert read("en", "ask", "ask if")[-1] == {"slot": ["clause"]} and read("en", "tell", "tell sb/sth")[1] == {"slot": ["person", "thing"]}
+    assert read("ja", "辛い", "〜がつらい", ["つらい"]) == [{"slot": ["any"]}, {"head": "がつらい"}]  # written in kana: found by the reading
+    # what a program cannot rely on is said, and gets no parts in the clean entry
+    for lang, lemma, frame, why in (("en", "ask", "ask (sb) for sth", "two patterns in one"), ("de", "holen", "etwas holen", "open place written as a word"),
+                                    ("de", "geben", "es gibt + Akk", "no headword"), ("en", "x", "in/on the left/right of sth", "two patterns in one")):
+        assert ingest_v4.unread(lang, lemma, frame) == why, frame
+    assert ingest_v4.unread("de", "leisten", "sich (Dat) etw. leisten") is None  # the case of a place is not a second pattern
+    kept = lexeme("touch", senses=[sense("the state of talking or writing to someone often", frames=["be/keep in touch (with sb)", "tell sb/sth"])])
+    assert ingest_v4.split_frames("en", kept) == 0 and kept["senses"][0]["frames"] == ["be/keep in touch (with sb)", "tell sb/sth"]

@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "grève",
+  "zipf": 4.52,
+  "set": "v49-check"
+ },
+ {
+  "headword": "frontière",
+  "zipf": 4.6,
+  "set": "v49-check"
+ },
+ {
+  "headword": "dangereux",
+  "zipf": 4.7,
+  "set": "v49-check"
+ },
+ {
+  "headword": "crime",
+  "zipf": 4.64,
+  "set": "v49-check"
+ }
+]

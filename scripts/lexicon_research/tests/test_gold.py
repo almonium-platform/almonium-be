@@ -28,6 +28,8 @@ PINNED = {
     ("ru", "v4.7"): "1810f2bff60b",  # Russian is a target language from 18 November 2026; its trial entries carry the hash of the text they saw
     ("en", "v4.8"): "f298d9db6658", ("de", "v4.8"): "b59c0058756f", ("fr", "v4.8"): "486527168595", ("es", "v4.8"): "3230c0c6651d", ("it", "v4.8"): "f4d69f46053b", ("pt", "v4.8"): "8aed3b320562",
     ("ru", "v4.8"): "db13d034811d",
+    ("en", "v4.9"): "5e602bd929d2", ("de", "v4.9"): "d7c709f42cfb", ("fr", "v4.9"): "43f042aac05d", ("es", "v4.9"): "c6178b955f4a", ("it", "v4.9"): "b7d74e48cacd", ("pt", "v4.9"): "04fee836e73f",
+    ("ru", "v4.9"): "ff654aec68b6",
 }
 ANSWER = """# Review
 
@@ -155,6 +157,12 @@ def test_from_v4_8_a_frame_has_an_open_place_and_the_words_company_is_a_collocat
         for pair in re.findall(r'"([^"]+)"', prompting.COLLOCATIONS_V4[lang]) or prompting.COLLOCATIONS_V4[lang].strip("()").split(", "):
             lexeme = {"lemma": "x", "senses": [{"definition": "d", "example": "e", "cefr": "B1", "frames": [pair]}]}
             assert ingest_v4.sort_frames(lang, lexeme) == 1 and lexeme["senses"][0] == {"definition": "d", "example": "e", "cefr": "B1", "collocations": [pair]}, (lang, pair)
+        # v4.9: one pattern to a frame, the common company up to ten, and a note that hedges; v4.8 is as it was
+        newest = prompting.system_prompt(lang, "v4.9")
+        assert "One frame is one pattern" in newest and "at most ten" in newest and "One frame is one pattern" not in new and "at most ten" not in new
+        assert 'A "note" is held to the same' in newest and 'A "note" is held to the same' not in new
+    assert prompting.gold_path("es", "v4.9") == HERE / "gold" / "v4.9" / "es.json" and prompting.gold_path("de", "v4.9") == HERE / "gold" / "v4.8" / "de.json"
+    assert "日本人" in prompting.system_prompt("ja", "v4.9") and "日本人" not in prompting.system_prompt("ja", "v4.8")
     for lang in ("ru", "ja"):  # their notes said how a frame is written before every language was told
         assert "not one collocation filled in" not in prompting.system_prompt("ru", "v4.8") and "〜を勉強する" in prompting.system_prompt("ja", "v4.8")
 

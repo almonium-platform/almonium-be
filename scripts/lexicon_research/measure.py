@@ -78,7 +78,8 @@ These are this dictionary's own definitions, not faults:
   is not shown here.
 - a frame is the word with what it governs, every open place marked (depend on sth); a collocation
   is the word with a particular word it usually goes with, or a set phrase, with no open place
-  (heavy rain, in the lead). At most three of each, so a missing one is not a fault.
+  (heavy rain, in the lead). A sense holds at most five frames and ten collocations, so a missing one
+  is not a fault.
 {ours}
 ## The answer
 

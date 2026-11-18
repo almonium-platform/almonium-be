@@ -31,9 +31,9 @@ HERE = Path("scripts/lexicon_research")
 # Entries written between 11 and 17 November 2026 call shape 4 "schema 3" in their meta, because the two
 # lines were numbered apart; schema_of_meta() reads them right. The file prompts/entry_writer/v4.md is
 # November's; October's prompt of that name is v4oct.md.
-SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4", "v4.7": "4", "v4.8": "4"}
+SCHEMA_OF = {"v1": "2", "v2": "2", "v3": "2", "v4oct": "3", "v5": "3", "v6": "3", "v4": "4", "v4.1": "4", "v4.2": "4", "v4.3": "4", "v4.4": "4", "v4.5": "4", "v4.6": "4", "v4.7": "4", "v4.8": "4", "v4.9": "4"}
 # LEXICON_PROMPT_VERSION=v3 writes the old shape (with glosses and cues) into the old directories
-PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.8")
+PROMPT_VERSION = os.environ.get("LEXICON_PROMPT_VERSION", "v4.9")
 SCHEMA_VERSION = SCHEMA_OF[PROMPT_VERSION]
 SCHEMA_PATH = HERE / ("entry.schema.v4.json" if SCHEMA_VERSION == "4" else "entry.schema.json")
 WRITER_SUFFIX = "-v4" if SCHEMA_VERSION == "4" else ""
@@ -299,6 +299,18 @@ _ja_frames = ("and shows the verb in a frame (勉強する). A frame is a patter
 assert _ru_frames in LANGUAGE_NOTES_V4["ru"] and _ja_frames in LANGUAGE_NOTES_V4["ja"]
 LANGUAGE_NOTES_V4[("ru", "v4.8")] = LANGUAGE_NOTES_V4["ru"].replace(_ru_frames, "")
 LANGUAGE_NOTES_V4[("ja", "v4.8")] = LANGUAGE_NOTES_V4["ja"].replace(_ja_frames, "and shows the verb in a frame with what it takes (〜を勉強する). ")
+# v4.9, after a hundred of the 250 common words were read: the commonest words of Japanese are also its endings (二回目, 読み方,
+# 日本人, 降りそう), and a learner who taps 目 in 二回目 must find that use there.
+_ja_affix = 'A prefix or suffix that is not a word on its own (本〜 for "this", 〜的) is not a lexeme. '
+assert _ja_affix in LANGUAGE_NOTES_V4[("ja", "v4.8")]
+LANGUAGE_NOTES_V4[("ja", "v4.9")] = LANGUAGE_NOTES_V4[("ja", "v4.8")].replace(
+    _ja_affix,
+    'A prefix or suffix that is not a word on its own (〜的) is not a headword. But where the headword is a word, its use as a suffix, '
+    'a prefix or an auxiliary is part of its entry, because a learner meets it there: a sense of the lexeme when the reading is the '
+    'same (目 in 二回目, 方 in 読み方), a lexeme of its own when it is read differently (人 read じん in 日本人, 前 read ぜん in 前首相, 上 read '
+    'じょう in 法律上) or is another part of speech (そう after a stem, 降りそう, and after a clause, 降るそうだ, is AUX; so is よう in 始めよう). '
+    'Its frame shows what it attaches to (数＋回＋目, 動詞の連用形＋方), and its grammar note says that it is a suffix, a prefix or an '
+    'auxiliary. ')
 
 SCHEMA_EXAMPLE_V4 = json.dumps({
     "language": "en", "headword": "lead",
@@ -347,6 +359,23 @@ def schema_example_v4(version):
     if since_v4(version, "v4.8"):  # "in the lead" and "take the lead" have no open place: they are the word's company
         first = entry["lexemes"][1]["senses"][0]
         entry["lexemes"][1]["senses"][0] = {("collocations" if k == "frames" else k): v for k, v in first.items()}
+    if since_v4(version, "v4.9"):  # one pattern to a frame, and the word's common company, the less guessable first
+        verb, noun, metal = entry["lexemes"]
+        for sense, frames, company in ((verb["senses"][0], ["lead sb to sth", "lead sb into sth"], ["lead the way"]),
+                                       (verb["senses"][1], None, ["lead a team", "lead a discussion"]),
+                                       (verb["senses"][2], ["lead by sth"], ["lead the race", "lead the field"]),
+                                       (noun["senses"][0], None, ["take the lead", "in the lead", "hold the lead", "lose the lead", "a narrow lead",
+                                                                  "a comfortable lead"]),
+                                       (noun["senses"][1], None, ["on a lead", "off the lead"]),
+                                       (metal["senses"][0], None, ["lead pipe", "lead poisoning", "lead paint"])):
+            placed = {}
+            for key, value in sense.items():
+                if key not in ("frames", "collocations"):
+                    placed[key] = value
+                if key == "cefr":
+                    placed.update({k: v for k, v in (("frames", frames), ("collocations", company)) if v})
+            sense.clear()
+            sense.update(placed)
     for lexeme in entry["lexemes"]:
         for sense in lexeme["senses"]:
             if "regions" in sense:
@@ -498,7 +527,7 @@ def examples_v4(lang, version):
 
 def system_prompt_v4(lang, version=None):
     """The system prompt of a schema-4 writer: the production prompt unless another schema-4 version is named."""
-    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.8")
+    version = version or (PROMPT_VERSION if SCHEMA_VERSION == "4" else "v4.9")
     schema_path = HERE / "entry.schema.v4.json"
     inv = [] if lang in PRONUNCIATION_V4 else [sounds_v4(v, version) for v in VARIETIES[lang]]
     domains = json.loads(schema_path.read_text())["$defs"]["labels"]["properties"]["domain"]["enum"]

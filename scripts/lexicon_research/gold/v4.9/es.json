@@ -1,0 +1,422 @@
+[
+ {
+  "language": "es",
+  "headword": "lunes",
+  "lexemes": [
+   {
+    "lemma": "lunes",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Count",
+     "note": "same form in the plural: el lunes, los lunes"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/ˈlu.nes/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/ˈlu.nes/"
+     }
+    ],
+    "forms": [
+     {
+      "form": "lunes",
+      "features": {
+       "Number": "Plur"
+      }
+     }
+    ],
+    "senses": [
+     {
+      "definition": "día de la semana que va después del domingo y antes del martes",
+      "example": "Los lunes siempre me cuesta mucho levantarme temprano.",
+      "cefr": "A1",
+      "collocations": [
+       "el lunes",
+       "los lunes"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "es",
+  "headword": "estudiar",
+  "lexemes": [
+   {
+    "lemma": "estudiar",
+    "pos": "VERB",
+    "kind": "word",
+    "grammar": {
+     "conjugation": "1",
+     "irregular": false,
+     "valency": "Both"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/es.tu.ˈdjaɾ/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/es.tu.ˈdjaɾ/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "esforzarse por aprender algo leyendo, practicando o memorizando",
+      "example": "Esta noche tengo que estudiar para el examen de historia.",
+      "cefr": "A1",
+      "frames": [
+       "estudiar algo",
+       "estudiar para algo"
+      ],
+      "grammar": {
+       "valency": "Both"
+      }
+     },
+     {
+      "definition": "seguir los cursos de una carrera o materia en un centro de enseñanza",
+      "example": "Mi hermana estudia medicina en una universidad pública.",
+      "cefr": "A1",
+      "frames": [
+       "estudiar algo",
+       "estudiar en + lugar"
+      ],
+      "grammar": {
+       "valency": "Both"
+      }
+     },
+     {
+      "definition": "examinar algo con atención para entenderlo o tomar una decisión",
+      "example": "Vamos a estudiar tu propuesta con calma antes de responder.",
+      "cefr": "B1",
+      "grammar": {
+       "valency": "Tr"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "es",
+  "headword": "enorme",
+  "lexemes": [
+   {
+    "lemma": "enorme",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "note": "same form for masculine and feminine; plural enormes"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/e.ˈnoɾ.me/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/e.ˈnoɾ.me/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "muy grande en tamaño, cantidad o intensidad, mucho más de lo normal",
+      "example": "Vivimos al lado de un parque enorme lleno de árboles.",
+      "cefr": "A2",
+      "antonyms": [
+       {
+        "lemma": "diminuto",
+        "pos": "ADJ"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "es",
+  "headword": "responsable",
+  "lexemes": [
+   {
+    "lemma": "responsable",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/res.pon.ˈsa.ble/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/res.pon.ˈsa.ble/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "que tiene la obligación de cuidar algo o dar cuenta de ello",
+      "example": "Cada alumno es responsable de su propio material escolar.",
+      "cefr": "B1",
+      "frames": [
+       "responsable de algo",
+       "responsable de + inf"
+      ]
+     },
+     {
+      "definition": "que cumple sus obligaciones y actúa con cuidado y sensatez",
+      "example": "Mi hermana mayor siempre ha sido muy responsable con el dinero.",
+      "cefr": "B1",
+      "antonyms": [
+       {
+        "lemma": "irresponsable",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "que causa un hecho o influye de manera decisiva en él",
+      "example": "La falta de lluvia es responsable de esta mala cosecha.",
+      "cefr": "B2",
+      "frames": [
+       "responsable de algo"
+      ]
+     }
+    ]
+   },
+   {
+    "lemma": "responsable",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Com",
+     "countability": "Count"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/res.pon.ˈsa.ble/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/res.pon.ˈsa.ble/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "persona que tiene a su cargo una actividad, un grupo o un área",
+      "example": "Hable usted con la responsable de ventas, por favor.",
+      "cefr": "B1",
+      "frames": [
+       "responsable de algo"
+      ]
+     },
+     {
+      "definition": "persona que debe responder de un hecho o de sus consecuencias",
+      "example": "Los responsables del robo fueron detenidos ayer por la tarde.",
+      "cefr": "B2",
+      "frames": [
+       "responsable de algo"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "es",
+  "headword": "genial",
+  "lexemes": [
+   {
+    "lemma": "genial",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "comparable": true,
+     "note": "same form for masculine and feminine"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/xe.ˈnjal/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/xe.ˈnjal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "muy bueno, estupendo, que gusta mucho",
+      "example": "Tu plan para el fin de semana me parece genial.",
+      "cefr": "A2",
+      "labels": {
+       "formality": "informal"
+      },
+      "antonyms": [
+       {
+        "lemma": "horrible",
+        "pos": "ADJ"
+       }
+      ]
+     },
+     {
+      "definition": "que tiene o demuestra un talento o una inteligencia extraordinarios",
+      "example": "Fue un escritor genial que cambió la novela moderna.",
+      "cefr": "B2"
+     }
+    ],
+    "relations": [
+     {
+      "type": "adjective_of",
+      "lemma": "genio",
+      "pos": "NOUN"
+     }
+    ]
+   },
+   {
+    "lemma": "genial",
+    "pos": "ADV",
+    "kind": "word",
+    "grammar": {
+     "invariable": true
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/xe.ˈnjal/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/xe.ˈnjal/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "muy bien o de una manera muy agradable",
+      "example": "Lo pasamos genial durante las vacaciones de verano.",
+      "cefr": "A2",
+      "labels": {
+       "formality": "informal"
+      },
+      "collocations": [
+       "pasarlo genial",
+       "sentar genial"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "language": "es",
+  "headword": "café",
+  "lexemes": [
+   {
+    "lemma": "café",
+    "pos": "NOUN",
+    "kind": "word",
+    "grammar": {
+     "gender": "Masc",
+     "countability": "Both"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/ka.ˈfe/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/ka.ˈfe/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "bebida oscura preparada con agua y semillas tostadas y molidas de un arbusto tropical",
+      "example": "¿Quieres tomar un café conmigo esta tarde?",
+      "cefr": "A1",
+      "collocations": [
+       "café con leche",
+       "café solo"
+      ]
+     },
+     {
+      "definition": "arbusto tropical y sus semillas, que se tuestan y muelen para preparar una bebida",
+      "example": "En esta tienda venden café en grano y molido.",
+      "cefr": "A2"
+     },
+     {
+      "definition": "local donde se sirven bebidas y comidas ligeras",
+      "example": "Nos vemos en el café de la esquina a las cinco.",
+      "cefr": "A2",
+      "grammar": {
+       "countability": "Count"
+      }
+     },
+     {
+      "definition": "color oscuro entre el amarillo y el rojo, parecido al de muchas maderas",
+      "example": "Prefiero el café oscuro para pintar esta puerta.",
+      "cefr": "A2",
+      "regions": [
+       {
+        "variety": "es-419",
+        "extent": "mainly"
+       }
+      ],
+      "grammar": {
+       "countability": "Both"
+      }
+     }
+    ]
+   },
+   {
+    "lemma": "café",
+    "pos": "ADJ",
+    "kind": "word",
+    "grammar": {
+     "note": "same form for both genders; plural café or cafés"
+    },
+    "pronunciations": [
+     {
+      "variety": "es-ES",
+      "ipa": "/ka.ˈfe/"
+     },
+     {
+      "variety": "es-MX",
+      "ipa": "/ka.ˈfe/"
+     }
+    ],
+    "senses": [
+     {
+      "definition": "de color oscuro parecido al de la tierra o la madera",
+      "example": "Mi hermana tiene los ojos café y el pelo negro.",
+      "cefr": "A2",
+      "regions": [
+       {
+        "variety": "es-419",
+        "extent": "mainly"
+       }
+      ]
+     }
+    ],
+    "forms": [
+     {
+      "form": "café",
+      "features": {
+       "Number": "Plur"
+      }
+     }
+    ]
+   }
+  ]
+ }
+]

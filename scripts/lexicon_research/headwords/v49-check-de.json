@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "Gedicht",
+  "zipf": 4.11,
+  "set": "v49-check"
+ },
+ {
+  "headword": "Schwerpunkt",
+  "zipf": 4.38,
+  "set": "v49-check"
+ },
+ {
+  "headword": "Zentrum",
+  "zipf": 4.69,
+  "set": "v49-check"
+ },
+ {
+  "headword": "fleißig",
+  "zipf": 4.13,
+  "set": "v49-check"
+ }
+]

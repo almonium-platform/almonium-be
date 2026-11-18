@@ -23,11 +23,15 @@ def entry():
 
 def test_the_prompts_own_example_is_valid():
     VALID.validate(entry())
-    for version in ("v4", "v4.2", "v4.7", "v4.8"):
+    for version in ("v4", "v4.2", "v4.7", "v4.8", "v4.9"):
         VALID.validate(json.loads(prompting.schema_example_v4(version)))
-    senses = [s for lx in entry()["lexemes"] for s in lx["senses"]]
+    senses = [s for lx in json.loads(prompting.schema_example_v4("v4.8"))["lexemes"] for s in lx["senses"]]
     assert ["in the lead", "take the lead"] in [s.get("collocations") for s in senses]  # from v4.8 the word's company is not a frame
+    senses = [s for lx in entry()["lexemes"] for s in lx["senses"]]
     assert all(" sth" in f or " sb " in f for s in senses for f in s.get("frames", []))
+    # from v4.9 one pattern to a frame, and the word's common company: every sense of the example has some
+    assert ["lead sb to sth", "lead sb into sth"] in [s.get("frames") for s in senses] and all(s.get("collocations") for s in senses)
+    assert not any("/" in text or "(" in text for s in senses for text in s.get("frames", []) + s["collocations"])
 
 
 def test_a_region_is_a_variety_or_a_place_with_an_extent():
