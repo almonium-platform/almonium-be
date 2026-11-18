@@ -18,6 +18,7 @@ Steps (run from the backend repository root):
   claude_code_writer.py --headwords measure-<name> ...     write the new words
   measure.py --name v46 --review             measure/<name>/review/<lang>-<n>.md (--per-file 50 for a reviewer that tires)
   measure.py --name v46 --tally              reads measure/<name>/answers/*.md and counts
+  measure.py --name ja-top --langs ja --list top-ja --sample --new 0     a count of one list's entries as written
 
 The reviewer answers with one JSON object per entry; REVIEW below says how. Its answers are kept as
 they came under measure/<name>/answers/.
@@ -65,7 +66,7 @@ dictionary have none: report a fault only when you could show it from a dictiona
 Do not report: the order of senses, a CEFR level off by one step, how syllables are divided, a
 definition you would have worded differently when the given one is true, or anything about style.
 
-Three things are this dictionary's own definitions, not faults:
+These are this dictionary's own definitions, not faults:
 
 - valency Refl stands for every use with a reflexive pronoun, whatever a grammar of {name} calls it
   (reflexive, reciprocal, pronominal); Tr means the verb takes a direct object, so a verb whose
@@ -75,7 +76,7 @@ Three things are this dictionary's own definitions, not faults:
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.
-
+{ours}
 ## The answer
 
 One line of JSON for every entry, in the order given, inside a single ```json block. An entry
@@ -96,11 +97,25 @@ meaning in front of them, false when the fault is a blemish.
 """
 
 
-def rows_of(lang):
-    """headword -> zipf over every list of the language."""
+# What else is this dictionary's own in one language, said to its reviewer in the same list
+OURS = {
+    "ja": """- a word is said as a reading in hiragana, not in IPA. "accent" after it is the pitch accent of Tokyo as
+  dictionaries number it: the mora after which the pitch drops, 0 when it does not drop. A reading without
+  one is not a fault: the writer gives it only when sure. A wrong one is a fact.
+- a frame is a pattern with 〜 for an open place and its particle written (〜に行く). A use after the て form
+  with a meaning of its own (〜ている, 〜てくる) is numbered as a sense on purpose, and so is a particle's or
+  a formal noun's use in grammar (〜ことがある): do not report these as split.
+- suru true means the noun makes a verb with する. A noun has no countability. A definition is one
+  predicate or one noun phrase of 10 to 35 characters.
+""",
+}
+
+
+def rows_of(lang, only=None):
+    """headword -> zipf over every list of the language, or over the one list named."""
     best = {}
     for f in sorted((HERE / "headwords").glob(f"*-{lang}.json")):
-        if f.name.startswith("measure-"):
+        if f.name.startswith("measure-") or (only and f.name != f"{only}-{lang}.json"):
             continue
         for row in json.loads(f.read_text(encoding="utf-8")):
             if isinstance(row.get("zipf"), (int, float)):
@@ -108,10 +123,11 @@ def rows_of(lang):
     return best
 
 
-def draw(lang, have, new, seed):
-    """The two parts of a language's sample: [(headword, zipf)] each. The same seed draws the same words."""
+def draw(lang, have, new, seed, only=None):
+    """The two parts of a language's sample: [(headword, zipf)] each. The same seed draws the same words.
+    With a list named, both parts come from that list alone."""
     rng = random.Random(f"{seed}-{lang}")
-    zipf = rows_of(lang)
+    zipf = rows_of(lang, only)
     written = ingest_v4.load_raw(lang)
     whole = sorted(h for h, (entry, _) in written.items() if entry.get("lexemes") and h in zipf)
     part_have = []
@@ -131,15 +147,18 @@ def draw(lang, have, new, seed):
     return [(h, zipf[h]) for h in part_have], [(h, zipf[h]) for h in part_new]
 
 
-def sample(name, langs, have, new, seed):
+def sample(name, langs, have, new, seed, only=None):
     (MEASURE / name).mkdir(parents=True, exist_ok=True)
     for lang in langs:
-        part_have, part_new = draw(lang, have, new, seed)
+        part_have, part_new = draw(lang, have, new, seed, only)
         items = [{"headword": h, "zipf": z, "part": "have"} for h, z in part_have] + [{"headword": h, "zipf": z, "part": "new"} for h, z in part_new]
         random.Random(f"{seed}-{lang}-order").shuffle(items)
         for number, item in enumerate(items, 1):
             item["id"] = number
         (MEASURE / name / f"sample-{lang}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        if not part_new:  # --new 0: a count of what is written, nothing to buy
+            print(f"{lang}: {len(part_have)} held entries, no words to write")
+            continue
         (HERE / "headwords" / f"measure-{name}-{lang}.json").write_text(json.dumps(
             [{"headword": h, "zipf": z, "set": f"measure-{name}"} for h, z in part_new], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(f"{lang}: {len(part_have)} held entries, {len(part_new)} words to write (Zipf {min(z for _, z in part_new):.2f} to {max(z for _, z in part_new):.2f})")
@@ -157,7 +176,8 @@ def show(entry):
     lines = []
     for n, lexeme in enumerate(entry.get("lexemes") or [], 1):
         grammar = stated(lexeme.get("grammar") or {})
-        said = ", ".join(f"{p.get('ipa') or ''}{' ' + p['reading'] if p.get('reading') else ''} ({p.get('variety')}{', ' + p['spelling'] if p.get('spelling') else ''}{', ' + p['note'] if p.get('note') else ''})"
+        said = ", ".join(f"{p.get('ipa') or ''}{' ' + p['reading'] if p.get('reading') else ''}{', accent ' + str(p['accent']) if 'accent' in p else ''}"
+                         f" ({p.get('variety')}{', ' + p['spelling'] if p.get('spelling') else ''}{', ' + p['note'] if p.get('note') else ''})"
                          for p in lexeme.get("pronunciations") or [])
         lines.append(f"**Lexeme {n}: {lexeme.get('lemma')}**, {lexeme.get('pos')}" + (f", {lexeme['kind']}" if lexeme.get("kind") not in (None, "word") else ""))
         if grammar:
@@ -218,7 +238,8 @@ def review(name, langs, per_file):
         folder.mkdir(parents=True, exist_ok=True)
         parts = [blocks[i:i + per_file] for i in range(0, len(blocks), per_file)]
         for n, part in enumerate(parts, 1):
-            (folder / f"{lang}-{n}.md").write_text(REVIEW.format(name=LANG_NAME[lang], part=n, parts=len(parts), entries="\n\n".join(part)), encoding="utf-8")
+            (folder / f"{lang}-{n}.md").write_text(REVIEW.format(name=LANG_NAME[lang], part=n, parts=len(parts), ours=OURS.get(lang, ""),
+                                                                 entries="\n\n".join(part)), encoding="utf-8")
         print(f"{lang}: {len(blocks)} entries in {len(parts)} files" + (f"; not written yet: {', '.join(absent)}" if absent else ""))
 
 
@@ -284,10 +305,11 @@ if __name__ == "__main__":
     ap.add_argument("--new", type=int, default=40)
     ap.add_argument("--per-file", type=int, default=100)
     ap.add_argument("--seed", default="2026-11-17")
+    ap.add_argument("--list", default=None, help="draw only from headwords/<list>-<lang>.json")
     a = ap.parse_args()
     langs = a.langs.split(",")
     if a.sample:
-        sample(a.name, langs, a.have, a.new, a.seed)
+        sample(a.name, langs, a.have, a.new, a.seed, a.list)
     if a.review:
         review(a.name, langs, a.per_file)
     if a.tally:

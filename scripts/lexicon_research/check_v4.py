@@ -11,7 +11,8 @@ fault a program can see into the two kinds that matter:
       stress reading (Ukrainian, Italian); a variety the language does not have
   to settle by a rule or a patch
       IPA with a symbol outside the variety's list (often one symbol written another way, which a rule
-      maps; sometimes a sound the list lacks); a stress mark that Wiktionary's forms do not have (Ukrainian)
+      maps; sometimes a sound the list lacks); a stress mark that Wiktionary's forms do not have (Ukrainian,
+      Russian); a Japanese pitch accent that an accent table does not have for that word and reading
 
 and the faults of style that are worth watching but not worth a call: dictionary formulas ("the act of"),
 the headword inside its own definition, word limits, examples that open alike, senses per lexeme.
@@ -20,6 +21,7 @@ Usage: check_v4.py [--langs en,de] [--show 5]   (run from the backend repository
 """
 import argparse, json, re, statistics, sys, unicodedata
 from collections import Counter, defaultdict
+from functools import lru_cache
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -48,7 +50,7 @@ FREE = ("lexeme of another lemma", "word written under two spellings", "reject t
 SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mark", "double consonants rewritten": "double consonant not written twice",
                 "ll of Spain rewritten": "ll of Spain written ʎ"}
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
-SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know")
+SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know")
 
 
 def words(text):
@@ -85,6 +87,42 @@ def stress_witness(lang):
             plain, _, forms = line.rstrip("\n").partition("\t")
             table[plain] = set(forms.split("|"))
     return table
+
+
+KANA = re.compile(r"[\u3041-\u3096\u30a1-\u30fa\u30fc]+")
+
+
+@lru_cache(maxsize=None)
+def accent_witness(lang):
+    """What a pitch-accent table gives a word: (spelling, reading) -> its numbers, and reading -> the numbers of
+    every word read so. None without the table. The table is Kanjium's accents.txt (CC BY-SA 4.0), kept as
+    wiktionary/ja.accent.tsv and, like Wiktionary's index, never committed and never copied into an entry:
+      curl -o scripts/lexicon_research/wiktionary/ja.accent.tsv \
+        https://raw.githubusercontent.com/mifunetoshiro/kanjium/master/data/source_files/raw/accents.txt"""
+    path = HERE / "wiktionary" / f"{lang}.accent.tsv"
+    if not path.exists():
+        return None
+    table = defaultdict(set)
+    with path.open(encoding="utf-8") as f:
+        for line in f:
+            word, reading, numbers = (line.rstrip("\n").split("\t") + ["", ""])[:3]
+            numbers = {int(n) for n in re.findall(r"\d+", re.sub(r"\(.*?\)", "", numbers))}
+            table[(word, reading or word)] |= numbers
+            table[reading or word] |= numbers
+    return table
+
+
+def unknown_accents(lang, lexeme):
+    """(reading, accent, what the table has) for every accent the table contradicts. A word written with kanji is
+    held to its own row; a word written in kana to every word read so, because the table files most of them
+    under a spelling with kanji (これ under 此れ)."""
+    table = accent_witness(lang)
+    lemma = lexeme.get("lemma") or ""
+    for p in (lexeme.get("pronunciations") or []) if table else []:
+        if "accent" in p and p.get("reading"):
+            known = table.get(p["reading"]) if KANA.fullmatch(lemma) else table.get((lemma, p["reading"]))
+            if known and p["accent"] not in known:
+                yield p["reading"], p["accent"], sorted(known)
 
 
 def readings(lexeme):
@@ -137,6 +175,8 @@ def check(lang, entry, inventories, witness):
                 known = witness.get(reading.replace(ACUTE, ""))
                 if known and ACUTE in reading and reading not in known:
                     problems.append(("stress Wiktionary does not know", f"{reading}, Wiktionary has {', '.join(sorted(known))}"))
+        for reading, accent, known in unknown_accents(lang, lx):
+            problems.append(("pitch accent the table does not know", f"{lx.get('lemma')} {reading} {accent}, the table has {', '.join(map(str, known))}"))
         for s in lx.get("senses", []):
             d = s.get("definition", "")
             dw = words(d)
@@ -254,6 +294,8 @@ def audit(lang, show):
                 print(f"             {line}")
     if lang in NEEDS_READING and witness is None and lang in ("uk", "ru"):
         print(f"    no stress witness: run lemma_index.py --langs {lang} to compare the readings with Wiktionary")
+    if lang == "ja" and accent_witness(lang) is None:
+        print("    no accent table: see accent_witness() in check_v4.py to compare the pitch accents with one")
     return {"entries": n, "cost": sum(costs), "paid": sum(faulty[k] for k in PAID), "settle": sum(faulty[k] for k in SETTLE),
             "free": sum(faulty[k] for k in FREE)}
 

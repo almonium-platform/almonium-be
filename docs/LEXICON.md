@@ -621,8 +621,8 @@ else there is.
 
 ### Japanese, on trial
 
-Japanese has its settings and a pilot list of 48 words (`headwords/pilot-ja-ja.json`), not yet
-written. What was decided for it, each of which the pilot may overturn:
+Japanese has its settings, a pilot of 48 words (`headwords/pilot-ja-ja.json`) and 250 common
+words (`headwords/top-ja-ja.json`), all written. What was decided for it before the pilot:
 
 - The pronunciation is a reading in hiragana with `notation: kana`, and no IPA; the pronunciation
   section of the prompt is exchanged whole for a language named in `prompting.PRONUNCIATION_V4`.
@@ -637,8 +637,10 @@ written. What was decided for it, each of which the pilot may overturn:
 - `conjugation` takes godan, ichidan, irregular for a verb and i, na for an adjective (new in the
   schema); a transitive verb and its intransitive partner name each other; a noun's counter is its
   `classifier`; honorific, humble, polite and familiar are politeness labels; a particle is an entry.
-- There is no gate: Japanese is written with `--no-gate`. A reader taps a run of characters that
-  the book processor must first cut into words, and its lemma is what reaches the dictionary.
+- The pilot was written with `--no-gate`. Since 18 November 2026 Japanese has a gate like the
+  others (`lemma_index.py --langs ja`), in which a word in kana that Wiktionary only sends on to
+  its spelling with kanji counts as a spelling. A reader taps a run of characters that the book
+  processor must first cut into words, and its lemma is what reaches the dictionary.
 
 The pilot is written (48 words, $2.13): all valid, and the audit finds nothing. Every one of 71
 pronunciations is a kana reading and every one of 52 spellings names its script. *辛い* came back
@@ -668,8 +670,26 @@ reading, one sense of the west of Japan), *俺*. What was decided:
 Eleven words written again under these rules and the examples: all valid; nine readings in ten
 carry an accent (*橋* 2, *する* 0, *開く* 0 as あく and 2 as ひらく), *大きな* and *来る* read
 きたる came back as attributive adjectives, *本* as a noun and a counter with no determiner.
-The accents are the writer's own knowledge so far. Wiktionary prints them, and a witness built
-from it as for Russian stress is what would hold them to account.
+
+**The 250 common words** (18 November 2026, $13.09, five cents an entry): all valid, none refused,
+338 lexemes and 861 senses, and the audit finds seven things ingest puts right and nothing else.
+The list was read out of a frequency list that is not one of words: wordfreq's Japanese is what
+MeCab cut the text into, so `core_list.py` counts each piece under its dictionary form (*なっ*
+under *なる*), keeps what Wiktionary has as a word, and writes a word spelled both ways once
+(*こと*, not also *事*). What came out still had suffixes (*者*, *性*, *的*) and pieces MeCab did
+not know near the top, which no rule tells from words; the 250 are the top of it after a reading.
+A list of thousands needs that reading done by a model or by the writer's own refusals.
+
+**The pitch accent has a witness.** Wiktionary's extract does not carry the Tokyo accent, but
+Kanjium's table does, for 124,000 words (`check_v4.accent_witness` says where to get it; it is not
+committed and nothing is copied from it). Of the 415 readings of the 298 entries, 253 carry an
+accent, the table knows 249 of those, and all 249 agree: 194 words written with kanji against
+their own row, 55 written in kana against every word read so, which is the weaker test. The 162
+without one are the pilot's 71, written before the rule, and 91 the writer was not sure of.
+
+`measure/ja-top/review/ja-1.md` and `ja-2.md` hold a hundred of the 250, drawn at random, for a
+reader of another model family to count the six kinds of fault in, as was done for the six
+languages. The review file says what is Japanese's own, and shows the accent.
 
 ### Running a trial language
 
@@ -758,9 +778,9 @@ page does not settle.
    the words in it; the commonest words of de, fr, es, it and pt, which their core lists left out
    because each is a form of something as well (*der*, *la*, *para*): `core-forms-<lang>` holds
    them and is not yet run; the book-word list, which needs an export from the book processor.
-5. **Japanese**: `top-ja` holds 250 common words to write under the reviewed rules; then their
-   measurement by a reviewer, and a witness for the pitch accent, which the Wiktionary extract
-   turned out not to carry for Tokyo. Korean and Chinese have no settings yet.
+5. **Japanese**: the answer to `measure/ja-top/review/` (a hundred of the 250 common words), then
+   the count, and on it the decision to make Japanese a target language. Its list of thousands
+   needs a reading that the top 250 got by hand. Korean and Chinese have no settings yet.
 6. **Frames and collocations**, in the next prompt version: the table of open places in the text
    for every language, a frame defined as a pattern with at least one open place, and the usual
    pairings of words (*have an idea*, *чемпионат мира*, *鉛筆で書く*) either in a list of their own

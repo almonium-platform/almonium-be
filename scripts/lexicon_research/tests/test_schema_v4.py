@@ -153,3 +153,14 @@ def test_a_grammar_value_may_hold_mainly():
     for wrong in ([], ["gender"], ["position", "position"]):
         e["lexemes"][0]["senses"][0]["grammar"]["mainly"] = wrong
         assert not VALID.is_valid(e), wrong
+
+
+def test_a_pitch_accent_is_held_against_the_accent_table_when_there_is_one(monkeypatch):
+    table = {("橋", "はし"): {2}, ("箸", "はし"): {1}, "はし": {0, 1, 2}, ("此れ", "これ"): {0}, ("これ", "これ"): {1}, "これ": {0, 1}}
+    monkeypatch.setattr(check_v4, "accent_witness", lambda lang: table)
+    said = lambda lemma, reading, accent: list(check_v4.unknown_accents("ja", {"lemma": lemma, "pronunciations": [{"variety": "ja-JP", "reading": reading, "notation": "kana", "accent": accent}]}))
+    assert said("橋", "はし", 2) == [] and said("橋", "はし", 1) == [("はし", 1, [2])]  # a word with kanji is held to its own row
+    assert said("これ", "これ", 0) == []  # a word in kana to every word read so: the table has the pronoun under 此れ
+    assert said("猫", "ねこ", 1) == []  # the table does not know the word: nothing said
+    monkeypatch.setattr(check_v4, "accent_witness", lambda lang: None)
+    assert said("橋", "はし", 1) == []
