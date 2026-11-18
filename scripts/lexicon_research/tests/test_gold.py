@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import check_v4  # noqa: E402
 import gold_candidates  # noqa: E402
 import ingest_v4  # noqa: E402
+import measure  # noqa: E402
 import prompting  # noqa: E402
 
 HERE = Path(__file__).resolve().parents[1]
@@ -30,6 +31,8 @@ PINNED = {
     ("ru", "v4.8"): "db13d034811d",
     ("en", "v4.9"): "5e602bd929d2", ("de", "v4.9"): "d7c709f42cfb", ("fr", "v4.9"): "43f042aac05d", ("es", "v4.9"): "c6178b955f4a", ("it", "v4.9"): "b7d74e48cacd", ("pt", "v4.9"): "04fee836e73f",
     ("ru", "v4.9"): "ff654aec68b6",
+    ("en", "v4.10"): "4b174049fe16", ("de", "v4.10"): "3b83da400282", ("fr", "v4.10"): "a507e377f954", ("es", "v4.10"): "f8933652c84d", ("it", "v4.10"): "39270e0050b8", ("pt", "v4.10"): "6cbc964f09ff",
+    ("ru", "v4.10"): "6e0a52496465",
 }
 ANSWER = """# Review
 
@@ -165,6 +168,19 @@ def test_from_v4_8_a_frame_has_an_open_place_and_the_words_company_is_a_collocat
     assert "日本人" in prompting.system_prompt("ja", "v4.9") and "日本人" not in prompting.system_prompt("ja", "v4.8")
     for lang in ("ru", "ja"):  # their notes said how a frame is written before every language was told
         assert "not one collocation filled in" not in prompting.system_prompt("ru", "v4.8") and "〜を勉強する" in prompting.system_prompt("ja", "v4.8")
+
+
+def test_v410_says_what_a_grammar_value_claims_and_what_is_a_frame():
+    """The second sample's reviewers reported a value as a claim wherever an exception to it exists, a French adjective
+    after its noun as wrongly "before a noun", and phrases that need a complement among the collocations. v4.10 says
+    what a value states, what Attr means, and which phrases are frames; v4.9 is as it was written."""
+    for lang in prompting.TARGET_LANGUAGES + prompting.PILOT_LANGUAGES:
+        new, old = prompting.system_prompt(lang, "v4.10"), prompting.system_prompt(lang, "v4.9")
+        for said in ("says how the word is ordinarily used", "on whichever side of the noun", '"in favour of sth", never "in favour of"',
+                     "A collocation stands under the sense whose meaning it has"):
+            assert said in new and said not in old, (lang, said)
+        assert "says what holds without exception" in old and "says what holds without exception" not in new
+    assert "Report a value" in measure.REVIEW and "ordinarily used" in measure.REVIEW  # the reviewer is told the same
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():

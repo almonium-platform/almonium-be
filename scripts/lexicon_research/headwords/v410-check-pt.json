@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "pretenso",
+  "zipf": 2.72,
+  "set": "v410-check"
+ },
+ {
+  "headword": "mobília",
+  "zipf": 3.3,
+  "set": "v410-check"
+ },
+ {
+  "headword": "bagagem",
+  "zipf": 3.93,
+  "set": "v410-check"
+ },
+ {
+  "headword": "prol",
+  "zipf": 4.06,
+  "set": "v410-check"
+ },
+ {
+  "headword": "gado",
+  "zipf": 4.14,
+  "set": "v410-check"
+ }
+]

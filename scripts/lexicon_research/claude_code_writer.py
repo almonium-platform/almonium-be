@@ -186,6 +186,9 @@ for lang in a.langs.split(","):
         print(f"no list headwords/{name}: nothing written for {lang}", flush=True)
         continue
     rows = json.loads((HERE / "headwords" / name).read_text())
+    # a row short of a field used to stop the run after its call was paid: the list is read whole before any call
+    if short := [str(r.get("headword")) for r in rows if not {"headword", "zipf", "set"} <= set(r)]:
+        sys.exit(f"headwords/{name}: rows without headword, zipf or set ({', '.join(short[:5])}); nothing written")
     if a.limit:
         rows = rows[:a.limit]
     system = system_prompt(lang)

@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "単なる",
+  "zipf": 4.32,
+  "set": "v410-check"
+ },
+ {
+  "headword": "大きな",
+  "zipf": 5.13,
+  "set": "v410-check"
+ },
+ {
+  "headword": "家具",
+  "zipf": 3.99,
+  "set": "v410-check"
+ },
+ {
+  "headword": "いわゆる",
+  "zipf": 4.5,
+  "set": "v410-check"
+ }
+]

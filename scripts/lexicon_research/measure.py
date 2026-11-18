@@ -55,8 +55,9 @@ dictionary have none: report a fault only when you could show it from a dictiona
   speech, an auxiliary, a transcription that gives the wrong sound (not a matter of notation), a
   definition that gives a meaning the word does not have.
 - **claim**: a restriction stated too strongly or wrongly. A region ("only" where the sense is used
-  elsewhere too), a position (only before a noun), a number or countability, a label (formal,
-  dated, offensive) the sense does not deserve.
+  elsewhere too), a label (formal, dated, offensive) the sense does not deserve, a grammar value
+  that is wrong for the word's ordinary use. A grammar value is not a claim because an exception
+  to it exists: see below what it states.
 - **missing-core**: the entry lacks one of the two or three commonest meanings or parts of speech of
   the word, one a learner at B1 or B2 meets in ordinary text.
 - **missing-minor**: it lacks a meaning that a learner's dictionary lists but that is rarer than
@@ -79,10 +80,15 @@ These are this dictionary's own definitions, not faults:
 - valency Refl stands for every use with a reflexive pronoun, whatever a grammar of {name} calls it
   (reflexive, reciprocal, pronominal); Tr means the verb takes a direct object, so a verb whose
   object needs a preposition or the dative is Intr.
-- a grammar value followed by "mainly" holds for most uses, not all; without it the value is claimed
-  without exception. Position Attr means the adjective is used joined to a noun and not after a verb
-  such as "be", wherever {name} puts it (before the noun in English, mostly after it in French);
-  Pred means only after such a verb. Neither says on which side of the noun the adjective stands.
+- a grammar value (countability, valency, position, number) says how the word is ordinarily used, as
+  a learner's dictionary of {name} prints it: "Mass" is "uncountable" in that sense, although kinds
+  of the thing can be counted. Followed by "mainly", the other use is common too. Report a value
+  only when a learner's dictionary would not print it for this word or sense.
+- position Attr means the adjective is used joined to a noun and not after a verb such as "be",
+  wherever {name} puts it (before the noun in English, mostly after it in French); Pred means only
+  after such a verb. Neither says on which side of the noun the adjective stands.
+- a lexeme is one word with one way of saying and inflecting it. Two homonyms that are said and
+  inflected alike are senses of one lexeme here, although dictionaries of {name} number them apart.
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.

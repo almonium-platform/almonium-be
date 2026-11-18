@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "ganado",
+  "zipf": 4.76,
+  "set": "v410-check"
+ },
+ {
+  "headword": "propósito",
+  "zipf": 4.76,
+  "set": "v410-check"
+ },
+ {
+  "headword": "ropa",
+  "zipf": 4.97,
+  "set": "v410-check"
+ },
+ {
+  "headword": "sendos",
+  "zipf": 3.29,
+  "set": "v410-check"
+ },
+ {
+  "headword": "mobiliario",
+  "zipf": 3.55,
+  "set": "v410-check"
+ }
+]
