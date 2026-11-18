@@ -22,7 +22,7 @@ A word that already has an older (v3) entry is not written either: mend_v4.py me
 the cost. Only the words the mender sends back for a rewrite are written, with --rewrite-older.
 
 Usage: claude_code_writer.py [--model opus] [--effort high] [--langs en,de,uk] [--limit N] [--workers 2]
-           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate] [--rewrite-older]
+           [--headwords NAME] [--pause-session 70] [--stop-week 0] [--no-gate] [--rewrite-older] [--stop-file PATH]
        (run from the backend repository root; --headwords NAME reads headwords/NAME-<lang>.json;
         build the index once with lemma_index.py)
 """
@@ -50,6 +50,21 @@ SCHEMA = json.dumps(_schema).replace("#/$defs/", "#/definitions/")
 
 
 _gate, _checked, _stopped = threading.Lock(), 0.0, False
+STOP_FILE = ""  # --stop-file: once it exists the calls in flight are finished and no other is made
+
+
+def stopping():
+    return bool(STOP_FILE) and Path(STOP_FILE).exists()
+
+
+def rest(seconds):
+    """Waits; False as soon as the stop file appears, so a run held at a plan's wall can be ended without a kill."""
+    until = time.time() + seconds
+    while time.time() < until:
+        if stopping():
+            return False
+        time.sleep(min(10, max(0.0, until - time.time())))
+    return True
 
 
 def meters():
@@ -100,7 +115,7 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
         return "older"
     if lemma_gate.stop(lang, row, f"cc-{model}{WRITER_SUFFIX}", GATE):
         return "gated"
-    if not allowed(pause_session, stop_week):
+    if stopping() or not allowed(pause_session, stop_week):
         return "stopped"
     covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
     cmd = ["claude", "-p", user_prompt(lang, row, covered=covered), "--model", model, "--effort", effort, "--tools", "",
@@ -131,7 +146,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
                 print(f"giving up for this run at {row['headword']}: {text[:120]!r}", flush=True)
                 return "error"
         print(f"{'limit' if limited else 'error'} at {row['headword']} ({text[:80]!r}); waiting ten minutes", flush=True)
-        time.sleep(600)
+        if not rest(600):
+            return "stopped"
     meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
             "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
     if covered:
@@ -171,6 +187,7 @@ ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this 
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 ap.add_argument("--names", action="store_true", help="write headwords that are only proper names too (people, towns, firms)")
 ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
+ap.add_argument("--stop-file", default="", help="once this file exists, finish the calls in flight and make no other: a stop that loses no paid answer")
 a = ap.parse_args()
 for _lang in a.langs.split(","):
     if _lang not in TARGET_LANGUAGES + PILOT_LANGUAGES:
@@ -178,6 +195,7 @@ for _lang in a.langs.split(","):
 GATE = not a.no_gate
 lemma_gate.names(a.names)
 REWRITE_OLDER = a.rewrite_older
+STOP_FILE = a.stop_file
 if GATE:
     lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):
