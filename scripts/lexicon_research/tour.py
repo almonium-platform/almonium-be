@@ -195,7 +195,7 @@ def features(lang, entry):
             if own.get("valency") == "Refl":
                 note("a reflexive sense of a verb", sense.get("definition"))
             if own.get("position") or grammar.get("position"):
-                note("a word or sense that stands only before a noun or only after a verb", f"{own.get('position') or grammar.get('position')}: {sense.get('definition')}")
+                note("a word or sense used only joined to a noun, or only after a verb like be", f"{own.get('position') or grammar.get('position')}: {sense.get('definition')}")
             if own.get("number") == "Plur":
                 note("a sense the word has only in the plural", sense.get("definition"))
             if own.get("note"):

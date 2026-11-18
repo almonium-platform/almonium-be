@@ -79,8 +79,10 @@ These are this dictionary's own definitions, not faults:
 - valency Refl stands for every use with a reflexive pronoun, whatever a grammar of {name} calls it
   (reflexive, reciprocal, pronominal); Tr means the verb takes a direct object, so a verb whose
   object needs a preposition or the dative is Intr.
-- a grammar value followed by "mainly" holds for most uses, not all ("position Attr, mainly"
-  is "usually before a noun"); without it the value is claimed without exception.
+- a grammar value followed by "mainly" holds for most uses, not all; without it the value is claimed
+  without exception. Position Attr means the adjective is used joined to a noun and not after a verb
+  such as "be", wherever {name} puts it (before the noun in English, mostly after it in French);
+  Pred means only after such a verb. Neither says on which side of the noun the adjective stands.
 - a headword that is also an inflected form of another word (given, ladies), an abbreviation or a
   name has only the lexemes it is the lemma of. The reader reaches the other word by a link that
   is not shown here.

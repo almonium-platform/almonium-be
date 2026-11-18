@@ -547,37 +547,57 @@ that the answers also say whether the seventh to ninth of a list are worth their
 Before any reviewer: a sense has 3.4 collocations in the new entries and 3.7 in the mended; a
 program reads 444 of the 452 new frames and 156 of the 157 mended.
 
-**Answers so far**, six files of the eight (English, German, Spanish, Portuguese, Russian, Japanese;
-316 entries), entries in a hundred with the fault:
+**The count** (all eight files, 426 entries, 18 November 2026), entries in a hundred with the fault:
 
-| | fact | claim | missing core | collocation |
-|---|---:|---:|---:|---:|
-| the bar | 2 | 5 | 10 | |
-| new, v4.9 (236) | 9 | 15 | 6 | 15 |
-| mended, v4.9 with mend-v3 (60) | 8 | 10 | 12 | 20 |
-| Russian of the trial, v4.6 (20) | 5 | 10 | 15 | 0 |
-| Japanese, new (40) | 5 | 7.5 | 12.5 | 12.5 |
-| Russian, new (40) | 18 | 15 | 12 | 32 |
+| | fact | claim | missing core | wording | collocation |
+|---|---:|---:|---:|---:|---:|
+| the bar | 2 | 5 | 10 | | |
+| new, v4.9 (316) | 8 | 16 | 7 | 38 | 16 |
+| mended, v4.9 with mend-v3 (90) | 8 | 14 | 10 | 58 | 21 |
+| Russian of the trial, v4.6 (20) | 5 | 10 | 15 | 35 | 0 |
 
-The missing-core bar is met by the new entries; facts and claims are not, as in the first count.
-Japanese's forty, of every band, stand at 5, 7.5 and 12.5 where the commonest 250 under v4.7 had
-4, 16 and 21. English new entries have one fact in forty and no core meaning missing. Spanish has
-six facts in thirty-nine, two of them a tap written as a trill (*carrera*, *representación*), which
-a rule could find; Portuguese has again its vowels before the stress.
+| new entries | en | de | fr | es | it | pt | ru | ja |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| fact | 2 | 5 | 2 | 15 | 5 | 11 | 18 | 5 |
+| claim | 15 | 18 | 20 | 15 | 20 | 18 | 15 | 8 |
+| missing core | 0 | 8 | 12 | 0 | 5 | 5 | 12 | 12 |
+| collocation | 2 | 13 | 12 | 15 | 22 | 13 | 32 | 12 |
 
-Russian's new entries are the weakest: seven of forty with a fact. Four are stress: *креди́т* and
-*кре́дит* the wrong way round, *осо́бо*, and *попро́бовать* transcribed with the stress on another
-syllable than its own stressed spelling. That last kind needs no source, and the audit now finds
-it ("transcription stressed on another syllable than the reading"): four of the 391 Russian
-pronunciations, *зависеть*, *подумать* and *пожаловать* beside it, each with the spelling right
-and the transcription wrong. Two more are homonyms written as one word (*брак*, *заставить*).
-Russian's collocations are flagged most, thirteen entries of forty, mostly one that belongs to
-another sense of the word or means something the definition does not say (*отправить на тот свет*).
+The missing-core bar is met; facts and claims are not, as in the first count. The first count's new
+entries stood at 5, 7 and 2, but they were rare words of one or two senses, and these are common
+ones outside English; the two counts are not one scale, and each language is forty entries.
 
-Of all the collocation findings about a quarter are an open place left in (*copy sb's style*, *na
-órbita de*), most of those in mended entries; a quarter are a pairing anyone would build (*no
-fogão*, *ехать быстро*); few are not said. Ingest now moves a collocation with an unmistakable
-open place to the frames (`sort_frames`). French and Italian are not answered yet.
+- **Facts.** About a third are a sound: Portuguese vowels before the stress again (four), the
+  Spanish tap written as a trill (*carrera*, *representación*), Russian stress (*креди́т* and
+  *кре́дит* the wrong way round, *осо́бо*, and *попро́бовать* transcribed with the stress on another
+  syllable than its own stressed spelling). That last kind needs no source, and the audit now
+  finds it ("transcription stressed on another syllable than the reading"): four of the 391
+  Russian pronunciations, each with the spelling right and the transcription wrong. Another third
+  is how a word is divided: two homonyms written as one (*брак*, *заставить*, *ポリス*), a valency
+  the reviewer counts otherwise (*dormir la siesta*). The rest are a frame that is wrong (*sotto
+  di qcn*, *plus que aucun*) or a relation.
+- **Claims** are still the grammar tags: of 71 findings twenty are countability or number, fourteen
+  position, seven valency, ten a label, eight a note. `mainly` is used and does not carry it: a
+  reviewer finds the exception to any tag stated without it (*a selection of fine cottons*). Eight
+  of the fourteen position findings are ours and not the entries': French and Italian adjectives
+  tagged Attr, which the writers mean as "with a noun, not after a verb" and the prompt and the
+  review file both gloss as "before a noun" (*loi martiale*). Position has to be defined by what
+  the adjective is joined to and not by where it stands; the review file says so now, the prompt
+  from its next version.
+- **Collocations.** 3,538 were shown and 2.6% were named: 28 findings an open place left in, mostly
+  a phrase that ends in its preposition (*prendre la direction de*, *sotto la guida di*); 19 a
+  pairing anyone would build (*molto chic*, *no fogão*, *ехать быстро*); 17 one that belongs to
+  another sense or means what the definition does not say (*отправить на тот свет*, *vider les
+  lieux*). By its place in the list a collocation is named 2.9, 1.2, 2.6, 4.4, 2.8 and 2.1 times
+  in a hundred from the first to the sixth, and 2.7 from the seventh on: the tail is no worse than
+  the head, and ten stays. Ingest now moves a collocation with an unmistakable open place to the
+  frames (`sort_frames`).
+- **The mender** is level with the writer on facts and claims and behind on wording, 58 against
+  38: the definitions it keeps from the older entry are found too narrow more often. It is no
+  cheaper any more: $0.053 an entry in a running batch against $0.050 for a new one, and against
+  $0.053 and $0.055 for new French and German words as common as the ones it mends. What it still
+  gives is the older entry's glosses and cues, kept beside the entry. Whether that is worth the
+  weaker definitions is the owner's to decide before 48,500 words are mended.
 
 Drawing it showed three things. The mender's queue names every word with an older entry, also the
 ones a writer has since written afresh, which the mender then passes over for nothing; the draw
@@ -1049,10 +1069,15 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **The answers to the second sample** (`measure/v49/answers/<lang>-1.md`, then `measure.py --name
-   v49 --tally`): whether v4.9 meets the bar, whether the mender does, and what the reviewer makes
-   of the collocations. On that the mending of the 48,600 older words and the pass over the 31,900
-   entries of before.
+3. **What the second count asks for**, in a next prompt version: position defined by what an
+   adjective is joined to, not where it stands; a set phrase that needs a complement written as a
+   frame with its open place (*prendre la direction de qqch*); a collocation only under the sense
+   whose meaning it has; Russian homonyms as two lexemes. And three decisions of the owner's:
+   whether a grammar tag states what is usual, as a learner's dictionary prints it, or what holds
+   without exception, which is what makes one entry in seven a "claim"; whether the older words
+   are mended or written afresh, now that the price is the same; and whether the bar for facts
+   stays at two when a third of them are sounds no writer knows without a source. Rules to add
+   without a version: the Spanish tap and trill, by the spelling.
 4. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
    the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
    ingest linking each phrase to the words in it; the book-word list needs an export from the book
