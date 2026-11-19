@@ -554,34 +554,42 @@ def show(entry):
     return "\n".join(lines)
 
 
-def review(name, langs, per_file):
-    for lang in langs:
-        items = json.loads((MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))
-        written = ingest_v4.load_raw(lang)
-        put_path = MEASURE / name / f"planted-{lang}.json"
-        put = json.loads(put_path.read_text(encoding="utf-8")) if put_path.exists() else {}
-        checked = gold_entries(lang) if any(i["part"] == "gold" for i in items) else {}
-        import witness
-        facts = witness.facts(lang)
-        blocks, absent = [], []
-        for item in items:
-            if item["part"] == "gold":
-                raw, meta = checked[item["headword"]], {"prompt_version": "gold", "writer": "gold"}
-            elif item.get("folder"):
-                trial = folder_entries(item["folder"], lang)
-                if item["headword"] not in trial:
-                    absent.append(item["headword"])
-                    continue
-                raw, meta = trial[item["headword"]]
-            elif item["headword"] not in written:
+def sample_entries(name, lang):
+    """A sample's entries as a reader gets them: (every item, [(item, entry, meta)] for those written, the words
+    that are not). The free fixes are applied, and a planted entry is the one with its fault."""
+    items = json.loads((MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))
+    written = ingest_v4.load_raw(lang)
+    put_path = MEASURE / name / f"planted-{lang}.json"
+    put = json.loads(put_path.read_text(encoding="utf-8")) if put_path.exists() else {}
+    checked = gold_entries(lang) if any(i["part"] == "gold" for i in items) else {}
+    found, absent, trials = [], [], {}
+    for item in items:
+        if item["part"] == "gold":
+            raw, meta = checked[item["headword"]], {"prompt_version": "gold", "writer": "gold"}
+        elif item.get("folder"):
+            trial = trials.setdefault(item["folder"], folder_entries(item["folder"], lang))
+            if item["headword"] not in trial:
                 absent.append(item["headword"])
                 continue
-            else:
-                raw, meta = written[item["headword"]]
-            clean = ingest_v4.clean_entry(lang, json.loads(json.dumps(raw)), meta)  # as a reader would get it: the free fixes applied
-            if item["part"] == "planted":
-                clean = put[item["headword"]]["entry"]
-            elif facts is not None:  # what Wiktionary states otherwise, kept beside the sample and not shown to the reader
+            raw, meta = trial[item["headword"]]
+        elif item["headword"] not in written:
+            absent.append(item["headword"])
+            continue
+        else:
+            raw, meta = written[item["headword"]]
+        clean = ingest_v4.clean_entry(lang, json.loads(json.dumps(raw)), meta)
+        found.append((item, put[item["headword"]]["entry"] if item["part"] == "planted" else clean, meta))
+    return items, found, absent
+
+
+def review(name, langs, per_file):
+    for lang in langs:
+        items, found, absent = sample_entries(name, lang)
+        import witness
+        facts = witness.facts(lang)
+        blocks = []
+        for item, clean, meta in found:
+            if item["part"] != "planted" and facts is not None:  # what Wiktionary states otherwise, kept beside the sample and not shown to the reader
                 item["witness"] = [f"{fact}: {detail}" for fact, verdict, detail, _ in witness.compare(lang, clean, facts) if verdict == "differs"]
             item["prompt_version"], item["writer"] = meta.get("prompt_version"), meta.get("writer")
             item["lexemes"], item["senses"] = len(clean["lexemes"]), sum(len(lx.get("senses") or []) for lx in clean["lexemes"])

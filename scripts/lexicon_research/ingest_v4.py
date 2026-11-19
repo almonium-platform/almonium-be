@@ -24,7 +24,7 @@ spelling to the headword that holds its lexemes; _report.json counts what happen
 
 Usage: ingest_v4.py [--langs en,de] [--dry-run]   (run from the backend repository root)
 """
-import argparse, json, re, sys, unicodedata, uuid
+import argparse, hashlib, json, re, sys, unicodedata, uuid
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -222,6 +222,74 @@ def settled(lang):
                 found[headword].append(d)
         _settled[lang] = found
     return _settled[lang]
+
+
+REVIEWED = OUT / "review-loop"  # the outcomes of review_v4.py: what a second model found and the writer or a third model upheld
+_reviewed = {}
+
+
+def reviewed(lang):
+    """headword -> the outcomes of the review loop that hold operations, each for the written entry it names."""
+    if lang not in _reviewed:
+        found = defaultdict(list)
+        for path in sorted((REVIEWED / lang).glob("*.outcome.json")):
+            try:
+                record = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            if record.get("ops") and record.get("raw_sha"):
+                found[record.get("headword")].append(record)
+        _reviewed[lang] = found
+    return _reviewed[lang]
+
+
+def read_frames(lang, lexeme):
+    """Each frame a program can rely on, as its parts: what the reader's text is matched against."""
+    for sense in lexeme.get("senses") or []:
+        read = [{"frame": frame, "parts": frame_parts(lang, lexeme.get("lemma") or "", frame, names(lexeme))}
+                for frame in sense.get("frames") or [] if not unread(lang, lexeme.get("lemma") or "", frame, names(lexeme))]
+        sense.pop("patterns", None)
+        if read:
+            sense["patterns"] = read
+
+
+def apply_reviewed(lang, entry, raw_sha, records):
+    """The entry with the review loop's patches for this written text, finding by finding: one whose places no longer
+    hold what it saw (a rule has changed the entry since) is left out whole. Says how many findings it mended.
+    A sense or lexeme a patch added gets its identifier here, as every other does."""
+    from entry_patch import PatchError, apply_ops
+
+    done = 0
+    for record in records:
+        if record.get("raw_sha") != raw_sha:  # the outcome of an entry that has been written again since
+            continue
+        taken = []
+        for n in sorted({op["n"] for op in record["ops"]}):
+            try:
+                apply_ops(entry, taken + [op for op in record["ops"] if op["n"] == n])
+            except PatchError:
+                continue
+            taken += [op for op in record["ops"] if op["n"] == n]
+            done += 1
+        if taken:
+            entry["lexemes"] = apply_ops(entry, taken)["lexemes"]
+    if done:
+        used = {(group(lx), lx.get("homograph")) for lx in entry["lexemes"] if lx.get("id")}
+        for lexeme in entry["lexemes"]:
+            if not lexeme.get("id"):
+                lexeme["homograph"] = next(n for n in range(1, 1000) if (group(lexeme), n) not in used)
+                used.add((group(lexeme), lexeme["homograph"]))
+                lexeme["id"] = lexeme_id(lang, entry["headword"], lexeme, lexeme["homograph"])
+            for k, sense in enumerate(lexeme.get("senses") or []):
+                if not sense.get("id"):
+                    lexeme["senses"][k] = {"id": sense_id(lexeme["id"], sense.get("definition")), **sense}
+            # what a patch wrote passes the same rules as what a writer wrote
+            settle_sounds(lang, lexeme)
+            settle_frames(lang, lexeme)
+            split_frames(lang, lexeme)
+            sort_frames(lang, lexeme)
+            read_frames(lang, lexeme)
+    return done
 
 
 def kept(lang):
@@ -670,10 +738,12 @@ def match_senses(old, new):
     return kept, [old[i] for i in free]
 
 
-def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), settle=True):
+def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), settle=True, review=True):
     """The clean entry for one written entry. previous is the clean entry of an earlier ingest, if any;
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
+    outcomes = reviewed(lang).get(headword) if review else None
+    raw_sha = hashlib.sha256(json.dumps(raw, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()[:12] if outcomes else None
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
     dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices, readings = [], [], Counter(), 0, 0, 0, 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
@@ -711,11 +781,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), set
         places += settle_frames(lang, lexeme)
         choices += split_frames(lang, lexeme)
         company += sort_frames(lang, lexeme)
-        for sense in lexeme.get("senses") or []:  # each frame a program can rely on, as its parts: what the reader's text is matched against
-            read = [{"frame": frame, "parts": frame_parts(lang, lexeme.get("lemma") or "", frame, names(lexeme))}
-                    for frame in sense.get("frames") or [] if not unread(lang, lexeme.get("lemma") or "", frame, names(lexeme))]
-            if read:
-                sense["patterns"] = read
+        read_frames(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -752,6 +818,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), set
                        "prompt_sha": meta.get("prompt_sha") or (V4_SHA.get(lang) if meta.get("prompt_version") == "v4" else None)}
     if settle and (facts := apply_decisions(lang, entry, settled(lang).get(headword, []))):
         entry["facts_settled"] = facts
+    if outcomes and (mended := apply_reviewed(lang, entry, raw_sha, outcomes)):
+        entry["faults_mended"] = mended
     return entry
 
 
@@ -874,6 +942,7 @@ def ingest(lang, dry_run=False):
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
         counts["stressed spellings rebuilt from the spelling"] += clean.get("stressed_spellings_rebuilt", 0)
         counts["facts set by a second look the sources confirm"] += clean.get("facts_settled", 0)
+        counts["faults a second model found and the review loop mended"] += clean.get("faults_mended", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
         counts["frames and collocations with a choice of words split"] += clean.get("frames_split", 0)
