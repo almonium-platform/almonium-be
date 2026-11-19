@@ -47,8 +47,12 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
   say (`tour.py` picks them), for checking by hand what the app shows a reader.
-- Backend: `learning/lexicon`. It reads schema 3 and refuses schema 4 (it requires glosses, cues and
-  a register on every sense), so the 31,000 entries cannot be shown yet.
+- Backend: `learning/lexicon`. On `develop` it checks every published entry against its own copy of
+  the schema (`src/main/resources/lexicon/entry.schema.json`, `EntrySchema.VERSION`), and on 19
+  November 2026 that copy is still version 3. The owner says a reader of the present shape has been
+  written; it is not on `develop`. Whichever copy of `entry.schema.v4.json` it carries has to be the
+  present one, because the schema refuses a key it does not know: an entry whose pronunciation has a
+  `context` (v4.11) is refused by a copy taken before 19 November.
 
 ## How a word becomes an entry
 
@@ -480,6 +484,45 @@ complement are frames (*on behalf of sb*, *aux dépens de qqn*, *all'insaputa di
 algo*). Whether reviewers now report fewer claims is for the next sample to say: the trial shows
 the writer follows the text, not that the text is right.
 
+## Prompt v4.11: when a way of saying the word is the one said
+
+Written on 19 November 2026, at the owner's word. A second transcription could say how common it is
+(`note`: less_common, older, regional and four more) and nothing about when it is said. So *the*
+before a vowel, French *six* before a consonant and *bath* in the north of England stood beside the
+first transcription without a word, the condition sometimes hidden in a grammar note; and a weak
+form was left out (*and*, *of*, *to* had only /ˈænd/, /ˈʌv/, /ˈtuː/) or given a stress mark it does
+not have (/ˈðə/, /ˈkən/).
+
+- **The shape**: a pronunciation may carry `context`, one clause in English of at most 80
+  characters, like the `note` a form already has. It may stand on any reading, the first included,
+  and beside a `note`: the note says how common the reading is, the context when it is the one
+  said. An entry without it is as valid as before.
+- **The prompt**: v4.11 is v4.10 with that clause and nothing else moved (a test holds the two
+  against each other). The context names what follows the word, which use of the word it is, or the
+  part of a variety where a regional reading is said. A word said weakly in running speech gives
+  its full form first, as it is said alone, and then the weak form with the context "weak form,
+  usual in running speech" and no stress mark: the first transcription stays the one a recorded
+  clip says and the one the witness compares.
+- **The trial**: 25 words chosen for it and against it, $3.17 (most of it the first call of each
+  language, which pays for the prompt), in `out/review-context-v411/`. All 25 are valid, lose
+  nothing in ingest and raise nothing with the witness.
+
+| word | what v4.11 wrote |
+|---|---|
+| *the* | /ˈðiː/, then /ðə/ "weak form before a consonant sound, usual in running speech" and /ði/ "… before a vowel sound …" |
+| *and*, *of*, *can*, *to*, *a* | the full form, then /ənd/ /ən/, /əv/, /kən/, /tə/ /tu/, /ə/ /ən/ as weak forms |
+| *bath* | en-GB /ˈbɑːθ/, then /ˈbæθ/ regional, "north of England" |
+| *six* | /ˈsis/ "alone, at the end of a phrase, or as an ordinal", /ˈsi/ "before a noun beginning with a consonant sound", /ˈsiz/ "… a vowel sound" |
+| *neuf*, *plus* | /ˈnœv/ "before ans and heures"; /ˈply/ "in negation, and before an adjective or adverb", /ˈplys/ "meaning more, after a verb or at the end of a phrase" |
+| *Chemie*, *König*, *casa* | /ke.ˈmiː/ regional "southern Germany"; /ˈkøː.nɪk/ regional "south of Germany"; /ˈka.za/ regional "northern Italy" |
+| *на*, *что* | /nɐ/ and /ʂtə/ as weak forms: the writer carried the rule to Russian's unstressed little words |
+| *either*, *schedule*, *дождь* | a note only (less_common, newer, older): nothing decides, and no context was invented |
+| *table*, *water*, *maison*, *Haus*, *стол*, *zio* | one way of saying it, no context |
+
+Entries written before v4.11 are not written again for this. The words it matters for are few and
+known: the weak forms of English are a closed list of some forty words, and a patch of that one
+field is the second kind of change in "What a later change costs".
+
 ## What the six reviews say about the entries
 
 118 entries written under v4, all faultless to the audit and all of plain common words, were read
@@ -709,9 +752,68 @@ What a program can say of the two, same words:
   with a gloss they were shown, against 7 in 187 written without seeing any.
 
 What only a reader can say is whether senses and wording are better, and the reader that counted
-the first arm must count the second: `measure/v410e/review/` holds the same forty words a language
+the first arm counted the second: `measure/v410e/review/` holds the same forty words a language
 from the trial folder, with the five checked entries, and `measure.py --name v410e --tally --pair
-v410` will set the two counts side by side entry by entry.
+v410` sets the two counts side by side entry by entry.
+
+**The count, 19 November: the evidence did not make the entries better.** Entries in a hundred
+with the fault, the same 280 words and the same reader (GPT):
+
+| fault | v4.10 | v4.10e | gone in, new in |
+|---|---|---|---|
+| fact | 4.3 | 4.3 | 11, 11 |
+| claim | 16.1 | 15.4 | 22, 20 |
+| missing-core | 4.6 | 9.6 | 7, 21 |
+| missing-minor | 46.8 | 54.3 | 22, 43 |
+| split | 2.9 | 2.1 | 8, 6 |
+| wording | 38.6 | 43.6 | 41, 55 |
+| collocation | 17.9 | 20.7 | 26, 34 |
+
+Two things are in those numbers, and the comparison now prints both.
+
+- **The reader moved.** The 35 entries checked by hand are the same text in both samples. GPT
+  found something in 11 of them the first time and in 18 the second (wording 4 then 9,
+  missing-minor 5 then 7). A rise of a tenth in wording or in minor senses is therefore the reader,
+  not the writing. This is what the two-reader count had already said: one reading by one model is
+  a noisy instrument, and a difference between two samples means something only beside the same
+  difference on unchanged entries.
+- **The writer followed the size of what it was shown.** Read one by one, of the 21 entries with a
+  new missing core sense, six had that sense in the first arm and lost it (*begin* as where
+  something starts, *euer* as a pronoun, *considerado* as respected, *top* as an adjective,
+  *atitude* as posture, *тут* as "in this matter") and two more lost part of it; the other thirteen
+  lack it in both arms and are the reader. Of the seven that went, five are senses the second
+  arm has: three stood in the block (*certainement*, *moteur*, *на*) and two did not (*orgulho*,
+  *центр*), which is what any second writing brings. In every one of the six losses the
+  block the writer saw did not have the sense: English Wiktionary gives *considerado* as
+  "considerate, thoughtful" and *top* in Italian as a garment, and the writer wrote what it was
+  shown.
+
+| senses the block held | entries | senses an entry, first then second | fewer in, more in |
+|---|---|---|---|
+| one | 80 | 2.39, 2.29 | 14, 7 |
+| two | 66 | 2.89, 2.79 | 15, 9 |
+| three or four | 57 | 3.56, 3.35 | 19, 8 |
+| five to nine | 41 | 4.17, 4.29 | 8, 11 |
+| ten or more | 35 | 6.00, 6.43 | 6, 15 |
+
+So the block pulls an entry toward its own size, whatever the prompt says about it being a check
+and not a model. English, whose block is the long one, grew (more senses in 15 entries, fewer in
+5) and has no fact and one missing core sense in forty; the other six languages, whose blocks are
+English Wiktionary's short record of a foreign word, shrank (fewer in 57, more in 35). The flat
+average of the program's table hid the two movements.
+
+What stays true: the sounds are better with the block (the three wrong sounds a reader named in
+the first arm are gone, and none came). What follows:
+
+1. **v4.10e is not the writers' prompt.** For six languages of seven it trades senses for sounds,
+   and the witness with a second look already mends sounds for less.
+2. **A block of facts alone** (gender, plural, forms, transcriptions, no senses) keeps what was
+   gained and cannot pull the senses. Not tried.
+3. **Senses from a record that is as full as the entry should be**: each language's own
+   Wiktionary, which is already here as a witness (`open_sources.py`), has *considerado* and
+   *top* in full. Its senses are in the language of the entry, so copying has to be measured
+   again. Not tried; some $14 for the 240 words, and the sense counts above say at once whether
+   the pull is gone, before any reader is asked.
 
 ### Measuring the reviewer
 
@@ -1505,6 +1607,10 @@ languages' entries are each other's translation are checks of step 3 and 4, and 
 - Prompt v4.10 is the writers' prompt since 18 November 2026 (v4.8 and v4.9 for a few hours each
   before it); `LEXICON_PROMPT_VERSION=v4.7` goes back to one list. A grammar value states how the
   word is ordinarily used, as a learner's dictionary prints it.
+- Prompt v4.11 is the writers' prompt since 19 November 2026: v4.10 with `context` on a way of saying
+  the word (the owner, 19 November). Entries of v4.10 stay as they are.
+- The writer is not shown English Wiktionary's senses: it follows their number, and for every
+  language but English they are fewer than the entry should have ("The evidence trial").
 - A word whose only entry is of an older shape is written afresh, not mended (the owner, 18
   November 2026). The older entry is kept.
 - A word said in more than one way in a variety has a transcription for each, the commonest first,
@@ -1666,16 +1772,18 @@ page does not settle.
 
 ## Pending, in order
 
-1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
+1. **The backend reads schema 4**, so entries can be published and seen. The owner says the reader is
+   written; it is not on `develop` yet ("Where everything is"), and its copy of the schema must
+   know `context`.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
 3. **The second look over the whole list**: some 480 entries, $13 ("The second look"). Then
    the Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling, and the
    Russian vowel before the stress checked from the stressed spelling.
-   **The evidence trial's count**: GPT's reading of `measure/v410e/`, paired with the third
-   sample's. If senses and facts are better and nothing is worse, v4.10e becomes the writers'
-   prompt and every new word is written with its evidence. One decision of the owner's is still
-   open: whether the bar for facts stays at two.
+   **Evidence, the second try**: the count is in and v4.10e is not adopted ("The evidence
+   trial"). Next is a block with the facts and either no senses or the senses of the language's
+   own Wiktionary, on the six languages that lost by it. One decision of the owner's is still open:
+   whether the bar for facts stays at two.
 4. **The older words**: 39,902 to write again, after the third sample has shown that v4.10 holds.
 5. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
    the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
