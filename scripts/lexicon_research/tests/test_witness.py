@@ -170,3 +170,13 @@ def test_a_transcription_of_another_spelling_is_held_against_that_spelling():
     assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees", "agrees"]
     del known["изо"]  # Wiktionary without the second spelling: the second transcription is not judged
     assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees"]
+
+
+def test_a_word_said_two_ways_is_right_when_one_way_is_wiktionarys():
+    """German "unmöglich" is stressed on either syllable and Duden prints both; Wiktionary has one. An entry that
+    gives both is not at fault for the one Wiktionary lacks, and one that gives neither of Wiktionary's is."""
+    known = table("unmöglich", heard=[((), "/ʔʊn.ˈmøː.klɪç/")])
+    both = entry("unmöglich", "ADJ", pronunciations=[{"variety": "de-DE", "ipa": "/ˈʊn.møːk.lɪç/"}, {"variety": "de-DE", "ipa": "/ʊn.ˈmøːk.lɪç/"}])
+    assert verdicts("de", both, known) == {("stressed syllable", "agrees"), ("sounds", "agrees")}
+    first_only = entry("unmöglich", "ADJ", pronunciations=[{"variety": "de-DE", "ipa": "/ˈʊn.møːk.lɪç/"}])
+    assert ("stressed syllable", "differs") in verdicts("de", first_only, known)

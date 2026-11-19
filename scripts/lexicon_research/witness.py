@@ -274,7 +274,9 @@ def compare(lang, entry, table):
             found.append(("gender", "agrees" if gender in genders else "differs", f"{lemma}: {gender}, Wiktionary has {', '.join(sorted(genders))}"))
         if (ours := plurals_of(lang, lexeme)) and plurals and lexeme.get("pos") == "NOUN":
             found.append(("plural", "agrees" if ours & plurals else "differs", f"{lemma}: {', '.join(sorted(ours))}, Wiktionary has {', '.join(sorted(plurals))}"))
-        heard_here = []
+        # Two transcriptions of one spelling in one variety are two ways of saying the word ("unmöglich" stressed on
+        # either syllable, "either"). Wiktionary seldom has both, so the pair is right when one of them is.
+        ways = {}
         for p in lexeme.get("pronunciations") or []:
             ipa, variety = p.get("ipa") or "", p.get("variety") or ""
             if not ipa:
@@ -289,12 +291,12 @@ def compare(lang, entry, table):
                 heard = other[1]
             else:
                 heard = known[1]
+            stressed, sounded = ways.setdefault((variety, plain(spelt)), ([], []))
             anywhere = [t for _, t, _ in heard]
             place = stress_place(ipa)
             theirs = [t for t in (stress_place(i) for i in anywhere) if t]
             if place and theirs and sum(place) > 1:
-                same = any(same_stress(place, t) for t in theirs)
-                found.append(("stressed syllable", "agrees" if same else "differs", f"{lemma} {variety}: {ipa}, Wiktionary has {' '.join(anywhere[:4])}"))
+                stressed.append((any(same_stress(place, t) for t in theirs), f"{lemma} {variety}: {ipa}, Wiktionary has {' '.join(anywhere[:4])}"))
             here, others, named = of_place(variety, heard)
             if here:
                 # where the stress is on another syllable, the length that goes with it is not counted a second time
@@ -304,7 +306,15 @@ def compare(lang, entry, table):
                 if pairs and others and not differences(lang, mine, {text for t in others for text in sounds(lang, t, variety)}, variety, lengths):
                     pairs = []  # a way of saying it that Wiktionary records, if not as the standard of the place
                 said = " ".join(f"{a}>{b}" for a, b in pairs)
-                heard_here.append((named, not pairs, f"{lemma} {variety}: {ipa}, Wiktionary has {' '.join(here[:4])}  [{said}]"))
+                sounded.append((not pairs, named, f"{lemma} {variety}: {ipa}, Wiktionary has {' '.join(here[:4])}  [{said}]"))
+        heard_here = []
+        for stressed, sounded in ways.values():
+            if stressed:
+                same, detail = max(stressed, key=lambda way: way[0])  # the way that agrees, if one does
+                found.append(("stressed syllable", "agrees" if same else "differs", detail))
+            if sounded:
+                same, named, detail = max(sounded, key=lambda way: way[0])
+                heard_here.append((named, same, detail))
         # a transcription named for no place, in a language where the place matters, can confirm and cannot contradict:
         # it is held against a variety of ours only when Wiktionary confirms none of the lexeme's transcriptions
         confirmed = any(same for _, same, _ in heard_here)
