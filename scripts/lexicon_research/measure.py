@@ -26,6 +26,10 @@ Steps (run from the backend repository root):
                                                              entries already written under a version, nothing to buy,
                                                              with the reader measured (below)
 
+  measure.py --name v410e --sample --like v410 --folder review-evidence-v410e --gold 5
+                                                             the same words written a second way (a trial folder), to
+                                                             be read by the same reader; --pair v410 then compares
+
 The reader is measured too, by entries it cannot tell from the rest:
   planted  entries of the same pool with one fault put in by code (a gender, the stressed syllable, Count for
            Mass, two examples changed over), each one a fault Wiktionary contradicts or the entry itself shows.
@@ -356,6 +360,57 @@ def draw_written(lang, version, new, planted, seed, skip=()):
     return [(h, round(zipf_frequency(h, lang), 2)) for h in real], put
 
 
+def folder_entries(folder, lang):
+    """headword -> (entry, meta) of a trial folder under out/, which holds words written a second way."""
+    found = {}
+    for f in sorted((OUT / folder / lang).glob("*.json")):
+        if not f.name.endswith(".meta.json"):
+            meta = f.with_name(f.stem + ".meta.json")
+            found[f.stem] = (json.loads(f.read_text(encoding="utf-8")), {**(json.loads(meta.read_text(encoding="utf-8")) if meta.exists() else {}), "writer": folder})
+    return found
+
+
+def sample_like(name, other, folder, langs, gold):
+    """The same words as another sample's, in its order, read from a trial folder: the second arm of a comparison.
+    Each item names the entry it is paired with (pair: the id in the other sample)."""
+    (MEASURE / name).mkdir(parents=True, exist_ok=True)
+    for lang in langs:
+        theirs = json.loads((MEASURE / other / f"sample-{lang}.json").read_text(encoding="utf-8"))
+        items = [{"headword": i["headword"], "zipf": i["zipf"], "part": i["part"], "pair": i["id"], **({"folder": folder} if i["part"] == "new" else {})}
+                 for i in theirs if i["part"] == "new" or (i["part"] == "gold" and gold)]
+        for number, item in enumerate(items, 1):
+            item["id"] = number
+        (MEASURE / name / f"sample-{lang}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        print(f"{lang}: {sum(i['part'] == 'new' for i in items)} entries of {folder}, paired with {other}, {sum(i['part'] == 'gold' for i in items)} checked by hand")
+
+
+def pair(name, other, langs):
+    """Two samples of the same words, one reader: in how many entries each fault is found in each, and where it went or came."""
+    there, here, moved = Counter(), Counter(), defaultdict(list)
+    n = 0
+    for lang in langs:
+        ours = {i["id"]: i for i in json.loads((MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))}
+        read_here, read_there = {}, {}
+        for f in sorted((MEASURE / name / "answers").glob(f"{lang}-*.md")):
+            read_here.update(answers_of(f.read_text(encoding="utf-8")))
+        for f in sorted((MEASURE / other / "answers").glob(f"{lang}-*.md")):
+            read_there.update(answers_of(f.read_text(encoding="utf-8")))
+        for number, item in ours.items():
+            if item["part"] != "new" or number not in read_here or item["pair"] not in read_there:
+                continue
+            n += 1
+            now, before = {f["fault"] for f in read_here[number]}, {f["fault"] for f in read_there[item["pair"]]}
+            for fault in FAULTS:
+                here[fault] += fault in now
+                there[fault] += fault in before
+                if (fault in now) != (fault in before):
+                    moved[fault, "gone" if fault in before else "new"].append(f"{lang} {item['headword']}")
+    print(f"{n} entries read in both: {other} then {name}, entries in a hundred with the fault")
+    for fault in FAULTS:
+        if n:
+            print(f"  {fault:13} {100 * there[fault] / n:5.1f} -> {100 * here[fault] / n:5.1f}   gone in {len(moved[fault, 'gone'])}, new in {len(moved[fault, 'new'])}")
+
+
 def gold_entries(lang):
     """The language's example entries, which a person has checked: {headword: entry}."""
     from prompting import gold_path
@@ -473,6 +528,12 @@ def review(name, langs, per_file):
         for item in items:
             if item["part"] == "gold":
                 raw, meta = checked[item["headword"]], {"prompt_version": "gold", "writer": "gold"}
+            elif item.get("folder"):
+                trial = folder_entries(item["folder"], lang)
+                if item["headword"] not in trial:
+                    absent.append(item["headword"])
+                    continue
+                raw, meta = trial[item["headword"]]
             elif item["headword"] not in written:
                 absent.append(item["headword"])
                 continue
@@ -608,11 +669,18 @@ if __name__ == "__main__":
     ap.add_argument("--written", default=None, help="draw the new part from entries already written under this prompt version (v4.10): nothing to buy")
     ap.add_argument("--planted", type=int, default=0, help="with --written: entries given one fault by code, to measure the reader's hit rate")
     ap.add_argument("--gold", type=int, default=0, help="with --written: entries a person has checked, to measure the reader's false alarms")
+    ap.add_argument("--like", default=None, help="with --sample and --folder: the sample whose words are read a second time, from a trial folder")
+    ap.add_argument("--folder", default=None, help="the trial folder under out/ that holds the second writing of those words")
+    ap.add_argument("--pair", default=None, help="compare this sample's count with the named sample's, entry by entry")
     a = ap.parse_args()
     langs = a.langs.split(",")
-    if a.sample:
+    if a.sample and a.like:
+        sample_like(a.name, a.like, a.folder, langs, a.gold)
+    elif a.sample:
         sample(a.name, langs, a.have, a.new, a.seed, a.list, a.mended, a.written, a.planted, a.gold)
     if a.review:
         review(a.name, langs, a.per_file)
     if a.tally:
         tally(a.name, langs)
+    if a.pair:
+        pair(a.name, a.pair, langs)

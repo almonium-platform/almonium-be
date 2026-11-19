@@ -51,6 +51,8 @@ SCHEMA = json.dumps(_schema).replace("#/$defs/", "#/definitions/")
 
 _gate, _checked, _stopped = threading.Lock(), 0.0, False
 STOP_FILE = ""  # --stop-file: once it exists the calls in flight are finished and no other is made
+EVIDENCE = False  # --evidence: Wiktionary's record of the word is shown in the request (wiktionary.py)
+TRIAL_FOLDER = ""  # --out: write under out/<name>/ and not among the dictionary's entries
 
 
 def stopping():
@@ -102,23 +104,29 @@ def allowed(pause_session, stop_week):
 
 
 def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, retries=0):
-    d = OUT / f"cc-{model}{WRITER_SUFFIX}" / lang
+    d = OUT / (TRIAL_FOLDER or f"cc-{model}{WRITER_SUFFIX}") / lang
     d.mkdir(parents=True, exist_ok=True)
     f = d / f"{row['headword']}.json"
     if f.exists():
         return "skip"
-    # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice
-    if WRITER_SUFFIX and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
+    # a v4 entry from any writer (the API writer, Codex) is the word's entry: never buy it twice. A trial folder is
+    # the exception it was made for: the same words written a second way, kept apart from the dictionary's entries.
+    if WRITER_SUFFIX and not TRIAL_FOLDER and any((o / f"{row['headword']}.json").exists() for o in OUT.glob(f"*{WRITER_SUFFIX}/{lang}")):
         return "skip"
     # a word with an older entry is mended (mend_v4.py), not bought again, unless the mender said it must be rewritten
-    if WRITER_SUFFIX and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):
+    if WRITER_SUFFIX and not TRIAL_FOLDER and not REWRITE_OLDER and v3_entries.has_older(lang, row["headword"]):
         return "older"
     if lemma_gate.stop(lang, row, f"cc-{model}{WRITER_SUFFIX}", GATE):
         return "gated"
     if stopping() or not allowed(pause_session, stop_week):
         return "stopped"
     covered = lemma_gate.covered(lang, row["headword"]) if GATE else []
-    cmd = ["claude", "-p", user_prompt(lang, row, covered=covered), "--model", model, "--effort", effort, "--tools", "",
+    shown = None
+    if EVIDENCE:  # what Wiktionary states of the word, at the end of the request; a word it does not have is written without
+        import wiktionary
+        found = wiktionary.evidence(lang, row["headword"])
+        shown = wiktionary.render(found) if found else None
+    cmd = ["claude", "-p", user_prompt(lang, row, evidence=shown, covered=covered), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
            "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]  # no MCP servers: their tool schemas would ride along in every call
     while True:
@@ -150,6 +158,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
             return "stopped"
     meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
             "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
+    if EVIDENCE:
+        meta["evidence_chars"] = len(shown or "")
     if covered:
         meta["covered"] = [f"{lemma} ({pos})" for lemma, pos in covered]
     meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})
@@ -169,7 +179,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
         return "error"
     f.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n")
     (d / f"{row['headword']}.meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
-    lemma_gate.register(lang, entry)
+    if not TRIAL_FOLDER:
+        lemma_gate.register(lang, entry)
     status = "error" if "error" in entry else f"{len(entry.get('lexemes', []))} lexemes"
     print(f"cc-{model}{WRITER_SUFFIX} {lang} {row['headword']:22} {status:12} {wall}s out={meta.get('output_tokens')} cache_read={meta.get('cache_read')} cost~${meta.get('total_cost_usd')}", flush=True)
     return status
@@ -187,6 +198,8 @@ ap.add_argument("--stop-week", type=int, default=0, help="stop for good at this 
 ap.add_argument("--no-gate", action="store_true", help="write inflected forms too, without asking the Wiktionary index")
 ap.add_argument("--names", action="store_true", help="write headwords that are only proper names too (people, towns, firms)")
 ap.add_argument("--rewrite-older", action="store_true", help="write words that have an older entry too (the mender's rewrite list)")
+ap.add_argument("--evidence", action="store_true", help="show the writer what Wiktionary states of the word (for a prompt version that says how to use it)")
+ap.add_argument("--out", default="", help="a trial: write under out/<name>/ (a name beginning review-), also words that have an entry already")
 ap.add_argument("--stop-file", default="", help="once this file exists, finish the calls in flight and make no other: a stop that loses no paid answer")
 a = ap.parse_args()
 for _lang in a.langs.split(","):
@@ -196,6 +209,10 @@ GATE = not a.no_gate
 lemma_gate.names(a.names)
 REWRITE_OLDER = a.rewrite_older
 STOP_FILE = a.stop_file
+EVIDENCE = a.evidence
+if a.out and not a.out.startswith("review-"):
+    sys.exit("--out takes a folder name that begins review-: any other would be read as a writer's or an older writer's entries")
+TRIAL_FOLDER = a.out
 if GATE:
     lemma_gate.require(a.langs.split(","))
 for lang in a.langs.split(","):

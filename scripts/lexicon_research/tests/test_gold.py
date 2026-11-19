@@ -33,6 +33,9 @@ PINNED = {
     ("ru", "v4.9"): "ff654aec68b6",
     ("en", "v4.10"): "4b174049fe16", ("de", "v4.10"): "3b83da400282", ("fr", "v4.10"): "a507e377f954", ("es", "v4.10"): "f8933652c84d", ("it", "v4.10"): "39270e0050b8", ("pt", "v4.10"): "6cbc964f09ff",
     ("ru", "v4.10"): "6e0a52496465",
+    # v4.10e is v4.10 with a section on the evidence a request may carry: a trial of 280 words, 19 November 2026
+    ("en", "v4.10e"): "9cdb06b4b41b", ("de", "v4.10e"): "a411b3cf6fad", ("fr", "v4.10e"): "d5c21856aa6a", ("es", "v4.10e"): "149125cb9743", ("it", "v4.10e"): "db1186932c70", ("pt", "v4.10e"): "78120b967066",
+    ("ru", "v4.10e"): "0e5bf0d7ef22",
 }
 ANSWER = """# Review
 
@@ -181,6 +184,16 @@ def test_v410_says_what_a_grammar_value_claims_and_what_is_a_frame():
             assert said in new and said not in old, (lang, said)
         assert "says what holds without exception" in old and "says what holds without exception" not in new
     assert "Report a value" in measure.REVIEW and "ordinarily used" in measure.REVIEW  # the reviewer is told the same
+
+
+def test_v410e_is_v410_with_the_evidence_section_and_nothing_else():
+    for lang in prompting.TARGET_LANGUAGES:
+        plain, shown = prompting.system_prompt(lang, "v4.10"), prompting.system_prompt(lang, "v4.10e")
+        head, _, rest = shown.partition("# Evidence\n")
+        assert rest and "never its notation" in rest and "do not follow its wording" in rest
+        assert head + rest.partition("# Examples")[1] + rest.partition("# Examples")[2] == plain if "# Examples" in plain else head + "# Output" + rest.partition("# Output")[2] == plain
+    request = prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9}, evidence="L1 NOUN · Neut\n  1.1 house")
+    assert request.endswith("Evidence (Wiktionary):\nL1 NOUN · Neut\n  1.1 house") and "Evidence" not in prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9})
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():

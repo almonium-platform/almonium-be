@@ -29,6 +29,7 @@ NAMES = {
     "es": "Spanish",
     "it": "Italian",
     "pt": "Portuguese",
+    "ru": "Russian",
 }
 POS = {
     "noun": "NOUN",

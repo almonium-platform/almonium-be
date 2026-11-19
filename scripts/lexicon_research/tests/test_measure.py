@@ -120,3 +120,21 @@ def test_the_tally_measures_the_reader_and_keeps_its_test_entries_out_of_the_cou
     assert "entries checked by hand: a finding in 1 of 1" in out and "it d: claim, not formal" in out
     assert "entries Wiktionary contradicts: a fact reported in 1 of 1" in out
     assert "two readers, fact          named by both in 1 of the 1" in out and "two readers, wording       named by both in 0 of the 1" in out
+
+
+def test_the_same_words_written_a_second_way_are_read_and_compared_entry_by_entry(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(measure, "MEASURE", tmp_path)
+    for name in ("a", "b"):
+        (tmp_path / name / "answers").mkdir(parents=True)
+    first = [{"id": 1, "headword": "x", "zipf": 5.0, "part": "planted"}, {"id": 2, "headword": "y", "zipf": 5.0, "part": "new"},
+             {"id": 3, "headword": "z", "zipf": 4.0, "part": "new"}, {"id": 4, "headword": "g", "zipf": 4.0, "part": "gold"}]
+    (tmp_path / "a" / "sample-it.json").write_text(json.dumps(first))
+    measure.sample_like("b", "a", "review-trial", ["it"], gold=5)
+    second = json.loads((tmp_path / "b" / "sample-it.json").read_text())
+    assert [(i["id"], i["headword"], i["part"], i["pair"], i.get("folder")) for i in second] == [
+        (1, "y", "new", 2, "review-trial"), (2, "z", "new", 3, "review-trial"), (3, "g", "gold", 4, None)]  # no planted entry a second time
+    (tmp_path / "a" / "answers" / "it-1.md").write_text('{"id": 2, "findings": [{"fault": "fact", "what": "w"}]}\n{"id": 3, "findings": []}')
+    (tmp_path / "b" / "answers" / "it-1.md").write_text('{"id": 1, "findings": []}\n{"id": 2, "findings": [{"fault": "wording", "what": "w"}]}')
+    measure.pair("b", "a", ["it"])
+    out = capsys.readouterr().out
+    assert "2 entries read in both" in out and "fact           50.0 ->   0.0   gone in 1, new in 0" in out and "wording         0.0 ->  50.0   gone in 0, new in 1" in out
