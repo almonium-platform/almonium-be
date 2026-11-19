@@ -511,7 +511,7 @@ def show(entry):
     for n, lexeme in enumerate(entry.get("lexemes") or [], 1):
         grammar = stated(lexeme.get("grammar") or {})
         said = ", ".join(f"{p.get('ipa') or ''}{' ' + p['reading'] if p.get('reading') else ''}{', accent ' + str(p['accent']) if 'accent' in p else ''}"
-                         f" ({p.get('variety')}{', ' + p['spelling'] if p.get('spelling') else ''}{', ' + p['note'] if p.get('note') else ''})"
+                         f" ({p.get('variety')}{', ' + p['spelling'] if p.get('spelling') else ''}{', ' + p['note'] if p.get('note') else ''}{': ' + p['context'] if p.get('context') else ''})"
                          for p in lexeme.get("pronunciations") or [])
         lines.append(f"**Lexeme {n}: {lexeme.get('lemma')}**, {lexeme.get('pos')}" + (f", {lexeme['kind']}" if lexeme.get("kind") not in (None, "word") else ""))
         if grammar:

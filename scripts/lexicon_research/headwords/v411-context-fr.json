@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "plus",
+  "zipf": 6.68,
+  "set": "v411-context"
+ },
+ {
+  "headword": "six",
+  "zipf": 5.15,
+  "set": "v411-context"
+ },
+ {
+  "headword": "tous",
+  "zipf": 6.11,
+  "set": "v411-context"
+ },
+ {
+  "headword": "neuf",
+  "zipf": 4.91,
+  "set": "v411-context"
+ },
+ {
+  "headword": "maison",
+  "zipf": 5.53,
+  "set": "v411-context"
+ }
+]

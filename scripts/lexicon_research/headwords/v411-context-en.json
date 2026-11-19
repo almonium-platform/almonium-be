@@ -1,0 +1,57 @@
+[
+ {
+  "headword": "the",
+  "zipf": 7.73,
+  "set": "v411-context"
+ },
+ {
+  "headword": "a",
+  "zipf": 7.36,
+  "set": "v411-context"
+ },
+ {
+  "headword": "and",
+  "zipf": 7.41,
+  "set": "v411-context"
+ },
+ {
+  "headword": "of",
+  "zipf": 7.4,
+  "set": "v411-context"
+ },
+ {
+  "headword": "to",
+  "zipf": 7.43,
+  "set": "v411-context"
+ },
+ {
+  "headword": "can",
+  "zipf": 6.46,
+  "set": "v411-context"
+ },
+ {
+  "headword": "bath",
+  "zipf": 4.44,
+  "set": "v411-context"
+ },
+ {
+  "headword": "either",
+  "zipf": 5.33,
+  "set": "v411-context"
+ },
+ {
+  "headword": "schedule",
+  "zipf": 4.67,
+  "set": "v411-context"
+ },
+ {
+  "headword": "table",
+  "zipf": 5.05,
+  "set": "v411-context"
+ },
+ {
+  "headword": "water",
+  "zipf": 5.52,
+  "set": "v411-context"
+ }
+]

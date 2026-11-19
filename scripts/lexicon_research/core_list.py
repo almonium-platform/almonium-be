@@ -174,7 +174,7 @@ def japanese(floor):
 
 
 # Lists a healthy list is not made from: samples, trials and what this file writes itself.
-NOT_QUEUES = ("measure-", "v48-", "v49-", "v410-", "mend-", "tour-", "pilot-", "codex-", "cross-", "healthy-", "doubtful-", "rewrite-")
+NOT_QUEUES = ("measure-", "v48-", "v49-", "v410-", "v411-", "mend-", "tour-", "pilot-", "codex-", "cross-", "healthy-", "doubtful-", "rewrite-")
 # A word that is a lemma and an inflected form as well is refused once in fifty outside English and once in two in
 # English, where "viewed" and "fines" are filed as an adjective and a noun too. Of 4,277 such English words given to
 # a writer, those met more often than their base word were refused 16% of the time (data, vaccinated), those with a

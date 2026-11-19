@@ -36,6 +36,9 @@ PINNED = {
     # v4.10e is v4.10 with a section on the evidence a request may carry: a trial of 280 words, 19 November 2026
     ("en", "v4.10e"): "9cdb06b4b41b", ("de", "v4.10e"): "a411b3cf6fad", ("fr", "v4.10e"): "d5c21856aa6a", ("es", "v4.10e"): "149125cb9743", ("it", "v4.10e"): "db1186932c70", ("pt", "v4.10e"): "78120b967066",
     ("ru", "v4.10e"): "0e5bf0d7ef22",
+    # v4.11 is v4.10 with a clause on a way of saying the word: when it is the one said. 19 November 2026
+    ("en", "v4.11"): "545c3ad5b3a0", ("de", "v4.11"): "538c084de06c", ("fr", "v4.11"): "04c9a50402d4", ("es", "v4.11"): "7155181f910f", ("it", "v4.11"): "6f801896c2cf", ("pt", "v4.11"): "46b24b58a24d",
+    ("ru", "v4.11"): "fd77e02de637",
 }
 ANSWER = """# Review
 
@@ -194,6 +197,29 @@ def test_v410e_is_v410_with_the_evidence_section_and_nothing_else():
         assert head + rest.partition("# Examples")[1] + rest.partition("# Examples")[2] == plain if "# Examples" in plain else head + "# Output" + rest.partition("# Output")[2] == plain
     request = prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9}, evidence="L1 NOUN · Neut\n  1.1 house")
     assert request.endswith("Evidence (Wiktionary):\nL1 NOUN · Neut\n  1.1 house") and "Evidence" not in prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9})
+
+
+def test_v411_says_when_a_way_of_saying_the_word_is_the_one_said():
+    """Before v4.11 a second transcription could say how common it is and nothing else, so "the" before a vowel,
+    "six" before a consonant and "bath" in the north of England stood beside the first without a word, and a weak
+    form was either left out or given a stress mark it does not have."""
+
+    for lang in prompting.TARGET_LANGUAGES:
+        new, old = prompting.system_prompt(lang, "v4.11"), prompting.system_prompt(lang, "v4.10")
+        head, _, rest = new.partition('Where you know what decides between the ways, say it in "context"')
+        clause, _, tail = rest.partition("Use only these symbols:")
+        assert "before a vowel sound" in clause and "weak form, usual in running speech" in clause and "without a stress mark" in clause
+        assert head + "Use only these symbols:" + tail == old  # and nothing else moved
+    validator = jsonschema.Draft202012Validator(json.loads(prompting.SCHEMA_PATH.read_text(encoding="utf-8")))
+    entry = json.loads(prompting.schema_example_v4("v4.11"))
+    entry["lexemes"][0]["pronunciations"].append({"variety": "en-GB", "ipa": "/liːd/", "context": "weak form, usual in running speech"})
+    assert not list(validator.iter_errors(entry))
+    entry["lexemes"][0]["pronunciations"][-1]["context"] = "x" * 81  # one short clause, like a form's note
+    assert [e.message for e in validator.iter_errors(entry)]
+    shown = measure.show({"lexemes": [{"lemma": "the", "pos": "DET", "pronunciations": [
+        {"variety": "en-GB", "ipa": "/ˈðiː/"}, {"variety": "en-GB", "ipa": "/ðə/", "context": "weak form, usual in running speech"},
+        {"variety": "en-GB", "ipa": "/ˈbæθ/", "note": "regional", "context": "north of England"}], "senses": []}]})
+    assert "/ðə/ (en-GB: weak form, usual in running speech)" in shown and "/ˈbæθ/ (en-GB, regional: north of England)" in shown
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():
