@@ -79,11 +79,15 @@ Today, for schema 4:
 7. **Second look** (`settle_v4.py`, a small paid call for an entry the witness lists). A model is
    shown the word, what the entry has and what every source has, and changes the fact or keeps it
    with a reason; a change stands only if the sources then agree. See "The second look".
-8. **Measure** (`measure.py`). A random sample read by a second model family against a human
+8. **Review loop** (`review_v4.py`; a reading of every entry by a second model family, and a small
+   paid call for the one entry in four it finds a fault in). The writer answers each finding,
+   a third model rules where the two disagree, and what is upheld is a patch. See "The review
+   loop". Built and tried on 19 November 2026; not yet run over the dictionary.
+9. **Measure** (`measure.py`). A random sample read by a second model family against a human
    dictionary, counted by kind of fault. See "Measuring the entries".
-9. **Publish.** Not possible yet, see "Pending".
+10. **Publish.** Not possible yet, see "Pending".
 
-Steps 3 and 7 are a model, and 7 only for the entries a program has named. Steps 2, 4, 5 and 6 are programs: they cost nothing, give the same answer
+Steps 3, 7 and 8 are models, 7 only for the entries a program has named. Steps 2, 4, 5 and 6 are programs: they cost nothing, give the same answer
 every time, and can be run again over every entry whenever a rule is added. A fault found in a
 review becomes a rule there when a program can decide it (a stress on the wrong syllable of a
 Spanish word), a sentence of the next prompt when only a writer can (which phrases are frames),
@@ -1121,6 +1125,94 @@ was about. A question is paid for once, by its text.
 After it the witness lists 494 entries, from 511. The rest of the list is some 480 entries and
 $13. What it cannot do is what the witness cannot see: a fault in a field no source states.
 
+## The review loop
+
+The owner's design of 19 November 2026, after the book processor's: writing, a review by another
+model, the writer's answer to the review, and a third model where the two do not agree.
+`review_v4.py` is that, for one entry at a time.
+
+1. **Read.** A reader of another model family (the Codex plan's, by default `codex:gpt-6-astra`)
+   is shown ten entries a call exactly as `measure.py` shows a sample, with the same instructions
+   and the same seven faults. An answer GPT gave in a chat counts as a reading: `--sample v410
+   --answers v410` takes the findings filed under `measure/v410/answers/`.
+2. **Reply.** The writer's model, under the prompt the entry was written by, is shown the entry's
+   JSON and the findings. It answers each: *accept*, with the patch that mends it, or *reject*,
+   with a reason a third reader can check. Only the faults the bar counts and the split go to the
+   writer by default (fact, claim, missing-core, split; `--faults all` for the rest): a reader
+   finds a rarer sense missing or a wording too narrow in half the entries it reads, entries
+   checked by hand among them.
+3. **Rule.** A third model (`claude:claude-fable-5-2`) is shown every finding the writer rejected,
+   the writer's reason, the entry as a reader sees it and the review file's own definitions, and
+   upholds or dismisses each. It is told to dismiss what it could not show from a dictionary.
+4. **Mend.** The writer writes the patch for what the third model upheld.
+5. **Settle**, no call. Each patch is tried on the entry. It is refused when it cannot be applied,
+   breaks the shape (`entry.schema.v4.json`), or moves a fact the sources agreed with to one they
+   contradict (`witness.py`). What is left is the outcome, `<headword>.<entry>.outcome.json`.
+
+A patch is a list of operations on the entry's JSON (`entry_patch.py`): replace, add or remove at a
+JSON Pointer, every path into the entry as it was before the patch. The written entry is never
+edited. Ingest applies an outcome from `out/review-loop/` to the published copy, finding by
+finding, only for the written text it was made for and only where each place still holds what the
+patch saw; a sense a patch adds gets its id and its frames read like any other, and the entry says
+how many faults were mended (`faults_mended`). A trial writes into another folder, which ingest
+does not read.
+
+**What is bought, and once.** Every paid answer is one file, named by the entry's content, the
+step, and a hash of the question and the model it was put to. A run that is stopped, or that meets
+a plan's wall, is started again and buys nothing twice; the wall is a stop of the run, never an
+answer. An entry written again is another entry. The other side of that rule cost $1.07 on the
+first day: the writer was first shown a field ingest derives (`patterns`), one reply copied it
+into a new sense, the field was taken out of what the writer sees, and 23 questions were then
+different questions. `--dry` says what the next step would ask before anything is asked.
+
+**The trial**, on GPT's findings for the third sample (`out/review-loop-v410/`): four planted
+entries, four hand-checked ones and four ordinary ones a language, 84 entries, of which 32 had a
+fault that is looped.
+
+| fault | findings | accepted by the writer | dismissed by the third | mended | patch refused |
+|---|---|---|---|---|---|
+| fact | 20 | 19 | 1 | 18 | 1 |
+| claim | 17 | 16 | 1 | 15 | 1 |
+| missing-core | 4 | 3 | 1 | 3 | 0 |
+
+- **Planted faults: 22 of 22 put right** (8 genders, 9 stresses, 5 countabilities; one stress
+  with a second correction the reviewer also asked for, *лучше* /tʂː/). The six planted pairs of
+  swapped examples are a fault of wording and were not looped.
+- **Ordinary findings: the writer took 16 of 19 and argued 3**, and the third model sided with the
+  writer on all three, with a reason each time that a dictionary bears out: *beim Fernsehen
+  einschlafen* is the verb's infinitive used as a noun, not a sense of *das Fernsehen*;
+  *football-mad* before a noun does not make *mad* an attributive adjective; the relation of
+  *canto* to *cantar* already names the senses it holds for. What it took reads right: *reaction*
+  Count to Both in two senses, *seguramente* with its secondary stress on *gu*, *есть* transitive
+  and *съесть* its partner in the eating sense only, *даже* given its conjunction, *province*
+  uncountable in *en province*.
+- **Two patches refused, both rightly**: a gender written into a sense's grammar, where the shape
+  has none, and a grammar note longer than its 120 characters. Their findings stay on the list.
+- **Hand-checked entries: none changed.** GPT had no fact, claim or missing core sense in the 28.
+
+**Does the writer agree to anything?** The trial above cannot say: nearly every finding it was
+shown was true. So 16 right entries were each given one false finding, the value a planted fault
+would have put there asserted as the truth (*Frieden* is feminine; *bag* is uncountable; *schützen*
+is stressed on its ending), in six languages. `review_v4.py --decoys v410` builds them. The writer
+rejected 16 of 16 and the third model dismissed 16 of 16; no entry changed
+(`out/review-loop-decoys/`). These are blunt falsehoods, the kind a dictionary settles at once. A
+false finding that sounds like a judgement (a sense said to be missing that is rare, a label said
+to be undeserved) is the harder test and has not been made.
+
+**What it costs.** The trial: $6.14 on the Claude plan, the repeat above included. A reply is some
+$0.03 once a language's prompt is in the cache and $0.20 for the first call of a language; a
+ruling is $0.06 to $0.09. By GPT's rates a quarter of the entries have a fault that is looped and
+about one finding in six is argued, so a thousand entries are some 250 replies and 40 rulings:
+about $12 on the Claude plan, against $53 to write them, and a hundred calls of ten entries on the
+Codex plan for the reading. The writer and the third model share one Claude meter.
+
+**What it does not do.** It mends what a second model sees, and the two readers of the third
+sample seldom named the same fault: a second reading finds other things. It does not make the
+reader steadier: the same reader found something in 11 and then in 18 of the same 35 entries
+("The evidence trial"). And nothing has yet been run through the Codex command line: the seat is
+written after `codex_writer.py` and tested with a stand-in, and its first real batch should be
+ten entries with `--steps read`.
+
 ## Russian
 
 Russian has been a target language since 18 November 2026, after the trial this section records.
@@ -1611,6 +1703,10 @@ languages' entries are each other's translation are checks of step 3 and 4, and 
   the word (the owner, 19 November). Entries of v4.10 stay as they are.
 - The writer is not shown English Wiktionary's senses: it follows their number, and for every
   language but English they are fewer than the entry should have ("The evidence trial").
+- A written entry is reviewed by a second model family; the writer answers, and a third model rules
+  where the two disagree (the owner, 19 November 2026). A change reaches the published copy when
+  two models of different families call it a fault, or the third has ruled, and never against the
+  sources on a fact they state. Wording and rarer senses are not looped until a count asks for it.
 - A word whose only entry is of an older shape is written afresh, not mended (the owner, 18
   November 2026). The older entry is kept.
 - A word said in more than one way in a variety has a transcription for each, the commonest first,
@@ -1784,6 +1880,10 @@ page does not settle.
    trial"). Next is a block with the facts and either no senses or the senses of the language's
    own Wiktionary, on the six languages that lost by it. One decision of the owner's is still open:
    whether the bar for facts stays at two.
+   **The review loop over the dictionary**: first ten entries through the Codex seat
+   (`review_v4.py --langs en --take 10 --steps read`), then the 1,824 entries of v4.10, some $22
+   on the Claude plan, and a sample of the outcomes read by the owner in the three languages they
+   read.
 4. **The older words**: 39,902 to write again, after the third sample has shown that v4.10 holds.
 5. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
    the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
