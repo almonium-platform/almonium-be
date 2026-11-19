@@ -740,6 +740,46 @@ planted. Its answers are `answers-2/`. Counted by themselves:
   two of these are right, so the checked entries are not faultless and the reader's false alarms
   are below one entry in ten.
 
+**GPT's count**, all seven files, 19 November (`answers/`). Of the 280 entries as written, 22%
+without a finding. In a hundred:
+
+|    | fact | claim | core sense missing | rarer sense missing | wording | collocation |
+|----|------|-------|--------------------|---------------------|---------|-------------|
+| all | 4.3 | 16.1 | 4.6 | 47 | 39 | 18 |
+| en | 0 | 15 | 0 | 42 | 35 | 22 |
+| de | 8 | 10 | 8 | 52 | 38 | 12 |
+| fr | 0 | 10 | 10 | 48 | 42 | 30 |
+| es | 8 | 22 | 2 | 52 | 28 | 22 |
+| it | 2 | 15 | 0 | 40 | 45 | 10 |
+| pt | 8 | 12 | 2 | 38 | 48 | 8 |
+| ru | 5 | 28 | 10 | 55 | 35 | 20 |
+
+Against the bar: core senses met (4.6 for 10), facts not (4.3 for 2), claims not (16.1 for 5).
+Beside the second sample's 8, 16 and 7, facts and core senses are lower and claims have not moved,
+on commoner words and a newer prompt; which of the two did it this count cannot say.
+
+- **The reader measured.** GPT named all 52 planted faults too. In the 35 entries checked by
+  hand it reported something in 11, never a fact, once a claim: four rarer senses missing, three
+  wordings, one collocation. That is its floor: about a third of the entries a person has
+  corrected still draw a "rarer sense missing" or a "wording" from it, so those two columns
+  measure the reader's appetite as much as the dictionary. Its facts and claims are not of that
+  kind: none and one in 35.
+- **What the facts are.** Twelve entries. Three are sounds (*successivo*, *бывший*, and the
+  secondary stress of *seguramente*), two of which the witness had; the other nine are in fields
+  nothing checks: two capitals in a collocation (*Miércoles de Ceniza*), two relations with a
+  wrong note, two frames, the gender of a loanword, a part of speech, a spelling note.
+- **What the claims are.** 55 findings: countability 12, valency 9, other grammar values 11,
+  labels 11 ("literary" on a sense that is ordinary), notes 5, regions 3. Three in five are still
+  a grammar value to which GPT knows another use (*beneficio* "also has a regular mass use"),
+  which v4.10's wording and the review file both say is not a claim. The reader does not take the
+  instruction, or the writer gives the value too easily; telling the two apart needs the value
+  held against a learner's dictionary, word by word, and that is a count of fifty, not a prompt.
+- **The two readers hardly ever name the same thing.** Of the entries either named for a fault,
+  both named it in 3 of 14 for facts, 3 of 45 for claims, none of 14 for a core sense, 2 of 132
+  for a rarer sense, 5 of 109 for wording, 14 of 53 for collocations. Where they do agree on a
+  fact it is one the witness has as well. So a finding one reader makes alone is a suggestion,
+  and the dependable part of a count is small: what two readers or a reader and a source both say.
+
 One caution outweighs the rest. Fable is of the writer's family: the two may share what they do
 not know, and a reader that agrees with the writer is not thereby right. These rates are a second
 reader's, to be set beside GPT's when they come, not in place of them. And the words are the
@@ -800,22 +840,43 @@ The comparison is as lenient as the fact allows:
   pairs of sounds differ most often, which is how a habit of notation (hundreds of one pair) is
   told from a fault (a pair seen twice).
 
-All 33,751 written entries, 19 November 2026. Each cell is compared, agreeing, differing:
+All 33,751 written entries, 19 November 2026, held against every source loaded for the language
+("Sources and witnesses"). Each cell is compared, agreeing, differing:
 
 |    | gender | plural | stressed syllable | sounds | entries to read |
 |----|--------|--------|-------------------|--------|-----------------|
 | en | - | 422, 95.5%, 19 | 24,149, 98.9%, 269 | 29,501, 98.5%, 453 | 161 of 17,109 |
-| de | 1,692, 99.5%, 8 | 1,456, 99.2%, 12 | 2,262, 98.5%, 33 | 2,661, 97.9%, 56 | 48 of 3,281 |
-| fr | 2,370, 99.6%, 9 | 38, 89.5%, 4 | - | 3,973, 99.1%, 36 | 46 of 3,729 |
-| es | 1,821, 99.6%, 7 | 40, 100%, 0 | 6,934, 99.6%, 25 | 7,052, 99.1%, 61 | 45 of 3,192 |
-| it | 1,671, 99.6%, 7 | 60, 100%, 0 | 3,029, 99.7%, 8 | 3,076, 98.2%, 55 | 56 of 2,904 |
-| pt | 1,613, 99.6%, 6 | 129, 99.2%, 1 | 5,742, 99.9%, 4 | 5,845, 96.4%, 210 | 180 of 2,946 |
-| ru | 285, 100%, 0 | - | 507, 98.6%, 7 | 695, 96.3%, 26 | 23 of 590 |
+| de | 1,852, 99.6%, 7 | 1,574, 99.5%, 8 | 2,838, 99.2%, 23 | 3,263, 98.5%, 49 | 35 of 3,281 |
+| fr | 2,514, 99.9%, 2 | 41, 95.1%, 2 | - | 4,337, 99.8%, 9 | 13 of 3,729 |
+| es | 1,846, 99.7%, 5 | 41, 100%, 0 | 7,098, 99.6%, 25 | 7,216, 99.1%, 65 | 44 of 3,192 |
+| it | 1,720, 99.7%, 6 | 61, 100%, 0 | 3,106, 99.6%, 12 | 3,164, 98.3%, 54 | 58 of 2,904 |
+| pt | 1,661, 99.8%, 4 | 129, 99.2%, 1 | 5,766, 99.9%, 4 | 5,866, 96.4%, 209 | 179 of 2,946 |
+| ru | 286, 100%, 0 | 253, 100%, 0 | 508, 98.4%, 8 | 704, 96.7%, 23 | 21 of 590 |
 
-English is held against CMUdict and Britfone as well as Wiktionary, and Russian against
-OpenRussian ("Sources and witnesses"): 3,600 more English stresses and 4,200 more transcriptions
-could be compared, agreement rose, and the stresses that differ rose with it, most of them a
-compound stressed on either part (*uplifting*, *citywide*).
+**What each language's own Wiktionary changed.** Until 19 November the witness read only the
+English Wiktionary's entries for each language. The German Wiktionary, the Wiktionnaire and the
+others describe their own language more fully, and kaikki.org publishes each as the same kind of
+extract. With them, entries to read went from 559 to 511, and the list is a better one:
+
+- **French, 46 to 13.** The Wiktionnaire has the gender the English edition lacked (9 genders
+  that "differed" were the English edition's gaps: *bureaucratisation*, *erre*) and the second
+  way of saying a word (*cutter*, *artefact*). French stress is no longer compared: French
+  stresses the end of a phrase, not a syllable of a word.
+- **German, 48 to 35**, and they are other entries. 53 leads went, most a second accepted
+  stress or a short vowel the German edition writes as we do (*Appetit*, *Artillerie*); 35 came,
+  among them real ones no source had shown: *Abteilungsleiter* and *Allgemeinheit* stressed on the
+  first syllable where German says *Abtéilung*, *Allgeméinheit*.
+- **Russian**: 253 plurals could be compared where one could before, and all agree.
+- **Italian**: the edition divides a word into syllables and marks the stressed one (*cà-sa*),
+  which is read as its stress: 77 more stresses compared, four more that differ.
+- **Spanish and Portuguese: nothing gained.** The Wikcionario confirms what was known. The
+  Portuguese edition has a transcription for one word in five, in a notation of its own, so
+  Portugal's vowels, the weakest thing in the dictionary, still stand on one witness.
+
+English is held against CMUdict and Britfone as well, and Russian against OpenRussian: 3,600
+more English stresses and 4,200 more transcriptions could be compared, agreement rose, and the
+stresses that differ rose with it, most of them a compound stressed on either part (*uplifting*,
+*citywide*).
 
 A word the entry gives two ways (German *unmöglich*, stressed on either syllable, as Duden prints
 it) is one fact, right when either way is Wiktionary's: counting each way by itself had reported
@@ -861,7 +922,7 @@ Two limits. A disagreement is a lead: the lists were read by sample, not line by
 is copied: Wiktionary's text is under a share-alike licence, so it is asked and never written into
 an entry.
 
-What follows from it, none of it built: a paid patch of the one field for the 559 entries, with
+What follows from it, none of it built: a paid patch of the one field for the 511 entries, with
 both transcriptions shown to the model (some $15); the Spanish sounds written by a rule from the
 spelling in place of a model, since Spanish is regular (Italian is not: where its stress falls and
 whether an *e* or *o* is open is not in the spelling, which is exactly where the writers failed);
@@ -1396,6 +1457,7 @@ decides what is written, or says where an entry may be wrong.
 | Source | What it is | What it is asked | Where | Licence |
 |---|---|---|---|---|
 | Wiktionary, through kaikki.org's extracts | The English Wiktionary's entries for each language, 9 GB, read once into tables (`lemma_index.py`) | **Before a write:** is the spelling a word of its own, an inflected form, a name, another spelling, an abbreviation (the gate and the healthy lists). **After:** the gender, the plural, the stressed syllable and the sounds of every entry (`witness.py`); the stressed spelling of Russian and Ukrainian words (`check_v4.py`) | `lemma_gate.py`, `core_list.py`, `witness.py`, `check_v4.py` | CC BY-SA |
+| Each language's own Wiktionary, through kaikki.org | The German Wiktionary for German, the Wiktionnaire for French, and the Spanish, Italian, Portuguese and Russian editions: 1.5 GB, read into `<lang>.native.facts.tsv` by `open_sources.py` | The gender, the plural, the stressed syllable and the sounds of an entry, beside the English edition's; the stress of every Russian form | `witness.py`, `check_v4.py` | CC BY-SA |
 | CMUdict | 126,000 words of American English, every accepted way of saying each, with stress | The stressed syllable and the sounds of an English entry, for the United States (`open_sources.py` brings it into the witness's tables) | `witness.py` | BSD-style |
 | Britfone | 15,000 words of British English in IPA with stress | The same for Britain | `witness.py` | MIT |
 | OpenRussian | 60,000 Russian words with their stress in every form, and the gender of nouns | The gender of a Russian noun; the stressed spelling of a word and of its forms, beside Wiktionary's | `witness.py`, `check_v4.py` | CC BY-SA |
@@ -1459,15 +1521,16 @@ load whole:
 | | Loaded | To load next |
 |---|---|---|
 | en | Wiktionary, CMUdict, Britfone | - |
-| ru | Wiktionary, OpenRussian | The Russian Wiktionary's own extract (kaikki.org, 309 MB) |
-| de | Wiktionary | The German Wiktionary's extract (310 MB); DWDS, which has an API for sounds and for collocations, its terms still to be read |
-| fr | Wiktionary | The French Wiktionnaire's extract (737 MB); Lexique 3, 140,000 words with sounds and gender, which the cloud session could not reach |
-| es | Wiktionary | The Spanish Wikcionario's extract (103 MB); its sounds follow from its spelling and could be a rule |
-| it | Wiktionary | The Italian Wikizionario's extract (44 MB); no open pronouncing dictionary was found |
-| pt | Wiktionary | The Portuguese Wikcionário's extract (37 MB); no open pronouncing dictionary was found, which is where the entries are weakest |
+| ru | Wiktionary, the Russian Wiktionary, OpenRussian | - |
+| de | Wiktionary, the German Wiktionary | DWDS, which has an API for sounds and for collocations, its terms still to be read |
+| fr | Wiktionary, the Wiktionnaire | Lexique 3, 140,000 words with sounds and gender, which the cloud session could not reach |
+| es | Wiktionary, the Wikcionario | Nothing found; its sounds follow from its spelling and could be a rule |
+| it | Wiktionary, the Wikizionario | No open pronouncing dictionary was found |
+| pt | Wiktionary, the Wikcionário | No open pronouncing dictionary was found, which is where the entries are weakest |
 
-Every Wiktionary edition describes its own language more fully than the English one does, and
-kaikki.org publishes each as the same kind of extract the index is built from. For the
+The editions hold more than the witness reads so far: every inflected form of a word (a check of
+an entry's forms, in place of October's tagger), its senses in the language itself (evidence for
+a writer, or for a core sense that is missing), and the parts of speech it is filed under. For the
 collocations the Leipzig Corpora Collection offers counts of which words stand together in each
 language; its licence differs from corpus to corpus and is to be read first.
 
@@ -1493,7 +1556,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the witness found**: a paid patch of one field for the 559 entries of "Witnesses"; the
+3. **What the witness found**: a paid patch of one field for the 511 entries of "Witnesses"; the
    Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling; the Russian
    vowel before the stress checked from the stressed spelling; CMUdict as a second witness for
    English. Then **the third sample**, under v4.10, with the witness run first and the reviewer
