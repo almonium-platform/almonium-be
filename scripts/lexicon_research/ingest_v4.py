@@ -206,13 +206,20 @@ _settled = {}
 def settled(lang):
     """headword -> the changes a second look decided on and the sources then confirmed. Nothing else is applied."""
     if lang not in _settled:
-        found = defaultdict(list)
+        latest = {}  # a fact asked about twice (the instructions changed) has the answer to the later question
         for path in sorted((SETTLED / lang).glob("*.json")):
             try:
                 answer = json.loads(path.read_text(encoding="utf-8"))
             except json.JSONDecodeError:
                 continue
-            found[answer.get("headword")] += [d for d in answer.get("decisions") or [] if d.get("verdict") == "change" and d.get("verified")]
+            for d in answer.get("decisions") or []:
+                key = (answer.get("headword"), d.get("fact"), d.get("lexeme"), d.get("variety"), d.get("was"))
+                if key not in latest or (answer.get("settle_version") or "") >= latest[key][0]:
+                    latest[key] = (answer.get("settle_version") or "", d)
+        found = defaultdict(list)
+        for (headword, *_), (_, d) in latest.items():
+            if d.get("verdict") in ("change", "add") and d.get("verified"):
+                found[headword].append(d)
         _settled[lang] = found
     return _settled[lang]
 
@@ -246,8 +253,14 @@ def apply_decisions(lang, entry, decisions):
                 lexeme["grammar"]["gender"] = decision["now"]
                 done += 1
         elif decision["fact"] == "plural":
-            for form in lexeme.get("forms") or []:
+            forms = lexeme.get("forms") or []
+            for place, form in enumerate(forms):
                 if form.get("form") == decision["was"] and (form.get("features") or {}).get("Number") == "Plur":
+                    if decision.get("verdict") == "add":  # a second accepted plural, beside the one written
+                        if not any(f.get("form") == decision["now"] for f in forms):
+                            forms.insert(place + 1, {"form": decision["now"], "features": dict(form["features"])})
+                            done += 1
+                        break
                     form["form"] = decision["now"]
                     for key in ("reading", "ipa"):  # they were the old form's
                         form.pop(key, None)

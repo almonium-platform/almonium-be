@@ -54,7 +54,7 @@ SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mar
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
 SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know",
           "transcription stressed on another syllable than the reading", "stressed spelling that is not the word's spelling",
-          "two stress marks in one word")
+          "two stress marks in one word", "reading no source has for the spelling")
 
 
 def words(text):
@@ -115,6 +115,40 @@ def accent_witness(lang):
             table[(word, reading or word)] |= numbers
             table[reading or word] |= numbers
     return table
+
+
+def reading_witness(lang):
+    """spelling -> the readings the sources have for it, in hiragana: the accent table's rows and the language's own
+    Wiktionary (open_sources.py). None without either."""
+    table = defaultdict(set)
+    kana = lambda text: "".join(chr(ord(ch) - 0x60) if "ァ" <= ch <= "ヶ" else ch for ch in text)  # noqa: E731
+    path = HERE / "wiktionary" / f"{lang}.accent.tsv"
+    for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+        word, reading = (line.split("\t") + [""])[:2]
+        if reading:
+            table[word].add(kana(reading))
+    path = HERE / "wiktionary" / f"{lang}.native.readings.tsv"
+    for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+        word, _, readings = line.partition("\t")
+        table[word] |= {kana(r) for r in readings.split("|") if r}
+    return table or None
+
+
+_readings = {}
+
+
+def unknown_readings(lang, lexeme):
+    """(reading, what the sources have) for a reading in kana that no source gives the spelling. Only a word written
+    with kanji is judged, and only when a source has the spelling at all."""
+    if lang not in _readings:
+        _readings[lang] = reading_witness(lang) if lang == "ja" else None
+    table, lemma = _readings[lang], lexeme.get("lemma") or ""
+    if not table or KANA.fullmatch(lemma) or lemma not in table:
+        return
+    for p in lexeme.get("pronunciations") or []:
+        reading = "".join(chr(ord(ch) - 0x60) if "ァ" <= ch <= "ヶ" else ch for ch in p.get("reading") or "")
+        if reading and p.get("notation") == "kana" and reading not in table[lemma]:
+            yield p["reading"], sorted(table[lemma])
 
 
 def unknown_accents(lang, lexeme):
@@ -225,6 +259,8 @@ def check(lang, entry, inventories, witness):
                 known = witness.get(reading.replace(ACUTE, ""))
                 if known and ACUTE in reading and reading not in known:
                     problems.append(("stress Wiktionary does not know", f"{reading}, the sources have {', '.join(sorted(known))}"))
+        for reading, known in unknown_readings(lang, lx):
+            problems.append(("reading no source has for the spelling", f"{lx.get('lemma')} {reading}, the sources have {', '.join(known[:5])}"))
         for reading, accent, known in unknown_accents(lang, lx):
             problems.append(("pitch accent the table does not know", f"{lx.get('lemma')} {reading} {accent}, the table has {', '.join(map(str, known))}"))
         for s in lx.get("senses", []):

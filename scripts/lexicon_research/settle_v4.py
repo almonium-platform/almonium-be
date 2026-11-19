@@ -9,6 +9,7 @@ list, and half of what is on it is the entry's fault and half a source's gap. Th
 such entry, showing it the lexeme, what the entry has and what every source has, and for each fact it answers
 
     change   the entry is wrong: here is the value, in the dictionary's own notation
+    add      for a plural: the entry's is right and the sources' is a second accepted one, to stand beside it
     keep     the entry is right as it stands: the word is also said so, or the sources describe another word
 
 Code then decides, not the model. A change is applied to a copy of the entry as published and held against the
@@ -40,14 +41,14 @@ import ingest_v4  # noqa: E402
 import witness  # noqa: E402
 from prompting import LANG_NAME, PROMPT_VERSION, VARIETIES, sounds_v4  # noqa: E402
 
-SETTLE_VERSION = "settle-v1"
+SETTLE_VERSION = "settle-v2"  # v2: a plural can be added beside the entry's, not only put in its place
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 READING = {"ru": "the word's own spelling with the combining acute after the stressed vowel (ме́бель)",
            "uk": "the word's own spelling with the combining acute after the stressed vowel",
            "it": "the word's own spelling with the accent on the stressed vowel (bestiàme)"}
 SCHEMA = {"type": "object", "required": ["decisions"], "additionalProperties": False, "properties": {"decisions": {"type": "array", "items": {
     "type": "object", "required": ["n", "verdict", "why"], "additionalProperties": False, "properties": {
-        "n": {"type": "integer"}, "verdict": {"enum": ["change", "keep"]}, "value": {"type": "string"}, "reading": {"type": "string"},
+        "n": {"type": "integer"}, "verdict": {"enum": ["change", "keep", "add"]}, "value": {"type": "string"}, "reading": {"type": "string"},
         "why": {"type": "string"}}}}}}
 PROMPT = """You settle disagreements about facts between one entry of a learner's dictionary of {name} and other dictionaries. Each numbered finding names one fact of one word of the entry: its gender, its plural, or one of its transcriptions (the syllable its stress falls on, or its sounds); what the entry has; and what the sources have. The sources are Wiktionary and other open dictionaries: they are evidence, and they can be wrong, incomplete, or about another word spelled the same way. So can the entry. Decide each finding from what you know of {name}:
 
@@ -60,10 +61,16 @@ Return JSON only: {{"decisions": [{{"n": 1, "verdict": "change", "value": "...",
 STOP_FILE = ""
 
 
-def system_prompt(lang):
+PLURAL = ('For a plural there is a third answer, "add": the entry\'s plural is right and the sources\' is a second accepted one (French "cameramen" and '
+          '"caméramans", English "mangoes" and "mangos"). Give that second plural in "value"; it is listed beside the entry\'s, which stays.\n')
+
+
+def system_prompt(lang, plural=False):
+    """The instructions. The sentence on a second plural is there only when a plural is asked about, so that the
+    other questions are the questions they were and their answers are not bought again."""
     reading = (f'Where the stress changes and the entry gives a stressed spelling beside the transcription, give the new one in "reading": '
                f"{READING[lang]}.\n") if lang in READING else ""
-    return PROMPT.format(name=LANG_NAME[lang], sounds=" ".join(sounds_v4(v, PROMPT_VERSION) for v in VARIETIES[lang]), reading=reading)
+    return PROMPT.format(name=LANG_NAME[lang], sounds=" ".join(sounds_v4(v, PROMPT_VERSION) for v in VARIETIES[lang]), reading=reading + (PLURAL if plural else ""))
 
 
 def leads_of(lang, entry, table):
@@ -126,7 +133,9 @@ def decide(lang, entry, leads, answer, table):
         fact = "sounds" if lead["fact"] == "transcription" else lead["fact"]
         decision = {"fact": fact, "lexeme": lead["lexeme"], "variety": lead.get("variety"), "was": lead["was"], "verdict": said.get("verdict"),
                     "why": (said.get("why") or "")[:300], "sources": lead.get("sources")}
-        if said.get("verdict") == "change" and said.get("value"):
+        if said.get("verdict") == "add" and fact != "plural":
+            decision["verdict"] = "change"  # only a plural can be added to
+        if said.get("verdict") in ("change", "add") and said.get("value"):
             decision["now"] = said["value"].strip()
             if said.get("reading"):
                 decision["reading"] = said["reading"].strip()
@@ -134,6 +143,13 @@ def decide(lang, entry, leads, answer, table):
             decision["verified"] = bool(ingest_v4.apply_decisions(lang, trial, [decision])) and verified(lang, trial, lead, table)
         decisions.append(decision)
     return decisions
+
+
+def same_question(one, other):
+    """Two questions are one when they name the same facts, values and sources: the sentence that lists the sounds
+    that differ is worked out from those and is no part of what is asked."""
+    bare = lambda text: re.sub(r" Sounds that differ once both[^\n]*", "", text)  # noqa: E731
+    return bare(one) == bare(other)
 
 
 def rest(seconds):
@@ -145,13 +161,14 @@ def rest(seconds):
     return True
 
 
-def settle_one(a, lang, system, table, headword, entry, leads):
-    asked = question(lang, headword, entry, leads)
+def settle_one(a, lang, table, headword, entry, leads):
+    asked, system = question(lang, headword, entry, leads), system_prompt(lang, any(lead["fact"] == "plural" for lead in leads))
     sha = hashlib.sha256((system + "\n" + asked).encode("utf-8")).hexdigest()[:12]
     folder = ingest_v4.SETTLED / lang
     folder.mkdir(parents=True, exist_ok=True)
     target = folder / f"{headword}.{sha}.json"
-    if target.exists():
+    # asked before, in these words or with the differing sounds listed another way: the answer is on file
+    if target.exists() or any(same_question(json.loads(f.read_text(encoding="utf-8")).get("question", ""), asked) for f in folder.glob(f"{headword}.*.json")):
         return "have"
     if a.dry:
         print(f"--- {lang} {headword}\n{asked}\n", flush=True)
@@ -193,7 +210,7 @@ def settle_one(a, lang, system, table, headword, entry, leads):
               "wall_s": round(time.time() - t0, 1), "total_cost_usd": res.get("total_cost_usd"), "input_tokens": usage.get("input_tokens"),
               "output_tokens": usage.get("output_tokens"), "question": asked, "decisions": decisions}
     target.write_text(json.dumps(record, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    told = "; ".join(f"{d['fact']} {d['was']} -> {d.get('now')} ({'verified' if d.get('verified') else 'DISPUTED'})" if d["verdict"] == "change"
+    told = "; ".join(f"{d['fact']} {d['was']} {'+' if d['verdict'] == 'add' else '->'} {d.get('now')} ({'verified' if d.get('verified') else 'DISPUTED'})" if d["verdict"] != "keep"
                      else f"{d['fact']} {d['was']} kept{' against ' + str(d['sources']) + ' sources' if (d.get('sources') or 0) > 1 else ''}: {d['why'][:60]}" for d in decisions)
     print(f"settle {lang} {headword:20} ${res.get('total_cost_usd') or 0:.4f}  {told}", flush=True)
     return "asked"
@@ -230,10 +247,9 @@ def main():
                 asked.append((headword, entry, leads))
         if lang in take:
             asked = random.Random(f"{a.seed}-{lang}").sample(asked, min(len(asked), take[lang]))
-        system = system_prompt(lang)
         print(f"{lang}: {len(asked)} entries, {sum(len(leads) for _, _, leads in asked)} facts to settle", flush=True)
         with ThreadPoolExecutor(a.workers) as pool:
-            done = list(pool.map(lambda job: settle_one(a, lang, system, table, *job), asked))
+            done = list(pool.map(lambda job: settle_one(a, lang, table, *job), asked))
         print(f"{lang}: " + ", ".join(f"{done.count(k)} {k}" for k in sorted(set(done))), flush=True)
     print("done")
 

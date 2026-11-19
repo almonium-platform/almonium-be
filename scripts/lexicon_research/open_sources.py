@@ -25,6 +25,8 @@ and agrees when any has what we wrote. Where to get the files:
     https://raw.githubusercontent.com/Badestrand/russian-dictionary/master/{nouns,verbs,adjectives,others}.csv
     https://kaikki.org/dictionary/downloads/<lang>/<lang>-extract.jsonl.gz     for de, fr, es, it, pt, ru (1.5 GB in all)
 and for those: wiktionary/<lang>.native.facts.tsv, and ru.native.stress.tsv from the stressed forms of its tables.
+The Japanese Wiktionary (ja-extract.jsonl.gz, 65 MB) gives ja.native.readings.tsv, how each spelling is read; its
+pitch accents are mostly Kyoto's and Osaka's and are not taken.
 """
 import argparse
 import csv
@@ -174,6 +176,28 @@ def native(lang, path):
     return genders, said, plurals, stressed
 
 
+def japanese_readings(path):
+    """spelling -> the readings the Japanese Wiktionary gives it, in hiragana: the forms it marks as how the word is read."""
+    readings = defaultdict(set)
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        for line in f:
+            if '"lang_code": "ja"' not in line:
+                continue
+            record = json.loads(line)
+            if record.get("lang_code") != "ja" or record.get("pos") == "character" or not record.get("word"):
+                continue
+            for form in record.get("forms") or []:
+                text = (form.get("form") or "").strip()
+                if "transliteration" in (form.get("tags") or []) and text and "\t" not in text and "|" not in text:
+                    readings[record["word"]].add(hiragana(text))
+    return readings
+
+
+def hiragana(text):
+    """Katakana as hiragana: a reading is the same word whichever of the two it is printed in."""
+    return "".join(chr(ord(ch) - 0x60) if "ァ" <= ch <= "ヶ" else ch for ch in text)
+
+
 def write_facts(name, said=None, genders=None, place="", plurals=None):
     """A facts table. said holds transcriptions; with a place they are all of that place, without one each already
     carries its own ("Portugal:/…/", "?:/…/")."""
@@ -208,6 +232,13 @@ def main():
         genders, stressed = openrussian(folder)
         write_facts("ru.openrussian.facts.tsv", genders=genders)
         write_stress("ru.openrussian.stress.tsv", stressed)
+    if (folder / "ja-extract.jsonl.gz").exists():
+        readings = japanese_readings(folder / "ja-extract.jsonl.gz")
+        path = HERE / "wiktionary" / "ja.native.readings.tsv"
+        with path.open("w", encoding="utf-8") as f:
+            for word in sorted(readings):
+                f.write(f"{word}\t{'|'.join(sorted(readings[word]))}\n")
+        print(f"{len(readings)} spellings with a reading -> {path}")
     for lang in filter(None, args.own.split(",")):
         if (folder / f"{lang}-extract.jsonl.gz").exists():
             genders, said, plurals, stressed = native(lang, folder / f"{lang}-extract.jsonl.gz")

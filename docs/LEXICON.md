@@ -1003,8 +1003,18 @@ was about. A question is paid for once, by its text.
   sources that have the soft one. The model is of the writer's family and shares its mistakes. So a
   kept fact that two sources or more contradict stays on the witness's list; only one that a
   single source contradicted is closed.
-- One change was not needed: French *caméraman* from the plural *cameramen* to *caméramans*, both
-  accepted, of which the Wiktionnaire lists one.
+- One change looked needless and was not: French *caméraman* from the plural *cameramen* to
+  *caméramans*. Asked a second time, with leave to add a plural beside the entry's, the model
+  changed it again, and its reason holds: *cameramen* without the accent is the plural of the
+  spelling *cameraman*, not of the headword. A plural can now be added as well as replaced
+  ("add"), since the shape holds several: 98 nouns have two, each with its varieties (*centres*,
+  *centers*), its senses (*Wörter*, *Worte*) or a note where it has one.
+- **Three questions were bought twice ($0.09)**, by a fault of the script's: the sentence that
+  lists the differing sounds was built from a set in whatever order a run had, so the same
+  question had another text and another identity. The comparison is in a fixed order now, and a
+  question is known again by its facts, values and sources, not by that sentence. One of the three
+  got the other answer the second time (Brazilian *admirável* with or without the added vowel):
+  a second look is not steady on a borderline, and the later answer is the one that counts.
 
 After it the witness lists 494 entries, from 511. The rest of the list is some 480 entries and
 $13. What it cannot do is what the witness cannot see: a fault in a field no source states.
@@ -1459,18 +1469,30 @@ with `--langs` is written whether it is on trial or not; only the default leaves
 
 ## The pass over finished entries
 
-One pass brings the written entries up to October's standard and links them:
+Designed in November, before the witness existed. Where each step stands on 19 November:
 
-1. **Cite** (paid, small): for each sense, the Wiktionary senses it covers. A few ids per sense.
-2. **From the citations, by code**: regions with their extent; gender, plural, forms and IPA
-   compared with Wiktionary, a patch call only where they disagree; a count of common Wiktionary
-   senses the entry lacks, which is the audit of sense lists nobody has run.
+1. **Cite** (paid, small): for each sense, the Wiktionary senses it covers. *Not built for schema
+   4.* The evidence trial shows the writer the same senses without asking it to cite them.
+2. **Facts from the sources, by code**: gender, plural, forms and IPA compared, a patch call only
+   where they disagree. *Built, another way*: `witness.py` compares without citations and
+   `settle_v4.py` is the patch call. Still to do from the design: regions with their extent, the
+   forms other than the plural, and a count of common Wiktionary senses an entry lacks.
 3. **Inside a language**: reverse relations by code, an antonym resolved to the sense it opposes,
-   synonyms from Wiktionary's per-sense lists when both words have entries.
-4. **Across the six languages** (paid, small): Wiktionary glosses a German word with linked English
+   synonyms from Wiktionary's per-sense lists when both words have entries. *Not built.* The
+   entries carry the material: 18,786 relations (two in five are "derived from") and 9,719
+   antonyms, each naming a lemma and its part of speech. Today 42% of the relations and 40% of the
+   antonyms name a word that has an entry; the rest wait for their word to be written.
+4. **Across the languages** (paid, small): Wiktionary glosses a German word with linked English
    words, so the candidates are free; a call picks the sense in the English entry. A translation is
-   a link where the other entry exists and plain text where it does not.
+   a link where the other entry exists and plain text where it does not. *Not built.* WordNet and
+   the Open Multilingual Wordnet, which link senses across languages by concept, are not loaded.
 5. **Reader-language glosses**: deferred. Old ones are kept under `out/carry/`.
+
+What runs when. The gate runs before a word is written. Audit, ingest, witness and second look
+run afterwards over every entry there is, as often as wanted, and judge each entry by itself.
+Nothing yet looks across entries except ingest's search for a word written under two spellings:
+whether a relation's target exists, whether an antonym is named back by its opposite, whether two
+languages' entries are each other's translation are checks of step 3 and 4, and wait for them.
 
 ## Decisions
 
@@ -1505,6 +1527,12 @@ One pass brings the written entries up to October's standard and links them:
   ingest now rebuilds from the spelling with the mark on the same letter (`own_reading`); Italian
   has seven that respell a loanword (*bordò* for *bordeaux*) and one typing error (*vière* for
   *viene*), left for an eye.
+- Japanese readings are held against the Japanese Wiktionary (62,000 spellings with their reading,
+  `ja.native.readings.tsv`) and the accent table's rows: of 352 entries one reading is in neither,
+  *大丈夫* read だいじょうふ, a rare reading that exists. Its pitch accents are not taken: of 9,500
+  it has, 760 are Tokyo's and the rest Kyoto's and Osaka's. So every target language is held
+  against its own Wiktionary (for English that is the edition the index is built from), and
+  Japanese for its readings.
 - Two meanings that are said and inflected alike are senses of one lexeme in every language
   (*bank*, *Schloss*, *avocat*, *брак*), although dictionaries number some of them as homonyms. A
   lexeme is split by sound, part of speech, gender or inflection (*lead*, *der/die See*, *Bank* with

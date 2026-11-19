@@ -47,7 +47,7 @@ def test_a_decision_lands_only_where_the_entry_still_says_what_it_was_about(tmp_
     monkeypatch.setattr(ingest_v4, "SETTLED", tmp_path)
     monkeypatch.setattr(ingest_v4, "_settled", {})
     (tmp_path / "es").mkdir()
-    disputed = {**change, "now": "/pa.la.ˈbɾa/", "verified": False}
+    disputed = {**change, "variety": "es-MX", "now": "/pa.la.ˈbɾa/", "verified": False}
     (tmp_path / "es" / "palabra.abc.json").write_text(json.dumps({"headword": "palabra", "decisions": [change, disputed, {"fact": "gender", "lexeme": 0, "was": "Fem", "verdict": "keep"}]}))
     raw = {**word(), "language": "es"}
     assert ingest_v4.clean_entry("es", json.loads(json.dumps(raw)), {})["lexemes"][0]["pronunciations"][0]["ipa"] == "/pa.ˈla.bɾa/"
@@ -56,3 +56,30 @@ def test_a_decision_lands_only_where_the_entry_still_says_what_it_was_about(tmp_
     assert untouched["lexemes"][0]["pronunciations"][0]["ipa"] == "/ˈpa.la.bɾa/" and "facts_settled" not in untouched
     assert raw["lexemes"][0]["pronunciations"][0]["ipa"] == "/ˈpa.la.bɾa/"  # the written entry is as it was
     assert ingest_v4.kept("es")["palabra"] == {("gender", 0, None, "Fem", 1)}
+
+
+def test_a_second_accepted_plural_is_added_beside_the_first_and_a_later_answer_replaces_an_earlier(tmp_path, monkeypatch):
+    entry = {"headword": "caméraman", "lexemes": [{"lemma": "caméraman", "pos": "NOUN", "forms": [{"form": "cameramen", "features": {"Number": "Plur"}}], "senses": []}]}
+    added = {"fact": "plural", "lexeme": 0, "was": "cameramen", "verdict": "add", "now": "caméramans", "verified": True}
+    assert ingest_v4.apply_decisions("fr", entry, [added]) == 1
+    assert [f["form"] for f in entry["lexemes"][0]["forms"]] == ["cameramen", "caméramans"]
+    assert ingest_v4.apply_decisions("fr", entry, [added]) == 0  # once
+    assert "third answer" in settle_v4.system_prompt("fr", plural=True) and "third answer" not in settle_v4.system_prompt("fr")
+    monkeypatch.setattr(ingest_v4, "SETTLED", tmp_path)
+    monkeypatch.setattr(ingest_v4, "_settled", {})
+    (tmp_path / "fr").mkdir()
+    replaced = {**added, "verdict": "change"}
+    (tmp_path / "fr" / "caméraman.aaa.json").write_text(json.dumps({"headword": "caméraman", "settle_version": "settle-v1", "decisions": [replaced]}))
+    (tmp_path / "fr" / "caméraman.bbb.json").write_text(json.dumps({"headword": "caméraman", "settle_version": "settle-v2", "decisions": [added]}))
+    assert ingest_v4.settled("fr")["caméraman"] == [added]
+
+
+def test_the_same_entry_asks_the_same_question_in_every_run():
+    """A question is paid for by its text. The sounds that differ are part of it, and were once picked from a set in
+    whatever order the run happened to have: three questions were bought twice."""
+    import subprocess
+    code = ("import sys; sys.path.insert(0, 'scripts/lexicon_research'); import witness; "
+            "print(witness.differences('pt', {'admiravew', 'admirabew'}, {'adʒimiravew', 'adʒmiravew', 'adimiravew'}))")
+    seen = {subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, env={"PYTHONHASHSEED": str(seed), "PATH": "/usr/bin:/bin"},
+                           cwd=Path(__file__).resolve().parents[3]).stdout for seed in (1, 2, 3, 4, 5)}
+    assert len(seen) == 1 and seen != {""}

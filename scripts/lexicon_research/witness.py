@@ -247,8 +247,8 @@ def differences(lang, ours, theirs, variety="", lengths=True):
     a length mark on one side only is no difference."""
     either = EITHER.get(lang, set()) | EITHER.get(variety, set()) | (set() if lengths else {LENGTH})
     best = None
-    for mine in ours:
-        for other in theirs:
+    for mine in sorted(ours):  # in a fixed order, and a tie decided by the pairs themselves: the same two sets give the same
+        for other in sorted(theirs):  # answer in every run, which a question paid for by its text depends on
             pairs = []
             for tag, a, b, c, d in difflib.SequenceMatcher(None, mine, other, autojunk=False).get_opcodes():
                 if tag == "equal":
@@ -260,7 +260,7 @@ def differences(lang, ours, theirs, variety="", lengths=True):
                     continue
                 else:
                     pairs.append((left or "-", right or "-"))
-            if best is None or len(pairs) < len(best):
+            if best is None or (len(pairs), pairs) < (len(best), best):
                 best = pairs
     return best or []
 
