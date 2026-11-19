@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, "scripts/lexicon_research")
 import lemma_gate
 import v3_entries
-from prompting import HERE, PILOT_LANGUAGES, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, system_prompt, user_prompt
+from prompting import HERE, PILOT_LANGUAGES, PROMPT_VERSION, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, WRITER_SUFFIX, prompt_sha, since_v4, system_prompt, user_prompt
 
 OUT = HERE / "out"
 GATE = True  # --no-gate turns off the Wiktionary check that keeps inflected forms from being written
@@ -124,8 +124,8 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     shown = None
     if EVIDENCE:  # what Wiktionary states of the word, at the end of the request; a word it does not have is written without
         import wiktionary
-        found = wiktionary.evidence(lang, row["headword"])
-        shown = wiktionary.render(found) if found else None
+        # from v4.11e the meanings of the language's own Wiktionary follow the English edition's record
+        shown, listed = wiktionary.shown(lang, row["headword"], own=since_v4(PROMPT_VERSION, "v4.11e"))
     cmd = ["claude", "-p", user_prompt(lang, row, evidence=shown, covered=covered), "--model", model, "--effort", effort, "--tools", "",
            "--system-prompt", system, "--json-schema", SCHEMA, "--output-format", "json", "--no-session-persistence",
            "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]  # no MCP servers: their tool schemas would ride along in every call
@@ -159,7 +159,7 @@ def write_one(model, effort, lang, system, row, pause_session=70, stop_week=0, r
     meta = {"wall_s": wall, "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
             "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row["set"], "model": model, "effort": effort}
     if EVIDENCE:
-        meta["evidence_chars"] = len(shown or "")
+        meta["evidence_chars"], meta["evidence_senses"] = len(shown or ""), listed  # the longest list of meanings the writer saw
     if covered:
         meta["covered"] = [f"{lemma} ({pos})" for lemma, pos in covered]
     meta.update({k: res.get(k) for k in ("duration_ms", "duration_api_ms", "num_turns", "total_cost_usd", "is_error", "subtype")})

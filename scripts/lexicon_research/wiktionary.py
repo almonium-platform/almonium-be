@@ -414,6 +414,57 @@ def sounds(lang, record):
     return by_variety
 
 
+_own = {}
+
+
+def own_meanings(lang, word):
+    """The meanings the language's own Wiktionary gives the spelling, in that edition's words:
+    [(its name for the part of speech, [(labels, definition)])]. From the table open_sources.py writes
+    (wiktionary/<lang>.native.senses.tsv); empty where the table is not built or lacks the word."""
+    if lang not in _own:
+        table, path = {}, HERE / "wiktionary" / f"{lang}.native.senses.tsv"
+        if path.exists():
+            with path.open(encoding="utf-8") as f:
+                for line in f:
+                    row = line.rstrip("\n").split("\t")
+                    if len(row) != 4:  # a label that held a line break, in a table built before open_sources.py flattened them
+                        continue
+                    spelling, heading, labels, gloss = row
+                    records = table.setdefault(spelling, [])
+                    if not records or records[-1][0] != heading:
+                        records.append((heading, []))
+                    records[-1][1].append(([label for label in labels.split(", ") if label], gloss))
+        _own[lang] = table
+    return _own[lang].get(word) or _own[lang].get(word.lower()) or []
+
+
+def render_own(records):
+    """The own edition's meanings as the writer reads them: a line for each part of speech, a line a meaning."""
+    lines = []
+    for number, (heading, senses) in enumerate(records, 1):
+        lines.append(f"W{number} {heading}")
+        for index, (labels, gloss) in enumerate(senses, 1):
+            lines.append(f"  {number}.{index} " + (f"({', '.join(labels)}) " if labels else "") + gloss)
+    return "\n".join(lines)
+
+
+def shown(lang, word, own=False):
+    """(the block a writer is shown for the word, how many meanings its longest list holds). With own, the
+    meanings of the language's own Wiktionary follow the English edition's record. (None, 0) when neither has
+    the word."""
+    from prompting import LANG_NAME
+
+    found = evidence(lang, word)
+    records = own_meanings(lang, word) if own and lang != "en" else []
+    if not (found and found["lexemes"]) and not records:
+        return (render(found), 0) if found else (None, 0)
+    block = render(found) if found else "Wiktionary has no entry for this spelling."
+    if records:
+        block += f"\n\nMeanings in the {LANG_NAME[lang]} Wiktionary:\n" + render_own(records)
+    counts = (sum(len(lexeme["senses"]) for lexeme in found["lexemes"]) if found else 0, sum(len(senses) for _, senses in records))
+    return block, max(counts)
+
+
 def render(found):
     """The evidence as the writer reads it: one line a lexeme, one a sense, ids to cite."""
     lines = []

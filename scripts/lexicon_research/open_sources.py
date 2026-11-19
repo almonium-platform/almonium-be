@@ -12,9 +12,11 @@ people who do nothing else, each free to load whole, and none of them is copied 
 
   Each language's own Wiktionary  the German Wiktionary for German, the Wiktionnaire for French, and so on: fuller
                for its own language than the English edition the index is built from, and written by its
-               speakers (kaikki.org's <lang>-extract.jsonl.gz; CC BY-SA). Read for gender, plural and sounds.
+               speakers (kaikki.org's <lang>-extract.jsonl.gz; CC BY-SA). Read for gender, plural and sounds, and
+               for the meanings it numbers (<lang>.native.senses.tsv, which a writer given evidence is shown).
 
-    open_sources.py --from FOLDER      (run from the backend repository root; FOLDER holds the files named above)
+    open_sources.py --from FOLDER [--fetch]     (run from the backend repository root; FOLDER holds the files named
+                                                above, and --fetch downloads the ones it lacks, 1.6 GB in all)
 
 writes wiktionary/en.cmudict.facts.tsv, en.britfone.facts.tsv, ru.openrussian.facts.tsv (the shape of
 <lang>.facts.tsv) and ru.openrussian.stress.tsv (the shape of ru.stress.tsv). witness.facts() and
@@ -122,9 +124,29 @@ def place_of(lang, marks):
     return place, bool(rest)
 
 
-def native(lang, path):
+# What an edition files as a word of its own that is none a learner's entry numbers, and what it writes where a
+# definition is still to be written.
+NOT_WORDS = {"name", "character", "symbol", "phrase", "proverb", "suffix", "prefix", "infix", "abbrev", "punct"}
+NO_DEFINITION = re.compile(r"définition manquante|definizione mancante|definición faltante|definição em falta|отсутствует определение|fehlende bedeutung", re.I)
+
+
+def meanings_of(record):
+    """(the edition's own name for the part of speech, [(labels, definition)]) of one lemma record: the meanings it
+    numbers, in its own words, without the inflected forms and the definitions still to be written."""
+    senses = []
+    for sense in record.get("senses") or []:
+        gloss = " ".join(" — ".join(g.strip() for g in sense.get("glosses") or [] if g and g.strip()).split())
+        if not gloss or sense.get("form_of") or "form-of" in (sense.get("tags") or []) or NO_DEFINITION.search(gloss):
+            continue
+        labels = [" ".join(t.split()) for t in (sense.get("raw_tags") or []) + (sense.get("tags") or []) if t and t.strip()][:3]
+        senses.append((labels, gloss[:240]))
+    return " ".join((record.get("pos_title") or record.get("pos") or "").split()), senses
+
+
+def native(lang, path, meanings=None):
     """(word -> genders, word -> transcriptions as the facts table writes them, word -> plurals, plain spelling ->
-    stressed spellings) out of a language's own Wiktionary: its lemma entries only, the edition's own language only."""
+    stressed spellings) out of a language's own Wiktionary: its lemma entries only, the edition's own language only.
+    Given a dict, it is filled as well: spelling -> [(part of speech as the edition names it, its meanings)]."""
     genders, said, plurals, stressed = defaultdict(set), defaultdict(list), defaultdict(set), defaultdict(set)
     needle = f'"lang_code": "{lang}"'
     with gzip.open(path, "rt", encoding="utf-8") as f:
@@ -138,6 +160,10 @@ def native(lang, path):
             word = plain(record["word"])
             if "\t" in word or "\n" in word:
                 continue
+            if meanings is not None and record.get("pos") not in NOT_WORDS:
+                heading, senses = meanings_of(record)
+                if senses:
+                    meanings.setdefault(record["word"], []).append((heading, senses))
             if record.get("pos") == "noun":
                 genders[word] |= {GENDER_TAGS[t] for t in tags if t in GENDER_TAGS}
             for form in record.get("forms") or []:
@@ -218,12 +244,51 @@ def write_stress(name, stressed):
     print(f"{len(stressed)} stressed spellings -> {path}")
 
 
+SOURCES = {"cmudict.dict": "https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict",
+           "britfone.main.3.0.1.csv": "https://raw.githubusercontent.com/JoseLlarena/Britfone/master/britfone.main.3.0.1.csv",
+           **{f"{kind}.csv": f"https://raw.githubusercontent.com/Badestrand/russian-dictionary/master/{kind}.csv" for kind in ("nouns", "verbs", "adjectives", "others")},
+           **{f"{lang}-extract.jsonl.gz": f"https://kaikki.org/dictionary/downloads/{lang}/{lang}-extract.jsonl.gz" for lang in ("de", "fr", "es", "it", "pt", "ru", "ja")}}
+
+
+def fetch(folder, names=None):
+    """Downloads into the folder each source file it does not hold yet. A download that breaks leaves no file."""
+    import shutil
+    import urllib.request
+
+    folder.mkdir(parents=True, exist_ok=True)
+    for name, url in SOURCES.items():
+        target = folder / name
+        if target.exists() or (names is not None and name not in names):
+            continue
+        print(f"fetching {url}", flush=True)
+        part = target.with_name(target.name + ".part")
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "open-sources/1"}), timeout=120) as response, part.open("wb") as f:
+            shutil.copyfileobj(response, f, 1 << 20)
+        part.rename(target)
+
+
+def write_meanings(name, meanings):
+    """One line a meaning: spelling, the edition's part of speech, labels, definition. wiktionary.own_meanings reads it."""
+    path = HERE / "wiktionary" / name
+    count = 0
+    with path.open("w", encoding="utf-8") as f:
+        for word in sorted(meanings):
+            for heading, senses in meanings[word]:
+                for labels, gloss in senses[:16]:
+                    f.write(f"{word}\t{heading}\t{', '.join(labels)}\t{gloss}\n")
+                    count += 1
+    print(f"{count} meanings of {len(meanings)} words -> {path}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--from", dest="folder", required=True, help="the folder that holds the downloaded files")
     ap.add_argument("--own", default="de,fr,es,it,pt,ru", help="the languages whose own Wiktionary is read (each takes a minute or so)")
+    ap.add_argument("--fetch", action="store_true", help="download the files the folder does not hold yet")
     args = ap.parse_args()
     folder = Path(args.folder)
+    if args.fetch:
+        fetch(folder)
     if (folder / "cmudict.dict").exists():
         write_facts("en.cmudict.facts.tsv", cmudict(folder / "cmudict.dict"), place="General-American")
     if (folder / "britfone.main.3.0.1.csv").exists():
@@ -241,8 +306,10 @@ def main():
         print(f"{len(readings)} spellings with a reading -> {path}")
     for lang in filter(None, args.own.split(",")):
         if (folder / f"{lang}-extract.jsonl.gz").exists():
-            genders, said, plurals, stressed = native(lang, folder / f"{lang}-extract.jsonl.gz")
+            meanings = {}
+            genders, said, plurals, stressed = native(lang, folder / f"{lang}-extract.jsonl.gz", meanings)
             write_facts(f"{lang}.native.facts.tsv", said, genders, plurals=plurals)
+            write_meanings(f"{lang}.native.senses.tsv", meanings)
             if stressed:
                 write_stress(f"{lang}.native.stress.tsv", stressed)
 

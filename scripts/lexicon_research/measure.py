@@ -421,7 +421,8 @@ def pair(name, other, langs):
                     moved[fault, "gone" if fault in before else "new"].append(f"{lang} {item['headword']}")
             first = theirs.get(item["pair"], {})
             if item.get("folder") and "senses" in item and "senses" in first:  # does the second writing follow what it was shown
-                sizes[shown_senses(lang, item["headword"])].append((first["senses"], item["senses"]))
+                listed = item["shown"] if "shown" in item else shown_senses(lang, item["headword"])
+                sizes[max(step for step in SHOWN if step <= listed)].append((first["senses"], item["senses"]))
     print(f"{n} entries read in both: {other} then {name}, entries in a hundred with the fault")
     for fault in FAULTS:
         if n:
@@ -443,11 +444,11 @@ SHOWN = {0: "none", 1: "one", 2: "two", 3: "three or four", 5: "five to nine", 1
 
 
 def shown_senses(lang, headword):
-    """How many senses Wiktionary's record of the word holds, as a step of SHOWN."""
+    """How many senses the English Wiktionary's record of the word holds: what a writer of the first evidence
+    trial was shown, whose entries do not say it themselves."""
     import wiktionary
     found = wiktionary.evidence(lang, headword)
-    count = sum(len(lexeme["senses"]) for lexeme in found["lexemes"]) if found else 0
-    return max(step for step in SHOWN if step <= count)
+    return sum(len(lexeme["senses"]) for lexeme in found["lexemes"]) if found else 0
 
 
 def gold_entries(lang):
@@ -594,6 +595,8 @@ def review(name, langs, per_file):
             item["prompt_version"], item["writer"] = meta.get("prompt_version"), meta.get("writer")
             item["lexemes"], item["senses"] = len(clean["lexemes"]), sum(len(lx.get("senses") or []) for lx in clean["lexemes"])
             item["rejected"] = bool(clean.get("reject")) and not clean["lexemes"]
+            if "evidence_senses" in meta:  # the longest list of meanings the writer was shown for the word
+                item["shown"] = meta["evidence_senses"]
             blocks.append(f"### {item['id']}. {item['headword']}\n\n{show(clean)}")
         (MEASURE / name / f"sample-{lang}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         folder = MEASURE / name / "review"

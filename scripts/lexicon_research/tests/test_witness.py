@@ -195,3 +195,31 @@ def test_a_second_dictionary_adds_its_facts_and_is_counted(tmp_path, monkeypatch
     long_a = entry("apparatus", pronunciations=[{"variety": "en-US", "ipa": "/ˌæp.ə.ˈɹeɪ.təs/"}])
     assert [(fact, verdict, sources) for fact, verdict, _, sources in witness.compare("en", long_a, known) if fact == "stressed syllable"] == [("stressed syllable", "agrees", 2)]
     assert witness.facts("xx") is None
+
+
+def test_a_languages_own_wiktionary_gives_its_meanings_in_its_own_words(tmp_path, monkeypatch):
+    """The English edition has a foreign word in a line or two ("considerate"); the word's own edition has the
+    meanings a dictionary of the language numbers. The writer is shown both, and told how many the longer list holds."""
+    import open_sources
+    import wiktionary
+
+    record = {"word": "considerado", "lang_code": "es", "pos": "adj", "pos_title": "Adjetivo", "senses": [
+        {"glosses": ["Que obra con  reflexión."]}, {"glosses": ["Que recibe respeto."], "raw_tags": ["en\nplural"], "tags": ["formal"]},
+        {"glosses": ["Participio de considerar."], "form_of": [{"word": "considerar"}]}, {"glosses": ["Definición faltante"]}, {"glosses": []}]}
+    assert open_sources.meanings_of(record) == ("Adjetivo", [([], "Que obra con reflexión."), (["en plural", "formal"], "Que recibe respeto.")])
+    monkeypatch.setattr(open_sources, "HERE", tmp_path)
+    monkeypatch.setattr(wiktionary, "HERE", tmp_path)
+    monkeypatch.setattr(wiktionary, "_own", {})
+    (tmp_path / "wiktionary").mkdir()
+    open_sources.write_meanings("es.native.senses.tsv", {"considerado": [open_sources.meanings_of(record)], "Top": [("Sustantivo", [([], "Prenda.")])]})
+    with (tmp_path / "wiktionary" / "es.native.senses.tsv").open("a", encoding="utf-8") as f:
+        f.write("roto\tSustantivo\n")  # a row another build broke is passed over
+    assert wiktionary.own_meanings("es", "considerado") == [("Adjetivo", [([], "Que obra con reflexión."), (["en plural", "formal"], "Que recibe respeto.")])]
+    assert wiktionary.own_meanings("es", "roto") == [] and wiktionary.own_meanings("fr", "maison") == []  # no table, no block
+    assert wiktionary.render_own(wiktionary.own_meanings("es", "considerado")) == "W1 Adjetivo\n  1.1 Que obra con reflexión.\n  1.2 (en plural, formal) Que recibe respeto."
+    monkeypatch.setattr(wiktionary, "evidence", lambda lang, word: {"lexemes": [{"id": "1", "pos": "ADJ", "stressed": None, "gender": [], "plural": [], "forms": [], "ipa": {},
+                                                                              "senses": [{"id": "1.1", "gloss": "considerate", "topics": []}]}], "form_of": []})
+    block, longest = wiktionary.shown("es", "considerado", own=True)
+    assert block == "L1 ADJ\n  1.1 considerate\n\nMeanings in the Spanish Wiktionary:\nW1 Adjetivo\n  1.1 Que obra con reflexión.\n  1.2 (en plural, formal) Que recibe respeto." and longest == 2
+    assert wiktionary.shown("es", "considerado") == ("L1 ADJ\n  1.1 considerate", 1)  # as the first trial showed it
+    assert wiktionary.shown("en", "considerado", own=True)[0] == "L1 ADJ\n  1.1 considerate"  # English is its own edition

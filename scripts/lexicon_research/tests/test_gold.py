@@ -39,6 +39,9 @@ PINNED = {
     # v4.11 is v4.10 with a clause on a way of saying the word: when it is the one said. 19 November 2026
     ("en", "v4.11"): "545c3ad5b3a0", ("de", "v4.11"): "538c084de06c", ("fr", "v4.11"): "04c9a50402d4", ("es", "v4.11"): "7155181f910f", ("it", "v4.11"): "6f801896c2cf", ("pt", "v4.11"): "46b24b58a24d",
     ("ru", "v4.11"): "fd77e02de637",
+    # v4.11e is v4.11 with a section on two blocks of evidence, the English Wiktionary's and the language's own: 280 trial words, 19 November 2026
+    ("en", "v4.11e"): "ff05df5603d0", ("de", "v4.11e"): "2912ba3a9f4d", ("fr", "v4.11e"): "a4d60b17ad2a", ("es", "v4.11e"): "2db413529493", ("it", "v4.11e"): "2cbb7a9b3db0", ("pt", "v4.11e"): "2e5370a12448",
+    ("ru", "v4.11e"): "b741f9f5e9bf",
 }
 ANSWER = """# Review
 
@@ -220,6 +223,18 @@ def test_v411_says_when_a_way_of_saying_the_word_is_the_one_said():
         {"variety": "en-GB", "ipa": "/ˈðiː/"}, {"variety": "en-GB", "ipa": "/ðə/", "context": "weak form, usual in running speech"},
         {"variety": "en-GB", "ipa": "/ˈbæθ/", "note": "regional", "context": "north of England"}], "senses": []}]})
     assert "/ðə/ (en-GB: weak form, usual in running speech)" in shown and "/ˈbæθ/ (en-GB, regional: north of England)" in shown
+
+
+def test_v411e_is_v411_with_a_section_on_two_blocks_of_evidence_and_nothing_else():
+    """The first evidence trial showed the English Wiktionary's record alone, and the writer wrote as few senses as
+    it was shown. v4.11e names the second block and says that a short block is not a word with few meanings."""
+    for lang in prompting.TARGET_LANGUAGES:
+        plain, shown = prompting.system_prompt(lang, "v4.11"), prompting.system_prompt(lang, "v4.11e")
+        head, _, rest = shown.partition("# Evidence\n")
+        section, mark, tail = rest.partition("# Examples" if "# Examples" in plain else "# Output")
+        assert head + mark + tail == plain
+        assert f"Meanings in the {prompting.LANG_NAME[lang]} Wiktionary" in section and "A short block is an editor who stopped" in section
+        assert "never its notation" in section and "do not take over a definition" in section
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():
