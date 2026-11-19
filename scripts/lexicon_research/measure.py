@@ -385,30 +385,69 @@ def sample_like(name, other, folder, langs, gold):
 
 
 def pair(name, other, langs):
-    """Two samples of the same words, one reader: in how many entries each fault is found in each, and where it went or came."""
+    """Two samples of the same words, one reader: in how many entries each fault is found in each, and where it went or came.
+    The entries checked by hand are the same text in both samples, so what the reader says of them twice is the reader's
+    own drift between the two readings: a change in the written entries smaller than that is not a change."""
     there, here, moved = Counter(), Counter(), defaultdict(list)
+    same, sizes = Counter(), defaultdict(list)
     n = 0
     for lang in langs:
         ours = {i["id"]: i for i in json.loads((MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))}
+        theirs = {i["id"]: i for i in json.loads((MEASURE / other / f"sample-{lang}.json").read_text(encoding="utf-8"))}
         read_here, read_there = {}, {}
         for f in sorted((MEASURE / name / "answers").glob(f"{lang}-*.md")):
             read_here.update(answers_of(f.read_text(encoding="utf-8")))
         for f in sorted((MEASURE / other / "answers").glob(f"{lang}-*.md")):
             read_there.update(answers_of(f.read_text(encoding="utf-8")))
         for number, item in ours.items():
-            if item["part"] != "new" or number not in read_here or item["pair"] not in read_there:
+            if number not in read_here or item["pair"] not in read_there:
+                continue
+            now, before = {f["fault"] for f in read_here[number]}, {f["fault"] for f in read_there[item["pair"]]}
+            if item["part"] == "gold":
+                same["entries"] += 1
+                same["any", "before"] += bool(before)
+                same["any", "now"] += bool(now)
+                for fault in FAULTS:
+                    same[fault, "before"] += fault in before
+                    same[fault, "now"] += fault in now
+                continue
+            if item["part"] != "new":
                 continue
             n += 1
-            now, before = {f["fault"] for f in read_here[number]}, {f["fault"] for f in read_there[item["pair"]]}
             for fault in FAULTS:
                 here[fault] += fault in now
                 there[fault] += fault in before
                 if (fault in now) != (fault in before):
                     moved[fault, "gone" if fault in before else "new"].append(f"{lang} {item['headword']}")
+            first = theirs.get(item["pair"], {})
+            if item.get("folder") and "senses" in item and "senses" in first:  # does the second writing follow what it was shown
+                sizes[shown_senses(lang, item["headword"])].append((first["senses"], item["senses"]))
     print(f"{n} entries read in both: {other} then {name}, entries in a hundred with the fault")
     for fault in FAULTS:
         if n:
             print(f"  {fault:13} {100 * there[fault] / n:5.1f} -> {100 * here[fault] / n:5.1f}   gone in {len(moved[fault, 'gone'])}, new in {len(moved[fault, 'new'])}")
+    if same["entries"]:
+        print(f"the reader's own drift, on {same['entries']} entries that are the same text in both:")
+        for fault in ("any",) + tuple(FAULTS):
+            if same[fault, "before"] or same[fault, "now"]:
+                print(f"  {fault:13} found in {same[fault, 'before']:2} -> {same[fault, 'now']:2}")
+    if sizes:
+        print("senses an entry, by how many senses the writer was shown the second time:")
+        for size in sorted(sizes):
+            pairs = sizes[size]
+            print(f"  shown {SHOWN[size]:12} n={len(pairs):3}  {sum(a for a, _ in pairs) / len(pairs):.2f} -> {sum(b for _, b in pairs) / len(pairs):.2f}"
+                  f"   fewer in {sum(b < a for a, b in pairs)}, more in {sum(b > a for a, b in pairs)}")
+
+
+SHOWN = {0: "none", 1: "one", 2: "two", 3: "three or four", 5: "five to nine", 10: "ten or more"}
+
+
+def shown_senses(lang, headword):
+    """How many senses Wiktionary's record of the word holds, as a step of SHOWN."""
+    import wiktionary
+    found = wiktionary.evidence(lang, headword)
+    count = sum(len(lexeme["senses"]) for lexeme in found["lexemes"]) if found else 0
+    return max(step for step in SHOWN if step <= count)
 
 
 def gold_entries(lang):

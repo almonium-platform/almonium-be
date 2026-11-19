@@ -138,3 +138,28 @@ def test_the_same_words_written_a_second_way_are_read_and_compared_entry_by_entr
     measure.pair("b", "a", ["it"])
     out = capsys.readouterr().out
     assert "2 entries read in both" in out and "fact           50.0 ->   0.0   gone in 1, new in 0" in out and "wording         0.0 ->  50.0   gone in 0, new in 1" in out
+
+
+def test_a_comparison_shows_the_readers_own_drift_and_whether_the_writer_followed_what_it_was_shown(tmp_path, monkeypatch, capsys):
+    """The hand-checked entries are the same text in both samples: what the reader finds in them the second time and not
+    the first is the reader, not the writing. And a second writing that shrinks where it was shown little has followed it."""
+    monkeypatch.setattr(measure, "MEASURE", tmp_path)
+    monkeypatch.setattr(measure, "shown_senses", lambda lang, headword: {"y": 1, "z": 10}[headword])
+    for name in ("a", "b"):
+        (tmp_path / name / "answers").mkdir(parents=True)
+    first = [{"id": 1, "headword": "y", "part": "new", "senses": 4}, {"id": 2, "headword": "z", "part": "new", "senses": 4},
+             {"id": 3, "headword": "g", "part": "gold"}, {"id": 4, "headword": "h", "part": "gold"}]
+    second = [{"id": 1, "headword": "y", "part": "new", "pair": 1, "folder": "review-trial", "senses": 2},
+              {"id": 2, "headword": "z", "part": "new", "pair": 2, "folder": "review-trial", "senses": 6},
+              {"id": 3, "headword": "g", "part": "gold", "pair": 3}, {"id": 4, "headword": "h", "part": "gold", "pair": 4}]
+    (tmp_path / "a" / "sample-it.json").write_text(json.dumps(first))
+    (tmp_path / "b" / "sample-it.json").write_text(json.dumps(second))
+    (tmp_path / "a" / "answers" / "it-1.md").write_text("\n".join(json.dumps({"id": n, "findings": []}) for n in (1, 2, 3, 4)))
+    (tmp_path / "b" / "answers" / "it-1.md").write_text("\n".join(
+        json.dumps({"id": n, "findings": [{"fault": "wording", "what": "w"}] if n in (3, 4) else []}) for n in (1, 2, 3, 4)))
+    measure.pair("b", "a", ["it"])
+    out = capsys.readouterr().out
+    assert "2 entries read in both" in out and "wording         0.0 ->   0.0" in out  # the hand-checked entries are not in the count
+    assert "the reader's own drift, on 2 entries" in out and "wording       found in  0 ->  2" in out
+    assert "shown one          n=  1  4.00 -> 2.00   fewer in 1, more in 0" in out
+    assert "shown ten or more  n=  1  4.00 -> 6.00   fewer in 0, more in 1" in out
