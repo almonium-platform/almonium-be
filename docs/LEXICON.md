@@ -1308,6 +1308,12 @@ One pass brings the written entries up to October's standard and links them:
   word is ordinarily used, as a learner's dictionary prints it.
 - A word whose only entry is of an older shape is written afresh, not mended (the owner, 18
   November 2026). The older entry is kept.
+- A word said in more than one way in a variety has a transcription for each, the commonest first,
+  and the stressed spelling for each where the language has one. A later one may carry a note:
+  less_common, older, newer, careful, casual, regional, disputed. So German *unmöglich* and
+  *notwendig* carry both stresses, English *data* both vowels, Portuguese *casar* its casual
+  /ka.ˈza/. 570 English lexemes have two, 77 German, 73 French, 52 Portuguese, 13 Italian, 5
+  Russian, 4 Spanish. German and English mark stress only in the transcription.
 - Two meanings that are said and inflected alike are senses of one lexeme in every language
   (*bank*, *Schloss*, *avocat*, *брак*), although dictionaries number some of them as homonyms. A
   lexeme is split by sound, part of speech, gender or inflection (*lead*, *der/die See*, *Bank* with
@@ -1334,17 +1340,56 @@ One pass brings the written entries up to October's standard and links them:
   is only the name of a person, a place or a firm, for the writers and the mender alike.
 - Work happens on `develop` and is pushed at once.
 
-## Sources
+## Sources and witnesses
 
-| Source | Licence | Used for |
+A writer is a model and states things from memory. Everything else here is something outside the
+writer that its work is held against. Nothing from a source is copied into an entry: a source
+decides what is written, or says where an entry may be wrong.
+
+**In use, by a program, on every entry:**
+
+| Source | What it is | What it is asked | Where | Licence |
+|---|---|---|---|---|
+| Wiktionary, through kaikki.org's extracts | The English Wiktionary's entries for each language, 9 GB, read once into tables (`lemma_index.py`) | **Before a write:** is the spelling a word of its own, an inflected form, a name, another spelling, an abbreviation (the gate and the healthy lists). **After:** the gender, the plural, the stressed syllable and the sounds of every entry (`witness.py`); the stressed spelling of Russian and Ukrainian words (`check_v4.py`) | `lemma_gate.py`, `core_list.py`, `witness.py`, `check_v4.py` | CC BY-SA |
+| Kanjium's accent table | The Tokyo pitch accent of 124,000 Japanese words | Is the accent an entry gives one the table has for that reading | `check_v4.accent_witness` | CC BY-SA |
+| wordfreq | How often a spelling is met, in forty languages | Which words are worth an entry and in what order; the bands a sample is drawn from | `core_list.py`, `measure.py` | Data CC BY-SA |
+| MeCab with its dictionary | A reader of Japanese text into words | Which dictionary word a spelling of the frequency list is a form of | `core_list.japanese` | BSD and its dictionary's terms |
+| The symbol lists | Our own: the IPA symbols each variety may use, after its dictionaries (`inventories/`) | Is every symbol of a transcription one the variety has | `check_v4.py` | ours |
+| The schema | Ours (`entry.schema.v4.json`) | Is the entry of the agreed shape; the writer's CLI refuses an answer that is not | the writers, `check_v4.py` | ours |
+
+**In use, by a reader, on a sample:**
+
+| Source | What it is | What it is asked |
 |---|---|---|
-| Wiktionary through kaikki.org | CC BY-SA | The gate's index; evidence and fact checks in October's writer; the citing pass. Facts are used, wording is never copied |
-| Wikidata lexemes | CC0 | Not yet: spellings and forms where it has them |
-| Princeton WordNet | Its own permissive licence | Not yet: synonyms, antonyms and concept ids for English, as a witness. Much finer than a learner needs: 18 senses of *bank* |
-| Open Multilingual Wordnet | Varies by language | Not yet: sense links across languages through shared concept ids |
-| wordfreq | Data CC BY-SA | Ranking the lists |
-| CMUdict | Permissive | English stress, as a witness |
-| The catalogue's own public-domain books | Free | Examples and word demand, not yet |
+| A reader of another model family (GPT Astra), and Claude Fable as a second | Models that did not write the entry | Which of seven kinds of fault each entry of a random sample has (`measure.py`). They are told to report only what a dictionary of the language would show, and are themselves measured by planted faults and checked entries |
+| The example entries (`gold/`) | Five entries a language that a person has read and corrected | They are shown to the writer as the model of an entry, and to a reader, unmarked, to count its false alarms |
+| The owner | Reads English, Ukrainian and Russian | Decisions, and the entries of those three languages |
+
+**Built in October for the schema-3 writers and not wired to schema 4** (`score.py`, `wiktionary.py`,
+`entry_pipeline.py`): CMUdict for English stress and sounds, WikiPron for the sounds of English,
+German and Ukrainian, spaCy to lemmatize a form back to its lemma, and Wiktionary's senses as
+evidence inside the writer's request with each written sense citing the ones it covers.
+
+**Not used yet:** Wikidata's lexemes (CC0: spellings and forms), Princeton WordNet and the Open
+Multilingual Wordnet (synonyms, antonyms and sense links across languages; much finer than a
+learner needs, 18 senses of *bank*), the catalogue's own public-domain books (examples and which
+words readers meet). Duden, Le Robert, the RAE's dictionary, Treccani and the others are named to
+readers as what to judge by and give the conventions the prompt follows (German *jmdm.*, *etw.*);
+none is read by a program, and none may be copied.
+
+**What each can and cannot say.** Wiktionary is edited by volunteers and is uneven: it has the
+gender of nearly every noun and a transcription for most common words, often one where a word is
+said two ways, sometimes a dialect's beside the standard. So its word is a lead, never a verdict,
+and the checks are as lenient as the fact allows ("Witnesses"). wordfreq counts spellings, not
+words: an inflected form's count is given to its base word by the index. The readers are models:
+they agree with each other on facts more than on wording, and they miss things, which is what the
+planted faults measure.
+
+**What has no witness.** The definitions, the choice and order of senses, the examples, the CEFR
+levels, the labels and regions, the frames and the collocations are held against nothing but a
+reader's judgement on a sample. That is most of an entry. The cheapest next witnesses: CMUdict for
+English, which lists every accepted pronunciation; a corpus count for the collocations (is the
+pair really frequent); and Wiktionary's senses for a core meaning that is missing.
 
 Whether reusing Wiktionary's facts in bulk carries its share-alike terms is a legal question this
 page does not settle.
