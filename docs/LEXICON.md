@@ -884,8 +884,61 @@ What a program can say of the three arms, same 280 words:
 Whether the senses and the wording are better is the reader's to say:
 `measure/v411e/review/` holds the 45 entries a language for GPT, the five checked ones the same
 text as in both earlier rounds, and `measure.py --name v411e --tally --pair v410` sets the count
-beside the first arm's with the reader's drift. If missing senses fall and nothing rises by more
-than the drift, v4.11e with `--evidence` becomes the writers' prompt.
+beside the first arm's with the reader's drift.
+
+**The reader's count of the three arms** (GPT Astra 6.2 with the web open, the same 280 words;
+entries in a hundred with the fault):
+
+| fault | v4.10, no evidence | v4.10e, English block | v4.11e, both blocks |
+|---|---|---|---|
+| fact | 4.3 | 4.3 | 6.1 |
+| claim | 16.1 | 15.4 | 15.7 |
+| missing-core | 4.6 | 9.6 | 6.8 |
+| missing-minor | 46.8 | 54.3 | 45.7 |
+| split | 2.9 | 2.1 | 2.1 |
+| wording | 38.6 | 43.6 | 47.5 |
+| collocation | 17.9 | 20.7 | 18.6 |
+| the same 35 checked entries: a finding in | 11 | 18 | 15 |
+| of those, missing-minor and wording | 5, 4 | 7, 9 | 8, 6 |
+
+- **The own edition mended what the English block broke**: core senses missing 9.6 to 6.8, rarer
+  ones 54.3 to 45.7.
+- **Against no evidence, the reader sees no gain.** Rarer senses missing are level, with a reader
+  that found them in eight unchanged entries where it had found five; wording and core senses
+  are nominally worse, and none of it is outside the reader's own drift.
+- **Core senses, read one by one.** Thirteen entries have a new missing core sense: three lost a
+  sense the first writing had (*begin* as where something starts, *aimer* as to wish, *elemento*
+  as a fact to judge by), four have it worded more narrowly (*préparer* no longer "to be eaten",
+  *tratar* no longer "of someone"), six lack it in both writings and are the reader. Seven went
+  the other way. None of the three losses is the block's doing this time: the French Wiktionary
+  has *aimer* at length.
+- **Facts, read one by one.** Sixteen new, eleven gone. The three wrong sounds went, as in the
+  first trial. Two of the new ones are the evidence: a lexeme Wiktionary has and the rules do not
+  (*tranquilo* as an interjection, *есть* "there is" as a verb of its own). Three are v4.11's
+  `context`, not the evidence: on the Russian prepositions *к*, *без* and *над* the writer stated
+  when each sound is said and stated it too widely (/ɡ/ "before a voiced consonant", which *к
+  маме* is not; *над* with /t/ where *над нами* has /d/). The rest are the frames and spellings
+  every arm has.
+
+**What the three arms say together.**
+
+1. **A second writing is another draw.** Each time the 280 words were written again, some entries
+   gained a common sense and about as many lost one, whatever the request carried. The evidence
+   moved the average (3.45, 3.43, 3.73 senses) and not that. So an entry is not made better by
+   writing it again, with or without evidence: it is made better by a patch that adds what is
+   missing and touches nothing else, which is what the review loop does.
+2. **One reading by one reader cannot tell arms this close apart.** The reader found a third more
+   in the same unchanged entries from one round to the next. Planted faults and unchanged entries
+   are what make its numbers usable at all.
+3. **Evidence is not adopted for the writer** (recommended; the owner's to confirm). What it
+   surely buys is the sounds, which the witness and a second look mend for $0.03 on the entries
+   they list; what it surely costs is $0.015 an entry, $600 over the 40,000 words to come, the
+   tables on every machine that writes, and the lexemes it copies from Wiktionary. v4.11e and its
+   tables stay, for a language or a list where a count shows the writer short of senses.
+4. **The `context` clause wants watching on words said as one with the next.** Three faults in
+   six Russian prepositions that carry one. They are a closed list in every language and the
+   review loop's reader named all three; if the next sample has them too, the clause is narrowed
+   in a v4.12 to what a dictionary prints for the word and not the rule behind it.
 
 ### Measuring the reviewer
 
@@ -1785,7 +1838,9 @@ languages' entries are each other's translation are checks of step 3 and 4, and 
 - Prompt v4.11 is the writers' prompt since 19 November 2026: v4.10 with `context` on a way of saying
   the word (the owner, 19 November). Entries of v4.10 stay as they are.
 - The writer is not shown English Wiktionary's senses: it follows their number, and for every
-  language but English they are fewer than the entry should have ("The evidence trial").
+  language but English they are fewer than the entry should have ("The evidence trial"). Shown
+  the language's own edition as well it no longer shrinks, and a reader still counts no gain
+  ("The second evidence trial"): evidence in the request is not the writers' default.
 - A written entry is reviewed by a second model family; the writer answers, and a third model rules
   where the two disagree (the owner, 19 November 2026). A change reaches the published copy when
   two models of different families call it a fault, or the third has ruled, and never against the
@@ -1959,9 +2014,10 @@ page does not settle.
 3. **The second look over the whole list**: some 480 entries, $13 ("The second look"). Then
    the Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling, and the
    Russian vowel before the stress checked from the stressed spelling.
-   **Evidence, the second try**: written with both editions shown (v4.11e, "The second evidence
-   trial"); the program's counts are good and GPT's reading of `measure/v411e/` is awaited. One
-   decision of the owner's is still open: whether the bar for facts stays at two.
+   **Evidence, the second try**: counted ("The second evidence trial"). The reader sees no gain
+   over writing without evidence, so the recommendation is to write with v4.11 as it is and spend
+   on the review loop; the owner confirms. One decision of the owner's is still open: whether the
+   bar for facts stays at two.
    **The review loop over the dictionary**: first ten entries through the Codex seat
    (`review_v4.py --langs en --take 10 --steps read`), then the 1,824 entries of v4.10, some $22
    on the Claude plan, and a sample of the outcomes read by the owner in the three languages they
