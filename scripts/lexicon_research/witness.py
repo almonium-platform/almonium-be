@@ -104,7 +104,7 @@ LENGTH = frozenset(("ː", "-"))
 EITHER = {lang: {frozenset(pair) for pair in pairs} for lang, pairs in EITHER.items()}
 FIRST_VOWEL = re.compile("[aeiouyɑɐɒæɛɜəɪʏʊøœɔʌ][\u0300-\u036f]*[aeiouyɑɐɒæɛɜəɪʏʊøœɔʌ]?[\u0300-\u036f]*ː?")
 NO_WORD_STRESS = {"fr"}  # French stresses the end of a phrase, not a syllable of the word: the mark our list asks for says nothing
-SOURCE_NAMES = {"cmudict": "CMUdict", "britfone": "Britfone", "openrussian": "OpenRussian", "native": "its own Wiktionary"}
+SOURCE_NAMES = {"cmudict": "CMUdict", "britfone": "Britfone", "openrussian": "OpenRussian", "native": "the language's own Wiktionary"}
 OPTIONAL = re.compile(r"\(([^()]*)\)|⁽([^⁽⁾]*)⁾")
 # Where a sound that differs is, more often than not, another accepted way of saying the word and not a fault,
 # by a hand count of sixty such words: English, whose dictionaries give two or three ways for one word in ten
@@ -124,7 +124,7 @@ def facts(lang):
     paths = [HERE / "wiktionary" / f"{lang}.facts.tsv"] + sorted((HERE / "wiktionary").glob(f"{lang}.*.facts.tsv"))
     table = {}
     for path in [p for p in paths if p.exists()]:
-        source = SOURCE_NAMES.get(path.name.split(".")[1], "Wiktionary") if path.name.count(".") > 2 else "Wiktionary"
+        source = SOURCE_NAMES.get(path.name.split(".")[1], "another source") if path.name.count(".") > 2 else "the English Wiktionary"
         with path.open(encoding="utf-8") as f:
             for line in f:
                 row = line.rstrip("\n").split("\t")
@@ -275,12 +275,12 @@ def plurals_of(lang, lexeme):
     return found
 
 
-def compare(lang, entry, table):
-    """(fact, verdict, detail, sources) for every fact of one written entry that a source states too. The verdict
-    is "agrees" or "differs"; a fact no source states is not in the list. sources is how many dictionaries have
-    the word at all, whichever variety each is of."""
+def findings(lang, entry, table):
+    """Every fact of one written entry that a source states too, each as a dict: fact, verdict ("agrees" or
+    "differs"), detail, sources (how many dictionaries have the word at all), and where it is: lexeme (its place
+    in the entry), variety and was (the value the entry has: a gender, the plurals, a transcription)."""
     found = []
-    for lexeme in entry.get("lexemes") or []:
+    for at, lexeme in enumerate(entry.get("lexemes") or []):
         lemma = lexeme.get("lemma") or ""
         known = table.get(lemma) or table.get(plain(lemma))
         if not known or " " in lemma:
@@ -289,9 +289,11 @@ def compare(lang, entry, table):
         whose = " and ".join(sorted(sources))
         gender = (lexeme.get("grammar") or {}).get("gender")
         if lexeme.get("pos") == "NOUN" and gender and genders and gender != "Com":
-            found.append(("gender", "agrees" if gender in genders else "differs", f"{lemma}: {gender}, {whose}: {', '.join(sorted(genders))}", len(sources)))
+            found.append({"fact": "gender", "verdict": "agrees" if gender in genders else "differs", "detail": f"{lemma}: {gender}, {whose}: {', '.join(sorted(genders))}",
+                          "sources": len(sources), "lexeme": at, "was": gender})
         if (ours := plurals_of(lang, lexeme)) and plurals and lexeme.get("pos") == "NOUN":
-            found.append(("plural", "agrees" if ours & plurals else "differs", f"{lemma}: {', '.join(sorted(ours))}, {whose}: {', '.join(sorted(plurals))}", len(sources)))
+            found.append({"fact": "plural", "verdict": "agrees" if ours & plurals else "differs", "detail": f"{lemma}: {', '.join(sorted(ours))}, {whose}: {', '.join(sorted(plurals))}",
+                          "sources": len(sources), "lexeme": at, "was": sorted(ours)[0]})
         # Two transcriptions of one spelling in one variety are two ways of saying the word ("unmöglich" stressed on
         # either syllable, "either"). Wiktionary seldom has both, so the pair is right when one of them is.
         ways = {}
@@ -314,7 +316,7 @@ def compare(lang, entry, table):
             place = stress_place(ipa)
             theirs = [t for t in (stress_place(i) for i in anywhere) if t]
             if place and theirs and sum(place) > 1 and lang not in NO_WORD_STRESS:
-                stressed.append((any(same_stress(place, t) for t in theirs), f"{lemma} {variety}: {ipa}, {whose_way}: {' '.join(anywhere[:4])}"))
+                stressed.append((any(same_stress(place, t) for t in theirs), f"{lemma} {variety}: {ipa}, {whose_way}: {' '.join(anywhere[:4])}", variety, ipa))
             here, others, named = of_place(variety, heard)
             if here:
                 # where the stress is on another syllable, the length that goes with it is not counted a second time
@@ -324,22 +326,29 @@ def compare(lang, entry, table):
                 if pairs and others and not differences(lang, mine, {text for t in others for text in sounds(lang, t, variety)}, variety, lengths):
                     pairs = []  # a way of saying it that Wiktionary records, if not as the standard of the place
                 said = " ".join(f"{a}>{b}" for a, b in pairs)
-                sounded.append((not pairs, named, f"{lemma} {variety}: {ipa}, {whose_way}: {' '.join(here[:4])}  [{said}]"))
+                sounded.append((not pairs, named, f"{lemma} {variety}: {ipa}, {whose_way}: {' '.join(here[:4])}  [{said}]", variety, ipa))
         heard_here = []
         for stressed, sounded in ways.values():
             if stressed:
-                same, detail = max(stressed, key=lambda way: way[0])  # the way that agrees, if one does
-                found.append(("stressed syllable", "agrees" if same else "differs", detail, len(sources)))
+                same, detail, variety, ipa = max(stressed, key=lambda way: way[0])  # the way that agrees, if one does
+                found.append({"fact": "stressed syllable", "verdict": "agrees" if same else "differs", "detail": detail, "sources": len(sources),
+                              "lexeme": at, "variety": variety, "was": ipa})
             if sounded:
-                same, named, detail = max(sounded, key=lambda way: way[0])
-                heard_here.append((named, same, detail))
+                same, named, detail, variety, ipa = max(sounded, key=lambda way: way[0])
+                heard_here.append((named, same, detail, variety, ipa))
         # a transcription named for no place, in a language where the place matters, can confirm and cannot contradict:
         # it is held against a variety of ours only when Wiktionary confirms none of the lexeme's transcriptions
-        confirmed = any(same for _, same, _ in heard_here)
-        for named, same, detail in heard_here:
+        confirmed = any(way[1] for way in heard_here)
+        for named, same, detail, variety, ipa in heard_here:
             if same or named or lang not in PLACE_UNSAID or not confirmed:
-                found.append(("sounds", "agrees" if same else "differs", detail, len(sources)))
+                found.append({"fact": "sounds", "verdict": "agrees" if same else "differs", "detail": detail, "sources": len(sources),
+                              "lexeme": at, "variety": variety, "was": ipa})
     return found
+
+
+def compare(lang, entry, table):
+    """(fact, verdict, detail, sources) for every fact of one written entry that a source states too."""
+    return [(f["fact"], f["verdict"], f["detail"], f["sources"]) for f in findings(lang, entry, table)]
 
 
 def survey(lang, show, leads):
@@ -349,21 +358,25 @@ def survey(lang, show, leads):
         print(f"{lang}: no facts table; run lemma_index.py --langs {lang}")
         return None
     counts, differing, pairs = defaultdict(Counter), defaultdict(list), Counter()
-    raw = ingest_v4.load_raw(lang)
+    raw, kept = ingest_v4.load_raw(lang), ingest_v4.kept(lang)
     for headword in sorted(raw):
         written, meta = raw[headword]
         if not written.get("lexemes"):
             continue
         entry = ingest_v4.clean_entry(lang, json.loads(json.dumps(written)), meta)  # as it is published, the free rules applied
-        for fact, verdict, detail, sources in compare(lang, entry, table):
+        for finding in findings(lang, entry, table):
+            fact, verdict, detail, sources = finding["fact"], finding["verdict"], finding["detail"], finding["sources"]
             counts[fact][verdict] += 1
             if verdict == "differs":
                 differing[fact].append(detail)
-                leads.append({"language": lang, "headword": headword, "fact": fact, "detail": detail, "sources": sources})
+                # a second look (settle_v4.py) that left the fact as written closes it where one source alone differed
+                looked = any(k[1] == finding["lexeme"] and k[3] == finding["was"] and k[2] == finding.get("variety")
+                             and (k[0] == fact or {k[0], fact} <= {"sounds", "stressed syllable"}) for k in kept.get(headword, ()))
+                leads.append({"language": lang, "headword": headword, "fact": fact, "detail": detail, "sources": sources, "kept": looked})
                 if fact == "sounds":
                     pairs.update(detail.rpartition("[")[2].rstrip("]").split())
     mine = [lead for lead in leads if lead["language"] == lang]
-    trusted = {lead["headword"] for lead in mine if lead["fact"] != "sounds" or lang not in ACCEPTED_VARIANTS}
+    trusted = {lead["headword"] for lead in mine if (lead["fact"] != "sounds" or lang not in ACCEPTED_VARIANTS) and not (lead["kept"] and lead["sources"] < 2)}
     print(f"\n{lang}: {len(raw)} entries held against {' and '.join(sorted({n for row in table.values() for n in row[3]}))}, "
           f"{len(trusted)} with a disagreement worth reading")
     for fact in ("gender", "plural", "stressed syllable", "sounds"):

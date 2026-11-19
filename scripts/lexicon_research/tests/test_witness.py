@@ -191,7 +191,7 @@ def test_a_second_dictionary_adds_its_facts_and_is_counted(tmp_path, monkeypatch
     (folder / "en.cmudict.facts.tsv").write_text("apparatus\t\tGeneral-American:/ˌæpɚˈætəs/|General-American:/ˌæpɚˈeɪtəs/\t\n", encoding="utf-8")
     monkeypatch.setattr(witness, "HERE", tmp_path)
     known = witness.facts("en")
-    assert known["apparatus"][3] == {"Wiktionary", "CMUdict"} and len(known["apparatus"][1]) == 3
+    assert known["apparatus"][3] == {"the English Wiktionary", "CMUdict"} and len(known["apparatus"][1]) == 3
     long_a = entry("apparatus", pronunciations=[{"variety": "en-US", "ipa": "/ˌæp.ə.ˈɹeɪ.təs/"}])
     assert [(fact, verdict, sources) for fact, verdict, _, sources in witness.compare("en", long_a, known) if fact == "stressed syllable"] == [("stressed syllable", "agrees", 2)]
     assert witness.facts("xx") is None

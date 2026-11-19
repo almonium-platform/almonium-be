@@ -199,6 +199,70 @@ def settle_readings(lang, lexeme):
     return changed
 
 
+SETTLED = OUT / "review-settle"  # the decisions of settle_v4.py: a second look at a fact the sources contradict
+_settled = {}
+
+
+def settled(lang):
+    """headword -> the changes a second look decided on and the sources then confirmed. Nothing else is applied."""
+    if lang not in _settled:
+        found = defaultdict(list)
+        for path in sorted((SETTLED / lang).glob("*.json")):
+            try:
+                answer = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            found[answer.get("headword")] += [d for d in answer.get("decisions") or [] if d.get("verdict") == "change" and d.get("verified")]
+        _settled[lang] = found
+    return _settled[lang]
+
+
+def kept(lang):
+    """headword -> the facts a second look left as written: (fact, lexeme, variety, value, how many sources differ)."""
+    found = defaultdict(set)
+    for path in sorted((SETTLED / lang).glob("*.json")):
+        try:
+            answer = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        for d in answer.get("decisions") or []:
+            if d.get("verdict") == "keep":
+                found[answer.get("headword")].add((d.get("fact"), d.get("lexeme"), d.get("variety"), d.get("was"), d.get("sources") or 1))
+    return found
+
+
+def apply_decisions(lang, entry, decisions):
+    """Sets each decided fact where the entry still has the value the decision was made about, so that a decision
+    never lands on an entry written again since. The written entry is not touched: this is the published copy.
+    Says how many facts it set."""
+    done = 0
+    lexemes = entry.get("lexemes") or []
+    for decision in decisions:
+        if not 0 <= decision.get("lexeme", -1) < len(lexemes) or not decision.get("now"):
+            continue
+        lexeme = lexemes[decision["lexeme"]]
+        if decision["fact"] == "gender":
+            if (lexeme.get("grammar") or {}).get("gender") == decision["was"]:
+                lexeme["grammar"]["gender"] = decision["now"]
+                done += 1
+        elif decision["fact"] == "plural":
+            for form in lexeme.get("forms") or []:
+                if form.get("form") == decision["was"] and (form.get("features") or {}).get("Number") == "Plur":
+                    form["form"] = decision["now"]
+                    for key in ("reading", "ipa"):  # they were the old form's
+                        form.pop(key, None)
+                    done += 1
+        else:  # a transcription: its sounds or its stressed syllable
+            for said in lexeme.get("pronunciations") or []:
+                if said.get("variety") == decision.get("variety") and said.get("ipa") == decision["was"]:
+                    said["ipa"] = decision["now"]
+                    if decision.get("reading"):
+                        said["reading"] = decision["reading"]
+                    done += 1
+            settle_sounds(lang, lexeme)
+    return done
+
+
 def settle_defaults(lexeme):
     """A grammar value the lexeme states for the whole word although one of its senses states another (Count for
     the word, Mass for its fourth sense) is the value of the other senses only: it is moved to each sense that
@@ -593,7 +657,7 @@ def match_senses(old, new):
     return kept, [old[i] for i in free]
 
 
-def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
+def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), settle=True):
     """The clean entry for one written entry. previous is the clean entry of an earlier ingest, if any;
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
@@ -673,6 +737,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     entry["source"] = {"writer": meta.get("writer"), "model": meta.get("model"), "effort": meta.get("effort"),
                        "prompt_version": meta.get("prompt_version"),
                        "prompt_sha": meta.get("prompt_sha") or (V4_SHA.get(lang) if meta.get("prompt_version") == "v4" else None)}
+    if settle and (facts := apply_decisions(lang, entry, settled(lang).get(headword, []))):
+        entry["facts_settled"] = facts
     return entry
 
 
@@ -794,6 +860,7 @@ def ingest(lang, dry_run=False):
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
         counts["stressed spellings rebuilt from the spelling"] += clean.get("stressed_spellings_rebuilt", 0)
+        counts["facts set by a second look the sources confirm"] += clean.get("facts_settled", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
         counts["frames and collocations with a choice of words split"] += clean.get("frames_split", 0)
