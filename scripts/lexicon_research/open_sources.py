@@ -10,6 +10,10 @@ people who do nothing else, each free to load whole, and none of them is copied 
   OpenRussian  Russian: 60,000 words with their stress in every form, and the gender of nouns
                (nouns.csv, verbs.csv, adjectives.csv, others.csv; CC BY-SA)
 
+  Each language's own Wiktionary  the German Wiktionary for German, the Wiktionnaire for French, and so on: fuller
+               for its own language than the English edition the index is built from, and written by its
+               speakers (kaikki.org's <lang>-extract.jsonl.gz; CC BY-SA). Read for gender, plural and sounds.
+
     open_sources.py --from FOLDER      (run from the backend repository root; FOLDER holds the files named above)
 
 writes wiktionary/en.cmudict.facts.tsv, en.britfone.facts.tsv, ru.openrussian.facts.tsv (the shape of
@@ -19,11 +23,16 @@ and agrees when any has what we wrote. Where to get the files:
     https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict
     https://raw.githubusercontent.com/JoseLlarena/Britfone/master/britfone.main.3.0.1.csv
     https://raw.githubusercontent.com/Badestrand/russian-dictionary/master/{nouns,verbs,adjectives,others}.csv
+    https://kaikki.org/dictionary/downloads/<lang>/<lang>-extract.jsonl.gz     for de, fr, es, it, pt, ru (1.5 GB in all)
+and for those: wiktionary/<lang>.native.facts.tsv, and ru.native.stress.tsv from the stressed forms of its tables.
 """
 import argparse
 import csv
+import gzip
+import json
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
@@ -94,19 +103,103 @@ def openrussian(folder):
     return genders, stressed
 
 
-def write_facts(name, said=None, genders=None, place=""):
+GENDER_TAGS = {"masculine": "Masc", "feminine": "Fem", "neuter": "Neut"}
+# What an edition says of a transcription, as (the place the witness knows, set apart from the standard). German
+# names Austria and Switzerland; Portuguese names the country and the city; Spanish tells its two standards apart
+# by the sound itself, so "seseante" is no place; the French and Italian editions mark a regional recording.
+PLACES = {"de": {"Austrian German": "Austria", "Swiss Standard German": "Switzerland"},
+          "pt": {"Portugal": "Portugal", "Brazil": "Brazil", "Carioca": "Rio-de-Janeiro", "Paulista": "São-Paulo", "Paulistana": "São-Paulo"}}
+NO_MARK = {"de": {"auch", "IPA"}, "es": {"seseante", "no seseante", "yeísta", "no yeísta", "America", "IPA"}, "pt": {"IPA"}, "ru": {"singular"},
+           "it": {"italiano standard", "IPA"}, "fr": {"IPA"}}
+
+
+def place_of(lang, marks):
+    """(place, aside) for a transcription with these tags and notes."""
+    place = next((PLACES[lang][m] for m in marks if m in PLACES.get(lang, {})), "")
+    rest = {m for m in marks if m not in PLACES.get(lang, {}) and m not in NO_MARK.get(lang, set()) and "standard" not in m}
+    return place, bool(rest)
+
+
+def native(lang, path):
+    """(word -> genders, word -> transcriptions as the facts table writes them, word -> plurals, plain spelling ->
+    stressed spellings) out of a language's own Wiktionary: its lemma entries only, the edition's own language only."""
+    genders, said, plurals, stressed = defaultdict(set), defaultdict(list), defaultdict(set), defaultdict(set)
+    needle = f'"lang_code": "{lang}"'
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        for line in f:
+            if needle not in line:
+                continue
+            record = json.loads(line)
+            tags = set(record.get("tags") or [])
+            if record.get("lang_code") != lang or "form-of" in tags or not record.get("word"):
+                continue
+            word = plain(record["word"])
+            if "\t" in word or "\n" in word:
+                continue
+            if record.get("pos") == "noun":
+                genders[word] |= {GENDER_TAGS[t] for t in tags if t in GENDER_TAGS}
+            for form in record.get("forms") or []:
+                text, marks = re.sub(r"[\^△†].*$", "", (form.get("form") or "").strip()), set(form.get("tags") or [])  # донья^△: a footnote mark
+                if not text or text.startswith("*") or " " in text:
+                    continue
+                if "plural" in marks and marks <= {"plural", "nominative"} and record.get("pos") == "noun":
+                    plurals[word].add(plain(text))
+                if lang == "ru" and ACUTE in unicodedata.normalize("NFD", text):
+                    stressed[plain(text)].add(unicodedata.normalize("NFC", text))
+            for sound in record.get("sounds") or []:
+                ipa = "".join((sound.get("ipa") or "").split())  # an edition's transcription may hold a line break
+                marks = set(sound.get("tags") or []) | set(sound.get("raw_tags") or []) | {m for m in (sound.get("note"), sound.get("sense")) if m}
+                if not ipa or marks & {"X-SAMPA", "SAMPA", "plural"} or '"' in ipa or any("неправильно" in m for m in marks):
+                    continue  # another notation, the sound of the plural, or one the edition calls wrong
+                if ipa.startswith("\\"):
+                    ipa = "/" + ipa.strip("\\") + "/"  # the Wiktionnaire writes \mɛ.zɔ̃\
+                if lang == "pt":
+                    ipa = ipa.replace("'", "ˈ").replace("ⁿ", "")
+                if ipa[0] not in "/[":
+                    ipa = f"/{ipa}/"
+                place, aside = place_of(lang, marks)
+                row = f"{'?' if aside else ''}{place}:{ipa}"
+                if not set("|^\\\t") & set(ipa) and row not in said[word]:  # "^h aspiré" and the like are notes, not sounds
+                    said[word].append(row)
+            # the Italian edition divides a word into syllables and marks the stressed one (cà-sa): that is its stress,
+            # kept as a way of saying the word that can confirm ours and is never compared sound by sound
+            for division in record.get("hyphenations") or [] if lang == "it" else []:
+                parts = [unicodedata.normalize("NFD", p) for p in division.get("parts") or []]
+                marked = [i for i, p in enumerate(parts) if "\u0300" in p or "\u0301" in p]
+                if len(parts) > 1 and len(marked) == 1:
+                    bare = ["".join(ch for ch in p if not unicodedata.combining(ch)) for p in parts]
+                    row = "?:[" + ".".join(("ˈ" if i == marked[0] else "") + p for i, p in enumerate(bare)) + "]"
+                    if row not in said[word]:
+                        said[word].append(row)
+    return genders, said, plurals, stressed
+
+
+def write_facts(name, said=None, genders=None, place="", plurals=None):
+    """A facts table. said holds transcriptions; with a place they are all of that place, without one each already
+    carries its own ("Portugal:/…/", "?:/…/")."""
     path = HERE / "wiktionary" / name
-    words = sorted(set(said or {}) | set(genders or {}))
+    words = sorted(set(said or {}) | set(genders or {}) | set(plurals or {}))
     with path.open("w", encoding="utf-8") as f:
         for word in words:
-            f.write(f"{word}\t{','.join(sorted((genders or {}).get(word, ())))}\t{'|'.join(f'{place}:{ipa}' for ipa in (said or {}).get(word, ()))}\t\n")
+            sounds = "|".join(f"{place}:{ipa}" if place else ipa for ipa in (said or {}).get(word, ())[:40])
+            f.write(f"{word}\t{','.join(sorted((genders or {}).get(word, ())))}\t{sounds}\t{','.join(sorted((plurals or {}).get(word, ()))[:4])}\n")
     print(f"{len(words)} words -> {path}")
+
+
+def write_stress(name, stressed):
+    path = HERE / "wiktionary" / name
+    with path.open("w", encoding="utf-8") as f:
+        for word in sorted(stressed):
+            f.write(f"{word}\t{'|'.join(sorted(stressed[word]))}\n")
+    print(f"{len(stressed)} stressed spellings -> {path}")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--from", dest="folder", required=True, help="the folder that holds the downloaded files")
-    folder = Path(ap.parse_args().folder)
+    ap.add_argument("--own", default="de,fr,es,it,pt,ru", help="the languages whose own Wiktionary is read (each takes a minute or so)")
+    args = ap.parse_args()
+    folder = Path(args.folder)
     if (folder / "cmudict.dict").exists():
         write_facts("en.cmudict.facts.tsv", cmudict(folder / "cmudict.dict"), place="General-American")
     if (folder / "britfone.main.3.0.1.csv").exists():
@@ -114,11 +207,13 @@ def main():
     if (folder / "nouns.csv").exists():
         genders, stressed = openrussian(folder)
         write_facts("ru.openrussian.facts.tsv", genders=genders)
-        path = HERE / "wiktionary" / "ru.openrussian.stress.tsv"
-        with path.open("w", encoding="utf-8") as f:
-            for word in sorted(stressed):
-                f.write(f"{word}\t{'|'.join(sorted(stressed[word]))}\n")
-        print(f"{len(stressed)} stressed spellings -> {path}")
+        write_stress("ru.openrussian.stress.tsv", stressed)
+    for lang in filter(None, args.own.split(",")):
+        if (folder / f"{lang}-extract.jsonl.gz").exists():
+            genders, said, plurals, stressed = native(lang, folder / f"{lang}-extract.jsonl.gz")
+            write_facts(f"{lang}.native.facts.tsv", said, genders, plurals=plurals)
+            if stressed:
+                write_stress(f"{lang}.native.stress.tsv", stressed)
 
 
 if __name__ == "__main__":

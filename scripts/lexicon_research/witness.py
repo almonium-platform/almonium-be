@@ -52,7 +52,7 @@ STRESS = "ˈ"
 SYLLABLE_OF_ITS_OWN = re.compile("([mnŋɱlrɹ])[\u0329\u030d]")
 ASSIMILATED = {"de": {"ŋ": "n", "ɱ": "n"}}  # German -en said as [ŋ̩] after g and [ɱ̩] after f is still /ən/
 FINER = {"en": "\u032f\u031f\u0308\u0325\u031e\u031d\u032a\u032c\u0303ʰˑ", "de": "\u032f\u0325\u0320ʰʼˑʔ", "ru": "\u032f\u0361",
-         "fr": "", "es": "", "it": "", "pt": ""}
+         "fr": "", "es": "\u031e\u032a\u0303\u032f", "it": "", "pt": ""}
 SAME_SOUND = {"": {"ɡ": "g", "ɹ": "r", "‿": ""},
               # iː and uː are kept apart from the weak i of "happy" and u of "situation", which Wiktionary writes ɪ and ʊ
               "en": {"iː": "I", "uː": "U", "ɛː": "eə", "ɛ": "e", "ɜːr": "ər", "ɜr": "ər", "ɝ": "ər", "ɚ": "ər", "əː": "ɜ", "ɫ": "l", "ʍ": "w",
@@ -60,7 +60,8 @@ SAME_SOUND = {"": {"ɡ": "g", "ɹ": "r", "‿": ""},
               "en-US": {"ɒ": "ɑ"},  # no variety of the United States has the vowel; a transcription with it is Britain's
               "de": {"ʁ": "r", "ʀ": "r", "χ": "x", "ɔɪ": "ɔʏ", "ɔy": "ɔʏ", "ae": "aɪ", "ao": "aʊ", "ai": "aɪ", "au": "aʊ"},
               "fr": {"ʁ": "r", "ɑ": "a", "œ̃": "ɛ̃", "ː": ""},
-              "es": {"ʎ": "ʝ", "j": "i", "w": "u", "ː": ""},
+              # the Spanish Wikcionario writes narrowly: the soft b, d, g between vowels, s voiced before m, n as it meets the next sound
+              "es": {"ʎ": "ʝ", "j": "i", "w": "u", "ː": "", "ɟʝ": "ʝ", "β": "b", "ð": "d", "ɣ": "g", "z": "s", "ŋ": "n", "ɱ": "n", "ɲʝ": "nʝ"},
               "it": {"aw": "au", "ew": "eu", "tts": "ts", "ddz": "dz"},  # Wiktionary writes the z of "precauzione" double and "causa" with w
               "pt": {"x": "ʁ", "h": "ʁ", "ɦ": "ʁ", "χ": "ʁ", "r": "ʁ", "ɻ": "ɾ", "ɫ": "l", "w̃": "u", "j̃": "i", "j": "i", "w": "u", "ʷ": "u", "ː": ""},
               # Wiktionary's Russian is narrow: the vowels it writes between soft consonants and the dark l are ours without the detail
@@ -78,7 +79,8 @@ BY_PLACE = {"es": [(re.compile(r"[pb](?=[^aeiou])"), "b"), (re.compile(r"[td](?=
             # French: o and e outside the last syllable are written open or closed by turns ("opération", "rétroviseur"),
             # and b or d before a voiceless sound as said (/ap.sɛ̃t/) or as spelt
             "fr": [(re.compile("ɔ(?!\u0303)(?=.*[aeiouyøœɛɔə])"), "o"), (re.compile("ɛ(?!\u0303)(?=.*[aeiouyøœɛɔə])"), "e"),
-                   (re.compile(r"b(?=[stkfʃ])"), "p"), (re.compile(r"d(?=[stkfʃ])"), "t")],
+                   (re.compile(r"b(?=[stkfʃ])"), "p"), (re.compile(r"d(?=[stkfʃ])"), "t"),
+                   (re.compile(r"(?<=i)j(?=[aeiouyøœɛɔə])"), "")],  # the glide the Wiktionnaire writes after i: /bi.bli.jɔ/
             "en": [(re.compile(r"a(?![ɪʊ])"), "æ"), (re.compile(r"o(?=r)"), "ɔ"), (re.compile(r"(?<=[ɪeʊ])ə(?=r)"), "")],
             "de": [(re.compile(r"r(?![aeiouyøœɛɔɪʊʏəɐj])"), "ɐ"), (re.compile(r"[əɛe]ɐ"), "ɐ"), (re.compile(r"ɐ(?=[aeiouyøœɛɔɪʊʏ])"), "ɛr")],
             "ru": [(re.compile(r"ʲ(?=[^aeiouɨɐəɪ])"), ""), (re.compile(r"([^aeiouɨɐəɪ])\1"), r"\1")]}
@@ -93,13 +95,16 @@ BY_PLACE = {"es": [(re.compile(r"[pb](?=[^aeiou])"), "b"), (re.compile(r"[td](?=
 EITHER = {"en": [("ə", v) for v in "ɪʊ-eæɑɒʌɔ"] + [("i", "ɪ"), ("i", "I"), ("u", "ʊ"), ("u", "U"), ("n", "ŋ")],
           "en-US": [("ɑ", "ɔ")],
           "de": [("i", "j"), ("ɐ", "r"), ("ə", "-")],
-          "fr": [("ə", "-")],  # the e that may be said or not: "fuselage", "prendre"
+          # French: the e that may be said or not ("fuselage", "prendre"), and a close vowel before another vowel,
+          # written as a vowel or as its glide ("mutualisme" with /y.a/ or /ɥa/)
+          "fr": [("ə", "-"), ("y", "ɥ"), ("u", "w"), ("i", "j")],
           "it": [("s", "z")],  # s between vowels, voiced in the north and in most dictionaries, voiceless in Tuscany
           "ru": [("i", "ɪ"), ("ɪ", "e"), ("ə", "e")]}
 LENGTH = frozenset(("ː", "-"))
 EITHER = {lang: {frozenset(pair) for pair in pairs} for lang, pairs in EITHER.items()}
 FIRST_VOWEL = re.compile("[aeiouyɑɐɒæɛɜəɪʏʊøœɔʌ][\u0300-\u036f]*[aeiouyɑɐɒæɛɜəɪʏʊøœɔʌ]?[\u0300-\u036f]*ː?")
-SOURCE_NAMES = {"cmudict": "CMUdict", "britfone": "Britfone", "openrussian": "OpenRussian"}
+NO_WORD_STRESS = {"fr"}  # French stresses the end of a phrase, not a syllable of the word: the mark our list asks for says nothing
+SOURCE_NAMES = {"cmudict": "CMUdict", "britfone": "Britfone", "openrussian": "OpenRussian", "native": "its own Wiktionary"}
 OPTIONAL = re.compile(r"\(([^()]*)\)|⁽([^⁽⁾]*)⁾")
 # Where a sound that differs is, more often than not, another accepted way of saying the word and not a fault,
 # by a hand count of sixty such words: English, whose dictionaries give two or three ways for one word in ten
@@ -122,7 +127,10 @@ def facts(lang):
         source = SOURCE_NAMES.get(path.name.split(".")[1], "Wiktionary") if path.name.count(".") > 2 else "Wiktionary"
         with path.open(encoding="utf-8") as f:
             for line in f:
-                word, genders, sounds, plurals = line.rstrip("\n").split("\t")
+                row = line.rstrip("\n").split("\t")
+                if len(row) != 4:
+                    continue
+                word, genders, sounds, plurals = row
                 have = table.setdefault(word, (set(), [], set(), set()))
                 for sound in filter(None, sounds.split("|")):
                     region, _, ipa = sound.partition(":")
@@ -196,7 +204,8 @@ def one_spelling(lang, text, variety=""):
     text = SYLLABLE_OF_ITS_OWN.sub(lambda m: "ə" + ASSIMILATED.get(lang, {}).get(m.group(1), m.group(1)), unicodedata.normalize("NFC", text))
     if lang == "de":
         text = long_under_stress(text)
-    text = "".join(ch for ch in text if ch not in DROPPED and ch not in FINER[lang])
+    # taken apart first, so that a mark is dropped also where it comes inside one character (ĩ in the Wikcionario's [ˈmĩ.na])
+    text = unicodedata.normalize("NFC", "".join(ch for ch in unicodedata.normalize("NFD", text) if ch not in DROPPED and ch not in FINER[lang]))
     for table in (SAME_SOUND[""], SAME_SOUND.get(variety, {}), SAME_SOUND[lang]):
         for old in sorted(table, key=len, reverse=True):
             text = text.replace(old, table[old])
@@ -304,7 +313,7 @@ def compare(lang, entry, table):
             anywhere = [t for _, t, _ in heard]
             place = stress_place(ipa)
             theirs = [t for t in (stress_place(i) for i in anywhere) if t]
-            if place and theirs and sum(place) > 1:
+            if place and theirs and sum(place) > 1 and lang not in NO_WORD_STRESS:
                 stressed.append((any(same_stress(place, t) for t in theirs), f"{lemma} {variety}: {ipa}, {whose_way}: {' '.join(anywhere[:4])}"))
             here, others, named = of_place(variety, heard)
             if here:
