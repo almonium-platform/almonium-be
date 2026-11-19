@@ -53,8 +53,12 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
   and `open_sources.py --from FOLDER --fetch` downloads the other sources (1.6 GB) and builds
   theirs, the own editions' meanings among them. Writing without evidence needs only the first.
 - The reader of every sample is GPT Astra 6.2 at extra-high effort in the ChatGPT app, one file a
-  chat (the owner, 19 November 2026); the answer files do not say so themselves. The review
-  loop's reader seat for the Codex command line is to be given the same model and effort.
+  chat (the owner, 19 November 2026); the answer files do not say so themselves. The app searches
+  the web as it reads: one file had it look at 169 sites, the Oxford, Cambridge and Collins
+  learner's dictionaries first. So the reader that was measured reads with the dictionaries
+  open, and every count in this document is that reader's. The review loop's reader seat for the
+  Codex command line is to be given the same model and effort, and searches by default
+  (`:search`, "The review loop").
 - Backend: `learning/lexicon`. On `develop` it checks every published entry against its own copy of
   the schema (`src/main/resources/lexicon/entry.schema.json`, `EntrySchema.VERSION`), and on 19
   November 2026 that copy is still version 3. The owner says a reader of the present shape has been
@@ -1270,8 +1274,23 @@ about one finding in six is argued, so a thousand entries are some 250 replies a
 about $12 on the Claude plan, against $53 to write them, and a hundred calls of ten entries on the
 Codex plan for the reading. The writer and the third model share one Claude meter.
 
+**Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
+the web; the writer and the third model answered from memory, and when they name a dictionary
+("Cambridge marks it [after verb]") they are recalling it. A seat ending in `:search` may search:
+for the Codex command line that is `web_search="live"`, and the instruction to answer from its
+own knowledge, which the seat carried on the first day, is replaced by one to look the words up;
+for the Claude command line it is the web search tool. The reader's seat has it by default,
+because a reader from memory is not the reader that found 52 planted faults of 52. The third
+model can be given it (`--judge claude:claude-fable-5-2:high:search`): tried on one finding, it
+looked the word up in four learner's dictionaries and ruled as it had from memory, for $0.48
+against $0.08. With some 40 rulings in a thousand entries that is $20 more a thousand, and worth
+it only if a count shows the third model ruling wrongly from memory; that count is the test not
+yet made, of true findings the writer rejected. A seat with search is another seat: its answers
+are filed apart from the same seat's without.
+
 **What it does not do.** It mends what a second model sees, and the two readers of the third
-sample seldom named the same fault: a second reading finds other things. It does not make the
+sample seldom named the same fault: a second reading finds other things. (Part of that gap is not
+the model: GPT read with the web open and Fable from memory.) It does not make the
 reader steadier: the same reader found something in 11 and then in 18 of the same 35 entries
 ("The evidence trial"). And nothing has yet been run through the Codex command line: the seat is
 written after `codex_writer.py` and tested with a stand-in, and its first real batch should be

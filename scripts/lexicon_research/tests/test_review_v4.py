@@ -187,3 +187,26 @@ def test_a_right_entry_with_a_false_finding_is_the_measure_of_a_writer_that_only
     assert review_v4.one(loop, rows[0], None) == "settled"
     review_v4.report("review-loop-decoys", ["de"])
     assert "decoy: 1 entries, 1 with a finding looped, 0 changed; the false finding accepted by the writer in 0, upheld by the third in 0" in capsys.readouterr().out
+
+
+def test_a_seat_that_may_search_the_web_is_told_so_and_is_another_seat(monkeypatch, tmp_path):
+    """The samples were read in the ChatGPT app, which looked the words up; a command line told to answer from its
+    own knowledge is a weaker reader, and its answers are not the answers of the one that searched."""
+    calls = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        if cmd[0] == "claude":
+            return type("R", (), {"stdout": json.dumps({"result": "ok", "usage": {}}), "stderr": ""})()
+        return type("R", (), {"stdout": json.dumps({"type": "item.completed", "item": {"type": "agent_message", "text": "ok"}}), "stderr": ""})()
+    monkeypatch.setattr(review_v4.subprocess, "run", fake_run)
+    monkeypatch.setattr(review_v4, "EMPTY", tmp_path)
+    for seat in ("codex:gpt-6-astra:xhigh:search", "codex:gpt-6-astra:xhigh", "claude:claude-fable-5-2:high:search", "claude:claude-fable-5-2:high", "claude:claude-opus-5-5"):
+        assert review_v4.ask(seat, "question")[0] == "ok"
+    searching, memory, judge, plain, short = calls
+    assert 'web_search="live"' in searching and "Look the words up on the web" in searching[-1] and "model_reasoning_effort=xhigh" in searching
+    assert 'web_search="live"' not in memory and "answer from your own knowledge" in memory[-1]
+    assert judge[judge.index("--tools") + 1] == "WebSearch,WebFetch" and "--allowedTools" in judge
+    assert plain[plain.index("--tools") + 1] == "" and "--allowedTools" not in plain and short[short.index("--effort") + 1] == "medium"
+    assert review_v4.sha("read", "codex:gpt-6-astra:xhigh:search") != review_v4.sha("read", "codex:gpt-6-astra:xhigh")
+    assert review_v4.SEATS["reader"].endswith(":search")

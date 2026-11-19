@@ -24,8 +24,12 @@ a failure of the entry.
   review_v4.py --report --folder review-loop-v410            what the loop did, by fault
   --dry prices the next step without asking; --steps read,reply stops after those; --faults names what is looped.
 
-The seats: --reader codex:gpt-6-astra:medium, --writer claude:claude-opus-5-5:high, --judge claude:claude-fable-5-2:high.
-A seat is the command line of a plan (claude or codex), a model and an effort. Run from the repository's root.
+The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge claude:claude-fable-5-2:high.
+A seat is the command line of a plan (claude or codex), a model, an effort and, with ":search" after them, leave to
+search the web. The reader that the samples were measured with had it (the ChatGPT app looked the words up in
+Oxford, Cambridge, Collins and the rest), so the reader's seat has it by default: a reader working from memory is
+another, weaker instrument, and a seat without ":search" is a different seat with answers of its own. Run from the
+repository's root.
 """
 import argparse
 import copy
@@ -52,7 +56,7 @@ LOOP_VERSION = "loop-v1"
 OUT = HERE / "out"
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
-SEATS = {"reader": "codex:gpt-6-astra:medium", "writer": "claude:claude-opus-5-5:high", "judge": "claude:claude-fable-5-2:high"}
+SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "claude:claude-fable-5-2:high"}
 # The faults the bar counts, and the two senses numbered as one. A reader finds a rarer sense missing or a wording
 # too narrow in half the entries it is shown, hand-checked ones included, so those are looped only when asked for.
 LOOPED = ("fact", "claim", "missing-core", "split")
@@ -140,10 +144,12 @@ def part_of_review(start, end):
 def ask(seat, user, system=None, schema=None):
     """One call through a plan's command line: (the answer, what it used). The answer is the structured object where
     a schema is given, else the text. Wall when the plan's allowance is used up."""
-    cli, model, effort = (seat.split(":") + ["medium"])[:3]
+    cli, model, effort, *more = seat.split(":") + ["medium"] * (2 - min(2, seat.count(":")))
+    search = "search" in more
     EMPTY.mkdir(parents=True, exist_ok=True)
     if cli == "claude":
-        cmd = ["claude", "-p", user, "--model", model, "--effort", effort, "--tools", "", "--system-prompt", system or "You are an editor of dictionaries.",
+        tools = ["--tools", "WebSearch,WebFetch", "--allowedTools", "WebSearch,WebFetch"] if search else ["--tools", ""]
+        cmd = ["claude", "-p", user, "--model", model, "--effort", effort, *tools, "--system-prompt", system or "You are an editor of dictionaries.",
                "--output-format", "json", "--no-session-persistence", "--strict-mcp-config", "--mcp-config", "{\"mcpServers\": {}}"]
         if schema:
             cmd += ["--json-schema", json.dumps(schema)]
@@ -163,11 +169,13 @@ def ask(seat, user, system=None, schema=None):
         answer = res.get("structured_output")
         return (answer if answer is not None else parse(text)), usage
     if cli == "codex":
-        full = "Do not run commands or read files; answer from your own knowledge.\n\n" + (f"{system}\n\n" if system else "") + user
+        how = ("Do not run commands or read files. Look the words up on the web, in dictionaries of the language, wherever you are not sure."
+               if search else "Do not run commands or read files; answer from your own knowledge.")
+        full = f"{how}\n\n" + (f"{system}\n\n" if system else "") + user
         if schema:
             full += "\n\nAnswer with one JSON object and nothing else, of this shape:\n" + json.dumps(schema)
         r = subprocess.run([CODEX, "exec", "-m", model, "--skip-git-repo-check", "--ephemeral", "--json", "--sandbox", "read-only",
-                            "-c", "mcp_servers={}", "-c", f"model_reasoning_effort={effort}", full],
+                            "-c", "mcp_servers={}", "-c", f"model_reasoning_effort={effort}", *(["-c", 'web_search="live"'] if search else []), full],
                            capture_output=True, text=True, timeout=1800, cwd=EMPTY, stdin=subprocess.DEVNULL)  # an open stdin makes codex wait for it
         text, usage, error = "", {}, ""
         for line in r.stdout.splitlines():
@@ -186,7 +194,7 @@ def ask(seat, user, system=None, schema=None):
         if not text:
             raise (Wall if WALL.search(error or r.stderr or "") else RuntimeError)(error or (r.stderr or "no agent message")[-300:])
         return (parse(text) if schema else text), usage
-    raise SystemExit(f"a seat is claude:<model>:<effort> or codex:<model>:<effort>, not {seat!r}")
+    raise SystemExit(f"a seat is claude:<model>:<effort> or codex:<model>:<effort>, with :search after it or not; not {seat!r}")
 
 
 def parse(text):
