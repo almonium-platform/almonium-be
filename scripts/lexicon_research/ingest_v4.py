@@ -24,7 +24,7 @@ spelling to the headword that holds its lexemes; _report.json counts what happen
 
 Usage: ingest_v4.py [--langs en,de] [--dry-run]   (run from the backend repository root)
 """
-import argparse, json, re, sys, uuid
+import argparse, json, re, sys, unicodedata, uuid
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -134,6 +134,67 @@ def plain_forms(lexeme):
         if STRESS_MARK in text:
             form.setdefault("reading", text)
             form["form"] = text.replace(STRESS_MARK, "")
+            changed += 1
+    return changed
+
+
+READING_VOWELS = {"ru": "аеёиоуыэюя", "uk": "аеєиіїоуюя"}
+
+
+def letters(text):
+    """A spelling as its letters, each with whether it carries the stress mark: [(letter, stressed)]. A letter keeps
+    the marks that make it the letter it is (й, ї, ё), and the acute is the stress whatever it was typed on,
+    also when it came inside one character (the Latin í)."""
+    found = []
+    for ch in unicodedata.normalize("NFD", text):
+        if ch == STRESS_MARK and found:
+            found[-1][1] = True
+        elif unicodedata.combining(ch) and found:
+            found[-1][0] += ch
+        else:
+            found.append([ch, False])
+    return [(unicodedata.normalize("NFC", letter), stressed) for letter, stressed in found]
+
+
+def own_reading(lang, spelling, reading):
+    """A stressed spelling as it should stand, or None when it cannot be told. It is the word's own spelling with
+    the stress marked (ме́бель beside мебель). Where its letters are others and as many (a Latin í or "ov" typed
+    into a Ukrainian word, е for є, диви́тись beside дивитися), it is rebuilt from the spelling with the mark on the
+    same letter, if that letter is a vowel and no more than two letters differ. A reading of another length or
+    with more letters changed (bordò beside bordeaux, ходи́в beside ходити) is another word or a respelling, and is
+    left for an eye. Italian marks its stress with an accent
+    that is part of the letter, so there only the letters are compared."""
+    if lang not in READING_VOWELS:
+        bare = lambda t: "".join(ch for ch in unicodedata.normalize("NFD", t) if not unicodedata.combining(ch)).lower()  # noqa: E731
+        return unicodedata.normalize("NFC", reading) if bare(reading) == bare(spelling) else None
+    read, spelt = letters(reading), letters(spelling)
+    same = lambda a, b: a.lower().replace("ё", "е") == b.lower().replace("ё", "е")  # noqa: E731
+    if len(read) == len(spelt) and all(same(a, b) for (a, _), (b, _) in zip(read, spelt)):
+        return unicodedata.normalize("NFC", reading)
+    stressed = [i for i, (_, mark) in enumerate(read) if mark]
+    if len(read) != len(spelt) or not stressed or any(spelt[i][0].lower() not in READING_VOWELS[lang] for i in stressed) \
+            or sum(not same(a, b) for (a, _), (b, _) in zip(read, spelt)) > 2:  # more than two other letters: another word
+        return None
+    return "".join(letter + (STRESS_MARK if i in stressed else "") for i, (letter, _) in enumerate(spelt))
+
+
+def stressed_spellings(lexeme):
+    """(the thing that holds a stressed spelling, the spelling it is of) for the lexeme's readings and its forms'."""
+    for said in lexeme.get("pronunciations") or []:
+        if said.get("reading") and said.get("notation") in (None, "stress"):
+            yield said, said.get("spelling") or lexeme.get("lemma") or ""
+    for form in lexeme.get("forms") or []:
+        if form.get("reading") and form.get("form"):
+            yield form, form["form"]
+
+
+def settle_readings(lang, lexeme):
+    """Puts right the stressed spellings own_reading can rebuild. Says how many."""
+    changed = 0
+    for holder, spelling in stressed_spellings(lexeme) if lang in READING_VOWELS else ():
+        own = own_reading(lang, spelling, holder["reading"])
+        if own and own != holder["reading"]:
+            holder["reading"] = own
             changed += 1
     return changed
 
@@ -537,7 +598,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices = [], [], Counter(), 0, 0, 0, 0, 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices, readings = [], [], Counter(), 0, 0, 0, 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -569,6 +630,7 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         auxiliaries += pronominal_auxiliary(lang, lexeme)
         defaults += settle_defaults(lexeme)
         marks += plain_forms(lexeme)
+        readings += settle_readings(lang, lexeme)
         places += settle_frames(lang, lexeme)
         choices += split_frames(lang, lexeme)
         company += sort_frames(lang, lexeme)
@@ -597,6 +659,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["word_grammar_moved_to_senses"] = defaults
     if marks:
         entry["stress_marks_moved_to_readings"] = marks
+    if readings:
+        entry["stressed_spellings_rebuilt"] = readings
     if places:
         entry["frames_respelled"] = places
     if company:
@@ -729,6 +793,7 @@ def ingest(lang, dry_run=False):
         counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
+        counts["stressed spellings rebuilt from the spelling"] += clean.get("stressed_spellings_rebuilt", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
         counts["frames and collocations with a choice of words split"] += clean.get("frames_split", 0)

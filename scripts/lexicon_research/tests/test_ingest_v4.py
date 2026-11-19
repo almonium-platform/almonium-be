@@ -356,3 +356,27 @@ def test_a_collocation_with_an_open_place_is_a_frame_and_moves_there():
     for lang, pair in (("es", "por algo"), ("ru", "как раз"), ("en", "something else")):
         one = lexeme("x", senses=[sense("eine Sache tun, die man tun muss", collocations=[pair])])
         assert ingest_v4.sort_frames(lang, one) == 0 and one["senses"][0]["collocations"] == [pair]
+
+
+def test_a_stressed_spelling_is_the_words_own_letters_with_the_mark():
+    """A reading is the spelling with its stress marked. Writers have typed a Latin í into a Ukrainian word, "ov"
+    into another and е for є: as long as the letters are as many, the reading is rebuilt from the spelling with
+    the mark on the same letter. Another word or a respelling is not touched."""
+    acute = "́"
+    assert ingest_v4.own_reading("ru", "мебель", "ме" + acute + "бель") == "ме" + acute + "бель"
+    assert ingest_v4.own_reading("uk", "здійснювати", "здíйснювати") == "зді" + acute + "йснювати"  # a Latin í, one character
+    assert ingest_v4.own_reading("uk", "відновлення", "віднovле" + acute + "ння") == "відновле" + acute + "ння"
+    assert ingest_v4.own_reading("uk", "суттєво", "сутте" + acute + "во") == "суттє" + acute + "во"
+    assert ingest_v4.own_reading("uk", "українець", "украї" + acute + "нець") == "украї" + acute + "нець"  # ї keeps its dots
+    assert ingest_v4.own_reading("ru", "ёлка", "ёлка") == "ёлка" and ingest_v4.own_reading("ru", "еще", "ещё") == "ещё"
+    assert ingest_v4.own_reading("uk", "дивитися", "диви" + acute + "тись") == "диви" + acute + "тися"  # the short form typed for the long one
+    assert ingest_v4.own_reading("uk", "ходити", "ходи" + acute + "в") is None  # another length: another form of the word
+    assert ingest_v4.own_reading("uk", "молоко", "корова" + acute) is None  # as long, but another word
+    assert ingest_v4.own_reading("it", "roba", "ròba") == "ròba" and ingest_v4.own_reading("it", "città", "città") == "città"
+    assert ingest_v4.own_reading("it", "bordeaux", "bordò") is None and ingest_v4.own_reading("it", "viene", "vière") is None
+    lexeme = {"lemma": "здійснювати", "pronunciations": [{"variety": "uk-UA", "ipa": "/x/", "reading": "здíйснювати"}],
+              "forms": [{"form": "здійснюю", "reading": "здíйснюю"}, {"form": "здійснив", "reading": "здійсни" + acute + "в"}]}
+    assert ingest_v4.settle_readings("uk", lexeme) == 2
+    assert lexeme["pronunciations"][0]["reading"] == "зді" + acute + "йснювати" and lexeme["forms"][0]["reading"] == "зді" + acute + "йснюю"
+    kana = {"lemma": "食べる", "pronunciations": [{"variety": "ja-JP", "reading": "たべる", "notation": "kana"}]}
+    assert ingest_v4.settle_readings("ja", kana) == 0 and not list(ingest_v4.stressed_spellings(kana))  # a reading in kana is no stressed spelling
