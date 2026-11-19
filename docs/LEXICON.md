@@ -72,11 +72,14 @@ Today, for schema 4:
    *essere* given to every French or Italian pronominal sense.
 6. **Witness** (`witness.py`, free). The gender, the plural, the stressed syllable and the sounds
    an entry states, held against what Wiktionary states for the word. See "Witnesses".
-7. **Measure** (`measure.py`). A random sample read by a second model family against a human
+7. **Second look** (`settle_v4.py`, a small paid call for an entry the witness lists). A model is
+   shown the word, what the entry has and what every source has, and changes the fact or keeps it
+   with a reason; a change stands only if the sources then agree. See "The second look".
+8. **Measure** (`measure.py`). A random sample read by a second model family against a human
    dictionary, counted by kind of fault. See "Measuring the entries".
-8. **Publish.** Not possible yet, see "Pending".
+9. **Publish.** Not possible yet, see "Pending".
 
-Only step 3 is a model. Steps 2, 4, 5 and 6 are programs: they cost nothing, give the same answer
+Steps 3 and 7 are a model, and 7 only for the entries a program has named. Steps 2, 4, 5 and 6 are programs: they cost nothing, give the same answer
 every time, and can be run again over every entry whenever a rule is added. A fault found in a
 review becomes a rule there when a program can decide it (a stress on the wrong syllable of a
 Spanish word), a sentence of the next prompt when only a writer can (which phrases are frames),
@@ -666,6 +669,50 @@ to tell them by; `core-pt` has 360 past forms Wiktionary files as lemmas (*fizer
 `core-it` 557 infinitives with a pronoun (*farlo*, *dirgli*). The last two cost a refusal each and
 become aliases; the names become entries nobody asked for.
 
+### The evidence trial, v4.10e
+
+Does a writer do better when the request carries what Wiktionary states about the word? October
+asked this of schema 3 and found that evidence gave checkable facts and not better definitions
+(`grounded_pipeline_results.txt`). On 19 November it was asked of schema 4, on the 280 words of the
+third sample, so that every word exists twice: as written under v4.10, and written again under
+v4.10e, which is v4.10 with one more section saying how to use the block at the end of the request
+(a check on oneself, never a model: a common sense or part of speech left out is a reason to think
+again, a rare one still stays out; a gender, plural or stress that differs is usually right; the
+notation is never copied; every definition is the writer's own). The block is October's
+(`wiktionary.py`): each word Wiktionary has under the spelling, with gender, plural, forms and
+transcriptions, and its senses in short English glosses; 170 to 310 characters for most languages,
+1,250 for English. The entries are in the trial folder `out/review-evidence-v410e/` and are not
+the dictionary's.
+
+What a program can say of the two, same words:
+
+|  | v4.10 | v4.10e, with evidence |
+|---|---|---|
+| list price an entry | $0.053 | $0.057 |
+| lexemes, senses an entry | 1.30, 3.45 | 1.29, 3.43 |
+| collocations a sense | 3.5 | 3.4 |
+| sounds no source has | 6 of 523 | 1 of 523 |
+| gender, stress no source has | 0, 0 | 0, 0 |
+| refused, invalid | 0, 0 | 0, 0 |
+
+- **Facts: better.** The three faults both a reader and the witness had named are gone
+  (*successivo*, *управление*, *бывший*); the one that is left is the same in both arms and is the
+  Portuguese edition's notation.
+- **Size: the same.** The fear was that a list of every sense Wiktionary has would swell the
+  entries; it did not, by one sense in a hundred entries either way.
+- **Parts of speech: eleven entries differ**, both ways: *comunale* gains its noun and *этот* its
+  pronoun, which GPT had asked for; *за* loses its noun and *top* its adjective.
+- **Core senses GPT found missing in the first arm, fourteen**: by my reading the second arm has
+  four or five of them (*certainement* as certainty, *moteur* in *moteur de recherche*, *orgulho*
+  as self-respect, *Fernsehen* as the medium), lacks nine, and dropped a sense elsewhere in two.
+- **Copying: none measurable.** Of the English definitions, 9 in 198 share five words in a row
+  with a gloss they were shown, against 7 in 187 written without seeing any.
+
+What only a reader can say is whether senses and wording are better, and the reader that counted
+the first arm must count the second: `measure/v410e/review/` holds the same forty words a language
+from the trial folder, with the five checked entries, and `measure.py --name v410e --tally --pair
+v410` will set the two counts side by side entry by entry.
+
 ### Measuring the reviewer
 
 A count is only as good as its reader, and the second sample showed the reader is wrong too: eight
@@ -929,6 +976,38 @@ whether an *e* or *o* is open is not in the spelling, which is exactly where the
 the Russian rule for the syllable before the stress checked by ingest from the stressed spelling;
 and the same witness run on every batch before it is counted, so a wrong stress never reaches a
 reviewer.
+
+## The second look
+
+The witness lists entries; until 19 November nobody and nothing read the list. `settle_v4.py` does:
+for each listed entry one small call (Opus at medium effort, about $0.03) that shows the model the
+word, what the entry has and what each source has, and asks for each fact "change", with the value
+in the dictionary's own notation, or "keep", with the reason. Code then decides. A change is set on
+a copy of the entry as published and held against the sources again, and stands only if they now
+agree. The written entry is not edited: the decisions are files under `out/review-settle/`, and
+ingest sets a confirmed one on the published copy while the entry still has the value the decision
+was about. A question is paid for once, by its text.
+
+**The trial: 30 entries, 40 facts, $0.84.** 21 facts changed, every one confirmed by the sources;
+19 kept.
+
+- Changed, and right as far as I can judge: Spanish *palabra* back on its second syllable,
+  *cableado* given its missing syllable, the tap in *representación* and *turbulencia*; Italian
+  *moglie* with a closed o; Russian *помочь* and *напротив* with /ɐ/ before the stress; German
+  *derzeit* stressed on the first syllable; six Portuguese vowels (*efeito*, *solene*,
+  *edificação*).
+- Kept, and rightly: *macro* and *série* in Portugal (the final vowel is as the entry has it and
+  Wiktionary's is odd), German *einmal* (both stresses), Spanish *zeta* as a masculine noun for a
+  patrol car, Brazilian *balneário*.
+- **Kept, and wrong: Russian *тема* with a hard т**, defended as "traditional" against three
+  sources that have the soft one. The model is of the writer's family and shares its mistakes. So a
+  kept fact that two sources or more contradict stays on the witness's list; only one that a
+  single source contradicted is closed.
+- One change was not needed: French *caméraman* from the plural *cameramen* to *caméramans*, both
+  accepted, of which the Wiktionnaire lists one.
+
+After it the witness lists 494 entries, from 511. The rest of the list is some 480 entries and
+$13. What it cannot do is what the witness cannot see: a fault in a field no source states.
 
 ## Russian
 
@@ -1411,7 +1490,13 @@ One pass brings the written entries up to October's standard and links them:
   less_common, older, newer, careful, casual, regional, disputed. So German *unmöglich* and
   *notwendig* carry both stresses, English *data* both vowels, Portuguese *casar* its casual
   /ka.ˈza/. 570 English lexemes have two, 77 German, 73 French, 52 Portuguese, 13 Italian, 5
-  Russian, 4 Spanish. German and English mark stress only in the transcription.
+  Russian, 4 Spanish. German and English mark stress only in the transcription. What a second
+  way can say of itself is little: its variety (en-US, pt-PT), the spelling it belongs to, and one
+  note from seven. Of some 2,000 second ways 95 carry a note (34 of them Portuguese "casual"); the
+  rest say only, by their place, that they are the less common. There is no "mainly" or "only" on
+  a transcription as there is on a sense's region, no place inside a variety (the north of Italy,
+  the south of England), and no comment in words. A word said differently in one of its meanings
+  is two lexemes (*lead*), which is the only case settled by rule.
 - A stressed spelling is the word's own spelling with one mark on a vowel. In Russian and Ukrainian
   the mark is the combining acute U+0301 after the Cyrillic letter (there is no ready-made
   character); in Italian it is the accented letter itself, grave or acute (è and é, ò and ó say
@@ -1556,12 +1641,13 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the witness found**: a paid patch of one field for the 511 entries of "Witnesses"; the
-   Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling; the Russian
-   vowel before the stress checked from the stressed spelling; CMUdict as a second witness for
-   English. Then **the third sample**, under v4.10, with the witness run first and the reviewer
-   measured ("Measuring the reviewer"). One decision of the owner's is still open: whether the bar
-   for facts stays at two.
+3. **The second look over the whole list**: some 480 entries, $13 ("The second look"). Then
+   the Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling, and the
+   Russian vowel before the stress checked from the stressed spelling.
+   **The evidence trial's count**: GPT's reading of `measure/v410e/`, paired with the third
+   sample's. If senses and facts are better and nothing is worse, v4.10e becomes the writers'
+   prompt and every new word is written with its evidence. One decision of the owner's is still
+   open: whether the bar for facts stays at two.
 4. **The older words**: 39,902 to write again, after the third sample has shown that v4.10 holds.
 5. **Lists**: the healthy lists are to be run in place of the older queues. Fixed phrases are still
    the gap a learner feels (one entry in fifty lacks a phrase like *sans doute* at its word), with
