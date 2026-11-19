@@ -8,7 +8,7 @@ import witness  # noqa: E402
 
 
 def table(word, genders=(), heard=(), plurals=()):
-    return {word: (set(genders), [(set(regions), ipa.lstrip("?"), ipa.startswith("?")) for regions, ipa in heard], set(plurals))}
+    return {word: (set(genders), [(set(regions), ipa.lstrip("?"), ipa.startswith("?")) for regions, ipa in heard], set(plurals), {"Wiktionary"})}
 
 
 def entry(lemma, pos="NOUN", grammar=None, pronunciations=(), forms=()):
@@ -16,7 +16,7 @@ def entry(lemma, pos="NOUN", grammar=None, pronunciations=(), forms=()):
 
 
 def verdicts(lang, written, known):
-    return {(fact, verdict) for fact, verdict, _ in witness.compare(lang, written, known)}
+    return {(fact, verdict) for fact, verdict, *_ in witness.compare(lang, written, known)}
 
 
 def test_syllables_are_counted_by_their_vowels():
@@ -56,7 +56,7 @@ def test_two_spellings_of_one_sound_agree():
 def test_another_sound_differs_and_is_named():
     known = table("carrera", heard=[((), "/kaˈreɾa/")])
     found = witness.compare("es", entry("carrera", pronunciations=[{"variety": "es-ES", "ipa": "/ka.ˈre.ra/"}]), known)
-    assert [detail.rpartition("[")[2] for fact, verdict, detail in found if fact == "sounds" and verdict == "differs"] == ["r>ɾ]"]
+    assert [detail.rpartition("[")[2] for fact, verdict, detail, _ in found if fact == "sounds" and verdict == "differs"] == ["r>ɾ]"]
 
 
 def test_spain_is_held_against_the_transcription_with_theta():
@@ -94,7 +94,7 @@ def said(lang, variety, ours, heard):
     """The verdict on the sounds of one transcription of ours against a word's transcriptions."""
     known = table("w", heard=heard)
     found = witness.compare(lang, entry("w", "VERB", pronunciations=[{"variety": variety, "ipa": ours}]), known)
-    return [verdict for fact, verdict, _ in found if fact == "sounds"]
+    return [verdict for fact, verdict, *_ in found if fact == "sounds"]
 
 
 def test_a_sound_in_brackets_may_be_said_or_not():
@@ -129,9 +129,9 @@ def test_a_dialect_of_wiktionary_confirms_and_does_not_contradict():
 def test_a_place_wiktionary_does_not_name_cannot_contradict_one_variety():
     known = table("bower", heard=[((), "/ˈbaʊ.əɹ/")])
     both = entry("bower", pronunciations=[{"variety": "en-US", "ipa": "/ˈbaʊ.ɚ/"}, {"variety": "en-GB", "ipa": "/ˈbaʊ.ə/"}])
-    assert [v for f, v, _ in witness.compare("en", both, known) if f == "sounds"] == ["agrees"]
+    assert [v for f, v, *_ in witness.compare("en", both, known) if f == "sounds"] == ["agrees"]
     neither = entry("bower", pronunciations=[{"variety": "en-US", "ipa": "/ˈboʊ.ɚ/"}, {"variety": "en-GB", "ipa": "/ˈbəʊ.ə/"}])
-    assert [v for f, v, _ in witness.compare("en", neither, known) if f == "sounds"] == ["differs", "differs"]
+    assert [v for f, v, *_ in witness.compare("en", neither, known) if f == "sounds"] == ["differs", "differs"]
 
 
 def test_german_notation_is_brought_to_ours():
@@ -167,9 +167,9 @@ def test_a_transcription_of_another_spelling_is_held_against_that_spelling():
     known = {**table("из", heard=[((), "[is]")]), **table("изо", heard=[((), "[ˈizə]")])}
     written = entry("из", "ADP", pronunciations=[{"variety": "ru-RU", "ipa": "/ˈis/", "spelling": "из"},
                                                   {"variety": "ru-RU", "ipa": "/ˈi.zə/", "spelling": "изо"}])
-    assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees", "agrees"]
+    assert [v for f, v, *_ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees", "agrees"]
     del known["изо"]  # Wiktionary without the second spelling: the second transcription is not judged
-    assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees"]
+    assert [v for f, v, *_ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees"]
 
 
 def test_a_word_said_two_ways_is_right_when_one_way_is_wiktionarys():
@@ -180,3 +180,18 @@ def test_a_word_said_two_ways_is_right_when_one_way_is_wiktionarys():
     assert verdicts("de", both, known) == {("stressed syllable", "agrees"), ("sounds", "agrees")}
     first_only = entry("unmöglich", "ADJ", pronunciations=[{"variety": "de-DE", "ipa": "/ˈʊn.møːk.lɪç/"}])
     assert ("stressed syllable", "differs") in verdicts("de", first_only, known)
+
+
+def test_a_second_dictionary_adds_its_facts_and_is_counted(tmp_path, monkeypatch):
+    """CMUdict, Britfone and OpenRussian stand beside Wiktionary: a word agrees when any of them has what we
+    wrote, and what differs says how many dictionaries have the word."""
+    folder = tmp_path / "wiktionary"
+    folder.mkdir()
+    (folder / "en.facts.tsv").write_text("apparatus\t\tGeneral-American:/ˌæp.əˈɹæt.əs/\tapparatuses\n", encoding="utf-8")
+    (folder / "en.cmudict.facts.tsv").write_text("apparatus\t\tGeneral-American:/ˌæpɚˈætəs/|General-American:/ˌæpɚˈeɪtəs/\t\n", encoding="utf-8")
+    monkeypatch.setattr(witness, "HERE", tmp_path)
+    known = witness.facts("en")
+    assert known["apparatus"][3] == {"Wiktionary", "CMUdict"} and len(known["apparatus"][1]) == 3
+    long_a = entry("apparatus", pronunciations=[{"variety": "en-US", "ipa": "/ˌæp.ə.ˈɹeɪ.təs/"}])
+    assert [(fact, verdict, sources) for fact, verdict, _, sources in witness.compare("en", long_a, known) if fact == "stressed syllable"] == [("stressed syllable", "agrees", 2)]
+    assert witness.facts("xx") is None

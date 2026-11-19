@@ -77,7 +77,7 @@ def test_a_planted_fault_is_one_a_reader_can_show():
     entry's own and no other, a stress only where it has ours and not the one planted, Mass only on a noun it
     gives a plural, two examples changed over only between two senses."""
     word = noun("catena", "/ka.ˈte.na/", {"gender": "Fem", "countability": "Count"}, "caténa", senses=2)
-    facts = {"catena": ({"Fem"}, [(set(), "/kaˈte.na/", False)], {"catene"})}
+    facts = {"catena": ({"Fem"}, [(set(), "/kaˈte.na/", False)], {"catene"}, {"Wiktionary"})}
     planted, what = measure.plant("it", word, "gender", facts)
     assert planted["lexemes"][0]["grammar"]["gender"] == "Masc" and what == {"kind": "gender", "where": "lexeme 1 grammar", "was": "Fem", "now": "Masc"}
     assert word["lexemes"][0]["grammar"]["gender"] == "Fem"  # the entry itself is not touched

@@ -178,7 +178,7 @@ def plant(lang, entry, kind, facts=None):
     entry = json.loads(json.dumps(entry))
     for n, lexeme in enumerate((entry.get("lexemes") or [])[:1], 1):  # the first lexeme: the word a reader came for, not a rare second one
         lemma, grammar = lexeme.get("lemma") or "", lexeme.get("grammar") or {}
-        genders, heard, plurals = (facts or {}).get(lemma) or (set(), [], set())
+        genders, heard, plurals = ((facts or {}).get(lemma) or (set(), [], set()))[:3]
         if " " in lemma:
             continue
         if kind == "gender" and lexeme.get("pos") == "NOUN" and genders == {grammar.get("gender")} and "by_variety" not in grammar:
@@ -482,7 +482,7 @@ def review(name, langs, per_file):
             if item["part"] == "planted":
                 clean = put[item["headword"]]["entry"]
             elif facts is not None:  # what Wiktionary states otherwise, kept beside the sample and not shown to the reader
-                item["witness"] = [f"{fact}: {detail}" for fact, verdict, detail in witness.compare(lang, clean, facts) if verdict == "differs"]
+                item["witness"] = [f"{fact}: {detail}" for fact, verdict, detail, _ in witness.compare(lang, clean, facts) if verdict == "differs"]
             item["prompt_version"], item["writer"] = meta.get("prompt_version"), meta.get("writer")
             item["lexemes"], item["senses"] = len(clean["lexemes"]), sum(len(lx.get("senses") or []) for lx in clean["lexemes"])
             item["rejected"] = bool(clean.get("reject")) and not clean["lexemes"]
