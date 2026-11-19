@@ -1,0 +1,1137 @@
+{
+ "Frieden": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Masc",
+  "now": "Fem",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Frieden",
+   "lexemes": [
+    {
+     "id": "df27bba5-fe6d-5fe6-8f1d-e601621c5ecb",
+     "homograph": 1,
+     "lemma": "Frieden",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "plural_class": "-",
+      "countability": "Mass",
+      "declension": "mixed",
+      "note": "plural rare; older or elevated nominative form Friede"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈfʁiː.dən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Friedens",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈfʁiː.dəns/"
+       }
+      },
+      {
+       "form": "Frieden",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈfʁiː.dən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "27d0bb8f-abb6-5ac8-ae9d-6f51aec629f1",
+       "definition": "Zustand, in dem zwischen Ländern oder Gruppen kein Krieg herrscht",
+       "example": "Nach dem langen Krieg wünschen sich die Menschen endlich Frieden.",
+       "cefr": "A2",
+       "frames": [
+        "Frieden mit + Dat",
+        "Frieden zwischen + Dat"
+       ],
+       "collocations": [
+        "Frieden schließen",
+        "in Frieden leben",
+        "den Frieden sichern",
+        "den Frieden bewahren",
+        "für den Frieden kämpfen",
+        "dauerhafter Frieden",
+        "Krieg und Frieden"
+       ],
+       "antonyms": [
+        {
+         "lemma": "Krieg",
+         "pos": "NOUN"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "Frieden mit + Dat",
+         "parts": [
+          {
+           "head": "Frieden"
+          },
+          {
+           "word": "mit"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Dat"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "Frieden zwischen + Dat",
+         "parts": [
+          {
+           "head": "Frieden"
+          },
+          {
+           "word": "zwischen"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Dat"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "137ad335-1413-5ff4-ac80-ba691c7f7924",
+       "definition": "gutes Verhältnis zwischen Menschen, ohne Streit und Ärger",
+       "example": "Um des lieben Friedens willen habe ich nichts mehr gesagt.",
+       "cefr": "B1",
+       "frames": [
+        "mit jmdm. Frieden schließen"
+       ],
+       "collocations": [
+        "Frieden stiften",
+        "um des lieben Friedens willen",
+        "der häusliche Frieden"
+       ],
+       "patterns": [
+        {
+         "frame": "mit jmdm. Frieden schließen",
+         "parts": [
+          {
+           "word": "mit"
+          },
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Dat"
+           ]
+          },
+          {
+           "head": "Frieden"
+          },
+          {
+           "word": "schließen"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "8bb37016-c980-5d2e-9048-85890111746c",
+       "definition": "Ruhe, bei der man von niemandem gestört wird",
+       "example": "Lass mich bitte in Frieden, ich muss mich konzentrieren.",
+       "cefr": "B1",
+       "frames": [
+        "jmdn. in Frieden lassen"
+       ],
+       "collocations": [
+        "inneren Frieden finden",
+        "in Frieden ruhen"
+       ],
+       "patterns": [
+        {
+         "frame": "jmdn. in Frieden lassen",
+         "parts": [
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Acc"
+           ]
+          },
+          {
+           "word": "in"
+          },
+          {
+           "head": "Frieden"
+          },
+          {
+           "word": "lassen"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "Mittwoch": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈmɪt.vɔx/",
+  "now": "/mɪt.ˈvɔx/",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Mittwoch",
+   "lexemes": [
+    {
+     "id": "155b2eb2-22bd-5542-b27b-a7e2f1d6f279",
+     "homograph": 1,
+     "lemma": "Mittwoch",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-e",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/mɪt.ˈvɔx/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Mittwochs",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈmɪt.vɔxs/"
+       }
+      },
+      {
+       "form": "Mittwoche",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈmɪt.vɔ.xə/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "cb8b2978-fd58-5211-af74-692a1885f927",
+       "definition": "Tag zwischen Dienstag und Donnerstag",
+       "example": "Jeden Mittwoch gehe ich nach der Arbeit zum Schwimmen.",
+       "cefr": "A1",
+       "collocations": [
+        "jeden Mittwoch",
+        "nächsten Mittwoch",
+        "letzten Mittwoch",
+        "diesen Mittwoch"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "Methode": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Methode",
+   "lexemes": [
+    {
+     "id": "e6bec701-f174-5ad4-b5e3-956bede71150",
+     "homograph": 1,
+     "lemma": "Methode",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "plural_class": "-n",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/me.ˈtoː.də/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Methode",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/me.ˈtoː.də/"
+       }
+      },
+      {
+       "form": "Methoden",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/me.ˈtoː.dən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "58fd8309-ab55-5c10-ac6c-debb04978bf5",
+       "definition": "planmäßiges Verfahren nach bestimmten Regeln, um ein Ziel oder Ergebnis zu erreichen",
+       "example": "Mit dieser neuen Methode lernen die Kinder schneller lesen.",
+       "cefr": "B1",
+       "frames": [
+        "eine Methode, etw. zu tun",
+        "Methode für + Akk",
+        "Methode zu + Dat"
+       ],
+       "collocations": [
+        "eine Methode anwenden",
+        "eine Methode entwickeln",
+        "nach einer Methode vorgehen",
+        "eine wissenschaftliche Methode",
+        "eine bewährte Methode",
+        "eine einfache Methode"
+       ],
+       "patterns": [
+        {
+         "frame": "eine Methode, etw. zu tun",
+         "parts": [
+          {
+           "word": "eine"
+          },
+          {
+           "head": "Methode"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "zu-inf"
+          }
+         ]
+        },
+        {
+         "frame": "Methode für + Akk",
+         "parts": [
+          {
+           "head": "Methode"
+          },
+          {
+           "word": "für"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "Methode zu + Dat",
+         "parts": [
+          {
+           "head": "Methode"
+          },
+          {
+           "word": "zu"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Dat"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "8b2ce68a-3841-567d-b2be-38e91f382ec4",
+       "definition": "Art und Weise, wie jemand vorgeht oder handelt, um etwas zu erreichen",
+       "example": "Ich finde die Methoden unseres neuen Chefs ziemlich fragwürdig.",
+       "cefr": "B2",
+       "grammar": {
+        "note": "often in the plural"
+       },
+       "collocations": [
+        "fragwürdige Methoden",
+        "brutale Methoden",
+        "Methode haben"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "Aufmerksamkeit": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Aufmerksamkeit",
+   "lexemes": [
+    {
+     "id": "f8e78cdb-3e22-5b9c-ae7a-81d4063797e6",
+     "homograph": 1,
+     "lemma": "Aufmerksamkeit",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "plural_class": "-en"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈaʊf.mɛʁk.zaːm.kaɪt/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Aufmerksamkeit",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈaʊf.mɛʁk.zaːm.kaɪt/"
+       }
+      },
+      {
+       "form": "Aufmerksamkeiten",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈaʊf.mɛʁk.zaːm.kaɪ.tən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "2ddd2d52-64de-5fae-89a7-46867e20847c",
+       "definition": "Interesse und Konzentration, mit denen man etwas genau beobachtet oder hört",
+       "example": "Bring doch der Gastgeberin eine kleine Aufmerksamkeit mit.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Mass"
+       },
+       "frames": [
+        "jmdm./etw. Aufmerksamkeit schenken",
+        "Aufmerksamkeit lenken auf + Akk",
+        "Aufmerksamkeit für + Akk"
+       ],
+       "collocations": [
+        "Aufmerksamkeit erregen",
+        "Aufmerksamkeit schenken",
+        "Aufmerksamkeit auf sich ziehen",
+        "die Aufmerksamkeit wecken",
+        "volle Aufmerksamkeit",
+        "große Aufmerksamkeit",
+        "Aufmerksamkeit verdienen"
+       ],
+       "antonyms": [
+        {
+         "lemma": "Unaufmerksamkeit",
+         "pos": "NOUN"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "jmdm./etw. Aufmerksamkeit schenken",
+         "parts": [
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Dat"
+           ]
+          },
+          {
+           "head": "Aufmerksamkeit"
+          },
+          {
+           "word": "schenken"
+          }
+         ]
+        },
+        {
+         "frame": "Aufmerksamkeit lenken auf + Akk",
+         "parts": [
+          {
+           "head": "Aufmerksamkeit"
+          },
+          {
+           "word": "lenken"
+          },
+          {
+           "word": "auf"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "Aufmerksamkeit für + Akk",
+         "parts": [
+          {
+           "head": "Aufmerksamkeit"
+          },
+          {
+           "word": "für"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "74227be8-b9e5-5eb5-97ce-c4cde6b75038",
+       "definition": "kleines Geschenk, mit dem man jemandem eine Freude macht",
+       "example": "Vielen Dank für Ihre Aufmerksamkeit während des langen Vortrags.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "collocations": [
+        "eine kleine Aufmerksamkeit"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "abstract_noun_of",
+       "lemma": "aufmerksam",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "Temperatur": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Temperatur",
+   "lexemes": [
+    {
+     "id": "68c5a4b2-7d3b-5670-a47d-651800ebdfb3",
+     "homograph": 1,
+     "lemma": "Temperatur",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-en"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/tɛm.pə.ʁa.ˈtuːɐ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Temperatur",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/tɛm.pə.ʁa.ˈtuːɐ/"
+       }
+      },
+      {
+       "form": "Temperaturen",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/tɛm.pə.ʁa.ˈtuː.ʁən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "66be870f-e54e-50d5-8cd3-8dc7f09fb1a6",
+       "definition": "messbarer Grad, wie warm oder kalt etwas ist",
+       "example": "Morgen sollen die Temperaturen im Süden auf über dreißig Grad steigen.",
+       "cefr": "A2",
+       "collocations": [
+        "die Temperatur messen",
+        "die Temperatur steigt",
+        "die Temperatur sinkt",
+        "die Temperatur fällt",
+        "hohe Temperaturen",
+        "niedrige Temperaturen",
+        "Temperaturen unter null",
+        "bei Temperaturen von"
+       ],
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "id": "7f43ce4e-7aa8-5a0d-95a3-2d867a0528ac",
+       "definition": "etwas erhöhte Wärme des Körpers bei einer Krankheit",
+       "example": "Seit gestern Abend hat unser Sohn leider ein bisschen Temperatur.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Mass",
+        "number": "Sing",
+        "note": "usually without an article, after haben"
+       },
+       "collocations": [
+        "Temperatur haben",
+        "erhöhte Temperatur"
+       ]
+      }
+     ]
+    }
+   ],
+   "word_grammar_moved_to_senses": 1,
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "schützen": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈʃʏ.tsən/",
+  "now": "/ʃʏ.ˈtsən/",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "schützen",
+   "lexemes": [
+    {
+     "id": "aa394795-6c7b-5dbc-a7db-86658909302a",
+     "homograph": 1,
+     "lemma": "schützen",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ʃʏ.ˈtsən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "schützte",
+       "features": {
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "ipa": {
+        "de-DE": "/ˈʃʏts.tə/"
+       }
+      },
+      {
+       "form": "geschützt",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈʃʏtst/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "2e4f4211-7f37-5ab4-83e5-627a54884c3b",
+       "definition": "dafür sorgen, dass jemandem oder etwas nichts Schlimmes passiert",
+       "example": "Eine warme Mütze schützt dich im Winter vor der Kälte.",
+       "cefr": "A2",
+       "frames": [
+        "jmdn./etw. schützen vor + Dat",
+        "jmdn./etw. schützen gegen + Akk",
+        "sich schützen vor + Dat"
+       ],
+       "collocations": [
+        "die Umwelt schützen",
+        "sich vor Regen schützen",
+        "die Augen schützen",
+        "Daten schützen",
+        "wirksam schützen",
+        "die Natur schützen"
+       ],
+       "patterns": [
+        {
+         "frame": "jmdn./etw. schützen vor + Dat",
+         "parts": [
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Acc"
+           ]
+          },
+          {
+           "head": "schützen"
+          },
+          {
+           "word": "vor"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Dat"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "jmdn./etw. schützen gegen + Akk",
+         "parts": [
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Acc"
+           ]
+          },
+          {
+           "head": "schützen"
+          },
+          {
+           "word": "gegen"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "sich schützen vor + Dat",
+         "parts": [
+          {
+           "slot": [
+            "reflexive"
+           ]
+          },
+          {
+           "head": "schützen"
+          },
+          {
+           "word": "vor"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Dat"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "2cd6e6a5-4eca-5a9d-8a73-e137346a75ca",
+       "definition": "durch ein Gesetz oder eine Regel offiziell vor Schaden oder fremder Nutzung bewahren",
+       "example": "Viele seltene Pflanzen in diesem Tal sind gesetzlich geschützt.",
+       "cefr": "B2",
+       "collocations": [
+        "gesetzlich geschützt",
+        "urheberrechtlich geschützt",
+        "eine Marke schützen",
+        "unter Denkmalschutz"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "schätzen",
+       "pos": "VERB",
+       "why": "differs only in the vowel ü/ä and sounds similar"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "Garten": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "Garten",
+   "lexemes": [
+    {
+     "id": "30850423-22ea-5ac7-a0aa-3209ef3837a6",
+     "homograph": 1,
+     "lemma": "Garten",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "plural_class": "-¨",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈɡaʁ.tən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "Gartens",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "ipa": {
+        "de-DE": "/ˈɡaʁ.təns/"
+       }
+      },
+      {
+       "form": "Gärten",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "ipa": {
+        "de-DE": "/ˈɡɛʁ.tən/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "f7588631-2dbb-537d-9b38-6601e46ce131",
+       "definition": "abgegrenztes Stück Land, meist am Haus, auf dem man Pflanzen anbaut oder sich erholt",
+       "example": "Im Sommer essen wir abends oft draußen im Garten.",
+       "cefr": "A1",
+       "collocations": [
+        "einen Garten anlegen",
+        "den Garten pflegen",
+        "im Garten arbeiten",
+        "den Garten umgraben",
+        "botanischer Garten",
+        "zoologischer Garten"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ },
+ "siegen": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "de",
+   "headword": "siegen",
+   "lexemes": [
+    {
+     "id": "f0fb4ed4-b108-5aed-9c0c-a69ee2c23145",
+     "homograph": 1,
+     "lemma": "siegen",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "weak",
+      "auxiliary": "have",
+      "valency": "Intr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "de-DE",
+       "ipa": "/ˈziː.ɡən/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "siegte",
+       "features": {
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "ipa": {
+        "de-DE": "/ˈziːk.tə/"
+       }
+      },
+      {
+       "form": "gesiegt",
+       "features": {
+        "Tense": "Past",
+        "VerbForm": "Part"
+       },
+       "ipa": {
+        "de-DE": "/ɡə.ˈziːkt/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "b74292a9-275c-561c-bef1-5e0fec31379e",
+       "definition": "in einem Kampf, Spiel oder Wettbewerb gewinnen und der Beste sein",
+       "example": "Am Ende siegte bei ihr die Neugier über die Angst.",
+       "cefr": "B1",
+       "frames": [
+        "siegen über + Akk",
+        "siegen gegen + Akk"
+       ],
+       "collocations": [
+        "knapp siegen",
+        "deutlich siegen",
+        "klar siegen",
+        "nach Punkten siegen",
+        "im Finale siegen"
+       ],
+       "antonyms": [
+        {
+         "lemma": "verlieren",
+         "pos": "VERB"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "siegen über + Akk",
+         "parts": [
+          {
+           "head": "siegen"
+          },
+          {
+           "word": "über"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "siegen gegen + Akk",
+         "parts": [
+          {
+           "head": "siegen"
+          },
+          {
+           "word": "gegen"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1c13b7ff-044d-540a-91bc-f1ee2ec13162",
+       "definition": "sich am Ende als stärker erweisen und durchsetzen",
+       "example": "Am Samstag hat unsere Mannschaft knapp mit zwei zu eins gesiegt.",
+       "cefr": "B2",
+       "frames": [
+        "siegen über + Akk"
+       ],
+       "collocations": [
+        "die Vernunft siegt",
+        "die Neugier siegt",
+        "die Liebe siegt"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "patterns": [
+        {
+         "frame": "siegen über + Akk",
+         "parts": [
+          {
+           "head": "siegen"
+          },
+          {
+           "word": "über"
+          },
+          {
+           "slot": [
+            "any"
+           ],
+           "case": [
+            "Acc"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "Sieg",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "3b83da400282"
+   }
+  }
+ }
+}

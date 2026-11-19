@@ -1,0 +1,1189 @@
+{
+ "découverte": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "découverte",
+   "lexemes": [
+    {
+     "id": "f139e725-4be6-5e4a-9618-a9b6f40641b5",
+     "homograph": 1,
+     "lemma": "découverte",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/de.ku.ˈvɛʁt/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "8a53ee53-4161-52d7-8ce5-933be91d020e",
+       "definition": "chose inconnue ou cachée que l'on trouve, ou action de la trouver",
+       "example": "La découverte de la pénicilline a sauvé des millions de vies.",
+       "cefr": "B1",
+       "frames": [
+        "la découverte de qqch"
+       ],
+       "collocations": [
+        "faire une découverte",
+        "une découverte scientifique",
+        "une découverte majeure",
+        "une découverte archéologique",
+        "une grande découverte"
+       ],
+       "patterns": [
+        {
+         "frame": "la découverte de qqch",
+         "parts": [
+          {
+           "word": "la"
+          },
+          {
+           "head": "découverte"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "e497ccc5-6adf-511e-8c0f-84d7853f79f2",
+       "definition": "première rencontre avec un lieu, une personne ou une activité jusque-là inconnus",
+       "example": "Cet été, nous partons à la découverte de la montagne.",
+       "cefr": "B1",
+       "frames": [
+        "à la découverte de qqch"
+       ],
+       "collocations": [
+        "partir à la découverte",
+        "aller à la découverte",
+        "une classe découverte"
+       ],
+       "patterns": [
+        {
+         "frame": "à la découverte de qqch",
+         "parts": [
+          {
+           "word": "à"
+          },
+          {
+           "word": "la"
+          },
+          {
+           "head": "découverte"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "verbal_noun_of",
+       "lemma": "découvrir",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ },
+ "mardi": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "mardi",
+   "lexemes": [
+    {
+     "id": "846ff68d-34d3-5b43-a4bd-1d0b401b7479",
+     "homograph": 1,
+     "lemma": "mardi",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/maʁ.ˈdi/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "5412a94b-890e-5e1e-92e9-2c6f164f74fa",
+       "definition": "jour de la semaine qui vient après lundi et avant mercredi",
+       "example": "Le marché du village a lieu tous les mardis matin.",
+       "cefr": "A1",
+       "collocations": [
+        "le mardi",
+        "mardi prochain",
+        "mardi dernier",
+        "tous les mardis",
+        "mardi matin",
+        "mardi soir"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ },
+ "province": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "province",
+   "lexemes": [
+    {
+     "id": "85a6f36b-e3ee-5c75-9f6d-cd35218864b2",
+     "homograph": 1,
+     "lemma": "province",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/pʁɔ.ˈvɛ̃s/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "c20a11ed-7810-5c16-89ab-b431e4ce3bd1",
+       "definition": "grande division administrative d'un pays ou d'un empire",
+       "example": "Après vingt ans dans la capitale, ils s'installent enfin en province.",
+       "cefr": "B1",
+       "collocations": [
+        "province canadienne",
+        "province romaine",
+        "gouverneur de province",
+        "capitale de province",
+        "les provinces maritimes"
+       ]
+      },
+      {
+       "id": "365bdbc3-36cf-5d56-9af2-870b4403d0e1",
+       "definition": "ensemble du pays en dehors de la capitale et de sa région",
+       "example": "Chaque province possède son propre gouvernement et son propre parlement.",
+       "cefr": "B1",
+       "grammar": {
+        "number": "Sing",
+        "note": "always with la, or in en province, de province"
+       },
+       "collocations": [
+        "en province",
+        "ville de province",
+        "vivre en province",
+        "venir de province",
+        "monter de province"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ },
+ "retraite": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "retraite",
+   "lexemes": [
+    {
+     "id": "16dad373-de4f-5be3-ba31-1c0dc9aa65c1",
+     "homograph": 1,
+     "lemma": "retraite",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ʁə.ˈtʁɛt/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "25da98f2-5af5-530f-82c5-031166a246a5",
+       "definition": "arrêt définitif du travail à cause de l'âge, et période de vie qui suit",
+       "example": "Mon grand-père profite de sa retraite pour voyager et jardiner.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Mass"
+       },
+       "collocations": [
+        "prendre sa retraite",
+        "partir à la retraite",
+        "être à la retraite",
+        "l'âge de la retraite",
+        "une retraite anticipée",
+        "départ à la retraite",
+        "mettre à la retraite",
+        "maison de retraite"
+       ]
+      },
+      {
+       "id": "00b83ab3-b172-5297-9319-f86a02a31f15",
+       "definition": "somme d'argent versée chaque mois à une personne qui a cessé de travailler",
+       "example": "Avec sa petite retraite, elle a du mal à payer son loyer.",
+       "cefr": "B1",
+       "grammar": {
+        "countability": "Count"
+       },
+       "collocations": [
+        "toucher sa retraite",
+        "une petite retraite",
+        "caisse de retraite",
+        "retraite complémentaire",
+        "cotiser pour sa retraite",
+        "réforme des retraites"
+       ]
+      },
+      {
+       "id": "65378f32-5cff-5ecb-a1a3-79e2560b9bde",
+       "definition": "mouvement d'une armée qui recule devant l'ennemi",
+       "example": "Face à l'attaque, les soldats ont dû battre en retraite.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "collocations": [
+        "battre en retraite",
+        "sonner la retraite",
+        "une retraite précipitée",
+        "couper la retraite"
+       ]
+      },
+      {
+       "id": "1ec813af-6a79-519f-be17-f21fcc65db83",
+       "definition": "période passée loin du monde pour prier ou réfléchir",
+       "example": "Chaque année, je fais une retraite de quelques jours dans un monastère.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "collocations": [
+        "faire une retraite",
+        "retraite spirituelle",
+        "partir en retraite"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ },
+ "artiste": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "artiste",
+   "lexemes": [
+    {
+     "id": "a9d4c377-8e16-542b-926f-dfc6a81b5ee4",
+     "homograph": 1,
+     "lemma": "artiste",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Com",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/aʁ.ˈtist/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "bc6a5a51-f2fc-5fd9-80de-2f8464911818",
+       "definition": "personne dont le métier ou la passion est de créer des œuvres originales",
+       "example": "Cette artiste expose ses sculptures dans une petite galerie du quartier.",
+       "cefr": "A2",
+       "collocations": [
+        "artiste peintre",
+        "artiste contemporain",
+        "œuvre d'un artiste",
+        "atelier d'artiste",
+        "artiste engagé"
+       ]
+      },
+      {
+       "id": "69868037-4ae4-5f09-b99f-1483899d460a",
+       "definition": "personne qui joue, chante, danse ou fait de la musique devant un public",
+       "example": "Après le concert, les artistes sont venus saluer le public.",
+       "cefr": "B1",
+       "collocations": [
+        "l'entrée des artistes",
+        "artiste de variétés",
+        "artiste de cirque",
+        "loge d'artiste"
+       ]
+      },
+      {
+       "id": "fc584c96-9965-5d59-aa8c-23ec19276720",
+       "definition": "personne qui fait quelque chose avec beaucoup d'habileté et de goût",
+       "example": "Regarde ce gâteau : ton frère est un vrai artiste en cuisine !",
+       "cefr": "B2",
+       "labels": {
+        "figurative": true
+       },
+       "collocations": [
+        "un vrai artiste",
+        "un travail d'artiste"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "artisan",
+       "pos": "NOUN",
+       "why": "an artisan makes useful objects by hand as a trade; an artiste creates works of art or performs"
+      }
+     ]
+    },
+    {
+     "id": "885d8ef5-d8dd-5bb7-8069-e37bc3d4924e",
+     "homograph": 1,
+     "lemma": "artiste",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/aʁ.ˈtist/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "ae118a9e-864f-5720-9c36-c4ee9e657cdb",
+       "definition": "qui a une sensibilité créative et le goût du beau",
+       "example": "Elle a toujours eu un tempérament artiste et un peu rêveur.",
+       "cefr": "B2",
+       "collocations": [
+        "tempérament artiste",
+        "âme d'artiste"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "artiste",
+       "pos": "NOUN"
+      },
+      {
+       "type": "confusable",
+       "lemma": "artistique",
+       "pos": "ADJ",
+       "why": "artistique means relating to art (une œuvre artistique); artiste describes a person's creative temperament"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ },
+ "être": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "fr",
+   "headword": "être",
+   "lexemes": [
+    {
+     "id": "9761e9ea-a4f7-5105-99c0-d0d336137308",
+     "homograph": 1,
+     "lemma": "être",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": true,
+      "auxiliary": "have"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈɛtʁ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "suis",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɥi/"
+       }
+      },
+      {
+       "form": "es",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛ/"
+       }
+      },
+      {
+       "form": "est",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛ/"
+       }
+      },
+      {
+       "form": "sommes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɔm/"
+       }
+      },
+      {
+       "form": "êtes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛt/"
+       }
+      },
+      {
+       "form": "sont",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɔ̃/"
+       }
+      },
+      {
+       "form": "été",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈte/"
+       }
+      },
+      {
+       "form": "étant",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Pres"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈtɑ̃/"
+       }
+      },
+      {
+       "form": "étais",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Imp",
+        "Person": "1,2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈtɛ/"
+       }
+      },
+      {
+       "form": "fut",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈfy/"
+       }
+      },
+      {
+       "form": "serai",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/sə.ˈʁe/"
+       }
+      },
+      {
+       "form": "sois",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1,2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈswa/"
+       }
+      },
+      {
+       "form": "soit",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈswa/"
+       }
+      },
+      {
+       "form": "sois",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈswa/"
+       }
+      },
+      {
+       "form": "soyons",
+       "features": {
+        "Mood": "Sub,Imp",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/swa.ˈjɔ̃/"
+       }
+      },
+      {
+       "form": "soyez",
+       "features": {
+        "Mood": "Sub,Imp",
+        "Person": "2",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/swa.ˈje/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "a1a7da57-dc73-5249-a9fa-cb9a2d28bd1b",
+       "definition": "avoir une qualité, un état, une identité ou une profession donnés",
+       "example": "Les enfants sont dans le jardin depuis le début de l'après-midi.",
+       "cefr": "A1",
+       "frames": [
+        "être + adj",
+        "être + nom"
+       ],
+       "collocations": [
+        "être d'accord",
+        "être en retard",
+        "être à l'heure",
+        "être en colère",
+        "être en forme"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "être + adj",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "slot": [
+            "adj"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "être + nom",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "slot": [
+            "noun"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "5263742a-e2c1-5026-958c-ad02cb0bc1bf",
+       "definition": "se trouver dans un lieu ou dans une situation",
+       "example": "Ma sœur est infirmière dans une petite clinique de quartier.",
+       "cefr": "A1",
+       "frames": [
+        "être chez qqn"
+       ],
+       "collocations": [
+        "être à la maison",
+        "être en vacances",
+        "être chez soi"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "être chez qqn",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "word": "chez"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "065ec32a-8ce8-5a99-8e37-d8aa9457da2e",
+       "definition": "servir à indiquer l'heure, la date ou le moment présent",
+       "example": "Il est déjà minuit, nous devrions aller dormir.",
+       "cefr": "A1",
+       "frames": [
+        "il est + nom",
+        "nous sommes + nom"
+       ],
+       "collocations": [
+        "il est tard",
+        "il est tôt"
+       ],
+       "grammar": {
+        "valency": "Impers",
+        "note": "with il for the hour, with nous or on for the day or date"
+       }
+      },
+      {
+       "id": "86d53824-c584-5f23-b0eb-4c93e8863dbf",
+       "definition": "appartenir à une personne",
+       "example": "Ce vélo rouge est à mon frère aîné.",
+       "cefr": "A2",
+       "frames": [
+        "être à qqn"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "être à qqn",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "word": "à"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "af6d4742-7507-57b3-8176-b14fcfe206d6",
+       "definition": "aller quelque part puis en revenir",
+       "example": "J'ai été au marché ce matin avec ma voisine.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       },
+       "grammar": {
+        "valency": "Intr",
+        "note": "only in compound tenses with avoir and in the passé simple"
+       }
+      },
+      {
+       "id": "19e84d16-209c-5399-95cf-cf07b2eae9c1",
+       "definition": "avoir une existence réelle, se trouver dans le monde",
+       "example": "Il est des moments où l'on préfère rester seul.",
+       "cefr": "B2",
+       "frames": [
+        "il est des + nom pluriel"
+       ],
+       "collocations": [
+        "il était une fois"
+       ],
+       "labels": {
+        "style": [
+         "literary"
+        ]
+       },
+       "grammar": {
+        "valency": "Intr"
+       }
+      }
+     ]
+    },
+    {
+     "id": "9fe5a09b-2aa7-502c-987b-4805cc4c0b8b",
+     "homograph": 1,
+     "lemma": "être",
+     "pos": "AUX",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": true,
+      "auxiliary": "have"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈɛtʁ/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "suis",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɥi/"
+       }
+      },
+      {
+       "form": "es",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛ/"
+       }
+      },
+      {
+       "form": "est",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛ/"
+       }
+      },
+      {
+       "form": "sommes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɔm/"
+       }
+      },
+      {
+       "form": "êtes",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈɛt/"
+       }
+      },
+      {
+       "form": "sont",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈsɔ̃/"
+       }
+      },
+      {
+       "form": "été",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈte/"
+       }
+      },
+      {
+       "form": "étant",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Pres"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈtɑ̃/"
+       }
+      },
+      {
+       "form": "étais",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Imp",
+        "Person": "1,2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/e.ˈtɛ/"
+       }
+      },
+      {
+       "form": "fut",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈfy/"
+       }
+      },
+      {
+       "form": "serai",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/sə.ˈʁe/"
+       }
+      },
+      {
+       "form": "sois",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1,2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈswa/"
+       }
+      },
+      {
+       "form": "soit",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/ˈswa/"
+       }
+      },
+      {
+       "form": "soyons",
+       "features": {
+        "Mood": "Sub,Imp",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/swa.ˈjɔ̃/"
+       }
+      },
+      {
+       "form": "soyez",
+       "features": {
+        "Mood": "Sub,Imp",
+        "Person": "2",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "ipa": {
+        "fr-FR": "/swa.ˈje/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "b3a2adc6-0230-5c80-be78-6615ae2228f8",
+       "definition": "sert à former les temps composés de certains verbes et des verbes pronominaux",
+       "example": "Nous sommes arrivés à la gare bien avant le départ du train.",
+       "cefr": "A1",
+       "frames": [
+        "être + participe passé"
+       ],
+       "grammar": {
+        "note": "with verbs of movement or change such as aller, venir, naître, and all pronominal verbs"
+       },
+       "patterns": [
+        {
+         "frame": "être + participe passé",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "slot": [
+            "other"
+           ],
+           "label": "participe passé"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "e2f4c43c-60e1-5036-b326-5096afac9637",
+       "definition": "sert à former le passif des verbes qui ont un complément direct",
+       "example": "Cette maison a été construite par mon grand-père.",
+       "cefr": "A2",
+       "frames": [
+        "être + participe passé"
+       ],
+       "patterns": [
+        {
+         "frame": "être + participe passé",
+         "parts": [
+          {
+           "head": "être"
+          },
+          {
+           "slot": [
+            "other"
+           ],
+           "label": "participe passé"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "feadc95b-07e7-5a43-a4aa-3b2451bec5ef",
+     "homograph": 1,
+     "lemma": "être",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "fr-FR",
+       "ipa": "/ˈɛtʁ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "86d0d571-90c5-56a1-8927-22c4b365de68",
+       "definition": "ce qui vit, personne ou animal",
+       "example": "Tous les êtres vivants ont besoin d'eau pour survivre.",
+       "cefr": "B1",
+       "collocations": [
+        "être humain",
+        "être vivant"
+       ]
+      },
+      {
+       "id": "c9a8afcd-d7ca-5028-9f55-92f4b619d460",
+       "definition": "personne, considérée avec sa nature profonde et son caractère",
+       "example": "C'est un être sensible qui pleure facilement au cinéma.",
+       "cefr": "B2",
+       "collocations": [
+        "un être cher",
+        "de tout son être",
+        "au plus profond de son être"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "être",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "word_grammar_moved_to_senses": 1,
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "a507e377f954"
+   }
+  }
+ }
+}

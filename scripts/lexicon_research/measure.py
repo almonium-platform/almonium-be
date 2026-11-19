@@ -22,6 +22,18 @@ Steps (run from the backend repository root):
   measure.py --name v49 --sample --have 0 --new 40 --mended 20          new words and older words to mend, no held ones
   mend_v4.py --headwords measure-<name>-mend ...             mend those; a word a draw should not have is named in
                                                              measure/<name>/skip.json and the sample drawn again
+  measure.py --name v410 --sample --written v4.10 --have 0 --new 40 --planted 8 --gold 5
+                                                             entries already written under a version, nothing to buy,
+                                                             with the reader measured (below)
+
+The reader is measured too, by entries it cannot tell from the rest:
+  planted  entries of the same pool with one fault put in by code (a gender, the stressed syllable, Count for
+           Mass, two examples changed over), each one a fault Wiktionary contradicts or the entry itself shows.
+           The share found is the reader's hit rate. What was planted is in measure/<name>/planted-<lang>.json.
+  gold     the example entries a person has checked. What the reader reports there is its false alarms.
+And every drawn entry is held against Wiktionary first (witness.py): what differs is kept in the sample file,
+unseen by the reader, so the count can say how many of those the reader found. A second reader's answers go
+under measure/<name>/answers-2/ and the tally says how often the two name the same fault.
 
 The reviewer answers with one JSON object per entry; REVIEW below says how. Its answers are kept as
 they came under measure/<name>/answers/.
@@ -115,6 +127,92 @@ meaning in front of them, false when the fault is a blemish.
 
 {entries}
 """
+
+
+# The faults planted to measure a reader, the faults it may rightly call each, and the words by which a
+# finding is known to be about the planted place and not about something else in the entry
+PLANTS = ("gender", "stress", "countability", "example")
+PLANT_FOUND = {"gender": ({"fact"}, r"gender|masc|fem|neut|article|genre|género|genere|gênero|genus|род"),
+               "stress": ({"fact"}, r"stress|accent|syllab|transcri|ipa|pronunc|said|reading|ударен"),
+               "countability": ({"fact", "claim"}, r"count|mass|plural|number"),
+               "example": ({"wording", "fact"}, r"example|sense")}
+READING_VOWELS = {"ru": "аеиоуыэюя", "it": "aeiou"}
+STRESS_MARK = {"ru": "\u0301", "it": "\u0300"}
+
+
+def moved_stress(ipa):
+    """A transcription with its stress on the next syllable (the one before, from the last), and the two places:
+    (text, from, to), or None when it has not exactly one stress mark and two syllables or more."""
+    body = ipa.strip("/")
+    syllables = body.split(".")
+    marked = [i for i, syllable in enumerate(syllables) if "ˈ" in syllable]
+    if len(syllables) < 2 or len(marked) != 1 or "ˌ" in body or " " in body:
+        return None
+    at = marked[0]
+    to = at + 1 if at + 1 < len(syllables) else at - 1
+    syllables[at] = syllables[at].replace("ˈ", "")
+    syllables[to] = "ˈ" + syllables[to]
+    return "/" + ".".join(syllables) + "/", at, to
+
+
+def moved_reading(lang, reading, at, to, syllables):
+    """A stressed spelling (ме́бель, bestiàme) with its mark on the vowel of another syllable, or None when
+    its vowels are not as many as the syllables or the stress is the letter ё, which cannot lose it."""
+    import unicodedata
+    text = unicodedata.normalize("NFD", reading)
+    if "\u0308" in text or lang not in READING_VOWELS:
+        return None
+    bare = text.replace("\u0301", "").replace("\u0300", "")
+    places = [i for i, ch in enumerate(bare) if ch.lower() in READING_VOWELS[lang]]
+    if len(places) != syllables:
+        return None
+    return unicodedata.normalize("NFC", bare[:places[to] + 1] + STRESS_MARK[lang] + bare[places[to] + 1:])
+
+
+def plant(lang, entry, kind, facts=None):
+    """(the entry with one fault of the kind put in, what was changed), or None when it has no place for it.
+    A planted fault must be one a reader can show: a gender or a stress is planted only where Wiktionary has
+    the entry's own and no other, Mass only on a noun Wiktionary gives a plural, and two examples are
+    changed over only between two senses of one word."""
+    import witness
+    entry = json.loads(json.dumps(entry))
+    for n, lexeme in enumerate((entry.get("lexemes") or [])[:1], 1):  # the first lexeme: the word a reader came for, not a rare second one
+        lemma, grammar = lexeme.get("lemma") or "", lexeme.get("grammar") or {}
+        genders, heard, plurals = (facts or {}).get(lemma) or (set(), [], set())
+        if " " in lemma:
+            continue
+        if kind == "gender" and lexeme.get("pos") == "NOUN" and genders == {grammar.get("gender")} and "by_variety" not in grammar:
+            now = {"Masc": "Fem", "Fem": "Masc", "Neut": "Masc"}[grammar["gender"]]
+            was, grammar["gender"] = grammar["gender"], now
+            return entry, {"kind": kind, "where": f"lexeme {n} grammar", "was": was, "now": now}
+        if kind == "countability" and lexeme.get("pos") == "NOUN" and grammar.get("countability") == "Count" and plurals \
+                and "countability" not in (grammar.get("mainly") or []) and not any("countability" in (s.get("grammar") or {}) for s in lexeme["senses"]):
+            grammar["countability"] = "Mass"
+            return entry, {"kind": kind, "where": f"lexeme {n} grammar", "was": "Count", "now": "Mass"}
+        if kind == "example" and len(lexeme.get("senses") or []) >= 2 and all(s.get("example") for s in lexeme["senses"][:2]):
+            first, second = lexeme["senses"][:2]
+            first["example"], second["example"] = second["example"], first["example"]
+            return entry, {"kind": kind, "where": f"lexeme {n} senses 1 and 2", "was": "each its own example", "now": "the two changed over"}
+        said = lexeme.get("pronunciations") or []
+        if kind == "stress" and said and not any(p.get("spelling") for p in said) and len({p.get("variety") for p in said}) == len(said):
+            moves = [moved_stress(p.get("ipa") or "") for p in said]
+            theirs = [t for t in (witness.stress_place(ipa) for _, ipa, _ in heard) if t]
+            if not all(moves) or len({(m[1], m[2], len(p["ipa"].split("."))) for m, p in zip(moves, said)}) != 1 or not theirs:
+                continue
+            # only where Wiktionary has our stress and not the one planted: a word stressed two ways is no test
+            if not all(any(witness.same_stress(witness.stress_place(p["ipa"]), t) for t in theirs) for p in said) \
+                    or any(witness.same_stress(witness.stress_place(m[0]), t) for m in moves for t in theirs):
+                continue
+            readings = [moved_reading(lang, p["reading"], m[1], m[2], len(p["ipa"].split("."))) if p.get("reading") else "" for m, p in zip(moves, said)]
+            if any(r is None for r in readings):
+                continue
+            was = said[0]["ipa"]
+            for p, move, reading in zip(said, moves, readings):
+                p["ipa"] = move[0]
+                if reading:
+                    p["reading"] = reading
+            return entry, {"kind": kind, "where": f"lexeme {n} said", "was": was, "now": said[0]["ipa"]}
+    return None
 
 
 # What else is this dictionary's own in one language, said to its reviewer in the same list
@@ -231,12 +329,61 @@ def draw(lang, have, new, seed, only=None, skip=(), name=None):
     return [(h, zipf[h]) for h in part_have], [(h, zipf[h]) for h in part_new]
 
 
-def sample(name, langs, have, new, seed, only=None, mended=0):
+def draw_written(lang, version, new, planted, seed, skip=()):
+    """Entries already written under a prompt version: ([(headword, zipf)] to read as they are, {headword:
+    what was planted and the entry with it}). The planted ones are other words of the same pool, each given
+    one fault, the kinds taken in turn."""
+    import witness
+    from wordfreq import zipf_frequency
+    rng = random.Random(f"{seed}-{lang}-written")
+    written = ingest_v4.load_raw(lang)
+    pool = sorted(h for h, (entry, meta) in written.items() if entry.get("lexemes") and meta.get("prompt_version") == version and h not in skip)
+    real = rng.sample(pool, min(len(pool), new))
+    rest = [h for h in pool if h not in set(real)]
+    rng.shuffle(rest)
+    facts, put = witness.facts(lang) or {}, {}
+    kinds = [k for k in PLANTS if k != "gender" or lang != "en"]
+    for slot in range(planted):
+        kind = kinds[slot % len(kinds)]
+        for word in rest:
+            if word in put:
+                continue
+            raw, meta = written[word]
+            done = plant(lang, ingest_v4.clean_entry(lang, json.loads(json.dumps(raw)), meta), kind, facts)
+            if done:
+                put[word] = {**done[1], "entry": done[0]}
+                break
+    return [(h, round(zipf_frequency(h, lang), 2)) for h in real], put
+
+
+def gold_entries(lang):
+    """The language's example entries, which a person has checked: {headword: entry}."""
+    from prompting import gold_path
+    return {e["headword"]: e for e in json.loads(gold_path(lang, PROMPT_VERSION).read_text(encoding="utf-8"))}
+
+
+def sample(name, langs, have, new, seed, only=None, mended=0, written=None, planted=0, gold=0):
     (MEASURE / name).mkdir(parents=True, exist_ok=True)
     skip_path = MEASURE / name / "skip.json"  # {"de": ["Alice", ...]}: names and non-words a draw turned up, left out of the next
     skips = json.loads(skip_path.read_text(encoding="utf-8")) if skip_path.exists() else {}
     for lang in langs:
         skip = set(skips.get(lang) or [])
+        if written:
+            from wordfreq import zipf_frequency
+            part_new, put = draw_written(lang, written, new, planted, seed, skip)
+            items = [{"headword": h, "zipf": z, "part": "new"} for h, z in part_new]
+            items += [{"headword": h, "zipf": round(zipf_frequency(h, lang), 2), "part": "planted"} for h in put]
+            taken = {i["headword"] for i in items}
+            items += [{"headword": h, "zipf": round(zipf_frequency(h, lang), 2), "part": "gold"} for h in list(gold_entries(lang))[:gold] if h not in taken]
+            (MEASURE / name / f"planted-{lang}.json").write_text(json.dumps(put, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            random.Random(f"{seed}-{lang}-order").shuffle(items)
+            for number, item in enumerate(items, 1):
+                item["id"] = number
+            (MEASURE / name / f"sample-{lang}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            kinds = Counter(p["kind"] for p in put.values())
+            print(f"{lang}: {len(part_new)} entries of {written} as written, {len(put)} with a planted fault ({', '.join(f'{k} {v}' for k, v in kinds.items())}), "
+                  f"{sum(i['part'] == 'gold' for i in items)} checked by hand")
+            continue
         part_have, part_new = draw(lang, have, new, seed, only, skip, name)
         part_mended = draw_mended(name, lang, mended, seed, skip) if mended else []
         items = [{"headword": h, "zipf": z, "part": "have"} for h, z in part_have] + [{"headword": h, "zipf": z, "part": "new"} for h, z in part_new]
@@ -317,13 +464,25 @@ def review(name, langs, per_file):
     for lang in langs:
         items = json.loads((MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))
         written = ingest_v4.load_raw(lang)
+        put_path = MEASURE / name / f"planted-{lang}.json"
+        put = json.loads(put_path.read_text(encoding="utf-8")) if put_path.exists() else {}
+        checked = gold_entries(lang) if any(i["part"] == "gold" for i in items) else {}
+        import witness
+        facts = witness.facts(lang)
         blocks, absent = [], []
         for item in items:
-            if item["headword"] not in written:
+            if item["part"] == "gold":
+                raw, meta = checked[item["headword"]], {"prompt_version": "gold", "writer": "gold"}
+            elif item["headword"] not in written:
                 absent.append(item["headword"])
                 continue
-            raw, meta = written[item["headword"]]
-            clean = ingest_v4.clean_entry(lang, raw, meta)  # as a reader would get it: the free fixes applied
+            else:
+                raw, meta = written[item["headword"]]
+            clean = ingest_v4.clean_entry(lang, json.loads(json.dumps(raw)), meta)  # as a reader would get it: the free fixes applied
+            if item["part"] == "planted":
+                clean = put[item["headword"]]["entry"]
+            elif facts is not None:  # what Wiktionary states otherwise, kept beside the sample and not shown to the reader
+                item["witness"] = [f"{fact}: {detail}" for fact, verdict, detail in witness.compare(lang, clean, facts) if verdict == "differs"]
             item["prompt_version"], item["writer"] = meta.get("prompt_version"), meta.get("writer")
             item["lexemes"], item["senses"] = len(clean["lexemes"]), sum(len(lx.get("senses") or []) for lx in clean["lexemes"])
             item["rejected"] = bool(clean.get("reject")) and not clean["lexemes"]
@@ -353,7 +512,7 @@ def answers_of(text):
 
 
 def tally(name, langs):
-    total = defaultdict(Counter)
+    total, reader = defaultdict(Counter), defaultdict(Counter)
     for lang in langs:
         if not (MEASURE / name / f"sample-{lang}.json").exists():
             continue
@@ -363,13 +522,37 @@ def tally(name, langs):
             read.update(answers_of(f.read_text(encoding="utf-8")))
         if not read:
             continue
+        put_path = MEASURE / name / f"planted-{lang}.json"
+        put = json.loads(put_path.read_text(encoding="utf-8")) if put_path.exists() else {}
+        second = {}
+        for f in sorted((MEASURE / name / "answers-2").glob(f"{lang}-*.md")) if (MEASURE / name / "answers-2").is_dir() else []:
+            second.update(answers_of(f.read_text(encoding="utf-8")))
         for number, findings in read.items():
             item = items.get(number)
             if item is None or item.get("rejected"):
                 continue
             kinds = {f["fault"] for f in findings}
             misleading = {f["fault"] for f in findings if f.get("misleads")}
-            for key in ((lang, item["part"]), ("all", item["part"]), (lang, "both"), ("all", "both")):
+            if item["part"] == "planted":  # was the planted fault named, by its kind and its place
+                spec = put[item["headword"]]
+                faults, words = PLANT_FOUND[spec["kind"]]
+                found = any(f["fault"] in faults and re.search(words, f"{f.get('where', '')} {f.get('what', '')}", re.I) for f in findings)
+                reader["planted " + spec["kind"]]["found" if found else "missed"] += 1
+                if not found:
+                    reader["missed"][f"{lang} {item['headword']}: {spec['kind']} {spec['was']} -> {spec['now']}" + ("; reported something else" if findings else "")] += 1
+            elif item["part"] == "gold":
+                reader["gold"]["with a finding" if findings else "clean"] += 1
+                for f in findings:
+                    reader["gold findings"][f"{lang} {item['headword']}: {f['fault']}, {f.get('what', '')[:90]}"] += 1
+            elif item.get("witness"):  # what Wiktionary contradicts: did the reader see a fact there
+                reader["witness"]["a fact reported" if "fact" in kinds else "no fact reported"] += 1
+            if item["part"] not in ("planted", "gold") and number in second:
+                theirs = {f["fault"] for f in second[number]}
+                for fault in FAULTS:
+                    if fault in kinds or fault in theirs:
+                        reader["two readers, " + fault]["both" if fault in kinds and fault in theirs else "one"] += 1
+            measured = item["part"] not in ("planted", "gold")
+            for key in ((lang, item["part"]), ("all", item["part"])) + (((lang, "both"), ("all", "both")) if measured else ()):
                 total[key]["entries"] += 1
                 total[key]["clean"] += not findings
                 for fault in FAULTS:
@@ -387,6 +570,26 @@ def tally(name, langs):
         for fault, most in BAR.items():
             got = 100 * whole[fault] / whole["entries"]
             print(f"  {fault:13} {got:4.1f}  aim: at most {most}  {'met' if got <= most else 'not met'}")
+    if reader:
+        print("\nthe reader, measured:")
+        for kind in PLANTS:
+            c = reader.get("planted " + kind)
+            if c:
+                print(f"  planted {kind:13} found {c['found']} of {c['found'] + c['missed']}")
+        for line in reader.get("missed", {}):
+            print(f"      missed: {line}")
+        if reader.get("gold"):
+            c = reader["gold"]
+            print(f"  entries checked by hand: a finding in {c['with a finding']} of {c['with a finding'] + c['clean']}")
+            for line in reader["gold findings"]:
+                print(f"      {line}")
+        if reader.get("witness"):
+            c = reader["witness"]
+            print(f"  entries Wiktionary contradicts: a fact reported in {c['a fact reported']} of {c['a fact reported'] + c['no fact reported']}")
+        for fault in FAULTS:
+            c = reader.get("two readers, " + fault)
+            if c:
+                print(f"  two readers, {fault:13} named by both in {c['both']} of the {c['both'] + c['one']} entries either named")
 
 
 if __name__ == "__main__":
@@ -402,10 +605,13 @@ if __name__ == "__main__":
     ap.add_argument("--seed", default="2026-11-17")
     ap.add_argument("--list", default=None, help="draw only from headwords/<list>-<lang>.json")
     ap.add_argument("--mended", type=int, default=0, help="older words to mend for the measurement, as a third part")
+    ap.add_argument("--written", default=None, help="draw the new part from entries already written under this prompt version (v4.10): nothing to buy")
+    ap.add_argument("--planted", type=int, default=0, help="with --written: entries given one fault by code, to measure the reader's hit rate")
+    ap.add_argument("--gold", type=int, default=0, help="with --written: entries a person has checked, to measure the reader's false alarms")
     a = ap.parse_args()
     langs = a.langs.split(",")
     if a.sample:
-        sample(a.name, langs, a.have, a.new, a.seed, a.list, a.mended)
+        sample(a.name, langs, a.have, a.new, a.seed, a.list, a.mended, a.written, a.planted, a.gold)
     if a.review:
         review(a.name, langs, a.per_file)
     if a.tally:

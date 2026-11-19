@@ -1,0 +1,1300 @@
+{
+ "сторона": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "сторона",
+   "lexemes": [
+    {
+     "id": "6bf2e94d-a8b8-540a-a523-dc7204f3c3c3",
+     "homograph": 1,
+     "lemma": "сторона",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Inan",
+      "countability": "Count",
+      "declension": "1"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/stə.rɐ.ˈna/",
+       "reading": "сторона́"
+      }
+     ],
+     "forms": [
+      {
+       "form": "стороны",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "стороны́"
+      },
+      {
+       "form": "стороны",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "сто́роны"
+      },
+      {
+       "form": "сторон",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "сторо́н"
+      },
+      {
+       "form": "сторону",
+       "features": {
+        "Case": "Acc",
+        "Number": "Sing"
+       },
+       "reading": "сто́рону"
+      },
+      {
+       "form": "сторонам",
+       "features": {
+        "Case": "Dat",
+        "Number": "Plur"
+       },
+       "reading": "сторона́м"
+      }
+     ],
+     "senses": [
+      {
+       "id": "be32a368-a672-59c4-9de9-86dcef7ddd5c",
+       "definition": "направление или место относительно кого-либо или чего-либо",
+       "example": "Мальчик внимательно посмотрел по сторонам и перешёл улицу.",
+       "cefr": "A2",
+       "frames": [
+        "в сторону кого/чего",
+        "со стороны кого/чего"
+       ],
+       "collocations": [
+        "смотреть по сторонам",
+        "отойти в сторону",
+        "в разные стороны",
+        "в другую сторону",
+        "по обе стороны",
+        "с левой стороны",
+        "с правой стороны"
+       ],
+       "patterns": [
+        {
+         "frame": "в сторону кого/чего",
+         "parts": [
+          {
+           "word": "в"
+          },
+          {
+           "head": "сторону"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "со стороны кого/чего",
+         "parts": [
+          {
+           "word": "со"
+          },
+          {
+           "head": "стороны"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fc5b7207-4c9e-5626-be5a-b7eb551e6910",
+       "definition": "одна из поверхностей или боковых частей предмета",
+       "example": "Напишите свой ответ на обратной стороне листа.",
+       "cefr": "B1",
+       "frames": [
+        "сторона чего"
+       ],
+       "collocations": [
+        "обратная сторона",
+        "лицевая сторона",
+        "солнечная сторона",
+        "сторона улицы"
+       ],
+       "patterns": [
+        {
+         "frame": "сторона чего",
+         "parts": [
+          {
+           "head": "сторона"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "a4524d19-5195-53e9-9758-eb8fcfb544e6",
+       "definition": "участник спора, договора, переговоров или борьбы",
+       "example": "После долгих переговоров обе стороны наконец подписали договор.",
+       "cefr": "B1",
+       "frames": [
+        "на стороне кого",
+        "сторона чего"
+       ],
+       "collocations": [
+        "встать на сторону",
+        "перейти на сторону",
+        "принять сторону",
+        "занять сторону",
+        "обе стороны",
+        "стороны договорились"
+       ],
+       "patterns": [
+        {
+         "frame": "на стороне кого",
+         "parts": [
+          {
+           "word": "на"
+          },
+          {
+           "head": "стороне"
+          },
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Acc",
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "сторона чего",
+         "parts": [
+          {
+           "head": "сторона"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "14950ee4-5026-531e-8ebe-d2a2f4e4f828",
+       "definition": "отдельная черта или особенность чего-либо",
+       "example": "У этого плана есть и положительные, и отрицательные стороны.",
+       "cefr": "B1",
+       "frames": [
+        "сторона чего"
+       ],
+       "collocations": [
+        "с одной стороны",
+        "с другой стороны",
+        "сильные стороны",
+        "слабые стороны",
+        "положительная сторона",
+        "оборотная сторона медали"
+       ],
+       "patterns": [
+        {
+         "frame": "сторона чего",
+         "parts": [
+          {
+           "head": "сторона"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "76daa1ea-580d-5f7c-88a7-a70993dd06de",
+       "definition": "линия родства по отцу или по матери",
+       "example": "Со стороны матери у меня много родственников в деревне.",
+       "cefr": "B2",
+       "frames": [
+        "со стороны кого"
+       ],
+       "patterns": [
+        {
+         "frame": "со стороны кого",
+         "parts": [
+          {
+           "word": "со"
+          },
+          {
+           "head": "стороны"
+          },
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Acc",
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "34fea86e-e28a-5867-9cea-08e504471b1e",
+       "definition": "край, местность или страна",
+       "example": "Он часто вспоминал родную сторону, живя в большом городе.",
+       "cefr": "C1",
+       "labels": {
+        "style": [
+         "poetic"
+        ]
+       },
+       "collocations": [
+        "родная сторона",
+        "чужая сторона"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ },
+ "лучше": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈlutɕ.ʂɨ/",
+  "now": "/lutɕ.ˈʂɨ/",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "лучше",
+   "lexemes": [
+    {
+     "id": "6f0ffe68-4cc9-5158-afe1-43952e4c7d96",
+     "homograph": 1,
+     "lemma": "лучше",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/lutɕ.ˈʂɨ/",
+       "reading": "лучше́"
+      }
+     ],
+     "senses": [
+      {
+       "id": "56319ed9-7b2d-5fba-b842-e60510aea779",
+       "definition": "предпочтительнее, разумнее, правильнее в данном случае",
+       "example": "Тебе лучше остаться дома и как следует отдохнуть.",
+       "cefr": "A2",
+       "frames": [
+        "кому лучше + инф.",
+        "лучше + инф., чем + инф."
+       ],
+       "collocations": [
+        "лучше всего",
+        "лучше бы",
+        "тем лучше",
+        "уж лучше",
+        "лучше не надо"
+       ],
+       "grammar": {
+        "note": "not the comparative of хороший and хорошо, which are forms of those words"
+       },
+       "patterns": [
+        {
+         "frame": "кому лучше + инф.",
+         "parts": [
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Dat"
+           ]
+          },
+          {
+           "head": "лучше"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "лучше + инф., чем + инф.",
+         "parts": [
+          {
+           "head": "лучше"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Ins"
+           ]
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "хорошо",
+       "pos": "ADV"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ },
+ "жить": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "жить",
+   "lexemes": [
+    {
+     "id": "1d92ded1-6d6b-5038-b8c7-f2be2b086b50",
+     "homograph": 1,
+     "lemma": "жить",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Imp",
+      "valency": "Intr",
+      "conjugation": "1"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈʐɨtʲ/",
+       "reading": "жить"
+      }
+     ],
+     "forms": [
+      {
+       "form": "живу",
+       "features": {
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "живу́"
+      },
+      {
+       "form": "живёшь",
+       "features": {
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "живёшь"
+      },
+      {
+       "form": "живут",
+       "features": {
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "живу́т"
+      },
+      {
+       "form": "жил",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       }
+      },
+      {
+       "form": "жила",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "жила́"
+      },
+      {
+       "form": "жило",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Neut",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "жи́ло"
+      },
+      {
+       "form": "жили",
+       "features": {
+        "Tense": "Past",
+        "Number": "Plur",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "жи́ли"
+      },
+      {
+       "form": "живи",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "живи́"
+      }
+     ],
+     "senses": [
+      {
+       "id": "b2565969-8a0c-59b1-b52d-a2419a42e0c5",
+       "definition": "постоянно находиться в каком-либо месте, иметь там свой дом",
+       "example": "Мой прадед жил больше ста лет и всё помнил.",
+       "cefr": "A1",
+       "frames": [
+        "жить где",
+        "жить у кого",
+        "жить с кем"
+       ],
+       "collocations": [
+        "жить за границей",
+        "жить вместе",
+        "жить по соседству",
+        "жить в общежитии",
+        "жить в деревне"
+       ],
+       "patterns": [
+        {
+         "frame": "жить где",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "slot": [
+            "place"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "жить у кого",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "word": "у"
+          },
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Acc",
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "жить с кем",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "word": "с"
+          },
+          {
+           "slot": [
+            "person"
+           ],
+           "case": [
+            "Ins"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "7b86dc88-0e31-5ce4-81eb-282b0070965b",
+       "definition": "существовать на свете, пока не наступила смерть",
+       "example": "Мы живём в маленькой квартире недалеко от центра города.",
+       "cefr": "A2",
+       "collocations": [
+        "долго жить",
+        "жить на свете",
+        "жить до старости"
+       ]
+      },
+      {
+       "id": "bd51f822-c1bb-5250-8913-40f89ff01e2f",
+       "definition": "проводить свои дни каким-либо образом, в каких-либо условиях",
+       "example": "После переезда за город они стали жить гораздо спокойнее.",
+       "cefr": "B1",
+       "collocations": [
+        "жить в мире",
+        "жить дружно",
+        "жить в согласии",
+        "жить счастливо",
+        "жить бедно",
+        "жить в достатке"
+       ]
+      },
+      {
+       "id": "a8526fe1-6131-5f94-86d4-8fc47dd54d4f",
+       "definition": "получать средства на еду и другие нужды из какого-либо источника",
+       "example": "Сейчас семья живёт на одну небольшую зарплату отца.",
+       "cefr": "B1",
+       "frames": [
+        "жить на что",
+        "жить за счёт кого/чего",
+        "жить чем"
+       ],
+       "collocations": [
+        "жить на зарплату",
+        "жить на пенсию",
+        "жить за счёт родителей"
+       ],
+       "patterns": [
+        {
+         "frame": "жить на что",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "word": "на"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Acc",
+            "Nom"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "жить за счёт кого/чего",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "word": "за"
+          },
+          {
+           "word": "счёт"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "жить чем",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Ins"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "d61b3bdc-5956-5e8d-b3d3-fd6ffddf245f",
+       "definition": "полностью отдавать чему-либо свои мысли, чувства и силы",
+       "example": "Она живёт музыкой и занимается на скрипке каждый день.",
+       "cefr": "B2",
+       "frames": [
+        "жить кем/чем"
+       ],
+       "collocations": [
+        "жить надеждой",
+        "жить мечтой",
+        "жить воспоминаниями",
+        "жить работой"
+       ],
+       "patterns": [
+        {
+         "frame": "жить кем/чем",
+         "parts": [
+          {
+           "head": "жить"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Ins"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ },
+ "цель": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "цель",
+   "lexemes": [
+    {
+     "id": "49114f04-e952-59df-a561-c0814f285601",
+     "homograph": 1,
+     "lemma": "цель",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "animacy": "Inan",
+      "countability": "Count",
+      "declension": "3"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈtselʲ/",
+       "reading": "цель"
+      }
+     ],
+     "forms": [
+      {
+       "form": "цели",
+       "features": {
+        "Case": "Gen",
+        "Number": "Sing"
+       },
+       "reading": "це́ли"
+      },
+      {
+       "form": "цели",
+       "features": {
+        "Case": "Nom",
+        "Number": "Plur"
+       },
+       "reading": "це́ли"
+      },
+      {
+       "form": "целей",
+       "features": {
+        "Case": "Gen",
+        "Number": "Plur"
+       },
+       "reading": "це́лей"
+      }
+     ],
+     "senses": [
+      {
+       "id": "bfb0f514-2c95-537f-bac1-8fd89283093e",
+       "definition": "то, к чему человек стремится и чего хочет достичь",
+       "example": "Главная цель нашей поездки — увидеть старую часть города.",
+       "cefr": "A2",
+       "frames": [
+        "цель чего",
+        "с целью чего",
+        "с целью + инф.",
+        "в целях чего"
+       ],
+       "collocations": [
+        "достичь цели",
+        "добиться цели",
+        "поставить цель",
+        "ставить перед собой цель",
+        "преследовать цель",
+        "иметь целью",
+        "главная цель",
+        "конечная цель",
+        "цель жизни"
+       ],
+       "patterns": [
+        {
+         "frame": "цель чего",
+         "parts": [
+          {
+           "head": "цель"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "с целью чего",
+         "parts": [
+          {
+           "word": "с"
+          },
+          {
+           "head": "целью"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "с целью + инф.",
+         "parts": [
+          {
+           "word": "с"
+          },
+          {
+           "head": "целью"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "в целях чего",
+         "parts": [
+          {
+           "word": "в"
+          },
+          {
+           "head": "целях"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "55936a5c-9b0c-5735-80cf-c129c0805595",
+       "definition": "предмет или место, в которое стреляют или которое нужно поразить",
+       "example": "Стрелок волновался и дважды не попал в цель.",
+       "cefr": "B1",
+       "collocations": [
+        "попасть в цель",
+        "поразить цель",
+        "бить в цель",
+        "промахнуться мимо цели",
+        "движущаяся цель"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ },
+ "несколько": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈnʲe.skəlʲ.kə/",
+  "now": "/nʲe.ˈskəlʲ.kə/",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "несколько",
+   "lexemes": [
+    {
+     "id": "1b67ece7-3e8c-5dff-a4c7-2479e9368492",
+     "homograph": 1,
+     "lemma": "несколько",
+     "pos": "NUM",
+     "kind": "word",
+     "grammar": {
+      "note": "in the nominative and accusative takes the genitive plural: несколько книг"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/nʲe.ˈskəlʲ.kə/",
+       "reading": "неско́лько"
+      }
+     ],
+     "forms": [
+      {
+       "form": "нескольких",
+       "features": {
+        "Case": "Gen,Loc"
+       },
+       "reading": "не́скольких"
+      },
+      {
+       "form": "нескольким",
+       "features": {
+        "Case": "Dat"
+       },
+       "reading": "не́скольким"
+      },
+      {
+       "form": "несколькими",
+       "features": {
+        "Case": "Ins"
+       },
+       "reading": "не́сколькими"
+      }
+     ],
+     "senses": [
+      {
+       "id": "07fe5c55-224e-5ab8-8d47-cf2cd1f20e8a",
+       "definition": "небольшое неопределённое количество, обычно больше двух",
+       "example": "Я подожду тебя ещё несколько минут у входа.",
+       "cefr": "A1",
+       "frames": [
+        "несколько кого/чего"
+       ],
+       "collocations": [
+        "несколько раз",
+        "через несколько минут",
+        "несколько лет назад",
+        "в нескольких словах",
+        "в нескольких шагах"
+       ],
+       "patterns": [
+        {
+         "frame": "несколько кого/чего",
+         "parts": [
+          {
+           "head": "несколько"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ],
+           "case": [
+            "Gen"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "36443325-5612-5af7-91d0-5acf978b975c",
+     "homograph": 1,
+     "lemma": "несколько",
+     "pos": "ADV",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/ˈnʲe.skəlʲ.kə/",
+       "reading": "не́сколько"
+      }
+     ],
+     "senses": [
+      {
+       "id": "5fb96353-9be6-509e-b020-fbdd8c25e459",
+       "definition": "в небольшой степени, до известной меры",
+       "example": "Его неожиданный ответ несколько удивил всех присутствующих.",
+       "cefr": "B2",
+       "collocations": [
+        "несколько иначе",
+        "несколько удивлён",
+        "несколько смущён"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ },
+ "решить": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "ru",
+   "headword": "решить",
+   "lexemes": [
+    {
+     "id": "e70d152d-1c97-56b2-ae61-b0b3924b1378",
+     "homograph": 1,
+     "lemma": "решить",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "aspect": "Perf",
+      "valency": "Tr",
+      "conjugation": "2"
+     },
+     "pronunciations": [
+      {
+       "variety": "ru-RU",
+       "ipa": "/rʲɪ.ˈʂɨtʲ/",
+       "reading": "реши́ть"
+      }
+     ],
+     "forms": [
+      {
+       "form": "решу",
+       "features": {
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "решу́"
+      },
+      {
+       "form": "решишь",
+       "features": {
+        "Tense": "Fut",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "реши́шь"
+      },
+      {
+       "form": "решат",
+       "features": {
+        "Tense": "Fut",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "реша́т"
+      },
+      {
+       "form": "решил",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Masc",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "реши́л"
+      },
+      {
+       "form": "решила",
+       "features": {
+        "Tense": "Past",
+        "Gender": "Fem",
+        "Number": "Sing",
+        "VerbForm": "Fin",
+        "Mood": "Ind"
+       },
+       "reading": "реши́ла"
+      },
+      {
+       "form": "реши",
+       "features": {
+        "Mood": "Imp",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "реши́"
+      }
+     ],
+     "senses": [
+      {
+       "id": "09edc2b0-65df-5718-8d46-d8c8a974e99b",
+       "definition": "подумав, сделать выбор, как поступить",
+       "example": "Я никак не могу решить эту задачу по математике.",
+       "cefr": "A2",
+       "frames": [
+        "решить + инф.",
+        "решить, что ..."
+       ],
+       "collocations": [
+        "твёрдо решить",
+        "окончательно решить",
+        "решить для себя"
+       ],
+       "patterns": [
+        {
+         "frame": "решить + инф.",
+         "parts": [
+          {
+           "head": "решить"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "решить, что ...",
+         "parts": [
+          {
+           "head": "решить"
+          },
+          {
+           "word": "что"
+          },
+          {
+           "slot": [
+            "clause"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1825aac2-064b-54b4-a731-6e365bbaf563",
+       "definition": "найти ответ или способ справиться с трудностью",
+       "example": "Этим летом мы решили поехать к морю всей семьёй.",
+       "cefr": "A2",
+       "frames": [
+        "решить что"
+       ],
+       "collocations": [
+        "решить задачу",
+        "решить проблему",
+        "решить вопрос",
+        "решить уравнение",
+        "решить спор",
+        "решить кроссворд"
+       ],
+       "patterns": [
+        {
+         "frame": "решить что",
+         "parts": [
+          {
+           "head": "решить"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Acc",
+            "Nom"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "f56dd5d8-ff94-5c5e-b838-b01d54d6136c",
+       "definition": "определить, каким будет результат или дальнейшее развитие чего-либо",
+       "example": "Один удачный удар в конце игры решил исход матча.",
+       "cefr": "B2",
+       "frames": [
+        "решить что"
+       ],
+       "collocations": [
+        "решить судьбу",
+        "решить исход",
+        "решить дело"
+       ],
+       "patterns": [
+        {
+         "frame": "решить что",
+         "parts": [
+          {
+           "head": "решить"
+          },
+          {
+           "slot": [
+            "thing"
+           ],
+           "case": [
+            "Acc",
+            "Nom"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "aspect_partner",
+       "lemma": "решать",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6e0a52496465"
+   }
+  }
+ }
+}

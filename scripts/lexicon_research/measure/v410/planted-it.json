@@ -1,0 +1,1121 @@
+{
+ "impresa": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "impresa",
+   "lexemes": [
+    {
+     "id": "a9fdaa65-8a3f-50b6-a62b-0d5f550413a8",
+     "homograph": 1,
+     "lemma": "impresa",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/im.ˈpre.za/",
+       "reading": "imprésa"
+      }
+     ],
+     "senses": [
+      {
+       "id": "97c0002d-5091-57e8-a7c5-db143289e431",
+       "definition": "organizzazione economica che produce beni o servizi per guadagnare",
+       "example": "Mio padre lavora da vent’anni in una piccola impresa edile.",
+       "cefr": "B1",
+       "collocations": [
+        "piccole e medie imprese",
+        "impresa edile",
+        "impresa di pulizie",
+        "impresa di costruzioni",
+        "impresa familiare",
+        "avviare un’impresa",
+        "fare impresa"
+       ]
+      },
+      {
+       "id": "9c4d2019-dbb9-598d-9f16-9a561e48a0f6",
+       "definition": "azione difficile e importante che richiede coraggio e grande impegno",
+       "example": "Attraversare l’oceano in barca a vela fu una vera impresa.",
+       "cefr": "B2",
+       "frames": [
+        "è un’impresa + inf"
+       ],
+       "collocations": [
+        "compiere un’impresa",
+        "impresa eroica",
+        "impresa disperata",
+        "impresa titanica",
+        "tentare l’impresa"
+       ],
+       "patterns": [
+        {
+         "frame": "è un’impresa + inf",
+         "parts": [
+          {
+           "word": "è"
+          },
+          {
+           "head": "un’impresa"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "condividere": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/kon.di.ˈvi.de.re/",
+  "now": "/kon.di.vi.ˈde.re/",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "condividere",
+   "lexemes": [
+    {
+     "id": "a8c04161-74cd-5562-8b13-0002e5c6378f",
+     "homograph": 1,
+     "lemma": "condividere",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "2",
+      "irregular": true,
+      "valency": "Tr",
+      "auxiliary": "have",
+      "note": "conjugated like dividere"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/kon.di.vi.ˈde.re/",
+       "reading": "condividère"
+      }
+     ],
+     "forms": [
+      {
+       "form": "condivido",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìdo"
+      },
+      {
+       "form": "condividi",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "2",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìdi"
+      },
+      {
+       "form": "condivide",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìde"
+      },
+      {
+       "form": "condividiamo",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "reading": "condividiàmo"
+      },
+      {
+       "form": "condividono",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Pres",
+        "Person": "3",
+        "Number": "Plur",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìdono"
+      },
+      {
+       "form": "condivisi",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìsi"
+      },
+      {
+       "form": "condivise",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Past",
+        "Person": "3",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìse"
+      },
+      {
+       "form": "condividerò",
+       "features": {
+        "Mood": "Ind",
+        "Tense": "Fut",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condividerò"
+      },
+      {
+       "form": "condivida",
+       "features": {
+        "Mood": "Sub",
+        "Tense": "Pres",
+        "Person": "1",
+        "Number": "Sing",
+        "VerbForm": "Fin"
+       },
+       "reading": "condivìda"
+      },
+      {
+       "form": "condiviso",
+       "features": {
+        "VerbForm": "Part",
+        "Tense": "Past"
+       },
+       "reading": "condivìso"
+      }
+     ],
+     "senses": [
+      {
+       "id": "2e4e8f06-a6d2-5d2d-83b4-2f1579168a0f",
+       "definition": "avere, usare o vivere qualcosa insieme ad altre persone",
+       "example": "Durante l’università condividevo un appartamento con due amici.",
+       "cefr": "B1",
+       "frames": [
+        "condividere qcs con qcn"
+       ],
+       "collocations": [
+        "condividere un appartamento",
+        "condividere la stanza",
+        "condividere le spese",
+        "condividere gioie e dolori",
+        "condividere un’esperienza",
+        "condividere la responsabilità"
+       ],
+       "patterns": [
+        {
+         "frame": "condividere qcs con qcn",
+         "parts": [
+          {
+           "head": "condividere"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "con"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "9cd57901-63ce-54db-87d7-6041cb8fc8da",
+       "definition": "essere d’accordo con un’idea, un’opinione o una scelta di altri",
+       "example": "Non condivido affatto la decisione presa dal consiglio.",
+       "cefr": "B1",
+       "collocations": [
+        "condividere un’opinione",
+        "condividere un punto di vista",
+        "condividere pienamente",
+        "condividere le preoccupazioni"
+       ]
+      },
+      {
+       "id": "a5890997-3bba-5e98-8194-2dd9967bfd3b",
+       "definition": "rendere visibile o disponibile ad altri un contenuto in rete",
+       "example": "Ho appena condiviso il link nel gruppo della classe.",
+       "cefr": "B1",
+       "frames": [
+        "condividere qcs con qcn",
+        "condividere qcs su qcs"
+       ],
+       "collocations": [
+        "condividere un post",
+        "condividere un link",
+        "condividere sui social",
+        "condividere un file",
+        "condividere lo schermo"
+       ],
+       "patterns": [
+        {
+         "frame": "condividere qcs con qcn",
+         "parts": [
+          {
+           "head": "condividere"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "con"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "condividere qcs su qcs",
+         "parts": [
+          {
+           "head": "condividere"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "su"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "dividere",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "professore": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "professore",
+   "lexemes": [
+    {
+     "id": "2fdddf2a-d050-5ba5-a086-286b1e83ec11",
+     "homograph": 1,
+     "lemma": "professore",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass",
+      "note": "feminine professoressa"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/pro.fes.ˈso.re/",
+       "reading": "professóre"
+      }
+     ],
+     "senses": [
+      {
+       "id": "0ab3fde4-eadf-55ce-98ff-02a28cf56439",
+       "definition": "persona che insegna una materia nella scuola media, superiore o all’università",
+       "example": "Il professore di matematica ci ha dato molti compiti per domani.",
+       "cefr": "A1",
+       "frames": [
+        "professore di qcs"
+       ],
+       "collocations": [
+        "professore universitario",
+        "professore di ruolo",
+        "professore ordinario",
+        "professore associato",
+        "professore emerito",
+        "professore supplente"
+       ],
+       "patterns": [
+        {
+         "frame": "professore di qcs",
+         "parts": [
+          {
+           "head": "professore"
+          },
+          {
+           "word": "di"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "dc242cc7-8c40-5d52-8fb7-b96008004e55",
+       "definition": "persona che parla con l’aria di chi sa tutto e vuole spiegarlo agli altri",
+       "example": "Smettila di fare il professore, nessuno ti ha chiesto un parere!",
+       "cefr": "B2",
+       "collocations": [
+        "fare il professore"
+       ],
+       "labels": {
+        "formality": "informal",
+        "attitude": [
+         "ironic"
+        ],
+        "figurative": true
+       }
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "potente": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "potente",
+   "lexemes": [
+    {
+     "id": "eca71199-6f42-53f9-92f1-c4a76c41a00f",
+     "homograph": 1,
+     "lemma": "potente",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/po.ˈtɛn.te/",
+       "reading": "potènte"
+      }
+     ],
+     "senses": [
+      {
+       "id": "f84a5669-1ec6-5051-a1e4-76cc72e8a465",
+       "definition": "che ha molta autorità, influenza o ricchezza e può imporsi sugli altri",
+       "example": "Per questo lavoro serve un computer molto potente.",
+       "cefr": "B1",
+       "collocations": [
+        "un paese potente",
+        "una famiglia potente",
+        "un uomo potente",
+        "amici potenti"
+       ]
+      },
+      {
+       "id": "66ace675-627e-5f02-8963-be91f435eea2",
+       "definition": "che ha grande forza, energia o efficacia",
+       "example": "Nel romanzo una famiglia potente controlla tutta la città.",
+       "cefr": "B1",
+       "collocations": [
+        "motore potente",
+        "farmaco potente",
+        "veleno potente",
+        "voce potente",
+        "un computer potente"
+       ],
+       "antonyms": [
+        {
+         "lemma": "debole",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "c3b7b5a6-1b0c-53d4-b365-2e107ff59f32",
+     "homograph": 1,
+     "lemma": "potente",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Com",
+      "countability": "Count",
+      "number": "Plur",
+      "mainly": [
+       "number"
+      ]
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/po.ˈtɛn.te/",
+       "reading": "potènte"
+      }
+     ],
+     "senses": [
+      {
+       "id": "3b87cae6-c639-52a6-95f7-2059577f0c06",
+       "definition": "persona che ha molta autorità e influenza nella società",
+       "example": "Spesso le leggi proteggono i potenti più dei cittadini comuni.",
+       "cefr": "B2",
+       "collocations": [
+        "i potenti della terra"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "potente",
+       "pos": "ADJ"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "roba": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "roba",
+   "lexemes": [
+    {
+     "id": "29215d2a-5f2c-52f1-8164-e79f84b15bda",
+     "homograph": 1,
+     "lemma": "roba",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass",
+      "mainly": [
+       "countability"
+      ]
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈrɔ.ba/",
+       "reading": "ròba"
+      }
+     ],
+     "senses": [
+      {
+       "id": "dbae6789-8942-510e-8660-02ec348e46c9",
+       "definition": "insieme di oggetti, vestiti o beni di vario tipo, spesso di una persona",
+       "example": "Prima di partire metti tutta la tua roba nella valigia.",
+       "cefr": "A2",
+       "collocations": [
+        "roba da mangiare",
+        "roba vecchia",
+        "roba di valore",
+        "roba usata",
+        "mettere via la roba",
+        "roba di qualità"
+       ]
+      },
+      {
+       "id": "d5714a78-4fc7-5715-bf1b-c674a99ba239",
+       "definition": "cosa, fatto o faccenda qualsiasi, spesso giudicata con stupore o disprezzo",
+       "example": "Pagare dieci euro per un caffè è roba da matti!",
+       "cefr": "B1",
+       "frames": [
+        "roba da + inf",
+        "roba da qcn"
+       ],
+       "collocations": [
+        "roba da matti",
+        "roba da pazzi",
+        "roba da non credere",
+        "che roba",
+        "roba da ridere"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "patterns": [
+        {
+         "frame": "roba da + inf",
+         "parts": [
+          {
+           "head": "roba"
+          },
+          {
+           "word": "da"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "roba da qcn",
+         "parts": [
+          {
+           "head": "roba"
+          },
+          {
+           "word": "da"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "09029c14-5283-5ef0-8b56-e0317584bbeb",
+       "definition": "sostanza stupefacente che si compra e si usa illegalmente",
+       "example": "La polizia ha trovato la roba nascosta in cantina.",
+       "cefr": "C1",
+       "collocations": [
+        "farsi di roba",
+        "spacciare roba"
+       ],
+       "labels": {
+        "formality": "slang"
+       }
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "garantire": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ɡa.ran.ˈti.re/",
+  "now": "/ɡa.ran.ti.ˈre/",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "garantire",
+   "lexemes": [
+    {
+     "id": "55e26cde-ff2f-5c32-b3fd-cf8b768152cb",
+     "homograph": 1,
+     "lemma": "garantire",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "3",
+      "irregular": false,
+      "valency": "Tr",
+      "auxiliary": "have",
+      "note": "present tense with -isc-: garantisco, garantiscono"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ɡa.ran.ti.ˈre/",
+       "reading": "garantirè"
+      }
+     ],
+     "senses": [
+      {
+       "id": "e27fcc64-377c-51b2-9f12-6747b2673cf9",
+       "definition": "fare in modo che qualcosa ci sia o avvenga con certezza",
+       "example": "La legge garantisce a tutti il diritto all’istruzione.",
+       "cefr": "B1",
+       "frames": [
+        "garantire qcs a qcn"
+       ],
+       "collocations": [
+        "garantire la sicurezza",
+        "garantire un diritto",
+        "garantire la qualità",
+        "garantire il funzionamento",
+        "garantire la continuità"
+       ],
+       "patterns": [
+        {
+         "frame": "garantire qcs a qcn",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "a"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "331c95a3-2d91-5436-9a07-949fb112398e",
+       "definition": "affermare con sicurezza che qualcosa è vero o che succederà",
+       "example": "Ti garantisco che domani il lavoro sarà finito.",
+       "cefr": "B1",
+       "frames": [
+        "garantire che + ind",
+        "garantire di + inf",
+        "garantire qcs a qcn"
+       ],
+       "collocations": [
+        "te lo garantisco"
+       ],
+       "patterns": [
+        {
+         "frame": "garantire che + ind",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "word": "che"
+          },
+          {
+           "slot": [
+            "clause"
+           ],
+           "mood": "ind"
+          }
+         ]
+        },
+        {
+         "frame": "garantire di + inf",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "word": "di"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "garantire qcs a qcn",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "a"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "d56c88ca-63a3-5475-8746-df5edc172097",
+       "definition": "impegnarsi a rispondere per una persona o per un suo debito",
+       "example": "Se la banca chiede un garante, posso garantire io per te.",
+       "cefr": "C1",
+       "frames": [
+        "garantire per qcn",
+        "garantire qcs"
+       ],
+       "collocations": [
+        "garantire un prestito"
+       ],
+       "patterns": [
+        {
+         "frame": "garantire per qcn",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "word": "per"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "garantire qcs",
+         "parts": [
+          {
+           "head": "garantire"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "turno": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "turno",
+   "lexemes": [
+    {
+     "id": "5bd202b8-3cb6-5cf3-8937-e22628aa7ac7",
+     "homograph": 1,
+     "lemma": "turno",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈtur.no/",
+       "reading": "tùrno"
+      }
+     ],
+     "senses": [
+      {
+       "id": "0fafe862-ae9d-582e-9b40-50686ca85990",
+       "definition": "momento in cui tocca a una persona fare qualcosa, secondo un ordine stabilito",
+       "example": "Adesso tocca a te: è il tuo turno di tirare il dado.",
+       "cefr": "A2",
+       "frames": [
+        "il turno di qcn",
+        "turno di + inf"
+       ],
+       "collocations": [
+        "a turno",
+        "fare a turno",
+        "aspettare il proprio turno",
+        "saltare il turno",
+        "è il mio turno",
+        "di turno"
+       ],
+       "patterns": [
+        {
+         "frame": "il turno di qcn",
+         "parts": [
+          {
+           "word": "il"
+          },
+          {
+           "head": "turno"
+          },
+          {
+           "word": "di"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "turno di + inf",
+         "parts": [
+          {
+           "head": "turno"
+          },
+          {
+           "word": "di"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "8e662aa4-0012-509f-a763-9523744c20b2",
+       "definition": "periodo di lavoro o di servizio che si alterna con quello di altre persone",
+       "example": "Questa settimana mio padre fa il turno di notte in ospedale.",
+       "cefr": "B1",
+       "collocations": [
+        "turno di notte",
+        "lavorare a turni",
+        "fare il turno",
+        "essere di turno",
+        "turno di lavoro",
+        "cambio turno",
+        "farmacia di turno",
+        "medico di turno"
+       ]
+      },
+      {
+       "id": "d140b0fd-5d0a-595f-afa6-a1f1c9386c26",
+       "definition": "ciascuna delle fasi di una gara, di un torneo o di una votazione",
+       "example": "La nostra squadra è stata eliminata al primo turno del torneo.",
+       "cefr": "B2",
+       "collocations": [
+        "primo turno",
+        "secondo turno",
+        "passare il turno",
+        "turno di ballottaggio",
+        "turno eliminatorio"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ },
+ "clima": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "it",
+   "headword": "clima",
+   "lexemes": [
+    {
+     "id": "50c134b9-b5ca-565d-b60b-323cd627a79d",
+     "homograph": 1,
+     "lemma": "clima",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "it-IT",
+       "ipa": "/ˈkli.ma/",
+       "reading": "clìma"
+      }
+     ],
+     "forms": [
+      {
+       "form": "climi",
+       "features": {
+        "Number": "Plur"
+       },
+       "reading": "clìmi"
+      }
+     ],
+     "senses": [
+      {
+       "id": "b0074dc5-54b1-50d9-9776-f84bac8fb36f",
+       "definition": "insieme delle condizioni del tempo tipiche di una zona durante l’anno",
+       "example": "Dopo la riunione, in ufficio si respirava un clima di tensione.",
+       "cefr": "B1",
+       "collocations": [
+        "clima mite",
+        "clima temperato",
+        "clima rigido",
+        "clima secco",
+        "clima umido",
+        "clima tropicale",
+        "cambiamento del clima"
+       ]
+      },
+      {
+       "id": "372a8a77-7a41-5195-bc27-8f280eccf8aa",
+       "definition": "atmosfera generale che caratterizza un ambiente, un gruppo o un periodo",
+       "example": "In questa regione il clima resta mite anche d’inverno.",
+       "cefr": "B2",
+       "frames": [
+        "clima di qcs"
+       ],
+       "collocations": [
+        "clima di tensione",
+        "clima di fiducia",
+        "clima disteso",
+        "clima sereno",
+        "clima politico",
+        "respirare un clima"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "grammar": {
+        "number": "Sing",
+        "mainly": [
+         "number"
+        ]
+       },
+       "patterns": [
+        {
+         "frame": "clima di qcs",
+         "parts": [
+          {
+           "head": "clima"
+          },
+          {
+           "word": "di"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "39270e0050b8"
+   }
+  }
+ }
+}

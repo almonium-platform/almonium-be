@@ -671,21 +671,48 @@ become aliases; the names become entries nobody asked for.
 A count is only as good as its reader, and the second sample showed the reader is wrong too: eight
 "claims" were an adjective after its noun reported for a tag that never said "before". Three
 models are in play, not two: Opus writes, and GPT Astra and Claude Fable can each read. That is
-enough to measure a reader three ways, none of which needs a person who knows the language. Not
-built; for the third sample.
+enough to measure a reader, and none of it needs a person who knows the language. `measure.py`
+does it from the third sample on (`--written`, `--planted`, `--gold`):
 
-- **Planted faults.** `measure.py` adds to every review file a known number of entries with one
-  fault put in by code: a gender flipped, the stress mark moved a syllable, Count for Mass, the
-  example of another sense, a collocation taken from another word. They are not marked, and the key
-  stays out of the file. The share the reader finds, by kind, is its hit rate, and a count can be
-  corrected by it: a reader that finds six planted stresses in ten is missing four in ten of the
-  real ones.
+- **Planted faults.** Entries of the same pool with one fault put in by code, not marked: a gender
+  flipped, the stress moved a syllable (in the transcription and in the stressed spelling), Mass
+  for Count, the examples of two senses changed over. Only a fault beyond dispute is planted: a
+  gender or a stress where Wiktionary has the entry's own and no other, Mass on a noun it gives a
+  plural, always in the word's first lexeme. What was planted is in `planted-<lang>.json`; the
+  tally says how many of each kind the reader named, by the kind of fault and the place.
 - **Entries known to be right.** The example entries a person has checked (`gold/`) go in
-  unmarked. What a reader reports in them is its rate of false alarms.
-- **Two readers on the same part.** Astra and Fable read the same forty entries without seeing
-  each other. A fault both name is counted; one that only one names goes to the witness or to a
-  dictionary before it is. How often they agree, by kind, says how much of a count is taste: by
-  the look of the second sample, most of "wording" and little of "fact".
+  unmarked. What a reader reports in them is its false alarms, printed finding by finding.
+- **The witness first.** Every drawn entry is held against Wiktionary before it is shown, and what
+  differs is kept in the sample file, unseen. The tally says in how many of those entries the
+  reader reported a fact.
+- **Two readers on the same part.** A second reader's answers go under `answers-2/`, and the tally
+  says, fault by fault, in how many entries both named it out of those either did.
+
+A planted or a checked entry is not counted in the rates or against the bar: it is the reader
+being measured, not the dictionary.
+
+### The third sample, v410
+
+Drawn on 19 November from the 1,863 entries written under v4.10 (the first night and the trial),
+nothing bought: forty entries a language as written, six to eight with a planted fault, five
+checked by hand, in one file of some fifty entries a language (`measure/v410/review/`). Seven
+languages; Japanese has four entries of v4.10 and waits for its list.
+
+|    | as written | planted | checked by hand | Wiktionary differs in |
+|----|-----------|---------|-----------------|----------------------|
+| en | 40 | 8: stress 3, Mass 3, examples 2 | 5 | 0 |
+| de | 40 | 8: gender 2, stress 2, Mass 2, examples 2 | 5 | 1 |
+| fr | 40 | 6: gender 2, Mass 2, examples 2 | 5 | 2 |
+| es | 40 | 8: two of each | 5 | 0 |
+| it | 40 | 8: two of each | 5 | 1 |
+| pt | 40 | 8: two of each | 5 | 1 |
+| ru | 40 | 6: gender 2, stress 2, examples 2 | 5 | 2 |
+
+French has no stress to move and English no gender; Russian nouns have no plural in the facts
+table, so no Mass was planted there. The words are the commonest of each language (the top of the
+rewrite lists and of `healthy-ru`), so this sample says how v4.10 writes common words and nothing
+yet of rare ones. Answers go to `measure/v410/answers/<lang>-1.md`, a second reader's to
+`answers-2/`, and `measure.py --name v410 --tally` counts.
 
 ### What a later change costs
 
@@ -745,13 +772,19 @@ All 33,751 written entries, 19 November 2026. Each cell is compared, agreeing, d
 
 |    | gender | plural | stressed syllable | sounds | entries to read |
 |----|--------|--------|-------------------|--------|-----------------|
-| en | - | 422, 95.5%, 19 | 21,139, 99.1%, 197 | 25,886, 97.8%, 563 | 125 of 17,109 |
-| de | 1,692, 99.5%, 8 | 1,456, 99.2%, 12 | 2,328, 97.2%, 65 | 2,732, 97.5%, 68 | 73 of 3,281 |
-| fr | 2,370, 99.6%, 9 | 38, 89.5%, 4 | - | 4,041, 98.9%, 44 | 52 of 3,729 |
-| es | 1,821, 99.6%, 7 | 40, 100%, 0 | 6,937, 99.6%, 25 | 7,053, 99.1%, 61 | 45 of 3,192 |
-| it | 1,671, 99.6%, 7 | 60, 100%, 0 | 3,044, 99.7%, 8 | 3,092, 98.2%, 55 | 56 of 2,904 |
-| pt | 1,613, 99.6%, 6 | 129, 99.2%, 1 | 5,795, 99.9%, 4 | 5,900, 96.2%, 222 | 187 of 2,946 |
-| ru | 285, 100%, 0 | - | 510, 98.6%, 7 | 700, 96.1%, 27 | 24 of 590 |
+| en | - | 422, 95.5%, 19 | 20,553, 99.1%, 184 | 25,304, 98.2%, 453 | 117 of 17,109 |
+| de | 1,692, 99.5%, 8 | 1,456, 99.2%, 12 | 2,262, 98.5%, 33 | 2,661, 97.9%, 56 | 48 of 3,281 |
+| fr | 2,370, 99.6%, 9 | 38, 89.5%, 4 | - | 3,973, 99.1%, 36 | 46 of 3,729 |
+| es | 1,821, 99.6%, 7 | 40, 100%, 0 | 6,934, 99.6%, 25 | 7,052, 99.1%, 61 | 45 of 3,192 |
+| it | 1,671, 99.6%, 7 | 60, 100%, 0 | 3,029, 99.7%, 8 | 3,076, 98.2%, 55 | 56 of 2,904 |
+| pt | 1,613, 99.6%, 6 | 129, 99.2%, 1 | 5,742, 99.9%, 4 | 5,845, 96.4%, 210 | 180 of 2,946 |
+| ru | 285, 100%, 0 | - | 507, 98.6%, 7 | 695, 96.3%, 26 | 23 of 590 |
+
+A word the entry gives two ways (German *unmöglich*, stressed on either syllable, as Duden prints
+it) is one fact, right when either way is Wiktionary's: counting each way by itself had reported
+the second stress of thirty German words whose entries were complete and correct. German writes
+no stress in its spelling, so an entry states it only in the transcription, by the mark before
+the stressed syllable.
 
 How much of what differs is a fault was counted by hand on a random draw of the sounds that
 differ, 20 to 40 a language:
@@ -791,7 +824,7 @@ Two limits. A disagreement is a lead: the lists were read by sample, not line by
 is copied: Wiktionary's text is under a share-alike licence, so it is asked and never written into
 an entry.
 
-What follows from it, none of it built: a paid patch of the one field for the 562 entries, with
+What follows from it, none of it built: a paid patch of the one field for the 515 entries, with
 both transcriptions shown to the model (some $15); the Spanish sounds written by a rule from the
 spelling in place of a model, since Spanish is regular (Italian is not: where its stress falls and
 whether an *e* or *o* is open is not in the spelling, which is exactly where the writers failed);
@@ -1321,7 +1354,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the witness found**: a paid patch of one field for the 562 entries of "Witnesses"; the
+3. **What the witness found**: a paid patch of one field for the 515 entries of "Witnesses"; the
    Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling; the Russian
    vowel before the stress checked from the stressed spelling; CMUdict as a second witness for
    English. Then **the third sample**, under v4.10, with the witness run first and the reviewer

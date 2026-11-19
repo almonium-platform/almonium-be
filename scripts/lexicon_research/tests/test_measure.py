@@ -64,3 +64,59 @@ def test_a_bad_collocation_is_a_fault_of_its_own_and_does_not_move_the_bar():
     assert "- **collocation**: " in text and 'Quote the collocation in "what"' in text
     found = measure.answers_of('{"id": 3, "findings": [{"fault": "collocation", "where": "sense 1", "what": "\\"starker Regen\\" is fine, \\"großer Regen\\" is not said", "misleads": true}]}')
     assert [f["fault"] for f in found[3]] == ["collocation"]
+
+
+def noun(lemma, ipa, grammar, reading=None, senses=1):
+    said = {"variety": "it-IT", "ipa": ipa, **({"reading": reading} if reading else {})}
+    return {"headword": lemma, "lexemes": [{"lemma": lemma, "pos": "NOUN", "grammar": dict(grammar), "pronunciations": [said],
+                                           "senses": [{"definition": f"d{n}", "example": f"e{n}", "cefr": "A2"} for n in range(1, senses + 1)]}]}
+
+
+def test_a_planted_fault_is_one_a_reader_can_show():
+    """A fault put in to measure a reader must be a fault beyond dispute: a gender only where Wiktionary has the
+    entry's own and no other, a stress only where it has ours and not the one planted, Mass only on a noun it
+    gives a plural, two examples changed over only between two senses."""
+    word = noun("catena", "/ka.ˈte.na/", {"gender": "Fem", "countability": "Count"}, "caténa", senses=2)
+    facts = {"catena": ({"Fem"}, [(set(), "/kaˈte.na/", False)], {"catene"})}
+    planted, what = measure.plant("it", word, "gender", facts)
+    assert planted["lexemes"][0]["grammar"]["gender"] == "Masc" and what == {"kind": "gender", "where": "lexeme 1 grammar", "was": "Fem", "now": "Masc"}
+    assert word["lexemes"][0]["grammar"]["gender"] == "Fem"  # the entry itself is not touched
+    assert measure.plant("it", word, "gender", {"catena": ({"Fem", "Masc"}, [], set())}) is None  # a noun of two genders is no test
+    planted, what = measure.plant("it", word, "stress", facts)
+    assert planted["lexemes"][0]["pronunciations"][0] == {"variety": "it-IT", "ipa": "/ka.te.ˈna/", "reading": "catenà"}
+    assert what["was"] == "/ka.ˈte.na/" and what["now"] == "/ka.te.ˈna/"
+    two_ways = {"catena": ({"Fem"}, [(set(), "/kaˈte.na/", False), (set(), "/ka.teˈna/", False)], set())}
+    assert measure.plant("it", word, "stress", two_ways) is None  # Wiktionary has the planted stress too
+    assert measure.plant("it", word, "countability", facts)[0]["lexemes"][0]["grammar"]["countability"] == "Mass"
+    assert measure.plant("it", word, "countability", {"catena": ({"Fem"}, [], set())}) is None  # no plural known: Mass may be right
+    planted, what = measure.plant("it", word, "example", facts)
+    assert [s["example"] for s in planted["lexemes"][0]["senses"]] == ["e2", "e1"] and what["where"] == "lexeme 1 senses 1 and 2"
+    assert measure.plant("it", noun("re", "/ˈre/", {"gender": "Masc"}), "example", facts) is None  # one sense: nothing to change over
+    assert measure.moved_stress("/ˈre/") is None and measure.moved_stress("/ˌa.ɡɾo.ˈpe/") is None
+    assert measure.moved_reading("ru", "ме́бель", 0, 1, 2) == "мебе́ль" and measure.moved_reading("ru", "ёлка", 0, 1, 2) is None
+
+
+def test_the_tally_measures_the_reader_and_keeps_its_test_entries_out_of_the_count(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(measure, "MEASURE", tmp_path)
+    (tmp_path / "t" / "answers").mkdir(parents=True)
+    (tmp_path / "t" / "answers-2").mkdir()
+    items = [{"id": 1, "headword": "a", "part": "new", "witness": ["sounds: a"]}, {"id": 2, "headword": "b", "part": "planted"},
+             {"id": 3, "headword": "c", "part": "planted"}, {"id": 4, "headword": "d", "part": "gold"}, {"id": 5, "headword": "e", "part": "new"}]
+    (tmp_path / "t" / "sample-it.json").write_text(json.dumps(items))
+    (tmp_path / "t" / "planted-it.json").write_text(json.dumps({"b": {"kind": "gender", "was": "Fem", "now": "Masc"}, "c": {"kind": "stress", "was": "/ˈa.b/", "now": "/a.ˈb/"}}))
+    (tmp_path / "t" / "answers" / "it-1.md").write_text("\n".join([
+        '{"id": 1, "findings": [{"fault": "fact", "where": "lexeme 1 said", "what": "the vowel is open", "misleads": true}]}',
+        '{"id": 2, "findings": [{"fault": "fact", "where": "lexeme 1 grammar", "what": "the noun is feminine", "misleads": true}]}',
+        '{"id": 3, "findings": [{"fault": "wording", "where": "sense 1", "what": "definition too narrow", "misleads": false}]}',
+        '{"id": 4, "findings": [{"fault": "claim", "where": "sense 1 labels", "what": "not formal", "misleads": false}]}',
+        '{"id": 5, "findings": []}']))
+    (tmp_path / "t" / "answers-2" / "it-1.md").write_text('{"id": 1, "findings": [{"fault": "fact", "where": "lexeme 1 said", "what": "open e"}]}\n'
+                                                          '{"id": 5, "findings": [{"fault": "wording", "where": "sense 1", "what": "narrow"}]}')
+    measure.tally("t", ["it"])
+    out = capsys.readouterr().out
+    assert "all  both  n=  2" in out and "fact 50%" in out  # the two real entries only: a planted or checked entry is not the dictionary
+    assert "planted gender        found 1 of 1" in out and "planted stress        found 0 of 1" in out
+    assert "missed: it c: stress /ˈa.b/ -> /a.ˈb/; reported something else" in out
+    assert "entries checked by hand: a finding in 1 of 1" in out and "it d: claim, not formal" in out
+    assert "entries Wiktionary contradicts: a fact reported in 1 of 1" in out
+    assert "two readers, fact          named by both in 1 of the 1" in out and "two readers, wording       named by both in 0 of the 1" in out
