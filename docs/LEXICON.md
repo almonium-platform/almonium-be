@@ -714,6 +714,38 @@ rewrite lists and of `healthy-ru`), so this sample says how v4.10 writes common 
 yet of rare ones. Answers go to `measure/v410/answers/<lang>-1.md`, a second reader's to
 `answers-2/`, and `measure.py --name v410 --tally` counts.
 
+**The second reader, first.** Claude Fable read all seven files blind on 19 November: one fresh
+reader a language, given its review file and nothing else, no search, not told that anything was
+planted. Its answers are `answers-2/`. Counted by themselves:
+
+- Of the 280 entries as written, 88% without a finding. In a hundred: fact 1.8, claim 1.1,
+  core sense missing 0.4, all three within the bar; wording 2, collocation 6, a rarer sense
+  missing 1. By language the facts are two entries in Russian and one each in French, Spanish and
+  Italian.
+- **Every planted fault found, 52 of 52**: 12 genders, 13 stresses, 13 nouns made uncountable, 14
+  pairs of examples changed over. So a stated gender, stress or countability that is plainly wrong
+  does not get past this reader. It says less than it seems: these are faults a reader sees by
+  looking, and a fault that takes knowing (an open vowel, a devoiced consonant) is the harder kind.
+- **The harder kind: three of seven.** In the seven entries Wiktionary contradicts, the reader
+  reported a fact in three, and they are the three real ones, each named for the same sound the
+  witness named: Italian *successivo* written /suk.tʃes/, Russian *управление* with /ə/ before the
+  stress, *бывший* with /v/ before /ʂ/. The four it passed are the witness's doubtful ones (a
+  loanword said two ways, a stress mark in French). Reader and witness, neither seeing the other,
+  agree on what is wrong: that is the strongest evidence this page has.
+- It also found two the witness cannot: French *disposition* with an open /ɔ/, which the witness
+  lets pass on purpose, and the secondary stress of Spanish *seguramente*.
+- **In the 35 entries checked by hand, findings in four**: *hall* ("mainly Britain" too strong, a
+  collocation missing), German *Trainer* (the tracksuit is Swiss, not Austrian), French *hôpital*
+  (*être hospitalisé à l'hôpital* says it twice), *historique* (a definition too narrow). At least
+  two of these are right, so the checked entries are not faultless and the reader's false alarms
+  are below one entry in ten.
+
+One caution outweighs the rest. Fable is of the writer's family: the two may share what they do
+not know, and a reader that agrees with the writer is not thereby right. These rates are a second
+reader's, to be set beside GPT's when they come, not in place of them. And the words are the
+commonest of each language, where the second sample's were rarer: the fall from 8 facts and 16
+claims in a hundred cannot be given to v4.10 by this count.
+
 ### What a later change costs
 
 Of the 34,034 schema-4 files, 32,651 were written under v4, 588 under v4.6, 258 under v4.7, 50
