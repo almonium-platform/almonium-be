@@ -804,13 +804,18 @@ All 33,751 written entries, 19 November 2026. Each cell is compared, agreeing, d
 
 |    | gender | plural | stressed syllable | sounds | entries to read |
 |----|--------|--------|-------------------|--------|-----------------|
-| en | - | 422, 95.5%, 19 | 20,553, 99.1%, 184 | 25,304, 98.2%, 453 | 117 of 17,109 |
+| en | - | 422, 95.5%, 19 | 24,149, 98.9%, 269 | 29,501, 98.5%, 453 | 161 of 17,109 |
 | de | 1,692, 99.5%, 8 | 1,456, 99.2%, 12 | 2,262, 98.5%, 33 | 2,661, 97.9%, 56 | 48 of 3,281 |
 | fr | 2,370, 99.6%, 9 | 38, 89.5%, 4 | - | 3,973, 99.1%, 36 | 46 of 3,729 |
 | es | 1,821, 99.6%, 7 | 40, 100%, 0 | 6,934, 99.6%, 25 | 7,052, 99.1%, 61 | 45 of 3,192 |
 | it | 1,671, 99.6%, 7 | 60, 100%, 0 | 3,029, 99.7%, 8 | 3,076, 98.2%, 55 | 56 of 2,904 |
 | pt | 1,613, 99.6%, 6 | 129, 99.2%, 1 | 5,742, 99.9%, 4 | 5,845, 96.4%, 210 | 180 of 2,946 |
 | ru | 285, 100%, 0 | - | 507, 98.6%, 7 | 695, 96.3%, 26 | 23 of 590 |
+
+English is held against CMUdict and Britfone as well as Wiktionary, and Russian against
+OpenRussian ("Sources and witnesses"): 3,600 more English stresses and 4,200 more transcriptions
+could be compared, agreement rose, and the stresses that differ rose with it, most of them a
+compound stressed on either part (*uplifting*, *citywide*).
 
 A word the entry gives two ways (German *unmöglich*, stressed on either syllable, as Duden prints
 it) is one fact, right when either way is Wiktionary's: counting each way by itself had reported
@@ -856,7 +861,7 @@ Two limits. A disagreement is a lead: the lists were read by sample, not line by
 is copied: Wiktionary's text is under a share-alike licence, so it is asked and never written into
 an entry.
 
-What follows from it, none of it built: a paid patch of the one field for the 515 entries, with
+What follows from it, none of it built: a paid patch of the one field for the 559 entries, with
 both transcriptions shown to the model (some $15); the Spanish sounds written by a rule from the
 spelling in place of a model, since Spanish is regular (Italian is not: where its stress falls and
 whether an *e* or *o* is open is not in the spelling, which is exactly where the writers failed);
@@ -1346,6 +1351,14 @@ One pass brings the written entries up to October's standard and links them:
   *notwendig* carry both stresses, English *data* both vowels, Portuguese *casar* its casual
   /ka.ˈza/. 570 English lexemes have two, 77 German, 73 French, 52 Portuguese, 13 Italian, 5
   Russian, 4 Spanish. German and English mark stress only in the transcription.
+- A stressed spelling is the word's own spelling with one mark on a vowel. In Russian and Ukrainian
+  the mark is the combining acute U+0301 after the Cyrillic letter (there is no ready-made
+  character); in Italian it is the accented letter itself, grave or acute (è and é, ò and ó say
+  which vowel). The audit checks it (`check_v4.py`): of 12,171 written, Russian has none wrong;
+  Ukrainian had a Latin í and "ov" typed into two words and three with a letter changed, which
+  ingest now rebuilds from the spelling with the mark on the same letter (`own_reading`); Italian
+  has seven that respell a loanword (*bordò* for *bordeaux*) and one typing error (*vière* for
+  *viene*), left for an eye.
 - Two meanings that are said and inflected alike are senses of one lexeme in every language
   (*bank*, *Schloss*, *avocat*, *брак*), although dictionaries number some of them as homonyms. A
   lexeme is split by sound, part of speech, gender or inflection (*lead*, *der/die See*, *Bank* with
@@ -1383,6 +1396,9 @@ decides what is written, or says where an entry may be wrong.
 | Source | What it is | What it is asked | Where | Licence |
 |---|---|---|---|---|
 | Wiktionary, through kaikki.org's extracts | The English Wiktionary's entries for each language, 9 GB, read once into tables (`lemma_index.py`) | **Before a write:** is the spelling a word of its own, an inflected form, a name, another spelling, an abbreviation (the gate and the healthy lists). **After:** the gender, the plural, the stressed syllable and the sounds of every entry (`witness.py`); the stressed spelling of Russian and Ukrainian words (`check_v4.py`) | `lemma_gate.py`, `core_list.py`, `witness.py`, `check_v4.py` | CC BY-SA |
+| CMUdict | 126,000 words of American English, every accepted way of saying each, with stress | The stressed syllable and the sounds of an English entry, for the United States (`open_sources.py` brings it into the witness's tables) | `witness.py` | BSD-style |
+| Britfone | 15,000 words of British English in IPA with stress | The same for Britain | `witness.py` | MIT |
+| OpenRussian | 60,000 Russian words with their stress in every form, and the gender of nouns | The gender of a Russian noun; the stressed spelling of a word and of its forms, beside Wiktionary's | `witness.py`, `check_v4.py` | CC BY-SA |
 | Kanjium's accent table | The Tokyo pitch accent of 124,000 Japanese words | Is the accent an entry gives one the table has for that reading | `check_v4.accent_witness` | CC BY-SA |
 | wordfreq | How often a spelling is met, in forty languages | Which words are worth an entry and in what order; the bands a sample is drawn from | `core_list.py`, `measure.py` | Data CC BY-SA |
 | MeCab with its dictionary | A reader of Japanese text into words | Which dictionary word a spelling of the frequency list is a form of | `core_list.japanese` | BSD and its dictionary's terms |
@@ -1397,10 +1413,23 @@ decides what is written, or says where an entry may be wrong.
 | The example entries (`gold/`) | Five entries a language that a person has read and corrected | They are shown to the writer as the model of an entry, and to a reader, unmarked, to count its false alarms |
 | The owner | Reads English, Ukrainian and Russian | Decisions, and the entries of those three languages |
 
-**Built in October for the schema-3 writers and not wired to schema 4** (`score.py`, `wiktionary.py`,
-`entry_pipeline.py`): CMUdict for English stress and sounds, WikiPron for the sounds of English,
-German and Ukrainian, spaCy to lemmatize a form back to its lemma, and Wiktionary's senses as
-evidence inside the writer's request with each written sense citing the ones it covers.
+**What October built for the schema-3 writers** (`score.py`, `wiktionary.py`, `entry_pipeline.py`),
+and where each stands on 19 November:
+
+- *CMUdict for English stress and sounds*: connected, above, with Britfone for Britain. It
+  confirmed more than it found: of thirty English sounds that neither it nor Wiktionary has, one
+  was a fault.
+- *WikiPron for the sounds of English, German and Ukrainian*: nothing to connect. WikiPron is
+  Wiktionary's transcriptions scraped into lists, and the witness reads the same transcriptions
+  from kaikki's extract with the place and the standing of each.
+- *spaCy, lemmatizing a form back to its lemma*: not connected. The index already knows from
+  Wiktionary's inflection tables which word a form belongs to, which is surer than a tagger's
+  guess; a check of an entry's forms against it is the piece to build.
+- *Wiktionary's senses inside the writer's request, each written sense citing the ones it covers*:
+  not connected. It changes what the writer is asked, so it is a prompt version with a trial and
+  a count of its own, and the one change left that could lower facts and missing senses at the
+  source and not after it. A first step that needs no model: the parts of speech Wiktionary files
+  a word under, held against the lexemes an entry has.
 
 **Not used yet:** Wikidata's lexemes (CC0: spellings and forms), Princeton WordNet and the Open
 Multilingual Wordnet (synonyms, antonyms and sense links across languages; much finer than a
@@ -1408,6 +1437,39 @@ learner needs, 18 senses of *bank*), the catalogue's own public-domain books (ex
 words readers meet). Duden, Le Robert, the RAE's dictionary, Treccani and the others are named to
 readers as what to judge by and give the conventions the prompt follows (German *jmdm.*, *etw.*);
 none is read by a program, and none may be copied.
+
+**The dictionaries with a name, and what a program may read of them** (looked up on 19 November
+2026; terms change, and each is to be read again before anything is built on it):
+
+| Dictionary | What is offered to a program |
+|---|---|
+| Duden | A paid API (from 175 euros a month for 1,000 requests a day) for spelling, grammar and synonyms. No entries: no gender, plural, sounds or definitions |
+| Le Robert | None. Its terms forbid building a database from the product; the libraries that exist scrape the site |
+| RAE (DLE) | No official API was found; what exists is unofficial and reads the site |
+| De Mauro, Treccani | None, and no open licence |
+| Merriam-Webster | An official API with a learner's dictionary: free for non-commercial use up to 1,000 requests a day, by agreement for a product |
+| Oxford, Cambridge | APIs by licence or application; Oxford has a learner's dictionary API |
+
+So the named dictionaries cannot be loaded, with the possible exception of a licence for English.
+They are reached in two other ways. A reader with a browser consults them a word at a time, as
+GPT did with De Mauro for Italian: the review file can ask every reader to name the dictionary it
+judged by. And for each language there are open sources made by specialists, which a program may
+load whole:
+
+| | Loaded | To load next |
+|---|---|---|
+| en | Wiktionary, CMUdict, Britfone | - |
+| ru | Wiktionary, OpenRussian | The Russian Wiktionary's own extract (kaikki.org, 309 MB) |
+| de | Wiktionary | The German Wiktionary's extract (310 MB); DWDS, which has an API for sounds and for collocations, its terms still to be read |
+| fr | Wiktionary | The French Wiktionnaire's extract (737 MB); Lexique 3, 140,000 words with sounds and gender, which the cloud session could not reach |
+| es | Wiktionary | The Spanish Wikcionario's extract (103 MB); its sounds follow from its spelling and could be a rule |
+| it | Wiktionary | The Italian Wikizionario's extract (44 MB); no open pronouncing dictionary was found |
+| pt | Wiktionary | The Portuguese Wikcionário's extract (37 MB); no open pronouncing dictionary was found, which is where the entries are weakest |
+
+Every Wiktionary edition describes its own language more fully than the English one does, and
+kaikki.org publishes each as the same kind of extract the index is built from. For the
+collocations the Leipzig Corpora Collection offers counts of which words stand together in each
+language; its licence differs from corpus to corpus and is to be read first.
 
 **What each can and cannot say.** Wiktionary is edited by volunteers and is uneven: it has the
 gender of nearly every noun and a transcription for most common words, often one where a word is
@@ -1419,9 +1481,9 @@ planted faults measure.
 
 **What has no witness.** The definitions, the choice and order of senses, the examples, the CEFR
 levels, the labels and regions, the frames and the collocations are held against nothing but a
-reader's judgement on a sample. That is most of an entry. The cheapest next witnesses: CMUdict for
-English, which lists every accepted pronunciation; a corpus count for the collocations (is the
-pair really frequent); and Wiktionary's senses for a core meaning that is missing.
+reader's judgement on a sample. That is most of an entry. The cheapest next witnesses: each
+language's own Wiktionary; a corpus count for the collocations (is the pair really frequent); and
+Wiktionary's parts of speech and senses for a core meaning that is missing.
 
 Whether reusing Wiktionary's facts in bulk carries its share-alike terms is a legal question this
 page does not settle.
@@ -1431,7 +1493,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the witness found**: a paid patch of one field for the 515 entries of "Witnesses"; the
+3. **What the witness found**: a paid patch of one field for the 559 entries of "Witnesses"; the
    Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling; the Russian
    vowel before the stress checked from the stressed spelling; CMUdict as a second witness for
    English. Then **the third sample**, under v4.10, with the witness run first and the reviewer
