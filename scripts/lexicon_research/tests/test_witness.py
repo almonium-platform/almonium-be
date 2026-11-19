@@ -161,3 +161,12 @@ def test_french_and_italian_habits_of_notation():
     assert said("it", "it-IT", "/pre.kaw.ˈtsjo.ne/", [((), "/pre.kawtˈt͡sjo.ne/")]) == ["agrees"]
     assert said("it", "it-IT", "/ˈkau.za/", [((), "/ˈkaw.sa/")]) == ["agrees"]
     assert said("it", "it-IT", "/an.ˈtɛn.na/", [((), "/anˈten.na/")]) == ["differs"]
+
+
+def test_a_transcription_of_another_spelling_is_held_against_that_spelling():
+    known = {**table("из", heard=[((), "[is]")]), **table("изо", heard=[((), "[ˈizə]")])}
+    written = entry("из", "ADP", pronunciations=[{"variety": "ru-RU", "ipa": "/ˈis/", "spelling": "из"},
+                                                  {"variety": "ru-RU", "ipa": "/ˈi.zə/", "spelling": "изо"}])
+    assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees", "agrees"]
+    del known["изо"]  # Wiktionary without the second spelling: the second transcription is not judged
+    assert [v for f, v, _ in witness.compare("ru", written, known) if f == "sounds"] == ["agrees"]

@@ -741,24 +741,26 @@ The comparison is as lenient as the fact allows:
   pairs of sounds differ most often, which is how a habit of notation (hundreds of one pair) is
   told from a fault (a pair seen twice).
 
-All 31,917 written entries, 18 November 2026. Each cell is compared, agreeing, differing:
+All 33,751 written entries, 19 November 2026. Each cell is compared, agreeing, differing:
 
 |    | gender | plural | stressed syllable | sounds | entries to read |
 |----|--------|--------|-------------------|--------|-----------------|
-| en | - | 413, 95.6%, 18 | 20,608, 99.0%, 197 | 25,065, 97.8%, 551 | 124 of 16,846 |
-| de | 1,535, 99.5%, 8 | 1,313, 99.2%, 11 | 2,086, 97.5%, 52 | 2,432, 97.3%, 65 | 63 of 3,030 |
-| fr | 2,193, 99.6%, 8 | 32, 87.5%, 4 | - | 3,713, 98.9%, 41 | 47 of 3,462 |
-| es | 1,633, 99.6%, 7 | 31, 100%, 0 | 6,235, 99.6%, 25 | 6,343, 99.1%, 58 | 43 of 2,892 |
-| it | 1,474, 99.7%, 5 | 52, 100%, 0 | 2,720, 99.7%, 7 | 2,757, 98.1%, 53 | 51 of 2,633 |
-| pt | 1,437, 99.6%, 6 | 107, 99.1%, 1 | 5,212, 99.9%, 4 | 5,291, 96.0%, 212 | 181 of 2,696 |
-| ru | 197, 100%, 0 | - | 320, 97.8%, 7 | 395, 93.4%, 26 | 23 of 358 |
+| en | - | 422, 95.5%, 19 | 21,139, 99.1%, 197 | 25,886, 97.8%, 563 | 125 of 17,109 |
+| de | 1,692, 99.5%, 8 | 1,456, 99.2%, 12 | 2,328, 97.2%, 65 | 2,732, 97.5%, 68 | 73 of 3,281 |
+| fr | 2,370, 99.6%, 9 | 38, 89.5%, 4 | - | 4,041, 98.9%, 44 | 52 of 3,729 |
+| es | 1,821, 99.6%, 7 | 40, 100%, 0 | 6,937, 99.6%, 25 | 7,053, 99.1%, 61 | 45 of 3,192 |
+| it | 1,671, 99.6%, 7 | 60, 100%, 0 | 3,044, 99.7%, 8 | 3,092, 98.2%, 55 | 56 of 2,904 |
+| pt | 1,613, 99.6%, 6 | 129, 99.2%, 1 | 5,795, 99.9%, 4 | 5,900, 96.2%, 222 | 187 of 2,946 |
+| ru | 285, 100%, 0 | - | 510, 98.6%, 7 | 700, 96.1%, 27 | 24 of 590 |
 
 How much of what differs is a fault was counted by hand on a random draw of the sounds that
 differ, 20 to 40 a language:
 
-- **Russian, 26 of 26 looked at, nearly all faults**, most against the prompt's own rule: /ə/
+- **Russian, all 26 looked at, nearly all faults**, most against the prompt's own rule: /ə/
   for /ɐ/ in the syllable before the stress (*давать* /də.ˈvatʲ/, ten of them), *бывший* with /v/
-  before /ʂ/, *тема* with a hard /t/, *никогда* a syllable short, *нечто* with /ʂ/.
+  before /ʂ/, *тема* with a hard /t/, *никогда* a syllable short, *нечто* with /ʂ/. Two were the
+  witness's own fault and are gone: *в* and *с* carry a second transcription for their second
+  spelling (*во*, *со*), which is now held against that spelling and not against the first.
 - **Portuguese, about three in four**: Portugal's unstressed vowels (*normal* /nuɾ.ˈmal/ for
   /nɔɾˈmal/, *contração* /tɾɐ/ for /tɾa/, *omissão*, *xerife*), which is what the Portuguese
   reviewer found one entry in nine for. The rest are loanwords said two ways.
@@ -789,7 +791,7 @@ Two limits. A disagreement is a lead: the lists were read by sample, not line by
 is copied: Wiktionary's text is under a share-alike licence, so it is asked and never written into
 an entry.
 
-What follows from it, none of it built: a paid patch of the one field for the 532 entries, with
+What follows from it, none of it built: a paid patch of the one field for the 562 entries, with
 both transcriptions shown to the model (some $15); the Spanish sounds written by a rule from the
 spelling in place of a model, since Spanish is regular (Italian is not: where its stress falls and
 whether an *e* or *o* is open is not in the spelling, which is exactly where the writers failed);
@@ -1001,6 +1003,40 @@ forms or abbreviations a writer would refuse, 3,460 are doubtful, and 39,902 are
 At $0.041 an entry that is about $1,640. They are run with `claude_code_writer.py --headwords
 rewrite --rewrite-older`; without the flag the writer still leaves a word with an older entry
 alone, so that no list spends this by accident.
+
+### The first night, 18 November
+
+One window of the plan, at the owner's word, in a cloud session: the six rewrite lists and
+`healthy-ru`, most frequent first, two workers a language, 2,700 entries an hour. It ran fifty
+minutes and ended itself when the plan refused every call ("You've hit your 5-hour limit"), with
+nothing lost: the writer now takes `--stop-file`, finishes the calls in flight and makes no other.
+
+|    | written | refused | list price |
+|----|---------|---------|------------|
+| en | 263 | 0 | $13.08 |
+| de | 251 | 0 | $13.23 |
+| fr | 267 | 0 | $13.42 |
+| es | 296 | 4 | $13.63 |
+| it | 271 | 0 | $13.27 |
+| pt | 250 | 0 | $13.18 |
+| ru | 226 | 6 | $12.42 |
+
+1,824 entries and 10 refusals for $92.22, every entry valid; $0.050 an entry, more than the
+$0.041 of a running batch because these are the most frequent words (3.5 senses an entry) and
+fourteen calls opened the prompt cache twice. A refusal in 180 is what a healthy list was made
+for. 3.5 collocations a sense, 0.7 frames.
+
+Held against Wiktionary by themselves, the night's entries differ less than the 31,917 before
+them: in sounds 1.6% against 4.0% in Portuguese, 1.0% against 6.1% in Russian, 0.6% against 1.9%
+in Italian; in stress none of 704 in Spanish against 0.4%. That is not the prompt, which says
+nothing new about sounds: these are the commonest words of each language, whose sounds a writer
+knows best. German stress differs more, 13 of 242 against 2.5%, every one a word with two accepted
+stresses of which Wiktionary has the other (*unmöglich*, *selbstverständlich*, *davor*).
+
+Left to write again: some 38,300 words. The run is `night/run.sh` of that session in outline:
+one writer a language with `--stop-file`, a commit and a push of the data branch every ten
+minutes, and an end at the wall, at five hours, or at 1,500 words a language. The usage meter the
+writer pauses on (`/usage`) shows nothing in a cloud session, so there a run goes to the wall.
 
 ## Frames
 
@@ -1285,7 +1321,7 @@ page does not settle.
 1. **The backend reads schema 4**, so entries can be published and seen. The largest piece.
 2. **The citing pass**, and the evidence block in the writer for new words (v4.1 rules with v6's
    evidence and inflected-form rules).
-3. **What the witness found**: a paid patch of one field for the 532 entries of "Witnesses"; the
+3. **What the witness found**: a paid patch of one field for the 562 entries of "Witnesses"; the
    Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling; the Russian
    vowel before the stress checked from the stressed spelling; CMUdict as a second witness for
    English. Then **the third sample**, under v4.10, with the witness run first and the reviewer

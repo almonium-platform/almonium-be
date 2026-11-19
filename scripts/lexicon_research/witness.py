@@ -279,6 +279,16 @@ def compare(lang, entry, table):
             ipa, variety = p.get("ipa") or "", p.get("variety") or ""
             if not ipa:
                 continue
+            # a transcription of another spelling of the lexeme ("изо" beside "из", "чтоб" beside "чтобы") is held
+            # against Wiktionary's entry for that spelling, and against nothing when it has none
+            spelt = p.get("spelling") or lemma
+            if plain(spelt) != plain(lemma):
+                other = table.get(spelt) or table.get(plain(spelt))
+                if not other:
+                    continue
+                heard = other[1]
+            else:
+                heard = known[1]
             anywhere = [t for _, t, _ in heard]
             place = stress_place(ipa)
             theirs = [t for t in (stress_place(i) for i in anywhere) if t]
