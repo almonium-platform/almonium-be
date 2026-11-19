@@ -47,6 +47,14 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
   say (`tour.py` picks them), for checking by hand what the app shows a reader.
+- Another machine has the code and the entries after a pull and a sync, and none of the tables
+  the checks read: `wiktionary/` is built, not kept. `lemma_index.py --langs en,de,fr,es,it,pt,ru`
+  builds the index of the English edition (the gate, the witness and the evidence block read it),
+  and `open_sources.py --from FOLDER --fetch` downloads the other sources (1.6 GB) and builds
+  theirs, the own editions' meanings among them. Writing without evidence needs only the first.
+- The reader of every sample is GPT Astra 6.2 at extra-high effort in the ChatGPT app, one file a
+  chat (the owner, 19 November 2026); the answer files do not say so themselves. The review
+  loop's reader seat for the Codex command line is to be given the same model and effort.
 - Backend: `learning/lexicon`. On `develop` it checks every published entry against its own copy of
   the schema (`src/main/resources/lexicon/entry.schema.json`, `EntrySchema.VERSION`), and on 19
   November 2026 that copy is still version 3. The owner says a reader of the present shape has been
@@ -814,10 +822,66 @@ the first arm are gone, and none came). What follows:
 2. **A block of facts alone** (gender, plural, forms, transcriptions, no senses) keeps what was
    gained and cannot pull the senses. Not tried.
 3. **Senses from a record that is as full as the entry should be**: each language's own
-   Wiktionary, which is already here as a witness (`open_sources.py`), has *considerado* and
-   *top* in full. Its senses are in the language of the entry, so copying has to be measured
-   again. Not tried; some $14 for the 240 words, and the sense counts above say at once whether
-   the pull is gone, before any reader is asked.
+   Wiktionary. Tried the same day, below.
+
+### The second evidence trial, v4.11e: both editions
+
+The first trial showed every language the English Wiktionary's record. The owner had taken it to
+be each language's own edition, which until then was loaded as a witness only, and asked for
+that. `open_sources.py` now keeps the meanings each edition numbers
+(`wiktionary/<lang>.native.senses.tsv`: 83,000 for Italian to 543,000 for French), and from
+v4.11e a writer given evidence is shown two blocks: the English edition's record as before (its
+facts are what mended the sounds), and under it "Meanings in the German Wiktionary", the own
+edition's parts of speech and definitions in its own words. English is its own edition and has
+one block.
+
+How full the editions are, for the 40 sample words a language:
+
+| | senses, v4.10 entry | English edition | own edition | block thinner than the entry: English, own, the fuller |
+|---|---|---|---|---|
+| de | 2.77 | 2.65 | 3.52 | 16, 10, 8 |
+| fr | 3.62 | 2.48 | 7.40 | 28, 1, 1 |
+| es | 2.98 | 2.85 | 5.00 | 20, 4, 2 |
+| it | 2.95 | 2.85 | 3.08 | 16, 11, 7 |
+| pt | 3.25 | 3.05 | 3.85 | 18, 14, 9 |
+| ru | 3.92 | 3.58 | 6.38 | 20, 6, 4 |
+
+The own edition is the fuller one in every language, by far in French, Spanish and Russian and
+by little in Italian and Portuguese, where it still lacks *top* as an adjective and gives
+*atitude* one line. So v4.11e also says what v4.10e did not: a short block is an editor who
+stopped, and no sense in everyday use is left out because the evidence lacks it. v4.11e is v4.11
+with that section and nothing else (pinned); the 280 words are in `out/review-evidence-v411e/`,
+$18.96.
+
+What a program can say of the three arms, same 280 words:
+
+| | v4.10 | v4.10e, English block | v4.11e, both blocks |
+|---|---|---|---|
+| list price an entry | $0.053 | $0.057 | $0.068 |
+| senses an entry | 3.45 | 3.43 | 3.73 |
+| entries with fewer senses than v4.10, with more | | 62, 50 | 24, 81 |
+| sounds no source has | 6 of 523 | 1 of 523 | 1 of 531 |
+| gender, stress no source has | 0, 0 | 0, 0 | 0, 0 |
+| definitions with five words in a row from the own edition | 8 of 967 (unseen) | | 16 of 1,044 |
+
+- **The pull is gone.** Every language has more senses than without evidence, and three entries
+  gain for one that loses. Five of the six senses the first trial lost are back (*euer* as a
+  pronoun, *considerado* as respected, *top* as an adjective, *atitude* as posture, *тут* as "in
+  this matter"), three of them against blocks that still lack them. *begin* lost its third sense
+  again: English has the same single block as before.
+- **What was added is mostly not rare.** Of the 77 senses more than v4.10, 68 are B1 to C1; C2
+  went from 19 to 23. Some are what the rules keep out (*тут* the mulberry tree, *smart* a
+  stinging pain), and no fault a reader is asked for counts those.
+- **Copying: eight definitions more in a thousand** share five words in a row with a definition
+  they were shown, against the eight that do by chance. Small, and to be looked at if the prompt
+  is adopted.
+- **Facts: as in the first trial.**
+
+Whether the senses and the wording are better is the reader's to say:
+`measure/v411e/review/` holds the 45 entries a language for GPT, the five checked ones the same
+text as in both earlier rounds, and `measure.py --name v411e --tally --pair v410` sets the count
+beside the first arm's with the reader's drift. If missing senses fall and nothing rises by more
+than the drift, v4.11e with `--evidence` becomes the writers' prompt.
 
 ### Measuring the reviewer
 
@@ -1876,10 +1940,9 @@ page does not settle.
 3. **The second look over the whole list**: some 480 entries, $13 ("The second look"). Then
    the Spanish tap and trill and the Spanish stress as rules of ingest, by the spelling, and the
    Russian vowel before the stress checked from the stressed spelling.
-   **Evidence, the second try**: the count is in and v4.10e is not adopted ("The evidence
-   trial"). Next is a block with the facts and either no senses or the senses of the language's
-   own Wiktionary, on the six languages that lost by it. One decision of the owner's is still open:
-   whether the bar for facts stays at two.
+   **Evidence, the second try**: written with both editions shown (v4.11e, "The second evidence
+   trial"); the program's counts are good and GPT's reading of `measure/v411e/` is awaited. One
+   decision of the owner's is still open: whether the bar for facts stays at two.
    **The review loop over the dictionary**: first ten entries through the Codex seat
    (`review_v4.py --langs en --take 10 --steps read`), then the 1,824 entries of v4.10, some $22
    on the Claude plan, and a sample of the outcomes read by the owner in the three languages they
