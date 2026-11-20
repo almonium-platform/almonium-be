@@ -1262,7 +1262,7 @@ model, the writer's answer to the review, and a third model where the two do not
    writer by default (fact, claim, missing-core, split; `--faults all` for the rest): a reader
    finds a rarer sense missing or a wording too narrow in half the entries it reads, entries
    checked by hand among them.
-3. **Rule.** A third model (`claude:claude-fable-5-2`) is shown every finding the writer rejected,
+3. **Rule.** A third model (Gemini 4 Neon since 20 November, Claude Fable in the first trial) is shown every finding the writer rejected,
    the writer's reason, the entry as a reader sees it and the review file's own definitions, and
    upholds or dismisses each. It is told to dismiss what it could not show from a dictionary.
 4. **Mend.** The writer writes the patch for what the third model upheld.
@@ -1327,6 +1327,47 @@ about one finding in six is argued, so a thousand entries are some 250 replies a
 about $12 on the Claude plan, against $53 to write them, and a hundred calls of ten entries on the
 Codex plan for the reading. The writer and the third model share one Claude meter.
 
+**The third seat, measured alone** (20 November 2026). The owner wanted Gemini to rule, so that
+the three seats are three families: Anthropic writes, OpenAI reads, Google rules. Gemini's own
+chat needs the dearest subscription for its best model, and a ruling is a small call, so the seat
+is paid by the call. Two routes are written: `openrouter:<vendor/model>:<effort>`, with the
+OpenRouter key the bake-off already used (`OPENROUTER_API_KEY`), and `gemini:<model>:<effort>`,
+the Gemini API with a key from AI Studio (prepaid, ten dollars to start; not tried, there is no
+key). OpenRouter lists Gemini 4 Neon at $3 and $15 a million tokens, Carbon at $2 and $10 and
+Hydrogen at $1.50 and $7.50.
+
+`review_v4.py --judge-test v410` puts a third model to a test of its own. From each planted
+fault it makes two cases: the entry with the fault and a finding that names it, and the entry as
+written with a finding that asserts the fault. Both carry a rejection from a "writer" in the
+same words ("Dictionaries of German give Temperatur as a masculine noun; the entry is right as it
+stands"), so only knowing the language tells them apart. Three of each kind a language, 42
+rulings:
+
+| third model | true findings upheld | false findings dismissed | a ruling |
+|---|---|---|---|
+| Claude Fable | 21 of 21 | 21 of 21 | $0.062 |
+| Gemini 4 Neon | 21 of 21 | 21 of 21 | $0.011 |
+| Gemini 4 Hydrogen | 21 of 21 | 21 of 21 | $0.005 |
+
+- **Fable does not simply side with the writer**, which its 19 rulings for the writer in the
+  trial had left open: it overruled the writer all 21 times the writer was wrong.
+- **The test cannot rank the three.** These are facts a dictionary settles at once. On the three
+  real disputes of the trial a ruling cost Neon $0.08, as much as Fable: a hard case is thought
+  about longer.
+- **On the real disputes the two disagreed once, and the fault was the review file's.** Both
+  dismissed *Fernsehen* and *mad*. On *canto* (the reader: its relation to *cantar* holds for
+  singing, not for the corner) the writer answered that the entry already limits the relation to
+  senses 3 to 5, which is true; but `measure.show` printed a relation without its senses, so
+  neither the reader nor the third model could see it. Fable dismissed the finding; Gemini upheld
+  it, rightly on what it was shown. A relation is now shown with the senses it holds for, and the
+  reader's finding would not have been made.
+- Gemini dismissed the 16 false findings of the decoy test as Fable had.
+
+The lighter model is not taken for its price: a thousand entries have some 40 rulings, so the
+whole difference is cents. OpenRouter holds back the price of a model's longest answer for every
+request in flight, and refused four at once with a dollar in the account; the seat now asks for
+at most 16,000 tokens. An empty account is a wall like a plan's: the run stops and loses nothing.
+
 **Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
 the web; the writer and the third model answered from memory, and when they name a dictionary
 ("Cambridge marks it [after verb]") they are recalling it. A seat ending in `:search` may search:
@@ -1337,8 +1378,8 @@ because a reader from memory is not the reader that found 52 planted faults of 5
 model can be given it (`--judge claude:claude-fable-5-2:high:search`): tried on one finding, it
 looked the word up in four learner's dictionaries and ruled as it had from memory, for $0.48
 against $0.08. With some 40 rulings in a thousand entries that is $20 more a thousand, and worth
-it only if a count shows the third model ruling wrongly from memory; that count is the test not
-yet made, of true findings the writer rejected. A seat with search is another seat: its answers
+it only if a count shows the third model ruling wrongly from memory; on the blunt test above
+none did. A seat with search is another seat: its answers
 are filed apart from the same seat's without.
 
 **What it does not do.** It mends what a second model sees, and the two readers of the third
@@ -1841,6 +1882,9 @@ languages' entries are each other's translation are checks of step 3 and 4, and 
   language but English they are fewer than the entry should have ("The evidence trial"). Shown
   the language's own edition as well it no longer shrinks, and a reader still counts no gain
   ("The second evidence trial"): evidence in the request is not the writers' default.
+- The third model of the review loop is Gemini 4 Neon, paid by the call through OpenRouter (the
+  owner, 20 November 2026): three families in three seats, and the rulings off the plan the
+  writer works on.
 - A written entry is reviewed by a second model family; the writer answers, and a third model rules
   where the two disagree (the owner, 19 November 2026). A change reaches the published copy when
   two models of different families call it a fault, or the third has ruled, and never against the
