@@ -345,7 +345,7 @@ def pairs(folder_a, folder_b, seed="2026-11-20"):
 def tally():
     """The reader's choices by writer, by kind of word, and the faults it named in each writer's entries."""
     home = measure.MEASURE / NAME
-    wins, by_kind, faults, read = Counter(), Counter(), Counter(), 0
+    wins, by_kind, by_lang, shown_first, faults, read = Counter(), Counter(), Counter(), Counter(), Counter(), 0
     for lang in HARD:
         if not (home / f"pairs-{lang}.json").exists():
             continue
@@ -366,6 +366,9 @@ def tally():
                 winner = side.get(row.get("better")) or "same"
                 wins[winner] += 1
                 by_kind[side["kind"], winner] += 1
+                by_lang[lang, winner] += 1
+                if winner != "same":  # a reader leans to the entry it reads first: counted, so that it can be taken out
+                    shown_first[side["A"], winner] += 1
                 for letter in "AB":
                     for finding in row.get(letter) or []:
                         if finding.get("fault") in measure.FAULTS:
@@ -374,6 +377,14 @@ def tally():
     print(f"{read} words read: " + ", ".join(f"{w.removeprefix('review-hard-')} better in {wins[w]}" for w in writers) + f", the same in {wins['same']}")
     for kind in sorted({k for k, _ in by_kind}):
         print(f"  {kind:10} " + ", ".join(f"{w.removeprefix('review-hard-')} {by_kind[kind, w]}" for w in writers) + f", same {by_kind[kind, 'same']}")
+    print("  by language: " + "; ".join(f"{lang} " + ", ".join(f"{w.removeprefix('review-hard-')} {by_lang[lang, w]}" for w in writers) for lang in HARD if any(by_lang[lang, w] for w in writers)))
+    if len(writers) == 2:
+        one, other = writers
+        rates = [shown_first[first, one] / (shown_first[first, one] + shown_first[first, other]) for first in writers if shown_first[first, one] + shown_first[first, other]]
+        for first in writers:
+            print(f"  {first.removeprefix('review-hard-')} shown first: " + ", ".join(f"{w.removeprefix('review-hard-')} better in {shown_first[first, w]}" for w in writers))
+        if len(rates) == 2:
+            print(f"  with the two orders weighted alike, {one.removeprefix('review-hard-')} is the better in {100 * sum(rates) / 2:.0f}% of the words decided")
     for w in writers:
         print(f"faults named in {w.removeprefix('review-hard-')}: " + ", ".join(f"{fault} {faults[w, fault]}" for fault in measure.FAULTS if faults[w, fault]))
 

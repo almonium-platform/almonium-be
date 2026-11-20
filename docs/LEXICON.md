@@ -1430,6 +1430,20 @@ context (*the*). Four small words have no key and are for a reader.
   wording, and that is a reader's work: `measure/hard/review/` holds each word's two entries, by
   Opus and by Carbon, side by side and unnamed, for GPT to choose between (`hard_cases.py --pairs`,
   `--tally`).
+- **The reader's blind choice: a tie.** GPT (Astra 6.2, the web open) read 76 words, each with
+  the two entries side by side and unnamed, the sides shuffled: Opus the better in 38, Carbon in
+  37, the same in one. It leans to whichever entry it reads first (44 of 75); with the two orders
+  weighted alike Opus is the better in 52%. By language: English 9 to 1 for Opus, Russian 7 to 3
+  and French 8 to 3 for Carbon, German, Spanish and Italian 6 to 5 for Opus, Portuguese 6 to 5
+  for Carbon; ten or twelve words a language carry the English result at most. The faults it
+  named differ by writer more than the choice does: in Opus's entries 37 claims, 60 wordings and
+  35 collocations, in Carbon's 28, 45 and 14; rarer senses missing 62 in Opus's and 79 in
+  Carbon's. Opus writes more and is faulted for what it writes; Carbon writes less and is faulted
+  for what it leaves out.
+- **So Opus is not the only writer.** On words chosen to be hard, under a prompt tuned on Opus, a
+  model of another family at medium effort is its equal by a key and by a blind reader of a third
+  family. What that buys is a second meter to write on and a second family to turn to, not better
+  entries. An entry Carbon writes is not ruled on by Carbon.
 - **Whose words these are.** They were chosen and keyed by a Claude model, and the prompt was
   tuned over eleven versions on what Opus wrote. The key once favoured Opus's way of writing a
   fact (a region as a country where Carbon wrote the UN area) and was corrected. A set chosen by

@@ -63,6 +63,7 @@ def test_two_writers_are_scored_by_the_key_and_read_side_by_side_without_names(t
     hard_cases.tally()
     out = capsys.readouterr().out
     assert "2 words read: a better in 1, b better in 0, the same in 1" in out and "faults named in b: missing-core 2" in out
+    assert "by language: en a 1, b 0" in out and "shown first: a better in 1, b better in 0" in out
 
 
 def test_a_sense_marked_for_northern_america_is_marked_for_the_united_states():
