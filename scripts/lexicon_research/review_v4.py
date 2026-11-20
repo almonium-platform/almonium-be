@@ -228,7 +228,9 @@ def ask(seat, user, system=None, schema=None, strict=False, check=True):
             res = json.loads(r.stdout.strip().splitlines()[-1])
         except (json.JSONDecodeError, IndexError):
             said = (r.stderr or r.stdout or "no output")[-300:]
-            raise (Wall if WALL.search(said) else RuntimeError)(said)
+            # a lost login stops the run like a used-up plan: four calls at once made the keyring answer late on
+            # 20 November 2026, the CLI turned to a token file for an hour, and every word after was refused
+            raise (Wall if WALL.search(said) or re.search(r"authentication (required|failed)|not logged in", said, re.I) else RuntimeError)(said)
         if res.get("status") != "SUCCESS" or not res.get("response"):
             said = str(res.get("error") or res.get("status") or r.stderr)[:300]
             raise (Wall if WALL.search(said) or WALL.search(r.stderr or "") else RuntimeError)(said)
