@@ -1514,6 +1514,40 @@ context (*the*). Four small words have no key and are for a reader.
   `seat_writer.py --seat codex:<model>:<effort> --headwords hard --out review-hard-<name>`
   on a machine with the Codex plan, then `hard_cases.py --score`, is the whole test.
 
+**Google's plan, first readings** (20 November 2026, AI Ultra at $200 a month, the 20x tier). The
+plan is called through the Antigravity command line, `agy -p`, which is the seat
+`agy:<model>:<effort>` here and the provider `antigravity` in the book processor (its meter is on
+the dashboard with the other plans'). `agy models` lists Gemini 4 Carbon, Argon, Neon and
+Hydrogen at low, medium and high, and on a meter of their own Claude Opus 5.5 and Sonnet 5.5;
+`agy -p /usage` prints the week and the five-hour session left, and costs nothing.
+
+| Carbon on the plan, 24 hard words (English, German) | right by the key | senses | seconds, median | thinking a word | list price |
+|---|---|---|---|---|---|
+| medium | 24 of 24 | 88 | 180 | 14,000 tokens | $4.61 |
+| low | 23 of 23 | 95 | 16 | none | $1.31 |
+| (the API's medium, the same words) | | 89 | 50 | 1,000 to 3,000 | $1.46 |
+| (Opus, the same words) | | 98 | 21 | | $0.49 |
+
+- **The plan's medium is not the API's medium.** It thinks five times as long and is nine times
+  slower than Opus. The plan's **low** thinks not at all, is as fast as Opus, as right by the
+  key and as full. Low is the setting to try as a writer; whether its wording holds needs the
+  blind reader, on all 84 words.
+- **Every call carries some 9,000 tokens of the CLI's own instructions**, and almost none of the
+  input is read from a cache: an entry is 22,000 input tokens where the API's was 15,000.
+- **The meter.** The medium run, $4.61 at list price, moved the week by three points and the
+  session by four; the low run, $1.31, moved the session by one and the week by none. So a week
+  holds some $150 of list price and **one five-hour session some three quarters of the week**:
+  the session is nearly no limit, the week is the limit. A week of the plan costs $46, so the
+  plan gives about three list-price dollars for one, where the Claude plan gives twenty and the
+  Codex plan twelve. At low effort that is some 2,700 entries a week; at medium 800. Whole points
+  over a handful: coarse, to be read again over a long run.
+- **The login is fragile under load.** With four calls at once the system keyring answered later
+  than the CLI's five seconds; the CLI turned to a token file for an hour, the token there
+  expired, and every call after was refused as not signed in. Both seats now treat that as a
+  stop and not as the word's failure. Two calls at once until it is understood.
+- The CLI takes no system prompt, no instruction to use no tools, and the request as one
+  command-line argument (120,000 bytes at most; the writers' prompt is 35,000).
+
 **Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
 the web; the writer and the third model answered from memory, and when they name a dictionary
 ("Cambridge marks it [after verb]") they are recalling it. A seat ending in `:search` may search:
