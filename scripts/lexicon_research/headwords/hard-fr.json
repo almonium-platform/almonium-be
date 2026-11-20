@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "tour",
+  "zipf": 5.37,
+  "set": "hard"
+ },
+ {
+  "headword": "fils",
+  "zipf": 5.4,
+  "set": "hard"
+ },
+ {
+  "headword": "couvent",
+  "zipf": 3.97,
+  "set": "hard"
+ },
+ {
+  "headword": "est",
+  "zipf": 7.2,
+  "set": "hard"
+ },
+ {
+  "headword": "été",
+  "zipf": 6.22,
+  "set": "hard"
+ },
+ {
+  "headword": "œil",
+  "zipf": 4.65,
+  "set": "hard"
+ },
+ {
+  "headword": "gens",
+  "zipf": 5.8,
+  "set": "hard"
+ },
+ {
+  "headword": "falloir",
+  "zipf": 4.43,
+  "set": "hard"
+ },
+ {
+  "headword": "monter",
+  "zipf": 4.7,
+  "set": "hard"
+ },
+ {
+  "headword": "septante",
+  "zipf": 2.82,
+  "set": "hard"
+ },
+ {
+  "headword": "con",
+  "zipf": 4.9,
+  "set": "hard"
+ },
+ {
+  "headword": "plus",
+  "zipf": 6.68,
+  "set": "hard"
+ }
+]

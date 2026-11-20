@@ -155,7 +155,7 @@ def part_of_review(start, end):
 MAX_TOKENS = 16000  # the longest answer a model paid by the call may give, thinking included; a writer of entries raises it
 
 
-def ask(seat, user, system=None, schema=None, strict=False):
+def ask(seat, user, system=None, schema=None, strict=False, check=True):
     """One call through a plan's command line: (the answer, what it used). The answer is the structured object where
     a schema is given, else the text. Wall when the plan's allowance is used up."""
     cli, model, effort, *more = seat.split(":") + ["medium"] * (2 - min(2, seat.count(":")))
@@ -227,7 +227,10 @@ def ask(seat, user, system=None, schema=None, strict=False):
             if model in PRICES:
                 usage["cost_usd"] = round(((usage["input"] or 0) * PRICES[model][0] + ((usage["output"] or 0) + (usage["reasoning"] or 0)) * PRICES[model][1]) / 1e6, 6)
         else:
-            body = {"model": model, "messages": [{"role": "system", "content": system or "You are an editor of dictionaries."}, {"role": "user", "content": told}],
+            # a long system prompt is marked for the provider's cache: a writer sends the same 15,000 tokens with every word
+            prompt = system or "You are an editor of dictionaries."
+            first = [{"type": "text", "text": prompt, "cache_control": {"type": "ephemeral"}}] if len(prompt) > 8000 else prompt
+            body = {"model": model, "messages": [{"role": "system", "content": first}, {"role": "user", "content": told}],
                     # a ceiling on the answer: without one OpenRouter holds back the price of the model's longest answer for every
                     # request in flight, and four of them were refused with a dollar still in the account
                     "reasoning": {"effort": level}, "usage": {"include": True}, "max_tokens": MAX_TOKENS,
@@ -240,7 +243,8 @@ def ask(seat, user, system=None, schema=None, strict=False):
             text = ((res.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
             u = res.get("usage") or {}
             usage = {"input": u.get("prompt_tokens"), "output": u.get("completion_tokens"), "cost_usd": u.get("cost"),
-                     "reasoning": (u.get("completion_tokens_details") or {}).get("reasoning_tokens")}
+                     "reasoning": (u.get("completion_tokens_details") or {}).get("reasoning_tokens"),
+                     "cache_read": (u.get("prompt_tokens_details") or {}).get("cached_tokens")}
         if not text:
             raise RuntimeError(f"no answer from {seat}: {json.dumps(res, ensure_ascii=False)[:300]}")
         if not schema:
@@ -248,7 +252,8 @@ def ask(seat, user, system=None, schema=None, strict=False):
         import jsonschema
         try:
             answer = parse(text)
-            jsonschema.validate(answer, schema)
+            if check:  # a writer on trial keeps what does not fit and says so: that it does not fit is a finding
+                jsonschema.validate(answer, schema)
         except (json.JSONDecodeError, jsonschema.ValidationError) as unfit:  # not an answer: the next run asks again
             raise RuntimeError(f"{seat} answered in another shape: {str(unfit)[:160]}") from unfit
         return answer, usage

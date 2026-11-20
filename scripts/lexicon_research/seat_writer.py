@@ -42,7 +42,8 @@ def write_one(a, lang, system, row):
         return "stopped"
     started = time.time()
     try:
-        entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=not a.loose)
+        # what the provider let through against the schema is kept and marked: an entry that does not fit is a result
+        entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=not a.loose, check=False)
     except review_v4.Wall as wall:
         _stop.append(str(wall)[:120])
         return "wall"
@@ -55,11 +56,11 @@ def write_one(a, lang, system, row):
     meta = {"wall_s": round(time.time() - started, 1), "prompt_version": PROMPT_VERSION, "prompt_sha": hashlib.sha256(system.encode("utf-8")).hexdigest()[:12],
             "schema_version": SCHEMA_VERSION, "headword": row["headword"], "set": row.get("set"), "seat": a.seat, "model": a.seat.split(":")[1],
             "effort": (a.seat.split(":") + ["medium"])[2], "total_cost_usd": usage.get("cost_usd"), "input_tokens": usage.get("input"),
-            "output_tokens": usage.get("output"), "reasoning_tokens": usage.get("reasoning"), "schema_problems": problems}
+            "output_tokens": usage.get("output"), "reasoning_tokens": usage.get("reasoning"), "cache_read": usage.get("cache_read"), "schema_problems": problems}
     target.write_text(json.dumps(entry, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     target.with_name(target.stem + ".meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"{a.out} {lang} {row['headword']:20} {len(entry.get('lexemes') or [])} lexemes {meta['wall_s']:6.1f}s out={usage.get('output')} thought={usage.get('reasoning')} "
-          f"cost~${usage.get('cost_usd') or 0:.4f}" + (f"  NOT VALID: {problems[0]}" if problems else ""), flush=True)
+          f"cached={usage.get('cache_read')} cost~${usage.get('cost_usd') or 0:.4f}" + (f"  NOT VALID: {problems[0]}" if problems else ""), flush=True)
     return "written"
 
 

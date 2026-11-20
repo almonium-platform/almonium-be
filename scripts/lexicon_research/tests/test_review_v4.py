@@ -282,7 +282,7 @@ def test_a_writer_on_trial_writes_into_a_trial_folder_once_and_stops_at_its_budg
     monkeypatch.setattr(seat_writer, "_stop", [])
     asked = []
 
-    def model(seat, user, system=None, schema=None, strict=False):
+    def model(seat, user, system=None, schema=None, strict=False, check=True):
         asked.append((seat, strict, "Headword: Haus" in user))
         return {"language": "de", "headword": "Haus", "lexemes": []}, {"cost_usd": 0.04, "input": 15000, "output": 400, "reasoning": 1000}
     monkeypatch.setattr(seat_writer.review_v4, "ask", model)

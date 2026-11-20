@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "ancora",
+  "zipf": 6.07,
+  "set": "hard"
+ },
+ {
+  "headword": "pesca",
+  "zipf": 4.38,
+  "set": "hard"
+ },
+ {
+  "headword": "principi",
+  "zipf": 4.67,
+  "set": "hard"
+ },
+ {
+  "headword": "stato",
+  "zipf": 6.25,
+  "set": "hard"
+ },
+ {
+  "headword": "porto",
+  "zipf": 5.03,
+  "set": "hard"
+ },
+ {
+  "headword": "uovo",
+  "zipf": 4.17,
+  "set": "hard"
+ },
+ {
+  "headword": "braccio",
+  "zipf": 4.65,
+  "set": "hard"
+ },
+ {
+  "headword": "problema",
+  "zipf": 5.55,
+  "set": "hard"
+ },
+ {
+  "headword": "piacere",
+  "zipf": 5.09,
+  "set": "hard"
+ },
+ {
+  "headword": "bisognare",
+  "zipf": 1.33,
+  "set": "hard"
+ },
+ {
+  "headword": "figo",
+  "zipf": 4.34,
+  "set": "hard"
+ },
+ {
+  "headword": "casino",
+  "zipf": 4.58,
+  "set": "hard"
+ }
+]
