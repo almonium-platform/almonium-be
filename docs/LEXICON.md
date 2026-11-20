@@ -1262,7 +1262,7 @@ model, the writer's answer to the review, and a third model where the two do not
    writer by default (fact, claim, missing-core, split; `--faults all` for the rest): a reader
    finds a rarer sense missing or a wording too narrow in half the entries it reads, entries
    checked by hand among them.
-3. **Rule.** A third model (Gemini 4 Neon since 20 November, Claude Fable in the first trial) is shown every finding the writer rejected,
+3. **Rule.** A third model (Gemini 4 Carbon since 20 November, Claude Fable in the first trial) is shown every finding the writer rejected,
    the writer's reason, the entry as a reader sees it and the review file's own definitions, and
    upholds or dismisses each. It is told to dismiss what it could not show from a dictionary.
 4. **Mend.** The writer writes the patch for what the third model upheld.
@@ -1333,8 +1333,8 @@ chat needs the dearest subscription for its best model, and a ruling is a small 
 is paid by the call. Two routes are written: `openrouter:<vendor/model>:<effort>`, with the
 OpenRouter key the bake-off already used (`OPENROUTER_API_KEY`), and `gemini:<model>:<effort>`,
 the Gemini API with a key from AI Studio (prepaid, ten dollars to start; not tried, there is no
-key). OpenRouter lists Gemini 4 Neon at $3 and $15 a million tokens, Carbon at $2 and $10 and
-Hydrogen at $1.50 and $7.50.
+key). OpenRouter lists, for a million tokens in and out: Gemini 4 Neon $3 and $15, Carbon and
+Argon $2 and $10, Hydrogen $1.50 and $7.50; input read from a cache is a twentieth of the price.
 
 `review_v4.py --judge-test v410` puts a third model to a test of its own. From each planted
 fault it makes two cases: the entry with the fault and a finding that names it, and the entry as
@@ -1348,6 +1348,14 @@ rulings:
 | Claude Fable | 21 of 21 | 21 of 21 | $0.062 |
 | Gemini 4 Neon | 21 of 21 | 21 of 21 | $0.011 |
 | Gemini 4 Hydrogen | 21 of 21 | 21 of 21 | $0.005 |
+| Gemini 4 Carbon, medium effort (14 rulings) | 7 of 7 | 7 of 7 | $0.005 |
+
+Neon was tried first for being the newest and dearest of the four, without its description having
+been read: OpenRouter calls it a fast model for coding, Carbon the family's frontier model for
+reasoning and Argon, a month older, the flagship reasoning model. Carbon is the one the owner
+meant and the one in the seat, at medium effort: at high effort it thought for 25,000 tokens over
+one small entry (below). It dismissed the two real disputes the others dismissed and the 16 false
+findings, for half a cent to a cent a ruling.
 
 - **Fable does not simply side with the writer**, which its 19 rulings for the writer in the
   trial had left open: it overruled the writer all 21 times the writer was wrong.
@@ -1367,6 +1375,25 @@ The lighter model is not taken for its price: a thousand entries have some 40 ru
 whole difference is cents. OpenRouter holds back the price of a model's longest answer for every
 request in flight, and refused four at once with a dollar in the account; the seat now asks for
 at most 16,000 tokens. An empty account is a wall like a plan's: the run stops and loses nothing.
+
+**Carbon as a writer, a first look.** `seat_writer.py` writes entries with any model in a seat
+into a trial folder, under the writers' prompt and held to the schema by the provider. Six
+entries, to see that it works and what it costs (`out/review-writer-gemini-4-carbon*/`):
+
+| effort | entries | thinking, tokens | seconds | an entry |
+|---|---|---|---|---|
+| low | *reaction*, *top*, *тут* | 0 | 15 to 20 | $0.035 |
+| medium | *top*, *тут* | 1,000 to 2,700 | 33 to 66 | $0.045 to $0.061 |
+| high | *top* | 25,400 | 320 | $0.29 |
+
+All six fit the schema and the witness contradicts none. At low and medium nearly all of the price
+is the prompt, 15,000 tokens read at full price each time: through OpenRouter nothing was cached,
+and cached it would be one to three cents an entry against the $0.053 of Opus. At high effort the one entry
+is as full as the best of Opus's three (*top* with its three nouns and two adjective senses); at
+low *top* has no adjective and *тут* gains the mulberry tree, and at medium *тут* is one lexeme.
+Six entries say that the seat works, not how good the writer is. That takes the 280 words of the
+third sample at medium effort, some $15, and a reader. A model that writes cannot also rule: with
+Carbon writing, the third seat goes back to another family.
 
 **Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
 the web; the writer and the third model answered from memory, and when they name a dictionary
@@ -1882,8 +1909,8 @@ languages' entries are each other's translation are checks of step 3 and 4, and 
   language but English they are fewer than the entry should have ("The evidence trial"). Shown
   the language's own edition as well it no longer shrinks, and a reader still counts no gain
   ("The second evidence trial"): evidence in the request is not the writers' default.
-- The third model of the review loop is Gemini 4 Neon, paid by the call through OpenRouter (the
-  owner, 20 November 2026): three families in three seats, and the rulings off the plan the
+- The third model of the review loop is Gemini 4 Carbon at medium effort, paid by the call through
+  OpenRouter (the owner, 20 November 2026): three families in three seats, and the rulings off the plan the
   writer works on.
 - A written entry is reviewed by a second model family; the writer answers, and a third model rules
   where the two disagree (the owner, 19 November 2026). A change reaches the published copy when
