@@ -22,19 +22,15 @@ class LangPairTranslatorRepositoryTest {
     @Autowired
     private LangPairTranslatorRepository repository;
 
-    @DisplayName("Finds the providers of a language pair by its enum languages, in priority order")
+    @DisplayName("Finds the providers of a language pair by its enum languages, the seeded Yandex first")
     @Test
     void findsProvidersOfPairInPriorityOrder() {
-        Translator yandex = translator("YANDEX");
-        Translator google = translator("GOOGLE");
-        map(Language.EN, Language.UK, google, 2);
-        map(Language.EN, Language.UK, yandex, 1);
-        map(Language.DE, Language.UK, google, 1);
+        map(Language.EN, Language.UK, translator("GOOGLE"), 2);
         entityManager.flush();
         entityManager.clear();
 
         assertThat(repository.findProviderNames(Language.EN, Language.UK)).containsExactly("YANDEX", "GOOGLE");
-        assertThat(repository.findProviderNames(Language.UK, Language.EN)).isEmpty();
+        assertThat(repository.findProviderNames(Language.DE, Language.UK)).containsExactly("YANDEX");
     }
 
     private Translator translator(String name) {
