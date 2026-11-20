@@ -1554,6 +1554,16 @@ Hydrogen at low, medium and high, and on a meter of their own Claude Opus 5.5 an
   inside a sense's grammar), which ingest could move or a second call mend. Carbon at low is the
   one to put before the reader: `measure/hard-low/review/` has its entries beside Opus's,
   unnamed (`hard_cases.py --name hard-low --tally` counts the answers).
+- **The blind reader on Carbon at low: Opus is the better.** GPT Astra 6.2 at extra-high effort,
+  this time through the Codex command line with the web open (`codex:gpt-6.2-astra:xhigh:search`;
+  seven files, seven to nine minutes each), read the 76 pairs: Opus the better in 47, Carbon at
+  low in 29, none the same; with the two orders weighted alike Opus in 63%. Opus leads in every
+  language but Russian (5 to 5) and most in German and Italian, and takes every rude word and
+  every word said two ways; homographs are 8 to 8. Carbon at low has more facts wrong (19 to 13),
+  more core senses missing (13 to 8) and more collocations faulted (47 to 35). At medium through
+  the API the same model had been level with Opus, 37 to 38: the thinking is what the entries
+  need, and low is not a writer of the dictionary. The plan's medium (fourteen thousand tokens
+  of thinking, three minutes an entry) is the setting still to read.
 - **The login is fragile under load.** With four calls at once the system keyring answered later
   than the CLI's five seconds; the CLI turned to a token file for an hour, the token there
   expired, and every call after was refused as not signed in. Both seats now treat that as a
