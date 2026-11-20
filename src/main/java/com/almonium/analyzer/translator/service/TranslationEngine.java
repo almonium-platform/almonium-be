@@ -27,8 +27,7 @@ public class TranslationEngine {
             return null;
         }
 
-        List<String> providerNames =
-                langPairTranslatorRepository.findProviderNames(sourceLanguage.name(), targetLanguage.name());
+        List<String> providerNames = langPairTranslatorRepository.findProviderNames(sourceLanguage, targetLanguage);
         for (String providerName : providerNames) {
             TranslationProvider provider = providerRegistry.find(providerName).orElse(null);
             if (provider == null) {

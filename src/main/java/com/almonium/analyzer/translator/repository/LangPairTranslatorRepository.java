@@ -2,6 +2,7 @@ package com.almonium.analyzer.translator.repository;
 
 import com.almonium.analyzer.translator.model.entity.LangPairTranslatorMapping;
 import com.almonium.analyzer.translator.model.entity.pk.TranslatorMappingKey;
+import com.almonium.analyzer.translator.model.enums.Language;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,5 @@ public interface LangPairTranslatorRepository extends JpaRepository<LangPairTran
             and l.targetLang = :targetLang
             order by l.priority
             """)
-    List<String> findProviderNames(@Param("sourceLang") String sourceLang, @Param("targetLang") String targetLang);
+    List<String> findProviderNames(@Param("sourceLang") Language sourceLang, @Param("targetLang") Language targetLang);
 }

@@ -24,7 +24,7 @@ class TranslationEngineTest {
         when(fallback.translate("word", Language.EN, Language.DE)).thenReturn(expected);
 
         LangPairTranslatorRepository repository = mock(LangPairTranslatorRepository.class);
-        when(repository.findProviderNames("EN", "DE")).thenReturn(List.of("PRIMARY", "FALLBACK"));
+        when(repository.findProviderNames(Language.EN, Language.DE)).thenReturn(List.of("PRIMARY", "FALLBACK"));
         TranslationProviderRegistry registry = new TranslationProviderRegistry(List.of(primary, fallback));
         TranslationEngine engine = new TranslationEngine(repository, registry);
 
@@ -34,7 +34,7 @@ class TranslationEngineTest {
     @Test
     void ignoresConfiguredProviderWithoutImplementation() {
         LangPairTranslatorRepository repository = mock(LangPairTranslatorRepository.class);
-        when(repository.findProviderNames("EN", "DE")).thenReturn(List.of("NOT_IMPLEMENTED"));
+        when(repository.findProviderNames(Language.EN, Language.DE)).thenReturn(List.of("NOT_IMPLEMENTED"));
         TranslationEngine engine = new TranslationEngine(repository, new TranslationProviderRegistry(List.of()));
 
         assertThat(engine.translate("word", Language.EN, Language.DE)).isNull();
