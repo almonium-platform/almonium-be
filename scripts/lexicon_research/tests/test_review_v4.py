@@ -300,3 +300,24 @@ def test_a_writer_on_trial_writes_into_a_trial_folder_once_and_stops_at_its_budg
     monkeypatch.setattr(seat_writer.review_v4, "ask", empty)
     monkeypatch.setattr(seat_writer, "_spent", [0.0])
     assert seat_writer.write_one(a, "de", "system", {"headword": "Lampe", "zipf": 4.0}) == "wall" and not (tmp_path / "review-writer-x" / "de" / "Lampe.json").exists()
+
+
+def test_the_google_plan_sits_in_a_seat_through_its_command_line(monkeypatch, tmp_path):
+    """agy takes no system prompt and no schema: the rules go before the request, the shape in its words."""
+    calls = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append((cmd, kwargs))
+        if "wall" in cmd[2]:
+            return type("R", (), {"stdout": json.dumps({"status": "ERROR", "error": "You have reached your quota for Gemini models"}), "stderr": ""})()
+        return type("R", (), {"stdout": "notice\n" + json.dumps({"status": "SUCCESS", "response": '{"rulings": [{"n": 1, "upheld": true, "reason": "r"}]}',
+                                                                  "usage": {"input_tokens": 10, "output_tokens": 5, "thinking_tokens": 3, "cache_read_tokens": 8}}), "stderr": ""})()
+    monkeypatch.setattr(review_v4.subprocess, "run", fake_run)
+    monkeypatch.setattr(review_v4, "EMPTY", tmp_path)
+    answer, usage = review_v4.ask("agy:gemini-4-carbon:medium", "question", "the rules", review_v4.RULINGS)
+    cmd, kwargs = calls[0]
+    assert answer["rulings"][0]["upheld"] is True and usage["reasoning"] == 3 and usage["cache_read"] == 8
+    assert cmd[1] == "-p" and cmd[2].startswith("the rules\n\n# The request\n\nquestion") and "of this shape" in cmd[2]
+    assert cmd[cmd.index("--model") + 1] == "gemini-4-carbon-medium" and kwargs["cwd"] == tmp_path
+    with pytest.raises(review_v4.Wall):
+        review_v4.ask("agy:gemini-4-carbon:medium", "wall", None, review_v4.RULINGS)

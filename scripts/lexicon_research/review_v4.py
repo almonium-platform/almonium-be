@@ -64,6 +64,7 @@ EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexico
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
 # Three families: Anthropic writes, OpenAI reads, Google rules (the owner, 20 November 2026). The third seat is paid by
 # the call, through OpenRouter, and so does not draw on the plan the writer works on.
+AGY = os.environ.get("AGY_BIN") or str(Path.home() / ".local" / "bin" / "agy")
 SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "openrouter:google/gemini-4-carbon:medium"}
 # The faults the bar counts, and the two senses numbered as one. A reader finds a rarer sense missing or a wording
 # too narrow in half the entries it is shown, hand-checked ones included, so those are looped only when asked for.
@@ -208,6 +209,42 @@ def ask(seat, user, system=None, schema=None, strict=False, check=True):
         if not text:
             raise (Wall if WALL.search(error or r.stderr or "") else RuntimeError)(error or (r.stderr or "no agent message")[-300:])
         return (parse(text) if schema else text), usage
+    if cli == "agy":
+        # Google's plan (AI Pro, AI Ultra) through the Antigravity command line: agy:gemini-4-carbon:medium is the
+        # model the CLI lists as gemini-4-carbon-medium. It takes no system prompt, so the rules go before the
+        # request; it cannot be told to use no tools, so it runs in an empty folder, where a tool that asks leave
+        # is refused. The schema goes in the request's words: held to it by the provider, Carbon wrote stubs.
+        full = (f"{system}\n\n# The request\n\n" if system else "") + user
+        if schema:
+            full += "\n\nAnswer with one JSON object and nothing else, of this shape:\n" + json.dumps(schema)
+        if len(full.encode("utf-8")) > 120_000:
+            raise RuntimeError(f"the request is {len(full.encode('utf-8')):,} bytes, more than one command-line argument holds")
+        cmd = [AGY, "-p", full, "--model", f"{model}-{effort}", "--output-format", "json", "--disable-slash-commands"]
+        try:
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800, cwd=EMPTY, stdin=subprocess.DEVNULL)
+        except subprocess.TimeoutExpired as slow:
+            raise RuntimeError(f"no answer from {seat} in half an hour") from slow
+        try:
+            res = json.loads(r.stdout.strip().splitlines()[-1])
+        except (json.JSONDecodeError, IndexError):
+            said = (r.stderr or r.stdout or "no output")[-300:]
+            raise (Wall if WALL.search(said) else RuntimeError)(said)
+        if res.get("status") != "SUCCESS" or not res.get("response"):
+            said = str(res.get("error") or res.get("status") or r.stderr)[:300]
+            raise (Wall if WALL.search(said) or WALL.search(r.stderr or "") else RuntimeError)(said)
+        u = res.get("usage") or {}
+        usage = {"input": u.get("input_tokens"), "output": u.get("output_tokens"), "reasoning": u.get("thinking_tokens"), "cache_read": u.get("cache_read_tokens"),
+                 "turns": res.get("num_turns"), "seconds": res.get("duration_seconds")}
+        if not schema:
+            return res["response"], usage
+        import jsonschema
+        try:
+            answer = parse(res["response"])
+            if check:
+                jsonschema.validate(answer, schema)
+        except (json.JSONDecodeError, jsonschema.ValidationError) as unfit:
+            raise RuntimeError(f"{seat} answered in another shape: {str(unfit)[:160]}") from unfit
+        return answer, usage
     if cli in ("gemini", "openrouter"):
         # strict: the provider holds the answer to the schema itself (OpenRouter's structured outputs), as the Claude
         # command line does; otherwise the schema is in the request's words and the answer is checked here
