@@ -286,9 +286,9 @@ def test_a_writer_on_trial_writes_into_a_trial_folder_once_and_stops_at_its_budg
         asked.append((seat, strict, "Headword: Haus" in user))
         return {"language": "de", "headword": "Haus", "lexemes": []}, {"cost_usd": 0.04, "input": 15000, "output": 400, "reasoning": 1000}
     monkeypatch.setattr(seat_writer.review_v4, "ask", model)
-    a = argparse.Namespace(seat="openrouter:google/gemini-4-carbon:medium", out="review-writer-x", budget_usd=0.05, stop_file="", loose=False)
+    a = argparse.Namespace(seat="openrouter:google/gemini-4-carbon:medium", out="review-writer-x", budget_usd=0.05, stop_file="", strict=False)
     row = {"headword": "Haus", "zipf": 5.9, "set": "s"}
-    assert seat_writer.write_one(a, "de", "system", row) == "written" and asked == [("openrouter:google/gemini-4-carbon:medium", True, True)]
+    assert seat_writer.write_one(a, "de", "system", row) == "written" and asked == [("openrouter:google/gemini-4-carbon:medium", False, True)]  # the schema in words, unless --strict
     meta = json.loads((tmp_path / "review-writer-x" / "de" / "Haus.meta.json").read_text())
     assert (meta["model"], meta["effort"], meta["total_cost_usd"], meta["reasoning_tokens"], meta["prompt_version"]) == ("google/gemini-4-carbon", "medium", 0.04, 1000, seat_writer.PROMPT_VERSION)
     assert seat_writer.write_one(a, "de", "system", row) == "have" and len(asked) == 1  # never bought twice

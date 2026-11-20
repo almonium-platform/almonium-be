@@ -7,10 +7,11 @@ name begins review-, which no ingest reads; a word it has written is not bought 
 at --budget-usd, at the stop file, or when the account is empty.
 
   seat_writer.py --seat openrouter:google/gemini-4-carbon:high --headwords v411e --out review-writer-gemini-4-carbon
-                 [--langs en,de] [--words reaction,top] [--limit N] [--budget-usd 5] [--workers 2] [--loose] [--stop-file PATH]
+                 [--langs en,de] [--words reaction,top] [--limit N] [--budget-usd 5] [--workers 2] [--strict] [--stop-file PATH]
 
-Run from the backend repository's root. --loose puts the schema in the request's words for a provider that will
-not hold an answer to it.
+Run from the backend repository's root. The schema goes in the request's words and the answer is checked here.
+--strict has the provider hold the answer to the schema instead; do not use it to judge a writer without the
+plain run beside it: held that way, Gemini 4 Carbon wrote stubs and scored 65 of 80 hard cases against 77.
 """
 import argparse
 import hashlib
@@ -43,7 +44,7 @@ def write_one(a, lang, system, row):
     started = time.time()
     try:
         # what the provider let through against the schema is kept and marked: an entry that does not fit is a result
-        entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=not a.loose, check=False)
+        entry, usage = review_v4.ask(a.seat, user_prompt(lang, row), system, SCHEMA, strict=a.strict, check=False)
     except review_v4.Wall as wall:
         _stop.append(str(wall)[:120])
         return "wall"
@@ -75,7 +76,8 @@ def main():
     ap.add_argument("--budget-usd", type=float, default=5.0)
     ap.add_argument("--workers", type=int, default=2)
     ap.add_argument("--max-tokens", type=int, default=32000, help="the longest answer, thinking included")
-    ap.add_argument("--loose", action="store_true")
+    ap.add_argument("--strict", action="store_true", help="the provider holds the answer to the schema (OpenRouter's structured outputs)")
+    ap.add_argument("--loose", action="store_true", help="the default now; kept so that an older command still runs")
     ap.add_argument("--stop-file", default="")
     a = ap.parse_args()
     if not a.out.startswith("review-"):

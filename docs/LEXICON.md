@@ -1415,7 +1415,7 @@ context (*the*). Four small words have no key and are for a reader.
 
 - **Held to the schema by the provider, Carbon wrote stubs**: *Bank* without the bench, *cura*
   without the priest, *Wort* with one sense and no gender. That was the setup, not the model.
-  With the schema given in words and the answer checked here (`seat_writer.py --loose`), the same
+  With the schema given in words and the answer checked here (the writer's default since), the same
   model at the same effort is level with Opus on the key, and all 84 entries fit the schema. The
   control was run only because the stubs looked too poor for a frontier model; the first verdict
   would have been wrong.
@@ -1436,7 +1436,7 @@ context (*the*). Four small words have no key and are for a reader.
   the reader's family or by Gemini's, with its own key, is the check on that.
 - Sol and Astra wrote entries in October and early November (some 700 and 5,200, Astra 679 in the
   present shape), under older prompts and judged by blind pairs then; neither has met this set.
-  `seat_writer.py --seat codex:<model>:<effort> --headwords hard --out review-hard-<name> --loose`
+  `seat_writer.py --seat codex:<model>:<effort> --headwords hard --out review-hard-<name>`
   on a machine with the Codex plan, then `hard_cases.py --score`, is the whole test.
 
 **Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
