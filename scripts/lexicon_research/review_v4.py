@@ -24,12 +24,18 @@ a failure of the entry.
   review_v4.py --report --folder review-loop-v410            what the loop did, by fault
   --dry prices the next step without asking; --steps read,reply stops after those; --faults names what is looped.
 
-The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge claude:claude-fable-5-2:high.
+The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge openrouter:google/gemini-4-neon:high.
 A seat is the command line of a plan (claude or codex), a model, an effort and, with ":search" after them, leave to
 search the web. The reader that the samples were measured with had it (the ChatGPT app looked the words up in
 Oxford, Cambridge, Collins and the rest), so the reader's seat has it by default: a reader working from memory is
-another, weaker instrument, and a seat without ":search" is a different seat with answers of its own. Run from the
-repository's root.
+another, weaker instrument, and a seat without ":search" is a different seat with answers of its own. Two more
+seats are paid by the call and not by a plan: gemini:<model>:<effort> (the Gemini API; GEMINI_API_KEY in the
+environment or the backend's .env) and openrouter:<vendor/model>:<effort> (any model OpenRouter lists;
+OPENROUTER_API_KEY). Run from the repository's root.
+
+  review_v4.py --judge-test v410 --take 3 --folder review-loop-judges --judge openrouter:google/gemini-4-neon:high
+      measures a third model by itself: findings that are true and findings that are false, each rejected by a
+      "writer" in the same words, so that only knowing the language tells them apart.
 """
 import argparse
 import copy
@@ -56,13 +62,18 @@ LOOP_VERSION = "loop-v1"
 OUT = HERE / "out"
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
-SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "claude:claude-fable-5-2:high"}
+# Three families: Anthropic writes, OpenAI reads, Google rules (the owner, 20 November 2026). The third seat is paid by
+# the call, through OpenRouter, and so does not draw on the plan the writer works on.
+SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "openrouter:google/gemini-4-neon:high"}
 # The faults the bar counts, and the two senses numbered as one. A reader finds a rarer sense missing or a wording
 # too narrow in half the entries it is shown, hand-checked ones included, so those are looped only when asked for.
 LOOPED = ("fact", "claim", "missing-core", "split")
 STEPS = ("read", "reply", "rule", "mend")
 # what a plan says when its allowance is used up, in the Claude and the Codex command lines' words
-WALL = re.compile(r"usage limit|limit reached|usage_limit|rate limit|quota|hit your (?:[\w-]+ )?limit|out of (?:credits|quota)", re.I)
+WALL = re.compile(r"usage limit|limit reached|usage_limit|rate limit|quota|hit your (?:[\w-]+ )?limit|out of (?:credits|quota)"
+                  r"|resource_exhausted|insufficient credits|credit balance|billing", re.I)
+# list prices of the models paid by the call, dollars a million tokens: input, output (thinking is output); OpenRouter says its own
+PRICES = {"gemini-4-neon": (3.0, 15.0), "gemini-4-carbon": (2.0, 10.0), "gemini-4-hydrogen": (1.5, 7.5)}  # as listed on 20 November 2026
 
 PATCH = {"type": "array", "items": {"type": "object", "required": ["op", "path", "value"], "additionalProperties": False, "properties": {
     "op": {"enum": ["replace", "add", "remove"]}, "path": {"type": "string"}, "value": {"type": "string"}}}}
@@ -194,7 +205,73 @@ def ask(seat, user, system=None, schema=None):
         if not text:
             raise (Wall if WALL.search(error or r.stderr or "") else RuntimeError)(error or (r.stderr or "no agent message")[-300:])
         return (parse(text) if schema else text), usage
-    raise SystemExit(f"a seat is claude:<model>:<effort> or codex:<model>:<effort>, with :search after it or not; not {seat!r}")
+    if cli in ("gemini", "openrouter"):
+        told = user + ("\n\nAnswer with one JSON object and nothing else, of this shape:\n" + json.dumps(schema) if schema else "")
+        level = {"xhigh": "high"}.get(effort, effort)
+        if cli == "gemini":
+            body = {"systemInstruction": {"parts": [{"text": system or "You are an editor of dictionaries."}]}, "contents": [{"role": "user", "parts": [{"text": told}]}],
+                    "generationConfig": {"thinkingConfig": {"thinkingLevel": level}, **({"responseMimeType": "application/json"} if schema and not search else {})}}
+            if search:
+                body["tools"] = [{"google_search": {}}]
+            res = post(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent", {"x-goog-api-key": key_of("GEMINI_API_KEY")}, body)
+            parts = ((res.get("candidates") or [{}])[0].get("content") or {}).get("parts") or []
+            text = "".join(part.get("text", "") for part in parts if not part.get("thought"))
+            u = res.get("usageMetadata") or {}
+            usage = {"input": u.get("promptTokenCount"), "output": u.get("candidatesTokenCount"), "reasoning": u.get("thoughtsTokenCount"), "cache_read": u.get("cachedContentTokenCount")}
+            if model in PRICES:
+                usage["cost_usd"] = round(((usage["input"] or 0) * PRICES[model][0] + ((usage["output"] or 0) + (usage["reasoning"] or 0)) * PRICES[model][1]) / 1e6, 6)
+        else:
+            body = {"model": model, "messages": [{"role": "system", "content": system or "You are an editor of dictionaries."}, {"role": "user", "content": told}],
+                    # a ceiling on the answer: without one OpenRouter holds back the price of the model's longest answer for every
+                    # request in flight, and four of them were refused with a dollar still in the account
+                    "reasoning": {"effort": level}, "usage": {"include": True}, "max_tokens": 16000, **({"response_format": {"type": "json_object"}} if schema else {}),
+                    **({"plugins": [{"id": "web"}]} if search else {})}
+            res = post("https://openrouter.ai/api/v1/chat/completions", {"Authorization": f"Bearer {key_of('OPENROUTER_API_KEY')}"}, body)
+            if res.get("error"):
+                raise (Wall if WALL.search(str(res["error"])) else RuntimeError)(str(res["error"])[:300])
+            text = ((res.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
+            u = res.get("usage") or {}
+            usage = {"input": u.get("prompt_tokens"), "output": u.get("completion_tokens"), "cost_usd": u.get("cost"),
+                     "reasoning": (u.get("completion_tokens_details") or {}).get("reasoning_tokens")}
+        if not text:
+            raise RuntimeError(f"no answer from {seat}: {json.dumps(res, ensure_ascii=False)[:300]}")
+        if not schema:
+            return text, usage
+        import jsonschema
+        try:
+            answer = parse(text)
+            jsonschema.validate(answer, schema)
+        except (json.JSONDecodeError, jsonschema.ValidationError) as unfit:  # not an answer: the next run asks again
+            raise RuntimeError(f"{seat} answered in another shape: {str(unfit)[:160]}") from unfit
+        return answer, usage
+    raise SystemExit(f"a seat is claude:, codex:, gemini: or openrouter: with <model>:<effort> and :search after it or not; not {seat!r}")
+
+
+def key_of(name):
+    """A key for a model paid by the call: from the environment, else the backend's .env. Never printed."""
+    if os.environ.get(name):
+        return os.environ[name]
+    env = Path(".env")
+    for line in env.read_text(encoding="utf-8").splitlines() if env.exists() else []:
+        if line.startswith(name + "="):
+            return line.split("=", 1)[1].strip()
+    raise SystemExit(f"{name} is not set, in the environment or in .env")
+
+
+def post(url, headers, body):
+    """One JSON request. Wall when the account is out of credit or over its rate; any other refusal is a broken call."""
+    import urllib.error
+    import urllib.request
+
+    request = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"), headers={"Content-Type": "application/json", **headers}, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=900) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        text = error.read().decode("utf-8", "replace")[:300]
+        raise (Wall if error.code in (402, 429) or WALL.search(text) else RuntimeError)(f"{error.code} {text}") from error
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as broken:
+        raise RuntimeError(f"no answer from {url.split('/')[2]}: {str(broken)[:200]}") from broken
 
 
 def parse(text):
@@ -513,6 +590,85 @@ def decoy_items(name, lang, skip=0):
     return rows
 
 
+TRUTHS = {"gender": DECOYS["gender"], "stress": DECOYS["stress"],
+          "countability": ("claim", "lexeme 1 grammar countability",
+                           "{headword} is a countable noun in ordinary use, with a plural and the indefinite article, where the entry marks it uncountable.")}
+REBUTTALS = {"gender": "Dictionaries of {name} give {headword} as a {has} noun; the entry is right as it stands.",
+             "stress": "The stress is where the entry puts it: dictionaries of {name} transcribe the word {has}.",
+             "countability": "Learner's dictionaries of {name} mark {headword} as {has}; the entry is right as it stands."}
+COUNTED = {"Count": "countable", "Mass": "uncountable"}
+
+
+def judge_items(name, lang, take):
+    """A third model's own test, from a sample's planted faults: for each, the entry with the fault and a finding
+    that names it (true), and the entry as written with a finding that asserts the fault (false). Both carry the
+    same rejection from a "writer", word for word but for the value, so that nothing in the tone tells them apart."""
+    items = json.loads((measure.MEASURE / name / f"sample-{lang}.json").read_text(encoding="utf-8"))
+    put = json.loads((measure.MEASURE / name / f"planted-{lang}.json").read_text(encoding="utf-8"))
+    written = ingest_v4.load_raw(lang)
+    rows = []
+    for headword in [i["headword"] for i in items if i["part"] == "planted"]:
+        spec = put[headword]
+        if spec["kind"] not in TRUTHS or headword not in written or len(rows) >= 2 * (take or 99):
+            continue
+        raw, meta = written[headword]
+        original = ingest_v4.clean_entry(lang, copy.deepcopy(raw), meta, review=False)
+        named = {k: GENDERS.get(spec[k], COUNTED.get(spec[k], spec[k])) for k in ("was", "now")}
+        if spec["kind"] == "countability":  # the entry's own value, not the planted file's wording of it
+            named = {"was": "countable", "now": "uncountable"}
+        for true, entry, table, says, has in ((True, spec["entry"], TRUTHS, ("was", "now"), "now"), (False, original, DECOYS, ("now", "was"), "was")):
+            fault, where, what = table[spec["kind"]]
+            what = what.format(headword=headword, name=LANG_NAME[lang], now=named[says[0]], was=named[says[1]])
+            rows.append({"lang": lang, "headword": headword, "entry": entry, "entry_sha": sha_of(entry), "true": true, "kind": spec["kind"],
+                         "finding": {"n": 1, "fault": fault, "where": where, "what": what},
+                         "rebuttal": REBUTTALS[spec["kind"]].format(headword=headword, name=LANG_NAME[lang], has=named[has])})
+    return rows
+
+
+def judge_test(loop, langs, name, take, workers):
+    """Asks the third seat to rule on each pair and says how often it upheld what was true and dismissed what was false."""
+    got, missed = Counter(), []
+
+    def rule(item):
+        lang = item["lang"]
+        asked = RULE.format(name=LANG_NAME[lang], headword=item["headword"], shown=measure.show(item["entry"]),
+                            faults=part_of_review("## The faults\n\n", "\nDo not report").replace("{name}", LANG_NAME[lang]),
+                            definitions=part_of_review("not faults:\n\n", "{ours}").replace("{name}", LANG_NAME[lang]) + "\n" + measure.OURS.get(lang, ""),
+                            findings=listed([item["finding"]], {1: f"The writer: {item['rebuttal']}"}))
+        try:
+            ruling = by_number(loop.unit(item, "rule", loop.seats["judge"], asked, None, RULINGS), "rulings").get(1) or {}
+        except (Stopped, Wall):
+            return item, None
+        except (RuntimeError, json.JSONDecodeError) as broken:
+            print(f"{lang} {item['headword']}: {str(broken)[:160]}", flush=True)
+            return item, None
+        return item, ruling
+
+    rows = [item for lang in langs for item in judge_items(name, lang, take)]
+    with ThreadPoolExecutor(workers) as pool:
+        for item, ruling in pool.map(rule, rows):
+            side = "true" if item["true"] else "false"
+            if ruling is None:
+                got[side, "not ruled"] += 1
+                continue
+            right = bool(ruling.get("upheld")) == item["true"]
+            got[side, "right" if right else "wrong"] += 1
+            got[item["kind"], "right" if right else "wrong"] += 1
+            if not right:
+                missed.append(f"  {item['lang']} {item['headword']} ({item['kind']}): {'dismissed a true finding' if item['true'] else 'upheld a false finding'}: "
+                              f"{item['finding']['what'][:90]} | {str(ruling.get('reason'))[:150]}")
+    print(f"\n{loop.seats['judge']} on {len(rows)} findings of {name}:")
+    print(f"  true findings a writer rejected:  upheld {got['true', 'right']} of {got['true', 'right'] + got['true', 'wrong']}")
+    print(f"  false findings a writer rejected: dismissed {got['false', 'right']} of {got['false', 'right'] + got['false', 'wrong']}")
+    print("  by kind: " + ", ".join(f"{kind} {got[kind, 'right']} of {got[kind, 'right'] + got[kind, 'wrong']}" for kind in TRUTHS))
+    if got["true", "not ruled"] or got["false", "not ruled"]:
+        print(f"  not ruled: {got['true', 'not ruled'] + got['false', 'not ruled']}")
+    print("\n".join(missed))
+    print("asked: " + (", ".join(f"{step} {n}" + (f" (${loop.cost[step]:.2f})" if loop.cost[step] else "") for step, n in loop.bought.items()) or "nothing"))
+    if loop.wall:
+        print(f"stopped at a wall ({loop.wall}): run again when it has reset, and nothing is bought twice")
+
+
 def report(folder, langs):
     """What the loop did with the findings on file, by fault, and what it did to planted faults and checked entries."""
     by_fault, parts, cost, refusals = defaultdict(Counter), defaultdict(Counter), defaultdict(float), Counter()
@@ -566,6 +722,7 @@ def main():
     ap.add_argument("--answers", default=None, help="with --sample: the readings are the chat answers filed under measure/<name>/answers")
     ap.add_argument("--decoys", default=None, help="loop right entries with one false finding each, made from this sample's planted faults")
     ap.add_argument("--skip", type=int, default=0, help="with --decoys: leave out the first planted entries of each language")
+    ap.add_argument("--judge-test", default=None, help="measure the third seat alone on true and false findings made from this sample's planted faults")
     ap.add_argument("--reader", default=SEATS["reader"])
     ap.add_argument("--writer", default=SEATS["writer"])
     ap.add_argument("--judge", default=SEATS["judge"])
@@ -584,6 +741,8 @@ def main():
         return report(a.folder, langs)
     loop = Loop(a.folder, {"reader": a.reader, "writer": a.writer, "judge": a.judge}, measure.FAULTS if a.faults == "all" else a.faults.split(","),
                 a.steps.split(","), a.dry, a.stop_file, per_call=a.per_call, answers="decoys" if a.decoys else a.answers)
+    if a.judge_test:
+        return judge_test(loop, langs, a.judge_test, a.take, a.workers)
     got = Counter()
     for lang in langs:
         items = decoy_items(a.decoys, lang, a.skip) if a.decoys else sample_items(a.sample, lang, a.take, a.answers) if a.sample else written_items(lang, a.version, a.take)

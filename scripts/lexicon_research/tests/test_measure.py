@@ -163,3 +163,11 @@ def test_a_comparison_shows_the_readers_own_drift_and_whether_the_writer_followe
     assert "the reader's own drift, on 2 entries" in out and "wording       found in  0 ->  2" in out
     assert "shown one          n=  1  4.00 -> 2.00   fewer in 1, more in 0" in out
     assert "shown ten or more  n=  1  4.00 -> 6.00   fewer in 0, more in 1" in out
+
+
+def test_a_relation_that_holds_for_some_senses_is_shown_with_them():
+    """The review file showed "derived_from cantar" for the Portuguese "canto" and not that the entry limits it to the
+    singing senses. A reader reported the corner sense as wrongly derived, and of two third models one upheld it."""
+    shown = measure.show({"lexemes": [{"lemma": "canto", "pos": "NOUN", "senses": [], "relations": [
+        {"type": "derived_from", "lemma": "cantar", "pos": "VERB", "senses": [3, 4, 5]}, {"type": "confusable", "lemma": "esquina", "pos": "NOUN", "why": "outside corner"}]}]})
+    assert "- relations: derived_from cantar (VERB), for sense 3, 4, 5 only; confusable esquina (NOUN): outside corner" in shown

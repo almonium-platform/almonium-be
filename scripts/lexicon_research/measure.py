@@ -549,7 +549,8 @@ def show(entry):
             for line in more:
                 lines.append(f"     - {line}")
         if lexeme.get("relations"):
-            lines.append("- relations: " + "; ".join(f"{r.get('type')} {r.get('lemma')} ({r.get('pos')})" + (f": {r['why']}" if r.get("why") else "") for r in lexeme["relations"]))
+            lines.append("- relations: " + "; ".join(f"{r.get('type')} {r.get('lemma')} ({r.get('pos')})" + (f", for sense {', '.join(str(n) for n in r['senses'])} only" if r.get("senses") else "")
+                                                     + (f": {r['why']}" if r.get("why") else "") for r in lexeme["relations"]))
     if entry.get("reject"):
         lines.append(f"Not written as an entry: {entry['reject']}")
     return "\n".join(lines)
