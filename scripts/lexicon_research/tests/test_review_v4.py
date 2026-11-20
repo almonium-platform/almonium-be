@@ -270,3 +270,33 @@ def test_a_third_model_is_measured_alone_on_findings_that_differ_only_in_being_t
     review_v4.judge_test(loop, ["de"], "s", 3, 1)
     printed = capsys.readouterr().out
     assert "upheld 0 of 1" in printed and "dismissed 1 of 1" in printed and "dismissed a true finding" in printed  # a judge that sides with the writer
+
+
+def test_a_writer_on_trial_writes_into_a_trial_folder_once_and_stops_at_its_budget(tmp_path, monkeypatch, capsys):
+    import argparse
+
+    import seat_writer
+
+    monkeypatch.setattr(seat_writer, "OUT", tmp_path)
+    monkeypatch.setattr(seat_writer, "_spent", [0.0])
+    monkeypatch.setattr(seat_writer, "_stop", [])
+    asked = []
+
+    def model(seat, user, system=None, schema=None, strict=False):
+        asked.append((seat, strict, "Headword: Haus" in user))
+        return {"language": "de", "headword": "Haus", "lexemes": []}, {"cost_usd": 0.04, "input": 15000, "output": 400, "reasoning": 1000}
+    monkeypatch.setattr(seat_writer.review_v4, "ask", model)
+    a = argparse.Namespace(seat="openrouter:google/gemini-4-carbon:medium", out="review-writer-x", budget_usd=0.05, stop_file="", loose=False)
+    row = {"headword": "Haus", "zipf": 5.9, "set": "s"}
+    assert seat_writer.write_one(a, "de", "system", row) == "written" and asked == [("openrouter:google/gemini-4-carbon:medium", True, True)]
+    meta = json.loads((tmp_path / "review-writer-x" / "de" / "Haus.meta.json").read_text())
+    assert (meta["model"], meta["effort"], meta["total_cost_usd"], meta["reasoning_tokens"], meta["prompt_version"]) == ("google/gemini-4-carbon", "medium", 0.04, 1000, seat_writer.PROMPT_VERSION)
+    assert seat_writer.write_one(a, "de", "system", row) == "have" and len(asked) == 1  # never bought twice
+    assert seat_writer.write_one(a, "de", "system", {"headword": "Tisch", "zipf": 5.0}) == "written"
+    assert seat_writer.write_one(a, "de", "system", {"headword": "Stuhl", "zipf": 5.0}) == "stopped" and len(asked) == 2  # the budget is spent
+
+    def empty(*args, **kwargs):
+        raise seat_writer.review_v4.Wall("402 insufficient credits")
+    monkeypatch.setattr(seat_writer.review_v4, "ask", empty)
+    monkeypatch.setattr(seat_writer, "_spent", [0.0])
+    assert seat_writer.write_one(a, "de", "system", {"headword": "Lampe", "zipf": 4.0}) == "wall" and not (tmp_path / "review-writer-x" / "de" / "Lampe.json").exists()

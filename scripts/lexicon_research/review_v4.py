@@ -24,7 +24,7 @@ a failure of the entry.
   review_v4.py --report --folder review-loop-v410            what the loop did, by fault
   --dry prices the next step without asking; --steps read,reply stops after those; --faults names what is looped.
 
-The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge openrouter:google/gemini-4-neon:high.
+The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge openrouter:google/gemini-4-carbon:medium.
 A seat is the command line of a plan (claude or codex), a model, an effort and, with ":search" after them, leave to
 search the web. The reader that the samples were measured with had it (the ChatGPT app looked the words up in
 Oxford, Cambridge, Collins and the rest), so the reader's seat has it by default: a reader working from memory is
@@ -64,7 +64,7 @@ EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexico
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
 # Three families: Anthropic writes, OpenAI reads, Google rules (the owner, 20 November 2026). The third seat is paid by
 # the call, through OpenRouter, and so does not draw on the plan the writer works on.
-SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "openrouter:google/gemini-4-neon:high"}
+SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "openrouter:google/gemini-4-carbon:medium"}
 # The faults the bar counts, and the two senses numbered as one. A reader finds a rarer sense missing or a wording
 # too narrow in half the entries it is shown, hand-checked ones included, so those are looped only when asked for.
 LOOPED = ("fact", "claim", "missing-core", "split")
@@ -152,7 +152,10 @@ def part_of_review(start, end):
     return measure.REVIEW.partition(start)[2].partition(end)[0].strip("\n")
 
 
-def ask(seat, user, system=None, schema=None):
+MAX_TOKENS = 16000  # the longest answer a model paid by the call may give, thinking included; a writer of entries raises it
+
+
+def ask(seat, user, system=None, schema=None, strict=False):
     """One call through a plan's command line: (the answer, what it used). The answer is the structured object where
     a schema is given, else the text. Wall when the plan's allowance is used up."""
     cli, model, effort, *more = seat.split(":") + ["medium"] * (2 - min(2, seat.count(":")))
@@ -206,7 +209,10 @@ def ask(seat, user, system=None, schema=None):
             raise (Wall if WALL.search(error or r.stderr or "") else RuntimeError)(error or (r.stderr or "no agent message")[-300:])
         return (parse(text) if schema else text), usage
     if cli in ("gemini", "openrouter"):
-        told = user + ("\n\nAnswer with one JSON object and nothing else, of this shape:\n" + json.dumps(schema) if schema else "")
+        # strict: the provider holds the answer to the schema itself (OpenRouter's structured outputs), as the Claude
+        # command line does; otherwise the schema is in the request's words and the answer is checked here
+        strict = strict and cli == "openrouter" and bool(schema)
+        told = user + ("\n\nAnswer with one JSON object and nothing else, of this shape:\n" + json.dumps(schema) if schema and not strict else "")
         level = {"xhigh": "high"}.get(effort, effort)
         if cli == "gemini":
             body = {"systemInstruction": {"parts": [{"text": system or "You are an editor of dictionaries."}]}, "contents": [{"role": "user", "parts": [{"text": told}]}],
@@ -224,7 +230,9 @@ def ask(seat, user, system=None, schema=None):
             body = {"model": model, "messages": [{"role": "system", "content": system or "You are an editor of dictionaries."}, {"role": "user", "content": told}],
                     # a ceiling on the answer: without one OpenRouter holds back the price of the model's longest answer for every
                     # request in flight, and four of them were refused with a dollar still in the account
-                    "reasoning": {"effort": level}, "usage": {"include": True}, "max_tokens": 16000, **({"response_format": {"type": "json_object"}} if schema else {}),
+                    "reasoning": {"effort": level}, "usage": {"include": True}, "max_tokens": MAX_TOKENS,
+                    **({"response_format": {"type": "json_schema", "json_schema": {"name": "answer", "strict": True, "schema": schema}} if strict
+                        else {"type": "json_object"}} if schema else {}),
                     **({"plugins": [{"id": "web"}]} if search else {})}
             res = post("https://openrouter.ai/api/v1/chat/completions", {"Authorization": f"Bearer {key_of('OPENROUTER_API_KEY')}"}, body)
             if res.get("error"):
