@@ -395,7 +395,9 @@ if __name__ == "__main__":
     ap.add_argument("--score", nargs="+")
     ap.add_argument("--pairs", nargs=2)
     ap.add_argument("--tally", action="store_true")
+    ap.add_argument("--name", default=NAME, help="the folder under measure/ a comparison's files and answers are in: one a pair of writers")
     a = ap.parse_args()
+    NAME = a.name
     if a.lists:
         lists()
     if a.score:

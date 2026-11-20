@@ -1534,13 +1534,26 @@ Hydrogen at low, medium and high, and on a meter of their own Claude Opus 5.5 an
   blind reader, on all 84 words.
 - **Every call carries some 9,000 tokens of the CLI's own instructions**, and almost none of the
   input is read from a cache: an entry is 22,000 input tokens where the API's was 15,000.
-- **The meter.** The medium run, $4.61 at list price, moved the week by three points and the
-  session by four; the low run, $1.31, moved the session by one and the week by none. So a week
-  holds some $150 of list price and **one five-hour session some three quarters of the week**:
-  the session is nearly no limit, the week is the limit. A week of the plan costs $46, so the
-  plan gives about three list-price dollars for one, where the Claude plan gives twenty and the
-  Codex plan twelve. At low effort that is some 2,700 entries a week; at medium 800. Whole points
-  over a handful: coarse, to be read again over a long run.
+- **The meter, read over 276 entries** ($22.4 at list price, every run of the day): the week
+  went from 100% to 96% left, the five-hour session from 99% to 90%. So a week holds some $560
+  of list price and **one five-hour session some two fifths of the week**. A week of the plan
+  costs $46: about twelve list-price dollars for one, the Codex plan's figure, where the Claude
+  plan gives twenty. At low effort that is some 9,000 entries a week. (The first 24 entries
+  alone had read three dollars for one: the meter moves in whole points and late.)
+- **All 84 hard words at low effort**, by the key, with Opus beside them:
+
+| writer | words wholly right | senses | seconds, median | outside the schema |
+|---|---|---|---|---|
+| Opus 5.5, high | 79 of 80 | 296 | 20 | 0 |
+| Carbon, low | 77 of 80 | 287 | 12 | 4 |
+| Argon, low | 77 of 80 | 266 | 13 | 2 |
+| Neon, low | 78 of 80 | 261 | 25 | 0 |
+
+  The three are level by the key and with each other; Carbon writes the most. What falls
+  outside the schema is a key in the wrong place (`relations` inside a sense, `by_variety`
+  inside a sense's grammar), which ingest could move or a second call mend. Carbon at low is the
+  one to put before the reader: `measure/hard-low/review/` has its entries beside Opus's,
+  unnamed (`hard_cases.py --name hard-low --tally` counts the answers).
 - **The login is fragile under load.** With four calls at once the system keyring answered later
   than the CLI's five seconds; the CLI turned to a token file for an hour, the token there
   expired, and every call after was refused as not signed in. Both seats now treat that as a
