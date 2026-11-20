@@ -1,0 +1,86 @@
+[
+ {
+  "id": 1,
+  "headword": "tour",
+  "kind": "homograph",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 2,
+  "headword": "fils",
+  "kind": "form",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 3,
+  "headword": "couvent",
+  "kind": "form",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 4,
+  "headword": "est",
+  "kind": "form",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 5,
+  "headword": "été",
+  "kind": "form",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 6,
+  "headword": "œil",
+  "kind": "noun",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 7,
+  "headword": "gens",
+  "kind": "noun",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 8,
+  "headword": "falloir",
+  "kind": "verb",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 9,
+  "headword": "monter",
+  "kind": "verb",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 10,
+  "headword": "septante",
+  "kind": "region",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 11,
+  "headword": "con",
+  "kind": "register",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 12,
+  "headword": "plus",
+  "kind": "sound",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ }
+]

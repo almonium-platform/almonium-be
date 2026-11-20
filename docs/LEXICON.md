@@ -1391,9 +1391,53 @@ is the prompt, 15,000 tokens read at full price each time: through OpenRouter no
 and cached it would be one to three cents an entry against the $0.053 of Opus. At high effort the one entry
 is as full as the best of Opus's three (*top* with its three nouns and two adjective senses); at
 low *top* has no adjective and *тут* gains the mulberry tree, and at medium *тут* is one lexeme.
-Six entries say that the seat works, not how good the writer is. That takes the 280 words of the
-third sample at medium effort, some $15, and a reader. A model that writes cannot also rule: with
+Six entries say that the seat works, not how good the writer is; and these six were written
+held to the schema by the provider, which the hard cases below showed to be what made them thin. A model that writes cannot also rule: with
 Carbon writing, the third seat goes back to another family.
+
+**Hard cases, and what they said of four writers** (20 November 2026). The owner asked that
+money not be spent on 280 more ordinary words: a writer should be tried where writers differ.
+`hard_cases.py` holds 84 words, twelve a language, chosen before any writer saw them because an
+entry for them is easy to get wrong, and for 80 of them a key that a program checks: a homograph
+has its two lexemes, said or gendered differently (*lead*, *Band*, *ancora*, *замок*); an
+inflected form is refused or has only the lexemes it is the lemma of (*went*, *été*, *vino*,
+*стали*); a noun has its odd gender or both its plurals (*E-Mail*, *Wort*, *uovo*, *год*); a verb
+is impersonal or takes both auxiliaries (*falloir*, *monter*); a sense of one country says so
+(*pants*, *septante*, *coger*); a rude word is labelled (*con*, *bloody*); a weak form has its
+context (*the*). Four small words have no key and are for a reader.
+
+| writer, all under v4.11 | words wholly right | senses written | seconds, median | cost |
+|---|---|---|---|---|
+| Opus 5.5, high effort | 79 of 80 | 296 | 20 | $6.78 (plan) |
+| Fable 5.2, high effort | 78 of 80 | 320 | 25 | $14.91 (plan) |
+| Gemini 4 Carbon, medium, schema in the request's words | 77 of 80 | 272 | 46 | $5.09 |
+| Gemini 4 Carbon, medium, held to the schema by the provider | 65 of 80 | 217 | 43 | $4.81 |
+
+- **Held to the schema by the provider, Carbon wrote stubs**: *Bank* without the bench, *cura*
+  without the priest, *Wort* with one sense and no gender. That was the setup, not the model.
+  With the schema given in words and the answer checked here (`seat_writer.py --loose`), the same
+  model at the same effort is level with Opus on the key, and all 84 entries fit the schema. The
+  control was run only because the stubs looked too poor for a frontier model; the first verdict
+  would have been wrong.
+- **High effort is not the way**: on the 15 words it had missed, Carbon at high effort (strict)
+  mended six, at $0.22 to $0.39 and five to eight minutes an entry, with two entries outside the
+  schema and one answer lost at the token ceiling.
+- **Argon and Neon** were tried only on those 15 words, strict: 12 and 11 of 16. Words chosen by
+  one model's failures cannot rank another, and strict was the fault, so this says nothing yet.
+- **The key cannot rank the top three.** 79, 78 and 77 are one or two words apart, and the one
+  word all three miss is the key's strictness or a real gap in all (*fato* as "fact" is Brazil's
+  spelling and none says so). What separates them, if anything does, is the senses and the
+  wording, and that is a reader's work: `measure/hard/review/` holds each word's two entries, by
+  Opus and by Carbon, side by side and unnamed, for GPT to choose between (`hard_cases.py --pairs`,
+  `--tally`).
+- **Whose words these are.** They were chosen and keyed by a Claude model, and the prompt was
+  tuned over eleven versions on what Opus wrote. The key once favoured Opus's way of writing a
+  fact (a region as a country where Carbon wrote the UN area) and was corrected. A set chosen by
+  the reader's family or by Gemini's, with its own key, is the check on that.
+- Sol and Astra wrote entries in October and early November (some 700 and 5,200, Astra 679 in the
+  present shape), under older prompts and judged by blind pairs then; neither has met this set.
+  `seat_writer.py --seat codex:<model>:<effort> --headwords hard --out review-hard-<name> --loose`
+  on a machine with the Codex plan, then `hard_cases.py --score`, is the whole test.
 
 **Who may look things up.** The readings of the trial came from the ChatGPT app, which searches
 the web; the writer and the third model answered from memory, and when they name a dictionary
