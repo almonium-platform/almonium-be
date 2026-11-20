@@ -41,9 +41,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jsonschema  # noqa: E402
+import lemma_gate  # noqa: E402
 import v3_entries  # noqa: E402
 from prompting import HERE, PROMPT_VERSION, REGIONS, TARGET_LANGUAGES, SCHEMA_PATH, SCHEMA_VERSION, VARIETIES, system_prompt_v4  # noqa: E402
 
+GATE = True  # --no-gate turns it off
 MEND_VERSION = "mend-v3"  # v3 with prompt v4.8: a patch may give a sense its collocations, which v2 could not
 OUT = HERE / "out"
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
@@ -268,6 +270,8 @@ def mend_one(a, lang, system, row, retries=0):
     writer, older = v3_entries.older_entry(lang, row["headword"])
     if older is None:
         return "no older entry"
+    if GATE and lemma_gate.stop(lang, row, f"mend-{a.model}-v4"):
+        return "gate"  # the older writers were given forms and names too; the gate knows them now, and a patch of one is wasted
     base = draft(lang, older)
     # the backend's lexicon_build keeps model, effort and prompt_version; a mended entry also names who wrote it first
     older_meta_path = OUT / writer / lang / f"{row['headword']}.meta.json"
@@ -355,11 +359,15 @@ if __name__ == "__main__":
     ap.add_argument("--headwords", default="")
     ap.add_argument("--pause-session", type=int, default=100)
     ap.add_argument("--eval", action="store_true", help="write to out/mend-eval-<model>-<effort>/, beside words a v4 writer already wrote")
+    ap.add_argument("--no-gate", action="store_true", help="mend older entries of inflected forms and of proper names too")
     a = ap.parse_args()
     for _lang in a.langs.split(","):
         if _lang not in TARGET_LANGUAGES:
             sys.exit(f"{_lang} is not a target language; entries are written for {', '.join(TARGET_LANGUAGES)} only")
     EMPTY.mkdir(parents=True, exist_ok=True)
+    globals()["GATE"] = not a.no_gate
+    if GATE:
+        lemma_gate.require(a.langs.split(","))
     for lang in a.langs.split(","):
         rows = queue(lang, a.headwords)
         if a.limit:

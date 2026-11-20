@@ -1,0 +1,77 @@
+[
+ {
+  "headword": "abusar",
+  "zipf": 3.59,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "abuso",
+  "zipf": 4.37,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "anuncio",
+  "zipf": 4.46,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "cierre",
+  "zipf": 4.56,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "demandar",
+  "zipf": 3.71,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "emblema",
+  "zipf": 3.5,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "inercia",
+  "zipf": 3.5,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "inmigrante",
+  "zipf": 3.73,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "lentamente",
+  "zipf": 4.26,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "permanencia",
+  "zipf": 3.9,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "provecho",
+  "zipf": 4.02,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "prácticamente",
+  "zipf": 4.6,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "representación",
+  "zipf": 4.63,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "sucio",
+  "zipf": 4.1,
+  "set": "measure-v49-mend"
+ },
+ {
+  "headword": "sustitución",
+  "zipf": 4.04,
+  "set": "measure-v49-mend"
+ }
+]

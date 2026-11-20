@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "presunto",
+  "zipf": 3.99,
+  "set": "v410-check"
+ },
+ {
+  "headword": "roba",
+  "zipf": 4.9,
+  "set": "v410-check"
+ },
+ {
+  "headword": "mobilio",
+  "zipf": 2.9,
+  "set": "v410-check"
+ },
+ {
+  "headword": "insaputa",
+  "zipf": 3.5,
+  "set": "v410-check"
+ },
+ {
+  "headword": "bestiame",
+  "zipf": 3.95,
+  "set": "v410-check"
+ }
+]

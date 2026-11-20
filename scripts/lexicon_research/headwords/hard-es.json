@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "capital",
+  "zipf": 5.25,
+  "set": "hard"
+ },
+ {
+  "headword": "cura",
+  "zipf": 4.46,
+  "set": "hard"
+ },
+ {
+  "headword": "fui",
+  "zipf": 5.02,
+  "set": "hard"
+ },
+ {
+  "headword": "vino",
+  "zipf": 4.96,
+  "set": "hard"
+ },
+ {
+  "headword": "agua",
+  "zipf": 5.49,
+  "set": "hard"
+ },
+ {
+  "headword": "problema",
+  "zipf": 5.5,
+  "set": "hard"
+ },
+ {
+  "headword": "gustar",
+  "zipf": 4.05,
+  "set": "hard"
+ },
+ {
+  "headword": "coger",
+  "zipf": 4.34,
+  "set": "hard"
+ },
+ {
+  "headword": "ordenador",
+  "zipf": 4.15,
+  "set": "hard"
+ },
+ {
+  "headword": "vos",
+  "zipf": 5.24,
+  "set": "hard"
+ },
+ {
+  "headword": "tío",
+  "zipf": 4.59,
+  "set": "hard"
+ },
+ {
+  "headword": "soler",
+  "zipf": 3.49,
+  "set": "hard"
+ }
+]

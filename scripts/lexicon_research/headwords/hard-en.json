@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "lead",
+  "zipf": 5.2,
+  "set": "hard"
+ },
+ {
+  "headword": "tear",
+  "zipf": 4.35,
+  "set": "hard"
+ },
+ {
+  "headword": "wind",
+  "zipf": 4.84,
+  "set": "hard"
+ },
+ {
+  "headword": "left",
+  "zipf": 5.62,
+  "set": "hard"
+ },
+ {
+  "headword": "went",
+  "zipf": 5.5,
+  "set": "hard"
+ },
+ {
+  "headword": "NASA",
+  "zipf": 4.21,
+  "set": "hard"
+ },
+ {
+  "headword": "news",
+  "zipf": 5.44,
+  "set": "hard"
+ },
+ {
+  "headword": "pants",
+  "zipf": 4.48,
+  "set": "hard"
+ },
+ {
+  "headword": "biscuit",
+  "zipf": 3.45,
+  "set": "hard"
+ },
+ {
+  "headword": "bloody",
+  "zipf": 4.28,
+  "set": "hard"
+ },
+ {
+  "headword": "the",
+  "zipf": 7.73,
+  "set": "hard"
+ },
+ {
+  "headword": "used",
+  "zipf": 5.8,
+  "set": "hard"
+ }
+]

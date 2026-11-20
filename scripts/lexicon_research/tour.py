@@ -9,9 +9,9 @@ chosen, a common English word before a rare one or one of another language.
 Output: docs/LEXICON_TOUR.md, a table of the word, its language, and what to look for, each with the
 value the entry really holds.
 
-Usage: tour.py [--langs en,ru,de,fr,es,it,pt]   (run from the backend repository root)
+Usage: tour.py [--langs en,ru,de,fr,es,it,pt,ja]   (run from the backend repository root)
 """
-import argparse, json, sys
+import argparse, json, re, sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -19,7 +19,7 @@ import jsonschema
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ingest_v4  # noqa: E402
-from prompting import HERE, LANG_NAME  # noqa: E402
+from prompting import HERE, LANG_NAME, PILOT_LANGUAGES  # noqa: E402
 
 VALID = jsonschema.Draft202012Validator(json.loads((HERE / "entry.schema.v4.json").read_text()))
 
@@ -28,11 +28,19 @@ DOC = Path("docs/LEXICON_TOUR.md")
 EXPECTED = {"a contraction with the words it stands for": "German *zum*", "a phrase other words can come between": "*give it up*",
             "a sense marked familiar": "*du*", "a sense marked polite": "*Sie*", "a form used after numbers": "*два часа́*",
             "a grammar value that holds mainly, not always": "*usually before a noun*", "a compound with its parts": "*Arbeitszimmer*",
-            "a pronunciation that belongs to one spelling": "*período*, *periodo*"}
-ORDER = ["en", "ru", "de", "fr", "es", "it", "pt"]  # the owner reads the first two natively
+            "a pronunciation that belongs to one spelling": "*período*, *periodo*",
+            "the words a sense usually goes with": "*make a decision*", "a pattern whose open place has a case": "*warten auf + Akk*",
+            "a pattern that opens a verb": "*afford to do sth*", "a pattern that opens a clause": "*aware that ...*",
+            "the pitch accent of a Japanese word": "*橋* 2", "a noun that makes a verb with する": "*勉強*",
+            "a use of the word as a suffix, a prefix or an auxiliary": "*目* in *二回目*"}
+ORDER = ["en", "ru", "de", "fr", "es", "it", "pt", "ja"]  # the owner reads the first two natively; Japanese is on trial
 RELATIONS = {"diminutive_of": "a diminutive", "augmentative_of": "an augmentative", "endearing_of": "an endearing form", "feminine_of": "a feminine",
              "agent_noun_of": "an agent noun", "verbal_noun_of": "a verbal noun", "abstract_noun_of": "an abstract noun", "adjective_of": "an adjective of a noun",
              "adverb_of": "an adverb of an adjective", "derived_from": "a derived word", "aspect_partner": "an aspect partner", "confusable": "a word it is confused with"}
+
+
+AFFIX_NOTE = re.compile(r"\b(suffix|prefix|auxiliary)\b", re.I)
+SCRIPTS = {"Hira": "hiragana", "Kana": "katakana", "Jpan": "kanji"}
 
 
 def said(lexeme, variety=None):
@@ -74,9 +82,13 @@ def features(lang, entry):
         for p in lexeme.get("pronunciations") or []:
             by_variety[p.get("variety")].append(p)
             if p.get("note"):
-                note("a second pronunciation, with a note on who says it", f"{p.get('ipa')} ({p['note']})")
+                note("a second pronunciation, with a note on who says it", f"{p.get('ipa') or p.get('reading')} ({p['note']})")
             if p.get("reading") and lang in ("ru", "uk"):
                 note("the stress marked on the word", p["reading"])
+            if p.get("notation") == "kana":
+                note("a Japanese word given as a reading in kana, not a transcription", f"{lexeme.get('lemma')}: {p.get('reading')}")
+                if "accent" in p:
+                    note("the pitch accent of a Japanese word", f"{p.get('reading')} {p['accent']}")
             if p.get("reading") and lang == "it":
                 note("the stress and the open or close vowel marked on the word", p["reading"])
             if p.get("spelling"):
@@ -89,6 +101,10 @@ def features(lang, entry):
             note("a spelling only older books use", ", ".join(s["text"] for s in spellings if s.get("pre_reform")))
         if len({tuple(s.get("varieties") or ()) for s in spellings if s.get("varieties")}) > 1:
             note("a spelling for each variety", "; ".join(f"{s['text']} ({', '.join(s['varieties'])})" for s in spellings if s.get("varieties")))
+        if len({s.get("script") for s in spellings if s.get("script")}) > 1:
+            note("one word written in two scripts", "; ".join(f"{s['text']} ({SCRIPTS.get(s['script'], s['script'])})" for s in spellings if s.get("script")))
+        if len(by_variety) == 1 and len({p.get("reading") for p in lexeme.get("pronunciations") or [] if p.get("notation") == "kana"}) > 1:
+            note("two readings of one Japanese word, one meaning", ", ".join(p["reading"] for p in lexeme["pronunciations"] if p.get("reading")))
         if len([s for s in spellings if not s.get("varieties") and not s.get("pre_reform")]) > 1:
             note("two spellings of one word, used everywhere", ", ".join(s["text"] for s in spellings if not s.get("varieties") and not s.get("pre_reform")))
         if lexeme.get("kind") == "multiword":
@@ -108,6 +124,8 @@ def features(lang, entry):
                 note("a form that belongs to one sense", form.get("form"))
             if form.get("note"):
                 note("a form with a note on when it is used", f"{form.get('form')}: {form['note']}")
+            if form.get("reading") and lang in ("ru", "uk"):
+                note("a form with its own stress", form["reading"])
             if cells.get("Number") == "Count":
                 note("a form used after numbers", form.get("form"))
             if cells.get("Case") == "Loc" and lang == "ru":
@@ -130,6 +148,14 @@ def features(lang, entry):
             note("a verb with both auxiliaries", lexeme.get("lemma"))
         if grammar.get("invariable"):
             note("a word that never changes its form", lexeme.get("lemma"))
+        if grammar.get("suru") or any((sn.get("grammar") or {}).get("suru") for sn in lexeme.get("senses") or []):
+            note("a noun that makes a verb with する", lexeme.get("lemma"))
+        if grammar.get("classifier"):
+            note("the counter a Japanese noun is counted with", f"{lexeme.get('lemma')}: {grammar['classifier']}")
+        if lang == "ja" and grammar.get("conjugation"):
+            note("the class of a Japanese verb or adjective", f"{lexeme.get('lemma')}: {grammar['conjugation']}")
+        if lang == "ja" and AFFIX_NOTE.search(str(grammar.get("note") or "")):
+            note("a use of the word as a suffix, a prefix or an auxiliary", f"{lexeme.get('lemma')}: {grammar['note']}")
         if grammar.get("note"):
             note("a note on the word's grammar", grammar["note"])
         for key in grammar.get("mainly") or []:
@@ -139,15 +165,37 @@ def features(lang, entry):
             own = sense.get("grammar") or {}
             labels = sense.get("labels") or {}
             if sense.get("frames"):
-                note("the constructions a sense is used in", "; ".join(sense["frames"]))
+                note("the patterns a sense is used in", "; ".join(sense["frames"]))
             if sense.get("collocations"):
                 note("the words a sense usually goes with", "; ".join(sense["collocations"]))
+                if not sense.get("frames"):
+                    note("a sense with company and no pattern", f"{lexeme.get('lemma')}: " + "; ".join(sense["collocations"][:4]))
+                if len(sense["collocations"]) >= 6:
+                    note("a sense with six collocations or more, the less guessable first", "; ".join(sense["collocations"]))
+            for pattern in sense.get("patterns") or []:  # what a program is given to find the pattern in a text
+                slots = [part for part in pattern["parts"] if "slot" in part]
+                shape = " | ".join("head: " + part["head"] if "head" in part else "word: " + part["word"] if "word" in part else
+                                   "slot: " + "/".join(part["slot"]) + "".join(f", {k} {'/'.join(v) if isinstance(v, list) else v}"
+                                                                              for k, v in part.items() if k != "slot") for part in pattern["parts"])
+                note("a pattern read into its parts for a program", f"{pattern['frame']} = {shape}")
+                if any(part.get("case") for part in slots):
+                    note("a pattern whose open place has a case", f"{pattern['frame']} = {shape}")
+                if any("verb" in part["slot"] for part in slots):
+                    note("a pattern that opens a verb", f"{pattern['frame']} = {shape}")
+                if any("clause" in part["slot"] for part in slots):
+                    note("a pattern that opens a clause", f"{pattern['frame']} = {shape}")
+                if any(set(part["slot"]) >= {"person", "thing"} for part in slots):
+                    note("an open place for a person or a thing", f"{pattern['frame']} = {shape}")
+            if lang == "ja" and AFFIX_NOTE.search(str(own.get("note") or "")):
+                note("a use of the word as a suffix, a prefix or an auxiliary", f"{lexeme.get('lemma')}: {sense.get('definition')} ({own['note']})")
+            if sense.get("spellings"):
+                note("a spelling that belongs to one sense", f"{', '.join(sense['spellings'])}: {sense.get('definition')}")
             if own.get("countability"):
                 counts.add(own["countability"])
             if own.get("valency") == "Refl":
                 note("a reflexive sense of a verb", sense.get("definition"))
             if own.get("position") or grammar.get("position"):
-                note("a word or sense that stands only before a noun or only after a verb", f"{own.get('position') or grammar.get('position')}: {sense.get('definition')}")
+                note("a word or sense used only joined to a noun, or only after a verb like be", f"{own.get('position') or grammar.get('position')}: {sense.get('definition')}")
             if own.get("number") == "Plur":
                 note("a sense the word has only in the plural", sense.get("definition"))
             if own.get("note"):
@@ -180,6 +228,8 @@ def features(lang, entry):
         if len(counts) > 1:
             note("countable in one sense, uncountable in another", lexeme.get("lemma"))
         for relation in lexeme.get("relations") or []:
+            if relation.get("senses"):
+                note("a link that belongs to some senses only", f"{relation.get('type')} {relation.get('lemma')}: senses {relation['senses']}")
             if relation.get("type") in RELATIONS:
                 note(f"a link to the word it comes from or is mixed up with: {RELATIONS[relation['type']]}",
                      f"{relation.get('lemma')}" + (f" ({relation['why']})" if relation.get("why") else ""))
@@ -200,16 +250,19 @@ def cover(langs):
                 pool.append((lang, headword, zipf.get(headword.lower(), 0), got))
     everything = set().union(*(set(got) for _, _, _, got in pool))
     left, chosen = set(everything), []
-    while left:
-        def worth(candidate):
-            lang, headword, z, got = candidate
-            new = len(left & set(got))
-            common = z >= 4.0  # a word the owner knows is easier to judge than a rare one
-            return (new if common else new - 1.5, -ORDER.index(lang) if lang in ORDER else -9, z)
-        best = max((candidate for candidate in pool if left & set(candidate[3])), key=worth)
-        gain = left & set(best[3])
-        chosen.append((best[0], best[1], best[2], {f: best[3][f] for f in sorted(gain)}))
-        left -= gain
+    # a language on trial shows only what no target language can: nobody should have to judge a Japanese entry for
+    # what an English or a Russian one shows as well
+    for stage in ([c for c in pool if c[0] not in PILOT_LANGUAGES], pool):
+        while any(left & set(candidate[3]) for candidate in stage):
+            def worth(candidate):
+                lang, headword, z, got = candidate
+                new = len(left & set(got))
+                common = z >= 4.0  # a word the owner knows is easier to judge than a rare one
+                return (new if common else new - 1.5, -ORDER.index(lang) if lang in ORDER else -9, z)
+            best = max((candidate for candidate in stage if left & set(candidate[3])), key=worth)
+            gain = left & set(best[3])
+            chosen.append((best[0], best[1], best[2], {f: best[3][f] for f in sorted(gain)}))
+            left -= gain
     return chosen, everything
 
 
@@ -225,6 +278,9 @@ def write(langs):
              f"{len(chosen)} written entries that between them show all {len(everything)} things an entry can say, picked by",
              "`scripts/lexicon_research/tour.py` from what the writers wrote: the fewest words, a common English one first.",
              "Type each into the app and check that the reader is shown what the right-hand column says.", "",
+             "The entries are shown as ingest publishes them: a pattern with a choice of words split in two, a pattern without",
+             "an open place among the collocations, and each pattern also read into its parts. Entries written before prompt",
+             "v4.8 have few collocations; the rows that show them are from v4.8 and v4.9.", "",
              "The entries are schema 4. Until the backend reads schema 4 (docs/LEXICON.md, \"Pending\", item 1) the app cannot",
              "show them, so today this list is what that work has to make visible, not a test it can pass.", "",
              *absent(everything),

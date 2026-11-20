@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "замок",
+  "zipf": 4.51,
+  "set": "hard"
+ },
+ {
+  "headword": "мука",
+  "zipf": 3.61,
+  "set": "hard"
+ },
+ {
+  "headword": "стоит",
+  "zipf": 5.5,
+  "set": "hard"
+ },
+ {
+  "headword": "стали",
+  "zipf": 5.41,
+  "set": "hard"
+ },
+ {
+  "headword": "печь",
+  "zipf": 3.97,
+  "set": "hard"
+ },
+ {
+  "headword": "три",
+  "zipf": 5.65,
+  "set": "hard"
+ },
+ {
+  "headword": "кофе",
+  "zipf": 4.89,
+  "set": "hard"
+ },
+ {
+  "headword": "человек",
+  "zipf": 5.96,
+  "set": "hard"
+ },
+ {
+  "headword": "год",
+  "zipf": 5.76,
+  "set": "hard"
+ },
+ {
+  "headword": "нравиться",
+  "zipf": 4.02,
+  "set": "hard"
+ },
+ {
+  "headword": "блин",
+  "zipf": 4.61,
+  "set": "hard"
+ },
+ {
+  "headword": "нельзя",
+  "zipf": 5.45,
+  "set": "hard"
+ }
+]

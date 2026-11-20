@@ -173,3 +173,10 @@ def test_a_pitch_accent_is_held_against_the_accent_table_when_there_is_one(monke
     assert said("猫", "ねこ", 1) == []  # the table does not know the word: nothing said
     monkeypatch.setattr(check_v4, "accent_witness", lambda lang: None)
     assert said("橋", "はし", 1) == []
+
+
+def test_a_transcription_and_a_stressed_spelling_that_disagree_are_found_without_a_source():
+    apart = lambda ipa, reading: check_v4.stress_apart({"ipa": ipa, "reading": reading})
+    assert apart("/pə.prɐ.ˈbo.vətʲ/", "попро́бовать") and not apart("/pə.ˈpro.bə.vətʲ/", "попро́бовать")
+    assert apart("/jɪl.ˈka/", "ёлка") and not apart("/ˈjol.kə/", "ёлка")  # ё carries the stress without a mark
+    assert not apart("/ˈdom/", "дом") and not apart("/pə.ˈprobə.vətʲ/", "попро́бовать")  # judged only when the syllables can be counted

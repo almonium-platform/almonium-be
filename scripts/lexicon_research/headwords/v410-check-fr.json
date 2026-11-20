@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "prétendu",
+  "zipf": 3.68,
+  "set": "v410-check"
+ },
+ {
+  "headword": "dépens",
+  "zipf": 3.81,
+  "set": "v410-check"
+ },
+ {
+  "headword": "soi-disant",
+  "zipf": 4.49,
+  "set": "v410-check"
+ },
+ {
+  "headword": "mobilier",
+  "zipf": 4.0,
+  "set": "v410-check"
+ },
+ {
+  "headword": "insu",
+  "zipf": 3.61,
+  "set": "v410-check"
+ }
+]

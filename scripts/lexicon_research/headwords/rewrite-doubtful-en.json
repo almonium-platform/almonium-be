@@ -1,0 +1,5480 @@
+[
+ {
+  "headword": "engineering",
+  "zipf": 4.8,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "marketing",
+  "zipf": 4.78,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "housing",
+  "zipf": 4.77,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "surprised",
+  "zipf": 4.68,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mixed",
+  "zipf": 4.64,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "offering",
+  "zipf": 4.6,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mining",
+  "zipf": 4.56,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "shipping",
+  "zipf": 4.52,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "fishing",
+  "zipf": 4.47,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "parking",
+  "zipf": 4.47,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "iphone",
+  "zipf": 4.43,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "forth",
+  "zipf": 4.4,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "programming",
+  "zipf": 4.37,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "diego",
+  "zipf": 4.36,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "banking",
+  "zipf": 4.35,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "frozen",
+  "zipf": 4.32,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "hiding",
+  "zipf": 4.32,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sean",
+  "zipf": 4.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "accounting",
+  "zipf": 4.29,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "lighting",
+  "zipf": 4.29,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "murray",
+  "zipf": 4.27,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "oldest",
+  "zipf": 4.24,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "asset",
+  "zipf": 4.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "furthermore",
+  "zipf": 4.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "healing",
+  "zipf": 4.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "oliver",
+  "zipf": 4.22,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "stole",
+  "zipf": 4.21,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "humor",
+  "zipf": 4.19,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "balanced",
+  "zipf": 4.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "tbh",
+  "zipf": 4.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "maine",
+  "zipf": 4.16,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cattle",
+  "zipf": 4.15,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "financing",
+  "zipf": 4.13,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "skilled",
+  "zipf": 4.13,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "washing",
+  "zipf": 4.13,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "pete",
+  "zipf": 4.12,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bombing",
+  "zipf": 4.09,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "blessing",
+  "zipf": 4.06,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "btw",
+  "zipf": 4.06,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "clearing",
+  "zipf": 4.04,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mph",
+  "zipf": 4.03,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "varied",
+  "zipf": 4.03,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "disappointing",
+  "zipf": 4.02,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "innings",
+  "zipf": 4.02,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "reasoning",
+  "zipf": 4.01,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "camping",
+  "zipf": 4.0,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "nhs",
+  "zipf": 4.0,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rounded",
+  "zipf": 3.98,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "twisted",
+  "zipf": 3.98,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "flooding",
+  "zipf": 3.97,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "usd",
+  "zipf": 3.97,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "boarding",
+  "zipf": 3.96,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "packaging",
+  "zipf": 3.96,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "annoyed",
+  "zipf": 3.95,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "goin",
+  "zipf": 3.95,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "wifi",
+  "zipf": 3.94,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "alot",
+  "zipf": 3.93,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "recognise",
+  "zipf": 3.92,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "catalog",
+  "zipf": 3.91,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cleaner",
+  "zipf": 3.9,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "obamacare",
+  "zipf": 3.89,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "willie",
+  "zipf": 3.89,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "lil",
+  "zipf": 3.88,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "mapping",
+  "zipf": 3.88,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "opener",
+  "zipf": 3.88,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "parenting",
+  "zipf": 3.87,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "judgement",
+  "zipf": 3.86,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "url",
+  "zipf": 3.86,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "favorable",
+  "zipf": 3.85,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mlb",
+  "zipf": 3.85,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "batting",
+  "zipf": 3.84,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "nash",
+  "zipf": 3.84,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "pdf",
+  "zipf": 3.84,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "afterward",
+  "zipf": 3.83,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "llc",
+  "zipf": 3.83,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mick",
+  "zipf": 3.83,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "polling",
+  "zipf": 3.83,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "bidding",
+  "zipf": 3.81,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "shawn",
+  "zipf": 3.81,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "doin",
+  "zipf": 3.8,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "madame",
+  "zipf": 3.8,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "midwest",
+  "zipf": 3.8,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "pitcher",
+  "zipf": 3.79,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "drawer",
+  "zipf": 3.78,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "somerset",
+  "zipf": 3.78,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "aaa",
+  "zipf": 3.77,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cody",
+  "zipf": 3.77,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "handing",
+  "zipf": 3.77,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mccain",
+  "zipf": 3.77,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "greene",
+  "zipf": 3.76,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "paulo",
+  "zipf": 3.76,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "philippine",
+  "zipf": 3.76,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "unlocked",
+  "zipf": 3.76,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "vip",
+  "zipf": 3.76,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ucla",
+  "zipf": 3.75,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "boxer",
+  "zipf": 3.74,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "briefing",
+  "zipf": 3.74,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "dwelling",
+  "zipf": 3.74,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "oriental",
+  "zipf": 3.73,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sherlock",
+  "zipf": 3.73,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "talkin",
+  "zipf": 3.73,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cpu",
+  "zipf": 3.72,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rory",
+  "zipf": 3.72,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "dept",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ebook",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "imo",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "recorder",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "roma",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "romeo",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "texting",
+  "zipf": 3.71,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "everytime",
+  "zipf": 3.69,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "scheduling",
+  "zipf": 3.69,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "exaggerated",
+  "zipf": 3.68,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mourinho",
+  "zipf": 3.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dove",
+  "zipf": 3.67,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "otto",
+  "zipf": 3.67,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "roberto",
+  "zipf": 3.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "spotify",
+  "zipf": 3.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "apologise",
+  "zipf": 3.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "percy",
+  "zipf": 3.66,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "reddit",
+  "zipf": 3.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gmt",
+  "zipf": 3.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bargaining",
+  "zipf": 3.64,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "icc",
+  "zipf": 3.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "romney",
+  "zipf": 3.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "serena",
+  "zipf": 3.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "condo",
+  "zipf": 3.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "crooked",
+  "zipf": 3.63,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "linkedin",
+  "zipf": 3.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "misunderstood",
+  "zipf": 3.61,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "nsfw",
+  "zipf": 3.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "elaine",
+  "zipf": 3.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "forrest",
+  "zipf": 3.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "grad",
+  "zipf": 3.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mailing",
+  "zipf": 3.6,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "billing",
+  "zipf": 3.59,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "pas",
+  "zipf": 3.59,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "woah",
+  "zipf": 3.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "baltic",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "distressed",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sergio",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sid",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "swollen",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "umm",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "wordpress",
+  "zipf": 3.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "antarctic",
+  "zipf": 3.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "baxter",
+  "zipf": 3.56,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "tanner",
+  "zipf": 3.56,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "whatsapp",
+  "zipf": 3.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dat",
+  "zipf": 3.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "esp",
+  "zipf": 3.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "leasing",
+  "zipf": 3.55,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "reggie",
+  "zipf": 3.55,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "apache",
+  "zipf": 3.54,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bjp",
+  "zipf": 3.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hanson",
+  "zipf": 3.54,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ptsd",
+  "zipf": 3.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "slain",
+  "zipf": 3.54,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "comin",
+  "zipf": 3.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "harvesting",
+  "zipf": 3.53,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "wiring",
+  "zipf": 3.53,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "amd",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fyi",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "howe",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ieee",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mccartney",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nfc",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rpg",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "stricken",
+  "zipf": 3.52,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "atp",
+  "zipf": 3.51,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cass",
+  "zipf": 3.51,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "iot",
+  "zipf": 3.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "somethin",
+  "zipf": 3.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "irritated",
+  "zipf": 3.5,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "longing",
+  "zipf": 3.5,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "moe",
+  "zipf": 3.5,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "ryder",
+  "zipf": 3.5,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "smh",
+  "zipf": 3.5,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "adhd",
+  "zipf": 3.49,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ava",
+  "zipf": 3.49,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "beyonce",
+  "zipf": 3.49,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cbc",
+  "zipf": 3.49,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dubious",
+  "zipf": 3.49,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "duffy",
+  "zipf": 3.41,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "revolver",
+  "zipf": 3.41,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "weeping",
+  "zipf": 3.41,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "gutted",
+  "zipf": 3.4,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "nic",
+  "zipf": 3.4,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "polly",
+  "zipf": 3.4,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "xvi",
+  "zipf": 3.4,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "stacy",
+  "zipf": 3.39,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "amc",
+  "zipf": 3.38,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "blm",
+  "zipf": 3.38,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sbs",
+  "zipf": 3.38,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "freakin",
+  "zipf": 3.37,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ipo",
+  "zipf": 3.37,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcgraw",
+  "zipf": 3.37,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nrl",
+  "zipf": 3.37,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "soho",
+  "zipf": 3.37,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "bordeaux",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cher",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "lockheed",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "png",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "webpage",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "withholding",
+  "zipf": 3.36,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "lmfao",
+  "zipf": 3.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "marxism",
+  "zipf": 3.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "trucking",
+  "zipf": 3.35,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "bom",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "claudio",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "isil",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lizzie",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "luc",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "quieter",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "tsa",
+  "zipf": 3.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "alba",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "brody",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "gucci",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ict",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "molten",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "ofthe",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tds",
+  "zipf": 3.33,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "acknowledgement",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "buzzfeed",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "counsellor",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gmail",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ohhh",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "polluted",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "qui",
+  "zipf": 3.32,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "francesca",
+  "zipf": 3.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "garry",
+  "zipf": 3.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "raja",
+  "zipf": 3.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "chateau",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cultured",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "ecommerce",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "esque",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fanbase",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "headphone",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "luiz",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcbride",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rounder",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "scented",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "siri",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tos",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "vhs",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wha",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "writ",
+  "zipf": 3.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "celsius",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cio",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dei",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fortnite",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "kapoor",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ppp",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pst",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tubing",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "xml",
+  "zipf": 3.29,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dae",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ethernet",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fide",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kfc",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "msm",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "plugin",
+  "zipf": 3.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fiancee",
+  "zipf": 3.25,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "hulu",
+  "zipf": 3.25,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "payoff",
+  "zipf": 3.25,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sharper",
+  "zipf": 3.25,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "abt",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "apc",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dns",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "eachother",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "giorgio",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gogh",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ioc",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mccall",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tue",
+  "zipf": 3.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "astro",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "asus",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "imdb",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kkk",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ost",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "polk",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "roofing",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "shielding",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "unicef",
+  "zipf": 3.23,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "lds",
+  "zipf": 3.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcnamara",
+  "zipf": 3.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nadu",
+  "zipf": 3.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "osu",
+  "zipf": 3.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fairytale",
+  "zipf": 3.21,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "pvc",
+  "zipf": 3.21,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ssd",
+  "zipf": 3.21,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "unfavorable",
+  "zipf": 3.21,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "criticise",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gis",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mccormick",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mrna",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "organisational",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "realisation",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tutoring",
+  "zipf": 3.2,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "fielder",
+  "zipf": 3.19,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "llp",
+  "zipf": 3.19,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sumner",
+  "zipf": 3.19,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "biggie",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "byu",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "drinker",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "indexing",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "meade",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "padding",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "rockin",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "shrunk",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "uniformed",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "usps",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "whistleblower",
+  "zipf": 3.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bama",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "friggin",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "frontman",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "goku",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "guido",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "horne",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "hotspot",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "minimise",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "paine",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "pci",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sooooo",
+  "zipf": 3.17,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "amor",
+  "zipf": 3.16,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "aunty",
+  "zipf": 3.16,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dicaprio",
+  "zipf": 3.16,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mahmoud",
+  "zipf": 3.16,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "spinoff",
+  "zipf": 3.16,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "vous",
+  "zipf": 3.12,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dahl",
+  "zipf": 3.11,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dio",
+  "zipf": 3.11,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "emi",
+  "zipf": 3.11,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "isbn",
+  "zipf": 3.11,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "leveraged",
+  "zipf": 3.11,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "centerpiece",
+  "zipf": 3.1,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ful",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "himachal",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kasper",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kya",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mcdavid",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pcm",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "stoll",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "ticketmaster",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "trippin",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "yeezus",
+  "zipf": 2.71,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "awol",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bicycling",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "cls",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dancefloor",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dif",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dmca",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "eec",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "elly",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fafsa",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hipaa",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ibd",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "instituto",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "noc",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "noire",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "palgrave",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "protege",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "roethlisberger",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sanitizer",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "shockwave",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tous",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "truely",
+  "zipf": 2.7,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "carpeting",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "despatch",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ethno",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "frontrunner",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ibid",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "iwo",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcavoy",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mhc",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "miku",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pancho",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "publically",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ridin",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tidying",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "tsm",
+  "zipf": 2.69,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "adsense",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "anh",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fmri",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ihs",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kickass",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "león",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "perf",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "prosecco",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rsl",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sacra",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sjw",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "speer",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "straighter",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "svt",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "telekom",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tov",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "uplifted",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "wid",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "wold",
+  "zipf": 2.68,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "acr",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "alcoa",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "allahu",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "coyne",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ctc",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dany",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "donbass",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "déjà",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ggg",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "kampf",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mdr",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ppt",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rti",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sst",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tempore",
+  "zipf": 2.67,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ander",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "aru",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "berk",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "bridgestone",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "danilo",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gard",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "iver",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "maxime",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mccollum",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcmurray",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "meaner",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mlg",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "morsi",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nex",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "nicu",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nui",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "peo",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ppr",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rar",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rhp",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rodin",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sanitarium",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sawn",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "snorkeling",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "syfy",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "thicc",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tolling",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "weeknd",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wic",
+  "zipf": 2.66,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "aliexpress",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "allstate",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "babyface",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bellator",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cond",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "contouring",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "devel",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "etna",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fre",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "giulio",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gloating",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "greyish",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ifrs",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "letdown",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "misrepresenting",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sbi",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tywin",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "upturned",
+  "zipf": 2.65,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "adaptor",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "awp",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "baywatch",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bms",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "characterise",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "choc",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "deeming",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "emmerdale",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gratuity",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "hcv",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "herbalife",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hoosier",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "hsa",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "imessage",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lhc",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "madoff",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "maneuverability",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mcelroy",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "moretti",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "netscape",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "poppin",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rvs",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tft",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "unsc",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "volker",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "warzone",
+  "zipf": 2.64,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "awed",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "bitchin",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bittorrent",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "checkbook",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "chim",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "djing",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "efi",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "felice",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hgtv",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mfw",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "novi",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "peachtree",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "singlehandedly",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "timeshare",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tinto",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "titanfall",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "trodden",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "turismo",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "uhhhh",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "voor",
+  "zipf": 2.63,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "aire",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bluray",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "chamomile",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cloaking",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "dmz",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "glossed",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "goldmine",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "hmo",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "husain",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "jabba",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "leandro",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mha",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "midrange",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "neet",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sweety",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tfc",
+  "zipf": 2.62,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "anglophone",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "arma",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "asb",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bellini",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "chafing",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "dpa",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "eoin",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "etiology",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gilly",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "hitching",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "hoss",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "icrc",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "maas",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mewtwo",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mfc",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "naya",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "outkast",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "primark",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "razak",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rika",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "shopify",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "shortsighted",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sono",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "swamy",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tash",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tropez",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "useable",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "veep",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "weill",
+  "zipf": 2.61,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "arteta",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "biter",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "dwp",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "eazy",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gsw",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gulfstream",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hadoop",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "holger",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ime",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lsat",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "musik",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "olympiad",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "perdue",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "socialise",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sof",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tdp",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tedx",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "themself",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "waa",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "worf",
+  "zipf": 2.6,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "aaaa",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bjj",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dmt",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "donal",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "emg",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "epo",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "epson",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "galt",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "iwatch",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lpc",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mcveigh",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "nilly",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "passerby",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "runescape",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "shakin",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "societe",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sulphate",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "tafe",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tete",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tpc",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wawrinka",
+  "zipf": 2.59,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "airshow",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "amirite",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ayurvedic",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "boc",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cae",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "captioning",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "chatroom",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "checkin",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "corleone",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dembele",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "díaz",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "edvard",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fader",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "gba",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "gluing",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "inthe",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "oki",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "pba",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sda",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "siem",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "specialisation",
+  "zipf": 2.58,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "annalise",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "apl",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "auc",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bcm",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "carsten",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cci",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "drg",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "maribor",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "meath",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mose",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mumbo",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "permanente",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "powerplant",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rba",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ricoh",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sacco",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sez",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "stil",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "theon",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ttip",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "usm",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "vermillion",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "zillow",
+  "zipf": 2.57,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "aiko",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "arti",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "charlize",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cowper",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "dutchess",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "epub",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fujifilm",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "giuliano",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "haaretz",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hazrat",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hebdo",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "huffpost",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "knowledgable",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "loring",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "mcmullen",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "metacritic",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "npl",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "peeta",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pentax",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "petti",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "refurbishing",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sau",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sdp",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sforza",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sif",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "timezone",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ucs",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "waitrose",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wove",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "yul",
+  "zipf": 2.56,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "afrika",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "algo",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bfi",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bpi",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "chambre",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cmu",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "céline",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dav",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "daya",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "diario",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dlp",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fea",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "flaked",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "freeform",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gbr",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "holdin",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "midsize",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "moderne",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "nhc",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "paulus",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pmqs",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rasmus",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "satanism",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "shae",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "shitter",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "tastic",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "unwrapped",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "vander",
+  "zipf": 2.55,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "backlit",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "bardot",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bpl",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "btr",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "docu",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "fain",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "foto",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "foxtel",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "golovkin",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hilfiger",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "iirc",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "islami",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "koeman",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lundqvist",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "microsd",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "modo",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mtr",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "māori",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "nikolay",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "orm",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pinker",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "pontius",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "prt",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pse",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "riaa",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "sli",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "trac",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wcf",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "yougov",
+  "zipf": 2.54,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "addo",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bojack",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "britta",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "broadchurch",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "cpg",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "crowing",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "csg",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dhcp",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "enfant",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "flipkart",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "frc",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fwiw",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gdpr",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "icecream",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "iia",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rebalancing",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "ronaldinho",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "semiautomatic",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "shorn",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "squidward",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "visualisation",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "wayyyy",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "wcc",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "whitepaper",
+  "zipf": 2.53,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "abh",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ahsoka",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "arunachal",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bangin",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "brainstem",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cpo",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "davide",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "dehumanizing",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "dreamin",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "epr",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "freund",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "goldblum",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hercule",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "iap",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "journeying",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "lcc",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lordy",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "marrakesh",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rakesh",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ranjit",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "rct",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "septuagint",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "smit",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "stéphane",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "tdm",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "vss",
+  "zipf": 2.52,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "anaemia",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bma",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "daz",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "esv",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fabrice",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fma",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "fpga",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ihop",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "itf",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "manoj",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mckellar",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mignolet",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "preakness",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "ssds",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "uniqlo",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "veronika",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "westworld",
+  "zipf": 2.51,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pleasuring",
+  "zipf": 2.39,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "roosting",
+  "zipf": 2.39,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "bobbed",
+  "zipf": 2.38,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "carbone",
+  "zipf": 2.38,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "descendent",
+  "zipf": 2.38,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "meshing",
+  "zipf": 2.38,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "rationalisation",
+  "zipf": 2.38,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "retouching",
+  "zipf": 2.37,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "centralisation",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "chor",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "easternmost",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "furore",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "naivete",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "slotting",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "sunburnt",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "tilling",
+  "zipf": 2.36,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "brunet",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "fatass",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gnashing",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "obvs",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "quizzing",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "reexamine",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "ribcage",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "seance",
+  "zipf": 2.35,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "breastmilk",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "clumping",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "commerical",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "glamor",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gooder",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "radicalisation",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "shod",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "westernmost",
+  "zipf": 2.34,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "autotune",
+  "zipf": 2.33,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "bossed",
+  "zipf": 2.33,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "eyeglass",
+  "zipf": 2.33,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "deadweight",
+  "zipf": 2.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "reattach",
+  "zipf": 2.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rede",
+  "zipf": 2.32,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "spacesuit",
+  "zipf": 2.32,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cringy",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "equalise",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "foward",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "hailstorm",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "overlaying",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "oversea",
+  "zipf": 2.31,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "discernable",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "holidaying",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "marvelously",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "noy",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "palaeontology",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sleuthing",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "unshakeable",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "unwound",
+  "zipf": 2.3,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "chitchat",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "coalescing",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "lading",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "lii",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "mafioso",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "radiofrequency",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "synchronisation",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "thruway",
+  "zipf": 2.29,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "consignor",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "lense",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "menage",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "privatise",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rosier",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "sinensis",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "unsavoury",
+  "zipf": 2.28,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "baying",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "conc",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "crisper",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "graver",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "machinegun",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "redeye",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "waggoner",
+  "zipf": 2.27,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "cancelation",
+  "zipf": 2.26,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "diviner",
+  "zipf": 2.26,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "gorging",
+  "zipf": 2.26,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "harmonise",
+  "zipf": 2.26,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "sportswriter",
+  "zipf": 2.26,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "clave",
+  "zipf": 2.25,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "democratisation",
+  "zipf": 2.25,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "halfpipe",
+  "zipf": 2.25,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "laughingstock",
+  "zipf": 2.25,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "dich",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "initio",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "lait",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "luddite",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "needling",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "repellant",
+  "zipf": 2.24,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "abid",
+  "zipf": 2.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "anaemic",
+  "zipf": 2.23,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "disproven",
+  "zipf": 2.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "forwarder",
+  "zipf": 2.23,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "mander",
+  "zipf": 2.23,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "atla",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "bwi",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "curr",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "damnedest",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "detente",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "mobbing",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "nauseam",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "pricy",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "triumphing",
+  "zipf": 2.22,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "gynaecological",
+  "zipf": 2.21,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "hipper",
+  "zipf": 2.21,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "retooling",
+  "zipf": 2.21,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "foodbank",
+  "zipf": 2.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "iquique",
+  "zipf": 2.2,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "misbehaviour",
+  "zipf": 2.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "rect",
+  "zipf": 2.2,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "snubbing",
+  "zipf": 2.2,
+  "set": "rewrite-doubtful-en",
+  "why": "a form with one sense of its own"
+ },
+ {
+  "headword": "aguas",
+  "zipf": 2.19,
+  "set": "rewrite-doubtful-en",
+  "why": "not in Wiktionary"
+ },
+ {
+  "headword": "digitisation",
+  "zipf": 2.19,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "gell",
+  "zipf": 2.19,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "marginalisation",
+  "zipf": 2.19,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "eclair",
+  "zipf": 2.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "elden",
+  "zipf": 2.18,
+  "set": "rewrite-doubtful-en",
+  "why": "only old, rare or slang senses"
+ },
+ {
+  "headword": "gonorrhoea",
+  "zipf": 2.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "personalisation",
+  "zipf": 2.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ },
+ {
+  "headword": "regex",
+  "zipf": 2.18,
+  "set": "rewrite-doubtful-en",
+  "why": "alternative spelling"
+ }
+]

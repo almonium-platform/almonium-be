@@ -1,0 +1,79 @@
+[
+ {
+  "id": 1,
+  "headword": "ancora",
+  "kind": "homograph",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 2,
+  "headword": "pesca",
+  "kind": "homograph",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 3,
+  "headword": "stato",
+  "kind": "form",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 4,
+  "headword": "porto",
+  "kind": "form",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 5,
+  "headword": "uovo",
+  "kind": "noun",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 6,
+  "headword": "braccio",
+  "kind": "noun",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 7,
+  "headword": "problema",
+  "kind": "noun",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 8,
+  "headword": "piacere",
+  "kind": "verb",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 9,
+  "headword": "bisognare",
+  "kind": "verb",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ },
+ {
+  "id": 10,
+  "headword": "figo",
+  "kind": "register",
+  "A": "review-hard-gemini-4-carbon-medium-loose",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 11,
+  "headword": "casino",
+  "kind": "register",
+  "A": "review-hard-opus",
+  "B": "review-hard-gemini-4-carbon-medium-loose"
+ }
+]

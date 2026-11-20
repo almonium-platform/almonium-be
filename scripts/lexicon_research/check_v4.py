@@ -48,11 +48,13 @@ ACUTE = "́"
 FREE = ("lexeme of another lemma", "word written under two spellings", "reject that becomes an alias", "syllable dot missing before a stress mark",
         "pronominal sense without its auxiliary", "double consonant not written twice", "ll of Spain written ʎ",
         "word-level grammar a sense overrides", "stress mark in a form", "open place of a frame spelled another way",
-        "frame without an open place", "two patterns or phrases in one string")
+        "frame without an open place", "two patterns or phrases in one string", "stressed spelling with letters that are not the word's")
 SOUND_FAULTS = {"syllable dots added": "syllable dot missing before a stress mark", "double consonants rewritten": "double consonant not written twice",
                 "ll of Spain rewritten": "ll of Spain written ʎ"}
 PAID = ("error or not JSON", "schema", "definition not in the language", "no stress reading", "variety outside the language")
-SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know")
+SETTLE = ("IPA outside the symbol list", "stress Wiktionary does not know", "pitch accent the table does not know",
+          "transcription stressed on another syllable than the reading", "stressed spelling that is not the word's spelling",
+          "two stress marks in one word", "reading no source has for the spelling")
 
 
 def words(text):
@@ -80,15 +82,16 @@ def outside(ipa, inventory):
 
 
 def stress_witness(lang):
-    path = HERE / "wiktionary" / f"{lang}.stress.tsv"
-    if not path.exists():
-        return None
+    """plain spelling -> the stressed spellings the sources have for it: Wiktionary's (<lang>.stress.tsv) and every
+    other dictionary's (<lang>.<name>.stress.tsv, from open_sources.py). None when there is no table."""
+    paths = [HERE / "wiktionary" / f"{lang}.stress.tsv"] + sorted((HERE / "wiktionary").glob(f"{lang}.*.stress.tsv"))
     table = {}
-    with path.open(encoding="utf-8") as f:
-        for line in f:
-            plain, _, forms = line.rstrip("\n").partition("\t")
-            table[plain] = set(forms.split("|"))
-    return table
+    for path in [p for p in paths if p.exists()]:
+        with path.open(encoding="utf-8") as f:
+            for line in f:
+                plain, _, forms = line.rstrip("\n").partition("\t")
+                table.setdefault(plain, set()).update(forms.split("|"))
+    return table or None
 
 
 KANA = re.compile(r"[\u3041-\u3096\u30a1-\u30fa\u30fc]+")
@@ -114,6 +117,40 @@ def accent_witness(lang):
     return table
 
 
+def reading_witness(lang):
+    """spelling -> the readings the sources have for it, in hiragana: the accent table's rows and the language's own
+    Wiktionary (open_sources.py). None without either."""
+    table = defaultdict(set)
+    kana = lambda text: "".join(chr(ord(ch) - 0x60) if "ァ" <= ch <= "ヶ" else ch for ch in text)  # noqa: E731
+    path = HERE / "wiktionary" / f"{lang}.accent.tsv"
+    for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+        word, reading = (line.split("\t") + [""])[:2]
+        if reading:
+            table[word].add(kana(reading))
+    path = HERE / "wiktionary" / f"{lang}.native.readings.tsv"
+    for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+        word, _, readings = line.partition("\t")
+        table[word] |= {kana(r) for r in readings.split("|") if r}
+    return table or None
+
+
+_readings = {}
+
+
+def unknown_readings(lang, lexeme):
+    """(reading, what the sources have) for a reading in kana that no source gives the spelling. Only a word written
+    with kanji is judged, and only when a source has the spelling at all."""
+    if lang not in _readings:
+        _readings[lang] = reading_witness(lang) if lang == "ja" else None
+    table, lemma = _readings[lang], lexeme.get("lemma") or ""
+    if not table or KANA.fullmatch(lemma) or lemma not in table:
+        return
+    for p in lexeme.get("pronunciations") or []:
+        reading = "".join(chr(ord(ch) - 0x60) if "ァ" <= ch <= "ヶ" else ch for ch in p.get("reading") or "")
+        if reading and p.get("notation") == "kana" and reading not in table[lemma]:
+            yield p["reading"], sorted(table[lemma])
+
+
 def unknown_accents(lang, lexeme):
     """(reading, accent, what the table has) for every accent the table contradicts. A word written with kanji is
     held to its own row; a word written in kana to every word read so, because the table files most of them
@@ -125,6 +162,25 @@ def unknown_accents(lang, lexeme):
             known = table.get(p["reading"]) if KANA.fullmatch(lemma) else table.get((lemma, p["reading"]))
             if known and p["accent"] not in known:
                 yield p["reading"], p["accent"], sorted(known)
+
+
+CYRILLIC_VOWELS = set("аеёиоуыэюяіїє")
+
+
+def stress_apart(pronunciation):
+    """Whether a Russian or Ukrainian word's transcription and its stressed spelling put the stress on different
+    syllables (/pə.prɐ.ˈbo.vətʲ/ beside попро́бовать): one of the two is wrong, and no source is needed to see it.
+    Judged only where the transcription has as many syllables as the word has vowels."""
+    reading = unicodedata.normalize("NFD", pronunciation.get("reading") or "").lower()
+    ipa = (pronunciation.get("ipa") or "").strip("/[]")
+    if " " in reading or "ˈ" not in ipa or not (ACUTE in reading or "ё" in unicodedata.normalize("NFC", reading)):
+        return False
+    upto = reading.split(ACUTE)[0] if ACUTE in reading else unicodedata.normalize("NFC", reading).split("ё")[0] + "ё"
+    stressed = sum(ch in CYRILLIC_VOWELS for ch in unicodedata.normalize("NFC", upto)) - 1
+    syllables = ipa.split(".")
+    if len(syllables) != sum(ch in CYRILLIC_VOWELS for ch in unicodedata.normalize("NFC", reading.replace(ACUTE, ""))):
+        return False
+    return next(i for i, syllable in enumerate(syllables) if "ˈ" in syllable) != stressed
 
 
 def readings(lexeme):
@@ -172,6 +228,17 @@ def check(lang, entry, inventories, witness):
             for frame in sense.get("frames") or []:
                 if why := ingest_v4.unread(lang, lx.get("lemma") or "", frame, ingest_v4.names(lx)):
                     problems.append(("frame a program cannot read", f"{frame}: {why}"))
+        # A stressed spelling is the word's own spelling with one mark on a vowel: in Cyrillic a letter and the
+        # combining acute U+0301, in Italian the accented letter itself. Ingest rebuilds one typed with other
+        # letters of the same number; one that is another word or a respelling is for an eye.
+        marked = json.loads(json.dumps(lx))
+        if times := ingest_v4.settle_readings(lang, marked):
+            problems.append(("stressed spelling with letters that are not the word's", f"{lx.get('lemma')}: {times}"))
+        for holder, spelling in ingest_v4.stressed_spellings(marked):
+            if ingest_v4.own_reading(lang, spelling, holder["reading"]) is None:
+                problems.append(("stressed spelling that is not the word's spelling", f"{holder['reading']} beside {spelling}"))
+            elif lang in ingest_v4.READING_VOWELS and any(sum(mark for _, mark in ingest_v4.letters(word)) > 1 for word in holder["reading"].split()):
+                problems.append(("two stress marks in one word", holder["reading"]))
         if ingest_v4.settle_defaults(json.loads(json.dumps(lx))):
             problems.append(("word-level grammar a sense overrides", lx.get("lemma")))
         if ingest_v4.pronominal_auxiliary(lang, json.loads(json.dumps(lx))):
@@ -180,12 +247,20 @@ def check(lang, entry, inventories, witness):
             problems.append((SOUND_FAULTS[fix], f"{lx.get('lemma')}: {times} transcription{'s' if times > 1 else ''}"))
         if lang in NEEDS_READING and " " not in lemma and sum(c in VOWELS for c in lemma) > 1 and not any(p.get("reading") for p in lx.get("pronunciations", [])):
             problems.append(("no stress reading", lx.get("lemma")))
+        if lang in ("ru", "uk"):
+            dotted = json.loads(json.dumps({"pronunciations": lx.get("pronunciations") or []}))
+            ingest_v4.settle_sounds(lang, dotted)  # the syllables are counted as ingest divides them
+            for p in dotted["pronunciations"]:
+                if stress_apart(p):
+                    problems.append(("transcription stressed on another syllable than the reading", f"{p.get('ipa')} beside {p.get('reading')}"))
         if witness is not None:
             for reading in readings(lx):
                 reading = unicodedata.normalize("NFC", reading)
                 known = witness.get(reading.replace(ACUTE, ""))
                 if known and ACUTE in reading and reading not in known:
-                    problems.append(("stress Wiktionary does not know", f"{reading}, Wiktionary has {', '.join(sorted(known))}"))
+                    problems.append(("stress Wiktionary does not know", f"{reading}, the sources have {', '.join(sorted(known))}"))
+        for reading, known in unknown_readings(lang, lx):
+            problems.append(("reading no source has for the spelling", f"{lx.get('lemma')} {reading}, the sources have {', '.join(known[:5])}"))
         for reading, accent, known in unknown_accents(lang, lx):
             problems.append(("pitch accent the table does not know", f"{lx.get('lemma')} {reading} {accent}, the table has {', '.join(map(str, known))}"))
         for s in lx.get("senses", []):

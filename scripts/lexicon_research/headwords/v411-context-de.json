@@ -1,0 +1,17 @@
+[
+ {
+  "headword": "Chemie",
+  "zipf": 4.41,
+  "set": "v411-context"
+ },
+ {
+  "headword": "König",
+  "zipf": 5.02,
+  "set": "v411-context"
+ },
+ {
+  "headword": "Haus",
+  "zipf": 5.41,
+  "set": "v411-context"
+ }
+]

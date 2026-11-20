@@ -1,0 +1,2578 @@
+{
+ "lucky": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈlʌk.i/",
+  "now": "/lʌk.ˈi/",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "lucky",
+   "lexemes": [
+    {
+     "id": "33bc2ea9-ab5c-5664-bfe7-e98e689385b0",
+     "homograph": 1,
+     "lemma": "lucky",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/lʌk.ˈi/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/lʌk.ˈi/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "7e6117fd-7cd4-5bf3-9ea1-bafe96fb3df6",
+       "definition": "having good things happen to you by chance",
+       "example": "You were lucky to find a seat on such a busy train.",
+       "cefr": "A2",
+       "frames": [
+        "lucky to do sth",
+        "lucky that ...",
+        "lucky with sth"
+       ],
+       "collocations": [
+        "count yourself lucky",
+        "get lucky",
+        "lucky enough",
+        "third time lucky",
+        "extremely lucky"
+       ],
+       "antonyms": [
+        {
+         "lemma": "unlucky",
+         "pos": "ADJ"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "lucky to do sth",
+         "parts": [
+          {
+           "head": "lucky"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "to-inf"
+          }
+         ]
+        },
+        {
+         "frame": "lucky that ...",
+         "parts": [
+          {
+           "head": "lucky"
+          },
+          {
+           "word": "that"
+          },
+          {
+           "slot": [
+            "clause"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "lucky with sth",
+         "parts": [
+          {
+           "head": "lucky"
+          },
+          {
+           "word": "with"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1528d9e5-297d-5a8d-85fe-572923b244f2",
+       "definition": "happening by chance and having a good result",
+       "example": "It was only a lucky guess, but I got the answer right.",
+       "cefr": "B1",
+       "frames": [
+        "it is lucky that ..."
+       ],
+       "collocations": [
+        "lucky guess",
+        "lucky escape",
+        "lucky break",
+        "lucky shot",
+        "lucky coincidence"
+       ],
+       "antonyms": [
+        {
+         "lemma": "unlucky",
+         "pos": "ADJ"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "it is lucky that ...",
+         "parts": [
+          {
+           "word": "it"
+          },
+          {
+           "word": "is"
+          },
+          {
+           "head": "lucky"
+          },
+          {
+           "word": "that"
+          },
+          {
+           "slot": [
+            "clause"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "badea16c-d969-51bf-b098-bf264eb6f9ce",
+       "definition": "believed to bring good fortune or success",
+       "example": "My grandfather always wore his lucky hat to football matches.",
+       "cefr": "B1",
+       "collocations": [
+        "lucky charm",
+        "lucky number",
+        "lucky day",
+        "lucky shirt"
+       ],
+       "grammar": {
+        "position": "Attr"
+       },
+       "antonyms": [
+        {
+         "lemma": "unlucky",
+         "pos": "ADJ"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "adjective_of",
+       "lemma": "luck",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "bag": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "bag",
+   "lexemes": [
+    {
+     "id": "d09827ef-a8b2-549e-a16d-1f8b9690af6d",
+     "homograph": 1,
+     "lemma": "bag",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈbæɡ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈbæɡ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "8dcf2ddb-d46e-512f-b89a-ce92da924953",
+       "definition": "a container made of paper, plastic, cloth or leather, used for carrying things",
+       "example": "Don't forget to pack your bags before the taxi arrives.",
+       "cefr": "A1",
+       "frames": [
+        "bag of sth"
+       ],
+       "collocations": [
+        "pack your bags",
+        "plastic bag",
+        "paper bag",
+        "shopping bag",
+        "carry a bag",
+        "school bag",
+        "overnight bag"
+       ],
+       "patterns": [
+        {
+         "frame": "bag of sth",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "d0c7952d-39c2-55f0-8273-cd5bdc613e77",
+       "definition": "dark areas of loose skin under a person's eyes",
+       "example": "After a week of late nights, I've got huge bags under my eyes.",
+       "cefr": "B2",
+       "grammar": {
+        "number": "Plur"
+       },
+       "collocations": [
+        "bags under your eyes"
+       ]
+      },
+      {
+       "id": "512e9f4b-2e1c-550e-a575-0f8c352e979a",
+       "definition": "a large amount or number of something",
+       "example": "Don't worry, there's bags of time before the film starts.",
+       "cefr": "C1",
+       "frames": [
+        "bags of sth"
+       ],
+       "grammar": {
+        "number": "Plur"
+       },
+       "labels": {
+        "formality": "informal"
+       },
+       "regions": [
+        {
+         "variety": "en-GB",
+         "extent": "mainly"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "bags of sth",
+         "parts": [
+          {
+           "head": "bags"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "3a5d44d7-1389-50d1-893c-979aa3dd19fb",
+       "definition": "an unpleasant or unattractive older woman",
+       "example": "The neighbours called her a miserable old bag behind her back.",
+       "cefr": "C2",
+       "collocations": [
+        "old bag"
+       ],
+       "labels": {
+        "formality": "informal",
+        "attitude": [
+         "offensive"
+        ]
+       }
+      },
+      {
+       "id": "f47b4f58-a62e-58c6-acc4-0aff7108b309",
+       "definition": "an activity or subject that someone likes or is good at",
+       "example": "Team sports were never really my bag.",
+       "cefr": "C2",
+       "grammar": {
+        "note": "usually in the negative, with a possessive"
+       },
+       "collocations": [
+        "not my bag"
+       ],
+       "labels": {
+        "formality": "informal",
+        "time": "dated"
+       }
+      }
+     ]
+    },
+    {
+     "id": "3b49ce8b-cabe-5580-ae24-07b38b9aaf30",
+     "homograph": 1,
+     "lemma": "bag",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Tr",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈbæɡ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈbæɡ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "301d856f-bee5-5442-9d6a-0a4e924bc697",
+       "definition": "to put things into a bag",
+       "example": "The assistant bagged our groceries while we paid.",
+       "cefr": "B2",
+       "frames": [
+        "bag sth",
+        "bag sth up"
+       ],
+       "patterns": [
+        {
+         "frame": "bag sth",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "bag sth up",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "up"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "048c8fd3-151f-5126-b282-d710399c7c19",
+       "definition": "to manage to get something, often before other people can",
+       "example": "Get there early and bag us some good seats.",
+       "cefr": "C1",
+       "frames": [
+        "bag sth",
+        "bag sb sth"
+       ],
+       "collocations": [
+        "bag a seat",
+        "bag a goal",
+        "bag a bargain"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "patterns": [
+        {
+         "frame": "bag sth",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "bag sb sth",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "487e188e-0ff2-5e05-a352-68205e9e23a5",
+       "definition": "to catch or kill an animal when hunting",
+       "example": "The hunters bagged three ducks before lunch.",
+       "cefr": "C2",
+       "frames": [
+        "bag sth"
+       ],
+       "labels": {
+        "domain": "hunting"
+       },
+       "patterns": [
+        {
+         "frame": "bag sth",
+         "parts": [
+          {
+           "head": "bag"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "authority": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "authority",
+   "lexemes": [
+    {
+     "id": "ccd5bb2e-2697-5c21-95ec-02f9e418bc11",
+     "homograph": 1,
+     "lemma": "authority",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ə.ˈθɔːɹ.ə.ti/"
+      },
+      {
+       "variety": "en-US",
+       "ipa": "/ə.ˈθɑːɹ.ə.ti/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ɔː.ˈθɒɹ.ə.ti/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ə.ˈθɒɹ.ə.ti/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "17327abd-8386-54d9-b897-5b638c7b255b",
+       "definition": "the power to give orders and make people obey them",
+       "example": "The authorities have closed the road after the flood.",
+       "cefr": "B2",
+       "frames": [
+        "authority over sb/sth"
+       ],
+       "collocations": [
+        "in authority",
+        "a position of authority",
+        "exercise authority",
+        "undermine authority",
+        "challenge authority",
+        "have authority over"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "patterns": [
+        {
+         "frame": "authority over sb/sth",
+         "parts": [
+          {
+           "head": "authority"
+          },
+          {
+           "word": "over"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "c1e48265-a867-5369-b858-5b0b858c8eaa",
+       "definition": "an official organization or group with power to make decisions in an area",
+       "example": "Teachers need enough authority to keep order in class.",
+       "cefr": "B2",
+       "collocations": [
+        "the authorities",
+        "local authority",
+        "health authority",
+        "tax authorities",
+        "port authority",
+        "inform the authorities"
+       ],
+       "grammar": {
+        "countability": "Count",
+        "note": "often plural: the authorities"
+       }
+      },
+      {
+       "id": "87a1e43e-f984-5fde-8d1f-a1f8d3c418c2",
+       "definition": "official permission or the right to do something",
+       "example": "Only the manager has the authority to sign these contracts.",
+       "cefr": "C1",
+       "frames": [
+        "authority to do sth",
+        "authority for sth",
+        "give sb authority"
+       ],
+       "collocations": [
+        "without authority",
+        "on whose authority"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "patterns": [
+        {
+         "frame": "authority to do sth",
+         "parts": [
+          {
+           "head": "authority"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "to-inf"
+          }
+         ]
+        },
+        {
+         "frame": "authority for sth",
+         "parts": [
+          {
+           "head": "authority"
+          },
+          {
+           "word": "for"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "give sb authority",
+         "parts": [
+          {
+           "word": "give"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          },
+          {
+           "head": "authority"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fa852bdf-bafd-500d-a861-46afd00d59d7",
+       "definition": "a person with special knowledge of a subject whose opinion is respected",
+       "example": "She is a leading authority on medieval history.",
+       "cefr": "C1",
+       "frames": [
+        "authority on sth"
+       ],
+       "collocations": [
+        "a leading authority",
+        "a world authority"
+       ],
+       "grammar": {
+        "countability": "Count"
+       },
+       "patterns": [
+        {
+         "frame": "authority on sth",
+         "parts": [
+          {
+           "head": "authority"
+          },
+          {
+           "word": "on"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "82e893d7-6840-5c6c-bd23-092b92ab620e",
+       "definition": "the quality of making people respect and believe you through knowledge or confidence",
+       "example": "He spoke with such authority that nobody questioned him.",
+       "cefr": "C1",
+       "collocations": [
+        "speak with authority",
+        "an air of authority",
+        "moral authority"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      }
+     ]
+    }
+   ],
+   "frames_moved_to_collocations": 1,
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "balance": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈbæl.əns/",
+  "now": "/bæl.ˈəns/",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "balance",
+   "lexemes": [
+    {
+     "id": "8e1457fe-b709-5037-a422-da5da9505607",
+     "homograph": 1,
+     "lemma": "balance",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/bæl.ˈəns/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/bæl.ˈəns/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "c455daea-364b-54f4-8e67-162d3ad0c376",
+       "definition": "the ability to stay steady and upright without falling",
+       "example": "She slipped on the ice and lost her balance.",
+       "cefr": "B1",
+       "collocations": [
+        "lose your balance",
+        "keep your balance",
+        "sense of balance",
+        "off balance",
+        "regain your balance"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "id": "0df559a6-eb05-5ad7-8365-2cf86c8af579",
+       "definition": "a state in which different things have the right amount or importance",
+       "example": "It's hard to find a good balance between work and family.",
+       "cefr": "B2",
+       "frames": [
+        "balance between sth and sth",
+        "balance of sth"
+       ],
+       "collocations": [
+        "strike a balance",
+        "the right balance",
+        "work-life balance",
+        "balance of power",
+        "a healthy balance",
+        "upset the balance"
+       ],
+       "grammar": {
+        "note": "usually singular"
+       },
+       "antonyms": [
+        {
+         "lemma": "imbalance",
+         "pos": "NOUN"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "balance between sth and sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "word": "between"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "and"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "balance of sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1579bd4a-740d-5047-9591-28ae6e7c742f",
+       "definition": "the amount of money in a bank account at a particular time",
+       "example": "I check my balance online before I go shopping.",
+       "cefr": "B1",
+       "collocations": [
+        "bank balance",
+        "account balance",
+        "check your balance",
+        "a negative balance"
+       ],
+       "grammar": {
+        "countability": "Count"
+       },
+       "labels": {
+        "domain": "finance"
+       }
+      },
+      {
+       "id": "c3b6167b-053a-5390-8366-800b0d529e10",
+       "definition": "the amount of money still owed after part has been paid",
+       "example": "You pay a deposit now and the balance next month.",
+       "cefr": "B2",
+       "collocations": [
+        "pay the balance",
+        "the outstanding balance",
+        "the remaining balance"
+       ],
+       "grammar": {
+        "number": "Sing"
+       }
+      },
+      {
+       "id": "edb36dc6-df5f-5303-8076-e2852fea7dc6",
+       "definition": "an instrument for weighing things, with two dishes hanging from a bar",
+       "example": "The chemist placed the powder carefully on the balance.",
+       "cefr": "C1",
+       "grammar": {
+        "countability": "Count"
+       }
+      }
+     ]
+    },
+    {
+     "id": "b84ab51e-f603-582b-822a-e2adc141597c",
+     "homograph": 1,
+     "lemma": "balance",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Both",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈbæl.əns/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈbæl.əns/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "3c50c461-52ac-5432-ab13-973c04ff2385",
+       "definition": "to stay or keep something steady without it falling",
+       "example": "The waiter balanced three plates on one arm.",
+       "cefr": "B1",
+       "frames": [
+        "balance on sth",
+        "balance sth on sth"
+       ],
+       "collocations": [
+        "balance on one leg",
+        "balance carefully",
+        "balance precariously"
+       ],
+       "patterns": [
+        {
+         "frame": "balance on sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "word": "on"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "balance sth on sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "on"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "14339ae8-7309-5a40-9375-707a8a1b61f7",
+       "definition": "to give two or more things equal or fair importance",
+       "example": "Many parents struggle to balance their jobs and their children.",
+       "cefr": "B2",
+       "frames": [
+        "balance sth with sth",
+        "balance sth against sth",
+        "balance sth and sth"
+       ],
+       "collocations": [
+        "balance the needs",
+        "balance the interests",
+        "carefully balanced"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "balance sth with sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "with"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "balance sth against sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "against"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "balance sth and sth",
+         "parts": [
+          {
+           "head": "balance"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "and"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "e5c6ea58-ff88-508a-b33a-9c329f5ee139",
+       "definition": "to make the money spent equal to the money received",
+       "example": "The government has promised to balance the budget by next year.",
+       "cefr": "C1",
+       "collocations": [
+        "balance the budget",
+        "balance the books",
+        "balance the accounts"
+       ],
+       "grammar": {
+        "valency": "Tr",
+        "mainly": [
+         "valency"
+        ]
+       },
+       "labels": {
+        "domain": "finance"
+       }
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "winner": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "winner",
+   "lexemes": [
+    {
+     "id": "06803a2a-aa86-5842-9f42-b94e5caa0bbb",
+     "homograph": 1,
+     "lemma": "winner",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈwɪn.ɚ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈwɪn.ə/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "2baa69ab-855d-52c6-aebc-ab991e273623",
+       "definition": "a person, team or animal that comes first in a competition, race or game",
+       "example": "The winners will be announced at the end of the evening.",
+       "cefr": "A2",
+       "frames": [
+        "winner of sth"
+       ],
+       "collocations": [
+        "declare the winner",
+        "announce the winner",
+        "pick a winner",
+        "prize winner",
+        "overall winner",
+        "clear winner",
+        "worthy winner",
+        "outright winner",
+        "Nobel Prize winner"
+       ],
+       "antonyms": [
+        {
+         "lemma": "loser",
+         "pos": "NOUN"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "winner of sth",
+         "parts": [
+          {
+           "head": "winner"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "54f52f14-3fa9-51a7-8bdb-3453a456d1b4",
+       "definition": "something or someone that is successful or likely to be successful",
+       "example": "Your new recipe is a real winner with the kids.",
+       "cefr": "B2",
+       "frames": [
+        "winner with sb"
+       ],
+       "collocations": [
+        "a real winner",
+        "be onto a winner",
+        "be on to a winner"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "patterns": [
+        {
+         "frame": "winner with sb",
+         "parts": [
+          {
+           "head": "winner"
+          },
+          {
+           "word": "with"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "672ae927-2681-58d2-899e-1868faa0e023",
+       "definition": "a goal or point that makes a team or player win a game",
+       "example": "He scored the winner in the last minute of the match.",
+       "cefr": "B2",
+       "collocations": [
+        "score the winner",
+        "late winner",
+        "last-minute winner"
+       ],
+       "regions": [
+        {
+         "variety": "en-GB",
+         "extent": "mainly"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "agent_noun_of",
+       "lemma": "win",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "roll": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "roll",
+   "lexemes": [
+    {
+     "id": "e5d1f441-b62f-5776-90fa-d9b35c085435",
+     "homograph": 1,
+     "lemma": "roll",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Both",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɹoʊl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɹəʊl/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "13c9f18d-f950-53df-a04b-728af4035388",
+       "definition": "to move along a surface by turning over and over, or make something do this",
+       "example": "He rolled onto his back and looked up at the stars.",
+       "cefr": "B1",
+       "frames": [
+        "roll down sth",
+        "roll across sth",
+        "roll sth"
+       ],
+       "collocations": [
+        "roll downhill",
+        "roll away",
+        "roll a ball"
+       ],
+       "patterns": [
+        {
+         "frame": "roll down sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "down"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll across sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "across"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "eadd0dd3-0eaf-5067-be81-f7657bbc718f",
+       "definition": "to turn your body over so that you lie in a different position",
+       "example": "The ball rolled slowly across the floor and under the sofa.",
+       "cefr": "B1",
+       "frames": [
+        "roll onto sth",
+        "roll sb over"
+       ],
+       "collocations": [
+        "roll over",
+        "roll onto your side",
+        "roll out of bed"
+       ],
+       "grammar": {
+        "valency": "Intr",
+        "mainly": [
+         "valency"
+        ]
+       },
+       "patterns": [
+        {
+         "frame": "roll onto sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "onto"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll sb over",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          },
+          {
+           "word": "over"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "b466ccf9-ff07-563c-bb17-8e0fa5245b90",
+       "definition": "to move along smoothly on wheels, or make something do this",
+       "example": "The car started to roll backwards down the slope.",
+       "cefr": "B1",
+       "frames": [
+        "roll into sth",
+        "roll sth"
+       ],
+       "collocations": [
+        "roll forward",
+        "roll backwards",
+        "roll to a stop"
+       ],
+       "patterns": [
+        {
+         "frame": "roll into sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "into"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "6695f4e4-a354-5235-9a5a-7585770125d1",
+       "definition": "to move or flow smoothly and steadily in one direction",
+       "example": "Tears were rolling down her cheeks as she read the letter.",
+       "cefr": "B2",
+       "frames": [
+        "roll down sth",
+        "roll into sth"
+       ],
+       "collocations": [
+        "roll in",
+        "tears roll down",
+        "waves roll in"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "roll down sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "down"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll into sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "into"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "ab080546-9f5b-5014-a99e-7dcff8743ae5",
+       "definition": "to turn something over and over to make it into a ball or tube shape",
+       "example": "Can you help me roll the carpet before the movers arrive?",
+       "cefr": "B2",
+       "frames": [
+        "roll sth into sth",
+        "roll sth"
+       ],
+       "collocations": [
+        "roll up",
+        "roll a cigarette",
+        "roll up your sleeves",
+        "roll into a ball"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "roll sth into sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "into"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "roll sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "07b77e68-ce1f-56ce-8cba-24c95e8f366a",
+       "definition": "to make something flat by pushing a round object over it",
+       "example": "Roll the dough until it is about half a centimetre thick.",
+       "cefr": "B2",
+       "frames": [
+        "roll sth"
+       ],
+       "collocations": [
+        "roll out",
+        "roll out the dough",
+        "roll the pastry"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "roll sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1919f186-0e89-574c-b1db-c3c391538ac3",
+       "definition": "to throw dice onto a surface in a game",
+       "example": "It's your turn, so roll the dice and move your piece.",
+       "cefr": "B2",
+       "frames": [
+        "roll sth"
+       ],
+       "collocations": [
+        "roll the dice",
+        "roll a six",
+        "roll a double"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "roll sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "91862448-299f-587a-93a4-884436a56658",
+       "definition": "to move your eyes upwards and around to show you are annoyed or bored",
+       "example": "My sister always rolls her eyes when I tell that joke.",
+       "cefr": "B2",
+       "collocations": [
+        "roll your eyes"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       }
+      },
+      {
+       "id": "83b0f554-645a-5b2b-88f0-9d09498b4b7a",
+       "definition": "to make a long, deep, continuous sound",
+       "example": "Thunder rolled in the distance as we hurried home.",
+       "cefr": "C1",
+       "collocations": [
+        "thunder rolls",
+        "drums roll"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       }
+      }
+     ]
+    },
+    {
+     "id": "22b2abfd-0bfb-57b8-b80a-4e4824f8f8eb",
+     "homograph": 1,
+     "lemma": "roll",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈɹoʊl/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈɹəʊl/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "99df46b2-4fe8-5d94-bf88-b208fd2e25f8",
+       "definition": "a long piece of paper, cloth, film or other material turned around itself into a tube",
+       "example": "We need to buy another roll of toilet paper.",
+       "cefr": "A2",
+       "frames": [
+        "roll of sth"
+       ],
+       "collocations": [
+        "a roll of toilet paper",
+        "a roll of film",
+        "a roll of tape",
+        "a roll of carpet",
+        "a roll of banknotes"
+       ],
+       "patterns": [
+        {
+         "frame": "roll of sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fcce9a17-8704-5f5b-a499-dc7d09c2cab3",
+       "definition": "a small round loaf of bread for one person",
+       "example": "She had a cheese roll and an apple for lunch.",
+       "cefr": "A2",
+       "collocations": [
+        "bread roll",
+        "bacon roll",
+        "a warm roll",
+        "a crusty roll"
+       ]
+      },
+      {
+       "id": "17c66f24-418c-5a0b-9dd4-3391736857b4",
+       "definition": "an official list of names of people belonging to a group",
+       "example": "The teacher calls the roll at the start of every class.",
+       "cefr": "C1",
+       "collocations": [
+        "call the roll",
+        "electoral roll",
+        "on the roll",
+        "roll of honour"
+       ]
+      },
+      {
+       "id": "6c40e1e1-5758-535e-b5ef-21d841277f93",
+       "definition": "a single throw of dice in a game",
+       "example": "Everything depends on the next roll of the dice.",
+       "cefr": "C1",
+       "collocations": [
+        "a roll of the dice"
+       ]
+      },
+      {
+       "id": "d1b9d359-db0d-5cac-81da-fa3c772a3b1c",
+       "definition": "a long, deep, continuous sound",
+       "example": "A low roll of thunder came from the hills.",
+       "cefr": "C1",
+       "frames": [
+        "roll of sth"
+       ],
+       "collocations": [
+        "a roll of thunder",
+        "drum roll"
+       ],
+       "patterns": [
+        {
+         "frame": "roll of sth",
+         "parts": [
+          {
+           "head": "roll"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "10e99503-e7cf-5b6a-af5e-67650917a278",
+       "definition": "a movement in which a body turns over completely on the ground",
+       "example": "The children practised forward rolls on the gym mat.",
+       "cefr": "B2",
+       "collocations": [
+        "forward roll",
+        "backward roll",
+        "do a roll"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "role",
+       "pos": "NOUN",
+       "why": "sounds the same as role, the part someone plays"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "apply": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ə.ˈplaɪ/",
+  "now": "/ˈə.plaɪ/",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "apply",
+   "lexemes": [
+    {
+     "id": "5e32d601-b620-587b-924a-d8aaae1d7fcb",
+     "homograph": 1,
+     "lemma": "apply",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Both",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈə.plaɪ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈə.plaɪ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "7cd6742d-5d43-5f41-a4d6-873057b1d66b",
+       "definition": "to make a formal, usually written, request for something",
+       "example": "She has applied for a job at the local hospital.",
+       "cefr": "A2",
+       "frames": [
+        "apply for sth",
+        "apply to sb/sth",
+        "apply to do sth"
+       ],
+       "collocations": [
+        "apply for a job",
+        "apply for a visa",
+        "apply for a loan",
+        "apply for a place",
+        "apply online",
+        "apply in writing"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "apply for sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "word": "for"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "apply to sb/sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "apply to do sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "to-inf"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "ce3f6bbe-f4e1-5c7c-8e78-c9f16dd1bec4",
+       "definition": "to be relevant to someone or something and have an effect on them",
+       "example": "These rules apply to all students, including part-time ones.",
+       "cefr": "B1",
+       "frames": [
+        "apply to sb/sth"
+       ],
+       "collocations": [
+        "the same applies",
+        "conditions apply",
+        "rules apply",
+        "terms and conditions apply"
+       ],
+       "grammar": {
+        "valency": "Intr"
+       },
+       "patterns": [
+        {
+         "frame": "apply to sb/sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "82b219e3-bc03-5c5f-95b2-ad435d486191",
+       "definition": "to use a method, rule or knowledge in a particular situation",
+       "example": "We can apply this method to other problems as well.",
+       "cefr": "B2",
+       "frames": [
+        "apply sth to sth",
+        "apply sth"
+       ],
+       "collocations": [
+        "apply the law",
+        "apply a rule",
+        "apply a principle",
+        "apply knowledge",
+        "apply a technique",
+        "strictly apply"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "apply sth to sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "apply sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "7946cc75-a363-58c4-931c-0bdabe92fbbb",
+       "definition": "to put or spread a substance on a surface",
+       "example": "Apply the cream to your skin twice a day.",
+       "cefr": "B2",
+       "frames": [
+        "apply sth to sth",
+        "apply sth"
+       ],
+       "collocations": [
+        "apply a thin layer",
+        "apply evenly",
+        "apply sunscreen",
+        "apply makeup",
+        "apply paint"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "apply sth to sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "apply sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "7f37d065-dbfd-582d-9af0-86089c81c62f",
+       "definition": "to press or push on something with force",
+       "example": "Apply firm pressure to the wound to stop the bleeding.",
+       "cefr": "C1",
+       "frames": [
+        "apply sth to sth"
+       ],
+       "collocations": [
+        "apply pressure",
+        "apply force",
+        "apply the brakes"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "apply sth to sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "426bc734-c467-5253-9b0c-17ee50aa1952",
+       "definition": "to work hard and give all your attention to something",
+       "example": "If you apply yourself, you could pass every exam this year.",
+       "cefr": "C1",
+       "frames": [
+        "apply oneself to sth",
+        "apply oneself to doing sth"
+       ],
+       "grammar": {
+        "valency": "Refl",
+        "note": "used with a reflexive pronoun: apply yourself"
+       },
+       "patterns": [
+        {
+         "frame": "apply oneself to sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "reflexive"
+           ]
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "apply oneself to doing sth",
+         "parts": [
+          {
+           "head": "apply"
+          },
+          {
+           "slot": [
+            "reflexive"
+           ]
+          },
+          {
+           "word": "to"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "ing"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ },
+ "score": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "en",
+   "headword": "score",
+   "lexemes": [
+    {
+     "id": "23a242c3-1a3e-5a50-a9f5-8803698e83b6",
+     "homograph": 1,
+     "lemma": "score",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈskɔːɹ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈskɔː/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "cc102ee1-1615-5070-8fc4-1965dd2d32e1",
+       "definition": "the number of points or goals each player or team has in a game",
+       "example": "The final score was three goals to one.",
+       "cefr": "A2",
+       "collocations": [
+        "keep score",
+        "the final score",
+        "the half-time score",
+        "level the score",
+        "the score is tied"
+       ]
+      },
+      {
+       "id": "4f963920-861a-550f-a204-503e44c733fb",
+       "definition": "the number of marks or points someone gets in a test or exam",
+       "example": "Her test scores have improved a lot this term.",
+       "cefr": "B1",
+       "frames": [
+        "score on sth",
+        "score in sth"
+       ],
+       "collocations": [
+        "a high score",
+        "a low score",
+        "a perfect score",
+        "test score",
+        "get a score"
+       ],
+       "patterns": [
+        {
+         "frame": "score on sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "word": "on"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score in sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "word": "in"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "b3eb38e3-4272-55dc-afb0-ec9029501b22",
+       "definition": "the written music for a piece, or the music written for a film or play",
+       "example": "The film's score was written by a famous composer.",
+       "cefr": "C1",
+       "collocations": [
+        "film score",
+        "musical score",
+        "write the score"
+       ],
+       "labels": {
+        "domain": "music"
+       }
+      },
+      {
+       "id": "89355640-32f0-55f7-89c6-1d9db3dbb7ab",
+       "definition": "a very large number of people or things",
+       "example": "Scores of people were waiting outside the stadium.",
+       "cefr": "C1",
+       "frames": [
+        "scores of sb/sth"
+       ],
+       "grammar": {
+        "number": "Plur"
+       },
+       "patterns": [
+        {
+         "frame": "scores of sb/sth",
+         "parts": [
+          {
+           "head": "scores"
+          },
+          {
+           "word": "of"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "f2034aa3-bfd9-5eb2-a4f3-b4fe26f4c64d",
+       "definition": "a group or set of twenty",
+       "example": "The old man had lived for four score years.",
+       "cefr": "C2",
+       "labels": {
+        "time": "dated",
+        "style": [
+         "literary"
+        ]
+       },
+       "grammar": {
+        "note": "plural is usually score after a number: three score"
+       }
+      }
+     ]
+    },
+    {
+     "id": "2542b3ee-45c2-5dbe-843e-6ff6ca4028af",
+     "homograph": 1,
+     "lemma": "score",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "valency": "Both",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "en-US",
+       "ipa": "/ˈskɔːɹ/"
+      },
+      {
+       "variety": "en-GB",
+       "ipa": "/ˈskɔː/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "87e1b1ec-55ad-5343-8617-56903e9f7462",
+       "definition": "to win a point or goal in a game or sport",
+       "example": "He scored twice in the second half of the match.",
+       "cefr": "A2",
+       "frames": [
+        "score sth",
+        "score against sb"
+       ],
+       "collocations": [
+        "score a goal",
+        "score points",
+        "score a try",
+        "score a run",
+        "score a winner"
+       ],
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score against sb",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "word": "against"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "fb4f5463-5df6-569b-ac56-37e6ac586c29",
+       "definition": "to get a particular number of marks or points in a test",
+       "example": "Most students scored above eighty per cent on the exam.",
+       "cefr": "B1",
+       "frames": [
+        "score sth",
+        "score sth on sth",
+        "score + adv"
+       ],
+       "collocations": [
+        "score highly",
+        "score well",
+        "score poorly",
+        "score low"
+       ],
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score sth on sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "on"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score + adv",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "adv"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "0fe96f04-ea14-5bdd-b48a-5b50ab293192",
+       "definition": "to achieve a success or gain an advantage",
+       "example": "The new album has scored a huge hit with teenagers.",
+       "cefr": "B2",
+       "frames": [
+        "score sth",
+        "score points off sb"
+       ],
+       "collocations": [
+        "score a victory",
+        "score a success",
+        "score a hit"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score points off sb",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "word": "points"
+          },
+          {
+           "word": "off"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "4f1e4419-a822-5e1f-9d6e-78c47a4ddd30",
+       "definition": "to manage to get something you want, often by luck",
+       "example": "I scored two free tickets to tonight's concert.",
+       "cefr": "B2",
+       "frames": [
+        "score sth"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "7e3c287c-0e44-52d8-9bb7-c13427ed4c13",
+       "definition": "to cut a line or lines into the surface of something",
+       "example": "Score the bread dough lightly with a sharp knife.",
+       "cefr": "C1",
+       "frames": [
+        "score sth"
+       ],
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "9b604288-6f41-5da0-b939-638d3581e360",
+       "definition": "to write music for a film, play or group of instruments",
+       "example": "She was asked to score a new documentary about the ocean.",
+       "cefr": "C2",
+       "frames": [
+        "score sth",
+        "score sth for sth"
+       ],
+       "labels": {
+        "domain": "music"
+       },
+       "grammar": {
+        "valency": "Tr"
+       },
+       "patterns": [
+        {
+         "frame": "score sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "score sth for sth",
+         "parts": [
+          {
+           "head": "score"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "for"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "frames_moved_to_collocations": 1,
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "4b174049fe16"
+   }
+  }
+ }
+}

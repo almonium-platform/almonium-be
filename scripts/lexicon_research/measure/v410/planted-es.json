@@ -1,0 +1,1172 @@
+{
+ "denuncia": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "denuncia",
+   "lexemes": [
+    {
+     "id": "979a47f5-ad32-5d05-83c2-9f279f261024",
+     "homograph": 1,
+     "lemma": "denuncia",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/de.ˈnun.θja/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/de.ˈnun.sja/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "684015c1-3a2c-540e-8ec6-2db8def303fe",
+       "definition": "aviso a la policía o a un juez sobre un delito o una falta",
+       "example": "Mis vecinos fueron a comisaría a poner una denuncia por el robo.",
+       "cefr": "B1",
+       "frames": [
+        "denuncia contra alguien",
+        "denuncia por algo"
+       ],
+       "collocations": [
+        "poner una denuncia",
+        "presentar una denuncia",
+        "interponer una denuncia",
+        "retirar una denuncia",
+        "denuncia falsa",
+        "recibir una denuncia",
+        "tramitar una denuncia"
+       ],
+       "patterns": [
+        {
+         "frame": "denuncia contra alguien",
+         "parts": [
+          {
+           "head": "denuncia"
+          },
+          {
+           "word": "contra"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "denuncia por algo",
+         "parts": [
+          {
+           "head": "denuncia"
+          },
+          {
+           "word": "por"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "935b5730-697d-527e-b0eb-162a9de53d5f",
+       "definition": "crítica pública de una situación injusta, ilegal o dañina",
+       "example": "Su última película es una dura denuncia de la pobreza infantil.",
+       "cefr": "B2",
+       "frames": [
+        "denuncia de algo"
+       ],
+       "collocations": [
+        "denuncia social",
+        "denuncia pública",
+        "hacer una denuncia"
+       ],
+       "patterns": [
+        {
+         "frame": "denuncia de algo",
+         "parts": [
+          {
+           "head": "denuncia"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "verbal_noun_of",
+       "lemma": "denunciar",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "extremo": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/eks.ˈtɾe.mo/",
+  "now": "/eks.tɾe.ˈmo/",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "extremo",
+   "lexemes": [
+    {
+     "id": "57516a57-09d9-5a92-9e32-8de3ea6f046b",
+     "homograph": 1,
+     "lemma": "extremo",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/eks.tɾe.ˈmo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/eks.tɾe.ˈmo/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "51ed3667-8768-5c53-8f76-33d7c9721d2e",
+       "definition": "que tiene el grado más alto o más intenso posible",
+       "example": "Esta semana se esperan temperaturas extremas en todo el sur.",
+       "cefr": "B1",
+       "collocations": [
+        "pobreza extrema",
+        "calor extremo",
+        "frío extremo",
+        "caso extremo",
+        "extrema gravedad",
+        "deportes extremos",
+        "con extremo cuidado"
+       ]
+      },
+      {
+       "id": "d5312165-f625-5ba0-8201-f917a00684a2",
+       "definition": "muy alejado de lo moderado o de lo que piensa la mayoría",
+       "example": "No estoy de acuerdo con sus ideas tan extremas sobre la inmigración.",
+       "cefr": "B2",
+       "collocations": [
+        "extrema derecha",
+        "extrema izquierda",
+        "medidas extremas",
+        "posturas extremas"
+       ],
+       "antonyms": [
+        {
+         "lemma": "moderado",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "id": "fd93976b-3ec5-5c85-91d3-362c9d92e9d0",
+       "definition": "que está en la parte más lejana o al final de algo",
+       "example": "Viven en una aldea situada en el extremo norte del país.",
+       "cefr": "B2",
+       "grammar": {
+        "position": "Attr",
+        "mainly": [
+         "position"
+        ]
+       },
+       "collocations": [
+        "Extremo Oriente",
+        "extremo norte",
+        "extremo sur"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "7b5fc090-73ca-523c-85ca-4e5049a40dde",
+     "homograph": 1,
+     "lemma": "extremo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/eks.ˈtɾe.mo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/eks.ˈtɾe.mo/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "d947df33-c3d3-5823-89dc-47a50072917b",
+       "definition": "parte final o punta de una cosa larga o de un lugar",
+       "example": "Ata bien el otro extremo de la cuerda al árbol.",
+       "cefr": "B1",
+       "frames": [
+        "el extremo de algo"
+       ],
+       "collocations": [
+        "al otro extremo",
+        "de extremo a extremo",
+        "en un extremo",
+        "el extremo opuesto"
+       ],
+       "patterns": [
+        {
+         "frame": "el extremo de algo",
+         "parts": [
+          {
+           "word": "el"
+          },
+          {
+           "head": "extremo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "6e4c28a1-7eba-5283-9c45-79e491fed6a2",
+       "definition": "punto o grado máximo al que puede llegar algo o alguien",
+       "example": "La situación llegó a tal extremo que tuvieron que llamar a la policía.",
+       "cefr": "B2",
+       "frames": [
+        "llegar al extremo de + inf",
+        "hasta el extremo de + inf"
+       ],
+       "collocations": [
+        "llegar a tal extremo",
+        "en último extremo",
+        "pasar de un extremo a otro",
+        "los extremos se tocan",
+        "en extremo"
+       ],
+       "patterns": [
+        {
+         "frame": "llegar al extremo de + inf",
+         "parts": [
+          {
+           "word": "llegar"
+          },
+          {
+           "word": "al"
+          },
+          {
+           "head": "extremo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "hasta el extremo de + inf",
+         "parts": [
+          {
+           "word": "hasta"
+          },
+          {
+           "word": "el"
+          },
+          {
+           "head": "extremo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "f2d567bf-2cb8-515e-9722-f6b01781a9bf",
+       "definition": "jugador que ocupa una de las bandas en el ataque de un equipo",
+       "example": "El nuevo extremo izquierdo es muy rápido con el balón.",
+       "cefr": "C1",
+       "labels": {
+        "domain": "sport"
+       },
+       "collocations": [
+        "extremo derecho",
+        "extremo izquierdo"
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "dueño": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "dueño",
+   "lexemes": [
+    {
+     "id": "75b83549-31cd-5fd5-828f-abc07068b1b4",
+     "homograph": 1,
+     "lemma": "dueño",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass",
+      "note": "feminine dueña"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/ˈdwe.ɲo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/ˈdwe.ɲo/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "0ab58e7e-6b94-50ef-8f05-ddbdbfde981f",
+       "definition": "persona a quien pertenece una cosa, un animal o un negocio",
+       "example": "Los dueños del restaurante quieren venderlo antes del verano.",
+       "cefr": "A2",
+       "frames": [
+        "dueño de algo"
+       ],
+       "collocations": [
+        "el dueño de la casa",
+        "cambiar de dueño",
+        "nuevo dueño",
+        "legítimo dueño",
+        "dueño del perro",
+        "dueño del negocio"
+       ],
+       "patterns": [
+        {
+         "frame": "dueño de algo",
+         "parts": [
+          {
+           "head": "dueño"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "cf96c802-8108-5de2-883b-f247f0408dc0",
+       "definition": "persona que tiene control o libertad para decidir sobre algo",
+       "example": "Cada uno es dueño de hacer con su vida lo que quiera.",
+       "cefr": "B2",
+       "frames": [
+        "dueño de algo",
+        "ser dueño de + inf"
+       ],
+       "collocations": [
+        "ser dueño de sí mismo",
+        "hacerse dueño de la situación",
+        "dueño de su destino",
+        "dueño de sus actos"
+       ],
+       "patterns": [
+        {
+         "frame": "dueño de algo",
+         "parts": [
+          {
+           "head": "dueño"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "ser dueño de + inf",
+         "parts": [
+          {
+           "word": "ser"
+          },
+          {
+           "head": "dueño"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "interesar": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "interesar",
+   "lexemes": [
+    {
+     "id": "66aca959-15bc-5456-a8b0-41e7e48d194d",
+     "homograph": 1,
+     "lemma": "interesar",
+     "pos": "VERB",
+     "kind": "word",
+     "grammar": {
+      "conjugation": "1",
+      "irregular": false
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/in.te.ɾe.ˈsaɾ/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/in.te.ɾe.ˈsaɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "42fa1052-a406-53c0-90d1-c5cf3e40ebe2",
+       "definition": "despertar la atención, la curiosidad o el gusto de alguien",
+       "example": "Te interesa llegar temprano si quieres conseguir un buen sitio.",
+       "cefr": "A2",
+       "frames": [
+        "interesar a alguien"
+       ],
+       "collocations": [
+        "interesar mucho",
+        "no interesar nada",
+        "interesar especialmente"
+       ],
+       "grammar": {
+        "valency": "Intr",
+        "note": "the person takes an indirect object, like gustar: me interesa"
+       },
+       "patterns": [
+        {
+         "frame": "interesar a alguien",
+         "parts": [
+          {
+           "head": "interesar"
+          },
+          {
+           "word": "a"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "6dd26bea-b8f7-55ff-a9e8-108b42ad900b",
+       "definition": "ser útil, conveniente o de provecho para alguien",
+       "example": "A mis hijos les interesan mucho los dinosaurios y los volcanes.",
+       "cefr": "B1",
+       "frames": [
+        "interesar a alguien",
+        "interesar + inf",
+        "interesar que + subj"
+       ],
+       "grammar": {
+        "valency": "Intr",
+        "note": "the person takes an indirect object: nos interesa vender"
+       },
+       "patterns": [
+        {
+         "frame": "interesar a alguien",
+         "parts": [
+          {
+           "head": "interesar"
+          },
+          {
+           "word": "a"
+          },
+          {
+           "slot": [
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "interesar + inf",
+         "parts": [
+          {
+           "head": "interesar"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        },
+        {
+         "frame": "interesar que + subj",
+         "parts": [
+          {
+           "head": "interesar"
+          },
+          {
+           "word": "que"
+          },
+          {
+           "slot": [
+            "clause"
+           ],
+           "mood": "subj"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1fa63430-9c9c-50c0-83e0-619135b41825",
+       "definition": "mostrar curiosidad o preocupación por algo o alguien y preguntar por ello",
+       "example": "Mi vecina siempre se interesa por la salud de mi madre.",
+       "cefr": "B1",
+       "frames": [
+        "interesarse por algo/alguien",
+        "interesarse en algo"
+       ],
+       "grammar": {
+        "valency": "Refl",
+        "reflexive": true
+       },
+       "patterns": [
+        {
+         "frame": "interesarse por algo/alguien",
+         "parts": [
+          {
+           "head": "interesarse"
+          },
+          {
+           "word": "por"
+          },
+          {
+           "slot": [
+            "thing",
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "interesarse en algo",
+         "parts": [
+          {
+           "head": "interesarse"
+          },
+          {
+           "word": "en"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "interés",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "orgullo": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Masc",
+  "now": "Fem",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "orgullo",
+   "lexemes": [
+    {
+     "id": "990ce527-df0c-5b64-9e8d-d323feb719cd",
+     "homograph": 1,
+     "lemma": "orgullo",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/oɾ.ˈɡu.ʝo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/oɾ.ˈɡu.ʝo/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "1bc69785-8437-5d0e-a726-988a21e2608e",
+       "definition": "sentimiento de satisfacción por lo que uno mismo u otra persona cercana ha hecho o tiene",
+       "example": "Mis padres hablan con orgullo de los estudios de mi hermana.",
+       "cefr": "B1",
+       "frames": [
+        "orgullo de algo/alguien",
+        "orgullo por algo",
+        "orgullo de + inf"
+       ],
+       "collocations": [
+        "con orgullo",
+        "sentir orgullo",
+        "llenar de orgullo",
+        "motivo de orgullo",
+        "orgullo nacional",
+        "un gran orgullo"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       },
+       "patterns": [
+        {
+         "frame": "orgullo de algo/alguien",
+         "parts": [
+          {
+           "head": "orgullo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing",
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "orgullo por algo",
+         "parts": [
+          {
+           "head": "orgullo"
+          },
+          {
+           "word": "por"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "orgullo de + inf",
+         "parts": [
+          {
+           "head": "orgullo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "verb"
+           ],
+           "form": "inf"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "5c627f36-b3a0-5d57-8396-43aba9ec861a",
+       "definition": "alta opinión de uno mismo y de su dignidad, muchas veces excesiva, que impide ceder",
+       "example": "Por orgullo, nunca reconoce que se ha equivocado.",
+       "cefr": "B1",
+       "collocations": [
+        "herir el orgullo",
+        "tragarse el orgullo",
+        "orgullo herido",
+        "por orgullo",
+        "dejar el orgullo"
+       ],
+       "antonyms": [
+        {
+         "lemma": "humildad",
+         "pos": "NOUN"
+        }
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      },
+      {
+       "id": "26d13a0a-a7c3-56f7-9dd3-476e2f27446b",
+       "definition": "persona o cosa que hace sentir muy satisfecho a alguien",
+       "example": "Este hospital nuevo es el orgullo de todo el pueblo.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "frames": [
+        "el orgullo de alguien/algo"
+       ],
+       "collocations": [
+        "ser el orgullo de la familia"
+       ],
+       "patterns": [
+        {
+         "frame": "el orgullo de alguien/algo",
+         "parts": [
+          {
+           "word": "el"
+          },
+          {
+           "head": "orgullo"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "person",
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "word_grammar_moved_to_senses": 1,
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "usado": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/u.ˈsa.do/",
+  "now": "/u.sa.ˈdo/",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "usado",
+   "lexemes": [
+    {
+     "id": "d9e5e38a-2cff-543b-b34f-476fad799635",
+     "homograph": 1,
+     "lemma": "usado",
+     "pos": "ADJ",
+     "kind": "word",
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/u.sa.ˈdo/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/u.sa.ˈdo/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "9befc8b3-1286-5e6d-9c9c-6fca3528024e",
+       "definition": "que ya ha tenido otro dueño antes y se vende o se compra de nuevo",
+       "example": "Mis padres compraron un coche usado porque era más barato.",
+       "cefr": "A2",
+       "collocations": [
+        "coche usado",
+        "ropa usada",
+        "libros usados",
+        "de segunda mano"
+       ],
+       "grammar": {
+        "comparable": false
+       },
+       "antonyms": [
+        {
+         "lemma": "nuevo",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "id": "ced48d34-4c4c-5f8d-812a-115a12109a72",
+       "definition": "gastado o estropeado por haber servido mucho tiempo",
+       "example": "Estos zapatos ya están muy usados, necesito unos nuevos.",
+       "cefr": "B1",
+       "grammar": {
+        "comparable": true,
+        "position": "Pred",
+        "mainly": [
+         "position"
+        ]
+       }
+      }
+     ],
+     "relations": [
+      {
+       "type": "derived_from",
+       "lemma": "usar",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "salón": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "salón",
+   "lexemes": [
+    {
+     "id": "62277d61-3e3d-546b-ac11-98bdfb87931f",
+     "homograph": 1,
+     "lemma": "salón",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass",
+      "note": "plural salones, without the accent"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/sa.ˈlon/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/sa.ˈlon/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "402b50a2-ff6d-5909-9564-fb7a84da9566",
+       "definition": "habitación principal de una casa, donde la familia pasa el tiempo y recibe visitas",
+       "example": "Después de cenar solemos ver la televisión en el salón.",
+       "cefr": "A1",
+       "collocations": [
+        "salón comedor",
+        "mueble de salón"
+       ],
+       "regions": [
+        {
+         "variety": "es-ES",
+         "extent": "mainly"
+        }
+       ]
+      },
+      {
+       "id": "3e0006f3-c749-527a-8f31-7526a0ece013",
+       "definition": "sala grande de un edificio donde se celebran fiestas, reuniones o actos públicos",
+       "example": "La boda se celebrará en un salón del hotel junto al mar.",
+       "cefr": "B1",
+       "collocations": [
+        "salón de actos",
+        "salón de baile",
+        "salón de fiestas",
+        "salón de banquetes",
+        "salón de eventos"
+       ]
+      },
+      {
+       "id": "ad823407-d83a-5cbf-a8de-cf0c305938df",
+       "definition": "local abierto al público donde se ofrece un servicio determinado",
+       "example": "Mi madre trabaja desde hace años en un salón de belleza.",
+       "cefr": "B1",
+       "collocations": [
+        "salón de belleza",
+        "salón de té",
+        "salón de juegos",
+        "salón recreativo"
+       ]
+      },
+      {
+       "id": "fff90dc7-ba66-51db-ba73-7db5cfc48883",
+       "definition": "exposición o feria donde se muestran los productos de una industria",
+       "example": "Este año el salón del automóvil presenta muchos coches eléctricos.",
+       "cefr": "B2",
+       "collocations": [
+        "salón del automóvil",
+        "salón del libro"
+       ]
+      },
+      {
+       "id": "f9a665a2-e758-51b4-ab9a-78035ee0e75b",
+       "definition": "habitación de una escuela donde los alumnos reciben las clases",
+       "example": "Cuando sonó el timbre, todos regresamos al salón en silencio.",
+       "cefr": "A2",
+       "collocations": [
+        "salón de clases",
+        "salón de clase"
+       ],
+       "regions": [
+        {
+         "variety": "es-419",
+         "extent": "mainly"
+        }
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "augmentative_of",
+       "lemma": "sala",
+       "pos": "NOUN"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ },
+ "terrible": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "es",
+   "headword": "terrible",
+   "lexemes": [
+    {
+     "id": "58d77f55-647c-5742-b44d-9a9e168056ff",
+     "homograph": 1,
+     "lemma": "terrible",
+     "pos": "ADJ",
+     "kind": "word",
+     "grammar": {
+      "comparable": true,
+      "note": "same form for masculine and feminine; plural terribles"
+     },
+     "pronunciations": [
+      {
+       "variety": "es-ES",
+       "ipa": "/te.ˈri.ble/"
+      },
+      {
+       "variety": "es-MX",
+       "ipa": "/te.ˈri.ble/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "77d81128-ae69-5f29-b460-fc8d555166ef",
+       "definition": "que causa miedo, horror o mucho sufrimiento",
+       "example": "La comida de ese restaurante es terrible y además carísima.",
+       "cefr": "A2",
+       "collocations": [
+        "un accidente terrible",
+        "una noticia terrible",
+        "una tragedia terrible",
+        "una enfermedad terrible",
+        "un terrible error"
+       ]
+      },
+      {
+       "id": "09428a20-9407-5a42-ae60-68fa1eacd16f",
+       "definition": "muy malo, de muy poca calidad o muy desagradable",
+       "example": "Anoche hubo un accidente terrible en la carretera del norte.",
+       "cefr": "A2",
+       "collocations": [
+        "un tiempo terrible",
+        "una película terrible"
+       ],
+       "antonyms": [
+        {
+         "lemma": "excelente",
+         "pos": "ADJ"
+        }
+       ]
+      },
+      {
+       "id": "7d1b98b0-d19c-5656-acba-93df2029cbc6",
+       "definition": "muy grande o muy intenso, mucho más de lo normal",
+       "example": "Tengo un hambre terrible desde esta mañana.",
+       "cefr": "B1",
+       "collocations": [
+        "un hambre terrible",
+        "un dolor terrible",
+        "un calor terrible",
+        "un frío terrible",
+        "un miedo terrible"
+       ]
+      },
+      {
+       "id": "94f2ca0f-54cd-5392-bb2b-8f93b800dec6",
+       "definition": "de carácter difícil, inquieto o travieso, que cuesta soportar",
+       "example": "Este niño es terrible, no se queda quieto ni un minuto.",
+       "cefr": "B1",
+       "labels": {
+        "formality": "informal"
+       },
+       "grammar": {
+        "position": "Pred",
+        "mainly": [
+         "position"
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "f8933652c84d"
+   }
+  }
+ }
+}

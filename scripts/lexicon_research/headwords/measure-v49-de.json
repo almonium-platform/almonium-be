@@ -1,0 +1,202 @@
+[
+ {
+  "headword": "Betrieb",
+  "zipf": 4.82,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Bundeswehr",
+  "zipf": 4.48,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Buße",
+  "zipf": 4.19,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Bürgerkrieg",
+  "zipf": 4.09,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Dieb",
+  "zipf": 3.83,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Doku",
+  "zipf": 4.0,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Einsicht",
+  "zipf": 3.93,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Flughafen",
+  "zipf": 4.75,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Flut",
+  "zipf": 3.81,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Foto",
+  "zipf": 5.02,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Gleis",
+  "zipf": 3.85,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Hauptbahnhof",
+  "zipf": 4.2,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Höhle",
+  "zipf": 4.15,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Jacke",
+  "zipf": 4.24,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Kompromiss",
+  "zipf": 3.94,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Landtag",
+  "zipf": 4.3,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Laut",
+  "zipf": 5.23,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Maul",
+  "zipf": 4.23,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Rucksack",
+  "zipf": 4.03,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Schande",
+  "zipf": 4.16,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Skala",
+  "zipf": 3.86,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Spaß",
+  "zipf": 5.22,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Stadt",
+  "zipf": 5.66,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Straßenbahn",
+  "zipf": 3.92,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Teilnahme",
+  "zipf": 4.54,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "Webseite",
+  "zipf": 4.51,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "aha",
+  "zipf": 4.2,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "anstatt",
+  "zipf": 4.52,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "auf",
+  "zipf": 6.89,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "betten",
+  "zipf": 3.98,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "dass",
+  "zipf": 6.69,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "draußen",
+  "zipf": 4.82,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "firmen",
+  "zipf": 4.65,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "grüßen",
+  "zipf": 4.05,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "hinter",
+  "zipf": 5.32,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "knoten",
+  "zipf": 4.03,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "schlau",
+  "zipf": 4.15,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "weder",
+  "zipf": 4.99,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "zwischen",
+  "zipf": 5.83,
+  "set": "measure-v49"
+ },
+ {
+  "headword": "öfters",
+  "zipf": 4.12,
+  "set": "measure-v49"
+ }
+]

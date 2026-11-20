@@ -1,0 +1,22 @@
+[
+ {
+  "headword": "что",
+  "zipf": 7.09,
+  "set": "v411-context"
+ },
+ {
+  "headword": "на",
+  "zipf": 7.25,
+  "set": "v411-context"
+ },
+ {
+  "headword": "дождь",
+  "zipf": 4.64,
+  "set": "v411-context"
+ },
+ {
+  "headword": "стол",
+  "zipf": 4.78,
+  "set": "v411-context"
+ }
+]

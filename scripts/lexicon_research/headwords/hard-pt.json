@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "sede",
+  "zipf": 4.94,
+  "set": "hard"
+ },
+ {
+  "headword": "colher",
+  "zipf": 4.07,
+  "set": "hard"
+ },
+ {
+  "headword": "foi",
+  "zipf": 6.58,
+  "set": "hard"
+ },
+ {
+  "headword": "avô",
+  "zipf": 4.33,
+  "set": "hard"
+ },
+ {
+  "headword": "cidadão",
+  "zipf": 4.54,
+  "set": "hard"
+ },
+ {
+  "headword": "óculos",
+  "zipf": 4.4,
+  "set": "hard"
+ },
+ {
+  "headword": "haver",
+  "zipf": 4.78,
+  "set": "hard"
+ },
+ {
+  "headword": "meio",
+  "zipf": 5.69,
+  "set": "hard"
+ },
+ {
+  "headword": "rapariga",
+  "zipf": 4.02,
+  "set": "hard"
+ },
+ {
+  "headword": "ônibus",
+  "zipf": 4.89,
+  "set": "hard"
+ },
+ {
+  "headword": "fato",
+  "zipf": 5.29,
+  "set": "hard"
+ },
+ {
+  "headword": "ficar",
+  "zipf": 5.73,
+  "set": "hard"
+ }
+]

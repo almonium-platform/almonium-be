@@ -333,6 +333,7 @@ def test_one_frame_is_one_pattern_and_a_program_reads_its_parts():
     assert read("ru", "платить", "платить кому за что")[1:] == [{"slot": ["person"], "case": ["Dat"]}, {"word": "за"}, {"slot": ["thing"], "case": ["Acc", "Nom"]}]
     assert read("ru", "искать", "искать кого/что") == [{"head": "искать"}, {"slot": ["person", "thing"], "case": ["Acc"]}]  # the case both words can be
     assert read("ru", "ответить", "ответить, что ...")[1:] == [{"word": "что"}, {"slot": ["clause"]}]  # the conjunction, not a thing
+    assert read("ru", "с", "с ... до ...") == [{"head": "с"}, {"slot": ["any"]}, {"word": "до"}, {"slot": ["any"]}]  # three dots are a clause only after a word that opens one
     assert read("fr", "normal", "il est normal que + subj")[-1] == {"slot": ["clause"], "mood": "subj"}
     assert read("en", "ask", "ask if")[-1] == {"slot": ["clause"]} and read("en", "tell", "tell sb/sth")[1] == {"slot": ["person", "thing"]}
     assert read("ja", "辛い", "〜がつらい", ["つらい"]) == [{"slot": ["any"]}, {"head": "がつらい"}]  # written in kana: found by the reading
@@ -343,3 +344,39 @@ def test_one_frame_is_one_pattern_and_a_program_reads_its_parts():
     assert ingest_v4.unread("de", "leisten", "sich (Dat) etw. leisten") is None  # the case of a place is not a second pattern
     kept = lexeme("touch", senses=[sense("the state of talking or writing to someone often", frames=["be/keep in touch (with sb)", "tell sb/sth"])])
     assert ingest_v4.split_frames("en", kept) == 0 and kept["senses"][0]["frames"] == ["be/keep in touch (with sb)", "tell sb/sth"]
+
+
+def test_a_collocation_with_an_open_place_is_a_frame_and_moves_there():
+    verb = lexeme("copy", "VERB", senses=[sense("to make something that is the same as another thing", collocations=["copy sb's style", "copy a file", "keep sth safely"])])
+    clean = ingest_v4.clean_entry("en", entry("copy", verb), META)
+    got = clean["lexemes"][0]["senses"][0]
+    assert got["frames"] == ["copy sb's style", "keep sth safely"] and got["collocations"] == ["copy a file"]
+    assert [p["frame"] for p in got["patterns"]] == ["copy sb's style"]  # the one with the headword in it is read into parts
+    # only an abbreviation that is nothing else decides: Spanish "algo" and Russian "как" are words of phrases too
+    for lang, pair in (("es", "por algo"), ("ru", "как раз"), ("en", "something else")):
+        one = lexeme("x", senses=[sense("eine Sache tun, die man tun muss", collocations=[pair])])
+        assert ingest_v4.sort_frames(lang, one) == 0 and one["senses"][0]["collocations"] == [pair]
+
+
+def test_a_stressed_spelling_is_the_words_own_letters_with_the_mark():
+    """A reading is the spelling with its stress marked. Writers have typed a Latin í into a Ukrainian word, "ov"
+    into another and е for є: as long as the letters are as many, the reading is rebuilt from the spelling with
+    the mark on the same letter. Another word or a respelling is not touched."""
+    acute = "́"
+    assert ingest_v4.own_reading("ru", "мебель", "ме" + acute + "бель") == "ме" + acute + "бель"
+    assert ingest_v4.own_reading("uk", "здійснювати", "здíйснювати") == "зді" + acute + "йснювати"  # a Latin í, one character
+    assert ingest_v4.own_reading("uk", "відновлення", "віднovле" + acute + "ння") == "відновле" + acute + "ння"
+    assert ingest_v4.own_reading("uk", "суттєво", "сутте" + acute + "во") == "суттє" + acute + "во"
+    assert ingest_v4.own_reading("uk", "українець", "украї" + acute + "нець") == "украї" + acute + "нець"  # ї keeps its dots
+    assert ingest_v4.own_reading("ru", "ёлка", "ёлка") == "ёлка" and ingest_v4.own_reading("ru", "еще", "ещё") == "ещё"
+    assert ingest_v4.own_reading("uk", "дивитися", "диви" + acute + "тись") == "диви" + acute + "тися"  # the short form typed for the long one
+    assert ingest_v4.own_reading("uk", "ходити", "ходи" + acute + "в") is None  # another length: another form of the word
+    assert ingest_v4.own_reading("uk", "молоко", "корова" + acute) is None  # as long, but another word
+    assert ingest_v4.own_reading("it", "roba", "ròba") == "ròba" and ingest_v4.own_reading("it", "città", "città") == "città"
+    assert ingest_v4.own_reading("it", "bordeaux", "bordò") is None and ingest_v4.own_reading("it", "viene", "vière") is None
+    lexeme = {"lemma": "здійснювати", "pronunciations": [{"variety": "uk-UA", "ipa": "/x/", "reading": "здíйснювати"}],
+              "forms": [{"form": "здійснюю", "reading": "здíйснюю"}, {"form": "здійснив", "reading": "здійсни" + acute + "в"}]}
+    assert ingest_v4.settle_readings("uk", lexeme) == 2
+    assert lexeme["pronunciations"][0]["reading"] == "зді" + acute + "йснювати" and lexeme["forms"][0]["reading"] == "зді" + acute + "йснюю"
+    kana = {"lemma": "食べる", "pronunciations": [{"variety": "ja-JP", "reading": "たべる", "notation": "kana"}]}
+    assert ingest_v4.settle_readings("ja", kana) == 0 and not list(ingest_v4.stressed_spellings(kana))  # a reading in kana is no stressed spelling

@@ -399,6 +399,12 @@
      ],
      "description": "Why a variety has this reading besides its first: rarer, said by older or younger speakers, in careful or casual speech, in part of the variety only, or considered wrong by some."
     },
+    "context": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 80,
+     "description": "When or where this way of saying the word is the one used, in one short clause in English, on any reading it holds for: what follows the word (before a vowel sound), how the word stands (weak form, usual in running speech), the part of a variety (north of England). Left out when nothing decides between the readings."
+    },
     "spelling": {
      "type": "string",
      "description": "The spelling this reading belongs to, when the lemma's spellings are said differently (período, periodo)."

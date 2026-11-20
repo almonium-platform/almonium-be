@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import check_v4  # noqa: E402
 import gold_candidates  # noqa: E402
 import ingest_v4  # noqa: E402
+import measure  # noqa: E402
 import prompting  # noqa: E402
 
 HERE = Path(__file__).resolve().parents[1]
@@ -30,6 +31,17 @@ PINNED = {
     ("ru", "v4.8"): "db13d034811d",
     ("en", "v4.9"): "5e602bd929d2", ("de", "v4.9"): "d7c709f42cfb", ("fr", "v4.9"): "43f042aac05d", ("es", "v4.9"): "c6178b955f4a", ("it", "v4.9"): "b7d74e48cacd", ("pt", "v4.9"): "04fee836e73f",
     ("ru", "v4.9"): "ff654aec68b6",
+    ("en", "v4.10"): "4b174049fe16", ("de", "v4.10"): "3b83da400282", ("fr", "v4.10"): "a507e377f954", ("es", "v4.10"): "f8933652c84d", ("it", "v4.10"): "39270e0050b8", ("pt", "v4.10"): "6cbc964f09ff",
+    ("ru", "v4.10"): "6e0a52496465",
+    # v4.10e is v4.10 with a section on the evidence a request may carry: a trial of 280 words, 19 November 2026
+    ("en", "v4.10e"): "9cdb06b4b41b", ("de", "v4.10e"): "a411b3cf6fad", ("fr", "v4.10e"): "d5c21856aa6a", ("es", "v4.10e"): "149125cb9743", ("it", "v4.10e"): "db1186932c70", ("pt", "v4.10e"): "78120b967066",
+    ("ru", "v4.10e"): "0e5bf0d7ef22",
+    # v4.11 is v4.10 with a clause on a way of saying the word: when it is the one said. 19 November 2026
+    ("en", "v4.11"): "545c3ad5b3a0", ("de", "v4.11"): "538c084de06c", ("fr", "v4.11"): "04c9a50402d4", ("es", "v4.11"): "7155181f910f", ("it", "v4.11"): "6f801896c2cf", ("pt", "v4.11"): "46b24b58a24d",
+    ("ru", "v4.11"): "fd77e02de637",
+    # v4.11e is v4.11 with a section on two blocks of evidence, the English Wiktionary's and the language's own: 280 trial words, 19 November 2026
+    ("en", "v4.11e"): "ff05df5603d0", ("de", "v4.11e"): "2912ba3a9f4d", ("fr", "v4.11e"): "a4d60b17ad2a", ("es", "v4.11e"): "2db413529493", ("it", "v4.11e"): "2cbb7a9b3db0", ("pt", "v4.11e"): "2e5370a12448",
+    ("ru", "v4.11e"): "b741f9f5e9bf",
 }
 ANSWER = """# Review
 
@@ -165,6 +177,64 @@ def test_from_v4_8_a_frame_has_an_open_place_and_the_words_company_is_a_collocat
     assert "日本人" in prompting.system_prompt("ja", "v4.9") and "日本人" not in prompting.system_prompt("ja", "v4.8")
     for lang in ("ru", "ja"):  # their notes said how a frame is written before every language was told
         assert "not one collocation filled in" not in prompting.system_prompt("ru", "v4.8") and "〜を勉強する" in prompting.system_prompt("ja", "v4.8")
+
+
+def test_v410_says_what_a_grammar_value_claims_and_what_is_a_frame():
+    """The second sample's reviewers reported a value as a claim wherever an exception to it exists, a French adjective
+    after its noun as wrongly "before a noun", and phrases that need a complement among the collocations. v4.10 says
+    what a value states, what Attr means, and which phrases are frames; v4.9 is as it was written."""
+    for lang in prompting.TARGET_LANGUAGES + prompting.PILOT_LANGUAGES:
+        new, old = prompting.system_prompt(lang, "v4.10"), prompting.system_prompt(lang, "v4.9")
+        for said in ("says how the word is ordinarily used", "on whichever side of the noun", '"in favour of sth", never "in favour of"',
+                     "A collocation stands under the sense whose meaning it has"):
+            assert said in new and said not in old, (lang, said)
+        assert "says what holds without exception" in old and "says what holds without exception" not in new
+    assert "Report a value" in measure.REVIEW and "ordinarily used" in measure.REVIEW  # the reviewer is told the same
+
+
+def test_v410e_is_v410_with_the_evidence_section_and_nothing_else():
+    for lang in prompting.TARGET_LANGUAGES:
+        plain, shown = prompting.system_prompt(lang, "v4.10"), prompting.system_prompt(lang, "v4.10e")
+        head, _, rest = shown.partition("# Evidence\n")
+        assert rest and "never its notation" in rest and "do not follow its wording" in rest
+        assert head + rest.partition("# Examples")[1] + rest.partition("# Examples")[2] == plain if "# Examples" in plain else head + "# Output" + rest.partition("# Output")[2] == plain
+    request = prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9}, evidence="L1 NOUN · Neut\n  1.1 house")
+    assert request.endswith("Evidence (Wiktionary):\nL1 NOUN · Neut\n  1.1 house") and "Evidence" not in prompting.user_prompt("de", {"headword": "Haus", "zipf": 5.9})
+
+
+def test_v411_says_when_a_way_of_saying_the_word_is_the_one_said():
+    """Before v4.11 a second transcription could say how common it is and nothing else, so "the" before a vowel,
+    "six" before a consonant and "bath" in the north of England stood beside the first without a word, and a weak
+    form was either left out or given a stress mark it does not have."""
+
+    for lang in prompting.TARGET_LANGUAGES:
+        new, old = prompting.system_prompt(lang, "v4.11"), prompting.system_prompt(lang, "v4.10")
+        head, _, rest = new.partition('Where you know what decides between the ways, say it in "context"')
+        clause, _, tail = rest.partition("Use only these symbols:")
+        assert "before a vowel sound" in clause and "weak form, usual in running speech" in clause and "without a stress mark" in clause
+        assert head + "Use only these symbols:" + tail == old  # and nothing else moved
+    validator = jsonschema.Draft202012Validator(json.loads(prompting.SCHEMA_PATH.read_text(encoding="utf-8")))
+    entry = json.loads(prompting.schema_example_v4("v4.11"))
+    entry["lexemes"][0]["pronunciations"].append({"variety": "en-GB", "ipa": "/liːd/", "context": "weak form, usual in running speech"})
+    assert not list(validator.iter_errors(entry))
+    entry["lexemes"][0]["pronunciations"][-1]["context"] = "x" * 81  # one short clause, like a form's note
+    assert [e.message for e in validator.iter_errors(entry)]
+    shown = measure.show({"lexemes": [{"lemma": "the", "pos": "DET", "pronunciations": [
+        {"variety": "en-GB", "ipa": "/ˈðiː/"}, {"variety": "en-GB", "ipa": "/ðə/", "context": "weak form, usual in running speech"},
+        {"variety": "en-GB", "ipa": "/ˈbæθ/", "note": "regional", "context": "north of England"}], "senses": []}]})
+    assert "/ðə/ (en-GB: weak form, usual in running speech)" in shown and "/ˈbæθ/ (en-GB, regional: north of England)" in shown
+
+
+def test_v411e_is_v411_with_a_section_on_two_blocks_of_evidence_and_nothing_else():
+    """The first evidence trial showed the English Wiktionary's record alone, and the writer wrote as few senses as
+    it was shown. v4.11e names the second block and says that a short block is not a word with few meanings."""
+    for lang in prompting.TARGET_LANGUAGES:
+        plain, shown = prompting.system_prompt(lang, "v4.11"), prompting.system_prompt(lang, "v4.11e")
+        head, _, rest = shown.partition("# Evidence\n")
+        section, mark, tail = rest.partition("# Examples" if "# Examples" in plain else "# Output")
+        assert head + mark + tail == plain
+        assert f"Meanings in the {prompting.LANG_NAME[lang]} Wiktionary" in section and "A short block is an editor who stopped" in section
+        assert "never its notation" in section and "do not take over a definition" in section
 
 
 def test_a_language_is_shown_its_examples_from_the_version_that_introduced_them():

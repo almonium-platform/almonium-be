@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "багаж",
+  "zipf": 3.64,
+  "set": "v410-check"
+ },
+ {
+  "headword": "мебель",
+  "zipf": 4.11,
+  "set": "v410-check"
+ },
+ {
+  "headword": "счёт",
+  "zipf": 4.44,
+  "set": "v410-check"
+ },
+ {
+  "headword": "течение",
+  "zipf": 5.34,
+  "set": "v410-check"
+ },
+ {
+  "headword": "бывший",
+  "zipf": 4.87,
+  "set": "v410-check"
+ }
+]

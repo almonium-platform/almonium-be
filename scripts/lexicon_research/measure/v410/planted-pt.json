@@ -1,0 +1,1238 @@
+{
+ "leão": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Masc",
+  "now": "Fem",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "leão",
+   "lexemes": [
+    {
+     "id": "76526e07-33ae-5304-a4e9-f1b17b9982a9",
+     "homograph": 1,
+     "lemma": "leão",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count",
+      "note": "feminine leoa"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/le.ˈɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/li.ˈɐ̃w/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "leões",
+       "features": {
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/le.ˈõjs/",
+        "pt-PT": "/li.ˈõjʃ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "03253f53-f861-577f-b5db-5ddc984d3a12",
+       "definition": "grande felino selvagem de pelo amarelado, cujo macho tem juba",
+       "example": "No jardim zoológico, o leão dormia à sombra de uma árvore.",
+       "cefr": "A2",
+       "collocations": [
+        "rugido do leão",
+        "juba do leão",
+        "jaula do leão",
+        "domador de leões"
+       ]
+      },
+      {
+       "id": "e973118f-caa0-504e-a563-a9377415d8ff",
+       "definition": "pessoa muito corajosa, forte ou combativa",
+       "example": "Quando se trata de defender os filhos, ela é um leão.",
+       "cefr": "B2",
+       "collocations": [
+        "lutar como um leão"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      }
+     ]
+    },
+    {
+     "id": "4f5fbf69-15a1-5d4f-a8df-b05376efb790",
+     "homograph": 1,
+     "lemma": "Leão",
+     "pos": "PROPN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/le.ˈɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/li.ˈɐ̃w/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "ae216a5c-03c3-56b2-9b50-36de3af3b47b",
+       "definition": "quinto signo do zodíaco, de quem nasce entre julho e agosto",
+       "example": "A minha irmã nasceu em agosto, por isso é de Leão.",
+       "cefr": "B1",
+       "collocations": [
+        "signo de Leão"
+       ]
+      },
+      {
+       "id": "ed9546f2-e635-5b22-93a8-8e035bea2a0e",
+       "definition": "órgão do governo que cobra o imposto de renda",
+       "example": "Todos os anos, em abril, tenho de prestar contas ao Leão.",
+       "cefr": "C1",
+       "collocations": [
+        "mordida do Leão"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "regions": [
+        {
+         "variety": "pt-BR",
+         "extent": "only"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "raio": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/ˈʁaj.u/",
+  "now": "/ʁaj.ˈu/",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "raio",
+   "lexemes": [
+    {
+     "id": "4f6765cc-26a0-59a7-8513-26607df06a6f",
+     "homograph": 1,
+     "lemma": "raio",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ʁaj.ˈu/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ʁaj.ˈu/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "50c22d76-e868-5950-8e35-eafc00617990",
+       "definition": "descarga elétrica forte entre as nuvens e a terra numa tempestade",
+       "example": "Durante a tempestade, um raio caiu em cima da árvore do quintal.",
+       "cefr": "B1",
+       "collocations": [
+        "cair um raio",
+        "atingido por um raio",
+        "rápido como um raio",
+        "raios e trovões"
+       ]
+      },
+      {
+       "id": "d8d7d1cf-b96e-549b-ac17-39fb6d89c19d",
+       "definition": "linha de luz ou de energia que parte de uma fonte",
+       "example": "Os primeiros raios de sol entravam pela janela do quarto.",
+       "cefr": "B1",
+       "collocations": [
+        "raio de sol",
+        "raio de luz",
+        "raio laser",
+        "raio X",
+        "raios ultravioleta",
+        "raio de esperança"
+       ]
+      },
+      {
+       "id": "4288a8b6-eb5b-53f3-b3b0-53f50343c286",
+       "definition": "segmento que vai do centro de um círculo até qualquer ponto da sua linha",
+       "example": "Para calcular a área do círculo, precisamos de saber o raio.",
+       "cefr": "B2",
+       "labels": {
+        "domain": "mathematics"
+       }
+      },
+      {
+       "id": "d6a5e0bc-90cd-514f-80be-b12dc14cc469",
+       "definition": "distância a partir de um ponto, que marca a área à sua volta",
+       "example": "Não há nenhuma farmácia num raio de vinte quilómetros.",
+       "cefr": "B2",
+       "frames": [
+        "num raio de + distância"
+       ],
+       "collocations": [
+        "raio de ação",
+        "raio de alcance"
+       ],
+       "patterns": [
+        {
+         "frame": "num raio de + distância",
+         "parts": [
+          {
+           "word": "num"
+          },
+          {
+           "head": "raio"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "other"
+           ],
+           "label": "distância"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "2588c0cc-40fe-508f-9ea8-604d5c3f8b0a",
+       "definition": "cada uma das barras que ligam o centro de uma roda à sua parte de fora",
+       "example": "A roda da bicicleta tem dois raios partidos depois da queda.",
+       "cefr": "C1"
+      },
+      {
+       "id": "ace13b17-6da6-5410-8095-924fbe391666",
+       "definition": "usado antes de um nome para mostrar irritação, impaciência ou surpresa",
+       "example": "Que raio de barulho é este a meio da noite?",
+       "cefr": "C1",
+       "frames": [
+        "o raio de algo/alguém",
+        "que raio de algo"
+       ],
+       "collocations": [
+        "que raio",
+        "raios te partam",
+        "raios partam"
+       ],
+       "labels": {
+        "formality": "informal"
+       },
+       "regions": [
+        {
+         "variety": "pt-PT",
+         "extent": "mainly"
+        }
+       ],
+       "patterns": [
+        {
+         "frame": "o raio de algo/alguém",
+         "parts": [
+          {
+           "word": "o"
+          },
+          {
+           "head": "raio"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing",
+            "person"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "que raio de algo",
+         "parts": [
+          {
+           "word": "que"
+          },
+          {
+           "head": "raio"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "sessão": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "sessão",
+   "lexemes": [
+    {
+     "id": "79ad306a-c645-54d1-86bc-fc3b9e9d48c7",
+     "homograph": 1,
+     "lemma": "sessão",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/se.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/sɨ.ˈsɐ̃w/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "sessões",
+       "features": {
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/se.ˈsõjs/",
+        "pt-PT": "/sɨ.ˈsõjʃ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "74ffe4b6-8585-585e-99c0-d20914a9eae6",
+       "definition": "reunião de um órgão ou grupo para discutir e decidir assuntos",
+       "example": "A sessão da câmara começa às nove horas da manhã.",
+       "cefr": "B1",
+       "collocations": [
+        "abrir a sessão",
+        "encerrar a sessão",
+        "sessão plenária",
+        "sessão solene",
+        "sessão extraordinária",
+        "em sessão"
+       ]
+      },
+      {
+       "id": "0f271e2b-3735-57b6-8f45-720f4f5df6c1",
+       "definition": "cada vez que um filme ou espetáculo é apresentado ao público",
+       "example": "Vamos à sessão das sete, que costuma ter menos gente.",
+       "cefr": "A2",
+       "collocations": [
+        "sessão de cinema",
+        "última sessão",
+        "sessão da tarde",
+        "sessão esgotada"
+       ]
+      },
+      {
+       "id": "039a9534-d4b5-56ea-9209-d858121d3dc7",
+       "definition": "período de tempo dedicado a uma certa atividade",
+       "example": "Cada sessão de fisioterapia dura cerca de quarenta minutos.",
+       "cefr": "B1",
+       "frames": [
+        "sessão de algo"
+       ],
+       "collocations": [
+        "sessão de fotos",
+        "sessão de terapia",
+        "sessão de treino",
+        "sessão de autógrafos"
+       ],
+       "patterns": [
+        {
+         "frame": "sessão de algo",
+         "parts": [
+          {
+           "head": "sessão"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "0d290a42-64c6-5cf6-805d-d9c7f3acd81f",
+       "definition": "período em que alguém está identificado e ligado a um sistema informático",
+       "example": "Não te esqueças de terminar a sessão no computador da biblioteca.",
+       "cefr": "B1",
+       "collocations": [
+        "iniciar sessão",
+        "terminar sessão",
+        "encerrar a sessão"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "confusable",
+       "lemma": "cessão",
+       "pos": "NOUN",
+       "why": "sounds the same but means the act of giving up or transferring something"
+      },
+      {
+       "type": "confusable",
+       "lemma": "seção",
+       "pos": "NOUN",
+       "why": "similar spelling and sound; seção (pt-PT secção) means a section or department"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "calor": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "calor",
+   "lexemes": [
+    {
+     "id": "7a4166db-439b-5d7e-8139-4a3dbad66c6e",
+     "homograph": 1,
+     "lemma": "calor",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ka.ˈloɾ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/kɐ.ˈloɾ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "5612e0fc-c4c1-5a32-b3e8-ef68c7c25028",
+       "definition": "temperatura alta do ar, de um lugar ou de uma coisa",
+       "example": "Estou com calor, podes abrir a janela?",
+       "cefr": "A1",
+       "collocations": [
+        "fazer calor",
+        "onda de calor",
+        "calor intenso",
+        "calor insuportável",
+        "calor do sol",
+        "calor do fogo"
+       ],
+       "antonyms": [
+        {
+         "lemma": "frio",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "id": "c2c1f32b-07cc-5735-9bdb-20cf3df5825d",
+       "definition": "sensação de quente que o corpo sente",
+       "example": "No verão faz muito calor nesta cidade do interior.",
+       "cefr": "A1",
+       "collocations": [
+        "estar com calor",
+        "sentir calor",
+        "passar calor",
+        "ter calor"
+       ],
+       "antonyms": [
+        {
+         "lemma": "frio",
+         "pos": "NOUN"
+        }
+       ]
+      },
+      {
+       "id": "14123c46-0dfb-556f-a7dd-011166ce1162",
+       "definition": "força e entusiasmo de um momento, de uma discussão ou de um sentimento",
+       "example": "No calor da discussão, disse coisas de que se arrependeu.",
+       "cefr": "B2",
+       "collocations": [
+        "no calor do momento",
+        "no calor da discussão",
+        "no calor da batalha"
+       ],
+       "labels": {
+        "figurative": true
+       }
+      },
+      {
+       "id": "67d53265-5e59-559b-898b-2f8c91d6f7d2",
+       "definition": "afeto e carinho com que se recebe ou trata alguém",
+       "example": "Fomos recebidos com o calor de uma família amiga.",
+       "cefr": "B2",
+       "collocations": [
+        "calor humano"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "antonyms": [
+        {
+         "lemma": "frieza",
+         "pos": "NOUN"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "expressão": {
+  "kind": "gender",
+  "where": "lexeme 1 grammar",
+  "was": "Fem",
+  "now": "Masc",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "expressão",
+   "lexemes": [
+    {
+     "id": "43d99976-c654-543a-9177-3beb2caf1242",
+     "homograph": 1,
+     "lemma": "expressão",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/es.pɾe.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-BR",
+       "ipa": "/is.pɾe.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɐjʃ.pɾɨ.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɨʃ.pɾɨ.ˈsɐ̃w/"
+      }
+     ],
+     "forms": [
+      {
+       "form": "expressões",
+       "features": {
+        "Number": "Plur"
+       },
+       "ipa": {
+        "pt-BR": "/es.pɾe.ˈsõjs/",
+        "pt-PT": "/ɐjʃ.pɾɨ.ˈsõjʃ/"
+       }
+      }
+     ],
+     "senses": [
+      {
+       "id": "107f398a-d7e8-5c24-9c73-129afd86a009",
+       "definition": "comunicação de ideias, sentimentos ou opiniões por palavras, gestos ou arte",
+       "example": "A liberdade de expressão é um direito de todos os cidadãos.",
+       "cefr": "B1",
+       "frames": [
+        "expressão de algo"
+       ],
+       "collocations": [
+        "liberdade de expressão",
+        "forma de expressão",
+        "meio de expressão",
+        "expressão artística",
+        "expressão corporal",
+        "expressão escrita",
+        "expressão oral"
+       ],
+       "grammar": {
+        "countability": "Mass",
+        "mainly": [
+         "countability"
+        ]
+       },
+       "patterns": [
+        {
+         "frame": "expressão de algo",
+         "parts": [
+          {
+           "head": "expressão"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "1cfa60bb-3c5f-5a13-aa1d-3f985de6d81a",
+       "definition": "aspeto do rosto que mostra o que uma pessoa sente ou pensa",
+       "example": "Pela expressão do teu rosto, percebo que não gostaste da notícia.",
+       "cefr": "B1",
+       "frames": [
+        "expressão de algo"
+       ],
+       "collocations": [
+        "expressão facial",
+        "mudar de expressão",
+        "expressão séria",
+        "expressão de surpresa",
+        "expressão de alívio"
+       ],
+       "grammar": {
+        "countability": "Count"
+       },
+       "patterns": [
+        {
+         "frame": "expressão de algo",
+         "parts": [
+          {
+           "head": "expressão"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "89100de2-f5af-5b34-9315-443ea7717e41",
+       "definition": "palavra ou grupo de palavras usado com um sentido próprio",
+       "example": "Os alunos aprenderam hoje várias expressões populares sobre o tempo.",
+       "cefr": "A2",
+       "collocations": [
+        "expressão idiomática",
+        "expressão popular",
+        "expressão fixa",
+        "usar uma expressão"
+       ],
+       "grammar": {
+        "countability": "Count"
+       }
+      },
+      {
+       "id": "c16f8d26-5e81-5995-8417-5fec33a390d9",
+       "definition": "conjunto de números, letras e sinais que representa um valor ou cálculo",
+       "example": "Simplifiquem a expressão antes de substituir o valor de x.",
+       "cefr": "B2",
+       "collocations": [
+        "expressão algébrica",
+        "expressão numérica",
+        "simplificar uma expressão"
+       ],
+       "grammar": {
+        "countability": "Count"
+       },
+       "labels": {
+        "domain": "mathematics"
+       }
+      },
+      {
+       "id": "13dbb2b6-316f-5cfe-bfa1-196c9c947630",
+       "definition": "importância ou peso que algo tem num conjunto",
+       "example": "O movimento ganhou expressão nas grandes cidades nos últimos anos.",
+       "cefr": "C1",
+       "collocations": [
+        "sem expressão",
+        "ganhar expressão",
+        "expressão significativa",
+        "expressão eleitoral"
+       ],
+       "grammar": {
+        "countability": "Mass"
+       }
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "fronteira": {
+  "kind": "stress",
+  "where": "lexeme 1 said",
+  "was": "/fɾõ.ˈtej.ɾɐ/",
+  "now": "/fɾõ.tej.ˈɾɐ/",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "fronteira",
+   "lexemes": [
+    {
+     "id": "72d7c3da-c19b-5f1f-887f-5c5ac12900b7",
+     "homograph": 1,
+     "lemma": "fronteira",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Count"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/fɾõ.tej.ˈɾɐ/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/fɾõ.tɐj.ˈɾɐ/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "20a48fbe-57f4-5d31-b745-37781a45aa7c",
+       "definition": "linha que separa dois países, estados ou regiões, e a zona perto dela",
+       "example": "Vamos atravessar a fronteira de carro amanhã de manhã.",
+       "cefr": "B1",
+       "frames": [
+        "fronteira com algo",
+        "fronteira entre algo e algo"
+       ],
+       "collocations": [
+        "atravessar a fronteira",
+        "cruzar a fronteira",
+        "fechar a fronteira",
+        "abrir a fronteira",
+        "passar a fronteira",
+        "controle de fronteira",
+        "cidade de fronteira",
+        "na fronteira"
+       ],
+       "patterns": [
+        {
+         "frame": "fronteira com algo",
+         "parts": [
+          {
+           "head": "fronteira"
+          },
+          {
+           "word": "com"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "fronteira entre algo e algo",
+         "parts": [
+          {
+           "head": "fronteira"
+          },
+          {
+           "word": "entre"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "e"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "6455b7f0-9fdf-5ee7-a086-0e8eca39be48",
+       "definition": "limite que separa duas coisas diferentes ou até onde algo pode chegar",
+       "example": "Às vezes a fronteira entre coragem e loucura é muito fina.",
+       "cefr": "B2",
+       "frames": [
+        "fronteira entre algo e algo",
+        "fronteiras de algo"
+       ],
+       "collocations": [
+        "sem fronteiras",
+        "ultrapassar as fronteiras",
+        "fronteiras do conhecimento"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "patterns": [
+        {
+         "frame": "fronteira entre algo e algo",
+         "parts": [
+          {
+           "head": "fronteira"
+          },
+          {
+           "word": "entre"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          },
+          {
+           "word": "e"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "fronteiras de algo",
+         "parts": [
+          {
+           "head": "fronteiras"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "palco": {
+  "kind": "countability",
+  "where": "lexeme 1 grammar",
+  "was": "Count",
+  "now": "Mass",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "palco",
+   "lexemes": [
+    {
+     "id": "6003a352-a391-584f-ade7-38d76c84836e",
+     "homograph": 1,
+     "lemma": "palco",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Masc",
+      "countability": "Mass"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/ˈpaw.ku/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ˈpal.ku/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "94529ee2-0ef7-5726-a6a5-4698613381f9",
+       "definition": "plataforma elevada onde artistas se apresentam diante do público",
+       "example": "Os músicos subiram ao palco sob muitos aplausos.",
+       "cefr": "A2",
+       "collocations": [
+        "subir ao palco",
+        "subir no palco",
+        "entrar em palco",
+        "em cima do palco",
+        "pisar o palco",
+        "sair do palco",
+        "palco principal"
+       ]
+      },
+      {
+       "id": "e488b322-9f06-58c1-922a-4135002a0bc5",
+       "definition": "lugar onde ocorre um acontecimento ou uma série de acontecimentos",
+       "example": "Esta praça foi palco de vários protestos durante o ano.",
+       "cefr": "B2",
+       "frames": [
+        "palco de algo",
+        "ser palco de algo"
+       ],
+       "labels": {
+        "figurative": true
+       },
+       "patterns": [
+        {
+         "frame": "palco de algo",
+         "parts": [
+          {
+           "head": "palco"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "ser palco de algo",
+         "parts": [
+          {
+           "word": "ser"
+          },
+          {
+           "head": "palco"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ },
+ "exposição": {
+  "kind": "example",
+  "where": "lexeme 1 senses 1 and 2",
+  "was": "each its own example",
+  "now": "the two changed over",
+  "entry": {
+   "schema": "4",
+   "language": "pt",
+   "headword": "exposição",
+   "lexemes": [
+    {
+     "id": "ca2a29e5-05e0-583c-ba8a-49bf3149f47f",
+     "homograph": 1,
+     "lemma": "exposição",
+     "pos": "NOUN",
+     "kind": "word",
+     "grammar": {
+      "gender": "Fem",
+      "countability": "Both"
+     },
+     "pronunciations": [
+      {
+       "variety": "pt-BR",
+       "ipa": "/es.po.zi.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/ɐjʃ.pu.zi.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-BR",
+       "ipa": "/is.po.zi.ˈsɐ̃w/"
+      },
+      {
+       "variety": "pt-PT",
+       "ipa": "/iʃ.pu.zi.ˈsɐ̃w/"
+      }
+     ],
+     "senses": [
+      {
+       "id": "0c12f9e5-4ed1-55a7-a168-f47d5e9a8a3e",
+       "definition": "mostra pública de obras, objetos ou produtos para as pessoas verem",
+       "example": "A exposição prolongada ao sol pode causar queimaduras graves.",
+       "cefr": "A2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "frames": [
+        "exposição de algo"
+       ],
+       "collocations": [
+        "visitar uma exposição",
+        "inaugurar uma exposição",
+        "exposição de arte",
+        "exposição permanente",
+        "exposição temporária",
+        "sala de exposição"
+       ],
+       "patterns": [
+        {
+         "frame": "exposição de algo",
+         "parts": [
+          {
+           "head": "exposição"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "95376936-56aa-592a-8ef8-5a284775d7a4",
+       "definition": "situação de estar sem proteção sob a ação de algo",
+       "example": "Vamos visitar a exposição de fotografia no museu amanhã.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Mass"
+       },
+       "frames": [
+        "exposição a algo"
+       ],
+       "collocations": [
+        "exposição ao sol",
+        "exposição prolongada",
+        "exposição à radiação"
+       ],
+       "patterns": [
+        {
+         "frame": "exposição a algo",
+         "parts": [
+          {
+           "head": "exposição"
+          },
+          {
+           "word": "a"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "93da4936-bbf2-58cb-975c-595a51c27057",
+       "definition": "apresentação ordenada de ideias ou argumentos, falada ou por escrito",
+       "example": "O professor fez uma exposição clara sobre a Revolução Industrial.",
+       "cefr": "B2",
+       "grammar": {
+        "countability": "Count"
+       },
+       "frames": [
+        "exposição sobre algo",
+        "exposição de algo"
+       ],
+       "collocations": [
+        "fazer uma exposição",
+        "exposição de motivos",
+        "exposição oral"
+       ],
+       "patterns": [
+        {
+         "frame": "exposição sobre algo",
+         "parts": [
+          {
+           "head": "exposição"
+          },
+          {
+           "word": "sobre"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        },
+        {
+         "frame": "exposição de algo",
+         "parts": [
+          {
+           "head": "exposição"
+          },
+          {
+           "word": "de"
+          },
+          {
+           "slot": [
+            "thing"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "a776c5ff-ab1d-50c8-b538-f9aad4f41f65",
+       "definition": "situação de estar à vista do público ou dos meios de comunicação",
+       "example": "Muitos artistas sofrem com a exposição excessiva da sua vida privada.",
+       "cefr": "C1",
+       "grammar": {
+        "countability": "Mass"
+       },
+       "collocations": [
+        "exposição pública",
+        "exposição excessiva",
+        "evitar a exposição"
+       ]
+      },
+      {
+       "id": "30131c73-6eb3-5af3-898c-9ca2c6e13498",
+       "definition": "luz recebida pelo filme ou pelo sensor ao tirar uma fotografia",
+       "example": "Com pouca luz, é preciso aumentar o tempo de exposição.",
+       "cefr": "C1",
+       "labels": {
+        "domain": "photography"
+       },
+       "collocations": [
+        "tempo de exposição"
+       ]
+      }
+     ],
+     "relations": [
+      {
+       "type": "verbal_noun_of",
+       "lemma": "expor",
+       "pos": "VERB"
+      }
+     ]
+    }
+   ],
+   "source": {
+    "writer": "cc-claude-opus-5-5-v4",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "prompt_version": "v4.10",
+    "prompt_sha": "6cbc964f09ff"
+   }
+  }
+ }
+}

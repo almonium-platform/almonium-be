@@ -1,0 +1,27 @@
+[
+ {
+  "headword": "sheer",
+  "zipf": 4.01,
+  "set": "v410-check"
+ },
+ {
+  "headword": "utter",
+  "zipf": 3.85,
+  "set": "v410-check"
+ },
+ {
+  "headword": "luggage",
+  "zipf": 3.8,
+  "set": "v410-check"
+ },
+ {
+  "headword": "behalf",
+  "zipf": 4.42,
+  "set": "v410-check"
+ },
+ {
+  "headword": "akin",
+  "zipf": 3.7,
+  "set": "v410-check"
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "headword": "Band",
+  "zipf": 5.06,
+  "set": "hard"
+ },
+ {
+  "headword": "See",
+  "zipf": 4.8,
+  "set": "hard"
+ },
+ {
+  "headword": "umfahren",
+  "zipf": 3.14,
+  "set": "hard"
+ },
+ {
+  "headword": "modern",
+  "zipf": 4.24,
+  "set": "hard"
+ },
+ {
+  "headword": "gehört",
+  "zipf": 5.46,
+  "set": "hard"
+ },
+ {
+  "headword": "Wort",
+  "zipf": 5.22,
+  "set": "hard"
+ },
+ {
+  "headword": "Bank",
+  "zipf": 4.91,
+  "set": "hard"
+ },
+ {
+  "headword": "E-Mail",
+  "zipf": 4.61,
+  "set": "hard"
+ },
+ {
+  "headword": "Joghurt",
+  "zipf": 3.69,
+  "set": "hard"
+ },
+ {
+  "headword": "erinnern",
+  "zipf": 4.75,
+  "set": "hard"
+ },
+ {
+  "headword": "geil",
+  "zipf": 4.69,
+  "set": "hard"
+ },
+ {
+  "headword": "doch",
+  "zipf": 6.22,
+  "set": "hard"
+ }
+]

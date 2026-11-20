@@ -24,7 +24,7 @@ spelling to the headword that holds its lexemes; _report.json counts what happen
 
 Usage: ingest_v4.py [--langs en,de] [--dry-run]   (run from the backend repository root)
 """
-import argparse, json, re, sys, uuid
+import argparse, hashlib, json, re, sys, unicodedata, uuid
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -138,6 +138,212 @@ def plain_forms(lexeme):
     return changed
 
 
+READING_VOWELS = {"ru": "аеёиоуыэюя", "uk": "аеєиіїоуюя"}
+
+
+def letters(text):
+    """A spelling as its letters, each with whether it carries the stress mark: [(letter, stressed)]. A letter keeps
+    the marks that make it the letter it is (й, ї, ё), and the acute is the stress whatever it was typed on,
+    also when it came inside one character (the Latin í)."""
+    found = []
+    for ch in unicodedata.normalize("NFD", text):
+        if ch == STRESS_MARK and found:
+            found[-1][1] = True
+        elif unicodedata.combining(ch) and found:
+            found[-1][0] += ch
+        else:
+            found.append([ch, False])
+    return [(unicodedata.normalize("NFC", letter), stressed) for letter, stressed in found]
+
+
+def own_reading(lang, spelling, reading):
+    """A stressed spelling as it should stand, or None when it cannot be told. It is the word's own spelling with
+    the stress marked (ме́бель beside мебель). Where its letters are others and as many (a Latin í or "ov" typed
+    into a Ukrainian word, е for є, диви́тись beside дивитися), it is rebuilt from the spelling with the mark on the
+    same letter, if that letter is a vowel and no more than two letters differ. A reading of another length or
+    with more letters changed (bordò beside bordeaux, ходи́в beside ходити) is another word or a respelling, and is
+    left for an eye. Italian marks its stress with an accent
+    that is part of the letter, so there only the letters are compared."""
+    if lang not in READING_VOWELS:
+        bare = lambda t: "".join(ch for ch in unicodedata.normalize("NFD", t) if not unicodedata.combining(ch)).lower()  # noqa: E731
+        return unicodedata.normalize("NFC", reading) if bare(reading) == bare(spelling) else None
+    read, spelt = letters(reading), letters(spelling)
+    same = lambda a, b: a.lower().replace("ё", "е") == b.lower().replace("ё", "е")  # noqa: E731
+    if len(read) == len(spelt) and all(same(a, b) for (a, _), (b, _) in zip(read, spelt)):
+        return unicodedata.normalize("NFC", reading)
+    stressed = [i for i, (_, mark) in enumerate(read) if mark]
+    if len(read) != len(spelt) or not stressed or any(spelt[i][0].lower() not in READING_VOWELS[lang] for i in stressed) \
+            or sum(not same(a, b) for (a, _), (b, _) in zip(read, spelt)) > 2:  # more than two other letters: another word
+        return None
+    return "".join(letter + (STRESS_MARK if i in stressed else "") for i, (letter, _) in enumerate(spelt))
+
+
+def stressed_spellings(lexeme):
+    """(the thing that holds a stressed spelling, the spelling it is of) for the lexeme's readings and its forms'."""
+    for said in lexeme.get("pronunciations") or []:
+        if said.get("reading") and said.get("notation") in (None, "stress"):
+            yield said, said.get("spelling") or lexeme.get("lemma") or ""
+    for form in lexeme.get("forms") or []:
+        if form.get("reading") and form.get("form"):
+            yield form, form["form"]
+
+
+def settle_readings(lang, lexeme):
+    """Puts right the stressed spellings own_reading can rebuild. Says how many."""
+    changed = 0
+    for holder, spelling in stressed_spellings(lexeme) if lang in READING_VOWELS else ():
+        own = own_reading(lang, spelling, holder["reading"])
+        if own and own != holder["reading"]:
+            holder["reading"] = own
+            changed += 1
+    return changed
+
+
+SETTLED = OUT / "review-settle"  # the decisions of settle_v4.py: a second look at a fact the sources contradict
+_settled = {}
+
+
+def settled(lang):
+    """headword -> the changes a second look decided on and the sources then confirmed. Nothing else is applied."""
+    if lang not in _settled:
+        latest = {}  # a fact asked about twice (the instructions changed) has the answer to the later question
+        for path in sorted((SETTLED / lang).glob("*.json")):
+            try:
+                answer = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            for d in answer.get("decisions") or []:
+                key = (answer.get("headword"), d.get("fact"), d.get("lexeme"), d.get("variety"), d.get("was"))
+                if key not in latest or (answer.get("settle_version") or "") >= latest[key][0]:
+                    latest[key] = (answer.get("settle_version") or "", d)
+        found = defaultdict(list)
+        for (headword, *_), (_, d) in latest.items():
+            if d.get("verdict") in ("change", "add") and d.get("verified"):
+                found[headword].append(d)
+        _settled[lang] = found
+    return _settled[lang]
+
+
+REVIEWED = OUT / "review-loop"  # the outcomes of review_v4.py: what a second model found and the writer or a third model upheld
+_reviewed = {}
+
+
+def reviewed(lang):
+    """headword -> the outcomes of the review loop that hold operations, each for the written entry it names."""
+    if lang not in _reviewed:
+        found = defaultdict(list)
+        for path in sorted((REVIEWED / lang).glob("*.outcome.json")):
+            try:
+                record = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            if record.get("ops") and record.get("raw_sha"):
+                found[record.get("headword")].append(record)
+        _reviewed[lang] = found
+    return _reviewed[lang]
+
+
+def read_frames(lang, lexeme):
+    """Each frame a program can rely on, as its parts: what the reader's text is matched against."""
+    for sense in lexeme.get("senses") or []:
+        read = [{"frame": frame, "parts": frame_parts(lang, lexeme.get("lemma") or "", frame, names(lexeme))}
+                for frame in sense.get("frames") or [] if not unread(lang, lexeme.get("lemma") or "", frame, names(lexeme))]
+        sense.pop("patterns", None)
+        if read:
+            sense["patterns"] = read
+
+
+def apply_reviewed(lang, entry, raw_sha, records):
+    """The entry with the review loop's patches for this written text, finding by finding: one whose places no longer
+    hold what it saw (a rule has changed the entry since) is left out whole. Says how many findings it mended.
+    A sense or lexeme a patch added gets its identifier here, as every other does."""
+    from entry_patch import PatchError, apply_ops
+
+    done = 0
+    for record in records:
+        if record.get("raw_sha") != raw_sha:  # the outcome of an entry that has been written again since
+            continue
+        taken = []
+        for n in sorted({op["n"] for op in record["ops"]}):
+            try:
+                apply_ops(entry, taken + [op for op in record["ops"] if op["n"] == n])
+            except PatchError:
+                continue
+            taken += [op for op in record["ops"] if op["n"] == n]
+            done += 1
+        if taken:
+            entry["lexemes"] = apply_ops(entry, taken)["lexemes"]
+    if done:
+        used = {(group(lx), lx.get("homograph")) for lx in entry["lexemes"] if lx.get("id")}
+        for lexeme in entry["lexemes"]:
+            if not lexeme.get("id"):
+                lexeme["homograph"] = next(n for n in range(1, 1000) if (group(lexeme), n) not in used)
+                used.add((group(lexeme), lexeme["homograph"]))
+                lexeme["id"] = lexeme_id(lang, entry["headword"], lexeme, lexeme["homograph"])
+            for k, sense in enumerate(lexeme.get("senses") or []):
+                if not sense.get("id"):
+                    lexeme["senses"][k] = {"id": sense_id(lexeme["id"], sense.get("definition")), **sense}
+            # what a patch wrote passes the same rules as what a writer wrote
+            settle_sounds(lang, lexeme)
+            settle_frames(lang, lexeme)
+            split_frames(lang, lexeme)
+            sort_frames(lang, lexeme)
+            read_frames(lang, lexeme)
+    return done
+
+
+def kept(lang):
+    """headword -> the facts a second look left as written: (fact, lexeme, variety, value, how many sources differ)."""
+    found = defaultdict(set)
+    for path in sorted((SETTLED / lang).glob("*.json")):
+        try:
+            answer = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        for d in answer.get("decisions") or []:
+            if d.get("verdict") == "keep":
+                found[answer.get("headword")].add((d.get("fact"), d.get("lexeme"), d.get("variety"), d.get("was"), d.get("sources") or 1))
+    return found
+
+
+def apply_decisions(lang, entry, decisions):
+    """Sets each decided fact where the entry still has the value the decision was made about, so that a decision
+    never lands on an entry written again since. The written entry is not touched: this is the published copy.
+    Says how many facts it set."""
+    done = 0
+    lexemes = entry.get("lexemes") or []
+    for decision in decisions:
+        if not 0 <= decision.get("lexeme", -1) < len(lexemes) or not decision.get("now"):
+            continue
+        lexeme = lexemes[decision["lexeme"]]
+        if decision["fact"] == "gender":
+            if (lexeme.get("grammar") or {}).get("gender") == decision["was"]:
+                lexeme["grammar"]["gender"] = decision["now"]
+                done += 1
+        elif decision["fact"] == "plural":
+            forms = lexeme.get("forms") or []
+            for place, form in enumerate(forms):
+                if form.get("form") == decision["was"] and (form.get("features") or {}).get("Number") == "Plur":
+                    if decision.get("verdict") == "add":  # a second accepted plural, beside the one written
+                        if not any(f.get("form") == decision["now"] for f in forms):
+                            forms.insert(place + 1, {"form": decision["now"], "features": dict(form["features"])})
+                            done += 1
+                        break
+                    form["form"] = decision["now"]
+                    for key in ("reading", "ipa"):  # they were the old form's
+                        form.pop(key, None)
+                    done += 1
+        else:  # a transcription: its sounds or its stressed syllable
+            for said in lexeme.get("pronunciations") or []:
+                if said.get("variety") == decision.get("variety") and said.get("ipa") == decision["was"]:
+                    said["ipa"] = decision["now"]
+                    if decision.get("reading"):
+                        said["reading"] = decision["reading"]
+                    done += 1
+            settle_sounds(lang, lexeme)
+    return done
+
+
 def settle_defaults(lexeme):
     """A grammar value the lexeme states for the whole word although one of its senses states another (Count for
     the word, Mass for its fourth sense) is the value of the other senses only: it is moved to each sense that
@@ -226,6 +432,9 @@ OPEN_CLAUSE = {
 }
 
 
+CLAUSE_OPENERS = {**OPEN_CLAUSE, "ru": "что|чтобы|как|ли|будто", "uk": "що|щоб|як|чи|ніби"}
+
+
 def _open_place(lang):
     words = "|".join(sorted([re.escape(v) for v in FRAME_PLACES.get(lang, {})] + OPEN_PLACES[lang].split("|"), key=len, reverse=True))
     clause = rf"|(?<!\w)(?:{OPEN_CLAUSE[lang]})(?:/\w+)*\W*$" if lang in OPEN_CLAUSE else ""
@@ -237,13 +446,25 @@ OPEN_PLACE = {lang: _open_place(lang) for lang in OPEN_PLACES}
 
 
 MOST_COLLOCATIONS = 10  # what the shape lets a sense hold, from v4.9
+MOST_FRAMES = 5
+# A mark of an open place that is nothing else: an abbreviation no phrase contains as a word. Spanish and Portuguese
+# "algo" and the Russian question words are words too ("por algo", "как раз"), so those languages are not judged here.
+UNMISTAKABLE = {"en": {"sb", "sth", "sb's"}, "de": {"jmd.", "jmdn.", "jmdm.", "jmds.", "etw."}, "fr": {"qqn", "qqch"}, "it": {"qcn", "qcs"}}
+
+
+def is_pattern(lang, text):
+    """Whether a string a writer filed as a collocation has an open place, which makes it a frame."""
+    if lang == "ja":
+        return "〜" in text or "～" in text
+    marks = UNMISTAKABLE.get(lang, set())
+    return any(part in marks for token in text.split() for part in token.rstrip(",;:").split("/"))
 
 
 def sort_frames(lang, lexeme):
     """A frame is a pattern with an open place (depend on sth). What the writers before v4.8 also put there, the
     word's usual company and its set phrases (heavy rain, in the lead), is moved to the sense's collocations, up
     to the ten a sense holds; the rest stays. One word alone (suicidarse, 勉強する) is the form of a pattern and
-    stays too. Says how many moved."""
+    stays too. A collocation with an unmistakable open place goes the other way. Says how many moved."""
     if lang not in OPEN_PLACE:
         return 0
     lemma, moved = lexeme.get("lemma") or "", 0
@@ -257,12 +478,21 @@ def sort_frames(lang, lexeme):
                 moved += 1
                 if frame not in company:
                     company.append(frame)
+        for pair in list(company):  # and the other way: "copy sb's style" filed as a collocation is a frame
+            if is_pattern(lang, pair) and (pair in frames or len(frames) < MOST_FRAMES):
+                company.remove(pair)
+                moved += 1
+                if pair not in frames:
+                    frames.append(pair)
+        if moved > before and not sense.get("frames"):
+            sense = {**{k: v for k, v in sense.items() if k != "collocations"}, "frames": [], "collocations": company} if "cefr" not in sense else {
+                k2: v2 for k, v in sense.items() for k2, v2 in ((k, v), *((("frames", []),) if k == "cefr" else ()))}
         if moved > before:
             placed = {}
             for key, value in sense.items():  # the collocations stand where the frames stood, after what is left of them
                 if key == "frames":
                     placed.update({"frames": frames} if frames else {})
-                    placed["collocations"] = company
+                    placed.update({"collocations": company} if company else {})
                 elif key != "collocations":
                     placed[key] = value
             lexeme["senses"][k] = placed
@@ -408,8 +638,9 @@ def frame_parts(lang, lemma, frame, also=()):
             continue
         if token in CASES and parts and "slot" in parts[-1] and "case" not in parts[-1]:
             parts[-1]["case"] = [CASES[token]]  # "sich (Dat) etw. leisten": the case of the place before it
-        elif token == "...":
-            parts.append({"slot": ["clause"]})
+        elif token == "...":  # a clause after the word that opens one ("that ...", "что ..."); elsewhere anything ("с ... до ...")
+            opener = parts and "word" in parts[-1] and re.fullmatch(CLAUSE_OPENERS.get(lang, "$^"), parts[-1]["word"].lower())
+            parts.append({"slot": ["clause" if opener else "any"]})
         elif token in VERB_PLACES.get(lang, {}):
             form = VERB_PLACES[lang][token]
             if form == "inf" and parts and parts[-1] == {"word": "to"}:
@@ -507,12 +738,14 @@ def match_senses(old, new):
     return kept, [old[i] for i in free]
 
 
-def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
+def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), settle=True, review=True):
     """The clean entry for one written entry. previous is the clean entry of an earlier ingest, if any;
     duplicates maps the index of a lexeme to the headword that already has it."""
     headword = raw["headword"]
+    outcomes = reviewed(lang).get(headword) if review else None
+    raw_sha = hashlib.sha256(json.dumps(raw, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()[:12] if outcomes else None
     entry = {"schema": "4", "language": lang, "headword": headword, "lexemes": []}
-    dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices = [], [], Counter(), 0, 0, 0, 0, 0, 0
+    dropped, kept, sounds, auxiliaries, defaults, marks, places, company, choices, readings = [], [], Counter(), 0, 0, 0, 0, 0, 0, 0
     for index, lexeme in enumerate(raw.get("lexemes") or []):
         if not is_own(headword, lexeme):
             dropped.append({"lemma": lexeme.get("lemma"), "pos": lexeme.get("pos"), "reason": "not the headword's lemma"})
@@ -544,14 +777,11 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         auxiliaries += pronominal_auxiliary(lang, lexeme)
         defaults += settle_defaults(lexeme)
         marks += plain_forms(lexeme)
+        readings += settle_readings(lang, lexeme)
         places += settle_frames(lang, lexeme)
         choices += split_frames(lang, lexeme)
         company += sort_frames(lang, lexeme)
-        for sense in lexeme.get("senses") or []:  # each frame a program can rely on, as its parts: what the reader's text is matched against
-            read = [{"frame": frame, "parts": frame_parts(lang, lexeme.get("lemma") or "", frame, names(lexeme))}
-                    for frame in sense.get("frames") or [] if not unread(lang, lexeme.get("lemma") or "", frame, names(lexeme))]
-            if read:
-                sense["patterns"] = read
+        read_frames(lang, lexeme)
         cleaned = {"id": uid, "homograph": homograph, **lexeme}
         retired = [{"id": s["id"], "definition": s.get("definition")} for s in gone] + list((before or {}).get("retired") or [])
         if retired:
@@ -572,6 +802,8 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
         entry["word_grammar_moved_to_senses"] = defaults
     if marks:
         entry["stress_marks_moved_to_readings"] = marks
+    if readings:
+        entry["stressed_spellings_rebuilt"] = readings
     if places:
         entry["frames_respelled"] = places
     if company:
@@ -584,6 +816,10 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=()):
     entry["source"] = {"writer": meta.get("writer"), "model": meta.get("model"), "effort": meta.get("effort"),
                        "prompt_version": meta.get("prompt_version"),
                        "prompt_sha": meta.get("prompt_sha") or (V4_SHA.get(lang) if meta.get("prompt_version") == "v4" else None)}
+    if settle and (facts := apply_decisions(lang, entry, settled(lang).get(headword, []))):
+        entry["facts_settled"] = facts
+    if outcomes and (mended := apply_reviewed(lang, entry, raw_sha, outcomes)):
+        entry["faults_mended"] = mended
     return entry
 
 
@@ -704,6 +940,9 @@ def ingest(lang, dry_run=False):
         counts["pronominal senses given their auxiliary"] += clean.get("pronominal_auxiliaries_set", 0)
         counts["word-level grammar moved to the senses"] += clean.get("word_grammar_moved_to_senses", 0)
         counts["stress marks moved from a form to its reading"] += clean.get("stress_marks_moved_to_readings", 0)
+        counts["stressed spellings rebuilt from the spelling"] += clean.get("stressed_spellings_rebuilt", 0)
+        counts["facts set by a second look the sources confirm"] += clean.get("facts_settled", 0)
+        counts["faults a second model found and the review loop mended"] += clean.get("faults_mended", 0)
         counts["frames with an open place respelled"] += clean.get("frames_respelled", 0)
         counts["frames without an open place moved to the collocations"] += clean.get("frames_moved_to_collocations", 0)
         counts["frames and collocations with a choice of words split"] += clean.get("frames_split", 0)
