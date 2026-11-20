@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261120-seed-lang-pair-translators
+      author: claude
+      comment: >-
+        The language pairs Discover may ask a translation provider for, all to Yandex, the one provider with an
+        implementation. The table was created empty and never seeded, so the provider fallback had no provider for
+        any pair. Every pair among EN, UK, RU and DE, the same language included (an English definition of an
+        English word). A pair already mapped is left as it is.
+      changes:
+        - sql:
+            sql: >-
+              insert into lang_pair_translator_mapping (source_lang, target_lang, translator_id, priority)
+              select p.source_lang, p.target_lang, t.id, 1
+              from (values ('EN', 'EN'), ('EN', 'UK'), ('EN', 'RU'), ('EN', 'DE'), ('UK', 'EN'), ('UK', 'UK'), ('UK', 'RU'), ('UK', 'DE'), ('RU', 'EN'), ('RU', 'UK'), ('RU', 'RU'), ('RU', 'DE'), ('DE', 'EN'), ('DE', 'UK'), ('DE', 'RU'), ('DE', 'DE')) as p(source_lang, target_lang)
+              join translator t on t.name = 'YANDEX'
+              on conflict do nothing
