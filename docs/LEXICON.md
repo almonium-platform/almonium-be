@@ -1588,6 +1588,18 @@ Hydrogen at low, medium and high, and on a meter of their own Claude Opus 5.5 an
   the API the same model had been level with Opus, 37 to 38: the thinking is what the entries
   need, and low is not a writer of the dictionary. The plan's medium (fourteen thousand tokens
   of thinking, three minutes an entry) is the setting still to read.
+- **The blind reader on Carbon at medium on the plan: near Opus, not past it** (21 November).
+  All 84 words written (three minutes an entry on average, the longest eight; 77 of 80 by the
+  key, as at low: the key does not tell the efforts apart). The same reader read the 76 pairs
+  (`measure/hard-medium/`): Opus the better in 42, Carbon at medium in 34; with the two orders
+  weighted alike Carbon in 44%. A gap that size in 76 words is within chance, as the 38 to 37
+  through the API was. The two are different writers: Carbon takes word forms (7 to 3),
+  homographs (10 to 6), particles (4 to 1) and Russian and Italian; Opus takes nouns (13 to 5),
+  verbs (7 to 1), rude words (6 to 1) and English and German. The reader names fewer faults in
+  Carbon's entries of every kind (facts 11 to 16, claims 17 to 48, wording 48 to 78) but one:
+  core senses missing, 15 to 9. Carbon writes the shorter, safer entry and leaves more out.
+  Opus stays the dictionary's writer; Carbon at medium on the plan is a second writer that
+  could carry a language when the Claude plan is short, at three times the seconds an entry.
 - **The login is fragile under load.** With four calls at once the system keyring answered later
   than the CLI's five seconds; the CLI turned to a token file for an hour, the token there
   expired, and every call after was refused as not signed in. Both seats now treat that as a

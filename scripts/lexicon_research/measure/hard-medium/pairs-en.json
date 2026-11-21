@@ -1,0 +1,72 @@
+[
+ {
+  "id": 1,
+  "headword": "lead",
+  "kind": "homograph",
+  "A": "review-hard-agy-carbon-medium",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 2,
+  "headword": "tear",
+  "kind": "homograph",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 3,
+  "headword": "wind",
+  "kind": "homograph",
+  "A": "review-hard-agy-carbon-medium",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 4,
+  "headword": "left",
+  "kind": "form",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 5,
+  "headword": "news",
+  "kind": "noun",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 6,
+  "headword": "pants",
+  "kind": "region",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 7,
+  "headword": "biscuit",
+  "kind": "region",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 8,
+  "headword": "bloody",
+  "kind": "register",
+  "A": "review-hard-agy-carbon-medium",
+  "B": "review-hard-opus"
+ },
+ {
+  "id": 9,
+  "headword": "the",
+  "kind": "sound",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ },
+ {
+  "id": 10,
+  "headword": "used",
+  "kind": "sound",
+  "A": "review-hard-opus",
+  "B": "review-hard-agy-carbon-medium"
+ }
+]
