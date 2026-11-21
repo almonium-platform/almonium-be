@@ -24,8 +24,10 @@ a failure of the entry.
   review_v4.py --report --folder review-loop-v410            what the loop did, by fault
   --dry prices the next step without asking; --steps read,reply stops after those; --faults names what is looped.
 
-The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge openrouter:google/gemini-4-carbon:medium.
-A seat is the command line of a plan (claude or codex), a model, an effort and, with ":search" after them, leave to
+The seats: --reader codex:gpt-6-astra:medium:search, --writer claude:claude-opus-5-5:high, --judge agy:gemini-4-carbon:medium.
+A plan's seat is asked through the book processor's AI gateway (its `plan-manage ask`), which holds it to the owner's
+monthly caps and paused accounts and records the call; LEXICON_DIRECT=1 calls the command lines from here instead.
+A seat is the command line of a plan (claude, codex or agy), a model, an effort and, with ":search" after them, leave to
 search the web. The reader that the samples were measured with had it (the ChatGPT app looked the words up in
 Oxford, Cambridge, Collins and the rest), so the reader's seat has it by default: a reader working from memory is
 another, weaker instrument, and a seat without ":search" is a different seat with answers of its own. Two more
@@ -44,6 +46,7 @@ import json
 import os
 import re
 import subprocess
+import tempfile
 import sys
 import threading
 from collections import Counter, defaultdict
@@ -62,10 +65,14 @@ LOOP_VERSION = "loop-v1"
 OUT = HERE / "out"
 EMPTY = Path(os.environ.get("LEXICON_WRITER_EMPTY_DIR", "/tmp/claude-1000/lexicon-writer-empty"))
 CODEX = os.environ.get("CODEX_BIN") or next((str(p) for p in sorted(Path.home().glob(".nvm/versions/node/*/bin/codex"), reverse=True)), "codex")
-# Three families: Anthropic writes, OpenAI reads, Google rules (the owner, 20 November 2026). The third seat is paid by
-# the call, through OpenRouter, and so does not draw on the plan the writer works on.
+# Three families: Anthropic writes, OpenAI reads, Google rules (the owner, 20 November 2026). The third seat was paid by
+# the call through OpenRouter until the owner took Google's plan; since 21 November it rules on that plan.
 AGY = os.environ.get("AGY_BIN") or str(Path.home() / ".local" / "bin" / "agy")
-SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "openrouter:google/gemini-4-carbon:medium"}
+SEATS = {"reader": "codex:gpt-6-astra:medium:search", "writer": "claude:claude-opus-5-5:high", "judge": "agy:gemini-4-carbon:medium"}
+# The book processor's way into every model (its ai/gateway.py), as a command: one JSON request on standard input, one
+# JSON answer on the last line of standard output, exit 75 when a cap, a paused account or a plan's limit refused.
+GATEWAY = os.environ.get("ALMONIUM_GATEWAY") or str(Path(__file__).resolve().parents[3] / "almonium-book-processor" / "plan-manage")
+GATEWAY_PROVIDER = {"claude": "claude-code", "codex": "codex", "agy": "antigravity"}
 # The faults the bar counts, and the two senses numbered as one. A reader finds a rarer sense missing or a wording
 # too narrow in half the entries it is shown, hand-checked ones included, so those are looped only when asked for.
 LOOPED = ("fact", "claim", "missing-core", "split")
@@ -156,11 +163,66 @@ def part_of_review(start, end):
 MAX_TOKENS = 16000  # the longest answer a model paid by the call may give, thinking included; a writer of entries raises it
 
 
+def through_gateway(cli, effort, search, schema, check):
+    """Whether the gateway can be asked this: a plan's seat, an effort it knows, an answer it can check. It holds
+    every answer to its schema, so a trial that keeps what does not fit (check=False) asks the command line itself;
+    only Codex answers it in prose or searches the web."""
+    return (cli in GATEWAY_PROVIDER and not os.environ.get("LEXICON_DIRECT") and effort in ("low", "medium", "high") and check
+            and (cli == "codex" or (schema and not search)))
+
+
+def ask_gateway(seat, user, system=None, schema=None, purpose="lexicon_review"):
+    """One call through the book processor's gateway: (the answer, what it used). Wall when it holds the call."""
+    cli, model, effort, *more = seat.split(":")
+    request = {"seat": f"{GATEWAY_PROVIDER[cli]}:{model}:{effort}" + (":search" if "search" in more else ""), "purpose": purpose, "caller": "lexicon_research",
+               "instructions": system or ("You are an editor of dictionaries." if cli == "claude" else ""), "input": user, **({"schema": schema} if schema else {})}
+    try:
+        r = subprocess.run([GATEWAY, "ask"], input=json.dumps(request, ensure_ascii=False), capture_output=True, text=True, timeout=2400)
+        said = json.loads(r.stdout.strip().splitlines()[-1])
+    except (subprocess.TimeoutExpired, OSError, json.JSONDecodeError, IndexError) as broken:
+        raise RuntimeError(f"no answer from the gateway for {seat}: {str(broken)[:200]}") from broken
+    if said.get("status") == "held":
+        raise Wall(str(said.get("reason"))[:300])
+    if said.get("status") != "completed":
+        raise RuntimeError(f"{seat}: {str(said.get('error'))[:300]}")
+    u = said.get("usage") or {}
+    usage = {"input": u.get("input_tokens"), "output": u.get("output_tokens"), "reasoning": u.get("reasoning_tokens"), "cache_read": u.get("cached_input_tokens"),
+             "cost_usd": said.get("cost_usd"), "account": said.get("plan_account"), "found_again": bool(said.get("cached")), "through": "gateway"}
+    return (parse(said["text"]) if schema else said["text"]), usage
+
+
+AGY_START_LOCK = Path(tempfile.gettempdir()) / "almonium-antigravity-start.lock"  # the book processor's provider holds the same file
+
+
+def agy_run(cmd, start_seconds=5.0):
+    """The Antigravity command line, its start taken in turn by every process on the machine. It reads its login from
+    the system keyring as it starts; two starting in the same moment make the keyring answer late, the command line
+    gives up on it for an hour and every call after is refused as signed out (20 and 21 November 2026)."""
+    import fcntl
+    with open(AGY_START_LOCK, "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=EMPTY, stdin=subprocess.DEVNULL)
+        try:
+            process.wait(timeout=start_seconds)
+        except subprocess.TimeoutExpired:
+            pass
+    try:
+        out, err = process.communicate(timeout=1800)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.communicate()
+        raise
+    return subprocess.CompletedProcess(cmd, process.returncode, out, err)
+
+
 def ask(seat, user, system=None, schema=None, strict=False, check=True):
-    """One call through a plan's command line: (the answer, what it used). The answer is the structured object where
-    a schema is given, else the text. Wall when the plan's allowance is used up."""
+    """One call to a seat: (the answer, what it used). The answer is the structured object where a schema is given,
+    else the text. A plan's seat goes through the book processor's gateway wherever it can be asked there; what
+    follows is the command lines themselves and the two seats paid by the call. Wall when the allowance is used up."""
     cli, model, effort, *more = seat.split(":") + ["medium"] * (2 - min(2, seat.count(":")))
     search = "search" in more
+    if through_gateway(cli, effort, search, schema, check):
+        return ask_gateway(":".join([cli, model, effort, *more]), user, system, schema)
     EMPTY.mkdir(parents=True, exist_ok=True)
     if cli == "claude":
         tools = ["--tools", "WebSearch,WebFetch", "--allowedTools", "WebSearch,WebFetch"] if search else ["--tools", ""]
@@ -221,7 +283,7 @@ def ask(seat, user, system=None, schema=None, strict=False, check=True):
             raise RuntimeError(f"the request is {len(full.encode('utf-8')):,} bytes, more than one command-line argument holds")
         cmd = [AGY, "-p", full, "--model", f"{model}-{effort}", "--output-format", "json", "--disable-slash-commands"]
         try:
-            r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800, cwd=EMPTY, stdin=subprocess.DEVNULL)
+            r = agy_run(cmd)
         except subprocess.TimeoutExpired as slow:
             raise RuntimeError(f"no answer from {seat} in half an hour") from slow
         try:
@@ -296,7 +358,7 @@ def ask(seat, user, system=None, schema=None, strict=False, check=True):
         except (json.JSONDecodeError, jsonschema.ValidationError) as unfit:  # not an answer: the next run asks again
             raise RuntimeError(f"{seat} answered in another shape: {str(unfit)[:160]}") from unfit
         return answer, usage
-    raise SystemExit(f"a seat is claude:, codex:, gemini: or openrouter: with <model>:<effort> and :search after it or not; not {seat!r}")
+    raise SystemExit(f"a seat is claude:, codex:, agy:, gemini: or openrouter: with <model>:<effort> and :search after it or not; not {seat!r}")
 
 
 def key_of(name):

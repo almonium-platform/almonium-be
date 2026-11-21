@@ -84,7 +84,7 @@ def test_what_both_models_call_a_fault_is_mended_and_what_the_third_dismisses_is
     models = Models([ACCEPT_GENDER] + REJECT, rulings=[{"n": 2, "upheld": True, "reason": "Every learner's dictionary has it."}, {"n": 4, "upheld": False, "reason": "Count is what is printed."}],
                     mend=[{"n": 2, "verdict": "accept", "reason": "Adds the sense.", "patch": [{"op": "add", "path": "/lexemes/0/senses/-", "value": json.dumps(NEW_SENSE)}]}])
     loop, got, record = run(models)
-    assert got == "settled" and models.calls == ["claude", "openrouter rules", "claude mends"]  # three seats, three families
+    assert got == "settled" and models.calls == ["claude", "agy rules", "claude mends"]  # three seats, three families
     assert [(o["fault"], o["end"], o.get("by")) for o in record["outcomes"]] == [("fact", "mended", "both"), ("missing-core", "mended", "judge"), ("claim", "dismissed", None)]
     assert [(op["n"], op["op"], op["path"], op.get("was")) for op in record["ops"]] == [(1, "replace", "/lexemes/0/grammar/gender", "Masc"), (2, "add", "/lexemes/0/senses/-", None)]
     assert "[wording]" not in json.loads(next(loop.dir("de").glob("*.reply.*.json")).read_text(encoding="utf-8"))["asked"]  # not looped unless asked for
@@ -312,12 +312,67 @@ def test_the_google_plan_sits_in_a_seat_through_its_command_line(monkeypatch, tm
             return type("R", (), {"stdout": json.dumps({"status": "ERROR", "error": "You have reached your quota for Gemini models"}), "stderr": ""})()
         return type("R", (), {"stdout": "notice\n" + json.dumps({"status": "SUCCESS", "response": '{"rulings": [{"n": 1, "upheld": true, "reason": "r"}]}',
                                                                   "usage": {"input_tokens": 10, "output_tokens": 5, "thinking_tokens": 3, "cache_read_tokens": 8}}), "stderr": ""})()
-    monkeypatch.setattr(review_v4.subprocess, "run", fake_run)
+    monkeypatch.setattr(review_v4, "agy_run", fake_run)
     monkeypatch.setattr(review_v4, "EMPTY", tmp_path)
     answer, usage = review_v4.ask("agy:gemini-4-carbon:medium", "question", "the rules", review_v4.RULINGS)
     cmd, kwargs = calls[0]
     assert answer["rulings"][0]["upheld"] is True and usage["reasoning"] == 3 and usage["cache_read"] == 8
     assert cmd[1] == "-p" and cmd[2].startswith("the rules\n\n# The request\n\nquestion") and "of this shape" in cmd[2]
-    assert cmd[cmd.index("--model") + 1] == "gemini-4-carbon-medium" and kwargs["cwd"] == tmp_path
+    assert cmd[cmd.index("--model") + 1] == "gemini-4-carbon-medium"
     with pytest.raises(review_v4.Wall):
         review_v4.ask("agy:gemini-4-carbon:medium", "wall", None, review_v4.RULINGS)
+
+
+def test_the_google_command_line_starts_one_at_a_time_in_an_empty_folder(monkeypatch, tmp_path):
+    """Two starting in the same moment lost the plan's login twice; a call under way holds nobody back."""
+    import threading
+    import time
+    monkeypatch.setattr(review_v4, "AGY_START_LOCK", tmp_path / "start.lock")
+    monkeypatch.setattr(review_v4, "EMPTY", tmp_path)
+    script = "import os, time; open('started', 'a').write(f'{time.time()}\\n'); time.sleep(1); print(os.getcwd())"
+    results, began = [], time.time()
+    threads = [threading.Thread(target=lambda: results.append(review_v4.agy_run([sys.executable, "-c", script], start_seconds=0.4))) for _ in range(3)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    times = sorted(float(line) for line in (tmp_path / "started").read_text().split())
+    assert all(later - earlier >= 0.35 for earlier, later in zip(times, times[1:]))
+    assert [r.stdout.strip() for r in results] == [str(tmp_path)] * 3 and time.time() - began < 2.8
+
+
+def test_a_plans_seat_is_asked_through_the_book_processors_gateway(monkeypatch):
+    monkeypatch.delenv("LEXICON_DIRECT")
+    monkeypatch.setattr(review_v4, "GATEWAY", "/somewhere/plan-manage")
+    sent = []
+
+    def gateway(cmd, **kwargs):
+        sent.append((cmd, json.loads(kwargs["input"])))
+        request = sent[-1][1]
+        if request["input"] == "the cap is reached":
+            return type("R", (), {"stdout": json.dumps({"status": "held", "reason": "BUDGET_REACHED: the Gemini plan has cost $5 of its $5 cap"}), "stderr": ""})()
+        text = json.dumps({"rulings": [{"n": 1, "upheld": True, "reason": "r"}]}) if "schema" in request else "### 1. Haus\nNo findings."
+        return type("R", (), {"stdout": "a notice\n" + json.dumps({"status": "completed", "text": text, "cached": False, "cost_usd": 0.004, "plan_account": ".codex",
+                                                                       "usage": {"input_tokens": 900, "cached_input_tokens": 100, "output_tokens": 50, "reasoning_tokens": 30}}), "stderr": ""})()
+    monkeypatch.setattr(review_v4.subprocess, "run", gateway)
+
+    answer, usage = review_v4.ask(review_v4.SEATS["judge"], "the dispute", None, review_v4.RULINGS)
+    assert answer["rulings"][0]["upheld"] and usage["through"] == "gateway" and usage["cost_usd"] == 0.004 and usage["reasoning"] == 30
+    assert review_v4.ask(review_v4.SEATS["reader"], "ten entries")[0].startswith("### 1. Haus")  # the reader answers in prose and looks words up
+    review_v4.ask(review_v4.SEATS["writer"], "the findings", "the rules", review_v4.ANSWERS)
+    assert [cmd for cmd, _ in sent] == [["/somewhere/plan-manage", "ask"]] * 3
+    judge, reader, writer = (request for _, request in sent)
+    assert judge["seat"] == "antigravity:gemini-4-carbon:medium" and judge["schema"] == review_v4.RULINGS and judge["purpose"] == "lexicon_review"
+    assert reader["seat"] == "codex:gpt-6-astra:medium:search" and "schema" not in reader
+    assert writer["seat"] == "claude-code:claude-opus-5-5:high" and writer["instructions"] == "the rules"
+    with pytest.raises(review_v4.Wall, match="BUDGET_REACHED"):  # a cap or a paused account stops the run like a plan's wall
+        review_v4.ask(review_v4.SEATS["judge"], "the cap is reached", None, review_v4.RULINGS)
+
+
+def test_what_the_gateway_cannot_be_asked_goes_to_the_command_line(monkeypatch):
+    monkeypatch.delenv("LEXICON_DIRECT")
+    assert not review_v4.through_gateway("codex", "xhigh", True, None, True)  # an effort the gateway does not know
+    assert not review_v4.through_gateway("agy", "medium", False, review_v4.RULINGS, False)  # a trial that keeps what does not fit
+    assert not review_v4.through_gateway("claude", "high", True, review_v4.RULINGS, True)  # only Codex searches there
+    assert not review_v4.through_gateway("openrouter", "medium", False, review_v4.RULINGS, True)  # paid by the call, not a plan
+    assert review_v4.through_gateway("agy", "medium", False, review_v4.RULINGS, True)

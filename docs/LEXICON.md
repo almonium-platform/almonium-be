@@ -1437,6 +1437,30 @@ whole difference is cents. OpenRouter holds back the price of a model's longest 
 request in flight, and refused four at once with a dollar in the account; the seat now asks for
 at most 16,000 tokens. An empty account is a wall like a plan's: the run stops and loses nothing.
 
+**The seats go through the book processor's gateway** (21 November 2026). The loop used to call the
+plans' command lines itself, so its calls passed no monthly cap, ignored an account the owner had
+paused on the dashboard and left nothing in the spending pages. `review_v4.ask` now hands a plan's
+seat (`claude:`, `codex:`, `agy:`) to the book processor's `plan-manage ask`, one JSON request in
+and one answer out, which routes it like any step there, checks the provider's cap, picks the open
+account and records the call. A hold there (a cap, a pause, a plan's limit) is a wall here: the
+run stops and loses nothing. The seat's name is unchanged, so no answer already bought is asked
+again. Three things still go to the command line directly, because the gateway holds every answer
+to its schema and knows three efforts: a trial writer that keeps entries that do not fit
+(`seat_writer.py`), an extra-high effort, and a Claude seat that searches the web.
+`LEXICON_DIRECT=1` turns the gateway off; the tests set it.
+
+The third seat is now `agy:gemini-4-carbon:medium`, on Google's plan, and no longer OpenRouter
+paid by the call. It is the same model at the same effort; its route is part of the seat's name,
+so a ruling bought through OpenRouter is asked once more on the plan when its entry comes round.
+
+**Google's command line starts one at a time.** It reads its login from the system keyring as it
+starts. Twice (20 November, four calls at once; 21 November, two rulings at once beside three
+other calls) calls that started in the same moment made the keyring answer late, the command line
+gave up on it for an hour and every call after was refused as signed out. Five calls ran side by
+side for an hour without trouble when they had started apart. So only the start is taken in turn:
+both the gateway's provider and `review_v4.agy_run` hold one lock file for the first five seconds
+of a call, across every process on the machine.
+
 **Carbon as a writer, a first look.** `seat_writer.py` writes entries with any model in a seat
 into a trial folder, under the writers' prompt and held to the schema by the provider. Six
 entries, to see that it works and what it costs (`out/review-writer-gemini-4-carbon*/`):
