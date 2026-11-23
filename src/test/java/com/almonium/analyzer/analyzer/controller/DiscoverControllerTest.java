@@ -127,6 +127,45 @@ class DiscoverControllerTest {
                 .andExpect(jsonPath("$.senses[0].translations[0]").value("edition"))
                 .andExpect(jsonPath("$.senses[0].definition").doesNotExist())
                 .andExpect(jsonPath("$.senses[0].examples.length()").value(0))
-                .andExpect(jsonPath("$.pronunciations.length()").value(0));
+                .andExpect(jsonPath("$.pronunciations.length()").value(0))
+                .andExpect(jsonPath("$.requestedLanguage").doesNotExist())
+                .andExpect(jsonPath("$.availableLanguages.length()").value(0))
+                .andExpect(jsonPath("$.scriptMismatch").value(false));
+    }
+
+    @Test
+    void exposesRedirectedLanguageAndAlternativesWhenCrossLanguageFallbackMatches() throws Exception {
+        when(lookupService.lookup("word", null, Language.FR, Language.EN))
+                .thenReturn(new DiscoverLookupResponse(
+                        "word",
+                        null,
+                        Language.EN,
+                        Language.UK,
+                        "lexicon",
+                        null,
+                        List.of(new DiscoverSenseResponse(
+                                1,
+                                null,
+                                "word",
+                                "NOUN",
+                                "/wɜːd/",
+                                List.of("слово"),
+                                "a unit of language",
+                                "A1",
+                                List.of())),
+                        List.of(),
+                        List.of(),
+                        List.of(),
+                        Language.FR,
+                        List.of(Language.DE),
+                        false));
+
+        mvc.perform(get("/public/discover/lookup/FR/EN").param("entry", "word"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.language").value("EN"))
+                .andExpect(jsonPath("$.translationLanguage").value("UK"))
+                .andExpect(jsonPath("$.requestedLanguage").value("FR"))
+                .andExpect(jsonPath("$.availableLanguages[0]").value("DE"))
+                .andExpect(jsonPath("$.scriptMismatch").value(false));
     }
 }

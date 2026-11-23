@@ -4,12 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import com.almonium.analyzer.analyzer.controller.open.DiscoverController;
 import com.almonium.analyzer.analyzer.dto.DiscoverLookupResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
 import com.almonium.analyzer.analyzer.service.DiscoverLookupRecorder;
 import com.almonium.analyzer.analyzer.service.DiscoverLookupService;
+import com.almonium.analyzer.analyzer.service.DiscoverMemberLanguages;
+import com.almonium.analyzer.analyzer.service.DiscoverMemberLanguages.MemberLanguages;
 import com.almonium.analyzer.analyzer.service.FrequencyService;
 import com.almonium.analyzer.analyzer.service.LanguageProcessor;
 import com.almonium.analyzer.translator.model.enums.Language;
@@ -156,11 +159,19 @@ class LexiconPublicationFlowTest {
         }
 
         @Bean
+        DiscoverMemberLanguages discoverMemberLanguages() {
+            DiscoverMemberLanguages memberLanguages = mock(DiscoverMemberLanguages.class);
+            when(memberLanguages.current()).thenReturn(MemberLanguages.GUEST);
+            return memberLanguages;
+        }
+
+        @Bean
         DiscoverController discoverController(
                 FrequencyService frequencyService,
                 LanguageProcessor languageProcessor,
                 LexiconLookupService lookupService,
-                DiscoverLexiconMapper mapper) {
+                DiscoverLexiconMapper mapper,
+                DiscoverMemberLanguages memberLanguages) {
             return new DiscoverController(
                     frequencyService,
                     new DiscoverLookupService(
@@ -168,7 +179,8 @@ class LexiconPublicationFlowTest {
                             frequencyService,
                             lookupService,
                             mapper,
-                            mock(DiscoverLookupRecorder.class)));
+                            mock(DiscoverLookupRecorder.class),
+                            memberLanguages));
         }
     }
 
@@ -914,6 +926,29 @@ class LexiconPublicationFlowTest {
             assertThat(form.form()).isEqualTo("antennae");
             assertThat(form.senses()).containsExactly(2);
         });
+    }
+
+    @Test
+    void standaloneMissResolvesAcrossLanguagesByHeadwordInflectedFormAndAlias() {
+        publishBatch(publication("antenna"), publication("program"));
+
+        DiscoverLookupResponse byHeadword =
+                discovering.lookup(Language.FR, Language.UK, "antenna", null).getBody();
+        assertThat(byHeadword.language()).isEqualTo(Language.EN);
+        assertThat(byHeadword.requestedLanguage()).isEqualTo(Language.FR);
+        assertThat(byHeadword.senses()).hasSize(2);
+
+        DiscoverLookupResponse byForm =
+                discovering.lookup(Language.FR, Language.UK, "antennae", null).getBody();
+        assertThat(byForm.language()).isEqualTo(Language.EN);
+        assertThat(byForm.requestedLanguage()).isEqualTo(Language.FR);
+        assertThat(byForm.senses()).extracting(sense -> sense.headword()).containsOnly("antenna");
+
+        DiscoverLookupResponse byAlias =
+                discovering.lookup(Language.DE, Language.UK, "programme", null).getBody();
+        assertThat(byAlias.language()).isEqualTo(Language.EN);
+        assertThat(byAlias.requestedLanguage()).isEqualTo(Language.DE);
+        assertThat(byAlias.lexemes()).extracting(lexeme -> lexeme.lemma()).containsOnly("program");
     }
 
     private List<UnvoicedPronunciation> withoutClips(String language) {

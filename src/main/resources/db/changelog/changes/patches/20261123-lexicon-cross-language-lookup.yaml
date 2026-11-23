@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261123-lexicon-cross-language-lookup
+      author: claude
+      comment: >-
+        Indexes without a leading language column so a standalone Discover miss can check in one pass whether another
+        language in the lexicon owns the headword, lemma, inflected form or alias.
+      changes:
+        - sql:
+            sql: >-
+              CREATE INDEX IF NOT EXISTS ix_lexeme_lower_headword ON lexicon.lexeme (lower(headword));
+              CREATE INDEX IF NOT EXISTS ix_lexeme_lower_lemma ON lexicon.lexeme (lower(lemma));
+              CREATE INDEX IF NOT EXISTS ix_lexeme_form_normalized ON lexicon.lexeme_form (normalized_form);
+              CREATE INDEX IF NOT EXISTS ix_entry_alias_normalized ON lexicon.entry_alias (normalized_alias);

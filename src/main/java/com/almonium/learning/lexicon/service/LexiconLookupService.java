@@ -59,6 +59,15 @@ public class LexiconLookupService {
                 mapper.toResponse(language, text, matches, clipsOf(matches.keySet()), homophonesOf(matches)));
     }
 
+    /** Languages other than {@code excludedLanguage} whose lexicon answers for {@code text}, best match first. */
+    public List<String> matchingLanguages(String excludedLanguage, String text) {
+        String normalized = WordNormalizer.normalize(text);
+        if (normalized.isEmpty()) {
+            return List.of();
+        }
+        return lexemeRepository.findMatchingLanguages(excludedLanguage, normalized);
+    }
+
     /** Up to {@code limit} headwords beginning with {@code prefix}, glossed in {@code fluent} where the entry can. */
     public List<LexiconSuggestion> suggest(String language, String prefix, String fluent, int limit) {
         String escaped = WordNormalizer.normalize(prefix).replaceAll("([\\\\%_])", "\\\\$1");

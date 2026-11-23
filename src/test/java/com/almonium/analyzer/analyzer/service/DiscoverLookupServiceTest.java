@@ -13,6 +13,7 @@ import com.almonium.analyzer.analyzer.dto.DiscoverPronunciationResponse;
 import com.almonium.analyzer.analyzer.dto.IpaSegmentResponse;
 import com.almonium.analyzer.analyzer.mapper.DiscoverLexiconMapper;
 import com.almonium.analyzer.analyzer.repository.DiscoverLookupLog.AnsweredBy;
+import com.almonium.analyzer.analyzer.service.DiscoverMemberLanguages.MemberLanguages;
 import com.almonium.analyzer.translator.dto.DefinitionDto;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.dto.TranslationDto;
@@ -31,6 +32,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,12 +54,20 @@ class DiscoverLookupServiceTest {
     @Mock
     DiscoverLookupRecorder lookupRecorder;
 
+    @Mock
+    DiscoverMemberLanguages memberLanguages;
+
     DiscoverLookupService service;
 
     @BeforeEach
     void setUp() {
         service = new DiscoverLookupService(
-                languageProcessor, frequencyService, lexiconLookupService, new DiscoverLexiconMapper(), lookupRecorder);
+                languageProcessor,
+                frequencyService,
+                lexiconLookupService,
+                new DiscoverLexiconMapper(),
+                lookupRecorder,
+                memberLanguages);
     }
 
     @Test
@@ -334,6 +344,105 @@ class DiscoverLookupServiceTest {
             assertThat(found.translations()).containsExactly("leise lachen");
             assertThat(found.examples()).containsExactly(new DiscoverExampleResponse("She chuckled.", null));
         });
+    }
+
+    @Test
+    void redirectsStandaloneMissToMembersOtherActiveTargetLanguageAndAdjustsCollidingTranslationLanguage() {
+        LexemeView noun = lexeme(
+                "word",
+                "NOUN",
+                List.of(pronunciation(null, "en-GB", 1, "/wɜːd/", List.of())),
+                List.of(sense(
+                        1,
+                        "a single unit of language",
+                        "A1",
+                        Map.of("uk", List.of(new GlossView("слово", true, null))),
+                        List.of())));
+        when(lexiconLookupService.lookup("fr", "word")).thenReturn(Optional.empty());
+        when(lexiconLookupService.matchingLanguages("fr", "word")).thenReturn(List.of("en", "de"));
+        when(memberLanguages.current())
+                .thenReturn(new MemberLanguages(
+                        true, List.of(Language.FR, Language.EN, Language.DE), Set.of(Language.EN, Language.UK)));
+        when(lexiconLookupService.lookup("en", "word"))
+                .thenReturn(Optional.of(new LexiconEntryResponse("en", "word", List.of(noun))));
+        when(frequencyService.getFrequency(Language.EN, "word")).thenReturn(Optional.of(80));
+
+        var result = service.lookup("word", null, Language.FR, Language.EN);
+
+        assertThat(result.language()).isEqualTo(Language.EN);
+        assertThat(result.requestedLanguage()).isEqualTo(Language.FR);
+        assertThat(result.translationLanguage()).isEqualTo(Language.UK);
+        assertThat(result.availableLanguages()).containsExactly(Language.DE);
+        assertThat(result.scriptMismatch()).isFalse();
+        assertThat(result.senses()).singleElement().satisfies(found -> {
+            assertThat(found.headword()).isEqualTo("word");
+            assertThat(found.translations()).containsExactly("слово");
+        });
+        verify(lookupRecorder).record("word", Language.EN, Language.UK, AnsweredBy.LEXICON);
+        verify(lookupRecorder, never())
+                .record(anyString(), any(), any(), org.mockito.ArgumentMatchers.eq(AnsweredBy.NOTHING));
+    }
+
+    @Test
+    void reportsFluentLanguageMatchWithoutSwitchingWhenMemberDoesNotStudyThatLanguage() {
+        when(lexiconLookupService.lookup("fr", "word")).thenReturn(Optional.empty());
+        when(lexiconLookupService.matchingLanguages("fr", "word")).thenReturn(List.of("de", "en"));
+        when(memberLanguages.current())
+                .thenReturn(new MemberLanguages(true, List.of(Language.FR), Set.of(Language.EN)));
+
+        var result = service.lookup("word", null, Language.FR, Language.EN);
+
+        assertThat(result.language()).isEqualTo(Language.FR);
+        assertThat(result.requestedLanguage()).isNull();
+        assertThat(result.senses()).isEmpty();
+        assertThat(result.availableLanguages()).containsExactly(Language.EN, Language.DE);
+        verify(lookupRecorder, never()).record(anyString(), any(), any(), any());
+    }
+
+    @Test
+    void redirectsGuestStandaloneMissToBestLexiconMatch() {
+        LexemeView noun = lexeme("bloke", "NOUN", List.of(), List.of(sense(1, "a man", "B2", Map.of(), List.of())));
+        when(lexiconLookupService.lookup("es", "bloke")).thenReturn(Optional.empty());
+        when(lexiconLookupService.matchingLanguages("es", "bloke")).thenReturn(List.of("en"));
+        when(memberLanguages.current()).thenReturn(MemberLanguages.GUEST);
+        when(lexiconLookupService.lookup("en", "bloke"))
+                .thenReturn(Optional.of(new LexiconEntryResponse("en", "bloke", List.of(noun))));
+
+        var result = service.lookup("bloke", null, Language.ES, Language.UK);
+
+        assertThat(result.language()).isEqualTo(Language.EN);
+        assertThat(result.requestedLanguage()).isEqualTo(Language.ES);
+        assertThat(result.availableLanguages()).isEmpty();
+        assertThat(result.senses()).hasSize(1);
+        verify(lookupRecorder).record("bloke", Language.EN, Language.UK, AnsweredBy.LEXICON);
+    }
+
+    @Test
+    void neverRedirectsContextualLookupWhenSentenceContextIsProvided() {
+        when(lexiconLookupService.lookup("fr", "word")).thenReturn(Optional.empty());
+
+        var result = service.lookup("word", "Il a dit un word bizarre.", Language.FR, Language.EN);
+
+        assertThat(result.language()).isEqualTo(Language.FR);
+        assertThat(result.requestedLanguage()).isNull();
+        assertThat(result.senses()).isEmpty();
+        verify(lexiconLookupService, never()).matchingLanguages(anyString(), anyString());
+        verify(lookupRecorder).record("word", Language.FR, Language.EN, AnsweredBy.NOTHING);
+    }
+
+    @Test
+    void flagsScriptMismatchAndSkipsExternalProvidersWhenAlphabetCannotBelongToLanguage() {
+        when(lexiconLookupService.matchingLanguages("fr", "їжак")).thenReturn(List.of());
+
+        var result = service.lookup("їжак", null, Language.FR, Language.UK);
+
+        assertThat(result.language()).isEqualTo(Language.FR);
+        assertThat(result.senses()).isEmpty();
+        assertThat(result.scriptMismatch()).isTrue();
+        verify(lexiconLookupService, never()).lookup(anyString(), anyString());
+        verify(languageProcessor, never()).translate(anyString(), any(), any());
+        verify(frequencyService, never()).getFrequency(any(), anyString());
+        verify(lookupRecorder, never()).record(anyString(), any(), any(), any());
     }
 
     private static LexemeView lexeme(

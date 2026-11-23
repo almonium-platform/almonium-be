@@ -111,6 +111,31 @@ public interface LexemeRepository extends JpaRepository<Lexeme, UUID> {
     List<Lexeme> findByLanguageAndAlias(@Param("language") String language, @Param("normalized") String normalized);
 
     /**
+     * Other languages in the lexicon that answer for a normalised word, ordered by how directly they name it
+     * (headword or lemma first, then an inflected form, then an alias) and by corpus Zipf score within each tier.
+     */
+    @Query(nativeQuery = true, value = """
+            with hits as (
+                select l.language as language, 0 as via, coalesce(l.zipf, 0) as zipf
+                from lexicon.lexeme l
+                where l.language <> :excluded and (lower(l.headword) = :normalized or lower(l.lemma) = :normalized)
+                union all
+                select f.language as language, 1 as via, coalesce(l.zipf, 0) as zipf
+                from lexicon.lexeme_form f join lexicon.lexeme l on l.id = f.lexeme_id
+                where f.language <> :excluded and f.normalized_form = :normalized
+                union all
+                select a.language as language, 2 as via, coalesce(l.zipf, 0) as zipf
+                from lexicon.entry_alias a join lexicon.lexeme l on l.language = a.language and l.headword = a.headword
+                where a.language <> :excluded and a.normalized_alias = :normalized
+            )
+            select h.language as language
+            from hits h
+            group by h.language
+            order by min(h.via), max(h.zipf) desc, h.language
+            """)
+    List<String> findMatchingLanguages(@Param("excluded") String excluded, @Param("normalized") String normalized);
+
+    /**
      * Headwords beginning with a prefix, one row per headword, for a field being typed into. A headword that begins
      * with the prefix comes before one reached through an inflected form (ging finds gehen), then the more frequent
      * spelling, then the shorter. Of a headword's lexemes, the one with the most senses speaks for it. The prefix is
