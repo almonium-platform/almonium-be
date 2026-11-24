@@ -22,7 +22,7 @@ class GoogleVoiceSelectionTest {
                 .thenReturn(SynthesizeSpeechResponse.newBuilder()
                         .setAudioContent(ByteString.copyFromUtf8("audio"))
                         .build());
-        var adapter = new GoogleTranslationServiceImpl(null, client, null);
+        var adapter = new GoogleTranslationServiceImpl(client);
         var route = new VoiceCatalogue().requireVoice(LanguageVariety.EN_GB);
         assertThat(adapter.textToSpeech(route, "schedule").toStringUtf8()).isEqualTo("audio");
         var voice = ArgumentCaptor.forClass(VoiceSelectionParams.class);

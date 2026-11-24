@@ -3,7 +3,6 @@ package com.almonium.analyzer.analyzer.controller;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.almonium.analyzer.analyzer.service.LanguageProcessor;
-import com.almonium.analyzer.translator.dto.MLTranslationCard;
 import com.almonium.analyzer.translator.dto.TranslationCardDto;
 import com.almonium.analyzer.translator.model.enums.Language;
 import com.almonium.auth.common.annotation.Auth;
@@ -22,8 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,11 +45,6 @@ public class LangController {
             @PathVariable String langFrom, @PathVariable String langTo, @PathVariable String text) {
         return ResponseEntity.ok(
                 languageProcessor.translate(text, Language.valueOf(langFrom), Language.valueOf(langTo)));
-    }
-
-    @PostMapping("/translations/{langTo}/bulk")
-    public ResponseEntity<MLTranslationCard> bulkTranslate(@PathVariable String langTo, @RequestBody String text) {
-        return ResponseEntity.ok(languageProcessor.bulkTranslate(text, Language.valueOf(langTo)));
     }
 
     @GetMapping("/words/{text}/audio/{lang}")

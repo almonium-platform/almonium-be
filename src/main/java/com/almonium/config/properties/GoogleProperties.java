@@ -17,8 +17,5 @@ import org.springframework.validation.annotation.Validated;
 public class GoogleProperties {
 
     @NotBlank
-    String parentLocation;
-
-    @NotBlank
     String serviceAccountKeyBase64;
 }

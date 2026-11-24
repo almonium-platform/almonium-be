@@ -10,8 +10,4 @@ public interface TranslatorRepository extends JpaRepository<Translator, Long> {
     default Translator getYandex() {
         return this.getByName("YANDEX").orElseThrow();
     }
-
-    default Translator getGoogle() {
-        return this.getByName("GOOGLE").orElseThrow();
-    }
 }

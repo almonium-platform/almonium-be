@@ -34,8 +34,6 @@
    /lang/translate/**                                 Potentially several external dictionary/translation             Per-user, per-IP, provider-global, input characters
                                                       providers because fallback providers are tried
   ─────────────────────────────────────────────────  ──────────────────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────
-   POST /lang/translations/{lang}/bulk                Paid Google Translation, charged by characters                  Requests plus weighted character quota
-  ─────────────────────────────────────────────────  ──────────────────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────
    /lang/words/{text}/audio/{lang}                    Paid Google TTS and generated binary output                     Requests, input bytes, daily character quota, concurrency
   ─────────────────────────────────────────────────  ──────────────────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────
    POST /books/{bookId}/language/{language}/orders    Potentially large asynchronous translation workload             Very low per-user creation rate plus one active order per
