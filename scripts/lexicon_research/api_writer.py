@@ -16,7 +16,7 @@ Usage: api_writer.py --headwords NAME --langs fr [--model claude-opus-5-5] [--wo
            [--budget-usd 240] [--limit N] [--no-gate]        (run from the backend repository root;
            build the index once with lemma_index.py)
 """
-import argparse, hashlib, json, sys, threading, time
+import argparse, hashlib, json, os, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -127,7 +127,8 @@ if GATE:
     lemma_gate.require(a.langs.split(","))
 import anthropic  # noqa: E402
 
-client = anthropic.Anthropic(api_key=ENV["ANTHROPIC_API_KEY"], max_retries=3)
+# a key in the environment is another account's (prepaid credits to use up); else the backend's own
+client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY") or ENV["ANTHROPIC_API_KEY"], max_retries=3)
 for lang in a.langs.split(","):
     rows = json.loads((HERE / "headwords" / f"{a.headwords}-{lang}.json").read_text())
     if a.limit:
