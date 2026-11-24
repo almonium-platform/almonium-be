@@ -38,7 +38,7 @@
         <version.springdoc>3.1.0</version.springdoc>
         <version.spotbugs-maven-plugin>4.10.4.1</version.spotbugs-maven-plugin>
         <version.spotless>3.10.2</version.spotless>
-        <version.stream>1.47.0</version.stream>
+        <version.stream>1.49.0</version.stream>
         <version.uuid-creator>6.1.1</version.uuid-creator>
         <version.zxing>3.5.4</version.zxing>
         <version.maxmind-db>4.2.0</version.maxmind-db>
