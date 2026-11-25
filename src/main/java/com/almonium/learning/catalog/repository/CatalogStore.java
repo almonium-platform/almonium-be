@@ -391,14 +391,15 @@ public class CatalogStore {
         } else {
             condition = "w.production_free_from in (:prodYears)";
         }
-        String sql = "select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display, "
-                + "w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score "
-                + "from catalog_work w "
-                + "where w.literary and ("
-                + condition
-                + ") "
-                + "order by w.popularity desc, w.title "
-                + "limit :limit";
+        String sql =
+                "select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display, "
+                        + "w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score "
+                        + "from catalog_work w "
+                        + "where w.literary and ("
+                        + condition
+                        + ") "
+                        + "order by w.popularity desc, w.title "
+                        + "limit :limit";
         return named.query(sql, params, CatalogStore::hit);
     }
 
