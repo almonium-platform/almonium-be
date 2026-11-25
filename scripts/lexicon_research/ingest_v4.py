@@ -765,10 +765,19 @@ def clean_entry(lang, raw, meta, previous=None, duplicates=None, aliases=(), set
             homograph = next(n for n in range(1, 1000) if (group(lexeme), n) not in used)
             uid = lexeme_id(lang, headword, lexeme, homograph)
         used.add((group(lexeme), homograph))
+        for sp in lexeme.get("spellings") or []:
+            if isinstance(sp, dict) and "spelling" in sp and "text" not in sp:
+                sp["text"] = sp.pop("spelling")
         senses = lexeme.get("senses") or []
         same, gone = match_senses(before.get("senses") or [], senses) if before else ({}, [])
+        seen_sense_ids = set()
         for k, sense in enumerate(senses):
             sense_uid = same[k]["id"] if k in same else sense_id(uid, sense.get("definition"))
+            suffix = 1
+            while sense_uid in seen_sense_ids:
+                suffix += 1
+                sense_uid = sense_id(uid, f"{sense.get('definition')}|#{suffix}")
+            seen_sense_ids.add(sense_uid)
             senses[k] = {"id": sense_uid, **sense}
         for form in lexeme.get("forms") or []:
             if "senses" in form:
