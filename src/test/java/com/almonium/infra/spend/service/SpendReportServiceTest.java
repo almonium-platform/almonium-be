@@ -15,6 +15,8 @@ import com.almonium.learning.almo.dto.AlmoSpendLine;
 import com.almonium.learning.almo.repository.AlmoTurnRepository;
 import com.almonium.learning.book.dto.response.BooksSpendLine;
 import com.almonium.learning.book.service.BookProcessorClient;
+import com.almonium.learning.lexicon.dto.SenseComparisonSpendLine;
+import com.almonium.learning.lexicon.repository.SenseComparisonStore;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
@@ -30,6 +32,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class SpendReportServiceTest {
     @Mock
     private AlmoTurnRepository turnRepository;
+
+    @Mock
+    private SenseComparisonStore comparisonStore;
 
     @Mock
     private BookProcessorClient bookProcessor;
@@ -48,13 +53,15 @@ class SpendReportServiceTest {
         mini.setCachedInput(new BigDecimal("0.10"));
         mini.setOutput(new BigDecimal("1.60"));
         properties.getPricing().put("gpt-4.1-mini", mini);
-        service = new SpendReportService(turnRepository, bookProcessor, costsClient, properties);
+        service = new SpendReportService(turnRepository, comparisonStore, bookProcessor, costsClient, properties);
     }
 
     @Test
     void pricesAlmoFromTheTableAndTakesBookDollarsAsGiven() {
         when(turnRepository.spendBetween(any(), any()))
                 .thenReturn(List.of(new AlmoSpendLine("gpt-4.1-mini", 3, 1_000_000, 250_000)));
+        when(comparisonStore.spendBetween(any(), any()))
+                .thenReturn(List.of(new SenseComparisonSpendLine("gpt-4.1-mini", 4, 2_000, 500)));
         when(bookProcessor.aiSpend(any(), any()))
                 .thenReturn(List.of(new BooksSpendLine(
                         "translation", "gpt-5.6-terra", 2, 500, 100, 200, 0, new BigDecimal("0.550000"))));
@@ -72,8 +79,10 @@ class SpendReportServiceTest {
                         new SpendReport.EstimatedLine(
                                 "almo", "chat", "gpt-4.1-mini", 3, 1_000_000, 0, 250_000, new BigDecimal("0.800000")),
                         new SpendReport.EstimatedLine(
+                                "discover", "comparison", "gpt-4.1-mini", 4, 2_000, 0, 500, new BigDecimal("0.001600")),
+                        new SpendReport.EstimatedLine(
                                 "books", "translation", "gpt-5.6-terra", 2, 500, 100, 200, new BigDecimal("0.550000")));
-        assertThat(report.estimatedUsd()).isEqualByComparingTo("1.35");
+        assertThat(report.estimatedUsd()).isEqualByComparingTo("1.3516");
         assertThat(report.actual()).hasSize(2);
         assertThat(report.actualUsd()).isEqualByComparingTo("0.9");
         assertThat(report.actualFetchedAt()).isNotNull();

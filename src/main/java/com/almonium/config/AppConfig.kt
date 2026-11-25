@@ -8,6 +8,7 @@ import com.almonium.config.properties.GoogleProperties
 import com.almonium.config.properties.OpenAiProperties
 import com.almonium.config.properties.PaddleProperties
 import com.almonium.config.properties.RabbitMQProperties
+import com.almonium.config.properties.SenseComparisonProperties
 import com.almonium.config.properties.StreamProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
@@ -28,6 +29,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
     OpenAiProperties::class,
     PaddleProperties::class,
     RabbitMQProperties::class,
+    SenseComparisonProperties::class,
     StreamProperties::class,
 )
 class AppConfig

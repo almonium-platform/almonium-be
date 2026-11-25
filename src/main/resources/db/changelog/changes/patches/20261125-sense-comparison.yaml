@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261125-sense-comparison
+      author: claude
+      comment: >-
+        sense_comparison is the short explanation of how two dictionary senses differ, written by a model from the
+        facts the lexicon holds for the two and nothing else. It is bought once per content_hash (the prompt version,
+        the language it is written in and the facts sent), so the same pair is never paid for twice and a rewritten
+        entry gets a new explanation. The row is also the cost ledger and what the per-member daily ceiling counts.
+        The sense keys are not foreign keys: a rewrite that drops a sense must not lose what was paid for.
+      changes:
+        - createTable:
+            schemaName: lexicon
+            tableName: sense_comparison
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: content_hash
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_sense_comparison_content
+              - column:
+                  name: first_sense_key
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: second_sense_key
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: explanation_language
+                  type: varchar(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: summary
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: prompt_tokens
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completion_tokens
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: requested_by
+                  type: uuid
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableSchemaName: lexicon
+            baseTableName: sense_comparison
+            baseColumnNames: requested_by
+            constraintName: fk_sense_comparison_requester
+            referencedTableName: user_core
+            referencedColumnNames: id
+            onDelete: SET NULL
+        - createIndex:
+            schemaName: lexicon
+            tableName: sense_comparison
+            indexName: ix_sense_comparison_requester
+            columns:
+              - column:
+                  name: requested_by
+              - column:
+                  name: created_at

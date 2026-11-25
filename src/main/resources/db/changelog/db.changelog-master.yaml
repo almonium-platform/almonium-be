@@ -211,3 +211,5 @@ databaseChangeLog:
       file: db/changelog/changes/patches/20261118-lexicon-drop-schema-3-columns.yaml
   - include:
       file: db/changelog/changes/patches/20261123-lexicon-cross-language-lookup.yaml
+  - include:
+      file: db/changelog/changes/patches/20261125-sense-comparison.yaml

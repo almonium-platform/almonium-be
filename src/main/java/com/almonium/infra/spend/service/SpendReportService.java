@@ -10,6 +10,7 @@ import com.almonium.infra.spend.dto.SpendReport.ActualLine;
 import com.almonium.infra.spend.dto.SpendReport.EstimatedLine;
 import com.almonium.learning.almo.repository.AlmoTurnRepository;
 import com.almonium.learning.book.service.BookProcessorClient;
+import com.almonium.learning.lexicon.repository.SenseComparisonStore;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
@@ -36,10 +37,12 @@ import org.springframework.stereotype.Service;
 public class SpendReportService {
     static final String ALMO = "almo";
     static final String BOOKS = "books";
+    static final String DISCOVER = "discover";
     static final BigDecimal TOKENS_PER_PRICE_UNIT = BigDecimal.valueOf(1_000_000);
     static final int USD_SCALE = 6;
 
     AlmoTurnRepository turnRepository;
+    SenseComparisonStore comparisonStore;
     BookProcessorClient bookProcessor;
     OpenAiCostsClient costsClient;
     OpenAiProperties properties;
@@ -55,6 +58,7 @@ public class SpendReportService {
         List<String> warnings = new ArrayList<>();
 
         List<EstimatedLine> estimated = new ArrayList<>(almoLines(since, until, warnings));
+        estimated.addAll(comparisonLines(since, until, warnings));
         estimated.addAll(booksLines(since, until, warnings));
         BigDecimal estimatedUsd = estimated.stream()
                 .map(EstimatedLine::estimatedUsd)
@@ -97,6 +101,28 @@ public class SpendReportService {
                             "chat",
                             line.model(),
                             line.turns(),
+                            line.promptTokens(),
+                            0,
+                            line.completionTokens(),
+                            price == null ? null : priced(price, line.promptTokens(), line.completionTokens()));
+                })
+                .toList();
+    }
+
+    private List<EstimatedLine> comparisonLines(Instant since, Instant until, List<String> warnings) {
+        return comparisonStore.spendBetween(since, until).stream()
+                .map(line -> {
+                    OpenAiProperties.ModelPrice price =
+                            properties.priceFor(line.model()).orElse(null);
+                    if (price == null) {
+                        warnings.add("No price is configured for %s, so %d word comparisons are shown without dollars"
+                                .formatted(line.model(), line.comparisons()));
+                    }
+                    return new EstimatedLine(
+                            DISCOVER,
+                            "comparison",
+                            line.model(),
+                            line.comparisons(),
                             line.promptTokens(),
                             0,
                             line.completionTokens(),
