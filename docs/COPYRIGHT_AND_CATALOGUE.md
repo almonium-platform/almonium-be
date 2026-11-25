@@ -340,8 +340,15 @@ checked yet" rather than guessing.
 A work under copyright can be wanted ahead of the day when its production free
 year is within five years (`WantService.freesSoon`): "Tell me on the day" is an
 ordinary want, so it sorts into the queue and is settled when the edition
-arrives. The Public Domain Day list keeps only works the reader's own country
-frees by that January.
+arrives. The Public Domain Day list (`GET /public/catalog/coming-free`) is
+computed dynamically for the reader's country using `CountryTerms.candidateWindow`
+and `UnlockDates.readerFreeFrom`: a work is listed when the later of its
+production free year and its reader-country free year is the target year (so
+readers in the US, Spain, Mexico, France, Russia, etc. see the works that unlock
+for them on 1 January). `readerCountry` is populated only from
+`ReaderLocation.detectedCountry()` (null when the IP cannot be placed, such as
+localhost, so the UI falls back to the neutral date heading instead of naming
+the `DE` access-control fallback).
 
 The rules are a careful estimate for showing dates, not legal advice: the
 table simplifies non-retroactive extensions, wartime extensions and the US

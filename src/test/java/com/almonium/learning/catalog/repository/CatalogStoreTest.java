@@ -8,6 +8,7 @@ import com.almonium.learning.catalog.repository.CatalogStore.Hit;
 import com.almonium.learning.catalog.repository.CatalogStore.TitleRow;
 import com.almonium.learning.catalog.repository.CatalogStore.WorkRow;
 import com.almonium.learning.catalog.service.TitleFolding;
+import com.almonium.learning.rights.engine.CountryTerms;
 import com.almonium.learning.rights.model.RightsStatus;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -112,7 +113,31 @@ class CatalogStoreTest {
         assertThat(store.freeFrom(2028, 10)).isEmpty();
     }
 
+    @Test
+    void freeFromCandidatesIncludesPublicationYearWorksForTheUnitedStates() {
+        UUID pooh = UUID.randomUUID();
+        UUID waves = UUID.randomUUID();
+        UUID wells = UUID.randomUUID();
+        store.upsertWorks(
+                List.of(
+                        row(pooh, "Winnie-the-Pooh", 31, 1926, 2027, true),
+                        row(waves, "The Waves", 40, 1931, 2012, true),
+                        row(wells, "The War of the Worlds", 65, 1897, 2017, true)),
+                Instant.now());
+
+        assertThat(store.freeFromCandidates(2027, CountryTerms.candidateWindow("US", 2027), 10))
+                .extracting(Hit::title)
+                .containsExactly("The Waves", "Winnie-the-Pooh");
+        assertThat(store.freeFromCandidates(2027, CountryTerms.candidateWindow("ES", 2027), 10))
+                .extracting(Hit::title)
+                .containsExactly("The War of the Worlds");
+    }
+
     static WorkRow row(UUID id, String title, int popularity, int freeFrom, boolean literary) {
+        return row(id, title, popularity, 1926, freeFrom, literary);
+    }
+
+    static WorkRow row(UUID id, String title, int popularity, int publicationYear, int freeFrom, boolean literary) {
         return new WorkRow(
                 id,
                 null,
@@ -120,7 +145,7 @@ class CatalogStoreTest {
                 title,
                 null,
                 "en",
-                1926,
+                publicationYear,
                 "Someone",
                 List.of(),
                 popularity,

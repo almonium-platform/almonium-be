@@ -22,6 +22,7 @@ import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.Hit;
 import com.almonium.learning.catalog.repository.CatalogWorkRepository;
 import com.almonium.learning.rights.engine.CopyrightEngine;
+import com.almonium.learning.rights.engine.CountryTerms;
 import com.almonium.learning.rights.model.AuthorFacts;
 import com.almonium.learning.rights.model.RightsFacts;
 import com.almonium.learning.rights.model.RightsStatus;
@@ -58,6 +59,7 @@ class CatalogSearchServiceTest {
     @BeforeEach
     void readerInGermany() {
         when(readerLocation.country()).thenReturn("DE");
+        when(readerLocation.detectedCountry()).thenReturn(Optional.of("DE"));
     }
 
     @Test
@@ -189,14 +191,132 @@ class CatalogSearchServiceTest {
 
     @Test
     void publicDomainDayListsNextYearsWorksWithoutLoggingASearch() {
-        Hit novel = hit("Some 1956 author's novel", null, RightsStatus.PROTECTED);
-        when(store.freeFrom(2027, 12)).thenReturn(List.of(novel));
+        Hit pooh = new Hit(
+                UUID.randomUUID(),
+                "Winnie-the-Pooh",
+                null,
+                "en",
+                1926,
+                "A. A. Milne",
+                60,
+                null,
+                RightsStatus.PROTECTED,
+                2027,
+                0.0);
+        CatalogWork work = mock(CatalogWork.class);
+        when(work.getId()).thenReturn(pooh.id());
+        when(work.rightsFacts()).thenReturn(new RightsFacts(1926, List.of(AuthorFacts.of("A. A. Milne", 1882, 1956))));
+        when(store.freeFromCandidates(2027, CountryTerms.candidateWindow("DE", 2027), 200))
+                .thenReturn(List.of(pooh));
+        when(works.findAllById(List.of(pooh.id()))).thenReturn(List.of(work));
 
         assertThat(service.freeFrom(2027, 12, null))
-                .extracting(CatalogHit::state)
-                .containsExactly(CatalogState.UNDER_COPYRIGHT);
+                .extracting(CatalogHit::state, CatalogHit::readerCountry, CatalogHit::readerFreeFrom)
+                .containsExactly(org.assertj.core.groups.Tuple.tuple(CatalogState.UNDER_COPYRIGHT, "DE", 2027));
         assertThat(service.currentYear()).isEqualTo(2026);
         verify(store, never()).logSearch(any(), any(), any(), any(), any());
+    }
+
+    @Test
+    void publicDomainDayIsComputedDynamicallyForEachReadersCountry() {
+        when(readerLocation.country()).thenReturn("US");
+        when(readerLocation.detectedCountry()).thenReturn(Optional.of("US"));
+
+        Hit brecht = new Hit(
+                UUID.randomUUID(),
+                "Mother Courage",
+                null,
+                "de",
+                1949,
+                "Bertolt Brecht",
+                80,
+                null,
+                RightsStatus.PROTECTED,
+                2027,
+                0.0);
+        Hit pooh = new Hit(
+                UUID.randomUUID(),
+                "Winnie-the-Pooh",
+                null,
+                "en",
+                1926,
+                "A. A. Milne",
+                60,
+                null,
+                RightsStatus.PROTECTED,
+                2027,
+                0.0);
+        Hit waves = new Hit(
+                UUID.randomUUID(),
+                "The Waves",
+                null,
+                "en",
+                1931,
+                "Virginia Woolf",
+                40,
+                null,
+                RightsStatus.FREE,
+                2012,
+                0.0);
+
+        CatalogWork brechtWork = mock(CatalogWork.class);
+        when(brechtWork.getId()).thenReturn(brecht.id());
+        when(brechtWork.rightsFacts())
+                .thenReturn(new RightsFacts(1949, List.of(AuthorFacts.of("Bertolt Brecht", 1898, 1956))));
+
+        CatalogWork poohWork = mock(CatalogWork.class);
+        when(poohWork.getId()).thenReturn(pooh.id());
+        when(poohWork.rightsFacts())
+                .thenReturn(new RightsFacts(1926, List.of(AuthorFacts.of("A. A. Milne", 1882, 1956))));
+
+        CatalogWork wavesWork = mock(CatalogWork.class);
+        when(wavesWork.getId()).thenReturn(waves.id());
+        when(wavesWork.rightsFacts())
+                .thenReturn(new RightsFacts(1931, List.of(AuthorFacts.of("Virginia Woolf", 1882, 1941))));
+
+        when(store.freeFromCandidates(2027, CountryTerms.candidateWindow("US", 2027), 200))
+                .thenReturn(List.of(brecht, pooh, waves));
+        when(works.findAllById(List.of(brecht.id(), pooh.id(), waves.id())))
+                .thenReturn(List.of(brechtWork, poohWork, wavesWork));
+
+        // Brecht (1949) is protected in the US until 2045; Pooh (1926, d. 1956) and The Waves (1931, d. 1941) both
+        // unlock for US readers on 1 January 2027.
+        assertThat(service.freeFrom(2027, 12, null))
+                .extracting(CatalogHit::title, CatalogHit::readerCountry, CatalogHit::readerFreeFrom)
+                .containsExactly(
+                        org.assertj.core.groups.Tuple.tuple("Winnie-the-Pooh", "US", 2027),
+                        org.assertj.core.groups.Tuple.tuple("The Waves", "US", 2027));
+    }
+
+    @Test
+    void anUnplacedIpDoesNotClaimTheFallbackCountry() {
+        when(readerLocation.country()).thenReturn("DE");
+        when(readerLocation.detectedCountry()).thenReturn(Optional.empty());
+
+        Hit pooh = new Hit(
+                UUID.randomUUID(),
+                "Winnie-the-Pooh",
+                null,
+                "en",
+                1926,
+                "A. A. Milne",
+                60,
+                null,
+                RightsStatus.PROTECTED,
+                2027,
+                0.0);
+        CatalogWork work = mock(CatalogWork.class);
+        when(work.getId()).thenReturn(pooh.id());
+        when(work.rightsFacts()).thenReturn(new RightsFacts(1926, List.of(AuthorFacts.of("A. A. Milne", 1882, 1956))));
+        when(store.freeFromCandidates(2027, CountryTerms.candidateWindow("DE", 2027), 200))
+                .thenReturn(List.of(pooh));
+        when(works.findAllById(List.of(pooh.id()))).thenReturn(List.of(work));
+
+        List<CatalogHit> hits = service.freeFrom(2027, 12, null);
+
+        assertThat(hits).hasSize(1);
+        assertThat(hits.getFirst().readerCountry()).isNull();
+        assertThat(hits.getFirst().readerFreeFrom()).isEqualTo(2027);
     }
 
     @Test

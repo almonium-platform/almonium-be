@@ -10,6 +10,7 @@ import com.almonium.learning.catalog.model.entity.CatalogWork;
 import com.almonium.learning.catalog.repository.CatalogStore;
 import com.almonium.learning.catalog.repository.CatalogStore.Hit;
 import com.almonium.learning.catalog.repository.CatalogWorkRepository;
+import com.almonium.learning.rights.engine.CountryTerms;
 import com.almonium.learning.rights.model.RightsFacts;
 import com.almonium.learning.rights.model.RightsStatus;
 import com.almonium.learning.rights.service.ReaderLocation;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -81,15 +83,28 @@ public class CatalogSearchService {
     }
 
     /**
-     * Public Domain Day: the best-known works that become free on 1 January of {@code year} where we make books, or,
-     * for the current year, the ones that became free this January. Not logged: nobody searched.
+     * Public Domain Day: the best-known works that become free to read in the reader's country on 1 January of
+     * {@code year} (free both where we make books and in the reader's country, computed dynamically by the copyright
+     * engine). Not logged: nobody searched.
      */
     @Transactional(readOnly = true)
     public List<CatalogHit> freeFrom(int year, int limit, Language language) {
-        // Free where we make books that January, and in the reader's own country by then (W8).
-        return decorate(store.freeFrom(year, limit), language, currentMember.id()).stream()
-                .filter(hit -> hit.readerFreeFrom() == null || hit.readerFreeFrom() <= year)
+        String effectiveCountry = readerLocation.country();
+        CountryTerms.CandidateWindow window = CountryTerms.candidateWindow(effectiveCountry, year);
+        int candidateLimit = Math.max(limit * 10, 200);
+        List<Hit> candidates = store.freeFromCandidates(year, window, candidateLimit);
+        if (candidates.isEmpty()) {
+            return List.of();
+        }
+        Map<UUID, RightsFacts> factsById = loadRightsFacts(candidates);
+        List<Hit> matched = candidates.stream()
+                .filter(hit -> {
+                    RightsFacts facts = factsById.get(hit.id());
+                    return facts != null && Objects.equals(unlockDates.readerFreeFrom(facts, effectiveCountry), year);
+                })
+                .limit(limit)
                 .toList();
+        return decorate(matched, language, currentMember.id(), factsById);
     }
 
     /** Where and when one work is free to read, country by country (W7). */
@@ -99,14 +114,15 @@ public class CatalogSearchService {
                 .findById(catalogWorkId)
                 .orElseThrow(() -> new EntityNotFoundException("Work not found"));
         RightsFacts facts = work.rightsFacts();
-        String country = readerLocation.country();
+        String effectiveCountry = readerLocation.country();
+        String detectedCountry = readerLocation.detectedCountry().orElse(null);
         return new WorkUnlocksView(
                 work.getId(),
                 work.getTitle(),
                 work.getAuthorDisplay(),
                 work.getPublicationYear(),
-                country,
-                unlockDates.readerFreeFrom(facts, country),
+                detectedCountry,
+                unlockDates.readerFreeFrom(facts, effectiveCountry),
                 unlockDates.everywhere(facts));
     }
 
@@ -116,6 +132,11 @@ public class CatalogSearchService {
 
     /** Each hit with what the reader can do, and, in a language, how many want it and whether the reader does. */
     private List<CatalogHit> decorate(List<Hit> hits, Language language, Optional<UUID> member) {
+        return decorate(hits, language, member, loadRightsFacts(hits));
+    }
+
+    private List<CatalogHit> decorate(
+            List<Hit> hits, Language language, Optional<UUID> member, Map<UUID, RightsFacts> facts) {
         Map<UUID, Long> readers = Map.of();
         Set<UUID> mine = Set.of();
         if (language != null && !hits.isEmpty()) {
@@ -128,22 +149,33 @@ public class CatalogSearchService {
         }
         Map<UUID, Long> counts = readers;
         Set<UUID> wanted = mine;
-        Map<UUID, RightsFacts> facts = hits.isEmpty()
-                ? Map.of()
-                : catalogWorkRepository.findAllById(hits.stream().map(Hit::id).toList()).stream()
-                        .collect(Collectors.toMap(CatalogWork::getId, CatalogWork::rightsFacts));
-        String country = readerLocation.country();
+        String effectiveCountry = readerLocation.country();
+        String detectedCountry = readerLocation.detectedCountry().orElse(null);
         return hits.stream()
                 .map(hit -> toHit(
                         hit,
                         counts.getOrDefault(hit.id(), 0L),
                         wanted.contains(hit.id()),
-                        country,
+                        effectiveCountry,
+                        detectedCountry,
                         facts.get(hit.id())))
                 .toList();
     }
 
-    private CatalogHit toHit(Hit hit, long readers, boolean wantedByMe, String country, RightsFacts facts) {
+    private Map<UUID, RightsFacts> loadRightsFacts(List<Hit> hits) {
+        return hits.isEmpty()
+                ? Map.of()
+                : catalogWorkRepository.findAllById(hits.stream().map(Hit::id).toList()).stream()
+                        .collect(Collectors.toMap(CatalogWork::getId, CatalogWork::rightsFacts));
+    }
+
+    private CatalogHit toHit(
+            Hit hit,
+            long readers,
+            boolean wantedByMe,
+            String effectiveCountry,
+            String detectedCountry,
+            RightsFacts facts) {
         CatalogState state;
         if (hit.workSlug() != null
                 && !bookRepository.findByWorkSlug(hit.workSlug()).isEmpty()) {
@@ -165,10 +197,10 @@ public class CatalogSearchService {
                 hit.productionFreeFrom(),
                 readers >= SHOWN_READERS ? Math.toIntExact(readers) : null,
                 wantedByMe,
-                country,
-                facts == null ? null : unlockDates.readerFreeFrom(facts, country),
+                detectedCountry,
+                facts == null ? null : unlockDates.readerFreeFrom(facts, effectiveCountry),
                 facts == null || state != CatalogState.UNDER_COPYRIGHT
                         ? List.of()
-                        : unlockDates.alreadyFreeIn(facts, country, FREE_IN_COUNTRIES));
+                        : unlockDates.alreadyFreeIn(facts, effectiveCountry, FREE_IN_COUNTRIES));
     }
 }

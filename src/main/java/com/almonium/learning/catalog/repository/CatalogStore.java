@@ -1,6 +1,7 @@
 package com.almonium.learning.catalog.repository;
 
 import com.almonium.learning.catalog.model.CatalogAuthor;
+import com.almonium.learning.rights.engine.CountryTerms.CandidateWindow;
 import com.almonium.learning.rights.model.RightsStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -371,15 +372,33 @@ public class CatalogStore {
      * plays, poems and the like: a list readers see is no place for every pamphlet that turns free.
      */
     public List<Hit> freeFrom(int year, int limit) {
-        return named.query(
-                """
+        return freeFromCandidates(year, new CandidateWindow(List.of(year), null), limit);
+    }
+
+    /**
+     * Candidate literary works that may become free for a reader's country on 1 January of {@code year}, best known
+     * first. Callers still verify each candidate's exact reader unlock year with the copyright engine.
+     */
+    public List<Hit> freeFromCandidates(int year, CandidateWindow window, int limit) {
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("prodYears", window.productionFreeFromYears())
+                .addValue("limit", limit);
+        String condition;
+        if (window.publicationYear() != null) {
+            params.addValue("pubYear", window.publicationYear()).addValue("year", year);
+            condition = "w.production_free_from in (:prodYears)"
+                    + " or (w.publication_year = :pubYear and w.production_free_from < :year)";
+        } else {
+            condition = "w.production_free_from in (:prodYears)";
+        }
+        return named.query("""
                 select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
                        w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score
                 from catalog_work w
-                where w.production_free_from = :year and w.literary
+                where w.literary and (%s)
                 order by w.popularity desc, w.title
                 limit :limit
-                """, new MapSqlParameterSource().addValue("year", year).addValue("limit", limit), CatalogStore::hit);
+                """.formatted(condition), params, CatalogStore::hit);
     }
 
     /** One search as the demand page counts it. {@code requester} tells readers apart without storing an address. */

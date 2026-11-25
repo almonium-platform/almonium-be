@@ -4,11 +4,14 @@ import static com.almonium.learning.rights.engine.CopyrightTerm.extendedWithoutR
 import static com.almonium.learning.rights.engine.CopyrightTerm.lifePlus;
 
 import com.almonium.learning.rights.model.AuthorFacts;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
+import java.util.function.IntFunction;
 
 /**
  * The copyright term of every country, as of 2026. Most of the world, including Ukraine, Germany and the rest of the
@@ -77,9 +80,19 @@ public final class CountryTerms {
         return oldTermEnds <= 1993 ? oldTermEnds : from + 70 + wartime + 1;
     };
 
+    /**
+     * Candidate {@code production_free_from} years and, for publication-based terms (US pre-1978), a
+     * {@code publication_year} whose literary works can become free in a country on 1 January of a target year.
+     * Always a superset: callers verify each candidate with {@link CopyrightEngine}.
+     */
+    public record CandidateWindow(List<Integer> productionFreeFromYears, Integer publicationYear) {}
+
     private static final Map<String, CopyrightTerm> TERMS = new HashMap<>();
     /** The rule behind each listed country's term, in a reader's words; the default is life plus 70. */
     private static final Map<String, String> RULES = new HashMap<>();
+
+    private static final Map<String, IntFunction<CandidateWindow>> WINDOWS = new HashMap<>();
+    private static final IntFunction<CandidateWindow> DEFAULT_WINDOW = year -> new CandidateWindow(List.of(year), null);
 
     static final String DEFAULT_RULE = "Author's life + 70 years";
 
@@ -87,6 +100,7 @@ public final class CountryTerms {
         put(
                 lifePlus(50),
                 "Author's life + 50 years",
+                DEFAULT_WINDOW,
                 "BY",
                 "CN",
                 "EG",
@@ -103,24 +117,34 @@ public final class CountryTerms {
                 "TW",
                 "VN",
                 "ZA");
-        put(lifePlus(60), "Author's life + 60 years", "BD", "IN", "VE");
-        put(lifePlus(75), "Author's life + 75 years", "GT", "HN", "VC", "WS");
-        put(lifePlus(80), "Author's life + 80 years", "CO", "GQ");
-        put(lifePlus(95), "Author's life + 95 years", "JM");
-        put(lifePlus(99), "Author's life + 99 years", "CI");
-        put(lifePlus(100), "Author's life + 100 years", "MX");
+        put(lifePlus(60), "Author's life + 60 years", DEFAULT_WINDOW, "BD", "IN", "VE");
+        put(lifePlus(75), "Author's life + 75 years", shifted(5), "GT", "HN", "VC", "WS");
+        put(lifePlus(80), "Author's life + 80 years", shifted(10), "CO", "GQ");
+        put(lifePlus(95), "Author's life + 95 years", shifted(25), "JM");
+        put(lifePlus(99), "Author's life + 99 years", shifted(29), "CI");
+        put(lifePlus(100), "Author's life + 100 years", shifted(30), "MX");
         put(
                 extendedWithoutRevival(50, 70, 1971),
                 "Life + 50 for authors who died by 1971, life + 70 after",
+                DEFAULT_WINDOW,
                 "CA",
                 "NZ");
         // Japan moved to 70 at the end of 2018; works by Allied nationals also carry a wartime extension of about ten
         // years, so the old-term cutoff is pulled back a decade rather than tracking nationality.
-        put(extendedWithoutRevival(50, 70, 1957), "Life + 50 for authors who died by 1957, life + 70 after", "JP");
-        put(extendedWithoutRevival(50, 70, 1962), "Life + 50 for authors who died by 1962, life + 70 after", "KR");
+        put(
+                extendedWithoutRevival(50, 70, 1957),
+                "Life + 50 for authors who died by 1957, life + 70 after",
+                DEFAULT_WINDOW,
+                "JP");
+        put(
+                extendedWithoutRevival(50, 70, 1962),
+                "Life + 50 for authors who died by 1962, life + 70 after",
+                DEFAULT_WINDOW,
+                "KR");
         put(
                 UNITED_STATES,
                 "95 years after publication for works published before 1978, life + 70 after",
+                year -> new CandidateWindow(List.of(year), year - 96 <= 1977 ? year - 96 : null),
                 "US",
                 "PR",
                 "GU",
@@ -131,6 +155,7 @@ public final class CountryTerms {
         put(
                 FRANCE,
                 "Author's life + 70 years, longer for an author who died for France",
+                year -> new CandidateWindow(List.of(year, year - 10, year - 17, year - 19, year - 26), null),
                 "FR",
                 "GF",
                 "GP",
@@ -143,14 +168,41 @@ public final class CountryTerms {
                 "NC",
                 "PF",
                 "WF");
-        put(SPAIN, "Author's life + 80 years for authors who died by 1987, life + 70 after", "ES");
-        put(UKRAINE, "Author's life + 70 years, counted from rehabilitation for a repressed author", "UA");
-        put(RUSSIA, "Author's life + 70 years, + 4 for authors alive in the war", "RU");
+        put(
+                SPAIN,
+                "Author's life + 80 years for authors who died by 1987, life + 70 after",
+                year -> {
+                    List<Integer> years = new ArrayList<>(2);
+                    if (year <= 2068) {
+                        years.add(year - 10);
+                    }
+                    if (year >= 2059) {
+                        years.add(year);
+                    }
+                    return new CandidateWindow(List.copyOf(years), null);
+                },
+                "ES");
+        put(
+                UKRAINE,
+                "Author's life + 70 years, counted from rehabilitation for a repressed author",
+                DEFAULT_WINDOW,
+                "UA");
+        put(
+                RUSSIA,
+                "Author's life + 70 years, + 4 for authors alive in the war",
+                year -> new CandidateWindow(List.of(year - 4, year), null),
+                "RU");
     }
 
     /** The term for an ISO 3166 alpha-2 country code; life plus 70 when the country is not listed. */
     public static CopyrightTerm of(String country) {
         return TERMS.getOrDefault(country.toUpperCase(Locale.ROOT), LIFE_PLUS_70);
+    }
+
+    /** Candidate years in {@code catalog_work} that can free up in {@code country} on 1 January of {@code year}. */
+    public static CandidateWindow candidateWindow(String country, int year) {
+        return WINDOWS.getOrDefault(country.toUpperCase(Locale.ROOT), DEFAULT_WINDOW)
+                .apply(year);
     }
 
     /** The rule a country applies, in a reader's words: what the unlock map shows on hover. */
@@ -165,14 +217,19 @@ public final class CountryTerms {
 
     private CountryTerms() {}
 
+    private static IntFunction<CandidateWindow> shifted(int extraYears) {
+        return year -> new CandidateWindow(List.of(year - extraYears), null);
+    }
+
     private static int rehabilitation(AuthorFacts author, int deathYear) {
         return author == null || author.rehabilitatedYear() == null ? deathYear : author.rehabilitatedYear();
     }
 
-    private static void put(CopyrightTerm term, String rule, String... countries) {
+    private static void put(CopyrightTerm term, String rule, IntFunction<CandidateWindow> window, String... countries) {
         for (String country : countries) {
             TERMS.put(country, term);
             RULES.put(country, rule);
+            WINDOWS.put(country, window);
         }
     }
 }

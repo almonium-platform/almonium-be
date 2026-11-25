@@ -2,6 +2,7 @@ package com.almonium.learning.rights.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.almonium.learning.rights.engine.CountryTerms.CandidateWindow;
 import org.junit.jupiter.api.Test;
 
 class CountryTermsTest {
@@ -22,5 +23,29 @@ class CountryTermsTest {
                     .as(country)
                     .isEqualTo(!listed);
         }
+    }
+
+    @Test
+    void candidateWindowsReflectEachCountrysTerm() {
+        assertThat(CountryTerms.candidateWindow("UA", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2027), null));
+        assertThat(CountryTerms.candidateWindow("DE", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2027), null));
+        assertThat(CountryTerms.candidateWindow("CA", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2027), null));
+        assertThat(CountryTerms.candidateWindow("US", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2027), 1931));
+        assertThat(CountryTerms.candidateWindow("US", 2074))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2074), null));
+        assertThat(CountryTerms.candidateWindow("ES", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2017), null));
+        assertThat(CountryTerms.candidateWindow("ES", 2065))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2055, 2065), null));
+        assertThat(CountryTerms.candidateWindow("MX", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(1997), null));
+        assertThat(CountryTerms.candidateWindow("RU", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2023, 2027), null));
+        assertThat(CountryTerms.candidateWindow("FR", 2027))
+                .isEqualTo(new CandidateWindow(java.util.List.of(2027, 2017, 2010, 2008, 2001), null));
     }
 }
