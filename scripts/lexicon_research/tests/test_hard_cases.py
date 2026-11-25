@@ -69,3 +69,31 @@ def test_two_writers_are_scored_by_the_key_and_read_side_by_side_without_names(t
 def test_a_sense_marked_for_northern_america_is_marked_for_the_united_states():
     entry = {"lexemes": [{"pos": "NOUN", "senses": [{"regions": [{"variety": "en-021", "extent": "mainly"}]}, {"regions": ["en-GB"]}]}]}
     assert hard_cases.holds(entry, ("regions", "en-US", "en-GB")) and not hard_cases.holds(entry, ("regions", "en-AU"))
+
+
+def test_the_tour_says_what_makes_each_word_hard_and_holds_the_entries_for_a_screen(tmp_path, monkeypatch, capsys):
+    import tour
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "docs").mkdir()
+    bank = {"headword": "Bank", "lexemes": [
+        {"lemma": "Bank", "pos": "NOUN", "kind": "word", "grammar": {"gender": "Fem"}, "pronunciations": [{"variety": "de-DE", "ipa": "/ˈbaŋk/"}],
+         "forms": [{"form": "Bänke", "features": {"Number": "Plur"}}], "senses": [{"definition": "lange Sitzgelegenheit", "example": "x", "cefr": "A2"}]},
+        {"lemma": "Bank", "pos": "NOUN", "kind": "word", "grammar": {"gender": "Fem"}, "pronunciations": [{"variety": "de-DE", "ipa": "/ˈbaŋk/"}],
+         "forms": [{"form": "Banken", "features": {"Number": "Plur"}}], "senses": [{"definition": "Unternehmen für Geld", "example": "x", "cefr": "A2"}]}]}
+    the = {"headword": "the", "lexemes": [{"lemma": "the", "pos": "DET", "kind": "word", "senses": [{"definition": "used before a noun", "example": "x", "cefr": "A1"}], "pronunciations": [
+        {"variety": "en-GB", "ipa": "/ˈðiː/"}, {"variety": "en-GB", "ipa": "/ðə/", "context": "weak form, before a consonant sound"}]}]}
+    went = {"headword": "went", "lexemes": [], "reject": "inflected form of go (past tense)"}
+    monkeypatch.setattr(hard_cases, "HARD", {"en": {"the": ("sound", [("weak",)]), "went": ("form", [("reject",)])}, "de": {"Bank": ("noun", [("plural", "Bänke", "Banken")])}})
+    monkeypatch.setattr(hard_cases, "TOUR_ORDER", ("en", "de"))
+    monkeypatch.setattr(hard_cases.measure, "MEASURE", tmp_path / "measure")
+    monkeypatch.setattr(hard_cases, "written", lambda folder, lang: {"en": {"the": (the, {}), "went": (went, {})}, "de": {"Bank": (bank, {})}}[lang])
+    hard_cases.tour_doc("review-hard-x")
+    doc = (tmp_path / "docs" / "LEXICON_TOUR_HARD.md").read_text()
+    assert "**said: /ˈðiː/ (en-GB), /ðə/ (en-GB) “weak form, before a consonant sound”**" in doc
+    assert "**no entry of its own; the reader is sent on: inflected form of go (past tense)**" in doc
+    assert "NOUN Fem “lange Sitzgelegenheit”: Bänke ¦ NOUN Fem “Unternehmen für Geld”: Banken" in doc  # which word each plural belongs to
+    assert "| a weak form, said without stress, with when it is said | 1: the |" in doc
+    bundle = json.loads((tmp_path / "measure" / "hard" / "tour-entries.json").read_text())
+    assert [(row["kind"], row["entry"]["headword"]) for row in bundle["en"]] == [("sound", "the"), ("form", "went")] and bundle["de"][0]["entry"]["lexemes"][0]["id"]
+    assert tour.features("en", the)["a weak form, said without stress, with when it is said"] == "/ðə/: weak form, before a consonant sound"

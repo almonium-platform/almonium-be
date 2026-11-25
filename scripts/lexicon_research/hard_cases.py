@@ -19,6 +19,8 @@ one country says so. The words were chosen before any writer saw them, by kind:
   hard_cases.py --pairs FOLDER_A FOLDER_B       review files in which a reader sees each word's two entries side by
                                                 side, not told whose is whose: measure/hard/review/<lang>-1.md
   hard_cases.py --tally                         the reader's choices, from measure/hard/answers/
+  hard_cases.py --tour FOLDER                   docs/LEXICON_TOUR_HARD.md, what a reader should be shown for each hard
+                                                word, and measure/hard/tour-entries.json, the entries as ingest publishes them
 
 Run from the backend repository's root.
 """
@@ -389,12 +391,118 @@ def tally():
         print(f"faults named in {w.removeprefix('review-hard-')}: " + ", ".join(f"{fault} {faults[w, fault]}" for fault in measure.FAULTS if faults[w, fault]))
 
 
+KINDS = {"homograph": "two words under one spelling", "form": "an inflected form, or a word that is also one", "noun": "a gender or a plural learners get wrong",
+         "verb": "a verb with an unusual construction", "region": "a sense of one country", "register": "a rude or informal word",
+         "sound": "said in more than one way", "particle": "a small word of many uses"}
+TOUR_ORDER = ("en", "ru", "de", "fr", "es", "it", "pt")  # the owner reads the first two
+
+
+def spoken(lexeme, limit=4):
+    ways = [(p.get("ipa") or p.get("reading") or "") + (f" ({p['variety']})" if p.get("variety") else "") + (f" [{p['note']}]" if p.get("note") else "")
+            + (f" “{p['context']}”" if p.get("context") else "") for p in lexeme.get("pronunciations") or []]
+    return ", ".join(ways[:limit]) + (" …" if len(ways) > limit else "")
+
+
+def named(lexeme):
+    """A lexeme in a few words: its part of speech, gender and first sense, enough to tell it from its neighbour."""
+    grammar = lexeme.get("grammar") or {}
+    first = ((lexeme.get("senses") or [{}])[0].get("definition") or "")[:60]
+    varied = "; ".join(f"{variety} {value.get('gender')}" for variety, value in (grammar.get("by_variety") or {}).items() if value.get("gender"))
+    return f"{lexeme.get('pos')}" + (f" {grammar['gender']}" if grammar.get("gender") else "") + (f" ({varied})" if varied else "") + f" “{first}”"
+
+
+def evidence(entry, check):
+    """What the entry really holds for one check of the key, in the words a person building a screen needs."""
+    kind, *values = check
+    lexemes = entry.get("lexemes") or []
+    if kind in ("any", "all"):
+        return next((text for text in (evidence(entry, c) for c in values if holds(entry, c)) if text), "")
+    if kind == "reject":
+        return f"no entry of its own; the reader is sent on: {entry.get('reject')}"
+    if kind in ("ipa", "stress"):
+        return "each word said its own way: " + " | ".join(f"{lx.get('pos')} {spoken(lx, 2)}" for lx in lexemes)
+    if kind in ("lexemes_min", "lexemes_max", "pos", "no_pos", "pos_min"):
+        return f"{len(lexemes)} " + ("word" if len(lexemes) == 1 else "words") + " under the spelling: " + " | ".join(named(lx) for lx in lexemes)
+    if kind in ("genders", "genders_only"):
+        return "gender: " + " | ".join(named(lx) for lx in lexemes if lx.get("pos") == "NOUN")
+    if kind in ("plural", "form"):
+        rows = []
+        for lx in lexemes:  # which word, and which of its senses, each form belongs to
+            forms = [f"{f.get('form')}" + (f" for sense {', '.join(str(n) for n, s in enumerate(lx.get('senses') or [], 1) if s.get('id') in f['sense_ids'])}" if f.get("sense_ids") else "")
+                     + (f" ({f['note']})" if f.get("note") else "") for f in lx.get("forms") or [] if plain(f.get("form")) in values]
+            note = (lx.get("grammar") or {}).get("note")
+            if forms:
+                rows.append((f"{named(lx)}: " if len(lexemes) > 1 else "") + ", ".join(forms) + (f"; note: {note}" if note else ""))
+        return "forms: " + " ¦ ".join(rows)
+    if kind in ("regions", "regions_any"):
+        rows = [f"sense {n} “{(s.get('definition') or '')[:45]}”: " + ", ".join(r if isinstance(r, str) else f"{r.get('variety')} {r.get('extent')}" for r in s["regions"])
+                for lx in lexemes for n, s in enumerate(lx.get("senses") or [], 1) if s.get("regions")]
+        return "where each sense is used: " + " | ".join(rows)
+    if kind == "label":
+        rows = [f"“{(s.get('definition') or '')[:45]}”: " + ", ".join(f"{axis} {', '.join(v) if isinstance(v, list) else v}" for axis, v in s["labels"].items())
+                for lx in lexemes for s in lx.get("senses") or [] if set(values) & {x for v in (s.get("labels") or {}).values() for x in (v if isinstance(v, list) else [v])}]
+        return "labelled: " + " | ".join(rows)
+    if kind in ("weak", "context"):
+        return "said: " + spoken(lexemes[0], 6) if lexemes else ""
+    if kind == "grammar":
+        key, *wanted = values
+        rows = [f"{lx.get('pos')}" + (f" sense {n}" if n else "") + f": {key} {g[key]}" + (f" ({g['note']})" if g.get("note") else "")
+                for lx in lexemes for n, g in [(0, lx.get("grammar") or {})] + [(n, s.get("grammar") or {}) for n, s in enumerate(lx.get("senses") or [], 1)] if g.get(key) in wanted]
+        return "; ".join(rows[:4])
+    return ""
+
+
+def tour_doc(folder):
+    """The hard words as a list to walk through in the app, and the entries themselves for a screen built without one."""
+    import tour
+
+    cell = lambda text: str(text).replace("|", "¦").replace("\n", " ")  # noqa: E731
+    bundle, rows, shown_by, missed = {}, [], {}, []
+    for lang in TOUR_ORDER:
+        entries = written(folder, lang)
+        bundle[lang] = []
+        for word, (kind, expected) in HARD[lang].items():
+            if word not in entries:
+                continue
+            raw, meta = entries[word]
+            clean = ingest_v4.clean_entry(lang, json.loads(json.dumps(raw)), meta, review=False)
+            bundle[lang].append({"kind": kind, "entry": clean})
+            hard = [evidence(clean, check) for check in expected if holds(clean, check)]
+            if any("under the spelling" in text for text in hard):  # the list of words already gives each one's gender
+                hard = [text for text in hard if not text.startswith("gender: ")]
+            missed += [f"{word} ({LANG_NAME[lang]}): {told(check)}" for check in expected if not holds(clean, check)]
+            features = tour.features(lang, clean)
+            twice = sum(word in HARD[other] for other in TOUR_ORDER) > 1  # "problema" is Spanish and Italian
+            for feature in features:
+                shown_by.setdefault(feature, []).append(f"{word} ({lang})" if twice else word)
+            first = "<br>".join(dict.fromkeys(f"**{cell(text)}**" for text in hard if text)) or "**many senses, nothing a program can check: read them**"
+            rest = "<br>".join(f"{cell(feature)}: {cell(value)[:110]}" for feature, value in features.items())
+            rows.append(f"| {len(rows) + 1} | {word} | {LANG_NAME[lang]} | {KINDS[kind]} | {first}" + (f"<br>{rest}" if rest else "") + " |")
+    lines = ["# A tour of the hard cases", "",
+             f"{len(rows)} words an entry is easy to get wrong, twelve a language, as `{folder}` wrote them (`scripts/lexicon_research/hard_cases.py --tour`).",
+             "For each: in bold what makes the word hard and what the entry really holds for it, then everything else the entry says that a screen",
+             "has to show. The first table turns it round: each thing a screen has to be ready for, and the words that show it.", "",
+             "The entries themselves, as ingest would publish them, are in `scripts/lexicon_research/measure/hard/tour-entries.json`: `{language: [{kind, entry}]}`, in the order of",
+             "the second table. They are trial entries and are not in the dictionary, so the app cannot be asked for them: build the screens from the file.", ""]
+    if missed:
+        lines += ["Where the entry does not show what the key asks for: " + "; ".join(missed) + ".", ""]
+    lines += ["## What a screen has to be ready for", "", "| What the entry says | Words that show it |", "|---|---|"]
+    lines += [f"| {cell(feature)} | {len(words)}: {', '.join(words[:6])}{' …' if len(words) > 6 else ''} |" for feature, words in sorted(shown_by.items(), key=lambda kv: (len(kv[1]), kv[0]))]
+    lines += ["", "## The words", "", "| # | Word | Language | Why it is hard | What the reader should see |", "|---|---|---|---|---|", *rows]
+    Path("docs/LEXICON_TOUR_HARD.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # the repository keeps no JSON outside a few folders, and the sample folders are among them
+    (measure.MEASURE / NAME).mkdir(parents=True, exist_ok=True)
+    (measure.MEASURE / NAME / "tour-entries.json").write_text(json.dumps(bundle, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"{len(rows)} words, {len(shown_by)} things an entry says; {len(missed)} checks of the key not shown")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--lists", action="store_true")
     ap.add_argument("--score", nargs="+")
     ap.add_argument("--pairs", nargs=2)
     ap.add_argument("--tally", action="store_true")
+    ap.add_argument("--tour")
     a = ap.parse_args()
     if a.lists:
         lists()
@@ -404,3 +512,5 @@ if __name__ == "__main__":
         pairs(*a.pairs)
     if a.tally:
         tally()
+    if a.tour:
+        tour_doc(a.tour)

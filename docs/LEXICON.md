@@ -47,6 +47,11 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
   say (`tour.py` picks them), for checking by hand what the app shows a reader.
+- `docs/LEXICON_TOUR_HARD.md`: the 84 hard cases ("The review loop", hard cases), each with what
+  makes it hard and what its entry holds, and first a table of everything a screen has to be ready
+  for with the words that show it. `scripts/lexicon_research/measure/hard/tour-entries.json` holds the
+  entries as ingest would publish them, for building screens before the app can serve them
+  (`hard_cases.py --tour`).
 - Another machine has the code and the entries after a pull and a sync, and none of the tables
   the checks read: `wiktionary/` is built, not kept. `lemma_index.py --langs en,de,fr,es,it,pt,ru`
   builds the index of the English edition (the gate, the witness and the evidence block read it),

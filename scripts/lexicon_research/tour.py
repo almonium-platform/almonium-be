@@ -83,6 +83,10 @@ def features(lang, entry):
             by_variety[p.get("variety")].append(p)
             if p.get("note"):
                 note("a second pronunciation, with a note on who says it", f"{p.get('ipa') or p.get('reading')} ({p['note']})")
+            if p.get("context") and "ˈ" not in (p.get("ipa") or "ˈ"):  # prompt v4.11
+                note("a weak form, said without stress, with when it is said", f"{p['ipa']}: {p['context']}")
+            elif p.get("context"):
+                note("a way of saying the word with when it is the one said", f"{p.get('ipa') or p.get('reading')}: {p['context']}")
             if p.get("reading") and lang in ("ru", "uk"):
                 note("the stress marked on the word", p["reading"])
             if p.get("notation") == "kana":
@@ -93,6 +97,10 @@ def features(lang, entry):
                 note("the stress and the open or close vowel marked on the word", p["reading"])
             if p.get("spelling"):
                 note("a pronunciation that belongs to one spelling", f"{p.get('ipa')} for {p['spelling']}")
+        for variety, ways in by_variety.items():
+            plain_ways = [w for w in ways if not w.get("note") and not w.get("context") and not w.get("spelling")]
+            if len(plain_ways) > 1:
+                note("two ways of saying it in one variety, neither marked", f"{variety} " + ", ".join(w.get("ipa") or w.get("reading") or "" for w in plain_ways))
         firsts = {v: ps[0].get("ipa") for v, ps in by_variety.items() if ps[0].get("ipa")}
         if len(set(firsts.values())) > 1:
             note("said differently in two varieties", ", ".join(f"{v} {ipa}" for v, ipa in firsts.items()))
