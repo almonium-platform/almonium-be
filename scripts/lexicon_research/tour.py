@@ -7,9 +7,11 @@ the written entries, as ingest would publish them, and the fewest entries that c
 chosen, a common English word before a rare one or one of another language.
 
 Output: docs/LEXICON_TOUR.md, a table of the word, its language, and what to look for, each with the
-value the entry really holds.
+value the entry really holds. With --fixture PATH, also writes the chosen entries as a JSON array of
+the exact published entries (valid against src/main/resources/lexicon/entry.schema.json).
 
-Usage: tour.py [--langs en,ru,de,fr,es,it,pt,ja]   (run from the backend repository root)
+Usage: tour.py [--langs en,ru,de,fr,es,it,pt,ja] [--extra FOLDER ...] [--fixture PATH]
+(run from the backend repository root)
 """
 import argparse, json, re, sys
 from collections import defaultdict
@@ -29,6 +31,9 @@ EXPECTED = {"a contraction with the words it stands for": "German *zum*", "a phr
             "a sense marked familiar": "*du*", "a sense marked polite": "*Sie*", "a form used after numbers": "*два часа́*",
             "a grammar value that holds mainly, not always": "*usually before a noun*", "a compound with its parts": "*Arbeitszimmer*",
             "a pronunciation that belongs to one spelling": "*período*, *periodo*",
+            "a pronunciation with when it is said": "*the*, *bath*, *six*",
+            "a weak form, without a stress mark": "*the* /ðə/, *we'll* /wɪl/",
+            "two pronunciations in one variety, neither marked": "*direct* /dɪ.ˈɹɛkt/, /daɪ.ˈɹɛkt/",
             "the words a sense usually goes with": "*make a decision*", "a pattern whose open place has a case": "*warten auf + Akk*",
             "a pattern that opens a verb": "*afford to do sth*", "a pattern that opens a clause": "*aware that ...*",
             "the pitch accent of a Japanese word": "*橋* 2", "a noun that makes a verb with する": "*勉強*",
@@ -83,6 +88,10 @@ def features(lang, entry):
             by_variety[p.get("variety")].append(p)
             if p.get("note"):
                 note("a second pronunciation, with a note on who says it", f"{p.get('ipa') or p.get('reading')} ({p['note']})")
+            if p.get("context"):
+                note("a pronunciation with when it is said", f"{p.get('ipa') or p.get('reading')}: {p['context']}")
+                if p.get("ipa") and "ˈ" not in p["ipa"] and "weak" in p["context"].lower():
+                    note("a weak form, without a stress mark", f"{p['ipa']} ({p['context']})")
             if p.get("reading") and lang in ("ru", "uk"):
                 note("the stress marked on the word", p["reading"])
             if p.get("notation") == "kana":
@@ -96,6 +105,10 @@ def features(lang, entry):
         firsts = {v: ps[0].get("ipa") for v, ps in by_variety.items() if ps[0].get("ipa")}
         if len(set(firsts.values())) > 1:
             note("said differently in two varieties", ", ".join(f"{v} {ipa}" for v, ipa in firsts.items()))
+        for variety, readings in by_variety.items():
+            unmarked = [p["ipa"] for p in readings if p.get("ipa") and not p.get("note") and not p.get("context") and not p.get("spelling")]
+            if len(set(unmarked)) > 1:
+                note("two pronunciations in one variety, neither marked", f"{variety} " + ", ".join(dict.fromkeys(unmarked)))
         spellings = lexeme.get("spellings") or []
         if any(s.get("pre_reform") for s in spellings):
             note("a spelling only older books use", ", ".join(s["text"] for s in spellings if s.get("pre_reform")))
@@ -236,33 +249,66 @@ def features(lang, entry):
     return found
 
 
-def cover(langs):
-    """[(lang, headword, zipf, {feature: evidence})]: greedily, the entry that shows the most not yet shown."""
+def load_extra(folder, lang):
+    """headword -> (entry, meta) from a trial or review folder outside out/*-v4/."""
+    found = {}
+    root = Path(folder)
+    d = (root if root.is_dir() else ingest_v4.OUT / folder) / lang
+    if not d.is_dir():
+        return found
+    for f in sorted(d.glob("*.json")):
+        if f.name.endswith(".meta.json"):
+            continue
+        try:
+            entry = json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(entry, dict) or "error" in entry or "headword" not in entry:
+            continue
+        meta_f = f.with_name(f.stem + ".meta.json")
+        meta = json.loads(meta_f.read_text(encoding="utf-8")) if meta_f.exists() else {}
+        found[f.stem] = (entry, {**meta, "writer": d.parent.name})
+    return found
+
+
+def select(langs, extra=()):
+    """(chosen, everything, clean_entries): greedily, the entries that cover the most unseen features."""
     pool = []
     for lang in langs:
         zipf = ingest_v4.zipf_of(lang)
-        for headword, (raw, meta) in ingest_v4.load_raw(lang).items():
+        raw_entries = ingest_v4.load_raw(lang)
+        for folder in extra:
+            for headword, pair in load_extra(folder, lang).items():
+                raw_entries.setdefault(headword, pair)
+        for headword, (raw, meta) in raw_entries.items():
             if not VALID.is_valid(raw):
                 continue  # an entry that breaks the shape shows nothing of it
             clean = ingest_v4.clean_entry(lang, raw, meta)
             got = features(lang, clean)
             if got and headword.replace(" ", "").replace("'", "").replace("-", "").isalpha():
-                pool.append((lang, headword, zipf.get(headword.lower(), 0), got))
-    everything = set().union(*(set(got) for _, _, _, got in pool))
-    left, chosen = set(everything), []
+                pool.append((lang, headword, zipf.get(headword.lower(), 0), got, clean))
+    everything = set().union(*(set(got) for _, _, _, got, _ in pool)) if pool else set()
+    left, chosen, entries = set(everything), [], []
     # a language on trial shows only what no target language can: nobody should have to judge a Japanese entry for
     # what an English or a Russian one shows as well
     for stage in ([c for c in pool if c[0] not in PILOT_LANGUAGES], pool):
         while any(left & set(candidate[3]) for candidate in stage):
             def worth(candidate):
-                lang, headword, z, got = candidate
+                lang, headword, z, got, _ = candidate
                 new = len(left & set(got))
                 common = z >= 4.0  # a word the owner knows is easier to judge than a rare one
                 return (new if common else new - 1.5, -ORDER.index(lang) if lang in ORDER else -9, z)
             best = max((candidate for candidate in stage if left & set(candidate[3])), key=worth)
             gain = left & set(best[3])
             chosen.append((best[0], best[1], best[2], {f: best[3][f] for f in sorted(gain)}))
+            entries.append(best[4])
             left -= gain
+    return chosen, everything, entries
+
+
+def cover(langs, extra=()):
+    """[(lang, headword, zipf, {feature: evidence})]: greedily, the entry that shows the most not yet shown."""
+    chosen, everything, _ = select(langs, extra=extra)
     return chosen, everything
 
 
@@ -272,31 +318,37 @@ def absent(everything):
     return [f"No written entry shows these yet, so no word here does: {'; '.join(missing)}.", ""] if missing else []
 
 
-def write(langs):
-    chosen, everything = cover(langs)
+def write(langs, fixture=None, extra=()):
+    chosen, everything, entries = select(langs, extra=extra)
     lines = ["# A tour of the shape in real entries", "",
              f"{len(chosen)} written entries that between them show all {len(everything)} things an entry can say, picked by",
              "`scripts/lexicon_research/tour.py` from what the writers wrote: the fewest words, a common English one first.",
              "Type each into the app and check that the reader is shown what the right-hand column says.", "",
              "The entries are shown as ingest publishes them: a pattern with a choice of words split in two, a pattern without",
              "an open place among the collocations, and each pattern also read into its parts. Entries written before prompt",
-             "v4.8 have few collocations; the rows that show them are from v4.8 and v4.9.", "",
-             "The entries are schema 4. Until the backend reads schema 4 (docs/LEXICON.md, \"Pending\", item 1) the app cannot",
-             "show them, so today this list is what that work has to make visible, not a test it can pass.", "",
+             "v4.8 have few collocations; the rows that show them are from v4.8 onwards, and pronunciation contexts and weak",
+             "forms are from v4.11.", "",
+             "The entries are schema 4, which the backend reads since 18 November 2026 (`docs/LEXICON.md`, \"The backend reads",
+             "schema 4\"). `GET /public/lexicon/{language}/entries` returns everything in the right-hand column, and this table",
+             "is the UI contract of what real entries can show across the web and mobile clients.", "",
              *absent(everything),
              "| # | Word | Language | What the reader should see |", "|---|---|---|---|"]
     for n, (lang, headword, z, got) in enumerate(chosen, 1):
         shown = "<br>".join(f"**{feature}**: {str(value)[:140]}" for feature, value in got.items())
         lines.append(f"| {n} | {headword} | {LANG_NAME.get(lang, lang)} | {shown} |")
     DOC.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    if fixture is not None:
+        Path(fixture).write_text(json.dumps(entries, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return chosen, everything
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--langs", default=",".join(ORDER))
+    ap.add_argument("--extra", nargs="*", default=[], help="extra folders under out/ (or paths) to include alongside out/*-v4/")
+    ap.add_argument("--fixture", default=None, help="also write the chosen published entries as a JSON array to this path")
     a = ap.parse_args()
-    chosen, everything = write(a.langs.split(","))
-    print(f"{len(chosen)} entries show {len(everything)} features -> {DOC}")
+    chosen, everything = write(a.langs.split(","), fixture=a.fixture, extra=a.extra)
+    print(f"{len(chosen)} entries show {len(everything)} features -> {DOC}" + (f" (+ {a.fixture})" if a.fixture else ""))
     for lang, headword, z, got in chosen:
         print(f"  {lang} {headword} ({z:.1f}): {len(got)} new")

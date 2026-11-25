@@ -126,7 +126,7 @@ HARD = {
         "meio": ("particle", [("pos_min", 3)]),
         "rapariga": ("region", [("regions", "pt-PT"), ROUGH]),
         "ônibus": ("region", [("regions", "pt-BR"), ("any", ("grammar", "invariable", True), ("plural", "ônibus"))]),
-        "fato": ("region", [("regions", "pt-PT", "pt-BR")]),
+        "fato": ("region", [("regions", "pt-PT"), ("spelling_varieties", "pt-BR", "pt-PT")]),
         "ficar": ("particle", []),
     },
     "ru": {
@@ -210,6 +210,12 @@ def holds(entry, check):
     if kind in ("regions", "regions_any"):
         found = {r if isinstance(r, str) else r.get("variety") for lx in lexemes for s in lx.get("senses") or [] for r in s.get("regions") or []}
         return (any if kind == "regions_any" else all)(bool(found & {value, *COVERS.get(value, ())}) for value in values)
+    if kind == "spelling_varieties":
+        for lx in lexemes:
+            by_text = [(s.get("text"), set(s.get("varieties") or ())) for s in lx.get("spellings") or [] if s.get("varieties")]
+            if all(any(value in vs for _, vs in by_text) for value in values) and len({frozenset(vs) for _, vs in by_text}) >= len(set(values)):
+                return True
+        return False
     if kind == "label":
         found = {v for lx in lexemes for s in lx.get("senses") or [] for value in (s.get("labels") or {}).values() for v in (value if isinstance(value, list) else [value])}
         return bool(found & set(values))

@@ -23,7 +23,7 @@ Three shapes exist. Their numbers are the schema versions, and a prompt writes e
 |---|---|---|---|
 | 2 | v1, v2, v3 | The first dictionary: glosses and review cues inside every sense, one register label | 49,000 entries in `out/cc-claude-opus-5-5/` |
 | 3 | v4oct, v5, v6 | October: schema 2 plus regions by country or UN area with an extent, domains, pronunciation notes and, from v5, the Wiktionary senses each sense was written from (`from`) | `entry.schema.json`; the backend read this one until 18 November 2026; about 730 drafts under `out/grounded/` |
-| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8, v4.9 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/`; the backend reads this one, as ingest cleans it |
+| 4 | v4, v4.1, v4.2, v4.3, v4.4, v4.5, v4.6, v4.7, v4.8, v4.9, v4.10, v4.11 | November: the core only, no glosses or cues; labels on separate axes, frames and collocations, spellings by variety, multiword and contraction lexemes, typed relations | `entry.schema.v4.json`; 31,000 entries in `out/*-v4/`; the backend reads this one, as ingest cleans it |
 
 Two traps, both from the weeks the lines were apart:
 
@@ -46,7 +46,11 @@ of its exact text are in each entry's `.meta.json`. A prompt change never starts
   safe whatever version of the sync a machine runs.
 - Writers are started and paused from the book processor's Operations page, Entries tab.
 - `docs/LEXICON_TOUR.md`: the fewest real entries that between them show everything the shape can
-  say (`tour.py` picks them), for checking by hand what the app shows a reader.
+  say (`tour.py` picks them), serving as the UI contract of what real entries can show across the
+  web and mobile clients (`tour.py --fixture PATH` can also emit the matching published JSON
+  entries). Any change to `entry.schema.v4.json` must also update `tour.py` (detectors and
+  `EXPECTED`) and regenerate `docs/LEXICON_TOUR.md` (`tests/test_tour.py` guards against schema
+  drift).
 - Another machine has the code and the entries after a pull and a sync, and none of the tables
   the checks read: `wiktionary/` is built, not kept. `lemma_index.py --langs en,de,fr,es,it,pt,ru`
   builds the index of the English edition (the gate, the witness and the evidence block read it),
@@ -70,7 +74,7 @@ Today, for schema 4:
 1. **List.** `headwords/<name>-<lang>.json`, most frequent first.
 2. **Gate** (`lemma_gate.py`, free). Wiktionary's verdict on the spelling, from an index built once
    by `lemma_index.py`: an inflected form or a bare abbreviation is not written.
-3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.10). A word whose only entry
+3. **Write** (`claude_code_writer.py`, Opus at high effort, prompt v4.11). A word whose only entry
    is of the shape before schema 4 is written afresh too, from `rewrite-<lang>.json` with
    `--rewrite-older`: the owner's decision of 18 November 2026, when a mend (`mend_v4.py`: the old
    entry converted by code, the model returning only a patch) had come to cost nine tenths of a new
@@ -467,8 +471,9 @@ writer returned: the backend needs what ingest adds. `published_schema.py` deriv
 clean entry from `entry.schema.v4.json` (ids, `homograph`, `patterns`, `sense_ids` on a form,
 `aliases`, `dropped`, `retired`, `source`, and ingest's counts) and writes the backend's copy,
 `src/main/resources/lexicon/entry.schema.json`; a test fails when that copy is stale, so after a
-change to the writers' schema run it once. The backend refuses anything else, an entry of schema 2
-or 3 included: there is one shape.
+change to the writers' schema run `published_schema.py`, update `tour.py`, and regenerate
+`docs/LEXICON_TOUR.md` (`tests/test_tour.py` checks that new schema keys are accounted for). The
+backend refuses anything else, an entry of schema 2 or 3 included: there is one shape.
 
     scripts/.venv/bin/python scripts/lexicon_research/ingest_v4.py
     scripts/.venv/bin/python scripts/lexicon_research/publish_entries.py [--langs en,de] [--words lead,sign]

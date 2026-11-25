@@ -69,3 +69,21 @@ def test_two_writers_are_scored_by_the_key_and_read_side_by_side_without_names(t
 def test_a_sense_marked_for_northern_america_is_marked_for_the_united_states():
     entry = {"lexemes": [{"pos": "NOUN", "senses": [{"regions": [{"variety": "en-021", "extent": "mainly"}]}, {"regions": ["en-GB"]}]}]}
     assert hard_cases.holds(entry, ("regions", "en-US", "en-GB")) and not hard_cases.holds(entry, ("regions", "en-AU"))
+
+
+def test_portuguese_fato_checks_spelling_varieties_and_sense_region_separately():
+    fato = {"headword": "fato", "lexemes": [
+        {"lemma": "fato", "pos": "NOUN", "spellings": [{"text": "fato", "varieties": ["pt-BR"]}, {"text": "facto", "varieties": ["pt-PT"]}],
+         "senses": [{"definition": "coisa que realmente aconteceu"}]},
+        {"lemma": "fato", "pos": "NOUN", "senses": [{"definition": "conjunto de casaco e calças", "regions": [{"variety": "pt-PT", "extent": "mainly"}]}]},
+    ]}
+    checks = hard_cases.HARD["pt"]["fato"][1]
+    assert all(hard_cases.holds(fato, check) for check in checks)
+    no_split = {"headword": "fato", "lexemes": [
+        {"lemma": "fato", "pos": "NOUN", "spellings": [{"text": "fato", "varieties": ["pt-BR", "pt-PT"]}, {"text": "facto", "pre_reform": True}],
+         "senses": [{"definition": "coisa que realmente aconteceu"}]},
+        fato["lexemes"][1],
+    ]}
+    assert not hard_cases.holds(no_split, ("spelling_varieties", "pt-BR", "pt-PT"))
+    no_region = {"headword": "fato", "lexemes": [fato["lexemes"][0]]}
+    assert not all(hard_cases.holds(no_region, check) for check in checks)

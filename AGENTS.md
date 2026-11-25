@@ -110,6 +110,13 @@ executable source of truth when documentation differs.
   State the required local configuration change instead.
 - Update the relevant document when an architectural convention or known
   baseline changes.
+- Treat changes to `scripts/lexicon_research/entry.schema.v4.json` as a
+  cross-client UI contract change: re-derive the backend schema copy
+  (`scripts/lexicon_research/published_schema.py`), update the feature
+  detectors and `EXPECTED` entries in `scripts/lexicon_research/tour.py`, and
+  regenerate `docs/LEXICON_TOUR.md` as the UI contract of what real entries can
+  show across the web and mobile clients (guarded by
+  `scripts/lexicon_research/tests/test_tour.py`).
 - The owner checks every change immediately in the local app, so a backend
   change is not done until the local backend runs it. After committing a
   change to `src/main`, rebuild and restart the local container, then confirm
