@@ -102,6 +102,10 @@ def features(lang, entry):
                 note("the stress and the open or close vowel marked on the word", p["reading"])
             if p.get("spelling"):
                 note("a pronunciation that belongs to one spelling", f"{p.get('ipa')} for {p['spelling']}")
+        for variety, ways in by_variety.items():
+            plain_ways = [w for w in ways if not w.get("note") and not w.get("context") and not w.get("spelling")]
+            if len(plain_ways) > 1:
+                note("two ways of saying it in one variety, neither marked", f"{variety} " + ", ".join(w.get("ipa") or w.get("reading") or "" for w in plain_ways))
         firsts = {v: ps[0].get("ipa") for v, ps in by_variety.items() if ps[0].get("ipa")}
         if len(set(firsts.values())) > 1:
             note("said differently in two varieties", ", ".join(f"{v} {ipa}" for v, ipa in firsts.items()))
