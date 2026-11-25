@@ -391,14 +391,15 @@ public class CatalogStore {
         } else {
             condition = "w.production_free_from in (:prodYears)";
         }
-        return named.query("""
-                select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display,
-                       w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score
-                from catalog_work w
-                where w.literary and (%s)
-                order by w.popularity desc, w.title
-                limit :limit
-                """.formatted(condition), params, CatalogStore::hit);
+        String sql = "select w.id, w.title, w.original_title, w.original_language, w.publication_year, w.author_display, "
+                + "w.popularity, w.work_slug, w.production_status, w.production_free_from, 0.0 as score "
+                + "from catalog_work w "
+                + "where w.literary and ("
+                + condition
+                + ") "
+                + "order by w.popularity desc, w.title "
+                + "limit :limit";
+        return named.query(sql, params, CatalogStore::hit);
     }
 
     /** One search as the demand page counts it. {@code requester} tells readers apart without storing an address. */
